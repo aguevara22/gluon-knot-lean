@@ -1,0 +1,240 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-successor-technical-review-20260912",
+  "sealed_utc": "2026-09-12T04:48:43.606967+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the20 new declarations, added the actual single-orbit proofs before first assembly, and repaired the failed actual-list membership proof and zero-index typing. Root alone ran first46163 and second45949 and generated the preserved failure and passing evidence. This reviewer authored no proof body or dependency proof, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent actual-list/source/orbit-interface comparison, assessment of the exact repair diff, and full-file, ordered-embedding, trace and receipt checks. Earlier review documents authored by this reviewer are not proof-body authorship."
+  },
+  "scope": {
+    "group": "CarrierSuccessor",
+    "declarations": [
+      "SM.Carrier.markCycle",
+      "SM.Carrier.markCycle_nodup",
+      "SM.Carrier.mem_markCycle",
+      "SM.Carrier.markCycle_rotation",
+      "SM.Carrier.nextMark",
+      "SM.Carrier.prevMark",
+      "SM.Carrier.nextMark_eq_list_next",
+      "SM.Carrier.prevMark_eq_list_prev",
+      "SM.Carrier.prevMark_nextMark",
+      "SM.Carrier.nextMark_prevMark",
+      "SM.Carrier.markSuccessor",
+      "SM.Carrier.markSuccessor_apply",
+      "SM.Carrier.markSuccessor_symm_apply",
+      "SM.Carrier.markSuccessor_getElem",
+      "SM.Carrier.markSuccessor_symm_getElem",
+      "SM.Carrier.nextMark_no_mark_between",
+      "SM.Carrier.markSuccessor_no_mark_between",
+      "SM.Carrier.markSuccessor_prev_no_mark_between",
+      "SM.Carrier.markSuccessor_sameCycle_getElem",
+      "SM.Carrier.markSuccessor_sameCycle"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "97–113 finite complete marked list and its cyclic successor; 115–139 initial single cycle in the source splitting argument. Source incoming ownership at29–39 and selected smoothing clauses are contextual and not yet discharged by this packet.",
+    "ambient_context": "{n : ℕ} [NeZero n], hn:3≤n, P actual LabelledTuple n, hP:Generic P. The complete sorted Mark P list is constructed by frozen CarrierMarks; no externally supplied permutation, cyclic word, inverse, root, orbit equivalence or list-completeness premise appears."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the actual cyclic successor and derived all-marks single-orbit theorem after the disclosed elaboration repair.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 45949,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      46163
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierSuccessor-prototype-result.json",
+    "receipt_sha256": "7811e0b37ad0f1bd99a68c70a214d107ea85941daf0137cb3bc8cc9075bc9fa4",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierSuccessor.prototype.lean": "56b90908a02258f34d671c61251ee48fcd8bf964b1b5c1300e6ab895032ac52b",
+      "work/checks/CarrierSuccessor-second-kernel.log": "726ebc396e5987b16d27a6ea858c2edf3b8d208e4e9125652315379873bf9011"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 20,
+    "declaration_axioms": {
+      "SM.Carrier.markCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markCycle_nodup": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.mem_markCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markCycle_rotation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.nextMark": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.prevMark": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.nextMark_eq_list_next": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.prevMark_eq_list_prev": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.prevMark_nextMark": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.nextMark_prevMark": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_apply": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_symm_apply": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_getElem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_symm_getElem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.nextMark_no_mark_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_no_mark_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_prev_no_mark_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_sameCycle_getElem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_sameCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierSuccessor-first-draft.body.lean": "b37ebbe3e1b68e72a7046d949e071fa8dc95484631323527ed0e213c500e73da",
+      "work/checks/CarrierSuccessor-first-draft.prototype.lean": "b698fb9378c82547b2038f5f7cc9e7cbfffeec746e318c82052f5ca534eb3299",
+      "work/checks/CarrierSuccessor-body-dependencies.json": "149d183696e1462eced63c5868b5c2b4f5c7297745030b787b41839bb480e1dd",
+      "work/checks/CarrierSuccessor-draft-dependency-bindings.json": "101800a933f96738065767ff4f43d23c5d375116f21f1c587fd4a401d0809f3d"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierSuccessor.body.lean": "work/checks/CarrierSuccessor-first-failed.body.lean",
+      "work/checks/CarrierSuccessor.prototype.lean": "work/checks/CarrierSuccessor-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierSuccessor-first-failed.body.lean": "b37ebbe3e1b68e72a7046d949e071fa8dc95484631323527ed0e213c500e73da",
+      "work/checks/CarrierSuccessor-first-failed.prototype.lean": "b698fb9378c82547b2038f5f7cc9e7cbfffeec746e318c82052f5ca534eb3299",
+      "work/checks/CarrierSuccessor-first-failed-body-dependencies.json": "149d183696e1462eced63c5868b5c2b4f5c7297745030b787b41839bb480e1dd",
+      "work/checks/CarrierSuccessor-first-kernel.log": "3b18e2fe3105a17df5dc372fecab43ad261bb84696fe4daacd381cb3ed48abb9",
+      "work/checks/CarrierSuccessor-first-failure-bindings.json": "87a386b64ecf0b9a4e6e4bb810c5ff59adab0885a1dc8dd3330fc0243002c24a",
+      "work/checks/CarrierSuccessor-second-draft-repair-bindings.json": "c2564fca54811f8c40855c2de279c43cd3e4b1c6727f6792e2409486b4ad4437"
+    },
+    "changed_header_names": [
+      "markSuccessor_sameCycle_getElem"
+    ],
+    "proof_only_changed_declarations": [
+      "markSuccessor_getElem"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first46163 failed on an unresolved actual-list membership placeholder and a wrongly inferred type for the first-entry zero index, with downstream errors and compiler sorryAx placeholders. The exact first drafts and failed artifacts are preserved and are not successful evidence. The author supplied mem_markList in the proof and annotated0 as Nat in markSuccessor_sameCycle_getElem’s header; this is the only header-text change. Both intended conclusions and premises are unchanged; the first invalid header was never proved. Root second45949 passed the exact repair.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierMarks-prototype-result.json": "e2c26037204cd196acc809b474422d2957c3211584a55f9a64853c807d9971a6"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/SortedCyclicGap.lean": "bdcbd5fd1c714ef7b68a27a7a2009ea471ad06b051e65fe80777b2a25cc72300",
+      "work/lean/SM/GaussCyclicGap.lean": "07b1c0a825415640340da381ebbb9b4f334a608cdba85a2c4cbd81f789158632",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Cycle.lean": "b211c4e0f5f89e8679d641fbef7674ae0e5787962294cc6cd2758f0669a75112",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/Cycle/Basic.lean": "e8dcb2b6b203e3b73f22c8183b65171275b46e6275baeeb7b7321a51f4d5afed",
+      "work/reviews/carrier-marks-technical-review-20260912.json": "5d10777ec8da18b257f6c9e0eca534f4735550bb8e2b1a73461357f805f75504",
+      "work/checks/carrier-successor-baseline-20260912.json": "d1d5be00e0ed33d844ec329bfedb39ac2568f7b9d82c56728c85a3c8e75b8372",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "markCycle is the rotation quotient of the actual full markList, not an arbitrary word supplied as input. It inherits duplicate-freeness and complete membership, and markCycle_rotation proves independence of the chosen first list entry under rotation. Original vertices remain present even when the polygon has no crossings.",
+    "nextMark and prevMark are the canonical Cycle.next and Cycle.prev on that constructed cycle, with duplicate-freeness and each mark's membership discharged from CarrierMarks. The consumed Mathlib definitions respect the rotation quotient and the List.next/List.prev formulas close the last/first cut.",
+    "markSuccessor is an Equiv.Perm whose forward function is actual nextMark and whose inverse is actual prevMark. The two inverse identities are proved from canonical duplicate-free cycle identities, rather than assumed. Both application lemmas retain these actual definitions.",
+    "The indexed successor formula advances i to(i+1) modulo the full list length; the predecessor formula retreats to(i+length−1) modulo that same length. The positivity needed for each modulus follows from the actual in-range index. The two formulas cover first/last wraparound without any crossing-nonempty assumption.",
+    "nextMark_no_mark_between specializes sorted_next_no_cyclic_between to the complete finite universe under the actual markKey order. The decidable equality transport changes no mathematical order. The conclusion uses traversalBetween at actual mark positions and quantifies over every original vertex and crossing visit, including points around the label-zero cut.",
+    "The forward gap wrapper applies this result to rho(a); the backward wrapper uses the oriented gap from rho inverse(a) to a via nextMark_prevMark. It does not accidentally reverse the original orientation or exclude only crossing visits while omitting vertices.",
+    "markSuccessor_sameCycle_getElem is an induction on the actual sorted index. Reflexivity handles0; SameCycle.apply_right advances the endpoint with rho, and the exact modular formula reduces to i+1 because the successor index remains below length. Thus every indexed entry is reached in the orbit of the first entry without assuming an all-marks orbit premise.",
+    "markSuccessor_sameCycle obtains actual list indices for arbitrary a and b using complete membership and joins their first-entry orbit relations by symmetry and transitivity. Canonical SameCycle means existence of an integer power of this actual permutation. The result establishes the unswitched single-cycle property for all actual marks; vertices make the domain nonempty even without crossings.",
+    "First46163 failed because a membership placeholder was not synthesized and an unannotated zero in the first-entry theorem header was inferred at an invalid type. The repair supplies the concrete mem_markList proof and annotates the index as Nat. Complete body/prototype comparisons verify these are the only changes. Only markSuccessor_sameCycle_getElem has changed header text; its first header did not elaborate and is not described as a checked equivalent theorem.",
+    "The two frozen bodies are embedded exactly once in the passing prototype in manifest order. Second45949 binds the exact repaired own body, unchanged CarrierMarks body, prototype and success log. All20 successful declaration traces use standard foundations. Failed first46163 and its downstream compiler sorryAx placeholders are preserved separately and excluded from successful evidence."
+  ],
+  "limits": "This packet constructs the original marked-circle permutation, its actual oriented gaps and the unswitched single orbit. It does not establish selected reconnection, independent-support splitting or |S|+1 count, positive geometric subsegments, geometric carriers, turns, retained crossing geometry, noncrossing ownership or corner state sum. Source acceptance increment remains0; stronger-model statement fidelity and canonical integration remain false."
+}

@@ -1,0 +1,81 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "state": "Prepared substantive review; final sealing awaits successful root receipt.",
+  "reviewer_identity": {
+    "agent": "/root/review_relgp_full",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same-model technical review, not stronger-model statement-fidelity approval.",
+    "contribution_disclosure": "Reviewer authored none of these nine declarations and made no implementation edits. The reviewer independently reviewed the StartingChildren dependency earlier and authored separate EndingChildren and SpanningCutNeighbors bodies, neither embedded here. The earlier EndingChildren tail-image proof has a similar structural pattern; this report discloses that method overlap rather than claiming an entirely noncontributing provenance review."
+  },
+  "scope": {
+    "group": "SoftDuplicationSpanningCutPresentations",
+    "declarations": [
+      "SM.SoftDuplication.spanningCutSet",
+      "SM.SoftDuplication.spanning_old_cut_bounds",
+      "SM.SoftDuplication.spanning_tail_cut_bounds",
+      "SM.SoftDuplication.spanningCutSet_zero_cuts",
+      "SM.SoftDuplication.spanningCutSet_one_cuts",
+      "SM.SoftDuplication.spanningCutSet_two_insert_B",
+      "SM.SoftDuplication.spanningCutSet_two_insert_A",
+      "SM.SoftDuplication.spanningChildrenZeroEquiv",
+      "SM.SoftDuplication.spanningChildrenOneEquiv"
+    ],
+    "new_declaration_count": 9,
+    "embedded_body_count": 7,
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1342-1360, actual three presentations in the strict-spanning core-cut branch",
+    "ambient_context": "namespace SM.SoftDuplication; noncomputable; local Classical.propDecidable; {n : Nat} [NeZero n]; all complete core cut sets C with actual hs:s in C.cuts and strict exterior parent endpoints.",
+    "source_id_context": "thm:A-soft bounded combinatorial prerequisite only"
+  },
+  "findings": [
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet",
+      "finding": "spanningCutSet is exactly the frozen expandCuts evaluated at spanningRows, with local selections A only, B only, then both. Fin3 is not an assumed three-element enumeration: the frozen spanningRowsEquiv and actual cutFiberEquiv prove that the branch hs:s in C.cuts has exactly these nonempty subsets and that expansion/collapse are inverse. The source table prints B-only first and A-only second; the formal indices deliberately reverse those two display rows. Accordingly the later row-zero child multiplier must be etaPlus-t(R), while row one uses etaMinus-t(L), each divided by two. This packet does not yet assert those weights."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanning_old_cut_bounds",
+      "finding": "Every old image of a core cut lies inside the actual child interval. Both bounds are transported through old_strictMono and then the exact old_collapse_of_ne_B at each strict exterior endpoint. The inequalities I.left<A and B<I.right prove both endpoint exclusions. The proof does not silently assume global old images are bounded by the supplied interval."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanning_tail_cut_bounds",
+      "finding": "The tail image differs from the old image only at s. If k=s, its image is the actual B, whose bounds follow from I.left<A<B<I.right. Otherwise the exact tail_eq_old equation transfers the already proved old bound. No additional tail-endpoint hypothesis is required."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_zero_cuts",
+      "finding": "The row-zero membership proof expands the literal finite filter/union. A non-distinguished selected point is the unique retained old preimage of its collapsed cut; the distinguished selected point is A=old(s). Conversely every old image of an actual core cut meets the bounds and nonduplicate condition, except s which contributes exactly A. This proves equality of complete cut sets, retaining both endpoints and every chosen interior cut."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_one_cuts",
+      "finding": "The row-one proof uses the same full nonduplicate preimage set, but its selected distinguished point is B=tail(s). The unique non-distinguished fiber and tail_eq_old identify every other point. Thus the complete B-only row is the entire tail-section image, not a local endpoint substitution without full domain coverage."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_two_insert_B",
+      "finding": "The both-cut row has exactly the same nonduplicate filter as A-only and adds the single physical B. Extensional finite membership proves the insert equality; old images never equal B, so no duplicate presentation or unintended cut removal occurs."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_two_insert_A",
+      "finding": "The same both-cut set is insert A of the B-only image. The proof uses the exact section-image equality under hs:s in C.cuts, which is essential: that common image includes the distinguished occurrence. It does not assert this set identity without hs, nor equate the A-only and B-only rows."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChildrenZeroEquiv",
+      "finding": "The row-zero child equivalence is the actual interval map through startingOldEmbedding. Its input domain is all core consecutive intervals and its output all consecutive intervals in the actual A-only set. The required whole cut-image equality is the proved row-zero equality, so the generic correspondence hypothesis is discharged."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChildrenOneEquiv",
+      "finding": "The row-one child equivalence likewise maps actual endpoints through startingTailEmbedding and uses the proved B-only image equality. Generic order-image consecutiveness proves injectivity and exhaustion of complete child intervals. The body does not yet construct the mixed-section both-row child domain, its added singleton, or any child/gate product."
+    }
+  ],
+  "boundary_scope": [
+    "Strict spanning forces the collapsed endpoints strictly outside s. Thus hs is genuinely an interior cut and the raw core composition has at least two parts; no supplied nonunary assumption appears. The unary no-core-cut branch remains a separate source case, not dropped from the full theorem by this helper packet.",
+    "The n=3 source case is represented by child interval[0,3],s=1: A-only cuts{0,1,3},B-only{0,2,3},both{0,1,2,3}. No n>=4 or extra point-genericity hypothesis occurs.",
+    "The hI exclusion merely forms collapseInterval; it already follows from a strict exterior endpoint and imposes no extra source restriction. Finite images retain all source choices of exterior/internal cuts.",
+    "There are no arrays or scalars in this packet, so no nonzero-value restriction, division of a child value, or assumed recurrence can enter. Both-row child transport and all weights/products remain outstanding."
+  ],
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false
+}

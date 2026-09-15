@@ -1,0 +1,127 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-first-corner-block-technical-review-20260912",
+  "sealed_utc": "2026-09-12T07:10:17.046993+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_gates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_gates authored all three generic retained-entry block declarations. Root alone ran Lean and generated frozen evidence. This reviewer authored no proof body or dependency, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions comprise independent finite-list and source-scope inspection, checking construction rather than supplied partition, filtered-next semantics and closing/singleton cases, plus exact complete-file/ordered-embedding/receipt/trace verification. The author supplied the dependent-membership elaboration repair after root preserved the failed run. This reviewer inspected the exact proof-only change without providing repair code."
+  },
+  "scope": {
+    "group": "CarrierFirstCornerBlock",
+    "declarations": [
+      "SM.Carrier.first_retained_append_anchor",
+      "SM.Carrier.filter_next_eq_of_first_retained",
+      "SM.Carrier.firstCornerBlock"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "198–220 omitting unselected auxiliary marks to pass from marked traversal to consecutive true corners; this packet is a generic retained-list helper and does not itself compress actual geometry.",
+    "ambient_context": "An arbitrary Boolean predicate p, anchor a with p a=true and remaining finite list R. The final theorem adds Nodup(a::R) and constructs M,b,B from R++[a], preserving closing return to the anchor. DecidableEq is required only for the List.next statements."
+  },
+  "assessment": "No mathematical defect found in the constructed first-retained block, filtered cyclic next equality and literal closed-prefix data.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 89195,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      32316
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierFirstCornerBlock-prototype-result.json",
+    "receipt_sha256": "d98f5e681331e1bd17ca7dc4fc8447cee9cfbec1ca2f580d80d6cb584ef690e0",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierFirstCornerBlock.body.lean": "b07bf1be7e6fa45ef48cf721828ff6100433052d8329bf91bbd6a504021cc864",
+      "work/checks/CarrierFirstCornerBlock.prototype.lean": "1f6c5bf999f9609160e5b16fda9ebb3cab953b9d364593fb4243eb864cdf5943",
+      "work/checks/CarrierFirstCornerBlock-second-kernel.log": "3d0ced799ae15f2f9ad9b33bd8b18ca1229ee18c6d50e63e6a23fa9ae012443e"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierFirstCornerBlock.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierFirstCornerBlock.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.Carrier.first_retained_append_anchor": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.Carrier.filter_next_eq_of_first_retained": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.firstCornerBlock": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierFirstCornerBlock-first-draft.body.lean": "b79f54aaa8334a9440b1a0a86a6680d8819839e0561307783780d2cee1cbc8e3",
+      "work/checks/CarrierFirstCornerBlock-first-draft.prototype.lean": "b8859cbd121ce7157f122b271e09123160edbfd1fe59c557e3acf8e52aa86932",
+      "work/checks/CarrierFirstCornerBlock-body-dependencies.json": "717d190dd6e19b429597fdc3deecf8706bd21d11cd3c9e79f0fce445497fceaf",
+      "work/checks/CarrierFirstCornerBlock-draft-dependency-bindings.json": "051a9a4c49a8abbec59b151772fced923e4efa67beb4c4b17a7bd3f08f50b046"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierFirstCornerBlock.body.lean": "work/checks/CarrierFirstCornerBlock-first-failed.body.lean",
+      "work/checks/CarrierFirstCornerBlock.prototype.lean": "work/checks/CarrierFirstCornerBlock-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierFirstCornerBlock-first-failed.body.lean": "b79f54aaa8334a9440b1a0a86a6680d8819839e0561307783780d2cee1cbc8e3",
+      "work/checks/CarrierFirstCornerBlock-first-failed.prototype.lean": "b8859cbd121ce7157f122b271e09123160edbfd1fe59c557e3acf8e52aa86932",
+      "work/checks/CarrierFirstCornerBlock-first-failed-body-dependencies.json": "717d190dd6e19b429597fdc3deecf8706bd21d11cd3c9e79f0fce445497fceaf",
+      "work/checks/CarrierFirstCornerBlock-first-kernel.log": "1d1abc6b8a22347ac888bec0e76af653334fe56abc1d88eb398486e8c9812ec0",
+      "work/checks/CarrierFirstCornerBlock-draft-dependency-bindings.json": "051a9a4c49a8abbec59b151772fced923e4efa67beb4c4b17a7bd3f08f50b046",
+      "work/checks/CarrierFirstCornerBlock-first-failure-bindings.json": "bf009958b3a56c5f7e5cb53ac53d36c134e0a2e206e8138ce1b4d408c4086607",
+      "work/checks/CarrierFirstCornerBlock-second-draft-repair-bindings.json": "2217c008198704abba2d263b93e89186f653f1d29bae13e044b7590de069a35e"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "filter_next_eq_of_first_retained"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first32316 failed because cases-generalization of R.filter p tried to generalize a list within a target List.next carrying a dependent membership proof. The author replaced only that proof's case split with a proposition-level emptiness split and an explicit cons witness for the nonempty branch. The same original target and membership proof remain, simplified with the relevant branch equality. All three header texts and canonical dependencies are unchanged. Complete first body/prototype/dependency manifest/log are preserved and the whole failed attempt, including propagated compiler sorryAx traces, is excluded.",
+    "dependency_receipts_sha256": {},
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Cycle.lean": "b211c4e0f5f89e8679d641fbef7674ae0e5787962294cc6cd2758f0669a75112",
+      "work/checks/carrier-corners-baseline-20260912.json": "823673704b91142c69ed1434df26fb27697bdc4b40944a970b642a57c9aabc88",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "first_retained_append_anchor recursively scans the actual finite R followed by [a]. The retained anchor guarantees a stopping point even when every element of R is omitted; no separate nonempty-retained-tail premise is assumed.",
+    "If the first scanned element is omitted, the recursive omitted block is extended by that element; if retained, the scan stops immediately. The result proves the exact split R++[a]=M++b::B, rejection of every M entry and retention of b.",
+    "filter_next_eq_of_first_retained filters that exact split. Rejection of M makes its filter empty, yielding R.filter p++[a]=b::B.filter p.",
+    "When the filtered tail is empty, comparing heads forces b=a and canonical List.next on [a] returns a. When the filtered tail starts at c, head equality gives c=b and next of the anchored filtered list is that head.",
+    "These first two lemmas do not need Nodup for their valid scan/anchored-next conclusions. The final firstCornerBlock theorem adds the actual parent Nodup and obtains its partition by invoking the scan, rather than requiring it as input.",
+    "The closed block a::(M++[b]) is proved a literal prefix of (a::R)++[a], with B as its exact suffix. Thus it follows the original closed anchored list consecutively, including the closing edge.",
+    "Rotating the Nodup parent by one proves Nodup of R++[a]. The exact split then gives M.Nodup. The anchor cannot lie in M because p a=true while every M entry is false.",
+    "Empty M, b=a, R=[], and a singleton retained filter all remain permitted. No unequal-endpoint or two-corner premise silently removes cases that later geometry must address.",
+    "The Boolean predicate and list remain generic in this packet. Actual owner/corner membership, actual corner-cycle next and geometric compression require the separate actual specialization.",
+    "The second proof uses an emptiness proposition and an existing nonempty-list cons witness, avoiding generalization of the list under the dependent List.next membership argument. It retains the original list, the same filtered-next statement and both empty/nonempty branches."
+  ],
+  "limits": "Generic finite first-retained block and filtered cyclic next only. No actual carrier representation, compressed segment, nonzero true-corner edge or polygon regularity is asserted. Source increment0; stronger fidelity and canonical integration false."
+}

@@ -1,0 +1,83 @@
+{
+  "checkpoint": "060-pending",
+  "updated_utc": "2026-09-11T04:14:35.655334+00:00",
+  "last_verified_checkpoint": "goal-turn-061.json",
+  "goal_status": "active",
+  "original_proofs": 16,
+  "original_proof_total": 132,
+  "original_proof_percentage": 12.121212121212121,
+  "original_checklist_accepted": 33,
+  "original_checklist_total": 191,
+  "all285_canonical_SM_frozen": true,
+  "root_definition": {
+    "prototype": "checks/RootBoundary.prototype.lean",
+    "root_session": 82017,
+    "root_exit_code": 0,
+    "independent_session": 74342,
+    "independent_exit_code": 0,
+    "review": "reviews/root-boundary-prototype.json",
+    "review_sha256": "1fd4cd5b83f4288a9bb0fa1513d972f6f43fdf96cd6ca163e6b197584eb59239",
+    "verdict": "faithful complete external definition; canonical acceptance pending"
+  },
+  "gates": {
+    "body": "checks/Gates.body.lean",
+    "prototype": "checks/Gates.prototype.lean",
+    "root_session": 57444,
+    "root_exit_code": 0,
+    "review_state": "complete external independent review faithful; canonical review pending",
+    "review": "reviews/gates-prototype.json",
+    "review_sha256": "9938bde6b9e74150a5ef4b8f9d33f334963c675ea539ed3d06c8bbc1755a38d2"
+  },
+  "finite_compositions": {
+    "body": "checks/FiniteCompositions.body.lean",
+    "prototype": "checks/FiniteCompositions.prototype.lean",
+    "successful_subprocess_exit_code": 0,
+    "supervisor_session": 47092,
+    "supervisor_exit_code": 1,
+    "supervisor_explanation": "Gates first subprocess failed; independent finite-composition subprocess passed",
+    "review_state": "independent helper review complete; no original claim counted"
+  },
+  "gate_equivariance": {
+    "body": "checks/GatesEquivariance.body.lean",
+    "prototype": "checks/GatesEquivariance.prototype.lean",
+    "state": "root and independent kernel passed, exact canonical fragment installed; acceptance pending",
+    "root_session": 49918,
+    "root_exit_code": 0,
+    "independent_session": 65902,
+    "independent_exit_code": 0
+  },
+  "frozen_files_sha256": {
+    "checks/RootBoundary.prototype.lean": "c577dacdb59697e477152b1d9edc49cec64b0c8385fb86f450f810bfc2b6b0bf",
+    "checks/Gates.body.lean": "a6cd45a25b0f41490fccf15cf277192c68a55cf3c845c9215ff736e3a0bf25ae",
+    "checks/Gates.prototype.lean": "a3fc3512ee19d38c6125d2a7ecf99dadd727ca82ad852d84ab16e911e28defcb",
+    "checks/FiniteCompositions.body.lean": "736512b45c60efcc257173fc3dc199550b8ed6f66fd1330b75e1126911b6016a",
+    "checks/FiniteCompositions.prototype.lean": "f42d164091c49a1909e32aace74569aa855d17278eca82914a91315fc5995388"
+  },
+  "kernel_reservation": "root session53853 third PlaneTreeExpansion; independent reviewer read-only",
+  "next_action": "Complete/freeze PlaneTreeExpansion and PlaneTreeFormal external kernels, obtain independent full tree-definition/lemma review, port exact bodies and audit before accepting; continue all corner/soft/R targets.",
+  "watcher_pid": null,
+  "next_hourly_utc": "2026-09-11T05:13:09Z",
+  "previous_goal_turn_classification": "progress: accepted full original thm:relgp after independent review/audit; kernel-checked root, gates and finite recursion prerequisites",
+  "tree_coefficient": {
+    "body": "checks/TreeCoefficient.body.lean",
+    "prototype": "checks/TreeCoefficient.prototype.lean",
+    "state": "root first subprocess and supervisor49918 passed; external review pending"
+  },
+  "tree_coefficient_transport": {
+    "state": "root first run50487 passed; independent review pending",
+    "body_sha256": "922287e0a90987f2d5f0206e5198512c4d62beb8a7e4aa48f620a149af580c7f",
+    "prototype_sha256": "ae62fa2d093b5b44b0db92c641d31fd697a6195feabadc90369d69f4e6de4162"
+  },
+  "tree_chamber": {
+    "state": "authored unchecked; actual connected components, G1 paths and quotient root transport",
+    "body": "checks/TreeChamber.body.lean"
+  },
+  "last_hourly_report_relayed": "2026-09-11T04:00:00Z",
+  "audit_session": 88785,
+  "audit_exit_code": 0,
+  "audit_receipt": "checks/checkpoint-060-output.json",
+  "canonical_SM_modules": 288,
+  "watcher_session": 82427,
+  "watcher_restart_reason": "Previous PID92953 absent; read-only ps confirmed no progress reporter before restart at04:13:09UTC. User-requested hourly interval retained.",
+  "superseded_by": "goal-turn-061.json"
+}

@@ -1,0 +1,213 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "ordered-boundary-transport-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:20:24.899948+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root proposed the direct ordered-embedding transport architecture and suggested deriving NeZero from endpoints, normalizing product indices, and the final rfl repair. The implementing agent authored all27 declarations and repairs. This is a disclosed technical comparison rather than stronger-model independent fidelity approval."
+  },
+  "scope": {
+    "group": "OrderedBoundaryTransport",
+    "declarations": [
+      "SM.OrderedBoundaryTransport.interval",
+      "SM.OrderedBoundaryTransport.interval_left",
+      "SM.OrderedBoundaryTransport.interval_right",
+      "SM.OrderedBoundaryTransport.interval_injective",
+      "SM.OrderedBoundaryTransport.triple",
+      "SM.OrderedBoundaryTransport.triple_positions",
+      "SM.OrderedBoundaryTransport.triple_injective",
+      "SM.OrderedBoundaryTransport.composition",
+      "SM.OrderedBoundaryTransport.composition_parts",
+      "SM.OrderedBoundaryTransport.composition_cut",
+      "SM.OrderedBoundaryTransport.composition_endpoints",
+      "SM.OrderedBoundaryTransport.composition_part",
+      "SM.OrderedBoundaryTransport.composition_nearTriple",
+      "SM.OrderedBoundaryTransport.composition_farTriple",
+      "SM.OrderedBoundaryTransport.cutSet",
+      "SM.OrderedBoundaryTransport.cutSet_cuts",
+      "SM.OrderedBoundaryTransport.cutSet_injective",
+      "SM.OrderedBoundaryTransport.composition_cutSet",
+      "SM.OrderedBoundaryTransport.composition_injective",
+      "SM.OrderedBoundaryTransport.cutSet_toComposition",
+      "SM.OrderedBoundaryTransport.pullbackTripleArray",
+      "SM.OrderedBoundaryTransport.pullbackIntervalArray",
+      "SM.OrderedBoundaryTransport.nearFarWeight_pullback",
+      "SM.OrderedBoundaryTransport.nearFarWeight_transport",
+      "SM.OrderedBoundaryTransport.childProduct_transport",
+      "SM.OrderedBoundaryTransport.summand_transport",
+      "SM.OrderedBoundaryTransport.summand_pullback"
+    ],
+    "source_id": "thm:A-soft actual cut, gate and child transport helpers",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1266\u20131380"
+  },
+  "assessment": "No technical defect found in the bounded ordered-embedding and complete-summand scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/OrderedBoundaryTransport-prototype-result.json",
+    "receipt_sha256": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "receipt_bound_files_sha256": {
+      "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+      "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+      "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28"
+    },
+    "declaration_axioms": {
+      "SM.OrderedBoundaryTransport.interval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.interval_left": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.interval_right": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.interval_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.triple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.triple_positions": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.triple_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_parts": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_cut": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_endpoints": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_part": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_nearTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_farTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.cutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.cutSet_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.cutSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_cutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.composition_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.cutSet_toComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.pullbackTripleArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.pullbackIntervalArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.nearFarWeight_pullback": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.nearFarWeight_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.childProduct_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.summand_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OrderedBoundaryTransport.summand_pullback": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28",
+      "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+      "work/checks/OrderedBoundaryTransport-first-draft.body.lean": "5392343c6835068312ee3e82331a30256b1029bfad5edce2b5d3e01829717f50",
+      "work/checks/OrderedBoundaryTransport-first-draft.prototype.lean": "895f1da2744430c03bf23d608fba32db06d5b6134915994a80a41efdb68678dd",
+      "work/checks/OrderedBoundaryTransport-second-failed.body.lean": "527bbc8d9fa5cdd8c982ea3b6f950688b02f5f13188fa5f4a0e9ec807cd9d111",
+      "work/checks/OrderedBoundaryTransport-second-kernel.log": "37447bc4f8f1828e73b0da188ba52f276210311fba4166965e2f320bd3ab31a9",
+      "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+      "work/checks/OrderedBoundaryTransport-draft-dependency-bindings.json": "fcabb70009c4ef135297d5be676b7c02848ce9d0de59fb8bf1310a0e7253a368",
+      "work/checks/OrderedBoundaryTransport-first-failed.prototype.lean": "895f1da2744430c03bf23d608fba32db06d5b6134915994a80a41efdb68678dd",
+      "work/checks/OrderedBoundaryTransport-first-failed.body.lean": "5392343c6835068312ee3e82331a30256b1029bfad5edce2b5d3e01829717f50",
+      "work/checks/OrderedBoundaryTransport-second-failed.prototype.lean": "201507a6a87edd648dc0b96c4cf05b6d7806cc73b3dec4509158ea5d159d6224",
+      "work/checks/OrderedBoundaryTransport-first-kernel.log": "3ad7d8507e97bc3ce4f8c82511ead8177c1e57972bf5a2b4bce5e4388accebbe",
+      "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+      "work/checks/OrderedBoundaryTransport-body-dependencies.json": "5fac16ae2251fedc7273c4357cff7b1c8458a326f1dfdef7ab9552d9e8bbe0c1",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "work/decisions/ordered-boundary-transport-20260912.md": "2f3ccb60aa72df7612c493ae719d7df638429216bfe6c7a80ab65f20b1cf92d1",
+      "work/decisions/ordered-boundary-transport-first-repair-20260912.md": "dd81159f431e1b364355696d852d301ece8541219ffefeec2b067f0fa612a311"
+    }
+  },
+  "findings": [
+    "For an arbitrary increasing embedding e, interval and triple apply e to actual endpoint/ordered positions and derive strictness from e. composition retains exactly the original number of parts and maps each cut by e, deriving its bounds and endpoints from the source composition. Injectivity is proved from these concrete maps.",
+    "cutSet is the finite image of the complete cut set, including both endpoints. composition_cutSet proves agreement with direct composition transport. cutSet_toComposition uses canonical cut-set injectivity and both inverse laws to show that sorting the image recovers the directly mapped composition. The proof does not assume uniqueness of an unspecified presentation.",
+    "Parts, near triples and far triples are the literal mapped objects at the original indices. The weight, child product and full summand equations either use exact pullback arrays or require pointwise equality of precisely the actual factors. Arbitrary commutative rings with invertible2, unary empty gate products and zero factors are included; no nonzero cancellation is used.",
+    "An arbitrary order embedding need not cover every vertex inside the image interval. Consequently this body claims neither surjectivity onto all image compositions nor equality of complete transforms or leaf counts. Those require the separate exact duplication fiber/avoiding analysis. The conditional factor premises here are explicit helper premises, not an asserted proof of the final duplication law.",
+    "First44594 failed on missing canonical NeZero instances and semireducible product-index rewrites. Endpoints I.left and e(I.left) supply the needed instances in proofs. One public header, cutSet_toComposition, now explicitly introduces those derived statement-local letI witnesses; no caller premise or mathematical domain changes. All other26 headers are unchanged. Second45970 left only the definitional image-of-composite equality, repaired by terminal rfl; all current27 headers stayed unchanged. Both exact failed versions/logs and initial drafts are preserved.",
+    "Third5663 exited0 and printed27 standard-only or axiom-free traces. The receipt binds the complete passing body/prototype/log. This records technical correctness within the stated helper scope and grants no source acceptance."
+  ],
+  "limits": "This is general ordered transport. It does not prove duplication gate/child identities for every presentation, avoiding-transform equality, complete ordinary recurrence, root output, geometric amplitude law or final corner laws."
+}

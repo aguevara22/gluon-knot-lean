@@ -1,0 +1,40 @@
+\begin{lemma}[rotation bounds for uniform and one-dissent polygons]
+\label{lem:uniformrot}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+\begin{enumerate}
+\item[(i)] Let $L$ be a closed polygon all of whose principal turns exist and are
+positive. Then $\rot(L)\geq1$, with equality if $L$ has three corners. If all
+turns are negative, $\rot(L)\leq-1$, again with equality in absolute value for
+three corners.
+\item[(ii)] Let $L$ be a closed polygon whose principal turns all exist, with
+exactly one negative principal turn, of magnitude $\alpha\in(0,\pi)$, and let
+$\Pi$ be the sum of the positive ones. Then
+$\Pi-\alpha=2\pi r$ with $r=\rot(L)$ an integer, and $r\geq1$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) By Lemma~\ref{lem:turnlift}(ii),
+$2\pi\rot(L)=\sum_i\tau_i$. A polygon has at least three corners and each
+$\tau_i>0$, so the sum is positive and $\rot(L)>0$; being an integer,
+$\rot(L)\geq1$. With three corners the sum is also below $3\pi$, forcing
+$\rot(L)=1$. Orientation reversal in the same lemma gives both negative
+claims.
+
+(ii) The identity is Lemma~\ref{lem:turnlift}(ii). Suppose $r\leq0$. Then
+$\Pi\leq\alpha<\pi$. Cut the traversal of $L$ immediately after the negative
+corner and follow it once around: the direction of the edge is turned by the
+successive principal turns, all of which are \emph{nonnegative} --- the
+hypothesis names one negative turn and admits turns equal to zero, which $\Pi$
+omits, and an earlier revision said "all of which are positive", which is false
+as written when a zero turn is present --- and they sum to $\Pi<\pi$, so every
+edge direction of $L$ lies in a closed angular interval $I$ of width $\Pi<\pi$.
+A zero turn does not widen that interval, so the argument is unchanged. An
+interval of width less than $\pi$ has a nonempty open dual: there is
+$u\in\mathbb R^2$ with $\langle u,\delta\rangle>0$ for every direction
+$\delta\in I$, hence for every edge of $L$. But the edges of a closed polygon
+sum to zero, so
+$0=\langle u,\sum_i\delta_i\rangle=\sum_i\langle u,\delta_i\rangle>0$, a
+contradiction. Hence $r\geq1$, and $R:=|\rot(L)|=r$.
+\end{proof}
+
+\subsection{The negative curl}

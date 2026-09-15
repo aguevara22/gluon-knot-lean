@@ -1,0 +1,44 @@
+-- Reviewer input for row thm:A-S7, 2026-09-13. work/lean/SM/VertexEdgeLawTree.lean with the proof replaced by sorry.
+import SM.ContactSourceResponse
+import SM.InducedRootsDefinition
+
+/-! Source thm:A-S7 (reference/SM/sm-2-amplitude.tex:525, frame SM15): the vertex–edge law for
+the tree coefficient `A_g`. Main declaration: `SM.WallGerm.vertex_edge_law_treeCoefficient`.
+
+Notation. `w : WallGerm n`; `w.VertexEdgeAt M a` is "simple vertex–edge wall at `(M; a)`"
+(def:walls (V): `M ∉ {a-1, a, a+1, a+2}`, `Z_pt = {{a, a+1, M}}`, `Z_c = ∅`, `μ_M(0)` in the
+relative interior of `E_a(0)`, `χ_{a,a+1,M}` changes sign), of bigon type (`w.BigonAt`) or
+sliding type (`w.SlidingAt`); `P_+` / `P_-` are the punctured sides of positive / negative
+parameters, `w.sideTuple true t` / `w.sideTuple false s` their polygons at the points `t`, `s`;
+`w.contactSign M a = χ_{a,a+1,M}(P_-)` (the value on the negative side, constant there);
+`firstHalf w.center M a = λ₁`, `secondHalf w.center M a = λ₂` (def:deletion-halves,
+`SM.deletion_halves_definition`); `halfRoots M a g = H(g) = (h₁, h₂)` (def:induced-roots,
+`SM.induced_roots_definition`); `treeCoefficient = A_g` (def:treesum). The proof is the previous
+executor's kernel-checked candidate lane (prototype ContactSourceResponse), ported verbatim. -/
+
+namespace SM.WallGerm
+
+variable {n : ℕ} [NeZero n]
+
+/-- thm:A-S7 (vertex–edge law for `A_g`), as printed on SM15: at a simple vertex–edge wall at
+`(M; a)`, which is of bigon or sliding type, with `s = χ_{a,a+1,M}(P_-)` (nonzero and constant
+on the negative side) and the halves `λ₁, λ₂` (both satisfying (G1)), for every physical root
+`g` with `H(g) = (h₁, h₂)`: `A_g(P_+) - A_g(P_-) = s · A_{h₁}(λ₁) · A_{h₂}(λ₂)`, at every point
+of `P_+` and every point of `P_-`. -/
+theorem vertex_edge_law_treeCoefficient (w : WallGerm n) (M a : ZMod n) (hn : 3 ≤ n)
+    (hc : w.VertexEdgeAt M a) :
+    (w.BigonAt M a ∨ w.SlidingAt M a) ∧
+    (w.contactSign M a ≠ 0 ∧
+      ∀ s : w.SideParameter, chi (w.sideTuple false s).val a (a + 1) M = w.contactSign M a) ∧
+    G1 (firstHalf w.center M a) ∧ G1 (secondHalf w.center M a) ∧
+    ∀ g : ZMod n, ∀ s t : w.SideParameter,
+      treeCoefficient (w.sideTuple true t).val (w.sideTuple true t).property.1 g hn -
+        treeCoefficient (w.sideTuple false s).val (w.sideTuple false s).property.1 g hn =
+        (w.contactSign M a : ℤ) *
+          (treeCoefficient (firstHalf w.center M a) (g1_firstHalf hn hc.1 hc.2.1)
+              (halfRoots M a g).1 (contactHalfSizes_bounds hn hc.1).1.1 *
+            treeCoefficient (secondHalf w.center M a) (g1_secondHalf hn hc.1 hc.2.1)
+              (halfRoots M a g).2 (contactHalfSizes_bounds hn hc.1).2.1) := by
+  sorry -- proof withheld from the reviewer
+
+end SM.WallGerm

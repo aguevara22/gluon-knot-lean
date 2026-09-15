@@ -1,0 +1,164 @@
+-- Reviewer input for row def:smoothing (REVISED 2026-09-13, second round). work/lean/SM/SmoothingDefinition.lean with every proof replaced by sorry.
+import SM.CarrierCrossings
+import SM.CarrierNeighborSeparation
+import SM.SelectedVisitsConvention
+
+/-! Source def:smoothing (reference/SM/sm-3-statesum.tex:14, frame SM15): oriented smoothing and
+subpolygons (carriers). Main declaration: `SM.smoothing_definition`.
+
+Notation (the finite successor model of the source proof of lem:carriers, sm-3:96-116; see also
+conv:selected-visits, `SM.selected_visits_convention`): the traversal circle `Γ(P)` marked at
+every vertex and every crossing visit is `Carrier.Mark P`, with successor `ρ = markSuccessor`;
+cutting at the two visits of each `x ∈ S` and reconnecting the arc arriving at one visit to the
+arc leaving the other is the permutation `ρ_S = smoothingSuccessor hn hP S = ρ ∘ selectedMarkPerm S`;
+its cycles are the subpolygons (carriers) `Carrier.Component hn hP S`, and `owner hn hP S a` is the
+carrier through the mark `a`. The closed polygonal curve traced by the carrier `q` is
+`componentPlaneCycle hn hP S q` (the plane points of its marks in inherited cyclic order,
+consecutive marks bounding straight segments `smoothingSegment`); its corners are its marks that
+are original vertices or selected visits (`IsTrueCorner S`), collected in `componentCornerCycle`;
+a corner at a selected visit is a smoothing corner. `carrierCrossings hn hP S q` are the crossings
+of `q`: the `x ∈ X(P) ∖ S` both of whose visits are owned by `q`; `carrierCrossingCount = m_Q`.
+`supportNeighbors hn hP S = N(S)` (crossings interlacing some element of `S`). The traced curve
+is certified as a closed polygonal curve of the cycle: `componentMarkList hn hP S q` lists exactly
+the marks owned by `q` in the inherited cyclic order, consecutive entries are `ρ_S`-successors
+(cyclically), and `componentTraceEdge hn hP S q i` is the straight segment from the `i`-th mark to
+the next (`smoothingSegment`), nonzero, continuous, closing up around the cycle; the carrier passes
+straight through every unselected visit it owns (incoming and outgoing pieces on the same original
+edge, same direction), so its corners are exactly the original vertices and selected visits, and
+at a selected visit the two edges `E_i, E_j` of the crossing are transverse (`det ≠ 0`), so the
+carrier turns there. -/
+
+namespace SM
+
+open Carrier
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n]
+
+/-- The printed description of the smoothing at one decomposition `S`. -/
+structure SmoothingData (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (S : Finset (Crossing P)) : Prop where
+  /-- the oriented reconnection: `ρ_S = ρ ∘ (swap of the two visits of each selected crossing)` -/
+  reconnection : ∀ a : Mark P,
+    smoothingSuccessor hn hP S a = markSuccessor hn hP (selectedMarkPerm S a)
+  /-- the carriers are the cycles of `ρ_S` -/
+  carriers : ∀ a b : Mark P,
+    owner hn hP S a = owner hn hP S b ↔ (smoothingSuccessor hn hP S).SameCycle a b
+  /-- the traced closed polygonal curve of a carrier: the plane points of its marks -/
+  traced_curve : ∀ q : Component hn hP S,
+    componentPlaneCycle hn hP S q =
+      ((componentMarkList hn hP S q).map
+        (fun m => traversalEvaluation P (markPosition hn hP.1 m)) : Cycle Plane)
+  /-- its corners are the vertices of `P` it passes through and the selected visits it turns at -/
+  corners : ∀ q : Component hn hP S,
+    componentCornerCycle hn hP S q =
+      (componentCycle hn hP S q).filter (fun a => decide (IsTrueCorner S a))
+  corner_vertex : ∀ i : ZMod n, IsTrueCorner S (Sum.inl i)
+  corner_visit : ∀ v : Visit P, IsTrueCorner S (Sum.inr v) ↔ v.1 ∈ S
+  /-- at an original vertex `i` the carrier arrives along `ℓ_{i-1}` and leaves along `ℓ_i` -/
+  vertex_corner : ∀ (q : Component hn hP S) (i : ZMod n), owner hn hP S (Sum.inl i) = q →
+    (owner hn hP S ((smoothingSuccessor hn hP S).symm (Sum.inl i)) = q ∧
+      (∀ u : ℝ, 0 ≤ u → u ≤ 1 →
+        smoothingSegment hn hP S ((smoothingSuccessor hn hP S).symm (Sum.inl i)) u ∈
+          edgeSegment P (i - 1)) ∧
+      ∃ c : ℝ, 0 < c ∧
+        P i - traversalEvaluation P
+            (markPosition hn hP.1 ((smoothingSuccessor hn hP S).symm (Sum.inl i))) =
+          c • edge P (i - 1)) ∧
+    (smoothingSuccessor hn hP S (Sum.inl i) = markSuccessor hn hP (Sum.inl i) ∧
+      owner hn hP S (smoothingSuccessor hn hP S (Sum.inl i)) = q ∧
+      (∀ u : ℝ, 0 ≤ u → u ≤ 1 →
+        smoothingSegment hn hP S (Sum.inl i) u ∈ edgeSegment P i) ∧
+      ∃ c : ℝ, 0 < c ∧
+        traversalEvaluation P
+            (markPosition hn hP.1 (smoothingSuccessor hn hP S (Sum.inl i))) - P i =
+          c • edge P i)
+  /-- at a smoothing corner between `E_i` and `E_j` (the crossing of the selected visit `v`, with
+  `i = v.2`, `j = (visitTwin v).2`) the carrier arrives along `ℓ_i` and leaves along `ℓ_j` -/
+  smoothing_corner : ∀ (q : Component hn hP S) (v : Visit P), v.1 ∈ S →
+    owner hn hP S (Sum.inr v) = q →
+    (v.1.val = {v.2.val, (visitTwin v).2.val} ∧ v.2.val ≠ (visitTwin v).2.val) ∧
+    (owner hn hP S ((smoothingSuccessor hn hP S).symm (Sum.inr v)) = q ∧
+      (∀ u : ℝ, 0 ≤ u → u ≤ 1 →
+        smoothingSegment hn hP S ((smoothingSuccessor hn hP S).symm (Sum.inr v)) u ∈
+          edgeSegment P v.2.val) ∧
+      ∃ c : ℝ, 0 < c ∧
+        traversalEvaluation P (markPosition hn hP.1 (Sum.inr v)) -
+          traversalEvaluation P
+            (markPosition hn hP.1 ((smoothingSuccessor hn hP S).symm (Sum.inr v))) =
+          c • edge P v.2.val) ∧
+    (smoothingSuccessor hn hP S (Sum.inr v) = markSuccessor hn hP (Sum.inr (visitTwin v)) ∧
+      owner hn hP S (smoothingSuccessor hn hP S (Sum.inr v)) = q ∧
+      (∀ u : ℝ, 0 ≤ u → u ≤ 1 →
+        smoothingSegment hn hP S (Sum.inr v) u ∈ edgeSegment P (visitTwin v).2.val) ∧
+      ∃ c : ℝ, 0 < c ∧
+        traversalEvaluation P
+            (markPosition hn hP.1 (smoothingSuccessor hn hP S (Sum.inr v))) -
+          traversalEvaluation P (markPosition hn hP.1 (Sum.inr v)) =
+          c • edge P (visitTwin v).2.val)
+  /-- the traced curve is the closed polygonal curve of the cycle: the marks of `q` in inherited
+  order, consecutive marks being `ρ_S`-successors (cyclically) -/
+  traced_marks : ∀ q : Component hn hP S,
+    (componentMarkList hn hP S q).Nodup ∧ 0 < (componentMarkList hn hP S q).length ∧
+    (componentMarkList hn hP S q : Cycle (Mark P)) = componentCycle hn hP S q ∧
+    ∀ m : Mark P, m ∈ componentMarkList hn hP S q ↔ owner hn hP S m = q
+  traced_successor : ∀ (q : Component hn hP S) (i : Fin (componentMarkList hn hP S q).length),
+    smoothingSuccessor hn hP S ((componentMarkList hn hP S q)[i.val]'i.isLt) =
+      (componentMarkList hn hP S q)[(i.val + 1) % (componentMarkList hn hP S q).length]'
+        (Nat.mod_lt _ (lt_of_le_of_lt (Nat.zero_le i.val) i.isLt))
+  /-- its sides are the straight segments from each mark to its `ρ_S`-successor: nonzero,
+  continuous, and closing up around the cycle -/
+  traced_sides : ∀ (q : Component hn hP S) (i : Fin (componentMarkList hn hP S q).length),
+    (∀ u : ℝ, componentTraceEdge hn hP S q i u =
+      smoothingSegment hn hP S ((componentMarkList hn hP S q)[i.val]'i.isLt) u) ∧
+    0 < euclideanLength (componentTraceEdge hn hP S q i 1 - componentTraceEdge hn hP S q i 0) ∧
+    componentTraceEdge hn hP S q i 1 =
+      componentTraceEdge hn hP S q
+        ⟨(i.val + 1) % (componentMarkList hn hP S q).length,
+          Nat.mod_lt _ (lt_of_le_of_lt (Nat.zero_le i.val) i.isLt)⟩ 0 ∧
+    Continuous (componentTraceEdge hn hP S q i)
+  /-- the carrier passes straight through an unselected visit it owns: the incoming and outgoing
+  pieces lie on the visited edge `E_{v.2}` with direction a positive multiple of `ℓ_{v.2}` (so such
+  a point is not a corner) -/
+  unselected_visit_straight : ∀ v : Visit P, v.1 ∉ S →
+    (∀ u : ℝ, 0 ≤ u → u ≤ 1 →
+      smoothingSegment hn hP S ((smoothingSuccessor hn hP S).symm (Sum.inr v)) u ∈
+        edgeSegment P v.2.val) ∧
+    (∃ c : ℝ, 0 < c ∧
+      traversalEvaluation P (markPosition hn hP.1 (Sum.inr v)) -
+        traversalEvaluation P
+          (markPosition hn hP.1 ((smoothingSuccessor hn hP S).symm (Sum.inr v))) =
+        c • edge P v.2.val) ∧
+    (∃ c : ℝ, 0 < c ∧
+      traversalEvaluation P (markPosition hn hP.1 (smoothingSuccessor hn hP S (Sum.inr v))) -
+        traversalEvaluation P (markPosition hn hP.1 (Sum.inr v)) = c • edge P v.2.val)
+  /-- at a smoothing corner the two edges `E_i, E_j` of the selected crossing are transverse -/
+  smoothing_corner_transverse : ∀ v : Visit P, v.1 ∈ S →
+    det (edge P v.2.val) (edge P (visitTwin v).2.val) ≠ 0
+  /-- the crossings of `Q`: `x ∈ X(P) ∖ S` both of whose visits lie on `Q`; their number `m_Q` -/
+  crossings_of : ∀ (q : Component hn hP S) (x : Crossing P),
+    x ∈ carrierCrossings hn hP S q ↔
+      x ∉ S ∧ ∀ v : Visit P, v.1 = x → owner hn hP S (Sum.inr v) = q
+  crossing_count : ∀ q : Component hn hP S,
+    carrierCrossingCount hn hP S q = (carrierCrossings hn hP S q).card
+  /-- a crossing in `N(S)` has its two visits on different subpolygons and is a crossing of no
+  subpolygon -/
+  neighbor_visits : ∀ x ∈ supportNeighbors hn hP S, ∀ v : Visit P, v.1 = x →
+    owner hn hP S (Sum.inr v) ≠ owner hn hP S (Sum.inr (visitTwin v))
+  neighbor_no_carrier : ∀ x ∈ supportNeighbors hn hP S, ∀ q : Component hn hP S,
+    x ∉ carrierCrossings hn hP S q
+
+theorem smoothing_data (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S) : SmoothingData hn hP S := by
+  sorry -- proof withheld from the reviewer
+
+/-- def:smoothing for every generic polygon with `n ≥ 3` and every decomposition `S`. -/
+def SmoothingDefinitionData : Prop :=
+  ∀ k : ℕ, ∀ _ : NeZero k, ∀ hk : 3 ≤ k, ∀ P : LabelledTuple k, ∀ hP : Generic P,
+    ∀ S : Finset (Crossing P), IsDecomposition hk hP S → SmoothingData hk hP S
+
+theorem smoothing_definition : SmoothingDefinitionData := by
+  sorry -- proof withheld from the reviewer
+
+end SM

@@ -1,0 +1,430 @@
+{
+  "targets": {
+    "def:nearfar": {
+      "declaration": "SM.nearfarData",
+      "module": "SM.NearFar",
+      "statement_sha256": "91f29768c7e1ce1bb4f0d7c110e5a9e379d62e50b38064d2373ecb64bea22aa0",
+      "semantic_dependency_count": 41,
+      "semantic_declarations": [
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.left",
+        "SM.BoundaryInterval.mk",
+        "SM.BoundaryInterval.right",
+        "SM.IncreasingBoundaryTriple",
+        "SM.IncreasingBoundaryTriple.lower",
+        "SM.IncreasingBoundaryTriple.middle",
+        "SM.IncreasingBoundaryTriple.mk",
+        "SM.IncreasingBoundaryTriple.upper",
+        "SM.IntervalArray",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.farTriple",
+        "SM.IntervalComposition.farTriple._proof_3",
+        "SM.IntervalComposition.farTriple._proof_4",
+        "SM.IntervalComposition.finite",
+        "SM.IntervalComposition.fintype",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.nearFarWeight",
+        "SM.IntervalComposition.nearFarWeight._proof_1",
+        "SM.IntervalComposition.nearTriple",
+        "SM.IntervalComposition.nearTriple._proof_10",
+        "SM.IntervalComposition.nearTriple._proof_6",
+        "SM.IntervalComposition.nearTriple._proof_7",
+        "SM.IntervalComposition.nearTriple._proof_8",
+        "SM.IntervalComposition.nearTriple._proof_9",
+        "SM.IntervalComposition.part",
+        "SM.IntervalComposition.part._proof_1",
+        "SM.IntervalComposition.parts",
+        "SM.LabelledTuple",
+        "SM.Plane",
+        "SM.TripleArray",
+        "SM.boundaryIndex",
+        "SM.boundaryUnitArray",
+        "SM.chi",
+        "SM.det",
+        "SM.farTransform",
+        "SM.geometricBoundaryArray",
+        "SM.nearFarTransform",
+        "SM.nearTransform",
+        "SM.nearfarData"
+      ],
+      "required_transparent_definitions_and_constructors": [
+        "SM.nearfarData",
+        "SM.IncreasingBoundaryTriple",
+        "SM.IncreasingBoundaryTriple.mk",
+        "SM.TripleArray",
+        "SM.IntervalArray",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.parts",
+        "SM.IntervalComposition.part",
+        "SM.IntervalComposition.finite",
+        "SM.IntervalComposition.fintype",
+        "SM.IntervalComposition.nearTriple",
+        "SM.IntervalComposition.farTriple",
+        "SM.IntervalComposition.nearFarWeight",
+        "SM.nearFarTransform",
+        "SM.farTransform",
+        "SM.nearTransform",
+        "SM.boundaryUnitArray",
+        "SM.geometricBoundaryArray",
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.mk",
+        "SM.boundaryIndex",
+        "SM.LabelledTuple",
+        "SM.chi",
+        "SM.det"
+      ],
+      "semantic_dependency_record_sha256": {
+        "SM.BoundaryInterval": "1556b71445ff6ca1de5b94ff4e763ec0f656aaa9909cd5aa14cf0c9f12283791",
+        "SM.IncreasingBoundaryTriple": "8a8430704485c4455093ae7648bf7d6df6fa3c0406519984afad69396108264c",
+        "SM.IntervalArray": "2c48c1af1deb54735876c081055c965e3b7870cb8c011379ed541ada2c932167",
+        "SM.IntervalComposition": "639fc8751d8deba32e74f30f895519081f6a25663693341430fc1658dd225e6a",
+        "SM.LabelledTuple": "19fb1d6d4a62b930ec8667f5aa5fa2d66125680bea76e6af4347e02fe7174f9a",
+        "SM.Plane": "940089f08c3cdbcde13dac8a91251508170570507f856d94d817df533a12356f",
+        "SM.TripleArray": "69be3718f1127ebe767b1ccdb676018164fbb6c255ca5813352de94118f8eeef",
+        "SM.boundaryIndex": "9e3d4b93ea2500e1080a3adc6646f6b1af5b9e48de523ae14b9f97fb4819bfe1",
+        "SM.boundaryUnitArray": "46885b4ecd95e8329bb46d61b1cde838298e49f692c582b5d69932dbb6ab2e12",
+        "SM.chi": "6a664601c9a941486c940eebcbc14f6c6a186d1bc346100099fc6d12453463a6",
+        "SM.det": "9c2f44b94c03f09f96587e9862a503d267342e02c2f57186f079bc565acf5a3f",
+        "SM.farTransform": "ec061bd3073eb62b053c684bf9922a4438d10805119d46868db3397ec7773679",
+        "SM.geometricBoundaryArray": "09d9bf2b8f5fe810ab8b853d724a84046cddde56acd2ad7ff1ba5c40e006a9a9",
+        "SM.nearFarTransform": "dc5a15697f4ff319e04f0ded18d7171c3e89fca73ba175037d56f29f5fe9e039",
+        "SM.nearTransform": "f0b62d0dd4bd8136642fb40c77839233273e889f51213d57ad1bb49f320ef42c",
+        "SM.nearfarData": "c4a361f0d56ac90a0db0d04d28b1adcfbb1f7d86de806cd945c99effba00c121",
+        "SM.BoundaryInterval.left": "f9df296433ec742c7f8e5e0d162c3fd10c60890d384a35cfc0ebba8ad41aec81",
+        "SM.BoundaryInterval.mk": "23df47df4d2d2e14e2a6425c724f7ee023d7dfe5571c1ae73da30a1a0ef0e694",
+        "SM.BoundaryInterval.right": "7b5a2cb8376162e988386e9dc1c6ff45d5d0cafae82ab4b5646c5883b3ac6488",
+        "SM.IncreasingBoundaryTriple.lower": "5d3e90024d3ee992a068da746e0e7f87849aaa8cae6b7a4b962b93123923db7a",
+        "SM.IncreasingBoundaryTriple.middle": "7c628844a97c0cdf5e7ae846d806a5408238506317ae9ad9dfd5d9f67407ec7f",
+        "SM.IncreasingBoundaryTriple.mk": "0a55339a707177ae5363230cb8ee2c5555ee192e46115ca4b96626a8ce1dc221",
+        "SM.IncreasingBoundaryTriple.upper": "bdf51cfc6506a7ba9f5802cb03388bdf9582122944cc34d8c1ec11afb4d7a250",
+        "SM.IntervalComposition.cut": "e8fe6ccff6368da3e62947ab936a138a5373b0851cd96938e47d2ea60c0f4f6f",
+        "SM.IntervalComposition.farTriple": "e3b8242ee6e67adef1c1a120cf172ff37afe76dd7a757267f087ec705bcfc848",
+        "SM.IntervalComposition.finite": "4f64302a1356b329a4b1a14c04f76590a0f15536b5407ee7bca216c2612bc8bc",
+        "SM.IntervalComposition.fintype": "270bd100a42d67e77206398e8807b8605253af5bb5bfc25517d52fbe781229d3",
+        "SM.IntervalComposition.mk": "b5ba188c08faf38d019189e8f0eed19ec13dba9775910e898b4ecdf395fb9119",
+        "SM.IntervalComposition.nearFarWeight": "82394e8950e16fbb79cf5d7ae5cbb500a6bb311eee502f670db4fd39a05ce15e",
+        "SM.IntervalComposition.nearTriple": "e9f4d46b569da6a5cc4f0ba7fdd6fb9bc6e703da84fe7e930e417a0cebfee1a4",
+        "SM.IntervalComposition.part": "38de71de63d98bf80ba204a95a70011ad10c95aa1adda04b9b45415826605c7c",
+        "SM.IntervalComposition.parts": "d832b8bdd4fce868cd028ee67ec8e0ed4b54eef4c0e3f2a8ba63c4dd16e73b5b",
+        "SM.IntervalComposition.farTriple._proof_3": "c1156ae6e02ced91433aa9d04d0048fc1ffa0f14a0989e8b176b05332cf91383",
+        "SM.IntervalComposition.farTriple._proof_4": "eeb838ec26cd1e2f77c5ff589e35409a8abcf78bec8cff912fa51322c2aed44a",
+        "SM.IntervalComposition.nearFarWeight._proof_1": "7aa599bea8f3974442ba17e5581de189cb09094ac6fd4744710ed3e5d834fa48",
+        "SM.IntervalComposition.nearTriple._proof_10": "a7b2ebb4ee0724a772e5a057778492335f0d99e7200dee0d3db561a739c3f9bf",
+        "SM.IntervalComposition.nearTriple._proof_6": "4abcaad9e749481907b50e704329628178cb08d2c3d7f2922c1553ba6fbb2844",
+        "SM.IntervalComposition.nearTriple._proof_7": "520780b0ca201d64c6cb467834052311c8ac53c11bdd39fc78b420bd2fe11658",
+        "SM.IntervalComposition.nearTriple._proof_8": "0ea1e9df12718c133e9586bf878f4d139128c83e67997eb87c8330c55b4ccb54",
+        "SM.IntervalComposition.nearTriple._proof_9": "6be463a4036308154e563181b9e4688eef0efa92804fad8500f54a73ecb5e814",
+        "SM.IntervalComposition.part._proof_1": "60567874ff0d4ce4cc7a21f3f62d9a476f561c5dc136c32fad6a0e1eefbf51b0"
+      }
+    }
+  },
+  "canonical_printed_types": {
+    "SM.IncreasingBoundaryTriple": "SM.IncreasingBoundaryTriple (n : \u2115) : Type",
+    "SM.TripleArray": "SM.TripleArray.{u} (n : \u2115) (R : Type u) : Type u",
+    "SM.IntervalArray": "SM.IntervalArray.{u} (n : \u2115) (R : Type u) : Type u",
+    "SM.IntervalComposition.nearTriple": "SM.IntervalComposition.nearTriple {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (k : Fin (\u03c0.parts - 1)) : SM.IncreasingBoundaryTriple n",
+    "SM.IntervalComposition.farTriple": "SM.IntervalComposition.farTriple {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (k : Fin (\u03c0.parts - 1)) : SM.IncreasingBoundaryTriple n",
+    "SM.IntervalComposition.nearFarWeight": "SM.IntervalComposition.nearFarWeight.{u} {n : \u2115} {R : Type u} [CommRing R] [Invertible 2] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (D H : SM.TripleArray n R) : R",
+    "SM.nearFarTransform": "SM.nearFarTransform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R)\n  (X : SM.IntervalArray n R) : SM.IntervalArray n R",
+    "SM.farTransform": "SM.farTransform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (H : SM.TripleArray n R) :\n  SM.IntervalArray n R \u2192 SM.IntervalArray n R",
+    "SM.nearTransform": "SM.nearTransform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D : SM.TripleArray n R) :\n  SM.IntervalArray n R \u2192 SM.IntervalArray n R",
+    "SM.boundaryUnitArray": "SM.boundaryUnitArray.{u} {n : \u2115} {R : Type u} [CommRing R] : SM.IntervalArray n R",
+    "SM.geometricBoundaryArray": "SM.geometricBoundaryArray.{u} {n : \u2115} {R : Type u} [CommRing R] (P : SM.LabelledTuple n) (g : ZMod n) :\n  SM.TripleArray n R",
+    "SM.geometricBoundaryArray_near": "SM.geometricBoundaryArray_near.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) :\n  SM.geometricBoundaryArray P g (\u03c0.nearTriple k) = \u2191\u2191(\u03c0.nearSign P g k)",
+    "SM.geometricBoundaryArray_far": "SM.geometricBoundaryArray_far.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) :\n  SM.geometricBoundaryArray P g (\u03c0.farTriple k) = \u2191\u2191(\u03c0.farSign P g k)",
+    "SM.nearfarData": "SM.nearfarData.{u} (n : \u2115) [NeZero n] (R : Type u) [CommRing R] [Invertible 2] (_hn : 3 \u2264 n) :\n  Type \u00d7\n    (SM.TripleArray n R \u2192 SM.TripleArray n R \u2192 SM.IntervalArray n R \u2192 SM.IntervalArray n R) \u00d7\n      (SM.TripleArray n R \u2192 SM.IntervalArray n R \u2192 SM.IntervalArray n R) \u00d7\n        (SM.TripleArray n R \u2192 SM.IntervalArray n R \u2192 SM.IntervalArray n R) \u00d7\n          SM.IntervalArray n R \u00d7 (SM.LabelledTuple n \u2192 ZMod n \u2192 SM.TripleArray n R)",
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": "SM.IntervalComposition.eq_single_of_parts_eq_one {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (hparts : \u03c0.parts = 1) : \u03c0 = SM.IntervalComposition.single I",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": "SM.IntervalComposition.parts_eq_one_iff_eq_single {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : \u03c0.parts = 1 \u2194 \u03c0 = SM.IntervalComposition.single I",
+    "SM.IntervalComposition.single_part": "SM.IntervalComposition.single_part {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n)\n  (k : Fin (SM.IntervalComposition.single I).parts) : (SM.IntervalComposition.single I).part k = I",
+    "SM.IntervalComposition.single_product": "SM.IntervalComposition.single_product.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  (X : SM.BoundaryInterval n \u2192 R) (I : SM.BoundaryInterval n) : \u220f k, X ((SM.IntervalComposition.single I).part k) = X I",
+    "SM.IntervalComposition.nonSingleEquiv": "SM.IntervalComposition.nonSingleEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  { \u03c0 // \u03c0 \u2260 SM.IntervalComposition.single I } \u2243 { \u03c0 // 2 \u2264 \u03c0.parts }",
+    "SM.triangularTransform": "SM.triangularTransform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (X : SM.BoundaryInterval n \u2192 R) :\n  SM.BoundaryInterval n \u2192 R",
+    "SM.triangularInverse": "SM.triangularInverse.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (Y : SM.BoundaryInterval n \u2192 R)\n  (I : SM.BoundaryInterval n) : R",
+    "SM.triangularTransform_inverse": "SM.triangularTransform_inverse.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (Y : SM.BoundaryInterval n \u2192 R) :\n  SM.triangularTransform weight (SM.triangularInverse weight Y) = Y",
+    "SM.triangularInverse_transform_apply": "SM.triangularInverse_transform_apply.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (X : SM.BoundaryInterval n \u2192 R)\n  (I : SM.BoundaryInterval n) : SM.triangularInverse weight (SM.triangularTransform weight X) I = X I",
+    "SM.triangularInverse_transform": "SM.triangularInverse_transform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (X : SM.BoundaryInterval n \u2192 R) :\n  SM.triangularInverse weight (SM.triangularTransform weight X) = X",
+    "SM.triangular_solution_unique": "SM.triangular_solution_unique.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (X Y : SM.BoundaryInterval n \u2192 R)\n  (hX : SM.triangularTransform weight X = Y) : X = SM.triangularInverse weight Y",
+    "SM.triangularEquiv": "SM.triangularEquiv.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) :\n  (SM.BoundaryInterval n \u2192 R) \u2243 (SM.BoundaryInterval n \u2192 R)",
+    "SM.IntervalComposition.nearFarWeight_one": "SM.IntervalComposition.nearFarWeight_one.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2]\n  {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (D H : SM.TripleArray n R) (hparts : \u03c0.parts = 1) :\n  \u03c0.nearFarWeight D H = 1",
+    "SM.nearFarTransform_eq_triangular": "SM.nearFarTransform_eq_triangular.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) : SM.nearFarTransform D H = SM.triangularTransform fun x \u03c0 => \u03c0.nearFarWeight D H",
+    "SM.nearFarInverse": "SM.nearFarInverse.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R) :\n  SM.IntervalArray n R \u2192 SM.IntervalArray n R",
+    "SM.nearFarTransform_inverse": "SM.nearFarTransform_inverse.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R)\n  (Y : SM.IntervalArray n R) : SM.nearFarTransform D H (SM.nearFarInverse D H Y) = Y",
+    "SM.nearFarInverse_transform": "SM.nearFarInverse_transform.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R)\n  (X : SM.IntervalArray n R) : SM.nearFarInverse D H (SM.nearFarTransform D H X) = X",
+    "SM.nearFar_solution_unique": "SM.nearFar_solution_unique.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R)\n  (X Y : SM.IntervalArray n R) (hX : SM.nearFarTransform D H X = Y) : X = SM.nearFarInverse D H Y",
+    "SM.map_triangularInverse": "SM.map_triangularInverse.{u, v} {n : \u2115} [NeZero n] {R : Type u} {S : Type v} [CommRing R] [CommRing S] (f : R \u2192+* S)\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (Y : SM.BoundaryInterval n \u2192 R)\n  (I : SM.BoundaryInterval n) :\n  f (SM.triangularInverse weight Y I) = SM.triangularInverse (fun J \u03c0 => f (weight J \u03c0)) (fun J => f (Y J)) I",
+    "SM.triangularInversePolynomial": "SM.triangularInversePolynomial.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) :\n  MvPolynomial (SM.BoundaryInterval n) R",
+    "SM.triangularInversePolynomial_eval": "SM.triangularInversePolynomial_eval.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (weight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (Y : SM.BoundaryInterval n \u2192 R)\n  (I : SM.BoundaryInterval n) :\n  (MvPolynomial.eval\u2082Hom (RingHom.id R) Y) (SM.triangularInversePolynomial weight I) = SM.triangularInverse weight Y I",
+    "SM.nearFar_has_polynomial_inverse": "SM.nearFar_has_polynomial_inverse.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) :\n  \u2203 \u03a8,\n    (\u2200 (Y : SM.IntervalArray n R),\n        (SM.nearFarTransform D H fun I => (MvPolynomial.eval\u2082Hom (RingHom.id R) Y) (\u03a8 I)) = Y) \u2227\n      \u2200 (X : SM.IntervalArray n R),\n        (fun I => (MvPolynomial.eval\u2082Hom (RingHom.id R) (SM.nearFarTransform D H X)) (\u03a8 I)) = X",
+    "SM.geometricBoundaryArray_shift": "SM.geometricBoundaryArray_shift.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] (P : SM.LabelledTuple n)\n  (g a : ZMod n) : SM.geometricBoundaryArray (SM.shift a P) (g - a) = SM.geometricBoundaryArray P g"
+  },
+  "canonical_printed_type_sha256": {
+    "SM.IncreasingBoundaryTriple": "62ceb1d1f1c6ef0adc388b9e2c694806cefab483c4087cc739a8251f0078693e",
+    "SM.TripleArray": "bb0e237c53b5cf58f180f9240def8943cae75215fa54c78a4f1b3e9b9758f89d",
+    "SM.IntervalArray": "2587508658993f91cede1704cdad9983d379469265647375d729e4bdcdb7598a",
+    "SM.IntervalComposition.nearTriple": "87a3c71b84cc33741faafe0feea9bbc7dca4e9ba7fa217e6e026031510a54d2c",
+    "SM.IntervalComposition.farTriple": "26d191b41e61acdb0a24502a444df81400c2774bc089b3cb9afd806d22789484",
+    "SM.IntervalComposition.nearFarWeight": "d70df283a1d8cdbcc499537c1d3cb2cc3d98186df70a6c17e65a6356b7236c5a",
+    "SM.nearFarTransform": "03f9dc2f08cde51b0bf994a041e008140aacda2944bf6f49d77262cd35ea72fc",
+    "SM.farTransform": "dcd4c51bdf6c20585c16cb08345b39af84de2741014e0c77b90cb9ebe392eae7",
+    "SM.nearTransform": "5acd0a590bfc936b5dbc88dd62c70a1e4519f02741192de2bae16a08156b6629",
+    "SM.boundaryUnitArray": "0f12449312863e19da00bcfc5800475156d3bc684650bd35b2e6e86a8fa58381",
+    "SM.geometricBoundaryArray": "3b44e80387c80bfc65aa60aee1220a5e5a2d1191f27e3e3fa9a290ab21383c17",
+    "SM.geometricBoundaryArray_near": "9ff4718691c0959e3e90588d47a4300c7b8e915ec9924d659823b42c4ef108f8",
+    "SM.geometricBoundaryArray_far": "284f40086766646222a6f03539994931530cea73bbf32c08377fb4ba8d3a60a4",
+    "SM.nearfarData": "849a7be54cef5f855b4df25297c39ea3a4a6656c3070d1973c410e75087c9378",
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": "7d790735a60090fb6d6a46be61060857eb70b64d803e015cb09bf382699c5147",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": "6e056711324ee54f35381dc337aac8fd38de192996c4ff21f170f1c9ddcb3e0b",
+    "SM.IntervalComposition.single_part": "dc57be8ab7e262e789c274bcdc57f2c9be4ba75e0cdf548b8a553cffb1fd85a3",
+    "SM.IntervalComposition.single_product": "4891ed810edd707d3b7f0b5a9d4dcaf3f149aabf7012f5705b2ea385fa46b3bc",
+    "SM.IntervalComposition.nonSingleEquiv": "4e29b72aa634fa84dae10640fa9ccd32d0282dd0f1d7d5d8c173d4596b8951eb",
+    "SM.triangularTransform": "910914ee4c36c128ae2fcea8288f511e158f5e06c1abe23abb97034dcde35aca",
+    "SM.triangularInverse": "aeeff68284f61f45db75971d41f7d87d57bd57330ea1877bbc7a56c7d821d332",
+    "SM.triangularTransform_inverse": "01b6caa20cef42e9ffc33c171880d7c649072f2987717231905b1b30dd35ac6c",
+    "SM.triangularInverse_transform_apply": "c7eae3ba4a79fe20865bbdbccbf43f7a7ee92773ca72d4b26d3de3b5016fb0cf",
+    "SM.triangularInverse_transform": "af7abfcaff647433236e92dbd19729a62b26a8c0fbe10bd4408750f1e20e7d41",
+    "SM.triangular_solution_unique": "f5925a1e4f97cd65c6ef3248fe9c03aa57c33d163d7a493d038fb1a089255dff",
+    "SM.triangularEquiv": "fe7e6d4f0fdd28bd070c79c0dc2135cf3b24e2fce2d755970fce6fee049d91e1",
+    "SM.IntervalComposition.nearFarWeight_one": "87074413d17d70ecd9131c9ad67af7ac7a72bc65f7ae33ff9620de6ccc3362ed",
+    "SM.nearFarTransform_eq_triangular": "baeb5b34524c5cc95978627dae507c67b8c0260f9b559d6604fce8c4cfcd549b",
+    "SM.nearFarInverse": "991103d91183cda2e8a5c9c8db195450c23154b1db2d4b8e765faeae1d565e80",
+    "SM.nearFarTransform_inverse": "97acce99622f0c166ed1210d2bc73dea2ed1d6eb12fa4eca8c49552e5c371d6e",
+    "SM.nearFarInverse_transform": "cb944ed6e59a82a13967b7ecb9b6240512887c3b3826ddfc71c9ceabe63fa137",
+    "SM.nearFar_solution_unique": "7a20bc5062b54d991ebb923d04174951b7ff6adefc0500b06b5e1c15d53d4b6c",
+    "SM.map_triangularInverse": "3f3d4c70dee50129adc054231d48bad5a03622a8fa490ccb74d50cb2bd6ec31c",
+    "SM.triangularInversePolynomial": "619ad0925ba774fbe186ac2aabdd2e5c12957229041ca23431c7e6b496f3dc96",
+    "SM.triangularInversePolynomial_eval": "88cee95f1d83855441a73e93c484ed576bc10b79279cea1aaa50502daf13b7ec",
+    "SM.nearFar_has_polynomial_inverse": "62ec07514ec504817398d20c46283b7efe539115a09c383dfa9aeba7316260ef",
+    "SM.geometricBoundaryArray_shift": "349f6ff079e490f18c65c9901bc39e4491928ed5408b5be7b8f4a71ddb826a51"
+  },
+  "all_37_prototype_canonical_printed_types_equal": true,
+  "axioms": {
+    "SM.IncreasingBoundaryTriple": [],
+    "SM.TripleArray": [],
+    "SM.IntervalArray": [],
+    "SM.IntervalComposition.nearTriple": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farTriple": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearFarWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarTransform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farTransform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearTransform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryUnitArray": [],
+    "SM.geometricBoundaryArray": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometricBoundaryArray_near": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometricBoundaryArray_far": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearfarData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.single_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.single_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nonSingleEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularTransform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularInverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularTransform_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularInverse_transform_apply": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularInverse_transform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangular_solution_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearFarWeight_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarTransform_eq_triangular": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarInverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarTransform_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarInverse_transform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFar_solution_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.map_triangularInverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularInversePolynomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.triangularInversePolynomial_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFar_has_polynomial_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometricBoundaryArray_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.all_raw_increasing_triples": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.full_triple_domain_finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.full_interval_domain_finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.unary_term_is_exact": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.every_half_factor_is_exact": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.unit_array_is_leaf_indicator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.inverse_base_coordinate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.unique_solution_for_every_target": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.inverse_is_coordinate_polynomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.zero_triangular_weights_give_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarInverseIndependentReview.geometric_arrays_use_same_physical_root": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "all_37_prior_semantic_hashes_unchanged": true,
+  "prior_semantic_audit": "work/checks/checkpoint-063-declaration-audit.json",
+  "prior_semantic_audit_sha256": "1d422ec842720f3b00ef4ee6bdb5cdd2a25e4133ce333c7174e2b56e8604c800",
+  "partial_inverse_scope": "The unmapped helper SM.nearFar_has_polynomial_inverse is bound by its exact canonical module closure, printed type and independent consumers, not by an invented full lem:farout semantic hash. Audit064 contains semantic closures for mapped source declarations only."
+}

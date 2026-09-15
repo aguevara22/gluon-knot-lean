@@ -1,0 +1,854 @@
+{
+ "scouts": [
+  {
+   "summary": "Scouted the first eight Chapter 3 units (sm-3-statesum.tex lines 9-542) against the accepted library (work/lean/SM, 46 accepted rows as of 2026-09-13 14:58 UTC / 10:58am ET; none from Chapter 3) and the previous executor's Carrier* candidate lane (32 final kernel-checked bodies, ~200 declarations in namespace SM.Carrier, checkpoints 098-105, all receipts exit_code 0, axioms propext/Classical.choice/Quot.sound only). Accepted infrastructure the units consume: SM.Visit (GaussVisits.lean:17), SM.gaussList/gaussCycle/gaussWord (GaussWord.lean:21/84/88), SM.nextGaussVisit (GaussCyclicGap.lean:19), SM.Interlaces (Interlacement.lean:16), SM.interlacementGraph / independentSupports / supportNeighbors / supportUnselected (InterlaceSupports.lean:14/27/47/60), SM.TraversalPoint / traversalBetween (Traversal.lean:12/73), SM.Regular (RegularLocus.lean:12), SM.rotationNumber / rotation_number (RotationNumber.lean:10, RotationTheorem.lean:14), SM.crossingSign (Crossings.lean:80), SM.Cycle.filter (CycleFiltering.lean:69, already ported from the lane). The Carrier lane fully covers lem:carriers clause (i) in the finite successor-orbit model (SM.Carrier.independent_successor_components bundles count |S|+1, inherited cyclic order and selected-pair separation), gives the definitions needed for def:smoothing and conv:selected-visits (Mark, markSuccessor, selectedMarkPerm, smoothingSuccessor, Component, owner, componentCycle, componentMarkList, componentPlaneCycle, IsTrueCorner, componentCornerCycle), and stops mid clause (ii) at \"positive same-edge block compression\" (work/decisions/carrier-block-compression-next-step-20260912.md, unproved plan). Clause (ii) regularity/turn signs/three corners, clause (iii) both halves except a trivially derivable one, clause (iv) noncrossing, and everything geometric are missing. def:uniform, def:positive-lift, def:gauss-record and lem:gauss-two-discs have no candidate at all (grep of work/checks and work/lean for lift/record/writhe/disc/Jordan: nothing; pinned Mathlib at /root/lean-lake/packages/mathlib has no Jordan-curve material). Only cb:embedded-rotation (NODES.tsv row 110) consumes lem:gauss-two-discs inside the closure; lit:gauss and lem:gauss-sphere-isotopy are not blueprint rows.",
+   "units": [
+    {
+     "id": "def:decomposition",
+     "source_lines": "reference/SM/sm-3-statesum.tex:9-12 (NODES.tsv row 51, deps def:interlace)",
+     "statement_gist": "A decomposition of P is an independent set S in Ind(G_P): no two crossings of S interlace.",
+     "existing_lean": "Fully available and accepted: SM.independentSupports hn hP : Finset (Finset (Crossing P)) (work/lean/SM/InterlaceSupports.lean:27), SM.mem_independentSupports (:32, iff IsIndepSet of SM.interlacementGraph :14), SM.mem_independentSupports_iff (:39, pairwise not Interlaces), SM.empty_mem_independentSupports (:44), SM.independentSupports_shift (:83). The accepted row def:interlace, SM.interlacement_definition (InterlaceDefinition.lean:13), already prints the Ind(G_P) clause.",
+     "candidate_lane": "None needed. The lane consumes S : Finset (Crossing P) with hS : S ∈ independentSupports hn hP everywhere (CarrierSameArc.body.lean:68-93, CarrierComponentCount.body.lean, CarrierIndependentOrder.body.lean).",
+     "gap": "Only a definition-row module (pattern: SM.InterlaceDefinition) with a theorem decomposition_definition restating S ∈ independentSupports ↔ ∀ x y ∈ S, x ≠ y → ¬Interlaces, plus shift transport; a map row and review. No mathematics.",
+     "difficulty": "small"
+    },
+    {
+     "id": "def:smoothing",
+     "source_lines": "reference/SM/sm-3-statesum.tex:14-27 (NODES.tsv row 52; consumed by def:flat-carriers row 59 at :788, thm:C-S5, thm:C-S7)",
+     "statement_gist": "Cut the traversal circle at the two visits of each x ∈ S and reconnect incoming-at-one to outgoing-at-other; the resulting closed cycles traced in the plane are the subpolygons (carriers); corners = original vertices passed + smoothing corners (arrive along one of ℓ_i, ℓ_j, leave along the other); crossings of Q = x ∉ S with both visits on Q, count m_Q; a crossing in N(S) is a crossing of no subpolygon.",
+     "existing_lean": "Accepted: SM.Visit (GaussVisits.lean:17), visitPosition/visitParameter (:45-48), SM.gaussList/gaussCycle (GaussWord.lean:21/84; visits only, no vertices), SM.nextGaussVisit (GaussCyclicGap.lean:19; successor on visits only), SM.TraversalPoint/traversalBetween/traversalCircularOrder (Traversal.lean:12/73/68), SM.supportNeighbors = N(S), SM.supportUnselected = U(S) (InterlaceSupports.lean:47/60), SM.Cycle.filter (CycleFiltering.lean:69), SM.crossingPoint/crossingParameter (Crossings.lean:41/70), SM.edgePoint/edgeSegment (Polygon.lean:51/54).",
+     "candidate_lane": "The finite successor model of the source proof (sm-3:97-115) is built: SM.Carrier.Mark := ZMod n ⊕ Visit P, markPosition, markKey, markList (sorted complete marked circle, length n + 2|X|) in work/checks/CarrierMarks.body.lean; markCycle, nextMark/prevMark, markSuccessor : Equiv.Perm (Mark P) (= ρ), nextMark_no_mark_between, markSuccessor_sameCycle in CarrierSuccessor.body.lean:9/24/52/89/142; visitTwin, visitTwinPerm, selectedVisitTwin(Perm) in CarrierVisitTwin.body.lean:8/44/54/77; selectedMarkPerm, smoothingSuccessor := (selectedMarkPerm S).trans (markSuccessor) (= ρ_S, eq. carrierpr:successors), smoothingSuccessor_visit_of_mem/of_not_mem, Component := Quotient (SameCycle.setoid (smoothingSuccessor)), owner, owner_eq_iff in CarrierSmoothing.body.lean; componentCycle (owner-filtered markCycle) in CarrierFilteredCycles; componentMarkList, componentPlaneCycle : Cycle Plane, componentTraceEdge in CarrierClosedTrace.body.lean; smoothingSegment (affine subsegment) in CarrierAffineSegments; IsTrueCorner (vertices and selected visits), componentCornerCycle (owner-and-corner-filtered markList) in CarrierTrueCorners.body.lean. Receipts: Carrier*-prototype-result.json, all exit_code 0, 2026-09-12T04:37-07:10Z. Reports: work/reports/carrier-successor-candidates-20260912.md (cp 098), carrier-positive-segments-candidates-20260912.md (cp 104), carrier-true-corner-blocks-candidates-20260912.md (cp 105).",
+     "gap": "(a) No definition of 'crossings of Q' and m_Q: needs e.g. carrierCrossings q := univ.filter (fun x => x ∉ S ∧ ∀ v : Visit, v.1 = x → owner S (inr v) = q) and m_Q := card (one-line over the lane). (b) The plane curve at corner level (unselected marks omitted, same-edge pieces joined) is not constructed: componentPlaneCycle keeps every mark; componentCornerCycle is a Cycle (Mark P), not a LabelledTuple k or Cycle Plane; this is exactly the 'block compression' where checkpoint 105 stopped (plan: work/decisions/carrier-block-compression-next-step-20260912.md, unproved). (c) 'arrives along ℓ_i leaves along ℓ_j' at a smoothing corner exists only as local data (smoothingSegment_positive_direction, smoothingSuccessor_incoming_visit_position in CarrierSegmentGeometry/CarrierUnselectedDirection). (d) 'N(S) crossing is a crossing of no subpolygon' is lem:carriers (iii) content, unproved. (e) A reviewer must accept that the definition row identifies 'carrier' with the successor-orbit Component (the source proof itself says 'Its cycles are precisely the oriented reconnections', sm-3:110); AUTHOR_NOTES.md cp 103 stresses the lane never identified Components with plane connected components. (f) Requires porting the CarrierActualCornerBlock closure (28 bodies, dependency list in work/checks/CarrierActualCornerBlock-body-dependencies.json) via work/port/make_lane_modules.py.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "conv:selected-visits",
+     "source_lines": "reference/SM/sm-3-statesum.tex:29-39 (NODES.tsv row 53; rem:selected-visits :41-52 explains it; consumed by def:flat-carriers)",
+     "statement_gist": "Incoming-visit convention: at a selected crossing with visits a, b, connect incoming arc at a to outgoing arc at b and vice versa; assign visit a to the cycle containing its incoming one-sided arc (likewise b); unselected visits keep ordinary ownership. Endpoint ownership only; geometry unchanged.",
+     "existing_lean": "No accepted declaration; the accepted library has no successor with vertices (nextGaussVisit is visits-only).",
+     "candidate_lane": "Implemented verbatim by the lane's ρ_S: SM.Carrier.smoothingSuccessor_visit_of_mem (CarrierSmoothing.body.lean: ρ_S(inr v) = markSuccessor (inr (visitTwin v)) when v.1 ∈ S), smoothingSuccessor_visit_of_not_mem, owner hn hP S (Sum.inr v) (the node keeps its identity, hence its incoming arc: owner_predecessor shows (smoothingSuccessor)⁻¹ a is in the same orbit), selectedMarkPerm_evaluation (both visits evaluate to the same crossingPoint, i.e. same point of the plane), smoothingSuccessor_incoming_visit_position (CarrierUnselectedDirection.body.lean:9). Report carrier-successor-candidates-20260912.md: 'Node identity is retained, expressing the incoming-visit convention.'",
+     "gap": "Only a definition-row module stating: ownership of a selected visit a is owner S (inr a); the incoming arc (predecessor mark) of a lies in that orbit; the outgoing arc of a is the old outgoing arc of its twin; unselected visits have smoothingSuccessor = markSuccessor; both visits have the same plane point. All are rfl/one-line over the ported lane. Depends on porting CarrierMarks, CarrierVisitTwin, CarrierSuccessor, CarrierSmoothing.",
+     "difficulty": "small"
+    },
+    {
+     "id": "lem:carriers",
+     "source_lines": "reference/SM/sm-3-statesum.tex:54-240 (statement 54-93, proof 95-240; NODES.tsv row 54; consumed by lem:C-X1, thm:floor, cb:products, cb:singleton, prop:C-chamber, thm:C-S3, thm:C-S7, thm:C-soft)",
+     "statement_gist": "For generic P, n ≥ 3, S independent, with the incoming-visit convention: (i) exactly |S|+1 carriers, order-independent, each traverses its assigned visits in inherited cyclic order, the two visits of a selected crossing lie on different carriers; (ii) every carrier has nonzero edges, ≥ 3 corners, no antiparallel consecutive directions, all corner turns nonzero, turn τ_i at original vertex i, signs sgn det(d_i,d_j) and sgn det(d_j,d_i) at the two smoothing corners of a selected crossing of E_i,E_j (one left, one right); (iii) a carrier's self-intersections are exactly the unselected crossings with both visits assigned to it, transverse, none a corner, no triple point; an unselected crossing interlacing some element of S has visits on different carriers, one interlacing none has both on one carrier; (iv) the assignment of all crossing visits (including selected ones) is noncrossing: no u1,u2,u3,u4 in cyclic order with u1,u3 on one carrier and u2,u4 on another.",
+     "existing_lean": "Accepted inputs: SM.Generic/G1/G2 (Generic.lean:11-19), generic_crossingPoint_injective (Crossings.lean:113; distinct crossings have distinct points), crossingPoint_interior/unique (:48/61), g1_vertex_not_mem_edge (Generic.lean:112), g1_edge_ne_zero (:81), g1_turn_area (:89), SM.Regular (RegularLocus.lean:12; regular_iff_edges :18 is exactly 'nonzero edges and no antiparallel consecutive directions'), g1_regular/generic_regular (:30/38), SM.turn, SM.crossingSign (Crossings.lean:80), SM.Interlaces and crossingVisitBetween (Interlacement.lean:11/16), alternating_visits_iff_unique (:48), traversalBetween_complement (TraversalArcs.lean:10), sorted_next_no_cyclic_between (SortedCyclicGap.lean:10), EuclideanPlane.euclideanLength_pos.",
+     "candidate_lane": "Clause (i) COVERED in the successor-orbit model: SM.Carrier.component_card_independent and independent_successor_components (work/checks/CarrierComponentCount.body.lean; card (Component S) = S.card + 1 ∧ InheritsMarkOrder S ∧ ∀ v, v.1 ∈ S → owner (inr v) ≠ owner (inr (visitTwin v))); InheritsMarkOrder (CarrierInheritedOrder.body.lean:9: componentCycle.next = smoothingSuccessor) and independent_inheritsMarkOrder, independent_remaining_pair_owners, independent_selected_pair_owners_ne (CarrierIndependentOrder.body.lean); componentMarkList_getElem_successor (CarrierClosedTrace.body.lean:39-45); order independence is built in (smoothingSuccessor defined from S; selectedMarkPerm_commute, smoothingSuccessor_union_of_disjoint in CarrierSmoothing). Supporting: CarrierSingleSwitch, CarrierSplitList (splitList_left/right_sameCycle_iff, splitList_not_sameCycle), CarrierSingleSupport (component_card_singleton), CarrierOrbitRefinement (componentForgetSwitch), CarrierAmbientTransport, CarrierInsertOrbits, CarrierComponentFibers, CarrierFiberCard, CarrierPendingPairs (PendingPairsTogether), CarrierInheritedInsert, CarrierSortedArcLists, CarrierMarkedArcLists, CarrierSameArc (not_interlaces_iff_twin_one_open_arc, independent_twin_one_open_arc). Clause (ii) PARTIAL: per-marked-step nonzero positive same-direction segments smoothingSegment_positive_direction, smoothingSegment_length_pos, smoothingSegment_mem_edgeSegment, smoothingSuccessor_ne_self (CarrierSegmentGeometry.body.lean:32/53/61/89); wraparound parameter interval markSuccessor_subsegment_data (CarrierMarkedSegments); corner existence component_has_trueCorner and nonempty corner filter componentCornerCycle (CarrierTrueCorners.body.lean); same-edge matching across an unselected visit smoothingSegment_unselected_join_data (CarrierUnselectedDirection.body.lean:55); first corner block component_first_trueCorner_block with EqOn (a :: R).formPerm (smoothingSuccessor) (CarrierActualCornerBlock.body.lean, checkpoint 105, 2026-09-12T07:10Z, last candidate). Clauses (iii) and (iv): no candidate theorem; only the arc/ownership infrastructure above. Reports: work/reports/carrier-*-20260912.md (8 files, cp 098-105); decisions: work/decisions/carrier-*-20260912.md (8 files), the last being carrier-block-compression-next-step-20260912.md.",
+     "gap": "(ii): the block compression itself (consecutive marks between two true corners lie on one original edge with increasing parameters; union of their segment images equals the compressed corner-to-corner segment; positive displacement) is unproved (plan in the block-compression note; uses List.IsChain / formPerm adjacency and smoothingSegment_unselected_join_data); then the compressed corner polygon as a LabelledTuple k (k = card componentCornerCycle) or equivalent, its edges nonzero as positive multiples of original directions, turn at vertex i = τ_i (positive multiples of d_{i-1}, d_i), smoothing-corner turns = sgn det(d_i,d_j) and its negative via crossingSign, nonzero by transversality, hence Regular and no antiparallel pair; ≥ 3 corners (one segment cannot close; two closing segments are antiparallel). (iii) combinatorial: 'interlaces no element of S ⇒ one carrier' is an immediate corollary of independent_remaining_pair_owners applied to the support insert x S (independent since x interlaces nothing in S) with T = S — not stated but essentially free; 'interlaces some s ∈ S ⇒ different carriers' is missing (route: process s last via smoothingSuccessor_union_of_disjoint, the split at s puts the two visits of x on different open arcs because x interlaces s, then splitList_not_sameCycle / CarrierInsertOrbits; needs the converse direction of not_interlaces_iff_twin_one_open_arc). (iii) geometric: self-intersections = owned unselected crossings, transversality, not a corner, no triple point — missing; inputs exist (generic_crossingPoint_injective, g1_vertex_not_mem_edge, crossingPoint_unique, disjoint interiors of subsegments of one edge). (iv): missing entirely; in the finite mark model state it as: no four distinct marks in markList cyclic order with owner u1 = owner u3 ≠ owner u2 = owner u4; the source's perturbation paragraph (sm-3:157-167) is unnecessary because selected visits already carry their incoming-arc ownership as marks; the splitting induction reuses CarrierSortedArcLists (sorted_rotate_split_mem_iff), CarrierMarkedArcLists (markList_filter_left/right_iff) and splitList_*_sameCycle_iff. Also: a definitional bridge from Component to the carrier polygon of def:smoothing must be part of the accepted def:smoothing row.",
+     "difficulty": "very large"
+    },
+    {
+     "id": "def:uniform",
+     "source_lines": "reference/SM/sm-3-statesum.tex:242-248 (NODES.tsv row 55; consumed by def:C :1688, def:C-weak, thm:C-S5)",
+     "statement_gist": "A subpolygon Q is uniform if all its turns have one sign, mixed otherwise; a decomposition S is uniform if all its subpolygons are; r_Q = rot(Q) (lem:rot, applicable by lem:carriers (ii)), m_Q = number of crossings of Q, ℓ_Q = number of left turns of Q.",
+     "existing_lean": "Accepted: SM.rotationNumber [NeZero n] (P : LabelledTuple n) : ℝ (RotationNumber.lean:10), SM.rotation_number (RotationTheorem.lean:14; requires Regular P; integer value clause rotationNumber_integer :45), SM.principalTurn and principalTurn_sign (RegularLocus.lean:15, UniformRotation.lean:12), SM.uniform_rotation (UniformRotation.lean:64; the accepted lem:uniformrot on a uniform Regular tuple), SM.turn P i and det (Polygon.lean:16), SM.crossingSign P i j (Crossings.lean:80). All are stated for a LabelledTuple k, so Q must be realized as one.",
+     "candidate_lane": "No candidate defines uniform/mixed, r_Q, m_Q or ℓ_Q (grep for IsUniform/uniformCarrier in work/checks: none). Corner supply: SM.Carrier.IsTrueCorner (vertex or selected visit) and componentCornerCycle (CarrierTrueCorners.body.lean); local turn data: crossingSign for smoothing corners, turn P i for vertex corners; smoothingSegment_positive_direction gives the incoming/outgoing directions as positive multiples of edge P i.",
+     "gap": "Needs (1) the compressed carrier polygon carrierTuple q : LabelledTuple k with Regular (lem:carriers (ii)) to define r_Q := rotationNumber (carrierTuple q) and apply lem:rot; alternatively the row can be parametrized by a regularity hypothesis exactly as the source says 'applicable by Lemma lem:carriers'; (2) the turn sign at each true corner (vertex i ↦ turn P i; selected visit on E_i turning onto E_j ↦ crossingSign P i j) — definable directly on componentCornerCycle without the tuple, so 'uniform' and ℓ_Q can be stated ahead of (ii); (3) m_Q from def:smoothing's crossings of Q. Definition work is modest; well-definedness of r_Q is blocked by lem:carriers (ii).",
+     "difficulty": "medium"
+    },
+    {
+     "id": "def:positive-lift",
+     "source_lines": "reference/SM/sm-3-statesum.tex:325-335 (NODES.tsv row 56; consumed by def:C, def:C-weak, lem:homflyrows sm-4:230, thm:C-soft sm-4:984; sign convention reused by def:gauss-record and lit:gauss)",
+     "statement_gist": "An oriented link diagram in the plane is a finite collection of closed oriented curves with finitely many transverse double points, no triple points, and an over-strand choice at each; a double point is positive iff det(u_o, u_u) > 0. The positive lift of a subpolygon Q is the knot diagram with curve Q, double points = crossings of Q, over strand chosen so every crossing is positive; its writhe is m_Q.",
+     "existing_lean": "No diagram type anywhere in work/lean (grep for LinkDiagram/positiveLift/writhe/overStrand/OverUnder: none). Reusable pieces: SM.det (Polygon.lean:16), SM.crossingSign P i j = sgn det(edge i, edge j) with crossingSign_swap (Crossings.lean:80/83), SM.Crossing/crossingPoint, g1_area_ne_zero (Generic.lean:55) for transversality, the five literature interfaces listed in blueprint/AXIOM_REGISTRY.md (lit:homfly is the consumer of the lift via H^+_Q).",
+     "candidate_lane": "None. The lane's carrierCrossings-to-be (def:smoothing gap (a)) and the smoothing directions (smoothingSegment_positive_direction) give, at each crossing of Q, the two parent edge directions d_i, d_j; over := the one with det(over, under) > 0, unique by crossingSign ≠ 0.",
+     "gap": "Design decision: the general 'oriented link diagram' class must be fixed once for def:positive-lift, def:gauss-record, rp:record-polynomial and lit:homfly. Recommendation: a combinatorial-geometric structure (finite family of closed polygons, finite crossing set with two directions each, over : crossing → strand, transversality and no-triple-point props), plus positiveLift (q : Component) built from Q's crossings with over chosen by sign; writhe_positiveLift = m_Q is then by definition (all signs +1). Since Q as a polygon needs lem:carriers (ii)/(iii) (no triple points, transverse), state the lift over the combinatorial carrier data and prove the diagram axioms later from lem:carriers.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "def:gauss-record",
+     "source_lines": "reference/SM/sm-3-statesum.tex:352-372 (NODES.tsv row 57, labels def:gauss-record eq:gauss-cross-sign; consumed by rp:record-polynomial row 67 at :1215, CV:ax:gausscode row 171, sm-4:10; the non-row theorem lit:gauss at :671 also consumes it)",
+     "statement_gist": "For an actual generic immersion γ : C → S² with over/under choices: finite crossing-occurrence set M with forward successor s, fixed-point-free pairing involution τ, over/under bit per occurrence, crossing sign σ(c) = sgn det(u_{c,O}, u_{c,U}). A named record isomorphism Φ : M → M' is a bijection preserving s, τ, bits and signs; it preserves cyclic order and forbids reversal. After finite subdivision an orientation-preserving PL circle map Φ̄ : C → C' extending Φ is chosen (positive affine between successive marks; any positive parametrization if M is empty).",
+     "existing_lean": "For the parent polygon only: SM.Visit as occurrence set, SM.gaussCycle (GaussWord.lean:84) and SM.nextGaussVisit (GaussCyclicGap.lean:19) as s, SM.gaussCycle_rotation (rotation-invariance), SM.visitPosition/visitParameter on the accepted circle SM.TraversalPoint with traversalKey (Traversal.lean:17), SM.crossingSign for σ. Nothing named record/Record in work/lean or work/checks.",
+     "candidate_lane": "SM.Carrier.visitTwin / visitTwinPerm (CarrierVisitTwin.body.lean:8/44) is τ; smoothingSuccessor restricted to the visits owned by a carrier is s for that carrier (componentMarkList_getElem_successor). No record structure or isomorphism notion exists.",
+     "gap": "Needs a structure CrossingRecord (M : Type, [Fintype M], s : Equiv.Perm M, τ : Equiv.Perm M with τ ∘ τ = id and no fixed points, over : M → Bool, sign : M → SignType) and RecordIso (bijection preserving all four); the record of a positive lift (all signs +, over determined by sign); the circle-map clause Φ̄ (piecewise positive affine on the intervals between successive marks of the parametrizing circle; small once a circle parametrization type is chosen, e.g. reuse the half-open TraversalPoint circle). The combinatorial core is what rp:record-polynomial consumes; the PL Φ̄ clause is only consumed by lit:gauss, which is not a blueprint row.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "lem:gauss-two-discs",
+     "source_lines": "reference/SM/sm-3-statesum.tex:426-542 (statement 426-435, proof 436-542; NODES.tsv row 58; in-closure consumer: cb:embedded-rotation row 110 at sm-3:4760-4767 only; non-row consumers lem:gauss-sphere-isotopy :544 and lit:gauss :671)",
+     "statement_gist": "A simple polygonal circle in the oriented sphere has exactly two complementary regions, both closures PL discs; finite prescribed positive PL boundary maps between such discs extend to positive PL disc maps; a continuous positive boundary map extends to a topological disc map; the exterior region is included. Proof: line-arrangement triangulation inside a rectangle, cap for the exterior, F2 chain Euler characteristic V−E+F=2, face two-colouring, collapsibility ⇒ χ = 1 ⇒ discs, explicit notch-fan PL homeomorphisms.",
+     "existing_lean": "Nothing. Pinned Mathlib (/root/lean-lake/packages/mathlib, commit 85e3a25e) has no Jordan curve or Schoenflies theorem and no PL/triangulation library (grep for Jordan/Schoenflies: no hits). Library geometry available: SM.ContinuousGeometry (Cramer, transversality persistence), SM.EuclideanPlane (euclideanLength, cornerRotor), SM.RotationNumber (principal turns, integer rotation).",
+     "candidate_lane": "None (grep of work/checks for disc/Jordan/triangul/PL: only unrelated NearFarTriangular/TriangularPolynomial).",
+     "gap": "Everything: finite triangulation of a rectangle by a line arrangement, F2 chain complexes and Euler characteristic, connectivity of dual graphs, two-colouring, collapsing and disc recognition, PL homeomorphism extension. This is a research-level topology formalization far beyond anything in the library. The only in-closure use (cb:embedded-rotation) needs just a finite straight triangulation of the bounded region with χ = 1 and its boundary angle sum; the PL/continuous extension clauses serve only the non-row lit:gauss. The literature-interface list (blueprint/AXIOM_REGISTRY.md: lit:homfly, lp:lm, lp:lm-uniqueness, ng:finite-word, src:contact) does not include it, so as printed it must be proved.",
+     "difficulty": "very large"
+    }
+   ],
+   "key_files": [
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-3-statesum.tex",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/NODES.tsv",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/STATUS.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/STATE_OF_WORK.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GaussVisits.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GaussWord.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GaussCyclicGap.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Interlacement.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/InterlaceSupports.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/InterlaceDefinition.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Traversal.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularLocus.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationTheorem.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Crossings.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierMarks.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSuccessor.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierVisitTwin.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSmoothing.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierComponentCount.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierIndependentOrder.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierInheritedOrder.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSameArc.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSegmentGeometry.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierUnselectedDirection.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierClosedTrace.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierTrueCorners.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierActualCornerBlock.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierActualCornerBlock-body-dependencies.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierActualCornerBlock-prototype-result.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reports/carrier-successor-candidates-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reports/carrier-component-count-candidates-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reports/carrier-positive-segments-candidates-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reports/carrier-true-corner-blocks-candidates-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/carrier-block-compression-next-step-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/carrier-true-corners-next-step-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/carrier-geometric-realization-next-step-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/AUTHOR_NOTES.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/make_lane_modules.py",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/AXIOM_REGISTRY.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/PROOF_PLAN.md"
+   ],
+   "recommendations": "Recommended order and reasons. (0) First port the Carrier lane byte-for-byte with `python3 work/port/make_lane_modules.py CarrierActualCornerBlock --write` (its closure is the 28 bodies listed in work/checks/CarrierActualCornerBlock-body-dependencies.json; CycleFiltering is already ported; the CarrierComponentCount closure adds CarrierOrbitRefinement, CarrierComponentFibers, CarrierFiberCard, CarrierComponentCount — run the tool for that stem too). Everything from step 2 on consumes these modules; nothing in them is accepted until a row cites it. (1) def:decomposition: a definition-row module over SM.independentSupports; small, independent of the lane, accept immediately. (2) conv:selected-visits and def:smoothing as two definition rows over the ported lane: adopt the finite successor model as the definition of carriers (Component = SameCycle quotient of smoothingSuccessor; ownership = owner; incoming-visit convention = the node keeps its identity), add carrierCrossings/m_Q (unselected crossings with both visits owned), and state the traced curve via componentMarkList/componentPlaneCycle; record in AUTHOR_NOTES.md that the compressed corner polygon is supplied by lem:carriers (ii) rather than by the definition. Reviewers must be told this is the source's own proof model (sm-3:97-115), not a substitute. (3) lem:carriers, split into supporting-lemma rows so partial acceptance is possible (the map already allows extra supporting rows like lem:weak-open): (i) is immediate from SM.Carrier.independent_successor_components; then (iii)-combinatorial (the 'interlaces none ⇒ same carrier' half is a corollary of independent_remaining_pair_owners with support insert x S, T = S; the 'interlaces some s ⇒ different carriers' half needs process-s-last via smoothingSuccessor_union_of_disjoint plus splitList_not_sameCycle); then (iv) stated on marks (no perturbation argument needed in the finite model; reuse CarrierSortedArcLists/CarrierMarkedArcLists and the splitting induction of CarrierIndependentOrder); then (ii) following work/decisions/carrier-block-compression-next-step-20260912.md (adjacency on the first-corner block, same-edge compression with image-union equality, then the corner tuple, turn signs via turn P i and crossingSign P i j, Regular, ≥ 3 corners); finally (iii)-geometric. Budget this as the dominant Chapter 3 effort; it unblocks lem:C-X1, thm:floor, cb:products, cb:singleton, prop:C-chamber, thm:C-S3, thm:C-S7, thm:C-soft. (4) def:uniform right after (ii): turn signs and ℓ_Q can be defined on componentCornerCycle before (ii); r_Q := SM.rotationNumber of the corner tuple once Regular is proved. (5) def:gauss-record and def:positive-lift together, fixing one combinatorial diagram/record design shared with rp:record-polynomial and the lit:homfly interface: CrossingRecord (Fintype M, successor Perm, fixed-point-free involutive pairing, over bit, SignType sign) + RecordIso; positiveLift over the carrier crossing data with over chosen by det > 0, writhe = m_Q by construction; put the PL circle-map clause Φ̄ on the TraversalPoint-style circle last, since only the non-row lit:gauss uses it. (6) lem:gauss-two-discs last, and only after checking whether its sole in-closure consumer cb:embedded-rotation can be routed through a restricted finite-triangulation statement; as printed it is a very large PL-topology formalization with zero library support (no Jordan/Schoenflies in the pinned Mathlib), it is not among the five permitted literature interfaces, and it should not be started before the carrier lemma is closed. Practical notes: do not repeat the previous executor's pattern of generating candidates without acceptance (STATE_OF_WORK.md section 3); each supporting lemma should be ported, stated as a row, reviewed and accepted in turn; the current pod executor already accepted seven rows on 2026-09-13 with the five-agent review workflow (work/STATUS.md), so the tooling for this loop exists."
+  },
+  {
+   "summary": "Scout of the local-polynomial block of SM Chapter 3 (sm-3-statesum.tex:788-1808, frame SM15). All 15 rows are `status: pending` with empty `declaration` in work/lean/lean-declarations.json; the three L-1 interfaces have reserved names (`SM.lit_homfly`, `SM.lp_lm`, `SM.lp_lm_uniqueness`) but no module. The block splits into three towers with almost no shared Lean yet: (A) carrier geometry (def:flat-carriers, cor:flat-carriers, def:C, lem:C-X1) which sits on def:smoothing/conv:selected-visits/lem:carriers/def:uniform/def:positive-lift (all pending; previous executor's Carrier* candidate lane, 33 kernel-checked bodies, exit_code 0, stopped at checkpoint 105 = first true-corner block, before compression to a corner polygon, regularity, 3-corner bound, retained crossings); (B) the Lickorish-Millett algebra (lp:coefficient-transport, lp:core, lp:split-circle, rp:record-polynomial, lc:presentations, lc:single-crossing, mp:join, mp:stack, mp:zero-link, mp:lowest, mp:blocks) which needs an \"oriented link diagram\" type with based orders, basepoints, UNDER-first, crossing switch, oriented smoothing, restriction, marked join, planar isotopy and the three Reidemeister moves, plus the two-variable Laurent rings Z[a^±1,z^±1], Z[l^±1,m^±1] and their Gaussian extensions; none of this exists in work/lean/SM (grep: 0 hits for Laurent/HOMFLY/skein/Diagram/writhe; \"Polynomial\" = MvPolynomial coordinate controls of Chapter 1; \"record\" = polygon Gauss records `GeometricRecordsAgree`; \"Polyform\" = cor:polyform amplitude continuation; \"SilentFar\" = MvPolynomial silent far arrays — all unrelated to link polynomials); (C) one pure plane-geometry lemma (mp:zero-link). The pinned Mathlib (85e3a25e) has single-variable `LaurentPolynomial R = R[T;T⁻¹]` (Mathlib/Algebra/Polynomial/Laurent.lean), `AddMonoidAlgebra`, `GaussianInt`, `RatFunc`, `SimpleGraph.IsIndepSet/ConnectedComponent`, but no knot theory (only Quandle). def:C precisely needs: `independentSupports hn hP` (accepted, SM.InterlaceSupports), carriers of S as regular closed polygons (pending: def:smoothing + lem:carriers (i)-(iii)), uniformity via `turn` (accepted), r_Q via `rotationNumber`/`rotationNumber_integer` (accepted), m_Q = retained unselected crossings (pending), the positive lift as an oriented knot diagram with all crossings positive (pending def:positive-lift; requires the diagram type), H from `lit:homfly` (axiom to declare), coefficient extraction [a^{d_Q} z^0] : R -> Z (needs the Laurent ring), `leftTurns` (accepted). Interface usage in the block: lp:lm-uniqueness only by lp:coefficient-transport; lp:lm by lp:core (and through it every mp/lc/rp lemma); lit:homfly by lp:core (identification P=H) and directly by def:C; ng:finite-word and src:contact are not used anywhere in this block.",
+   "units": [
+    {
+     "id": "def:flat-carriers",
+     "source_lines": "reference/SM/sm-3-statesum.tex:788-803",
+     "statement_gist": "Under lem:flat-sides hypotheses (n>=4, continuous family P(t) with a positive-flat centre at vertex j), identify the crossing visits of the two generic sides P(±t), the centre P(0) and the deletion P(0)\\j through the common cyclic Gauss word of flat-sides (ii),(iii); fix an independent set S in the common interlacement graph; in each of the four configurations mark the traversal circle at vertices and visits, exchange outgoing successors at the two visits of each selected crossing (def:smoothing + conv:selected-visits incoming-visit ownership), trace the closed polygonal cycles = carriers of S. Objects: marked traversal circle, successor permutation, independent sets, polygonal cycles; no polynomials. Interfaces: none.",
+     "existing_lean": "Accepted: SM.flat_sides / FlatSidesData (work/lean/SM/FlatSides.lean:17,47) gives constant crossing set, visit order, Gauss word, pairing, interlacement, positive over/under data and the fused-edge bijection to the deletion; SM.GeometricRecords.GeometricRecordsAgree (record agreement on the CrossingGeometry domain), SM.CrossingTransport.visitTransport, SM.FlatFusionData, SM.FusionSigns, SM.independentSupports / interlacementGraph (InterlaceSupports.lean:14,29). Nothing for carriers.",
+     "candidate_lane": "work/checks/CarrierMarks/CarrierSuccessor/CarrierVisitTwin/CarrierSmoothing.body.lean: `SM.Carrier.Mark P := ZMod n ⊕ Visit P`, `markPosition`, `markList`, `markSuccessor hn hP`, `selectedMarkPerm S`, `smoothingSuccessor hn hP S`, `Component`, `owner`; CarrierFilteredCycles `componentCycle`; CarrierComponentCount (|S|+1 orbits for independent S); CarrierClosedTrace `componentPlaneCycle`; CarrierTrueCorners `IsTrueCorner`, `componentCornerCycle`; CarrierActualCornerBlock (first corner block). All 33 receipts exit_code 0 (2026-09-12 01:22-07:10Z). Every body requires `hP : Generic P` (a few `G1 P`) — the flat centre P(0) is not Generic, so the construction must be re-parametrized on the CrossingGeometry-style domain used by SM.GeometricRecords.",
+     "gap": "def:smoothing and conv:selected-visits not accepted; carriers exist only as abstract mark cycles, not as corner polygons; the marked construction is Generic-only, whereas this definition applies it at the non-generic centre and to the deletion (size n-1 tuple) and needs the four-way identification of visits through flat_sides (ii),(iii) and the fused-edge crossing bijection. Purely a definition but a large one.",
+     "difficulty": "high (definition spanning four configurations; blocked on def:smoothing and a domain generalization of the Carrier lane)"
+    },
+    {
+     "id": "cor:flat-carriers",
+     "source_lines": "reference/SM/sm-3-statesum.tex:805-913 (statement 805-846, proof 848-913)",
+     "statement_gist": "For S independent in the common graph: (i) carriers correspond under named arcs; exactly one contains mu_j; its central copy differs from its deletion copy only by the positive-flat subdivision at mu_j, all other carriers unchanged by deletion; every carrier has nonzero segments, no antiparallel corner, all turns nonzero except the one central zero turn. (ii) corresponding carriers have the same retained self-crossing visits, pairing, signs and positive over/under bits, the same signed and absolute rotation; corner turn signs agree away from mu_j; the extra corner at mu_j is right on the right side, left on the left. (iii) selector W (1 if all turns right, (-1)^c if all c turns left, 0 if mixed): W_right - W_left = W_del for the carrier through mu_j; all other selectors agree. Objects: carrier polygons, turn signs, principal turns and integer rotation (limit argument flatpr:rotation-integer), retained crossings, selector table. Interfaces: none (explicitly no state-sum value).",
+     "existing_lean": "Accepted: SM.flat_sides (all crossing-data constancy and the deletion bijection), SM.rotation_number (lem:rot, RotationTheorem), SM.RotationNumber.rotationNumber_integer, SM.RotationContinuity, SM.UniformRotation, SM.Regular (RegularLocus.lean:12), turn/chi (Chirotope.lean:13). No carrier-level result.",
+     "candidate_lane": "Only the Generic-side Carrier* lane above (no geometry beyond positive smoothing segments and true-corner existence); no candidate for any clause of this corollary.",
+     "gap": "Needs def:flat-carriers plus lem:carriers-type geometry (nonzero segments, corner signs, retained self-crossings) in three configurations, the rotation-limit argument (principal turns continuous when directions nonzero and not antiparallel, integer within 1/2 of an integer equals it, uniform small interval over finitely many carriers) and the finite selector table. Consumer: thm:C-S3 only.",
+     "difficulty": "very high (largest geometric proof in the block; ~110 source lines; depends on two unbuilt towers)"
+    },
+    {
+     "id": "lp:coefficient-transport",
+     "source_lines": "reference/SM/sm-3-statesum.tex:981-1039",
+     "statement_gist": "R = Z[a^±1,z^±1]. Any two maps D -> Q_D in R on oriented link diagrams that are invariant under planar isotopy and the three Reidemeister moves, equal 1 on the crossing-free circle and satisfy aQ_+ - a^-1 Q_- = zQ_0 on every skein triple coincide (no support/coefficient restriction). Proof: adjoin i; T_G = Z[i][l^±,m^±], R_G = Z[i][a^±,z^±]; uniqueness over T_G by splitting G = U + iV and applying lp:lm-uniqueness to U and to F+V; ring isomorphisms phi (l->ia, m->-iz), psi (a->-il, z->im); transport the skein; injectivity R ⊂ R_G. Objects: two-variable Laurent rings over Z and Z[i], ring homs determined on unit generators, diagram type with moves/isotopy/skein triples. Interfaces: lp:lm-uniqueness (only consumer of it in the block), implicitly lp:lm (F).",
+     "existing_lean": "None. No Laurent ring, no diagram type, no Reidemeister moves in work/lean/SM. Mathlib pinned: LaurentPolynomial (1 variable, Mathlib/Algebra/Polynomial/Laurent.lean:84), AddMonoidAlgebra (Mathlib/Algebra/MonoidAlgebra/*), GaussianInt; two-variable ring would be AddMonoidAlgebra Z (Z × Z) with lift/mapRangeRingHom.",
+     "candidate_lane": "None (no polynomial-block candidate exists in work/checks).",
+     "gap": "Blocked on infrastructure: the diagram type with planar isotopy, Reidemeister moves and skein triples (needed verbatim for lp:lm-uniqueness's hypothesis and lit:homfly), the axiom declarations SM.lp_lm and SM.lp_lm_uniqueness, and the Laurent rings with the two substitution isomorphisms. The algebra itself is routine once those exist.",
+     "difficulty": "medium algebra / high infrastructure"
+    },
+    {
+     "id": "lp:core",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1041-1178",
+     "statement_gist": "P_D := phi(F_D) in R satisfies aP_+ - a^-1P_- = zP_0 with delta = (a-a^-1)z^-1; P = delta^(c-1) on every UNDER-first c-component based ordered diagram; P_D = H_D (lit:homfly); P is the unique function on this diagram domain with this skein and all these initializations; support P_D in z^(1-c) Z[a^±1, z^2] and P_D != 0; P(circle)=1, knots are polynomials in z^2; all local invariances of lp:lm retained. Proof: Gaussian ring, image of source skein; lexicographic induction on (N = crossing count, b = OVER-first encounters) with crossing switch D^sw (complexity (N,b-1), sign negated) and oriented smoothing D^0 (N-1 crossings, components c±1, never empty); solved recurrences lp:positive / lp:negative; subgroup M_c for integral descent; specialization R -> Q(a), z -> a - a^-1 sends every value to 1 hence P != 0; identification with H by lp:coefficient-transport. Objects: based ordered diagrams, basepoints, first-encounter bookkeeping, switch/smoothing operations closed on the diagram type, Gaussian Laurent ring, coefficient-support subgroup, rational function field. Interfaces: lp:lm, lit:homfly, lp:lm-uniqueness (via lp:coefficient-transport).",
+     "existing_lean": "None for diagrams or polynomials. Mathlib: AddMonoidAlgebra, GaussianInt, RatFunc Q (for the Q(a) specialization), Int.cast_injective for the Z -> Z[i] injection.",
+     "candidate_lane": "None.",
+     "gap": "Everything: diagram type closed under switch and smoothing with provable complexity decrease and component-count bookkeeping (source lines 1085-1103 give the cycle-notation argument (xAyB)->(xB),(yA)), the induction scheme, the Gaussian ring and injective descent, the specialization. Central theorem: consumed by 17 rows (mp:join, mp:lowest, cb:*, cf:*, fd:*, prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-soft, thm:floor, lem:homflyrows, CV:ax:homfly).",
+     "difficulty": "very high (the keystone of the block and its biggest infrastructure consumer)"
+    },
+    {
+     "id": "lp:split-circle",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1180-1213",
+     "statement_gist": "If D' is D plus one simple crossing-free component with no crossings with D (anywhere in the plane), then P_{D'} = delta P_D; hence every crossing-free c-component diagram has value delta^(c-1). Proof: order the added component last, same (N,b), induct with the same switch/smoothing; coefficients scalar in the commutative ring. Objects: 'add a crossing-free component' operation, (N,b) induction, delta. Interfaces: lp:lm via lp:core's recurrences (dependency column empty in NODES but the proof uses lp:core).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs lp:core's induction infrastructure and the disjoint-union-with-a-circle operation on the diagram type; then a short induction. Consumer: ng:circle only (front chain, outside this block).",
+     "difficulty": "medium (given lp:core's machinery)"
+    },
+    {
+     "id": "rp:record-polynomial",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1215-1304 (statement 1215-1229)",
+     "statement_gist": "Two actual nonempty finite generic oriented link diagrams with a bijection of components and crossing occurrences preserving oriented cyclic successor, crossing pairing, over/under bits and crossing signs (crossing-free components included) have F_D = F_{D'} in Z[l^±1,m^±1]; hence any common Laurent substitution and every coefficient agree. Explicitly does not assert realizability of abstract records or ambient isotopy. Proof: transfer component order and basepoints (allowed by lp:lm's independence clause), (N,b) induction; switching preserves record isomorphism; oriented smoothing recombines successors identically on both sides; solved recurrences rp:positive/negative-recursion. Objects: decorated record of def:gauss-record (occurrence set M, successor s, pairing tau, over/under bit, sign sigma(c) = sgn det(u_O,u_U)), record isomorphism, F, basepoints. Interfaces: lp:lm.",
+     "existing_lean": "Analogue for polygons only: SM.GeometricRecordsAgree (GeometricRecords.lean: Gauss list/word/interlacement agreement under visitTransport/crossingTransport), SM.gaussCycle/gaussWord (GaussWord.lean:84-89), SM.Visit (GaussVisits.lean:17), SM.crossingSign (Crossings.lean:80). No diagram-level record, no F.",
+     "candidate_lane": "None (the 10 'record' hits in work/checks are MarkedRefinement/PlaneTree/SoftDuplication, unrelated).",
+     "gap": "def:gauss-record (sm-3:352, pending) must be stated first as a structure on the diagram type; then the induction. Design crux: if F were axiomatized as a function of the record alone the lemma would be trivial, but that would strengthen lp:lm beyond LM (source disclaims realizability of arbitrary records at 1224-1226) — keep F on actual diagrams and prove this by the printed induction. Consumed by 12 rows including prop:C-chamber, thm:C-S7, thm:C-soft, CV:ax:gausscode.",
+     "difficulty": "high (long but purely combinatorial induction once the record structure and switch/smoothing operations exist)"
+    },
+    {
+     "id": "lc:presentations",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1306-1343",
+     "statement_gist": "Two actual finite nonempty decorated diagrams with a bijection of oriented parameter circles and crossing occurrences preserving cyclic successor, pairing, over/under and signs have equal local LM evaluations (P); this covers positive page-chart changes of a spherical diagram, clean crossing-free replacements and compatible height changes when endpoints are in the finite-page domain; all crossing-free circles included. Proof: rp:record-polynomial plus the substitution l = ia, m = -iz; the listed examples are checked to induce record bijections. Objects: record bijection, substitution phi. Interfaces: lp:lm via rp:record-polynomial.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Core clause is a one-line corollary of rp:record-polynomial + phi. The 'this includes ...' examples (page charts, clean replacements, height choices) are informal geometric situations with no Lean counterpart; a transcription decision (state the core clause, treat the examples as separate lemmas or remarks) must be recorded in work/AUTHOR_NOTES.md. Consumers: mp:join, mp:blocks, prop:C-silent, thm:C-S3.",
+     "difficulty": "low-medium (given rp:record-polynomial; the examples clause is the only wrinkle)"
+    },
+    {
+     "id": "lc:single-crossing",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1345-1362",
+     "statement_gist": "An actual oriented one-circle diagram with exactly one self crossing has P_D = 1 for either sign; a crossing-free one-circle diagram also has value 1. Proof: basepoint just before the under occurrence makes it UNDER-first with c = 1, value mu^0 = 1; substitution keeps 1. Objects: basepoint choice, UNDER-first predicate, c = 1. Interfaces: lp:lm (initialization and basepoint independence).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs only the diagram type, basepoints/UNDER-first and the SM.lp_lm axiom; the proof is immediate. Ideal smoke test for the shape of the axiom. Consumer: cb:singleton.",
+     "difficulty": "low (after infrastructure)"
+    },
+    {
+     "id": "mp:join",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1427-1492 (marked-join construction 1364-1425)",
+     "statement_gist": "For nonempty actual marked diagrams (A,I_A), (B,I_B) (I a closed crossing-free interval in a clean disc) and any actual clean marked join J(A,B) (cut inside each mark, join ends crosswise; record = concatenation of the marked component cycles, all other data kept; c = c(A)+c(B)-1): P_{J(A,B)} = P_A P_B, including smoothing-created multi-component factors and crossing-free marked components. Proof: induction on N(A)+N(B) then b(A)+b(B), marked components first and based at the marked gap; b=0 case is UNDER-first hence delta^(c(A)+c(B)-2); otherwise switch/smooth a bad crossing in one factor, J commutes with both operations (four self/mixed x marked/unmarked cases), apply solved skein. The preceding paragraphs (1372-1425) construct actual planar realizations of clean joins (sphere chart, simple polygonal path in the unbounded face, thin ribbon, affine shrink into the clean disc). Objects: marked diagrams, join operation, existence of realizations. Interfaces: lp:lm via lp:core; lc:presentations.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Definition of marks and marked join on the diagram type; commutation of join with switch and smoothing; the realization construction is heavy plane geometry but the theorem is stated 'for any actual clean marked join just specified', so existence can be a separate lemma (needed by mp:blocks' realization clause and by lem:homflyrows). Consumers: mp:blocks, lem:homflyrows.",
+     "difficulty": "high (induction medium; realization construction hard if diagrams are geometric)"
+    },
+    {
+     "id": "mp:stack",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1494-1536",
+     "statement_gist": "D nonempty with components partitioned into q>=1 tagged blocks, every inter-block crossing has the smaller-index block under; D_i = restriction to block i (its components and internal crossings). Then P_D = delta^(q-1) prod_i P_{D_i}; in particular P_{A ⊔ B} = delta P_A P_B for two diagrams presented without mixed crossings. Proof: order block by block, all between-block crossings encountered under; N,b count internal crossings only; b=0 gives ascending diagram with exponent sum c_i - 1; else switch/smooth a bad internal crossing, blocks preserved, restriction of smoothing = smoothing of restriction. Objects: block partition of components, restriction operation, induction. Interfaces: lp:lm via lp:core.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Restriction-to-a-block operation on the diagram type and its commutation with switch/smoothing inside a block; the UNDER-first argument for stacked orders. Consumers: mp:lowest, lem:homflyrows.",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "mp:zero-link",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1538-1580",
+     "statement_gist": "For two distinct components of an actual generic oriented plane diagram, the sum of sgn det(u_1,u_2) over their transverse intersections in a fixed component order is zero; hence the half-sum of decorated crossing signs is an integer, and zero if one component is always over. Proof: finite polygonal page model; fan-triangulate component 2 from an auxiliary generic point o; a closed transverse path enters and exits a triangle equally often with opposite determinant signs; radial edges cancel in pairs; boundary chain is component 2. Objects: two closed polygonal curves in R^2, signed transverse intersections, fan triangles, algebraic intersection number. Interfaces: none (pure plane geometry).",
+     "existing_lean": "Accepted single-polygon tools: SM.det, SM.crossingSign (Crossings.lean:80), edgeSegment/edgeInterior (Polygon/Segment), SM.crossing_test (lem:crossing-test), G1Consequences g1_remote_meeting, Crossings.crossingPoint/crossingParameter. Nothing for two curves or for intersection numbers.",
+     "candidate_lane": "None.",
+     "gap": "A genuine plane-geometry proof: 'entries equal exits' for a closed polygonal path against a triangle boundary (a signed-intersection/winding argument) plus the fan telescoping; two-component crossing enumeration. Consumer chain: mp:lowest -> lem:homflyrows -> thm:C-S7 (two-component row).",
+     "difficulty": "high"
+    },
+    {
+     "id": "mp:lowest",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1582-1622",
+     "statement_gist": "D with c>=1 tagged components, D_i the knot restrictions, l_ij = (1/2) sum of signs over all mixed crossings between i and j, Lambda = sum_{i<j} l_ij. Then [z^(1-c)]P_D = a^(-2 Lambda) (a - a^-1)^(c-1) prod_i [z^0]P_{D_i}. Proof: h(D) = [z^(1-c)]P_D; a mixed smoothing has support >= z^(2-c) (lp:core) so contributes nothing to that row, giving h(D_-) = a^2 h(D_+) and invariance of a^(2 Lambda) h under mixed switches; switch to the stacked order, Lambda = 0 by mp:zero-link, apply mp:stack; knot support even and nonnegative in z. Objects: coefficient extraction [z^k] : R -> Z[a^±1], support bounds, half-integer Lambda (integer by mp:zero-link), mixed-crossing switching. Interfaces: lp:lm via lp:core.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Coefficient-row extraction on the two-variable Laurent ring, the support lemma of lp:core, the switch invariant, mp:stack and mp:zero-link. Consumer: lem:homflyrows (sm-4:230) -> thm:C-S7.",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "mp:blocks",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1624-1685",
+     "statement_gist": "A one-circle decorated record with nonempty crossing set, partitioned into connected components H of its interlacement graph; given for each H an actual retained diagram C_H with exactly that restricted named cyclic record, a finite succession of clean marked joins realizes the full record, and every actual diagram with that record has P = prod_H P_{C_H}; joins preserve every crossing sign and writhe adds (empty case: product 1, sum 0). Proof: chord-diagram 'one-gap' lemma (a connected block outside A lies in one cyclic gap of A), nested forest of blocks by recursion on gaps, iterated marked joins using the realization construction, mp:join repeatedly, lc:presentations to identify with any diagram having the full record. Objects: interlacement graph of a one-circle record, connected components, cyclic gaps, forest recursion, marked joins, writhe. Interfaces: lp:lm via mp:join/lp:core.",
+     "existing_lean": "SM.interlacementGraph (SimpleGraph (Crossing P), InterlaceSupports.lean:14) and SM.Interlaces (Interlacement.lean:16) exist for polygons only; Mathlib SimpleGraph.ConnectedComponent. Nothing for records/joins.",
+     "candidate_lane": "None.",
+     "gap": "The combinatorial gap lemma (medium), the finite nested-forest recursion, the constructive realization by joins (hard geometry if diagrams are geometric), mp:join, lc:presentations. Consumer: cb:products -> thm:C-S7.",
+     "difficulty": "very high"
+    },
+    {
+     "id": "def:C",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1688-1699 (companion def:C-weak 1701-1720 not in this task)",
+     "statement_gist": "For a subpolygon Q of a decomposition S of the generic polygon P: H^+_Q = HOMFLY-PT polynomial of the positive lift of Q; d_Q = 1 - m_Q - |r_Q|; c(Q) = [a^{d_Q} z^0] H^+_Q(a,z) in Z (0 if absent). C(P) = (-1)^{l(P)} sum over uniform S in Ind(G_P) of (-1)^{|S|} prod_{Q subpolygon of S} c(Q). Precisely needs: Ind(G_P) (def:decomposition = independent sets of the interlacement graph); subpolygons/carriers of S (def:smoothing + conv:selected-visits; lem:carriers (i)-(iii) for well-definedness: each carrier is a closed polygon with >=3 corners, nonzero non-antiparallel segments, i.e. in the regular locus); m_Q = number of unselected crossings with both visits on Q (def:smoothing); uniform = all turns of Q one sign (def:uniform); r_Q = rot(Q) via lem:rot (def:uniform); positive lift = oriented knot diagram on Q with double points the crossings of Q and over strand chosen so det(u_o,u_u) > 0 (def:positive-lift, sm-3:325); H (lit:homfly, sm-3:916); coefficient extraction on Z[a^±1,z^±1]; l(P) = left turns. Interfaces: lit:homfly directly (H^+_Q is 'the HOMFLY-PT polynomial'; the identification with the local P is lp:core, used by consumers prop:C-chamber / lem:C-weak-local, not by the definition).",
+     "existing_lean": "Accepted and directly usable: SM.independentSupports hn hP : Finset (Finset (Crossing P)) and mem_independentSupports_iff (InterlaceSupports.lean:29-40) = Ind(G_P); SM.leftTurns (Chirotope.lean:16) = l(P); SM.turn : SignType (Chirotope.lean:13) for uniformity of a carrier tuple; SM.Regular (RegularLocus.lean:12) and SM.rotationNumber with rotationNumber_integer (RotationNumber.lean:10,45) for r_Q; SM.Crossing/Visit/visitPosition/crossingSign (Crossings.lean, GaussVisits.lean:17,48); SM.gaussCycle (GaussWord.lean:84). Missing: carriers as polygons, m_Q, positive lift, the diagram type, SM.lit_homfly, the Laurent ring and coefficient map. Rows def:decomposition (sm-3:9), def:smoothing (14), conv:selected-visits (29), lem:carriers (54), def:uniform (242), def:positive-lift (325), def:gauss-record (352) are all pending.",
+     "candidate_lane": "SM.Carrier.* in work/checks (33 bodies, checkpoints 098-105): mark list, marked successor, selected swaps, smoothing successor, components/owners, |S|+1 component count for independent S (CarrierComponentCount), inherited cyclic order (CarrierInheritedOrder/IndependentOrder), positive affine smoothing segments (CarrierAffineSegments/MarkedSegments), closed plane traces (CarrierClosedTrace.componentPlaneCycle), true corners and first corner block (CarrierTrueCorners.IsTrueCorner, componentCornerCycle; CarrierActualCornerBlock). Stopped before: compression of unselected marks to a corner polygon (LabelledTuple k), corner directions/turn signs, regularity and the 3-corner bound, retained self-crossings (m_Q), all-visit noncrossing (lem:carriers (iv)). Plans: work/decisions/carrier-geometric-realization-next-step-20260912.md and carrier-block-compression-next-step-20260912.md.",
+     "gap": "Confluence of two unbuilt towers: (1) carrier geometry to the point where each carrier of S is a `LabelledTuple k` with `Regular`, its retained crossings counted, and its positive lift is an oriented knot diagram; (2) the diagram type + SM.lit_homfly axiom + Laurent ring + [a^d z^0] extraction. Cheap parts: Ind(G_P), l(P), turns, rotation, the sign prefactor and finite sum/product. Consumers: lem:C-X1, prop:C-chamber, thm:C-S3, thm:C-S5, thm:C-soft, cor:C-inherits, thm:comparison, Bridge:B4 (final target SM.corner_laws_and_soft is about this C).",
+     "difficulty": "high (as a definition; all of its inputs but four accepted ones are missing)"
+    },
+    {
+     "id": "lem:C-X1",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1787-1808 (remark 1810-1819)",
+     "statement_gist": "Selector form: for a carrier L of an independent support S with k(L) corners, wt(L) = 1 if all turns right, (-1)^{k(L)} if all left, 0 if mixed; wind(S) = prod_L wt(L). Then C(P) = sum_{S in Ind(G_P)} wind(S) prod_L c(L), c(L) the coefficient of the actual positive carrier lift from def:C. Proof: every original vertex lies on exactly one carrier and keeps its turn; every selected crossing contributes one left and one right smoothing corner (lem:carriers (ii)); total left carrier corners = l(P) + |S|; for uniform S the all-left carriers' selector product is (-1)^{l(P)+|S|}; a mixed carrier kills the term. Objects: def:C, carriers, corner turn signs and counts. Interfaces: none beyond def:C (lit:homfly through c(L)).",
+     "existing_lean": "SM.turn, SM.leftTurns; nothing for carriers.",
+     "candidate_lane": "SM.Carrier.IsTrueCorner / componentCornerCycle (CarrierTrueCorners.body.lean:9,49) identify corners as original vertices plus selected visits; CarrierComponentCount gives the partition into |S|+1 components; no turn-sign results for carriers yet.",
+     "gap": "Needs def:C and lem:carriers (i),(ii) as accepted rows (turn sign tau_i at original vertices, opposite signs at the two smoothing corners of a selected crossing, corners partitioned over carriers); then finite sign bookkeeping: sum over carriers of left-corner counts = leftTurns P + |S|. Consumer: thm:C-S7.",
+     "difficulty": "medium (given def:C and lem:carriers (i)-(ii))"
+    }
+   ],
+   "key_files": [
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-3-statesum.tex (9-38 def:decomposition/def:smoothing/conv:selected-visits; 54-240 lem:carriers; 242-250 def:uniform; 325-334 def:positive-lift; 352-372 def:gauss-record; 788-913 flat carriers; 916-979 L-1 interfaces; 981-1178 lp:*; 1180-1362 split-circle/record/presentations/single-crossing; 1364-1425 marked-join construction; 1427-1685 mp:*; 1688-1699 def:C; 1787-1808 lem:C-X1)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-4-knotlaws.tex (36-100 prop:C-chamber proof shows how def:C is consumed; 230-266 lem:homflyrows consumes mp:join/stack/lowest)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/NODES.tsv (rows 51-76 = Chapter 3 block)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/DEPENDENCIES.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/AXIOM_REGISTRY.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md (3009-3300 Chapter 3 definitions and lem:carriers; 4413-4460 def:C and lem:C-X1)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json (all 15 rows pending; reserved names SM.lit_homfly, SM.lp_lm, SM.lp_lm_uniqueness, SM.ng_finite_word, SM.src_contact)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/InterlaceSupports.lean (interlacementGraph, independentSupports = Ind(G_P))",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Interlacement.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Crossings.lean (Crossing, crossingPoint, crossingParameter, crossingSign)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GaussVisits.lean (Visit, visitParameter, visitPosition)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GaussWord.lean (gaussList, gaussCycle, gaussWord)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Traversal.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean (turn, leftTurns)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularLocus.lean (Regular, principalTurn)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationNumber.lean (rotationNumber, rotationNumber_integer)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FlatSides.lean (flat_sides, FlatSidesData — hypotheses of def:flat-carriers)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GeometricRecords.lean (GeometricRecordsAgree — polygon-level record agreement, template for def:gauss-record)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CrossingTransport.lean (visitTransport)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierMarks.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSuccessor.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierSmoothing.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierComponentCount.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierClosedTrace.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierTrueCorners.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierActualCornerBlock.body.lean (last checkpoint 105 of the lane)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/carrier-geometric-realization-next-step-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/carrier-block-compression-next-step-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reports/carrier-true-corner-blocks-candidates-20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/AUTHOR_NOTES.md (lines ~1198-1400: checkpoints 098-105 of the carrier lane)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/STATUS.md (resume point 2026-09-13 14:55Z: 25/132 verified; Chapter 3 next after prop:A-reversal)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/SOURCES/INDEX.md (section D: model links as diagrams modulo Reidemeister moves + planar isotopy; section B: L-1 deltas)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/LITERATURE.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/OPEN_WORK.md (CV:ax:homfly / CV:ax:gausscode are theorems to derive from lp:core / rp:record-polynomial)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/Laurent.lean (LaurentPolynomial R = R[T;T⁻¹], single variable)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/.lake/packages/mathlib/Mathlib/Algebra/MonoidAlgebra/ (AddMonoidAlgebra for the two-variable Laurent ring)"
+   ],
+   "recommendations": "1. Do not start any of the 11 polynomial rows before fixing, in one AUTHOR_NOTES.md decision, the Lean type of 'oriented link diagram' on which SM.lit_homfly, SM.lp_lm and SM.lp_lm_uniqueness are stated verbatim (CLAUDE.md rule 8, AXIOM_REGISTRY.md). The type must support: finite collection of oriented closed curves with transverse double points and an over/under choice; component count c >= 1 (nonempty); based orders + basepoints and the UNDER-first predicate; crossing switch D^sw and oriented smoothing D^0 (skein triples); restriction to a block of components; marked intervals and clean joins; planar (positive page) isotopy and the three Reidemeister moves (used only by lp:lm-uniqueness's hypothesis, lit:homfly's invariance/descent clause, lp:coefficient-transport, and downstream lem:homflyrows' knot-class notation and CV:ax:homfly). Per SOURCES/INDEX.md section D, define 'depends only on the oriented link' as invariance under the equivalence generated by the moves and planar isotopy, so Reidemeister's theorem is out of scope and no sixth axiom is needed. A polygonal model (finite families of LabelledTuple-like closed polygons with det-based crossing signs) matches the accepted library and lem:gauss-pl-model (sm-3:398) and makes positive lifts of carriers literal instances; whatever is chosen, keep F/H as functions of the actual diagram, not of the abstract record (the source disclaims realizability at 1224-1226 and rp:record-polynomial must remain a theorem).\n2. Build the ring layer once: R = AddMonoidAlgebra Z (Z × Z) (a = single (1,0) 1, z = single (0,1) 1), T likewise in l,m; Gaussian versions over GaussianInt; the substitutions phi/psi via AddMonoidAlgebra.lift on unit images; coefficient extraction [a^d z^k] = Finsupp evaluation at (d,k); the support subgroup M_c as an exponent predicate; the Q(a) specialization via RatFunc Q. No Laurent or knot machinery exists in work/lean/SM (verified by grep) or in the pinned Mathlib beyond single-variable LaurentPolynomial.\n3. Suggested order inside the polynomial tower (document order is in tools/claims.py; dependencies allow): declare the three L-1 axioms -> lc:single-crossing (smoke test of the axiom's shape, trivial proof) -> def:gauss-record (sm-3:352) -> rp:record-polynomial -> lc:presentations -> lp:coefficient-transport -> lp:core -> lp:split-circle -> mp:stack -> mp:zero-link -> mp:lowest -> mp:join (state for a given clean join; realization as a separate lemma) -> mp:blocks. Consumers to keep in view: lp:core feeds 17 rows; rp:record-polynomial 12; the mp:* chain is needed only through lem:homflyrows (sm-4:230) and cb:products for thm:C-S7.\n4. For the carrier tower, resume the Carrier* lane exactly where checkpoint 105 stopped (work/decisions/carrier-block-compression-next-step-20260912.md is an unproved plan): compress unselected marks into corner blocks, produce each carrier as a LabelledTuple k, prove nonzero non-antiparallel segments, turn signs (tau_i at vertices, opposite signs at the two smoothing corners), Regular and k >= 3, retained self-crossings = unselected crossings owned by the carrier; then accept def:decomposition (alias of independentSupports), def:smoothing, conv:selected-visits, lem:carriers (i)-(iii) (clause (iv) can be a separate unit), def:uniform, def:positive-lift. Port lane bodies with work/port/make_lane_modules.py rather than rewriting (33 receipts, all exit_code 0). Note every lane body assumes `Generic P`; def:flat-carriers needs the same construction at the non-generic flat centre, so parametrize the marked-successor construction by the crossing-geometry hypothesis used in SM.GeometricRecords before porting.\n5. def:C can be stated as soon as (a) carriers-as-regular-polygons with m_Q and (b) SM.lit_homfly + the coefficient map exist; independentSupports, leftTurns, turn, rotationNumber/rotationNumber_integer and Regular are already accepted. Consider defining an intermediate `cornerCoefficient (H : Diagram -> R) Q` so the definition's body is reviewable independently of the axiom, then instantiating with SM.lit_homfly for the row. lem:C-X1 then needs only lem:carriers (i),(ii) and finite sign bookkeeping (sum over carriers of left corners = leftTurns P + |S|).\n6. def:flat-carriers and cor:flat-carriers are the hardest geometric items and are consumed only by thm:C-S3; schedule them after def:C and prop:C-chamber, reusing SM.flat_sides/FlatSidesData, SM.FlatFusionData, SM.FusionSigns and SM.RotationContinuity for the rotation-limit step (flatpr:rotation-integer).\n7. Record in AUTHOR_NOTES.md the transcription decisions this block forces: lc:presentations' informal example clause; mp:join's separation of 'value identity' from 'existence of an actual clean join'; mp:zero-link's reliance on a polygonal page model; the Reidemeister-move modelling per SOURCES/INDEX.md section D. Nothing in this block uses ng:finite-word or src:contact."
+  },
+  {
+   "summary": "TASK 3 scout of the remaining Chapter 3 units of reference/SM/sm-3-statesum.tex (frame SM15), lines 1825-4819: the individual-front polynomial bound (ng:*), the contact-topology chain (fd:*, ce:*, cp:finite-contact-path, def:transverse-front, src:contact), the geometric carrier floor (cf:*, thm:floor) and the corner-block lemmas (cb:*, lem:corner-values). Four groups: (1) FRONT BOUNDS, 11 rows 1825-2348: fronts F in the (x,z) plane with cusps, counts D,w,s, rounding S(F), defect B(F)=D-w-deg_a P_{S(F)}-1; six local move certificates (RI/RII/RIII, zigzag/crossed-cusp deletion, standard circle), the cusp-skein degree inequality, and a strong induction on s over the finite Ng-Rutherford chain supplied by the literature axiom ng:finite-word, giving w-D <= -deg_a P_{S(F)}-1. (2) CONTACT TOPOLOGY, 12 rows 2395-3499: smooth contact geometry in (R^3, dz-y dx): transverse neighbourhood with Legendrian pushoff (Moser/ODE), compact parameter avoidance (Sard-type), contact Hamiltonian flows, a generic-front theorem with exact cusp germs, the Gauss linking integral and its crossing-count formula (self-linking sl), ordinary cusp rounding families, polynomial transport along an ambient family, and the assembly fd:contact: sl(T) = writhe of a generic positive transverse front and sl(T) <= -maxdeg_a P_T - 1 for any transverse knot with a supplied regular diagram. (3) CARRIER FLOOR, 6 rows 3514-4603: direction loops and rot of C^1 curves, tangent lifts, the fixed-profile C^infinity rounding of a polygon, the negative-curl replacement (388-line proof), and the geometric floor theorem: reversal invariance (R), rounding record (A), tangent-direction count = |rot| (B), and mindeg_a P_D >= 1-w-R for all-positive diagrams on uniform/one-dissent polygons (C), obtained by mirroring, curling at R downward tangencies, constructing an explicit positive transverse lift and applying fd:contact plus a mirror identity from lp:coefficient-transport; thm:floor specialises (C) to carriers: mindeg_a H^+_Q >= d_Q = 1-m_Q-|r_Q| and H^+_Q in Z[a^{+-1}, z^2]. (4) CORNER BLOCKS, 5 rows 4623-4818: undominated set U(S) = V \\ (S u N(S)), blocks = connected components of G_P[U(S)], one owner per block, actual block diagrams and the product P_A = prod_H P_H, m_A = sum |H| (via mp:blocks, rp:record-polynomial), the isolated-crossing zero c(A)=0 (via thm:floor on both daughters, degree gap d_A+2), the Euler-count exterior-angle lemma rot = +-1 for embedded polygons (via lem:gauss-two-discs), and lem:corner-values: c(Q)=1 for uniform embedded Q, c(Q)=0 for an isolated self-crossing. EXISTING LEAN: none of these 34 rows has any Lean. work/lean/SM now holds 485 modules (the STATE_OF_WORK figure 328 is stale; map: 47 accepted + 2 implemented, claims 25/132 per work/PROGRESS.md 2026-09-13T14:58Z) and work/checks 481 bodies; grepping both for Legendrian, self-linking, HOMFLY, skein, Laurent, mindeg, undominated, Euler/triangulation, direction loop/tangent lift, Whitney, carrier floor, corner coefficient returns zero hits. The only relevant accepted inputs are lem:rot (SM.rotation_number, SM/RotationTheorem.lean:14) and lem:uniformrot (SM.uniform_rotation, SM/UniformRotation.lean:64), the principalAngle/rotationNumber infrastructure (24 files), and SM.supportUnselected in SM/InterlaceSupports.lean:60, which is literally U(S) of cb:undominated (Finset.univ \\ (S u supportNeighbors)). The Carrier*CornerBlock candidates in work/checks concern the marked traversal of lem:carriers, not cb:blocks. REQUIRED-NESS (blueprint/DEPENDENCIES.json closures): every one of these units lies in the closure of thm:C-S7, cor:C-inherits and SM:corner_laws_and_soft; all except cb:blocks (graph gap), cb:embedded-rotation and lem:corner-values lie in the closure of thm:C-soft; and the front/contact/floor chain is additionally consumed by the R route (R:cv_theorem via CV:thm:carrierfloor -> CV:ax:slbound -> fd:contact, CV:ax:etnyre -> src:contact, CV:singleton_D_i -> cb:singleton). None of them is required for prop:C-chamber, prop:C-silent, thm:C-S3 or thm:C-S5. The printed proof of thm:C-S7 (sm-4-knotlaws.tex:267-905) cites thm:floor 4 times (lines 683, 770, 834, 869), cb:singleton 3 times (787, 822, 868), cb:products twice and cb:blocks once; thm:C-soft (984-1129) cites lem:corner-values(ii) at 1080 and (i) at 1093; thm:comparison (sm-6-comparison.tex:307) uses lem:corner-values(i) for the triangle normalisation. Hence the whole chain, including the contact topology, is on the critical path of 3 of the 7 targets and of the final theorem.",
+   "units": [
+    {
+     "id": "ng:front-domain",
+     "source_lines": "reference/SM/sm-3-statesum.tex:1825-1841 (definition; NODES.tsv row 77)",
+     "statement_gist": "Finite oriented fronts: smooth maps of a nonempty finite union of circles to the oriented (x,z) plane with finitely many transverse double points and ordinary semicubical cusps (x''(0) != 0), no vertical tangencies on regular arcs, cusps meeting nothing else; over = smaller dz/dx; counts D(F) downward cusps, w(F) over-first determinant crossing signs, s(F) = crossings + cusps; the rounding S(F) replaces each cusp by a regular arc in a clean disc, giving an ordinary diagram.",
+     "existing_lean": "None. No front, cusp-in-plane or ordinary-diagram type in work/lean/SM (485 modules) or work/checks.",
+     "candidate_lane": "None.",
+     "gap": "Needs a model of smooth fronts (or, pragmatically, Rutherford elementary front words with an interpretation) plus the ordinary-diagram/named-record vocabulary of def:gauss-record (sm-3:352) and rp:record-polynomial (sm-3:1215), neither of which exists yet. Consumers: ng:smoothing-record, ng:finite-word, ng:local-front-bound, fd:ng-bound, fd:contact. Required for thm:C-S7, thm:C-soft, cor:C-inherits, final theorem; also by the R route (via CV:ax:slbound).",
+     "difficulty": "high (definitional modelling; determines the shape of all ng:* rows)"
+    },
+    {
+     "id": "ng:smoothing-record",
+     "source_lines": "sm-3-statesum.tex:1843-1863 (lemma, 11-line proof; NODES row 78)",
+     "statement_gist": "Any two roundings S(F) have the same full named record (components incl. crossing-free ones, crossing occurrences, cyclic orders, over/under bits, signs), hence P_{S(F)} is rounding-independent.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Depends on rp:record-polynomial (pending) and on the record notion; the proof is a record-isomorphism argument. Required for the same targets as ng:front-domain.",
+     "difficulty": "medium once records exist"
+    },
+    {
+     "id": "ng:commutation",
+     "source_lines": "sm-3-statesum.tex:1921-1948 (lemma, 20-line proof; row 80)",
+     "statement_gist": "Disjoint-gadget commutations and deformations through fronts without singular events preserve D, w, d (hence B); every supplied finite front is represented by a finite elementary front word (Rutherford letters l_m, r_m, sigma_m).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "The representability clause is a geometric-to-combinatorial bridge whose printed proof is a sketch (sliding rectangles). If fronts are modelled as words, it becomes the definition of the word interpretation; if modelled geometrically it is a genuine Morse-theoretic statement. Cited only by ng:local-front-bound.",
+     "difficulty": "high (geometric version); low-medium if fronts are words by definition"
+    },
+    {
+     "id": "ng:front-I",
+     "source_lines": "sm-3-statesum.tex:1950-1970 (row 81)",
+     "statement_gist": "Front type-I moves (words l_m sigma_{m-1} r_m, l_m sigma_{m+1} r_m) preserve B: Delta w = 1, Delta D = 1, Delta d = 0 by ordinary Reidemeister-I invariance of P.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs P on ordinary diagrams with RI invariance (lp:core / lp:lm, both pending) and the local sign computation. Cited only by ng:local-front-bound.",
+     "difficulty": "medium given the polynomial API"
+    },
+    {
+     "id": "ng:front-II",
+     "source_lines": "sm-3-statesum.tex:1972-1988 (row 82)",
+     "statement_gist": "Front type-II moves (l_{m-1} sigma_m sigma_{m-1} / l_{m+1} sigma_m sigma_{m+1} replacing l_m) preserve D, w, d: the two crossings have opposite signs and bound an oriented RII bigon.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Same as ng:front-I with RII invariance.",
+     "difficulty": "medium given the polynomial API"
+    },
+    {
+     "id": "ng:front-III",
+     "source_lines": "sm-3-statesum.tex:1990-2006 (row 83)",
+     "statement_gist": "Front type-III moves preserve D, w, d (RIII on the rounding).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Same as ng:front-I with RIII invariance.",
+     "difficulty": "medium given the polynomial API"
+    },
+    {
+     "id": "ng:deletions",
+     "source_lines": "sm-3-statesum.tex:2008-2044 (row 84)",
+     "statement_gist": "Empty zigzag deletion lowers s by 2 with Delta w = Delta d = 0, Delta D in {0,-2}; the crossed-cusp shortcut (l_i sigma_i or sigma_i r_i to uncrossed cusp) lowers s by 1 with Delta d = 0, Delta w = 1, Delta B in {-2,0}; neither increases B.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Page-isotopy and RI invariance of P plus local counts. Cited only by ng:local-front-bound.",
+     "difficulty": "medium given the polynomial API"
+    },
+    {
+     "id": "ng:circle",
+     "source_lines": "sm-3-statesum.tex:2046-2071 (row 85)",
+     "statement_gist": "Deleting a separated standard front circle (no mixed crossings) with nonempty remainder preserves B (P_before = delta P_after shifts d by +1 and D by +1); a single standard circle or union of them has B = 0.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs lp:split-circle (pending, sm-3) and leading-coefficient arithmetic in the integral domain Z[z^{+-1}] (delta = (a-a^{-1})/z). Cited only by ng:local-front-bound.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "ng:cusp-skein",
+     "source_lines": "sm-3-statesum.tex:2076-2165 (lemma, 81-line proof; row 86)",
+     "statement_gist": "For either principal direction of an oriented cusp-skein interchange (A = l_2 sigma_1 vs A' = l_1 sigma_2), B(A) >= min(B(A'), B(C)) and B(A') >= min(B(A), B(C)) where C is the unique compatible smoothing; C has one fewer singularity, A and A' the same s. Proof: the two are the +/- branches of one skein site; d_+ <= max(d_- - 2, d_0 - 1) and d_- <= max(d_+ + 2, d_0 + 1); a 4-row sign/orientation table shows all three have the same D.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs the skein relation of lp:core on actual diagrams and a max-degree-in-a API for Z[a^{+-1}, z^{+-1}] (Mathlib LaurentPolynomial.degree at Mathlib/Algebra/Polynomial/Laurent.lean:405 is single-variable only; a bivariate Finsupp (Z x Z) model with custom deg_a/mindeg_a is likely needed, also for def:adeg, thm:floor, cb:singleton).",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "ng:finite-word",
+     "source_lines": "sm-3-statesum.tex:2170-2206 (literature AXIOM; row 87; AXIOM_REGISTRY.md entry 4)",
+     "statement_gist": "For every actual finite front word there is a finite principal chain of typed moves (commutations + front I/II/III; cusp-skein interchange; zigzag/crossed-cusp deletion or standard-circle deletion) that stops at the first strict decrease of s or at a standard-circle base, does not increase s before that, and at each cusp-skein interchange the compatible smoothing has smaller s. Sources: Ng 2007 pp. 6-8 + Fig. 1; Rutherford arXiv:math/0511097 Lemma 3.2 (on file in SOURCES/files).",
+     "existing_lean": "None (map row lists placeholder declaration name SM.ng_finite_word, module empty, status pending).",
+     "candidate_lane": "None.",
+     "gap": "Stating it faithfully requires an inductive type of front words and typed moves and a 'principal chain' predicate; the axiom is then a single Prop. Only consumer: ng:local-front-bound. Its scope (finite descent only, no Legendrian-isotopy quantification) must be preserved exactly per LITERATURE.md / AXIOM_REGISTRY.md.",
+     "difficulty": "high for the statement design; trivial as an axiom"
+    },
+    {
+     "id": "ng:local-front-bound",
+     "source_lines": "sm-3-statesum.tex:2305-2348 (theorem, 34-line proof; row 88; label ng:front-inequality)",
+     "statement_gist": "For every front F on the domain of ng:front-domain, w(F) - D(F) <= -deg_a P_{S(F)} - 1 (equivalently B(F) >= 0). Strong induction on s(F): base s = 2 standard circle (ng:circle), chain from ng:finite-word traversed backwards using ng:commutation, front-I/II/III, deletions, circle, and the cusp-skein inequality (ng:skein-defect).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Pure assembly once the ten inputs exist; the induction over the chain type is straightforward. Consumer: fd:ng-bound -> fd:contact -> cf:thm-carrierfloor -> thm:floor -> thm:C-S7 / cb:singleton -> thm:C-soft; also CV:ax:slbound (R route).",
+     "difficulty": "medium given inputs"
+    },
+    {
+     "id": "fd:transverse-neighborhood",
+     "source_lines": "sm-3-statesum.tex:2395-2559 (lemma, 148-line proof; row 89; labels fd:transverse-model, fd:pushoff-annulus, fd:helix-ambient-isotopy)",
+     "statement_gist": "For alpha = dz - y dx and a smooth embedded positive transverse circle T there are delta > 0 and an embedding H : S^1 x D_delta -> R^3 fixing T with H^* alpha = h (d theta + u dv - v du), h > 0; an oriented Legendrian L in this neighbourhood whose positive transverse pushoff is transversely isotopic to T; and an explicit compactly supported ambient isotopy carrying parametrised L to T preserving orientations.",
+     "existing_lean": "None. Mathlib has no contact geometry, no Moser argument, and only partial ODE flow theory.",
+     "candidate_lane": "None.",
+     "gap": "Relative Moser method (Geiges Thm 2.32/2.27), ODE existence/uniqueness/smooth dependence, inverse function theorem, explicit helix. Required (via fd:contact) for thm:C-S7, thm:C-soft, cor:C-inherits, R route, final theorem.",
+     "difficulty": "very high (research-level smooth differential topology in Lean)"
+    },
+    {
+     "id": "fd:parameter-avoidance",
+     "source_lines": "sm-3-statesum.tex:2561-2584 (lemma, 13-line proof; row 90)",
+     "statement_gist": "K compact in a d-manifold, B a closed parameter ball in R^m, F smooth near K x B into R^q with derivative of rank q > d at every zero: the parameters a with F(t,a) = 0 for some t in K form a closed set with empty interior; simultaneously for finitely many maps.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "A Sard-type / measure-zero-of-lower-dimensional-image argument; Mathlib has the Jacobian change-of-variables machinery (MeasureTheory/Function/Jacobian.lean) but not this transversality statement directly. Consumer: fd:generic-front only.",
+     "difficulty": "high"
+    },
+    {
+     "id": "fd:contact-motions",
+     "source_lines": "sm-3-statesum.tex:2586-2611 (lemma, 13-line proof; row 91)",
+     "statement_gist": "For smooth compactly supported H : R^3 -> R the field X_H = -H_y d_x + (H_x + y H_z) d_y + (H - y H_y) d_z has a global flow of coorientation-preserving contactomorphisms, (phi^s)^* alpha = c^H_s alpha with c > 0; finite compositions of small-time flows are smooth in the times and C^k-close to the identity on compacts.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Global flow of a compactly supported smooth vector field with smooth dependence (not in Mathlib as such), Lie-derivative computation of the contact condition. Consumer: fd:generic-front.",
+     "difficulty": "high"
+    },
+    {
+     "id": "fd:generic-front",
+     "source_lines": "sm-3-statesum.tex:2613-2783 (theorem, 152-line proof; row 92; label fd:generic-exact-germ)",
+     "statement_gist": "Every smooth oriented Legendrian embedding admits an ambient contact isotopy to L_g whose xz front has finitely many semicubical cusps and transverse double points, no triple points, no cusp on another branch, and at each cusp the exact germ x = x0 + A u^2, y = y0 + u, z = z0 + A y0 u^2 + (2/3) A u^3 (A != 0); the isotopy carries a chosen thin positive-pushoff annulus, preserving its transverse isotopy class and the knot type.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Genericity via fd:parameter-avoidance applied to Hamiltonian perturbations (fd:contact-motions), compactness, explicit cusp normalisation. Consumer: fd:contact.",
+     "difficulty": "very high"
+    },
+    {
+     "id": "fd:linking-calculus",
+     "source_lines": "sm-3-statesum.tex:2785-3010 (lemma, 183-line proof; row 93; labels fd:gauss-linking, fd:framed-linking; convention Remark rem:sl-convention 3012-3024)",
+     "statement_gist": "The normalised Gauss integral l(C1,C2) = (1/4 pi) int G . (G_u x G_v) is symmetric, constant on smooth families of disjoint pairs, and equals half the sum of overpass-first signs at the mixed crossings of a projection along a direction generic for the pair; a framed family (C_s, C_s + eps v_s) has pairing independent of eps and s; for a family of positive transverse embeddings T_s, sl(T_s) := l(T_s, T_s + eps d_y) is independent of eps and s.",
+     "existing_lean": "None. Mathlib has no linking number or degree theory for maps to S^2.",
+     "candidate_lane": "None.",
+     "gap": "Surface integrals, divergence theorem on S^2, regular-value counting, uniform normal charts. Consumers: cp:finite-contact-path, fd:contact. This is the single hardest analytic row of the chain.",
+     "difficulty": "very high"
+    },
+    {
+     "id": "ce:rounding / ce:smoothing-record (dependencies, not in the assigned list)",
+     "source_lines": "sm-3-statesum.tex:3029-3169 (lemma, 110-line proof; row 94) and 3171-3195 (corollary; row 95)",
+     "statement_gist": "A spatial embedding whose xz projection has only exact-germ cusps and transverse double points with distinct y heights admits a jointly smooth family L_lambda fixed outside cusp intervals whose projections for lambda > 0 are ordinary regular generic diagrams (clean cusp smoothing, no new crossings, all data retained); any permitted smoothed-front diagram has the same named record as p(L_1), hence the same F_D and P_D.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Explicit cubic families and clearance estimates; record comparison via rp:record-polynomial. Consumer: cp:finite-contact-path (both), hence fd:contact.",
+     "difficulty": "high"
+    },
+    {
+     "id": "cp:finite-contact-path",
+     "source_lines": "sm-3-statesum.tex:3210-3326 (lemma, 92-line proof; row 96; labels cp:exact-cusp, cp:endpoint-polynomial)",
+     "statement_gist": "Given a smooth embedding L of finitely many circles with exact-germ cusps and transverse double points of distinct y, and a jointly smooth family G_t of embeddings from L to T whose specified xz projection D_T is an ordinary regular generic diagram, every clean cusp smoothing S(F) (smaller y over) has P_{S(F)} = P_{D_T}. No contact condition on G_t.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Uses ce:rounding, ce:smoothing-record, the uniform normal-injectivity radius argument from fd:linking-calculus, lp:core, rp:record-polynomial and lit:homfly (Reidemeister/ambient invariance is where the global HOMFLY premise enters). Consumer: fd:contact.",
+     "difficulty": "very high"
+    },
+    {
+     "id": "def:transverse-front",
+     "source_lines": "sm-3-statesum.tex:3328-3339 (definition; row 97)",
+     "statement_gist": "Generic positive transverse front: the oriented xz diagram of a smooth embedded knot T with z' - y x' > 0 whose projection is an immersion with finitely many transverse double points and no triple point, over = smaller y; it has no cusp and every vertical tangent points upward (a consequence).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Needs smooth embedded curves in R^3 and the diagram notion. Consumers: src:contact, fd:contact.",
+     "difficulty": "medium (given a diagram type)"
+    },
+    {
+     "id": "src:contact",
+     "source_lines": "sm-3-statesum.tex:3341-3365 (literature AXIOM; row 98; label fd:contact-inputs; AXIOM_REGISTRY.md entry 5)",
+     "statement_gist": "Etnyre/Geiges local formulas for an oriented Legendrian front with downward/upward cusp counts D,U: r = (D-U)/2, tb = w - (D+U)/2, sl(T_+(L)) = tb(L) - r(L); and for a generic positive transverse front sl = front writhe. Sources on file: Etnyre arXiv:math/0306256v2, Geiges survey arXiv:math/0307242v2; Geiges book pages as text in SOURCES/audit/L-3_EXIT.",
+     "existing_lean": "None (map row has placeholder declaration SM.src_contact, module empty).",
+     "candidate_lane": "None.",
+     "gap": "To state it one needs Legendrian knots, fronts with cusp counts, rotation number r, tb, the positive transverse pushoff T_+(L), and sl as the number of fd:framed-linking (rem:sl-convention). The statement cannot be written before the fd:* vocabulary exists. Consumers: fd:contact, CV:ax:etnyre (R route).",
+     "difficulty": "high for the statement; trivial as an axiom"
+    },
+    {
+     "id": "fd:ng-bound",
+     "source_lines": "sm-3-statesum.tex:3379-3399 (lemma, 8-line proof; row 99; label fd:ng-input)",
+     "statement_gist": "Restatement of ng:local-front-bound: sl_Ng(F) := w(F) - c_down(F) <= -maxdeg_a P_{S(F)} - 1, using lp:core for P != 0 and ng:smoothing-record for rounding independence.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Trivial once ng:local-front-bound, lp:core, ng:smoothing-record exist. Consumer: fd:contact.",
+     "difficulty": "low"
+    },
+    {
+     "id": "fd:contact",
+     "source_lines": "sm-3-statesum.tex:3404-3499 (theorem, 75-line proof; row 100; labels fd:front-writhe, fd:representative-bound)",
+     "statement_gist": "(a) In the xz page smaller-y is over with sign sgn det_xz(u_O,u_U); for a generic positive transverse front sl(T) = sum of these crossing signs. (b) For an individual smooth positive transverse knot T with a specified ordinary regular generic diagram D_T, sl(T) <= -maxdeg_a P_T - 1. Proof: determinant identification of signs; tb - r = w - D; helix L from fd:transverse-neighborhood, contact isotopy Phi from fd:generic-front giving F_T on the ng domain, sl transported by fd:linking-calculus, bounded by fd:ng-bound, and P_{S(F_T)} = P_{D_T} via cp:finite-contact-path along Theta_t = Psi_t Phi_{1-t} Phi_1^{-1}.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Assembly of all fd:*, cp:*, ng:* rows plus src:contact and lit:homfly. Consumers: cf:thm-carrierfloor (C) and CV:ax:slbound (a CV literature interface that OPEN_WORK.md says must be derived, not assumed). Required for thm:C-S7, thm:C-soft, cor:C-inherits, R, final theorem.",
+     "difficulty": "medium as assembly; very high overall because of its inputs"
+    },
+    {
+     "id": "cf:def-turning",
+     "source_lines": "sm-3-statesum.tex:3514-3540 (definition; row 101)",
+     "statement_gist": "Direction loop T : R/Z -> S^1; tangent-angle lift theta on [0,1]; tw(T) = (theta(1) - theta(0))/2 pi; for a closed C^1 regular curve gamma, rot(gamma) = tw(gamma'/|gamma'|); for polygons rot stays that of lem:rot; R(L) = |rot(L)|.",
+     "existing_lean": "lem:rot accepted: SM.rotation_number (work/lean/SM/RotationTheorem.lean:14) with rotationNumber P = (1/2 pi) sum principalTurn, integrality, path constancy on the regular locus, flat subdivision, reversal negation. No smooth-curve rotation or S^1 lifting in the library (0 hits for IsCoveringMap/liftPath in work/lean/SM).",
+     "candidate_lane": "None.",
+     "gap": "Pinned Mathlib has Mathlib/Topology/Homotopy/Lifting.lean (covering-map path/homotopy lifting) usable for the lift; the definition must be stated so that the polygon case is definitionally SM.rotationNumber. Consumers: cf:lem-turnlift, cf:lem-rounding, cf:lem-curl, cf:thm-carrierfloor.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "cf:lem-turnlift",
+     "source_lines": "sm-3-statesum.tex:3542-3642 (lemma, 63-line proof; row 102)",
+     "statement_gist": "(i) every direction loop lifts; tw is independent of lift/seam/reparametrisation and constant under homotopy, so rot of C^1 regular curves is regular-homotopy invariant and negated by reversal. (ii) 2 pi rot(L) = sum of principal turns for L in R_c; constant along paths in R_c, unchanged by positive flat subdivision, negated by reversal; regular triangles have rot = +-1 by the common turn sign. (iii) replacing corners by arcs with lift increment theta_i keeps rot; more generally rot(F_c) - rot(F_b) = (Delta_c - Delta_b)/2 pi for arcs with equal endpoint rays, invariant under a GL^+(2) path.",
+     "existing_lean": "(ii) is essentially the accepted SM.rotation_number (RotationTheorem.lean:14-26: turn sum, path constancy, insertVertex subdivision, reversal, n = 3 case). (i) and (iii) have nothing.",
+     "candidate_lane": "None.",
+     "gap": "(i) from Mathlib covering lifting (Topology/Homotopy/Lifting.lean) and uniform continuity; (iii) needs the C^1 replacement calculus. Consumers: cf:lem-rounding, cf:lem-curl, cf:thm-carrierfloor (R),(B).",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "cf:lem-rounding",
+     "source_lines": "sm-3-statesum.tex:3644-3868 (lemma, 173-line proof; row 103; label cf:eq-triangle)",
+     "statement_gist": "For a polygon L with nonzero principal turns, finitely many transverse double points none at a corner, no corner on a non-incident edge, and a diagram D on L, there is a clearance eps_0(L) such that for every eps in (0, eps_0) a C^infinity regular closed curve L_eps and diagram D_eps exist with: (a) equal to L outside eps-discs at corners; (b) inside each disc the unit tangent moves strictly monotonically through exactly |theta_i| with nonzero angular derivative on the open junction and flat-to-infinite-order ends (fixed profile phi); (c) same double points, over/under, signs, writhe; (d) rot(L_eps) = rot(L); (e) an explicit disjoint disc package.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Explicit smooth junction construction with a fixed C^infinity bump profile, clearance estimates, no new intersections. Consumers: cf:lem-curl, cf:thm-carrierfloor (A),(B),(C).",
+     "difficulty": "high"
+    },
+    {
+     "id": "cf:lem-curl",
+     "source_lines": "sm-3-statesum.tex:3870-4280 (lemma, 388-line proof; row 104; label cf:eq-orderedray)",
+     "statement_gist": "For a connected C^infinity immersed circle F with diagram, and p an isolated point with tangent u on an embedded double-point-free arc where the tangent turns strictly positively, F can be modified inside a disc Delta meeting the diagram only in that arc so that F' (i) is again such a diagram with P_{F'} = P_F and the same double points/signs outside Delta, (ii) has no tangent u and exactly one tangent -u in Delta, (iii) has exactly one new double point, negative, (iv) rot(F') = rot(F) - 1 and w(F') = w(F) - 1.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Rational curl model on [-2,2], ordered-ray lemma, affine fit with quantitative estimates, C^infinity collars via the rounding profile, no extra double points, RI invariance of P (lp:core) and rp:record-polynomial. Consumer: cf:thm-carrierfloor (C).",
+     "difficulty": "very high (longest proof in the chapter)"
+    },
+    {
+     "id": "cf:thm-carrierfloor",
+     "source_lines": "sm-3-statesum.tex:4282-4560 (theorem, 220-line proof; row 105; label cf:eq-floor; Remark rem:rounding-record 4562-4573)",
+     "statement_gist": "(R) P_{-D} = P_D for the reversed diagram; -D has the same crossing signs and writhe and negated rotation. (A) Round(L,D,eps) = (L_eps, D_eps) is one determined pair. (B) for polygons with all turns positive or exactly one negative (after reversal), with R = |rot L|, there are u and eps_1 such that every rounded curve has exactly R tangents equal to u and R equal to -u, all crossing positively. (C) for an all-positive-crossing diagram D on such a polygon with turns of magnitude < pi and the rounding hypotheses, mindeg_a P_D >= 1 - w - R, and likewise for f_D = [z^0] P_D when nonzero. Proof of (C): mirror to all-negative D-bar, curl at the R downward tangencies (cf:lem-curl) to get T with writhe -w-R and no downward vertical tangency, construct an explicit positive transverse lift K_T, apply fd:contact (sl(K_T) = -w-R <= -maxdeg_a P_T - 1), then the mirror identity via lp:coefficient-transport.",
+     "existing_lean": "lem:uniformrot accepted: SM.uniform_rotation (UniformRotation.lean:64) gives the uniform and one-dissent rotation bounds used in (B). Nothing else.",
+     "candidate_lane": "None.",
+     "gap": "Needs lp:coefficient-transport (sm-3:981, pending) for (R) and the mirror paragraph, lp:core, rp:record-polynomial, all cf:* lemmas, fd:contact, the explicit transverse lift construction (60+ lines of analysis at 4456-4525). Consumer: thm:floor (and mirrors CV:thm:carrierfloor, consumed by R:extreme_selected, R:extreme_transport, R:generic_selected, CV:singleton_D_i).",
+     "difficulty": "very high"
+    },
+    {
+     "id": "thm:floor",
+     "source_lines": "sm-3-statesum.tex:4576-4603 (theorem, 17-line proof; row 106; Corollary cor:corner 4606-4618)",
+     "statement_gist": "For a subpolygon Q of a decomposition of a generic polygon that is uniform or one-dissent after possible reversal: mindeg_a H^+_Q >= 1 - m_Q - |r_Q| = d_Q and H^+_Q in Z[a^{+-1}, z^2] (so mindeg_z >= 0). Proof: lem:carriers supplies the hypotheses of cf:thm-carrierfloor (C) (non-incidence from G1/G2), the positive lift has m_Q positive crossings, R = |r_Q|, lp:core identifies P with H^+_Q and gives the z-support.",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Short reduction, but its edge list in DEPENDENCIES.json omits def:C / def:positive-lift / def:uniform whose symbols (H^+_Q, m_Q, r_Q, d_Q) it uses; those are pending. Consumers: thm:C-S7 (sm-4:683, 770, 834, 869) and cb:singleton. Required for thm:C-S7, thm:C-soft, cor:C-inherits, final theorem.",
+     "difficulty": "low-medium given inputs"
+    },
+    {
+     "id": "cb:blocks",
+     "source_lines": "sm-3-statesum.tex:4623-4636 (definition; row 107; label cb:undominated)",
+     "statement_gist": "U(S) = V(G_P) \\ (S u N_{G_P}(S)); blocks = connected components of the induced graph G_P[U(S)]; an undominated crossing has both visits on one carrier (lem:carriers) which is its owner; D_A the actual positive diagram of carrier A, P_A = P_{D_A} = H_A^+ (lp:core).",
+     "existing_lean": "SM.supportUnselected (work/lean/SM/InterlaceSupports.lean:60-63) is exactly U(S): Finset.univ \\ (S u supportNeighbors hn hP S), with SM.interlacementGraph, SM.independentSupports (line 27), SM.supportNeighbors (line 49) accepted alongside def:interlace. Blocks can be Mathlib SimpleGraph.ConnectedComponent of (interlacementGraph).induce (supportUnselected ...). Owner and D_A need lem:carriers and def:positive-lift (pending).",
+     "candidate_lane": "None for blocks/owners. The Carrier*CornerBlock bodies (work/checks/CarrierActualCornerBlock.body.lean, CarrierFirstCornerBlock.body.lean) concern true-corner blocks of the marked traversal for lem:carriers, not undominated blocks; their 'owner' is SM.Carrier.owner of a mark.",
+     "gap": "Graph part is nearly free; the owner clause and D_A/P_A depend on lem:carriers (iii) and the polynomial. DEPENDENCIES.json lists cb:blocks only under thm:C-S7, but cb:products (and so cb:singleton, lem:corner-values, thm:C-soft) uses its notions: an implicit edge to add locally.",
+     "difficulty": "low-medium (graph); medium overall"
+    },
+    {
+     "id": "cb:products",
+     "source_lines": "sm-3-statesum.tex:4638-4695 (lemma, 44-line proof; row 108; labels cb:product, cb:greedy-step)",
+     "statement_gist": "Every block H has one owner and an actual positive carrier diagram D_H with exactly its restricted named cyclic record; P_H is independent of the further smoothings; for every carrier A, P_A = prod_{H owned by A} P_H and m_A = sum |H|; no owned blocks gives value 1 and m_A = 0. Proof: interlacing self-crossings share an owner (lem:carriers (iii),(iv)); greedy enlargement S -> S_H with U(S_H) = H via U(T u {c}) = U(T) \\ ({c} u N(c)); lem:carriers realises D_H; rp:record-polynomial for independence; mp:blocks for the product.",
+     "existing_lean": "None beyond the support-set API above.",
+     "candidate_lane": "None.",
+     "gap": "Combinatorial greedy step is easy with supportUnselected; the realisation and product need lem:carriers, rp:record-polynomial, mp:blocks (sm-3:1624), lp:core, all pending. Consumers: cb:singleton, thm:C-S7 (sm-4:292, 833).",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "cb:singleton",
+     "source_lines": "sm-3-statesum.tex:4697-4758 (lemma, 55-line proof; row 109; labels cb:singleton-products, cb:singleton-rotations, cb:singleton-gap)",
+     "statement_gist": "If A is a uniform carrier of S and a self-crossing label c of A interlaces no other self-crossing of A, then c(A) = 0. Proof: {c} is a singleton block; S' = S u {c} independent; smoothing splits A into daughters Lambda_1, Lambda_2 with P_A = P_1 P_2 (lc:single-crossing gives the singleton block value 1), m_A = m_1 + m_2 + 1, |r_A| = |r_1| + |r_2| (lem:uniformrot; one daughter uniform, the other one-dissent); thm:floor on both daughters gives mindeg_a f_A >= d_A + 2, so the coefficient at d_A vanishes.",
+     "existing_lean": "lem:uniformrot accepted (SM.uniform_rotation). Nothing else.",
+     "candidate_lane": "None.",
+     "gap": "Needs cb:products, lc:single-crossing (sm-3:1345), lem:carriers, thm:floor, def:C for c(A), and a Laurent-degree-of-product lemma in an integral domain. Consumers: lem:corner-values (ii), thm:C-S7 (sm-4:787, 822, 868), CV:singleton_D_i (R route). Required for thm:C-S7, thm:C-soft, cor:C-inherits, R, final theorem.",
+     "difficulty": "medium-high"
+    },
+    {
+     "id": "cb:embedded-rotation",
+     "source_lines": "sm-3-statesum.tex:4760-4799 (lemma, 33-line proof; row 110; labels cb:euler-disc, cb:edge-incidences)",
+     "statement_gist": "Every embedded regular polygon has rotation +1 or -1 according to its traversal around the bounded region. Proof: lem:gauss-two-discs gives a finite straight triangulation of the bounded disc; Euler count I + B - E + F = 1 and 3F = 2E - B give F = 2I + B - 2; angle sum pi F - 2 pi I = pi (B - 2); principal turns pi - alpha_j sum to 2 pi; lem:rot gives rot = 1; reversal gives -1. Explicitly avoids Whitney's formula.",
+     "existing_lean": "lem:rot accepted (SM.rotation_number). No Jordan/PL-disc/triangulation results in the library (0 hits for Jordan, triangulation, simple polygon).",
+     "candidate_lane": "None.",
+     "gap": "Dominated by lem:gauss-two-discs (sm-3:428, pending, a constructive polygonal Jordan/Schoenflies theorem) and a combinatorial Euler characteristic for triangulated discs, neither in Mathlib. Consumer: lem:corner-values (i) only; hence thm:C-soft (sm-4:1093) and thm:comparison (f) (sm-6:307), cor:C-inherits, final theorem. Not needed by thm:C-S7.",
+     "difficulty": "high (because of lem:gauss-two-discs)"
+    },
+    {
+     "id": "lem:corner-values",
+     "source_lines": "sm-3-statesum.tex:4801-4818 (lemma, 8-line proof; row 111)",
+     "statement_gist": "(i) uniform embedded Q (m_Q = 0) has |r_Q| = 1, d_Q = 0, c(Q) = 1 (crossing-free positive diagram has P = 1 by lp:core). (ii) uniform Q with a crossing y interlacing no other crossing of Q has c(Q) = 0 (cb:singleton).",
+     "existing_lean": "None.",
+     "candidate_lane": "None.",
+     "gap": "Immediate from cb:embedded-rotation, cb:singleton, lp:core and def:C. Consumers: thm:C-soft ((ii) at sm-4:1080, (i) at 1093) and thm:comparison ((i), sm-6:307), hence cor:C-inherits and the final theorem. Not needed by thm:C-S7, prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-S5.",
+     "difficulty": "low given inputs"
+    }
+   ],
+   "key_files": [
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-3-statesum.tex (lines 1822-2362 front bound; 2363-3499 contact chain; 3501-4618 carrier floor; 4621-4819 corner blocks)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-4-knotlaws.tex (thm:C-S7 proof 267-905 citing thm:floor at 683/770/834/869 and cb:singleton at 787/822/868; thm:C-soft proof 984-1129 citing lem:corner-values at 1080/1093)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-6-comparison.tex (thm:comparison clause (f) uses lem:corner-values(i) at line 307)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/NODES.tsv (rows 77-111)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/DEPENDENCIES.json (edges; closures computed for the 8 roots and for R:cv_theorem, CV:ax:slbound, CV:thm:carrierfloor, CV:singleton_D_i)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/ORDER.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/AXIOM_REGISTRY.md (ng:finite-word, src:contact, lit:homfly, lp:lm, lp:lm-uniqueness)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/TARGETS.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/PROOF_PLAN.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/SCOPE.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/LITERATURE.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/OPEN_WORK.md (CV literature entries incl. CV:ax:slbound must be derived, not assumed)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/STATE_OF_WORK.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/STATUS.md and work/PROGRESS.md (2026-09-13 14:55-14:58Z: 25/132 claims, 47 accepted + 2 implemented)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationTheorem.lean (SM.rotation_number, line 14)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/UniformRotation.lean (SM.uniform_rotation, line 64)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/InterlaceSupports.lean (independentSupports line 27, supportNeighbors line 49, supportUnselected line 60 = U(S) of cb:undominated)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/CarrierActualCornerBlock.body.lean and CarrierFirstCornerBlock.body.lean (marked-traversal blocks for lem:carriers; not cb:blocks)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/decisions/corner-soft-after-amplitude-inventory-20260912.md (previous inventory confirming no carrier/record/HOMFLY/corner-coefficient Lean exists)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/SOURCES/files/ (ng_2007_arXiv_0709.2141v1.pdf, rutherford_2005_arXiv_math0511097v1.pdf, etnyre_2004_legendrian_transversal_arXiv_math0306256v2.pdf, geiges_2003_contact_geometry_arXiv_math0307242v2.pdf, deturck_gluck_2008_arXiv_0802.0320v1.pdf)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/.lake/packages/mathlib/Mathlib/Topology/Homotopy/Lifting.lean (covering-map lifting for cf:def-turning) and Mathlib/Algebra/Polynomial/Laurent.lean:405 (single-variable LaurentPolynomial.degree only)"
+   ],
+   "recommendations": "1. Do not start any of these 34 rows before the Chapter 3 foundations they all consume exist and are accepted: def:decomposition (sm-3:9), lem:carriers (54), def:uniform (242), def:positive-lift (325), def:gauss-record (352), lp:coefficient-transport (981), lp:core (1041), rp:record-polynomial (1215), lc:single-crossing (1345), mp:blocks (1624), def:C (1688). Every unit here is downstream of at least lp:core/rp:record-polynomial (polynomial side) or lem:carriers (geometric side). This confirms STATUS.md's step 3 ordering. 2. Prioritise by target value. The four cheap-to-medium targets prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-S5 need none of these units; finish them first (they only need the carrier/record/polynomial block plus lem:C-X1, lem:flat-sides, lem:cusp-sides etc.). thm:C-S7, thm:C-soft, cor:C-inherits and the final theorem cannot be reached without thm:floor, and thm:floor cannot be reached (as printed) without the full front-bound + contact-topology chain via cf:thm-carrierfloor (C) -> fd:contact. 3. Design decision to take early and record in work/AUTHOR_NOTES.md: the model of R = Z[a^{+-1}, z^{+-1}] with deg_a / mindeg_a / [z^0] (def:adeg, sm-3:1887). Mathlib's LaurentPolynomial degree API is single-variable and thin; a Finsupp (Z x Z) -> Z or AddMonoidAlgebra Z (Z x Z) with custom degree functions serves ng:cusp-skein, ng:circle, thm:floor, cb:singleton, cf:thm-carrierfloor (C) and lem:homflyrows uniformly. 4. Design decision for fronts: model Rutherford elementary front words (letters l_m, r_m, sigma_m with strand counts) as the primary type for ng:front-I..III, ng:deletions, ng:circle, ng:cusp-skein, ng:finite-word and ng:local-front-bound; keep a geometric front type only where fd:contact needs it (F_T from fd:generic-front), and make ng:commutation's representability clause the one bridge lemma. Statement fidelity to ng:front-domain must then be reviewed explicitly. 5. The contact-topology sub-chain (fd:transverse-neighborhood, fd:parameter-avoidance, fd:contact-motions, fd:generic-front, fd:linking-calculus, ce:rounding, cp:finite-contact-path) is research-level smooth differential topology with no Mathlib support (no contact structures, no linking number, no global smooth flows of compactly supported fields, partial Sard). Budget it as the largest single work item of the whole project, comparable to everything accepted so far; ~700 lines of printed analytic proof. Consider raising with the author whether a weaker, purely diagrammatic route to the floor (C) is available; as the package stands, TARGETS.md admits only the five listed literature interfaces, and OPEN_WORK.md forbids assuming CV:ax:slbound, so the chain cannot be axiomatised. 6. Quick wins to schedule right after the foundations: cb:blocks (graph part is immediate from SM.supportUnselected + SimpleGraph.ConnectedComponent of the induced graph), cb:products' greedy step (cb:greedy-step is a Finset identity), fd:ng-bound and lem:corner-values (each under 10 printed lines), cf:def-turning and cf:lem-turnlift(i) via Mathlib/Topology/Homotopy/Lifting.lean, cf:lem-turnlift(ii) as a wrapper around the accepted SM.rotation_number. 7. Record three implicit dependency edges missing from DEPENDENCIES.json when starting these rows (per its own warning): cb:products -> cb:blocks; thm:floor -> def:C, def:positive-lift, def:uniform; cb:singleton -> def:C. Also note cb:embedded-rotation's dependence on lem:gauss-two-discs (sm-3:428), a constructive polygonal Jordan/Schoenflies theorem that is itself pending and hard; it gates lem:corner-values(i), thm:C-soft and thm:comparison's normalisation clause (f). 8. Update STATE_OF_WORK.md figures: work/lean/SM has 485 modules (not 328), the map shows 47 accepted + 2 implemented rows and PROGRESS.md reports 25/132 claims as of 2026-09-13 14:58 UTC / 10:58am ET; no Chapter 3 row is accepted, implemented or present in the candidate lane."
+  },
+  {
+   "summary": "Scope confirmation (sm-2 tail). blueprint/NODES.tsv has exactly 18 sm-2 rows (file rows 33–50, def:root … prop:A-reversal at sm-2-amplitude.tex:1508); prop:A-reversal is the LAST sm-2 row, nothing follows it. lem:softvertex (sm-2:1475) has no NODES.tsv row, `python3 tools/claims.py` prints zero occurrences of it, CHANGES_SINCE_20260909.md §1 marks it \"no consumer\", ERRATUM_20260912.md:26 lists it only as an author erratum item, and SM15_REALIGNMENT.md:36 (\"pending; transcribe when you reach it\") refers to a row that is outside the 192-row checklist, so it is not an obligation. Also absent from the focused list: thm:A-continuation (660), lem:multiaffine (720), cor:polyform (942), remark thm:root-independence (1576); and in sm-6: cor:weak-root-indep, def:weak-amplitude, cor:weak-amplitude, cor:uniqueness-weak, cor:comparison-weak, rem:conditional. (Kernel-checked but out-of-scope candidates for the first three exist: work/checks/VisibleTreeContinuation.body.lean `SM.A_continuation`, MultiaffineForm.body.lean `SM.multiaffine_form`, PolynomialContinuation.body.lean `SM.polynomial_form_continuation`.)\n\nCurrent map state (work/lean/lean-declarations.json, 2026-09-13 ~14:57Z; STATE_OF_WORK.md is stale): 47/192 accepted, 25/132 claims verified, 2 implemented. All sm-2 rows through thm:A-R3E are accepted (thm:single-triple, def:induced-roots, thm:A-S3 `SM.WallGerm.flat_law_treeCoefficient`, thm:A-S4 `cusp_law_treeCoefficient`, thm:A-S7 `vertex_edge_law_treeCoefficient`, thm:A-R3E `triple_and_silent_laws_treeCoefficient` accepted today), def:soft accepted, lem:soft-generic (`SM.soft_family_generic`, SM.SoftGenericLemma) and thm:A-soft (`SM.SoftDuplication.soft_theorem_treeCoefficient`, SM.SoftTheoremTree) are implemented/under review, prop:A-reversal is pending with no candidate (executor drafts in work/drafts/ReversalA_probe.lean, ReversalB_test.lean). So the sm-2 rows remaining are exactly lem:soft-generic, thm:A-soft (review only) and prop:A-reversal. claims.py --next = lem:soft-generic. Library now 485 modules.\n\nsm-5/sm-6 rows (16): every one is status pending, none has a declaration, module, TASKS.json entry or work/checks candidate (grep for mycyclic/anchor/star-generic/uniqueness/lawful/A-small/root-indep in 481 bodies: 0 relevant hits; \"transport\"/\"star\" hits are Gauss-word transport and `star` conjugation). But substantial accepted infrastructure exists: `SM.positiveRotationSeed k = cyclicComplexSeed (exp(2πik/(2k+1)))` is K_k up to a one-step relabelling with `positiveRotationSeed_regular/_rotation`; `SM.bowtieSeed` has the exact K_0 coordinates with `bowtieSeed_regular/_rotation`; `SM.Admissible`/`SM.MinimalAdmissible` already encode the (Z)/(L)/(L₀) case split; `SM.relative_general_position` returns a `RelativeGeneralPositionPath` (piecewise affine, finitely many nongeneric times, each a Simple WallGerm with a unique RegularWallKind ∈ {flat,bigon,sliding,triple,extension,cut}, no cusp) and `SM.children` gives generic deletions/halves — so lem:transport is pure assembly once thm:mycyclic exists; `rotationNumber_path_constant`, `rotationNumber_locally_constant`, `exists_generic_same_rotation`, `vertex_insertion` (midpoint subdivision), `soft_family_regular_data` (soft-family turn identities), `soft_attachment_sectors`, `A_chamber` clause (iii) (treeCoefficient Q (g−a) = treeCoefficient P g for Q in the labelled chamber of genericShift a P — essentially prop:A-reversal(i)) and `mainTreeCoefficient` (root 0) are in place.\n\nChapter-3 independence: the entire chain def:star → lem:star-generic → lem:transport-lengths, lem:transport-angle-interval → thm:mycyclic → lem:transport, plus lem:soft-rotation → def:anchors → prop:anchors-exist, lem:A-small-values → thm:root-indep-proof → cor:A-lawful → thm:uniqueness, and the F/A_g clauses of prop:anchor-values, depend only on sm-1/sm-2 rows (all accepted or implemented) — none touches def:C. Only three things need Chapter 3/4: the sentence \"The function C satisfies these hypotheses\" in prop:anchor-values (prop:C-chamber, thm:C-soft), thm:comparison (def:C, hyp:R, six C-laws) and cor:C-inherits (thm:comparison), the last being one of the eight sm_roots.",
+   "units": [
+    {
+     "id": "prop:A-reversal",
+     "source_lines": "reference/SM/sm-2-amplitude.tex:1508-1574",
+     "statement_gist": "For every (G1) polygon and root g: (i) A_g(σP)=A_{g+1}(P); (ii) with P̄_i=μ_{2-i}, g^∨=1-g: A_{g^∨}(P̄)=(-1)^n A_g(P). Last sm-2 row in NODES.tsv (row 50); gates the whole sm-6 chain (lem:A-small-values, root-indep, A-lawful).",
+     "existing_lean": "status pending, no declaration. Available: SM.reversal (Reversal.lean, reversal P i = P (2-i), matches source), SM.reversal_definition, SM.shift_reversal (ShiftTheorem.lean:57: chi_shift, chi_reversal, edge_reversal, Generic ↔), SM.g1_reversal_forward (GenericReversal), SM.A_chamber clause (iii) (TreeChamber.lean:98-101: treeCoefficient Q (g-a) = treeCoefficient P g for Q ∈ labelledChamber (genericShift a P) — gives (i) on the generic locus directly), tree_data_eq_of_chi, SM.treesum_trees (PlaneTreeFormal.lean:74, formal-variable clause the printed proof uses).",
+     "candidate_lane": "none in work/checks (grep reversal in *.body.lean: 0). Executor drafts work/drafts/ReversalA_probe.lean, ReversalB_test.lean (gate sign-flip: ordinaryGate (-d) (-h) = -ordinaryGate d h, rootGate likewise, checked by cases).",
+     "gap": "(i) for G1-only (not just Generic) via chi_shift + tree_data_eq_of_chi; (ii) the involution on compositions/plane trees reversing the boundary word, sign bookkeeping (-1)^{n-2}=(-1)^n from the gate count (arpr:gate-count), n=3 base.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "lem:softvertex",
+     "source_lines": "reference/SM/sm-2-amplitude.tex:1475-1506",
+     "statement_gist": "Local vertex identity V^±(μ_j,μ_*,a_2..a_m) = (χ(μ_*,μ_j,a_2) ∓ χ(μ_*,μ_j,a_m))/2 · V^±(μ_j,a_2..a_m) for every 0<ε<ε_0 of lem:soft-generic. NOT in the focused list: no NODES.tsv row, 0 hits in tools/claims.py output, CHANGES_SINCE_20260909.md §1 'no consumer', ERRATUM_20260912.md:26 erratum item only.",
+     "existing_lean": "not in lean-declarations.json (NOT IN MAP). Ingredients would be SM.gates_nonzero (Gates.lean), SM.soft_family_generic (i),(iii).",
+     "candidate_lane": "none (grep softvertex/SoftVertex: 0 in work/checks and work/lean).",
+     "gap": "Out of scope; SM15_REALIGNMENT.md:36 'pending; transcribe when you reach it' should be read as a note on an unlisted row. Skip unless the checklist is widened.",
+     "difficulty": "low"
+    },
+    {
+     "id": "def:star",
+     "source_lines": "reference/SM/sm-5-transport.tex:5-14",
+     "statement_gist": "For r≥1, N=2r+1, u_k=(cos 2πk/N, sin 2πk/N): K_r=(μ_1..μ_N), μ_t=u_{r(t-1)}; K_{-r}=reversal of K_r; bow-tie K_0=((0,0),(2,2),(0,2),(2,0)).",
+     "existing_lean": "pending, no declaration. SM.positiveRotationSeed k : LabelledTuple (2k+1) := cyclicComplexSeed (positiveSeedRatio k), vertex i = complexPlane (exp(2πik/(2k+1))^i.val) = u_{k·i} (PositiveRotationSeed.lean:61, CyclicComplexSeed.lean:18) — this is K_k with Lean label i ↔ source t=i+1 (one cyclic step off the GLOSSARY convention μ_n ≡ residue 0); SM.bowtieSeed (ZeroRotationSeed.lean:20) has the literal coordinates in order 0,1,2,3; reversal for K_{-r} via SM.reversal.",
+     "candidate_lane": "none.",
+     "gap": "A definition row bundle (starData) stating the printed vertex formulas for K_r, K_{-r}, K_0 and either reusing positiveRotationSeed/bowtieSeed with the relabelling recorded, or defining the literal labelled tuples and proving them equal to shift 1 of the seeds. Needs Complex.exp ↔ (cos,sin) unfolding. Decide and record the label convention in AUTHOR_NOTES.md.",
+     "difficulty": "low"
+    },
+    {
+     "id": "lem:star-generic",
+     "source_lines": "reference/SM/sm-5-transport.tex:16-70",
+     "statement_gist": "gcd(r,N)=1; (i) σK_r = R(K_r) with R rotation by 2πr/N, every principal turn = 2πr/N ∈ (0,π), all turns left, rot(K_r)=r; (ii) every edge line tangent to the circle of radius cos(πr/N) at the edge midpoint, origin strictly left of every directed edge; (iii) K_r generic, hence K_{-r} generic, all turns right, rot=-r; (iv) K_0 generic with chirotope (χ123,χ124,χ134,χ234)=(+,-,-,+), turns (-,+,+,-), rot 0, X(K_0)={{1,3}}.",
+     "existing_lean": "deps lem:chi-basic (SM.chi_basic) and lem:shift (SM.shift_reversal) accepted. Proved already: positiveRotationSeed_regular, positiveRotationSeed_rotation (= k), cyclicComplexSeed_principalTurn/_edge_step (turn = arg q), bowtieSeed_regular, bowtieSeed_rotation, shift_reversal clauses Generic (reversal P) ↔ Generic P and rot(reversal) = -rot, turn (reversal P) i = -turn P (2-i). Only the perturbed seeds are shown generic (FibreExistence.exists_generic_of_admissible); genericity of the seeds themselves is NOT proved anywhere.",
+     "candidate_lane": "none.",
+     "gap": "G1 of K_r (distinct roots of unity, no three points of a circle collinear — needs the residue-permutation argument gcd(r,N)=1), G2 of K_r (edge lines are N distinct tangents to one circle; at most two tangents through an exterior point ⇒ no three edge interiors concurrent), the tangency/midpoint clause (ii), R-equivariance σK_r = R K_r as a plane rotation (no plane-rotation/SO(2) lemmas in the library), and the concrete K_0 table (norm_num on determinants; crossing set {{1,3}} via crossing_test).",
+     "difficulty": "medium"
+    },
+    {
+     "id": "lem:transport-lengths",
+     "source_lines": "reference/SM/sm-5-transport.tex:76-131",
+     "statement_gist": "Continuous unit vectors u_1(t)..u_n(t) on a compact interval, at no parameter contained in a closed semicircle ⇒ continuous strictly positive lengths l_i(t) with Σ l_i(t)u_i(t)=0; at either endpoint any prescribed positive closing lengths can be joined (straight segment) keeping directions fixed.",
+     "existing_lean": "pending; no explicit deps. Nothing in the library (grep Lengths: only SoftDuplicationSpanningBothChildren). Mathlib provides convexHull/interior, Cramer-type 2×2 solving (det u_p u_q ≠ 0), and finite covers; no partition-of-unity glue exists in SM.",
+     "candidate_lane": "none.",
+     "gap": "Whole proof: 'no closed semicircle' ⇔ origin ∈ interior(convexHull); pointwise positive closing vector; local Cramer correction δ_p, δ_q continuous and vanishing at t_0; finite cover with continuous weights (distance to complements); convexity of the positive closing set for the endpoint join. Self-contained real analysis, independent of every SM notion except Plane and det.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "lem:transport-angle-interval",
+     "source_lines": "reference/SM/sm-5-transport.tex:133-148",
+     "statement_gist": "A finite real sequence θ_0..θ_N with |θ_{i+1}-θ_i|<π whose unit directions lie in a closed semicircle has all entries in one interval of length π; conversely entries in such an interval put the directions in a closed semicircle.",
+     "existing_lean": "pending; no deps. Related angle machinery: SM.turnPrefix, edgeDirectionAngle (CumulativeTurns.lean), principalTurn_abs_lt_pi (RotationBounds.lean), PrincipalAngles.lean. No semicircle predicate exists.",
+     "candidate_lane": "none.",
+     "gap": "Define 'closed semicircle' (∃α, ∀i, cos(θ_i-α) ≥ 0 or ⟨v,u_i⟩ ≥ 0), the preimage as ⋃[α+2πk, α+π+2πk], and the induction that a step <π cannot jump between components. Elementary.",
+     "difficulty": "low"
+    },
+    {
+     "id": "thm:mycyclic",
+     "source_lines": "reference/SM/sm-5-transport.tex:150-290",
+     "statement_gist": "(n,r) admissible, P,P' ∈ R_n with rot=r: if (n,r)≠(4,0) a continuous path in R_n ∩ rot^{-1}(r) joins P to P'; if (4,0) there is k ∈ Z/4 and such a path from P to σ^k P'; the four shifts of K_0 lie in four distinct labelled components distinguished by turn words; every fibre of cyclic polygon orbits is path connected.",
+     "existing_lean": "pending; deps lem:transport-lengths, lem:transport-angle-interval (both pending). Available: SM.Regular/regular_iff_edges, rotationNumber = Σ principalTurn/(2π) (RotationNumber.lean:10), rotationNumber_path_constant and rotationNumber_family_constant (RotationContinuity.lean:45,58), turnPrefix/turnPrefix_bounds (CumulativeTurns), principalTurn_abs_lt_pi, rotationNumber_triangle (RotationTriangle.lean:25, ±1), regular_triangle_principalTurn_sign, bowtieSeed + turn cancellations (ZeroRotationSeed), SM.Admissible/MinimalAdmissible, principalAngle via Complex.arg (regular-rotation-next.md).",
+     "candidate_lane": "none (grep mycyclic: 0).",
+     "gap": "Everything structural: polygon reconstruction from a direction path + closing lengths (staying in R_n with prescribed principal turns), linear interpolation of lifted arguments for r≠0 with the semicircle contradiction, the zero-rotation angle domain, convex charts A(h,d) with the explicit 3π/2 overlap witnesses and their connected overlap graph for n≥5, the n=4 four-component analysis (+,-,-,+) and matching by shift, base-point/endpoint-length interpolation, passage to the cyclic quotient. Largest single unit of the two chapters.",
+     "difficulty": "high"
+    },
+    {
+     "id": "lem:transport",
+     "source_lines": "reference/SM/sm-5-transport.tex:299-315",
+     "statement_gist": "P,Z generic in the same fibre (n,r) ⇒ ∃k (k=0 unless (n,r)=(4,0)) and a piecewise-affine path in R_n from P to σ^k Z, generic except at finitely many parameters, each a simple wall germ of type (F),(V),(T),(E),(C); at each (F) the deletion is generic, at each (V) both halves are generic, all with fewer than n vertices.",
+     "existing_lean": "pending; deps def:regular, def:weak, lem:children, lem:rot, thm:relgp all ACCEPTED except thm:mycyclic. SM.relative_general_position (RelativeGeneralPosition.lean:84) yields RelativeGeneralPositionPath (lines 33-58): regular ∀t, affine_on_cells, finite_nongeneric, event: Simple WallGerm with ∃! RegularWallKind ∈ {flat,bigon,sliding,triple,extension,cut} (RegularWallKinds.lean:8), isolated, no_cusp; SM.children : ChildrenData (Children.lean:33-47: flat deletion generic with δ-collar in one labelled chamber; vertex-edge halves generic with sizes 3..k-2); SM.rotation_number path-constancy clause; generic_regular.",
+     "candidate_lane": "none (the 'transport' hits in work/checks are Gauss-word/crossing transport and TreeCoefficientTransport = chi-equality transport, unrelated).",
+     "gap": "Only thm:mycyclic (supplies the regular path from P to σ^k Z) and the assembly: apply relative_general_position with any δ>0, re-express the RelativeGeneralPositionPath fields as the printed clauses (map RegularWallKind to (F),(V)=bigon∨sliding,(T),(E),(C)), attach children for (F) and (V). Statement design: reuse RelativeGeneralPositionPath rather than restating.",
+     "difficulty": "low"
+    },
+    {
+     "id": "lem:soft-rotation",
+     "source_lines": "reference/SM/sm-5-transport.tex:317-371",
+     "statement_gist": "P generic, q admissible at j, ε small: rot(P_ε)=rot(P) in same-sign and mixed sectors, rot(P_ε)=rot(P)-τ_j(P) in the loop sector; the same-sign sector is the open cone strictly between ℓ_{j-1} and ℓ_j, the loop sector the open cone between -ℓ_{j-1} and -ℓ_j, the mixed sector the complement of their closures.",
+     "existing_lean": "pending; deps lem:rot (accepted), lem:soft-generic (IMPLEMENTED, review pending). Available: soft_family_regular_data / soft_family_generic (SoftFamilyRegularData.lean:65, SoftGenericLemma.lean:35: on (0,δ) P_ε generic, in one labelled chamber, old turns unchanged, turn at soft edge = -χ₋, at return edge = -χ₊, direction signs), softInsertion_return_tendsto, softInsertion_small_turns (SoftFamilyTurns.lean:111), soft_attachment_sectors / soft_nonloop_sectors_iff (SoftSourceSectors.lean:72,84), softAmplitudeMultiplier_same_sign/_mixed/_loop (SoftAmplitudeSectors.lean:101-120), rotationNumber_locally_constant, rotationNumber_family_constant, continuousAt_principalAngle (RotationContinuity), tendsto_principalAngle_at_antiparallel (PrincipalAngleBranchLimit).",
+     "candidate_lane": "none.",
+     "gap": "The limit identity 2π(rot(P_ε)-rot(P)) = α+β_0-θ (Arg(q/u)+Arg(v/q)-Arg(v/u) as principal angles), continuity of the successor turn as ε→0, the sign case analysis pinning the multiple of 2π (0, 0, ∓2π), and the three cone descriptions from the four determinant sign changes at ±u, ±v. Medium; blocked until lem:soft-generic is accepted (imminent).",
+     "difficulty": "medium"
+    },
+    {
+     "id": "def:anchors",
+     "source_lines": "reference/SM/sm-5-transport.tex:373-397",
+     "statement_gist": "(n,r) admissible, n≥4. (Z) if (n-1,r) admissible: zero anchor = generic P^{(j,q)}_ε in the mixed sector over a generic (n-1)-gon of rotation r; (L) if (n,r) minimal with |r|≥2: loop anchor over a generic (n-1)-gon of rotation r-sgn r at a vertex with τ_j=-sgn r; (L_0) if (n,r)=(4,0): loop anchor over any triangle. q admissible, 0<ε<ε_0(P,j,q) of lem:soft-generic (insertion generic and in one chamber on (0,ε_0)); parent, insertion vertex, soft edge E_j.",
+     "existing_lean": "pending; dep def:soft ACCEPTED (SM.softInsertion, SoftAdmissible, softAttachmentMinus/Plus, softOldIndex/softNewIndex, SoftInsertionDefinition.lean). SM.Admissible n r and SM.MinimalAdmissible n r := Admissible ∧ ((r≠0 ∧ n=2|r|+1) ∨ (n,r)=(4,0)) (Admissible.lean:10-14) already encode the case split; sectors: same-sign χ₋=χ₊=-τ_j, mixed χ₋≠χ₊, loop χ₋=χ₊=τ_j as in soft_theorem_treeCoefficient.",
+     "candidate_lane": "none.",
+     "gap": "Definition bundle only: anchor structure (parent, j, q, ε, witness δ>0 with the lem:soft-generic property on (0,δ) and ε<δ), the three cases as predicates, soft edge. Decide how to carry the 'geometric bound ε_0' (existential witness inside the structure is the faithful reading: 'part of the anchor data').",
+     "difficulty": "low"
+    },
+    {
+     "id": "prop:anchors-exist",
+     "source_lines": "reference/SM/sm-5-transport.tex:399-459",
+     "statement_gist": "For every admissible (n,r), n≥4, exactly one of (Z),(L),(L_0) applies; an anchor of that type exists, is generic, has n vertices and rotation r; for a given generic parent and vertex j both the mixed and the loop sector contain admissible q (so in (Z) the insertion vertex may be prescribed).",
+     "existing_lean": "pending; deps def:admissible, lem:fibres, lem:rot, prop:chambers ACCEPTED; lem:soft-generic implemented; def:anchors, lem:soft-rotation, lem:star-generic pending. Available: nonempty_fibres (Fibres.lean:43: existence for admissible + generic density in every nonempty open set), chambers (generic locus open), positiveRotationSeed (K_{r-1}), vertex_insertion/insertVertex (VertexInsertion.lean:39, edge-interior subdivision keeps Regular and rotation), regular_persists/isOpen_Regular/rotationNumber_locally_constant (RegularPerturbation), exists_generic_same_rotation (RegularPerturbation.lean:64: regular → nearby generic with same rotation — exactly the printed density step), rotationNumber_triangle.",
+     "candidate_lane": "none.",
+     "gap": "Exhaustion/disjointness arithmetic (omega); sector nonemptiness minus finitely many admissibility lines (needs lem:soft-rotation cones); the (L) construction: subdivide an edge of K_{r-1} at its midpoint, move the midpoint left by δv to create one right turn while neighbours stay positive (det(M-A,B-M) = -δ det(w,v)), regularity and rotation r-1 preserved, then perturb to generic; the r≤-2 case by the reflection (x,y)↦(x,-y) — no reflection lemma (chi/turn/rot negation, sector mapping) exists in the library, so either add one or use SM.reversal instead (would need a separate justification); (L_0) loop insertion into a ccw triangle giving rotation 0.",
+     "difficulty": "medium"
+    },
+    {
+     "id": "prop:anchor-values",
+     "source_lines": "reference/SM/sm-5-transport.tex:461-503",
+     "statement_gist": "F on generic polygons of all arities, constant on chambers and satisfying the soft theorem (form of thm:C-soft) at every admissible soft insertion ⇒ F(Z)=0 for every zero anchor and F(Y)=τ_j(P)F(P) for every loop anchor (τ_j=-sgn r in (L), orientation sign of the parent triangle in (L_0)). 'The function C satisfies these hypotheses.' The same identities hold for A_g at every anchor root other than the soft edge with the corresponding parent root.",
+     "existing_lean": "pending; deps prop:A-chamber ACCEPTED (SM.A_chamber, incl. G1-path constancy clause), thm:A-soft implemented (soft_theorem_treeCoefficient: for every ε0>0 an ε1≤ε0 with A_a(P_ε) = multiplier·A_g(P) for every non-soft root, sector laws), lem:soft-generic implemented (one chamber on (0,δ)); def:anchors pending; prop:C-chamber and thm:C-soft pending with placeholder names SM.prop_C_chamber, SM.thm_C_soft and NO def:C yet.",
+     "candidate_lane": "none.",
+     "gap": "The abstract-F clause and the A_g clause are short (pick ε' < min(ε, δ_F), chamber constancy along (ε',ε) ⊂ (0,ε_0), read the sector multiplier); they need only sm-2 + def:anchors. The single sentence 'C satisfies these hypotheses' needs def:C, prop:C-chamber, thm:C-soft (Chapter 3/4). Recommend stating the row so that the C sentence is a separate conjunct or is discharged when C exists; record the decision.",
+     "difficulty": "low"
+    },
+    {
+     "id": "lem:A-small-values",
+     "source_lines": "reference/SM/sm-6-comparison.tex:5-51",
+     "statement_gist": "(i) every labelled (G1) triangle has all turns of one sign τ and A_g = -τ at every physical root; (ii) for the bow-tie K_0, A_g(σ^k K_0) = -1 for every physical root g and every k (via A_g = (d_1h_2+h_1d_2)/2 and the printed 4-root sign table, shifts permuting the roots by prop:A-reversal(i)).",
+     "existing_lean": "pending; deps def:star (pending), lem:chi-basic, lem:gates-nonzero ACCEPTED (SM.chi_basic, SM.gates_nonzero), prop:A-reversal pending. SM.treeCoefficient P hP g hn : ℤ (TreeCoefficient.lean:51, rootedTreeRec over IntervalComposition of fullBoundaryInterval), regular_triangle_principalTurn_sign/triangle_turn_det (RegularTriangle.lean), bowtieSeed; A_chamber clause (iii) can replace A-reversal(i) for the shift permutation on the generic bowtie.",
+     "candidate_lane": "none.",
+     "gap": "Concrete evaluation of the tree sum for n=3 (two-leaf words: unary root term 0, binary root (d+h)/2 = -τ) and n=4 (the recursion (d_1+h_1)(d_2+h_2)-(d_1-h_1)(d_2-h_2))/4); requires unfolding rootedTreeRec over the finitely many compositions with simp/norm_num on concrete chi values of bowtieSeed — feasibility depends on how the recursion computes; alternatively 16 direct evaluations avoid A-reversal(i).",
+     "difficulty": "medium"
+    },
+    {
+     "id": "thm:root-indep-proof",
+     "source_lines": "reference/SM/sm-6-comparison.tex:53-103",
+     "statement_gist": "For every generic P and edges g,h: A_g(P)=A_h(P). Strong induction on n: transport P to a target Z (zero anchor with j∉{g,h}; K_r if minimal with |r|≥2; K_0 if (4,0)) by lem:transport; Δ_gh constant on generic segments (prop:A-chamber), unchanged at (T),(E),(C) (thm:A-R3E), jump at flat walls = Δ of the generic deletion (thm:A-S3, induction), at vertex-edge walls = s(product difference) (thm:A-S7, induction); at the target Δ=0 by thm:A-soft mixed sector, rotation invariance of chirotopes + A-reversal(i),(ii) for ±K_r, lem:A-small-values(ii) for K_0.",
+     "existing_lean": "pending; 15 explicit deps: def:chirotope, def:root, def:shift ACCEPTED; thm:A-S3 (SM.WallGerm.flat_law_treeCoefficient, FlatLawTree.lean), thm:A-S7 (vertex_edge_law_treeCoefficient, VertexEdgeLawTree.lean), thm:A-R3E (triple_and_silent_laws_treeCoefficient, TripleSilentLawsTree.lean), prop:A-chamber (SM.A_chamber incl. G1-path clause) ACCEPTED, all stated 'at every pair of side points' of a WallGerm; thm:A-soft implemented (ε1 ≤ ε0 for every ε0 handles 'below the two root bounds'); def:anchors, def:star, lem:A-small-values, lem:star-generic, lem:transport, prop:A-reversal, prop:anchors-exist pending.",
+     "candidate_lane": "TreeCoefficientTransport.body.lean (treeCoefficient_eq_of_chi) duplicates the accepted tree_data_eq_of_chi; nothing else.",
+     "gap": "Five pending prerequisites plus the new core: a lemma that a function constant on generic segments with zero jump at every wall of a RelativeGeneralPositionPath is constant end-to-end (glue the germ-side statements of the A-laws to the path's isolated nongeneric times and the generic_endpoint_collar), the strong induction over n with the deletion (n-1) and halves (≤ n-2) from lem:children, and plane-rotation invariance of chi (A_g(R K_r) = A_g(K_r)), for which no SO(2) lemma exists.",
+     "difficulty": "high"
+    },
+    {
+     "id": "cor:A-lawful",
+     "source_lines": "reference/SM/sm-6-comparison.tex:105-124",
+     "statement_gist": "A(P):=A_g(P) (any g) is well defined on generic polygons and satisfies chamber constancy and silence, the flat law A(P_right)-A(P_left)=A(P(0)∖j), the cusp law A(P_loop)-A(P_no)=-κ A(P(0)∖j) when the deletion satisfies (G1), the vertex-edge law A(P_+)-A(P_-)=sA(λ_1)A(λ_2), the triple law, the soft theorem A(P_ε)=((χ_-+χ_+)/2)A(P) in every sector, reversal A(P̄)=(-1)^n A(P), and A(K_1)=-1, A(K_{-1})=+1. This is the law list the final target SM.corner_laws_and_soft must reproduce for C (TARGETS.md).",
+     "existing_lean": "pending; thm:A-S3, A-S4 (cusp_law_treeCoefficient with κ as rotation difference and explicit hQ : G1 Q), A-S7, A-R3E ACCEPTED, thm:A-soft implemented, SM.mainTreeCoefficient P hP hn := treeCoefficient P hP 0 hn (TreeCoefficient.lean:56) is a ready root-free name; lem:A-small-values, prop:A-reversal, thm:root-indep-proof pending.",
+     "candidate_lane": "none.",
+     "gap": "Assembly once root-indep exists: define A as mainTreeCoefficient, transport each accepted rooted law through root independence (deletion/half roots become irrelevant), soft theorem at any non-soft root, reversal (ii), triangle values from lem:A-small-values(i). Low once inputs exist.",
+     "difficulty": "low"
+    },
+    {
+     "id": "thm:uniqueness",
+     "source_lines": "reference/SM/sm-6-comparison.tex:201-247",
+     "statement_gist": "Any integer-valued F on generic polygons of every arity n≥3 with (a) chamber constancy and silence at (E),(C), (b) flat law, (c) vertex-edge law both branches, (d) triple-wall invariance, (e) soft theorem for all small ε at every admissible soft insertion, (f) F(K_1)=-1, F(K_{-1})=+1, equals A. Proof: Δ=F-A, strong induction on n, transport to an anchor (lem:transport), jumps vanish by induction, anchor values (prop:anchor-values) from (a),(e) and cor:A-lawful.",
+     "existing_lean": "pending; deps cor:A-lawful, def:anchors, lem:transport, prop:anchor-values, prop:anchors-exist all pending. Statement will need F : ∀ n, GenericPolygon n → ℤ (or shift-invariant on GenericTuple n); the wall-law hypotheses can be phrased on WallGerm sides exactly as the accepted A-law rows are.",
+     "candidate_lane": "none.",
+     "gap": "Same path-induction skeleton as thm:root-indep-proof (share the 'constant along a RelativeGeneralPositionPath' lemma); base n=3 uses the two triangle chambers (needs: generic triangles form exactly two chambers containing K_{±1} — not yet in the library; RotationTriangle gives rot=±1). Chapter-3-free: uses only the F/A_g part of prop:anchor-values.",
+     "difficulty": "high"
+    },
+    {
+     "id": "thm:comparison",
+     "source_lines": "reference/SM/sm-6-comparison.tex:299-311",
+     "statement_gist": "Assume Hypothesis R. Then C(P)=A(P) for every generic P: C satisfies (a)-(f) of thm:uniqueness via prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-S7, hyp:R, thm:C-soft and lem:corner-values(i) (C(K_1)=-1, C(K_{-1})=+1).",
+     "existing_lean": "pending; map placeholder declaration name SM.thm_comparison with no module. Deps def:C, lem:corner-values, prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-S7, thm:C-soft, hyp:R all pending (no Chapter 3 definition accepted; def:C absent); thm:uniqueness pending. TARGETS.md: R must be proved, not assumed — the row keeps the conditional wording and the final assembly instantiates it.",
+     "candidate_lane": "none (Carrier*.body.lean are the unfinished carrier construction toward def:C).",
+     "gap": "Entirely blocked on Chapter 3/4 (def:C and the six direct C laws) plus thm:uniqueness. As assembly it is short. NOT attemptable without Chapter 3.",
+     "difficulty": "low"
+    },
+    {
+     "id": "cor:C-inherits",
+     "source_lines": "reference/SM/sm-6-comparison.tex:313-369",
+     "statement_gist": "Under Hypothesis R, C satisfies every identity of cor:A-lawful on the domains stated there, in particular the cusp law C(P_loop)-C(P_no)=-κ C(P(0)∖j). Proof: check every substituted argument is generic (wall sides by def:germ, flat deletion and vertex-edge halves by lem:children, soft family by lem:soft-generic, reversal preserves G1/G2, K_{±1} by lem:star-generic(iii), and the cusp deletion Q=P(0)∖j: G1 by hypothesis, G2 by the Z_c=∅ clause of def:walls(K) via an injective map of remote edge triples), then substitute C=A. One of the eight sm_roots of the focused target.",
+     "existing_lean": "pending; placeholder SM.cor_C_inherits, no module. Deps def:germ (SM.wall_germ_definition), def:walls (SM.named_walls_definition), lem:children (SM.children) ACCEPTED; lem:soft-generic implemented; cor:A-lawful, def:C, lem:star-generic, thm:comparison pending.",
+     "candidate_lane": "none.",
+     "gap": "Blocked on thm:comparison (Chapter 3). The genericity-of-the-cusp-deletion helper (lines 335-359: G2 of P(0)∖j from Definition walls(K) Z_c=∅ and lem:g1) is Chapter-3-free and could be proved early as a supporting lemma; the rest is substitution.",
+     "difficulty": "medium"
+    }
+   ],
+   "key_files": [
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-5-transport.tex",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-6-comparison.tex",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-2-amplitude.tex",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/NODES.tsv",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/DEPENDENCIES.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/ORDER.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/tools/claims.py",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/STATUS.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/AUTHOR_NOTES.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/ERRATUM_20260912.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/SM15_REALIGNMENT.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/TARGETS.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/ACCEPT_CYCLE.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/GLOSSARY.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PositiveRotationSeed.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/ZeroRotationSeed.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CyclicComplexSeed.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FibreExistence.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FibreReduction.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Fibres.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Admissible.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationTheorem.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationContinuity.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularPerturbation.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CumulativeTurns.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RelativeGeneralPosition.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularWallKinds.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Children.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/ShiftTheorem.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Reversal.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TreeChamber.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TreeCoefficient.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PlaneTreeFormal.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftGenericLemma.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftTheoremTree.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftFamilyRegularData.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftFamilyTurns.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftSourceSectors.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftAmplitudeSectors.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SoftInsertionDefinition.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FlatLawTree.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CuspLawTree.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/VertexEdgeLawTree.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TripleSilentLawsTree.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularTriangle.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationTriangle.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/drafts/ReversalA_probe.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/drafts/ReversalB_test.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/VisibleTreeContinuation.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/MultiaffineForm.body.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/checks/PolynomialContinuation.body.lean"
+   ],
+   "recommendations": "1. Treat lem:softvertex as out of scope (no NODES.tsv row, absent from claims.py, \"no consumer\" per CHANGES_SINCE_20260909.md); do not spend a unit on it. The only sm-2 work left is: accept lem:soft-generic and thm:A-soft when their reviews return, then prop:A-reversal — for clause (i) reuse SM.A_chamber clause (iii) (treeCoefficient Q (g−a) = treeCoefficient P g for Q ∈ labelledChamber (genericShift a P)) plus tree_data_eq_of_chi/chi_shift for the G1-only form; clause (ii) is the reversal involution on plane trees with the gate sign flips already probed in work/drafts/ReversalB_test.lean.\n\n2. A Chapter-3-free lane exists and is worth running in parallel with the carrier work: def:star → lem:star-generic → lem:transport-lengths, lem:transport-angle-interval → thm:mycyclic → lem:transport; lem:soft-rotation → def:anchors → prop:anchors-exist; then (after prop:A-reversal) lem:A-small-values → thm:root-indep-proof → cor:A-lawful → thm:uniqueness and the F/A_g clauses of prop:anchor-values. None of these touches def:C. Immediately attemptable today with every explicit dependency accepted: def:star, lem:transport-lengths, lem:transport-angle-interval, lem:star-generic (deps lem:chi-basic, lem:shift accepted), def:anchors (dep def:soft accepted); thm:mycyclic and lem:transport follow. lem:soft-rotation and prop:anchors-exist unlock as soon as lem:soft-generic is accepted. Only thm:comparison, cor:C-inherits and the sentence \"C satisfies these hypotheses\" in prop:anchor-values need Chapter 3/4.\n\n3. Suggested order and effort: (a) lem:transport-angle-interval (low, pure reals) and def:star (low; decide the labelling: SM.positiveRotationSeed k has vertex i = u_{k·i}, i.e. source μ_{i+1}, one cyclic step off the GLOSSARY convention μ_n ≡ residue 0 — record the choice in AUTHOR_NOTES.md; SM.bowtieSeed already has the literal K_0 coordinates); (b) lem:star-generic (medium; the genericity of the seeds themselves is NOT in the library — FibreExistence only perturbs them; the G2 tangent-line argument is the hard clause; plane-rotation invariance of chi/det is needed here and again in thm:root-indep-proof, so add one SO(2) lemma once); (c) lem:transport-lengths (medium, self-contained convex-hull/partition-of-unity analysis); (d) thm:mycyclic (high; the single largest unit — reconstruct polygons from direction paths, angle charts A(h,d), n=4 components; budget accordingly and consider splitting into helper lemmas under one main declaration); (e) lem:transport (low assembly over SM.relative_general_position's RelativeGeneralPositionPath and SM.children; state the row by reusing that structure); (f) lem:soft-rotation (medium; the limit identity 2π(rot P_ε − rot P) = α+β₀−θ from soft_family_regular_data turn identities and rotationNumber_locally_constant); (g) def:anchors (reuse SM.MinimalAdmissible for the (L)/(L₀) split; carry the lem:soft-generic bound as an existential witness in the anchor data); (h) prop:anchors-exist (medium; exists_generic_same_rotation and vertex_insertion cover the density and midpoint steps; a reflection (x,y)↦(x,−y) lemma is missing for r ≤ −2).\n\n4. For the sm-6 inductions (thm:root-indep-proof, thm:uniqueness) write once and share a \"constant along a RelativeGeneralPositionPath\" lemma: a function of generic tuples constant on the generic segments (via A_chamber's G1-path clause) and with zero jump at each isolated nongeneric time (from the accepted germ-side statements of thm:A-S3/A-S7/A-R3E, which are already phrased \"at every pair of side points\") is constant end to end. Also needed for the n=3 base of thm:uniqueness: generic triangles form exactly two chambers containing K_{±1} (not in the library; RotationTriangle gives only rot = ±1). State thm:uniqueness with F : ∀ n, GenericPolygon n → ℤ (or shift-invariant on GenericTuple n) so that \"function on polygons of all arities\" is faithful.\n\n5. lem:A-small-values needs prop:A-reversal only to permute roots of the bowtie; if evaluating SM.treeCoefficient on bowtieSeed by simp/norm_num is cheap, the 16 direct evaluations avoid the dependency and it can be attempted before prop:A-reversal lands. cor:A-lawful should define A as the existing SM.mainTreeCoefficient (root 0) and is low once root-indep exists; it is also the law list the final target SM.corner_laws_and_soft must reproduce for C (TARGETS.md), so its Lean shape should be designed with that reuse in mind.\n\n6. thm:comparison and cor:C-inherits are blocked on def:C and the six direct C laws; the one Chapter-3-free piece of cor:C-inherits — genericity (G2) of the cusp deletion P(0)∖j from def:walls(K) Z_c = ∅ and lem:g1 (sm-6:335–359) — can be proved early as a helper lemma. The previous executor's candidate lane offers nothing for sm-5/sm-6 (0 relevant hits across 481 bodies); its only sm-2-tail candidates (A_continuation, multiaffine_form, polynomial_form_continuation) target rows outside the focused list and should not be ported now.\n\n7. Housekeeping: STATE_OF_WORK.md (20/132, 328 modules) is stale; work/STATUS.md and lean-declarations.json (25/132, 47/192, 485 modules) are current. ../STATE_OF_WORK.md referenced in work/STATUS.md item 4 does not exist (the file is CORNER_LAWS_FOCUSED_20260912/STATE_OF_WORK.md). TASKS.json has no entries for any sm-5/sm-6 row; add them when the lane starts."
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+\begin{corollary}[interlacement connected sums and the grouped carrier]\label{cor:groupedknot}
+\begin{enumerate}
+\item[(A)] Let $S\in\Ind(G_P)$, let $L$ be a carrier of $S$ bearing at least one residual
+piece, and let
+\[
+   W=\bigcup\{\,H: H\text{ a residual piece of }S\text{ carried by }L\,\}
+\]
+be the \emph{union of their label sets} --- a set of crossing labels, not a set
+of pieces. By Lemma~\ref{lem:piececurve} Step 2, $W$ is exactly the set of
+self-crossings of $L$, so the diagram $D(W)$ obtained from $L$ by retaining
+exactly the labels of $W$, each resolved by the divide convention, and erasing
+all others, is $L$ itself carrying all of its own crossings; no realization
+argument is needed. Let $W=W_1\sqcup\dots\sqcup W_k$, $k\geq1$, be the partition
+of $W$ into the connected components of the interlacement graph induced on $W$;
+these are the label sets of the residual pieces. The components can be indexed
+and equipped with a fixed ordered binary parenthesization $\mathcal T$ such that
+\[
+D(W)\;\cong\;\#_{\mathcal T}
+   \bigl(D(W_1),\dots,D(W_k)\bigr),
+\qquad
+P_{D(W)}=\prod_{i=1}^{k}P_{D(W_i)} .
+\]
+Here $\#_{\mathcal T}$ is evaluated recursively: a leaf has value $D(W_i)$
+and an internal node has the connected sum of its two ordered child values
+with the displayed parenthesization. In particular, when $k=1$,
+$\#_{\mathcal T}(D(W_1))=D(W_1)$.
+\item[(B)] Let $S\in\Ind(G_P)$ and let $L$ be a carrier of $S$ bearing the residual pieces
+$H_1,\dots,H_k$ with $k\geq1$. (If $L$ bears no piece the assertion is
+Theorem~\ref{thm:carrierfloor}(D): $P_{S,L}=1$, $w_{S,L}=0$, and there is nothing to
+decompose. Clause~(A) is stated for a nonempty label set and
+is not applied in that case.) Then the diagram obtained from $L$ by retaining exactly the
+crossings of $H_1\cup\dots\cup H_k$ is a knot diagram whose HOMFLY polynomial is
+$P_{S,L}=\prod_iP_{H_i}$, whose writhe is $w_{S,L}=\sum_i|H_i|$, and whose
+underlying plane curve is $L$, which has no triple points.
+\end{enumerate}
+\end{corollary}

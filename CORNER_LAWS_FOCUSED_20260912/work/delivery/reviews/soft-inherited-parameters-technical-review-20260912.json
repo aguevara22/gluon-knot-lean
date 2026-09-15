@@ -1,0 +1,170 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-inherited-parameters-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:05:37.718137+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_mark_transport",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "authorship_disclosure": "Reviewer did not author this body, its embedded predecessor bodies, or its proof repairs. This is a fresh noncontributing technical review."
+  },
+  "scope": {
+    "group": "SoftInheritedParameters",
+    "declarations": [
+      "SM.continuous_softParent_vertex",
+      "SM.continuous_softParent_edge",
+      "SM.softParentParameter_zero",
+      "SM.continuousAt_softParentParameter",
+      "SM.softParentParameter_tendsto",
+      "SM.softInheritedPoint",
+      "SM.softInheritedPoint_zero",
+      "SM.continuousAt_softInheritedPoint",
+      "SM.softInheritedPoint_zero_crossing",
+      "SM.softInheritedPoint_tendsto",
+      "SM.softParent_direction_sign_persists",
+      "SM.softParent_crossing_parameters_persist",
+      "SM.softInheritedPoint_eq_crossingPoint"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "Actual corresponding-edge parameters, inherited points, their parent limits, strict interior persistence, and ordered direction signs in lem:soft-generic(iii), using the def:soft parent-edge correspondence."
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 93785,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      50530
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and exact complete body embeddings; full reviewed body retained below. No extracted-header hashes.",
+    "receipt_path": "work/checks/SoftInheritedParameters-prototype-result.json",
+    "receipt_sha256": "6484611983352dafe462ff9bd3b918ef600e062525dc854ee01eb45b87d19568",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftInheritedParameters.body.lean": "d885e062bf2d6045a74d94d4cb2a6b7c880a93a70479574373172e311ad005f5",
+      "work/checks/SoftInheritedParameters.prototype.lean": "e09aa8d208b8ede8f1dc269908e7faf35e097484c419dc837e804cc7f2b24364",
+      "work/checks/SoftInheritedParameters-second-kernel.log": "b187a981aae66c0523ddc094f9786dab1f6d22fc62e6957fa517ccdcfa511d72"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftInheritedParameters.body.lean": 1
+    },
+    "printed_trace_count": 13,
+    "declaration_axioms": {
+      "SM.continuous_softParent_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_softParent_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentParameter_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuousAt_softParentParameter": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentParameter_tendsto": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInheritedPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInheritedPoint_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuousAt_softInheritedPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInheritedPoint_zero_crossing": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInheritedPoint_tendsto": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParent_direction_sign_persists": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParent_crossing_parameters_persist": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInheritedPoint_eq_crossingPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+      "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+      "work/lean/SM/CuspParameters.lean": "da54d4a6a9e51ced884d99e8dcfd7a4b645873db06ec5100787d186f1eec1c84",
+      "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+      "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+      "work/checks/SoftInheritedParameters-first-failed.body.lean": "4810ad6f2b8c407f3eb30c907ad0301a1741fd27697b145f865ba9637bb23aee",
+      "work/checks/SoftInheritedParameters-first-failed.prototype.lean": "4cedf96ff78e31abe5933b1a4b806aa02ebcdba10ff1c5c8c38710d3bb6bee1b",
+      "work/checks/SoftInheritedParameters-first-kernel.log": "362a3aadbffbe80788e5fa01fbc99fda7d9c0294879e8be074f2b0316c9541a2",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502"
+    },
+    "full_reviewed_body_text": "namespace SM\n\nnoncomputable section\nopen Filter Topology\nvariable {n : ℕ} [NeZero n]\n\ntheorem continuous_softParent_vertex (P : LabelledTuple n) (j k : ZMod n) (q : Plane) :\n    Continuous (fun ε : ℝ => softInsertion P j q ε (softParentEdge j k)) :=\n  (continuous_vertex (softParentEdge j k)).comp (continuous_softInsertion P j q)\n\ntheorem continuous_softParent_edge (P : LabelledTuple n) (j k : ZMod n) (q : Plane) :\n    Continuous (fun ε : ℝ => edge (softInsertion P j q ε) (softParentEdge j k)) :=\n  (continuous_edge (softParentEdge j k)).comp (continuous_softInsertion P j q)\n\ntheorem softParentParameter_zero (P : LabelledTuple n) (j k l : ZMod n) (q : Plane) :\n    edgeParameter (softInsertion P j q 0) (softParentEdge j k) (softParentEdge j l) =\n      edgeParameter P k l := by\n  simp only [edgeParameter, softInsertion_parent_zero, edge_softInsertion_parent_zero]\n\n/-- Continuity uses the two parent directions, without Generic at the\nduplicate-vertex tuple at epsilon zero. -/\ntheorem continuousAt_softParentParameter (P : LabelledTuple n) (j k l : ZMod n) (q : Plane)\n    (hd : det (edge P k) (edge P l) ≠ 0) :\n    ContinuousAt (fun ε : ℝ =>\n      edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l)) 0 := by\n  have hd0 : det (edge (softInsertion P j q 0) (softParentEdge j k))\n      (edge (softInsertion P j q 0) (softParentEdge j l)) ≠ 0 := by\n    simpa only [edge_softInsertion_parent_zero] using hd\n  exact (continuousAt_edgeParameter_of_det hd0).comp (continuous_softInsertion P j q).continuousAt\n\ntheorem softParentParameter_tendsto (P : LabelledTuple n) (j k l : ZMod n) (q : Plane)\n    (hd : det (edge P k) (edge P l) ≠ 0) :\n    Tendsto (fun ε : ℝ =>\n      edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l))\n      (𝓝 (0 : ℝ)) (𝓝 (edgeParameter P k l)) := by\n  have h := (continuousAt_softParentParameter P j k l q hd).tendsto\n  simpa only [softParentParameter_zero] using h\n\n/-- The supporting-line intersection on the edge corresponding to k. -/\ndef softInheritedPoint (P : LabelledTuple n) (j k l : ZMod n) (q : Plane) (ε : ℝ) : Plane :=\n  edgePoint (softInsertion P j q ε) (softParentEdge j k)\n    (edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l))\n\ntheorem softInheritedPoint_zero (P : LabelledTuple n) (j k l : ZMod n) (q : Plane) :\n    softInheritedPoint P j k l q 0 = edgePoint P k (edgeParameter P k l) := by\n  rw [softInheritedPoint, softParentParameter_zero, edgePoint_softInsertion_parent_zero]\n\ntheorem continuousAt_softInheritedPoint (P : LabelledTuple n) (j k l : ZMod n) (q : Plane)\n    (hd : det (edge P k) (edge P l) ≠ 0) :\n    ContinuousAt (softInheritedPoint P j k l q) (0 : ℝ) :=\n  (continuous_softParent_vertex P j k q).continuousAt.add\n    ((continuousAt_softParentParameter P j k l q hd).smul\n      (continuous_softParent_edge P j k q).continuousAt)\n\ntheorem softInheritedPoint_zero_crossing (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j k l : ZMod n) (q : Plane) (hc : IsCrossing P {k, l}) :\n    softInheritedPoint P j k l q 0 = crossingPoint (⟨{k, l}, hc⟩ : Crossing P) := by\n  rw [softInheritedPoint_zero, ← crossingParameter_eq_edgeParameter hn hP hc]\n  exact (crossingParameter_spec (⟨{k, l}, hc⟩ : Crossing P) k (by simp)).2.2.symm\n\ntheorem softInheritedPoint_tendsto (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j k l : ZMod n) (q : Plane) (hc : IsCrossing P {k, l}) :\n    Tendsto (softInheritedPoint P j k l q) (𝓝 (0 : ℝ))\n      (𝓝 (crossingPoint (⟨{k, l}, hc⟩ : Crossing P))) := by\n  have h := (continuousAt_softInheritedPoint P j k l q\n    (crossing_edgeParameter_det_ne_zero hn hP hc)).tendsto\n  simpa only [softInheritedPoint_zero_crossing hn hP j k l q hc] using h\n\ntheorem softParent_direction_sign_persists (P : LabelledTuple n) (j k l : ZMod n) (q : Plane)\n    (hd : det (edge P k) (edge P l) ≠ 0) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ),\n      det (edge (softInsertion P j q ε) (softParentEdge j k))\n        (edge (softInsertion P j q ε) (softParentEdge j l)) ≠ 0 ∧\n      SignType.sign (det (edge (softInsertion P j q ε) (softParentEdge j k))\n        (edge (softInsertion P j q ε) (softParentEdge j l))) =\n          SignType.sign (det (edge P k) (edge P l)) := by\n  have hd0 : det (edge (softInsertion P j q 0) (softParentEdge j k))\n      (edge (softInsertion P j q 0) (softParentEdge j l)) ≠ 0 := by\n    simpa only [edge_softInsertion_parent_zero] using hd\n  have hu := (continuous_softParent_edge P j k q).continuousAt (x := (0 : ℝ))\n  have hv := (continuous_softParent_edge P j l q).continuousAt (x := (0 : ℝ))\n  have hc := continuousAt_det hu hv\n  have hnz := continuousAt_preserves_transversality hu hv hd0\n  have hs := ((continuousAt_sign_of_ne_zero hd0).comp\n    (f := fun ε : ℝ => det (edge (softInsertion P j q ε) (softParentEdge j k))\n      (edge (softInsertion P j q ε) (softParentEdge j l))) hc).eventually\n    (isOpen_discrete _ |>.mem_nhds (Set.mem_singleton\n      (SignType.sign (det (edge (softInsertion P j q 0) (softParentEdge j k))\n        (edge (softInsertion P j q 0) (softParentEdge j l))))))\n  filter_upwards [hnz, hs] with ε hε hsε\n  refine ⟨hε, ?_⟩\n  change SignType.sign (det (edge (softInsertion P j q ε) (softParentEdge j k))\n    (edge (softInsertion P j q ε) (softParentEdge j l))) =\n      SignType.sign (det (edge (softInsertion P j q 0) (softParentEdge j k))\n        (edge (softInsertion P j q 0) (softParentEdge j l))) at hsε\n  simpa only [edge_softInsertion_parent_zero] using hsε\n\n/-- Each actual parent crossing persists with both actual edge parameters\nstrictly interior and its ordered direction sign unchanged. -/\ntheorem softParent_crossing_parameters_persist (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j k l : ZMod n) (q : Plane) (hc : IsCrossing P {k, l}) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ),\n      (0 < edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l) ∧\n        edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l) < 1) ∧\n      (0 < edgeParameter (softInsertion P j q ε) (softParentEdge j l) (softParentEdge j k) ∧\n        edgeParameter (softInsertion P j q ε) (softParentEdge j l) (softParentEdge j k) < 1) ∧\n      det (edge (softInsertion P j q ε) (softParentEdge j k))\n        (edge (softInsertion P j q ε) (softParentEdge j l)) ≠ 0 ∧\n      SignType.sign (det (edge (softInsertion P j q ε) (softParentEdge j k))\n        (edge (softInsertion P j q ε) (softParentEdge j l))) =\n          SignType.sign (det (edge P k) (edge P l)) ∧\n      IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l} := by\n  have hd := crossing_edgeParameter_det_ne_zero hn hP hc\n  have hrev : IsCrossing P {l, k} := by simpa only [Finset.pair_comm] using hc\n  have hdr := crossing_edgeParameter_det_ne_zero hn hP hrev\n  have hs := crossingParameter_interior hn hP (⟨{k, l}, hc⟩ : Crossing P) k (by simp)\n  rw [crossingParameter_eq_edgeParameter hn hP hc] at hs\n  have ht := crossingParameter_interior hn hP (⟨{l, k}, hrev⟩ : Crossing P) l (by simp)\n  rw [crossingParameter_eq_edgeParameter hn hP hrev] at ht\n  have hse := continuousAt_preserves_unit_interval (continuousAt_softParentParameter P j k l q hd)\n    (by simpa only [softParentParameter_zero] using hs.1)\n    (by simpa only [softParentParameter_zero] using hs.2)\n  have hte := continuousAt_preserves_unit_interval (continuousAt_softParentParameter P j l k q hdr)\n    (by simpa only [softParentParameter_zero] using ht.1)\n    (by simpa only [softParentParameter_zero] using ht.2)\n  filter_upwards [hse, hte, softParent_direction_sign_persists P j k l q hd] with ε hsε htε hdε\n  refine ⟨hsε, htε, hdε.1, hdε.2, ?_⟩\n  refine ⟨softParentEdge j k, softParentEdge j l, rfl,\n    softParentEdge_remote j k l (crossing_pair_remote hc), ?_⟩\n  refine ⟨softInheritedPoint P j k l q ε, ⟨_, hsε.1.le, hsε.2.le, rfl⟩,\n    ⟨_, htε.1.le, htε.2.le, ?_⟩⟩\n  exact edgeParameters_intersection (softInsertion P j q ε) _ _ hdε.1\n\n/-- Identification with the canonical crossing point, independently of\nwhich proof witnesses this inherited crossing. Child G1 is explicit here. -/\ntheorem softInheritedPoint_eq_crossingPoint (hn : 3 ≤ n) (P : LabelledTuple n)\n    (j k l : ZMod n) (q : Plane) (ε : ℝ) (hQ : G1 (softInsertion P j q ε))\n    (hc : IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l}) :\n    softInheritedPoint P j k l q ε =\n      crossingPoint (⟨{softParentEdge j k, softParentEdge j l}, hc⟩ :\n        Crossing (softInsertion P j q ε)) := by\n  rw [softInheritedPoint, ← crossingParameter_eq_edgeParameter (by omega : 3 ≤ n + 1) hQ hc]\n  exact (crossingParameter_spec (⟨{softParentEdge j k, softParentEdge j l}, hc⟩ :\n    Crossing (softInsertion P j q ε)) (softParentEdge j k) (by simp)).2.2.symm\n\nend\nend SM\n",
+    "root_log_limit": "The successful root log prints the 13 axiom traces; it does not print full elaborated types for these 13 declarations. Full source statements and proofs are bound by the exact body/prototype bytes. No fresh reviewer elaboration was run."
+  },
+  "findings": [
+    "The correspondence sends parent j to the actual return edge and all other parents to unchanged edges. Its zero tuple has a duplicate vertex, but the mapped starting points, directions and affine edge points equal their parent values exactly. The referenced SoftParentEdges review and its current body support this physical endpoint convention.",
+    "Continuous vertex and edge maps are composed with the actual softInsertion family. The directed edgeParameter is the canonical Cramer first parameter. Parent determinant nonvanishing transfers exactly to the mapped zero tuple, making the quotient continuous without child G1 or Generic at zero. Rewriting the zero value gives the two-sided parent parameter limit.",
+    "softInheritedPoint is explicitly the point on the first mapped edge at its directed Cramer parameter. At a parent crossing, canonical crossingParameter_eq_edgeParameter and crossingParameter_spec identify its zero value with the parent crossingPoint. Addition and scalar multiplication then prove continuity and the actual point limit.",
+    "For every parent crossing, parent G1 and n>=3 provide nonzero determinant and strict parameters in (0,1). The proof separately applies these facts to {k,l} and {l,k}; continuity preserves both strict intervals. The canonical Cramer intersection identity places the same witness on both actual child closed segments. Preserved remoteness upgrades this to the actual IsCrossing predicate.",
+    "The ordered determinant sign is kept in the same k,l order. Determinant continuity first preserves nonvanishing; continuity of sign away from zero into the discrete sign space preserves its precise value. No reversal of the return-edge parameter or determinant order occurs.",
+    "The final theorem identifies the supporting-line point with the canonical crossingPoint for an arbitrary actual child crossing witness. Child G1 is explicit only in this theorem; no child Generic or existence at zero is presumed. It is conditional at the chosen epsilon and is not itself a proof of child G1.",
+    "The helpers allow arbitrary q and, where appropriate, all nonzero n. The crossing conclusions explicitly require n>=3 and parent G1; this includes the full source domain without a root or attachment restriction. Two-sided neighborhood statements imply the required local positive-parameter versions but do not yet supply a simultaneous interval for all pairs.",
+    "The first failed body differs only by the explicit composed determinant function in the sign-continuity proof. Exact replacement reproduces the frozen body, so all declarations and statements are unchanged. Its failed log retains the type errors and sorryAx traces; only the second successful log supplies the accepted kernel evidence."
+  ],
+  "limits": "This group proves per-pair parameter/point continuity, parent limits, strict crossing persistence and ordered direction signs. It does not prove stability of disjoint pairs, complete crossing classification, simultaneous visit order, newborn geometry, G2, a single chamber, cyclic Gauss words or the complete soft theorem. No independent kernel check was run; existing root evidence was inspected and hash-verified. Stronger fidelity/source acceptance and controlled canonical integration remain pending."
+}

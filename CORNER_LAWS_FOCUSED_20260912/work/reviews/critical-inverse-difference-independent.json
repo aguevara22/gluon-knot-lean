@@ -1,0 +1,304 @@
+{
+  "review_schema": "independent-read-only-fragment-statement-review-v1",
+  "reviewer": "/root/review_mark_transport",
+  "timestamp_utc": "2026-09-11T07:27:34.195861+00:00",
+  "status": "pass: independent statement and proof-source review of four frozen jump-algebra declarations",
+  "independence": "Reviewer contributed neither these four declarations nor the earlier every_proper_critical_child consumer. This fresh review directly read the authoritative source, frozen new proofs, frozen locality dependency and relevant canonical definitions/proofs. It did not consult that earlier consumer or inherit its review verdict. Root provenance information is background only; the conclusions below come from this reviewer's own inspection.",
+  "read_only": {
+    "lean_kernel_executed": false,
+    "lake_or_build_executed": false,
+    "audit_executed": false,
+    "implementation_edits": false,
+    "source_edits": false,
+    "canonical_tree_edits": false,
+    "map_or_prior_review_edits": false,
+    "only_created_file": "work/reviews/critical-inverse-difference-independent.json"
+  },
+  "scope": {
+    "source_id": "thm:single-triple",
+    "source_lines": "reference/SM/sm-2-amplitude.tex:281-317",
+    "reviewed_declarations": [
+      "SM.farTransform_difference_of_proper_children",
+      "SM.critical_proper_child_coordinates",
+      "SM.critical_inverse_difference",
+      "SM.critical_output_difference"
+    ],
+    "source_acceptance_increment": 0,
+    "full_wall_theorem_accepted": false,
+    "finding": "The actual algebraic difference of inverse coordinates and reversed-far output is established as an unevaluated coefficient sum. These declarations are partial dependencies of the printed wall response, not the complete response."
+  },
+  "files_sha256": {
+    "work/checks/CriticalInverseDifference.body.lean": "33c33ef5d13ce3060f58bb94de1d71b2bf0d0f923c0120efd073af1bfec963b8",
+    "work/checks/CriticalInverseDifference.prototype.lean": "466dc102627172f562c1d38043710711a26f3e73bda11af83abb01c0b487ae48",
+    "work/checks/CriticalInverseDifference-first-kernel.log": "aa93915cce0a59742a276ca5896da644be7d7dc0848bc7f7200359a84f4a4c9d",
+    "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90",
+    "work/checks/FarOnlyLocality.body.lean": "48d640aca14243f9b31f7d229cae52bb60b39bdc5072d347272f673cd989c3f7",
+    "work/checks/CriticalInverseDifference-prototype-result.json": "6adb05de32cbd57279cd3e4e595445a44e78ab07b3c80191ffe6dcef9f6394a2",
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "lean/axiom-policy.json": "272a02de90d1ee3db99bc73fa77e070875e7d222c28193b04b421018c650c9b3",
+    "FINAL_REVIEW.md": "f56627a4f4a5ff7a4750383e480e27f01cfc2b5f61440ffe279e3d19f912487b"
+  },
+  "frozen_prototype_composition": {
+    "import": "SM.Farout",
+    "exactly_one_verbatim_occurrence_each": [
+      "work/checks/CriticalCutSplit.body.lean",
+      "work/checks/FarOnlyLocality.body.lean",
+      "work/checks/CriticalInverseDifference.body.lean"
+    ]
+  },
+  "reviewed_declarations": [
+    {
+      "path": "work/checks/CriticalInverseDifference.body.lean",
+      "first_line": 9,
+      "last_line": 42,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "4c6b942a3bd23ee54ffe3bb3d09003be674a8e912d57dc7bc9ac293adb98ed51",
+      "text": "theorem farTransform_difference_of_proper_children\n    (H₁ H₂ : TripleArray n R) (X₁ X₂ : IntervalArray n R) (I : BoundaryInterval n)\n    (hX : ∀ π : IntervalComposition I, 2 ≤ π.parts →\n      ∀ k : Fin π.parts, X₁ (π.part k) = X₂ (π.part k)) :\n    farTransform H₂ X₂ I - farTransform H₁ X₁ I =\n      (X₂ I - X₁ I) +\n      ∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 H₂ - π.val.nearFarWeight 0 H₁) *\n          ∏ k : Fin π.val.parts, X₁ (π.val.part k) := by\n  classical\n  change nearFarTransform 0 H₂ X₂ I - nearFarTransform 0 H₁ X₁ I = _\n  rw [nearFarTransform_eq_triangular, nearFarTransform_eq_triangular]\n  unfold triangularTransform\n  have hs : (∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n      π.val.nearFarWeight 0 H₂ * ∏ k : Fin π.val.parts, X₂ (π.val.part k)) =\n      ∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n        π.val.nearFarWeight 0 H₂ * ∏ k : Fin π.val.parts, X₁ (π.val.part k) := by\n    apply Finset.sum_congr rfl\n    intro π _\n    congr 1\n    apply Finset.prod_congr rfl\n    intro k _\n    exact (hX π.val π.property k).symm\n  rw [hs]\n  have hd : (∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n      (π.val.nearFarWeight 0 H₂ - π.val.nearFarWeight 0 H₁) *\n        ∏ k : Fin π.val.parts, X₁ (π.val.part k)) =\n      (∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n        π.val.nearFarWeight 0 H₂ * ∏ k : Fin π.val.parts, X₁ (π.val.part k)) -\n      (∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n        π.val.nearFarWeight 0 H₁ * ∏ k : Fin π.val.parts, X₁ (π.val.part k)) := by\n    simp only [sub_mul, Finset.sum_sub_distrib]\n  rw [hd]\n  ring\n",
+      "declaration": "SM.farTransform_difference_of_proper_children",
+      "source_statement_text": "theorem farTransform_difference_of_proper_children\n    (H₁ H₂ : TripleArray n R) (X₁ X₂ : IntervalArray n R) (I : BoundaryInterval n)\n    (hX : ∀ π : IntervalComposition I, 2 ≤ π.parts →\n      ∀ k : Fin π.parts, X₁ (π.part k) = X₂ (π.part k)) :\n    farTransform H₂ X₂ I - farTransform H₁ X₁ I =\n      (X₂ I - X₁ I) +\n      ∑ π : {π : IntervalComposition I // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 H₂ - π.val.nearFarWeight 0 H₁) *\n          ∏ k : Fin π.val.parts, X₁ (π.val.part k)",
+      "source_statement_sha256": "01f7d7d5aae2cab6c54f79c616acc981a6f08ea694b6f8d265d0d0c4c03db7c9",
+      "context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {R : Type*} [CommRing R] [Invertible (2 : R)]",
+      "type_evidence": "Exact lexical source statement with ambient variables, not a newly elaborated #check/#print type. Existing successful prototype compilation binds these source bytes."
+    },
+    {
+      "path": "work/checks/CriticalInverseDifference.body.lean",
+      "first_line": 46,
+      "last_line": 56,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "c93c4145a5376508d266e0f0252daad32e3264f10484fdc6081acf3cc670240d",
+      "text": "theorem critical_proper_child_coordinates (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u)\n    (π : IntervalComposition t.spanInterval) (hp : 2 ≤ π.parts) (k : Fin π.parts) :\n    farOnlyCoordinates H₁ (π.part k) = farOnlyCoordinates H₂ (π.part k) := by\n  apply farOnlyCoordinates_unchanged_off_critical H₁ H₂ t h\n  rintro ⟨hl, hr⟩\n  have hc := π.part_leaves_lt hp k\n  change (π.part k).left.val ≤ t.lower.val at hl\n  change t.upper.val ≤ (π.part k).right.val at hr\n  change (π.part k).right.val - (π.part k).left.val < t.upper.val - t.lower.val at hc\n  omega\n",
+      "declaration": "SM.critical_proper_child_coordinates",
+      "source_statement_text": "theorem critical_proper_child_coordinates (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u)\n    (π : IntervalComposition t.spanInterval) (hp : 2 ≤ π.parts) (k : Fin π.parts) :\n    farOnlyCoordinates H₁ (π.part k) = farOnlyCoordinates H₂ (π.part k)",
+      "source_statement_sha256": "43e493c3bae9d2bf2071b3890dee43b71e92fd111a132a3c43f68bad995b83ec",
+      "context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {R : Type*} [CommRing R] [Invertible (2 : R)]",
+      "type_evidence": "Exact lexical source statement with ambient variables, not a newly elaborated #check/#print type. Existing successful prototype compilation binds these source bytes."
+    },
+    {
+      "path": "work/checks/CriticalInverseDifference.body.lean",
+      "first_line": 61,
+      "last_line": 71,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "696b66827cd887092c740942ef49ff025c3bb42d22101b0a21a2721f9f14a809",
+      "text": "theorem critical_inverse_difference (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u) :\n    farOnlyCoordinates H₂ t.spanInterval - farOnlyCoordinates H₁ t.spanInterval =\n      -(∑ π : {π : IntervalComposition t.spanInterval // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 H₂ - π.val.nearFarWeight 0 H₁) *\n          ∏ k : Fin π.val.parts, farOnlyCoordinates H₁ (π.val.part k)) := by\n  have he := farTransform_difference_of_proper_children H₁ H₂\n    (farOnlyCoordinates H₁) (farOnlyCoordinates H₂) t.spanInterval\n    (critical_proper_child_coordinates H₁ H₂ t h)\n  rw [farOnlyCoordinates_equation, farOnlyCoordinates_equation, sub_self] at he\n  exact eq_neg_of_add_eq_zero_left he.symm\n",
+      "declaration": "SM.critical_inverse_difference",
+      "source_statement_text": "theorem critical_inverse_difference (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u) :\n    farOnlyCoordinates H₂ t.spanInterval - farOnlyCoordinates H₁ t.spanInterval =\n      -(∑ π : {π : IntervalComposition t.spanInterval // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 H₂ - π.val.nearFarWeight 0 H₁) *\n          ∏ k : Fin π.val.parts, farOnlyCoordinates H₁ (π.val.part k))",
+      "source_statement_sha256": "96b3019106c94953461ad83de9b3aa8670ec894db1040d2f1a163e56cfc9ba9a",
+      "context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {R : Type*} [CommRing R] [Invertible (2 : R)]",
+      "type_evidence": "Exact lexical source statement with ambient variables, not a newly elaborated #check/#print type. Existing successful prototype compilation binds these source bytes."
+    },
+    {
+      "path": "work/checks/CriticalInverseDifference.body.lean",
+      "first_line": 75,
+      "last_line": 84,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "301d30df8b9678e568179f087bd68bf070d068d8cba523f341f654ec06168c0f",
+      "text": "theorem critical_output_difference (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u) :\n    farOnlyOutput H₂ t.spanInterval - farOnlyOutput H₁ t.spanInterval =\n      (farOnlyCoordinates H₂ t.spanInterval - farOnlyCoordinates H₁ t.spanInterval) +\n      ∑ π : {π : IntervalComposition t.spanInterval // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 (-H₂) - π.val.nearFarWeight 0 (-H₁)) *\n          ∏ k : Fin π.val.parts, farOnlyCoordinates H₁ (π.val.part k) :=\n  farTransform_difference_of_proper_children (-H₁) (-H₂)\n    (farOnlyCoordinates H₁) (farOnlyCoordinates H₂) t.spanInterval\n    (critical_proper_child_coordinates H₁ H₂ t h)\n",
+      "declaration": "SM.critical_output_difference",
+      "source_statement_text": "theorem critical_output_difference (H₁ H₂ : TripleArray n R)\n    (t : IncreasingBoundaryTriple n) (h : ∀ u, u ≠ t → H₁ u = H₂ u) :\n    farOnlyOutput H₂ t.spanInterval - farOnlyOutput H₁ t.spanInterval =\n      (farOnlyCoordinates H₂ t.spanInterval - farOnlyCoordinates H₁ t.spanInterval) +\n      ∑ π : {π : IntervalComposition t.spanInterval // 2 ≤ π.parts},\n        (π.val.nearFarWeight 0 (-H₂) - π.val.nearFarWeight 0 (-H₁)) *\n          ∏ k : Fin π.val.parts, farOnlyCoordinates H₁ (π.val.part k)",
+      "source_statement_sha256": "f244a0c78a17328743a7df41fcf020a9a72d139fcfd1a8019453342a9a0384de",
+      "context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {R : Type*} [CommRing R] [Invertible (2 : R)]",
+      "type_evidence": "Exact lexical source statement with ambient variables, not a newly elaborated #check/#print type. Existing successful prototype compilation binds these source bytes."
+    }
+  ],
+  "authoritative_source": {
+    "requested_proof_scope": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 281,
+      "last_line": 317,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "ca92d558d47e65f7f6adde134cabe0f3128c58b08c8ab3de2539a4335066c8d5",
+      "text": "The changing triple appears as far data in exactly one coordinate formula\nof $F_H$, namely $[x,z]$.  Induction in interval length therefore shows\nthat $c$ is unchanged on every interval not containing $I_*$.\n\nIn the $[x,z]$ equation every proper child is unchanged.  A composition\nhas a changing coefficient exactly when it cuts at $y$.  Splitting its\ncut list at $y$ is a bijection with a pair of arbitrary compositions of\n$L$ and $R$; concatenating the two lists is its inverse.  Its one\nchanging far gate $-H(x,y,z)/2$ has difference $-\\delta$.\nFor every other cut in these compositions, the wall geometry gives\n\\begin{align}\n H(x,r,z)&=\\epsilon_L H(x,r,y) &&(x<r<y),\\label{afr:wall-left-sign}\\\\\n H(x,r,z)&=\\epsilon_R H(y,r,z) &&(y<r<z).\\label{afr:wall-right-sign}\n\\end{align}\nFor the first identity, the vectors from $a_x$ to $a_z$ and to $a_y$\ndiffer by the scalar $(\\xi_z-\\xi_x)/(\\xi_y-\\xi_x)$.\nTaking their determinants with $a_r-a_x$ gives the indicated sign ratio.\nFor the second use the vectors from $a_z$ to $a_x$ and to $a_y$;\ntheir scalar ratio has sign $\\epsilon_R$.  All these determinants are\nnonzero at the wall.  Their signs on both sufficiently close sides are\ntherefore the wall signs, proving both displayed identities on those\nsides without evaluating a zero gate.\n\nConsequently the composition sum on a gap is $F_H(c)_J=\\mathcal E_J$ if\n$\\epsilon_J=1$, and $F_{-H}(c)_J=\\mathcal B_J$ if $\\epsilon_J=-1$.\nThe changed nonunary sum in $F_H(c)_{xz}=E_{xz}=0$ is thus\n$-\\delta \\mathcal U_L\\mathcal U_R$.  Since the unary coefficient is $1$, moving this\nsum to the other side gives\n\\begin{equation}\\label{afr:wall-source}\n c^+_{xz}-c^-_{xz}=s_*,\n \\qquad s_*=\\delta \\mathcal U_L\\mathcal U_R.\n\\end{equation}\nThe nonunary part of $F_{-H}(c)_{xz}$ must be calculated separately.\nIts changing gate is $+H(x,y,z)/2$, with difference $+\\delta$;\nall proper children are still unchanged.  Reversing the remaining far\nsigns exchanges $\\mathcal E_J$ with $\\mathcal B_J$ in each of the two gap sums.\nIts direct coefficient change is therefore $+\\delta \\mathcal V_L\\mathcal V_R$.\n"
+    },
+    "boundary_and_composition_domain": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 23,
+      "last_line": 27,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "e1a1d4e01a1c458f6fb91b25c02f53ca3e73318544637b353238a84a7b35e5d1",
+      "text": "$[i,j]$ of integers $0\\leq i<j\\leq N$; it has $j-i$ leaves. A\n\\emph{composition} of $[i,j]$ is a sequence $\\pi=(r_0<r_1<\\cdots<r_s)$ with\n$r_0=i$, $r_s=j$, $s\\geq1$; its \\emph{parts} are the intervals\n$[r_{k-1},r_k]$, and $|\\pi|=s$.\n\\end{definition}\n"
+    },
+    "wall_coefficient_definitions_and_targets": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 235,
+      "last_line": 267,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "c29c842b0f40b4b634d987cea0e411c1d284b6e3e08bd1573c5d4ad4fdb9438e",
+      "text": "$I_*=[x,z]$, $L=[x,y]$, $R=[y,z]$, $F=[0,N]$, and\n\\begin{equation}\\label{afr:wall-data}\n\\delta=\\frac{H^+(x,y,z)-H^-(x,y,z)}2\\in\\{-1,1\\}.\n\\end{equation}\nWrite the three wall points as $a_v=p_*+\\xi_v\\omega$ with\n$\\omega\\ne0$ and distinct $\\xi_v$. Set\n\\begin{equation}\\label{afr:wall-epsilons}\n\\epsilon_L=\\sgn\\frac{\\xi_y-\\xi_x}{\\xi_z-\\xi_x},\\qquad\n\\epsilon_R=\\sgn\\frac{\\xi_z-\\xi_y}{\\xi_z-\\xi_x}.\n\\end{equation}\nFor $J=L,R$ use the unchanged interval values of\nLemma~\\ref{lem:farout}, and put\n\\begin{equation}\\label{afr:wall-uv}\n\\mathcal U_J=\\begin{cases}\\mathcal E_J,&\\epsilon_J=1,\\\\\n\\mathcal B_J,&\\epsilon_J=-1,\\end{cases}\\qquad\n\\mathcal V_J=\\begin{cases}\\mathcal B_J,&\\epsilon_J=1,\\\\\n\\mathcal E_J,&\\epsilon_J=-1.\\end{cases}\n\\end{equation}\nIf $I_*\\ne F$, let $Q$ be the polygon obtained at $t=0$ by\nreplacing the boundary arc $a_x,\\ldots,a_z$ with the single edge\nfrom $a_x$ to $a_z$. Then $Q$ satisfies (G1), has at least three\nvertices, retains the physical root $g$, and\n\\begin{equation}\\label{afr:wall-proper}\nA_g(P_+)-A_g(P_-)=\\delta\\mathcal U_L\\mathcal U_R A_g(Q).\n\\end{equation}\nIf $I_*=F$, instead\n\\begin{equation}\\label{afr:wall-full}\nA_g(P_+)-A_g(P_-)\n=\\delta(\\mathcal U_L\\mathcal U_R+\\mathcal V_L\\mathcal V_R).\n\\end{equation}\nHere $P_\\pm$ are on sufficiently close punctured sides of the germ;\nall gap and contracted coefficients are evaluated at their nondegenerate\nwall data, equivalently at the same signs on either sufficiently close side.\n"
+    },
+    "off_critical_geometry_premise": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 271,
+      "last_line": 278,
+      "extraction": "Inclusive UTF-8 source lines with original terminating newlines",
+      "sha256": "8ee93e9e0a2681ec0468f7c3a7c053d60587a3eddeb9972b30c35ac28b03a2f8",
+      "text": "The wall hypothesis makes every distinct-triple determinant except the\ncritical one nonzero at zero; after a common shrink its sign is the\nsame on both punctured sides. Neither gap contains the entire critical\ntriple, so both gap arrays and every nontrivial closed gap polygon are\nnondegenerate and unchanged. Singleton gap values have only their formal\nopen-word meaning. At least one epsilon is positive: otherwise both\nsummands in $\\xi_z-\\xi_x=(\\xi_y-\\xi_x)+(\\xi_z-\\xi_y)$ would have\nsign opposite to their nonzero sum.\n"
+    }
+  },
+  "canonical_import_binding": {
+    "entry": "SM.Farout",
+    "local_source_file_count": 32,
+    "local_source_files_sha256": {
+      "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+      "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+      "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+      "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+      "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+      "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+      "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+      "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+      "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+      "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+      "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+      "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+      "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+      "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+      "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+      "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+      "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+      "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+      "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+      "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d"
+    },
+    "external_import_names": [
+      "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+      "Mathlib.Algebra.BigOperators.Ring.Finset",
+      "Mathlib.Algebra.MvPolynomial.Eval",
+      "Mathlib.Data.Finset.Sort",
+      "Mathlib.Data.Real.Basic",
+      "Mathlib.Data.Sign.Basic",
+      "Mathlib.Data.Sign.Defs",
+      "Mathlib.Data.ZMod.Basic",
+      "Mathlib.Tactic",
+      "Mathlib.Tactic.Linarith",
+      "Mathlib.Tactic.Ring"
+    ],
+    "limit": "Read-only import-source manifest, not a fresh kernel dependency or semantic closure audit. Hashing all imported sources does not claim every theorem in that import closure was mathematically reviewed."
+  },
+  "canonical_dependencies_directly_reviewed": [
+    "SM.IncreasingBoundaryTriple, SM.TripleArray, SM.IntervalArray, SM.IntervalComposition.nearFarWeight, SM.nearFarTransform, SM.farTransform and SM.boundaryUnitArray in SM/NearFar.lean",
+    "SM.IntervalComposition.part_leaves_lt and the finite raw composition domain in SM/FiniteCompositions.lean",
+    "Unique unary composition, exact unary child product and nonSingleEquiv in SM/UnaryComposition.lean",
+    "SM.nearFarTransform_eq_triangular, SM.nearFarInverse and inverse equations in SM/NearFarTriangular.lean; actual recursive inverse in SM/TriangularInverse.lean",
+    "SM.farOnlyCoordinates, SM.farOnlyOutput, SM.farOnlyCoordinates_equation and one-leaf values in SM/FarOnlyOutput.lean",
+    "Actual interval/triple restriction, complete raw-composition translation, inverse restriction and unit-array restriction in SM/IntervalRestriction.lean; BoundaryInterval.lift_fullInterval in SM/RestrictedWordRoot.lean",
+    "SM.Farout import and its packaging theorem were read for context; the four new proofs do not assume that packaging theorem as a new axiom."
+  ],
+  "frozen_dependency_assessment": {
+    "CriticalCutSplit": "Only IncreasingBoundaryTriple.spanInterval is used by these four proofs: it is the actual interval from t.lower to t.upper, with strict order derived from the two inequalities through t.middle. No gap-splitting or gap-factor identity is imported into their conclusions by name alone.",
+    "FarOnlyLocality": "farOnlyCoordinates_unchanged_off_critical derives equality by showing every actual triple in J differs from the critical triple when J does not contain its span. farOnlyCoordinates_local proves this from equality of the complete restricted arrays and canonical inverse restriction. It separately treats leaves=1 using the proved value 1, then identifies the full local interval with J when leaves>=2. Thus locality is about the actual recursively defined inverse and preserves singleton open-word cases."
+  },
+  "declaration_findings": [
+    {
+      "declaration": "SM.farTransform_difference_of_proper_children",
+      "verdict": "pass",
+      "source_scope": "Algebraic separation used in source lines 285,306-308 and313-317.",
+      "steps": [
+        "farTransform is definitionally nearFarTransform 0 H. nearFarTransform_eq_triangular separates exactly the unique unary raw composition, whose empty weight is 1 and whose single child is I. Every other raw composition remains in the subtype with parts>=2.",
+        "For each fixed nonunary composition and each of its actual children, hX replaces X₂ by X₁. Product congruence therefore gives the same child product under both coefficients; the reverse equality direction is the one used in hs.",
+        "Finite-sum subtraction and sub_mul identify the difference of the two nonunary sums with the sum of coefficient differences times that common product.",
+        "Ring algebra then rearranges the two retained unary coordinates to X₂ I-X₁ I. The statement has no assumed transform-difference formula; hX is precisely the child equality needed for this decomposition."
+      ]
+    },
+    {
+      "declaration": "SM.critical_proper_child_coordinates",
+      "verdict": "pass",
+      "source_scope": "Source lines 281-285: all proper children of the critical span are unchanged.",
+      "steps": [
+        "The only possible differing array entry is t by h. The frozen proved locality theorem reduces equality of each child inverse value to showing that child cannot contain both endpoints of t.spanInterval.",
+        "For a nonunary raw composition, canonical part_leaves_lt gives b-a<z-x for the child endpoints a,b and critical endpoints x,z.",
+        "If the child contained the critical span, a<=x and z<=b would imply z-x<=b-a by monotonicity of natural subtraction in its minuend and antitonicity in its subtrahend. This contradicts strict leaf decrease; the frozen omega call performs this arithmetic contradiction.",
+        "Every k:Fin π.parts is covered, including children with one leaf. hp excludes only the unary parent, which must be handled separately because its child is the original interval."
+      ]
+    },
+    {
+      "declaration": "SM.critical_inverse_difference",
+      "verdict": "pass",
+      "source_scope": "Unevaluated-sum algebra underlying source lines 306-311, before identification with delta U_L U_R.",
+      "steps": [
+        "Specialize the proved generic difference to the actual arrays farOnlyCoordinates H₁ and farOnlyCoordinates H₂ on t.spanInterval. The preceding theorem supplies the complete proper-child equality premise.",
+        "Each far transform equals the same canonical boundaryUnitArray by the proved inverse equation. Their difference is zero; this cancellation does not assume any response or even need to substitute the nonleaf value 0 separately.",
+        "The resulting equality is 0=(c₂-c₁)+S. Its symmetry and additive cancellation give c₂-c₁=-S, exactly the sign in the frozen conclusion.",
+        "S is still the complete nonunary coefficient difference sum over the original child coordinates. No evaluation as a product of gap values is claimed by the statement."
+      ]
+    },
+    {
+      "declaration": "SM.critical_output_difference",
+      "verdict": "pass",
+      "source_scope": "Separate reversed-far coefficient contribution in source lines 313-317, before gap-factor evaluation.",
+      "steps": [
+        "The actual output is farTransform (-H) (farOnlyCoordinates H). Apply the generic decomposition with coefficient arrays -H₁,-H₂ and coordinate arrays c(H₁),c(H₂). The coordinates are not replaced by inverses for -H.",
+        "The same proved child equality for c(H₁),c(H₂) applies. The conclusion retains the unary c₂-c₁ plus the separately formed difference of weights at -H₂ and -H₁.",
+        "The order H₂-minus-H₁ agrees in the output, unary coordinate and coefficient terms. The theorem does not incorrectly identify the reversed-far coefficient difference with the unreversed one."
+      ]
+    }
+  ],
+  "domain_and_assumption_review": {
+    "ring": "Arbitrary commutative ring with 2 invertible, matching the source algebraic transform domain; no field, characteristic, positivity or sign-valued hypothesis is inserted.",
+    "boundary": "Physical Fin n positions and strictly increasing raw compositions with arbitrary positive natural part count. t supplies lower<middle<upper, so its span and both gaps have positive lengths. The inherited NeZero n excludes no inhabited source interval/triple case.",
+    "complete_sums": "All nonunary raw compositions and all of their children remain in each sum/product. Unary parent contributions occur explicitly as coordinate differences. The generic first identity also covers a one-leaf I with an empty nonunary sum.",
+    "critical_premise": "h permits any value change at t, including zero change, and requires equality only off t. This is an algebraic generalization of the source wall situation; deriving h from a geometric wall and proving the critical flip are separate obligations.",
+    "axioms_and_circularity": "No axiom/sorry/admit/native_decide/opaque replacement or hidden response premise occurs in the frozen body/prototype. The inverse is the canonical well-founded triangular recursion. Existing root kernel traces for all four new declarations list only policy-standard axioms. This review did not independently execute an axiom traversal."
+  },
+  "pending_source_work": [
+    "Prove or import a separately reviewed evaluation of the difference of far weights: only compositions containing the critical middle cut contribute, with the correct critical gate difference.",
+    "Use the actual gap-composition bijection and exact child/factor transport to identify the coefficient sums with the two gap products.",
+    "Derive the epsilon wall sign identities and stable side arrays from the geometric wall hypotheses; identify delta and U/V with the printed source values.",
+    "Combine those evaluations with these algebraic identities to obtain the printed critical source jump and full-span output formula.",
+    "Propagate through larger intervals and establish contraction, root, admissibility and geometric coefficient identifications required for the proper-span formula and complete single-triple wall theorem."
+  ],
+  "existing_kernel_evidence": {
+    "receipt": "work/checks/CriticalInverseDifference-prototype-result.json",
+    "recorded_kernel_session": 29471,
+    "recorded_exit_code": 0,
+    "recorded_first_run_passed": true,
+    "all_receipt_file_hashes_match_current_bytes": true,
+    "axiom_log": "work/checks/CriticalInverseDifference-first-kernel.log",
+    "four_standard_axiom_traces": [
+      "'SM.farTransform_difference_of_proper_children' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "'SM.critical_proper_child_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "'SM.critical_inverse_difference' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "'SM.critical_output_difference' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    "evidence_nature": "Existing root execution evidence was read and its hashes independently matched. This reviewer ran no Lean kernel, build or audit."
+  },
+  "limitations": [
+    "Exact lexical statement and proof hashes are supplied; no fresh compiler #check/#print types were generated. The existing log prints axioms, not full elaborated types.",
+    "Current canonical source imports are hash-bound, but imported .olean/source consistency and a fresh kernel transitive dependency audit were not checked.",
+    "No unresolved proof-source or statement-fidelity concern requires a duplicate prototype kernel run solely for this bounded review. Existing successful root evidence remains the kernel evidence. A future canonical port and final acceptance still require the ordinary project checks.",
+    "This report supplies independent review for these four partial algebraic helpers only. It does not accept thm:single-triple or any final corner/wall theorem."
+  ],
+  "progress_snapshot_read_only": {
+    "timestamp_utc": "2026-09-11T07:16:45+00:00",
+    "name": "Corner state sum: wall laws and soft theorem",
+    "metric": "accepted checklist rows (reported statuses; not effort or proof verification)",
+    "accepted": 39,
+    "total": 192,
+    "percentage": 20.3,
+    "added_since_previous": [],
+    "targets_accepted": 0,
+    "targets_total": 8,
+    "active": [
+      "SM-foundations"
+    ],
+    "blocked_local": [
+      "SM-shift-original-scope"
+    ],
+    "acceptance": {
+      "1": "not established by a current checker receipt"
+    }
+  }
+}

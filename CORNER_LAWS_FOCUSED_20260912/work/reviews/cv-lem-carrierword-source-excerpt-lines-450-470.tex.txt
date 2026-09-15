@@ -1,0 +1,21 @@
+\begin{lemma}[smoothing preserves the induced cyclic order]\label{lem:carrierword}
+Let $C$ be a closed curve with a traversal circle $\Gamma_C$ and finitely many
+transverse double points, and let $S$ be a set of them no two of which
+interlace. Then each closed curve produced by smoothing $C$ along $S$ traverses
+the marked points of $\Gamma_C$ lying on it in the cyclic order they have on
+$\Gamma_C$.
+
+In particular, taking $C=P$ generic and $S\in\Ind(G_P)$, each carrier of $S$
+traverses the marked points lying on it in the order induced from $\Gamma$.
+\end{lemma}
+\begin{proof}
+Induction on $|S|$. If $S=\varnothing$ the only curve is $C$ itself, traversing
+$\Gamma_C$, and there is nothing to prove.
+
+Let $|S|\geq1$ and pick $c\in S$, with traversal preimages $c_1,c_2$. Smoothing
+$c$ alone joins the incoming branch at $c_1$ to the outgoing branch at $c_2$ and
+the incoming at $c_2$ to the outgoing at $c_1$, so the two resulting closed
+curves traverse exactly the two arcs $\Gamma_1=(c_1,c_2)$ and
+$\Gamma_2=(c_2,c_1)$ of $\Gamma_C$, each in the order induced from $\Gamma_C$;
+no marked point changes arcs and none is visited twice.
+

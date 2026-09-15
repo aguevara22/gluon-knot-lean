@@ -1,0 +1,165 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-avoiding-transform-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:37:18.642639+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The reviewer authored frozen SoftDuplicationIndices, SoftDuplicationArrays and SoftDuplicationAvoidingCompositions, all embedded dependencies. This report assesses their use by the new root-authored transform body; it is not an independent reapproval of those authored dependencies. The reviewer did not contribute to the seven reviewed transform statements/proofs or their repair."
+  },
+  "scope": {
+    "group": "SoftDuplicationAvoidingTransform",
+    "declarations": [
+      "SM.SoftDuplication.nearFarWeight_avoiding",
+      "SM.SoftDuplication.ordinaryLift_child_avoiding",
+      "SM.SoftDuplication.ordinaryLift_children_avoiding",
+      "SM.SoftDuplication.nearFarTransform_ordinaryLift_avoiding",
+      "SM.SoftDuplication.ordinaryLift_equation_avoiding",
+      "SM.SoftDuplication.tripleLift_neg",
+      "SM.SoftDuplication.rootTransform_ordinaryLift_avoiding"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1270–1277 avoiding-interval transform and E-entry argument, with source ordinary/root-sign convention at 1208–1221",
+    "ambient_context": "namespace SM.SoftDuplication; {n : ℕ} [NeZero n], arbitrary s and actual avoiding child interval I with the dependent nonduplicate proof hI. Gate, product and transform equalities use rational arrays and arbitrary rational exceptional/neighbor data; tripleLift_neg itself needs only Neg R. The ordinary equation explicitly fixes the core coordinate array to nearFarInverse(coreNear s t,H0,boundaryUnitArray)."
+  },
+  "assessment": "No technical mathematical or domain defect found. This proves complete weighted ordinary/root-sign transport on avoiding coordinates and the actual core-inverse ordinary unit equation on that domain.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 89641,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      21543
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes, exact ordered full-body embeddings and exact preserved failure/current proof difference; no extracted-header hashes.",
+    "receipt_path": "work/checks/SoftDuplicationAvoidingTransform-prototype-result.json",
+    "receipt_sha256": "daeccbc1b63a75eb19eefc66da93c1a5f195293ce2b6dbb93b9dda1db04638bd",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationAvoiding.body.lean": "56633f8a83dac836b61e00e369f1916188333fe509807dcae44c95e8cd1aa118",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationAvoidingCompositions.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806",
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean": "082d9137dc95a833fb67c724f726ae8a5248947f19a0dd206025a9f5c2894453",
+      "work/checks/SoftDuplicationAvoidingTransform.body.lean": "98e34c337b15fe88f95cc29d65045cf5727b17b417c7c6ac7c76e264624345a5",
+      "work/checks/SoftDuplicationAvoidingTransform.prototype.lean": "7af7412b9cb5dc058471c04575197fbc7231a4edd6ab58c476fef1cf248d8687",
+      "work/checks/SoftDuplicationAvoidingTransform-second-kernel.log": "8e222ee9176b0ef0d59f303f04e2268557d91a6c98d6f9ccec1eac598a3da471"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationIndices.body.lean": 1,
+      "work/checks/SoftDuplicationCutFibers.body.lean": 1,
+      "work/checks/SoftDuplicationAvoiding.body.lean": 1,
+      "work/checks/SoftDuplicationArrays.body.lean": 1,
+      "work/checks/SoftDuplicationAvoidingCompositions.body.lean": 1,
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean": 1,
+      "work/checks/SoftDuplicationAvoidingTransform.body.lean": 1
+    },
+    "ordered_body_dependencies": [
+      "work/checks/SoftDuplicationIndices.body.lean",
+      "work/checks/SoftDuplicationCutFibers.body.lean",
+      "work/checks/SoftDuplicationAvoiding.body.lean",
+      "work/checks/SoftDuplicationArrays.body.lean",
+      "work/checks/SoftDuplicationAvoidingCompositions.body.lean",
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean",
+      "work/checks/SoftDuplicationAvoidingTransform.body.lean"
+    ],
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 7,
+    "declaration_axioms": {
+      "SM.SoftDuplication.nearFarWeight_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_child_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_children_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.nearFarTransform_ordinaryLift_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_equation_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_neg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.rootTransform_ordinaryLift_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationAvoidingTransform-first-draft.body.lean": "cfbc06f60001ce31b7287e0e4d7cb30a124eb38fe53e7677f54ae9f9201c81c8",
+      "work/checks/SoftDuplicationAvoidingTransform-first-draft.prototype.lean": "6bb09b929aedb8e621079a2ef132420880c5cf96ba939bbac99eaace1db43c96",
+      "work/checks/SoftDuplicationAvoidingTransform-body-dependencies.json": "bd417d276c171337dc2c36d2ede96510d5c1379b32e1b824d008bdfc1af4e713",
+      "work/checks/SoftDuplicationAvoidingTransform-draft-dependency-bindings.json": "ac98967711d657a70d548d3386397176a56d3ea321069b2c21b96e5879f8bf79"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/SoftDuplicationAvoidingTransform-first-failed.body.lean": "cfbc06f60001ce31b7287e0e4d7cb30a124eb38fe53e7677f54ae9f9201c81c8",
+      "work/checks/SoftDuplicationAvoidingTransform-first-failed.prototype.lean": "6bb09b929aedb8e621079a2ef132420880c5cf96ba939bbac99eaace1db43c96",
+      "work/checks/SoftDuplicationAvoidingTransform-first-kernel.log": "b968754d5bfa57ad9f16294d72751ff4d1e79fd71f1b6a3a973cfc65ae977bd8"
+    },
+    "first_drafts_byte_identical_to_first_failed_files": true,
+    "main_prototype_diff_is_exact_full_body_replacement": true,
+    "all_seven_declaration_types_unchanged": true,
+    "repair_description": "Only tripleLift_neg changed: after funext T an explicit change unfolds pointwise negation into tripleLift s (-H0) (-t) T = -(tripleLift s H0 t T). The same if cases then close by rfl. This is a definitional elaboration repair, with no array-definition, case, sign, theorem type or hypothesis change. First21543 failure remains rejected evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+      "work/checks/SoftDuplicationAvoiding-prototype-result.json": "54d4ad05e95abef533cc33d18bd6dd8770ea3fa8f86e8b8b9a9535d53454037a",
+      "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+      "work/checks/SoftDuplicationAvoidingCompositions-prototype-result.json": "9817903d3bc57d18465b15d305852123f62ff937463bce13fc23fcc78722cc7d",
+      "work/checks/SoftDuplicationAvoidingUnit-prototype-result.json": "059e04ddcea3fd9cbafc2578957684e2b6cdc44b53d488969c44a73e157324d1"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+      "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+      "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "findings": [
+    "nearFarWeight_avoiding derives plainness for every actual near and far triple from parent avoidance. tripleLift_plain therefore reads the core array at the exact collapseTriple; the proved direct composition identities identify all three positions with its actual near/far triples. The products are normalized to the same original Fin(parts-1) domain, with the same inverse-of-two factor. D0/H0 and their exceptional tD/tH values are arbitrary: no sign-square, sign-nonzero or guessed gate equality is assumed.",
+    "ordinaryLift_child_avoiding derives avoidance of each actual π.part k and uses the source plain row of ordinaryLift. The mapped child is the exact collapseInterval from the direct composition theorem; proof irrelevance aligns the already-derived nondegeneracy proofs. Thus each factor is the actual core child coordinate. ordinaryLift_children_avoiding compares the complete Fin(parts) product and never divides by a child or exterior factor, retaining zeros.",
+    "nearFarTransform_ordinaryLift_avoiding sums over every raw parent composition and reindexes by the proved avoidingCompositionEquiv, with its genuine inverse. The direct collapseComposition is proved equal to that equivalence via the entire cut set; endpoint equality is not used as a substitute. Weight and child-product equalities discharge the pointwise summand equation. No caller-supplied weight, factor, correspondence, or surjectivity hypothesis remains.",
+    "The part count is unchanged by the direct map, and the canonical nearFarTransform includes all unary compositions. Hence the unary gate product is empty and equals one, its single child is retained, and it participates in the same sum equivalence. No nonunary-only identity is being promoted to a full transform equation.",
+    "ordinaryLift_equation_avoiding defines b0 inside the conclusion as the actual nearFarInverse of coreNear and H0 at boundaryUnitArray. Canonical nearFarTransform_inverse is proved from the triangular construction, whose recursive calls strictly decrease actual leaf count. Applying it after complete transport gives the core E entry; the independently proved avoiding-unit equality gives the parent E entry. There is no assumed b0-solution premise and no use of the desired parent inverse equation to prove itself.",
+    "tripleLift_neg negates both the core H0 and exceptional tH entries and proves equality of complete arrays, including both exceptional branches and the plain branch. rootTransform_ordinaryLift_avoiding therefore replaces subtraction of far entries by the source plus-far convention using the same ordinary child array b0. It does not incorrectly substitute an inverse formed from -H0, and does not assume near-array independence for individual auxiliary open sums.",
+    "The arbitrary rational data are broader than the source sign-valued formal data; no actual neighbor relation is needed on an avoiding interval because none of its gates or children reads the exceptional rows. Source n>=3 and both endpoint avoidance cases, ending at A and starting at B, are included. The explicit hI follows from avoidance and only supplies the dependent collapsed interval.",
+    "The root-sign identity is stated on arbitrary avoiding coordinates, not on the full parent boundary interval. The latter contains both A and B and requires the separate starting/ending/spanning duplication arguments. The present conclusions do not claim the final full-root multiplier or the complete parent inverse solution."
+  ],
+  "limits": "This completes the weighted avoiding-coordinate subcase, conditional only on its explicit actual interval domain, and proves its ordinary E equation from the actual core inverse. Singleton [A,B], nonavoiding two/three-presentation weighted cases, full parent inverse uniqueness, actual cyclic neighbor/sign specialization and the final full-root A-soft law remain separate work. Authored dependencies are disclosed, and this report is not their nonauthor approval. No source acceptance, canonical integration or stronger-model statement-fidelity approval is granted."
+}

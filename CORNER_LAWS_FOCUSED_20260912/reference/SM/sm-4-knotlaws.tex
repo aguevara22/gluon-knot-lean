@@ -1,0 +1,1935 @@
+\section{Laws for the corner state sum}\label{sec:knotlaws}
+
+Throughout, $C$ is the function of Definition~\ref{def:C} on generic
+polygons, and the named walls are those of Definition~\ref{def:walls}.
+
+\begin{remark}[crossing records and knot presentation]\label{rem:crossing-record}
+Three phrases of this section and of Section~\ref{sec:statesum} have the
+following fixed meanings. (a)~The \emph{crossing record} of a diagram, here
+always the positive lift of a carrier, is its named record in the sense of
+Definition~\ref{def:gauss-record}: the crossing visits in their cyclic
+traversal order, the pairing of the two visits of each crossing, the
+over/under bit of each visit, and the crossing signs. For a positive lift
+every crossing sign is $+1$ (Definition~\ref{def:positive-lift}), so the
+record is the cyclic order, the pairing and the over/under bits; the words
+\emph{order and crossing records} in the proof of Lemma~\ref{lem:flat-sides}
+name the edgewise visit lists of the Gauss word
+(Definition~\ref{def:gauss}), the part of this datum without the over/under
+bits. (b)~The over/under bit is a chirotope datum: at a crossing of $E_i$
+and $E_j$ the over strand of the positive lift is $E_i$ exactly when
+$\det(\lt_i,\lt_j)>0$. On a chamber the crossing set is constant
+(Proposition~\ref{prop:chambers}) and this determinant is continuous and
+nonvanishing, the crossing being transverse, so its sign, and with it every
+over/under bit, is constant on each chamber; the chamber-constancy and
+silence proofs below print this argument where they use it. (c)~Two diagrams
+\emph{present the same oriented knot} in the sense fixed by the statement of
+Theorem~\ref{lit:gauss}: their compatible lifts in $S^3$ are joined by an
+ambient isotopy preserving the traversal orientation. The only proof of this
+document that uses this notion is the identification of the positive star
+with a torus knot in Section~\ref{sec:anchors}, through that theorem. In
+Literature input~\ref{lit:homfly} the phrase \emph{the oriented link presented
+by $D$} is the source's notion, the oriented link type of the diagram, which
+Reidemeister's theorem (registry L-1, Section~\ref{sec:registry}) carries
+from the diagram.
+\end{remark}
+
+\begin{proposition}[chamber constancy]\label{prop:C-chamber}
+The state sum $C$ of Definition~\ref{def:C} is constant on every chamber.
+\status{proved (refereed: bench A, 2026-09-05T18:22:57Z; transcribed from CV prop:chamberinv, through Lemma~\ref{lem:carriers} and the named-record bridge (Lemma~\ref{rp:record-polynomial}, Theorem~\ref{lp:core}) (C020, C027); F-25-95; single convention, CV one-based tail = this document (F-25-104))}
+\end{proposition}
+\begin{proof}
+First consider a continuous path of labelled generic polygons. By
+Proposition~\ref{prop:chambers}, the crossing set and the order of its
+visits along each directed edge are constant. Concatenating those edgewise
+lists identifies the oriented cyclic traversal records, their crossing
+pairings and interlacement graphs. It therefore gives a bijection of all
+independent sets $S$, preserving $|S|$.
+
+Fix one such support $S$. Include the original vertices as marked points
+on the traversal circle and perform the same exchanges of outgoing
+successors at its selected visits. By Lemma~\ref{lem:carriers}, with the
+incoming-visit convention, this gives a fixed finite collection of oriented
+carrier cycles. Corresponding original vertices and smoothing corners
+have the same places on those cycles. An unselected crossing is retained
+as a self-crossing of a cycle exactly when both its visits belong to that
+cycle, so every carrier's retained crossing pairing and number $m_Q$ are
+constant.
+
+Each crossing point varies continuously: its two edge directions have
+nonzero determinant, and solving the two-by-two intersection equations
+gives continuous parameters in the relative interiors. Thus the corners
+of each named carrier form a continuous ordered polygonal tuple.
+Lemma~\ref{lem:carriers} puts it in the regular locus: its segments are
+nonzero and no consecutive directions are antiparallel. Its signed
+rotation is consequently constant by Lemma~\ref{lem:rot}(ii).
+At an original corner the turn sign is the corresponding original turn;
+at a smoothing corner it is the sign of the determinant of the inherited
+ordered edge directions. These determinants are continuous and nonzero
+along the path. All carrier corner signs, corner counts and uniformity
+conditions therefore remain constant, as does the original left-turn
+count $\ell(P)$.
+
+At a retained self-crossing the two carrier directions are positive
+multiples of the same ordered parent directions throughout. Their
+nonzero determinant has constant sign. The physical over strand in the
+positive lift therefore stays over, and the crossing sign stays positive.
+Corresponding carrier lifts have a cyclic-order-, pairing-, sign- and
+over/under-preserving bijection of crossing visits. The printed
+scalar named-record Lemma~\ref{rp:record-polynomial}, followed by the
+common substitution and Theorem~\ref{lp:core}, gives equal $H$ polynomials,
+including for a carrier with no self-crossings.
+Since $m_Q$ and $|\rot(Q)|$ are constant, the exponent
+$d_Q=1-m_Q-|\rot(Q)|$ is constant. Hence the coefficient
+$c(Q)=[a^{d_Q}z^0]H_Q^+$ is constant for every carrier, whether uniform
+or mixed. Every term and the prefactor of Definition~\ref{def:C} are
+now constant, proving constancy along the labelled path.
+
+To pass to unlabelled chambers, first note that cyclically shifting the
+vertex labels preserves $C$ directly from its definition. It merely
+renames the same directed traversal, crossings and independent supports;
+the corresponding carrier images and orientations, corner counts,
+rotations, positive lifts and coefficients are unchanged. Openness of the
+labelled generic locus gives each point a path-connected neighbourhood
+inside it. The path argument makes $C$ locally constant there. Its
+cyclic invariance makes it descend to a locally constant function on the
+quotient by cyclic relabelling: the preimage of any value is an open
+saturated subset, so its image is open in the quotient topology. A
+locally constant function on a connected chamber is constant. This proves
+the stated assertion without assuming a lift of an arbitrary quotient path.
+\end{proof}
+
+\begin{proposition}[silence]\label{prop:C-silent}
+At a simple exterior-extension wall (E) or a simple pure cut (C),
+\begin{equation}\label{ccf:silence}
+C(P_+)=C(P_-).
+\end{equation}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from exterior extension CV lem:silence; pure cut as printed (C020, C027))}
+\end{proposition}
+\begin{proof}
+By Lemma~\ref{lem:wall-sides}(E),(C), the remote crossings and their
+cyclic visit order agree on both sides and at the centre. Its proof also
+gives the following geometric facts at the centre: vertices are distinct,
+all edges and all original turns are nonzero, no vertex lies on a
+nonincident closed edge, every actual crossing is transverse and interior,
+and distinct crossings have distinct points. In (E) the sole vertex-line
+incidence lies outside its closed base segment; in (C) its zero triple
+contains no adjacent pair and hence gives no vertex-edge incidence.
+Thus the same finite crossing records and independent supports are
+identified through the entire small interval.
+
+For each common support $S$, exchange the same successors to identify its
+carriers. Original vertices and selected smoothing points remain distinct,
+so the subsegments between successive marks have positive lengths at the
+centre and on a smaller interval. At an original corner the two directed
+segments are positive multiples of consecutive parent directions with
+nonzero turn determinant. At a smoothing corner they are positive
+multiples of the two transverse directions at its selected crossing,
+again with nonzero determinant. Omitting unselected marks only joins
+positive subsegments in the same direction. These observations verify
+directly, including at the nongeneric parent centre, that every carrier
+tuple is continuous, has nonzero segments, and has no antiparallel corner.
+They do not apply a generic-polygon lemma outside its hypothesis.
+
+It follows from Lemma~\ref{lem:rot}(ii) that each carrier's signed rotation
+is the same on both sides. Every original and smoothing turn sign is
+constant, and so are $\ell(P)$, uniformity and all corner counts. The
+common successor cycles preserve which unselected crossing visits share
+one carrier, hence all $m_Q$. At every retained crossing its direction
+determinant is nonzero and continuous through zero; therefore its positive
+over/under designation is also constant. Apply the scalar named-record equality of
+Lemma~\ref{lc:presentations} and Theorem~\ref{lp:core} to corresponding
+carrier diagrams on the two generic sides. This gives equal $H$ polynomials;
+the equal $m_Q$ and $|\rot(Q)|$ give equality of their corner coefficients.
+The independent supports, their uniformity, $|S|$ and the common prefactor
+now identify the two sums term by term. There are finitely many supports
+and carriers, so all interval shrinkings can be made simultaneously.
+
+Only carrier geometry was used at the centre; the state sums in
+\eqref{ccf:silence} are evaluated on the generic sides.
+Proposition~\ref{prop:C-chamber} makes them independent of the chosen
+representatives in the respective side chambers.
+\end{proof}
+
+\begin{theorem}[flat law]\label{thm:C-S3}
+At a simple flat wall at $j$, with $n\geq4$,
+\begin{equation}\label{ccf:flat-law}
+C(P_{\rm right})-C(P_{\rm left})=C(P(0)\setminus j).
+\end{equation}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV thm:main(A)(ii), lem:flatdata (C020, C027))}
+\end{theorem}
+\begin{proof}
+We first rewrite the actual state sum using only the corner signs.
+For a carrier $Q$ with $N_Q$ corners, define
+\begin{equation}\label{ccf:selector}
+W(Q)=
+\begin{cases}
+1,&\text{all its turns are right},\\
+(-1)^{N_Q},&\text{all its turns are left},\\
+0,&\text{its turns are mixed}.
+\end{cases}
+\end{equation}
+If a support $S$ is uniform, the total number of left carrier corners is
+$\ell(P)+|S|$: every original vertex belongs to exactly one carrier with
+its original turn, and each selected crossing creates exactly one left
+and one right smoothing corner, by Lemma~\ref{lem:carriers}. It follows
+that the product of the selectors is $(-1)^{\ell(P)+|S|}$. If $S$ is
+not uniform, at least one selector is zero. Consequently the definition
+of $C$ gives, on every generic polygon,
+\begin{equation}\label{ccf:selector-sum}
+C(P)=\sum_{S\in\operatorname{Ind}(G_P)}
+       \prod_{Q\text{ carrier of }S}W(Q)c(Q).
+\end{equation}
+This is an identity for the coefficients of the individual actual carrier
+diagrams in Definition~\ref{def:C}; no factorization of one diagram's
+polynomial into polynomials of other pieces has been used.
+
+Put $D=P(0)\setminus j$. Lemma~\ref{lem:flat-sides} proves that $D$
+is generic and identifies its crossings with those on both sides,
+preserving cyclic order, pairing and positive over/under data. Hence it
+identifies the three interlacement graphs and all independent supports,
+including supports whose uniformity differs between the configurations.
+For a fixed support, Corollary~\ref{cor:flat-carriers} gives corresponding
+oriented carriers with the same retained crossing records and the same
+signed rotations. Lemma~\ref{lc:presentations} and
+Theorem~\ref{lp:core} therefore identify the $H$ polynomials of their
+actual positive lifts. The numbers $m_Q$ and
+$|\rot(Q)|$ agree, so the exponents $d_Q$ agree and each corresponding
+coefficient $c(Q)$ is the same in all three configurations. This applies
+also to mixed carriers and to crossing-free carriers.
+
+Exactly one named carrier passes through the extra vertex $\mu_j$.
+Call it $Q_*$ and call its corresponding deletion carrier $Q_*^D$.
+All other corresponding selectors agree. The selectors of the
+distinguished carrier satisfy
+\begin{equation}\label{ccf:distinguished-selector}
+W(Q_*^{\rm right})-W(Q_*^{\rm left})=W(Q_*^D)
+\end{equation}
+by Corollary~\ref{cor:flat-carriers}(iii). Explicitly, if the surviving
+corners are mixed, all three entries are zero; if all are right, the
+entries are $(1,0,1)$; if all $k$ surviving corners are left, the entries
+are $(0,(-1)^{k+1},(-1)^k)$. In the last case the first minus the
+second is $-(-1)^{k+1}=(-1)^k$. The deletion carrier has at least
+three corners, so these alternatives do not involve an empty corner list.
+
+For the fixed common support $S$, let $B_S$ be the common product of
+all carrier coefficients, and let $U_S$ be the common product of all
+selectors other than the distinguished one (with empty product $1$).
+Its right-minus-left contribution to \eqref{ccf:selector-sum} is
+\begin{equation}\label{ccf:term-difference}
+B_SU_S\bigl(W(Q_*^{\rm right})-W(Q_*^{\rm left})\bigr)
+=B_SU_SW(Q_*^D).
+\end{equation}
+The right side is exactly this support's contribution to the deletion
+sum. No division by $B_S$, $U_S$ or a coefficient is performed; zeros
+cause no exception. Summing over the finite common support set proves
+\eqref{ccf:flat-law}. Proposition~\ref{prop:C-chamber} supplies the
+well-defined side values. The only state sum on the right is that of
+the generic deletion, not a value assigned to the flat centre.
+\end{proof}
+
+\begin{lemma}[products and the two-component row]\label{lem:homflyrows}
+For oriented knots $K,J$, $H_{K\#J}=H_KH_J$ and
+$H_{K\sqcup J}=\frac{a-a^{-1}}zH_KH_J$. For a two-component oriented link
+diagram $D=D_1\cup D_2$ with linking number $\lk$,
+$[z^{-1}]H_D=(a-a^{-1})a^{-2\lk}[z^0](H_{D_1}H_{D_2})$.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV lem:homflyrows via Theorems~\ref{mp:join}, \ref{mp:stack}, \ref{mp:lowest} (C028); its second sentence (the two-component row) consumes the knot clause of registry L-1 (F-25-48))}
+\end{lemma}
+\begin{proof}
+Choose actual knot diagrams for $K,J$ with clean marked intervals. The
+clean joining construction preceding Theorem~\ref{mp:join} gives a diagram
+of their ordinary oriented connected sum. That theorem gives
+$P_{K\#J}=P_KP_J$ on these actual representatives, and
+Theorem~\ref{lp:core} identifies each $P$ with $H$. For split union, choose
+representatives with disjoint page images. Theorem~\ref{mp:stack}, with
+two one-component blocks and no mixed crossings, gives
+$P_{K\sqcup J}=\delta P_KP_J$; the same identification gives the asserted
+$H$ formula. Passing from these chosen representatives to the knot-class
+notation uses the full global source premise explicitly retained in
+Literature input~\ref{lit:homfly}; it is not a conclusion of the local
+construction alone.
+
+For the actual two-component diagram $D$, apply Theorem~\ref{mp:lowest}
+with $c=2$. Its linking half-sum is computed from the original common
+presentation, with the crossing signs of
+Definition~\ref{def:positive-lift}, exactly the $\lk$ in the statement.
+Its two intrinsic restrictions are the actual diagrams $D_1,D_2$.
+Theorem~\ref{lp:core} identifies the result with
+\[
+[z^{-1}]H_D=(a-a^{-1})a^{-2\lk}[z^0]H_{D_1}\,[z^0]H_{D_2}.
+\]
+Both knot polynomials have only nonnegative even $z$ exponents by that
+same theorem. Thus a product monomial has $z$ exponent zero precisely
+when each factor does. It follows that the last two factors equal
+$[z^0](H_{D_1}H_{D_2})$, which is the required expression. No division
+by either knot polynomial or by a corner coefficient has been used.
+\end{proof}
+
+\begin{theorem}[vertex--edge law]\label{thm:C-S7}
+At a simple vertex--edge wall at $(M;a)$, of bigon or sliding type, with
+halves $\lambda_1,\lambda_2$ (Definition~\ref{def:deletion-halves}) and
+contact sign $s=\chi_{a,a+1,M}(P_-)$,
+\[
+C(P_+)-C(P_-)=s\,C(\lambda_1)\,C(\lambda_2).
+\]
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z, 2026-09-06T06:11:53Z and 2026-09-06T07:18:25Z; transcribed from CV thm:s7universal(F) with its Section~6; RC d6\_vertexedge (C036))}
+\end{theorem}
+\begin{proof}
+We use the actual carrier selector sum of Lemma~\ref{lem:C-X1}.
+The geometric domain is exactly the simple SM vertex--edge wall in the
+statement. Lemma~\ref{lem:wall-sides} supplies a clean contact disc,
+stable old visits and the stated crossing changes. Lemma~\ref{lem:children}
+supplies the actual generic ordered halves, each with at least three
+vertices. No additional guarded-factor or parallel-direction hypothesis
+is imposed.
+
+In this proof write $\mathbf m=\mu_M$, $\mathbf a=\mu_a$ and
+$\mathbf b=\mu_{a+1}$ for the positions along the germ, suppressing its parameter. Evaluations
+at a specified side use that side's positions. The cyclic index $M$
+in the theorem remains unchanged. A local diagram is always the actual
+positive carrier diagram; its polynomial $P_A=H_A^+$ and writhe $m_A$
+are those in the state sum. The blocks and their owners are those of
+Definition~\ref{cb:blocks}; their products are proved in
+Lemma~\ref{cb:products}. Equality of named scalar records uses
+Lemma~\ref{rp:record-polynomial}, including crossing-free components.
+Put $W(S)=\prod_L\operatorname{wt}(L)$ and let $\vartheta(u,v)$
+denote the real principal angle from a nonzero vector $u$ to $v$.
+All such local angles below are strictly between $-\pi$ and $\pi$.
+
+\par\medskip\noindent\emph{Sliding: relocation and the exact selector difference.}\par
+
+Put $r=\mathbf b-\mathbf a$, $u_{\rm in}=\mathbf m-\mu_{M-1}$ and
+$u_{\rm out}=\mu_{M+1}-\mathbf m$ at the wall.  The two neighbours are on opposite
+sides, while both tangents follow the oriented traversal through the
+contact.  Therefore
+\begin{equation}\label{s7c:sliding-signs}
+ \sgn\det(r,u_{\rm in})=\sgn\det(r,u_{\rm out})\ne0.
+\end{equation}
+By continuity from the relative-interior contact, each incident line
+meets the relative interior of the finite remote segment on a sufficiently
+small event interval.  Exactly one incident segment reaches that line
+intersection on each side; the two sides exchange which one.  Denote
+the crossing on the chosen side $P_-$ by $x_-$ and its relocated mate
+on $P_+$ by $x_+$.  Removing that label within the contact collar
+leaves the same cyclic word.  Equation~\eqref{s7c:sliding-signs} also
+fixes which visit is the remote overpass.  Thus the named map
+$\varphi(x_-)=x_+$, identity on old labels, preserves cyclic order,
+pairing, over/under, signs and the interlacement graph.  It transports
+supports, undominated blocks, owners, actual carrier diagrams and writhes.
+
+For a support avoiding this crossing, all successor cycles pass regularly
+through the wall and all corner determinants stay nonzero.  Their
+rotation integers and selectors are fixed, and so are their coefficient
+reads.  This sector cancels term by term.
+
+For a support containing $x_-$, the two visits cut the traversal into
+the two half intervals.  Every other selected chord is internal to one
+interval, by independence.  Conversely any two half supports together
+with $x_-$ form a support.  This gives a bijection with explicit inverse
+\begin{equation}\label{s7c:sliding-bijection}
+ \{S\in\Ind(G_{P_-}):x_-\in S\}\longleftrightarrow
+ \Ind(G_{\lambda_1})\times\Ind(G_{\lambda_2}),
+ \quad S\longmapsto(S_1,S_2).
+\end{equation}
+Smoothing $x_-$ closes the two intervals separately.  All subsequent
+selected smoothings are internal, and labels interlacing $x_-$ are
+dominated.  Consequently
+\begin{equation}\label{s7c:sliding-residual}
+ G_{P_-}[U(S)]
+ =G_{\lambda_1}[U(S_1)]\sqcup G_{\lambda_2}[U(S_2)].
+\end{equation}
+The named maps identify every residual diagram and every owner.  The
+only changed direction list, on the carrier containing the short edge,
+is one of
+\begin{equation}\label{s7c:short-direction-lists}
+ (r,u_{\rm in},u_{\rm out})\longrightarrow(r,u_{\rm out}),
+ \qquad
+ (u_{\rm in},u_{\rm out},r)\longrightarrow(u_{\rm in},r).
+\end{equation}
+The two incident tangents lie in one open angular half-plane bounded by
+$r$.  Thus their principal turns satisfy the real equalities
+\begin{align}
+ \vartheta(r,u_{\rm in})+\vartheta(u_{\rm in},u_{\rm out})
+       &=\vartheta(r,u_{\rm out}),\label{s7c:turn-short-a}\\
+ \vartheta(u_{\rm in},u_{\rm out})+\vartheta(u_{\rm out},r)
+       &=\vartheta(u_{\rm in},r).\label{s7c:turn-short-b}
+\end{align}
+There is no hidden multiple of $2\pi$.  The chamber and half carriers
+have equal signed, and hence absolute, rotations.  Writing $C_\pm(S)$
+for the complete coefficient product on the two sides, and $C_i(S_i)$
+for its half versions, we get
+\begin{equation}\label{s7c:sliding-coefficients}
+ C_-(S)=C_+(\varphi S)=C_1(S_1)C_2(S_2).
+\end{equation}
+
+The half contact signs
+$\eta_1=\sgn\det(r,u_{\rm out})$ and
+$\eta_2=\sgn\det(u_{\rm in},r)$ are opposite.  In $P_-$ the
+short-edge refinement is on the half with contact sign $s$, and in $P_+$
+on the one with sign $-s$.  Let $h_\eta$ be that half-carrier weight,
+$c_\eta$ its refined weight, and
+$\tau=\sgn\det(u_{\rm in},u_{\rm out})$.  The refinement adds
+the turn $\tau$, so the full selector table is
+\begin{equation}\label{s7c:short-selector}
+ c_\eta=\begin{cases}
+ -\eta h_\eta,&\tau=\eta,\\
+ 0,&\tau=-\eta.
+ \end{cases}
+\end{equation}
+Indeed a mixed original carrier stays mixed; if $\tau$ disagrees with
+its contact sign it has both signs; if all signs are right the extra
+right corner preserves weight $1$; and if all are left the extra left
+corner reverses $(-1)^{\#\text{corners}}$.  These are all cases.
+Let $Q_{\rm sp}$ be the product of the other carrier weights, without
+assuming it nonzero.  For the row in \eqref{s7c:sliding-bijection},
+\begin{equation}\label{s7c:sliding-selector-factors}
+ W_1W_2=Q_{\rm sp}h_s h_{-s},\quad
+ W_-=Q_{\rm sp}c_s h_{-s},\quad
+ W_+=Q_{\rm sp}h_s c_{-s}.
+\end{equation}
+If $\tau=s$, then $c_s=-s h_s$ and $c_{-s}=0$; if $\tau=-s$,
+then $c_s=0$ and $c_{-s}=s h_{-s}$.  Either way
+\begin{equation}\label{s7c:sliding-selector-difference}
+ W_+-W_-=sW_1W_2.
+\end{equation}
+Multiply by \eqref{s7c:sliding-coefficients} and sum over the finite
+bijection.  Distributivity proves the stated product law for sliding,
+with no spectator cancellation.
+
+\par\medskip\noindent\emph{Bigon words and the two-newborn sector.}\par
+
+Let $P_0$ be the side where $M$ and its two neighbours lie on the same
+side of the remote line, and $P_2$ the other side, with two newborn
+crossings $x,y$.  Set
+\begin{equation}\label{s7c:bigon-signs}
+ s_0=\sgn\det(r,\mathbf m-\mathbf a)\big|_{P_0},\qquad
+ \delta_{\rm dir}=\begin{cases}+1&P_- =P_0,\\-1&P_-=P_2.
+ \end{cases}
+ \qquad s=\delta_{\rm dir}s_0.
+\end{equation}
+Write $\epsilon=1$ when the newborn chords interlace and $0$ otherwise.
+Starting at the first visit of $x$, the two complete local words are
+\begin{equation}\label{s7c:bigon-words-eq}
+ \begin{array}{c|l}
+ \epsilon=0&x_0y_0\,A\,y_1x_1\,B\\
+ \epsilon=1&x_0y_0\,A\,x_1y_1\,B\\
+ P_0&A\,B.
+ \end{array}
+\end{equation}
+Each old label is internal to $A$, internal to $B$, or has one visit in
+each.  The last set $N$ is the common old neighbourhood of $x,y$.
+An old support $T$ is called eligible when $T\cap N=\varnothing$.
+If $T$ meets $N$, both newborns are dominated and neither extension
+by a newborn is a support.  Deleting their four visits identifies the
+complete smoothing successor, owners, corners, rotations, carrier
+diagrams and coefficient reads.  The entire ineligible returned sector
+is therefore zero.
+
+For eligible $T$, restriction to the intervals gives the bijection
+\begin{equation}\label{s7c:eligible-bijection}
+ T\longleftrightarrow(T_1,T_2)\in
+ \Ind(G_{\lambda_1})\times\Ind(G_{\lambda_2}).
+\end{equation}
+Internal labels in the two intervals have disjoint induced graphs;
+the halves close just these intervals.  Conversely the union of two
+half supports is independent and misses $N$, proving the inverse.
+
+If $\epsilon=0$, $T\cup\{x,y\}$ is a support.  Smoothing its four
+newborn visits makes one local three-corner contact triangle and otherwise
+exactly the successors of $T_1,T_2$.  Mixed old labels are dominated;
+each unmixed residual label, owner and decorated diagram matches its half.
+For $s_0=+1$ the triangle has three right turns; for $s_0=-1$ it has
+three left turns.  Its complete data are
+\begin{equation}\label{s7c:triangle-data}
+ \rot=-s_0,\quad R=1,\quad P=1,\quad w=0,\quad
+ [a^0z^0]1=1,\quad\operatorname{wt}=s_0.
+\end{equation}
+Every two-newborn support arises this way.  Put
+$J=sC(\lambda_1)C(\lambda_2)$.  Finite distributivity and
+\eqref{s7c:bigon-signs} show that the directed two-newborn sector is
+$J$ when $\epsilon=0$.  When $\epsilon=1$ it is empty.  Hence, in
+both branches,
+\begin{equation}\label{s7c:sector-split}
+ B=(1-\epsilon)J.
+\end{equation}
+It remains to show that the directed sum $R_{\rm ret}$ of all other
+noncancelling rows equals $\epsilon J$.
+
+\par\medskip\noindent\emph{Contact owners and one coambient smoothing diagram.}\par
+
+Fix an eligible newborn-free support $T$.  Smooth its selected chords
+inside $A$.  Choosing an innermost chord closes its inner subarc and
+splices it out of the remaining boundary strand.  Induction leaves one
+open boundary successor and internal cycles.  The same holds in $B$.
+The two open boundary successors and contact stretches form one full
+contact carrier $L^*$; closing them at the cut gives ordered half contact
+carriers $L_1,L_2$.  All internal cycles are spectators.
+
+For $i=1,2$, put $G_i=G_{\lambda_i}$ and
+$U_i=V(G_i)\setminus(T_i\cup N_{G_i}(T_i))$.  Define the
+owner-restricted sets
+\begin{equation}\label{s7c:owner-restriction}
+ O_i=\{c\in U_i:\text{the half owner of }c\text{ is }L_i\}.
+\end{equation}
+For an internal label, the successor correspondence gives full owner
+$L^*$ if and only if its half owner is $L_i$.  Every surviving mixed
+old label belongs to
+$M_T=N\setminus N_{G_{P_2}}(T)$ and has owner $L^*$.
+Thus the full high contact residual set is precisely
+\begin{equation}\label{s7c:full-contact-set}
+ O_1\sqcup O_2\sqcup M_T\sqcup\{x,y\}.
+\end{equation}
+The labels $U_i\setminus O_i$ are on spectator carriers and are never
+inserted into a contact polynomial.
+
+Let $L_L,D_L$ be the low full contact carrier and its actual positive carrier
+diagram, and $L_H,D_H$ its high counterpart.  For this newborn-free support every selected crossing persists away
+from the contact disc. Its successor carrier through the contact follows
+the two original incident segments through $M$ on both sides. The edge
+pieces have positive lengths at the centre, and all its corner turns
+have nonzero determinants there. Thus this carrier is a continuous
+regular family, including at the wall. Lemma~\ref{lem:rot}(ii) makes
+its rotation locally constant. Consequently
+\begin{equation}\label{s7c:full-rotation}
+ \rot(L_L)=\rot(L_H)=\rot(L^*).
+\end{equation}
+The positive crossing $q=x$ of $D_H$ has oriented smoothing equal to
+one actual ordered two-component diagram $D_A$.  Component 1 contains
+the $A$-boundary successor and corresponds to $L_1$; component 2
+contains the $B$-boundary successor and corresponds to $L_2$.
+Retain every mixed crossing of this one ambient diagram.
+
+If $\epsilon=1$ define $D_A^{\rm post}=D_A$.  If $\epsilon=0$,
+component 1 contains the permitted positive self R-I curl $y$; delete
+exactly that curl, retaining the two ordered tags and every mixed crossing,
+to define $D_A^{\rm post}$.  Set
+\begin{equation}\label{s7c:component-data}
+ D_i=\operatorname{component}_i(D_A^{\rm post}),\quad
+ Q_i=P_{D_i},\quad w_i=w(D_i),\qquad i=1,2.
+\end{equation}
+The successor words identify these as the actual carrier diagrams of
+the ordered half contact carriers; their scalar identification is
+Lemma~\ref{rp:record-polynomial}. The R-I deletion is in the supplied
+clean curl disc. The local LM R-I equality applies to the entire
+two-component diagram and to its component-1 restriction; component 2
+is unchanged. It retains both component tags and every mixed crossing,
+so the coambient mixed signed sum and hence linking number are unchanged.  Calling the latter $\ell$,
+the full self/mixed crossing partition is
+\begin{equation}\label{s7c:crossing-partition}
+ \begin{array}{c|l}
+ \text{component 1 self crossings}&O_1\cup(\{y\}\text{ if }\epsilon=0)\\
+ \text{component 2 self crossings}&O_2\\
+ \text{mixed crossings}&M_T\cup(\{y\}\text{ if }\epsilon=1).
+ \end{array}
+\end{equation}
+In particular
+\begin{align}
+ P_{\operatorname{component}_i(D_A)}&=Q_i,\label{s7c:component-polynomial}\\
+ \operatorname{lk}(D_A)&=\operatorname{lk}(D_A^{\rm post})=\ell,
+ \label{s7c:ambient-linking}\\
+ w(\operatorname{component}_1(D_A))&=w_1+1-\epsilon,
+ \qquad w(\operatorname{component}_2(D_A))=w_2.
+ \label{s7c:pre-curl-writhe}
+\end{align}
+Here $\operatorname{lk}(D_A)$ means the linking of its named ordered
+components, not linking assigned to two separately embedded restrictions.
+
+\par\medskip\noindent\emph{Turn and selector bookkeeping.}\par
+
+Send $r$ to the positive horizontal ray.  If necessary reflect the
+picture to place both neighbour vectors above it, with arguments
+$\alpha,\beta\in(0,\pi)$.  Direct line intersection gives
+\begin{equation}\label{s7c:angle-orders}
+ \epsilon=0\ \Longleftrightarrow\ \alpha<\beta,
+ \qquad
+ \epsilon=1\ \Longleftrightarrow\ \beta<\alpha.
+\end{equation}
+The half contact turns are $\beta$ and $\pi-\alpha$; the full
+contact turn is $\beta-\alpha-\pi$ in the noninterlacing case and
+$\beta-\alpha+\pi$ in the interlacing case.  Both half signs are
+$s_0$; the full sign is $-s_0$ or $s_0$, respectively.  Reflection
+reverses all signs together and transports these statements back.
+All noncontact turns partition between the halves.  If $Q_{\rm sp}$
+is the common product of internal spectator selectors, the actual factors
+are
+\begin{equation}\label{s7c:selector-owners}
+ W_T=Q_{\rm sp}\operatorname{wt}(L^*),\qquad
+ W_1W_2=Q_{\rm sp}\operatorname{wt}(L_1)\operatorname{wt}(L_2).
+\end{equation}
+No factor is cancelled in these identities.
+
+For interlacing the contact signs agree.  If any noncontact sign disagrees,
+both the full weight and the relevant half product are zero.  Otherwise
+all three carriers are uniform with the same sign.  For right turns each
+weight is $1$ and $s_0=-1$; for left turns the full corner count is the
+sum of the half counts minus one, giving a relative minus sign and
+$s_0=+1$.  Thus, including all zero cases,
+\begin{equation}\label{s7c:interlacing-selector}
+ \operatorname{wt}(L^*)=-s_0\operatorname{wt}(L_1)
+                       \operatorname{wt}(L_2),\qquad
+ W_T=-s_0 W_1W_2.
+\end{equation}
+If $W_T\ne0$, \eqref{s7c:selector-owners} also shows that the spectator
+product and all three contact weights are nonzero, so the just-described
+uniform same-sign case applies.  Multiplication by a possibly zero
+$Q_{\rm sp}$ proves the second identity without division.
+
+For noninterlacing, a uniform full carrier gives each half one opposite
+contact turn, while two uniform halves give the full carrier one opposite
+turn.  Thus at least one of their selectors is zero:
+\begin{equation}\label{s7c:noninterlacing-selector}
+ W_T W_1W_2=0.
+\end{equation}
+Every carrier used here has at least three corners.  Two polygon corners
+would force overlapping straight segments, a polygon and smoothing corner
+would force vertex--edge incidence, and two smoothing corners would
+contradict transversality of the crossing straight branches.  A one-corner
+closed straight path is likewise impossible.  This also applies to the
+daughter carriers used below.
+
+Subtract the explicit full contact turn from the sum of the two half
+turns, and add the unchanged noncontact turns.  Dividing by $2\pi$ gives
+the signed identity
+\begin{equation}\label{s7c:rotation-ledger}
+ \rot(L_1)+\rot(L_2)-\rot(L^*)
+ =\begin{cases}0&\epsilon=1,\\s_0&\epsilon=0.
+ \end{cases}
+\end{equation}
+The second line contains a full-turn correction; unsigned angles would
+not give this formula.
+
+\par\medskip\noindent\emph{Universal skein extraction and the interlacing branch.}\par
+
+For the fixed eligible row bind all polynomial and exponent objects:
+\begin{align}
+ F_L&=P_{D_L},&F_H&=P_{D_H},&F_A&=P_{D_A},\label{s7c:polynomial-binders}\\
+ f_L&=[z^0]F_L,&f_H&=[z^0]F_H,&f_i&=[z^0]Q_i,\label{s7c:row-binders}\\
+ w_L&=w(D_L),&w_H&=w(D_H),&R_i&=|\rot(L_i)|,\label{s7c:writhe-binders}\\
+ R_L&=|\rot(L_L)|,&R_H&=|\rot(L_H)|,&&\label{s7c:rotation-binders}\\
+ k_L&=1-w_L-R_L,&k_H&=1-w_H-R_H,&k_i&=1-w_i-R_i,\label{s7c:slot-binders}\\
+ \Omega_L&=[a^{k_L}z^0]F_L,&\Omega_H&=[a^{k_H}z^0]F_H,
+ &\omega_i&=[a^{k_i}]f_i,\label{s7c:coefficient-binders}\\
+ K&=k_1+k_2.&&&&\label{s7c:product-slot}
+\end{align}
+These coefficient maps are total even when any Laurent polynomial is zero.
+The two incident directions in this bigon branch have opposite
+determinant signs against the remote direction. Their positive
+decorations therefore put the remote strand over at exactly one
+newborn crossing. Switching the positive contact crossing $q$ makes
+the same strand over at both crossings, with opposite crossing signs.
+The isolated contact disc contains no other strand; this is the actual
+ordinary R-II template, not merely an opposite-sign pair. Delete it
+using local LM invariance. The remaining diagram has the same complete
+decorated record as $D_L$, including every old retained crossing;
+Lemma~\ref{rp:record-polynomial} gives its value $F_L$. The actual
+oriented smoothing is the tagged $D_A$. Thus the skein relation at $q$
+first gives $aF_H-a^{-1}F_L=zF_A$, then
+\begin{equation}\label{s7c:universal-skein}
+ F_H=a^{-2}F_L+a^{-1}zF_A.
+\end{equation}
+The high writhe is $w_H=w_L+2$ and
+\eqref{s7c:full-rotation} gives $R_H=R_L$, hence
+$k_H=k_L-2$.  Extracting $[a^{k_L-2}z^0]$ in
+\eqref{s7c:universal-skein} gives
+$\Omega_H=\Omega_L+[a^{k_L-1}z^{-1}]F_A$.
+Therefore
+\begin{equation}\label{s7c:universal-extraction}
+ \Omega_H-\Omega_L=[a^{k_L-1}z^{-1}]F_A.
+\end{equation}
+No selector or degree hypothesis is needed for this equality.
+
+Assume first $\epsilon=1$.  The crossing partition
+\eqref{s7c:crossing-partition} puts $y$ and all retained old mixed
+crossings between the two components of $D_A$; none belongs to $Q_i$
+or $w_i$.  Lemma~\ref{lem:homflyrows} and the writhe count yield
+\begin{equation}\label{s7c:interlacing-writhe-row}
+ [z^{-1}]F_A=a^{-2\ell}(a-a^{-1})f_1f_2,
+ \qquad w_L=w_1+w_2+2\ell-1.
+\end{equation}
+The second equality follows also by counting $w_H$: the self crossings
+contribute $w_1+w_2$, the mixed crossings of $D_A$ contribute $2\ell$,
+and the smoothed crossing $q$ contributes one; subtract the two newborn
+crossings to pass from high to low.
+
+Let $U_{\rm sp}$ be the product of all spectator coefficient reads for
+this newborn-free row.  Before using absolute-rotation or degree identities
+tied to this row, test $W_T$ and $U_{\rm sp}$.  If $W_T=0$, the two
+full terms vanish and \eqref{s7c:interlacing-selector} makes the half
+selector product zero.  If $U_{\rm sp}=0$, both full terms and the
+half product contain that same spectator zero.  Either case is finished.
+Assume now $W_TU_{\rm sp}\ne0$.  The uniform same-sign implication
+proved in the turn calculation above and
+\eqref{s7c:rotation-ledger} imply
+\begin{equation}\label{s7c:interlacing-absolute}
+ R_L=R_1+R_2.
+\end{equation}
+Substitution of \eqref{s7c:interlacing-writhe-row} into the definition
+of $k_L$, followed by \eqref{s7c:interlacing-absolute}, gives
+\begin{align}
+ k_L&=1-(w_1+w_2+2\ell-1)-(R_1+R_2)\notag\\
+    &=(1-w_1-R_1)+(1-w_2-R_2)-2\ell
+      =K-2\ell.\label{s7c:interlacing-slot}
+\end{align}
+In \eqref{s7c:universal-extraction}, the $a^{1-2\ell}$ term of
+the mixed row requests degree $k_L+2\ell-2=K-2$ in $f_1f_2$;
+its $-a^{-1-2\ell}$ term requests degree $k_L+2\ell=K$.
+Consequently
+\begin{equation}\label{s7c:interlacing-extraction}
+ \Omega_H-\Omega_L=[a^{K-2}](f_1f_2)-[a^K](f_1f_2).
+\end{equation}
+If either $f_i=0$, both reads and $\omega_1\omega_2$ are zero;
+no minimum degree is assigned.  Otherwise both half contact carriers
+are uniform, and each is a subpolygon of a decomposition of its generic
+half $\lambda_i$ (Lemma~\ref{lem:children}(ii), Lemma~\ref{lem:carriers}(i);
+the hypothesis discharge below), the domain of Theorem~\ref{thm:floor},
+which gives $\mindeg_a f_i\ge k_i$.
+In the Laurent integral domain the product has degree at least
+$k_1+k_2=K$.  Its degree $K-2$ coefficient is zero.  In the degree
+$K$ convolution any nonzero pair has exponents at least $k_1,k_2$,
+so the only possible pair is exactly $(k_1,k_2)$.  Thus
+\begin{equation}\label{s7c:interlacing-coefficient-result}
+ \Omega_H-\Omega_L=-\omega_1\omega_2.
+\end{equation}
+
+Both one-newborn sectors vanish by their selectors.  To check this
+directly, take $\mathbf m=(0,0)$, $r=(1,0)$ on the line $y=c>0$, and
+neighbour vectors $(u,h),(v,k)$ with $h,k>c$.  Interlacing means
+$hv-uk>0$.  The corner determinants are
+\begin{equation}\label{s7c:one-newborn-turns}
+ \det((-u,-h),(v,k))=hv-uk>0,\quad
+ \det(r,(-u,-h))=-h<0,\quad
+ \det((v,k),r)=-k<0.
+\end{equation}
+The first turn is at $M$; the second or third is the smoothing turn
+when $x$ or $y$ is selected.  Eligibility leaves the intervening collar
+free of selected visits, so the opposite turns lie on the same daughter
+carrier and make it mixed.  Reflection reverses all three signs and
+proves the other orientation as well.
+
+Let $\operatorname{Term}_H(T),\operatorname{Term}_L(T)$ denote complete
+newborn-free support contributions, before multiplying by
+$\delta_{\rm dir}$.  In the nonzero branch
+\eqref{s7c:interlacing-coefficient-result} gives
+\begin{equation}\label{s7c:interlacing-term}
+ \operatorname{Term}_H(T)-\operatorname{Term}_L(T)
+ =-W_TU_{\rm sp}\omega_1\omega_2.
+\end{equation}
+The same equation holds in the already discharged zero-factor branches,
+with both sides zero.  Substitute $W_T=-s_0W_1W_2$, multiply by
+$\delta_{\rm dir}$, and use $s=\delta_{\rm dir}s_0$.
+The directed returned share is
+$sW_1W_2U_{\rm sp}\omega_1\omega_2$.  The owner-restricted
+decomposition puts each internal spectator into this half product
+exactly once.  Summing over \eqref{s7c:eligible-bijection} gives
+\begin{equation}\label{s7c:interlacing-return}
+ R_{\rm ret}=sC(\lambda_1)C(\lambda_2)=J.
+\end{equation}
+This proves the required returned-sector identity for $\epsilon=1$.
+
+\par\medskip\noindent\emph{Noninterlacing: full-twist, singleton and separate-block rows.}\par
+
+Now $\epsilon=0$.  The two-newborn sector already equals $J$ by
+\eqref{s7c:sector-split}; we show every remaining returned row is zero.
+
+\par\noindent\emph{The same-block alternative.}\par
+In $D_A$ the remaining newborn $y$ is a positive self curl on
+component 1.  Its deletion gives the exact $Q_1,Q_2$ of
+\eqref{s7c:component-data}, not polynomials with spectator factors
+inserted.  Counting self and mixed crossings gives
+\begin{equation}\label{s7c:noninterlacing-writhe}
+ w_L=w_1+w_2+2\ell.
+\end{equation}
+Indeed $w_H$ includes the additional $q$ and the self curl $y$, for
+a total of $w_1+w_2+2\ell+2$.
+If the full selector or an actual spectator multiplier is zero, both
+newborn-free terms vanish and the row stops before absolute-rotation
+identities.  Otherwise the full carrier is uniform with sign
+$\tau=-s_0$.  Every half inherits its old turns and has exactly one
+new contact turn of sign $s_0$, hence exactly one dissent.  The
+at-least-three-corner observation ensures inherited turns exist.
+Lemma~\ref{lem:uniformrot}, reversing all orientations when
+$\tau=-1$, puts the full and both half rotations on the $\tau$ ray.
+Multiplying \eqref{s7c:rotation-ledger} by $\tau$ yields
+\begin{equation}\label{s7c:noninterlacing-rotation}
+ R_1+R_2-R_L=\tau s_0=-1.
+\end{equation}
+Let $\Delta_R=R_1+R_2-R_L$.  The slot definitions give separately
+\begin{align}
+ K-k_L
+ &=2-w_1-w_2-R_1-R_2-(1-w_L-R_L)\notag\\
+ &=1+2\ell-\Delta_R=2\ell+2.
+ \label{s7c:noninterlacing-slot}
+\end{align}
+Combining the universal extraction \eqref{s7c:universal-extraction}
+with the same two-component row of Lemma~\ref{lem:homflyrows}, its two requested degrees
+are now $k_L+2\ell-2=K-4$ and $k_L+2\ell=K-2$.
+Therefore
+\begin{equation}\label{s7c:noninterlacing-extraction}
+ \Omega_H-\Omega_L=[a^{K-4}](f_1f_2)-[a^{K-2}](f_1f_2).
+\end{equation}
+If either Laurent row $f_i$ is zero, both reads are zero immediately.
+Otherwise apply Theorem~\ref{thm:floor} to the two one-dissent half
+contact carriers, subpolygons of a decomposition of the generic side
+(Lemma~\ref{lem:carriers}(i); the hypothesis discharge below); it puts
+their nonzero product row at degree at least $K$.
+Both displayed coefficients are below this floor.  Thus the returned
+newborn-free row is zero.  The auxiliary half selectors may themselves
+be zero: they are not multipliers of this full term, and the floor
+requires their one-dissent turn patterns, not uniform selectors.
+
+
+
+For eligible $T$ in the noninterlacing branch, $T\cup\{x\}$ is a
+support since $x$ is adjacent to neither $T$ nor $y$.  Every old
+neighbour of $y$ is also a neighbour of selected $x$, and hence is
+dominated.  Thus $\{y\}$ is an isolated block; the
+statement with $x,y$ exchanged is identical.  If a one-newborn
+selector is zero its term vanishes.  Otherwise its owner is uniform,
+and Lemma~\ref{cb:singleton} makes the required coefficient zero,
+including the zero-polynomial case.  Every one-newborn term is zero.
+
+\par\noindent\emph{The different-block alternative.}\par
+If $x,y$ lie in different blocks of the newborn-free
+high row, both components must be singletons.  Otherwise an undominated
+old common neighbour gives a path of length two joining them; the
+common-neighbour property follows directly from
+\eqref{s7c:bigon-words-eq}.  Each singleton has polynomial $1$ and
+writhe $1$.  Every other high block is old and is matched to
+its low block by erasing the finger.  For $S=T\cup\{x,y\}$,
+\begin{equation}\label{s7c:different-residual}
+ U(S)=U(T)\setminus\{x,y\}.
+\end{equation}
+The triangle and half-factorization construction in
+the two-newborn calculation above now distributes every old contact block
+once, with its actual owner, between $L_1,L_2$.  It follows that
+\begin{equation}\label{s7c:different-polynomials}
+ f_H=f_L=f_1f_2,\qquad
+ w_H=w_1+w_2+2,\qquad w_L=w_1+w_2.
+\end{equation}
+If the common full selector or a spectator multiplier is zero, both
+newborn-free terms vanish before the row-tied absolute rotations are
+used.  Otherwise the same noninterlacing turn computation gives
+\eqref{s7c:noninterlacing-rotation}.  Thus
+\begin{align}
+ k_L
+ &=1-(w_1+w_2)-R_L\notag\\
+ &=K-1+(R_1+R_2-R_L)=K-2,\label{s7c:different-low-slot}\\
+ k_H&=k_L-2=K-4.\label{s7c:different-high-slot}
+\end{align}
+If $f_1=0$ or $f_2=0$, \eqref{s7c:different-polynomials} makes both
+full rows zero without a degree argument.  Otherwise the actual
+one-dissent half floors give product degree at least $K$.  Both slots
+$K-2,K-4$ are below it, so both reads vanish separately.  The
+one-newborn rows already vanished by Lemma~\ref{cb:singleton}.
+The same-block and different-block alternatives exhaust the residual
+components containing the newborns.  Therefore
+\begin{equation}\label{s7c:noninterlacing-return}
+ R_{\rm ret}=0\qquad(\epsilon=0).
+\end{equation}
+
+\par\medskip\noindent\emph{Complete hypothesis discharge and assembly.}\par
+
+Every floor polynomial above is that of an actual positive carrier
+one-circle diagram supplied by Lemma~\ref{lem:carriers} and
+Lemma~\ref{cb:products}, and every carrier to which
+Theorem~\ref{thm:floor} is applied is a subpolygon of a decomposition of
+a generic polygon (Lemma~\ref{lem:carriers}(i)), the theorem's domain.
+For the two half contact carriers that polygon is the generic half
+(Lemma~\ref{lem:children}(ii)), at either value of $\epsilon$: the
+traversal circle of $\lambda_1$, respectively $\lambda_2$, is the interval
+$A$, respectively $B$, closed at the cut $\mathbf m=\mu_M$
+(Definition~\ref{def:deletion-halves}: $\lambda_1$ follows
+$E_M,\ldots,E_{a-1}$ and closes with $[\mu_a,\mu_M]\subset E_a$;
+$\lambda_2$ opens with $[\mu_M,\mu_b]\subset E_a$, follows
+$E_b,\ldots,E_{M-2}$ and closes with $E_{M-1}$); $T_i$ is a support of
+$\lambda_i$ all of whose selected visits are internal to that interval
+(the bijection \eqref{s7c:eligible-bijection}); the oriented
+reconnections of Definition~\ref{def:smoothing} at those visits act
+inside the interval and leave the cut untouched, so closing the interval
+at the cut closes the boundary successor of $T$ into the carrier of the
+decomposition $T_i$ of $\lambda_i$ through the corner $\mathbf m$ ---
+which is how $L_i$ was formed --- with the internal cycles as the other
+carriers of $T_i$ (Lemma~\ref{lem:carriers}(i)); and the self-crossings
+of $L_i$ are the owner-restricted set $O_i$ of
+\eqref{s7c:owner-restriction} (Lemma~\ref{lem:carriers}(iii)).  When
+$\epsilon=1$ the enlarged supports $T\cup\{x\}$, $T\cup\{y\}$ and
+$T\cup\{x,y\}$ of the generic side do not take the place of this
+discharge: $T\cup\{x,y\}$ is not a support, the newborn chords
+interlacing, and the daughter of $T\cup\{x\}$ or of $T\cup\{y\}$ that
+carries the turn at $\mathbf m$ also carries the opposite smoothing turn
+of \eqref{s7c:one-newborn-turns} and is mixed, while a live half contact
+carrier is uniform.  In the noninterlacing case the two half contact
+carriers are the carriers of the newborn-free support $T$ enlarged by
+the smoothed newborns --- of $T\cup\{x,y\}$ when
+$\epsilon=0$, when the third carrier is the crossing-free local contact
+triangle and the deletion of the curl $y$ from component~1 of $D_A$ is that
+smoothing with the triangle discarded --- which is what the closure at the
+cut and the successor words of \eqref{s7c:component-data} record; the
+daughters of a singleton row are the carriers of the support enlarged by
+the singleton (Lemma~\ref{cb:singleton}); and a crossing-free carrier is a
+carrier of its own row's decomposition.  The construction in Theorem~\ref{thm:floor} supplies
+the needed clean rounding and curl discs; no separate arc-contraction
+or arbitrary-front lift is presumed.  Its turn hypotheses are exhausted
+as follows: live interlacing rows have two uniform half contact carriers;
+live noninterlacing rows have two one-dissent half contact carriers;
+singleton rows have a uniform and a one-dissent daughter; and a
+crossing-free carrier uses its separately proved $P=1,w=0$ branch.
+
+A zero selector or spectator which actually multiplies the current full
+or target term stops that row before a row-dependent absolute-rotation
+or degree identity.  A zero Laurent row is checked before every
+minimum-degree or coefficient-floor argument.  Independently valid
+geometric rotation identities do not require nonzero polynomials,
+and coefficient extraction itself is always total.  In particular an
+auxiliary one-dissent half or daughter can have zero canonical selector:
+it is not a multiplier in the current row, and its actual turn pattern
+is precisely a permitted floor hypothesis.  No spectator, selector,
+polynomial or coefficient has been divided out anywhere in the proof.
+
+For a bigon, \eqref{s7c:sector-split},
+\eqref{s7c:interlacing-return} and \eqref{s7c:noninterlacing-return}
+give, with all factors already bound,
+\begin{equation}\label{s7c:bigon-total}
+ B+R_{\rm ret}=(1-\epsilon)J+\epsilon J
+             =sC(\lambda_1)C(\lambda_2).
+\end{equation}
+The sliding calculation above gives the same result for sliding.
+The nonzero neighbour-side signs are either equal or opposite; these
+alternatives are exclusive and exhaustive.  Hence
+the vertex--edge law holds on its full stated domain.
+The three positions of every old label---internal to $A$, internal to
+$B$, or mixed---retain all exterior crossing and threading data.
+All support bijections have the explicit inverse union operation, and
+every actual spectator occurs once.  There is no restriction to an
+unthreaded drawing or to a preferred choice of the initial side.
+
+\end{proof}
+
+
+
+
+\begin{theorem}[empty-cusp zero]\label{thm:C-S5}
+At a simple empty cusp, $C(P_{\rm no})=0$.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV thm:zeroanchor(S5) (P-25-2, C006))}
+\end{theorem}
+\begin{proof}
+Let the cusp be at vertex $j$ of an $n$-gon, $n\geq4$, with tail-labelled
+edges $E_i=[\mu_i,\mu_{i+1}]$. Choose a generic polygon $P$ sufficiently
+near the wall on its no-loop side. In cusp case A, where
+$\mu_{j+1}(0)$ lies strictly between $\mu_{j-1}(0)$ and $\mu_j(0)$,
+put $(c_1,c_2)=(j,j+1)$. In case B, where $\mu_{j-1}(0)$ lies strictly
+between $\mu_j(0)$ and $\mu_{j+1}(0)$, put $(c_1,c_2)=(j-1,j)$.
+In both cases the corners $c_1,c_2$ are consecutive, with intervening
+edge $E_{c_1}$.
+
+By Lemma~\ref{lem:cusp-sides}(ii), their turns on $P$ satisfy
+\begin{equation}\label{s5pr:opposed-turns}
+\tau_{c_1}(P)=-\tau_{c_2}(P),\qquad
+\tau_{c_1}(P),\tau_{c_2}(P)\in\{-1,1\}.
+\end{equation}
+The cusp is empty, meaning that the two newborn crossing visits on the
+loop side are cyclically adjacent. Lemma~\ref{lem:cusp-sides}(iii)
+therefore gives that $E_{c_1}$ has no crossing on $P$. This conclusion
+uses the lemma's specified-short-arc argument; adjacency alone is not
+silently assigned to one of the two complementary traversal arcs.
+
+Fix any decomposition $S\in\operatorname{Ind}(G_P)$.
+In the traversal circle, take the closed directed arc from the visit
+of $\mu_{c_1}$ to the next vertex visit $\mu_{c_2}$, tracing the single
+edge $E_{c_1}$. Its interior has no crossing visit, by the preceding
+paragraph. Its endpoints are not crossing visits either: a generic
+polygon has distinct vertices and no vertex on a nonincident edge.
+Consequently this arc contains no visit of a selected crossing of $S$.
+
+Oriented smoothing changes the traversal only at selected crossing
+visits (Definition~\ref{def:smoothing}). Every directed segment of the
+chosen arc, including its passages into the two vertex visits, is
+therefore retained with the same direction. More explicitly, subdivide
+the traversal circle at all polygon-vertex visits and all selected
+crossing visits. At a selected pair smoothing interchanges the two
+outgoing continuations; it leaves every other local continuation
+unchanged. The arc joining $c_1$ to $c_2$ has no selected subdivision
+point, so it remains a directed path in the reconnected graph. Each
+vertex of that graph has one incoming and one outgoing edge, hence the
+graph is a disjoint union of directed cycles. The path lies on one
+such cycle. Thus both original vertices belong to the same subpolygon,
+say $Q$, of the decomposition $S$.
+
+At each of these original vertices, smoothing has changed neither of
+the two incident edge directions. Both remain actual corners of $Q$,
+since their original turn signs in~\eqref{s5pr:opposed-turns} are nonzero.
+Their turns on $Q$ are the same as on $P$, so one is left and the other
+right. Therefore $Q$ is mixed, and $S$ is not uniform
+(Definition~\ref{def:uniform}). This argument also covers
+$S=\varnothing$, when the one subpolygon is $P$ itself.
+
+Since $S$ was arbitrary, no decomposition of $P$ is uniform. The sum
+defining $C$ in Definition~\ref{def:C} has an empty index set, so
+\begin{equation}\label{s5pr:empty-sum}
+C(P)=(-1)^{\ell(P)}
+\sum_{\substack{S\in\operatorname{Ind}(G_P)\\S\text{ uniform}}}
+(-1)^{|S|}\prod_{Q'\text{ subpolygon of }S}c(Q')=0.
+\end{equation}
+No corner coefficient has been evaluated or divided out.
+
+Finally, opposite turns at these consecutive vertices and absence of
+crossings on their connecting edge depend only on the turn word and
+the crossing set. Those data are constant on each labelled chamber
+(Proposition~\ref{prop:chambers}). Hence the same argument applies to
+every polygon in that labelled no-loop chamber. The existence of the
+pair and the argument are preserved by cyclic relabelling, so they
+also apply to its polygon chamber. This proves $C(P_{\rm no})=0$
+without needing a separate polynomial-invariance argument.
+\end{proof}
+
+\begin{theorem}[soft theorem for $C$]\label{thm:C-soft}
+Let $P$ be generic, $j$ a vertex, $q$ admissible, and $P_\varepsilon$ the
+soft insertion of Definition~\ref{def:soft}, with attachment signs
+$\chi_\pm$. Then for all sufficiently small $\varepsilon>0$
+\[
+C(P_\varepsilon)=\frac{\chi_-+\chi_+}{2}\,C(P).
+\]
+\status{new (round~4: the proof consumes the exported geometry of Lemma~\ref{lem:soft-generic}(i)--(iv), chamber constancy, the carrier correspondence of Lemma~\ref{lem:carriers} and the record bridge (Lemma~\ref{rp:record-polynomial}, Theorem~\ref{lp:core}); adopted from the Codex proposal sm4\_round4\_exports\_v1, P-25-24, F120-C-PROOF, re-read by the author; assembly: Lemma~\ref{lem:soft-generic}(i)--(iv) new (round~4; cleared by bench~A on SM5, 2026-09-06T00:32:58Z), Proposition~\ref{prop:C-chamber} held, Lemma~\ref{lem:carriers} (i)--(iii) refereed and (iv) new (cleared by bench~A on SM4), Lemma~\ref{lem:corner-values} held, Lemma~\ref{rp:record-polynomial} refereed, Theorem~\ref{lp:core} new (its identification paragraph refereed on SM4), Lemma~\ref{lem:rot} proved; F-25-120; round~5: ``Gauss word'' for ``crossing word'' in the proof, F-25-148)}
+\end{theorem}
+\begin{proof}
+Write $M=\mu_j$, $M_\varepsilon=M+\varepsilon q$,
+$u=\lt_{j-1}$, $v=\lt_j$, $D_\varepsilon=v-\varepsilon q$
+and $\tau=\tau_j(P)$. Lemma~\ref{lem:soft-generic} supplies
+one initial generic interval. By Proposition~\ref{prop:C-chamber},
+$C$ is constant on that chamber, so it suffices to prove the identity
+on a smaller initial interval. All choices below can hold
+simultaneously because there are finitely many supports and carriers.
+
+\emph{Carrier records and coefficients.}
+Use the marked successor model and inherited orientations of
+Lemma~\ref{lem:carriers}. For corresponding carriers with the same
+retained crossing visits, the cyclic successors and pairings agree.
+Each carrier crossing germ follows its containing edge of its own
+ambient polygon in the inherited direction, up to a positive scalar
+multiple.
+Lemma~\ref{lem:soft-generic}(iii) preserves the determinant sign
+of each ordered pair of those directions. By
+Definition~\ref{def:positive-lift}, the same corresponding visit
+is therefore over, and every crossing sign is positive. These
+are isomorphic named records, including the correspondence of
+oriented crossing-free carriers when the visit sets are empty.
+Lemma~\ref{rp:record-polynomial} equates their source polynomials;
+the common Laurent substitution and Theorem~\ref{lp:core} identify
+these with equal $H^+$-polynomials. If the corresponding rotations
+also agree, their crossing counts $m_Q$, rotations $r_Q$ and
+$d_Q=1-m_Q-|r_Q|$ agree. Definition~\ref{def:C} then gives equal
+corner coefficients $c(Q)$. We now establish each needed carrier
+correspondence and rotation assertion.
+
+\emph{Same-sign sector: $\chi_-=\chi_+=-\tau$.}
+The inherited Gauss words agree by Lemma~\ref{lem:soft-generic}(iv),
+so the independent supports are precisely the same sets $S$.
+In the successor cycles of Lemma~\ref{lem:carriers}(i), contracting
+the inserted ordinary vertex $M_\varepsilon$ identifies each
+carrier with its parent carrier. Exactly the carrier through $M$
+gains that vertex. Its old turn $\tau$ is replaced by two turns
+$\tau,\tau$, by Lemma~\ref{lem:soft-generic}(ii). All other
+original and smoothing corner signs persist by clauses (ii),(iii)
+and Lemma~\ref{lem:carriers}(ii). Thus uniformity is equivalent
+on the two sides of this correspondence.
+
+For rotation, let $\theta$ be the old principal turn from $u$ to
+$v$, and let $\alpha$ be that from $u$ to $q$. The same-sign
+determinant conditions put $q$ in the oriented turn wedge:
+$0<\alpha<\theta<\pi$ if $\tau=1$, and
+$-\pi<\theta<\alpha<0$ if $\tau=-1$.
+Indeed the two strict half-plane inequalities choose precisely
+the intersection between the rays of $u,v$ inside their principal
+angular sector. The two new principal turns tend to $\alpha$
+and $\theta-\alpha$, whose sum is $\theta$, with no wrap.
+Every other carrier corner has directions converging to its old
+regular directions, including smoothing corners involving the
+return edge and the successor corner at $B=\mu_{j+1}$.
+The full turn sum therefore converges to its parent turn sum.
+Lemma~\ref{lem:carriers}(ii) gives regularity of the nearby
+carriers, and Lemma~\ref{lem:rot}(i) makes their rotations
+integers. Convergence to the old integer implies equality for
+all sufficiently small parameters. This applies to every carrier,
+including geometrically moving carriers that do not pass through $M$.
+
+Their retained visit records agree by the successor correspondence
+and Lemma~\ref{lem:soft-generic}(iii). The preceding coefficient
+comparison gives equal products of $c(Q)$. Support sizes do not
+change, while $\ell(P_\varepsilon)=\ell(P)+[\tau=1]$.
+Substituting in Definition~\ref{def:C} gives
+$C(P_\varepsilon)=(-1)^{[\tau=1]}C(P)=-\tau C(P)$,
+the required multiplier in this sector.
+
+\emph{Mixed sector: $\chi_-\ne\chi_+$.}
+The soft edge has no crossing by Lemma~\ref{lem:soft-generic}(i).
+Every selected reconnection therefore leaves the directed path
+from $M$ to $M_\varepsilon$ intact. These are consecutive corners
+of one carrier, and their turns $-\chi_-$ and $-\chi_+$ are
+opposite. No support is uniform, so Definition~\ref{def:C} gives
+$C(P_\varepsilon)=0$, the required mixed-sector value.
+
+\emph{Loop sector: $\chi_-=\chi_+=\tau$.}
+Let $y$ be the newborn crossing. Its visits are adjacent in the
+Gauss word by Lemma~\ref{lem:soft-generic}(iv), so it interlaces
+no crossing. The independent supports are exactly $S$ and
+$S\cup\{y\}$, with $S\in\Ind(G_P)$.
+For a support omitting $y$, Lemma~\ref{lem:carriers}(iii) puts
+both visits of $y$ on one carrier $Q'$. Its short arc through
+$M,M_\varepsilon$ has no other crossing visit; hence $y$ remains
+isolated in the interlacement graph of $Q'$. If the decomposition
+is not uniform its term is excluded. If it is uniform,
+Lemma~\ref{lem:corner-values}(ii) gives $c(Q')=0$.
+Thus every support omitting $y$ contributes zero, including those
+whose corresponding parent support was not uniform.
+
+For $S\cup\{y\}$, process $y$ first, using order independence
+in Lemma~\ref{lem:carriers}(i). Let $a$ be its visit on the incoming
+edge and $b$ its return-edge visit. The clean short arc is
+$a\to M\to M_\varepsilon\to b$. Swapping the two outgoing
+successors produces the triangle cycle $(b,M,M_\varepsilon)$
+and the residual cycle containing $a$. The triangle smoothing
+turn follows $D_\varepsilon$ into $u$ and has sign $-\tau$;
+the turns at $M,M_\varepsilon$ also have sign $-\tau$.
+The three noncollinear segments form an embedded triangle,
+so Lemma~\ref{lem:corner-values}(i) gives its coefficient $1$.
+
+All old crossing visits lie on the residual cycle. It replaces
+the old corner $M$ by the smoothing corner $y$, whose incoming
+and outgoing directions are $u,D_\varepsilon$, of turn sign
+$\tau$ by Lemma~\ref{lem:soft-generic}(ii).
+The remaining swaps $S$ act only on that residual cycle and give
+carriers in bijection with the carriers of $S$ on $P$.
+Their original and smoothing corner signs agree; at the distinguished
+carrier, the corner $M$ is replaced by $y$ of the same sign.
+Consequently $S\cup\{y\}$ is uniform exactly when $S$ is uniform.
+No (G1) claim about the intermediate residual polygon is needed:
+all resulting curves are carriers of the generic $P_\varepsilon$.
+
+As $y\to M$ and $D_\varepsilon\to v$, every residual principal
+turn converges to its old regular counterpart. Integer-valuedness
+from Lemma~\ref{lem:rot}(i) again gives equality of all rotations
+on a common small interval. Their retained crossing successors and pairings agree under the
+inherited correspondence, and the corresponding directed germs
+retain their ordered determinant signs,
+so the earlier named-record argument gives equal positive-lift
+polynomials and corner coefficients. This also covers all other
+corresponding carriers, whose positions may have moved.
+
+Every surviving term thus gains exactly one selected crossing and
+one triangle coefficient $1$. The original left-turn count changes by
+$\ell(P_\varepsilon)-\ell(P)=-[\tau=1]+2[\tau=-1]$.
+Definition~\ref{def:C} gives
+\[
+C(P_\varepsilon)
+=(-1)^{-[\tau=1]+2[\tau=-1]+1}C(P).
+\]
+For $\tau=1$ the exponent is zero; for $\tau=-1$ it is three.
+The multiplier is therefore $\tau$, as required. The three sector
+multipliers are exactly $(\chi_-+\chi_+)/2$, completing the proof
+on the unchanged domain.
+\end{proof}
+
+\begin{proposition}[reversal]\label{prop:C-reversal}
+$C(\overline P)=(-1)^nC(P)$. \status{new (round~3: the reversal invariance of $H^+_Q$ taken from Theorem~\ref{cf:thm-carrierfloor}(R) and Theorem~\ref{lp:core}, F-25-54; Codex U-P4, P-25-12, adapted)}
+\end{proposition}
+\begin{proof}
+Reversal preserves the crossing set, interlacement, decompositions,
+subpolygons and their crossings; it reverses every strand direction, so the
+positive lift is preserved (both $u_{\rm o},u_{\rm u}$ change sign and
+$\det$ is unchanged), $H^+_Q$ is unchanged, since the positive lift of the
+reversed carrier is the reversed diagram of the positive lift of $Q$,
+Theorem~\ref{cf:thm-carrierfloor}(R) gives $P_{-D}=P_D$ for every oriented
+knot diagram $D$, and Theorem~\ref{lp:core} identifies $P$ with $H$; $m_Q$
+and $|r_Q|$ are unchanged,
+uniformity is unchanged, and $\ell(\overline P)=n-\ell(P)$
+(Lemma~\ref{lem:shift}(iii)). The prefactor gives the sign $(-1)^n$.
+\end{proof}
+
+\subsection{The triple wall}
+
+\begin{hypothesis}[R]\label{hyp:R}
+At every simple triple wall, $C(P_+)=C(P_-)$. \status{hyp}
+\end{hypothesis}
+
+\begin{lemma}[the two triple types]\label{lem:triple-types}
+At a simple triple wall at $\{e,f,g\}$ with edge vectors $u_e,u_f,u_g$, put
+$\delta_1=\sgn\det(u_e,u_f)$, $\delta_2=\sgn\det(u_e,u_g)$,
+$\delta_3=\sgn\det(u_f,u_g)$. Exactly one of the following holds.
+\begin{enumerate}
+\item[(i)] \emph{Transitive}: $(\delta_1,\delta_2,\delta_3)\notin\{(+,-,+),(-,+,-)\}$.
+Then the relation ``$E_i$ passes over $E_j$'' of the positive lift is a total
+order on the three strands, and for every subpolygon $Q$ retaining all three
+crossings the positive lifts on the two sides differ by a Reidemeister III
+move.
+\item[(ii)] \emph{Cyclic}: $(\delta_1,\delta_2,\delta_3)\in\{(+,-,+),(-,+,-)\}$.
+Then each strand passes over the next cyclically. For a subpolygon
+retaining all three crossings, the two sides have that same cyclic
+over/under pattern and opposite local triangle configurations.
+\end{enumerate}
+\status{new (round~4: the subpolygon clauses proved --- common event disc, carrier correspondence across the wall by suppression and reinsertion of the six local visits, exterior planar isotopy of the one carrier, local tournament; adopted from the Codex proposal sm4\_round4\_triple\_star\_v1 (seal 9a82b59a\ldots), F122-PROOF, re-read by the author; F-25-122; round~5: the object the exterior isotopy perturbs from named as the carrier of $S$ at the nongeneric centre, F-25-122)}
+\end{lemma}
+\begin{proof}
+Write $T=\{x_{ef},x_{eg},x_{fg}\}$ for the three crossing labels.
+At the central triple point $q$, the three edge directions are
+pairwise nonparallel: otherwise two supporting lines coincide,
+forcing three original vertices to be collinear, contrary to
+$Z_{\rm pt}=\varnothing$.
+The three direction determinants are therefore nonzero and retain
+their signs near the centre.
+
+Choose a closed event disc about $q$ whose intersection with the
+central polygon consists only of these three strand segments, with
+their endpoints on its boundary. The point $q$ is interior to the
+three edges and is not an original vertex. A fourth edge through
+$q$ would be remote from the first three, since adjacent edges under
+(G1) meet only at their common endpoint; it would give another
+triple in $Z_{\rm c}$, a contradiction. The other finitely many
+compact edges thus have positive distance from $q$.
+Choose the disc radius small enough to exclude them and all original
+vertices, with its boundary transverse to the three strands.
+After shrinking the parameter interval, the disc still contains
+exactly these three strand segments, all three crossings of $T$,
+and no original vertex or other crossing.
+Lemma~\ref{lem:triple-sides} gives adjacent pairs of local visits.
+Lemma~\ref{lem:wall-sides}, using the sign-change condition in
+Definition~\ref{def:walls}(T), reverses each local pair across
+the wall and preserves every other visit order.
+
+Let $Q_-$ be any subpolygon on one side retaining all three
+crossings, and fix its decomposition $S$.
+Definitions~\ref{def:decomposition} and~\ref{def:smoothing}
+give $S\cap T=\varnothing$.
+Delete the six visits of $T$ from both parent traversal lists.
+The remaining cyclic lists of all vertices and other crossing visits
+are identical. In particular all selected pairs have the same cyclic
+order, so $S$ is independent on the other side as well.
+
+Apply the successor description of Lemma~\ref{lem:carriers}(i).
+Every deleted visit is unselected, hence has its ordinary outgoing
+traversal arrow. Suppressing these visits commutes with all selected
+successor swaps: following the unchanged arrows until the next
+remaining mark has the same endpoint on both sides.
+The resulting permutations on the remaining marks are identical,
+and their cycles identify the carriers on the two sides.
+No entire carrier is suppressed: a cycle with only unselected
+visits follows the original traversal and reaches an original vertex,
+which has not been deleted.
+Reinserting each local pair merely subdivides the same oriented arc
+of the corresponding cycle, with that pair in the reversed order.
+The corresponding carrier $Q_+$ therefore retains all three
+crossings. The disc has no selected smoothing site or original
+vertex, so both carriers contain all three entire local strand
+segments with their inherited orientations.
+
+Lemma~\ref{lem:carriers}(ii),(iii) makes these valid carrier
+diagrams on both punctured sides. Each local directed germ is a
+positive multiple of its parent edge direction. By
+Definition~\ref{def:positive-lift}, its strand from $E_i$ passes
+over that from $E_j$ exactly when $\det(u_i,u_j)>0$.
+Thus either carrier's local tournament is the parent's determinant
+tournament.
+
+For this one carrier, the exterior diagrams may be identified by
+planar isotopy. Regard its retained crossings as four-valent vertices,
+its original and smoothing corners as two-valent vertices, and the
+six transverse event-boundary intersections as boundary vertices.
+At a selected crossing this carrier has only one corner, by
+Lemma~\ref{lem:carriers}(i); corners belonging to other carriers
+are not part of this exterior graph. Away from the event disc, the
+graph of the central carrier --- the carrier of $S$ traced on the central
+polygon $P(0)$, of which the carriers on both sides are small perturbations
+--- has distinct such vertices, noncollapsed arcs and no
+degenerate incidence: the only parent triple is inside the disc,
+(G1) excludes vertex incidences, and all other intersections are transverse, with distinct crossing
+parameters on each edge. Choose disjoint small vertex
+neighbourhoods, thin strips around the intervening embedded arcs,
+and collars of the six boundary endpoints. Their cyclic attachment
+orders persist under a sufficiently small perturbation.
+Straightening in these neighbourhoods, strips and collars gives an
+ambient planar isotopy of the disc exterior, preserving its boundary
+setwise while moving the six marked endpoints to their counterparts.
+The nonzero direction determinants at persistent crossings preserve
+the physical positive over/under choices during this identification.
+Extending the boundary identification across the disc only identifies
+coordinates; the two interior triangle drawings are still compared
+by the local move below.
+
+A tournament on three strands is a total order unless it is a
+directed cycle. It is cyclic exactly when
+$\det(u_e,u_f)$, $\det(u_f,u_g)$ and $\det(u_g,u_e)$ have one
+sign, equivalently when $(\delta_1,\delta_2,\delta_3)$ is
+$(+,-,+)$ or $(-,+,-)$.
+In all other cases call the three strands top, middle and bottom
+according to their total order. The local triangle interchange has
+the top strand over both others and the bottom strand under both
+others, so it is the oriented Reidemeister III move.
+This proves (i) for the corresponding carrier diagrams.
+
+In a cyclic case the determinant signs still persist, so the cyclic
+over/under pattern is the same on both sides. The three reversed
+local visit pairs give opposite triangle configurations.
+This proves (ii), with no cyclic knot-invariance conclusion.
+\end{proof}
+
+\begin{remark}[Historical terminology]
+The cyclic triangle change is conventionally called a $\Delta$-move
+\cite{MurakamiNakanishi}. This terminology and its general knot-type
+behavior are not used as premises here. The preceding lemma asserts
+only the explicitly described local crossing pattern in its cyclic case;
+it supplies no cyclic knot-invariance theorem.
+\end{remark}
+
+\begin{proposition}[what is proved about the triple wall]\label{prop:R-partial}
+\begin{enumerate}
+\item[(i)] For a transitive triple wall and a decomposition $S$ that contains
+none of the three crossings and in which all three lie on one subpolygon,
+the term of $S$ is the same on both sides.
+\item[(ii)] Across the wall the interlacement of every pair among the three
+crossings toggles and no other interlacement changes; the local
+interlacement graph on the two sides is either $K_3$ and the empty graph, or
+a path and its complement (an edge plus an isolated vertex).
+\item[(iii)] Under the hypothesis that no crossing outside the three
+interlaces any of them (\emph{outside isolation}; fix an outside decomposition
+$Q$), the sum of the terms of all decompositions $Q\cup J$, $J$ a subset of
+the three crossings, is the same on both sides, for both local graph orbits.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-06T00:35:51Z, 2026-09-06T04:22:56Z and 2026-09-06T05:12:19Z; transcribed from RA R-LOC-2, R-PAR-v6, R-EXTERIOR-1 and the proof files RA calls its four accompanying core proofs (six files) (C042, C051, C064; F-25-21); round~3: the proof wording at the floor application corrected, F-25-98 (Codex G-P1, P-25-15); round~4: one citation in the proof narrowed from Literature input~\ref{lit:homfly} to Theorem~\ref{lp:core} (seat L-1/L-5, C4); round~5: the two appeals to Theorem~\ref{thm:floor} reworded to its domain (subpolygons of a decomposition), attributing no geometric hypothesis to Lemma~\ref{lem:carriers}, F-25-132; the disclaimer of Hypothesis~R no longer cites its label, so that the ordering instrument draws no consumption edge from it, F-25-160)}
+\end{proposition}
+\begin{proof}
+The proof transcribes RA's establishing warrants and its six
+files whose names end in \texttt{PROOF.md}. The warrants themselves
+call their collection ``four accompanying core proofs''; that source
+designation and the present file count are distinct.
+
+We use the actual carrier sum of Lemma~\ref{lem:C-X1}. For a carrier
+$L$ write $P_L=H_L^+$, $w_L=m_L$, $R_L=|\rot(L)|$,
+$d_L=1-w_L-R_L$, and $\omega_L=[a^{d_L}z^0]P_L$.
+The term of a support is the product of $\operatorname{wt}(L)\omega_L$
+over its carriers. All diagrams below are actual carrier diagrams or
+their explicitly specified switched or smoothed diagrams. Products of
+owned block polynomials are justified by Lemma~\ref{cb:products};
+equal decorated records give equal polynomials by
+Lemma~\ref{rp:record-polynomial}. This does not identify the present
+definition with an unproved frozen state sum.
+
+\par\medskip\noindent\emph{Local geometry and (ii).}\par
+Lemma~\ref{lem:triple-sides} gives a fixed crossing set and three
+adjacent pairs of local visits. Lemma~\ref{lem:wall-sides} gives their
+reversal across this simple wall and fixes all other visit orders.
+Choose the event disc small enough to contain only the three strand
+segments: its central point is interior to them, no vertex lies there,
+and another strand through that point would violate simplicity.
+The three shrinking segments between local visits contain neither a
+vertex nor another crossing.
+
+An adjacent transposition of visits of two distinct crossings changes
+only their mutual interlacement. Indeed it moves one visit past only
+the other; every other pair keeps its four-point cyclic order. For the
+two named crossings, exactly one endpoint passes through the boundary
+of the interval cut by the other chord, so alternation toggles.
+There are three such transpositions, one for each local pair. Thus the
+local graph is complemented and every other edge is unchanged. On
+three vertices the complementary graphs have edge counts $0,3$ or
+$1,2$; the latter graphs are an edge and a path. This proves (ii).
+
+\par\medskip\noindent\emph{Rotations and (i).}\par
+Every selected crossing that persists gives two corners with nonzero
+direction determinants near the centre. Polygon corners likewise
+remain nonzero by (G1). Carriers with fixed successor patterns and no
+collapsed edge between selected local crossings are therefore regular
+families through the wall. Their individual directions may change.
+Their principal turns vary continuously without meeting $\pm\pi$;
+their integer rotation numbers are constant by Lemma~\ref{lem:rot}.
+Their corner signs and weights are constant as well.
+For the support in (i), no local crossing is selected. The carrier
+containing the triple undergoes the transitive oriented RIII change
+of Lemma~\ref{lem:triple-types}(i). Theorem~\ref{lp:core} --- Reidemeister-III
+invariance of the local polynomial, from Literature input~\ref{lp:lm}, and its
+identification with $H$ --- therefore preserves its polynomial. It has the same retained crossing
+labels, hence the same writhe; the preceding regular-family argument
+preserves its rotation and weight. Every other carrier has the same
+decorated record, writhe, rotation and weight. Multiplying their
+coefficient reads proves (i), also when a factor is zero.
+
+\par\medskip\noindent\emph{Availability and the outside factor.}\par
+For (iii) fix the stated outside independent support $Q$ and write
+$T$ for the three local crossings. We prove the identity already under
+the weaker premise that \emph{every selected member of $Q$} interlaces
+no member of $T$. The printed premise of (iii), which quantifies over
+every outside crossing, implies this premise. We do not change that
+printed statement. RA uses the weaker, support-dependent meaning of
+full availability.
+
+For any outside crossing $y$, its two visits avoid the interiors of
+the three adjacent two-visit clumps. The two arcs cut out by $y$ thus
+colour the three whole clumps in two colours. A member of $T$
+interlaces $y$ exactly when its two clumps have different colours.
+Three objects have either zero or two bichromatic pairs. Consequently
+the local mask $I(y)=N(y)\cap T$ has size zero or two. It is fixed
+across the wall by (ii). More generally,
+\[
+ \operatorname{avail}(Q)=T\setminus\bigcup_{y\in Q}I(y)
+\]
+has size three, one or zero, since the union of distinct two-element
+subsets of a three-element set is the whole set. Only size three is
+used in the proof that follows.
+
+Smooth $Q$ first. A resulting carrier containing no local visit,
+including a local smoothing-site visit, survives any subsequent
+independent local smoothings arc for arc. Conversely undoing those
+local reconnections on a triangle-disjoint carrier changes no half-edge
+of that carrier. This is a bijection of the exterior carriers in all
+rows. Their self-crossing sets also stay fixed. To see this, an
+undominated exterior crossing adjacent to an available member of $T$
+would belong to its connected block and hence to its owner, by
+Lemma~\ref{cb:products}. That exterior owner would contain local
+visits, a contradiction. Adding local selections removes only those
+labels and their neighbours, by~\eqref{cb:greedy-step}; it therefore
+removes no exterior self-crossing.
+
+Erasing the six local visits identifies these exterior successor cycles
+across the wall. Their decorated records, positive writhes and corner
+signs agree; the regular-family argument gives equal rotations.
+Their polynomials and coefficient slots agree as well. Thus all rows
+have one common exterior factor $C_Q$, which may be zero. For a side
+$\nu$ write $T_\nu(J)$ for the \emph{complete} term of $Q\cup J$,
+setting it to zero when that support is absent. We only multiply by
+$C_Q$; we never divide by it.
+
+Each member of $Q$ has mask zero. Its visits lie in one of the three
+gaps between the local clumps: the three gaps have distinct vectors
+of sides relative to the three local chords. Smoothing $Q$ therefore
+acts separately inside each gap. A printed gap below means its
+boundary-to-boundary successor path after those smoothings; internal
+closed successor cycles are precisely the exterior carriers just
+handled. This supplies the same local word calculation for arbitrary
+$Q$, not just for $Q=\varnothing$.
+
+\par\medskip\noindent\emph{Sign classification.}\par
+In cyclic strand order put $a=(u_1,u_2)$, $b=(u_1,u_3)$,
+$c=(u_2,u_3)$, and let $s_a,s_b,s_c$ be their determinant signs.
+Writing $\delta$ for the sign of the three-line determinant, Cramer's
+rule for the intersection parameters gives the three order signs
+\begin{equation}\label{rtr:line-orders}
+ (q_1,q_2,q_3)=-\delta(s_as_b,s_as_c,s_bs_c).
+\end{equation}
+For example, if $t_{ij}$ is the parameter on line $i$ of its
+intersection with line $j$, the numerator of
+$t_{12}-t_{13}$ over the common denominator
+$\det(u_1,u_2)\det(u_1,u_3)$ is the negative three-line determinant.
+The other two rows follow by expanding $t_{21}-t_{23}$ and
+$t_{31}-t_{32}$ with the same fixed determinant order.
+The local graph indicators, read from the three consecutive clumps,
+are respectively $q_1=-1$, $q_2=+1$, $q_3=-1$ for $ab,ac,bc$.
+They all agree precisely when $s_a=s_c=-s_b$. These are the two
+extreme sign branches; the other six are generic.
+
+A pair sharing a strand $u$ is called separating when the other two
+directions lie on opposite sides of $u$. For pairs $ab,ac,bc$ this
+requires, respectively, $s_a=-s_b$, $s_a=s_c$, $s_b=-s_c$.
+In a generic branch exactly one holds. Equation~\eqref{rtr:line-orders}
+identifies that pair as the independent pair complementary to the
+path's middle vertex. These statements follow in each of the three
+sign pairs
+\[
+ \begin{array}{c|c|c}
+ (s_a,s_b,s_c)&\text{separating pair}&\text{other pairs}\\ \hline
+ +++\text{ or }---&ac&ab,bc\\
+ ++-\text{ or }--+&bc&ab,ac\\
+ +--\text{ or }-++&ab&ac,bc
+ \end{array}
+\]
+and do not presume a symmetry of the outside gaps.
+
+\par\medskip\noindent\emph{Generic orbit: words and common rows.}\par
+Choose the ordering of the three directions from their transitive
+over-order or its reverse that is even relative to their cyclic
+traversal order. A cyclic relabelling then puts the separating pair
+at $ac$ and gives $s_a=s_b=s_c=\sigma$, where $\sigma=\pm1$.
+No strand orientation is reversed. The words on the path and edge
+sides are
+\begin{equation}\label{rtr:generic-words}
+ P=a b A a c B b c C,\qquad E=b a A c a B c b C.
+\end{equation}
+The gaps $A,B,C$ are carried along with this relabelling. The entire
+support and local-undominated table is
+\[
+\begin{array}{c|ccccc}
+ P:J&\varnothing&a&b&c&ac\\
+ U(Q\cup J)\cap T&abc&c&\varnothing&a&\varnothing\\ \hline
+ E:J&\varnothing&a&b&c&ab,bc\\
+ U(Q\cup J)\cap T&abc&b&ac&b&\varnothing
+\end{array}
+\]
+where $ac$ is connected in the $E,b$ row. All unlisted supports are
+absent. The empty row's contact carrier has successor string $ABC$
+on both sides. Its local lift has transitive over-order and undergoes
+ordinary RIII. Its polynomial, writhe, rotation and weight therefore
+agree exactly as in (i); no bijection of the changing local block
+partition is required. Hence $T_P(\varnothing)=T_E(\varnothing)$.
+
+For endpoint $a$ the carriers are $BC\mid A$, with residual local
+word $cBcC$ on $P$ and $bBbC$ on $E$. Outside survivors after $a$
+have mask zero or $bc$. Thus $b,c$ are twins with respect to those
+survivors; fixing all outside labels and replacing $c$ by $b$ identifies
+the two undominated graphs and their owners. This also identifies
+their decorated records: the relocated first visit changes from the
+$u_2$ strand to $u_1$, the second remains on $u_3$, and
+$\sgn\det(u_2,u_3)=\sgn\det(u_1,u_3)=\sigma$ preserves which visit
+is over. Both crossing signs are positive. The two smoothing turns
+are $u_1\to u_2$ on $BC$ and $u_2\to u_1$ on $A$.
+The carrier families are regular through the wall, so their rotations,
+weights, writhes, polynomials and slots agree.
+Consequently $T_P(a)=T_E(a)$.
+
+For endpoint $c$ the carriers are $AC\mid B$, and the local residual
+words are $aAaC$ and $bAbC$. Outside survivors have mask zero or
+$ab$. Replacing $a$ by $b$ fixes their graph incidences and owners.
+The first visit stays on $u_1$, while the second changes from $u_2$
+to $u_3$; $\sgn\det(u_1,u_2)=\sgn\det(u_1,u_3)$ preserves the
+over/under bit. The local turns are $u_2\to u_3$ and $u_3\to u_2$.
+The same regular-family and decorated-record argument therefore proves
+$T_P(c)=T_E(c)$. This verifies each endpoint separately.
+
+Each of the other two independent pair supports is selector-zero.
+For such a pair the shared strand $u$ is nonseparating, so
+$\sgn\det(u,v)=\sgn\det(u,w)$ for the other directions. Its short
+arc between local visits is intact after smoothing $Q$. Smoothing
+the two local crossings puts both ends on one carrier, with turns
+$v\to u$ and $u\to w$, or with $v,w$ interchanged. Those turn
+signs are opposite. This carrier is mixed whatever happens outside
+the disc; hence $T_E(ab)=T_E(bc)=0$.
+
+\par\medskip\noindent\emph{Generic selected singleton and pair.}\par
+The remaining successor rows are
+\[
+ P,b:C\mid AB,\qquad E,b:C\mid AB,\qquad P,ac:C\mid A\mid B.
+\]
+The $AB$ carrier in $E,b$ has two extra positive crossings, with word
+$aAc aBc$ (spaces are immaterial); its $P,b$ mate has neither.
+The corner ledger is
+\begin{equation}\label{rtr:generic-turns}
+\begin{array}{c|cc}
+ &C&\text{other carriers}\\ \hline
+ P,b\text{ and }E,b&\sigma&AB:-\sigma\\
+ P,ac&\sigma,\sigma&A:-\sigma,\ B:-\sigma
+\end{array}
+\end{equation}
+Every nonlocal corner partitions according to the displayed successor
+strings. The actual weight definition gives
+\[
+ \operatorname{wt}(C_{ac})=-\sigma\operatorname{wt}(C_b),\qquad
+ \operatorname{wt}(A)\operatorname{wt}(B)
+       =\sigma\operatorname{wt}(AB).
+\]
+For left turns an extra corner changes $(-1)^{\text{corner count}}$;
+for right turns the weight remains one. If inherited signs make one
+side mixed, they make the matching product mixed as well. Thus the
+pair's full selector is the negative of the singleton's, including
+zero, and the two singleton selectors are equal.
+
+The principal-angle formula gives
+$\rot(C_{ac})=\rot(C_b)$ and
+$\rot(A)+\rot(B)=\rot(AB)$. To verify the first equality, the
+transitive directions lie in a common open half-plane, and the turn
+from the first to the last equals the sum of the two turns through
+the middle, all on the same principal branch. The remaining local
+turns are the negatives of these, giving the second equality.
+The $P,b$ and $E,b$ rotations agree by their regular families.
+If the common singleton selector is zero all three terms vanish.
+Otherwise $A,B$ are uniform of sign $-\sigma$, so
+Lemma~\ref{lem:uniformrot} gives
+$R_A+R_B=R_{AB}$.
+
+Let $D_H$ be the actual $E,b$ diagram on $AB$ and $D_L$ its $P,b$
+mate. Switching $a$ in $D_H$ makes $a,c$ an opposite-sign oriented
+RII pair. Its short boundary arcs, including the selected $b$
+connector, lie in the clean event disc. No gap arc or spectator is
+in its lens. Deleting this bigon gives $D_L$, with its whole outside
+record. Put $D_0=\operatorname{smooth}_aD_H$. The skein equation
+and the two additional positive crossings give
+\begin{align}
+ P_{D_H}&=a^{-2}P_{D_L}+a^{-1}zP_{D_0},\notag\\
+ w_H&=w_L+2,\qquad d_H=d_L-2,\notag\\
+ \omega_H-\omega_L&=[a^{d_L-1}z^{-1}]P_{D_0}.
+ \label{rtr:generic-skein}
+\end{align}
+The last line is extraction at $a^{d_H}z^0$; its first summand
+extracts $a^{d_H+2}=a^{d_L}$.
+
+The two components of $D_0$ have strings $A,B$. In the full $E$
+word their side vectors relative to $(b,a,c)$ are
+$A=(1,1,0)$, $B=(1,0,1)$, $C=(0,0,0)$.
+Outside survivors after $b$ therefore have mask zero or $ac$.
+Mask-zero self-crossings have exactly the component records of the
+$P,ac$ carriers. A mask-$ac$ crossing is mixed in $D_0$ and absent
+from those pair-row records. The local crossing $c$ is mixed as well.
+Thus the intrinsic component polynomials are precisely $P_A,P_B$,
+also when a component has no self-crossings; this follows from
+Lemma~\ref{rp:record-polynomial} with the actual records just given.
+Put $f_i=[z^0]P_i$, $D=d_A+d_B$, and let $\ell$ be the linking
+number of this actual auxiliary link. All its mixed crossings are
+positive, so their number is $2\ell$. Removing the one local mixed
+crossing, which is absent from $D_L$, gives
+\begin{align}
+ w_L&=w_A+w_B+2\ell-1,\notag\\
+ D&=2-(w_A+w_B)-(R_A+R_B)\notag\\
+  &=2-(w_L-2\ell+1)-R_{AB}\notag\\
+  &=d_L+2\ell.\label{rtr:generic-slot}
+\end{align}
+Lemma~\ref{lem:homflyrows} gives the actual mixed-link row, without
+requiring that link to be split. Equations~\eqref{rtr:generic-skein}
+and~\eqref{rtr:generic-slot} therefore yield
+\begin{align}
+ \omega_H-\omega_L
+ &= [a^{d_L-2+2\ell}]f_Af_B
+       -[a^{d_L+2\ell}]f_Af_B\notag\\
+ &= [a^{D-2}]f_Af_B-[a^D]f_Af_B
+  =-\omega_A\omega_B.\label{rtr:generic-result}
+\end{align}
+For the last equality, if either row is zero all these coefficients
+are zero. Otherwise the actual uniform carriers are subpolygons of a
+decomposition of the generic side (Lemma~\ref{lem:carriers}(i)), the
+domain of Theorem~\ref{thm:floor}, so their exponents are bounded below by
+$d_A,d_B$. No product exponent is below $D$, and its coefficient at
+$D$ is the product of the two coefficients at those bounds.
+Crossing-free carriers are included in that theorem and have
+polynomial one. The common $C$ carrier has the same intrinsic record,
+writhe and rotation in all three rows; its coefficient read is common.
+Multiplying~\eqref{rtr:generic-result} by it, the exterior factor and
+the singleton selector gives
+\begin{equation}\label{rtr:generic-couple}
+ T_E(b)=T_P(b)+T_P(ac).
+\end{equation}
+Together with the common and zero rows, this proves equality of the
+two full-availability sums in the generic orbit.
+
+\par\medskip\noindent\emph{Extreme orbit: words and owners.}\par
+Relabel the crossings $x=(u_1,u_2)$, $y=(u_1,u_3)$,
+$z=(u_2,u_3)$. Here $z$ as a crossing label is distinguished by
+context from the HOMFLY variable. The complete and empty local graphs
+have words
+\begin{equation}\label{rtr:extreme-words}
+ H=x y A z x B y z C,\qquad L=y x A x z B z y C.
+\end{equation}
+The sign classification gives $s_x=s_z=-s_y=\sigma$.
+On $L$ every local subset is independent; on $H$ only the empty
+set and the three singletons are. The gap side vectors relative to
+$(x,y,z)$ are
+\begin{equation}\label{rtr:extreme-masks}
+ A=(1,1,0),\qquad B=(0,1,1),\qquad C=(0,0,0).
+\end{equation}
+Thus crossings joining $AB,AC,BC$ have masks $xz,xy,yz$,
+respectively. Mask-zero crossings have both visits in one gap.
+The legitimate full support $Q\cup\{x,y,z\}$ on $L$ has the three
+outer carriers with strings $A,B,C$ and the central triangle. Write
+$P_G$, $f_G=[z^0]P_G$, $w_G$ for the actual outer data, $G=A,B,C$.
+These symbols always refer to those actual carriers. A crossing-free
+one has $P_G=f_G=1$ and $w_G=0$.
+
+The local smoothing turns on the outer carriers are $u_2\to u_1$,
+$u_3\to u_2$, $u_1\to u_3$ on $A,B,C$. Each has sign
+$s_o=-\sigma$. The opposite three turns make the central triangle
+uniform of sign $\sigma$. It is the small triangle inside the event
+disc, has three corners and no crossings, and therefore has
+$R=1$, slot zero and coefficient one.
+
+\par\medskip\noindent\emph{Extreme pair rows vanish.}\par
+In a local pair row on $L$, the remaining local crossing $r$ is
+undominated. Any outside neighbour of $r$ has a two-letter mask and
+is consequently adjacent to one of the selected pair, so is dominated.
+Thus $r$ is an isolated self-crossing on its owner. If that owner is
+mixed its weight is zero; if it is uniform
+Lemma~\ref{cb:singleton} makes its corner coefficient zero. Each
+pair term on $L$ therefore vanishes. The corresponding pairs on $H$
+are absent.
+
+\par\medskip\noindent\emph{Extreme singleton transport.}\par
+Here are the three successor calculations separately. The $H$ words
+retain the visits of dominated local crossings only to identify the
+arcs; deleting them gives the common and affected strings.
+\begin{equation}\label{rtr:singleton-table}
+\begin{array}{c|c|c|c|c|cc}
+ j&\text{common}&\text{affected}&H\text{ strings}
+   &L\text{ affected word}&q&r\\ \hline
+ x&A&BC&yAz\mid ByzC&zBzyCy&y&z\\
+ y&C&AB&AzxB\mid zCx&xAxzBz&x&z\\
+ z&B&CA&xBy\mid CxyA&yCyxAx&y&x
+\end{array}
+\end{equation}
+The affected carrier has one selected-local corner of sign $\sigma$;
+the common carrier has its mate of sign $-\sigma$. This follows
+row by row from $u_1\to u_2$, $u_3\to u_1$, $u_2\to u_3$ on
+the affected carriers. Their corner lists and weights agree across
+the wall. The two carriers in each row form regular families through
+it: the unselected local crossings create no corner and the only
+selected local turn has nonzero determinant. Their rotations agree.
+
+After deleting the displayed local visits, the common records are
+identical. An outside survivor after $j$ has mask zero or the
+complementary pair mask, by the parity argument. The latter has one
+visit in each affected gap; all these crossings are retained in the
+clean affected diagram on $H$ and in its $L$ mate. Call these actual
+diagrams $D_0,D_+$, and their common absolute rotation $R$.
+The only additional self-crossings of $D_+$ are $q,r$ in the table.
+Switching $q$ makes an opposite-sign oriented RII pair. The two
+short bigon edges consist of adjacent local strand subarcs and the
+already selected $j$ connector; they lie in the clean event disc,
+without any gap arc or outside strand in its lens. Deleting the pair
+gives exactly $D_0$ with its outside record. Thus, putting
+$d_0=1-w_0-R$ and $D_* =\operatorname{smooth}_qD_+$, the skein
+equation gives
+\begin{align}
+ w_+&=w_0+2,\qquad d_+=d_0-2,\notag\\
+ P_{D_+}&=a^{-2}P_{D_0}+a^{-1}zP_{D_*},\notag\\
+ \omega_+-\omega_0&=[a^{d_0-1}z^{-1}]P_{D_*}.
+ \label{rtr:singleton-skein}
+\end{align}
+
+The two components of $D_*$, for the three rows of
+\eqref{rtr:singleton-table}, are respectively
+\begin{equation}\label{rtr:singleton-components}
+ C\mid zBz,\qquad A\mid zBz,\qquad C\mid xAx.
+\end{equation}
+Every complementary-mask retained crossing is mixed; every mask-zero
+crossing lies in the indicated gap with exactly its full-support
+outer record. The extra self-crossing $r$ on the second component is
+isolated: any outside neighbour also meets the selected $q$ and is
+dominated in the legitimate support $Q\cup\{j,q\}$.
+Lemma~\ref{cb:products} and the single-crossing polynomial one
+therefore give component rows $(f_C,f_B)$, $(f_A,f_B)$,
+$(f_C,f_A)$ in the three cases. Their component writhes are
+$(w_C,w_B+1)$, $(w_A,w_B+1)$, $(w_C,w_A+1)$: the singleton
+polynomial is one, but its writhe has not been discarded.
+
+If the matched singleton selector is zero, both complete terms are
+zero. Otherwise the affected parent is uniform of sign $\sigma$.
+The two additional smoothings $q,r$ split it into the two clean outer
+carriers in~\eqref{rtr:singleton-components} and the central triangle.
+For $j=x$, $q=y$ puts the $-\sigma$ corner on $C$ and $r=z$ puts
+one on $B$. For $j=y$, $q=x$ puts one on $A$ and $r=z$ puts one
+on $B$. For $j=z$, $q=y$ puts one on $C$ and $r=x$ puts one on
+$A$. Each clean outer carrier has exactly one dissent and at least
+two inherited corners, since Lemma~\ref{lem:carriers} gives at least
+three corners on every carrier. Each successive smoothing introduces
+two opposite principal turns and leaves the other turns unchanged.
+Signed rotation is additive by Lemma~\ref{lem:rot}. The one-dissent
+rotation result, with reversal if necessary, puts both outer rotations
+on the parent's sign ray; the central triangle has that same sign.
+Consequently, for the two clean outer absolute rotations,
+\begin{equation}\label{rtr:singleton-rotation}
+ R_1+R_2+1=R.
+\end{equation}
+Let $\ell$ be the linking number in $D_*$ and let $w_1,w_2$ be
+the \emph{clean full-support} outer writhes, without the extra $r$.
+The clean diagram $D_0$ contains the two outer self-crossing sets
+and exactly $2\ell$ positive crossings that become mixed in $D_*$.
+Thus
+\begin{align}
+ w_0&=w_1+w_2+2\ell,\notag\\
+ D:=d_1+d_2
+ &=2-(w_1+w_2)-(R_1+R_2)\notag\\
+ &=2-(w_0-2\ell)-(R-1)\notag\\
+ &=d_0+2+2\ell.\label{rtr:singleton-slot}
+\end{align}
+Lemma~\ref{lem:homflyrows} gives
+$[z^{-1}]P_{D_*}=a^{-2\ell}(a-a^{-1})f_1f_2$ with the intrinsic
+component polynomials just identified. The floor theorem (Theorem~\ref{thm:floor}) applies to
+the actual one-dissent outer carriers, subpolygons of a decomposition of
+the generic side (Lemma~\ref{lem:carriers}(i)). If a row is zero
+the following support assertion is vacuous. Otherwise its exponents
+are at least $d_i$, so the product has none below $D$. Extracting
+the two terms in~\eqref{rtr:singleton-skein} gives
+\begin{align}
+ \omega_+-\omega_0
+ &= [a^{d_0-2+2\ell}]f_1f_2
+       -[a^{d_0+2\ell}]f_1f_2\notag\\
+ &= [a^{D-4}]f_1f_2-[a^{D-2}]f_1f_2=0.
+ \label{rtr:singleton-result}
+\end{align}
+Common-carrier and exterior reads agree, as do every weight and
+rotation. Multiplication now proves each of
+$T_H(x)=T_L(x)$, $T_H(y)=T_L(y)$, $T_H(z)=T_L(z)$.
+
+\par\medskip\noindent\emph{Extreme empty/full couple: two switches.}\par
+The empty local support has one contact carrier on each side,
+with diagrams $D_H,D_L$, common positive writhe $w$, absolute
+rotation $R$, weight $W$, and slot $d=1-w-R$. The common writhe
+counts the same retained labels. The unsmoothed local crossings are
+not corners, so the regular-family argument supplies the common
+rotation and weight. Its row difference is
+$C_QW(\omega_H-\omega_L)$.
+
+The original local over-order is cyclic. When $\sigma=+1$ it is
+$u_1$ over $u_2$, $u_3$ over $u_1$, $u_2$ over $u_3$; switching
+$x$ makes the total order $u_2>u_3>u_1$. When $\sigma=-1$ all
+arrows reverse and the switched order is $u_1>u_3>u_2$.
+The two switched diagrams are therefore related by ordinary RIII
+with the same outside record. Their HOMFLY values agree. Subtract
+the two skein equations at $x$; their switched terms cancel and give
+\begin{equation}\label{rtr:first-switch}
+ P_{D_H}-P_{D_L}
+   =a^{-1}z\bigl(P_{D_H^x}-P_{D_L^x}\bigr),
+\end{equation}
+where the superscript $x$ denotes oriented smoothing, not switching.
+After that smoothing the successor rows are
+\[
+ H:yAz\mid ByzC,\qquad L:A\mid zBzyCy.
+\]
+Switching $y$ in each leaves $y$ negative and $z$ positive. Their
+short local arcs have the orientation-compatible pairing inherited
+from the $x$ connector, and bound an empty RII bigon inside the
+event disc. Deleting it on both sides leaves the same boundary
+pairing $A\mid BC$ and the same outside record. The two switched
+link polynomials agree, by RII invariance and
+Lemma~\ref{rp:record-polynomial}. Subtracting these two skeins at
+$y$ and substituting into~\eqref{rtr:first-switch} yields
+\begin{equation}\label{rtr:two-switches}
+ P_{D_H}-P_{D_L}
+   =a^{-2}z^2\bigl(P_{D_H^{xy}}-P_{D_L^{xy}}\bigr).
+\end{equation}
+Only matched switched diagrams have been identified: neither is
+identified with the opposite \emph{unswitched} diagram.
+
+Smoothing $x$ on either side splits the contact knot. On $H$, $y$
+is then mixed, so its smoothing rejoins the two components;
+$D_H^{xy}$ is a knot. On $L$, $y$ is a self-crossing and its
+smoothing splits again; $J=D_L^{xy}$ has three components
+\[
+ A,\qquad C,\qquad zBz.
+\]
+Knot parity in Theorem~\ref{lp:core} gives
+$[z^{-2}]P_{D_H^{xy}}=0$. In $J$, the mask-zero crossings give
+the full-state outer records, while every two-letter-mask crossing
+is mixed. The remaining $z$ is isolated on its component, since an
+outside neighbour also meets selected $x$ or $y$. Its polynomial
+factor is one and its writhe is one. The intrinsic component rows
+are therefore $f_A,f_C,f_B$, by Lemma~\ref{cb:products}.
+Write $K=f_Af_Bf_C$ and $\Lambda$ for the sum of the three pairwise
+linking numbers of $J$.
+
+For clarity the lowest row needed here follows from the skein
+relations themselves. A two-component link has no $z^{-3}$ row:
+switch mixed crossings until it is split. Each smoothing is a knot,
+whose $z^{-4}$ row is zero; the split endpoint is
+$(a-a^{-1})z^{-1}$ times two knot polynomials and also has no
+$z^{-3}$ row. The skein relation propagates that zero back.
+For three components, switching a positive mixed crossing to a
+negative one changes the total linking number by minus one. Its
+smoothing has two components and contributes no $z^{-3}$ row.
+Thus at row $z^{-2}$ the positive value is $a^{-2}$ times the
+negative value; the reverse switch gives the inverse factor.
+Switch until the components have a total over-order, and translate
+their successive height levels apart to obtain the split endpoint.
+The intrinsic component diagrams are unchanged. The split polynomial
+is $((a-a^{-1})/z)^2P_AP_BP_C$, by the split product proof of
+Lemma~\ref{lem:homflyrows}, applied successively (or
+Theorem~\ref{mp:stack} to its three clean one-component blocks).
+The net linking change gives
+\begin{equation}\label{rtr:three-component-row}
+ [z^{-2}]P_J=a^{-2\Lambda}(a-a^{-1})^2K.
+\end{equation}
+Extracting $a^dz^0$ in~\eqref{rtr:two-switches} now gives
+\begin{equation}\label{rtr:extreme-extraction}
+ \omega_H-\omega_L
+  =-[a^{d+2+2\Lambda}](a-a^{-1})^2K.
+\end{equation}
+
+\par\medskip\noindent\emph{Extreme empty/full couple: selectors and floor.}\par
+All inherited corners of the empty contact carrier partition among
+the three outer carriers. Each outer has its one local corner of
+sign $s_o=-\sigma$, while the central triangle has three of the
+opposite sign. Let $W_{\rm full}$ be the product of these four
+carrier weights. If the parent is mixed, $W=0$. A nonzero full
+selector would force all outer carriers to be uniform with sign
+$s_o$, hence all inherited parent corners to have that sign, a
+contradiction. Both sides of the proposed empty/full identity are
+then zero.
+
+Assume the parent uniform and put $\chi=1$ if its sign is $s_o$,
+$\chi=0$ if its sign is $-s_o$. If $\chi=1$, all outer carriers
+are uniform and $W_{\rm full}=-W$: when $s_o=-1$ the three
+outers are all right and the left central triangle contributes
+$(-1)^3=-1$; when $s_o=+1$ the outers contain three more left
+corners than the parent and the right central weight is one.
+If $\chi=0$, each outer has exactly one dissent and at least two
+inherited corners, so it is mixed and $W_{\rm full}=0$.
+
+Every smoothing creates two opposite principal turns. Summing all
+turns across the three smoothings therefore gives
+\[
+ \rot(A)+\rot(B)+\rot(C)+\rot(\text{central})
+       =\rot(\text{parent}).
+\]
+In the live branch $\chi=1$ the outer rotations have the parent's
+sign and the central triangle has the opposite sign and absolute
+rotation one. In the dead branch $\chi=0$ the one-dissent rotation
+lemma puts the outer rotations on the parent's sign ray, as does
+the central triangle. Hence
+\begin{equation}\label{rtr:extreme-rotations}
+ R_A+R_B+R_C=
+ \begin{cases}R+1,&\chi=1,\\ R-1,&\chi=0.\end{cases}
+\end{equation}
+The empty parent retains the three positive local crossings, the
+outer self-crossings, and all positive mixed crossings of $J$.
+There are $2\Lambda$ of the latter. Consequently
+\begin{align}
+ w&=3+w_A+w_B+w_C+2\Lambda,\notag\\
+ D:=d_A+d_B+d_C
+   &=3-(w_A+w_B+w_C)-(R_A+R_B+R_C)\notag\\
+   &=6-w+2\Lambda-(R_A+R_B+R_C)\notag\\
+   &=\begin{cases}d+4+2\Lambda,&\chi=1,\\
+                    d+6+2\Lambda,&\chi=0.
+      \end{cases}\label{rtr:extreme-slots}
+\end{align}
+Each actual outer carrier is uniform or exactly one-dissent. Each
+is a subpolygon of a decomposition of the generic side
+(Lemma~\ref{lem:carriers}(i)), the domain of Theorem~\ref{thm:floor}; with
+reversal for negative inherited signs, that theorem bounds the support of
+$f_G$ below by $d_G$. If some $f_G=0$
+then $K=0$ and all the following coefficients vanish, without any
+degree assigned to the zero polynomial. Otherwise no exponent of
+$K$ is below $D$ and
+$[a^D]K=\omega_A\omega_B\omega_C$.
+
+Expand $(a-a^{-1})^2=a^2-2+a^{-2}$ in
+\eqref{rtr:extreme-extraction}. In the live branch its three sampled
+degrees of $K$ are $D-4,D-2,D$; only the last can contribute.
+In the dead branch they are $D-6,D-4,D-2$, all below the floor.
+Thus
+\begin{equation}\label{rtr:extreme-result}
+ \omega_H-\omega_L=
+ \begin{cases}-\omega_A\omega_B\omega_C,&\chi=1,\\
+               0,&\chi=0.
+ \end{cases}
+\end{equation}
+The central coefficient is one. In the live branch multiplication by
+$C_QW$ and $W_{\rm full}=-W$ gives
+\begin{align}
+ T_H(\varnothing)-T_L(\varnothing)
+ &= -C_QW\omega_A\omega_B\omega_C\notag\\
+ &= C_QW_{\rm full}\omega_A\omega_B\omega_C
+  =T_L(xyz).\label{rtr:extreme-couple}
+\end{align}
+The mixed-parent and uniform-dead branches were both zero above.
+Together with the three singleton transports and the three pair
+zeros, this proves equality of the full-availability sums in the
+extreme orbit and completes (iii).
+
+This proof uses neither Hypothesis~R nor the aggregate
+vertex--edge conclusion. Each skein triple, component, owner,
+rotation and coefficient slot has been specified for this triple
+wall. No selector, exterior factor or coefficient has been cancelled.
+The availability-one and availability-zero fibres of a general wall
+are not proved here; no general triple-wall conclusion follows.
+\end{proof}
+
+
+\begin{remark}\label{rem:R3-maintext}
+Hypothesis~R is open in both types: in the transitive type the
+decompositions smoothing one or two of the three crossings are reindexed
+across the wall (their retained crossings and even their existence change,
+by (ii)), and in the cyclic type even the unsmoothed term changes. Exact
+computations on hundreds of triple walls, including cyclic ones, have found
+the hypothesis satisfied in every case examined; those computations are
+evidence, not proof, and are not part of this document's dependency graph.
+\end{remark}

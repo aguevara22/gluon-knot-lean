@@ -1,0 +1,23 @@
+\begin{theorem}[Local campaign polynomial, algebraic part]\label{lp:core}
+Set $R=\mathbb Z[a^{\pm1},z^{\pm1}]$. The same source construction has
+an evaluation $P_D\in R$ with
+\begin{equation}\label{lp:skein}
+ aP_{D_+}-a^{-1}P_{D_-}=zP_{D_0},
+ \qquad \delta=(a-a^{-1})z^{-1}.
+\end{equation}
+Its value on every UNDER-first $c$-component diagram is $\delta^{c-1}$.
+It equals $H_D$ of Literature input~\ref{lit:homfly}. It is also the unique
+function on this exact diagram domain satisfying this
+skein and all these initialization values. This uniqueness statement
+explicitly includes the initialization hypothesis; it is not a claim
+proved from only an unknot value and unspecified ambient invariance.
+For every $c$-component diagram,
+\begin{equation}\label{lp:support}
+ P_D\in z^{1-c}\mathbb Z[a^{\pm1},z^2],\qquad P_D\ne0.
+\end{equation}
+In particular $P_{\bigcirc}=1$, and knot evaluations are polynomials in
+$z^2$, with no negative $z$ exponents. All local invariances in
+Literature input~\ref{lp:lm} are retained.
+\status{new (round~3: the identification paragraph of the proof consumes Lemma~\ref{lp:coefficient-transport}, F-25-54; the remainder of the proof is the round-1 transcription of RC lp:core, \path{d2b_local_polynomial} (C026), held by bench~A; consumes Literature inputs~\ref{lp:lm} and~\ref{lit:homfly})}
+\end{theorem}
+\begin{proof}

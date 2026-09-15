@@ -1,0 +1,108 @@
+{
+  "utc": "2026-09-12T05:43:45.270297+00:00",
+  "failures": [
+    {
+      "group": "CarrierSortedArcLists",
+      "attempt": "first",
+      "kernel_session": 29587,
+      "exit_code": 1,
+      "reason": "Bare zero GetElem indices in sorted_rotate_getElem_between_iff header infer the wrong index type; explicit Nat annotations required. Original invalid header and compiler placeholders never accepted.",
+      "before_body": "work/checks/CarrierSortedArcLists-first-failed.body.lean",
+      "after_body": "work/checks/CarrierSortedArcLists.body.lean",
+      "failed_prototype": "work/checks/CarrierSortedArcLists-first-failed.prototype.lean",
+      "failed_log": "work/checks/CarrierSortedArcLists-first-kernel.log",
+      "changed_header_names": [
+        "sorted_rotate_getElem_between_iff"
+      ],
+      "theorem_statement_text_preserved": false,
+      "source_meaning_change_claimed": false,
+      "compiler_error_placeholders_excluded": true,
+      "files_sha256": {
+        "work/checks/CarrierSortedArcLists-first-failure-bindings.json": "d74d33b8cf3b09375887343f45125370433bb2978ef2f576bf7f92feb4f7545e",
+        "work/checks/CarrierSortedArcLists-first-failed.body.lean": "8c025fa7544ed8aa3659ecf11545569ae691dde164055bb3bdd5461c9a743f32",
+        "work/checks/CarrierSortedArcLists-first-failed.prototype.lean": "76b578a5a71a5c9cd1fb52e6d52535ed9abd27bf8b649b9829ed61d90a3f524e",
+        "work/checks/CarrierSortedArcLists-first-failed-body-dependencies.json": "56810d9cc21533bf85b9f59132c48763bf54e16e9f1bd6cee583f06bded664d3",
+        "work/checks/CarrierSortedArcLists-first-kernel.log": "b0cb7c756757e964e385f78084588dedc82aa937a1fa343de6ab2e9c7d371da4",
+        "work/checks/CarrierSortedArcLists-second-draft-repair-bindings.json": "1e66c2c950e03554cb5d8377d514c10e22a36afbb5910623332ad418e8513458",
+        "work/checks/CarrierSortedArcLists.body.lean": "d47c1604c7d3a66ad8ff710cf6711e5d42103a765634199ed680c3c4e39e00fa",
+        "work/checks/CarrierSortedArcLists.prototype.lean": "ee0ed0a7314b8532286fd5bf547be7c6d962e4d11a752a9db49a8953926a30ec"
+      }
+    },
+    {
+      "group": "CarrierMarkedArcLists",
+      "attempt": "first",
+      "kernel_session": 38819,
+      "exit_code": 1,
+      "reason": "Default 200000 heartbeat limit exceeded while comparing actual lifted mark order; owner filter conjunction order also needs normalization. Exact failed artifacts preserved before repair.",
+      "before_body": "work/checks/CarrierMarkedArcLists-first-failed.body.lean",
+      "after_body": "work/checks/CarrierMarkedArcLists.body.lean",
+      "failed_prototype": "work/checks/CarrierMarkedArcLists-first-failed.prototype.lean",
+      "failed_log": "work/checks/CarrierMarkedArcLists-first-kernel.log",
+      "changed_header_names": [],
+      "theorem_statement_text_preserved": true,
+      "source_meaning_change_claimed": false,
+      "compiler_error_placeholders_excluded": true,
+      "files_sha256": {
+        "work/checks/CarrierMarkedArcLists-first-failure-bindings.json": "c4e2d828559c869dba00513f70148fb478c970c7c97fe18e8f9d6f39778c7a46",
+        "work/checks/CarrierMarkedArcLists-first-failed.body.lean": "62ac3c5aacf04887eab399f8fa06c7120730623776711c43e87316bf4c0bc270",
+        "work/checks/CarrierMarkedArcLists-first-failed.prototype.lean": "c89848d309275ee35f8ec1d76c67de250cabeaa9d3a66cc47255ca7bdc5d54e2",
+        "work/checks/CarrierMarkedArcLists-first-failed-body-dependencies.json": "8a93c19a05470cd9b2b8a2050bfbd6392866548d7edf245075619229e6f98024",
+        "work/checks/CarrierMarkedArcLists-first-kernel.log": "f88dd950941db7c39c01ef4b6a1b7c998013aaba87eee246c265d38e09b48aa0",
+        "work/checks/CarrierMarkedArcLists-second-draft-repair-bindings.json": "93d65b5d602596e15739fc6276f51360e66638c6990a984fa187d9d252df1dd1",
+        "work/checks/CarrierMarkedArcLists.body.lean": "62ac3c5aacf04887eab399f8fa06c7120730623776711c43e87316bf4c0bc270",
+        "work/checks/CarrierMarkedArcLists.prototype.lean": "718fe4cb00209f2169af775c57dc205a511eb1420941ba58464a7a3ba177e3c4"
+      }
+    },
+    {
+      "group": "CarrierInheritedOrder",
+      "attempt": "first",
+      "kernel_session": 10734,
+      "exit_code": 1,
+      "reason": "Dependent Cycle.formPerm rewrites and decidable membership filter instance mismatch; failed proof placeholders are not accepted. Preserve exact original before proof repair.",
+      "before_body": "work/checks/CarrierInheritedOrder-first-failed.body.lean",
+      "after_body": "work/checks/CarrierInheritedOrder-second-failed.body.lean",
+      "failed_prototype": "work/checks/CarrierInheritedOrder-first-failed.prototype.lean",
+      "failed_log": "work/checks/CarrierInheritedOrder-first-kernel.log",
+      "changed_header_names": [],
+      "theorem_statement_text_preserved": true,
+      "source_meaning_change_claimed": false,
+      "compiler_error_placeholders_excluded": true,
+      "files_sha256": {
+        "work/checks/CarrierInheritedOrder-first-failure-bindings.json": "366534cc3055b569adc230d8159e6870a961f0aa150ca181e6228535b89e0ba9",
+        "work/checks/CarrierInheritedOrder-first-failed.body.lean": "cfba7fd2eb9b18edb74baa524e6c267821811228096a73d47d7f0ca6869deaa5",
+        "work/checks/CarrierInheritedOrder-first-failed.prototype.lean": "91bbb95bf9a8184c8acb4a467972b2d928669acb7d71f9c692c8c41e37392e14",
+        "work/checks/CarrierInheritedOrder-first-failed-body-dependencies.json": "d7b7e3e77b79eeb1b072dcdddeb8568dd070c2a5ad6f913501669ce6c352afa9",
+        "work/checks/CarrierInheritedOrder-first-kernel.log": "c3592758420d98149d38e953644eb0d5567ae38b863cb00998a287ccd66ebed7",
+        "work/checks/CarrierInheritedOrder-second-draft-repair-bindings.json": "2acc8f07912f1da21898a6bdc0c4f05b553c73e375ed288aa2a53456c31fd46d",
+        "work/checks/CarrierInheritedOrder-second-failed.body.lean": "5e239a185446394cf76a9ae047b8cc7c97f717e70f63ce31ffa0043e1089d6b2",
+        "work/checks/CarrierInheritedOrder-second-failed.prototype.lean": "1ccdeeb6132e8b955ef617f7c0c66ec386c155691330f736c4c66ef3c88e590e"
+      }
+    },
+    {
+      "group": "CarrierInheritedOrder",
+      "attempt": "second",
+      "kernel_session": 25323,
+      "exit_code": 1,
+      "reason": "Final singleton formPerm proof still fails to rewrite subtype projection equality; first six declarations elaborate, but whole failed run is excluded. Preserve exact original before proof repair.",
+      "before_body": "work/checks/CarrierInheritedOrder-second-failed.body.lean",
+      "after_body": "work/checks/CarrierInheritedOrder.body.lean",
+      "failed_prototype": "work/checks/CarrierInheritedOrder-second-failed.prototype.lean",
+      "failed_log": "work/checks/CarrierInheritedOrder-second-kernel.log",
+      "changed_header_names": [],
+      "theorem_statement_text_preserved": true,
+      "source_meaning_change_claimed": false,
+      "compiler_error_placeholders_excluded": true,
+      "files_sha256": {
+        "work/checks/CarrierInheritedOrder-second-failure-bindings.json": "a74085c6d6f7752630d4667ef90d7d44112654382be9164229f97a8a7157ead0",
+        "work/checks/CarrierInheritedOrder-second-failed.body.lean": "5e239a185446394cf76a9ae047b8cc7c97f717e70f63ce31ffa0043e1089d6b2",
+        "work/checks/CarrierInheritedOrder-second-failed.prototype.lean": "1ccdeeb6132e8b955ef617f7c0c66ec386c155691330f736c4c66ef3c88e590e",
+        "work/checks/CarrierInheritedOrder-second-failed-body-dependencies.json": "d7b7e3e77b79eeb1b072dcdddeb8568dd070c2a5ad6f913501669ce6c352afa9",
+        "work/checks/CarrierInheritedOrder-second-kernel.log": "8df3f8a0e3f69c1e7040d8efa5eb4f18603af88056c2cb12aa082e36dfa3729e",
+        "work/checks/CarrierInheritedOrder-third-draft-repair-bindings.json": "17d4d5fb7676cc3cef01f642f0d0c175f6677cdfd590011677775a8d6c5bcafe",
+        "work/checks/CarrierInheritedOrder.body.lean": "b2436d72abd3f351fc8c48615fd8af9e672a4b1d5c2bf7d896b076b40aa947b8",
+        "work/checks/CarrierInheritedOrder.prototype.lean": "1d9536b46cf0b8ff338cd7dc276ec9c4ce97c7d31014461b07def8460cc80326"
+      }
+    }
+  ],
+  "source_claim_acceptance_increment": 0
+}

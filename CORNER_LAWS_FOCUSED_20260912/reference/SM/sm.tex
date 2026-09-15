@@ -1,0 +1,100 @@
+% =====================================================================
+%  SUPPLEMENTAL MATERIAL for "Gluons and Knots" -- formal companion.
+%  FRAME SM15 (Phase 2.5, repair round 14, the tag-only round; base SM14), 2026-09-12.
+%  Base = frame SM10 (round 1: Codex candidate C001-C077 + author hunks A1-A16;
+%  round 2: author hunks B1-B20; round 3: C1-C48; round 4: D1-D47; round 5:
+%  E1-E60; round 6: F1-F24 and G1-G10; round 7 withdrawn, no frame; round 8:
+%  J1-J13; round 9: K1-K22); round-10 author hunks L1-L10; every status tag is a claim of this frame.
+%  Layout: definitions -> statements -> proofs.  Every statement carries a
+%  status tag (see the legend after the abstract).  Section files sm-*.tex.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\emergencystretch=2em
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{hypothesis}{Hypothesis}
+\newtheorem{literature}{Literature input}
+\newtheorem{computation}[theorem]{Computation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ---- status tags -----------------------------------------------------
+% PROVED     : complete proof printed in this document.
+% TRANSCRIBE : proved in a frozen campaign document at the cited locator;
+%              the proof is to be transcribed into the present conventions.
+% LIT        : consumed from the literature (registry, Section 11).
+% HYP        : declared hypothesis (registry, Section 11).
+% OPEN       : proof obligation not discharged anywhere.
+% NEW        : argument assembled in this draft; not yet adversarially reviewed.
+\newif\ifprintstatus \printstatusfalse
+\newcommand{\status}[1]{\ifprintstatus\hfill{\footnotesize\textcolor{red!60!black}{[#1]}}\fi}
+
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\Cat}{\operatorname{Cat}}
+\newcommand{\lt}{\widetilde\lambda}
+\newcommand{\mindeg}{\operatorname{mindeg}}
+\newcommand{\Conf}{\operatorname{Conf}}
+\newcommand{\lk}{\operatorname{lk}}
+\newcommand{\Sh}{\operatorname{Sh}}
+\newcommand{\rev}{\operatorname{rev}}
+\newcommand{\mt}[1]{main text, \texttt{#1}}
+
+\title{Supplemental Material}
+\author{Alfredo Guevara}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document fixes the definitions, states the results, and collects the
+proofs on which the main text rests. Two integer-valued functions are defined
+on generic closed polygons in the plane: the rooted tree coefficient $A_g$ of
+Section~\ref{sec:amplitude} and the corner state sum $C$ of
+Section~\ref{sec:statesum}. Both are proved to be constant on chambers,
+invariant across silent walls, and to satisfy the flat, vertex--edge, soft
+and reversal laws; the tree coefficient also satisfies the triple (R3) and
+cusp laws and is independent of its root. Under Hypothesis~R (triple-wall
+invariance of $C$) the two functions coincide on every generic polygon; this
+is the main theorem. The proof is a strong induction on the vertex count
+along fixed-count transport paths, anchored at soft insertions: the mixed
+sector supplies a zero on every non-minimal fibre and the loop sector reaches
+each minimal fibre from a lower one; the prescribed triangle-star values
+$F(K_{\pm1})$ are the base data, and the Catalan values on the higher circular
+stars are consequences. Every external input is an entry of the
+registry in Section~\ref{sec:registry}. Every statement carries a status tag;
+the dependency graph is the file \texttt{DAG.md}.
+\end{abstract}
+
+\tableofcontents
+
+\input{sm-0-legend}
+\input{sm-1-polygons}
+\input{sm-2-amplitude}
+\input{sm-3-statesum}
+\input{sm-4-knotlaws}
+\input{sm-5-transport}
+\input{sm-6-comparison}
+\input{sm-7-anchors}
+\input{sm-8-families}
+\input{sm-9-relations}
+\input{sm-10-census}
+\input{sm-11-registry}
+
+\bibliographystyle{plain}
+\bibliography{sm-refs}
+\end{document}

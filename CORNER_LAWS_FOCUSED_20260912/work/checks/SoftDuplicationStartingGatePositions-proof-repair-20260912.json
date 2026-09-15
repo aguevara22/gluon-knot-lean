@@ -1,0 +1,45 @@
+{
+  "utc": "2026-09-12T03:00:04.050478+00:00",
+  "state": "Proof-only repair after root first64843 failed; awaiting root second kernel",
+  "author": "/root/review_mark_transport",
+  "signatures_unchanged": 18,
+  "repairs": [
+    "In both equivalence surjectivity proofs, transport the membership proposition with p.val fixed; do not rewrite the dependent subtype domain"
+  ],
+  "exact_diff": "--- first-failed\n+++ repaired-current\n@@ -95,8 +95,9 @@\n     apply Subtype.ext\n     exact old_injective s (congrArg Subtype.val he), by\n     intro p\n-    have hp := p.property\n-    rw [starting_zero_interior] at hp\n+    have hp : p.val \u2208 C.interior.val.image (old s) :=\n+      Eq.mp (congrArg (fun S : Finset (Fin (n + 1)) => p.val \u2208 S)\n+        (starting_zero_interior s I hI C hL hR)) p.property\n     obtain \u27e8k, hk, he\u27e9 := Finset.mem_image.mp hp\n     exact \u27e8\u27e8k, hk\u27e9, Subtype.ext he\u27e9\u27e9\n \n@@ -136,8 +137,9 @@\n       | inr y => exact congrArg Sum.inr (Subtype.ext (old_injective s hv))\n     , by\n     intro p\n-    have hp := p.property\n-    rw [starting_one_interior] at hp\n+    have hp : p.val \u2208 insert (B s) (C.interior.val.image (old s)) :=\n+      Eq.mp (congrArg (fun S : Finset (Fin (n + 1)) => p.val \u2208 S)\n+        (starting_one_interior s I hI C hL hR)) p.property\n     rcases Finset.mem_insert.mp hp with he | hp\n     \u00b7 exact \u27e8Sum.inl (), Subtype.ext he.symm\u27e9\n     \u00b7 obtain \u27e8k, hk, he\u27e9 := Finset.mem_image.mp hp\n",
+  "files_sha256": {
+    "work/checks/SoftDuplicationStartingGatePositions.body.lean": "0165790103d0c21260c50aec6e880a6afce9f7a80f0e5cf61b713a5ff10ba004",
+    "work/checks/SoftDuplicationStartingGatePositions.prototype.lean": "8f580c26226fd817f97e563c369c6454cb424ecacc5eeb4e4ab90aa6c8e7b9ec",
+    "work/checks/SoftDuplicationStartingGatePositions-first-failed.body.lean": "e2db24096f427cde9768137153bd5bec102f559e8e1b959adda020f387df9487",
+    "work/checks/SoftDuplicationStartingGatePositions-first-failed.prototype.lean": "9f1521e323b636b7511652471819b9b5f4aaf3ab856fd383ab2ed2a80bdc1c22",
+    "work/checks/SoftDuplicationStartingGatePositions-first-kernel.log": "e4c7c5ba5bb6cc6c4c219cef89e8011f3fc7c9737015814bed1a4436408280b7",
+    "work/checks/SoftDuplicationStartingGatePositions-first-draft.body.lean": "e2db24096f427cde9768137153bd5bec102f559e8e1b959adda020f387df9487",
+    "work/checks/SoftDuplicationStartingGatePositions-first-draft.prototype.lean": "9f1521e323b636b7511652471819b9b5f4aaf3ab856fd383ab2ed2a80bdc1c22",
+    "work/checks/SoftDuplicationStartingGatePositions-draft-dependency-bindings.json": "e7de09cc6a9b0edabffc2839a9c6cba16a0479acbf9ad1b1859972597ed0eb49",
+    "work/checks/SoftDuplicationStartingGatePositions-body-dependencies.json": "98cc9d613bc7a770b8d83a5921f07ccce568ba8ee091b9c40f5e6bf71835e6ec"
+  },
+  "body_dependencies_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/CutSetNearFar.body.lean": "acafef61406c9f460db333b9614da2ec644bc848f4827b0ed256c26c048417c2",
+    "work/checks/CutSetNearFarNeighbors.body.lean": "37fa18e71ce48f08a0073c12847ceb00232b26523ff883327750f0d5918cbbed",
+    "work/checks/SoftDuplicationStartingGatePositions.body.lean": "0165790103d0c21260c50aec6e880a6afce9f7a80f0e5cf61b713a5ff10ba004"
+  },
+  "dependency_receipts_sha256": {
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+    "work/checks/CutSetNearFar-prototype-result.json": "2207549b17c49f64fa763d09430e602e564fe08631bfce7b33919ff671120d68",
+    "work/checks/CutSetNearFarNeighbors-prototype-result.json": "2ee10a035b79ab41a75e5c98515de63b7b77bb425a55e206361547d0943935ab"
+  },
+  "kernel_ran_by_this_agent": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "stronger_model_statement_fidelity_approval": false,
+  "canonical_integration_approved": false
+}

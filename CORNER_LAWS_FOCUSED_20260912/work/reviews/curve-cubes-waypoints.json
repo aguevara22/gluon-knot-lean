@@ -1,0 +1,515 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "curve-cubes-waypoints",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1408–1458: actual strict cube subdivision, endpoint Generic cubes, adjacent overlap domains, one joint central-leg choice and fixed original labelled endpoints; local containment supports 1418–1427",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "All five frozen modules and their actual source domains, tuple geometry, finite indexing and joint-choice connections. This is not a full thm:relgp or global timed-path acceptance.",
+  "main_declarations": [
+    "SM.iUnion_uniformMeshCell",
+    "SM.uniformMeshCell_ordered_intersection",
+    "SM.nonempty_curveCubeSubdivision",
+    "SM.CurveCubeSubdivision.exists_joint_central_waypoints",
+    "SM.CurveCubeSubdivision.central_orderedLeg_eq_assignment",
+    "SM.CurveCubeSubdivision.ordered_tuple_leg_regular",
+    "SM.CurveCubeSubdivision.ordered_tuple_leg_generic_collar"
+  ],
+  "reason": "The five modules faithfully connect the previously proved local cubes and joint polynomial avoidance to the actual source curve. They prove exhaustive closed uniform cells and their adjacent-endpoint intersection property, construct a finite strictly ordered cube subdivision directly from continuity, full Regular membership, Generic endpoints and positive delta, and retain the true Euclidean diameter bound. The first and last cubes come from the prescribed Generic endpoint neighborhoods, without assuming endpoint control polynomials nonzero. Every adjacent cube overlap contains the actual shared curve value; its full scalar-coordinate preimage is proved nonempty and open. The finite family used for one joint choice is exactly all central cells times all 2n ordered coordinates, with distinct actual internal waypoint tags. The resulting W lies in every overlap and satisfies the complete previously proved JointLegConditions simultaneously. The waypoint sequence fixes the original labelled endpoints exactly, places each internal waypoint in its actual overlap, and proves both successive endpoints and every local ordered tuple leg lie in their assigned cube. The actual central ordered legs equal the algebraically constrained joint assignments. All such local legs are Regular, and all legs in the first and last cells are Generic. Three independent kernel examples verify the combined raw-source construction, the actual same-cell Euclidean bound at every original time, and actual central-leg collision freedom. The global timed concatenation and remaining wall classification are still outside this partial review.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact uniform-mesh port and full closed-cell exhaustion",
+      "assessment": "UniformMesh has exactly the independently reviewed prototype namespace body. uniformMeshCell is the genuine closed interval between consecutive actual real mesh points in unitInterval, and its endpoints belong by strict monotonicity. For t=0, the first cell contains t. Otherwise the proof takes the least mesh index k with t≤time(k), a nonempty finite set because the final node is 1. This k is positive: k=0 would force t=0. Setting j=k−1 gives a valid cell; t is below its upper endpoint by construction, while a strict failure of the lower bound would put the preceding index in the same set, contradicting minimality. Thus every actual unit-interval time lies in a cell, including t=1, and the union is exactly univ. There is no omitted boundary interval or assumed cell-selection oracle."
+    },
+    {
+      "clause": "Distinct cells meet only at an adjacent actual endpoint",
+      "assessment": "For i<j and t in both closed cells, time(j)≤t≤time(i+1). Strict monotonicity reflects this inequality to j≤i+1. Together with i<j this forces j=i+1. The two endpoint indices are then equal, and the bounds force t equal to both actual shared mesh endpoints. The previously proved endpoint-membership lemmas supply the common endpoint itself. The reversed index order is the same statement with arguments exchanged; no false disjointness of adjacent closed cells is claimed."
+    },
+    {
+      "clause": "Source hypotheses construct the actual cube subdivision",
+      "assessment": "nonempty_curveCubeSubdivision takes n≥3, an actual continuous tuple curve, Regular at every source time, Generic only at times 0 and 1, and delta>0. At each time it chooses a positive actual scalar cube around gamma(t), with closure in Regular and true Euclidean diameter/pairwise bounds below delta. At the two endpoints it instead uses the proven Generic cube theorem, retaining Regular and Generic on the entire closure. These choices are proved to exist from the earlier local results; they are not supplied as extra data. Their inverse images along gamma are open and cover unitInterval because each contains its own center time. The strict uniform subordination theorem then selects finitely many covering times, with selected time 0 for the first cell and 1 for the last. The resulting actual cube centers are gamma(selected i), and all fields of CurveCubeSubdivision are proved. Classical.choice is applied only to this proved existence."
+    },
+    {
+      "clause": "Full source size, endpoint and metric conventions",
+      "assessment": "The vertex-size condition is source n≥3; NeZero n is derived where finite ZMod coordinates are required. The subdivision count independently satisfies count≥3 and positive width, so first, last and central cells have the intended meanings. The curve is represented as a continuous map to actual tuples with pointwise Regular membership, the direct unbundled form of the source map to the Regular locus. The cube diameter and pairwise distances are evaluated through actual tupleCoordinates in EuclideanSpace, not the tuple product maximum metric. Generic endpoint cubes allow inactive concurrence controls to vanish; no all-polynomials-nonzero condition is added to the source endpoints."
+    },
+    {
+      "clause": "Genuine adjacent overlaps and full scalar open domains",
+      "assessment": "InternalWaypoint is Fin(count−1). For each k its left and right cubes have indices k and k+1, and overlapTime is their equal right/left mesh endpoint. Curve-cell containment on both closed cells puts gamma(overlapTime k) in their actual set intersection. Thus every overlap is nonempty for a concrete source-curve witness and is open as the intersection of two actual open cubes. scalarOverlap is the full preimage under tupleOfScalarCoordinates. It is open by continuity and is nonempty because scalarCoordinates of the source witness reconstructs exactly that tuple. No lower-dimensional affine slice, synthetic overlap, global vertex-distinctness assumption or supplied nonemptiness certificate is used."
+    },
+    {
+      "clause": "Exactly the source central-cell and scalar-coordinate family",
+      "assessment": "CentralCell consists of all cell indices i with 0<i and i+1<count, precisely excluding the first and last cells. CentralLegIndex is their product with Fin(2*n), so every scalar coordinate leg in every central cell is represented. The left internal tag is i−1 and the right tag is i; their bounds follow from the central-cell inequalities, and i>0 proves they are distinct. centralLeg is the existing orderedWaypointLeg for these two tags and the same fixed scalarCoordinateOrder n. Thus it satisfies the actual distinct-waypoint and moving-coordinate-exclusion hypotheses required by the earlier joint pullbacks. The count≥3 convention ensures the source construction has independent internal waypoint positions rather than imposing algebraic conditions on fixed original endpoints."
+    },
+    {
+      "clause": "One simultaneous W in all actual overlaps",
+      "assessment": "exists_joint_in_overlaps applies the already proved joint-domain theorem to the actual scalarOverlap family, with its openness and nonemptiness now discharged. The index set of internal waypoints is finite. Applying it to the concrete finite CentralLegIndex family produces one W:InternalWaypoint×ScalarCoordinate n→ℝ that lies in every adjacent overlap and satisfies every full JointLegConditions instance at once. There is no separately chosen assignment for each leg or independently assumed nonzero pullback. The inherited conditions include actual endpoint controls, dependent slopes, distinct-control resultants, steps and both-coordinate vertex differences, already proved nonzero and jointly avoidable in the accepted earlier source unit."
+    },
+    {
+      "clause": "Actual waypoint sequence and fixed labelled endpoints",
+      "assessment": "waypoint W uses the original actual tuple gamma(0) at index 0 and gamma(1) at index count. At every internal index j it uses the reconstruction of the W projection at j−1, which is exactly the overlap between cells j−1 and j. Positivity of count keeps the two endpoint branches distinct. The first, last and internal formulas are proved as exact labelled tuple equalities, not equalities modulo cyclic relabeling or approximation. No coordinate of either original endpoint enters the independently variable W domain."
+    },
+    {
+      "clause": "Successive waypoint containment in their assigned cube",
+      "assessment": "For a cell i, its left endpoint waypoint is either the original gamma(0), already in the first cube at its source mesh endpoint, or the internal waypoint in overlap i−1, whose right cube is i. Its right endpoint is either original gamma(1) in the last cube or the internal waypoint in overlap i, whose left cube is i. The natural-index identities are proved explicitly, including the last cell and internal successor subtraction. Therefore each successive pair belongs to the same assigned actual cube, with no assumption that chosen waypoints equal the old curve values."
+    },
+    {
+      "clause": "Exact central assignment bridge and local Regular/Generic legs",
+      "assessment": "For a central cell, the two waypoint formulas identify its actual scalar endpoints with the projections at centralLeftTag and centralRightTag. The already proved orderedWaypointLeg_assignment equality then identifies every real parameter of the actual ordered scalar leg with the exact centralLeg assignment for W. Reconstructing the actual tuple preserves this equality. Coordinate hybridization and convexity place every ordered leg at every u∈[0,1] in the cell cube; closure_regular implies full Regular membership. For first and last cells, endpoint_generic similarly implies Generic for all coordinate legs, including their endpoints. JointLegConditions is not required for these collar containment claims. The independent collision example verifies that the complete central-family hypothesis applies to that same actual leg, not merely an unrelated endpoint representation."
+    },
+    {
+      "clause": "Independent source and Euclidean specializations",
+      "assessment": "The first independent example starts solely from the original curve hypotheses and positive delta, obtains an actual subdivision and one joint W, and retains both original labelled endpoint equalities. It requires no supplied cube cover, overlap data, root, slope or nonvanishing certificate. The second example uses the exhaustive cells to cover every original source time t, and proves every ordered-leg point in the selected cell has true Euclidean distance below delta from gamma(t), by the two actual points belonging to that cube. This is the exact local estimate needed for later synchronized path assembly. It does not on its own choose or glue a global time-dependent path, which remains separate."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance or original proof/checklist increment.",
+    "No globally timed coordinate-polyline concatenation across all source cells or complete piecewise-affine path theorem; the separate timed prototype is excluded from this review.",
+    "The pointwise same-cell Euclidean estimate is proved in the independent check, but a single globally defined approximating path and its synchronized uniform bound are not yet supplied by these five modules.",
+    "No remaining global finite wall-event assembly, ambient smooth-hypersurface proof, F/V/T/E/C wall classification, no-cusp conclusion or complete occurrence-label theorem."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/UniformMesh.lean": "b6f48ce12858a888b4db43ea28a09d308c5f03e966b1e0c4a4365d3df863015f",
+    "work/lean/SM/UniformMeshCells.lean": "281298210789caf9f0fbac9c2adb309d46d43c1e43694c94362e82c53d540ee7",
+    "work/lean/SM/CurveCubeSubdivision.lean": "cc057ff8d1a78675b1431a8adca09b0a4ed66f167fdcdd2cdb560b457337e44b",
+    "work/lean/SM/CubeWaypointDomains.lean": "497a2d3b8874a502f9fc06c90f3dd8c205b0efba48091ea2a51cc5250c9be644",
+    "work/lean/SM/CubeWaypoints.lean": "fecf3bf0f2e337f37d70c2148757815495943ccd068ebce38eccd73ec77b64c3"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaDensity.lean": "feb216f85720f9efba537288047ebedb5ec4e58c71738ff343fe750889c1af5b",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceDensity.lean": "a554f55511441e5c45f1d50423bb586f9578eaaecd33d1002b85aa661796b726",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CubeWaypointDomains.lean": "497a2d3b8874a502f9fc06c90f3dd8c205b0efba48091ea2a51cc5250c9be644",
+    "work/lean/SM/CubeWaypoints.lean": "fecf3bf0f2e337f37d70c2148757815495943ccd068ebce38eccd73ec77b64c3",
+    "work/lean/SM/CurveCubeSubdivision.lean": "cc057ff8d1a78675b1431a8adca09b0a4ed66f167fdcdd2cdb560b457337e44b",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/EuclideanPlane.lean": "30a5956221225bc9811a792b5a67c6c5967fb6dda0b4cb14be997051b32b7a4f",
+    "work/lean/SM/EuclideanTuple.lean": "acf79a23b262961b245ec4333627f06d02af2cbe74e9c3385ea237a98f016e69",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/OrderedCoordinateLegs.lean": "df1ce600a46565cc70a9e089996e7becd8a9fdc851d6c707fb394e9cb692d121",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolygonalConnected.lean": "63c87005b5678e811be587290a0cfb2924825f3463c7263119611940db6e33e2",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/PrincipalAngles.lean": "d618c6e2b040d5f5dbaf4b0bc7ef46a565dfb439756587d6f1c83e5c8955672a",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/RegularDefinition.lean": "1abcbd05624a34d5df1963ebef27e1497296f1986b39dd5a635561fed4ce86e1",
+    "work/lean/SM/RegularLocus.lean": "ad97d04e3eda38ba6f46d435ee9873344808d0d811ce28c410cd91e35b963acf",
+    "work/lean/SM/RegularPairs.lean": "7d09c9ecbb9b2515808d606a060256ee83b744ce42f946c5d9ff9f97ade80a06",
+    "work/lean/SM/RegularPerturbation.lean": "78b538c140845ef82b4cb9ee638e00306a40e2e8e93ebe2226273d8264a4072e",
+    "work/lean/SM/RegularScalarBoxes.lean": "0eb747eb64d4c4710298531e0379f1b096f5f199e526f2837c833a093d83ea01",
+    "work/lean/SM/RotationContinuity.lean": "bf50759ea133797a9261172c39e32e551bb40b23dfed483b8c541524d3c6c005",
+    "work/lean/SM/RotationNumber.lean": "8d6dc7680484539bf4243b6256155f900061ad34740b29b4f0d0eae6dbd1c0df",
+    "work/lean/SM/ScalarBoxes.lean": "4f381863e439983f18b282f38e52346c3fb566a1543986c2cb6c0606d45108d4",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/UniformMesh.lean": "b6f48ce12858a888b4db43ea28a09d308c5f03e966b1e0c4a4365d3df863015f",
+    "work/lean/SM/UniformMeshCells.lean": "281298210789caf9f0fbac9c2adb309d46d43c1e43694c94362e82c53d540ee7",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointOpenDomain.lean": "1267b6c71c1ec34e435068fb8f21b9017df3cdafc0cc33ff452f9a1b3a398b41",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+    "work/lean/SM/WeakGeometry.lean": "4504cad4539531adc6f8271d30d389c62aa72249e3506cffed0352b73f22bcb2",
+    "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2"
+  },
+  "import_closure_root": "SM.CubeWaypoints",
+  "import_closure_file_count": 71,
+  "inherited_review_binding": {
+    "inherited_file_count": 66,
+    "all_inherited_hashes_match": true,
+    "reviews": {
+      "work/reviews/local-germs-boxes-ordered.json": {
+        "sha256": "d33887e9ecbb1982f449e293624ab7490445529b8ee29a244c2eee9b6411c58e",
+        "matching_file_count_in_current_closure": 65
+      },
+      "work/reviews/joint-waypoint-choice.json": {
+        "sha256": "8609999cf4db4b00f221df4ac7ba0a4140eb7c81df2bdd78baa739c610d495f5",
+        "matching_file_count_in_current_closure": 44
+      }
+    },
+    "uniform_mesh_prototype_review": "work/reviews/uniform-mesh-prototype.json",
+    "uniform_mesh_prototype_review_sha256": "be0f8d94905da8cf833786080ac7181a4060c4e602111a75d094a565e49ff118",
+    "uniform_mesh_prototype_source": "work/checks/UniformMesh.prototype.lean",
+    "uniform_mesh_prototype_source_sha256": "aa11f56fdb9fdfcea3aec07c0803cca03b51902f4fc38b1f50730735aa4ad691",
+    "ported_UniformMesh_namespace_body_identical": true
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/curve-cubes-waypoints-review-types.lean",
+    "independent_trace_source_sha256": "7f0a92ef4d2d9ed88fe19e34ed93fcb354c4068a45d0ed43c0d9dcdf55347960",
+    "independent_trace_log": "work/checks/curve-cubes-waypoints-review-types.log",
+    "independent_trace_log_sha256": "f294fbf72afde80300ae136dd3c49c9b9c115aac5691e3638e64d9893331af75",
+    "independent_kernel_command": "lake env lean ../checks/curve-cubes-waypoints-review-types.lean",
+    "independent_kernel_session": 35387,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 57,
+    "declaration_axioms": {
+      "SM.uniformMeshPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_first": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_strictMono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_step": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_fine_uniformMesh": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_cell_subset_ball": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_cell_subset_right_ball": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_uniformMesh_subordinate_with_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshCell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isClosed_uniformMeshCell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshCell_left_mem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshCell_right_mem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_uniformMeshCell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.iUnion_uniformMeshCell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshCell_ordered_intersection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nonempty_curveCubeSubdivision": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.chooseCurveCubeSubdivision": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.time": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.cell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.time_strictMono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.cells_cover": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.isOpen_cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.curve_mem_cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.InternalWaypoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlapLeft": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlapRight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlapTime": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlapTime_eq_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.curve_mem_overlap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.isOpen_overlap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.overlap_nonempty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.scalarOverlap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.isOpen_scalarOverlap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.scalarOverlap_nonempty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.exists_joint_in_overlaps": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.CentralCell": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.CentralLegIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.centralLeftTag": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.centralRightTag": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.central_tags_ne": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.centralLeg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.exists_joint_central_waypoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_first": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_of_internal": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_left_mem_cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_right_mem_cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_central_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.waypoint_central_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.central_orderedLeg_eq_assignment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.ordered_tuple_leg_mem_cube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.ordered_tuple_leg_regular": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.ordered_tuple_leg_generic_collar": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "Raw source curve assumptions construct a subdivision and one W in every overlap satisfying the entire concrete central-leg family, with exact original endpoints.",
+      "Every original time lies in a cell whose every ordered tuple-leg point is within the actual Euclidean delta bound from that source curve value.",
+      "The actual ordered central tuple leg inherits collision freedom from its exact JointLegConditions instance."
+    ],
+    "additional_examples_passed": true,
+    "successful_build_log": "work/checks/cube-waypoints-build.log",
+    "successful_build_log_sha256": "a80bd2c72df25ef4cd4c18d4bf4fe953a52a7397da62d5f275f32559f98b2ff1",
+    "successful_build_session": 41387,
+    "successful_build_exit_code": 0,
+    "candidate_inventory": "work/checks/curve-cubes-waypoints-candidate-files.json",
+    "candidate_inventory_sha256": "689a6c855fc05b738db4b2042ba9a6e5773acf791a1514c158af9a1a54ddec20",
+    "independent_closure_evidence": "work/checks/curve-cubes-waypoints-review-closure.json",
+    "independent_closure_evidence_sha256": "8815d7a6d6b9200884435f946baafb14748d33d12932799afa6edc79a1a7b94d"
+  },
+  "audit_context": {
+    "prior_receipt": "work/checks/checkpoint-055-output.json",
+    "prior_receipt_sha256": "9de9ab745386a7e7e47282a567a1a87b9aafb97613eb811e105cd9897325f598",
+    "prior_receipt_passed": true,
+    "prior_stage_accepted": false,
+    "all_268_prior_SM_files_unchanged": true,
+    "prior_audited_local_declarations": 3028,
+    "prior_mapped_claims": 30,
+    "scope": "Checkpoint055 covers the inherited theorem library. These five new modules and the appended CubeWaypoints root import are bound here to their successful frozen build, exact 71-file closure and independent trace, pending the subsequent whole-project audit."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "source_row_status_unchanged": true
+  },
+  "independence": "Reviewer did not author or edit any of the five implementation modules, source statements or declaration-map entries. Their complete bodies, transparent data definitions and actual compiled types were read independently; inherited source reviews were reused only after matching all corresponding current file hashes.",
+  "edits": "Only independent work/checks type/axiom/closure evidence and this work/reviews report were written. The separate timed-coordinate-polyline prototype is not part of this report."
+}

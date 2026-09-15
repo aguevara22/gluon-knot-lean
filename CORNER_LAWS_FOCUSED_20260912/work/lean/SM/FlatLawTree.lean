@@ -1,0 +1,43 @@
+import SM.FlatSourceResponse
+import SM.InducedRootsDefinition
+import SM.NamedWallSides
+
+/-! Source thm:A-S3 (reference/SM/sm-2-amplitude.tex:400, frame SM15): the flat law for the
+tree coefficient `A_g`. Main declaration: `SM.WallGerm.flat_law_treeCoefficient`.
+
+Notation. `w : WallGerm (n + 1)` is the wall germ (the source's polygon has `n + 1 ≥ 4`
+vertices); `w.FlatAt j` is "simple flat wall at `j`" (def:walls (F): `4 ≤ n + 1`,
+`Z_pt = {{j-1, j, j+1}}`, `Z_c = ∅`, `μ_j(0)` strictly between `μ_{j-1}(0)` and `μ_{j+1}(0)`,
+`τ_j` changes sign at `0`); `w.FlatRightSide j b` / `w.FlatLeftSide j b` say that every point
+of the punctured side `b` (`true` = positive parameters, `false` = negative) has `τ_j = -1` /
+`τ_j = +1`; `deleteVertex w.center j = P(0) ∖ j`; `deletionRoot j g = D_j(g)`
+(def:induced-roots, `SM.induced_roots_definition`); `treeCoefficient = A_g` (def:treesum).
+The proof is the previous executor's kernel-checked candidate lane (prototype
+FlatSourceResponse, kernel session recorded in its receipt), ported verbatim. -/
+
+namespace SM.WallGerm
+
+variable {n : ℕ} [NeZero n]
+
+/-- thm:A-S3 (flat law for `A_g`), as printed on SM15: at a simple flat wall at `j` with
+`n ≥ 4`, the two sides are the side `P_right` on which `τ_j = -1` and the side `P_left` on
+which `τ_j = +1` (exactly one punctured side is the right side, the other the left side);
+`P(0) ∖ j` satisfies (G1); and for every root `g`, at every point of the right side and
+every point of the left side, `A_g(P_right) - A_g(P_left) = A_{D_j(g)}(P(0) ∖ j)`. -/
+theorem flat_law_treeCoefficient (w : WallGerm (n + 1)) (j : ZMod (n + 1)) (hf : w.FlatAt j) :
+    (∃! b : Bool, w.FlatRightSide j b ∧ w.FlatLeftSide j (!b)) ∧
+    G1 (deleteVertex w.center j) ∧
+    ∀ g : ZMod (n + 1), ∀ sRight sLeft : w.Parameter,
+      ∀ hRight0 : sRight.val ≠ 0, ∀ hLeft0 : sLeft.val ≠ 0,
+      turn (w.curve sRight) j = -1 → turn (w.curve sLeft) j = 1 →
+      treeCoefficient (w.curve sRight) (w.generic_punctured sRight hRight0).1 g
+          (by have := hf.1; omega) -
+        treeCoefficient (w.curve sLeft) (w.generic_punctured sLeft hLeft0).1 g
+          (by have := hf.1; omega) =
+        treeCoefficient (deleteVertex w.center j) (g1_deleteVertex hf.2.1) (deletionRoot j g)
+          (by have := hf.1; omega) := by
+  refine ⟨w.flat_named_sides hf, g1_deleteVertex hf.2.1, ?_⟩
+  intro g sRight sLeft hRight0 hLeft0 hRight hLeft
+  exact w.flat_right_minus_left j g hf sRight sLeft hRight0 hLeft0 hRight hLeft
+
+end SM.WallGerm

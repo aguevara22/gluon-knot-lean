@@ -1,0 +1,154 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-insertion-tuple-technical-review-20260911",
+  "sealed_utc": "2026-09-12T00:37:27.168152+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "provider": "OpenAI",
+    "product": "Codex",
+    "model_relationship": "Same currently available model as root, not a stronger-model statement-fidelity review.",
+    "authored_reviewed_body": false
+  },
+  "scope": {
+    "group": "SoftInsertionTuple",
+    "declarations": [
+      "SM.softInsertion",
+      "SM.softInsertion_old",
+      "SM.softInsertion_new",
+      "SM.continuous_softInsertion",
+      "SM.edge_softInsertion_old",
+      "SM.edge_softInsertion_soft",
+      "SM.edge_softInsertion_return",
+      "SM.SoftAdmissible",
+      "SM.SoftAdmissible.vector_ne_zero",
+      "SM.softAttachmentMinus",
+      "SM.softAttachmentPlus"
+    ],
+    "source_id": "def:soft; prerequisite for lem:soft-generic",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "source_lines": "991-1011, within the full soft-generic context read through line1150"
+  },
+  "assessment": "No technical or source-domain defect identified in this bounded group.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "proof_files_modified": false,
+    "root_kernel_session": 84277,
+    "root_exit_code": 0,
+    "first_run_passed": false
+  },
+  "evidence": {
+    "receipt_path": "work/checks/SoftInsertionTuple-prototype-result.json",
+    "receipt_sha256": "99d1ec750b10bded19a61efb5b8c8bc3c7af3ba443e5ae80eaa746295bfc82a5",
+    "all_receipt_hashes_matched": true,
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftInsertionTuple.prototype.lean": "261263c4390f8196c69943062225ac3a3ab5536a8f85cd92692a890a5f639a2a",
+      "work/checks/SoftInsertionTuple-second-kernel.log": "5644e749a4f26c2836e55b8b98497e67cd271836a397b0bc363660fbff09e389"
+    },
+    "exact_body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1
+    },
+    "requested_declaration_axioms_verified_from_log": {
+      "SM.softInsertion": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_old": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_new": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_softInsertion": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.edge_softInsertion_old": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.edge_softInsertion_soft": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.edge_softInsertion_return": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftAdmissible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftAdmissible.vector_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softAttachmentMinus": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softAttachmentPlus": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "forbidden_successful_log_hits": [],
+    "definition_hashes": {
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean": "2ed3367d49bfdd7066b4397850a4eba88221173ccc037bb9af39cd8f3a4ef446"
+    }
+  },
+  "declaration_binding_method": "Full frozen body SHA-256 including all namespace/section contexts, binders, definitions, theorem statements and proofs. No parsed header-string hash.",
+  "findings": [
+    "softInsertion is the actual Fin.insertNth tuple in increasing physical order, with old entries read through boundaryIndex 0 and inserted value P j + epsilon*q. Its old/new evaluation theorems use the exact inverse label-position maps and insertNth elimination laws. Since every enlarged index is new or uniquely old, these identities describe the whole tuple.",
+    "The formula is defined for every real parameter; the source family is its restriction to positive epsilon. The extension through zero is appropriate for later limiting arguments and does not assert genericity there. Continuity is proved coordinatewise by the exhaustive index partition: every old coordinate is constant, and the single new coordinate is affine.",
+    "The three edge formulas derive from actual cyclic successor identities: every mapped old edge k!=j equals its original direction; the edge starting at mapped old j is epsilon*q; the edge starting at the new index is edge P j minus epsilon*q. Thus the return ends at the old successor of j and the physical wrap is included. These are actual vector equalities for all labels, not only endpoint descriptions.",
+    "SoftAdmissible is exactly the source conjunction: nonzero det(incoming,q), nonzero det(q,outgoing), and nonzero det(q,P k-P j) for every other old label. The separate vector_ne_zero proof derives q!=0 from the outgoing determinant; it is not an extra assumption or an admissibility substitute.",
+    "softAttachmentMinus and softAttachmentPlus define precisely the two negative determinant signs with the source incoming and outgoing directions. This batch does not yet prove their equality to actual enlarged-tuple chirotopes, or the G1/G2/chamber/crossing/visit-order clauses of lem:soft-generic; those remain subsequent work. No such unproved clause is assumed here."
+  ],
+  "limits": [
+    "Technical comparison by another agent of the same currently available model; NOT stronger-model statement-fidelity approval requested by the user.",
+    "No original source row or full soft theorem accepted. Matching hashes and root kernel success alone do not establish source fidelity."
+  ],
+  "preserved_failure": {
+    "kernel_session": 6443,
+    "exit_code": 1,
+    "files_sha256": {
+      "work/checks/SoftInsertionTuple-first-failed.body.lean": "88497d5ba5f63c889690356928065294b80d87ed62e741234b809ca20c27d6eb",
+      "work/checks/SoftInsertionTuple-first-failed.prototype.lean": "8dd3405d8095c29f874c11f2805ace0cb7e8492ad57e8d5a7736a174e4edf6f5",
+      "work/checks/SoftInsertionTuple-first-kernel.log": "b10b92cd0ca039926c18b4259cf11a6143db46b78d0cda94ff1ad11ae1ee6c54"
+    },
+    "verified_only_change": "The softInsertion definition application explicitly fixes Fin.insertNth dependent family alpha to the constant Plane family on Fin(n+1). The declaration type and every other definition/theorem statement and proof are unchanged; prototype changed only by embedding that corrected body.",
+    "interpretation": "An elaboration annotation resolves the intended dependent type; no mathematical hypothesis or source tuple construction was changed. Failed traces are not credited as proof evidence."
+  }
+}

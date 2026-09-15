@@ -1,0 +1,249 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-presentations-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:17:31.058333+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root/review_mark_transport (Mark); root made the recorded proof-only elaboration repairs",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The reviewer authored the frozen SoftDuplicationIndices dependency. That body is embedded here and is not independently reapproved by its author. The reviewer did not contribute to the Presentations body or the CutFibers body; both were read for this technical review. The separately compared scalar identities were authored by root."
+  },
+  "scope": {
+    "group": "SoftDuplicationPresentations",
+    "declarations": [
+      "SM.SoftDuplication.cutSubsetPair_cases",
+      "SM.SoftDuplication.cutFiberCondition_empty",
+      "SM.SoftDuplication.cutFiberCondition_spanning",
+      "SM.SoftDuplication.cutFiberCondition_spanning_cut",
+      "SM.SoftDuplication.cutFiberCondition_start",
+      "SM.SoftDuplication.cutFiberCondition_end",
+      "SM.SoftDuplication.emptyCutFiber",
+      "SM.SoftDuplication.emptyCutFiberEquiv",
+      "SM.SoftDuplication.spanningRows",
+      "SM.SoftDuplication.spanningRowsEquiv",
+      "SM.SoftDuplication.startingRows",
+      "SM.SoftDuplication.startingRowsEquiv",
+      "SM.SoftDuplication.endingRows",
+      "SM.SoftDuplication.endingRowsEquiv",
+      "SM.SoftDuplication.sum_emptyCutFiber",
+      "SM.SoftDuplication.sum_spanningRows",
+      "SM.SoftDuplication.sum_startingRows",
+      "SM.SoftDuplication.sum_endingRows"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1268–1392: singleton/no-duplicate context, two interval-start/end presentations, one no-core-cut presentation, and three spanning selected-cut presentations; scalar row compatibility through aspr:three-presentations and residual identities",
+    "ambient_context": "namespace SM.SoftDuplication; {n : ℕ} [NeZero n], arbitrary s : Fin n and actual BoundaryInterval (n+1), excluding only duplicateInterval where a collapsed nondegenerate interval is needed. Each C is an actual BoundaryCutSet of that derived collapsed interval. Finite sums take an arbitrary AddCommMonoid and arbitrary function f on the exact CutFiber."
+  },
+  "assessment": "No technical mathematical defect found in the bounded unweighted presentation/fiber-sum scope. The explicit code row order differs from the source printed scalar order and must be respected by later weighted assembly.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 67064,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      50378
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and exact full-body embeddings; no extracted-header hashes. The complete first/current diff was inspected for statement preservation.",
+    "receipt_path": "work/checks/SoftDuplicationPresentations-prototype-result.json",
+    "receipt_sha256": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+      "work/checks/SoftDuplicationPresentations.prototype.lean": "fb625b3aa88da121872d66ca0f6f53d2f0de6b6c2f98e7386309e92566d2cb8c",
+      "work/checks/SoftDuplicationPresentations-second-kernel.log": "4994df21a7517052259c35efd39e69edd81b290b3bbc566b159cb8b7c584d135"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationIndices.body.lean": 1,
+      "work/checks/SoftDuplicationCutFibers.body.lean": 1,
+      "work/checks/SoftDuplicationPresentations.body.lean": 1
+    },
+    "ordered_body_dependencies": [
+      "work/checks/SoftDuplicationIndices.body.lean",
+      "work/checks/SoftDuplicationCutFibers.body.lean",
+      "work/checks/SoftDuplicationPresentations.body.lean"
+    ],
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 18,
+    "declaration_axioms": {
+      "SM.SoftDuplication.cutSubsetPair_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberCondition_empty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberCondition_spanning": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberCondition_spanning_cut": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberCondition_start": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberCondition_end": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptyCutFiber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptyCutFiberEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.spanningRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.spanningRowsEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.startingRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.startingRowsEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.endingRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.endingRowsEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_emptyCutFiber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_spanningRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_startingRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_endingRows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationPresentations-first-draft.body.lean": "5b3777699fe49c399e18eadc4773798a0438061750263f25472732dac17f5af4",
+      "work/checks/SoftDuplicationPresentations-first-draft.prototype.lean": "5518a2fc2cea0aa1b376acbff6ec853716f801231f9c98042ef9a2b481c179a1",
+      "work/checks/SoftDuplicationPresentations-body-dependencies.json": "e06e05fa4a8db334e35b02028be17c9723a870fbee9d88798756488a143b9987"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/SoftDuplicationPresentations-first-failed.body.lean": "5b3777699fe49c399e18eadc4773798a0438061750263f25472732dac17f5af4",
+      "work/checks/SoftDuplicationPresentations-first-failed.prototype.lean": "5518a2fc2cea0aa1b376acbff6ec853716f801231f9c98042ef9a2b481c179a1",
+      "work/checks/SoftDuplicationPresentations-first-kernel.log": "2871a104208fd664769b49cbab1ecfde635ec63090c754d8a617175bed5fa759"
+    },
+    "first_drafts_byte_identical_to_first_failed_files": true,
+    "main_prototype_diff_is_exact_full_body_replacement": true,
+    "all_eighteen_source_declaration_types_retained_by_reviewed_proof_only_diff": true,
+    "repair_description": "Four dependent membership substitutions now explicitly apply congrArg to membership and use Eq.mp. The three finite row injectivity proofs compare membership in A/B without globally simplifying dependent proof fields. The singleton-fiber sum fixes the otherwise unconstrained PUnit universe by annotating its two lambdas as Unit. No definition or theorem interface, row order, fiber condition, or source domain was changed.",
+    "dependency_receipts_sha256": {
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/decisions/amplitude-soft-after-family-assembly.md": "dcffb9ccc557eebdaa27f94ecd040d9c72494cd2c3b2ee54ca13e0ecfa31905a",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+      "work/checks/SoftDuplicationScalars.body.lean": "973ca649718c7956de0e7b6fb0cdbdae2281397a8f42bc58295193bd9150dce8",
+      "work/checks/SoftDuplicationScalars-prototype-result.json": "0ac71bed8be4a03dd4c569b12fb74d2216b17e98c9d464f82ce307b68ac22f72",
+      "work/reviews/soft-duplication-scalars-technical-review-20260912.json": "983213ab997de78951e7cc4c2f41c824c35bb1a7609fdd074475c11f1fe5dda5",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "row_correspondence": {
+    "spanning_code_order": [
+      {
+        "index": 0,
+        "selected_occurrences": "A only",
+        "source_exceptional_child_multiplier": "(etaPlus-b)/2"
+      },
+      {
+        "index": 1,
+        "selected_occurrences": "B only",
+        "source_exceptional_child_multiplier": "(etaMinus-a)/2"
+      },
+      {
+        "index": 2,
+        "selected_occurrences": "A and B",
+        "source_exceptional_child_multiplier": "1 from singleton [A,B]"
+      }
+    ],
+    "source_table_and_existing_three_scalar_lemma_order": [
+      "B only",
+      "A only",
+      "A and B"
+    ],
+    "required_later_identification": "Map actual row 0 to the A-only etaPlus/b factors and row 1 to the B-only etaMinus/a factors. Commute the first two summands when invoking three_ordinary or three_root; do not identify row index 0 with their first B-only term. These multipliers are source comparisons, not conclusions proved by this presentation body.",
+    "starting_code_order": [
+      "A only: no extra B cut",
+      "A and B: extra B cut"
+    ],
+    "ending_code_order": [
+      "B only: no extra A cut",
+      "A and B: extra A cut"
+    ]
+  },
+  "findings": [
+    "The CutFibers dependency encodes actual complete cut sets. collapseCuts takes the finite image under the proved collapse; localCuts filters precisely the two physical preimages of s. expandCuts restores every nonduplicate core cut inside the actual interval and exactly the chosen Q. Its inverse proofs use the singleton fibers away from s and the proved existence of an in-interval lift; they do not assume a cut-list correspondence. Canonical cutSetEquiv transports this to actual ordered compositions, including the unary composition.",
+    "CutFiberCondition retains all necessary endpoint conditions: selected local occurrences lie inside I, selection is nonempty exactly when s belongs to the complete core cut set, and any endpoint collapsing to s is mandatory. The new iff lemmas simplify this actual condition rather than replacing it with a freely assumed abstract cardinality.",
+    "cutSubsetPair_cases derives all four subsets of the distinct positions A and B. cutFiberCondition_empty proves that the empty subset is valid exactly when s is absent from C, including the impossibility of an endpoint collapsing to an absent mandatory core cut. emptyCutFiberEquiv constructs a true one-element fiber, so no-core-cut sums have exactly one term, without assuming two or more parts.",
+    "For strict spanning endpoints, the endpoint obligations are proved impossible from strict inequalities and the exact two-point collapse fiber. If s is a core cut, nonemptiness removes only the empty subset and leaves precisely A-only, B-only and both. spanningRowsEquiv proves distinctness using actual A/B membership and A_lt_B, and surjectivity from the exact iff classification. It is not merely a count of an unverified list.",
+    "At an interval starting at A, core endpoint membership derives s in C and forces A into Q. Thus A-only and both are exactly the two presentations; B-only and empty are ruled out, not silently omitted. At an interval ending at B, the proof symmetrically forces B, giving B-only and both. The right/left exterior inequalities ensure the optional other occurrence lies inside I. These assumptions are exactly the source two-presentation cases.",
+    "All four summation theorems use proved equivalences and finite sums over PUnit/Fin2/Fin3. The codomain is any AddCommMonoid, so the identities are independent of gate values, child weights, cancellations or sign assumptions. Every zero-valued summand and every composition encoded by the fixed actual core cut set remains included.",
+    "The spanning code order is A-only, B-only, both. Source aspr:three-presentations and the existing three_ordinary/three_root lemmas list B-only, A-only, both. This is a harmless permutation for the present additive sums, but the future weighted proof must use the recorded row correspondence. Starting and ending code orders already agree with the source optional-cut narrative.",
+    "The explicit hI excludes exactly the degenerate collapsed interval [A,B], whose singleton transform is a separate obligation. No source n>=4 narrowing, geometric Generic premise, nonvanishing factor hypothesis, or root-invariance assumption is added. Source n>=3 is covered. This group does not separately enumerate every interval not containing both occurrences; the general CutFibers equivalence remains available for that later specialization.",
+    "The first failed run is preserved and rejected as proof evidence. The repaired body retains all eighteen declaration types and exact row definitions; its successful traces contain only propext, Classical.choice and Quot.sound."
+  ],
+  "limits": "This report reviews the actual finite presentations and unweighted sum reindexing only. Neither arbitrary f nor CutFiber equivalence is an assumed weighted duplication law. The near/far gate correspondence, exact changed children and their ordinaryLift products, unique no-core-cut spanning child, scalar coefficient specialization, unit-array boundary cases, inverse uniqueness and final full-root amplitude identity remain separate work. Indices dependency authorship is disclosed; stronger statement-fidelity approval and source/canonical acceptance remain pending."
+}

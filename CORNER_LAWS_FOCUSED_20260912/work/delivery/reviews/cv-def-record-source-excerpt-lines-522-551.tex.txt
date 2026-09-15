@@ -1,0 +1,30 @@
+\begin{definition}[record, and record isomorphism]\label{def:record}
+A \emph{record} consists of an oriented circle $\Gamma$; a finite subset
+$V\subset\Gamma$ of \emph{marked points}; a partition of $V$ into two-element
+sets, the \emph{double points}; for each double point a designation of one of
+its two points as the \emph{over} position and the other as the \emph{under}
+position; and for each double point a \emph{sign} in $\{\pm1\}$. The record of a
+link diagram is the one obtained by taking $\Gamma$ to be its traversal circle,
+$V$ the preimages of its crossings, the partition the crossing correspondence,
+and the over/under and sign data those of the diagram.
+
+A \emph{record isomorphism} from $(\Gamma,V,\dots)$ to $(\Gamma',V',\dots)$ is a
+bijection $\varphi:V\to V'$ that
+\begin{enumerate}
+\item[(a)] preserves the cyclic order: for all $v_1,v_2,v_3\in V$ occurring in
+that cyclic order on $\Gamma$, the points $\varphi v_1,\varphi v_2,\varphi v_3$
+occur in that cyclic order on $\Gamma'$;
+\item[(b)] carries double points to double points;
+\item[(c)] carries over positions to over positions and under to under;
+\item[(d)] preserves signs.
+\end{enumerate}
+Condition (a) says exactly that $\varphi$ extends to an orientation-preserving
+homeomorphism $\Gamma\to\Gamma'$ carrying $V$ onto $V'$, and any two such
+extensions are isotopic through such homeomorphisms: an orientation-preserving
+circle homeomorphism is determined up to isotopy by the cyclic-order-preserving
+bijection it induces on a finite subset, the complementary arcs being carried to
+the complementary arcs in the induced order and any two orientation-preserving
+homeomorphisms of a closed arc rel endpoints being isotopic. Records are
+\emph{isomorphic} when such a $\varphi$ exists; the relation is an equivalence.
+\end{definition}
+

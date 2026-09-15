@@ -1,0 +1,131 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-unselected-direction-technical-review-20260912",
+  "sealed_utc": "2026-09-12T07:02:52.051763+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the three local incoming/unselected segment-matching declarations. Root alone ran Lean and generated frozen evidence. This reviewer authored no proof body or dependency, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions comprise independent inspection of actual incoming ownership, same-edge parameter matching and full affine formulas, along with exact complete-file/ordered-embedding/receipt/axiom-trace verification."
+  },
+  "scope": {
+    "group": "CarrierUnselectedDirection",
+    "declarations": [
+      "SM.Carrier.smoothingSuccessor_incoming_visit_position",
+      "SM.Carrier.smoothingSegment_incoming_visit_data",
+      "SM.Carrier.smoothingSegment_unselected_join_data"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "29–39 incoming-visit convention; 190–201 positive original-edge subsegments and omission of unselected crossing marks along the same original edge in the same direction.",
+    "ambient_context": "hn:3≤n, actual Generic P, arbitrary support S, actual x:Mark P and actual v:Visit P with smoothingSuccessor S x=Sum.inr v. The final join theorem additionally requires the actual crossing v.1 to be unselected. All edge labels and parameters are derived from actual mark/visit positions."
+  },
+  "assessment": "No mathematical or source-domain defect found in actual incoming visit position and exact unselected two-segment parameter/direction matching.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 32546,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierUnselectedDirection-prototype-result.json",
+    "receipt_sha256": "972d4e1bceab0de05de8bfec877dd81ca09a94602c379c27536f766b965f067b",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierMarkedSegments.body.lean": "0e6444e24b4270772f3fcbf3c50bf18f75d7445c58bb52ed4e400870a17698b7",
+      "work/checks/CarrierVisitTwin.body.lean": "9f80a477adaf4a1238b58160c0ff258eebeb37a6bc0b153dd6cbb0c1bdb6d2f8",
+      "work/checks/CarrierSmoothing.body.lean": "27ddd25cb6878afd24f7c71cfee7b003e9bd539c5dbc00eea05bc7642205c61e",
+      "work/checks/CarrierAffineSegments.body.lean": "bc7171bb0bcfdc2b8581d225e027535e44ac29bc6e72c31238b7cc6461125996",
+      "work/checks/CarrierSegmentGeometry.body.lean": "1abcd4093dfacd8681e23d81227e352e0c2ed4faf6dff1139068a1cc83b6b18a",
+      "work/checks/CarrierUnselectedDirection.body.lean": "c1b6dd77d3365caa3b72ecde90c8a76d4994a6cac40bcc68ae86df0b44e679b2",
+      "work/checks/CarrierUnselectedDirection.prototype.lean": "4287dc63d7b82f3f3c8153ad54777aba6b9bc20f52151e8d3f32fbaffd315473",
+      "work/checks/CarrierUnselectedDirection-first-kernel.log": "65141d347600efead30ba8f2e96638f95ed7be92d7b4b30634619435b406785a"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean",
+      "work/checks/CarrierMarkedSegments.body.lean",
+      "work/checks/CarrierVisitTwin.body.lean",
+      "work/checks/CarrierSmoothing.body.lean",
+      "work/checks/CarrierAffineSegments.body.lean",
+      "work/checks/CarrierSegmentGeometry.body.lean",
+      "work/checks/CarrierUnselectedDirection.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1,
+      "work/checks/CarrierMarkedSegments.body.lean": 1,
+      "work/checks/CarrierVisitTwin.body.lean": 1,
+      "work/checks/CarrierSmoothing.body.lean": 1,
+      "work/checks/CarrierAffineSegments.body.lean": 1,
+      "work/checks/CarrierSegmentGeometry.body.lean": 1,
+      "work/checks/CarrierUnselectedDirection.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.Carrier.smoothingSuccessor_incoming_visit_position": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.smoothingSegment_incoming_visit_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.smoothingSegment_unselected_join_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierUnselectedDirection-first-draft.body.lean": "c1b6dd77d3365caa3b72ecde90c8a76d4994a6cac40bcc68ae86df0b44e679b2",
+      "work/checks/CarrierUnselectedDirection-first-draft.prototype.lean": "4287dc63d7b82f3f3c8153ad54777aba6b9bc20f52151e8d3f32fbaffd315473",
+      "work/checks/CarrierUnselectedDirection-body-dependencies.json": "6859569523cc7d1b4bd27dad005e6048ebb2f99524ba7a3e18e742ec3685d3da",
+      "work/checks/CarrierUnselectedDirection-draft-dependency-bindings.json": "fb53c95f6f789f3dbb0b5f76e43962d4160da5643fa99e4b5504fe1164a06a10"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_files_sha256": {},
+    "failure_scope": "No failed CarrierUnselectedDirection run; root first32546 passed with unchanged first-draft body and prototype. Upstream failed evidence is not used as successful evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierSegmentGeometry-prototype-result.json": "aeeb87c267d531be7c9e1118c9b48ae54db598a664af1ba9e385fe684a6e54cd"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/checks/carrier-corners-baseline-20260912.json": "823673704b91142c69ed1434df26fb27697bdc4b40944a970b642a57c9aabc88",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+      "work/reviews/carrier-marked-segments-technical-review-20260912.json": "956ae46b8aacf9628cef8e6bdbd9fedcf853f86fac1f71d2b54aff8d2adcba6d",
+      "work/reviews/carrier-segment-geometry-technical-review-20260912.json": "23fecb745a7c7b70e0cd354f42ee8470a2894b947883a9d086d1b7cdf738bd43"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "smoothingSuccessor_incoming_visit_position starts from an actual successor equality ending at the actual incoming visit v. Applying markSuccessor_position_cases to the actual selectedMarkPerm slot forces its edge to be v's edge and its parameter to be smaller than visitParameter v.",
+    "The next-original-vertex alternative is impossible because the endpoint is a visit mark, a different Sum branch. This reasoning does not assume plane-evaluation injectivity or that v is unselected.",
+    "The incoming affine-data theorem uses selectedMarkPerm_evaluation for the actual starting point and the exact successor visit endpoint. It fixes the upper parameter to visitParameter v, rather than accepting an arbitrary compatible endpoint parameter.",
+    "The entire incoming affine formula is proved on the actual original edge v.2.val with lower parameter equal to the actual selected starting slot's parameter. Its nonnegativity and strict increase are derived.",
+    "In the unselected-join theorem, v.1∉S proves selectedMarkPerm fixes Sum.inr v. Hence the actual outgoing slot position is exactly visitPosition v, and its outgoing lower parameter equals the incoming upper parameter.",
+    "Applying actual positive smoothingSegment_subsegment_data to that outgoing visit constructs t with visitParameter v<t≤1. Together with the incoming data, both full affine formulas have the same edge and adjacent intervals s<visitParameter v<t.",
+    "The theorem applies to arbitrary support and any actual adjacent mark pair satisfying the successor equality. It does not require independence, an inherited-order hypothesis, a supplied direction field or a segment correspondence.",
+    "These formulas provide local two-segment direction and parameter agreement. They do not yet prove compression of an arbitrary finite unselected block, equality of a whole traced image with a single segment, corner turns or the regularity of a true-corner polygon."
+  ],
+  "limits": "Exact local matching across one actual unselected visit only. Finite-block compression, true-corner segment/polygon construction and regularity remain separate. Source increment0; stronger fidelity and canonical integration false."
+}

@@ -1,0 +1,1022 @@
+% Section 3: the carrier floor.  Printed in full, including the three
+% constructions the phase-1.5 manuscript discharged by citing an evidence
+% pack (the rounding, the vertical-direction choice, the negative curl).
+\section{The carrier floor}\label{sec:floor}
+
+The selector in Definition~\ref{def:X1} makes the contributing carriers
+geometrically special, and that specialness bounds the degrees available to
+their HOMFLY rows from below. The bound is the engine of Section~\ref{sec:s7}:
+every vanishing proved there is an instance of it.
+
+\subsection{What the selector forces}
+
+\begin{remark}[attribution of the constructions in this section]\label{rem:floorsources}
+The phase-1.5 manuscript proved Theorem~\ref{thm:carrierfloor}(C) but discharged
+three of its steps by citing an evidence pack of the counterpart bench: the
+rounding of the polygon corners, the choice of a vertical direction with its
+tangency count, and the exact negative curl. Those three are printed here in
+full --- Lemma~\ref{lem:rounding}, Theorem~\ref{thm:carrierfloor}(B) and Lemma~\ref{lem:curl} ---
+and no conclusion here depends on that pack. The direct floor count in
+Theorem~\ref{thm:carrierfloor}(B) replaces its former degree-theory last step;
+attribution is otherwise unchanged: the rational curl model and its affine
+insertion, the dual-vector argument of
+Lemma~\ref{lem:uniformrot}(ii), and the computation identifying the forbidden
+crossing as positive are the counterpart's; Lemma~\ref{lem:uniformrot}(i), the mirror calculation in the proof of
+Theorem~\ref{thm:carrierfloor}(C), and that theorem's assembly are this author's. Printing a proof is not
+claiming it; it is taking responsibility for it.
+\end{remark}
+
+\subsection{Rounding}
+
+\begin{lemma}[rounding]\label{lem:rounding}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $L$ be a closed polygon with corners $q_1,\dots,q_c$, and let $D$ be an
+oriented diagram whose underlying plane curve is $L$ --- $L$ together with an
+over/under assignment at each of its double points. Assume the principal turns
+of $L$ all exist and are \emph{nonzero}; that $L$ has finitely many double
+points, all transversal, none of them a corner; and that no corner of $L$ lies
+on an edge of $L$ other than the two incident to it. Then there is a \emph{clearance} $\varepsilon_0(L)>0$ such that for every
+$\varepsilon\in\bigl(0,\varepsilon_0(L)\bigr)$ there is a $C^\infty$ regular
+closed plane curve $L_\varepsilon$, and a diagram $D_\varepsilon$ carried by it, with
+these properties. The clearance is part of the conclusion and is quantified
+here: an earlier revision wrote "below the bound displayed in the proof", which
+names an object chosen inside a proof as though the statement supplied it.
+
+The hypothesis names a curve \emph{and} a diagram: clause~(c) speaks of an
+over/under assignment, of crossing signs and of a writhe, none of which a plane
+curve carries, and an earlier revision bound only $L$. It does \emph{not} name a
+generic parent polygon. An earlier revision did, and then
+Theorem~\ref{thm:carrierfloor}(C) applied this lemma on its own hypotheses, which
+do not mention one --- the peer's polygon $((0,0),(1,0),(-2,-2),(2,0),(-2,1))$
+satisfies the floor's hypotheses and is not a carrier of a support of a generic
+polygon. What genericity was supplying is written out instead: finitely many
+transverse double points, none at a corner, and no corner on a non-incident
+edge, which is exactly what makes the finitely many distances in the proof
+positive.
+\begin{enumerate}
+\item[(a)] $L_\varepsilon$ coincides with $L$ outside the union of the discs of
+radius $\varepsilon$ about the corners.
+\item[(b)] Inside the disc about $q_i$ the unit tangent moves \emph{strictly}
+monotonically, in the sense of $\sgn\tau_i$, from $\delta_{i-1}/|\delta_{i-1}|$
+to $\delta_i/|\delta_i|$, sweeping an arc of length exactly $|\tau_i|$ and no
+more, and attaining each direction of that arc at exactly one parameter.
+Moreover the unit-tangent map is an \emph{immersion} on the open junction arc:
+parametrized by arclength, its angular derivative is nonzero at every interior
+parameter, while at the two ends it and all its derivatives vanish, the
+junction meeting the straight edges flat to infinite order.
+
+Both clauses are exported because both are read downstream, and the second does
+not follow from the first: a strictly monotone angle may still have a vanishing
+derivative at a parameter, and the direct count below needs the derivative
+itself to be nonzero, not merely the monotonicity. "Moves monotonically" alone
+is weaker still --- it is
+satisfied by a junction that pauses on one direction for a whole sub-arc, and
+then a count of the parameters carrying a prescribed direction is infinite. Both
+hold because the profile fixed in the proof below is strictly increasing on
+$(0,1)$ with $\varphi'>0$ there, and flat to infinite order at $0$ and $1$: the
+tangent angle at arclength $\sigma$ along the junction of length $\ell$ is
+$\theta_u+\tau_i\varphi(\sigma/\ell)$, whose derivative is
+$\tau_i\varphi'(\sigma/\ell)/\ell\neq0$ for $0<\sigma<\ell$.
+\item[(c)] $L_\varepsilon$ has the same double points as $L$, with the same
+strands, the same over/under assignment and hence the same crossing signs and
+the same writhe.
+\item[(d)] $\rot(L_\varepsilon)=\rot(L)$.
+\item[(e)] \emph{The disc package is returned.} There are pairwise disjoint
+closed discs $D_1,\dots,D_c$, one about each corner $q_i$, such that each $D_i$
+meets no edge of $L$ that is not incident to $q_i$, contains no double point of
+$L$, meets the two incident edges exactly in the two sub-segments of length
+$\varepsilon$ at $q_i$, and contains the whole of the modification made at
+$q_i$. This clause is a conclusion of the lemma, not a package handed over by a
+paragraph of its proof; its consumer asks for a disc meeting the diagram in one
+embedded arc and reads it here.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{The junction, constructed.} Since $0<|\tau_i|<\pi$, the unit directions
+$u=\delta_{i-1}/|\delta_{i-1}|$ and $v=\delta_i/|\delta_i|$ are neither parallel
+nor antiparallel. Write $A_0=q_i-\varepsilon u$ and $A_1=q_i+\varepsilon v$ for
+the two points at distance $\varepsilon$ from $q_i$ along the incident edges, so
+that the displacement to be realized is
+\[
+   A_1-A_0=\varepsilon\,(u+v),
+\]
+a nonzero vector along the bisector of the convex angle at $q_i$. Fix once and
+for all the \emph{transition profile}
+\[
+   \varphi(t)=\frac{f(t)}{f(t)+f(1-t)},
+   \qquad
+   f(t)=\begin{cases} e^{-1/t}, & t>0,\\ 0,& t\leq0,\end{cases}
+\]
+which is exhibited rather than posited, and which has the four properties every
+use below reads. It is $C^\infty$ on $[0,1]$: $f$ is $C^\infty$ on $\mathbb R$
+with all derivatives vanishing at $0$, and the denominator
+$f(t)+f(1-t)$ is positive on $[0,1]$, being $f(1)>0$ at $t=0$ and $f(1)>0$ at
+$t=1$ and a sum of two nonnegative terms not both zero in between. It has
+$\varphi(0)=0$ and $\varphi(1)=1$. It satisfies $\varphi(1-t)=1-\varphi(t)$, by
+inspection of the formula. And it is \emph{strictly increasing on $(0,1)$}:
+\[
+   \varphi'(t)=\frac{f'(t)f(1-t)+f(t)f'(1-t)}{\bigl(f(t)+f(1-t)\bigr)^2}>0
+   \qquad (0<t<1),
+\]
+both terms of the numerator being positive there, since $f>0$ and
+$f'(t)=t^{-2}e^{-1/t}>0$ on $(0,1)$. Every derivative of $\varphi$ vanishes at
+$0$ and at $1$, because every derivative of $f$ vanishes at $0$ and the
+denominator is smooth and nonvanishing.
+
+Strict increase is not a convenience. An earlier revision asked only that
+$\varphi$ be nondecreasing, and a nondecreasing profile may be constant on a
+subinterval; the tangent direction would then be constant on a whole sub-arc of
+the junction, so a direction attained there would be attained at a continuum of
+parameters rather than at isolated ones, and every count of the points carrying
+a prescribed tangent direction --- the counts this section takes later --- would
+be infinite. With $\varphi$ strictly increasing on $(0,1)$ the tangent angle
+$\theta_u+\tau_i\varphi(t/\ell)$ is strictly monotone across the junction, and
+each direction in the swept arc is attained exactly once. Let
+$\theta_u$ be the angle of $u$ and, for a length $\ell>0$, let
+\[
+   \gamma_\ell(s)=A_0+\int_0^{s}
+   \bigl(\cos(\theta_u+\tau_i\varphi(t/\ell)),\,
+         \sin(\theta_u+\tau_i\varphi(t/\ell))\bigr)\,\mathrm dt,
+   \qquad s\in[0,\ell].
+\]
+Then $\gamma_\ell$ is a unit-speed $C^\infty$ arc. Its tangent equals $u$
+\emph{at} $s=0$ and $v$ \emph{at} $s=\ell$, and agrees with those constants
+\emph{to infinite order} at those two parameters, every derivative of $\varphi$
+vanishing there; it does not equal them on a neighbourhood, and cannot, since
+the angle is strictly monotone on $(0,\ell)$ --- an earlier revision wrote
+"near $s=0$", which contradicts the strictness this same construction exports.
+Infinite-order agreement at the endpoint is what the junction needs: it is
+exactly the condition under which replacing the corner by the arc leaves a
+$C^\infty$ regular curve, since all one-sided derivatives match those of the
+straight edge. The tangent angle moves strictly monotonically through exactly
+$\tau_i$ and no more, and its derivative
+$\tau_i\varphi'(s/\ell)/\ell$ is nonzero on $(0,\ell)$, which is (b).
+
+Its endpoint is $A_0+\ell\,m(\varphi)$ where
+$m(\varphi)=\int_0^1(\cos(\theta_u+\tau_i\varphi),\sin(\theta_u+\tau_i\varphi))\,
+\mathrm dt$. The symmetry $\varphi(1-t)=1-\varphi(t)$ makes the angles
+$\theta_u+\tau_i\varphi(t)$ and $\theta_u+\tau_i\varphi(1-t)$ reflections of
+each other in the bisector, so $m(\varphi)$ points along $u+v$; and
+$|m(\varphi)|>0$ because all the directions integrated lie in a closed angular
+interval of width $|\tau_i|<\pi$. Taking
+$\ell=\varepsilon\,|u+v|/|m(\varphi)|$ makes the endpoint exactly $A_1$. This is
+where the circular arc of an earlier revision has been replaced: that arc is
+$C^1$ and not $C^\infty$ at the two junctions, and the document then carried a
+lemma to repair the loss.
+
+\emph{The arc lies in the triangle $A_0q_iA_1$, in coordinates.} Put
+$\alpha=|\tau_i|/2\in(0,\pi/2)$ and $s=\sgn\tau_i$, let $w$ be the unit vector
+along $u+v$ and $z$ the unit vector with $\det(w,z)=1$, and take $q_i$ as
+origin, writing a point as $(x_w,x_z)$ in that frame. Then
+\[
+   u=\cos\alpha\,w-s\sin\alpha\,z,
+   \qquad
+   v=\cos\alpha\,w+s\sin\alpha\,z,
+\]
+because $u$ and $v$ are unit vectors whose sum is along $w$ and whose angle is
+$|\tau_i|=2\alpha$, turning from $u$ to $v$ by $\tau_i$. Hence
+$A_0=-\varepsilon u$ has coordinates $(-\varepsilon\cos\alpha,\ s\varepsilon
+\sin\alpha)$ and $A_1=\varepsilon v$ has $(\varepsilon\cos\alpha,\
+s\varepsilon\sin\alpha)$, and the closed triangle with vertices $A_0,q_i,A_1$
+is exactly
+\begin{equation}
+   T_i=\bigl\{\,(x_w,x_z):\ |x_w|\leq\cot\alpha\cdot(s\,x_z),
+   \quad 0\leq s\,x_z\leq\varepsilon\sin\alpha\,\bigr\},
+\label{eq:triangle}
+\end{equation}
+the first inequality being the pair of cone conditions at the apex $q_i$ and the
+second the chord through $A_0$ and $A_1$: a point $\lambda(-u)+\mu v$ with
+$\lambda,\mu\geq0$ has $x_w=(\mu-\lambda)\cos\alpha$ and
+$s\,x_z=(\lambda+\mu)\sin\alpha$, so $|x_w|\leq(\lambda+\mu)\cos\alpha=\cot\alpha
+\cdot(s\,x_z)$ with equality exactly on the two edges, and $\lambda+\mu\leq
+\varepsilon$ is the chord.
+
+The junction arc satisfies all three inequalities of \eqref{eq:triangle}. Write
+its unit tangent as $T(\sigma)=\cos\beta(\sigma)\,w+s\sin\beta(\sigma)\,z$ with
+$\beta(\sigma)=-\alpha+2\alpha\,\varphi(\sigma/\ell)$, which is the tangent
+angle constructed above read in this frame: at $\sigma=0$ it is $u$
+($\beta=-\alpha$), at $\sigma=\ell$ it is $v$ ($\beta=\alpha$), and $\beta$ is
+strictly increasing with values in $[-\alpha,\alpha]$.
+\emph{The two cone inequalities.} Let $n_1$ be the unit normal to $u$ with
+$\langle n_1,v\rangle>0$. The line $\mathbb Ru$ contains both $q_i$ and $A_0$,
+and $T_i$ lies in $\{\langle\cdot,n_1\rangle\geq0\}$. Along the arc,
+$\tfrac{d}{d\sigma}\langle\gamma,n_1\rangle=\langle T,n_1\rangle\geq0$, because
+$T=au+bv$ with $a,b\geq0$ --- a direction at angle $\beta\in[-\alpha,\alpha]$
+from $w$ lies in the closed cone of $u$ and $v$ --- so
+$\langle T,n_1\rangle=b\langle v,n_1\rangle\geq0$; and
+$\langle\gamma(0),n_1\rangle=\langle-\varepsilon u,n_1\rangle=0$. Hence
+$\langle\gamma,n_1\rangle\geq0$ throughout. Symmetrically, with $n_2$ the unit
+normal to $v$ with $\langle n_2,A_0\rangle>0$, one has $\langle
+T,n_2\rangle=a\langle u,n_2\rangle\leq0$, so $\langle\gamma,n_2\rangle$ is
+nonincreasing and equals $\langle\varepsilon v,n_2\rangle=0$ at $\sigma=\ell$;
+hence it is $\geq0$ throughout. Those two are the first inequality of
+\eqref{eq:triangle}.
+\emph{The chord inequality.} $s\,x_z(\sigma)=\varepsilon\sin\alpha+\int_0^\sigma
+\sin\beta(t)\,dt$, and $\int_0^\sigma\sin\beta\leq0$ for every
+$\sigma\in[0,\ell]$: $\beta$ is negative on $(0,\ell/2)$ and positive on
+$(\ell/2,\ell)$, and the symmetry $\varphi(1-t)=1-\varphi(t)$ makes
+$\beta(\ell-t)=-\beta(t)$, so the integral decreases to its minimum at
+$\ell/2$ and increases back to $0$ at $\ell$. Hence $s\,x_z\leq\varepsilon
+\sin\alpha$, which is the second. The lower bound $s\,x_z\geq0$ is implied by
+the two cone inequalities, the apex being the origin.
+
+So the arc lies in $T_i$, and $T_i$ lies in the closed disc $D_i$ of radius
+$\varepsilon$ about $q_i$: the disc is convex and contains the three vertices,
+$|A_0-q_i|=|A_1-q_i|=\varepsilon$. An earlier revision argued this by saying the
+arc ``cannot leave the region cut off by the two tangent lines'', which names
+the conclusion rather than proving it and leaves the chord side unaddressed.
+
+For (a) and (c) put
+\[
+   \varepsilon_0(L)=\tfrac13\min\Bigl\{
+ \min_{i}\min_{k\neq i}|q_k-q_i|,\;
+ \min_{i}\operatorname{dist}\bigl(q_i,\,\textstyle\bigcup\{\text{closed edges of }L\text{ not incident to }q_i\}\bigr),\;
+ \min_i|\delta_i|,\;
+ \min_{i,\,x\text{ a double point}}|x-q_i|
+\Bigr\},
+\]
+and require $\varepsilon<\varepsilon_0(L)$; the index $i$ is bound by the outer
+minimum in every term, an earlier revision having left it free in the first.
+Each minimum over an empty index set is $+\infty$ --- which is how the last
+one is read when $L$ has no double point. Every listed quantity is positive: the
+corners are finitely many and distinct; a corner is at positive distance from a
+non-incident closed edge because the edges are compact and a corner on one would
+contradict the hypothesis that no corner lies on a non-incident edge; the edges have positive length; and a double point lies
+in the relative interiors of two edges, so it is distinct from every corner.
+With this $\varepsilon$ the discs $D_i$ are pairwise disjoint, each $D_i$ meets
+no edge not incident to $q_i$, each $D_i$ contains no double point, and each
+$D_i$ meets the two incident edges in the two sub-segments of length
+$\varepsilon$ at $q_i$, and each contains the whole modification made at its
+corner, the replacement arc lying within distance $\varepsilon$ of $q_i$. That
+is clause~(e). Hence the rounding changes the curve only inside those
+discs, where it meets nothing else, so no double point is created or destroyed
+and the strands through each surviving double point are unchanged as arcs, with
+their orientations; the over/under assignment is inherited, so the crossing signs
+and the writhe are unchanged. That is (a) and (c). For (d), the total turning of
+$L_\varepsilon$ is the sum of the turnings of its arcs, which is
+$\sum_i\tau_i$ because the tangent is constant along the straight parts; and the
+rotation number of a $C^1$ regular closed curve is $\frac1{2\pi}$ times its
+total turning (Lemma~\ref{lem:turnlift}(iii)), which is also the value assigned to $L$
+by Definition~\ref{def:rot}.
+\end{proof}
+
+\begin{lemma}[rotation bounds for uniform and one-dissent polygons]
+\label{lem:uniformrot}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+\begin{enumerate}
+\item[(i)] Let $L$ be a closed polygon all of whose principal turns exist and are
+positive. Then $\rot(L)\geq1$, with equality if $L$ has three corners. If all
+turns are negative, $\rot(L)\leq-1$, again with equality in absolute value for
+three corners.
+\item[(ii)] Let $L$ be a closed polygon whose principal turns all exist, with
+exactly one negative principal turn, of magnitude $\alpha\in(0,\pi)$, and let
+$\Pi$ be the sum of the positive ones. Then
+$\Pi-\alpha=2\pi r$ with $r=\rot(L)$ an integer, and $r\geq1$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) By Lemma~\ref{lem:turnlift}(ii),
+$2\pi\rot(L)=\sum_i\tau_i$. A polygon has at least three corners and each
+$\tau_i>0$, so the sum is positive and $\rot(L)>0$; being an integer,
+$\rot(L)\geq1$. With three corners the sum is also below $3\pi$, forcing
+$\rot(L)=1$. Orientation reversal in the same lemma gives both negative
+claims.
+
+(ii) The identity is Lemma~\ref{lem:turnlift}(ii). Suppose $r\leq0$. Then
+$\Pi\leq\alpha<\pi$. Cut the traversal of $L$ immediately after the negative
+corner and follow it once around: the direction of the edge is turned by the
+successive principal turns, all of which are \emph{nonnegative} --- the
+hypothesis names one negative turn and admits turns equal to zero, which $\Pi$
+omits, and an earlier revision said "all of which are positive", which is false
+as written when a zero turn is present --- and they sum to $\Pi<\pi$, so every
+edge direction of $L$ lies in a closed angular interval $I$ of width $\Pi<\pi$.
+A zero turn does not widen that interval, so the argument is unchanged. An
+interval of width less than $\pi$ has a nonempty open dual: there is
+$u\in\mathbb R^2$ with $\langle u,\delta\rangle>0$ for every direction
+$\delta\in I$, hence for every edge of $L$. But the edges of a closed polygon
+sum to zero, so
+$0=\langle u,\sum_i\delta_i\rangle=\sum_i\langle u,\delta_i\rangle>0$, a
+contradiction. Hence $r\geq1$, and $R:=|\rot(L)|=r$.
+\end{proof}
+
+\subsection{The negative curl}
+
+\begin{lemma}[exact negative-curl replacement]\label{lem:curl}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $F$ be a connected $C^\infty$ immersed circle in the plane --- one
+component, with finitely many transverse double points and no triple points ---
+given with an oriented diagram, and let $p$ be a point of $F$ at which the
+tangent points in a fixed direction $u$, isolated among such points, lying in
+an embedded arc of $F$ that contains no double point and along which the tangent
+turns strictly positively. Then $F$ may be modified inside a disc $\Delta$
+meeting the rest of the diagram only in that arc, so that the resulting
+diagram $F'$
+\begin{enumerate}
+\item[(i)] is again such an oriented diagram, satisfies
+$P_{F'}(a,z)=P_F(a,z)$, and has the same double points outside $\Delta$, with
+the same signs;
+\item[(ii)] has no point of $\Delta$ at which the tangent equals $u$, and exactly
+one at which it equals $-u$;
+\item[(iii)] has exactly one double point inside $\Delta$, and it is negative;
+\item[(iv)] satisfies $\rot(F')=\rot(F)-1$ and $w(F')=w(F)-1$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Work first in the rational model on $-2\leq t\leq2$,
+\[
+b(t)=\Bigl(\tfrac{3(t^2+7)}{11},\,-3t\Bigr),\qquad
+c(t)=\bigl(t^2-1,\;t-t^3\bigr).
+\]
+The endpoints and endpoint tangent rays agree up to positive scale:
+$b(\pm2)=c(\pm2)=(3,\mp6)$ and $b'(\pm2)=\frac3{11}c'(\pm2)$. The old arc turns
+strictly positively and has exactly one tangent pointing straight down, at
+$t=0$:
+\[
+\det\bigl(b'(t),b''(t)\bigr)=\tfrac{18}{11}>0,\qquad b'(0)=(0,-3).
+\]
+The replacement turns strictly negatively and has exactly one tangent pointing
+straight up, at $t=0$:
+\[
+\det\bigl(c'(t),c''(t)\bigr)=-2(1+3t^2)<0,\qquad c'(0)=(0,1).
+\]
+In each arc the first derivative has vanishing first component only at $t=0$, so
+neither arc has any other vertical tangent; this is (ii) in the model. The
+replacement runs between the same endpoint rays along the complementary,
+clockwise tangent path, so its compatible lift increment is the old one minus
+$2\pi$; Lemma~\ref{lem:turnlift}(iii) gives (iv) for $\rot$. It has exactly one double point,
+\[
+c(-1)=c(1)=(0,0),\qquad c'(-1)=(-2,-2),\qquad c'(1)=(2,-2),
+\]
+and putting the later branch over the earlier one makes it negative, since a
+crossing sign is the sign of the determinant of the overpassing tangent followed
+by the underpassing tangent and
+$\det\bigl(c'(1),c'(-1)\bigr)=-8<0$; that is (iii), and with it (iv) for $w$.
+Being a single Reidemeister-I monogon, the replacement does not change the knot
+type, which is (i).
+
+To insert the model at $p$ we first record the projective fact it needs, in the
+form the insertion argument requires.
+
+\emph{Ordered-ray lemma.} Let $(r_1,r_2,r_3)$ and $(s_1,s_2,s_3)$ be triples of
+rays from the origin such that $r_2$ lies in the open convex cone spanned by
+$r_1,r_3$ and $s_2$ lies in the open convex cone spanned by $s_1,s_3$, with
+$r_1,r_3$ and $s_1,s_3$ independent, and suppose in addition that for positive
+representatives
+\begin{equation}
+   \sgn\det(\rho_1,\rho_3)=\sgn\det(\sigma_1,\sigma_3),
+\label{eq:orderedray}
+\end{equation}
+a condition independent of the representatives chosen. Then there is a linear
+map $A$ with $\det A>0$ carrying each $r_k$ into $s_k$.
+\emph{Proof:} if both determinants in \eqref{eq:orderedray} are negative,
+exchange the names $1$ and $3$ \emph{in both triples simultaneously}; this
+preserves the correspondence $r_k\mapsto s_k$ and makes both determinants
+positive. The linear map $A_0$ with $A_0\rho_1=\sigma_1$, $A_0\rho_3=\sigma_3$
+then has positive determinant and carries $r_1,r_3$ to $s_1,s_3$. It carries the
+open cone of $r_1,r_3$ onto that of $s_1,s_3$, so $A_0r_2$ is a ray $\sigma$ in
+the latter cone. Writing $s_2=\mathbb R_{>0}(x\sigma_1+y\sigma_3)$ and
+$\sigma=\mathbb R_{>0}(x'\sigma_1+y'\sigma_3)$ with $x,y,x',y'>0$, the map
+$D=\mathrm{diag}(x/x',\,y/y')$ in the basis $(\sigma_1,\sigma_3)$ has positive
+determinant, fixes $s_1$ and $s_3$, and carries $\sigma$ to $s_2$. Take
+$A=DA_0$. $\square$
+
+An earlier revision of this lemma omitted \eqref{eq:orderedray} and said the
+positive determinants could be arranged ``after swapping the names once if
+necessary''. A swap performed in one triple only destroys the correspondence it
+is supposed to produce, and the peer refuted that step; the hypothesis is now
+stated and the swap is simultaneous. In the application below the condition is
+not inferred from the two cones: both determinants are computed and are
+positive.
+
+\emph{A positive-turn chart, and the cuts.} Parametrise the embedded arc by
+arclength as $\gamma(s)$ with $\gamma(0)=p$ and unit tangent $\gamma'(0)=u$.
+Because the tangent turns strictly positively, after shrinking the chart there
+is a continuous strictly increasing lift $\theta$ with
+\[
+   \gamma'(s)=\cos\theta(s)\,u+\sin\theta(s)\,Ju,\qquad
+   \theta(0)=0,\qquad |\theta(s)|<\tfrac\pi2,
+\]
+where $J$ is the positive quarter turn. Put $v=-Ju$, so that $(v,u)$ is a
+positively oriented orthonormal basis, and set
+\[
+   \xi(s)=\langle\gamma(s)-p,\,v\rangle,\qquad
+   \eta(s)=\langle\gamma(s)-p,\,u\rangle,
+\]
+so that $\xi'(s)=-\sin\theta(s)$ and $\eta'(s)=\cos\theta(s)$. Hence $\xi$
+increases strictly for $s<0$ and decreases strictly for $s>0$, with a strict
+maximum $\xi(0)=0$, while $\eta$ increases throughout. For every level
+sufficiently close to $\xi(0)$ from below, strict monotonicity and the
+intermediate value theorem give unique cuts $s_-<0<s_+$ with
+$\xi(s_-)=\xi(s_+)$, and both tend to $0$ as the level tends to $\xi(0)$. Write
+$p_\pm=\gamma(s_\pm)$. Equal transverse coordinates and monotone $\eta$ give
+\[
+   p_+-p_-=\ell u,\qquad \ell>0,\qquad \ell\to0 .
+\]
+Two side facts follow at once and are what the earlier revision lacked: the
+central arc $\gamma((s_-,s_+))$ lies strictly in $\xi>\xi(s_-)$, and both
+retained tails lie strictly in $\xi<\xi(s_-)$.
+
+\emph{The affine fit, quantitatively.} In the positively oriented model basis
+$v_0=(-1,0)$, $u_0=(0,-1)$ one has $q=\tfrac4{11}$ and
+\[
+   b'(-2)\in\mathbb R_{>0}(qv_0+u_0),\qquad
+   b'(0)\in\mathbb R_{>0}u_0,\qquad
+   b'(2)\in\mathbb R_{>0}(-qv_0+u_0).
+\]
+Write the two target endpoint tangents in the basis $(v,u)$ as
+$T_-=\gamma'(s_-)=av+bu$ and $T_+=\gamma'(s_+)=-cv+du$; then
+$a=-\sin\theta(s_-)>0$, $c=\sin\theta(s_+)>0$ and $b,d=\cos\theta(s_\mp)>0$,
+and $a,c\to0$, $b,d\to1$ as the cuts approach $p$. The two outer determinants
+are $\det(qv_0+u_0,-qv_0+u_0)=2q>0$ and $\det(T_-,T_+)=ad+bc>0$, so
+\eqref{eq:orderedray} holds; it is computed, not inferred. Define
+\[
+   H=\frac{2}{\tfrac ba+\tfrac dc}=\frac{2ac}{bc+ad},\qquad
+   x=\frac Hq,\qquad
+   y=\frac{\tfrac ba-\tfrac dc}{q\bigl(\tfrac ba+\tfrac dc\bigr)}
+    =\frac{bc-ad}{q(bc+ad)},
+\]
+and let $A$ be the linear map with $A u_0=u$ and $Av_0=xv+yu$. Then
+\[
+   A(qv_0+u_0)=\tfrac Ha\,T_-,\qquad
+   A(-qv_0+u_0)=\tfrac Hc\,T_+,\qquad
+   \det A=x=\frac{2ac}{q(bc+ad)}>0,
+\]
+each by substitution, and
+\[
+   1-(qy)^2=\frac{4abcd}{(bc+ad)^2}>0,
+\]
+so $|y|<1/q$ uniformly, while $x\to0$ as the cuts approach $p$: the map $A$
+stays bounded. This is the quantitative statement that the earlier revision
+replaced by an unquantified ``fixed unit-normalized part of $A$''.
+
+Since $b(2)-b(-2)=12u_0$, put $B=\tfrac{\ell}{12}A$ and
+$\Phi(z)=p_-+B\bigl(z-b(-2)\bigr)$. Then $\Phi(b(-2))=p_-$,
+$\Phi(b(2))=p_-+\ell A u_0=p_-+\ell u=p_+$, and the endpoint tangent rays match
+with positive scale. Because $\ell\to0$ while $A$ stays bounded, the diameter of
+$\Phi(c([-2,2]))$ tends to $0$, so the cuts may be chosen so that the whole
+inserted arc lies in a preassigned disc $\Delta$ about $p$ whose intersection
+with the diagram is contained in the embedded chart --- the disc is fixed first
+and the cuts afterwards.
+
+\emph{Only the model's own double point is created.} In the basis $(v_0,u_0)$
+the transverse coordinate of $c(t)$ is $1-t^2$, which equals $-3$ at both
+endpoints, so the model's transverse excess over its endpoint chord is
+$4-t^2>0$ for $-2<t<2$. Since $Bv_0=\tfrac{\ell}{12}(xv+yu)$ with $x>0$ and
+$Bu_0=\tfrac{\ell}{12}u$, the physical transverse excess of the inserted arc
+over the chord $[p_-,p_+]$ is exactly
+\[
+   \frac{\ell x}{12}\bigl(4-t^2\bigr)>0 .
+\]
+So the inserted interior lies strictly in $\xi>\xi(s_-)$ while both retained
+tails lie strictly in $\xi<\xi(s_-)$: they meet only at the two joins. Together
+with the shrinking of the previous paragraph, which keeps the inserted arc away
+from every nonlocal part of the diagram, this \emph{proves} rather than assumes
+that the only double point created is the model's own.
+
+\emph{The replacement, and why the curve stays $C^\infty$ regular.} Replace the
+sub-arc of $F$ between $p_-$ and $p_+$ by $\Phi\circ c$, modified near its two
+endpoints as follows. At each join the two one-sided unit tangents already
+agree, $\Phi c'(\pm2)$ being a positive multiple of $\Phi b'(\pm2)$ and that of
+the old tangent, so the concatenation is $C^1$; it need not be $C^\infty$, and
+the collar that repairs that is constructed here rather than described. An
+earlier revision said only that one may ``interpolate the tangent angle by the
+same device'', which does not say what curve results, and interpolating angles
+moves the endpoint.
+
+\emph{The collar, as a graph.} Work at the join $p_-$ first; the join at
+$p_+$ is constructed after property (3) below, with its own signs printed
+rather than left to "roles exchanged". In the chart coordinates
+$(\xi,\eta)$ of the positive-turn chart --- $\xi=\langle\gamma-p,v\rangle$ with
+$v=-Ju$, $\eta=\langle\gamma-p,u\rangle$ --- the old arc is a graph
+$\xi=f(\eta)$, since $\eta'=\langle\gamma',u\rangle=\cos\theta>0$ there. Its
+slope carries a sign that an earlier revision got wrong, and the sign is
+load-bearing below, so it is computed:
+$\xi'=\langle\gamma',v\rangle=-\sin\theta$, whence
+\[
+   f'(\eta)=\frac{\xi'}{\eta'}=-\tan\theta .
+\]
+For $\eta<\eta(p)$ the angle $\theta$ is strictly negative, $\theta$ being
+strictly increasing with $\theta(0)=0$, so $f'>0$ there --- not $f'<0$, which is
+what the earlier revision's $f'=\tan\theta$ gave. Let
+$\eta_-=\eta(p_-)<\eta(p)$. The inserted arc leaves $p_-$ with the same unit
+tangent, so near its start it is also a graph $\xi=g(\eta)$ with
+$g(\eta_-)=f(\eta_-)$ and $g'(\eta_-)=f'(\eta_-)$; and because the model turns
+strictly negatively its tangent angle only decreases from $\theta(s_-)<0$, so by
+the same formula
+\[
+   g'>f'>0
+\]
+on that stretch. Two consequences are used below: $g>f$ on
+$(\eta_-,\eta_-+\lambda]$, the two agreeing at $\eta_-$ with $g'>f'$; and at
+every point of the collar the smaller slope is $f'(\eta)$, still positive. The
+bound is pointwise of necessity: $f'=-\tan\theta$ \emph{decreases} along the
+collar, $\theta$ increasing, so $0<f'(\eta)<f'(\eta_-)$ there and an endpoint
+bound from the left end is unavailable --- an earlier revision claimed both
+slopes bounded below by $f'(\eta_-)$, which $f'$ itself violates. Fix
+$\lambda>0$ small enough that $[\eta_-,\eta_-+\lambda]$ lies both below
+$\eta(p)$ and inside the stretch on which the inserted arc is a graph, and set,
+on $[\eta_-,\eta_-+\lambda]$,
+\[
+   h(\eta)=\bigl(1-\varphi_\lambda(\eta)\bigr)f(\eta)+\varphi_\lambda(\eta)\,
+   g(\eta),
+   \qquad
+   \varphi_\lambda(\eta)=\varphi\Bigl(\frac{\eta-\eta_-}{\lambda}\Bigr),
+\]
+with $\varphi$ the transition profile of Lemma~\ref{lem:rounding}. The modified
+curve runs along the old arc up to $\eta_-$, along the graph of $h$ across the
+collar, and along the inserted arc from $\eta_-+\lambda$ on. Three properties,
+each proved from the formula.
+
+\emph{(1) It is $C^\infty$ and regular, with positive speed.} $h$ is a $C^\infty$
+function, and every derivative of $\varphi$ vanishes at $0$ and $1$, so $h$
+agrees with $f$ to infinite order at $\eta_-$ and with $g$ to infinite order at
+$\eta_-+\lambda$: the two joins are $C^\infty$. Parametrized by $\eta$, the
+collar has velocity $h'(\eta)\,v+u$ in the frame $(v,u)$, of norm
+$\sqrt{1+h'(\eta)^2}\geq1$, so its speed is positive and it is regular; being a
+graph, it is embedded.
+
+\emph{(2) No tangent of the collar equals $u$, and no smallness condition is
+needed.} The tangent is parallel to $u$ exactly where $h'=0$, and
+\[
+   h'=(1-\varphi_\lambda)f'+\varphi_\lambda g'
+      +\frac{\varphi'\bigl((\eta-\eta_-)/\lambda\bigr)}{\lambda}\,
+       \bigl(g-f\bigr).
+\]
+Every term is nonnegative, and the sum of the first two is positive: it is the
+convex combination $(1-\varphi_\lambda)f'+\varphi_\lambda g'$ of two positive
+numbers --- each \emph{term} separately can vanish, $\varphi_\lambda$ being $0$
+at the left end and $1$ at the right, which an earlier revision's "the first
+two are positive" overlooked --- while the third term is
+$\varphi'\cdot(g-f)/\lambda\geq0$, since $\varphi'\geq0$ and $g-f\geq0$ there,
+the two agreeing at $\eta_-$ with $g'>f'$. Hence, pointwise,
+\[
+   h'(\eta)\geq(1-\varphi_\lambda)f'(\eta)+\varphi_\lambda g'(\eta)
+   \geq f'(\eta)>0 ,
+\]
+the middle inequality because $g'>f'$, so $h'$ never vanishes and the collar
+has no tangent equal to $u$; and none equal to $-u$ either, a graph over $\eta$ having
+$\eta'>0$ throughout. An earlier revision, working from the wrong slope sign,
+had both $f'$ and $g'$ negative, needed a Taylor bound on $g-f$ to control the
+third term, and chose $\lambda$ small to make the sum negative. With the frame
+computed the third term is on the same side as the other two and no choice of
+$\lambda$ is required.
+
+\emph{(3) It creates no double point and changes no turning.} Pointwise
+$f\leq h\leq g$ on the collar --- the value is a convex combination and $g\geq f$
+there, which is the separation the corrected slope chain supplies --- so the
+collar lies in the region between the two graphs; that region is inside the
+disc $\Delta$ and inside the embedded chart, where the only strands of the
+diagram are the old arc --- whose collar stretch is removed --- and the inserted
+arc. The collar is embedded by~(1) and meets those two only at its endpoints,
+so no double point is created in it, and the model's own double point, at
+$|t|=1$, is interior to the inserted arc and untouched. For the turning: the
+collar's tangent angle is continuous, stays in $(-\pi/2,0)$ --- the slope
+$h'$ being positive and finite, so the tangent angle $\theta$ has
+$-\tan\theta=h'>0$ with $\cos\theta>0$ --- and takes at its ends exactly the
+angles of the two arcs it joins, so the lift of the tangent
+along the modified curve is the concatenation of the old lifts with an
+interpolating stretch of the same endpoint values; the total tangent winding is
+unchanged by its insertion. An earlier revision stopped at $C^1$
+and the document then carried a lemma to recover smoothness. This sentence is what the downstream consumers of this
+lemma read, the front construction below taking tangent directions of the
+curve, and an intermediate revision of this proof deleted it while rewriting
+the tail; it is restored here.
+
+\emph{The collar at $p_+$.} The same three properties are now proved at the
+other join, with its own signs printed: here the \emph{incoming} arc is the
+inserted one and the \emph{outgoing} arc is the old one, and both slopes are
+negative. Let $\eta_+=\eta(p_+)>\eta(p)$. On a stretch
+$[\eta_+-\lambda_+,\eta_+]$ chosen above $\eta(p)$ and inside the stretches
+on which both arcs are graphs, write $\xi=g(\eta)$ for the inserted arc and
+$\xi=f(\eta)$ for the old arc extended backward from $p_+$; the two agree at
+$\eta_+$ with common slope $m_+=-\tan\theta_+<0$, the angle
+$\theta_+=\theta(s_+)$ lying in $(0,\tfrac\pi2)$. Just left of the join the
+inserted arc turns strictly negatively into its endpoint, so its angle
+exceeds $\theta_+$ there, while the old arc turns positively, so its angle
+lies below $\theta_+$; by $\text{slope}=-\tan\theta$, decreasing in
+$\theta$,
+\[
+   g'(\eta)<m_+<f'(\eta)<0
+   \qquad\text{on }[\eta_+-\lambda_+,\eta_+),
+\]
+the outer inequality $f'<0$ because $\theta>0$ above $\eta(p)$. Integrating
+$g'-f'<0$ backward from the common value at $\eta_+$ gives $g>f$ on
+$[\eta_+-\lambda_+,\eta_+)$. Set
+\[
+   h=\bigl(1-\chi_{\lambda_+}\bigr)g+\chi_{\lambda_+}f,
+   \qquad
+   \chi_{\lambda_+}(\eta)=\varphi\Bigl(\frac{\eta-(\eta_+-\lambda_+)}{\lambda_+}\Bigr),
+\]
+with the same transition profile $\varphi$: the modified curve runs along the
+inserted arc up to $\eta_+-\lambda_+$, along the graph of $h$ across the
+collar, and along the old arc from $\eta_+$ on, the two joins $C^\infty$ by
+the flat endpoint jets of $\varphi$ exactly as in (1). For the derivative,
+\[
+   h'=\bigl(1-\chi_{\lambda_+}\bigr)g'+\chi_{\lambda_+}f'
+      +\frac{\varphi'\bigl((\eta-\eta_++\lambda_+)/\lambda_+\bigr)}{\lambda_+}
+       \,\bigl(f-g\bigr),
+\]
+and the sign of $f-g$ in the cutoff term is exactly what the negativity of
+the two slopes alone does not control: here $f-g\leq0$ by the separation just
+integrated, and $\varphi'\geq0$, so the cutoff term is nonpositive, while the
+convex part is a convex combination of two negative numbers. Hence,
+pointwise,
+\[
+   h'(\eta)\leq\bigl(1-\chi_{\lambda_+}\bigr)g'(\eta)+\chi_{\lambda_+}f'(\eta)
+   \leq f'(\eta)<0 ,
+\]
+the middle inequality because $g'<f'$, and the bound pointwise for the
+mirrored reason: $f'$ varies along the collar and no endpoint bound is
+available. So $h'$ never vanishes, and this collar --- a graph over $\eta$
+with $\eta'>0$ throughout --- has no tangent equal to $u$ and none equal to
+$-u$; its tangent angle stays in $(0,\tfrac\pi2)$, with
+$-\tan\theta=h'<0$ and $\cos\theta>0$, and takes at its ends exactly the
+angles of the two arcs it joins, so the lift concatenation of (3) applies to
+it verbatim and the total tangent winding is unchanged. Pointwise
+$f\leq h\leq g$, the value being a convex combination and $g\geq f$ there, so
+the collar lies in the region between the two graphs, inside the disc
+$\Delta$ and the embedded chart, and it is embedded and meets the two arcs
+only at its endpoints: no double point is created, by the argument of (3)
+unchanged.
+
+\emph{The four conclusions, separately.} (ii): $c'(t)=(2t,1-3t^2)$ is parallel to
+$u_0$ only at $t=0$, where $c'(0)=-u_0$; since $A$ is invertible with
+$Au_0=u$, the inserted arc has no tangent $u$ and exactly one tangent $-u$, and
+the retained tails have neither, their angles lying in $(-\tfrac\pi2,\tfrac\pi2)$
+away from $0$.
+
+(iii): if $c(s)=c(t)$ then $s=\pm t$, and the second coordinate forces
+$2t(1-t^2)=0$, so the only pair of distinct parameters is $\{-1,1\}$: exactly
+one double point. With the later branch over the earlier one its sign is that of
+$\det(c'(1),c'(-1))=-8<0$, and $\det B>0$ preserves it.
+
+(iv) for $\rot$: Let $R$ be the rotation carrying the positive orthonormal basis
+$(v_0,u_0)$ to $(v,u)$ and put $C=R^{-1}A$. Relative to $(v_0,u_0)$,
+$C$ has matrix
+$\left(\begin{smallmatrix}x&0\\y&1\end{smallmatrix}\right)$ with $x>0$, so
+$C_t=\left(\begin{smallmatrix}1-t+tx&0\\ty&1\end{smallmatrix}\right)$
+joins $I$ to $C$ inside $\mathrm{GL}^+(2,\mathbb R)$. If $R_t$ rotates
+through $t$ times any fixed angle representing $R$, first $C_t$ and then
+$R_tC$ give a path $A_t$ from $I$ to $A=RC$ in that group. Apply
+$z\mapsto A_tz/|A_tz|$ to the closed direction loop obtained by following
+the tangent path of $c$ and the tangent path of $b$ backwards.
+Lemma~\ref{lem:turnlift}(iii) therefore preserves their compatible endpoint
+lift-increment difference. The tangent of $b$ follows the short positive arc between the
+endpoint rays; the tangent of $c$ follows the complementary clockwise arc, since
+$\det(c',c'')=-2(1+3t^2)<0$ and it passes through $-u_0$ at $t=0$; so their
+relative winding is $-1$. The old central arc also follows the short positive
+arc, its lifted sweep $\theta(s_+)-\theta(s_-)$ lying in $(0,\pi)$. Hence Lemma~\ref{lem:turnlift}(iii) says that the replacement changes the
+closed curve's rotation by exactly $-1$. For
+$w$: the removed arc was embedded and carried no crossing, so the writhe changes
+by the one new negative crossing, that is by $-1$.
+
+\emph{The polynomial conclusion, without a knot-category detour.}
+The construction just completed also proves that $F'$ remains in the lemma's
+input class.  It replaces one oriented arc by one $C^\infty$ regular oriented
+arc, leaves the component count unchanged, and creates exactly one transverse
+double point in a disc meeting no other strand.  Thus its double points remain
+finite and transverse and no triple point is created.
+
+Let $F^{\circ}$ be the oriented diagram obtained from $F'$ by deleting the
+unique monogon in $\Delta$ by a Reidemeister-I move.  The move is available:
+the preceding separation argument shows that the monogon is disjoint from
+all other strands, and the crossing calculation shows it is the unique new
+double point.  It replaces that monogon by one crossing-free regular arc in
+$\Delta$, so $F^{\circ}$ is again a one-component immersed-circle diagram with
+finite transverse double points and no triple points.  Reidemeister-I
+invariance in Axiom~\ref{ax:homfly} gives $P_{F'}=P_{F^{\circ}}$.
+
+Outside $\Delta$, the diagrams $F^{\circ}$ and $F$ coincide.  Inside
+$\Delta$, each has one crossing-free oriented arc joining the same two
+boundary points in the same traversal direction.  Match every marked
+preimage outside that local traversal interval with the identical marked
+preimage of the other diagram.  The local intervals contain no marked
+preimage, so this bijection preserves cyclic order, crossing pairs,
+over/under positions and signs: it is a record isomorphism.  Both underlying
+curves are one-component immersed circles with transverse double points and
+no triple points, so Axiom~\ref{ax:gausscode} says that the diagrams present
+the same oriented link.  Axiom~\ref{ax:homfly} therefore gives
+$P_{F^{\circ}}=P_F$, hence $P_{F'}=P_F$.  Equality outside $\Delta$ proves the
+remaining clause of~(i).
+\end{proof}
+
+\begin{remark}[authorship of the construction above, and what its referee
+found]\label{rem:curlauthor}
+The proof of Lemma~\ref{lem:curl} from the ordered-ray lemma through the
+geometric insertion is \textbf{not this author's}.  Its earlier form was
+refuted by the peer: it swapped names in one ray triple, left the affine
+shrinking unquantified, and did not exclude additional intersections.  The
+printed repair is the peer's: the positive-turn chart, monotone equal-level
+cuts, explicit $H,x,y$ affine fit, the bound
+$1-(qy)^2=4abcd/(bc+ad)^2$, the transverse-excess separation
+$\frac{\ell x}{12}(4-t^2)>0$, and the separate tangent, crossing and
+rotation conclusions.
+
+The HOMFLY conclusion is narrower than the former knot-isotopy conclusion.
+It uses only Reidemeister-I invariance from Axiom~\ref{ax:homfly} and the
+record comparison from Axiom~\ref{ax:gausscode}; no standard realization,
+arc-isotopy theorem or category-change theorem is involved.
+
+Theorem~\ref{thm:carrierfloor}(C)'s turn hypothesis was tightened for the same
+reason: as printed it read ``every turn positive, or exactly one negative'',
+which does not exclude a zero turn, while Lemma~\ref{lem:rounding} needs every
+turn nonzero. The hypothesis now requires nonzero turns explicitly and says
+``exactly one is negative and every other is positive''. Every consumer
+supplies them: a carrier's corners are
+guarded by (G1) at a vertex and (G5) at a smoothing site
+(Definition~\ref{def:wind}).
+\end{remark}
+
+\subsection{Global orientation reversal}
+
+
+
+\subsection{The floor}
+
+\begin{theorem}[global reversal, rounding record, vertical tangencies and the carrier floor]\label{thm:carrierfloor}
+\begin{enumerate}
+\item[(R)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $K$ be an oriented knot and $-K$ the same knot with its orientation
+reversed. Then $P_{-K}=P_{K}$. Moreover a diagram of $-K$ obtained by reversing
+the orientation of a diagram of $K$ has the same crossing signs, the same
+writhe, and rotation number of the underlying plane curve negated.
+\item[(A)] Let $L$ and $D$ satisfy the hypotheses of Lemma~\ref{lem:rounding}. For every
+$\varepsilon\in(0,\varepsilon_0(L))$, the construction in the proof of that
+lemma returns \emph{one} curve and \emph{one} diagram at those data: the
+junction inserted at the corner $q_i$ is determined by $\varepsilon$, by the
+two incident unit directions and by the transition profile, which is fixed once
+and for all in that proof and is not chosen per corner or per curve; the arc
+length $\ell$ is then determined by the endpoint condition, and the rest of the
+curve is $L$ itself. Write
+\[
+   \mathrm{Round}(L,D,\varepsilon)=(L_\varepsilon,D_\varepsilon)
+\]
+for that pair, the \emph{rounding record} of $(L,D)$ at $\varepsilon$, and call
+$L_\varepsilon$ the rounded curve and $D_\varepsilon$ the rounded diagram. The
+record exists to be quantified over: an earlier revision, written when the
+profile was a per-use choice, had every consumer say "every curve the lemma
+produces", which is a quantifier over an unnamed family and reads differently
+in each consumer.
+\item[(B)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $L$ be a diagrammatic closed polygon (Definition~\ref{def:diagrammatic})
+whose principal turns all exist and are nonzero, carrying a diagram $D$, and
+assume, after reversing the orientation of $L$ if necessary, that either every
+principal turn is positive, or exactly one is negative. Put $R=|\rot(L)|$. Then
+there are a direction $u\in S^1$ and an $\varepsilon_1>0$ such that \emph{for
+every} $\varepsilon\in(0,\varepsilon_1)$ the rounded curve $L_\varepsilon$ of
+the record $\mathrm{Round}(L,D,\varepsilon)$
+from clause~(A) has exactly $R$ points at which its unit
+tangent equals $u$ and exactly $R$ at which it equals $-u$; at each of them the
+tangent crosses that direction in the positive sense. The hypotheses are stated
+here rather than imported by "as in Lemma~\ref{lem:rounding}", and the
+clearance is produced here rather than borrowed from that lemma's existential
+one. The object is named rather than quantified over: the record is one curve
+and one diagram at each $\varepsilon$, the profile being fixed once and for all,
+and an earlier revision said "every curve the lemma produces" because at the
+time the profile was a per-use choice.
+\item[(C)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $D$ be an oriented knot diagram all of whose crossings are positive, with
+writhe $w$, whose underlying plane curve is a closed polygon $L$ with all
+principal turns existing, \emph{nonzero}, and of magnitude below $\pi$, with
+finitely many double points, all transversal, with no triple points, none of
+them a corner of $L$, and no corner of $L$ lying on a non-incident edge; and let
+$R$ be the absolute value of its Whitney rotation number.  The
+finiteness/transversality and the two corner conditions are what
+Lemma~\ref{lem:rounding} asks of its input.  The no-triple condition repeats the
+shared-image clause of Definition~\ref{def:diagrammatic}; it is preserved by
+rounding and is needed below when diagram records are compared.  These
+conditions are stated here so that no generic parent polygon is assumed. Assume that, after reversing the
+orientation if necessary --- which by clause~(R) changes neither
+$P_D$, nor the crossings and their signs, nor $w$, nor $R$ --- either every
+principal turn is positive, or exactly one is negative and every other is
+positive. Then
+\begin{equation}
+\min\deg_a P_D(a,z)\;\geq\;1-w-R,
+\label{eq:floor}
+\end{equation}
+and the same bound holds for $f_D(a)=[z^0]P_D(a,z)$ whenever $f_D\neq0$.
+\item[(D)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $P$ be generic, let $S\in\Ind(G_P)$ and let $L$ be a carrier of $S$ carrying
+no residual piece, so that $P_{S,L}=1$ and $w_{S,L}=0$ by
+Definition~\ref{def:X1}'s empty conventions --- an earlier revision wrote those
+two symbols with $S$ never introduced --- and suppose that all its principal turns are nonzero and that,
+after reversing the orientation if necessary, either every turn is positive or
+exactly one is negative. Then $R(L)\geq1$ and
+$\min\deg_a P_{S,L}=0\geq 1-w_{S,L}-R(L)$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\emph{Clause (R).}
+Reversing the orientation of all components of a link sends a skein triple
+$(L_+,L_-,L_0)$ to a skein triple: the sign of a crossing is
+$\sgn\det(u_{\mathrm{over}},u_{\mathrm{under}})$ and reversing both strands
+replaces both vectors by their negatives, leaving the determinant unchanged, and
+the oriented smoothing of the reversed diagram is the reverse of the oriented
+smoothing. So $L\mapsto P_{-L}$ satisfies the defining skein of
+Axiom~\ref{ax:homfly}, and it sends the unknot to $1$; by the uniqueness clause
+it equals $L\mapsto P_L$. The diagram statements have the same scope. Every crossing sign is a
+determinant of two reversed vectors, so the writhe is unchanged. For a
+polygonal underlying curve every principal turn changes sign and
+Lemma~\ref{lem:turnlift}(ii) negates rotation. For a $C^1$ regular curve,
+if $\theta$ lifts its normalised tangent, then $\theta(1-s)+\pi$ lifts the
+reversed tangent with the negative endpoint increment, as in
+Lemma~\ref{lem:turnlift}(i).
+
+\emph{Clause (A).} The transition profile is fixed once and for all in the proof of
+Lemma~\ref{lem:rounding}.  At each corner, $\varepsilon$ and the two incident
+unit directions determine that profile's junction, and the endpoint condition
+determines its length $\ell$; outside the rounding discs the curve is $L$, and
+the diagram data are inherited.  Thus the named construction returns one
+specified pair at every allowed $\varepsilon$.  This asserts uniqueness of the
+fixed construction's record, not uniqueness among all possible smoothings.
+
+\emph{Clause (B).}
+Reversing the orientation of $L$ negates every principal turn and the signed rotation and
+preserves every self-crossing sign, so perform the allowed normalization once. In the
+uniform case $\rot(L)=R\geq1$ by Lemma~\ref{lem:uniformrot}(i); in the one-dissent case the same holds by Lemma~\ref{lem:uniformrot}(ii).
+
+Take $\varepsilon_1=\varepsilon_0(L)$, the clearance of Lemma~\ref{lem:rounding}.
+Choose $u\in S^1$ so that neither $u$ nor $-u$ is an edge direction and, in the
+one-dissent case, neither lies in the negative turn's closed swept arc $A$, of
+length $\alpha:=|\tau_-|<\pi$. Such $u$ exists: in the one-dissent case $A\cup(-A)$
+has length at most $2\alpha<2\pi$, while in the uniform case there is no such arc; the additional
+forbidden set of edge directions and their antipodes is finite. This choice depends only on $L$. Fix an argument $\phi$ of $u$.
+
+Fix $\varepsilon\in(0,\varepsilon_1)$, write
+$(L_\varepsilon,D_\varepsilon)=\mathrm{Round}(L,D,\varepsilon)$, and let $T$ be
+its unit-tangent map. Parameterize the rounded traversal by $s\in[0,1]$, with
+$s=0$ in the interior of a straight part; because $u,-u$ are not edge directions, its tangent
+is congruent to neither $\phi$ nor $\phi+\pi$. Concatenating straight-part arguments
+with the junction lifts supplied by Lemma~\ref{lem:rounding}(b) gives a continuous
+$\theta\colon[0,1]\to\mathbb R$, starting at an argument $\theta(0)$ of $T(0)$.
+Since $T(1)=T(0)$, write $\theta(1)=\theta(0)+2\pi m$ for an integer $m$.
+
+Choose a direction $r$ not parallel to any edge, with argument $\gamma$. The
+change across junction $i$ of $\lfloor(\theta-\gamma)/(2\pi)\rfloor$ is $+1$,
+$-1$ or $0$ in exactly the three determinant cases defining $\epsilon_i$ in
+Definition~\ref{def:rot}. Indeed the same clause makes the lifted change
+$\tau_i$, and $|\tau_i|<\pi$ permits at most one crossed level, in its
+signed direction; there is no change on a straight part. Telescoping and
+$\lfloor q+m\rfloor-\lfloor q\rfloor=m$ give
+$m=\sum_i\epsilon_i=\rot(L)=R$. Thus
+\[
+ \theta(1)=\theta(0)+2\pi R.                                  \tag{*}
+\]
+
+Fix $\beta=\phi$ or $\phi+\pi$. Because $u,-u$ are not edge directions, no
+level $\beta+2\pi k$ is met on a straight part or at a junction endpoint; by
+the choice of $u$, none is met on the decreasing junction. Hence floor jumps
+occur only in increasing junctions and never elsewhere. Lemma~\ref{lem:rounding}(b)
+makes each occurrence unique with positive angular derivative. Put
+\[
+ x=\frac{\theta(0)-\phi}{2\pi},\qquad
+ y=\frac{\theta(0)-(\phi+\pi)}{2\pi}.
+\]
+For $u$, (*) and the integer floor identity give, separately,
+\[
+ \#T^{-1}(u)=\lfloor x+R\rfloor-\lfloor x\rfloor=R.
+\]
+For $-u$, the same argument at the other levels gives
+\[
+ \#T^{-1}(-u)=\lfloor y+R\rfloor-\lfloor y\rfloor=R.
+\]
+There are finitely many junctions, so the preimages are finite; their positive derivatives prove the assertion for arbitrary $\varepsilon$.
+
+\emph{Clause (C).} Fix $\varepsilon\in(0,\varepsilon_1)$ with $\varepsilon_1$ the clearance of
+clause~(B) and pass to the rounding record
+$(L_\varepsilon,D_\varepsilon)=\mathrm{Round}(L,D,\varepsilon)$ of
+clause~(A) --- one curve and one diagram, not a member
+of an unnamed family. By Lemma~\ref{lem:rounding}(c),(d) the diagram, its
+crossings, its writhe and its rotation number are unchanged, and by
+clause~(B) there is a direction $u$ met by the tangent of
+$L_\varepsilon$ exactly $R$ times, each time positively, and likewise for
+$-u$. Rotate coordinates so
+that $u$ is the downward vertical. The rounded diagram then has exactly $R$
+downward vertical tangencies and $R$ upward ones.
+
+Switch every crossing. The result is a diagram $\overline D$ of the mirror knot,
+with the same underlying plane curve --- hence the same tangencies --- and with
+writhe $-w$; every crossing of $\overline D$ is negative. Apply
+Lemma~\ref{lem:curl} at each of the $R$ downward vertical tangencies; they are
+isolated, lie in the interiors of positively turning rounding arcs
+(clause~(B)), and the rounding discs are pairwise disjoint and
+meet no crossing, by the choice of $\varepsilon$ in the proof of
+Lemma~\ref{lem:rounding}, so the $R$ discs are
+disjoint and each replacement leaves the others intact. Call the result $T$. By
+Lemma~\ref{lem:curl}, $P_T=P_{\overline D}$, $T$ has no downward vertical
+tangency, and it has writhe
+\[
+w(T)=-w-R .
+\]
+Every crossing of $T$ is negative: the old ones by the switch, the $R$ new ones by
+Lemma~\ref{lem:curl}(iii).
+
+We now construct the transverse lift rather than import a
+front criterion.  Write the smooth regular parametrisation of $T$ as
+$s\mapsto(x(s),z(s))$, put
+\[
+ v(s)=\sqrt{x'(s)^2+z'(s)^2},\qquad
+ y_0(s)=-\frac{x'(s)}{v(s)+z'(s)},
+\]
+and use the convention that, in the $xz$ projection, the branch with smaller
+$y$-coordinate is drawn over.  Since $T$ has no downward vertical tangency,
+$v+z'>0$ everywhere: equality would force $x'=0$ and $z'<0$.  Thus $y_0$ is
+smooth and periodic, and direct algebra, with no division by $x'$, gives
+\[
+ z'-y_0x'=z'+\frac{x'^2}{v+z'}
+ =z'+\frac{v^2-z'^2}{v+z'}=v>0.                 \tag{*}
+\]
+
+It remains only to impose the crossing order.  At a crossing branch there is
+no vertical tangency, so put $m=z'/x'$.  The strict inequality in~(*) permits
+$y<m$ on a rightward branch and $y>m$ on a leftward branch.  For every crossing
+choose admissible constants $c_{\rm O}<c_{\rm U}$ at its over- and underpassing
+preimages.  Such a choice is automatic if the overpass points right: after
+choosing any admissible $c_{\rm U}$, take
+$c_{\rm O}<\min\{m_{\rm O},c_{\rm U}\}$.  If both point left, choose any
+$c_{\rm O}>m_{\rm O}$ and then
+$c_{\rm U}>\max\{m_{\rm U},c_{\rm O}\}$.  The only remaining case has
+$x'_{\rm O}<0<x'_{\rm U}$.  Every crossing of $T$ is negative, and here
+\[
+ 0>\det(t_{\rm O},t_{\rm U})
+   =x'_{\rm O}x'_{\rm U}(m_{\rm U}-m_{\rm O}).
+\]
+Since $x'_{\rm O}x'_{\rm U}<0$, this says $m_{\rm O}<m_{\rm U}$; choose
+$m_{\rm O}<c_{\rm O}<c_{\rm U}<m_{\rm U}$.  These are exactly the two allowed
+half-lines and the required over/under order.
+
+There are finitely many crossing preimages.  Around each one $s_j$, choose
+pairwise disjoint cyclic parameter intervals $(\alpha_j,\beta_j)$ so small that
+$z'-c_jx'>0$ throughout.  Using the explicit flat transition profile
+$\varphi$ displayed in the proof of Lemma~\ref{lem:rounding}, define a smooth
+bump on the circle by
+\[
+ \psi_j(s)=
+ \begin{cases}
+ \varphi\!\left((s-\alpha_j)/(s_j-\alpha_j)\right),&
+       \alpha_j\le s\le s_j,\\
+ \varphi\!\left((\beta_j-s)/(\beta_j-s_j)\right),&
+       s_j\le s\le\beta_j,\\
+ 0,&\text{otherwise}.
+ \end{cases}
+\]
+All endpoint derivatives are zero, so this is smooth, equals one at $s_j$ and
+has support in that interval.  Set
+\[
+ y=y_0+\sum_j\psi_j(c_j-y_0).
+\]
+The supports are disjoint.  On the $j$-th one,
+\[
+ z'-yx'=(1-\psi_j)(z'-y_0x')+\psi_j(z'-c_jx')>0,
+\]
+and outside them this is~(*).  Hence $y$ is smooth and periodic and the lift
+$s\mapsto(x(s),y(s),z(s))$ is positively transverse to $dz-y\,dx$.
+
+Finally the lift is regular because its $xz$ projection is immersed.  If two
+lifted points agreed, their projected points would agree; the only distinct
+parameters with that property are the two preimages of a listed double point,
+and there $c_{\rm O}<c_{\rm U}$.  Thus the lift is injective, hence, by
+compactness of the parameter circle, an embedded transverse knot.  Its front
+and its smaller-$y$ over/under assignments are exactly $T$.
+
+By Axiom~\ref{ax:etnyre}, $\operatorname{sl}(T)=w(T)=-w-R$. Since
+$P_T=P_{\overline D}$, Axiom~\ref{ax:slbound} applied to $T$ gives
+\[
+\max\deg_a P_{\overline D}\;\leq\;-\operatorname{sl}(T)-1\;=\;w+R-1 .
+\]
+For every oriented-link isotopy class $K$, put
+$\mathcal M(K)=P_{\overline K}(a,z)$. Mirroring exchanges $L_+$ with $L_-$
+and fixes $L_0$, so the defining skein of Axiom~\ref{ax:homfly} on the
+mirrored triple, multiplied by $-1$, is
+\[
+ a^{-1}\mathcal M(L_+)-a\mathcal M(L_-)=-z\,\mathcal M(L_0),
+ \qquad \mathcal M(\bigcirc)=1.
+\]
+The substitution $(a,z)\mapsto(a^{-1},-z)$ is involutive, so applying it to
+the uniqueness clause of Axiom~\ref{ax:homfly} gives uniqueness for these two
+conditions. The assignment $K\mapsto P_K(a^{-1},-z)$ satisfies them; hence
+$P_{\overline K}(a,z)=P_K(a^{-1},-z)$. As a Laurent-ring automorphism, the
+substitution negates every $a$-exponent and cannot cancel a nonzero extreme
+coefficient. Hence
+$\max\deg_a P_{\overline D}=-\min\deg_a P_D$, and the displayed bound becomes
+$\min\deg_a P_D=-\max\deg_a P_{\overline D}\geq1-w-R$, which is
+\eqref{eq:floor}. Finally, the support of $f_D$ is contained in the support of
+$P_D$, so the same bound holds for it when it is nonzero.
+
+\emph{Clause (D).} In the uniform case $|\rot(L)|\geq1$ by Lemma~\ref{lem:uniformrot}(i); in the
+one-dissent case $\rot(L)\geq1$ by Lemma~\ref{lem:uniformrot}(ii). Either way
+$R(L)\geq1$, so $1-0-R(L)\leq0=\min\deg_a1$. In particular the hypothesis is met by every carrier of a live support
+(Definition~\ref{def:wind}), and it is met by the marked halves of the
+one-dissent geometry produced in the vertex-on-edge section, where that is
+proved at the point of use.
+\end{proof}
+
+\begin{remark}[what the floor does and does not assert]\label{rem:floorscope}
+Theorem~\ref{thm:carrierfloor}(C) is a lower bound on a minimal degree; it asserts
+no sharpness. For a live carrier the slot of Definition~\ref{def:X1} is exactly
+$1-w_{S,L}-R(L)$, so exactly one of two things holds: the slot is the bottom
+supported degree of the row, or the slot lies strictly below the support and its
+coefficient is zero. Both are consistent with \eqref{eq:floor} and the proofs of
+Section~\ref{sec:s7} use only the second reading, namely that nothing lies below
+the slot.
+\end{remark}

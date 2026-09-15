@@ -1,0 +1,1982 @@
+-- Ported 11:49Z 2026-09-14 from work/drafts/fd/GF_Assembled.lean (fd:generic-front lane, row 87: skeleton + units P0-P6 + assembler) by the pod executor; body verbatim.
+import Mathlib.Analysis.InnerProductSpace.Calculus
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.SmoothTransition
+import Mathlib.Analysis.Calculus.ContDiff.Bounds
+import SM.ContactMotions
+import SM.ParameterAvoidance
+
+/-! # SM fd:generic-front — generic fronts of Legendrian knots (row 87), assembled
+
+Assembled 2026-09-14 (work/drafts/fd/, `GF_assemble.py`) from `GF_Skeleton.lean` and the unit files
+`GF_U_P{0,…,6}.lean`.  Source: reference/SM/sm-3-statesum.tex:2613-2630 (statement), 2631-2783
+(proof).  Route: `FD_84_87_FEASIBILITY_v2.md` §2; leaf plan: `GF_PLAN.md`; assembly record:
+`GF_ASSEMBLY_REPORT.md`.
+
+Layout.  §1–§4 (from `namespace SM` to `GenericFrontData`) are **byte-identical** to
+`GenericFront_Statement.lean` lines 79-255 (the statement).  §5 is the proof: definitions, glue,
+the former leaf lemmas (all proved) grouped in units P0–P6 with their helpers (prefixes `gp0_` …
+`gp6_`), and the row theorem `SM.fd_generic_front : GenericFrontData`.
+`#print axioms SM.fd_generic_front` gives `[propext, Classical.choice, Quot.sound]`.  Independent of
+the row-84 file: the row-84 notions it needs are the copies in `SM.GenericFront` (§1).
+
+Units: P0 contact isotopies from Hamiltonian flows (row 86) · P1 simultaneous zeros of `(x′,x″)`
+(row 85, `(d,q) = (1,2)`) · P2 the uniform collar (local front injectivity) · P3 cusps on branches
+and triple points (row 85, `(2,3)` and `(3,4)`) · P4 transverse, finite double points · P5 exact
+cusp germs · P6 concatenation, pushoff annulus, knot type.
+
+One deviation from the skeleton: its leaf P2.2 (`stage1_stable`, persistence of the collar with the
+same width) was false as stated and is replaced by persistence with any smaller width
+(`gp2_stage1_stable_of_lt`; see the note in Unit P2 and `GF_U_P2_REPORT.md` §2-3); `step2` uses the
+half width.  The header carries one import beyond the skeleton's
+(`Mathlib.Analysis.Calculus.ContDiff.Bounds`, the Leibniz rule for P5.4).
+
+Check: `cd work/lean && lake env lean ../drafts/fd/GF_Assembled.lean`. -/
+
+namespace SM
+
+open scoped ContDiff Topology
+open Set Function Real
+
+noncomputable section
+
+local notation "ℝ³" => EuclideanSpace ℝ (Fin 3)
+
+namespace GenericFront
+
+/-! ## 1. Notions shared with row 84 (verbatim copies of `SM.TransverseNeighborhood`, to be
+deduplicated at porting time by importing that module) -/
+
+/-- `α = dz − y dx` at `p` on `v`. -/
+def alpha (p v : ℝ³) : ℝ := v 2 - p 1 * v 0
+
+/-- A smooth embedded oriented circle as a `2π`-periodic map (FR-GF-1). -/
+structure IsEmbeddedCircle (T : ℝ → ℝ³) : Prop where
+  smooth : ContDiff ℝ ∞ T
+  periodic : Periodic T (2 * π)
+  injective : ∀ θ θ', T θ = T θ' → ∃ k : ℤ, θ' = θ + 2 * π * k
+  immersion : ∀ θ, deriv T θ ≠ 0
+
+/-- `α(T′) > 0`. -/
+def IsPositiveTransverse (T : ℝ → ℝ³) : Prop := ∀ θ, 0 < alpha (T θ) (deriv T θ)
+
+/-- `α(L′) = 0`. -/
+def IsLegendrian (L : ℝ → ℝ³) : Prop := ∀ θ, alpha (L θ) (deriv L θ) = 0
+
+/-- An orientation-preserving reparametrization of the circle. -/
+structure IsCircleReparam (ρ : ℝ → ℝ) : Prop where
+  smooth : ContDiff ℝ ∞ ρ
+  deriv_pos : ∀ θ, 0 < deriv ρ θ
+  lift : ∀ θ, ρ (θ + 2 * π) = ρ θ + 2 * π
+
+/-- A transverse pushoff annulus of the Legendrian circle `L` (sm-3:2490-2502). -/
+structure IsPushoffAnnulus (L : ℝ → ℝ³) (ε b : ℝ) (B : ℝ × ℝ → ℝ³) : Prop where
+  eps_pos : 0 < ε
+  b_pos : 0 < b
+  smooth : ContDiffOn ℝ ∞ B (univ ×ˢ Ioo (-ε) b)
+  periodic : ∀ θ s, B (θ + 2 * π, s) = B (θ, s)
+  core : ∀ θ, B (θ, 0) = L θ
+  injective : ∀ θ s θ' s', s ∈ Ioo (-ε) b → s' ∈ Ioo (-ε) b → B (θ, s) = B (θ', s') →
+    s = s' ∧ ∃ k : ℤ, θ' = θ + 2 * π * k
+  immersion : ∀ θ s, s ∈ Ioo (-ε) b → Injective (fderiv ℝ B (θ, s))
+  transverse : ∀ θ s, s ∈ Ioo (-ε) b →
+    alpha (B (θ, s)) (fderiv ℝ B (θ, s) (1, 0)) ≠ 0 ∨ alpha (B (θ, s)) (fderiv ℝ B (θ, s) (0, 1)) ≠ 0
+  positive : ∀ s, 0 < s → s < b → IsPositiveTransverse fun θ => B (θ, s)
+
+/-- `T'` is a positive transverse pushoff of `L`: a small positive circle of a pushoff annulus. -/
+def IsPositivePushoff (L T' : ℝ → ℝ³) : Prop :=
+  ∃ (ε b : ℝ) (B : ℝ × ℝ → ℝ³), IsPushoffAnnulus L ε b B ∧
+    ∃ s₀, 0 < s₀ ∧ s₀ < b ∧ T' = fun θ => B (θ, s₀)
+
+/-- `T₀` is transversely isotopic to `T₁` (up to orientation-preserving reparametrization). -/
+def TransverselyIsotopic (T₀ T₁ : ℝ → ℝ³) : Prop :=
+  ∃ F : ℝ → ℝ → ℝ³, ContDiffOn ℝ ∞ (uncurry F) (Icc 0 1 ×ˢ univ) ∧
+    (∀ s ∈ Icc (0 : ℝ) 1, IsEmbeddedCircle (F s) ∧ IsPositiveTransverse (F s)) ∧
+    F 0 = T₀ ∧ ∃ ρ : ℝ → ℝ, IsCircleReparam ρ ∧ F 1 = T₁ ∘ ρ
+
+/-- A compactly supported ambient isotopy of `ℝ³`, `t ∈ [0,1]`. -/
+structure IsCompactlySupportedAmbientIsotopy (Ψ : ℝ → ℝ³ → ℝ³) : Prop where
+  smooth : ContDiffOn ℝ ∞ (uncurry Ψ) (Icc 0 1 ×ˢ univ)
+  zero : ∀ p, Ψ 0 p = p
+  diffeo : ∀ t ∈ Icc (0 : ℝ) 1, ∃ Ψinv : ℝ³ → ℝ³, ContDiff ℝ ∞ Ψinv ∧
+    LeftInverse Ψinv (Ψ t) ∧ RightInverse Ψinv (Ψ t)
+  support : ∃ K : Set ℝ³, IsCompact K ∧ ∀ t ∈ Icc (0 : ℝ) 1, ∀ p, p ∉ K → Ψ t p = p
+
+/-! ## 2. Contact isotopies (sm-3:2614-2615, 2767-2772) -/
+
+/-- "A smooth ambient coorientation-preserving contact isotopy" `Φ_s`, `s ∈ [0,1]` (FR-GF-2):
+a compactly supported ambient isotopy each of whose stages is a contactomorphism of
+`α = dz − y dx` with a positive conformal factor (`Φ_s^*α = c_s α`, `c_s > 0`, sm-3:2771-2772). -/
+structure IsContactIsotopy (Φ : ℝ → ℝ³ → ℝ³) : Prop where
+  /-- "smooth ambient … isotopy": jointly smooth, `Φ_0 = id`, diffeomorphisms, compactly
+  supported (the last is the printed proof's output and the consumer's input, not a printed
+  clause of the statement — FR-GF-2). -/
+  ambient : IsCompactlySupportedAmbientIsotopy Φ
+  /-- "coorientation-preserving contact": `α_{Φ_s p}(DΦ_s(p) v) = c · α_p(v)` with `c > 0`. -/
+  contact : ∀ s ∈ Icc (0 : ℝ) 1, ∀ p, ∃ c : ℝ, 0 < c ∧
+    ∀ v, alpha (Φ s p) (fderiv ℝ (Φ s) p v) = c * alpha p v
+
+/-! ## 3. Fronts, cusps, double points (sm-3:2615-2618) -/
+
+/-- The `xz` front of a parametrized curve: `θ ↦ (x(θ), z(θ))`. -/
+def front (L : ℝ → ℝ³) (θ : ℝ) : ℝ × ℝ := (L θ 0, L θ 2)
+
+/-- The coordinate functions `x, y, z` of the curve. -/
+def coordX (L : ℝ → ℝ³) (θ : ℝ) : ℝ := L θ 0
+def coordY (L : ℝ → ℝ³) (θ : ℝ) : ℝ := L θ 1
+def coordZ (L : ℝ → ℝ³) (θ : ℝ) : ℝ := L θ 2
+
+/-- Two parameters name the same point of the circle. -/
+def SameParam (θ η : ℝ) : Prop := ∃ k : ℤ, η = θ + 2 * π * k
+
+/-- The cusp parameters of the front: `x′(θ) = 0` (FR-GF-3). -/
+def cuspSet (L : ℝ → ℝ³) : Set ℝ := {θ | deriv (coordX L) θ = 0}
+
+/-- The double points of the front: ordered pairs of distinct circle parameters with the same
+front point (FR-GF-4). -/
+def doublePoints (L : ℝ → ℝ³) : Set (ℝ × ℝ) :=
+  {p | ¬ SameParam p.1 p.2 ∧ front L p.1 = front L p.2}
+
+/-- A double point is transverse: the two front velocities `(x′, z′)` are independent. -/
+def IsTransverseDouble (L : ℝ → ℝ³) (θ η : ℝ) : Prop :=
+  deriv (coordX L) θ * deriv (coordZ L) η - deriv (coordZ L) θ * deriv (coordX L) η ≠ 0
+
+/-- The exact semicubical cusp germ at the cusp parameter `θc` (sm-3:2621-2625, FR-GF-5): with
+`u = y(θ) − y(θc)` a local coordinate (`y′(θc) ≠ 0`; `u` may increase or decrease with `θ`),
+`x = x₀ + A u²` and `z = z₀ + A y₀ u² + ⅔ A u³` near `θc`, `A ≠ 0`. -/
+def IsExactCuspGerm (L : ℝ → ℝ³) (θc : ℝ) : Prop :=
+  ∃ A : ℝ, A ≠ 0 ∧ deriv (coordY L) θc ≠ 0 ∧ ∃ ε > 0, ∀ θ, |θ - θc| < ε →
+    coordX L θ = coordX L θc + A * (coordY L θ - coordY L θc) ^ 2 ∧
+    coordZ L θ = coordZ L θc + A * coordY L θc * (coordY L θ - coordY L θc) ^ 2
+      + 2 / 3 * A * (coordY L θ - coordY L θc) ^ 3
+
+/-- The front of `L` is generic in the sense of sm-3:2615-2618, one field per printed clause. -/
+structure IsGenericFront (L : ℝ → ℝ³) : Prop where
+  /-- "only finitely many … cusps" (counted on one period). -/
+  finite_cusps : (cuspSet L ∩ Ico 0 (2 * π)).Finite
+  /-- "semicubical cusps": every cusp has the exact germ of sm-3:2621-2625. -/
+  exact_germ : ∀ θc ∈ cuspSet L, IsExactCuspGerm L θc
+  /-- "finitely many … double points" (ordered pairs on one period square). -/
+  finite_double : (doublePoints L ∩ Ico 0 (2 * π) ×ˢ Ico 0 (2 * π)).Finite
+  /-- "transverse double points". -/
+  transverse_double : ∀ p ∈ doublePoints L, IsTransverseDouble L p.1 p.2
+  /-- "no triple point". -/
+  no_triple : ∀ θ η τ, ¬ SameParam θ η → ¬ SameParam θ τ → ¬ SameParam η τ →
+    ¬ (front L θ = front L η ∧ front L θ = front L τ)
+  /-- "no cusp on another branch". -/
+  no_cusp_on_branch : ∀ θ ∈ cuspSet L, ∀ η, ¬ SameParam θ η → front L η ≠ front L θ
+
+end GenericFront
+
+open GenericFront
+
+/-! ## 4. The printed statement -/
+
+/-- The hypotheses of fd:generic-front (sm-3:2614): "a smooth oriented Legendrian embedding
+`L : S¹ → ℝ³`". -/
+structure GenericFrontHyp (L : ℝ → ℝ³) : Prop where
+  /-- "smooth oriented … embedding". -/
+  circle : IsEmbeddedCircle L
+  /-- "Legendrian". -/
+  legendrian : IsLegendrian L
+
+/-- The conclusion of fd:generic-front for the witness isotopy `Φ` (sm-3:2614-2630), one field
+per printed clause; `L_g = Φ 1 ∘ L`. -/
+structure GenericFrontConclusion (L : ℝ → ℝ³) (Φ : ℝ → ℝ³ → ℝ³) : Prop where
+  /-- sm-3:2614-2615 "a smooth ambient coorientation-preserving contact isotopy". -/
+  isotopy : IsContactIsotopy Φ
+  /-- sm-3:2615 "to a Legendrian embedding `L_g`": an embedded circle … -/
+  legendrian_circle : IsEmbeddedCircle (Φ 1 ∘ L)
+  /-- … which is Legendrian. -/
+  legendrian : IsLegendrian (Φ 1 ∘ L)
+  /-- sm-3:2615-2625 "whose `xz` front has only finitely many semicubical cusps and transverse
+  double points, with no triple point and no cusp on another branch", with the exact cusp germ. -/
+  generic : IsGenericFront (Φ 1 ∘ L)
+  /-- sm-3:2627-2629 "The isotopy carries a chosen thin positive-pushoff annulus and preserves its
+  positive-pushoff transverse isotopy class" (FR-GF-6): for every pushoff annulus `B` of `L`,
+  each `Φ_s ∘ B` is a pushoff annulus of `Φ_s ∘ L`, and each positive circle `B(·, s₀)` is
+  transversely isotopic to `Φ_1 ∘ B(·, s₀)`, a positive pushoff of `L_g`. -/
+  pushoff : ∀ (ε b : ℝ) (B : ℝ × ℝ → ℝ³), IsPushoffAnnulus L ε b B →
+    (∀ s ∈ Icc (0 : ℝ) 1, IsPushoffAnnulus (Φ s ∘ L) ε b (fun q => Φ s (B q))) ∧
+    ∀ s₀, 0 < s₀ → s₀ < b →
+      TransverselyIsotopic (fun θ => B (θ, s₀)) (fun θ => Φ 1 (B (θ, s₀))) ∧
+      IsPositivePushoff (Φ 1 ∘ L) (fun θ => Φ 1 (B (θ, s₀)))
+  /-- sm-3:2629-2630 "as well as the oriented topological knot type" (FR-GF-7): `L_g` is carried
+  to by a compactly supported ambient isotopy of the parametrized oriented circle `L`. -/
+  knot_type : ∃ Ψ : ℝ → ℝ³ → ℝ³, IsCompactlySupportedAmbientIsotopy Ψ ∧ ∀ θ, Ψ 1 (L θ) = Φ 1 (L θ)
+
+/-- **fd:generic-front** (sm-3:2613-2630), the statement: every smooth oriented Legendrian
+embedding admits a contact isotopy with the printed conclusion.  Not proved here (see the module
+docstring and `FD_84_87_FEASIBILITY_v2.md` §2). -/
+def GenericFrontData : Prop :=
+  ∀ L : ℝ → ℝ³, GenericFrontHyp L → ∃ Φ : ℝ → ℝ³ → ℝ³, GenericFrontConclusion L Φ
+
+/-! ## 5. Proof skeleton -/
+
+namespace GenericFront
+
+open ContactMotions (hamFlow hamVF composeFlows ContactMotionsHyp)
+
+local notation "ℝ^" n:max => EuclideanSpace ℝ (Fin n)
+
+/-! ### Unit P0 — contact isotopies from Hamiltonian flows (sm-3:2632-2638; row 86) -/
+
+/-- The path `s ↦ Φ_{sa}` of compositions of the time-`s·a_i` flows (sm-3:2636). -/
+def hamIsotopy (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (a : Fin n → ℝ) (s : ℝ) (p : ℝ³) : ℝ³ :=
+  composeFlows n Hs (s • a) p
+
+theorem hamIsotopy_one (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (a : Fin n → ℝ) :
+    hamIsotopy n Hs a 1 = composeFlows n Hs a := by
+  sorry
+
+
+lemma gp0_alpha_eq (p v : ℝ³) : alpha p v = ContactMotions.alpha p v := by
+  sorry
+
+
+/-- A point outside the support of `X_H` is fixed by the flow (uniqueness against the constant
+curve). -/
+lemma gp0_hamFlow_fixed {H : ℝ³ → ℝ} (h : ContactMotionsHyp H) {p : ℝ³}
+    (hp : p ∉ tsupport (hamVF H)) (s : ℝ) : hamFlow H s p = p := by
+  sorry
+
+
+/-- A point fixed by every flow is fixed by every composition. -/
+lemma gp0_composeFlows_fixed (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (b : Fin n → ℝ) {p : ℝ³}
+    (hp : ∀ i s, hamFlow (Hs i) s p = p) : composeFlows n Hs b p = p := by
+  sorry
+
+
+/-- Each composition of flows is smooth in the point. -/
+lemma gp0_contDiff_composeFlows (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (b : Fin n → ℝ) :
+    ContDiff ℝ ∞ (composeFlows n Hs b) := by
+  sorry
+
+
+/-- Each composition of flows has a smooth two-sided inverse (the reversed composition of the
+inverse flows). -/
+lemma gp0_composeFlows_inv (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (b : Fin n → ℝ) :
+    ∃ Ψ : ℝ³ → ℝ³, ContDiff ℝ ∞ Ψ ∧ LeftInverse Ψ (composeFlows n Hs b) ∧
+      RightInverse Ψ (composeFlows n Hs b) := by
+  sorry
+
+
+/-- Each composition of flows is a contactomorphism with a positive conformal factor. -/
+lemma gp0_composeFlows_contact (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (b : Fin n → ℝ) (p : ℝ³) :
+    ∃ c : ℝ, 0 < c ∧ ∀ v, alpha (composeFlows n Hs b p) (fderiv ℝ (composeFlows n Hs b) p v)
+      = c * alpha p v := by
+  sorry
+
+
+/-- LEAF P0.1.  `s ↦ Φ_{sa}` is a compactly supported contact isotopy (row 86: `fd_contact_motions`
+gives joint smoothness, the group law/inverses, `Φ^*α = c α` with `c > 0`; each flow fixes the
+complement of `tsupport (hamVF Hᵢ)`). -/
+theorem isContactIsotopy_hamIsotopy (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (a : Fin n → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) : IsContactIsotopy (hamIsotopy n Hs a) := by
+  sorry
+
+
+/-- LEAF P0.2.  A stage of a contact isotopy carries an embedded Legendrian circle to an embedded
+Legendrian circle (sm-3:2637-2638 "its images are exactly Legendrian embeddings"). -/
+theorem contact_preserves_legendrian {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsContactIsotopy Φ) {L : ℝ → ℝ³}
+    (hL : IsEmbeddedCircle L) (hLeg : IsLegendrian L) {s : ℝ} (hs : s ∈ Icc (0 : ℝ) 1) :
+    IsEmbeddedCircle (Φ s ∘ L) ∧ IsLegendrian (Φ s ∘ L) := by
+  sorry
+
+
+/-- `Φ_{t eᵢ} = φ_{Hᵢ}^t`: with all other times zero the composition is the single flow. -/
+lemma gp0_composeFlows_single (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (i : Fin n) (t : ℝ) (p : ℝ³) :
+    composeFlows n Hs (Pi.single i t) p = hamFlow (Hs i) t p := by
+  sorry
+
+
+/-- LEAF P0.3.  "At `a = 0`, the `aᵢ` derivative of `Φ_a ∘ L` is `X_{Hᵢ} ∘ L`" (sm-3:2635). -/
+theorem fderiv_composeFlows_zero (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (hHs : ∀ i, ContactMotionsHyp (Hs i))
+    (p : ℝ³) (i : Fin n) :
+    fderiv ℝ (fun a : Fin n → ℝ => composeFlows n Hs a p) 0 (Pi.single i 1) = hamVF (Hs i) p := by
+  sorry
+
+
+/-! ### Intermediate genericity stages -/
+
+/-- `(x′, x″)` never vanish together (sm-3:2656-2658 "every zero of `x₁′` is simple"). -/
+def NoDoubleZero (L : ℝ → ℝ³) : Prop :=
+  ∀ θ, deriv (coordX L) θ ≠ 0 ∨ deriv (deriv (coordX L)) θ ≠ 0
+/-- Circular distance of two parameters. -/
+def circDist (θ η : ℝ) : ℝ := |θ - η - 2 * π * round ((θ - η) / (2 * π))|
+/-- Uniform local injectivity of the front below the collar width `δc` (sm-3:2677-2680). -/
+def LocallyInjectiveFront (L : ℝ → ℝ³) (δc : ℝ) : Prop :=
+  0 < δc ∧ ∀ θ η, circDist θ η < δc → ¬ SameParam θ η → front L θ ≠ front L η
+/-- No cusp on another branch (sm-3:2713-2714). -/
+def NoCuspOnBranch (L : ℝ → ℝ³) : Prop :=
+  ∀ θ ∈ cuspSet L, ∀ η, ¬ SameParam θ η → front L η ≠ front L θ
+/-- No triple point. -/
+def NoTriple (L : ℝ → ℝ³) : Prop :=
+  ∀ θ η τ, ¬ SameParam θ η → ¬ SameParam θ τ → ¬ SameParam η τ →
+    ¬ (front L θ = front L η ∧ front L θ = front L τ)
+
+/-- After step 1 (sm-3:2639-2658). -/
+structure Stage1 (L : ℝ → ℝ³) : Prop where
+  circle : IsEmbeddedCircle L
+  legendrian : IsLegendrian L
+  noDoubleZero : NoDoubleZero L
+
+/-- After steps 2–3 (sm-3:2659-2714). -/
+structure Stage2 (L : ℝ → ℝ³) : Prop extends Stage1 L where
+  collar : ∃ δc, LocallyInjectiveFront L δc
+  noCuspOnBranch : NoCuspOnBranch L
+  noTriple : NoTriple L
+
+/-- After step 4 (sm-3:2715-2730). -/
+structure Stage3 (L : ℝ → ℝ³) : Prop extends Stage2 L where
+  transverse_double : ∀ p ∈ doublePoints L, IsTransverseDouble L p.1 p.2
+  finite_double : (doublePoints L ∩ Ico 0 (2 * π) ×ˢ Ico 0 (2 * π)).Finite
+
+/-! ### Unit P1 — simultaneous zeros of `(x′, x″)` (sm-3:2639-2658; row 85 with `(d,q) = (1,2)`) -/
+
+/-- The `x`-coordinate of `Φ_a ∘ L`. -/
+def xParam (L : ℝ → ℝ³) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (a : Fin n → ℝ) (θ : ℝ) : ℝ :=
+  composeFlows n Hs a (L θ) 0
+/-- The front `p_a = (x_a, z_a)` of `Φ_a ∘ L`. -/
+def frontParam (L : ℝ → ℝ³) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (a : Fin n → ℝ) (θ : ℝ) : ℝ × ℝ :=
+  front (composeFlows n Hs a ∘ L) θ
+/-- The parameter as a vector of `ℝ^n`, read as `Fin n → ℝ`. -/
+def par {n : ℕ} (a : ℝ^n) : Fin n → ℝ := fun i => a i
+/-- `(θ, a) ↦ (x_a′(θ), x_a″(θ))` on `ℝ^1 × ℝ^n` (sm-3:2639, 2653). -/
+def cuspMap (L : ℝ → ℝ³) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (z : ℝ^1 × ℝ^n) : ℝ^2 :=
+  !₂[deriv (xParam L n Hs (par z.2)) (z.1 0), deriv (deriv (xParam L n Hs (par z.2))) (z.1 0)]
+/-- One period of the circle in `ℝ^1`. -/
+def Kper1 : Set (ℝ^1) := {z | z 0 ∈ Icc 0 (2 * π)}
+
+/-- At a zero of `x′`, `y′ ≠ 0`: immersion and `z′ = y x′` (sm-3:2640).  Shared by P1.1 and P1.4. -/
+theorem gp1_deriv_y_ne_zero {L : ℝ → ℝ³} (hc : IsEmbeddedCircle L) (hl : IsLegendrian L) {θ : ℝ}
+    (hθ : deriv (coordX L) θ = 0) : deriv (coordY L) θ ≠ 0 := by
+  sorry
+
+
+/-- The `θ`-partial derivative of a jointly differentiable `G : A × ℝ → ℝ` is the full derivative
+in the direction `(0, 1)`. -/
+theorem gp1_deriv_partial_eq {A : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A] {G : A × ℝ → ℝ}
+    {a : A} {θ : ℝ} (hG : DifferentiableAt ℝ G (a, θ)) :
+    deriv (fun t => G (a, t)) θ = fderiv ℝ G (a, θ) (0, 1) := by
+  sorry
+
+
+/-- The `a`-partial derivative of a jointly differentiable `G : A × ℝ → ℝ`. -/
+theorem gp1_fderiv_partial_eq {A : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A] {G : A × ℝ → ℝ}
+    {a : A} {θ : ℝ} (hG : DifferentiableAt ℝ G (a, θ)) (v : A) :
+    fderiv ℝ (fun b => G (b, θ)) a v = fderiv ℝ G (a, θ) (v, 0) := by
+  sorry
+
+
+/-- The `θ`-partial derivative of a jointly `C^∞` map is jointly `C^∞`. -/
+theorem gp1_contDiff_partial_deriv {A : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A]
+    {G : A × ℝ → ℝ} (hG : ContDiff ℝ ∞ G) :
+    ContDiff ℝ ∞ (fun q : A × ℝ => deriv (fun t => G (q.1, t)) q.2) := by
+  sorry
+
+
+/-- Derivative of `z ↦ fderiv G z w`. -/
+theorem gp1_fderiv_fderiv_apply {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {G : E → ℝ}
+    (hG : ContDiff ℝ ∞ G) (z v w : E) :
+    fderiv ℝ (fun z => fderiv ℝ G z w) z v = fderiv ℝ (fderiv ℝ G) z v w := by
+  sorry
+
+
+/-- Mixed partials commute: `∂_a ∂_θ G = ∂_θ ∂_a G` for a jointly `C^∞` map. -/
+theorem gp1_mixed {A : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A] {G : A × ℝ → ℝ}
+    (hG : ContDiff ℝ ∞ G) (a : A) (θ : ℝ) (v : A) :
+    fderiv ℝ (fun b => deriv (fun t => G (b, t)) θ) a v =
+      deriv (fun t => fderiv ℝ (fun b => G (b, t)) a v) θ := by
+  sorry
+
+
+/-- The cut-off Hamiltonian `χ · h(y)` satisfies the row-86 hypotheses. -/
+theorem gp1_contactMotionsHyp_bump (χ : ContDiffBump (0 : ℝ³)) {h : ℝ → ℝ} (hh : ContDiff ℝ ∞ h) :
+    ContactMotionsHyp (fun p : ℝ³ => χ p * h (p 1)) := by
+  sorry
+
+
+/-- The `x`-component of `X_H` for `H = χ · h(y)` at a point where `χ = 1` nearby is `−h′(y)`
+(sm-3:2647 "their infinitesimal `x` changes"). -/
+theorem gp1_hamVF_zero_bump (χ : ContDiffBump (0 : ℝ³)) {h : ℝ → ℝ} (hh : ContDiff ℝ ∞ h)
+    {p : ℝ³} (hp : p ∈ Metric.ball (0 : ℝ³) χ.rIn) :
+    hamVF (fun p : ℝ³ => χ p * h (p 1)) p 0 = -deriv h (p 1) := by
+  sorry
+
+
+/-- A nonzero `2×2` minor of a linear map into `ℝ^2` makes it onto (FR-PA-2 "rank `q`"). -/
+theorem gp1_range_eq_top_of_minor {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X]
+    (T : X →L[ℝ] ℝ^2) (u v : X)
+    (hm : T u 0 * T v 1 - T u 1 * T v 0 ≠ 0) : T.range = ⊤ := by
+  sorry
+
+
+theorem gp1_finrank_eq_two_of_minor {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X]
+    (T : X →L[ℝ] ℝ^2) (u v : X)
+    (hm : T u 0 * T v 1 - T u 1 * T v 0 ≠ 0) : Module.finrank ℝ T.range = 2 := by
+  sorry
+
+
+/-- One period is compact in `ℝ^1`. -/
+theorem gp1_isCompact_Kper1 : IsCompact Kper1 := by
+  sorry
+
+
+/-- Coordinates of a derivative into `ℝ^2`. -/
+theorem gp1_fderiv_apply_coord2 {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X]
+    {f : X → ℝ^2} {p : X} (hf : DifferentiableAt ℝ f p) (v : X) (i : Fin 2) :
+    fderiv ℝ f p v i = fderiv ℝ (fun q => f q i) p v := by
+  sorry
+
+
+/-- The joint map `(a, θ) ↦ x_a(θ)` on `ℝ^n × ℝ` is `C^∞` (row 86 `compositions_smooth`). -/
+theorem gp1_contDiff_xJoint (L : ℝ → ℝ³) (hLs : ContDiff ℝ ∞ L) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) :
+    ContDiff ℝ ∞ (fun q : ℝ^n × ℝ => composeFlows n Hs (par q.1) (L q.2) 0) := by
+  sorry
+
+
+/-- P0.3 transported to the parameter space `ℝ^n`: `∂_{aᵢ} x_a(s)|₀ = X_{Hᵢ}(L s)_x`. -/
+theorem gp1_fderiv_xJoint_zero (L : ℝ → ℝ³) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (s : ℝ) (i : Fin n) :
+    fderiv ℝ (fun b : ℝ^n => composeFlows n Hs (par b) (L s) 0) 0 (EuclideanSpace.single i 1) =
+      hamVF (Hs i) (L s) 0 := by
+  sorry
+
+
+/-- `cuspMap` is `C^∞`: two `θ`-derivatives of the jointly smooth `x_a(θ)`. -/
+theorem gp1_contDiff_cuspMap (L : ℝ → ℝ³) (hLs : ContDiff ℝ ∞ L) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) : ContDiff ℝ ∞ (cuspMap L n Hs) := by
+  sorry
+
+
+/-- The parameter-`i` column of `D(cuspMap)` at `(θ, 0)`: `(gᵢ′(θ), gᵢ″(θ))` with
+`gᵢ(s) = X_{Hᵢ}(L s)_x` (sm-3:2647-2651, via P0.3 and the symmetry of mixed partials). -/
+theorem gp1_cuspMap_column (L : ℝ → ℝ³) (hLs : ContDiff ℝ ∞ L) (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (t : ℝ^1) (i : Fin n) :
+    fderiv ℝ (cuspMap L n Hs) (t, 0) (0, EuclideanSpace.single i 1) 0 =
+        deriv (fun s => hamVF (Hs i) (L s) 0) (t 0) ∧
+      fderiv ℝ (cuspMap L n Hs) (t, 0) (0, EuclideanSpace.single i 1) 1 =
+        deriv (deriv (fun s => hamVF (Hs i) (L s) 0)) (t 0) := by
+  sorry
+
+
+/-- LEAF P1.1.  Bump Hamiltonians `H₂ = −½(y−y₀)²`, `H₃ = −⅙(y−y₀)³` at finitely many zeros of
+`(x′,x″)` give a family with parameter rank `2` at every zero in `[0,2π] × B_r` (sm-3:2639-2652):
+`ParameterAvoidanceHyp 1 n 2`. -/
+theorem exists_cusp_avoidance (L : ℝ → ℝ³) (hL : GenericFrontHyp L) :
+    ∃ (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (r : ℝ), (∀ i, ContactMotionsHyp (Hs i)) ∧ 0 < r ∧
+      ParameterAvoidanceHyp 1 n 2 Kper1 0 r (cuspMap L n Hs) := by
+  sorry
+
+
+/-- The derivative of a periodic function is periodic. -/
+theorem gp1_periodic_deriv {f : ℝ → ℝ} {c : ℝ} (hf : Periodic f c) : Periodic (deriv f) c := by
+  sorry
+
+
+/-- LEAF P1.2.  A parameter avoiding the bad set gives `NoDoubleZero` (periodicity reduces every
+`θ` to `[0,2π]`). -/
+theorem noDoubleZero_of_notMem (L : ℝ → ℝ³) (hL : GenericFrontHyp L) (n : ℕ)
+    (Hs : Fin n → ℝ³ → ℝ) (hHs : ∀ i, ContactMotionsHyp (Hs i)) {r : ℝ} {a : ℝ^n}
+    (ha : a ∉ ParameterAvoidance.zeroParams Kper1 (Metric.closedBall 0 r) (cuspMap L n Hs))
+    (har : a ∈ Metric.closedBall (0 : ℝ^n) r) : NoDoubleZero (composeFlows n Hs (par a) ∘ L) := by
+  sorry
+
+
+/-- LEAF P1.3.  Simple zeros of `x′` on the circle are finitely many (sm-3:2657). -/
+theorem finite_cusps_of_stage1 {L : ℝ → ℝ³} (h : Stage1 L) : (cuspSet L ∩ Ico 0 (2 * π)).Finite := by
+  sorry
+
+
+/-- LEAF P1.4.  At a cusp `y′ ≠ 0` (immersion + `z′ = y x′`, sm-3:2640, 2658). -/
+theorem deriv_y_ne_zero_at_cusp {L : ℝ → ℝ³} (h : Stage1 L) {θ : ℝ} (hθ : θ ∈ cuspSet L) :
+    deriv (coordY L) θ ≠ 0 := by
+  sorry
+
+
+/-- Step 1 assembled (sm-3:2639-2658): a contact isotopy to a `Stage1` curve. -/
+theorem step1 (L : ℝ → ℝ³) (hL : GenericFrontHyp L) :
+    ∃ Φ : ℝ → ℝ³ → ℝ³, IsContactIsotopy Φ ∧ Stage1 (Φ 1 ∘ L) := by
+  sorry
+
+
+/-! ### Unit P2 — the uniform collar (sm-3:2659-2685) -/
+
+/-! Helpers for unit P2 (prefix `gp2_`).  The front is shown injective on an interval from a
+*certificate*: either `x′ ≠ 0` on it (regular interval), or `x″ ≠ 0` and `y′ ≠ 0` on it (critical
+interval).  Both cases are Rolle's theorem; the critical case is the mean-value form of the
+integration by parts `z(θ₂) − z(θ₁) = ∫ y′ (X − x)` (sm-3:2666-2675): the function
+`k = z − y (x − X)` has `k′ = y′ (X − x)`. -/
+
+/-- Rolle: a function whose derivative never vanishes on the interior of an interval is injective
+on the closed interval. -/
+lemma gp2_injOn_of_deriv_ne_zero {f : ℝ → ℝ} {α β : ℝ} (hf : ContinuousOn f (Icc α β))
+    (h : ∀ θ ∈ Ioo α β, deriv f θ ≠ 0) : InjOn f (Icc α β) := by
+  sorry
+
+
+/-- Regular interval: `x′ ≠ 0` makes `(x, z)` injective. -/
+lemma gp2_injOn_front_regular {x z : ℝ → ℝ} {α β : ℝ} (hx : ContinuousOn x (Icc α β))
+    (h : ∀ θ ∈ Ioo α β, deriv x θ ≠ 0) : InjOn (fun θ => (x θ, z θ)) (Icc α β) := by
+  sorry
+
+
+/-- Critical interval (sm-3:2666-2675): `x″ ≠ 0` (so `x′` is injective), `y′ ≠ 0` and `z′ = y x′`
+on `[α, β]` make `(x, z)` injective there.  With `X = x θ₁ = x θ₂` and `k = z − y (x − X)`,
+`k θ₁ = k θ₂` gives `c` with `0 = k′ c = y′ c (X − x c)`, so `x c = X`, and then `x′` vanishes
+once in `(θ₁, c)` and once in `(c, θ₂)`, contradicting its injectivity. -/
+lemma gp2_injOn_front_critical {x y z : ℝ → ℝ} {α β : ℝ}
+    (hx : Differentiable ℝ x) (hy : Differentiable ℝ y) (hz : Differentiable ℝ z)
+    (hx' : ContinuousOn (deriv x) (Icc α β)) (hleg : ∀ θ, deriv z θ = y θ * deriv x θ)
+    (hx'' : ∀ θ ∈ Ioo α β, deriv (deriv x) θ ≠ 0) (hy' : ∀ θ ∈ Ioo α β, deriv y θ ≠ 0) :
+    InjOn (fun θ => (x θ, z θ)) (Icc α β) := by
+  sorry
+
+
+/-- Legendrian curves satisfy `z′ = y x′`. -/
+lemma gp2_deriv_coordZ {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (hleg : IsLegendrian L) (θ : ℝ) :
+    deriv (coordZ L) θ = coordY L θ * deriv (coordX L) θ := by
+  sorry
+
+
+/-- A certificate on `[α, β]` makes the front injective there. -/
+lemma gp2_injOn_front_of_cert {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (hleg : IsLegendrian L) {α β : ℝ}
+    (hc : (∀ θ ∈ Icc α β, deriv (coordX L) θ ≠ 0) ∨
+      ((∀ θ ∈ Icc α β, deriv (deriv (coordX L)) θ ≠ 0) ∧ ∀ θ ∈ Icc α β, deriv (coordY L) θ ≠ 0)) :
+    InjOn (front L) (Icc α β) := by
+  sorry
+
+
+/-- Every point of a `Stage1` curve has a certificate interval (`NoDoubleZero`; at a cusp `y′ ≠ 0`
+by P1.4). -/
+lemma gp2_exists_cert {L : ℝ → ℝ³} (h : Stage1 L) (θ₀ : ℝ) :
+    ∃ ρ > 0, (∀ θ ∈ Icc (θ₀ - ρ) (θ₀ + ρ), deriv (coordX L) θ ≠ 0) ∨
+      ((∀ θ ∈ Icc (θ₀ - ρ) (θ₀ + ρ), deriv (deriv (coordX L)) θ ≠ 0) ∧
+        ∀ θ ∈ Icc (θ₀ - ρ) (θ₀ + ρ), deriv (coordY L) θ ≠ 0) := by
+  sorry
+
+
+/-- The front of a `2π`-periodic curve is `2π`-periodic. -/
+lemma gp2_periodic_front {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) : Periodic (front L) (2 * π) := by
+  sorry
+
+
+/-- The circular distance is at most `π`. -/
+lemma gp2_circDist_le_pi (θ η : ℝ) : circDist θ η ≤ π := by
+  sorry
+
+
+/-- Reduction of the collar property to pairs `(θ, η)` with `θ ∈ [0, 2π)`, `|θ − η| < δ` and
+`|θ − η| ≤ π` (the circular distance is realised after shifting both parameters by multiples of
+`2π`; `¬ SameParam` becomes `θ ≠ η`). -/
+lemma gp2_collar_of_reduced {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) {δ : ℝ} (hδ : 0 < δ)
+    (h : ∀ θ ∈ Ico 0 (2 * π), ∀ η, |θ - η| < δ → |θ - η| ≤ π → θ ≠ η → front L θ ≠ front L η) :
+    LocallyInjectiveFront L δ := by
+  sorry
+
+
+/-- The collar from a cover of `[0, 2π]` by sets on which the front is injective, with a Lebesgue
+number `δ` (sm-3:2680-2685). -/
+lemma gp2_collar_of_cover {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) {ι : Sort*} {c : ι → Set ℝ}
+    (hinj : ∀ i, InjOn (front L) (c i)) {δ : ℝ} (hδ : 0 < δ)
+    (hleb : ∀ θ ∈ Icc 0 (2 * π), ∃ i, Metric.ball θ δ ⊆ c i) : LocallyInjectiveFront L δ := by
+  sorry
+
+
+/-- LEAF P2.1.  A `Stage1` front is uniformly locally injective: regular intervals (`x′` of fixed
+sign, `x` monotone) and critical intervals (one simple zero of `x′`, `y′` of fixed sign; for
+`θ₁ < θ_c < θ₂` with `x(θ₁) = x(θ₂) = X`, `z(θ₂) − z(θ₁) = ∫ y′(θ)(X − x(θ)) dθ ≠ 0` by integration
+by parts from `z′ = y x′`), Lebesgue number of the cover. -/
+theorem exists_collar {L : ℝ → ℝ³} (h : Stage1 L) : ∃ δc, LocallyInjectiveFront L δc := by
+  sorry
+
+
+/-! Helpers for P2.2 (prefix `gp2_`).  The leaf `stage1_stable` is FALSE as stated (see
+`GF_U_P2_REPORT.md`: a front double point at circular distance exactly `δc` moves inside the collar
+under a Hamiltonian perturbation); what is true, and proved here as `gp2_stage1_stable_of_lt`, is
+that `Stage1` persists and the collar persists with every smaller width `δ' < δc`. -/
+
+/-- Tube lemma: an open condition on a compact set at parameter `0` holds for all small
+parameters. -/
+lemma gp2_eventually_of_compact {X : Type*} [TopologicalSpace X] {m : ℕ} {I : Set X}
+    (hI : IsCompact I) {V : Set (X × ℝ^m)} (hV : IsOpen V) (h0 : ∀ θ ∈ I, (θ, (0 : ℝ^m)) ∈ V) :
+    ∀ᶠ a in 𝓝 (0 : ℝ^m), ∀ θ ∈ I, (θ, a) ∈ V := by
+  sorry
+
+
+/-- `(θ, a) ↦ Φ_a (L θ)` is jointly smooth (row 86, `compositions_smooth`). -/
+lemma gp2_contDiff_G {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) :
+    ContDiff ℝ ∞ (fun q : ℝ × ℝ^m => composeFlows m Hs (par q.2) (L q.1)) := by
+  sorry
+
+
+/-- At parameter `0` the composition is the identity. -/
+lemma gp2_composeFlows_par_zero (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (hHs : ∀ i, ContactMotionsHyp (Hs i))
+    (p : ℝ³) : composeFlows m Hs (par (0 : ℝ^m)) p = p := by
+  sorry
+
+
+/-- The partial `θ`-derivative `DG (1, 0)` of a jointly smooth map is jointly smooth. -/
+lemma gp2_contDiff_D1 {m : ℕ} {G : ℝ × ℝ^m → ℝ³} (hG : ContDiff ℝ ∞ G) :
+    ContDiff ℝ ∞ (fun q => fderiv ℝ G q (1, 0)) := by
+  sorry
+
+
+/-- The `θ`-derivative of a coordinate of the slice `θ ↦ G (θ, a)` is the partial derivative. -/
+lemma gp2_deriv_slice {m : ℕ} {G : ℝ × ℝ^m → ℝ³} (hG : ContDiff ℝ ∞ G) (a : ℝ^m) (i : Fin 3)
+    (θ : ℝ) : deriv (fun θ => G (θ, a) i) θ = fderiv ℝ G (θ, a) (1, 0) i := by
+  sorry
+
+
+/-- The second `θ`-derivative of a coordinate of the slice. -/
+lemma gp2_deriv2_slice {m : ℕ} {G : ℝ × ℝ^m → ℝ³} (hG : ContDiff ℝ ∞ G) (a : ℝ^m) (i : Fin 3)
+    (θ : ℝ) : deriv (deriv (fun θ => G (θ, a) i)) θ =
+      fderiv ℝ (fun q => fderiv ℝ G q (1, 0)) (θ, a) (1, 0) i := by
+  sorry
+
+
+/-- The derivative of a `2π`-periodic function is `2π`-periodic. -/
+lemma gp2_periodic_deriv {f : ℝ → ℝ} (hf : Periodic f (2 * π)) : Periodic (deriv f) (2 * π) := by
+  sorry
+
+
+/-- Every parameter is `θ' + n·2π` with `θ' ∈ [0, 2π)`. -/
+lemma gp2_exists_shift (θ : ℝ) : ∃ θ' ∈ Ico 0 (2 * π), ∃ n : ℤ, θ = θ' + n * (2 * π) := by
+  sorry
+
+
+/-- `circDist θ η ≤ |θ − η|`. -/
+lemma gp2_circDist_le_abs (θ η : ℝ) : circDist θ η ≤ |θ - η| := by
+  sorry
+
+
+/-- Parameters at distance in `(0, π]` are distinct on the circle. -/
+lemma gp2_not_sameParam {θ η : ℝ} (h1 : 0 < |θ - η|) (h2 : |θ - η| ≤ π) : ¬ SameParam θ η := by
+  sorry
+
+
+/-- Monotonicity of the collar in its width. -/
+lemma gp2_locallyInjectiveFront_mono {L : ℝ → ℝ³} {δ δ' : ℝ} (h : LocallyInjectiveFront L δ)
+    (hδ' : 0 < δ') (hle : δ' ≤ δ) : LocallyInjectiveFront L δ' := by
+  sorry
+
+
+/-- Certificates persist for small parameters: the three functions `(θ, a) ↦ x_a′(θ), x_a″(θ),
+y_a′(θ)` are jointly continuous (partial `θ`-derivatives of the jointly smooth `(θ, a) ↦ Φ_a(L θ)`),
+and a nonvanishing condition on a compact interval is open (tube lemma). -/
+lemma gp2_cert_stable {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) {α β : ℝ}
+    (hc : (∀ θ ∈ Icc α β, deriv (coordX L) θ ≠ 0) ∨
+      ((∀ θ ∈ Icc α β, deriv (deriv (coordX L)) θ ≠ 0) ∧ ∀ θ ∈ Icc α β, deriv (coordY L) θ ≠ 0)) :
+    ∀ᶠ a in 𝓝 (0 : ℝ^m),
+      (∀ θ ∈ Icc α β, deriv (coordX (composeFlows m Hs (par a) ∘ L)) θ ≠ 0) ∨
+      ((∀ θ ∈ Icc α β, deriv (deriv (coordX (composeFlows m Hs (par a) ∘ L))) θ ≠ 0) ∧
+        ∀ θ ∈ Icc α β, deriv (coordY (composeFlows m Hs (par a) ∘ L)) θ ≠ 0) := by
+  sorry
+
+
+/-- Pairs in one period at distance in `[δ, δ']`, `δ' < δc`, have distinct fronts, stably: they
+form a compact set, "fronts differ" is an open condition, and `(θ, η, a) ↦ (p_a(θ), p_a(η))` is
+continuous. -/
+lemma gp2_far_stable {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {δc : ℝ} (hδ : LocallyInjectiveFront L δc)
+    {δ δ' : ℝ} (hδpos : 0 < δ) (hδ' : δ' < δc) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) :
+    ∀ᶠ a in 𝓝 (0 : ℝ^m), ∀ θ ∈ Icc 0 (2 * π), ∀ η, δ ≤ |θ - η| → |θ - η| ≤ δ' → |θ - η| ≤ π →
+      front (composeFlows m Hs (par a) ∘ L) θ ≠ front (composeFlows m Hs (par a) ∘ L) η := by
+  sorry
+
+
+/-- **The true form of P2.2.**  `Stage1` persists under small parameters of any Hamiltonian
+family, and so does the collar with every *smaller* width `δ' < δc`: near the diagonal by the
+stability of the certificates on a finite subcover (same Lebesgue number), away from it by the
+compactness of the pairs at distance in `[δ, δ']`.  (With the width `δc` itself the statement is
+false in general — see `GF_U_P2_REPORT.md`.) -/
+theorem gp2_stage1_stable_of_lt {L : ℝ → ℝ³} (h : Stage1 L) {δc : ℝ}
+    (hδ : LocallyInjectiveFront L δc) {δ' : ℝ} (hδ'pos : 0 < δ') (hδ' : δ' < δc)
+    (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (hHs : ∀ i, ContactMotionsHyp (Hs i)) :
+    ∃ r > 0, ∀ a : ℝ^m, ‖a‖ < r →
+      Stage1 (composeFlows m Hs (par a) ∘ L) ∧
+        LocallyInjectiveFront (composeFlows m Hs (par a) ∘ L) δ' := by
+  sorry
+
+
+/-! The skeleton's LEAF P2.2 (`stage1_stable`: for every collar width `δc` of `L` and every
+Hamiltonian family, `Stage1` and the collar of the SAME width `δc` persist for all small parameters)
+is FALSE as stated (`GF_U_P2_REPORT.md` §2, numerically checked in `GF_U_P2_probe.py`): for
+`L(θ) = (sin 2θ, sin θ, cos θ − ⅓cos 3θ)` the front has one double point at circular distance
+exactly `π = δc`, and the `H^x`-bump perturbation at one of its two points moves the double point
+to distance `π − |a|/2 < δc` for every `a ≠ 0`.  The true statement is persistence of the collar
+with any SMALLER width, `gp2_stage1_stable_of_lt` above (`δ' < δc`); `step2` below uses it with
+the half width `δc / 2` (`gp2_locallyInjectiveFront_mono`).  Nothing else referenced the leaf. -/
+
+/-! ### Unit P3 — cusps on branches and triple points (sm-3:2686-2714; row 85 with `(2,3)`, `(3,4)`) -/
+
+/-- `C(θ,η,a) = (x_a′(θ), p_a(θ) − p_a(η)) ∈ ℝ³` (sm-3:2687-2688). -/
+def Cmap (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (z : ℝ^2 × ℝ^m) : ℝ^3 :=
+  !₂[deriv (xParam L m Hs (par z.2)) (z.1 0),
+    (frontParam L m Hs (par z.2) (z.1 0)).1 - (frontParam L m Hs (par z.2) (z.1 1)).1,
+    (frontParam L m Hs (par z.2) (z.1 0)).2 - (frontParam L m Hs (par z.2) (z.1 1)).2]
+/-- `R(θ,η,τ,a) = (p_a(θ) − p_a(η), p_a(θ) − p_a(τ)) ∈ ℝ⁴` (sm-3:2689-2690). -/
+def Rmap (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (z : ℝ^3 × ℝ^m) : ℝ^4 :=
+  !₂[(frontParam L m Hs (par z.2) (z.1 0)).1 - (frontParam L m Hs (par z.2) (z.1 1)).1,
+    (frontParam L m Hs (par z.2) (z.1 0)).2 - (frontParam L m Hs (par z.2) (z.1 1)).2,
+    (frontParam L m Hs (par z.2) (z.1 0)).1 - (frontParam L m Hs (par z.2) (z.1 2)).1,
+    (frontParam L m Hs (par z.2) (z.1 0)).2 - (frontParam L m Hs (par z.2) (z.1 2)).2]
+/-- `K₂`: ordered pairs in one period at circular distance `≥ δc` (sm-3:2685-2686). -/
+def K2 (δc : ℝ) : Set (ℝ^2) :=
+  {z | z 0 ∈ Icc 0 (2 * π) ∧ z 1 ∈ Icc 0 (2 * π) ∧ δc ≤ circDist (z 0) (z 1)}
+/-- `K₃`: ordered triples in one period, pairwise at circular distance `≥ δc`. -/
+def K3 (δc : ℝ) : Set (ℝ^3) :=
+  {z | z 0 ∈ Icc 0 (2 * π) ∧ z 1 ∈ Icc 0 (2 * π) ∧ z 2 ∈ Icc 0 (2 * π) ∧
+    δc ≤ circDist (z 0) (z 1) ∧ δc ≤ circDist (z 0) (z 2) ∧ δc ≤ circDist (z 1) (z 2)}
+
+
+/-! ### Unit P3 helpers: local models of `X_H` -/
+
+theorem gp3_hamVF_congr {H₁ H₂ : ℝ³ → ℝ} {p : ℝ³} (h : H₁ =ᶠ[𝓝 p] H₂) :
+    hamVF H₁ p = hamVF H₂ p := by
+  sorry
+
+
+theorem gp3_hamVF_eq_zero_of_notMem {H : ℝ³ → ℝ} {p : ℝ³} (hp : p ∉ tsupport H) :
+    hamVF H p = 0 := by
+  sorry
+
+
+theorem gp3_hamVF_Hx (c : ℝ) (p : ℝ³) : hamVF (fun p : ℝ³ => -(p 1 - c)) p = !₂[1, 0, c] := by
+  sorry
+
+
+theorem gp3_hamVF_Hz (p : ℝ³) : hamVF (fun _ : ℝ³ => (1 : ℝ)) p = !₂[0, 0, 1] := by
+  sorry
+
+
+theorem gp3_pd_H2 (c : ℝ) (p : ℝ³) (i : Fin 3) :
+    ContactMotions.pd (fun p : ℝ³ => -(1 / 2) * (p 1 - c) ^ 2) i p =
+      -(p 1 - c) * ContactMotions.e i 1 := by
+  sorry
+
+
+theorem gp3_hamVF_H2 (c : ℝ) (p : ℝ³) :
+    hamVF (fun p : ℝ³ => -(1 / 2) * (p 1 - c) ^ 2) p =
+      !₂[p 1 - c, 0, -(1 / 2) * (p 1 - c) ^ 2 + p 1 * (p 1 - c)] := by
+  sorry
+
+
+theorem gp3_hamVF_H2_zero (c : ℝ) (p : ℝ³) :
+    hamVF (fun p : ℝ³ => -(1 / 2) * (p 1 - c) ^ 2) p 0 = p 1 - c := by
+  sorry
+
+
+theorem gp3_hamVF_H2_at (c : ℝ) (p : ℝ³) (hp : p 1 = c) :
+    hamVF (fun p : ℝ³ => -(1 / 2) * (p 1 - c) ^ 2) p = 0 := by
+  sorry
+
+
+/-- LEAF P3.1 (local tool).  Hamiltonians equal near `q` to `H^x = −(y − y_q)` and `H^z = 1` have
+`X_H = (1, 0, y_q)` and `(0, 0, 1)` at points where the bump is `1` (sm-3:2699-2701); `H₂ = −½(y−y₀)²`
+has `x`-velocity `y − y₀` and vanishes where `y = y₀` (sm-3:2641-2646). -/
+theorem hamVF_local_models (q : ℝ³) (χ : ℝ³ → ℝ) (hχ : χ =ᶠ[𝓝 q] 1) :
+    hamVF (fun p => χ p * (-(p 1 - q 1))) q = !₂[1, 0, q 1] ∧
+    hamVF (fun p => χ p * 1) q = !₂[0, 0, 1] ∧
+    hamVF (fun p => χ p * (-(1 / 2) * (p 1 - q 1) ^ 2)) q = 0 := by
+  sorry
+
+
+/-! ### Unit P3 helpers: circular distance -/
+
+theorem gp3_circDist_eq (θ η : ℝ) :
+    circDist θ η = 2 * π * min (Int.fract ((θ - η) / (2 * π))) (1 - Int.fract ((θ - η) / (2 * π))) := by
+  sorry
+
+
+theorem gp3_continuous_circDist : Continuous fun z : ℝ × ℝ => circDist z.1 z.2 := by
+  sorry
+
+
+theorem gp3_circDist_eq_zero_of_sameParam {θ η : ℝ} (h : SameParam θ η) : circDist θ η = 0 := by
+  sorry
+
+
+theorem gp3_not_sameParam_of_le_circDist {δ θ η : ℝ} (hδ : 0 < δ) (h : δ ≤ circDist θ η) :
+    ¬ SameParam θ η := by
+  sorry
+
+
+/-- The coordinate functional `z ↦ z i` on `ℝ^d`. -/
+def gp3_proj (d : ℕ) (i : Fin d) : ℝ^d →L[ℝ] ℝ := PiLp.proj 2 (fun _ : Fin d => ℝ) i
+
+@[simp] theorem gp3_proj_apply (d : ℕ) (i : Fin d) (z : ℝ^d) : gp3_proj d i z = z i := by
+  sorry
+
+
+theorem gp3_continuous_apply (d : ℕ) (i : Fin d) : Continuous fun z : ℝ^d => z i := by
+  sorry
+
+
+theorem gp3_contDiff_apply (d : ℕ) (i : Fin d) : ContDiff ℝ ∞ fun z : ℝ^d => z i := by
+  sorry
+
+
+theorem gp3_isCompact_box (d : ℕ) : IsCompact {z : ℝ^d | ∀ i, z i ∈ Icc 0 (2 * π)} := by
+  sorry
+
+
+theorem gp3_isCompact_K2 (δc : ℝ) : IsCompact (K2 δc) := by
+  sorry
+
+
+theorem gp3_isCompact_K3 (δc : ℝ) : IsCompact (K3 δc) := by
+  sorry
+
+
+theorem gp3_xParam_eq (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (a : Fin m → ℝ) :
+    xParam L m Hs a = coordX (composeFlows m Hs a ∘ L) := by
+  sorry
+
+
+theorem gp3_frontParam_eq (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (a : Fin m → ℝ) :
+    frontParam L m Hs a = front (composeFlows m Hs a ∘ L) := by
+  sorry
+
+
+/-! ### Unit P3 helpers: partial derivatives of jointly smooth maps -/
+
+section gp3_partial
+
+variable {A B E F : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A] [NormedAddCommGroup B]
+  [NormedSpace ℝ B] [NormedAddCommGroup E] [NormedSpace ℝ E] [NormedAddCommGroup F] [NormedSpace ℝ F]
+
+theorem gp3_fderiv_slice_left {f : A × B → F} {a : A} {b : B} (hf : DifferentiableAt ℝ f (a, b))
+    (v : A) : fderiv ℝ (fun a => f (a, b)) a v = fderiv ℝ f (a, b) (v, 0) := by
+  sorry
+
+
+theorem gp3_deriv_slice_right {f : A × ℝ → F} {a : A} {t : ℝ} (hf : DifferentiableAt ℝ f (a, t)) :
+    deriv (fun t => f (a, t)) t = fderiv ℝ f (a, t) (0, 1) := by
+  sorry
+
+
+theorem gp3_fderiv_comp_clm {g : E → F} (σ : A →L[ℝ] E) {z : A} (hg : DifferentiableAt ℝ g (σ z))
+    (v : A) : fderiv ℝ (fun z => g (σ z)) z v = fderiv ℝ g (σ z) (σ v) := by
+  sorry
+
+
+/-- Symmetry of the second derivative of a `C^∞` map, in the "partial derivative" form. -/
+theorem gp3_fderiv_fderiv_comm {f : E → F} (hf : ContDiff ℝ ∞ f) (x v w : E) :
+    fderiv ℝ (fun y => fderiv ℝ f y w) x v = fderiv ℝ (fun y => fderiv ℝ f y v) x w := by
+  sorry
+
+
+theorem gp3_contDiff_fderiv_apply {f : E → F} (hf : ContDiff ℝ ∞ f) (w : E) :
+    ContDiff ℝ ∞ fun y => fderiv ℝ f y w := by
+  sorry
+
+
+theorem gp3_fderiv_apply_coord {n : ℕ} {f : A → ℝ^n} {p : A} (hf : DifferentiableAt ℝ f p) (v : A)
+    (i : Fin n) : fderiv ℝ f p v i = fderiv ℝ (fun q => f q i) p v := by
+  sorry
+
+
+end gp3_partial
+
+/-! ### Unit P3 helpers: the joint map `(a, θ) ↦ Φ_a(L θ)` and the derivatives of `C`, `R` -/
+
+/-- The joint map `(a, θ) ↦ Φ_a(L θ)`. -/
+def gp3_G (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (q : (Fin m → ℝ) × ℝ) : ℝ³ :=
+  composeFlows m Hs q.1 (L q.2)
+
+/-- Its `k`-th coordinate. -/
+def gp3_Gk (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (k : Fin 3) (q : (Fin m → ℝ) × ℝ) : ℝ :=
+  gp3_G L m Hs q k
+
+theorem gp3_contDiff_G {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) : ContDiff ℝ ∞ (gp3_G L m Hs) := by
+  sorry
+
+
+theorem gp3_contDiff_Gk {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (k : Fin 3) : ContDiff ℝ ∞ (gp3_Gk L m Hs k) := by
+  sorry
+
+
+/-- The linear slice map `z ↦ (a, θ_j)` from `ℝ^d × ℝ^m` to `(Fin m → ℝ) × ℝ`. -/
+def gp3_σ (d m : ℕ) (j : Fin d) : ℝ^d × ℝ^m →L[ℝ] (Fin m → ℝ) × ℝ :=
+  ((PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin m => ℝ) : ℝ^m →L[ℝ] (Fin m → ℝ)).comp
+    (ContinuousLinearMap.snd ℝ (ℝ^d) (ℝ^m))).prod
+    ((gp3_proj d j).comp (ContinuousLinearMap.fst ℝ (ℝ^d) (ℝ^m)))
+
+theorem gp3_σ_apply (d m : ℕ) (j : Fin d) (z : ℝ^d × ℝ^m) :
+    gp3_σ d m j z = (par z.2, z.1 j) := by
+  sorry
+
+
+theorem gp3_par_zero (m : ℕ) : par (0 : ℝ^m) = 0 := by
+  sorry
+
+
+theorem gp3_par_single (m : ℕ) (i : Fin m) : par (EuclideanSpace.single i (1 : ℝ)) = Pi.single i 1 := by
+  sorry
+
+
+theorem gp3_σ_zero (d m : ℕ) (j : Fin d) (t : ℝ^d) : gp3_σ d m j (t, 0) = (0, t j) := by
+  sorry
+
+
+theorem gp3_σ_single (d m : ℕ) (j : Fin d) (i : Fin m) :
+    gp3_σ d m j (0, EuclideanSpace.single i 1) = (Pi.single i 1, 0) := by
+  sorry
+
+
+theorem gp3_xParam_deriv {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (a : Fin m → ℝ) (θ : ℝ) :
+    deriv (xParam L m Hs a) θ = fderiv ℝ (gp3_Gk L m Hs 0) (a, θ) (0, 1) := by
+  sorry
+
+
+/-- `∂_{a_i} Φ_a(L θ)_k |_{a=0} = X_{H_i}(L θ)_k` (P0.3 in the joint-map form). -/
+theorem gp3_fderiv_Gk_zero {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (k : Fin 3) (θ : ℝ) (i : Fin m) :
+    fderiv ℝ (gp3_Gk L m Hs k) (0, θ) (Pi.single i 1, 0) = hamVF (Hs i) (L θ) k := by
+  sorry
+
+
+/-- `Cmap` in terms of the joint map. -/
+theorem gp3_Cmap_eq {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) :
+    Cmap L m Hs = fun z => !₂[fderiv ℝ (gp3_Gk L m Hs 0) (gp3_σ 2 m 0 z) (0, 1),
+      gp3_Gk L m Hs 0 (gp3_σ 2 m 0 z) - gp3_Gk L m Hs 0 (gp3_σ 2 m 1 z),
+      gp3_Gk L m Hs 2 (gp3_σ 2 m 0 z) - gp3_Gk L m Hs 2 (gp3_σ 2 m 1 z)] := by
+  sorry
+
+
+/-- `Rmap` in terms of the joint map. -/
+theorem gp3_Rmap_eq (L : ℝ → ℝ³) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) :
+    Rmap L m Hs = fun z => !₂[gp3_Gk L m Hs 0 (gp3_σ 3 m 0 z) - gp3_Gk L m Hs 0 (gp3_σ 3 m 1 z),
+      gp3_Gk L m Hs 2 (gp3_σ 3 m 0 z) - gp3_Gk L m Hs 2 (gp3_σ 3 m 1 z),
+      gp3_Gk L m Hs 0 (gp3_σ 3 m 0 z) - gp3_Gk L m Hs 0 (gp3_σ 3 m 2 z),
+      gp3_Gk L m Hs 2 (gp3_σ 3 m 0 z) - gp3_Gk L m Hs 2 (gp3_σ 3 m 2 z)] := by
+  sorry
+
+
+theorem gp3_contDiff_Cmap {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) : ContDiff ℝ ∞ (Cmap L m Hs) := by
+  sorry
+
+
+theorem gp3_contDiff_Rmap {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) : ContDiff ℝ ∞ (Rmap L m Hs) := by
+  sorry
+
+
+/-- The column of `∂_a C` at `a = 0` contributed by one Hamiltonian `H`:
+`(∂_θ (X_H(L θ))_x, X_H(L θ)_x − X_H(L η)_x, X_H(L θ)_z − X_H(L η)_z)`. -/
+def gp3_colC (L : ℝ → ℝ³) (H : ℝ³ → ℝ) (θ η : ℝ) : ℝ^3 :=
+  !₂[deriv (fun θ => hamVF H (L θ) 0) θ, hamVF H (L θ) 0 - hamVF H (L η) 0,
+    hamVF H (L θ) 2 - hamVF H (L η) 2]
+
+/-- The column of `∂_a R` at `a = 0` contributed by one Hamiltonian `H`. -/
+def gp3_colR (L : ℝ → ℝ³) (H : ℝ³ → ℝ) (θ η τ : ℝ) : ℝ^4 :=
+  !₂[hamVF H (L θ) 0 - hamVF H (L η) 0, hamVF H (L θ) 2 - hamVF H (L η) 2,
+    hamVF H (L θ) 0 - hamVF H (L τ) 0, hamVF H (L θ) 2 - hamVF H (L τ) 2]
+
+/-- The difference-of-coordinates component of `∂_a C`, `∂_a R` at `a = 0`. -/
+theorem gp3_fderiv_diff_zero {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (k : Fin 3) {d : ℕ} (j j' : Fin d) (t : ℝ^d) (i : Fin m) :
+    fderiv ℝ (fun z : ℝ^d × ℝ^m => gp3_Gk L m Hs k (gp3_σ d m j z) - gp3_Gk L m Hs k (gp3_σ d m j' z))
+      (t, 0) (0, EuclideanSpace.single i 1) = hamVF (Hs i) (L (t j)) k - hamVF (Hs i) (L (t j')) k := by
+  sorry
+
+
+/-- The `x_a′(θ)` component of `∂_a C` at `a = 0`: `∂_θ (X_{H_i}(L θ))_x` (mixed partials commute). -/
+theorem gp3_fderiv_xderiv_zero {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) {d : ℕ} (j : Fin d) (t : ℝ^d) (i : Fin m) :
+    fderiv ℝ (fun z : ℝ^d × ℝ^m => fderiv ℝ (gp3_Gk L m Hs 0) (gp3_σ d m j z) (0, 1))
+      (t, 0) (0, EuclideanSpace.single i 1) = deriv (fun θ => hamVF (Hs i) (L θ) 0) (t j) := by
+  sorry
+
+
+theorem gp3_fderiv_Cmap_zero {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (t : ℝ^2) (i : Fin m) :
+    fderiv ℝ (Cmap L m Hs) (t, 0) (0, EuclideanSpace.single i 1) = gp3_colC L (Hs i) (t 0) (t 1) := by
+  sorry
+
+
+theorem gp3_fderiv_Rmap_zero {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) (t : ℝ^3) (i : Fin m) :
+    fderiv ℝ (Rmap L m Hs) (t, 0) (0, EuclideanSpace.single i 1) =
+      gp3_colR L (Hs i) (t 0) (t 1) (t 2) := by
+  sorry
+
+
+/-! ### Unit P3 helpers: from independent columns at `a = 0` to `ParameterAvoidanceHyp` -/
+
+theorem gp3_finrank_of_indep {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X] {q : ℕ}
+    (f : X →L[ℝ] ℝ^q) {v : Fin q → X} (h : LinearIndependent ℝ (fun j => f (v j))) :
+    Module.finrank ℝ f.range = q := by
+  sorry
+
+
+theorem gp3_isOpen_indep {d m q : ℕ} {F : ℝ^d × ℝ^m → ℝ^q} (hF : ContDiff ℝ ∞ F) (ι : Fin q → Fin m) :
+    IsOpen {z | LinearIndependent ℝ (fun j => fderiv ℝ F z (0, EuclideanSpace.single (ι j) 1))} := by
+  sorry
+
+
+/-- The compactness/shrinking step: if at every zero over `a = 0` some `q` parameter columns are
+independent, then for a small parameter ball every zero has parameter rank `q`, and the
+`ParameterAvoidanceHyp` holds for every smaller radius. -/
+theorem gp3_exists_paHyp {d m q : ℕ} {K : Set (ℝ^d)} (hK : IsCompact K) {F : ℝ^d × ℝ^m → ℝ^q}
+    (hF : ContDiff ℝ ∞ F) (hdq : d < q) {κ : Type*} (ι : κ → Fin q → Fin m)
+    (h0 : ∀ t ∈ K, F (t, 0) = 0 → ∃ k, LinearIndependent ℝ
+      (fun j => fderiv ℝ F (t, 0) (0, EuclideanSpace.single (ι k j) 1))) :
+    ∃ r > 0, ∀ r', 0 < r' → r' ≤ r → ParameterAvoidanceHyp d m q K 0 r' F := by
+  sorry
+
+
+/-! ### Unit P3 helpers: bumps and the local Hamiltonians at a zero -/
+
+theorem gp3_exists_bump (c : ℝ³) {ρ : ℝ} (hρ : 0 < ρ) :
+    ∃ χ : ℝ³ → ℝ, ContDiff ℝ ∞ χ ∧ HasCompactSupport χ ∧ χ =ᶠ[𝓝 c] 1 ∧
+      tsupport χ ⊆ Metric.closedBall c ρ := by
+  sorry
+
+
+/-- `χ · f` is an admissible Hamiltonian. -/
+theorem gp3_hyp_of_bump {χ : ℝ³ → ℝ} (hχs : ContDiff ℝ ∞ χ) (hχc : HasCompactSupport χ)
+    {f : ℝ³ → ℝ} (hf : ContDiff ℝ ∞ f) : ContactMotionsHyp (fun p => χ p * f p) := by
+  sorry
+
+
+/-- Far from the bump's centre, `X_{χ f} = 0`. -/
+theorem gp3_hamVF_bump_far {χ : ℝ³ → ℝ} {c : ℝ³} {ρ : ℝ} (hχ : tsupport χ ⊆ Metric.closedBall c ρ)
+    {f : ℝ³ → ℝ} {p : ℝ³} (hp : ρ < dist p c) : hamVF (fun p => χ p * f p) p = 0 := by
+  sorry
+
+
+/-- Where the bump is `1` near `p`, `X_{χ f}(p) = X_f(p)`. -/
+theorem gp3_hamVF_bump_near {χ : ℝ³ → ℝ} {f : ℝ³ → ℝ} {p : ℝ³} (hp : χ =ᶠ[𝓝 p] 1) :
+    hamVF (fun p => χ p * f p) p = hamVF f p := by
+  sorry
+
+
+theorem gp3_eventually_near {L : ℝ → ℝ³} (hL : Continuous L) {χ : ℝ³ → ℝ} {θ₀ : ℝ}
+    (hχ : χ =ᶠ[𝓝 (L θ₀)] 1) : ∀ᶠ θ in 𝓝 θ₀, χ =ᶠ[𝓝 (L θ)] 1 := by
+  sorry
+
+
+theorem gp3_eventually_far {L : ℝ → ℝ³} (hL : Continuous L) {c : ℝ³} {ρ : ℝ} {θ₀ : ℝ}
+    (h : ρ < dist (L θ₀) c) : ∀ᶠ θ in 𝓝 θ₀, ρ < dist (L θ) c := by
+  sorry
+
+
+/-- The chart at a zero of `C`: three Hamiltonians with independent columns (sm-3:2695-2703). -/
+theorem gp3_exists_C_chart {L : ℝ → ℝ³} (h : Stage1 L) {θ₀ η₀ : ℝ} (hx : deriv (coordX L) θ₀ = 0)
+    (hne : L θ₀ ≠ L η₀) :
+    ∃ H : Fin 3 → ℝ³ → ℝ, (∀ j, ContactMotionsHyp (H j)) ∧
+      LinearIndependent ℝ (fun j => gp3_colC L (H j) θ₀ η₀) := by
+  sorry
+
+
+/-- The chart at a zero of `R`: four Hamiltonians with independent columns (sm-3:2703-2706). -/
+theorem gp3_exists_R_chart (L : ℝ → ℝ³) {θ₀ η₀ τ₀ : ℝ}
+    (h1 : L θ₀ ≠ L η₀) (h2 : L θ₀ ≠ L τ₀) (h3 : L η₀ ≠ L τ₀) :
+    ∃ H : Fin 4 → ℝ³ → ℝ, (∀ j, ContactMotionsHyp (H j)) ∧
+      LinearIndependent ℝ (fun j => gp3_colR L (H j) θ₀ η₀ τ₀) := by
+  sorry
+
+
+/-- The set of pairs where the three columns are independent is open (continuity in `(θ, η)`). -/
+theorem gp3_contDiff_colC {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {H : ℝ³ → ℝ}
+    (hH : ContactMotionsHyp H) : ContDiff ℝ ∞ fun t : ℝ^2 => gp3_colC L H (t 0) (t 1) := by
+  sorry
+
+
+theorem gp3_contDiff_colR {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {H : ℝ³ → ℝ}
+    (hH : ContactMotionsHyp H) : ContDiff ℝ ∞ fun t : ℝ^3 => gp3_colR L H (t 0) (t 1) (t 2) := by
+  sorry
+
+
+theorem gp3_isOpen_colC {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {H : Fin 3 → ℝ³ → ℝ}
+    (hH : ∀ j, ContactMotionsHyp (H j)) :
+    IsOpen {t : ℝ^2 | LinearIndependent ℝ fun j => gp3_colC L (H j) (t 0) (t 1)} := by
+  sorry
+
+
+theorem gp3_isOpen_colR {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {H : Fin 4 → ℝ³ → ℝ}
+    (hH : ∀ j, ContactMotionsHyp (H j)) :
+    IsOpen {t : ℝ^3 | LinearIndependent ℝ fun j => gp3_colR L (H j) (t 0) (t 1) (t 2)} := by
+  sorry
+
+
+/-- LEAF P3.2.  One Hamiltonian family serving both `C` and `R` with a common parameter ball of
+radius `≤ r₀` (sm-3:2695-2710): disjoint bumps at the distinct spatial points of each zero,
+block-triangular minors of ranks `3` and `4`, finitely many zeros covered, uniform ball. -/
+theorem exists_CR_avoidance {L : ℝ → ℝ³} (h : Stage1 L) {δc : ℝ} (hδ : LocallyInjectiveFront L δc)
+    (r₀ : ℝ) (hr₀ : 0 < r₀) :
+    ∃ (m : ℕ) (Hs : Fin m → ℝ³ → ℝ) (r : ℝ), (∀ i, ContactMotionsHyp (Hs i)) ∧ 0 < r ∧ r ≤ r₀ ∧
+      ParameterAvoidanceHyp 2 m 3 (K2 δc) 0 r (Cmap L m Hs) ∧
+      ParameterAvoidanceHyp 3 m 4 (K3 δc) 0 r (Rmap L m Hs) := by
+  sorry
+
+
+/-! ### Unit P3 helpers: reduction of parameters to one period -/
+
+theorem gp3_sameParam_symm {θ η : ℝ} (h : SameParam θ η) : SameParam η θ := by
+  sorry
+
+
+theorem gp3_sameParam_trans {θ η τ : ℝ} (h1 : SameParam θ η) (h2 : SameParam η τ) : SameParam θ τ := by
+  sorry
+
+
+/-- The representative of `θ` in `[0, 2π)`, with `SameParam θ θ̄`. -/
+theorem gp3_exists_reduce (θ : ℝ) : ∃ θ', θ' ∈ Ico 0 (2 * π) ∧ SameParam θ θ' := by
+  sorry
+
+
+theorem gp3_periodic_comp {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) (Φ : ℝ³ → ℝ³) :
+    Periodic (Φ ∘ L) (2 * π) := by
+  sorry
+
+
+theorem gp3_front_eq_of_sameParam {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) {θ η : ℝ}
+    (h : SameParam θ η) : front L η = front L θ := by
+  sorry
+
+
+theorem gp3_deriv_coordX_eq_of_sameParam {L : ℝ → ℝ³} (hL : Periodic L (2 * π)) {θ η : ℝ}
+    (h : SameParam θ η) : deriv (coordX L) η = deriv (coordX L) θ := by
+  sorry
+
+
+/-- LEAF P3.3.  `C ≠ 0` on `K₂ × {a}` plus the collar give `NoCuspOnBranch` (pairs closer than
+`δc` are handled by local injectivity; others are reduced to one period). -/
+theorem noCuspOnBranch_of_C {L : ℝ → ℝ³} (h : Stage1 L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) {δc r : ℝ} {a : ℝ^m}
+    (hδa : LocallyInjectiveFront (composeFlows m Hs (par a) ∘ L) δc)
+    (ha : a ∉ ParameterAvoidance.zeroParams (K2 δc) (Metric.closedBall 0 r) (Cmap L m Hs))
+    (har : a ∈ Metric.closedBall (0 : ℝ^m) r) : NoCuspOnBranch (composeFlows m Hs (par a) ∘ L) := by
+  sorry
+
+
+/-- LEAF P3.4.  `R ≠ 0` on `K₃ × {a}` plus the collar give `NoTriple`. -/
+theorem noTriple_of_R {L : ℝ → ℝ³} (h : Stage1 L) (m : ℕ) (Hs : Fin m → ℝ³ → ℝ)
+    (hHs : ∀ i, ContactMotionsHyp (Hs i)) {δc r : ℝ} {a : ℝ^m}
+    (hδa : LocallyInjectiveFront (composeFlows m Hs (par a) ∘ L) δc)
+    (ha : a ∉ ParameterAvoidance.zeroParams (K3 δc) (Metric.closedBall 0 r) (Rmap L m Hs))
+    (har : a ∈ Metric.closedBall (0 : ℝ^m) r) : NoTriple (composeFlows m Hs (par a) ∘ L) := by
+  sorry
+
+
+/-- Steps 2–3 assembled (sm-3:2659-2714). -/
+theorem step2 {L : ℝ → ℝ³} (h : Stage1 L) :
+    ∃ Φ : ℝ → ℝ³ → ℝ³, IsContactIsotopy Φ ∧ Stage2 (Φ 1 ∘ L) := by
+  sorry
+
+
+/-! ### Unit P4 — transverse, finite double points (sm-3:2715-2730) -/
+
+/-- P4 helper: the derivatives of the coordinate functions of a smooth curve are the coordinates
+of its derivative. -/
+lemma gp4_deriv_coord {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (θ : ℝ) :
+    deriv (coordX L) θ = deriv L θ 0 ∧ deriv (coordY L) θ = deriv L θ 1 ∧
+      deriv (coordZ L) θ = deriv L θ 2 := by
+  sorry
+
+
+/-- P4 helper: `z′ = y x′` along a smooth Legendrian curve. -/
+lemma gp4_deriv_z {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (hLeg : IsLegendrian L) (θ : ℝ) :
+    deriv (coordZ L) θ = coordY L θ * deriv (coordX L) θ := by
+  sorry
+
+
+/-- LEAF P4.1.  Every double point of a `Stage2` front is transverse: both parameters regular
+(`NoCuspOnBranch`), `y(θ) ≠ y(η)` (embeddedness), determinant `x′(θ)x′(η)(y(η) − y(θ)) ≠ 0`
+from `z′ = y x′`. -/
+theorem transverse_double_of_stage2 {L : ℝ → ℝ³} (h : Stage2 L) :
+    ∀ p ∈ doublePoints L, IsTransverseDouble L p.1 p.2 := by
+  sorry
+
+
+/-- P4 helper: the circular distance is at most `|θ − η − 2πk|` for every integer `k`. -/
+lemma gp4_circDist_le (θ η : ℝ) (k : ℤ) : circDist θ η ≤ |θ - η - 2 * π * k| := by
+  sorry
+
+
+/-- P4 helper: the front-difference map `G(θ,η) = (x(θ) − x(η), z(θ) − z(η))`. -/
+def gp4_G (L : ℝ → ℝ³) (p : ℝ × ℝ) : ℝ × ℝ :=
+  (coordX L p.1 - coordX L p.2, coordZ L p.1 - coordZ L p.2)
+
+lemma gp4_front_eq_iff (L : ℝ → ℝ³) (θ η : ℝ) : front L θ = front L η ↔ gp4_G L (θ, η) = 0 := by
+  sorry
+
+
+/-- P4 helper: the derivative of `gp4_G` at a transverse double point is injective, so `G` is
+injective near the point (inverse function theorem). -/
+lemma gp4_G_injOn_nhds {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {θ₀ η₀ : ℝ}
+    (htr : IsTransverseDouble L θ₀ η₀) :
+    ∃ U ∈ 𝓝 (θ₀, η₀), InjOn (gp4_G L) U := by
+  sorry
+
+
+/-- LEAF P4.2.  Transverse double points are isolated (IFT on `(θ,η) ↦ p(θ) − p(η)`), the pairs at
+circular distance `≥ δc` form a compact set, so there are finitely many in one period square. -/
+theorem finite_double_of_stage2 {L : ℝ → ℝ³} (h : Stage2 L)
+    (ht : ∀ p ∈ doublePoints L, IsTransverseDouble L p.1 p.2) :
+    (doublePoints L ∩ Ico 0 (2 * π) ×ˢ Ico 0 (2 * π)).Finite := by
+  sorry
+
+
+theorem step3 {L : ℝ → ℝ³} (h : Stage2 L) : Stage3 L := by
+  sorry
+
+
+/-! ### Unit P5 — exact semicubical cusp germs (sm-3:2731-2768) -/
+
+/-- `ψ(y) = ∫_{y₀}^{y} (f(v) − q(v)) dv`, `q(v) = f(y₀) + A(v − y₀)²` (sm-3:2734-2736). -/
+def cuspHam (f : ℝ → ℝ) (y₀ A y : ℝ) : ℝ := ∫ v in y₀..y, (f v - (f y₀ + A * (v - y₀) ^ 2))
+/-- The explicit contact flow of `H = ψ(y)`: `(x, y, z) ↦ (x − sψ′(y), y, z + s(ψ(y) − yψ′(y)))`
+(sm-3:2738-2740). -/
+def cuspFlowMap (ψ : ℝ → ℝ) (s : ℝ) (p : ℝ³) : ℝ³ :=
+  !₂[p 0 - s * deriv ψ (p 1), p 1, p 2 + s * (ψ (p 1) - p 1 * deriv ψ (p 1))]
+
+/-- Derivative of a curve into `ℝ³` from its coordinates. -/
+lemma gp5_hasDerivAt_toLp {g : ℝ → Fin 3 → ℝ} {g' : Fin 3 → ℝ} {s : ℝ}
+    (h : ∀ i, HasDerivAt (fun s => g s i) (g' i) s) :
+    HasDerivAt (fun s => (WithLp.toLp 2 (g s) : ℝ³)) (WithLp.toLp 2 g') s := by
+  sorry
+
+
+open ContactMotions in
+/-- The partial derivatives of `H = ψ ∘ y`. -/
+lemma gp5_hasFDerivAt_y_only (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ) (p : ℝ³) :
+    HasFDerivAt (fun p : ℝ³ => ψ (p 1)) (deriv ψ (p 1) • coordCLM 1) p := by
+  sorry
+
+
+open ContactMotions in
+lemma gp5_pd_y_only (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ) (p : ℝ³) (i : Fin 3) :
+    pd (fun p : ℝ³ => ψ (p 1)) i p = deriv ψ (p 1) * (e i 1) := by
+  sorry
+
+
+open ContactMotions in
+/-- `X_{ψ(y)} = (−ψ′(y), 0, ψ(y) − yψ′(y))`. -/
+lemma gp5_hamVF_y_only (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ) (q : ℝ³) :
+    hamVF (fun p : ℝ³ => ψ (p 1)) q = !₂[-(deriv ψ (q 1)), 0, ψ (q 1) - q 1 * deriv ψ (q 1)] := by
+  sorry
+
+
+open ContactMotions in
+/-- The explicit map is a global flow of `X_{ψ(y)}`. -/
+lemma gp5_isGlobalFlow_cuspFlowMap (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ) :
+    IsGlobalFlow (hamVF (fun p : ℝ³ => ψ (p 1))) (cuspFlowMap ψ) := by
+  sorry
+
+
+open ContactMotions in
+/-- `X_{ψ(y)}` is globally Lipschitz (it depends on `y` only, through a compactly supported `C¹`
+function of one variable). -/
+lemma gp5_exists_lipschitz_hamVF_y_only (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ)
+    (hc : HasCompactSupport ψ) : ∃ K : NNReal, LipschitzWith K (hamVF (fun p : ℝ³ => ψ (p 1))) := by
+  sorry
+
+
+/-- LEAF P5.1.  For `H(x,y,z) = ψ(y)` smooth compactly supported, `hamFlow H = cuspFlowMap ψ`
+(`X_H = (−ψ′, 0, ψ − yψ′)`; the explicit map is a global flow; `hamFlow_unique`). -/
+theorem hamFlow_of_y_only (ψ : ℝ → ℝ) (hψ : ContDiff ℝ ∞ ψ) (hc : HasCompactSupport ψ) :
+    hamFlow (fun p => ψ (p 1)) = cuspFlowMap ψ := by
+  sorry
+
+
+/-- LEAF P5.2.  Near a cusp `y` is a local parameter and `x = f(y)` with `f′(y₀) = 0`,
+`f″(y₀) = x″(θ_c)/y′(θ_c)² ≠ 0` (1-D inverse function theorem; sm-3:2732-2734). -/
+theorem exists_local_graph {L : ℝ → ℝ³} (h : Stage3 L) {θc : ℝ} (hθc : θc ∈ cuspSet L) :
+    ∃ f : ℝ → ℝ, ContDiff ℝ ∞ f ∧ deriv f (coordY L θc) = 0 ∧ deriv (deriv f) (coordY L θc) ≠ 0 ∧
+      ∀ᶠ θ in 𝓝 θc, coordX L θ = f (coordY L θ) := by
+  sorry
+
+
+/-- LEAF P5.3.  The exact germ after the time-one map (sm-3:2741-2747): if near `θc` the new curve
+is `cuspFlowMap ψ 1 ∘ L` with `ψ = cuspHam f y₀ A`, `A = f″(y₀)/2`, then `x = x₀ + Au²`,
+`z = z₀ + Ay₀u² + ⅔Au³` (`z` by Legendrianity: `dz/dy = y·2Au`). -/
+theorem exactGerm_of_cuspFlow {L L' : ℝ → ℝ³} (h : Stage3 L) {θc : ℝ} (hθc : θc ∈ cuspSet L)
+    {f : ℝ → ℝ} (hf : ContDiff ℝ ∞ f) (hf' : deriv f (coordY L θc) = 0)
+    (hf'' : deriv (deriv f) (coordY L θc) ≠ 0) (hgraph : ∀ᶠ θ in 𝓝 θc, coordX L θ = f (coordY L θ))
+    (hL' : ∀ᶠ θ in 𝓝 θc,
+      L' θ = cuspFlowMap (cuspHam f (coordY L θc) (deriv (deriv f) (coordY L θc) / 2)) 1 (L θ)) :
+    IsExactCuspGerm L' θc := by
+  sorry
+
+
+/-- The unit bump on `ℝ³`: `1` on the closed unit ball, supported in the ball of radius `2`. -/
+def gp5_bump1 : ContDiffBump (0 : ℝ³) := ⟨1, 2, one_pos, one_lt_two⟩
+
+/-- The bump of radius `ε` about `pc`: `b₁((2/ε)(p − pc))`, equal to `1` on `closedBall pc (ε/2)`
+and to `0` off `ball pc ε`. -/
+def gp5_bump (pc : ℝ³) (ε : ℝ) (p : ℝ³) : ℝ := gp5_bump1 ((2 / ε) • (p - pc))
+
+lemma gp5_bump_contDiff (pc : ℝ³) (ε : ℝ) : ContDiff ℝ ∞ (gp5_bump pc ε) := by
+  sorry
+
+
+lemma gp5_bump_one {pc : ℝ³} {ε : ℝ} (hε : 0 < ε) {p : ℝ³} (hp : dist p pc ≤ ε / 2) :
+    gp5_bump pc ε p = 1 := by
+  sorry
+
+
+lemma gp5_bump_zero {pc : ℝ³} {ε : ℝ} (hε : 0 < ε) {p : ℝ³} (hp : ε ≤ dist p pc) :
+    gp5_bump pc ε p = 0 := by
+  sorry
+
+
+lemma gp5_bump_support {pc : ℝ³} {ε : ℝ} (hε : 0 < ε) :
+    support (gp5_bump pc ε) ⊆ Metric.closedBall pc ε := by
+  sorry
+
+
+lemma gp5_bump_tsupport {pc : ℝ³} {ε : ℝ} (hε : 0 < ε) :
+    tsupport (gp5_bump pc ε) ⊆ Metric.closedBall pc ε := by
+  sorry
+
+
+lemma gp5_bump_hasCompactSupport {pc : ℝ³} {ε : ℝ} (hε : 0 < ε) :
+    HasCompactSupport (gp5_bump pc ε) := by
+  sorry
+
+
+/-- Derivative bounds for the scaled bump: `‖D^n b_ε‖ ≤ C_n (2/ε)^n`. -/
+lemma gp5_bump_bound (pc : ℝ³) (n : ℕ) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ ε : ℝ, 0 < ε → ∀ p,
+      ‖iteratedFDeriv ℝ n (gp5_bump pc ε) p‖ ≤ C * (2 / ε) ^ n := by
+  sorry
+
+
+/-- One step of the mean value theorem: if `φ′ = φ₁`, `φ y₀ = 0` and `|φ₁| ≤ M |· − y₀|^m` on
+`Icc (y₀ − 1) (y₀ + 1)`, then `|φ| ≤ M |· − y₀|^(m+1)` there. -/
+lemma gp5_mvt_step {φ φ₁ : ℝ → ℝ} {y₀ M : ℝ} {m : ℕ} (hM : 0 ≤ M)
+    (hd : ∀ x, HasDerivAt φ (φ₁ x) x) (h0 : φ y₀ = 0)
+    (hb : ∀ x ∈ Icc (y₀ - 1) (y₀ + 1), |φ₁ x| ≤ M * |x - y₀| ^ m) :
+    ∀ y ∈ Icc (y₀ - 1) (y₀ + 1), |φ y| ≤ M * |y - y₀| ^ (m + 1) := by
+  sorry
+
+
+/-- The cutoff bound: for `χ` smooth vanishing to order `3` at `y₀`, all derivatives of order
+`≤ 3` of `χ(y)·b_ε(p)` are `O(ε)` uniformly. -/
+lemma gp5_cutoff_bound (χ : ℝ → ℝ) (hχ : ContDiff ℝ ∞ χ) (y₀ : ℝ) (h0 : χ y₀ = 0)
+    (h1 : deriv χ y₀ = 0) (h2 : deriv^[2] χ y₀ = 0) (h3 : deriv^[3] χ y₀ = 0) (pc : ℝ³)
+    (hpc : pc 1 = y₀) :
+    ∃ K, 0 ≤ K ∧ ∀ ε, 0 < ε → ε ≤ 1 → ∀ n ≤ 3, ∀ p,
+      ‖iteratedFDeriv ℝ n (fun p => χ (p 1) * gp5_bump pc ε p) p‖ ≤ K * ε := by
+  sorry
+
+
+open ContactMotions in
+/-- `X_H` through `H` and `yH := y·H`:
+`X_H = (−∂₁H) e₀ + (∂₀H + ∂₂(yH)) e₁ + (2H − ∂₁(yH)) e₂`. -/
+lemma gp5_hamVF_eq (H : ℝ³ → ℝ) (hH : ContDiff ℝ ∞ H) :
+    hamVF H = (fun p => (-(pd H 1 p)) • e 0) + (fun p => (pd H 0 p + pd (fun q => q 1 * H q) 2 p) • e 1) +
+      (fun p => (2 * H p - pd (fun q => q 1 * H q) 1 p) • e 2) := by
+  sorry
+
+
+open ContactMotions in
+/-- Norm bound for the derivatives of `X_H` through those of `H` and `yH`. -/
+lemma gp5_norm_iteratedFDeriv_hamVF_le (H : ℝ³ → ℝ) (hH : ContDiff ℝ ∞ H) (k : ℕ) (p : ℝ³) :
+    ‖iteratedFDeriv ℝ k (hamVF H) p‖ ≤
+      2 * ‖iteratedFDeriv ℝ (k + 1) H p‖ + 2 * ‖iteratedFDeriv ℝ (k + 1) (fun q => q 1 * H q) p‖ +
+        2 * ‖iteratedFDeriv ℝ k H p‖ := by
+  sorry
+
+
+/-- LEAF P5.4.  Cut-off cusp Hamiltonians are `C²`-small (sm-3:2753-2758): with `f′(y₀) = 0`,
+`f″(y₀) = 2A` one has `ψ = O(u⁴)` (`ψ′, ψ″, ψ‴ = O(u³), O(u²), O(u)`); a bump of radius `ε` has
+derivatives `O(ε^{−k})`, so `‖D^k X_H‖ ≤ η` for `k ≤ 2` once `ε` is small; the Hamiltonian equals
+`ψ(y)` on the inner ball.  (Without the two derivative hypotheses the statement is FALSE.) -/
+theorem exists_small_cusp_hamiltonian (f : ℝ → ℝ) (hf : ContDiff ℝ ∞ f) (y₀ A : ℝ)
+    (hf' : deriv f y₀ = 0) (hf'' : deriv (deriv f) y₀ = 2 * A) (pc : ℝ³)
+    (hpc : pc 1 = y₀) {η : ℝ} (hη : 0 < η) {ε₀ : ℝ} (hε₀ : 0 < ε₀) :
+    ∃ (ε : ℝ) (H : ℝ³ → ℝ), 0 < ε ∧ ε ≤ ε₀ ∧ ContactMotionsHyp H ∧
+      (∀ p ∈ Metric.ball pc (ε / 2), H p = cuspHam f y₀ A (p 1)) ∧
+      tsupport H ⊆ Metric.closedBall pc ε ∧
+      ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (hamVF H) p‖ ≤ η := by
+  sorry
+
+
+/-- `e^η ≤ 4` for `0 ≤ η ≤ 1` (elementary: `e^{η/2} ≤ 1/(1 − η/2) ≤ 2`). -/
+lemma gp5_exp_le_four {η : ℝ} (h1 : η ≤ 1) : Real.exp η ≤ 4 := by
+  sorry
+
+
+/-- `e^η − 1 ≤ 4η` for `0 ≤ η ≤ 1`. -/
+lemma gp5_exp_sub_one_le {η : ℝ} (h0 : 0 ≤ η) (h1 : η ≤ 1) : Real.exp η - 1 ≤ 4 * η := by
+  sorry
+
+
+/-- The Grönwall bound with `δ = 0`, `K = η ≤ 1` on `[0,1]` is at most `4ε`. -/
+lemma gp5_gronwallBound_le {η ε x : ℝ} (hη : 0 < η) (hη1 : η ≤ 1) (hε : 0 ≤ ε)
+    (hx1 : x ≤ 1) : gronwallBound 0 η ε x ≤ 4 * ε := by
+  sorry
+
+
+open ContactMotions in
+/-- If `Ψ` is jointly smooth and `∂_s Ψ s p = G s p`, then `∂_s (D_p Ψ_s (p)) = D_p (G s) (p)`
+(symmetry of the second derivative of `uncurry Ψ`). -/
+lemma gp5_hasDerivAt_fderiv_of_time_deriv {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {Ψ G : ℝ → ℝ³ → F} (hΨ : ContDiff ℝ ∞ (uncurry Ψ))
+    (hder : ∀ s p, HasDerivAt (fun s => Ψ s p) (G s p) s) (s : ℝ) (p : ℝ³) :
+    HasDerivAt (fun s => fderiv ℝ (Ψ s) p) (fderiv ℝ (G s) p) s := by
+  sorry
+
+
+section flowC2
+
+variable {X : ℝ³ → ℝ³} {φ : ℝ → ℝ³ → ℝ³}
+
+open ContactMotions in
+/-- The first variational equation `∂_s Dφ_s(p) = DX(φ_s p) ∘ Dφ_s(p)` as an operator identity. -/
+lemma gp5_hasDerivAt_fderiv_flow (hX : ContDiff ℝ ∞ X) (hφ : IsGlobalFlow X φ)
+    (hs : ContDiff ℝ ∞ (uncurry φ)) (s : ℝ) (p : ℝ³) :
+    HasDerivAt (fun s => fderiv ℝ (φ s) p) ((fderiv ℝ X (φ s p)).comp (fderiv ℝ (φ s) p)) s := by
+  sorry
+
+
+open ContactMotions in
+/-- The second variational equation: `∂_s D²φ_s(p) = D_p [DX(φ_s ·) ∘ Dφ_s(·)] (p)`. -/
+lemma gp5_hasDerivAt_fderiv2_flow (hX : ContDiff ℝ ∞ X) (hφ : IsGlobalFlow X φ)
+    (hs : ContDiff ℝ ∞ (uncurry φ)) (s : ℝ) (p : ℝ³) :
+    HasDerivAt (fun s => fderiv ℝ (fderiv ℝ (φ s)) p)
+      (fderiv ℝ (fun p => (fderiv ℝ X (φ s p)).comp (fderiv ℝ (φ s) p)) p) s := by
+  sorry
+
+
+end flowC2
+
+/-- LEAF P5.5 (general).  The time-one map of a `C²`-small compactly supported field is `C²`-close
+to the identity (sm-3:2758-2761: `J′ = DX·J`, `M′ = DX·M + D²X[J,J]`, Grönwall). -/
+theorem flow_C2_close : ∃ C₀ > 0, ∀ (X : ℝ³ → ℝ³), ContDiff ℝ ∞ X → HasCompactSupport X →
+    ∀ η, 0 < η → η ≤ 1 → (∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k X p‖ ≤ η) →
+      ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (fun p => ContactMotions.globalFlow X 1 p - p) p‖ ≤ C₀ * η := by
+  sorry
+
+
+/-- Reduction of a parameter into the period `[a, a + 2π)`. -/
+lemma gp5_reduce (a θ : ℝ) : ∃ k : ℤ, θ - 2 * π * k ∈ Ico a (a + 2 * π) := by
+  sorry
+
+
+/-- The derivative of a `2π`-periodic function is `2π`-periodic. -/
+lemma gp5_periodic_deriv {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {f : ℝ → E}
+    (hf : Periodic f (2 * π)) : Periodic (deriv f) (2 * π) := by
+  sorry
+
+
+/-- A periodic function is invariant under shifts by `2πk`. -/
+lemma gp5_periodic_int {E : Type*} {f : ℝ → E} (hf : Periodic f (2 * π)) (θ : ℝ) (k : ℤ) :
+    f (θ + 2 * π * k) = f θ := by
+  sorry
+
+
+/-- A continuous periodic function is bounded. -/
+lemma gp5_bounded_of_periodic {E : Type*} [NormedAddCommGroup E] {f : ℝ → E} (hf : Continuous f)
+    (hp : Periodic f (2 * π)) : ∃ B, 0 ≤ B ∧ ∀ θ, ‖f θ‖ ≤ B := by
+  sorry
+
+
+/-- A positive lower bound for finitely many positive numbers. -/
+lemma gp5_finset_min {ι : Type*} (S : Finset ι) (r : ι → ℝ) (hr : ∀ j ∈ S, 0 < r j) :
+    ∃ ρ > 0, ∀ j ∈ S, ρ ≤ r j := by
+  sorry
+
+
+lemma gp5_sameParam_shift {θ η : ℝ} (k : ℤ) : SameParam θ (η + 2 * π * k) ↔ SameParam θ η := by
+  sorry
+
+
+/-- Shifting the second argument by `2πk` does not change `circDist`. -/
+lemma gp5_circDist_shift (θ η : ℝ) (k : ℤ) : circDist θ (η + 2 * π * k) = circDist θ η := by
+  sorry
+
+
+/-- The representative `η + 2π·round((θ − η)/2π)` realizes the circular distance. -/
+lemma gp5_circDist_eq_abs (θ η : ℝ) :
+    circDist θ η = |θ - (η + 2 * π * round ((θ - η) / (2 * π)))| := by
+  sorry
+
+
+/-- For representatives in one period, `circDist ≥ δ` (`δ ≤ π`) gives `δ ≤ |θ − η| ≤ 2π − δ`. -/
+lemma gp5_circDist_bounds {θ η δ : ℝ} (hθ : θ ∈ Ico 0 (2 * π)) (hη : η ∈ Ico 0 (2 * π))
+    (hδ : δ ≤ π) (h : δ ≤ circDist θ η) : δ ≤ |θ - η| ∧ |θ - η| ≤ 2 * π - δ := by
+  sorry
+
+
+/-- Curve-level `C²`-closeness: if `Ψ − id` is `C²`-small then `Ψ ∘ L` is `C²`-close to `L`. -/
+lemma gp5_curve_close {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {Ψ : ℝ³ → ℝ³} (hΨ : ContDiff ℝ ∞ Ψ)
+    {η : ℝ} (hb : ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (fun p => Ψ p - p) p‖ ≤ η) (θ : ℝ) :
+    ‖deriv (Ψ ∘ L) θ - deriv L θ‖ ≤ η * ‖deriv L θ‖ ∧
+    ‖deriv (deriv (Ψ ∘ L)) θ - deriv (deriv L) θ‖ ≤ η * (‖deriv L θ‖ ^ 2 + ‖deriv (deriv L) θ‖) := by
+  sorry
+
+
+/-- `C⁰`-closeness of `Ψ` to the identity from the `k = 0` bound. -/
+lemma gp5_C0_close {Ψ : ℝ³ → ℝ³} {η : ℝ}
+    (hb : ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (fun p => Ψ p - p) p‖ ≤ η) (p : ℝ³) :
+    ‖Ψ p - p‖ ≤ η := by
+  sorry
+
+
+/-- `DΨ` is injective when `‖DΨ − 1‖ ≤ η < 1`. -/
+lemma gp5_fderiv_injective {Ψ : ℝ³ → ℝ³} (hΨ : ContDiff ℝ ∞ Ψ) {η : ℝ} (hη1 : η < 1)
+    (hb : ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (fun p => Ψ p - p) p‖ ≤ η) (p : ℝ³) :
+    Function.Injective (fderiv ℝ Ψ p) := by
+  sorry
+
+
+/-- Coordinate derivatives of a curve. -/
+lemma gp5_coord_deriv {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) (i : Fin 3) (θ : ℝ) :
+    deriv (fun θ => L θ i) θ = deriv L θ i ∧
+    deriv (deriv (fun θ => L θ i)) θ = deriv (deriv L) θ i := by
+  sorry
+
+
+/-- Local injectivity of the front of a Legendrian arc through a simple cusp (positive case):
+on `Icc a b ∋ θc` with `x′(θc) = 0`, `x″ > 0` and `y′ > 0`, equal `x`-values at `θ₁ < θ₂` force
+different `z`-values (`z(θ₂) − z(θ₁) = ∫ y′ (X − x) > 0`). -/
+lemma gp5_cusp_arc_injective_pos {x y z : ℝ → ℝ} {a b θc : ℝ} (haθ : a ≤ θc) (hθb : θc ≤ b)
+    (hx : ContDiff ℝ ∞ x) (hy : ContDiff ℝ ∞ y) (hz : ContDiff ℝ ∞ z)
+    (hleg : ∀ θ, deriv z θ = y θ * deriv x θ) (hx'c : deriv x θc = 0)
+    (hx'' : ∀ θ ∈ Icc a b, 0 < deriv (deriv x) θ) (hy' : ∀ θ ∈ Icc a b, 0 < deriv y θ) :
+    ∀ θ₁ ∈ Icc a b, ∀ θ₂ ∈ Icc a b, θ₁ < θ₂ → x θ₁ = x θ₂ → z θ₁ ≠ z θ₂ := by
+  sorry
+
+
+/-- Local injectivity of the front of a Legendrian arc through a simple cusp, all sign cases. -/
+lemma gp5_cusp_arc_injective {x y z : ℝ → ℝ} {a b θc : ℝ} (haθ : a ≤ θc) (hθb : θc ≤ b)
+    (hx : ContDiff ℝ ∞ x) (hy : ContDiff ℝ ∞ y) (hz : ContDiff ℝ ∞ z)
+    (hleg : ∀ θ, deriv z θ = y θ * deriv x θ) (hx'c : deriv x θc = 0)
+    (hx'' : (∀ θ ∈ Icc a b, 0 < deriv (deriv x) θ) ∨ (∀ θ ∈ Icc a b, deriv (deriv x) θ < 0))
+    (hy' : (∀ θ ∈ Icc a b, 0 < deriv y θ) ∨ (∀ θ ∈ Icc a b, deriv y θ < 0)) :
+    ∀ θ₁ ∈ Icc a b, ∀ θ₂ ∈ Icc a b, θ₁ ≠ θ₂ → (x θ₁, z θ₁) ≠ (x θ₂, z θ₂) := by
+  sorry
+
+
+/-- Shifting the first argument by `2πk` does not change `circDist`. -/
+lemma gp5_circDist_shift_left (θ η : ℝ) (k : ℤ) : circDist (θ + 2 * π * k) η = circDist θ η := by
+  sorry
+
+
+/-- Parameters whose difference lies in `[δ, 2π − δ]` (`0 < δ`) are not the same circle point. -/
+lemma gp5_not_sameParam_of_bounds {a b δ : ℝ} (hδ : 0 < δ) (h1 : δ ≤ |a - b|)
+    (h2 : |a - b| ≤ 2 * π - δ) : ¬ SameParam a b := by
+  sorry
+
+
+/-- The front difference is bounded by the point difference. -/
+lemma gp5_front_sub_norm_le (L L' : ℝ → ℝ³) (θ η : ℝ) :
+    ‖front L θ - front L' η‖ ≤ ‖L θ - L' η‖ := by
+  sorry
+
+
+lemma gp5_front_comp_close {L : ℝ → ℝ³} {Ψ : ℝ³ → ℝ³} {η : ℝ} (hC0 : ∀ p, ‖Ψ p - p‖ ≤ η) (θ : ℝ) :
+    ‖front (Ψ ∘ L) θ - front L θ‖ ≤ η := by
+  sorry
+
+
+lemma gp5_continuous_front {L : ℝ → ℝ³} (hL : Continuous L) : Continuous (front L) := by
+  sorry
+
+
+/-- Embeddedness margin: a point of the curve within `rc` of the cusp point `L θc` comes from a
+parameter within `ρ` of `θc` modulo `2π`. -/
+lemma gp5_exists_rc {L : ℝ → ℝ³} (hL : IsEmbeddedCircle L) (S : Finset ℝ) {ρ : ℝ} (hρ : 0 < ρ)
+    (hρπ : ρ ≤ π) :
+    ∃ rc > 0, ∀ θc ∈ S, ∀ θ, dist (L θ) (L θc) ≤ rc → ∃ k : ℤ, |θ - 2 * π * k - θc| < ρ := by
+  sorry
+
+
+/-- The margin of `NoCuspOnBranch` on the far interval `[θc + δ, θc + 2π − δ]`. -/
+lemma gp5_cusp_margin {L : ℝ → ℝ³} (hL : IsEmbeddedCircle L) (hno : NoCuspOnBranch L) {θc : ℝ}
+    (hθc : θc ∈ cuspSet L) {δ : ℝ} (hδ : 0 < δ) :
+    ∃ m > 0, ∀ η ∈ Icc (θc + δ) (θc + 2 * π - δ), m ≤ ‖front L η - front L θc‖ := by
+  sorry
+
+
+/-- The margin of `NoTriple` on the compact set of triples in one period with pairwise
+differences in `[δ, 2π − δ]`. -/
+lemma gp5_triple_margin {L : ℝ → ℝ³} (hL : IsEmbeddedCircle L) (hno : NoTriple L) {δ : ℝ}
+    (hδ : 0 < δ) :
+    ∃ m > 0, ∀ θ η τ : ℝ, θ ∈ Icc 0 (2 * π) → η ∈ Icc 0 (2 * π) → τ ∈ Icc 0 (2 * π) →
+      δ ≤ |θ - η| → |θ - η| ≤ 2 * π - δ → δ ≤ |θ - τ| → |θ - τ| ≤ 2 * π - δ →
+      δ ≤ |η - τ| → |η - τ| ≤ 2 * π - δ →
+      m ≤ ‖front L θ - front L η‖ + ‖front L θ - front L τ‖ := by
+  sorry
+
+
+/-- Every cusp of a periodic curve is a cusp in `[0, 2π)` shifted by a period. -/
+lemma gp5_cusp_reduce {L : ℝ → ℝ³} (hper : Periodic L (2 * π)) {θ : ℝ} (hθ : θ ∈ cuspSet L) :
+    ∃ θc ∈ cuspSet L ∩ Ico 0 (2 * π), ∃ k : ℤ, θ = θc + 2 * π * k := by
+  sorry
+
+
+/-- Where the curve stays away from all cusp points, `Ψ ∘ L` agrees with `L` near `θ`. -/
+lemma gp5_eventuallyEq_of_far {L : ℝ → ℝ³} (hL : Continuous L) {Ψ : ℝ³ → ℝ³} (S : Finset ℝ)
+    {rc : ℝ} (hfix : ∀ p, (∀ θc ∈ S, rc ≤ dist p (L θc)) → Ψ p = p) {θ : ℝ}
+    (hfar : ∀ θc ∈ S, rc < dist (L θ) (L θc)) : (Ψ ∘ L) =ᶠ[𝓝 θ] L := by
+  sorry
+
+
+lemma gp5_deriv_eq_of_eventuallyEq {f g : ℝ → ℝ³} {θ : ℝ} (h : f =ᶠ[𝓝 θ] g) :
+    deriv (coordX f) θ = deriv (coordX g) θ ∧
+    deriv (deriv (coordX f)) θ = deriv (deriv (coordX g)) θ := by
+  sorry
+
+
+/-- Sign transfer: if `|g − g θc| ≤ |g θc|/2` and `|g' − g| ≤ |g θc|/4` on `A`, then `g'` has the
+sign of `g θc` on `A`. -/
+lemma gp5_sign_transfer {g g' : ℝ → ℝ} {A : Set ℝ} {θc : ℝ} (hc : g θc ≠ 0)
+    (h1 : ∀ θ ∈ A, |g θ - g θc| ≤ |g θc| / 2) (h2 : ∀ θ ∈ A, |g' θ - g θ| ≤ |g θc| / 4) :
+    (∀ θ ∈ A, 0 < g' θ) ∨ (∀ θ ∈ A, g' θ < 0) := by
+  sorry
+
+
+/-- A continuous `g` with `g θc ≠ 0` stays within `|g θc|/2` of `g θc` on a small closed
+interval about `θc`. -/
+lemma gp5_exists_arc {g : ℝ → ℝ} (hg : Continuous g) (θc : ℝ) (hc : g θc ≠ 0) :
+    ∃ ρ > 0, ∀ θ ∈ Icc (θc - ρ) (θc + ρ), |g θ - g θc| ≤ |g θc| / 2 := by
+  sorry
+
+
+/-- The collar of the perturbed curve, of width `min δc ρ`. -/
+lemma gp5_new_collar {L L' : ℝ → ℝ³} (hper : Periodic L' (2 * π)) (S : Finset ℝ) {ρ δc rc : ℝ}
+    (hρ : 0 < ρ) (hcol : LocallyInjectiveFront L δc)
+    (hfix : ∀ θ, (∀ θc ∈ S, rc < dist (L θ) (L θc)) → L' θ = L θ)
+    (hrc : ∀ θc ∈ S, ∀ θ, dist (L θ) (L θc) ≤ rc → ∃ k : ℤ, |θ - 2 * π * k - θc| < ρ)
+    (harc : ∀ θc ∈ S, ∀ θ₁ ∈ Icc (θc - 2 * ρ) (θc + 2 * ρ), ∀ θ₂ ∈ Icc (θc - 2 * ρ) (θc + 2 * ρ),
+      θ₁ ≠ θ₂ → front L' θ₁ ≠ front L' θ₂) :
+    LocallyInjectiveFront L' (min δc ρ) := by
+  sorry
+
+
+/-- `NoCuspOnBranch` for the perturbed curve. -/
+lemma gp5_new_noCuspOnBranch {L L' : ℝ → ℝ³} (hper : Periodic L' (2 * π)) (S : Finset ℝ)
+    {δ' m η₀ : ℝ} (hcuspS : ∀ θ ∈ cuspSet L', ∃ θc ∈ S, ∃ k : ℤ, θ = θc + 2 * π * k)
+    (hcol' : LocallyInjectiveFront L' δ')
+    (hmargin : ∀ θc ∈ S, ∀ η ∈ Icc (θc + δ') (θc + 2 * π - δ'), m ≤ ‖front L η - front L θc‖)
+    (hC0 : ∀ θ, ‖front L' θ - front L θ‖ ≤ η₀) (h2 : 2 * η₀ < m) : NoCuspOnBranch L' := by
+  sorry
+
+
+/-- `NoTriple` for the perturbed curve. -/
+lemma gp5_new_noTriple {L L' : ℝ → ℝ³} (hper : Periodic L' (2 * π)) {δ' m₃ η₀ : ℝ}
+    (hδπ : δ' ≤ π) (hcol' : LocallyInjectiveFront L' δ')
+    (hmargin : ∀ θ η τ : ℝ, θ ∈ Icc 0 (2 * π) → η ∈ Icc 0 (2 * π) → τ ∈ Icc 0 (2 * π) →
+      δ' ≤ |θ - η| → |θ - η| ≤ 2 * π - δ' → δ' ≤ |θ - τ| → |θ - τ| ≤ 2 * π - δ' →
+      δ' ≤ |η - τ| → |η - τ| ≤ 2 * π - δ' →
+      m₃ ≤ ‖front L θ - front L η‖ + ‖front L θ - front L τ‖)
+    (hC0 : ∀ θ, ‖front L' θ - front L θ‖ ≤ η₀) (h4 : 4 * η₀ < m₃) : NoTriple L' := by
+  sorry
+
+
+/-- `NoDoubleZero` and the cusp set of the perturbed curve. -/
+lemma gp5_new_noDoubleZero_cuspSet {L L' : ℝ → ℝ³} (hL' : ContDiff ℝ ∞ L')
+    (hper : Periodic L' (2 * π)) (hperL : Periodic L (2 * π)) (hndz : NoDoubleZero L)
+    (S : Finset ℝ) {ρ rc : ℝ} (hSdef : ∀ θ ∈ cuspSet L ∩ Ico 0 (2 * π), θ ∈ S)
+    (hS : ∀ θc ∈ S, θc ∈ cuspSet L) (hScusp : ∀ θc ∈ S, deriv (coordX L') θc = 0)
+    (hfar : ∀ θ, (∀ θc ∈ S, rc < dist (L θ) (L θc)) → L' =ᶠ[𝓝 θ] L)
+    (hrc : ∀ θc ∈ S, ∀ θ, dist (L θ) (L θc) ≤ rc → ∃ k : ℤ, |θ - 2 * π * k - θc| < ρ)
+    (harc : ∀ θc ∈ S, (∀ θ ∈ Icc (θc - 2 * ρ) (θc + 2 * ρ), 0 < deriv (deriv (coordX L')) θ) ∨
+      (∀ θ ∈ Icc (θc - 2 * ρ) (θc + 2 * ρ), deriv (deriv (coordX L')) θ < 0)) :
+    NoDoubleZero L' ∧ cuspSet L' = cuspSet L := by
+  sorry
+
+
+/-- The perturbed curve is an embedded Legendrian circle. -/
+lemma gp5_new_embedded {L : ℝ → ℝ³} (hL : IsEmbeddedCircle L) (hLeg : IsLegendrian L)
+    {Ψ : ℝ³ → ℝ³} (hΨ : ContDiff ℝ ∞ Ψ) (hbij : Function.Bijective Ψ)
+    (hcontact : ∀ p, ∃ c : ℝ, 0 < c ∧ ∀ v, alpha (Ψ p) (fderiv ℝ Ψ p v) = c * alpha p v)
+    (hinj : ∀ p, Function.Injective (fderiv ℝ Ψ p)) :
+    IsEmbeddedCircle (Ψ ∘ L) ∧ IsLegendrian (Ψ ∘ L) := by
+  sorry
+
+
+/-- LEAF P5.6.  Stability of `Stage3` under `C²`-small contactomorphisms supported near the cusps
+that keep the cusp parameters (sm-3:2762-2766 "retain all previous genericity margins"): the
+cusp set is unchanged and all `Stage3` properties persist (the contact hypothesis is what keeps
+`legendrian`; the intended `Ψ = Φ 1` of P5.7 is contact by P0.1). -/
+theorem stage3_stable {L : ℝ → ℝ³} (h : Stage3 L) :
+    ∃ η > 0, ∃ rc > 0, ∀ Ψ : ℝ³ → ℝ³, ContDiff ℝ ∞ Ψ → Function.Bijective Ψ →
+      (∀ p, ∃ c : ℝ, 0 < c ∧ ∀ v, alpha (Ψ p) (fderiv ℝ Ψ p v) = c * alpha p v) →
+      (∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (fun p => Ψ p - p) p‖ ≤ η) →
+      (∀ p, (∀ θc ∈ cuspSet L, rc ≤ dist p (L θc)) → Ψ p = p) →
+      (∀ θc ∈ cuspSet L, deriv (coordX (Ψ ∘ L)) θc = 0) →
+      cuspSet (Ψ ∘ L) = cuspSet L ∧ Stage3 (Ψ ∘ L) := by
+  sorry
+
+
+/-- Fourth-order Taylor bounds for a smooth function vanishing to order `3` at `y₀`. -/
+lemma gp5_taylor4 (χ : ℝ → ℝ) (hχ : ContDiff ℝ ∞ χ) (y₀ : ℝ) (h0 : χ y₀ = 0)
+    (h1 : deriv χ y₀ = 0) (h2 : deriv^[2] χ y₀ = 0) (h3 : deriv^[3] χ y₀ = 0) :
+    ∃ M, 0 ≤ M ∧ ∀ y ∈ Icc (y₀ - 1) (y₀ + 1),
+      |χ y| ≤ M * |y - y₀| ^ 4 ∧ |deriv χ y| ≤ M * |y - y₀| ^ 3 := by
+  sorry
+
+
+/-- `ψ = cuspHam f y₀ A` is smooth and vanishes to order `3` at `y₀` when `f′(y₀) = 0` and
+`f″(y₀) = 2A`. -/
+lemma gp5_cuspHam_props (f : ℝ → ℝ) (hf : ContDiff ℝ ∞ f) (y₀ A : ℝ) (hf' : deriv f y₀ = 0)
+    (hf'' : deriv (deriv f) y₀ = 2 * A) :
+    ContDiff ℝ ∞ (cuspHam f y₀ A) ∧ cuspHam f y₀ A y₀ = 0 ∧ deriv (cuspHam f y₀ A) y₀ = 0 ∧
+      deriv (deriv (cuspHam f y₀ A)) y₀ = 0 ∧ deriv (deriv (deriv (cuspHam f y₀ A))) y₀ = 0 := by
+  sorry
+
+
+lemma gp5_norm_le_sum_abs (v : ℝ³) : ‖v‖ ≤ |v 0| + |v 1| + |v 2| := by
+  sorry
+
+
+/-- Displacement of the explicit cusp flow on the inner ball: `O(ε³) < ε/8`. -/
+lemma gp5_cuspFlow_small {ψ : ℝ → ℝ} {pc : ℝ³} {M ε : ℝ} (hM : 0 ≤ M) (hε : 0 < ε) (hε1 : ε ≤ 1)
+    (hT : ∀ y ∈ Icc (pc 1 - 1) (pc 1 + 1),
+      |ψ y| ≤ M * |y - pc 1| ^ 4 ∧ |deriv ψ y| ≤ M * |y - pc 1| ^ 3)
+    (hC : (3 + |pc 1|) * M * ε ^ 2 < 8) {q : ℝ³} (hq : q ∈ Metric.ball pc (ε / 4)) {s : ℝ}
+    (hs : s ∈ Icc (0 : ℝ) 1) : dist (cuspFlowMap ψ s q) q < ε / 8 := by
+  sorry
+
+
+lemma gp5_hamVF_congr {H H' : ℝ³ → ℝ} {q : ℝ³} (h : H =ᶠ[𝓝 q] H') : hamVF H q = hamVF H' q := by
+  sorry
+
+
+/-- On the inner ball of a cusp cutoff, the flow of `H` is the explicit cusp flow (uniqueness of
+solutions of the `X_H`-ODE along the explicit trajectory, which stays where `H = ψ(y)`). -/
+lemma gp5_flow_eq_cuspFlow {H : ℝ³ → ℝ} (hH : ContactMotionsHyp H) {ψ : ℝ → ℝ}
+    (hψ : ContDiff ℝ ∞ ψ) {pc : ℝ³} {ε : ℝ} (hHψ : ∀ p ∈ Metric.ball pc (ε / 2), H p = ψ (p 1))
+    (hsmall : ∀ q ∈ Metric.ball pc (ε / 4), ∀ s ∈ Icc (0 : ℝ) 1,
+      dist (cuspFlowMap ψ s q) q < ε / 8)
+    {q : ℝ³} (hq : q ∈ Metric.ball pc (ε / 4)) : hamFlow H 1 q = cuspFlowMap ψ 1 q := by
+  sorry
+
+
+/-- `X_H` is linear in `H`: the field of a finite sum is the sum of the fields. -/
+lemma gp5_hamVF_sum {ι : Type*} [DecidableEq ι] (S : Finset ι) (Hs : ι → ℝ³ → ℝ)
+    (hHs : ∀ i ∈ S, ContDiff ℝ ∞ (Hs i)) (p : ℝ³) :
+    hamVF (fun q => ∑ i ∈ S, Hs i q) p = ∑ i ∈ S, hamVF (Hs i) p := by
+  sorry
+
+
+/-- `C²`-smallness of a sum of fields with pairwise disjoint supports. -/
+lemma gp5_sum_bound {ι : Type*} [DecidableEq ι] (S : Finset ι) (Xs : ι → ℝ³ → ℝ³) (K : ι → Set ℝ³)
+    (hXs : ∀ i ∈ S, ContDiff ℝ ∞ (Xs i)) (hsupp : ∀ i ∈ S, tsupport (Xs i) ⊆ K i)
+    (hdisj : ∀ i ∈ S, ∀ j ∈ S, i ≠ j → Disjoint (K i) (K j)) {η : ℝ} (hη : 0 ≤ η)
+    (hb : ∀ i ∈ S, ∀ k ≤ 2, ∀ p, ‖iteratedFDeriv ℝ k (Xs i) p‖ ≤ η) (k : ℕ) (hk : k ≤ 2)
+    (p : ℝ³) : ‖iteratedFDeriv ℝ k (fun q => ∑ i ∈ S, Xs i q) p‖ ≤ η := by
+  sorry
+
+
+/-- The (topological) support of a finite sum lies in the union of closed supersets of the
+supports. -/
+lemma gp5_tsupport_sum_subset {ι : Type*} (S : Finset ι) (Hs : ι → ℝ³ → ℝ) (K : ι → Set ℝ³)
+    (hK : ∀ i ∈ S, IsClosed (K i)) (hsupp : ∀ i ∈ S, tsupport (Hs i) ⊆ K i) :
+    tsupport (fun q => ∑ i ∈ S, Hs i q) ⊆ ⋃ i ∈ S, K i := by
+  sorry
+
+
+/-- A zero of `X_H` is fixed by the flow. -/
+lemma gp5_hamFlow_fixed {H : ℝ³ → ℝ} (hH : ContactMotionsHyp H) {p : ℝ³} (h0 : hamVF H p = 0)
+    (s : ℝ) : hamFlow H s p = p := by
+  sorry
+
+
+/-- The exact germ is invariant under shifting the cusp parameter by a period. -/
+lemma gp5_germ_shift {L : ℝ → ℝ³} (hper : Periodic L (2 * π)) {θc : ℝ} (k : ℤ)
+    (h : IsExactCuspGerm L θc) : IsExactCuspGerm L (θc + 2 * π * k) := by
+  sorry
+
+
+/-- At an exact cusp germ, `x′ = 0`. -/
+lemma gp5_deriv_x_zero_of_germ {L : ℝ → ℝ³} (hL : ContDiff ℝ ∞ L) {θc : ℝ}
+    (h : IsExactCuspGerm L θc) : deriv (coordX L) θc = 0 := by
+  sorry
+
+
+/-- Distinct cusp parameters in one period have distinct cusp points, with a uniform margin. -/
+lemma gp5_pairwise_dist {L : ℝ → ℝ³} (hL : IsEmbeddedCircle L) (S : Finset ℝ)
+    (hS : ∀ θ ∈ S, θ ∈ Ico 0 (2 * π)) :
+    ∃ d > 0, ∀ a ∈ S, ∀ b ∈ S, a ≠ b → d ≤ dist (L a) (L b) := by
+  sorry
+
+
+/-- LEAF P5.7 (assembly of P5.1–P5.6 over the finitely many cusps).  A contact isotopy, product of
+the cut-off cusp flows in disjoint balls (P1.3, P1.4, P5.2, P5.4), whose time-one map is `C²`-close
+to the identity (P5.5, compositions), fixes the cusp parameters and gives the exact germ at each
+cusp (P5.1, P5.3: the inner subarc has displacement `O(ε³)` and never leaves the inner ball), so
+`Stage3` persists (P5.6). -/
+theorem exists_germ_isotopy {L : ℝ → ℝ³} (h : Stage3 L) :
+    ∃ Φ : ℝ → ℝ³ → ℝ³, IsContactIsotopy Φ ∧ Stage3 (Φ 1 ∘ L) ∧
+      ∀ θc ∈ cuspSet (Φ 1 ∘ L), IsExactCuspGerm (Φ 1 ∘ L) θc := by
+  sorry
+
+
+/-- The generic front (sm-3:2615-2625) from a `Stage3` curve with exact germs. -/
+theorem isGenericFront_of_stage3 {L : ℝ → ℝ³} (h : Stage3 L)
+    (hg : ∀ θc ∈ cuspSet L, IsExactCuspGerm L θc) : IsGenericFront L := by
+  sorry
+
+
+/-! ### Unit P6 — concatenation, the chosen pushoff, the knot type (sm-3:2769-2783) -/
+
+/-- Concatenation of two isotopies with the flat reparametrization `Real.smoothTransition`
+(sm-3:2769-2770): `Φ` on `[0, ½]`, then `Ψ ∘ Φ_1` on `[½, 1]`. -/
+def concat (Φ Ψ : ℝ → ℝ³ → ℝ³) (s : ℝ) (p : ℝ³) : ℝ³ :=
+  if s ≤ 1 / 2 then Φ (Real.smoothTransition (2 * s)) p
+  else Ψ (Real.smoothTransition (2 * s - 1)) (Φ 1 p)
+
+theorem concat_one (Φ Ψ : ℝ → ℝ³ → ℝ³) (p : ℝ³) : concat Φ Ψ 1 p = Ψ 1 (Φ 1 p) := by
+  sorry
+
+
+/-- A stage `Φ s`, `s ∈ [0,1]`, of a compactly supported ambient isotopy is smooth. -/
+lemma gp6_contDiff_stage {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ) {s : ℝ}
+    (hs : s ∈ Icc (0 : ℝ) 1) : ContDiff ℝ ∞ (Φ s) := by
+  sorry
+
+
+/-- The left branch `(s, p) ↦ Φ (τ(2s)) p` of the concatenation is smooth on all of `ℝ × ℝ³`. -/
+lemma gp6_contDiff_concat_left {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ) :
+    ContDiff ℝ ∞ fun q : ℝ × ℝ³ => Φ (Real.smoothTransition (2 * q.1)) q.2 := by
+  sorry
+
+
+/-- The right branch `(s, p) ↦ Ψ (τ(2s − 1)) (Φ 1 p)` is smooth on all of `ℝ × ℝ³`. -/
+lemma gp6_contDiff_concat_right {Φ Ψ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ)
+    (hΨ : IsCompactlySupportedAmbientIsotopy Ψ) :
+    ContDiff ℝ ∞ fun q : ℝ × ℝ³ => Ψ (Real.smoothTransition (2 * q.1 - 1)) (Φ 1 q.2) := by
+  sorry
+
+
+/-- The concatenation is the globally smooth function `A + C − Φ₁`: the left branch `A` is
+constantly `Φ 1` for `s ≥ ½` (`τ(2s) = 1`) and the right branch `C` is constantly `Φ 1` for
+`s ≤ ½` (`τ(2s − 1) = 0`, `Ψ 0 = id`).  No gluing lemma is needed. -/
+lemma gp6_uncurry_concat_eq {Φ Ψ : ℝ → ℝ³ → ℝ³} (hΨ : IsCompactlySupportedAmbientIsotopy Ψ) :
+    uncurry (concat Φ Ψ) = fun q : ℝ × ℝ³ =>
+      Φ (Real.smoothTransition (2 * q.1)) q.2 + Ψ (Real.smoothTransition (2 * q.1 - 1)) (Φ 1 q.2)
+        - Φ 1 q.2 := by
+  sorry
+
+
+/-- On `s ≤ ½` the concatenation is the left branch. -/
+lemma gp6_concat_of_le (Φ Ψ : ℝ → ℝ³ → ℝ³) {s : ℝ} (hs : s ≤ 1 / 2) :
+    concat Φ Ψ s = Φ (Real.smoothTransition (2 * s)) := by
+  sorry
+
+
+/-- On `s > ½` the concatenation is the right branch. -/
+lemma gp6_concat_of_not_le (Φ Ψ : ℝ → ℝ³ → ℝ³) {s : ℝ} (hs : ¬ s ≤ 1 / 2) :
+    concat Φ Ψ s = Ψ (Real.smoothTransition (2 * s - 1)) ∘ Φ 1 := by
+  sorry
+
+
+/-- LEAF P6.1.  The concatenation of two contact isotopies is a contact isotopy (flatness of
+`smoothTransition` at `0` and `1` gives joint smoothness across the join). -/
+theorem isContactIsotopy_concat {Φ Ψ : ℝ → ℝ³ → ℝ³} (hΦ : IsContactIsotopy Φ)
+    (hΨ : IsContactIsotopy Ψ) : IsContactIsotopy (concat Φ Ψ) := by
+  sorry
+
+
+/-- A stage is injective (it has a left inverse). -/
+lemma gp6_injective_stage {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ) {s : ℝ}
+    (hs : s ∈ Icc (0 : ℝ) 1) : Injective (Φ s) := by
+  sorry
+
+
+/-- `DΦ_s(p)` is injective: `DΨ(Φ_s p) ∘ DΦ_s(p) = id` for the smooth inverse `Ψ`. -/
+lemma gp6_fderiv_stage_injective {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ)
+    {s : ℝ} (hs : s ∈ Icc (0 : ℝ) 1) (p : ℝ³) : Injective (fderiv ℝ (Φ s) p) := by
+  sorry
+
+
+/-- The derivative of the image curve `Φ_s ∘ γ`. -/
+lemma gp6_hasDerivAt_stage_comp {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ)
+    {s : ℝ} (hs : s ∈ Icc (0 : ℝ) 1) {γ : ℝ → ℝ³} {γ' : ℝ³} {θ : ℝ} (hγ : HasDerivAt γ γ' θ) :
+    HasDerivAt (fun θ => Φ s (γ θ)) (fderiv ℝ (Φ s) (γ θ) γ') θ := by
+  sorry
+
+
+/-- A stage of a contact isotopy carries positive transverse curves to positive transverse curves:
+`α((Φ_s∘K)′) = (c_s∘K) α(K′) > 0` (sm-3:2776-2779). -/
+lemma gp6_isPositiveTransverse_stage {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsContactIsotopy Φ) {s : ℝ}
+    (hs : s ∈ Icc (0 : ℝ) 1) {K : ℝ → ℝ³} (hK : ContDiff ℝ ∞ K) (hKt : IsPositiveTransverse K) :
+    IsPositiveTransverse fun θ => Φ s (K θ) := by
+  sorry
+
+
+/-- The circle `θ ↦ B (θ, s₀)` of an annulus is smooth. -/
+lemma gp6_contDiff_annulus_circle {L : ℝ → ℝ³} {ε b : ℝ} {B : ℝ × ℝ → ℝ³}
+    (hB : IsPushoffAnnulus L ε b B) {s₀ : ℝ} (hs₀ : s₀ ∈ Ioo (-ε) b) :
+    ContDiff ℝ ∞ fun θ => B (θ, s₀) := by
+  sorry
+
+
+/-- `B` is differentiable at every point of its open domain. -/
+lemma gp6_differentiableAt_annulus {L : ℝ → ℝ³} {ε b : ℝ} {B : ℝ × ℝ → ℝ³}
+    (hB : IsPushoffAnnulus L ε b B) {θ s₀ : ℝ} (hs₀ : s₀ ∈ Ioo (-ε) b) :
+    DifferentiableAt ℝ B (θ, s₀) := by
+  sorry
+
+
+/-- LEAF P6.2.  A stage of a contact isotopy carries a pushoff annulus of `L` to a pushoff annulus
+of `Φ_s ∘ L` (sm-3:2773-2778: diffeomorphism + `Φ_s^*α = c_s α`, `c_s > 0`). -/
+theorem pushoffAnnulus_map {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsContactIsotopy Φ) {s : ℝ}
+    (hs : s ∈ Icc (0 : ℝ) 1) {L : ℝ → ℝ³} {ε b : ℝ} {B : ℝ × ℝ → ℝ³} (hB : IsPushoffAnnulus L ε b B) :
+    IsPushoffAnnulus (Φ s ∘ L) ε b fun q => Φ s (B q) := by
+  sorry
+
+
+/-- A stage of an ambient isotopy carries embedded circles to embedded circles. -/
+lemma gp6_isEmbeddedCircle_stage {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsCompactlySupportedAmbientIsotopy Φ)
+    {s : ℝ} (hs : s ∈ Icc (0 : ℝ) 1) {K : ℝ → ℝ³} (hK : IsEmbeddedCircle K) :
+    IsEmbeddedCircle fun θ => Φ s (K θ) := by
+  sorry
+
+
+/-- LEAF P6.3.  A positive transverse embedded circle moves through positive transverse embedded
+circles under a contact isotopy (sm-3:2776-2779: `α((Φ_s∘K)′) = (c_s∘K) α(K′) > 0`). -/
+theorem transverselyIsotopic_contact {Φ : ℝ → ℝ³ → ℝ³} (hΦ : IsContactIsotopy Φ) {K : ℝ → ℝ³}
+    (hK : IsEmbeddedCircle K) (hKt : IsPositiveTransverse K) :
+    TransverselyIsotopic K fun θ => Φ 1 (K θ) := by
+  sorry
+
+
+/-- The velocity of the circle `θ ↦ B (θ, s₀)` is `DB(θ,s₀)(1,0)`. -/
+lemma gp6_hasDerivAt_annulus_circle {L : ℝ → ℝ³} {ε b : ℝ} {B : ℝ × ℝ → ℝ³}
+    (hB : IsPushoffAnnulus L ε b B) {s₀ : ℝ} (hs₀ : s₀ ∈ Ioo (-ε) b) (θ : ℝ) :
+    HasDerivAt (fun θ => B (θ, s₀)) (fderiv ℝ B (θ, s₀) (1, 0)) θ := by
+  sorry
+
+
+/-- LEAF P6.4.  The circles `B(·, s₀)` of a pushoff annulus are embedded circles. -/
+theorem IsPushoffAnnulus.circle {L : ℝ → ℝ³} {ε b : ℝ} {B : ℝ × ℝ → ℝ³} (hB : IsPushoffAnnulus L ε b B)
+    {s₀ : ℝ} (hs₀ : s₀ ∈ Ioo (-ε) b) : IsEmbeddedCircle fun θ => B (θ, s₀) := by
+  sorry
+
+
+end GenericFront
+
+open GenericFront
+
+/-- **fd:generic-front** (sm-3:2613-2630), assembled from units P0–P6. -/
+theorem fd_generic_front : GenericFrontData := by
+  sorry
+
+
+end
+
+end SM

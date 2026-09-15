@@ -1,0 +1,37 @@
+{
+  "format": "pp.fullNames true, pp.universes false; explicit checked prototype types",
+  "types": {
+    "SM.boundaryIndex": "SM.boundaryIndex {n : \u2115} (g : ZMod n) (k : Fin n) : ZMod n",
+    "SM.boundaryWord": "SM.boundaryWord {n : \u2115} (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin n) : SM.Plane",
+    "SM.boundaryIndex_injective": "SM.boundaryIndex_injective {n : \u2115} [NeZero n] (g : ZMod n) : Function.Injective (SM.boundaryIndex g)",
+    "SM.boundaryWord_shift": "SM.boundaryWord_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g a : ZMod n) :\n  SM.boundaryWord (SM.shift a P) (g - a) = SM.boundaryWord P g",
+    "SM.boundaryWord_first": "SM.boundaryWord_first {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (hn : 0 < n) :\n  SM.boundaryWord P g \u27e80, hn\u27e9 = P (g + 1)",
+    "SM.boundaryWord_last": "SM.boundaryWord_last {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (hn : 0 < n) :\n  SM.boundaryWord P g \u27e8n - 1, \u22ef\u27e9 = P g",
+    "SM.boundaryWord_leaf_edge": "SM.boundaryWord_leaf_edge {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (k : \u2115) (hk : k + 1 < n) :\n  SM.boundaryWord P g \u27e8k + 1, hk\u27e9 - SM.boundaryWord P g \u27e8k, \u22ef\u27e9 = SM.edge P (g + \u2191(k + 1))",
+    "SM.BoundaryInterval": "SM.BoundaryInterval (n : \u2115) : Type",
+    "SM.BoundaryInterval.leaves": "SM.BoundaryInterval.leaves {n : \u2115} (I : SM.BoundaryInterval n) : \u2115",
+    "SM.BoundaryInterval.leaves_pos": "SM.BoundaryInterval.leaves_pos {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) : 0 < I.leaves",
+    "SM.IntervalComposition": "SM.IntervalComposition {n : \u2115} (I : SM.BoundaryInterval n) : Type",
+    "SM.IntervalComposition.parts_lt": "SM.IntervalComposition.parts_lt {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  \u03c0.parts < n",
+    "SM.IntervalComposition.part": "SM.IntervalComposition.part {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (k : Fin \u03c0.parts) :\n  SM.BoundaryInterval n",
+    "SM.IntervalComposition.single": "SM.IntervalComposition.single {n : \u2115} (I : SM.BoundaryInterval n) : SM.IntervalComposition I",
+    "SM.rootData": "SM.rootData (n : \u2115) [NeZero n] (_hn : 3 \u2264 n) :\n  Type \u00d7\n    (SM.LabelledTuple n \u2192 ZMod n \u2192 SM.Plane) \u00d7\n      (SM.LabelledTuple n \u2192 ZMod n \u2192 Fin n \u2192 SM.Plane) \u00d7\n        Type \u00d7\n          (SM.BoundaryInterval n \u2192 \u2115) \u00d7\n            (SM.BoundaryInterval n \u2192 Type) \u00d7\n              ((I : SM.BoundaryInterval n) \u2192 (\u03c0 : SM.IntervalComposition I) \u2192 Fin \u03c0.parts \u2192 SM.BoundaryInterval n)"
+  },
+  "type_sha256": {
+    "SM.boundaryIndex": "13409ff5cdae019de6840caa6e7a4b3e91ed48b81809c46812a5599d1e83bbc0",
+    "SM.boundaryWord": "d48c4cc74fcd195c092f82259ff114f49fa4aa7d77b9232f7b1a5384c0c58b63",
+    "SM.boundaryIndex_injective": "53502dcecd4afba29cfb60d6528a7e6f5a53cb4ddd67ff6877281a3e28f5698c",
+    "SM.boundaryWord_shift": "931b79cc858b3061dc4c5176e83dc43c6d89596445515dedbd1ccf3349ea7d6f",
+    "SM.boundaryWord_first": "ba0d68251d3569a47b6961c6e01e4837d57e46b91b206ed1bb7ea0de2177c294",
+    "SM.boundaryWord_last": "822cb3e26eb5c09e540d3982c2e51cd32aa139f5aaf0c3bdc5a761033d993328",
+    "SM.boundaryWord_leaf_edge": "2d36f6cb76363eab5b424fd27f62ae77f8dce6c5a724ddaf405598cbe517795b",
+    "SM.BoundaryInterval": "812f304753774e3d660cbb0f5a53143ca33eeedc50f87e225c196839ff215dcb",
+    "SM.BoundaryInterval.leaves": "423b099197c12246270cebf445ef19a3e30671a7127222ae2c598a79cafec346",
+    "SM.BoundaryInterval.leaves_pos": "c2b6ad7e48c256231f4ba3cfe2be366ef239bff6cfec9f222bc9b3c6600f00d8",
+    "SM.IntervalComposition": "5533262906f66cdecf7ffb5aee18f8995a2fd401893f9bce155874e85299c6b1",
+    "SM.IntervalComposition.parts_lt": "0e28d656b679e34c996323802e8c5c223614c5f6067fdb9e9d81abd14698680b",
+    "SM.IntervalComposition.part": "e6b179422a43928a2d83783ebebdfd4c7325583711a424ea8efa06dc2d82c6a6",
+    "SM.IntervalComposition.single": "03351dc14f8805d135354c2e0afa11b95985513882398e8831a50d2cd3e1a97b",
+    "SM.rootData": "2b41f7285acf07b31a02344fe94e0ad0702c8ace41e7facb186d8a9df0457c56"
+  }
+}

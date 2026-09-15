@@ -1,0 +1,20 @@
+\begin{definition}[soft insertion]\label{def:soft}
+Let $P$ satisfy (G1), fix a vertex index $j$ and a vector $q\neq0$. The
+\emph{soft insertion} of $q$ at $j$ is the family of $(n+1)$-gons
+\[
+P^{(j,q)}_\varepsilon=(\mu_1,\ldots,\mu_j,\ \mu_j+\varepsilon q,\ \mu_{j+1},\ldots,\mu_n),
+\qquad\varepsilon>0,
+\]
+with the new vertex $\mu_*=\mu_j+\varepsilon q$ inserted immediately after
+$\mu_j$; its edges are $\lt_{j-1}$, the \emph{soft edge} $\varepsilon q$, and
+the \emph{return edge} $\lt_j-\varepsilon q$, the others unchanged. The
+\emph{attachment signs} are
+\[
+\chi_-=\chi_{*,j,j-1}\bigl(P_\varepsilon\bigr)=-\sgn\det(\lt_{j-1},q),\qquad
+\chi_+=\chi_{*,j,j+1}\bigl(P_\varepsilon\bigr)=-\sgn\det(q,\lt_j),
+\]
+the two equalities holding for every $\varepsilon>0$ (they are the turns at
+the two ends of the soft edge, with the sign reversed). The vector $q$ is
+\emph{admissible} if $\det(\lt_{j-1},q)\neq0$, $\det(q,\lt_j)\neq0$, and
+$\det(q,\mu_k-\mu_j)\neq0$ for all $k\neq j$.
+\end{definition}

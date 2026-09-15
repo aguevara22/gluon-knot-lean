@@ -1,0 +1,343 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "central-leg-roots",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1459–1487, with the joint-choice context at 1429–1458; the collision paragraph is covered separately and is not newly certified here",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "module": "SM.CentralLegFiniteRoots",
+  "main_declarations": [
+    "SM.central_parameter_root_simple",
+    "SM.central_control_hasDerivAt",
+    "SM.central_control_crossing_product",
+    "SM.finite_labelledCentralRootSet",
+    "SM.central_root_unique_name",
+    "SM.central_roots_isolated",
+    "SM.generic_of_named_controls_nonzero",
+    "SM.finite_central_nongeneric"
+  ],
+  "review_flags_scope": "Actual individual central-leg parameter controls and finite root sets under the already constructed JointLegConditions, plus the one-way actual Generic implication. No whole relative-general-position theorem or wall germ is accepted.",
+  "reason": "Faithful bounded implementation of the source’s central root argument. The univariate parameter polynomial has the actual initial control value as its constant and the evaluated coordinate slope multiplied by the actual scalar step as its parameter slope. Its evaluation is proved equal to the control on the actual assignment. Independent controls remain at their nonzero initial value; every root therefore forces genuine formal coordinate dependence and has nonzero parameter slope. Actual root multiplicity is one, the actual time-evaluation function has that derivative, and the root factor has strictly opposite signs at any two times on opposite sides. Distinct named controls cannot share a root, and neither endpoint is a root. Root sets are exactly actual evaluation zeros, are finite and isolated, retain leg labels, and have a unique control name at each local root. Every actual nongeneric central time is proved to lie in this finite root set using the exact source G1/G2 geometry. The converse is deliberately absent, preserving generic inactive concurrence roots. The full five-module bodies, inherited definitions and final compiled types were independently checked; a direct kernel example also derives a nonzero actual time derivative from an actual evaluation zero. All global path, collar, regularity and complete wall-classification obligations remain outside this review.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact parameter polynomial and evaluation bridge",
+      "assessment": "parameterSlope is eval(fixedAssignment)(coordinateSlope) times the actual endpoint-true minus endpoint-false moving-coordinate difference. parameterPolynomial is the real affine polynomial with that slope and the actual initial control evaluation as its constant. The proof evaluates the established coordinate-affine decomposition on the real assignment, proves its remaining coordinates equal fixedAssignment, substitutes the actual moving value before+t*(after−before), and separately identifies the constant by evaluating at the initial endpoint. Algebra then yields the exact univariate evaluation equality for every real t. Coordinate affinity is supplied for every actual named Δ/T control by the accepted polynomial-controls result; the construction does not omit the scalar-step factor or substitute an arbitrary parameter polynomial."
+    },
+    {
+      "clause": "Independent controls and nonzero actual parameter slopes",
+      "assessment": "Absence of the moving scalar from p.vars gives coordinate degree zero, hence coefficient one of the isolated polynomial is zero. Such a control has parameter slope zero and stays equal to its actual initial value, which JointLegConditions makes nonzero. Every root therefore forces actual membership of the moving scalar in the named control’s vars. At a dependent control, the previously constructed nonzero evaluated slope and actual nonzero scalar step have nonzero real product. Each parameter polynomial is also nonzero independently because its evaluation at zero is the nonzero initial control value. No assumption that every control depends on the chosen coordinate is made."
+    },
+    {
+      "clause": "Simple roots, actual derivatives and signed crossing",
+      "assessment": "For a nonzero real affine slope, the root formula gives uniqueness and actual rootMultiplicity one. The derivative polynomial is the constant slope; the pinned analytic polynomial theorem proves HasDerivAt of the actual real evaluation function, and the evaluation bridge transports it to the actual central control function. The independent kernel example starts with eval(assignment r)(control)=0 and derives a nonzero HasDerivAt slope without adding formal dependence as an input. At a root r, the affine value at t equals A*(t−r). For u<r<v the product of the two values is A²*(u−r)*(v−r), strictly negative because A≠0. This preserves either sign of the scalar step and proves the claimed sign change on the real parameter line. It does not alone assert a complete ambient smooth-hypersurface or wall-germ theorem."
+    },
+    {
+      "clause": "No shared roots, unique control name and no endpoint roots",
+      "assessment": "A time root is proved equivalent to a root of the actual fixed-coordinate specialization at before+t*step. If two distinct controls vanish at the same time, both must be dependent and their evaluated fixed-coordinate resultant is nonzero by JointLegConditions. The accepted specialized no-common-root theorem then gives a contradiction at that same scalar value. This establishes at most one vanishing name at each local time. The initial and terminal evaluation identities and both endpoint-control fields exclude times zero and one. Root uniqueness for an individual control follows from the actual nonzero parameter slope. The names are the accepted one-per-unordered-support Δ/T names; no new source controls or independent root oracle is supplied."
+    },
+    {
+      "clause": "Actual finite root sets, isolation and retained leg labels",
+      "assessment": "centralControlRootSet is defined by existence of an actual named control with actual evaluation zero on the assignment, rather than an arbitrary event relation. Evaluation equality identifies it with the finite union of root sets of nonzero real polynomials, making it finite. labelledCentralRootSet consists of actual pairs (leg index,local time); finite unions of the corresponding images preserve the leg occurrence even when two legs have equal numeric local times. A root has exactly one vanishing control name by the preceding no-common-root result. For isolation, the finite set with the candidate centre removed is closed; an open ball in its complement yields a positive absolute-radius neighbourhood containing no different root. The final proof uses the correctly oriented subset proof for S minus {r}. These sets cover the whole real parameter line. Actual segment events will still need restriction to (0,1) and reindexing during global path assembly; roots outside the segment are not being claimed as path events."
+    },
+    {
+      "clause": "All named controls nonzero implies actual G1 and G2",
+      "assessment": "The all-order ±coverage theorems recover nonzero area determinants for every ordered distinct vertex triple and nonzero concurrence determinants for every ordered pairwise-remote edge triple from the actual named family. Nonzero area signs give exactly G1. If G2 failed, there would be three distinct actual edge interiors meeting at one point. Under the proved G1 adjacent-intersection geometry, each of their pairs must be remote: distinct adjacent edges share only their endpoint, which cannot be an interior point of a nonzero edge. The actual common point also lies in all three closed segments, so the established supporting-line equations force their actual three-line determinant to vanish, contradicting its nonzero named control. The argument has exactly the inherited source size n≥3, with the nonzero-size instances supplied internally. It does not replace interior concurrence by arbitrary line-extension concurrence."
+    },
+    {
+      "clause": "Nongeneric times are only a subset of roots",
+      "assessment": "Outside the actual control root set every named control is nonzero on the scalar assignment. Reconstructing the actual labelled tuple and using scalarCoordinates_tupleOf yields Generic by the one-way theorem. Contraposition places actual nongeneric times inside the finite root set, and therefore proves they form a finite set under JointLegConditions. No Generic iff all-controls-nonzero statement, no identification of every T root with a wall, and no removal of possible generic inactive T roots is asserted. Generic endpoint collars with inactive zeros remain a separate construction, as required by the source."
+    },
+    {
+      "clause": "Faithful bounded domain and remaining assembly",
+      "assessment": "The root statements apply to supplied individual central legs carrying the already proved JointLegConditions, not to an arbitrary path assumed to have good roots. No Regular premise or extra nonzero-slope/root-independence certificate is added. The finite-family statements use NeZero n for actual finite names and Finite ι for leg labels; n≥3 is retained where the actual Generic implication needs it. The current results provide the exact central algebra and its genericity consequence. A common local interval with all other signs fixed, ambient hypersurface smoothness, complete actual wall germs, geometric cubes, endpoint collars, uniform approximation, collision/global path assembly and wall classification remain future or separately reviewed work. The outside-inventory ScalarBoxes prototype is not part of this review."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance, original proof increment or checklist increment.",
+    "No identification of all control roots with nongeneric parameters; inactive T roots may be generic.",
+    "No common per-root neighbourhood theorem fixing every other control sign, no ambient smooth-hypersurface theorem and no complete actual wall-germ construction.",
+    "No geometric cube/subdivision/collar construction, assembled path with fixed original endpoints, Euclidean uniform bound, complete wall dictionary or cusp exclusion.",
+    "The current all-real local root sets still need segment restriction and global time reindexing. No new full occurrence-label transport theorem is claimed.",
+    "The separate collision/topology modules and ScalarBoxes.prototype are outside this import closure and are not newly certified here."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/CentralLegFiniteRoots.lean": "d178caa0c02f5faffecf7265e5c62c5fd715e88e9320e942c37e58736b174b26",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/NonzeroControlsGeneric.lean": "50e2ea943174b598758ec808c53d5dfe411dd32a778a96a7e70cea3cfc6654dc",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegFiniteRoots.lean": "d178caa0c02f5faffecf7265e5c62c5fd715e88e9320e942c37e58736b174b26",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/NonzeroControlsGeneric.lean": "50e2ea943174b598758ec808c53d5dfe411dd32a778a96a7e70cea3cfc6654dc",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9"
+  },
+  "import_closure_root": "SM.CentralLegFiniteRoots",
+  "import_closure_file_count": 48,
+  "inherited_review_binding": {
+    "joint_choice_review": "work/reviews/joint-waypoint-choice.json",
+    "joint_choice_review_sha256": "8609999cf4db4b00f221df4ac7ba0a4140eb7c81df2bdd78baa739c610d495f5",
+    "inherited_file_count": 43,
+    "all_inherited_hashes_match": true,
+    "joint_review_file_not_in_current_closure": "work/lean/SM/WaypointOpenDomain.lean",
+    "accepted_polynomial_controls_review": "work/reviews/lem-transport-polynomials.json",
+    "accepted_polynomial_controls_review_sha256": "8274567d955ea7337ff008a27555a4cbd198f7551d5c07342cd0e52d009a9839"
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "inspected_derivative_library_file": "work/lean/.lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Polynomial.lean",
+    "inspected_derivative_library_sha256": "a95de7c2dbcf96686208f1418b045a647efc1cb2e05613d8abcbe4cb1b18ac81",
+    "derivative_library_verified_against_pinned_git_revision": true,
+    "library_scope": "Inspected the actual analytic HasStrictDerivAt/HasDerivAt proof by polynomial induction; inherited affine-root, finite-root and polynomial-control facts retain their prior independent review bindings."
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/central-leg-roots-review-types.lean",
+    "independent_trace_source_sha256": "8e7c242fd303dcab3be45ff2c4a961f7fcb2ae23ff437d43925c5ad0e99293f6",
+    "independent_trace_log": "work/checks/central-leg-roots-review-types.log",
+    "independent_trace_log_sha256": "4d5b2efb2a3de148e59237d9edb541dbb2ea0cca78efbe30b87181b47db96557",
+    "independent_kernel_command": "lake env lean ../checks/central-leg-roots-review-types.lean",
+    "independent_kernel_session": 19457,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 31,
+    "declaration_axioms": {
+      "SM.coordinateSlope_eq_zero_of_not_mem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.parameterPolynomial_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.eval_assignment_of_independent": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_hasDerivAt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_simple_at_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_crossing_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameterSlope_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameterPolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_independent_control_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_forces_dependency": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_root_iff_coordinate_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_no_common_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_no_zero_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_no_one_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_root_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_parameter_root_simple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_control_hasDerivAt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_control_crossing_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.area_nonzero_of_named_controls": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrence_nonzero_of_named_controls": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.generic_of_named_controls_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.finite_centralControlRootSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.finite_labelledCentralRootSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_unique_name": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.finite_real_set_isolated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_roots_isolated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_zero_excluded": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_one_excluded": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_generic_of_not_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_nongeneric_subset_roots": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.finite_central_nongeneric": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "actual_evaluation_zero_implies_nonzero_time_derivative_example_passed": true,
+    "successful_build_log": "work/checks/central-leg-finite-roots-build.log",
+    "successful_build_log_sha256": "e9769a1b4f67089125346e73bc107594ae6a9e06cf0e08d4ff7b09633ec1dcce",
+    "successful_build_session": 34619,
+    "successful_build_exit_code": 0,
+    "successful_core_build_log": "work/checks/central-leg-root-controls-build.log",
+    "successful_core_build_log_sha256": "cc476eeff7c820f320d0425cb77311e5edc6bf10ce7a2036cea6c7578f096ac8",
+    "successful_core_build_session": 67072,
+    "successful_core_build_exit_code": 0,
+    "final_isolation_repair": "Only the finite-subset proof for S minus {r} changed from the preliminary read; the source meaning and isolation conclusion are unchanged and the final bytes were inspected."
+  },
+  "audit_context": {
+    "last_completed_prior_receipt": "work/checks/checkpoint-053-output.json",
+    "last_completed_prior_receipt_sha256": "834abff215428705dd60604d2a9fe5d0c364e7a435c201965e2205c32e5bc276",
+    "prior_receipt_passed": true,
+    "prior_receipt_stage_accepted": false,
+    "prior_SM_count": 258,
+    "prior_local_declarations": 2878,
+    "all_258_prior_SM_files_unchanged": true,
+    "scope": "Receipt053 predates these five new modules and is not represented as their whole-project audit. This partial review binds their successful scoped build, independent kernel trace and exact48-file import closure; a later whole-project checkpoint can bind the report additionally."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no theorem-library implementation. Only independent type/axiom and derivative check evidence and this partial report were written.",
+  "edits": "No Lean theorem-library, prototype, frozen-source, declaration-map or progress edits."
+}

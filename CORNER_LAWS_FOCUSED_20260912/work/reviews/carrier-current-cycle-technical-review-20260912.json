@@ -1,0 +1,169 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-current-cycle-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:56:55.937644+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "Root authored all four declarations and performed all kernel runs and evidence generation. This reviewer authored no mathematical code or proof dependency, made no proof edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions were independent source/type/definition inspection, confirmation of the pinned API arity already identified by root, and exact complete-file, ordered embedding, receipt and axiom-trace verification."
+  },
+  "scope": {
+    "group": "CarrierCurrentCycle",
+    "declarations": [
+      "SM.Carrier.componentCycle_list_nodup",
+      "SM.Carrier.componentCycle_list_mem_iff",
+      "SM.Carrier.componentCycle_list_eqOn",
+      "SM.Carrier.componentCycle_current_split_data"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "97–113 actual marked traversal and outgoing reconnection; 115–139 current-cycle splitting with inherited cyclic order and same-current-component endpoint premise.",
+    "ambient_context": "hn:3≤n, actual Generic P, actual finite selected-crossing set T, actual Component orbit quotient and componentCycle defined by filtering the original marked cycle by actual incoming owner. Helpers consume a literal Cycle representative; the final theorem constructs that representative from distinct marks with two explicit old-owner equalities and explicit InheritsMarkOrder."
+  },
+  "assessment": "No mathematical or source-domain defect found in the conditional actual current-cycle representation and its restricted successor action.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 62139,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      72039
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierCurrentCycle-prototype-result.json",
+    "receipt_sha256": "a26701727ff4c8fbcf9166ac0a613410b4d6b982faec5223965b6673ffaf402f",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierVisitTwin.body.lean": "9f80a477adaf4a1238b58160c0ff258eebeb37a6bc0b153dd6cbb0c1bdb6d2f8",
+      "work/checks/CarrierSmoothing.body.lean": "27ddd25cb6878afd24f7c71cfee7b003e9bd539c5dbc00eea05bc7642205c61e",
+      "work/checks/CycleFiltering.body.lean": "9b0aa68627a006733a347c879574724b54f833724579820e13a6fbc8f1722c5e",
+      "work/checks/CarrierFilteredCycles.body.lean": "17e091e45f8844dc366f67f985691accf2678d3a529692278113c3099ff2649e",
+      "work/checks/CarrierSingleSwitch.body.lean": "e6a3c12785fd83fb268b791ac7ab8dbb2bf4494563c8fb674be74b19d3a08563",
+      "work/checks/CarrierCycleList.body.lean": "23e80115f91a912c489a98a8b8f1632e1c92544bf146e602131076600531af10",
+      "work/checks/CarrierSplitList.body.lean": "cff54b56e0d3b8963aef1508e2f6b0d4a167bf2242bd77ebd4ed9a26951ec9fc",
+      "work/checks/CarrierSingleSupport.body.lean": "b03c54357c2f041ac0dce83c0a1e348cbb3fed5e73722e946f46eab8fd3e6f4c",
+      "work/checks/CarrierInheritedOrder.body.lean": "b2436d72abd3f351fc8c48615fd8af9e672a4b1d5c2bf7d896b076b40aa947b8",
+      "work/checks/CarrierCurrentCycle.body.lean": "c87fd76d5d9962354b4bfe9e045548874fad917be37cdc1022ee152e263edd53",
+      "work/checks/CarrierCurrentCycle.prototype.lean": "ebe774fc411766a09c177032930693165626a65ed019ff7f76c2d04feccb0916",
+      "work/checks/CarrierCurrentCycle-second-kernel.log": "198f0247605bf5006ab4f18dabe36e3c5e5a7c424e2a1c66c2a7bf4de7eea4d6"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean",
+      "work/checks/CarrierVisitTwin.body.lean",
+      "work/checks/CarrierSmoothing.body.lean",
+      "work/checks/CycleFiltering.body.lean",
+      "work/checks/CarrierFilteredCycles.body.lean",
+      "work/checks/CarrierSingleSwitch.body.lean",
+      "work/checks/CarrierCycleList.body.lean",
+      "work/checks/CarrierSplitList.body.lean",
+      "work/checks/CarrierSingleSupport.body.lean",
+      "work/checks/CarrierInheritedOrder.body.lean",
+      "work/checks/CarrierCurrentCycle.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1,
+      "work/checks/CarrierVisitTwin.body.lean": 1,
+      "work/checks/CarrierSmoothing.body.lean": 1,
+      "work/checks/CycleFiltering.body.lean": 1,
+      "work/checks/CarrierFilteredCycles.body.lean": 1,
+      "work/checks/CarrierSingleSwitch.body.lean": 1,
+      "work/checks/CarrierCycleList.body.lean": 1,
+      "work/checks/CarrierSplitList.body.lean": 1,
+      "work/checks/CarrierSingleSupport.body.lean": 1,
+      "work/checks/CarrierInheritedOrder.body.lean": 1,
+      "work/checks/CarrierCurrentCycle.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 4,
+    "declaration_axioms": {
+      "SM.Carrier.componentCycle_list_nodup": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_list_mem_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_list_eqOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_current_split_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierCurrentCycle-first-draft.body.lean": "ccab9f5f63f1dbcd662ede8596ca90700a3327db0f016944db0d93d4f32b1fa7",
+      "work/checks/CarrierCurrentCycle-first-draft.prototype.lean": "2d2fd1f1cc7db084630f359805185affa9f912d4fad6a5bc69cf46ebcac0b59e",
+      "work/checks/CarrierCurrentCycle-body-dependencies.json": "30485b6d0e920b0713e93c4ec16871c4602f339f764c1631513678bea24514ab",
+      "work/checks/CarrierCurrentCycle-draft-dependency-bindings.json": "c5c28f5e24bbadcb9119423ca5dd4daa5da12f200a16707581f8bce4d29c2f6c"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierCurrentCycle.body.lean": "work/checks/CarrierCurrentCycle-first-failed.body.lean",
+      "work/checks/CarrierCurrentCycle.prototype.lean": "work/checks/CarrierCurrentCycle-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierCurrentCycle-first-failed.body.lean": "ccab9f5f63f1dbcd662ede8596ca90700a3327db0f016944db0d93d4f32b1fa7",
+      "work/checks/CarrierCurrentCycle-first-failed.prototype.lean": "2d2fd1f1cc7db084630f359805185affa9f912d4fad6a5bc69cf46ebcac0b59e",
+      "work/checks/CarrierCurrentCycle-first-failed-body-dependencies.json": "30485b6d0e920b0713e93c4ec16871c4602f339f764c1631513678bea24514ab",
+      "work/checks/CarrierCurrentCycle-first-kernel.log": "10483d5426607383d5e0aa208072313ce30795ee81fba2e4cd1a08ab3ac437fe",
+      "work/checks/CarrierCurrentCycle-first-failure-bindings.json": "bb64bf1831592976be230b5e6aa11ec7f51b2f0df20ff6712effb0e2af18fa0e",
+      "work/checks/CarrierCurrentCycle-second-draft-repair-bindings.json": "cb1a4360e3519c91c365ab55c8df9f885a97708a6f8940b61b1efaf7d7063976"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "componentCycle_list_eqOn"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first72039 failed because a proof application supplied only the Nodup proof to Cycle.formPerm_coe, whose pinned signature also requires the explicit list. The second authored draft changes exactly Cycle.formPerm_coe hN to Cycle.formPerm_coe L hN. The already present list L, all four header texts, every dependency body and the closure remain unchanged. Exact first body/prototype/dependency list/log are preserved; the failed run and compiler placeholders are excluded from successful evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierInheritedOrder-prototype-result.json": "64ecabfed93c6f6938062ba87e4295d0fc4b7ba9ba2eb08cda9c0852c2541f90"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/Cycle/Concrete.lean": "3c3e31e5fca0d9c7fd7b6f5a5ec38ab5664ebc2d9fbebe95e6e5102cacd8bb3e",
+      "work/checks/carrier-transport-baseline-20260912.json": "d1aeb496f2cb65ce5e078fff4fa2c2ef074e106dc3c016bf3d8173719e108185",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+      "work/reviews/carrier-inherited-order-technical-review-20260912.json": "e73e42d07aa5b239a607ef7778883b872a963bb7368458cd76bde43ba370876b"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "componentCycle_list_nodup transfers the already proved Nodup of the actual owner-filtered component cycle to any equal literal list. It does not supply an abstract Nodup list in place of an actual component.",
+    "componentCycle_list_mem_iff identifies literal list membership with actual quotient ownership for every ambient mark, by the actual componentCycle membership theorem. All marks, including original vertices, remain represented.",
+    "componentCycle_list_eqOn retains InheritsMarkOrder as an explicit hypothesis and uses its member-restricted formPerm equivalence. The equality is only on the represented component's marked set; behavior outside that set is not silently replaced by the list permutation.",
+    "The proof transports Cycle.formPerm through equality of the same Nodup-cycle subtype. This handles its dependent proof argument without changing the component cycle or assuming its desired action.",
+    "componentCycle_current_split_data constructs k,A,B using the complete original markList and distinct actual marks. Its output keeps the unfiltered original rotation as well as the explicit old-owner-filtered literal current list, permitting later comparison of original physical arcs and current component slices.",
+    "Both endpoint old-owner equalities are explicit. They ensure the endpoints survive the filter and the componentCycle_eq_filtered_splitList theorem applies. Their existence is not inferred from original noninterlacement or hidden in a chosen correspondence.",
+    "The constructed list has proved exact ambient ownership membership, proved Nodup and action equality from the explicit inherited-order invariant. No representation, custom weight, orbit equivalence, cycle count or bijection is supplied as an input to the final theorem.",
+    "Either owner-filtered intervening list may be empty. The packet asserts neither a minimum child length nor equality between a singleton's node set and nontrivial permutation support.",
+    "These are conditional representation/action lemmas at arbitrary support T. They do not prove inherited-order preservation, that unprocessed independent pairs remain on one current component, the exact plus-one quotient count, or carrier geometry."
+  ],
+  "limits": "Current-component representation and restricted action under explicit InheritsMarkOrder and same-current-component endpoint inputs only. General simultaneous independent-support induction, strict split fibers/count, geometry and source theorem acceptance remain separate. Source increment0; stronger fidelity and canonical integration false."
+}

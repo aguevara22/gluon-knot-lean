@@ -1,0 +1,442 @@
+-- Reviewer input for the three knot-theory interface rows (lit:homfly, lp:lm, lp:lm-uniqueness): the module SM/LinkInterfaces.lean in full (axioms have no proofs; the sanity theorems keep theirs).
+import SM.LinkMoves
+import SM.LinkLaurentRing
+
+/-! The three knot-theory literature interfaces of blueprint/AXIOM_REGISTRY.md, stated verbatim as single `axiom` declarations with the
+policy names of work/lean/axiom-policy.json: `SM.lit_homfly` (lit:homfly, sm-3:916-923), `SM.lp_lm` (lp:lm, sm-3:935-960),
+`SM.lp_lm_uniqueness` (lp:lm-uniqueness, sm-3:962-979), each in ∃-form over a Prop structure whose field names are the printed clauses
+(`HomflyClauses`, `LMClauses`, `LMCompetitor`), with the maps fixed once by `Classical.choose` (`homfly`, `lmF`) and sanity theorems
+(the descent clause of lit:homfly is implied by the other clauses; any lp:lm witness equals `lmF`). Design: work/reports/
+design-decision-diagram-record-20260913.md (literature_interfaces; judges' graft). Written 2026-09-13 by a Claude Code implementer
+subagent of the pod executor (workflow implement-knot-interfaces), checked with `lake env lean` (no sorry; the only non-standard axioms
+are the three interfaces) and ported verbatim from work/drafts/LinkInterfaces.lean (only this header added and #print lines removed). -/
+
+/-! # The three knot-theory literature interfaces: lit:homfly, lp:lm, lp:lm-uniqueness
+(Chapter-3 representation layer, module LinkInterfaces, Proposal #1 with the judges' graft
+"field-named Prop structures for the axiom bodies")
+
+Source: reference/SM/sm-3-statesum.tex, frame SM15, transcribed from blueprint/AXIOM_REGISTRY.md
+(lit:homfly = AXIOM_REGISTRY.md:10-17 = sm-3:916-923; lp:lm = AXIOM_REGISTRY.md:25-50 =
+sm-3:935-960; lp:lm-uniqueness = AXIOM_REGISTRY.md:58-75 = sm-3:962-979).  Design:
+work/reports/design-decision-diagram-record-20260913.md, sections `literature_interfaces`,
+`skein_and_moves`, fidelity risks 1-4, and the judges' graft (1): "Bundle each axiom's clauses in a
+Prop-structure with one named field per printed sentence (`HomflyClauses H`: reidemeister_I/II/III,
+planar, circle, skein, descent; `LMClauses F`: planar, skein, underFirst_init,
+reidemeister_I/II/III; `LMCompetitor Q` for lp_lm_uniqueness's hypotheses) and state the axioms as
+`∃ H, HomflyClauses H`, `∃ F, LMClauses F`, `∀ Q, LMCompetitor Q → Q = lmF`."  Written 2026-09-13
+by a Claude Code implementer subagent of the pod executor; checked with `lake env lean` (no
+errors, every proof complete, standard axioms plus the three declared here).
+
+Declarations live in `SM` (the policy names of work/lean/axiom-policy.json: `SM.lit_homfly`,
+`SM.lp_lm`, `SM.lp_lm_uniqueness`); the representation layer is `SM.Link` (opened).  Exactly three
+`axiom` declarations are made in this file and no other; every other declaration is a `structure`,
+a `def` or a proved `theorem`.
+
+## What is rendered how (recorded for the reviewer)
+
+* "a map D ↦ H_D(a,z) ∈ ℤ[a^{±1},z^{±1}] on oriented link diagrams" (lit:homfly) is a function
+  `Diagram → R` on the polygonal oriented link diagrams of `SM.LinkDiagram` (def:positive-lift's
+  first sentence), `R = ℤ[a^{±1},z^{±1}]` of `SM.LinkLaurentRing`; "in ℤ[l^{±1},m^{±1}]" (lp:lm)
+  is the DISTINCT type `T` of the same module, so no statement over `R` can leak into
+  lp:lm-uniqueness ("The ring is the source's: no statement over ℤ[a^{±1},z^{±1}] is imported
+  here", AXIOM_REGISTRY.md:72-73).
+* "planar isotopy" / "positive page isotopy" / "modulo plane isotopy" is `PlanarIsotopic`; "the
+  three Reidemeister moves" / "each actual ordinary oriented Reidemeister move" are `RI`, `RII`,
+  `RIII`; "skein triple" is `IsSkeinTriple` (D₋ literally the switch of D₊ at a positive crossing,
+  D₀ an oriented smoothing there); "the oriented link presented by D" is the `LinkEquiv` class —
+  all from `SM.LinkMoves`, whose header records the readings (SOURCES/INDEX.md §D: links are
+  diagrams modulo the moves and planar isotopy; Reidemeister's theorem is outside the formal scope
+  and no sixth axiom is admitted).
+* "the crossing-free circle" (lit:homfly) and "the unknot" (lp:lm-uniqueness) are every
+  one-component crossing-free diagram, `Diagram.IsCrossingFreeCircle` (design decision D10: no
+  Jordan/Schoenflies theorem is needed to state the clause this way).
+* "the function constructed in Section 1 of Lickorish--Millett, not an arbitrary function with
+  similar values" (lp:lm): Lean cannot name LM's construction.  The rendering fixes ONE witness of
+  `lp_lm` once and for all, `lmF := Classical.choose lp_lm`, and states lp:lm-uniqueness relative
+  to that witness (`∀ Q, LMCompetitor Q → Q = lmF`).  Any function with lp:lm's properties is a
+  competitor in the sense of lp:lm-uniqueness (theorem `LMClauses.competitor`), hence equals `lmF`
+  (theorem `eq_lmF_of_lmClauses`); so the chosen witness is, up to the identification the
+  registry itself makes on p. 120 of the source, the source function, and the two readings ("∀
+  witnesses" / "the chosen witness") coincide (design fidelity risk 4).
+* "independently of the auxiliary component order, nonsingular basepoints, and order of required
+  crossing switches" (lp:lm): `F` takes only the diagram `D` — neither a `Basing` nor any order of
+  crossing switches is a parameter of `F` — and the initialization is quantified over EVERY basing
+  `B : D.Basing` (component order + nonsingular basepoints, `SM.LinkDiagram`).  The "order of
+  required crossing switches" is the source's construction device; nothing in the statement
+  depends on it, so it appears nowhere in `LMClauses`.
+* "In particular every crossing-free c-component diagram has that value, regardless of nesting or
+  orientations. Here c ≥ 1." (lp:lm) is a theorem (`LMClauses.crossingFree`): a crossing-free
+  diagram is UNDER-first for every basing and every diagram has a basing; `c ≥ 1` is
+  `Diagram.componentCount_pos`, so `c - 1` is a natural exponent.
+* "For a supplied finite sequence, take the maximum of the finitely many crossing counts and apply
+  source Proposition 4 at that level one move at a time. No bound by the endpoint crossing counts
+  is required. The imported construction and its Propositions 1--6 stop before the final p120
+  inference from arbitrary ambient isotopy to a finite move sequence." (lp:lm, AXIOM_REGISTRY.md:
+  44-48) is the source's proof commentary: the per-move fields give invariance under any finite
+  sequence by induction (`LMClauses.descent`), and nothing about ambient isotopy is stated.
+* lp:lm-uniqueness's hypotheses on a competitor are the registry's own operative sentence, "A map
+  on diagrams that is invariant under planar isotopy and the three Reidemeister moves depends only
+  on the isotopy class of the oriented link by Reidemeister's theorem ... the uniqueness therefore
+  applies to every such invariant map with the source skein and the unknot value"
+  (AXIOM_REGISTRY.md:67-72): `LMCompetitor Q` = planar + the three moves + unknot + source skein.
+  "with no restriction on the support or on the coefficients of a competitor" = `Q` ranges over all
+  of `Diagram → T`.
+* Sanity: `lit_homfly_descent_redundant` proves the `descent` field of `HomflyClauses` from the four
+  invariance fields (EqvGen induction on `LinkEquiv`), so `lit_homfly` is not stronger than its
+  printed clauses (`homflyClauses_iff_printed`); `lmF_competitor : LMCompetitor lmF` shows the
+  uniqueness axiom's hypotheses are met by its own distinguished witness.
+
+TeX in the quotations below is rendered in Unicode (ℤ, ±, ⁻¹, ≥); the words are the registry's. -/
+
+namespace SM
+
+open SM.Link
+
+/-! ## lit:homfly — the HOMFLY--PT polynomial (AXIOM_REGISTRY.md:10-17, sm-3:916-923) -/
+
+/-- The printed clauses of lit:homfly (AXIOM_REGISTRY.md:11-15, sm-3:917-921), one field per
+clause, for a candidate map `H : Diagram → R` ("There is a map D ↦ H_D(a,z) ∈ ℤ[a^{±1},z^{±1}] on
+oriented link diagrams that ...", AXIOM_REGISTRY.md:11-12). -/
+structure HomflyClauses (H : Diagram → R) : Prop where
+  /-- "invariant under the three Reidemeister moves" (AXIOM_REGISTRY.md:12, sm-3:918), move I. -/
+  reidemeister_I : ∀ D D' : Diagram, RI D D' → H D = H D'
+  /-- "invariant under the three Reidemeister moves" (AXIOM_REGISTRY.md:12, sm-3:918), move II. -/
+  reidemeister_II : ∀ D D' : Diagram, RII D D' → H D = H D'
+  /-- "invariant under the three Reidemeister moves" (AXIOM_REGISTRY.md:12, sm-3:918), move III. -/
+  reidemeister_III : ∀ D D' : Diagram, RIII D D' → H D = H D'
+  /-- "invariant under ... planar isotopy" (AXIOM_REGISTRY.md:12-13, sm-3:918-919). -/
+  planar : ∀ D D' : Diagram, PlanarIsotopic D D' → H D = H D'
+  /-- "takes the value 1 on the crossing-free circle" (AXIOM_REGISTRY.md:13, sm-3:919): every
+  one-component crossing-free diagram (`Diagram.IsCrossingFreeCircle`, design decision D10). -/
+  circle : ∀ D : Diagram, D.IsCrossingFreeCircle → H D = 1
+  /-- "satisfies aH_{D₊} − a⁻¹H_{D₋} = zH_{D₀} for every skein triple" (AXIOM_REGISTRY.md:13-14,
+  sm-3:919-920), on the relational `IsSkeinTriple`. -/
+  skein : ∀ Dp Dm D0 : Diagram, IsSkeinTriple Dp Dm D0 →
+    R.a * H Dp - R.aInv * H Dm = R.z * H D0
+  /-- "Its value depends only on the oriented link presented by D" (AXIOM_REGISTRY.md:14-15,
+  sm-3:920-921): `LinkEquiv` is "the oriented link presented by D" (SOURCES/INDEX.md §D).  This
+  field is implied by the four invariance fields (`lit_homfly_descent_redundant`). -/
+  descent : ∀ D D' : Diagram, LinkEquiv D D' → H D = H D'
+
+/-- **lit:homfly** (AXIOM_REGISTRY.md:10-17, sm-3:916-923; policy name `SM.lit_homfly`):
+"There is a map D ↦ H_D(a,z) ∈ ℤ[a^{±1},z^{±1}] on oriented link diagrams that is invariant under
+the three Reidemeister moves and planar isotopy, takes the value 1 on the crossing-free circle, and
+satisfies aH_{D₊} − a⁻¹H_{D₋} = zH_{D₀} for every skein triple. Its value depends only on the
+oriented link presented by D."  (No uniqueness clause: "the former uniqueness clause over
+ℤ[a^{±1},z^{±1}] was stated in no source ... and was struck from the statement in round 4",
+AXIOM_REGISTRY.md:16.)  Existence in ∃-form; the clauses are the fields of `HomflyClauses`. -/
+axiom lit_homfly : ∃ H : Diagram → R, HomflyClauses H
+
+/-- The HOMFLY--PT polynomial `D ↦ H_D(a,z)` of lit:homfly: one witness of `lit_homfly`, fixed once
+by `Classical.choose`. -/
+noncomputable def homfly : Diagram → R := Classical.choose lit_homfly
+
+/-- `homfly` satisfies every printed clause of lit:homfly. -/
+theorem homfly_spec : HomflyClauses homfly := Classical.choose_spec lit_homfly
+
+/-! ## lp:lm — the exact local LM construction (AXIOM_REGISTRY.md:25-50, sm-3:935-960) -/
+
+/-- The printed clauses of lp:lm (AXIOM_REGISTRY.md:26-44, sm-3:936-954), one field per clause,
+for a candidate map `F : Diagram → T` ("let F_D(l,m) be the function constructed in Section 1 of
+Lickorish--Millett, not an arbitrary function with similar values. The source constructs it in
+ℤ[l^{±1},m^{±1}], independently of the auxiliary component order, nonsingular basepoints, and order
+of required crossing switches.", AXIOM_REGISTRY.md:26-30).  `F` takes only the diagram: the
+component order and the basepoints enter only through the universally quantified `Basing` of
+`underFirst_init`, and the order of required crossing switches is not a parameter at all. -/
+structure LMClauses (F : Diagram → T) : Prop where
+  /-- "It is defined modulo positive page isotopy" (AXIOM_REGISTRY.md:31, sm-3:941). -/
+  planar : ∀ D D' : Diagram, PlanarIsotopic D D' → F D = F D'
+  /-- "satisfies l F_{D₊} + l⁻¹ F_{D₋} + m F_{D₀} = 0, μ = −(l+l⁻¹)m⁻¹" (lp:source-skein,
+  AXIOM_REGISTRY.md:31-35, sm-3:941-945), on the relational `IsSkeinTriple`; `μ` is `T.mu`. -/
+  sourceSkein : ∀ Dp Dm D0 : Diagram, IsSkeinTriple Dp Dm D0 →
+    T.l * F Dp + T.lInv * F Dm + T.m * F D0 = 0
+  /-- "and has the initialization F_D = μ^{c−1} for every based ordered c-component UNDER-first
+  diagram. UNDER-first means that, traversing components in their order, from their basepoints and
+  in their orientations, the first encounter with each crossing is the underpass. ... Here c ≥ 1."
+  (AXIOM_REGISTRY.md:36-41, sm-3:946-951): for every basing `B` (component order and nonsingular
+  basepoints) under which `D` is UNDER-first, `F D = μ^{c−1}` with `c = D.componentCount ≥ 1`.
+  Quantifying over every basing renders "independently of the auxiliary component order,
+  nonsingular basepoints" (AXIOM_REGISTRY.md:29-30). -/
+  underFirst_init : ∀ (D : Diagram) (B : D.Basing), D.UnderFirst B →
+    F D = T.mu ^ (D.componentCount - 1)
+  /-- "The same function is invariant under each actual ordinary oriented Reidemeister move"
+  (AXIOM_REGISTRY.md:43-44, sm-3:953-954), move I. -/
+  reidemeister_I : ∀ D D' : Diagram, RI D D' → F D = F D'
+  /-- "The same function is invariant under each actual ordinary oriented Reidemeister move"
+  (AXIOM_REGISTRY.md:43-44, sm-3:953-954), move II. -/
+  reidemeister_II : ∀ D D' : Diagram, RII D D' → F D = F D'
+  /-- "The same function is invariant under each actual ordinary oriented Reidemeister move"
+  (AXIOM_REGISTRY.md:43-44, sm-3:953-954), move III. -/
+  reidemeister_III : ∀ D D' : Diagram, RIII D D' → F D = F D'
+
+/-- **lp:lm** (AXIOM_REGISTRY.md:25-50, sm-3:935-960; policy name `SM.lp_lm`): "For every such
+diagram D, let F_D(l,m) be the function constructed in Section 1 of Lickorish--Millett, not an
+arbitrary function with similar values. The source constructs it in ℤ[l^{±1},m^{±1}],
+independently of the auxiliary component order, nonsingular basepoints, and order of required
+crossing switches. It is defined modulo positive page isotopy, satisfies
+l F_{D₊} + l⁻¹ F_{D₋} + m F_{D₀} = 0, μ = −(l+l⁻¹)m⁻¹, and has the initialization F_D = μ^{c−1} for
+every based ordered c-component UNDER-first diagram. ... The same function is invariant under each
+actual ordinary oriented Reidemeister move."  Existence in ∃-form over the source ring `T`; the
+clauses are the fields of `LMClauses`.  The source function itself is the witness fixed by `lmF`
+(see the module header and `eq_lmF_of_lmClauses`). -/
+axiom lp_lm : ∃ F : Diagram → T, LMClauses F
+
+/-- The local LM function `D ↦ F_D(l,m)` of lp:lm: one witness of `lp_lm`, fixed once by
+`Classical.choose`.  This is the rendering of "the function constructed in Section 1 of
+Lickorish--Millett, not an arbitrary function with similar values" (AXIOM_REGISTRY.md:26-28): Lean
+cannot name the source construction, so ONE witness is chosen and lp:lm-uniqueness
+(`lp_lm_uniqueness`) is stated relative to it; every function with lp:lm's properties then equals
+this witness (`eq_lmF_of_lmClauses`), so the two readings coincide.  The "order of required
+crossing switches" (AXIOM_REGISTRY.md:30) is not a parameter of `lmF`, nor is any basing. -/
+noncomputable def lmF : Diagram → T := Classical.choose lp_lm
+
+/-- `lmF` satisfies every printed clause of lp:lm. -/
+theorem lmF_spec : LMClauses lmF := Classical.choose_spec lp_lm
+
+/-! ## lp:lm-uniqueness — uniqueness over the source ring (AXIOM_REGISTRY.md:58-75, sm-3:962-979) -/
+
+/-- The hypotheses lp:lm-uniqueness places on a competitor `Q : Diagram → T` (AXIOM_REGISTRY.md:
+61-72, sm-3:965-976): the registry's operative sentence is "A map on diagrams that is invariant
+under planar isotopy and the three Reidemeister moves depends only on the isotopy class of the
+oriented link by Reidemeister's theorem, the source's own input for its descent on p. 120; the
+uniqueness therefore applies to every such invariant map with the source skein and the unknot
+value" (AXIOM_REGISTRY.md:67-72).  "Uniqueness is asserted among all such maps, with no restriction
+on the support or on the coefficients of a competitor" (AXIOM_REGISTRY.md:65-67): `Q` is any
+function `Diagram → T`.  "The ring is the source's: no statement over ℤ[a^{±1},z^{±1}] is imported
+here" (AXIOM_REGISTRY.md:72-73): the codomain is `T`, never `R`. -/
+structure LMCompetitor (Q : Diagram → T) : Prop where
+  /-- "invariant under planar isotopy" (AXIOM_REGISTRY.md:67-68, sm-3:971-972); also "(modulo
+  plane isotopy)" (AXIOM_REGISTRY.md:61-62). -/
+  planar : ∀ D D' : Diagram, PlanarIsotopic D D' → Q D = Q D'
+  /-- "invariant under ... the three Reidemeister moves" (AXIOM_REGISTRY.md:68, sm-3:972),
+  move I. -/
+  reidemeister_I : ∀ D D' : Diagram, RI D D' → Q D = Q D'
+  /-- "invariant under ... the three Reidemeister moves" (AXIOM_REGISTRY.md:68, sm-3:972),
+  move II. -/
+  reidemeister_II : ∀ D D' : Diagram, RII D D' → Q D = Q D'
+  /-- "invariant under ... the three Reidemeister moves" (AXIOM_REGISTRY.md:68, sm-3:972),
+  move III. -/
+  reidemeister_III : ∀ D D' : Diagram, RIII D D' → Q D = Q D'
+  /-- "takes the value 1 on the unknot" (AXIOM_REGISTRY.md:63, sm-3:967) / "the unknot value"
+  (AXIOM_REGISTRY.md:71-72): value 1 on every one-component crossing-free diagram
+  (`Diagram.IsCrossingFreeCircle`). -/
+  unknot : ∀ D : Diagram, D.IsCrossingFreeCircle → Q D = 1
+  /-- "satisfies lF_{D₊} + l⁻¹F_{D₋} + mF_{D₀} = 0 on every skein triple" (AXIOM_REGISTRY.md:63-64,
+  sm-3:967-968) / "the source skein" (AXIOM_REGISTRY.md:71), on the relational `IsSkeinTriple`. -/
+  sourceSkein : ∀ Dp Dm D0 : Diagram, IsSkeinTriple Dp Dm D0 →
+    T.l * Q Dp + T.lInv * Q Dm + T.m * Q D0 = 0
+
+/-- **lp:lm-uniqueness** (AXIOM_REGISTRY.md:58-75, sm-3:962-979; policy name
+`SM.lp_lm_uniqueness`): "Lickorish--Millett prove that the function F_D of Literature input lp:lm
+is the only map from oriented link diagrams (modulo plane isotopy) to T = ℤ[l^{±1},m^{±1}] that
+depends only on the isotopy class of the oriented link, takes the value 1 on the unknot, and
+satisfies lF_{D₊} + l⁻¹F_{D₋} + mF_{D₀} = 0 on every skein triple ... Uniqueness is asserted among
+all such maps, with no restriction on the support or on the coefficients of a competitor. A map on
+diagrams that is invariant under planar isotopy and the three Reidemeister moves depends only on
+the isotopy class of the oriented link by Reidemeister's theorem ...; the uniqueness therefore
+applies to every such invariant map with the source skein and the unknot value. The ring is the
+source's: no statement over ℤ[a^{±1},z^{±1}] is imported here."  Stated relative to the
+distinguished witness `lmF` of `lp_lm` ("the function F_D of Literature input lp:lm"); the
+competitor hypotheses are the fields of `LMCompetitor`.  Truth of the statement rests on the PL
+Reidemeister theorem exactly as the printed block says (design fidelity risk 4). -/
+axiom lp_lm_uniqueness : ∀ Q : Diagram → T, LMCompetitor Q → Q = lmF
+
+/-! ## Sanity theorems: the axioms are not stronger than their printed clauses -/
+
+/-- Sanity (design decision D4, fidelity risk 4): the `descent` field of `HomflyClauses` follows
+from the four invariance fields by induction on the equivalence relation `LinkEquiv =
+EqvGen (PlanarIsotopic ∨ RI ∨ RII ∨ RIII)`.  Hence `lit_homfly` asserts nothing beyond its printed
+clauses "invariant under the three Reidemeister moves and planar isotopy" — the last sentence "Its
+value depends only on the oriented link presented by D" is redundant in the formal reading of
+"the oriented link presented by D" as the `LinkEquiv` class. -/
+theorem lit_homfly_descent_redundant (H : Diagram → R)
+    (planar : ∀ D D' : Diagram, PlanarIsotopic D D' → H D = H D')
+    (reidemeister_I : ∀ D D' : Diagram, RI D D' → H D = H D')
+    (reidemeister_II : ∀ D D' : Diagram, RII D D' → H D = H D')
+    (reidemeister_III : ∀ D D' : Diagram, RIII D D' → H D = H D') :
+    ∀ D D' : Diagram, LinkEquiv D D' → H D = H D' := by
+  intro D D' h
+  induction h with
+  | rel x y hxy =>
+    rcases hxy with hxy | hxy | hxy | hxy
+    · exact planar x y hxy
+    · exact reidemeister_I x y hxy
+    · exact reidemeister_II x y hxy
+    · exact reidemeister_III x y hxy
+  | refl x => rfl
+  | symm x y _ ih => exact ih.symm
+  | trans x y z _ _ ih₁ ih₂ => exact ih₁.trans ih₂
+
+/-- The six printed clauses of lit:homfly (without the descent sentence) already give
+`HomflyClauses`. -/
+theorem HomflyClauses.of_printed (H : Diagram → R)
+    (planar : ∀ D D' : Diagram, PlanarIsotopic D D' → H D = H D')
+    (reidemeister_I : ∀ D D' : Diagram, RI D D' → H D = H D')
+    (reidemeister_II : ∀ D D' : Diagram, RII D D' → H D = H D')
+    (reidemeister_III : ∀ D D' : Diagram, RIII D D' → H D = H D')
+    (circle : ∀ D : Diagram, D.IsCrossingFreeCircle → H D = 1)
+    (skein : ∀ Dp Dm D0 : Diagram, IsSkeinTriple Dp Dm D0 →
+      R.a * H Dp - R.aInv * H Dm = R.z * H D0) :
+    HomflyClauses H where
+  reidemeister_I := reidemeister_I
+  reidemeister_II := reidemeister_II
+  reidemeister_III := reidemeister_III
+  planar := planar
+  circle := circle
+  skein := skein
+  descent := lit_homfly_descent_redundant H planar reidemeister_I reidemeister_II reidemeister_III
+
+/-- `HomflyClauses H` is equivalent to the conjunction of the six printed clauses without the
+descent sentence: the axiom `lit_homfly` is exactly as strong as "invariant under the three
+Reidemeister moves and planar isotopy, takes the value 1 on the crossing-free circle, and satisfies
+the skein relation for every skein triple". -/
+theorem homflyClauses_iff_printed (H : Diagram → R) :
+    HomflyClauses H ↔
+      (∀ D D' : Diagram, PlanarIsotopic D D' → H D = H D') ∧
+      (∀ D D' : Diagram, RI D D' → H D = H D') ∧
+      (∀ D D' : Diagram, RII D D' → H D = H D') ∧
+      (∀ D D' : Diagram, RIII D D' → H D = H D') ∧
+      (∀ D : Diagram, D.IsCrossingFreeCircle → H D = 1) ∧
+      (∀ Dp Dm D0 : Diagram, IsSkeinTriple Dp Dm D0 →
+        R.a * H Dp - R.aInv * H Dm = R.z * H D0) := by
+  constructor
+  · intro h
+    exact ⟨h.planar, h.reidemeister_I, h.reidemeister_II, h.reidemeister_III, h.circle, h.skein⟩
+  · rintro ⟨hP, h1, h2, h3, hc, hs⟩
+    exact HomflyClauses.of_printed H hP h1 h2 h3 hc hs
+
+/-- lp:lm's "invariant under each actual ordinary oriented Reidemeister move" together with
+"defined modulo positive page isotopy" gives invariance along every finite sequence of such moves
+and isotopies (the registry's "For a supplied finite sequence ... one move at a time",
+AXIOM_REGISTRY.md:44-46, as a theorem): any `F` with `LMClauses` depends only on the `LinkEquiv`
+class. -/
+theorem LMClauses.descent {F : Diagram → T} (hF : LMClauses F) :
+    ∀ D D' : Diagram, LinkEquiv D D' → F D = F D' :=
+  fun _ _ h =>
+    eq_of_linkEquiv F hF.planar hF.reidemeister_I hF.reidemeister_II hF.reidemeister_III h
+
+/-- lp:lm (AXIOM_REGISTRY.md:39-41, sm-3:949-951): "In particular every crossing-free c-component
+diagram has that value, regardless of nesting or orientations. Here c ≥ 1." — a theorem: a
+crossing-free diagram is UNDER-first for every basing (`Diagram.underFirst_of_isEmpty`) and every
+diagram has a basing (`Diagram.exists_basing`). -/
+theorem LMClauses.crossingFree {F : Diagram → T} (hF : LMClauses F) (D : Diagram)
+    (h : IsEmpty D.Γ.Crossing) : F D = T.mu ^ (D.componentCount - 1) := by
+  obtain ⟨B⟩ := D.exists_basing
+  exact hF.underFirst_init D B (D.underFirst_of_isEmpty h B)
+
+/-- The unknot value of any `F` with `LMClauses`: on a one-component crossing-free diagram the
+initialization gives `μ^{1−1} = 1` ("takes the value 1 on the unknot", AXIOM_REGISTRY.md:63). -/
+theorem LMClauses.unknot {F : Diagram → T} (hF : LMClauses F) (D : Diagram)
+    (h : D.IsCrossingFreeCircle) : F D = 1 := by
+  rw [hF.crossingFree D h.2]
+  have hc : D.componentCount = 1 := h.1
+  rw [hc]
+  simp
+
+/-- Every function with lp:lm's clauses is a competitor in the sense of lp:lm-uniqueness: the
+planar and Reidemeister invariances and the source skein are fields of both, and the unknot value
+follows from the initialization (`LMClauses.unknot`). -/
+theorem LMClauses.competitor {F : Diagram → T} (hF : LMClauses F) : LMCompetitor F where
+  planar := hF.planar
+  reidemeister_I := hF.reidemeister_I
+  reidemeister_II := hF.reidemeister_II
+  reidemeister_III := hF.reidemeister_III
+  unknot := hF.unknot
+  sourceSkein := hF.sourceSkein
+
+/-- Sanity: the distinguished witness `lmF` satisfies the competitor hypotheses of
+`lp_lm_uniqueness` (so the uniqueness axiom is consistent with `lp_lm` on its own witness). -/
+theorem lmF_competitor : LMCompetitor lmF := lmF_spec.competitor
+
+/-- The two readings of "the function constructed in Section 1 of Lickorish--Millett" coincide:
+ANY function with lp:lm's clauses equals the chosen witness `lmF` (design fidelity risk 4). -/
+theorem eq_lmF_of_lmClauses {F : Diagram → T} (hF : LMClauses F) : F = lmF :=
+  lp_lm_uniqueness F hF.competitor
+
+/-- lp:lm-uniqueness pointwise: every competitor agrees with `lmF` on every diagram. -/
+theorem lmF_unique {Q : Diagram → T} (hQ : LMCompetitor Q) (D : Diagram) : Q D = lmF D :=
+  congrFun (lp_lm_uniqueness Q hQ) D
+
+/-- A competitor "depends only on the isotopy class of the oriented link" in the formal reading
+(`LinkEquiv`): the registry's Reidemeister-theorem sentence (AXIOM_REGISTRY.md:67-70) as the
+proved statement it is once the class is the `LinkEquiv` class. -/
+theorem LMCompetitor.descent {Q : Diagram → T} (hQ : LMCompetitor Q) :
+    ∀ D D' : Diagram, LinkEquiv D D' → Q D = Q D' :=
+  fun _ _ h =>
+    eq_of_linkEquiv Q hQ.planar hQ.reidemeister_I hQ.reidemeister_II hQ.reidemeister_III h
+
+/-! ## Projections of the two chosen witnesses (the consumers' interface) -/
+
+/-- lit:homfly: `homfly` is invariant under Reidemeister move I. -/
+theorem homfly_reidemeister_I {D D' : Diagram} (h : RI D D') : homfly D = homfly D' :=
+  homfly_spec.reidemeister_I D D' h
+
+/-- lit:homfly: `homfly` is invariant under Reidemeister move II. -/
+theorem homfly_reidemeister_II {D D' : Diagram} (h : RII D D') : homfly D = homfly D' :=
+  homfly_spec.reidemeister_II D D' h
+
+/-- lit:homfly: `homfly` is invariant under Reidemeister move III. -/
+theorem homfly_reidemeister_III {D D' : Diagram} (h : RIII D D') : homfly D = homfly D' :=
+  homfly_spec.reidemeister_III D D' h
+
+/-- lit:homfly: `homfly` is invariant under planar isotopy. -/
+theorem homfly_planar {D D' : Diagram} (h : PlanarIsotopic D D') : homfly D = homfly D' :=
+  homfly_spec.planar D D' h
+
+/-- lit:homfly: `homfly` "takes the value 1 on the crossing-free circle". -/
+theorem homfly_circle {D : Diagram} (h : D.IsCrossingFreeCircle) : homfly D = 1 :=
+  homfly_spec.circle D h
+
+/-- lit:homfly: the skein relation `aH_{D₊} − a⁻¹H_{D₋} = zH_{D₀}` "for every skein triple". -/
+theorem homfly_skein {Dp Dm D0 : Diagram} (h : IsSkeinTriple Dp Dm D0) :
+    R.a * homfly Dp - R.aInv * homfly Dm = R.z * homfly D0 :=
+  homfly_spec.skein Dp Dm D0 h
+
+/-- lit:homfly: "Its value depends only on the oriented link presented by D". -/
+theorem homfly_descent {D D' : Diagram} (h : LinkEquiv D D') : homfly D = homfly D' :=
+  homfly_spec.descent D D' h
+
+/-- lp:lm: `lmF` "is defined modulo positive page isotopy". -/
+theorem lmF_planar {D D' : Diagram} (h : PlanarIsotopic D D') : lmF D = lmF D' :=
+  lmF_spec.planar D D' h
+
+/-- lp:lm: the source skein `l F_{D₊} + l⁻¹ F_{D₋} + m F_{D₀} = 0` (lp:source-skein). -/
+theorem lmF_sourceSkein {Dp Dm D0 : Diagram} (h : IsSkeinTriple Dp Dm D0) :
+    T.l * lmF Dp + T.lInv * lmF Dm + T.m * lmF D0 = 0 :=
+  lmF_spec.sourceSkein Dp Dm D0 h
+
+/-- lp:lm: "the initialization F_D = μ^{c−1} for every based ordered c-component UNDER-first
+diagram". -/
+theorem lmF_underFirst_init {D : Diagram} (B : D.Basing) (h : D.UnderFirst B) :
+    lmF D = T.mu ^ (D.componentCount - 1) :=
+  lmF_spec.underFirst_init D B h
+
+/-- lp:lm: "In particular every crossing-free c-component diagram has that value, regardless of
+nesting or orientations." -/
+theorem lmF_crossingFree {D : Diagram} (h : IsEmpty D.Γ.Crossing) :
+    lmF D = T.mu ^ (D.componentCount - 1) :=
+  lmF_spec.crossingFree D h
+
+/-- lp:lm / lp:lm-uniqueness: `lmF` takes the value 1 on every crossing-free circle (the unknot
+value). -/
+theorem lmF_unknot {D : Diagram} (h : D.IsCrossingFreeCircle) : lmF D = 1 :=
+  lmF_spec.unknot D h
+
+/-- lp:lm: `lmF` is invariant under Reidemeister move I. -/
+theorem lmF_reidemeister_I {D D' : Diagram} (h : RI D D') : lmF D = lmF D' :=
+  lmF_spec.reidemeister_I D D' h
+
+/-- lp:lm: `lmF` is invariant under Reidemeister move II. -/
+theorem lmF_reidemeister_II {D D' : Diagram} (h : RII D D') : lmF D = lmF D' :=
+  lmF_spec.reidemeister_II D D' h
+
+/-- lp:lm: `lmF` is invariant under Reidemeister move III. -/
+theorem lmF_reidemeister_III {D D' : Diagram} (h : RIII D D') : lmF D = lmF D' :=
+  lmF_spec.reidemeister_III D D' h
+
+/-- lp:lm: `lmF` depends only on the `LinkEquiv` class (finite sequences of moves and isotopies). -/
+theorem lmF_descent {D D' : Diagram} (h : LinkEquiv D D') : lmF D = lmF D' :=
+  lmF_spec.descent D D' h
+
+end SM
+

@@ -1,0 +1,1862 @@
+import SM.CS3
+import SM.WallSides
+import SM.CornerStateSum
+import SM.NamedWallPredicates
+
+/-! Ported 2026-09-14 from work/drafts/csilent/CSilent_Assembled.lean (design panel winner B, PLAN_FINAL.md; units U3a/U3b merged by the executor). Row prop:C-silent, main declaration `SM.prop_C_silent` (fixed target name), bundle `CSilentData` verbatim from work/drafts/CSilent_statement.lean. Only this header added. -/
+
+/-! # Skeleton FINAL — prop:C-silent (silence): `C(P₊) = C(P₋)` at a simple (E) or (C) wall
+
+Judge's adopted skeleton, 2026-09-14 (winner: Skeleton_B / PLAN_B, route R2 hybrid; see PLAN_FINAL.md).
+Target: `SM.prop_C_silent : CSilentData` (statement FIXED in work/drafts/CSilent_statement.lean, bundle and
+theorem header copied verbatim at the end). Source: reference/SM/sm-4-knotlaws.tex:101-152.
+
+Route (the route of the accepted prop:C-chamber and thm:C-S3): for one side parameter `t` below the
+radius `δ` of lem:wall-sides (E),(C) (`silent_sides`), the two side polygons `P₊ = g.sideTuple true t`,
+`P₋ = g.sideTuple false t` are related by a `Carrier.MarkTransport` (crossing sets, Gauss/mark order,
+interlacement and vertex turns agree — all read off `SilentSidesData` at `±t` against the centre), so
+`MarkTransport.cornerStateSum_transport` reduces `C(P₊) = C(P₋)` to (i) uniformity of corresponding
+carriers (turn signs of corner marks agree: vertex turns by `ChirotopesOutsideZerosAgree`, smoothing turns
+by the crossing-sign clause of `GeometricRecordsAgree`) and (ii) equality of corresponding corner
+coefficients: equal retained-crossing counts (transport), equal rotations (lem:rot (ii) along the family
+of corner polygons `u ↦ silentCornerFamily … (silentPath g t u)` through the centre, regular at every
+time) and equal HOMFLY polynomials of the positive lifts (`Link.homfly_positiveDiagram_single_of_family`
+along the same family, generic at every time — at `u ≠ ½` it is the accepted carrier polygon of a generic
+side polygon, at the centre `u = ½` it is generic by the NEW geometric lemma `single_generic_of_weak`, the
+formal content of the printed lines 118-131). The state sums are evaluated on the generic sides only.
+Finally prop:C-chamber (`cornerStateSum_eq_of_mem_labelledChamber` through `GermSides`) moves any pair
+`(tp, tm)` of the fixed statement to the one pair `(t, t)`.
+
+Judge's changes to Skeleton_B (all in §3): the meeting lemma is split into its three parent-edge cases
+(`geoCornerPolygon_meet_same_edge` ✓ via `_aux`, `geoCornerPolygon_meet_next_edge` ✓,
+`geoCornerPolygon_meet_remote_edge` ◻) and assembled (✓); `geoCornerPolygon_injective_of_weak`,
+`_tail_off_of_weak`, `_transverse_of_weak`, `_no_triple_of_weak` are PROVED; helpers
+`self_not_mem_edgeInterior`, `next_not_mem_edgeInterior`, `isTrueCorner_selectedMarkPerm` added.
+ASSEMBLED 2026-09-14: `exists_geoBlock` (unit U3a) and `geoCornerPolygon_meet_remote_edge` (unit U3b) are proved.
+Check: `cd work/lean && lake env lean ../drafts/csilent/Skeleton_FINAL.lean`;
+`#print axioms SM.prop_C_silent` = `propext, Classical.choice, Quot.sound, SM.lit_homfly`. -/
+
+namespace SM
+
+open Link Carrier GeoCarrier
+
+variable {n : ℕ} [NeZero n]
+
+/-! ## 0. The silent germ: the centre's geometry and the common radius of lem:wall-sides (E),(C) -/
+
+namespace WallGerm
+
+theorem extension_silent (g : WallGerm n) {M a : ZMod n} (h : g.ExtensionAt M a) : g.Silent :=
+  Or.inl ⟨M, a, h⟩
+
+theorem pureCut_silent (g : WallGerm n) {i j k : ZMod n} (h : g.PureCutAt i j k) : g.Silent :=
+  Or.inr ⟨i, j, k, h⟩
+
+end WallGerm
+
+/-- The crossing geometry of the silent centre (lem:wall-sides (E),(C): the centre is weakly generic). -/
+theorem silentCentreCG (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) : CrossingGeometry g.center :=
+  weak_crossingGeometry (g.silent_center_weak hn h)
+
+/-- The crossing geometry of every point of the germ (generic off the centre, weakly generic at it). -/
+theorem silentCurveCG (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) (s : g.Parameter) :
+    CrossingGeometry (g.curve s) :=
+  weak_crossingGeometry (g.silent_curve_weak hn h s)
+
+omit [NeZero n] in
+/-- Genericity of a side point, stated on `g.curve (g.sideTime b t)` (definitionally
+`(g.sideGeneric b t)`; all side statements below are written on `g.curve (g.sideTime b t)` so that
+instance search never has to unfold `sideTuple`). -/
+theorem WallGerm.sideGeneric (g : WallGerm n) (b : Bool) (t : g.SideParameter) :
+    Generic (g.curve (g.sideTime b t)) :=
+  g.generic_punctured _ (g.sideTime_ne_zero b t)
+
+/-- The clauses of `silent_sides` (lem:wall-sides (E),(C)) on the common interval `(−δ, δ)`: chirotopes off
+`Z_pt` constant, every point weakly generic, crossing points injective and off the vertices, same-edge
+crossing-parameter order and the complete geometric records (crossing set, Gauss list/word, interlacement,
+crossing signs) agree with the centre's. -/
+def SilentFamilyData (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) (δ : ℝ) : Prop :=
+  0 < δ ∧ δ ≤ g.radius ∧ ∀ s : g.Parameter, |s.val| < δ →
+    ChirotopesOutsideZerosAgree g.center (g.curve s) ∧
+    WeakGeneric (g.curve s) ∧
+    Function.Injective (@crossingPoint n (g.curve s)) ∧
+    (∀ c : Crossing (g.curve s), ∀ k, crossingPoint c ≠ g.curve s k) ∧
+    CrossingParameterOrderAgrees g.center (g.curve s) ∧
+    GeometricRecordsAgree (silentCentreCG hn g h) (silentCurveCG hn g h s)
+
+/-- lem:wall-sides (E),(C) supplies the radius (`silent_sides`, accepted). -/
+theorem exists_silentFamilyData (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) :
+    ∃ δ : ℝ, SilentFamilyData hn g h δ := by
+  obtain ⟨-, δ, hδ, hδr, hall⟩ := silent_sides hn g h
+  refine ⟨δ, hδ, hδr, fun s hs => ?_⟩
+  obtain ⟨h1, h2, -, h4, h5, h6, h7⟩ := hall s hs
+  exact ⟨h1, h2, h4, h5, h6, h7⟩
+
+namespace SilentFamilyData
+
+variable {hn : 3 ≤ n} {g : WallGerm n} {h : g.Silent} {δ : ℝ}
+
+/-- The crossing sets agree with the centre's on the whole interval (the witness of
+`GeometricRecordsAgree`; any such proof is as good as any other). -/
+theorem crossing_iff (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ) :
+    ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s) c := by
+  obtain ⟨hc, -⟩ := (hF.2.2 s hs).2.2.2.2.2
+  exact hc
+
+/-- The same at a side time. -/
+theorem side_crossing_iff (hF : SilentFamilyData hn g h δ) (b : Bool) (t : g.SideParameter)
+    (ht : t.val < δ) : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve (g.sideTime b t)) c :=
+  hF.crossing_iff (g.sideTime b t) (by rw [g.sideTime_val_abs]; exact ht)
+
+/-- The sorted marked circle is carried mark by mark by the canonical identification
+(`geoMarkList_map_transport` from the parameter-order clause). -/
+theorem marks (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ)
+    (hc : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s) c) :
+    (geoMarkList (silentCentreCG hn g h)).map (markTransport hc) = geoMarkList (silentCurveCG hn g h s) :=
+  geoMarkList_map_transport _ _ hc (hF.2.2 s hs).2.2.2.2.1
+
+/-- Interlacement is carried by the canonical identification. -/
+theorem interlaces_iff (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ)
+    (hc : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s) c) (x y : Crossing g.center) :
+    GeometricInterlaces (silentCentreCG hn g h) x y ↔
+      GeometricInterlaces (silentCurveCG hn g h s) (crossingTransport hc x) (crossingTransport hc y) :=
+  geometric_interlaces_transport _ _ hc (hF.2.2 s hs).2.2.2.2.1 x y
+
+/-- Crossing signs are constant along the germ (the sign clause of `GeometricRecordsAgree`). -/
+theorem crossingSign_eq (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ)
+    {i j : ZMod n} (hij : IsCrossing g.center {i, j}) :
+    crossingSign (g.curve s) i j = crossingSign g.center i j := by
+  obtain ⟨-, -, -, -, hsign⟩ := (hF.2.2 s hs).2.2.2.2.2
+  exact hsign i j hij
+
+/-- Vertex turns are constant along the germ: `turnSupport i ∉ Z_pt` because the centre's turns are
+nonzero (weak genericity), so `ChirotopesOutsideZerosAgree` applies. -/
+theorem turn_eq (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ) (i : ZMod n) :
+    turn (g.curve s) i = turn g.center i := by
+  have hchi := (hF.2.2 s hs).1
+  have hne : turn g.center i ≠ 0 := (g.silent_center_weak hn h).2.1 i
+  have : Nontrivial (ZMod n) := ZMod.nontrivial_iff.mpr (by omega)
+  have h1 : i - 1 ≠ i := prev_ne_self i
+  have h2 : i ≠ i + 1 := (next_ne_self i).symm
+  have h3 : i - 1 ≠ i + 1 := prev_ne_next hn i
+  have hnot : ({i - 1, i, i + 1} : Finset (ZMod n)) ∉ pointZeroTriples g.center := by
+    intro hmem
+    rw [mem_pointZeroTriples, pointZeroTriple_iff h1 h2 h3] at hmem
+    exact hne hmem
+  exact (hchi (i - 1) i (i + 1) h1 h2 h3 hnot).1
+
+end SilentFamilyData
+
+omit [NeZero n] in
+/-- A side parameter below any positive bound (`exists_sideParameter_lt` for `WallGerm n`). -/
+theorem exists_silent_sideParameter_lt (g : WallGerm n) {δ : ℝ} (hδ : 0 < δ) :
+    ∃ t : g.SideParameter, t.val < δ :=
+  ⟨⟨min δ g.radius / 2, Set.mem_Ioo.mpr ⟨half_pos (lt_min hδ g.radius_pos),
+      (half_lt_self (lt_min hδ g.radius_pos)).trans_le (min_le_right _ _)⟩⟩,
+    (half_lt_self (lt_min hδ g.radius_pos)).trans_le (min_le_left _ _)⟩
+
+/-! ## 1. Mark points along the germ, the path through the centre, the corner family -/
+
+omit [NeZero n] in
+/-- The plane point of a centre mark read on the polygon `g.curve s`: a vertex by its label, a visit as
+the Cramer crossing point of its two edge labels (the accepted `markPointOn` of SM/FlatCarriers.lean, for
+`WallGerm n`). -/
+noncomputable def silentMarkPoint (g : WallGerm n) (s : g.Parameter) : Mark g.center → Plane
+  | Sum.inl i => g.curve s i
+  | Sum.inr v => edgePoint (g.curve s) v.2.val
+      (edgeParameter (g.curve s) v.2.val (visitTwin v).2.val)
+
+omit [NeZero n] in
+/-- On any polygon with crossing geometry the point of a visit is the Cramer crossing point of its edge
+and its twin's edge (`visit_point_eq_edgePoint` of SM/FlatCarriers.lean, for `LabelledTuple n`). -/
+theorem visit_point_eq_edgePoint_of_geometry {P : LabelledTuple n} (hP : CrossingGeometry P)
+    (v : Visit P) :
+    traversalEvaluation P (geoMarkPosition hP (Sum.inr v)) =
+      edgePoint P v.2.val (edgeParameter P v.2.val (visitTwin v).2.val) := by
+  rw [geoMarkPosition_evaluation_visit, (crossingParameter_spec v.1 v.2.val v.2.property).2.2]
+  congr 1
+  exact visitParameter_eq_of_support_pair_of_geometry hP v _ (visit_crossing_val_eq_pair v)
+
+/-- At the centre the mark point is the mark's point. -/
+theorem silentMarkPoint_zero (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) (a : Mark g.center) :
+    silentMarkPoint g g.zeroParameter a =
+      traversalEvaluation g.center (geoMarkPosition (silentCentreCG hn g h) a) := by
+  cases a with
+  | inl i => rw [geoMarkPosition_evaluation_vertex]; rfl
+  | inr v => rw [visit_point_eq_edgePoint_of_geometry (silentCentreCG hn g h) v]; rfl
+
+omit [NeZero n] in
+/-- At any parameter with crossing geometry and the centre's crossing set, the mark point is the point
+of the transported mark (`markPointOn_side`, on the whole interval). -/
+theorem silentMarkPoint_eq (g : WallGerm n) (s : g.Parameter) (hC : CrossingGeometry (g.curve s))
+    (hc : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s) c) (a : Mark g.center) :
+    silentMarkPoint g s a = traversalEvaluation (g.curve s) (geoMarkPosition hC (markTransport hc a)) := by
+  cases a with
+  | inl i =>
+    show g.curve s i = traversalEvaluation (g.curve s) (geoMarkPosition hC (Sum.inl i))
+    rw [geoMarkPosition_evaluation_vertex]
+  | inr v =>
+    have hpair := visitParameter_eq_of_support_pair_of_geometry hC (visitTransport hc v)
+      (visitTwin v).2.val (visit_crossing_val_eq_pair v)
+    show edgePoint (g.curve s) v.2.val (edgeParameter (g.curve s) v.2.val (visitTwin v).2.val) =
+      traversalEvaluation (g.curve s) (geoMarkPosition hC (Sum.inr (visitTransport hc v)))
+    rw [geoMarkPosition_evaluation_visit,
+      (crossingParameter_spec _ _ (visitTransport hc v).2.property).2.2]
+    exact congrArg (edgePoint (g.curve s) v.2.val) hpair.symm
+
+omit [NeZero n] in
+/-- Continuity of the mark points at every parameter on the geometric record domain with the centre's
+crossing set (`continuousAt_markPointOn_of` of SM/CS3.lean): vertices by `g.continuous_curve`, visits by
+Cramer's rule (`continuousAt_edgeParameter_of_geometry`). -/
+theorem continuousAt_silentMarkPoint (g : WallGerm n) (s₀ : g.Parameter)
+    (hC : CrossingGeometry (g.curve s₀))
+    (hc : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s₀) c) (a : Mark g.center) :
+    ContinuousAt (fun s => silentMarkPoint g s a) s₀ := by
+  cases a with
+  | inl i => exact ((continuous_apply i).comp g.continuous_curve).continuousAt
+  | inr v =>
+    have hcross0 : IsCrossing g.center {v.2.val, (visitTwin v).2.val} := by
+      rw [← visit_crossing_val_eq_pair v]
+      exact v.1.property
+    have hcross := (hc _).mp hcross0
+    have hF : ContinuousAt (fun Q : LabelledTuple n =>
+        edgePoint Q v.2.val (edgeParameter Q v.2.val (visitTwin v).2.val)) (g.curve s₀) :=
+      (continuous_vertex v.2.val).continuousAt.add
+        ((continuousAt_edgeParameter_of_geometry hC hcross).smul
+          (continuous_edge v.2.val).continuousAt)
+    exact ContinuousAt.comp (f := g.curve) (x := s₀) hF g.continuous_curve.continuousAt
+
+omit [NeZero n] in
+/-- The affine path `u ↦ (2u − 1)·t` from the side time `−t` (at `u = 0`) through the centre (`u = ½`)
+to the side time `+t` (at `u = 1`). -/
+def silentPath (g : WallGerm n) (t : g.SideParameter) (u : unitInterval) : g.Parameter :=
+  ⟨(2 * u.val - 1) * t.val, by
+    have h1 := t.property
+    have h2 := u.property
+    simp only [Set.mem_Ioo, Set.mem_Icc] at h1 h2 ⊢
+    constructor <;> nlinarith [g.radius_pos]⟩
+
+omit [NeZero n] in
+theorem silentPath_zero (g : WallGerm n) (t : g.SideParameter) :
+    silentPath g t 0 = g.sideTime false t := by
+  apply Subtype.ext
+  simp [silentPath, WallGerm.sideTime]
+
+omit [NeZero n] in
+theorem silentPath_one (g : WallGerm n) (t : g.SideParameter) :
+    silentPath g t 1 = g.sideTime true t := by
+  apply Subtype.ext
+  simp [silentPath, WallGerm.sideTime]
+  ring
+
+omit [NeZero n] in
+theorem continuous_silentPath (g : WallGerm n) (t : g.SideParameter) :
+    Continuous (silentPath g t) :=
+  (((continuous_const.mul continuous_subtype_val).sub continuous_const).mul
+    continuous_const).subtype_mk _
+
+omit [NeZero n] in
+theorem abs_silentPath_le (g : WallGerm n) (t : g.SideParameter) (u : unitInterval) :
+    |(silentPath g t u).val| ≤ t.val := by
+  show |(2 * u.val - 1) * t.val| ≤ t.val
+  rw [abs_mul, abs_of_pos t.property.1]
+  have h2 := u.property
+  simp only [Set.mem_Icc] at h2
+  have : |2 * u.val - 1| ≤ 1 := abs_le.mpr ⟨by linarith, by linarith⟩
+  nlinarith [t.property.1]
+
+omit [NeZero n] in
+/-- The path passes through the centre exactly once, at `u = ½`. -/
+theorem silentPath_eq_zeroParameter (g : WallGerm n) (t : g.SideParameter) (u : unitInterval)
+    (hu : (silentPath g t u).val = 0) : silentPath g t u = g.zeroParameter :=
+  Subtype.ext hu
+
+/-- The corner polygon of a centre carrier `q` read on `g.curve s`: the family of the printed argument
+(the accepted `cornerFamily` of SM/FlatCarriers.lean, on the centre's own index type). -/
+noncomputable def silentCornerFamily (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) (S : Finset (Crossing g.center))
+    (q : GeoComponent (silentCentreCG hn g h) S) (s : g.Parameter) :
+    LabelledTuple (geoCornerCount (silentCentreCG hn g h) S q) :=
+  fun k => silentMarkPoint g s (geoCornerMark (silentCentreCG hn g h) S q k)
+
+theorem silentCornerFamily_zero (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent)
+    (S : Finset (Crossing g.center)) (q : GeoComponent (silentCentreCG hn g h) S) :
+    silentCornerFamily hn g h S q g.zeroParameter = geoCornerPolygon (silentCentreCG hn g h) S q :=
+  funext fun k => silentMarkPoint_zero hn g h (geoCornerMark _ S q k)
+
+/-- The `k`-th corner mark of a carrier is carried to the corner mark of its copy at the cast index
+(`geoComponentCornerList_markTransport`, `zmod_val_cast`). -/
+theorem geoCornerMark_markTransport {P Q : LabelledTuple n} (hP : CrossingGeometry P)
+    (hQ : CrossingGeometry Q) (hc : ∀ c, IsCrossing P c ↔ IsCrossing Q c)
+    (hmarks : (geoMarkList hP).map (markTransport hc) = geoMarkList hQ)
+    (S : Finset (Crossing P)) (a : Mark P) (k : ZMod (geoCornerCount hP S (geoOwner hP S a))) :
+    geoCornerMark hQ (transportSupport hc S) (geoOwner hQ (transportSupport hc S) (markTransport hc a))
+        (Equiv.cast (congrArg ZMod (geoCornerCount_markTransport hP hQ hc hmarks S a)) k) =
+      markTransport hc (geoCornerMark hP S (geoOwner hP S a) k) := by
+  have hL := geoComponentCornerList_markTransport hP hQ hc hmarks S a
+  have hlen : k.val < (geoComponentCornerList hQ (transportSupport hc S)
+      (geoOwner hQ (transportSupport hc S) (markTransport hc a))).length := by
+    rw [← hL, List.length_map]; exact ZMod.val_lt k
+  have h3 : k.val < ((geoComponentCornerList hP S (geoOwner hP S a)).map (markTransport hc)).length := by
+    rw [List.length_map]; exact ZMod.val_lt k
+  unfold geoCornerMark
+  refine (getElem_congr_lists _ _ rfl _ _ _ hlen
+    (zmod_val_cast (geoCornerCount_markTransport hP hQ hc hmarks S a) k)).trans ?_
+  refine (getElem_congr_lists _ _ hL.symm _ _ hlen h3 rfl).trans ?_
+  exact List.getElem_map _
+
+/-- **The family at a parameter of the interval is the carrier polygon of the transported carrier**,
+re-indexed along the equal corner counts (`geoComponentCornerList_markTransport`, the corner list being
+carried literally; points by `silentMarkPoint_eq`). The proof is `geoCornerPolygon_side_eq_cornerFamily`
+of SM/CS3.lean word for word. -/
+theorem silentCornerFamily_eq (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent)
+    (S : Finset (Crossing g.center)) (s : g.Parameter) (hC : CrossingGeometry (g.curve s))
+    (hc : ∀ c, IsCrossing g.center c ↔ IsCrossing (g.curve s) c)
+    (hmarks : (geoMarkList (silentCentreCG hn g h)).map (markTransport hc) = geoMarkList hC)
+    (a : Mark g.center) :
+    silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) s =
+      recastTuple (geoCornerCount_markTransport (silentCentreCG hn g h) hC hc hmarks S a)
+        (geoCornerPolygon hC (transportSupport hc S)
+          (geoOwner hC (transportSupport hc S) (markTransport hc a))) := by
+  funext k
+  show silentMarkPoint g s (geoCornerMark (silentCentreCG hn g h) S _ k) =
+    geoCornerPolygon hC (transportSupport hc S) (geoOwner hC (transportSupport hc S) (markTransport hc a))
+      (Equiv.cast (congrArg ZMod (geoCornerCount_markTransport (silentCentreCG hn g h) hC hc hmarks S a)) k)
+  rw [silentMarkPoint_eq g s hC hc]
+  unfold geoCornerPolygon
+  rw [geoCornerMark_markTransport (silentCentreCG hn g h) hC hc hmarks S a k]
+
+/-- Continuity of the family along the path (`continuousAt_silentMarkPoint` at every point of the path,
+all of which lie below the radius). -/
+theorem continuous_silentCornerFamily_path {hn : 3 ≤ n} {g : WallGerm n} {h : g.Silent} {δ : ℝ}
+    (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (q : GeoComponent (silentCentreCG hn g h) S) :
+    Continuous fun u : unitInterval => silentCornerFamily hn g h S q (silentPath g t u) := by
+  rw [continuous_iff_continuousAt]
+  intro u
+  apply continuousAt_pi.mpr
+  intro k
+  have hlt : |(silentPath g t u).val| < δ := lt_of_le_of_lt (abs_silentPath_le g t u) ht
+  exact (continuousAt_silentMarkPoint g (silentPath g t u) (silentCurveCG hn g h _)
+    (hF.crossing_iff _ hlt) (geoCornerMark (silentCentreCG hn g h) S q k)).comp
+    (continuous_silentPath g t).continuousAt
+
+/-! ## 2. General transport lemmas on the geometric record domain (any `P`, `Q` with the same
+crossing set and mark order; the model is SM/FlatCarriers.lean §"Side ↔ centre") -/
+
+section GeoTransport
+
+variable {P Q : LabelledTuple n} (hP : CrossingGeometry P) (hQ : CrossingGeometry Q)
+  (hc : ∀ c, IsCrossing P c ↔ IsCrossing Q c)
+
+/-- The retained crossings of a carrier are carried to those of its copy (the side clause of
+`same_retained_crossings_of_marks`, SM/FlatCarriers.lean:2452, stated for any two configurations: unfold
+`geoCarrierCrossings`, `mem_transportSupport_iff`, `geoOwner_markTransport_iff`, visits over their
+crossings through `(visitTransport hc).surjective`). -/
+theorem geoCarrierCrossings_markTransport
+    (hmarks : (geoMarkList hP).map (markTransport hc) = geoMarkList hQ)
+    (S : Finset (Crossing P)) (a : Mark P) :
+    geoCarrierCrossings hQ (transportSupport hc S)
+        (geoOwner hQ (transportSupport hc S) (markTransport hc a)) =
+      (geoCarrierCrossings hP S (geoOwner hP S a)).map (crossingTransport hc).toEmbedding := by
+  classical
+  ext x'
+  obtain ⟨x, rfl⟩ := (crossingTransport hc).surjective x'
+  rw [Finset.mem_map_equiv, Equiv.symm_apply_apply]
+  unfold geoCarrierCrossings
+  rw [Finset.mem_filter, Finset.mem_filter]
+  simp only [Finset.mem_univ, true_and]
+  rw [mem_transportSupport_iff]
+  apply and_congr Iff.rfl
+  constructor
+  · intro hw v hv
+    have hvo := hw (visitTransport hc v) (by rw [visitTransport_crossing, hv])
+    rw [geoOwner_markTransport_iff hP hQ hc hmarks S]
+    exact hvo
+  · intro hv w hw
+    obtain ⟨v, rfl⟩ := (visitTransport hc).surjective w
+    rw [visitTransport_crossing] at hw
+    have hvo := hv v ((crossingTransport hc).injective hw)
+    rw [geoOwner_markTransport_iff hP hQ hc hmarks S] at hvo
+    exact hvo
+
+theorem card_geoCarrierCrossings_markTransport
+    (hmarks : (geoMarkList hP).map (markTransport hc) = geoMarkList hQ)
+    (S : Finset (Crossing P)) (a : Mark P) :
+    (geoCarrierCrossings hQ (transportSupport hc S)
+        (geoOwner hQ (transportSupport hc S) (markTransport hc a))).card =
+      (geoCarrierCrossings hP S (geoOwner hP S a)).card := by
+  rw [geoCarrierCrossings_markTransport hP hQ hc hmarks S a, Finset.card_map]
+
+/-- Independence is carried (`geoIndependent_map_iff` with the interlacement transport). -/
+theorem geoIndependent_transport_iff (hI : ∀ x y, GeometricInterlaces hP x y ↔
+      GeometricInterlaces hQ (crossingTransport hc x) (crossingTransport hc y))
+    (S : Finset (Crossing P)) :
+    GeoIndependent hP S ↔ GeoIndependent hQ (transportSupport hc S) :=
+  geoIndependent_map_iff hP hQ (crossingTransport hc) hI S
+
+/-- The two visits of a selected crossing lie on different carriers of the copy iff they do at the
+source (`geoOwner_markTransport_iff`, `visitTransport_visitTwin`). -/
+theorem geoOwner_twin_ne_transport_iff
+    (hmarks : (geoMarkList hP).map (markTransport hc) = geoMarkList hQ)
+    (S : Finset (Crossing P)) (v : Visit P) :
+    geoOwner hP S (Sum.inr v) ≠ geoOwner hP S (Sum.inr (visitTwin v)) ↔
+      geoOwner hQ (transportSupport hc S) (Sum.inr (visitTransport hc v)) ≠
+        geoOwner hQ (transportSupport hc S) (Sum.inr (visitTwin (visitTransport hc v))) := by
+  rw [← visitTransport_visitTwin]
+  exact not_congr (geoOwner_markTransport_iff hP hQ hc hmarks S (Sum.inr v) (Sum.inr (visitTwin v)))
+
+end GeoTransport
+
+/-! ## 3. The centre corner polygons are generic one-component shadows (printed lines 118-131; the one
+new geometric input). Stated for ANY weakly generic polygon whose crossing points are injective and off
+the vertices — the centre of a silent germ by `SilentFamilyData` at `s = 0` — for a carrier whose
+consecutive marks are `ρ_S`-successors (`TracedSuccessor`, transported from a generic side) and whose
+selected crossings have their two visits on different carriers (`htwin`, likewise transported).
+
+Judge's layout (2026-09-14): the block parametrisation `GeoBlock` / `exists_geoBlock` (unit U3a) feeds
+the meeting lemma, which is split into its three parent-edge cases — same edge (PROVED here), adjacent
+edges (PROVED here), remote edges (unit U3b) — and assembled here; the four label-level facts of
+`Shadow.single_generic_of` (injectivity, tail-off, transversality, no triple point) are PROVED here from
+the meeting lemma. -/
+
+section CentreGenericity
+
+variable {P : LabelledTuple n}
+
+/-- A weakly generic polygon is regular (nonzero turns). -/
+theorem regular_of_weakGeneric (hW : WeakGeneric P) : Regular P := nonzero_turns_regular hW.2.1
+
+omit [NeZero n] in
+/-- The two edges of a crossing are transverse on the geometric record domain (the crossing point lies
+on both closed segments; `CrossingGeometry.2.1`). -/
+theorem crossing_edges_det_ne_zero_of_geometry (hP : CrossingGeometry P) (c : Crossing P)
+    {i j : ZMod n} (hi : i ∈ c.val) (hj : j ∈ c.val) (hij : i ≠ j) :
+    det (edge P i) (edge P j) ≠ 0 := by
+  obtain ⟨i', j', hs, hr, -⟩ := c.property
+  have hi' : i ∈ ({i', j'} : Finset (ZMod n)) := hs ▸ hi
+  have hj' : j ∈ ({i', j'} : Finset (ZMod n)) := hs ▸ hj
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hi' hj'
+  have hrem : remote i j := by
+    rcases hi' with rfl | rfl <;> rcases hj' with rfl | rfl
+    · exact absurd rfl hij
+    · exact hr
+    · exact remote_symm hr
+    · exact absurd rfl hij
+  exact (hP.2.1 i j hrem (crossingPoint c) (crossingPoint_mem c i hi) (crossingPoint_mem c j hj)).2.2
+
+omit [NeZero n] in
+/-- Distinct vertices of a weakly generic polygon are distinct points (`WeakGeneric.2.2.1` for
+non-incident pairs, `edge ≠ 0` for consecutive ones). -/
+theorem vertex_injective_of_weakGeneric (hW : WeakGeneric P) : Function.Injective P := by
+  intro i j hij
+  by_contra hne
+  by_cases hinc : incident i j
+  · rcases hinc with h1 | h1
+    · -- `j = i - 1`: the edge `j` from `P j` to `P (j+1) = P i` vanishes
+      apply hW.1 j
+      have : j + 1 = i := by rw [h1]; ring
+      simp only [edge, this, hij, sub_self]
+    · exact hne h1.symm
+  · exact hW.2.2.1 i j hinc ⟨0, le_rfl, zero_le_one, by rw [hij]; simp [edgePoint]⟩
+
+/-- A vertex of a polygon is not interior to its own outgoing edge (the edge being nonzero). -/
+theorem self_not_mem_edgeInterior {k : ℕ} {Q : LabelledTuple k} {a : ZMod k} (he : edge Q a ≠ 0) :
+    Q a ∉ edgeInterior Q a := by
+  rintro ⟨t, ht0, -, ht⟩
+  exact ht0.ne (edgePoint_injective he ((edgePoint_zero Q a).trans ht))
+
+/-- The next vertex of a polygon is not interior to the edge ending there (the edge being nonzero). -/
+theorem next_not_mem_edgeInterior {k : ℕ} {Q : LabelledTuple k} {a : ZMod k} (he : edge Q a ≠ 0) :
+    Q (a + 1) ∉ edgeInterior Q a := by
+  rintro ⟨t, -, ht1, ht⟩
+  exact ht1.ne' (edgePoint_injective he ((edgePoint_one Q a).trans ht))
+
+/-- The outgoing slot of a true corner is a true corner (a vertex is fixed; a selected visit goes to
+its twin, which has the same selected crossing). -/
+theorem isTrueCorner_selectedMarkPerm {S : Finset (Crossing P)} {m : Mark P}
+    (hm : IsTrueCorner S m) : IsTrueCorner S (selectedMarkPerm S m) := by
+  cases m with
+  | inl i => exact trivial
+  | inr v =>
+    rw [selectedMarkPerm_visit, isTrueCorner_visit, selectedVisitTwin_crossing]
+    exact hm
+
+/-- **Regularity of the centre corner polygon** (printed: "every carrier tuple … has nonzero segments,
+and has no antiparallel corner"): `regular_iff_edges`, edges nonzero by `geoCornerPolygon_edge_ne_zero`,
+no antiparallel corner by `geoCornerPolygon_not_antiparallel_of_det` with `det(in, out) ≠ 0` — at a vertex
+corner `i`: `geoInEdge_vertex`, `geoOutSlot_vertex`, `turn P i ≠ 0` (`turn_det`); at a selected visit `v`:
+`geoInEdge_visit`, `geoOutSlot_selected`, `crossing_edges_det_ne_zero_of_geometry` on `v.1`
+(`visitTwin_edge_ne`). -/
+theorem geoCornerPolygon_regular_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q) :
+    Regular (geoCornerPolygon (weak_crossingGeometry hW) S q) := by
+  rw [regular_iff_edges]
+  intro k
+  refine ⟨geoCornerPolygon_edge_ne_zero hn _ S q htr k,
+    geoCornerPolygon_not_antiparallel_of_det hn _ S q htr k ?_⟩
+  have hcorner := isTrueCorner_geoCornerMark (weak_crossingGeometry hW) S q k
+  cases hc : geoCornerMark (weak_crossingGeometry hW) S q k with
+  | inl i =>
+    rw [geoInEdge_vertex hn _ i, geoOutSlot_vertex]
+    have := hW.2.1 i
+    rw [turn_det] at this
+    exact sign_ne_zero.mp this
+  | inr v =>
+    rw [hc] at hcorner
+    have hv : v.1 ∈ S := (isTrueCorner_visit S v).mp hcorner
+    rw [geoInEdge_visit hn _ v, geoOutSlot_selected _ S v hv]
+    exact crossing_edges_det_ne_zero_of_geometry (weak_crossingGeometry hW) v.1 v.2.property
+      (visitTwin v).2.property (visitTwin_edge_ne v).symm
+
+/-- **Corner points are distinct**: corner marks are distinct (`geoCornerMark_injective`); two vertices by
+`vertex_injective_of_weakGeneric`, a vertex and a selected crossing point by `hnv`, two selected visits with
+one crossing point are visits of one crossing (`hinj`), hence twins (`visit_eq_or_twin`), which lie on
+different carriers (`htwin`). -/
+theorem geoCornerPolygon_injective_of_weak (hW : WeakGeneric P)
+    (hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v))) :
+    Function.Injective (geoCornerPolygon (weak_crossingGeometry hW) S q) := by
+  intro k k' hkk'
+  apply geoCornerMark_injective (weak_crossingGeometry hW) S q
+  have hk := isTrueCorner_geoCornerMark (weak_crossingGeometry hW) S q k
+  have hk' := isTrueCorner_geoCornerMark (weak_crossingGeometry hW) S q k'
+  have hok := geoOwner_geoCornerMark (weak_crossingGeometry hW) S q k
+  have hok' := geoOwner_geoCornerMark (weak_crossingGeometry hW) S q k'
+  have hpt : traversalEvaluation P (geoMarkPosition (weak_crossingGeometry hW)
+      (geoCornerMark (weak_crossingGeometry hW) S q k)) =
+      traversalEvaluation P (geoMarkPosition (weak_crossingGeometry hW)
+      (geoCornerMark (weak_crossingGeometry hW) S q k')) := hkk'
+  obtain ⟨m, hm⟩ : ∃ m, geoCornerMark (weak_crossingGeometry hW) S q k = m := ⟨_, rfl⟩
+  obtain ⟨m', hm'⟩ : ∃ m', geoCornerMark (weak_crossingGeometry hW) S q k' = m' := ⟨_, rfl⟩
+  rw [hm] at hk hok hpt
+  rw [hm'] at hk' hok' hpt
+  rw [hm, hm']
+  cases m with
+  | inl i =>
+    cases m' with
+    | inl j =>
+      rw [geoMarkPosition_evaluation_vertex, geoMarkPosition_evaluation_vertex] at hpt
+      exact congrArg Sum.inl (vertex_injective_of_weakGeneric hW hpt)
+    | inr w =>
+      rw [geoMarkPosition_evaluation_vertex, geoMarkPosition_evaluation_visit] at hpt
+      exact absurd hpt.symm (hnv w.1 i)
+  | inr v =>
+    cases m' with
+    | inl j =>
+      rw [geoMarkPosition_evaluation_visit, geoMarkPosition_evaluation_vertex] at hpt
+      exact absurd hpt (hnv v.1 j)
+    | inr w =>
+      rw [geoMarkPosition_evaluation_visit, geoMarkPosition_evaluation_visit] at hpt
+      have hc : w.1 = v.1 := (hinj hpt).symm
+      rcases visit_eq_or_twin v w hc with rfl | rfl
+      · rfl
+      · exact absurd (hok.trans hok'.symm) (htwin v ((isTrueCorner_visit S v).mp hk))
+
+/-- **The block of the edge `k` of the corner polygon**, on the parent edge `e = (geoOutSlot c_k).1` from
+the parameter `s = (geoOutSlot c_k).2` of the outgoing slot of the corner `c_k` to the parameter `t` of the
+next corner `c_{k+1}`: the geometric clauses (`geo_block_compression` / `geoCornerPolygon_edge_data`) and
+the mark clauses (the marks of the block, `selectedMarkPerm S c_k, ρ_S c_k, …, ρ_S^{m-1} c_k, c_{k+1}`, are
+consecutive in the sorted marked circle — `geoSmoothingSuccessor_apply`, `geoMarkSuccessor_position_cases`
+— so no other mark has its position in the block's parameter range: `geoMarkSuccessor_no_mark_between`; the
+strictly interior marks are the unselected visits `ρ_S^r c_k`, `1 ≤ r < m`, hence not true corners). -/
+structure GeoBlock (hP : CrossingGeometry P) (S : Finset (Crossing P)) (q : GeoComponent hP S)
+    (k : ZMod (geoCornerCount hP S q)) (t : ℝ) : Prop where
+  start_lt : (geoOutSlot hP S (geoCornerMark hP S q k)).2.val < t
+  le_one : t ≤ 1
+  corner_eq : geoCornerPolygon hP S q k =
+    edgePoint P (geoOutSlot hP S (geoCornerMark hP S q k)).1
+      (geoOutSlot hP S (geoCornerMark hP S q k)).2.val
+  next_eq : geoCornerPolygon hP S q (k + 1) =
+    edgePoint P (geoOutSlot hP S (geoCornerMark hP S q k)).1 t
+  mem_segment_iff : ∀ u : ℝ,
+    edgePoint P (geoOutSlot hP S (geoCornerMark hP S q k)).1 u ∈ edgeSegment (geoCornerPolygon hP S q) k ↔
+      (geoOutSlot hP S (geoCornerMark hP S q k)).2.val ≤ u ∧ u ≤ t
+  mem_interior_iff : ∀ u : ℝ,
+    edgePoint P (geoOutSlot hP S (geoCornerMark hP S q k)).1 u ∈ edgeInterior (geoCornerPolygon hP S q) k ↔
+      (geoOutSlot hP S (geoCornerMark hP S q k)).2.val < u ∧ u < t
+  exists_param : ∀ x ∈ edgeSegment (geoCornerPolygon hP S q) k,
+    ∃ u : ℝ, x = edgePoint P (geoOutSlot hP S (geoCornerMark hP S q k)).1 u
+  /-- no true corner has its position strictly inside the block -/
+  interior_mark : ∀ m : Mark P, (geoMarkPosition hP m).1 = (geoOutSlot hP S (geoCornerMark hP S q k)).1 →
+    (geoOutSlot hP S (geoCornerMark hP S q k)).2.val < (geoMarkPosition hP m).2.val →
+    (geoMarkPosition hP m).2.val < t → ¬ IsTrueCorner S m
+  /-- the mark at the start of the block is the outgoing slot of `c_k` -/
+  start_mark : ∀ m : Mark P, (geoMarkPosition hP m).1 = (geoOutSlot hP S (geoCornerMark hP S q k)).1 →
+    (geoMarkPosition hP m).2.val = (geoOutSlot hP S (geoCornerMark hP S q k)).2.val →
+    m = selectedMarkPerm S (geoCornerMark hP S q k)
+  /-- the mark at the end of the block (if `t < 1`) is the next corner -/
+  end_mark : ∀ m : Mark P, (geoMarkPosition hP m).1 = (geoOutSlot hP S (geoCornerMark hP S q k)).1 →
+    (geoMarkPosition hP m).2.val = t → m = geoCornerMark hP S q (k + 1)
+  /-- if the block runs to the end of its edge, the next corner is the next vertex -/
+  end_vertex : t = 1 → geoCornerMark hP S q (k + 1) = Sum.inl ((geoOutSlot hP S (geoCornerMark hP S q k)).1 + 1)
+
+/-- **Every edge of the corner polygon of a traced carrier is a block** (unit U3a).  Geometric fields from
+the accepted `geoCornerPolygon_edge_data` (the chain `m`, `ρ_S^m c_k = c_{k+1}`, no true corner strictly
+inside the chain) and `geo_block_compression` (all outgoing slots of the chain on `e`, `c_{k+1}` at
+parameter `t > s` on `e`), `geo_evaluation_eq_outSlot`, `edgePoint_injective` (`hP.1`); mark fields from
+`geoMarkPosition_injective` (`start_mark`), `geoMarkSuccessor_position_cases` on the last step
+(`end_mark`, `end_vertex`) and `geoMarkSuccessor_no_mark_between` along the consecutive chain marks
+`selectedMarkPerm S c_k, ρ_S c_k, …, ρ_S^{m-1} c_k, c_{k+1}` (`interior_mark`; the chain marks strictly
+inside are unselected visits: `ccp_not_trueCorner`). -/
+theorem exists_geoBlock (hn : 3 ≤ n) (hP : CrossingGeometry P) (S : Finset (Crossing P))
+    (q : GeoComponent hP S) (htr : TracedSuccessor hP S q)
+    (k : ZMod (geoCornerCount hP S q)) : ∃ t : ℝ, GeoBlock hP S q k t := by
+  have _hfact : Fact (1 < n) := ⟨by omega⟩
+  obtain ⟨m, hm, hchain, hmid, -, -⟩ := geoCornerPolygon_edge_data hn hP S q htr k
+  obtain ⟨hedges, t, hst, ht1, hend⟩ :=
+    geo_block_compression hn hP S (geoCornerMark hP S q k) m hm hmid
+  -- generalise the corner `c = c_k`, the next corner `c' = c_{k+1}`, the parent edge `e` and the
+  -- start parameter `s` (the judge's pattern); `subst` restores the raw forms at the end
+  obtain ⟨c, hc⟩ : ∃ c, geoCornerMark hP S q k = c := ⟨_, rfl⟩
+  obtain ⟨c', hc'⟩ : ∃ c', geoCornerMark hP S q (k + 1) = c' := ⟨_, rfl⟩
+  rw [hc] at hchain hmid hedges hst hend
+  rw [hc'] at hchain
+  rw [hchain] at hend
+  obtain ⟨e, he⟩ : ∃ e, (geoOutSlot hP S c).1 = e := ⟨_, rfl⟩
+  obtain ⟨s, hs⟩ : ∃ s, (geoOutSlot hP S c).2.val = s := ⟨_, rfl⟩
+  rw [he] at hedges hend
+  rw [hs] at hst
+  have hts : 0 < t - s := sub_pos.mpr hst
+  -- one `ρ_S`-step is `ρ` after `selectedMarkPerm`
+  have hstep : ∀ r : ℕ, (geoSmoothingSuccessor hP S ^ (r + 1)) c =
+      geoMarkSuccessor hP (selectedMarkPerm S ((geoSmoothingSuccessor hP S ^ r) c)) := by
+    intro r
+    rw [pow_succ', Equiv.Perm.mul_apply, geoSmoothingSuccessor_apply]
+  -- geometric clauses
+  have hcor : geoCornerPolygon hP S q k = edgePoint P e s := by
+    have h := geo_evaluation_eq_outSlot hP S c
+    rw [he, hs] at h
+    show traversalEvaluation P (geoMarkPosition hP (geoCornerMark hP S q k)) = _
+    rw [hc]
+    exact h
+  have hnext : geoCornerPolygon hP S q (k + 1) = edgePoint P e t := by
+    show traversalEvaluation P (geoMarkPosition hP (geoCornerMark hP S q (k + 1))) = _
+    rw [hc']
+    exact hend
+  have hQ : ∀ τ : ℝ, edgePoint (geoCornerPolygon hP S q) k τ = edgePoint P e (s + τ * (t - s)) := by
+    intro τ
+    show geoCornerPolygon hP S q k +
+      τ • (geoCornerPolygon hP S q (k + 1) - geoCornerPolygon hP S q k) = _
+    rw [hcor, hnext, edgePoint_affine]
+  have hseg : ∀ u : ℝ,
+      edgePoint P e u ∈ edgeSegment (geoCornerPolygon hP S q) k ↔ s ≤ u ∧ u ≤ t := by
+    intro u
+    constructor
+    · rintro ⟨τ, hτ0, hτ1, hx⟩
+      rw [hQ] at hx
+      have hu := edgePoint_injective (hP.1 e) hx
+      have h1 : 0 ≤ τ * (t - s) := mul_nonneg hτ0 hts.le
+      have h2 : τ * (t - s) ≤ t - s := mul_le_of_le_one_left hts.le hτ1
+      constructor <;> linarith
+    · rintro ⟨hsu, hut⟩
+      refine ⟨(u - s) / (t - s), div_nonneg (by linarith) hts.le,
+        (div_le_one hts).mpr (by linarith), ?_⟩
+      rw [hQ]
+      congr 1
+      rw [div_mul_cancel₀ _ hts.ne']
+      ring
+  have hintr : ∀ u : ℝ,
+      edgePoint P e u ∈ edgeInterior (geoCornerPolygon hP S q) k ↔ s < u ∧ u < t := by
+    intro u
+    constructor
+    · rintro ⟨τ, hτ0, hτ1, hx⟩
+      rw [hQ] at hx
+      have hu := edgePoint_injective (hP.1 e) hx
+      have h1 : 0 < τ * (t - s) := mul_pos hτ0 hts
+      have h2 : τ * (t - s) < t - s := mul_lt_of_lt_one_left hts hτ1
+      constructor <;> linarith
+    · rintro ⟨hsu, hut⟩
+      refine ⟨(u - s) / (t - s), div_pos (by linarith) hts,
+        (div_lt_one hts).mpr (by linarith), ?_⟩
+      rw [hQ]
+      congr 1
+      rw [div_mul_cancel₀ _ hts.ne']
+      ring
+  have hpar : ∀ x ∈ edgeSegment (geoCornerPolygon hP S q) k, ∃ u : ℝ, x = edgePoint P e u := by
+    rintro x ⟨τ, -, -, hx⟩
+    exact ⟨s + τ * (t - s), by rw [hx, hQ]⟩
+  -- the last chain step `ρ (selectedMarkPerm S (ρ_S^{m-1} c)) = c'`: `c'` sits on `e` at parameter
+  -- `t < 1`, or `c'` is the vertex `e + 1` and `t = 1` (`geoMarkSuccessor_position_cases`)
+  have hlast : ((geoMarkPosition hP c').1 = e ∧ (geoMarkPosition hP c').2.val = t) ∨
+      (c' = Sum.inl (e + 1) ∧ t = 1) := by
+    have hm1 : geoMarkSuccessor hP
+        (selectedMarkPerm S ((geoSmoothingSuccessor hP S ^ (m - 1)) c)) = c' := by
+      rw [← hstep (m - 1), Nat.sub_add_cancel hm]
+      exact hchain
+    have hpos_prev : (geoMarkPosition hP
+        (selectedMarkPerm S ((geoSmoothingSuccessor hP S ^ (m - 1)) c))).1 = e :=
+      hedges (m - 1) (by omega)
+    rcases geoMarkSuccessor_position_cases hn hP
+        (selectedMarkPerm S ((geoSmoothingSuccessor hP S ^ (m - 1)) c)) with ⟨h1, -⟩ | h
+    · left
+      rw [hm1, hpos_prev] at h1
+      refine ⟨h1, ?_⟩
+      have h3 : edgePoint P (geoMarkPosition hP c').1 (geoMarkPosition hP c').2.val =
+          edgePoint P e t := hend
+      rw [h1] at h3
+      exact edgePoint_injective (hP.1 e) h3
+    · right
+      rw [hm1, hpos_prev] at h
+      refine ⟨h, ?_⟩
+      have h3 : edgePoint P e 1 = edgePoint P e t := by
+        rw [edgePoint_one, ← geoMarkPosition_evaluation_vertex hP (e + 1), ← h]
+        exact hend
+      exact (edgePoint_injective (hP.1 e) h3).symm
+  -- mark clauses
+  have hend_vertex : t = 1 → c' = Sum.inl (e + 1) := by
+    intro ht
+    rcases hlast with ⟨-, h2⟩ | ⟨h1, -⟩
+    · exact absurd (h2.trans ht) (geoMarkPosition hP c').2.property.2.ne
+    · exact h1
+  have hend_mark : ∀ m' : Mark P, (geoMarkPosition hP m').1 = e →
+      (geoMarkPosition hP m').2.val = t → m' = c' := by
+    intro m' h1 h2
+    rcases hlast with ⟨h3, h4⟩ | ⟨-, h4⟩
+    · apply geoMarkPosition_injective hP
+      exact Prod.ext (h1.trans h3.symm) (Subtype.ext (h2.trans h4.symm))
+    · exact absurd (h2.trans h4) (geoMarkPosition hP m').2.property.2.ne
+  have hstart_mark : ∀ m' : Mark P, (geoMarkPosition hP m').1 = e →
+      (geoMarkPosition hP m').2.val = s → m' = selectedMarkPerm S c := by
+    intro m' h1 h2
+    apply geoMarkPosition_injective hP
+    exact Prod.ext (h1.trans he.symm) (Subtype.ext (h2.trans hs.symm))
+  have hint : ∀ m' : Mark P, (geoMarkPosition hP m').1 = e →
+      s < (geoMarkPosition hP m').2.val → (geoMarkPosition hP m').2.val < t →
+      ¬ IsTrueCorner S m' := by
+    intro m' h1 h2 h3 htc
+    have hkey_m' : traversalKey (geoMarkPosition hP m') =
+        (e.val : ℝ) + (geoMarkPosition hP m').2.val := by
+      simp only [traversalKey, h1]
+    have hkey_chain : ∀ r < m, traversalKey (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ r) c)) =
+        (e.val : ℝ) + (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ r) c)).2.val := by
+      intro r hr
+      simp only [traversalKey, hedges r hr]
+    -- the successor gap at every chain step
+    have hgap : ∀ r < m, ¬ traversalBetween (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ r) c))
+        (geoMarkPosition hP m') (geoMarkPosition hP ((geoSmoothingSuccessor hP S ^ (r + 1)) c)) := by
+      intro r _ hb
+      rw [hstep r] at hb
+      exact geoMarkSuccessor_no_mark_between hP
+        (selectedMarkPerm S ((geoSmoothingSuccessor hP S ^ r) c)) m' hb
+    -- the strictly interior chain marks are unselected visits: their slot is their position
+    have hunsel : ∀ r, 1 ≤ r → r < m →
+        geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ r) c) =
+          geoMarkPosition hP ((geoSmoothingSuccessor hP S ^ r) c) := by
+      intro r h1r hrm
+      obtain ⟨v, hv, hvS⟩ := ccp_not_trueCorner S (hmid r h1r hrm)
+      rw [hv]
+      exact geoOutSlot_unselected hP S v hvS
+    -- every chain slot lies strictly before the position of `m'`
+    have hind : ∀ r, r < m → (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ r) c)).2.val <
+        (geoMarkPosition hP m').2.val := by
+      intro r
+      induction r with
+      | zero =>
+        intro _
+        rw [pow_zero, Equiv.Perm.one_apply, hs]
+        exact h2
+      | succ r ih =>
+        intro hr
+        have hr' : r < m := by omega
+        have hlt := ih hr'
+        by_contra hnot
+        rcases lt_or_eq_of_le (not_lt.mp hnot) with hlt' | heq
+        · apply hgap r hr'
+          unfold traversalBetween
+          rw [← hunsel (r + 1) (by omega) hr, hkey_chain r hr', hkey_chain (r + 1) hr, hkey_m']
+          left
+          exact ⟨by linarith, by linarith⟩
+        · apply hmid (r + 1) (by omega) hr
+          have hpos : geoMarkPosition hP m' =
+              geoMarkPosition hP ((geoSmoothingSuccessor hP S ^ (r + 1)) c) := by
+            rw [← hunsel (r + 1) (by omega) hr]
+            exact Prod.ext (h1.trans (hedges (r + 1) hr).symm) (Subtype.ext heq)
+          rw [← geoMarkPosition_injective hP hpos]
+          exact htc
+    -- the last step: `m'` would lie in the gap between the last chain slot and `c'`
+    have hlt := hind (m - 1) (by omega)
+    apply hgap (m - 1) (by omega)
+    rw [Nat.sub_add_cancel hm, hchain]
+    unfold traversalBetween
+    rw [hkey_chain (m - 1) (by omega), hkey_m']
+    rcases hlast with ⟨h4, h5⟩ | ⟨h4, h5⟩
+    · have hk : traversalKey (geoMarkPosition hP c') = (e.val : ℝ) + t := by
+        simp only [traversalKey, h4, h5]
+      rw [hk]
+      left
+      exact ⟨by linarith, by linarith⟩
+    · have hk : traversalKey (geoMarkPosition hP (Sum.inl (e + 1))) = ((e + 1).val : ℝ) := by
+        simp [traversalKey, geoMarkPosition]
+      rw [h4, hk]
+      have h0 : 0 ≤ (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ (m - 1)) c)).2.val :=
+        (geoOutSlot hP S _).2.property.1
+      have hu1 : (geoMarkPosition hP m').2.val < 1 := (geoMarkPosition hP m').2.property.2
+      by_cases hA : (e.val : ℝ) + (geoMarkPosition hP m').2.val < ((e + 1).val : ℝ)
+      · exact Or.inl ⟨by linarith, hA⟩
+      · by_cases hB : ((e + 1).val : ℝ) <
+            (e.val : ℝ) + (geoOutSlot hP S ((geoSmoothingSuccessor hP S ^ (m - 1)) c)).2.val
+        · exact Or.inr (Or.inr ⟨hB, by linarith⟩)
+        · exfalso
+          have hA' := not_lt.mp hA
+          have hB' := not_lt.mp hB
+          have hle : e.val ≤ (e + 1).val := by
+            exact_mod_cast (show (e.val : ℝ) ≤ ((e + 1).val : ℝ) by linarith)
+          have hlt1 : (e + 1).val < e.val + 1 := by
+            exact_mod_cast (show ((e + 1).val : ℝ) < (e.val : ℝ) + 1 by linarith)
+          have heq : (e + 1).val = e.val := by omega
+          have h' : e + 1 = e := ZMod.val_injective n heq
+          exact one_ne_zero (add_left_cancel (h'.trans (add_zero e).symm))
+  subst hs
+  subst he
+  subst hc'
+  subst hc
+  exact ⟨t, ⟨hst, ht1, hcor, hnext, hseg, hintr, hpar, hint, hstart_mark, hend_mark, hend_vertex⟩⟩
+
+/-- **Meeting lemma, same parent edge, directed form** (PROVED): the block of `a` starts no later than the
+block of `b` on their common parent edge `e`.  With `x = edgePoint P e u`, `u ∈ [s_a, t_a] ∩ [s_b, t_b]`
+(`exists_param`, `mem_segment_iff`, `edgePoint_injective`), `s_a ≤ s_b ≤ u ≤ t_a`.  If `s_b < t_a`:
+`s_a < s_b` is impossible (`interior_mark` at the true corner `selectedMarkPerm S c_b`), and `s_a = s_b`
+gives `c_a = c_b` (`start_mark`, `selectedMarkPerm_involutive`, `geoCornerMark_injective`), against
+`a ≠ b`.  So `s_b = t_a = u` and `end_mark` gives `selectedMarkPerm S c_b = c_{a+1}`: a vertex corner
+`c_b` gives `b = a + 1` and `x = Q b` (`corner_eq`); a selected-visit corner `c_b = inr v` makes
+`c_{a+1} = inr (visitTwin v)` a corner of the same carrier, against `htwin`. -/
+theorem geoCornerPolygon_meet_same_edge_aux (hP : CrossingGeometry P) (S : Finset (Crossing P))
+    (q : GeoComponent hP S)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner hP S (Sum.inr v) ≠ geoOwner hP S (Sum.inr (visitTwin v)))
+    {a b : ZMod (geoCornerCount hP S q)} (hab : a ≠ b) {ta tb : ℝ}
+    (ha : GeoBlock hP S q a ta) (hb : GeoBlock hP S q b tb)
+    (he : (geoOutSlot hP S (geoCornerMark hP S q a)).1 = (geoOutSlot hP S (geoCornerMark hP S q b)).1)
+    (hle : (geoOutSlot hP S (geoCornerMark hP S q a)).2.val ≤
+      (geoOutSlot hP S (geoCornerMark hP S q b)).2.val)
+    {x : Plane} (hxa : x ∈ edgeSegment (geoCornerPolygon hP S q) a)
+    (hxb : x ∈ edgeSegment (geoCornerPolygon hP S q) b) :
+    b = a + 1 ∧ x = geoCornerPolygon hP S q b := by
+  have hint_a := ha.interior_mark
+  have hsm_a := ha.start_mark
+  have hem_a := ha.end_mark
+  have hseg_a := ha.mem_segment_iff
+  have hpar_a := ha.exists_param
+  have hseg_b := hb.mem_segment_iff
+  have hpar_b := hb.exists_param
+  have hcor_b := hb.corner_eq
+  have hpos_b : geoMarkPosition hP (selectedMarkPerm S (geoCornerMark hP S q b)) =
+      geoOutSlot hP S (geoCornerMark hP S q b) := rfl
+  have htc_b := isTrueCorner_selectedMarkPerm (isTrueCorner_geoCornerMark hP S q b)
+  have hob := geoOwner_geoCornerMark hP S q b
+  have hoa1 := geoOwner_geoCornerMark hP S q (a + 1)
+  have htcb := isTrueCorner_geoCornerMark hP S q b
+  obtain ⟨ea, hea⟩ : ∃ ea, (geoOutSlot hP S (geoCornerMark hP S q a)).1 = ea := ⟨_, rfl⟩
+  obtain ⟨eb, heb⟩ : ∃ eb, (geoOutSlot hP S (geoCornerMark hP S q b)).1 = eb := ⟨_, rfl⟩
+  obtain ⟨sa, hsa⟩ : ∃ sa, (geoOutSlot hP S (geoCornerMark hP S q a)).2.val = sa := ⟨_, rfl⟩
+  obtain ⟨sb, hsb⟩ : ∃ sb, (geoOutSlot hP S (geoCornerMark hP S q b)).2.val = sb := ⟨_, rfl⟩
+  rw [hea] at hint_a hsm_a hem_a hseg_a hpar_a he
+  rw [hsa] at hint_a hsm_a hseg_a hle
+  rw [heb] at hseg_b hpar_b hcor_b he
+  rw [hsb] at hseg_b hcor_b hle
+  rw [← he] at hseg_b hpar_b hcor_b heb
+  have hp1 : (geoMarkPosition hP (selectedMarkPerm S (geoCornerMark hP S q b))).1 = ea := by
+    rw [hpos_b]; exact heb
+  have hp2 : (geoMarkPosition hP (selectedMarkPerm S (geoCornerMark hP S q b))).2.val = sb := by
+    rw [hpos_b]; exact hsb
+  obtain ⟨ua, hxa'⟩ := hpar_a x hxa
+  obtain ⟨ub, hxb'⟩ := hpar_b x hxb
+  have hua := (hseg_a ua).mp (by rw [← hxa']; exact hxa)
+  have hub := (hseg_b ub).mp (by rw [← hxb']; exact hxb)
+  have huab : ua = ub := edgePoint_injective (hP.1 ea) (hxa'.symm.trans hxb')
+  rw [← huab] at hub
+  have hsbta : sb ≤ ta := hub.1.trans hua.2
+  rcases lt_or_eq_of_le hsbta with hlt | heq
+  · exfalso
+    rcases lt_or_eq_of_le hle with hlt' | heq'
+    · exact hint_a _ hp1 (by rw [hp2]; exact hlt') (by rw [hp2]; exact hlt) htc_b
+    · have hm := hsm_a _ hp1 (by rw [hp2]; exact heq'.symm)
+      have h := congrArg (selectedMarkPerm S) hm
+      rw [selectedMarkPerm_involutive, selectedMarkPerm_involutive] at h
+      exact hab (geoCornerMark_injective hP S q h).symm
+  · have hm := hem_a _ hp1 (by rw [hp2]; exact heq)
+    have hua' : ua = sb := le_antisymm (heq ▸ hua.2) hub.1
+    have hxQ : x = geoCornerPolygon hP S q b := by rw [hcor_b, hxa', hua']
+    obtain ⟨m, hmb⟩ : ∃ m, geoCornerMark hP S q b = m := ⟨_, rfl⟩
+    rw [hmb] at hm htcb hob
+    cases m with
+    | inl i =>
+      rw [selectedMarkPerm_vertex] at hm
+      exact ⟨geoCornerMark_injective hP S q (hmb.trans hm), hxQ⟩
+    | inr v =>
+      exfalso
+      have hv : v.1 ∈ S := (isTrueCorner_visit S v).mp htcb
+      rw [selectedMarkPerm_visit, selectedVisitTwin_of_mem S v hv] at hm
+      rw [← hm] at hoa1
+      exact htwin v hv (hob.trans hoa1.symm)
+
+/-- **Meeting lemma, same parent edge** (PROVED from the directed form, by `le_total` on the two block
+starts). -/
+theorem geoCornerPolygon_meet_same_edge (hP : CrossingGeometry P) (S : Finset (Crossing P))
+    (q : GeoComponent hP S)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner hP S (Sum.inr v) ≠ geoOwner hP S (Sum.inr (visitTwin v)))
+    {a b : ZMod (geoCornerCount hP S q)} (hab : a ≠ b) {ta tb : ℝ}
+    (ha : GeoBlock hP S q a ta) (hb : GeoBlock hP S q b tb)
+    (he : (geoOutSlot hP S (geoCornerMark hP S q a)).1 = (geoOutSlot hP S (geoCornerMark hP S q b)).1)
+    {x : Plane} (hxa : x ∈ edgeSegment (geoCornerPolygon hP S q) a)
+    (hxb : x ∈ edgeSegment (geoCornerPolygon hP S q) b) :
+    (b = a + 1 ∧ x = geoCornerPolygon hP S q b) ∨ (a = b + 1 ∧ x = geoCornerPolygon hP S q a) := by
+  rcases le_total (geoOutSlot hP S (geoCornerMark hP S q a)).2.val
+      (geoOutSlot hP S (geoCornerMark hP S q b)).2.val with hle | hle
+  · exact Or.inl (geoCornerPolygon_meet_same_edge_aux hP S q htwin hab ha hb he hle hxa hxb)
+  · exact Or.inr (geoCornerPolygon_meet_same_edge_aux hP S q htwin hab.symm hb ha he.symm hle hxb hxa)
+
+/-- **Meeting lemma, adjacent parent edges** (PROVED).  If the block of `a` lies on the parent edge `e`
+and the block of `b` on `e + 1`, a common point of the two corner-polygon edges is the parent vertex
+`P (e+1)` (`regular_adjacent_meet`), so the block of `a` runs to the end of its edge (`end_vertex`:
+`c_{a+1} = inl (e+1)`) and the block of `b` starts at parameter `0` (`start_mark` at the vertex mark
+`inl (e+1)`: `c_b = inl (e+1)`); hence `b = a + 1` and the point is the corner `Q b`. -/
+theorem geoCornerPolygon_meet_next_edge (hP : CrossingGeometry P) (hreg : Regular P)
+    (S : Finset (Crossing P)) (q : GeoComponent hP S)
+    {a b : ZMod (geoCornerCount hP S q)} {ta tb : ℝ}
+    (ha : GeoBlock hP S q a ta) (hb : GeoBlock hP S q b tb)
+    (he : (geoOutSlot hP S (geoCornerMark hP S q b)).1 =
+      (geoOutSlot hP S (geoCornerMark hP S q a)).1 + 1)
+    {x : Plane} (hxa : x ∈ edgeSegment (geoCornerPolygon hP S q) a)
+    (hxb : x ∈ edgeSegment (geoCornerPolygon hP S q) b) :
+    b = a + 1 ∧ x = geoCornerPolygon hP S q b := by
+  have hsm := hb.start_mark
+  have hev := ha.end_vertex
+  have hle_a := ha.le_one
+  have hle_b := hb.le_one
+  have hseg_a := ha.mem_segment_iff
+  have hseg_b := hb.mem_segment_iff
+  have hpar_a := ha.exists_param
+  have hpar_b := hb.exists_param
+  have hsa0 : 0 ≤ (geoOutSlot hP S (geoCornerMark hP S q a)).2.val :=
+    (geoOutSlot hP S (geoCornerMark hP S q a)).2.property.1
+  have hsb0 : 0 ≤ (geoOutSlot hP S (geoCornerMark hP S q b)).2.val :=
+    (geoOutSlot hP S (geoCornerMark hP S q b)).2.property.1
+  obtain ⟨ea, hea⟩ : ∃ ea, (geoOutSlot hP S (geoCornerMark hP S q a)).1 = ea := ⟨_, rfl⟩
+  obtain ⟨eb, heb⟩ : ∃ eb, (geoOutSlot hP S (geoCornerMark hP S q b)).1 = eb := ⟨_, rfl⟩
+  obtain ⟨sa, hsa⟩ : ∃ sa, (geoOutSlot hP S (geoCornerMark hP S q a)).2.val = sa := ⟨_, rfl⟩
+  obtain ⟨sb, hsb⟩ : ∃ sb, (geoOutSlot hP S (geoCornerMark hP S q b)).2.val = sb := ⟨_, rfl⟩
+  rw [hea] at hseg_a hpar_a hev
+  rw [hsa] at hseg_a
+  rw [heb] at hseg_b hpar_b hsm
+  rw [hsb] at hseg_b hsm
+  rw [hsa] at hsa0
+  rw [hsb] at hsb0
+  rw [hea, heb] at he
+  obtain ⟨ua, hxa'⟩ := hpar_a x hxa
+  obtain ⟨ub, hxb'⟩ := hpar_b x hxb
+  have hua := (hseg_a ua).mp (by rw [← hxa']; exact hxa)
+  have hub := (hseg_b ub).mp (by rw [← hxb']; exact hxb)
+  have hPa : x ∈ edgeSegment P ea := ⟨ua, hsa0.trans hua.1, hua.2.trans hle_a, hxa'⟩
+  have hPb : x ∈ edgeSegment P (ea + 1) := by
+    rw [← he]
+    exact ⟨ub, hsb0.trans hub.1, hub.2.trans hle_b, hxb'⟩
+  have hx : x = P (ea + 1) := regular_adjacent_meet hreg ea hPa hPb
+  have hua1 : ua = 1 :=
+    edgePoint_injective (hP.1 ea) (hxa'.symm.trans (hx.trans (edgePoint_one P ea).symm))
+  have hta : ta = 1 := le_antisymm hle_a (hua1 ▸ hua.2)
+  have hnext := hev hta
+  have hub0 : ub = 0 := by
+    apply edgePoint_injective (hP.1 eb)
+    rw [← hxb', edgePoint_zero, he, hx]
+  have hsb' : sb = 0 := le_antisymm (hub0 ▸ hub.1) hsb0
+  have hm := hsm (Sum.inl eb) rfl (by rw [geoMarkPosition_vertex]; exact hsb'.symm)
+  have hcb : geoCornerMark hP S q b = Sum.inl eb := by
+    have h := congrArg (selectedMarkPerm S) hm
+    rw [selectedMarkPerm_involutive, selectedMarkPerm_vertex] at h
+    exact h.symm
+  have hb1 : b = a + 1 := geoCornerMark_injective hP S q (hcb.trans (by rw [hnext, he]))
+  refine ⟨hb1, ?_⟩
+  show x = traversalEvaluation P (geoMarkPosition hP (geoCornerMark hP S q b))
+  rw [hcb, geoMarkPosition_evaluation_vertex, hx, he]
+
+/-- **Meeting lemma, remote parent edges** (unit U3b).  With `x = edgePoint P e_a u_a = edgePoint P e_b u_b`
+on both closed parent segments (`exists_param`, `mem_segment_iff`, `s ≥ 0`, `t ≤ 1`), `{e_a, e_b}` is a
+crossing `c` of `P` and `x = crossingPoint c` (`crossingPoint_unique_of_geometry`); its visits
+`w_a = ⟨c, e_a⟩`, `w_b = ⟨c, e_b⟩ = visitTwin w_a` (`visitTwin_unique`) have positions `(e_a, u_a)`,
+`(e_b, u_b)` (`geometricVisitPosition`, `crossingParameter_spec`, `edgePoint_injective`).  `u_a = t_a = 1`
+is impossible (`x` would be the vertex `P (e_a+1)`: `hnv`), likewise for `b`.  If `c ∈ S` (both visits
+true corners): `interior_mark` puts each at a block endpoint; `start_mark` gives `c_a = inr w_b` /
+`c_b = inr w_a`, `end_mark` gives `c_{a+1} = inr w_a` / `c_{b+1} = inr w_b`; the four combinations yield
+`b = a + 1 ∧ x = Q b`, `a = b + 1 ∧ x = Q a`, or two twins among the corners of `q` (`htwin`,
+`geoOwner_geoCornerMark`).  If `c ∉ S` (neither visit a true corner): `start_mark`
+(`isTrueCorner_selectedMarkPerm`) and `end_mark` (`isTrueCorner_geoCornerMark`) exclude the endpoints, so
+`x` is interior to both edges (`mem_interior_iff`); `e_a ≠ e_b` by `remote_endpoints`. -/
+theorem geoCornerPolygon_meet_remote_edge (hP : CrossingGeometry P)
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent hP S)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner hP S (Sum.inr v) ≠ geoOwner hP S (Sum.inr (visitTwin v)))
+    {a b : ZMod (geoCornerCount hP S q)} {ta tb : ℝ}
+    (ha : GeoBlock hP S q a ta) (hb : GeoBlock hP S q b tb)
+    (he : remote (geoOutSlot hP S (geoCornerMark hP S q a)).1 (geoOutSlot hP S (geoCornerMark hP S q b)).1)
+    {x : Plane} (hxa : x ∈ edgeSegment (geoCornerPolygon hP S q) a)
+    (hxb : x ∈ edgeSegment (geoCornerPolygon hP S q) b) :
+    (b = a + 1 ∧ x = geoCornerPolygon hP S q b) ∨
+    (a = b + 1 ∧ x = geoCornerPolygon hP S q a) ∨
+    (∃ c : Crossing P, c ∉ S ∧ x = crossingPoint c ∧
+      (geoOutSlot hP S (geoCornerMark hP S q a)).1 ∈ c.val ∧
+      (geoOutSlot hP S (geoCornerMark hP S q b)).1 ∈ c.val ∧
+      (geoOutSlot hP S (geoCornerMark hP S q a)).1 ≠ (geoOutSlot hP S (geoCornerMark hP S q b)).1 ∧
+      x ∈ edgeInterior (geoCornerPolygon hP S q) a ∧
+      x ∈ edgeInterior (geoCornerPolygon hP S q) b) := by
+  -- the block data of the two edges
+  have hint_a := ha.interior_mark
+  have hsm_a := ha.start_mark
+  have hem_a := ha.end_mark
+  have hseg_a := ha.mem_segment_iff
+  have hinter_a := ha.mem_interior_iff
+  have hpar_a := ha.exists_param
+  have hcor_a := ha.corner_eq
+  have hle_a := ha.le_one
+  have hint_b := hb.interior_mark
+  have hsm_b := hb.start_mark
+  have hem_b := hb.end_mark
+  have hseg_b := hb.mem_segment_iff
+  have hinter_b := hb.mem_interior_iff
+  have hpar_b := hb.exists_param
+  have hcor_b := hb.corner_eq
+  have hle_b := hb.le_one
+  have hsa0 : 0 ≤ (geoOutSlot hP S (geoCornerMark hP S q a)).2.val :=
+    (geoOutSlot hP S (geoCornerMark hP S q a)).2.property.1
+  have hsb0 : 0 ≤ (geoOutSlot hP S (geoCornerMark hP S q b)).2.val :=
+    (geoOutSlot hP S (geoCornerMark hP S q b)).2.property.1
+  -- the corner marks of `a`, `b`, `a+1`, `b+1` are true corners of the carrier `q`
+  have htca := isTrueCorner_geoCornerMark hP S q a
+  have htcb := isTrueCorner_geoCornerMark hP S q b
+  have htca1 := isTrueCorner_geoCornerMark hP S q (a + 1)
+  have htcb1 := isTrueCorner_geoCornerMark hP S q (b + 1)
+  have hoa := geoOwner_geoCornerMark hP S q a
+  have hob := geoOwner_geoCornerMark hP S q b
+  have hoa1 := geoOwner_geoCornerMark hP S q (a + 1)
+  have hob1 := geoOwner_geoCornerMark hP S q (b + 1)
+  -- generalise the parent edges and block starts
+  obtain ⟨ea, hea⟩ : ∃ ea, (geoOutSlot hP S (geoCornerMark hP S q a)).1 = ea := ⟨_, rfl⟩
+  obtain ⟨eb, heb⟩ : ∃ eb, (geoOutSlot hP S (geoCornerMark hP S q b)).1 = eb := ⟨_, rfl⟩
+  obtain ⟨sa, hsa⟩ : ∃ sa, (geoOutSlot hP S (geoCornerMark hP S q a)).2.val = sa := ⟨_, rfl⟩
+  obtain ⟨sb, hsb⟩ : ∃ sb, (geoOutSlot hP S (geoCornerMark hP S q b)).2.val = sb := ⟨_, rfl⟩
+  rw [hea] at hint_a hsm_a hem_a hseg_a hinter_a hpar_a hcor_a he
+  rw [hsa] at hint_a hsm_a hseg_a hinter_a hcor_a hsa0
+  rw [heb] at hint_b hsm_b hem_b hseg_b hinter_b hpar_b hcor_b he
+  rw [hsb] at hint_b hsm_b hseg_b hinter_b hcor_b hsb0
+  rw [hea, heb]
+  -- the common point, as a point of both closed parent segments
+  obtain ⟨ua, hxa'⟩ := hpar_a x hxa
+  obtain ⟨ub, hxb'⟩ := hpar_b x hxb
+  have hua := (hseg_a ua).mp (by rw [← hxa']; exact hxa)
+  have hub := (hseg_b ub).mp (by rw [← hxb']; exact hxb)
+  have hPa : x ∈ edgeSegment P ea := ⟨ua, hsa0.trans hua.1, hua.2.trans hle_a, hxa'⟩
+  have hPb : x ∈ edgeSegment P eb := ⟨ub, hsb0.trans hub.1, hub.2.trans hle_b, hxb'⟩
+  have heab : ea ≠ eb := (remote_endpoints ea eb he).1.symm
+  -- `{ea, eb}` is a crossing of `P`, `x` its point, `wa`, `wb` its two visits
+  have hc : IsCrossing P {ea, eb} := ⟨ea, eb, rfl, he, ⟨x, hPa, hPb⟩⟩
+  let c : Crossing P := ⟨{ea, eb}, hc⟩
+  have hcval : c.val = {ea, eb} := rfl
+  have hea_mem : ea ∈ c.val := by rw [hcval]; exact Finset.mem_insert_self _ _
+  have heb_mem : eb ∈ c.val := by
+    rw [hcval]; exact Finset.mem_insert_of_mem (Finset.mem_singleton_self _)
+  have hxc : x = crossingPoint c := by
+    apply crossingPoint_unique_of_geometry hP c x
+    intro i hi
+    rw [hcval, Finset.mem_insert, Finset.mem_singleton] at hi
+    rcases hi with rfl | rfl
+    · exact hPa
+    · exact hPb
+  let wa : Visit P := ⟨c, ⟨ea, hea_mem⟩⟩
+  let wb : Visit P := ⟨c, ⟨eb, heb_mem⟩⟩
+  have hne : wb ≠ wa := fun h => heab (congrArg (fun w : Visit P => w.2.val) h).symm
+  have hwb : wb = visitTwin wa := visitTwin_unique wa wb rfl hne
+  have hwa : wa = visitTwin wb := by rw [hwb, visitTwin_involutive]
+  -- the positions of the two visits: `(ea, ua)` and `(eb, ub)`
+  have hpa1 : (geoMarkPosition hP (Sum.inr wa)).1 = ea := rfl
+  have hpb1 : (geoMarkPosition hP (Sum.inr wb)).1 = eb := rfl
+  have hpa2 : (geoMarkPosition hP (Sum.inr wa)).2.val = ua := by
+    show visitParameter wa = ua
+    apply edgePoint_injective (hP.1 ea)
+    rw [← hxa', hxc]
+    exact (crossingParameter_spec c ea hea_mem).2.2.symm
+  have hpb2 : (geoMarkPosition hP (Sum.inr wb)).2.val = ub := by
+    show visitParameter wb = ub
+    apply edgePoint_injective (hP.1 eb)
+    rw [← hxb', hxc]
+    exact (crossingParameter_spec c eb heb_mem).2.2.symm
+  by_cases hcS : c ∈ S
+  · -- the crossing is selected: both visits are true corners, hence block endpoints
+    have htc_a : IsTrueCorner S (Sum.inr wa) := hcS
+    have htc_b : IsTrueCorner S (Sum.inr wb) := hcS
+    have hperm_a : selectedMarkPerm S (Sum.inr wa) = Sum.inr wb := by
+      rw [selectedMarkPerm_visit, selectedVisitTwin_of_mem S wa hcS, hwb]
+    have hperm_b : selectedMarkPerm S (Sum.inr wb) = Sum.inr wa := by
+      rw [selectedMarkPerm_visit, selectedVisitTwin_of_mem S wb hcS, hwa]
+    have hown := htwin wa hcS
+    rw [← hwb] at hown
+    have hua_end : ua = sa ∨ ua = ta := by
+      rcases lt_or_eq_of_le hua.1 with h1 | h1
+      · rcases lt_or_eq_of_le hua.2 with h2 | h2
+        · exact absurd htc_a (hint_a _ hpa1 (by rw [hpa2]; exact h1) (by rw [hpa2]; exact h2))
+        · exact Or.inr h2
+      · exact Or.inl h1.symm
+    have hub_end : ub = sb ∨ ub = tb := by
+      rcases lt_or_eq_of_le hub.1 with h1 | h1
+      · rcases lt_or_eq_of_le hub.2 with h2 | h2
+        · exact absurd htc_b (hint_b _ hpb1 (by rw [hpb2]; exact h1) (by rw [hpb2]; exact h2))
+        · exact Or.inr h2
+      · exact Or.inl h1.symm
+    -- a visit at the start of a block is the twin of that block's corner; at the end, the next corner
+    have hstart_a : ua = sa → geoCornerMark hP S q a = Sum.inr wb := by
+      intro h
+      have hm := hsm_a _ hpa1 (by rw [hpa2]; exact h)
+      have h' := congrArg (selectedMarkPerm S) hm
+      rw [selectedMarkPerm_involutive, hperm_a] at h'
+      exact h'.symm
+    have hstart_b : ub = sb → geoCornerMark hP S q b = Sum.inr wa := by
+      intro h
+      have hm := hsm_b _ hpb1 (by rw [hpb2]; exact h)
+      have h' := congrArg (selectedMarkPerm S) hm
+      rw [selectedMarkPerm_involutive, hperm_b] at h'
+      exact h'.symm
+    have hend_a : ua = ta → geoCornerMark hP S q (a + 1) = Sum.inr wa := fun h =>
+      (hem_a _ hpa1 (by rw [hpa2]; exact h)).symm
+    have hend_b : ub = tb → geoCornerMark hP S q (b + 1) = Sum.inr wb := fun h =>
+      (hem_b _ hpb1 (by rw [hpb2]; exact h)).symm
+    rcases hua_end with hua' | hua' <;> rcases hub_end with hub' | hub'
+    · -- `(s_a, s_b)`: `c_a = inr wb`, `c_b = inr wa` — two twins among the corners of `q`
+      exfalso
+      rw [hstart_a hua'] at hoa
+      rw [hstart_b hub'] at hob
+      exact hown (hob.trans hoa.symm)
+    · -- `(s_a, t_b)`: `c_a = inr wb = c_{b+1}`, so `a = b + 1` and `x = Q a`
+      have hab1 : a = b + 1 :=
+        geoCornerMark_injective hP S q ((hstart_a hua').trans (hend_b hub').symm)
+      refine Or.inr (Or.inl ⟨hab1, ?_⟩)
+      rw [hcor_a, hxa', hua']
+    · -- `(t_a, s_b)`: `c_b = inr wa = c_{a+1}`, so `b = a + 1` and `x = Q b`
+      have hb1 : b = a + 1 :=
+        geoCornerMark_injective hP S q ((hstart_b hub').trans (hend_a hua').symm)
+      refine Or.inl ⟨hb1, ?_⟩
+      rw [hcor_b, hxb', hub']
+    · -- `(t_a, t_b)`: `c_{a+1} = inr wa`, `c_{b+1} = inr wb` — two twins among the corners of `q`
+      exfalso
+      rw [hend_a hua'] at hoa1
+      rw [hend_b hub'] at hob1
+      exact hown (hoa1.trans hob1.symm)
+  · -- the crossing is unselected: neither visit is a true corner, so neither sits at a block endpoint
+    have hntc_a : ¬ IsTrueCorner S (Sum.inr wa) := hcS
+    have hntc_b : ¬ IsTrueCorner S (Sum.inr wb) := hcS
+    have hua1 : sa < ua := by
+      refine lt_of_le_of_ne hua.1 fun h => hntc_a ?_
+      rw [hsm_a _ hpa1 (by rw [hpa2]; exact h.symm)]
+      exact isTrueCorner_selectedMarkPerm htca
+    have hua2 : ua < ta := by
+      refine lt_of_le_of_ne hua.2 fun h => hntc_a ?_
+      rw [hem_a _ hpa1 (by rw [hpa2]; exact h)]
+      exact htca1
+    have hub1 : sb < ub := by
+      refine lt_of_le_of_ne hub.1 fun h => hntc_b ?_
+      rw [hsm_b _ hpb1 (by rw [hpb2]; exact h.symm)]
+      exact isTrueCorner_selectedMarkPerm htcb
+    have hub2 : ub < tb := by
+      refine lt_of_le_of_ne hub.2 fun h => hntc_b ?_
+      rw [hem_b _ hpb1 (by rw [hpb2]; exact h)]
+      exact htcb1
+    refine Or.inr (Or.inr ⟨c, hcS, hxc, hea_mem, heb_mem, heab, ?_, ?_⟩)
+    · rw [hxa']; exact (hinter_a ua).mpr ⟨hua1, hua2⟩
+    · rw [hxb']; exact (hinter_b ub).mpr ⟨hub1, hub2⟩
+
+/-- **The meeting lemma at a weakly generic centre** (the analogue of `nonadjacent_meet`,
+SM/LinkPositiveLift.lean:443, assembled from the three parent-edge cases): two distinct closed edges
+`a ≠ b` of the corner polygon meet either at a common corner (adjacent edges) or at the crossing point of an
+UNSELECTED crossing whose two visits are interior marks of the two blocks, the two blocks lying on the two
+(remote, transverse) edges of that crossing, the meeting point interior to both edges of the corner
+polygon. -/
+theorem geoCornerPolygon_meet_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (_hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v)))
+    {a b : ZMod (geoCornerCount (weak_crossingGeometry hW) S q)} (hab : a ≠ b) {x : Plane}
+    (hxa : x ∈ edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) a)
+    (hxb : x ∈ edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) b) :
+    (b = a + 1 ∧ x = geoCornerPolygon (weak_crossingGeometry hW) S q b) ∨
+    (a = b + 1 ∧ x = geoCornerPolygon (weak_crossingGeometry hW) S q a) ∨
+    (∃ c : Crossing P, c ∉ S ∧ x = crossingPoint c ∧
+      (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 ∈ c.val ∧
+      (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 ∈ c.val ∧
+      (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 ≠
+        (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 ∧
+      x ∈ edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) a ∧
+      x ∈ edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) b) := by
+  obtain ⟨ta, ha⟩ := exists_geoBlock hn (weak_crossingGeometry hW) S q htr a
+  obtain ⟨tb, hb⟩ := exists_geoBlock hn (weak_crossingGeometry hW) S q htr b
+  by_cases hadj : adjacent
+      (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1
+      (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1
+  · rcases hadj with h | h | h
+    · have he : (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 =
+          (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 + 1 := by
+        linear_combination -h
+      exact Or.inr (Or.inl (geoCornerPolygon_meet_next_edge _ (regular_of_weakGeneric hW) S q hb ha he hxb hxa))
+    · have he : (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 =
+          (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 :=
+        (sub_eq_zero.mp h).symm
+      rcases geoCornerPolygon_meet_same_edge _ S q htwin hab ha hb he hxa hxb with h1 | h1
+      · exact Or.inl h1
+      · exact Or.inr (Or.inl h1)
+    · have he : (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 =
+          (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 + 1 := by
+        linear_combination h
+      exact Or.inl (geoCornerPolygon_meet_next_edge _ (regular_of_weakGeneric hW) S q ha hb he hxa hxb)
+  · exact geoCornerPolygon_meet_remote_edge _ hnv S q htwin ha hb hadj hxa hxb
+
+/-- No corner lies on a non-incident closed edge (`tail_off`): the corner `Q a` lies on its own edge `a`
+too, so the meeting lemma applies to `a ≠ b`; a shared-corner case gives `Q a = Q b` (against
+`geoCornerPolygon_injective_of_weak`) or `b = a − 1` (incident); the crossing case makes the corner point
+interior to its own edge (`self_not_mem_edgeInterior`). -/
+theorem geoCornerPolygon_tail_off_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v)))
+    (a b : ZMod (geoCornerCount (weak_crossingGeometry hW) S q)) (hab : ¬ incident a b) :
+    geoCornerPolygon (weak_crossingGeometry hW) S q a ∉
+      edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) b := by
+  intro hmem
+  have hne : a ≠ b := fun h => hab (Or.inr h.symm)
+  have hself : geoCornerPolygon (weak_crossingGeometry hW) S q a ∈
+      edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) a :=
+    ⟨0, le_rfl, zero_le_one, (edgePoint_zero _ _).symm⟩
+  rcases geoCornerPolygon_meet_of_weak hn hW hinj hnv S q htr htwin hne hself hmem with
+    ⟨-, hxq⟩ | ⟨ha1, -⟩ | ⟨-, -, -, -, -, -, hint, -⟩
+  · exact hne (geoCornerPolygon_injective_of_weak hW hinj hnv S q htwin hxq)
+  · exact hab (Or.inl (eq_sub_of_add_eq ha1.symm))
+  · exact self_not_mem_edgeInterior (geoCornerPolygon_edge_ne_zero hn _ S q htr a) hint
+
+/-- Meeting non-adjacent edges are transverse: the shared-corner cases are adjacent; otherwise the
+directions are positive multiples of the two edges of the crossing (`geoCornerPolygon_edge`), which are
+transverse (`crossing_edges_det_ne_zero_of_geometry`). -/
+theorem geoCornerPolygon_transverse_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v)))
+    (a b : ZMod (geoCornerCount (weak_crossingGeometry hW) S q)) (hab : ¬ adjacent a b)
+    (hmeet : (edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) a ∩
+      edgeSegment (geoCornerPolygon (weak_crossingGeometry hW) S q) b).Nonempty) :
+    det (edge (geoCornerPolygon (weak_crossingGeometry hW) S q) a)
+      (edge (geoCornerPolygon (weak_crossingGeometry hW) S q) b) ≠ 0 := by
+  obtain ⟨x, hxa, hxb⟩ := hmeet
+  have hab' : a ≠ b := fun h => hab (adjacent_of_eq h)
+  rcases geoCornerPolygon_meet_of_weak hn hW hinj hnv S q htr htwin hab' hxa hxb with
+    ⟨hb1, -⟩ | ⟨ha1, -⟩ | ⟨c, -, -, hea, heb, hne, -, -⟩
+  · exact absurd (adjacent_of_add_one_eq hb1.symm) hab
+  · exact absurd (adjacent_of_eq_add_one ha1) hab
+  · obtain ⟨ca, hca, hea'⟩ := geoCornerPolygon_edge hn _ S q htr a
+    obtain ⟨cb, hcb, heb'⟩ := geoCornerPolygon_edge hn _ S q htr b
+    rw [hea', heb', ccp_det_smul_smul]
+    exact mul_ne_zero (mul_pos hca hcb).ne'
+      (crossing_edges_det_ne_zero_of_geometry (weak_crossingGeometry hW) c hea heb hne)
+
+/-- No triple point: an interior point of an edge is neither of its two corners
+(`self_not_mem_edgeInterior`, `next_not_mem_edgeInterior`), so all three pairs fall in the crossing case of
+the meeting lemma with ONE crossing (`hinj`), whose two edges cannot carry three pairwise distinct parent
+edges. -/
+theorem geoCornerPolygon_no_triple_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v))) :
+    ¬ ∃ a b c : ZMod (geoCornerCount (weak_crossingGeometry hW) S q), a ≠ b ∧ b ≠ c ∧ a ≠ c ∧
+      (edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) a ∩
+        edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) b ∩
+        edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) c).Nonempty := by
+  rintro ⟨a, b, c, hab, hbc, hac, x, ⟨hxa, hxb⟩, hxc⟩
+  have key : ∀ a b : ZMod (geoCornerCount (weak_crossingGeometry hW) S q), a ≠ b →
+      x ∈ edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) a →
+      x ∈ edgeInterior (geoCornerPolygon (weak_crossingGeometry hW) S q) b →
+      ∃ c : Crossing P, x = crossingPoint c ∧
+        (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 ∈ c.val ∧
+        (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 ∈ c.val ∧
+        (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q a)).1 ≠
+          (geoOutSlot (weak_crossingGeometry hW) S (geoCornerMark (weak_crossingGeometry hW) S q b)).1 := by
+    intro a b hab hxa hxb
+    rcases geoCornerPolygon_meet_of_weak hn hW hinj hnv S q htr htwin hab
+        (edgeInterior_subset_edgeSegment _ _ hxa) (edgeInterior_subset_edgeSegment _ _ hxb) with
+      ⟨hb1, hxq⟩ | ⟨-, hxq⟩ | ⟨c, -, hxc, hea, heb, hne, -, -⟩
+    · exfalso
+      rw [hb1] at hxq
+      rw [hxq] at hxa
+      exact next_not_mem_edgeInterior (geoCornerPolygon_edge_ne_zero hn _ S q htr a) hxa
+    · exfalso
+      rw [hxq] at hxa
+      exact self_not_mem_edgeInterior (geoCornerPolygon_edge_ne_zero hn _ S q htr a) hxa
+    · exact ⟨c, hxc, hea, heb, hne⟩
+  obtain ⟨c1, hx1, ha1, hb1, hab'⟩ := key a b hab hxa hxb
+  obtain ⟨c2, hx2, hb2, hc2, hbc'⟩ := key b c hbc hxb hxc
+  obtain ⟨c3, hx3, ha3, hc3, hac'⟩ := key a c hac hxa hxc
+  have h12 : c1 = c2 := hinj (hx1.symm.trans hx2)
+  have h13 : c1 = c3 := hinj (hx1.symm.trans hx3)
+  subst h12 h13
+  obtain ⟨i, j, hs, -, -⟩ := c1.property
+  rw [hs, Finset.mem_insert, Finset.mem_singleton] at ha1 hb2 hc3
+  rcases ha1 with ha1 | ha1 <;> rcases hb2 with hb2 | hb2 <;> rcases hc3 with hc3 | hc3 <;>
+    first
+    | exact hab' (ha1.trans hb2.symm)
+    | exact hbc' (hb2.trans hc3.symm)
+    | exact hac' (ha1.trans hc3.symm)
+
+/-- **The one-component shadow of a centre corner polygon is generic** (`Shadow.single_generic_of` with
+the four label-level facts above). -/
+theorem single_generic_of_weak (hn : 3 ≤ n) (hW : WeakGeneric P)
+    (hinj : Function.Injective (@crossingPoint n P))
+    (hnv : ∀ (c : Crossing P) (k : ZMod n), crossingPoint c ≠ P k)
+    (S : Finset (Crossing P)) (q : GeoComponent (weak_crossingGeometry hW) S)
+    (htr : TracedSuccessor (weak_crossingGeometry hW) S q)
+    (htwin : ∀ v : Visit P, v.1 ∈ S →
+      geoOwner (weak_crossingGeometry hW) S (Sum.inr v) ≠
+        geoOwner (weak_crossingGeometry hW) S (Sum.inr (visitTwin v)))
+    (hk : 3 ≤ geoCornerCount (weak_crossingGeometry hW) S q) :
+    (Shadow.single ⟨geoCornerCount (weak_crossingGeometry hW) S q, hk,
+      geoCornerPolygon (weak_crossingGeometry hW) S q⟩).Generic :=
+  Shadow.single_generic_of _ (geoCornerPolygon_regular_of_weak hn hW S q htr)
+    (geoCornerPolygon_tail_off_of_weak hn hW hinj hnv S q htr htwin)
+    (geoCornerPolygon_transverse_of_weak hn hW hinj hnv S q htr htwin)
+    (geoCornerPolygon_no_triple_of_weak hn hW hinj hnv S q htr htwin)
+
+end CentreGenericity
+
+/-! ## 4. The silent germ at one side parameter `t < δ`: side data, the family through the centre,
+equality of the carrier data of corresponding side carriers -/
+
+section SilentAt
+
+variable {hn : 3 ≤ n} {g : WallGerm n} {h : g.Silent} {δ : ℝ}
+
+namespace SilentFamilyData
+
+/-- Marks are carried at a side time. -/
+theorem side_marks (hF : SilentFamilyData hn g h δ) (b : Bool) (t : g.SideParameter) (ht : t.val < δ) :
+    (geoMarkList (silentCentreCG hn g h)).map (markTransport (hF.side_crossing_iff b t ht)) =
+      geoMarkList (generic_crossingGeometry hn (g.sideGeneric b t)) :=
+  hF.marks (g.sideTime b t) (by rw [g.sideTime_val_abs]; exact ht) _
+
+/-- Independence at the centre is def:decomposition at every generic parameter of the interval. -/
+theorem isDecomposition_iff (hF : SilentFamilyData hn g h δ) (s : g.Parameter) (hs : |s.val| < δ)
+    (hs0 : s.val ≠ 0) (S : Finset (Crossing g.center)) :
+    GeoIndependent (silentCentreCG hn g h) S ↔
+      IsDecomposition hn (g.generic_punctured s hs0) (transportSupport (hF.crossing_iff s hs) S) :=
+  (geoIndependent_transport_iff (silentCentreCG hn g h) (silentCurveCG hn g h s) (hF.crossing_iff s hs)
+    (hF.interlaces_iff s hs _) S).trans
+    (geoIndependent_iff_isDecomposition hn (g.generic_punctured s hs0) _)
+
+/-- The same at a side time. -/
+theorem side_isDecomposition_iff (hF : SilentFamilyData hn g h δ) (b : Bool) (t : g.SideParameter)
+    (ht : t.val < δ) (S : Finset (Crossing g.center)) :
+    GeoIndependent (silentCentreCG hn g h) S ↔
+      IsDecomposition hn (g.sideGeneric b t) (transportSupport (hF.side_crossing_iff b t ht) S) :=
+  hF.isDecomposition_iff (g.sideTime b t) (by rw [g.sideTime_val_abs]; exact ht)
+    (g.sideTime_ne_zero b t) S
+
+/-- Consecutive marks of every centre carrier are `ρ_S`-successors: transported back from the positive
+side, where it is lem:carriers (`geoCarrierSpec_of_generic`, field `traced_successor`). -/
+theorem centre_tracedSuccessor (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (q : GeoComponent (silentCentreCG hn g h) S) : TracedSuccessor (silentCentreCG hn g h) S q :=
+  traced_successor_of_transport (silentCentreCG hn g h) (generic_crossingGeometry hn (g.sideGeneric true t))
+    (hF.side_crossing_iff true t ht) (hF.side_marks true t ht) S
+    (fun q' i => (geoCarrierSpec_of_generic hn (g.sideGeneric true t)
+      ((hF.side_isDecomposition_iff true t ht S).mp hS)).traced_successor q' i) q
+
+/-- The two visits of a selected crossing lie on different centre carriers: transported from the positive
+side, where it is the accepted `independent_selected_pair_owners_ne`. -/
+theorem centre_twin_ne (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (v : Visit g.center) (hv : v.1 ∈ S) :
+    geoOwner (silentCentreCG hn g h) S (Sum.inr v) ≠
+      geoOwner (silentCentreCG hn g h) S (Sum.inr (visitTwin v)) := by
+  have hS' := (hF.side_isDecomposition_iff true t ht S).mp hS
+  rw [geoOwner_twin_ne_transport_iff (silentCentreCG hn g h)
+    (generic_crossingGeometry hn (g.sideGeneric true t)) (hF.side_crossing_iff true t ht)
+    (hF.side_marks true t ht) S v]
+  have hv' : (visitTransport (hF.side_crossing_iff true t ht) v).1 ∈
+      transportSupport (hF.side_crossing_iff true t ht) S := by
+    rw [visitTransport_crossing, mem_transportSupport_iff]
+    exact hv
+  have hne := independent_selected_pair_owners_ne hn (g.sideGeneric true t) hS' _ hv'
+  intro heq
+  exact hne (congrArg (geoComponentEquivGeneric hn (g.sideGeneric true t) _) heq)
+
+/-- Every centre carrier of an independent support has at least three corners (its positive-side copy is
+an accepted carrier: `geoCornerCount_markTransport`, `geoCornerCount_ge_three_generic`). -/
+theorem centre_geoCornerCount_ge_three (hF : SilentFamilyData hn g h δ) (t : g.SideParameter)
+    (ht : t.val < δ) (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (q : GeoComponent (silentCentreCG hn g h) S) : 3 ≤ geoCornerCount (silentCentreCG hn g h) S q := by
+  obtain ⟨a, rfl⟩ := geoOwner_surjective (silentCentreCG hn g h) S q
+  rw [geoCornerCount_markTransport (silentCentreCG hn g h) (generic_crossingGeometry hn (g.sideGeneric true t))
+    (hF.side_crossing_iff true t ht) (hF.side_marks true t ht) S a]
+  exact geoCornerCount_ge_three_generic hn (g.sideGeneric true t)
+    ((hF.side_isDecomposition_iff true t ht S).mp hS) _
+
+/-- **The centre corner polygon is a generic one-component shadow** (`single_generic_of_weak` with the
+centre's clauses of `SilentFamilyData` at `s = 0`). -/
+theorem centre_single_generic (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (q : GeoComponent (silentCentreCG hn g h) S) (hk : 3 ≤ geoCornerCount (silentCentreCG hn g h) S q) :
+    (Shadow.single ⟨geoCornerCount (silentCentreCG hn g h) S q, hk,
+      geoCornerPolygon (silentCentreCG hn g h) S q⟩).Generic := by
+  have h0 : |(g.zeroParameter).val| < δ := by
+    show |(0 : ℝ)| < δ
+    rw [abs_zero]; exact hF.1
+  obtain ⟨-, -, hinj, hnv, -, -⟩ := hF.2.2 g.zeroParameter h0
+  exact single_generic_of_weak hn (g.silent_center_weak hn h) hinj hnv S q
+    (hF.centre_tracedSuccessor t ht S hS q) (hF.centre_twin_ne t ht S hS) hk
+
+/-- The centre corner polygon is regular (`geoCornerPolygon_regular_of_weak`). -/
+theorem centre_regular (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (q : GeoComponent (silentCentreCG hn g h) S) : Regular (geoCornerPolygon (silentCentreCG hn g h) S q) :=
+  geoCornerPolygon_regular_of_weak hn (g.silent_center_weak hn h) S q (hF.centre_tracedSuccessor t ht S hS q)
+
+/-- At a generic parameter of the interval the family is a generic one-component shadow (it is the
+re-indexed accepted carrier polygon of the transported carrier: `silentCornerFamily_eq`,
+`polyComp_recastTuple`, `single_geo_generic`). -/
+theorem family_generic_side (hF : SilentFamilyData hn g h δ) (S : Finset (Crossing g.center))
+    (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center) (s : g.Parameter)
+    (hs : |s.val| < δ) (hs0 : s.val ≠ 0)
+    (hk : 3 ≤ geoCornerCount (silentCentreCG hn g h) S (geoOwner (silentCentreCG hn g h) S a)) :
+    (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) s⟩).Generic := by
+  have hS' := (hF.isDecomposition_iff s hs hs0 S).mp hS
+  rw [silentCornerFamily_eq hn g h S s (silentCurveCG hn g h s) (hF.crossing_iff s hs)
+    (hF.marks s hs _) a, polyComp_recastTuple _
+    (geoCornerCount_ge_three_generic hn (g.generic_punctured s hs0) hS' _) hk]
+  exact single_geo_generic hn (g.generic_punctured s hs0) hS' _
+
+/-- At a generic parameter of the interval the family is regular (`ccpCornerPolygon_regular` through
+`geoCornerPolygon_eq_generic`, `regular_recastTuple`). -/
+theorem family_regular_side (hF : SilentFamilyData hn g h δ) (S : Finset (Crossing g.center))
+    (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center) (s : g.Parameter)
+    (hs : |s.val| < δ) (hs0 : s.val ≠ 0) :
+    Regular (silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) s) := by
+  have hS' := (hF.isDecomposition_iff s hs hs0 S).mp hS
+  rw [silentCornerFamily_eq hn g h S s (silentCurveCG hn g h s) (hF.crossing_iff s hs)
+    (hF.marks s hs _) a, regular_recastTuple,
+    geoCornerPolygon_eq_generic hn (g.generic_punctured s hs0), regular_recastTuple]
+  exact ccpCornerPolygon_regular hn (g.generic_punctured s hs0) hS' _
+
+/-- **Genericity along the whole path** (`u = ½`: the centre, `centre_single_generic`; otherwise a generic
+parameter below `δ`, `family_generic_side`). -/
+theorem family_path_generic (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center)
+    (hk : 3 ≤ geoCornerCount (silentCentreCG hn g h) S (geoOwner (silentCentreCG hn g h) S a))
+    (u : unitInterval) :
+    (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (silentPath g t u)⟩).Generic := by
+  have hlt : |(silentPath g t u).val| < δ := lt_of_le_of_lt (abs_silentPath_le g t u) ht
+  by_cases h0 : (silentPath g t u).val = 0
+  · rw [silentPath_eq_zeroParameter g t u h0, silentCornerFamily_zero]
+    exact hF.centre_single_generic t ht S hS _ hk
+  · exact hF.family_generic_side S hS a _ hlt h0 hk
+
+/-- Regularity along the whole path. -/
+theorem family_path_regular (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center)
+    (u : unitInterval) :
+    Regular (silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) (silentPath g t u)) := by
+  have hlt : |(silentPath g t u).val| < δ := lt_of_le_of_lt (abs_silentPath_le g t u) ht
+  by_cases h0 : (silentPath g t u).val = 0
+  · rw [silentPath_eq_zeroParameter g t u h0, silentCornerFamily_zero]
+    exact hF.centre_regular t ht S hS _
+  · exact hF.family_regular_side S hS a _ hlt h0
+
+/-- **lit:homfly's planar clause along the path**: the positive diagrams of the family at the two side
+times have the same HOMFLY polynomial (`Link.homfly_positiveDiagram_single_of_family`, endpoints by
+`silentPath_zero`, `silentPath_one`, `positiveDiagram_congr`). -/
+theorem homfly_family (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center)
+    (hk : 3 ≤ geoCornerCount (silentCentreCG hn g h) S (geoOwner (silentCentreCG hn g h) S a))
+    (hgM : (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime false t)⟩).Generic)
+    (hgP : (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime true t)⟩).Generic) :
+    homfly ((Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+        (g.sideTime false t)⟩).positiveDiagram hgM) =
+      homfly ((Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+        (g.sideTime true t)⟩).positiveDiagram hgP) := by
+  have hfam := Link.homfly_positiveDiagram_single_of_family hk
+    (fun u => silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) (silentPath g t u))
+    (continuous_silentCornerFamily_path hF t ht S _) (hF.family_path_generic t ht S hS a hk)
+  have e0 := positiveDiagram_congr (Γ := Shadow.single ⟨_, hk, silentCornerFamily hn g h S
+      (geoOwner (silentCentreCG hn g h) S a) (silentPath g t 0)⟩)
+    (Γ' := Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime false t)⟩) (by rw [silentPath_zero]) (hF.family_path_generic t ht S hS a hk 0) hgM
+  have e1 := positiveDiagram_congr (Γ := Shadow.single ⟨_, hk, silentCornerFamily hn g h S
+      (geoOwner (silentCentreCG hn g h) S a) (silentPath g t 1)⟩)
+    (Γ' := Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime true t)⟩) (by rw [silentPath_one]) (hF.family_path_generic t ht S hS a hk 1) hgP
+  rw [e0, e1] at hfam
+  exact hfam
+
+/-- **lem:rot (ii) along the path**: the rotation numbers of the family at the two side times agree
+(`rotationNumber_family_constant`, regular at every time). -/
+theorem rotationNumber_family (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S) (a : Mark g.center) :
+    rotationNumber (silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) (g.sideTime false t)) =
+      rotationNumber (silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a) (g.sideTime true t)) := by
+  have hc := rotationNumber_family_constant
+    (f := fun u : unitInterval => silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (silentPath g t u))
+    (continuous_silentCornerFamily_path hF t ht S _) (hF.family_path_regular t ht S hS a) 0 1
+  simpa only [silentPath_zero, silentPath_one] using hc
+
+/-! ### The carrier data of corresponding side carriers agree -/
+
+/-- Equal numbers of retained crossings (transport from the centre on both sides). -/
+theorem card_geoCarrierCrossings_sides (hF : SilentFamilyData hn g h δ) (t : g.SideParameter)
+    (ht : t.val < δ) (S : Finset (Crossing g.center)) (a : Mark g.center) :
+    (geoCarrierCrossings (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+          (markTransport (hF.side_crossing_iff true t ht) a))).card =
+      (geoCarrierCrossings (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+          (markTransport (hF.side_crossing_iff false t ht) a))).card := by
+  rw [card_geoCarrierCrossings_markTransport (silentCentreCG hn g h) (generic_crossingGeometry hn (g.sideGeneric true t))
+    (hF.side_crossing_iff true t ht) (hF.side_marks true t ht) S a,
+    card_geoCarrierCrossings_markTransport (silentCentreCG hn g h) (generic_crossingGeometry hn (g.sideGeneric false t))
+    (hF.side_crossing_iff false t ht) (hF.side_marks false t ht) S a]
+
+/-- Equal rotation numbers (`rotationNumber_family` through `silentCornerFamily_eq`,
+`rotationNumber_recastTuple`). -/
+theorem rotationNumber_geoCornerPolygon_sides (hF : SilentFamilyData hn g h δ) (t : g.SideParameter)
+    (ht : t.val < δ) (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (a : Mark g.center) :
+    rotationNumber (geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric true t))
+        (transportSupport (hF.side_crossing_iff true t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+          (markTransport (hF.side_crossing_iff true t ht) a))) =
+      rotationNumber (geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric false t))
+        (transportSupport (hF.side_crossing_iff false t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+          (markTransport (hF.side_crossing_iff false t ht) a))) := by
+  have hr := hF.rotationNumber_family t ht S hS a
+  rw [silentCornerFamily_eq hn g h S (g.sideTime false t) (generic_crossingGeometry hn (g.sideGeneric false t))
+      (hF.side_crossing_iff false t ht) (hF.side_marks false t ht) a,
+    silentCornerFamily_eq hn g h S (g.sideTime true t) (generic_crossingGeometry hn (g.sideGeneric true t))
+      (hF.side_crossing_iff true t ht) (hF.side_marks true t ht) a,
+    rotationNumber_recastTuple, rotationNumber_recastTuple] at hr
+  exact hr.symm
+
+/-- Equal HOMFLY polynomials of the positive diagrams of the two side carrier polygons (`homfly_family`
+through `silentCornerFamily_eq`, `polyComp_recastTuple`, `positiveDiagram_congr`). -/
+theorem homfly_geoCornerPolygon_sides (hF : SilentFamilyData hn g h δ) (t : g.SideParameter)
+    (ht : t.val < δ) (S : Finset (Crossing g.center)) (hS : GeoIndependent (silentCentreCG hn g h) S)
+    (a : Mark g.center)
+    (hkP : 3 ≤ geoCornerCount (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+          (markTransport (hF.side_crossing_iff true t ht) a)))
+    (hgP : (Shadow.single ⟨_, hkP, geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric true t))
+        (transportSupport (hF.side_crossing_iff true t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+          (markTransport (hF.side_crossing_iff true t ht) a))⟩).Generic)
+    (hkM : 3 ≤ geoCornerCount (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+          (markTransport (hF.side_crossing_iff false t ht) a)))
+    (hgM : (Shadow.single ⟨_, hkM, geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric false t))
+        (transportSupport (hF.side_crossing_iff false t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+          (markTransport (hF.side_crossing_iff false t ht) a))⟩).Generic) :
+    homfly ((Shadow.single ⟨_, hkP, geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric true t))
+        (transportSupport (hF.side_crossing_iff true t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric true t)) (transportSupport (hF.side_crossing_iff true t ht) S)
+          (markTransport (hF.side_crossing_iff true t ht) a))⟩).positiveDiagram hgP) =
+      homfly ((Shadow.single ⟨_, hkM, geoCornerPolygon (generic_crossingGeometry hn (g.sideGeneric false t))
+        (transportSupport (hF.side_crossing_iff false t ht) S)
+        (geoOwner (generic_crossingGeometry hn (g.sideGeneric false t)) (transportSupport (hF.side_crossing_iff false t ht) S)
+          (markTransport (hF.side_crossing_iff false t ht) a))⟩).positiveDiagram hgM) := by
+  have hk : 3 ≤ geoCornerCount (silentCentreCG hn g h) S (geoOwner (silentCentreCG hn g h) S a) := by
+    rw [geoCornerCount_markTransport (silentCentreCG hn g h)
+      (generic_crossingGeometry hn (g.sideGeneric true t)) (hF.side_crossing_iff true t ht)
+      (hF.side_marks true t ht) S a]
+    exact hkP
+  have eP := silentCornerFamily_eq hn g h S (g.sideTime true t)
+    (generic_crossingGeometry hn (g.sideGeneric true t)) (hF.side_crossing_iff true t ht)
+    (hF.side_marks true t ht) a
+  have eM := silentCornerFamily_eq hn g h S (g.sideTime false t)
+    (generic_crossingGeometry hn (g.sideGeneric false t)) (hF.side_crossing_iff false t ht)
+    (hF.side_marks false t ht) a
+  have hgP' : (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime true t)⟩).Generic := by
+    rw [eP, polyComp_recastTuple _ hkP hk]
+    exact hgP
+  have hgM' : (Shadow.single ⟨_, hk, silentCornerFamily hn g h S (geoOwner (silentCentreCG hn g h) S a)
+      (g.sideTime false t)⟩).Generic := by
+    rw [eM, polyComp_recastTuple _ hkM hk]
+    exact hgM
+  have hf := hF.homfly_family t ht S hS a hk hgM' hgP'
+  have cP := positiveDiagram_congr (Γ' := Shadow.single ⟨_, hk, silentCornerFamily hn g h S
+      (geoOwner (silentCentreCG hn g h) S a) (g.sideTime true t)⟩)
+    (by rw [eP]; exact congrArg Shadow.single (polyComp_recastTuple _ hkP hk _).symm) hgP hgP'
+  have cM := positiveDiagram_congr (Γ' := Shadow.single ⟨_, hk, silentCornerFamily hn g h S
+      (geoOwner (silentCentreCG hn g h) S a) (g.sideTime false t)⟩)
+    (by rw [eM]; exact congrArg Shadow.single (polyComp_recastTuple _ hkM hk _).symm) hgM hgM'
+  rw [cP, cM]
+  exact hf.symm
+
+end SilentFamilyData
+
+end SilentAt
+
+/-! ## 5. The mark transport between the two sides and the assembly at one side parameter -/
+
+section Assembly
+
+variable {hn : 3 ≤ n} {g : WallGerm n} {h : g.Silent} {δ : ℝ}
+
+omit [NeZero n] in
+/-- `transportSupport` is onto (inverse image along the inverse crossing bijection). -/
+theorem transportSupport_surjective {P Q : LabelledTuple n} (hc : ∀ c, IsCrossing P c ↔ IsCrossing Q c) :
+    Function.Surjective (transportSupport hc) := by
+  intro T
+  refine ⟨T.map (crossingTransport hc).symm.toEmbedding, ?_⟩
+  ext x
+  rw [transportSupport, Finset.mem_map_equiv, Finset.mem_map_equiv, Equiv.symm_symm,
+    Equiv.apply_symm_apply]
+
+namespace SilentFamilyData
+
+/-- The two sides have the same crossing set (both agree with the centre's). -/
+theorem sides_crossing_iff (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ) :
+    ∀ c, IsCrossing (g.curve (g.sideTime true t)) c ↔ IsCrossing (g.curve (g.sideTime false t)) c :=
+  fun c => (hF.side_crossing_iff true t ht c).symm.trans (hF.side_crossing_iff false t ht c)
+
+/-- The same-edge crossing-parameter order agrees between the two sides (both agree with the centre's). -/
+theorem sides_crossingParameterOrderAgrees (hF : SilentFamilyData hn g h δ) (t : g.SideParameter)
+    (ht : t.val < δ) :
+    CrossingParameterOrderAgrees (g.curve (g.sideTime true t)) (g.curve (g.sideTime false t)) := by
+  intro i j k hij hik
+  have hoP := (hF.2.2 (g.sideTime true t) (by rw [g.sideTime_val_abs]; exact ht)).2.2.2.2.1
+  have hoM := (hF.2.2 (g.sideTime false t) (by rw [g.sideTime_val_abs]; exact ht)).2.2.2.2.1
+  have hij0 : IsCrossing g.center {i, j} := (hF.side_crossing_iff true t ht _).mpr hij
+  have hik0 : IsCrossing g.center {i, k} := (hF.side_crossing_iff true t ht _).mpr hik
+  exact (hoM i j k hij0 hik0).trans (hoP i j k hij0 hik0).symm
+
+/-- Vertex turns agree between the two sides (both agree with the centre's). -/
+theorem sides_turn_eq (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (i : ZMod n) : turn (g.curve (g.sideTime false t)) i = turn (g.curve (g.sideTime true t)) i := by
+  rw [hF.turn_eq (g.sideTime false t) (by rw [g.sideTime_val_abs]; exact ht) i,
+    hF.turn_eq (g.sideTime true t) (by rw [g.sideTime_val_abs]; exact ht) i]
+
+/-- **The mark transport from `P₊` to `P₋`** (the model is `Carrier.pathTransport` of SM/CChamber.lean:
+crossings and visits by the canonical transport, the sorted mark list carried literally by
+`markList_transport`, interlacement by `geometric_interlaces_transport`, vertex turns by `sides_turn_eq`). -/
+noncomputable def sideTransport (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ) :
+    MarkTransport hn (g.sideGeneric true t) (g.sideGeneric false t) where
+  vert := Equiv.refl _
+  cross := crossingTransport (hF.sides_crossing_iff t ht)
+  visit := visitTransport (hF.sides_crossing_iff t ht)
+  visit_fst := fun _ => rfl
+  markList_rotated := by
+    rw [markList_transport hn (g.sideGeneric true t) (g.sideGeneric false t) (hF.sides_crossing_iff t ht)
+      (hF.sides_crossingParameterOrderAgrees t ht)]
+    exact List.IsRotated.refl _
+  interlaces_iff := fun x y =>
+    (geometric_interlaces_transport (generic_crossingGeometry hn (g.sideGeneric true t))
+      (generic_crossingGeometry hn (g.sideGeneric false t)) (hF.sides_crossing_iff t ht)
+      (hF.sides_crossingParameterOrderAgrees t ht) x y).symm
+  turn_eq := fun i => hF.sides_turn_eq t ht i
+
+/-- The transported support of a transported centre support is the other side's transport. -/
+theorem sideTransport_support (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S₀ : Finset (Crossing g.center)) :
+    (hF.sideTransport t ht).support (transportSupport (hF.side_crossing_iff true t ht) S₀) =
+      transportSupport (hF.side_crossing_iff false t ht) S₀ := by
+  show (S₀.map (crossingTransport (hF.side_crossing_iff true t ht)).toEmbedding).map
+      (crossingTransport (hF.sides_crossing_iff t ht)).toEmbedding =
+    S₀.map (crossingTransport (hF.side_crossing_iff false t ht)).toEmbedding
+  rw [Finset.map_map]
+  rfl
+
+/-- The transported mark of a transported centre mark is the other side's transport. -/
+theorem sideTransport_toMark (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (a₀ : Mark g.center) :
+    (hF.sideTransport t ht).toMark (markTransport (hF.side_crossing_iff true t ht) a₀) =
+      markTransport (hF.side_crossing_iff false t ht) a₀ := by
+  cases a₀ <;> rfl
+
+/-! ### (i) Uniformity: the turn signs of corner marks agree on the two sides -/
+
+/-- `markTurn` (SM/CX1.lean) is carried: vertex turns by `sides_turn_eq`; smoothing turns are crossing
+signs `crossingSign P e (twin e)`, constant along the germ by `crossingSign_eq` on both sides
+(`visitTransport_visitTwin`, `visitTransport_edge`, `visit_crossing_val_eq_pair`). -/
+theorem sides_markTurn_eq (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (m : Mark (g.curve (g.sideTime true t))) :
+    markTurn (g.curve (g.sideTime false t)) ((hF.sideTransport t ht).toMark m) =
+      markTurn (g.curve (g.sideTime true t)) m := by
+  cases m with
+  | inl i => exact hF.sides_turn_eq t ht i
+  | inr v =>
+    show crossingSign (g.curve (g.sideTime false t)) (visitTransport (hF.sides_crossing_iff t ht) v).2.val
+        (visitTwin (visitTransport (hF.sides_crossing_iff t ht) v)).2.val =
+      crossingSign (g.curve (g.sideTime true t)) v.2.val (visitTwin v).2.val
+    rw [← visitTransport_visitTwin]
+    have hcross0 : IsCrossing g.center {v.2.val, (visitTwin v).2.val} := by
+      apply (hF.side_crossing_iff true t ht _).mpr
+      rw [← visit_crossing_val_eq_pair v]
+      exact v.1.property
+    have hM := hF.crossingSign_eq (g.sideTime false t) (by rw [g.sideTime_val_abs]; exact ht) hcross0
+    have hP := hF.crossingSign_eq (g.sideTime true t) (by rw [g.sideTime_val_abs]; exact ht) hcross0
+    exact hM.trans hP.symm
+
+/-- Corresponding carriers are uniform together: the corner marks correspond up to a cyclic shift
+(`MarkTransport.exists_ccpCornerMark_transport`), the turns of the corner polygons are the `markTurn`s of
+their corner marks (`turn_ccpCornerPolygon_eq_markTurn`, on both sides), and `markTurn` is carried
+(`sides_markTurn_eq`). -/
+theorem sides_carrierUniform_iff (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing (g.curve (g.sideTime true t)))) (hS : IsDecomposition hn (g.sideGeneric true t) S)
+    (q : Component hn (g.sideGeneric true t) S) :
+    CarrierUniform hn (g.sideGeneric false t) ((hF.sideTransport t ht).support S)
+        ((hF.sideTransport t ht).component S q) ↔
+      CarrierUniform hn (g.sideGeneric true t) S q := by
+  obtain ⟨r, hr⟩ := (hF.sideTransport t ht).exists_ccpCornerMark_transport S q
+  have hSQ := ((hF.sideTransport t ht).isDecomposition_transport S).mpr hS
+  unfold CarrierUniform
+  refine exists_congr fun σ => and_congr_right fun _ => ?_
+  constructor
+  · intro hQ j
+    have := hQ (Equiv.cast (congrArg ZMod
+      ((hF.sideTransport t ht).ccpCornerCount_transport S q).symm) (j - r))
+    rw [turn_ccpCornerPolygon_eq_markTurn hn _ hSQ, hr, hF.sides_markTurn_eq t ht,
+      ← turn_ccpCornerPolygon_eq_markTurn hn _ hS, sub_add_cancel] at this
+    exact this
+  · intro hPu j'
+    obtain ⟨j, rfl⟩ := (Equiv.cast (congrArg ZMod
+      ((hF.sideTransport t ht).ccpCornerCount_transport S q).symm)).surjective j'
+    rw [turn_ccpCornerPolygon_eq_markTurn hn _ hSQ, hr j, hF.sides_markTurn_eq t ht,
+      ← turn_ccpCornerPolygon_eq_markTurn hn _ hS]
+    exact hPu _
+
+/-- The uniformity hypothesis of `MarkTransport.cornerStateSum_transport`
+(`MarkTransport.carrierUniform_iff_transported`). -/
+theorem sides_huni (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing (g.curve (g.sideTime true t)))) (hS : IsDecomposition hn (g.sideGeneric true t) S)
+    (q : Component hn (g.sideGeneric true t) S) :
+    (∃ σ : SignType, σ ≠ 0 ∧ ∀ j, turn ((hF.sideTransport t ht).transportedCornerPolygon S q) j = σ) ↔
+      CarrierUniform hn (g.sideGeneric true t) S q :=
+  ((hF.sideTransport t ht).carrierUniform_iff_transported S q).symm.trans
+    (hF.sides_carrierUniform_iff t ht S hS q)
+
+/-! ### (ii) The corner coefficients of corresponding carriers agree -/
+
+/-- **Equal corner coefficients**, centre-indexed: for an independent centre support `S₀` and a centre mark
+`a₀`, the coefficients of the carriers through the transported mark on the two sides agree. Stated with
+the supports and carriers generalised by equations (`subst`), so that it applies to `τ.support S` and
+`τ.component S q` directly. Proof: `geoComponentEquivGeneric_owner`, `cornerCoefficient_eq_geo` on both
+sides, then `card_geoCarrierCrossings_sides`, `rotationNumber_geoCornerPolygon_sides`,
+`homfly_geoCornerPolygon_sides`. -/
+theorem cornerCoefficient_sides (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S₀ : Finset (Crossing g.center)) (hS₀ : GeoIndependent (silentCentreCG hn g h) S₀) (a₀ : Mark g.center)
+    (TP : Finset (Crossing (g.curve (g.sideTime true t))))
+    (hTP : TP = transportSupport (hF.side_crossing_iff true t ht) S₀)
+    (TM : Finset (Crossing (g.curve (g.sideTime false t))))
+    (hTM : TM = transportSupport (hF.side_crossing_iff false t ht) S₀)
+    (hSP : IsDecomposition hn (g.sideGeneric true t) TP) (hSM : IsDecomposition hn (g.sideGeneric false t) TM)
+    (qP : Component hn (g.sideGeneric true t) TP)
+    (hqP : qP = owner hn (g.sideGeneric true t) TP (markTransport (hF.side_crossing_iff true t ht) a₀))
+    (qM : Component hn (g.sideGeneric false t) TM)
+    (hqM : qM = owner hn (g.sideGeneric false t) TM (markTransport (hF.side_crossing_iff false t ht) a₀)) :
+    cornerCoefficient hn (g.sideGeneric true t) TP qP hSP =
+      cornerCoefficient hn (g.sideGeneric false t) TM qM hSM := by
+  subst hTP hTM hqP hqM
+  rw [← geoComponentEquivGeneric_owner, ← geoComponentEquivGeneric_owner, cornerCoefficient_eq_geo,
+    cornerCoefficient_eq_geo, hF.card_geoCarrierCrossings_sides t ht S₀ a₀,
+    hF.rotationNumber_geoCornerPolygon_sides t ht S₀ hS₀ a₀,
+    hF.homfly_geoCornerPolygon_sides t ht S₀ hS₀ a₀ _ _ _ _]
+
+/-- The coefficient hypothesis of `MarkTransport.cornerStateSum_transport`: every support of `P₊` is a
+transported centre support (`transportSupport_surjective`), every carrier is the carrier of a transported
+centre mark (`owner_surjective`, `(markTransport _).surjective`); then `cornerCoefficient_sides` with
+`sideTransport_support`, `MarkTransport.component_owner`, `sideTransport_toMark`. -/
+theorem sides_hcoef (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ)
+    (S : Finset (Crossing (g.curve (g.sideTime true t)))) (hS : IsDecomposition hn (g.sideGeneric true t) S)
+    (q : Component hn (g.sideGeneric true t) S) :
+    cornerCoefficient hn (g.sideGeneric false t) ((hF.sideTransport t ht).support S)
+        ((hF.sideTransport t ht).component S q)
+        (((hF.sideTransport t ht).isDecomposition_transport S).mpr hS) =
+      cornerCoefficient hn (g.sideGeneric true t) S q hS := by
+  obtain ⟨S₀, rfl⟩ := transportSupport_surjective (hF.side_crossing_iff true t ht) S
+  obtain ⟨m, rfl⟩ := owner_surjective hn (g.sideGeneric true t) _ q
+  obtain ⟨a₀, rfl⟩ := (markTransport (hF.side_crossing_iff true t ht)).surjective m
+  have hS₀ : GeoIndependent (silentCentreCG hn g h) S₀ := (hF.side_isDecomposition_iff true t ht S₀).mpr hS
+  exact (hF.cornerCoefficient_sides t ht S₀ hS₀ a₀ _ rfl _ (hF.sideTransport_support t ht S₀) hS _ _ rfl _
+    (by rw [MarkTransport.component_owner, hF.sideTransport_toMark])).symm
+
+/-- **`C(P₊) = C(P₋)` at one side parameter below the radius** (`MarkTransport.cornerStateSum_transport`). -/
+theorem cornerStateSum_sides (hF : SilentFamilyData hn g h δ) (t : g.SideParameter) (ht : t.val < δ) :
+    cornerStateSum hn (g.sideGeneric true t) = cornerStateSum hn (g.sideGeneric false t) :=
+  ((hF.sideTransport t ht).cornerStateSum_transport (fun S hS q => hF.sides_huni t ht S hS q)
+    (fun S hS q => hF.sides_hcoef t ht S hS q)).symm
+
+end SilentFamilyData
+
+end Assembly
+
+/-! ## 6. Reduction of the fixed statement to one side parameter (prop:C-chamber along a side) -/
+
+/-- "Proposition prop:C-chamber makes them independent of the chosen representatives in the respective
+side chambers": along one side the state sum is constant (`GermSides.sideTuple_mem_labelledSide`,
+`labelledSide_eq_at`, `cornerStateSum_eq_of_mem_labelledChamber`). -/
+theorem cornerStateSum_silent_side_const (hn : 3 ≤ n) (g : WallGerm n) (b : Bool)
+    (t t' : g.SideParameter) :
+    cornerStateSum hn (g.sideTuple b t).property = cornerStateSum hn (g.sideTuple b t').property := by
+  have hmem : g.sideTuple b t' ∈ labelledChamber (g.sideTuple b t) := by
+    rw [← g.labelledSide_eq_at b t]
+    exact g.sideTuple_mem_labelledSide b t'
+  exact cornerStateSum_eq_of_mem_labelledChamber hn hmem
+
+/-- **prop:C-silent at all pairs of side parameters** for a silent germ: move both parameters to one
+`t` below the radius of `silent_sides`, then `cornerStateSum_sides`. -/
+theorem cornerStateSum_silent (hn : 3 ≤ n) (g : WallGerm n) (h : g.Silent) (tp tm : g.SideParameter) :
+    cornerStateSum hn (g.sideTuple true tp).property = cornerStateSum hn (g.sideTuple false tm).property := by
+  obtain ⟨δ, hF⟩ := exists_silentFamilyData hn g h
+  obtain ⟨t, ht⟩ := exists_silent_sideParameter_lt g hF.1
+  rw [cornerStateSum_silent_side_const hn g true tp t, cornerStateSum_silent_side_const hn g false tm t]
+  exact hF.cornerStateSum_sides t ht
+
+/-! ## 7. The row (bundle and theorem header verbatim from work/drafts/CSilent_statement.lean) -/
+
+/-- prop:C-silent as printed: at a simple silent wall the corner state sums of the two sides agree. -/
+structure CSilentData : Prop where
+  /-- (E): "At a simple exterior-extension wall … `C(P₊) = C(P₋)`." -/
+  extension : ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (g : WallGerm n) (M a : ZMod n), g.ExtensionAt M a →
+    ∀ tp tm : g.SideParameter,
+      cornerStateSum hn (g.sideTuple true tp).property = cornerStateSum hn (g.sideTuple false tm).property
+  /-- (C): "… or a simple pure cut, `C(P₊) = C(P₋)`." -/
+  cut : ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (g : WallGerm n) (i j k : ZMod n), g.PureCutAt i j k →
+    ∀ tp tm : g.SideParameter,
+      cornerStateSum hn (g.sideTuple true tp).property = cornerStateSum hn (g.sideTuple false tm).property
+
+theorem prop_C_silent : CSilentData := by
+  refine ⟨?_, ?_⟩
+  · intro n _ hn g M a hE tp tm
+    exact cornerStateSum_silent hn g (g.extension_silent hE) tp tm
+  · intro n _ hn g i j k hC tp tm
+    exact cornerStateSum_silent hn g (g.pureCut_silent hC) tp tm
+
+end SM
+

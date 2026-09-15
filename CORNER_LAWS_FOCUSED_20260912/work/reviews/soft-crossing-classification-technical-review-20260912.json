@@ -1,0 +1,123 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-crossing-classification-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:08:36.020749+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_mark_transport",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "authorship_disclosure": "Reviewer did not author this body or its embedded dependency bodies. Earlier Parameters and PairStability technical reviews supplied no implementation. Dependency technical reviews by their respective nonauthors are bound below."
+  },
+  "scope": {
+    "group": "SoftCrossingClassification",
+    "declarations": [
+      "SM.softParentEdge_remote_cases",
+      "SM.soft_crossing_support_classification",
+      "SM.soft_newborn_support_not_inherited"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "Complete enumeration of actual enlarged crossing supports in lem:soft-generic(iii)–(iv), with the exact def:soft labels, the exceptional incoming/return pair, and exclusion of crossings involving the soft edge."
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 59753,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and complete body embeddings; full reviewed body retained below. No extracted-header hashes.",
+    "receipt_path": "work/checks/SoftCrossingClassification-prototype-result.json",
+    "receipt_sha256": "70778984296cf3df8d74c1b58907834fa9cb19fbf5dad79ba4276ec3f1005e5c",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftInheritedParameters.body.lean": "d885e062bf2d6045a74d94d4cb2a6b7c880a93a70479574373172e311ad005f5",
+      "work/checks/SoftParentPairStability.body.lean": "eaabc7f1f8eba5f41e9f1c4e42290e27040d06450ff05c3b8804afaefbe2d0d5",
+      "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+      "work/checks/SoftFamilyG1.body.lean": "f38072ce5dd3115bf51680818786b67d6572c82467f6b407fc6a2b6a2e1efa07",
+      "work/checks/SoftFamilyLocalCrossing.body.lean": "07230f4aad3bd90f97166a7dcb432230d15fe0ac262650f80558e463721ea50b",
+      "work/checks/SoftEdgeAvoidance.body.lean": "f5ed6d2cb736c9dbf00b1c85e5f62295470f608c5694965c287722f7e9066c19",
+      "work/checks/SoftCrossingClassification.body.lean": "1320198b785d5ac23df54042b0c92e0f7839cda6aad001d6e6c4e5d7248de994",
+      "work/checks/SoftCrossingClassification.prototype.lean": "0d53889f9bfec9e1c7959a5ebfbf6e72450d377ed3a83a7d7f76c1ece10cbb2c",
+      "work/checks/SoftCrossingClassification-first-kernel.log": "a9df1e8c06f07d9fe39a309f4cd6cd8f5b1bd2897d854ed58e4cc0b3c39eb15f"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftInheritedParameters.body.lean": 1,
+      "work/checks/SoftParentPairStability.body.lean": 1,
+      "work/checks/SoftLocalDeterminants.body.lean": 1,
+      "work/checks/SoftFamilyG1.body.lean": 1,
+      "work/checks/SoftFamilyLocalCrossing.body.lean": 1,
+      "work/checks/SoftEdgeAvoidance.body.lean": 1,
+      "work/checks/SoftCrossingClassification.body.lean": 1
+    },
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.softParentEdge_remote_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_crossing_support_classification": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_newborn_support_not_inherited": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+      "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+      "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502",
+      "work/reviews/soft-inherited-parameters-technical-review-20260912.json": "8032d4b036a464e47f0d5bee749372926e14dcf365eaa76f9bf23d53e67c4a26",
+      "work/reviews/soft-parent-pair-stability-technical-review-20260912.json": "f30783a4342338bcb56fbd4891ee48e7cd35283d7b9ea639e63ed597966fd0e6",
+      "work/reviews/soft-local-determinants-technical-review-20260912.json": "cee90155bd58c3607edbb71261a4d10ffb6e4e7b508b054f234d6406dfe17daa",
+      "work/reviews/soft-family-local-crossing-technical-review-20260912.json": "4e28b135d665df481051e617991c0469bf0ede73976be8033bff1c12c032db60",
+      "work/reviews/soft-family-g1-technical-review-20260912.json": "1972b77e62fdbd231050a2e53bee8865e5c3fc24cf889f5e085c49f907cc40ff",
+      "work/reviews/soft-edge-avoidance-technical-review-20260912.json": "b6771765b6f8a04a1d836563e839836b1832c9620b8feb31b8d75dd82260c482"
+    },
+    "full_reviewed_body_text": "namespace SM\n\nnoncomputable section\nopen Filter Topology\nvariable {n : ℕ} [NeZero n]\n\n/-- The only formerly adjacent parent pair made remote is incoming/return,\nin either order. Every other remote pair was already remote in the parent. -/\ntheorem softParentEdge_remote_cases (hn : 3 ≤ n) (j k l : ZMod n)\n    (hr : remote (softParentEdge j k) (softParentEdge j l)) :\n    remote k l ∨ (k = j - 1 ∧ l = j) ∨ (k = j ∧ l = j - 1) := by\n  by_cases hp : remote k l\n  · exact Or.inl hp\n  · have hadj : adjacent k l := by simpa only [remote, not_not] using hp\n    have hne : k ≠ l := by\n      intro he\n      exact (remote_endpoints _ _ hr).1 (congrArg (softParentEdge j) he.symm)\n    rcases adjacent_distinct_cases hne hadj with he | he\n    · have hlj : l = j := by\n        by_contra hlj\n        have hnext := (softParentEdge_next_eq_iff j k l).mpr ⟨he.symm, hlj⟩\n        exact (remote_endpoints _ _ hr).2.1 hnext.symm\n      right; left\n      refine ⟨?_, hlj⟩\n      rw [hlj] at he\n      linear_combination -he\n    · have hkj : k = j := by\n        by_contra hkj\n        have hnext := (softParentEdge_next_eq_iff j l k).mpr ⟨he.symm, hkj⟩\n        exact (remote_endpoints _ _ hr).2.2.1 hnext\n      right; right\n      refine ⟨hkj, ?_⟩\n      rw [hkj] at he\n      linear_combination -he\n\n/-- Complete enumeration of actual enlarged crossing supports. Every\ninherited support is present; the sole possible extra support is the actual\nincoming/return pair, and it occurs exactly in the loop sector. -/\ntheorem soft_crossing_support_classification (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j : ZMod n) (q : Plane) (hq : SoftAdmissible P j q) :\n    ∃ δ > 0, ∀ ε : ℝ, 0 < ε → ε < δ → ∀ s : Finset (ZMod (n + 1)),\n      IsCrossing (softInsertion P j q ε) s ↔\n        (∃ k l : ZMod n, IsCrossing P {k, l} ∧ s = {softParentEdge j k, softParentEdge j l}) ∨\n        (softAttachmentMinus P j q = turn P j ∧ softAttachmentPlus P j q = turn P j) ∧\n          s = {softOldIndex j (j - 1), softNewIndex j} := by\n  haveI : Fact (1 < n) := ⟨by omega⟩\n  obtain ⟨δr, hδr, hremote⟩ := soft_small_remote_pairs hn hP j q\n  obtain ⟨δl, hδl, hlocal⟩ := softFamily_local_crossing hn P hP j q hq\n  obtain ⟨δs, hδs, hsoft⟩ := softEdge_only_incident_contacts hn hP j q hq\n  refine ⟨min δr (min δl δs), lt_min hδr (lt_min hδl hδs), ?_⟩\n  intro ε hε hεδ\n  have hεr : |ε| < δr := by\n    simpa only [abs_of_pos hε] using lt_of_lt_of_le hεδ (min_le_left δr (min δl δs))\n  have hεl : ε < δl := lt_of_lt_of_le hεδ\n    (le_trans (min_le_right δr (min δl δs)) (min_le_left δl δs))\n  have hεs : ε < δs := lt_of_lt_of_le hεδ\n    (le_trans (min_le_right δr (min δl δs)) (min_le_right δl δs))\n  have hmiss (a : ZMod (n + 1)) (ha : remote (softOldIndex j j) a) :\n      Disjoint (edgeSegment (softInsertion P j q ε) (softOldIndex j j))\n        (edgeSegment (softInsertion P j q ε) a) := by\n    apply (hsoft ε hε hεs).2.2 a (remote_endpoints _ _ ha).1\n    · intro he\n      apply (remote_endpoints _ _ ha).2.2.1\n      rw [he, ← softOldIndex_next j (j - 1) (prev_ne_self j), sub_add_cancel]\n    · intro he\n      apply (remote_endpoints _ _ ha).2.1\n      rw [he, softOldIndex_attachment_next]\n  intro s\n  constructor\n  · rintro ⟨a, b, hs, hr, hm⟩\n    rcases soft_parent_edges_exhaust j a with rfl | ⟨k, rfl⟩\n    · obtain ⟨x, hx, hy⟩ := hm\n      exact (Set.disjoint_left.mp (hmiss b hr) hx hy).elim\n    · rcases soft_parent_edges_exhaust j b with rfl | ⟨l, rfl⟩\n      · obtain ⟨x, hx, hy⟩ := hm\n        exact (Set.disjoint_left.mp (hmiss _ (remote_symm hr)) hy hx).elim\n      · have hc : IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l} :=\n          ⟨_, _, rfl, hr, hm⟩\n        rcases softParentEdge_remote_cases hn j k l hr with hp | ⟨hk, hl⟩ | ⟨hk, hl⟩\n        · exact Or.inl ⟨k, l, (hremote ε hεr k l hp).mp hc, hs⟩\n        · subst k; subst l\n          have hc' : IsCrossing (softInsertion P j q ε)\n              {softOldIndex j (j - 1), softNewIndex j} := by\n            simpa only [softParentEdge_of_ne j (j - 1) (prev_ne_self j),\n              softParentEdge_at_attachment] using hc\n          exact Or.inr ⟨(hlocal ε hε hεl).2.mp hc', by\n            simpa only [softParentEdge_of_ne j (j - 1) (prev_ne_self j),\n              softParentEdge_at_attachment] using hs⟩\n        · subst k; subst l\n          have hc' : IsCrossing (softInsertion P j q ε)\n              {softOldIndex j (j - 1), softNewIndex j} := by\n            simpa only [softParentEdge_of_ne j (j - 1) (prev_ne_self j),\n              softParentEdge_at_attachment, Finset.pair_comm] using hc\n          exact Or.inr ⟨(hlocal ε hε hεl).2.mp hc', by\n            simpa only [softParentEdge_of_ne j (j - 1) (prev_ne_self j),\n              softParentEdge_at_attachment, Finset.pair_comm] using hs⟩\n  · rintro (⟨k, l, hc, rfl⟩ | ⟨hloop, rfl⟩)\n    · exact (hremote ε hεr k l (crossing_pair_remote hc)).mpr hc\n    · exact (hlocal ε hε hεl).2.mpr hloop\n\n/-- The newborn support cannot be the image of any actual parent crossing.\nThus the support classification adds exactly one support in the loop sector. -/\ntheorem soft_newborn_support_not_inherited (hn : 3 ≤ n) (P : LabelledTuple n)\n    (j k l : ZMod n) (hc : IsCrossing P {k, l}) :\n    ({softParentEdge j k, softParentEdge j l} : Finset (ZMod (n + 1))) ≠\n      {softOldIndex j (j - 1), softNewIndex j} := by\n  haveI : Fact (1 < n) := ⟨by omega⟩\n  intro he\n  have himage : ({k, l} : Finset (ZMod n)).image (softParentEdge j) =\n      ({j - 1, j} : Finset (ZMod n)).image (softParentEdge j) := by\n    simpa only [Finset.image_insert, Finset.image_singleton,\n      softParentEdge_of_ne j (j - 1) (prev_ne_self j), softParentEdge_at_attachment] using he\n  have hpair := Finset.image_injective (softParentEdge_injective j) himage\n  rw [hpair] at hc\n  have hr := crossing_pair_remote hc\n  exact (remote_endpoints (j - 1) j hr).2.1 (sub_add_cancel j 1).symm\n\nend\nend SM\n",
+    "root_log_limit": "The root log prints three axiom traces, not the full elaborated types of this group. Exact statements and proofs are bound by the frozen full body and actual prototype. No reviewer kernel or elaboration was run."
+  },
+  "findings": [
+    "The combinatorial remote-cases theorem covers every ordered mapped-parent pair that is remote in the enlarged cycle. If the parent pair was not remote, mapped remoteness excludes equality and parent adjacency gives one of the two successor orientations. The exact mapped successor criterion then forces its terminal parent to be j, yielding precisely (j-1,j) or (j,j-1). This accounts for both orientations of the sole split adjacency.",
+    "The main theorem quantifies over every Finset of enlarged cyclic labels, with the actual IsCrossing predicate. A crossing witness supplies an unordered pair of remote edge labels and an actual common point in their closed segments. Exhaustive soft-versus-mapped-parent label classification is applied independently to both labels, so there is no restriction to a preselected class of crossings.",
+    "For a pair containing the soft edge, remoteness excludes the soft edge itself, the incoming label and the return label: the incoming successor is the old attachment and the attachment successor is the newborn. The previously proved universal soft-edge disjointness then contradicts the actual intersection witness. The reversed soft-edge orientation is handled with remote_symm and exchanged segment memberships.",
+    "For two mapped labels whose parents were remote, the finite common parent-pair interval gives both directions of crossing equivalence, including disjoint parallel parent pairs. For either formerly adjacent orientation, exact parent-map formulas identify the unordered support with {softOldIndex j (j-1), softNewIndex j}; pair commutativity handles the reversal.",
+    "The local incoming/return theorem proves that this actual remote support occurs exactly when both source attachment signs equal the parent turn. Its underlying closed-segment criterion checks both endpoint-straddle tests, proves all endpoint heights nonzero and retains transversality. Thus it excludes endpoint-only contacts as well as open intersections outside the loop sector, with no child Generic assumption.",
+    "The minimum of three strictly positive radii simultaneously enforces parent-pair persistence, local-sector classification and soft-edge exclusion. The proof explicitly converts positive epsilon to |epsilon| for the symmetric parent-pair radius. This supplies a single positive interval for every support, independent of the queried crossing.",
+    "The reverse implication constructs every mapped parent crossing and the incoming/return crossing in the loop sector. The last theorem proves the newborn support is not inherited: equality of mapped two-element Finsets would pull back through the injective parent map to {j-1,j}, contradicting the parent crossing remoteness. The uniqueness conclusion concerns unordered crossing supports; no geometric point injectivity is assumed.",
+    "The caller hypotheses are only n>=3, parent G1, arbitrary attachment j, and exactly SoftAdmissible P j q. Admissibility contains the three source nonvanishing conditions and implies q!=0. Child G1 used inside the soft-edge dependency is derived on a positive interval, not imposed by this theorem. Parent arity three and all cyclic seams remain included.",
+    "All thirteen embedded bodies match their frozen full files exactly once. The first root run59753 supplies all three standard foundational axiom traces without errors, sorryAx or native_decide. Earlier failed dependency evidence remains distinguished in the separately bound predecessor reports; it is not used as successful kernel evidence."
+  ],
+  "limits": "This group completely classifies unordered crossing supports and the one extra support in the loop sector. It does not itself prove geometric distinctness of all crossing points, child G2, newborn point/parameter convergence, one chamber, a packaged crossing/visit equivalence, the short traversal arc, cyclic Gauss-word deletion or the full soft theorem. The source same-sign and mixed sectors are excluded through the exact complement of the loop-sector conjunction; no separate Gauss-word assertion follows here. The review uses recorded root kernel evidence and performs no fresh kernel run. Stronger fidelity/source acceptance and controlled canonical integration remain pending."
+}

@@ -1,0 +1,182 @@
+import CV.Carriers
+import SM.GeoCornerPolygon
+
+/-! # CV/SelectorA.lean — CV:selector_A, clause (A) of lem:selectorid (164), on the accepted
+geometric carrier layer (CV-DOM unit U7b2)
+
+Written 2026-09-14 by a Claude Code prover subagent of the pod executor, for the CV-DOM decision
+(work/drafts/cvdom/DECISION_FINAL.md §0 option (C), §2 fidelity, §3 rulings R1–R5, §4 review-note
+template, §5 units U7b/U7b2, §6 order of rows step 3). Draft home
+work/drafts/cvdom/U7b2/CVSelectorA.lean; intended home work/lean/CV/SelectorA.lean (after
+CV/Carriers.lean, the row module of CV:def:wind, whose corner notions this row is about). Source:
+reference/R/CV/d6_vertexedge.tex (frozen) 1017–1020 — clause (A) of lem:selectorid ("minimum
+carrier corners and selector identities"); context 1000–1030. Clause (B) of the same lemma (the
+selector identities `W_T = −s_low W₁ W₂` / `W_T W₁ W₂ = 0` at an eligible event, d6:1021–1040) is a
+separate row and is NOT rendered here.
+
+Row declaration: `CV.selector_A hG : CV.SelectorAData hG` (164, a PROVE row). The bundle has one
+field, the one printed sentence of clause (A).
+
+## Printed statement (d6_vertexedge.tex:1017–1020)
+
+"(A) Under the guards of Definition def:generic(A), every carrier of every support has at least
+three corners."
+
+## Binder (as printed; DECISION_FINAL §2 "Fidelity", no domain change)
+
+"Under the guards of Definition def:generic(A)": def:generic (A) (d1_setup.tex:222–229) is "a
+polygon `P` is *generic* if every member relevant at `P` is nonzero at `P`" — the accepted
+`CV.Generic P` (CV:def:generic, `CV.generic_definition`). So `hG : CV.Generic P`. "every support" is
+every `S ∈ Ind(G_P)` (CV:def:interlace; `Ind(G_P)` is the accepted `CV.Ind hG.crossingGeometry`, its
+members are the supports of the state sum — d1:908–930 def:X1 sums over `S ∈ Ind(G_P)`); "every
+carrier" is every `L : GeoComponent hG.crossingGeometry S` (CV:def:smoothing, row 135). Both are
+quantified inside the field, as printed. `n ≥ 3` (CV def:polygon "Let n ≥ 3", d1:9; the standing
+hypothesis of every CV row) is quantified locally in the field (`∀ (_hn : 3 ≤ n), …`), the pattern
+of the accepted `CV.InterlaceData.vertices` and of U7a's `WindDefinitionData` (ruling R5: `hn`
+exactly where the geo lemma consumes it — `three_le_geoCornerCount` uses it through
+`geoCornerPolygon_edge_ne_zero_of_independent hn` / `geoCornerPolygon_not_antiparallel hn`, which
+read `geoMarkSuccessor_position_cases hn`). The §5-printed shape
+`CV.selector_A (hn) (P) (hG) (S) (hS) (q) : 3 ≤ geoCornerCount …` is the corollary
+`CV.selector_A_three_le` below.
+
+## Review note (DECISION_FINAL §4, filled in)
+
+Stated on the printed binder (`hG : CV.Generic P`); no domain change (CV-DOM decision, AUTHOR_NOTES
+2026-09-14). The carriers, their marks and corners are the accepted `SM.GeoCarrier` objects
+(def:flat-carriers, SM/FlatCarriersDefs.lean) read through `hG.crossingGeometry`; `Ind(G_P)` is the
+accepted `CV.Ind` (CV:def:interlace). On SM-generic polygons these are the accepted def:smoothing /
+lem:carriers objects by `geoSmoothingSuccessor_eq_generic`, `geoComponentEquivGeneric`,
+`geoComponentCornerList_eq_generic` (FlatCarriersDefs.lean:638–724). The ownership of the two visits
+of a selected crossing follows SM conv:selected-visits (the same `selectedMarkPerm`), a
+disambiguation the CV text leaves implicit. The reviewer checks: same binder as printed, same
+quantifiers, each printed sentence = one bundle field, and that the `geo*` object named in each
+field is the one the sentence describes.
+
+## Printed notions → Lean (write `hP := hG.crossingGeometry`)
+
+* "corner" of a carrier: CV:def:wind (d1:489–492, row 138, `CV.wind_definition`): "either a vertex
+  `p_i` of `P` traversed by it or a smoothing site of `S` traversed by it" — the marks of `L` that are
+  original vertices or selected visits (`IsTrueCorner S`), listed in inherited order by
+  `geoComponentCornerList hP S L = (geoComponentMarkList hP S L).filter IsTrueCorner`
+  (`WindDefinitionData.corner_iff`); "the number of corners" `c(L)` is its length, the accepted
+  `geoCornerCount hP S L` (`WindDefinitionData.corner_count`; = the number of vertices of the corner
+  polygon `geoCornerPolygon hP S L : LabelledTuple c(L)`, whose turns are the carrier's turns).
+* "at least three corners": `3 ≤ geoCornerCount hP S L`.
+
+## Proof source
+
+`SM.GeoCarrier.three_le_geoCornerCount` (U2b, SM/GeoCornerPolygon.lean §5): one nonzero segment
+cannot close (`c(L) = 1` forces a zero edge, against `geoCornerPolygon_edge_ne_zero_of_independent`),
+and a closed polygon of two nonzero segments has an antiparallel corner (`c(L) = 2` gives
+`edge 0 = (−1) • edge (0 − 1)`, against `geoCornerPolygon_not_antiparallel`, which at a vertex corner
+is the fold-back exclusion of tier 1 and at a smoothing corner is transversality). The lane proves it
+at tier 1 (`SM.CarrierGeometry`, ruling R4), which CV "generic" implies (`CarrierGeometry.ofCV`, U0);
+the printed guards are therefore more than the proof needs — the strengthening to CV "diagrammatic"
+is offered outside the bundle as `CV.three_le_cornerCount_of_diagrammatic` and is NOT the row.
+
+Checked with `cd work/lean && lake env lean ../drafts/cvdom/U7b2/CVSelectorA.lean`. -/
+
+namespace CV
+
+open SM SM.Carrier SM.GeoCarrier
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n}
+
+/-! ## 1. Clause (A) on the CV binders (tier 1 through `CarrierGeometry.ofCV`) -/
+
+section ThreeCorners
+
+/-- Clause (A) in the §5-printed shape, on the CV binders `hG : Generic P`, `hS : S ∈ Ind(G_P)`:
+every carrier of every support has at least three corners. The two `CrossingGeometry P` proofs
+`(CarrierGeometry.ofCV hG).cg` and `hG.crossingGeometry` are identified by proof irrelevance. -/
+theorem selector_A_three_le (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    3 ≤ geoCornerCount hG.crossingGeometry S q :=
+  three_le_geoCornerCount hn (CarrierGeometry.ofCV hG)
+    ((mem_Ind_iff_geoIndependent hG.crossingGeometry S).mp hS) q
+
+/-- The lane's strengthening (not the row): clause (A) already holds on a diagrammatic `P`
+(tier 1, `CarrierGeometry.ofDiagrammatic`, ruling R4) — the (G1) guard "turn ≠ 0 at every vertex"
+of def:generic(A) is not needed for the corner count. -/
+theorem three_le_cornerCount_of_diagrammatic (hn : 3 ≤ n) (hD : Diagrammatic P)
+    {S : Finset (Crossing P)} (hS : S ∈ Ind hD.crossingGeometry)
+    (q : GeoComponent hD.crossingGeometry S) :
+    3 ≤ geoCornerCount hD.crossingGeometry S q :=
+  three_le_geoCornerCount hn (CarrierGeometry.ofDiagrammatic hD)
+    ((mem_Ind_iff_geoIndependent hD.crossingGeometry S).mp hS) q
+
+variable (hP : CrossingGeometry P) (S : Finset (Crossing P))
+
+/-- What "corners" counts (def:wind, row 138): `c(L)` is the number of marks of `L` that are original
+vertices or smoothing sites of `S` (definitional: `geoCornerCount = (geoComponentCornerList).length`,
+`geoComponentCornerList = (geoComponentMarkList).filter IsTrueCorner`). -/
+theorem cornerCount_eq_length_filter (q : GeoComponent hP S) :
+    geoCornerCount hP S q =
+      ((geoComponentMarkList hP S q).filter (fun a => decide (IsTrueCorner S a))).length :=
+  rfl
+
+/-- "at least three corners", as three distinct corner marks of the carrier: the corners
+`geoCornerMark L 0, L 1, L 2` are pairwise distinct marks of `L` that are original vertices or
+selected visits. -/
+theorem three_corner_marks (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    ∃ a b c : Mark P, a ≠ b ∧ b ≠ c ∧ a ≠ c ∧
+      (geoOwner hG.crossingGeometry S a = q ∧ IsTrueCorner S a) ∧
+      (geoOwner hG.crossingGeometry S b = q ∧ IsTrueCorner S b) ∧
+      (geoOwner hG.crossingGeometry S c = q ∧ IsTrueCorner S c) := by
+  have h3 := selector_A_three_le hn hG hS q
+  have hinj := geoCornerMark_injective hG.crossingGeometry S q
+  have hne : ∀ i j : ℕ, i < geoCornerCount hG.crossingGeometry S q →
+      j < geoCornerCount hG.crossingGeometry S q → i ≠ j →
+      (i : ZMod (geoCornerCount hG.crossingGeometry S q)) ≠ j := by
+    intro i j hi hj hij h
+    apply hij
+    have := congrArg ZMod.val h
+    rwa [ZMod.val_cast_of_lt hi, ZMod.val_cast_of_lt hj] at this
+  refine ⟨geoCornerMark hG.crossingGeometry S q 0, geoCornerMark hG.crossingGeometry S q 1,
+    geoCornerMark hG.crossingGeometry S q 2, ?_, ?_, ?_,
+    geoCornerMark_mem hG.crossingGeometry S q 0, geoCornerMark_mem hG.crossingGeometry S q 1,
+    geoCornerMark_mem hG.crossingGeometry S q 2⟩
+  · intro h
+    exact hne 0 1 (by omega) (by omega) (by omega) (by exact_mod_cast hinj h)
+  · intro h
+    exact hne 1 2 (by omega) (by omega) (by omega) (by exact_mod_cast hinj h)
+  · intro h
+    exact hne 0 2 (by omega) (by omega) (by omega) (by exact_mod_cast hinj h)
+
+end ThreeCorners
+
+/-! ## 2. Row 164 — CV:selector_A (d6_vertexedge.tex:1017–1020)
+
+Printed text: "(A) Under the guards of Definition def:generic(A), every carrier of every support has
+at least three corners." -/
+
+section SelectorARow
+
+variable (hG : Generic P)
+
+/-- CV:selector_A = lem:selectorid (A), one field for its one printed sentence, on the printed binder
+`hG : Generic P` ("under the guards of Definition def:generic(A)"); `hP = hG.crossingGeometry`,
+`n ≥ 3` (CV def:polygon) quantified locally. "Corners" and their number `c(L) = geoCornerCount` are
+def:wind's (row 138, `WindDefinitionData.corner_iff` / `corner_count`). -/
+structure SelectorAData : Prop where
+  /-- "(A) Under the guards of Definition def:generic(A), every carrier of every support has at least
+  three corners": for every support `S ∈ Ind(G_P)` and every carrier `L` of `S`, `3 ≤ c(L)` -/
+  three_corners : ∀ (_hn : 3 ≤ n) (S : Finset (Crossing P)), S ∈ Ind hG.crossingGeometry →
+    ∀ q : GeoComponent hG.crossingGeometry S, 3 ≤ geoCornerCount hG.crossingGeometry S q
+
+/-- **Row 164, CV:selector_A** (lem:selectorid (A)), on the printed binder `hG : Generic P`. -/
+theorem selector_A : SelectorAData hG where
+  three_corners hn _ hS q := selector_A_three_le hn hG hS q
+
+end SelectorARow
+
+end CV
+
+/-! ## Axiom check (removed at porting, as in the accepted CV modules) -/
+#print axioms CV.selector_A
+#print axioms CV.selector_A_three_le
+#print axioms CV.three_le_cornerCount_of_diagrammatic
+#print axioms CV.three_corner_marks

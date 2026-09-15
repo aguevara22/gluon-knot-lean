@@ -1,0 +1,624 @@
+import CV.Setup
+import SM.RotationTheorem
+
+/-! # CV lane, rotation number (reference/R/CV/d1_setup.tex, frozen)
+
+Rows 144 and 145(ii) of the CV lane: CV:def:rot (d1_setup.tex:726–787, polygon part) and
+CV:lem:turnlift clause (ii) (d1_setup.tex:798–805, printed proof 865–874 and 876–887).
+
+Decision F2 (work/AUTHOR_NOTES.md, 2026-09-13): every notion is stated on CV's printed domain, the
+regular locus `𝓡_c` (`CV.Regular`, d1_setup.tex:33–37) of labelled tuples `LabelledTuple c`.
+The relation to SM's `rotationNumber` (SM lem:rot, `SM.rotation_number`) is a theorem
+(`rot_eq_rotationNumber`), never an identification.
+
+Index convention: def:rot names the corners `q_0,…,q_{c−1}` (0-based) with `δ_i = q_{i+1} − q_i`
+(d1_setup.tex:727–731), so `δ_i = edge L i` and the corner at `q_i` turns from `δ_{i−1}` to `δ_i`,
+exactly as the accepted `CV.G1 L i = det (edge L (i−1)) (edge L i)` and `CV.principalTurn L i =
+principalAngle (edge L (i−1)) (edge L i)`. No index shift is needed. The printed `ε_i` is
+`epsRot` here because `CV.eps` (CV.Setup) already names the (G4) orientation sign.
+
+Sign conventions: `det(r, δ_i) > 0` means `δ_i` is counterclockwise of the ray `r`; the printed
+`ε_i = +1` case (`det(δ_{i−1},δ_i) > 0`, `det(δ_{i−1},r) > 0`, `det(r,δ_i) > 0`) is a left turn that
+sweeps across the ray `r` (a "positive crossing of the reference ray", d1_setup.tex:872). The angle
+`β_i − ρ ∈ (0, 2π)` of the printed proof is `rayAngle L r i`, so `τ_i = β_i − β_{i−1} + 2π ε_i`
+reads `principalTurn_eq_rayAngle_sub`.
+
+NOT formalized in this module: the paragraph "Direction loops and smooth curves" of def:rot
+(d1_setup.tex:767–785: `tw(T)` of a direction loop, `rot(γ)` of a closed `C¹` regular curve) and
+clauses (i) and (iii) of lem:turnlift (d1_setup.tex:791–797, 806–820). They belong to SM
+cf:def-turning / cf:lem-turnlift (plan decision F6, work/reports/cv-lane-plan-20260913.md, rows
+95–96). Also not formalized as separate statements: the printed *flat-corner deletion / ray-crossing*
+argument for the independence of `r` (d1_setup.tex:744–762); the independence claim itself is proved
+(`rotRay_indep`) from the angle identity of lem:turnlift (ii), which is the route the printed lemma
+takes ("Here rot is as in Definition def:rot", 790). The first step of that paragraph (a flat corner
+has `ε_i = 0` for every `r`) is rendered (`flat_corner`), and so is the printed counterexample.
+
+Row declarations: `CV.rot_definition : RotDefinitionData` (row 144),
+`CV.turnlift_ii : 2π · rotRay L r = Σ τ_i` and `CV.turnlift_ii_data : TurnliftIIData` (row 145 (ii)).
+Each field of a `…Data` structure is named after the printed clause it renders. -/
+
+namespace CV
+
+open SM
+
+/-! ## Row 144 — CV:def:rot (d1_setup.tex:726–787), the polygon part -/
+
+section Definitions
+
+variable {c : ℕ}
+
+/-- CV def:rot (d1_setup.tex:734–739): the sign `ε_i` of the corner at `q_i` seen from the reference
+vector `r`: "`ε_i = +1` if `det(δ_{i−1},δ_i) > 0, det(δ_{i−1},r) > 0, det(r,δ_i) > 0`; `−1` if
+`det(δ_{i−1},δ_i) < 0, det(δ_{i−1},r) < 0, det(r,δ_i) < 0`; `0` otherwise", with `δ_i = edge L i`.
+(Named `epsRot` because `CV.eps` is the (G4) orientation sign of CV.Setup; `noncomputable` only
+because `<` on `ℝ` is classical in Mathlib — the printed "exact sign tests" clause is
+`epsRot_eq_epsOfSigns`.) -/
+noncomputable def epsRot (L : LabelledTuple c) (r : Plane) (i : ZMod c) : ℤ :=
+  if 0 < det (edge L (i - 1)) (edge L i) ∧ 0 < det (edge L (i - 1)) r ∧ 0 < det r (edge L i) then 1
+  else if det (edge L (i - 1)) (edge L i) < 0 ∧ det (edge L (i - 1)) r < 0 ∧ det r (edge L i) < 0
+    then -1
+  else 0
+
+/-- "Choose `r ∈ ℝ²` with `det(r,δ_i) ≠ 0` for all `i`" (d1_setup.tex:731–732): the admissible
+reference vectors. -/
+def Admissible (L : LabelledTuple c) (r : Plane) : Prop := ∀ i, det r (edge L i) ≠ 0
+
+theorem Regular.isPolygon {L : LabelledTuple c} (hL : Regular L) : IsPolygon L := hL.1
+
+/-- "if `δ_i = λ δ_{i−1}` with `λ > 0` then `det(δ_{i−1},δ_i) = 0`, so `ε_i = 0` for every `r`"
+(d1_setup.tex:746–748). -/
+theorem epsRot_eq_zero_of_flat (L : LabelledTuple c) (r : Plane) (i : ZMod c)
+    (h : ∃ l : ℝ, 0 < l ∧ edge L i = l • edge L (i - 1)) : epsRot L r i = 0 := by
+  obtain ⟨l, _, he⟩ := h
+  have hd : det (edge L (i - 1)) (edge L i) = 0 := by rw [he, det_smul_self]
+  unfold epsRot
+  split_ifs with h1 h2
+  · exact absurd hd h1.1.ne'
+  · exact absurd hd h2.1.ne
+  · rfl
+
+/-- "All comparisons are exact sign tests of determinants" (d1_setup.tex:741–742): `ε_i` is a
+function of the three determinant signs alone. -/
+def epsOfSigns (s₁ s₂ s₃ : SignType) : ℤ :=
+  if s₁ = 1 ∧ s₂ = 1 ∧ s₃ = 1 then 1 else if s₁ = -1 ∧ s₂ = -1 ∧ s₃ = -1 then -1 else 0
+
+theorem epsRot_eq_epsOfSigns (L : LabelledTuple c) (r : Plane) (i : ZMod c) :
+    epsRot L r i = epsOfSigns (SignType.sign (det (edge L (i - 1)) (edge L i)))
+      (SignType.sign (det (edge L (i - 1)) r)) (SignType.sign (det r (edge L i))) := by
+  unfold epsRot epsOfSigns
+  simp only [sign_eq_one_iff, sign_eq_neg_one_iff]
+
+end Definitions
+
+section RowDefinitions
+
+variable {c : ℕ} [NeZero c]
+
+/-- No tuple with fewer than three corners is regular (`c = 1`: the only edge is `q_0 − q_0 = 0`;
+`c = 2`: `δ_1 = −δ_0` doubles back), so `L ∈ 𝓡_c` forces `c ≥ 3`; the printed consequences of
+lem:turnlift (ii) therefore need no separate `c ≥ 3` hypothesis. -/
+theorem Regular.three_le {L : LabelledTuple c} (hL : Regular L) : 3 ≤ c := by
+  by_contra hlt
+  push Not at hlt
+  have hpos : 0 < c := Nat.pos_of_ne_zero (NeZero.ne c)
+  interval_cases c
+  · apply hL.1 0
+    unfold edge
+    rw [show (0 : ZMod 1) + 1 = 0 by decide, sub_self]
+  · apply hL.2 0 1 one_pos
+    unfold edge
+    rw [show (0 : ZMod 2) + 1 + 1 = 0 by decide, neg_one_smul, neg_sub]
+
+/-- "such `r` exists because the `δ_i` are finitely many" (d1_setup.tex:732): among the vectors
+`(1, x)`, `x ∈ ℝ`, at most one is parallel to a given nonzero `δ_i`, so all but finitely many `x`
+work. -/
+theorem exists_admissible {L : LabelledTuple c} (hL : IsPolygon L) : ∃ r, Admissible L r := by
+  classical
+  obtain ⟨x, hx⟩ := Infinite.exists_notMem_finset
+    (Finset.univ.image fun i : ZMod c => (edge L i).2 / (edge L i).1)
+  refine ⟨((1 : ℝ), x), fun i hdet => hx ?_⟩
+  refine Finset.mem_image.mpr ⟨i, Finset.mem_univ _, ?_⟩
+  have hdet' : (edge L i).2 - x * (edge L i).1 = 0 := by
+    simpa [det] using hdet
+  have h1 : (edge L i).1 ≠ 0 := by
+    intro h0
+    apply hL i
+    rw [h0, mul_zero, sub_zero] at hdet'
+    exact Prod.ext h0 hdet'
+  rw [div_eq_iff h1]
+  linarith
+
+/-- The ray formula `Σ_i ε_i` for a chosen reference vector `r` (d1_setup.tex:734). -/
+noncomputable def rotRay (L : LabelledTuple c) (r : Plane) : ℤ := ∑ i, epsRot L r i
+
+/-- CV def:rot (d1_setup.tex:734): `rot(L) = Σ_i ε_i`, evaluated at a chosen admissible `r`
+(`exists_admissible`); independence of the choice is `rotRay_indep` (row 145 (ii)). -/
+noncomputable def rot (L : LabelledTuple c) (hL : Regular L) : ℤ :=
+  rotRay L (Classical.choose (exists_admissible hL.isPolygon))
+
+theorem admissible_choose {L : LabelledTuple c} (hL : Regular L) :
+    Admissible L (Classical.choose (exists_admissible hL.isPolygon)) :=
+  Classical.choose_spec (exists_admissible hL.isPolygon)
+
+/-- "For either a polygon or a `C¹` regular closed curve put `R(L) = |rot(L)|`" (d1_setup.tex:784–785),
+the polygon case. -/
+noncomputable def rotAbs (L : LabelledTuple c) (hL : Regular L) : ℕ := (rot L hL).natAbs
+
+theorem rotAbs_cast (L : LabelledTuple c) (hL : Regular L) : (rotAbs L hL : ℤ) = |rot L hL| :=
+  Int.natCast_natAbs _
+
+end RowDefinitions
+
+/-! ## Row 145 (ii) — CV:lem:turnlift (ii) (d1_setup.tex:798–805; proof 865–874) -/
+
+section Angles
+
+variable {c : ℕ}
+
+theorem det_swap' (u v : Plane) : det u v = -det v u := by
+  simp only [det]; ring
+
+theorem det_zero_left (v : Plane) : det 0 v = 0 := by
+  simp [det]
+
+theorem det_zero_right (u : Plane) : det u 0 = 0 := by
+  simp [det]
+
+/-- Two vectors with nonzero determinant form a regular pair (both nonzero, not antiparallel). -/
+theorem regularPair_of_det_ne_zero {u v : Plane} (h : det u v ≠ 0) : RegularPair u v := by
+  refine ⟨fun hu => h (by rw [hu, det_zero_left]), fun hv => h (by rw [hv, det_zero_right]), ?_⟩
+  rintro ⟨l, _, hl⟩
+  exact h (by rw [hl, det_smul_self])
+
+theorem principalAngle_pos_iff {u v : Plane} (h : RegularPair u v) :
+    0 < principalAngle u v ↔ 0 < det u v := by
+  rw [← sign_eq_one_iff, principalAngle_sign h, sign_eq_one_iff]
+
+/-- The direction of `δ_i` measured from `r`, taken in `(0, 2π)`: this is `β_i − ρ` for the angle
+`ρ` of `r` and the representative `β_i ∈ (ρ, ρ + 2π)` of the printed proof (d1_setup.tex:865–867).
+It is `principalAngle r δ_i ∈ (−π, π)` when `det(r, δ_i) > 0` and that angle plus `2π` otherwise. -/
+noncomputable def rayAngle (L : LabelledTuple c) (r : Plane) (i : ZMod c) : ℝ :=
+  if 0 < det r (edge L i) then principalAngle r (edge L i)
+  else principalAngle r (edge L i) + 2 * Real.pi
+
+theorem rayAngle_of_pos {L : LabelledTuple c} {r : Plane} {i : ZMod c}
+    (h : 0 < det r (edge L i)) :
+    0 < rayAngle L r i ∧ rayAngle L r i < Real.pi := by
+  have hp := regularPair_of_det_ne_zero h.ne'
+  simp only [rayAngle, h, ↓reduceIte]
+  exact ⟨(principalAngle_pos_iff hp).mpr h, (principalAngle_bounds hp).2⟩
+
+theorem rayAngle_of_neg {L : LabelledTuple c} {r : Plane} {i : ZMod c}
+    (h : det r (edge L i) < 0) :
+    Real.pi < rayAngle L r i ∧ rayAngle L r i < 2 * Real.pi := by
+  have hp := regularPair_of_det_ne_zero h.ne
+  have hn : ¬ 0 < det r (edge L i) := not_lt.mpr h.le
+  simp only [rayAngle, hn, ↓reduceIte]
+  have hb := principalAngle_bounds hp
+  have hneg := (principalAngle_neg_iff r (edge L i)).mpr h
+  constructor <;> linarith
+
+/-- As a `Real.Angle`, `rayAngle` is `arg δ_i − arg r`. -/
+theorem rayAngle_coe_angle {L : LabelledTuple c} {r : Plane} {i : ZMod c}
+    (h : det r (edge L i) ≠ 0) :
+    ((rayAngle L r i : ℝ) : Real.Angle) =
+      ((planeComplex (edge L i)).arg : Real.Angle) - ((planeComplex r).arg : Real.Angle) := by
+  have hp := regularPair_of_det_ne_zero h
+  have key := principalAngle_coe_angle hp.1 hp.2.1
+  unfold rayAngle
+  split_ifs
+  · exact key
+  · rw [Real.Angle.coe_add, Real.Angle.coe_two_pi, add_zero, key]
+
+theorem int_eq_zero_of_two_pi_mul {k : ℤ}
+    (h1 : -(2 * Real.pi) < 2 * Real.pi * k) (h2 : 2 * Real.pi * k < 2 * Real.pi) : k = 0 := by
+  have hpi := Real.pi_pos
+  have hk1 : (-1 : ℝ) < k := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk2 : (k : ℝ) < 1 := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk1' : (-1 : ℤ) < k := by exact_mod_cast hk1
+  have hk2' : k < (1 : ℤ) := by exact_mod_cast hk2
+  omega
+
+theorem int_eq_one_of_two_pi_mul {k : ℤ}
+    (h1 : 0 < 2 * Real.pi * k) (h2 : 2 * Real.pi * k < 4 * Real.pi) : k = 1 := by
+  have hpi := Real.pi_pos
+  have hk1 : (0 : ℝ) < k := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk2 : (k : ℝ) < 2 := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk1' : (0 : ℤ) < k := by exact_mod_cast hk1
+  have hk2' : k < (2 : ℤ) := by exact_mod_cast hk2
+  omega
+
+theorem int_eq_neg_one_of_two_pi_mul {k : ℤ}
+    (h1 : -(4 * Real.pi) < 2 * Real.pi * k) (h2 : 2 * Real.pi * k < 0) : k = -1 := by
+  have hpi := Real.pi_pos
+  have hk1 : (-2 : ℝ) < k := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk2 : (k : ℝ) < 0 := by
+    by_contra hcon
+    push Not at hcon
+    nlinarith
+  have hk1' : (-2 : ℤ) < k := by exact_mod_cast hk1
+  have hk2' : k < (0 : ℤ) := by exact_mod_cast hk2
+  omega
+
+/-- The corner identity `τ_i = β_i − β_{i−1} + 2π ε_i` (d1_setup.tex:868–873): "a positive crossing
+of the reference ray contributes `+2π`, a negative crossing contributes `−2π`, and otherwise no
+correction occurs". -/
+theorem principalTurn_eq_rayAngle_sub {L : LabelledTuple c} (hL : Regular L) {r : Plane}
+    (hr : Admissible L r) (i : ZMod c) :
+    principalTurn L i = rayAngle L r i - rayAngle L r (i - 1) + 2 * Real.pi * epsRot L r i := by
+  have hSM : SM.Regular L := (regular_iff_sm L).mp hL
+  have hpair : RegularPair (edge L (i - 1)) (edge L i) := hSM i
+  have hτ : -Real.pi < principalTurn L i ∧ principalTurn L i < Real.pi :=
+    (principalTurn_spec hpair).1
+  have hτpos : 0 < principalTurn L i ↔ 0 < det (edge L (i - 1)) (edge L i) :=
+    principalAngle_pos_iff hpair
+  have hτneg : principalTurn L i < 0 ↔ det (edge L (i - 1)) (edge L i) < 0 :=
+    principalAngle_neg_iff _ _
+  have hq : det r (edge L i) ≠ 0 := hr i
+  have hp : det r (edge L (i - 1)) ≠ 0 := hr (i - 1)
+  have hsw : det (edge L (i - 1)) r = -det r (edge L (i - 1)) := det_swap' _ _
+  -- the identity modulo `2π`: both sides are `arg δ_i − arg δ_{i−1}`
+  have hangle : ((principalTurn L i : ℝ) : Real.Angle) =
+      ((rayAngle L r i - rayAngle L r (i - 1) : ℝ) : Real.Angle) := by
+    rw [Real.Angle.coe_sub, rayAngle_coe_angle hq, rayAngle_coe_angle hp, principalTurn_eq_sm,
+      SM.principalTurn_coe_angle hSM i]
+    abel
+  obtain ⟨k, hk⟩ := Real.Angle.angle_eq_iff_two_pi_dvd_sub.mp hangle
+  -- the three sign cases fix the integer `k`
+  unfold epsRot
+  split_ifs with h1 h2
+  · obtain ⟨hd, hpr, hqr⟩ := h1
+    have ha := rayAngle_of_pos hqr
+    have hb := rayAngle_of_neg (show det r (edge L (i - 1)) < 0 by linarith)
+    have hτ0 := hτpos.mpr hd
+    have hk1 : k = 1 :=
+      int_eq_one_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+    rw [hk1] at hk; push_cast at hk ⊢; linarith
+  · obtain ⟨hd, hpr, hqr⟩ := h2
+    have ha := rayAngle_of_neg hqr
+    have hb := rayAngle_of_pos (show 0 < det r (edge L (i - 1)) by linarith)
+    have hτ0 := hτneg.mpr hd
+    have hk1 : k = -1 :=
+      int_eq_neg_one_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+    rw [hk1] at hk; push_cast at hk ⊢; linarith
+  · have hk0 : k = 0 := by
+      rcases lt_or_gt_of_ne hq with hq' | hq' <;> rcases lt_or_gt_of_ne hp with hp' | hp'
+      · -- both edges clockwise of `r`
+        have ha := rayAngle_of_neg hq'
+        have hb := rayAngle_of_neg hp'
+        exact int_eq_zero_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+      · -- `δ_{i−1}` counterclockwise, `δ_i` clockwise of `r`, but not a negative crossing
+        have ha := rayAngle_of_neg hq'
+        have hb := rayAngle_of_pos hp'
+        have hd : ¬ det (edge L (i - 1)) (edge L i) < 0 := fun hd => h2 ⟨hd, by linarith, hq'⟩
+        have hτ0 : ¬ principalTurn L i < 0 := fun h => hd (hτneg.mp h)
+        push Not at hτ0
+        exact int_eq_zero_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+      · -- `δ_{i−1}` clockwise, `δ_i` counterclockwise of `r`, but not a positive crossing
+        have ha := rayAngle_of_pos hq'
+        have hb := rayAngle_of_neg hp'
+        have hd : ¬ 0 < det (edge L (i - 1)) (edge L i) := fun hd => h1 ⟨hd, by linarith, hq'⟩
+        have hτ0 : ¬ 0 < principalTurn L i := fun h => hd (hτpos.mp h)
+        push Not at hτ0
+        exact int_eq_zero_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+      · -- both edges counterclockwise of `r`
+        have ha := rayAngle_of_pos hq'
+        have hb := rayAngle_of_pos hp'
+        exact int_eq_zero_of_two_pi_mul (by rw [← hk]; linarith) (by rw [← hk]; linarith)
+    rw [hk0] at hk; push_cast at hk ⊢; linarith
+
+end Angles
+
+section Identity
+
+variable {c : ℕ} [NeZero c]
+
+/-- The cyclic telescoping sum vanishes ("Summing cyclically cancels the `β` terms", 874). -/
+theorem sum_rayAngle_sub (L : LabelledTuple c) (r : Plane) :
+    ∑ i, (rayAngle L r i - rayAngle L r (i - 1)) = 0 := by
+  rw [Finset.sum_sub_distrib]
+  have he : (∑ i : ZMod c, rayAngle L r (i - 1)) = ∑ i : ZMod c, rayAngle L r i :=
+    Equiv.sum_comp (Equiv.subRight (1 : ZMod c)) (rayAngle L r)
+  rw [he, sub_self]
+
+/-- CV lem:turnlift (ii), the identity (d1_setup.tex:798–801): "If `L ∈ 𝓡_c` has principal turns
+`τ_i`, then `2π rot(L) = Σ_i τ_i`", in the ray form `2π Σ_i ε_i(r) = Σ_i τ_i` for every admissible
+`r` (Gap G2 of the CV-lane plan). -/
+theorem turnlift_ii (L : LabelledTuple c) (hL : Regular L) (r : Plane) (hr : Admissible L r) :
+    (2 * Real.pi) * (rotRay L r : ℝ) = ∑ i, principalTurn L i := by
+  have h : ∀ i, (2 * Real.pi) * (epsRot L r i : ℝ) =
+      principalTurn L i - (rayAngle L r i - rayAngle L r (i - 1)) := by
+    intro i
+    have := principalTurn_eq_rayAngle_sub hL hr i
+    linarith
+  calc (2 * Real.pi) * (rotRay L r : ℝ) = ∑ i, (2 * Real.pi) * (epsRot L r i : ℝ) := by
+        rw [rotRay, Int.cast_sum, Finset.mul_sum]
+    _ = ∑ i, (principalTurn L i - (rayAngle L r i - rayAngle L r (i - 1))) :=
+        Finset.sum_congr rfl (fun i _ => h i)
+    _ = ∑ i, principalTurn L i := by rw [Finset.sum_sub_distrib, sum_rayAngle_sub, sub_zero]
+
+theorem rotRay_eq_rotationNumber {L : LabelledTuple c} (hL : Regular L) {r : Plane}
+    (hr : Admissible L r) : (rotRay L r : ℝ) = rotationNumber L := by
+  have h := turnlift_ii L hL r hr
+  unfold rotationNumber
+  rw [eq_div_iff (by positivity), mul_comm]
+  exact h
+
+/-- "The sum is independent of the admissible `r`" (d1_setup.tex:744–745). -/
+theorem rotRay_indep {L : LabelledTuple c} (hL : Regular L) {r r' : Plane}
+    (hr : Admissible L r) (hr' : Admissible L r') : rotRay L r = rotRay L r' := by
+  have h := (rotRay_eq_rotationNumber hL hr).trans (rotRay_eq_rotationNumber hL hr').symm
+  exact_mod_cast h
+
+theorem rot_eq_rotRay {L : LabelledTuple c} (hL : Regular L) {r : Plane} (hr : Admissible L r) :
+    rot L hL = rotRay L r :=
+  rotRay_indep hL (admissible_choose hL) hr
+
+theorem rot_eq_rotationNumber {L : LabelledTuple c} (hL : Regular L) :
+    (rot L hL : ℝ) = rotationNumber L :=
+  rotRay_eq_rotationNumber hL (admissible_choose hL)
+
+theorem two_pi_mul_rot (L : LabelledTuple c) (hL : Regular L) :
+    (2 * Real.pi) * (rot L hL : ℝ) = ∑ i, principalTurn L i :=
+  turnlift_ii L hL _ (admissible_choose hL)
+
+/-! ### Consequences of (ii) transported from SM lem:rot (`SM.rotation_number`) -/
+
+theorem rot_path_constant {L Q : LabelledTuple c} (γ : Path L Q)
+    (hγ : ∀ u, Regular (γ u)) (s t : unitInterval) :
+    rot (γ s) (hγ s) = rot (γ t) (hγ t) := by
+  have hSM : ∀ u, SM.Regular (γ u) := fun u => (regular_iff_sm _).mp (hγ u)
+  have hL : SM.Regular L := by
+    have h0 := hSM 0
+    rwa [γ.source] at h0
+  have hpath := (SM.rotation_number (hγ 0).three_le L hL).2.2.1 Q γ hSM s t
+  have h : (rot (γ s) (hγ s) : ℝ) = rot (γ t) (hγ t) := by
+    rw [rot_eq_rotationNumber, rot_eq_rotationNumber]
+    exact hpath
+  exact_mod_cast h
+
+theorem regular_insertVertex' {L : LabelledTuple c} (hL : Regular L) (i : ZMod c)
+    {t : ℝ} (ht0 : 0 < t) (ht1 : t < 1) : Regular (insertVertex L i t) :=
+  (regular_iff_sm _).mpr
+    ((SM.rotation_number hL.three_le L ((regular_iff_sm L).mp hL)).2.2.2.1 i t ht0 ht1).2.2.2.1
+
+theorem rot_insertVertex {L : LabelledTuple c} (hL : Regular L) (i : ZMod c)
+    {t : ℝ} (ht0 : 0 < t) (ht1 : t < 1) (h' : Regular (insertVertex L i t)) :
+    rot (insertVertex L i t) h' = rot L hL := by
+  have hins :=
+    ((SM.rotation_number hL.three_le L ((regular_iff_sm L).mp hL)).2.2.2.1 i t ht0 ht1).2.2.2.2
+  have h : (rot (insertVertex L i t) h' : ℝ) = rot L hL := by
+    rw [rot_eq_rotationNumber, rot_eq_rotationNumber]
+    exact hins
+  exact_mod_cast h
+
+theorem regular_reversal' {L : LabelledTuple c} (hL : Regular L) :
+    Regular (SM.reversal L) :=
+  (regular_iff_sm _).mpr (SM.rotation_number hL.three_le L ((regular_iff_sm L).mp hL)).2.2.2.2.1
+
+theorem rot_reversal {L : LabelledTuple c} (hL : Regular L)
+    (h' : Regular (SM.reversal L)) : rot (SM.reversal L) h' = -rot L hL := by
+  have hrev := (SM.rotation_number hL.three_le L ((regular_iff_sm L).mp hL)).2.2.2.2.2.1
+  have h : (rot (SM.reversal L) h' : ℝ) = -(rot L hL : ℝ) := by
+    rw [rot_eq_rotationNumber, rot_eq_rotationNumber]
+    exact hrev
+  exact_mod_cast h
+
+end Identity
+
+theorem rot_triangle (L : LabelledTuple 3) (hL : Regular L) :
+    (∀ i : ZMod 3, rot L hL = ((turn L i : SignType) : ℤ)) ∧ (rot L hL = 1 ∨ rot L hL = -1) := by
+  have h := (SM.rotation_number (le_refl 3) L ((regular_iff_sm L).mp hL)).2.2.2.2.2.2.1 rfl
+  have hr := rot_eq_rotationNumber hL
+  refine ⟨fun i => ?_, ?_⟩
+  · have h' : (rot L hL : ℝ) = (((turn L i : SignType) : ℤ) : ℝ) := by
+      rw [hr, SignType.intCast_cast]
+      exact h.1 i
+    exact_mod_cast h'
+  · rcases h.2.1 with h1 | h1
+    · left
+      have h' : (rot L hL : ℝ) = 1 := by rw [hr]; exact h1
+      exact_mod_cast h'
+    · right
+      have h' : (rot L hL : ℝ) = -1 := by rw [hr]; exact h1
+      exact_mod_cast h'
+
+/-! ## The printed counterexample (d1_setup.tex:762–765) -/
+
+/-- "the polygon `((−7,4),(−9,6),(9,−9),(3,3),(9,−9),(−7,−7),(−7,−6))`" (d1_setup.tex:762–763),
+corners `q_0,…,q_6`. -/
+noncomputable def doublingBackExample : LabelledTuple 7 :=
+  (![((-7 : ℝ), (4 : ℝ)), (-9, 6), (9, -9), (3, 3), (9, -9), (-7, -7), (-7, -6)] : Fin 7 → Plane)
+
+theorem doublingBackExample_vals :
+    doublingBackExample 0 = (-7, 4) ∧ doublingBackExample 1 = (-9, 6) ∧
+    doublingBackExample 2 = (9, -9) ∧ doublingBackExample 3 = (3, 3) ∧
+    doublingBackExample 4 = (9, -9) ∧ doublingBackExample 5 = (-7, -7) ∧
+    doublingBackExample 6 = (-7, -6) :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+theorem zmod7_indices : (0 : ZMod 7) - 1 = 6 ∧ (1 : ZMod 7) - 1 = 0 ∧ (2 : ZMod 7) - 1 = 1 ∧
+    (3 : ZMod 7) - 1 = 2 ∧ (4 : ZMod 7) - 1 = 3 ∧ (5 : ZMod 7) - 1 = 4 ∧ (6 : ZMod 7) - 1 = 5 ∧
+    (0 : ZMod 7) + 1 = 1 ∧ (1 : ZMod 7) + 1 = 2 ∧ (2 : ZMod 7) + 1 = 3 ∧ (3 : ZMod 7) + 1 = 4 ∧
+    (4 : ZMod 7) + 1 = 5 ∧ (5 : ZMod 7) + 1 = 6 ∧ (6 : ZMod 7) + 1 = 0 := by
+  decide
+
+/-- Its edge directions `δ_0,…,δ_6`; "whose consecutive pair `(−6,12),(6,−12)` doubles back" (763–764)
+is `δ_2 = (−6,12)`, `δ_3 = (6,−12)`. -/
+theorem doublingBackExample_edges :
+    edge doublingBackExample 0 = (-2, 2) ∧ edge doublingBackExample 1 = (18, -15) ∧
+    edge doublingBackExample 2 = (-6, 12) ∧ edge doublingBackExample 3 = (6, -12) ∧
+    edge doublingBackExample 4 = (-16, 2) ∧ edge doublingBackExample 5 = (0, 1) ∧
+    edge doublingBackExample 6 = (0, 10) := by
+  obtain ⟨p0, p1, p2, p3, p4, p5, p6⟩ := doublingBackExample_vals
+  obtain ⟨-, -, -, -, -, -, -, a0, a1, a2, a3, a4, a5, a6⟩ := zmod7_indices
+  simp only [edge, a0, a1, a2, a3, a4, a5, a6, p0, p1, p2, p3, p4, p5, p6]
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> (ext <;> norm_num)
+
+theorem doublingBackExample_not_regular : ¬ Regular doublingBackExample := by
+  intro h
+  apply h.2 2 1 one_pos
+  show edge doublingBackExample 3 = (-(1 : ℝ)) • edge doublingBackExample 2
+  rw [doublingBackExample_edges.2.2.1, doublingBackExample_edges.2.2.2.1]
+  ext <;> norm_num
+
+theorem zmod7_cases : ∀ i : ZMod 7, i = 0 ∨ i = 1 ∨ i = 2 ∨ i = 3 ∨ i = 4 ∨ i = 5 ∨ i = 6 := by
+  decide
+
+/-- The rays `(−1,0)` and `(1,0)` are admissible for it (no edge is horizontal). -/
+theorem doublingBackExample_admissible :
+    Admissible doublingBackExample (-1, 0) ∧ Admissible doublingBackExample (1, 0) := by
+  obtain ⟨e0, e1, e2, e3, e4, e5, e6⟩ := doublingBackExample_edges
+  constructor <;> intro i <;>
+    rcases zmod7_cases i with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+    simp only [e0, e1, e2, e3, e4, e5, e6, det] <;> norm_num
+
+theorem zmod7_univ : (Finset.univ : Finset (ZMod 7)) = {0, 1, 2, 3, 4, 5, 6} := by decide
+
+/-- "returns both `−1` and `0` at admissible rays" (764–765): `−1` at `r = (−1,0)` (the negative
+crossing at `q_4`), `0` at `r = (1,0)` (a negative crossing at `q_1` and a positive one at `q_2`). -/
+theorem doublingBackExample_rotRay :
+    rotRay doublingBackExample (-1, 0) = -1 ∧ rotRay doublingBackExample (1, 0) = 0 := by
+  obtain ⟨e0, e1, e2, e3, e4, e5, e6⟩ := doublingBackExample_edges
+  obtain ⟨s0, s1, s2, s3, s4, s5, s6, -⟩ := zmod7_indices
+  constructor <;>
+  · rw [rotRay, zmod7_univ, Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+      Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+      Finset.sum_insert (by decide), Finset.sum_singleton]
+    simp only [epsRot, s0, s1, s2, s3, s4, s5, s6, e0, e1, e2, e3, e4, e5, e6, det]
+    norm_num
+
+/-! ## Row bundles -/
+
+/-- CV def:rot (d1_setup.tex:726–765), the polygon part, clause by clause. The paragraph
+"Direction loops and smooth curves" (767–785) is SM cf:def-turning (decision F6) and is not
+rendered here. -/
+structure RotDefinitionData : Prop where
+  /-- "Let `L` be a closed polygon through corner points `q_0,…,q_{c−1}`, lying in the regular locus
+  `𝓡_c` of Definition def:regular (B) — nonzero edges, no consecutive pair doubling back" (727–729). -/
+  regular_locus : ∀ (c : ℕ) (L : LabelledTuple c), L ∈ regularLocus c ↔
+    (∀ i, edge L i ≠ 0) ∧ ∀ i (l : ℝ), 0 < l → edge L (i + 1) ≠ (-l) • edge L i
+  /-- "equivalently, every principal turn of Definition def:regular (A) exists" (729–730). -/
+  turns_exist : ∀ (c : ℕ) (L : LabelledTuple c), Regular L ↔ ∀ i, ∃! τ, PrincipalTurnSpec L i τ
+  /-- "and put `δ_i = q_{i+1} − q_i`" (730–731). -/
+  edge_direction : ∀ (c : ℕ) (L : LabelledTuple c) (i : ZMod c), edge L i = L (i + 1) - L i
+  /-- "Choose `r ∈ ℝ²` with `det(r,δ_i) ≠ 0` for all `i`" (731–732). -/
+  admissible : ∀ (c : ℕ) (L : LabelledTuple c) (r : Plane), Admissible L r ↔ ∀ i, det r (edge L i) ≠ 0
+  /-- "such `r` exists because the `δ_i` are finitely many" (732). -/
+  exists_admissible : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c), IsPolygon L → ∃ r, Admissible L r
+  /-- "Then `rot(L) = Σ_i ε_i`" (732–734), at any admissible `r`. -/
+  rot_formula : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L) (r : Plane),
+    Admissible L r → rot L hL = ∑ i, epsRot L r i
+  /-- The three cases of `ε_i` (735–739). -/
+  eps_cases : ∀ (c : ℕ) (L : LabelledTuple c) (r : Plane) (i : ZMod c),
+    epsRot L r i =
+      if 0 < det (edge L (i - 1)) (edge L i) ∧ 0 < det (edge L (i - 1)) r ∧ 0 < det r (edge L i)
+        then 1
+      else if det (edge L (i - 1)) (edge L i) < 0 ∧ det (edge L (i - 1)) r < 0 ∧
+          det r (edge L i) < 0 then -1
+      else 0
+  /-- "All comparisons are exact sign tests of determinants: no angles and no tolerances occur"
+  (741–742): `ε_i` is a function of the three determinant signs alone. -/
+  sign_tests : ∀ (c : ℕ) (L : LabelledTuple c) (r : Plane) (i : ZMod c),
+    epsRot L r i = epsOfSigns (SignType.sign (det (edge L (i - 1)) (edge L i)))
+      (SignType.sign (det (edge L (i - 1)) r)) (SignType.sign (det r (edge L i)))
+  /-- "The sum is independent of the admissible `r`, and regularity is what makes it so" (744–745). -/
+  independent : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c), Regular L →
+    ∀ r r' : Plane, Admissible L r → Admissible L r' → rotRay L r = rotRay L r'
+  /-- "a vanishing turn is harmless … if `δ_i = λ δ_{i−1}` with `λ > 0` then `det(δ_{i−1},δ_i) = 0`,
+  so `ε_i = 0` for every `r`" (745–748). -/
+  flat_corner : ∀ (c : ℕ) (L : LabelledTuple c) (r : Plane) (i : ZMod c),
+    (∃ l : ℝ, 0 < l ∧ edge L i = l • edge L (i - 1)) → epsRot L r i = 0
+  /-- "Regularity is not decoration: the polygon `((−7,4),(−9,6),(9,−9),(3,3),(9,−9),(−7,−7),(−7,−6))`,
+  whose consecutive pair `(−6,12),(6,−12)` doubles back, returns both `−1` and `0` at admissible rays"
+  (762–765): the rays `(−1,0)` and `(1,0)`. -/
+  regularity_not_decoration :
+    (edge doublingBackExample 2 = (-6, 12) ∧ edge doublingBackExample 3 = (6, -12)) ∧
+    ¬ Regular doublingBackExample ∧
+    Admissible doublingBackExample (-1, 0) ∧ Admissible doublingBackExample (1, 0) ∧
+    rotRay doublingBackExample (-1, 0) = -1 ∧ rotRay doublingBackExample (1, 0) = 0
+  /-- "For either a polygon or a `C¹` regular closed curve put `R(L) = |rot(L)|`" (784–785), the
+  polygon case. -/
+  abs : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L), (rotAbs L hL : ℤ) = |rot L hL|
+
+theorem rot_definition : RotDefinitionData where
+  regular_locus := fun _ _ => Iff.rfl
+  turns_exist := fun _ L => regular_iff_principalTurns L
+  edge_direction := fun _ _ _ => rfl
+  admissible := fun _ _ _ => Iff.rfl
+  exists_admissible := fun _ _ _ hL => exists_admissible hL
+  rot_formula := fun _ _ _ hL _ hr => rot_eq_rotRay hL hr
+  eps_cases := fun _ _ _ _ => rfl
+  sign_tests := fun _ L r i => epsRot_eq_epsOfSigns L r i
+  independent := fun _ _ _ hL _ _ hr hr' => rotRay_indep hL hr hr'
+  flat_corner := fun _ L r i h => epsRot_eq_zero_of_flat L r i h
+  regularity_not_decoration :=
+    ⟨⟨doublingBackExample_edges.2.2.1, doublingBackExample_edges.2.2.2.1⟩,
+      doublingBackExample_not_regular, doublingBackExample_admissible.1,
+      doublingBackExample_admissible.2, doublingBackExample_rotRay.1, doublingBackExample_rotRay.2⟩
+  abs := fun _ _ L hL => rotAbs_cast L hL
+
+/-- CV lem:turnlift (ii) (d1_setup.tex:798–805), clause by clause; "Here `rot` is as in Definition
+def:rot" (790). -/
+structure TurnliftIIData : Prop where
+  /-- "If `L ∈ 𝓡_c` has principal turns `τ_i`, then `2π rot(L) = Σ_i τ_i`" (798–801). -/
+  identity : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L),
+    (2 * Real.pi) * (rot L hL : ℝ) = ∑ i, principalTurn L i
+  /-- The same identity for the ray formula at every admissible `r` (the content of the printed proof,
+  865–874). -/
+  identity_ray : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c), Regular L → ∀ r : Plane,
+    Admissible L r → (2 * Real.pi) * (rotRay L r : ℝ) = ∑ i, principalTurn L i
+  /-- The corner identity of the printed proof, `τ_i = β_i − β_{i−1} + 2π ε_i` (868–873), with
+  `β_i − ρ = rayAngle L r i ∈ (0, 2π)`. -/
+  corner_identity : ∀ (c : ℕ) (L : LabelledTuple c), Regular L → ∀ r : Plane, Admissible L r →
+    ∀ i, principalTurn L i = rayAngle L r i - rayAngle L r (i - 1) + 2 * Real.pi * epsRot L r i
+  /-- Hence `rot(L)` is SM's rotation number `Σ τ_i / 2π` (SM lem:rot), as a theorem. -/
+  eq_rotationNumber : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L),
+    (rot L hL : ℝ) = rotationNumber L
+  /-- "Consequently rotation is constant along every path in `𝓡_c`" (802; proof 876–877). -/
+  constant_along_paths : ∀ (c : ℕ) [NeZero c] (L Q : LabelledTuple c) (γ : Path L Q)
+    (hγ : ∀ u, Regular (γ u)) (s t : unitInterval), rot (γ s) (hγ s) = rot (γ t) (hγ t)
+  /-- "is unchanged by a positive flat subdivision" (802–803; proof 877–878): inserting the point `q_i + t δ_i`,
+  `0 < t < 1`, keeps the polygon regular and its rotation. -/
+  flat_subdivision : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+    (i : ZMod c) (t : ℝ), 0 < t → t < 1 →
+      Regular (insertVertex L i t) ∧ ∀ h', rot (insertVertex L i t) h' = rot L hL
+  /-- "and is negated by orientation reversal" (803–804; proof 878–879). -/
+  reversal : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L),
+    Regular (SM.reversal L) ∧ ∀ h', rot (SM.reversal L) h' = -rot L hL
+  /-- "Every regular three-corner polygon has rotation `+1` or `−1` according to the common sign of
+  its three turns" (804–805; proof 881–887). -/
+  triangle : ∀ (L : LabelledTuple 3) (hL : Regular L),
+    (∀ i : ZMod 3, rot L hL = ((turn L i : SignType) : ℤ)) ∧ (rot L hL = 1 ∨ rot L hL = -1)
+
+theorem turnlift_ii_data : TurnliftIIData where
+  identity := fun _ _ L hL => two_pi_mul_rot L hL
+  identity_ray := fun _ _ L hL r hr => turnlift_ii L hL r hr
+  corner_identity := fun _ _ hL _ hr i => principalTurn_eq_rayAngle_sub hL hr i
+  eq_rotationNumber := fun _ _ _ hL => rot_eq_rotationNumber hL
+  constant_along_paths := fun _ _ _ _ γ hγ s t => rot_path_constant γ hγ s t
+  flat_subdivision := fun _ _ _ hL i _ ht0 ht1 =>
+    ⟨regular_insertVertex' hL i ht0 ht1, fun h' => rot_insertVertex hL i ht0 ht1 h'⟩
+  reversal := fun _ _ _ hL => ⟨regular_reversal' hL, fun h' => rot_reversal hL h'⟩
+  triangle := fun L hL => rot_triangle L hL
+
+end CV
+
+#print axioms CV.rot_definition
+#print axioms CV.turnlift_ii
+#print axioms CV.turnlift_ii_data

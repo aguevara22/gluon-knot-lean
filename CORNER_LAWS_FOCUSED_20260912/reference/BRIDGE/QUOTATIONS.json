@@ -1,0 +1,600 @@
+{
+  "schema": "r-bridge-quotes-v1",
+  "frames": {
+    "SM11": "phase25/frames/SM11",
+    "CV": "phase199/manuscript/frames/CV",
+    "RA": "phase1999/evidence/codex/w8_ra_frame_v1/RA"
+  },
+  "quotes": [
+    {
+      "id": "SM_HYP",
+      "frame": "SM11",
+      "file": "sm-4-knotlaws.tex",
+      "start_line": 1149,
+      "end_line": 1151,
+      "source_sha256": "146ce4e08fa66c72f11a6c0834144fe3dfe14981d8f567819d6951eb54c81efd",
+      "quote_sha256": "58c0b3811763d8192e99a9038330c1e7e73305f4d978a205948c01da9e51a50e",
+      "text": "\\begin{hypothesis}[R]\\label{hyp:R}\nAt every simple triple wall, $C(P_+)=C(P_-)$. \\status{hyp}\n\\end{hypothesis}\n"
+    },
+    {
+      "id": "CV_R",
+      "frame": "CV",
+      "file": "d10_axioms.tex",
+      "start_line": 18,
+      "end_line": 24,
+      "source_sha256": "4c809a6e00e27ad35f758f4ad31dc7fa0fc89dedf0c91725a9ef40960934eced",
+      "quote_sha256": "08cbfddd30a4a0e814a0d7888e05d513a32785037f1c91ed7e9117909a20182d",
+      "text": "\\begin{axiom}[Hypothesis R for $X_1$]\\label{ax:R}\n$X_1(P_+)=X_1(P_-)$ across every simple Reidemeister III event, i.e.\\ every\nevent whose zero set is the forced bundle\n$Z=\\{\\mathrm{G3}_{e,f,g},\\mathrm{G4}_{e;f,g},\\mathrm{G4}_{f;e,g},\n\\mathrm{G4}_{g;e,f}\\}$ for three pairwise remote edges with\n$1\\leq e<f<g\\leq n$, concurrent at $t=0$ at a point interior to all three, the\nevent being transversal in the sense of Definition~\\ref{def:event}.\n"
+    },
+    {
+      "id": "RA_LOCAL",
+      "frame": "RA",
+      "file": "R_ATTACHMENT_WARRANTS.md",
+      "start_line": 16,
+      "end_line": 29,
+      "source_sha256": "af36d99b6162ebf1ecfaa1f8b9ca54a7df6cc184a07a669f958509a0e21ef364",
+      "quote_sha256": "54f61ad35017bac6cf6b4413db8af25cc316fea6bdd64591ab9365c8a45a4696",
+      "text": "Let $t\\mapsto P(t)$ be a simple transversal Reidemeister-III event with zero set\nexactly the forced bundle\n$Z=\\{\\mathrm{G3}_{e,f,g},\\mathrm{G4}_{e;f,g},\\mathrm{G4}_{f;e,g},\n\\mathrm{G4}_{g;e,f}\\}$, $e<f<g$ pairwise remote and concurrent at $t=0$ at a\npoint interior to all three. Let $T=\\{x_{ef},x_{eg},x_{fg}\\}$. Then on a\npunctured neighbourhood of $t=0$:\n\n1. the crossing set, indexed by carrying edge pairs, is constant;\n2. on each of $e,f,g$ the two crossings of $T$ carried by that edge occupy\n   adjacent crossing-visits of the traversal circle, and their order along that\n   edge is opposite on the two sides;\n3. every other pair of crossings keeps its order along every edge;\n4. hence $G^{+}=G^{-}\\ \\triangle\\ \\binom{T}{2}$: the three internal pairs of $T$\n   toggle and no other pair changes.\n"
+    },
+    {
+      "id": "SM_MAP",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 13,
+      "end_line": 17,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "6097b89daf082350088bc7d6aaba771780ca76ac3fa3caff86535832543bb9a5",
+      "text": "(Lemma~\\ref{lem:gates-nonzero}). For $n\\geq3$ indices of vertices and edges\nare elements of $\\ZZ/n$; $i+1$, $i-1$ are read modulo $n$. The main text\nwrites $[u,v]=u_2v_1-u_1v_2=-\\det(u,v)$; this document uses $\\det$ only.\nThe frozen source CV uses one-based tail labels: its edge $e_i$ runs\nfrom $p_i$ to $p_{i+1}$, so $p_i=\\mu_i$ requires no index shift.\n"
+    },
+    {
+      "id": "SM_OBJECT",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 27,
+      "end_line": 51,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "d19d0f632c7ca60ea623e9ef065830c2046135150cce05b65f6b6b2a285cbcf1",
+      "text": "\\begin{definition}[labelled tuples and polygons]\\label{def:polygon}\nLet $n\\geq3$. A \\emph{labelled tuple} is an element\n$P=(\\mu_1,\\ldots,\\mu_n)\\in(\\RR^2)^n$, indices in $\\ZZ/n$ with $\\mu_{n+1}=\\mu_1$. The\n\\emph{cyclic shift} is $(\\sigma P)_i=\\mu_{i+1}$. A \\emph{polygon} on $n$\nvertices is an orbit $[P]=\\{\\sigma^kP:k\\in\\ZZ/n\\}$ of labelled tuples; a\nlabelled tuple in the orbit is a \\emph{representative}, and the space of\npolygons is the quotient $(\\RR^2)^n/(\\ZZ/n)$. Every notion below is\nintroduced on a representative and is invariant under $\\sigma$ (up to the\ninduced relabelling of indices, which is recorded where it matters); it\ntherefore defines a notion on polygons. A polygon has no distinguished vertex\nand no distinguished edge; when a construction needs one (a root, a base\nvertex), that choice is part of the construction's data.\n\nFor a representative, the \\emph{edge vectors} are\n\\[\n\\lt_i=\\mu_{i+1}-\\mu_i\\qquad(i\\in\\ZZ/n),\n\\]\nso that $\\sum_i\\lt_i=0$, and the \\emph{edge segments} are\n$E_i=[\\mu_i,\\mu_{i+1}]=\\{\\mu_i+t\\lt_i:0\\leq t\\leq1\\}$. Vertex $i$ is\n\\emph{incident} to $E_{i-1}$ and $E_i$. Two edges $E_i,E_j$ are\n\\emph{adjacent} if $j-i\\in\\{-1,0,1\\}$ and \\emph{remote} otherwise; an edge\n$E_j$ is \\emph{remote to the vertex} $i$ if $j\\notin\\{i-1,i\\}$, and\n\\emph{remote to the vertex and its two edges} if $j\\notin\\{i-2,i-1,i,i+1\\}$.\nNo condition is imposed on the tuple by this definition; in particular\ncoincident vertices and zero edges are allowed at this level.\n"
+    },
+    {
+      "id": "SM_GENERIC",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 99,
+      "end_line": 108,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "ce6330dde8ebf1dc64e7fe18ffbd2053c8a1f373d37dc03a5c163020acb49df0",
+      "text": "\\begin{definition}[generic polygon]\\label{def:generic}\nA polygon $P$ is \\emph{generic} if\n\\begin{enumerate}\n\\item[(G1)] $\\chi_{ijk}(P)\\neq0$ for all pairwise distinct $i,j,k\\in\\ZZ/n$;\n\\item[(G2)] there is no point of $\\RR^2$ lying in the relative interiors of\nthree distinct edge segments.\n\\end{enumerate}\nThe set of generic polygons on $n$ vertices is $\\mathcal U_n\\subseteq(\\RR^2)^n$.\n\\end{definition}\n\n"
+    },
+    {
+      "id": "SM_G1",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 110,
+      "end_line": 123,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "451cfb4abaf73e40ba936f88f5206b193c1c0906356afc6a3ec2ebd6cb6f95d8",
+      "text": "Let $P$ satisfy (G1). Then:\n\\begin{enumerate}\n\\item[(i)] all vertices are distinct and every edge vector is nonzero;\n\\item[(ii)] every turn $\\tau_i$ is $\\pm1$; consecutive edge vectors are\nlinearly independent, so no vertex is a positive or negative multiple\n(``flat'' or ``kink'') of its neighbours;\n\\item[(iii)] no vertex lies on the line spanned by an edge not incident to it;\nin particular no vertex lies on a non-incident closed edge segment;\n\\item[(iv)] two adjacent edges meet exactly in their common vertex;\n\\item[(v)] two remote edges are either disjoint or meet in exactly one point,\nwhich lies in the relative interior of both and at which the two edge\ndirections are linearly independent.\n\\end{enumerate}\n\\status{proved}\n"
+    },
+    {
+      "id": "SM_GERM",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 653,
+      "end_line": 668,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "1ffedf8e437dd9a905e7fa5f1cc03391b405b6e79cb41bcac9ebaa8372a179ba",
+      "text": "\\begin{definition}[wall germ; sides]\\label{def:germ}\nA \\emph{wall germ} is a continuous map $P\\colon(-\\varepsilon,\\varepsilon)\\to\n(\\RR^2)^n$ such that $P(t)\\in\\mathcal U_n$ for $t\\neq0$ and $P(0)\\notin\n\\mathcal U_n$. Its \\emph{sides} $P_-$ and $P_+$ are the chambers containing\n$P((-\\varepsilon,0))$ and $P((0,\\varepsilon))$; each of these two sets is\nconnected and generic, hence lies in one chamber. For a function $F$ that is\nconstant on chambers, $F(P_\\pm)$ denotes its value on the respective side.\nAt the centre $P(0)$ put\n\\begin{align*}\nZ_{\\rm pt}&=\\bigl\\{\\{i,j,k\\}\\text{ pairwise distinct}:\\chi_{ijk}(P(0))=0\\bigr\\},\\\\\nZ_{\\rm c}&=\\bigl\\{\\{e,f,g\\}\\text{ pairwise remote}:\n\\operatorname{relint}E_e\\cap\\operatorname{relint}E_f\\cap\\operatorname{relint}E_g\\neq\\varnothing\\text{ at }t=0\\bigr\\}.\n\\end{align*}\nA real function $\\phi$ of the germ \\emph{changes sign at $0$} if there is\n$\\delta>0$ with $\\phi(P(t))\\phi(P(-t))<0$ for $0<t<\\delta$.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_TRIPLE",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 735,
+      "end_line": 738,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "e82358caf4130a75c4e2362128832ebb4b6e1429c092a6a202e1366111001339",
+      "text": "\\item[(T)] \\emph{Triple at $\\{e,f,g\\}$}: $Z_{\\rm pt}=\\varnothing$,\n$Z_{\\rm c}=\\{\\{e,f,g\\}\\}$, and on each of the three edges the two crossing\nparameters of the other two edges (which exist on both sides by\nLemma~\\ref{lem:triple-sides}) have a difference that changes sign at $0$.\n"
+    },
+    {
+      "id": "SM_TRIPLE_SIDES",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 670,
+      "end_line": 675,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "2167c8099c717dc9106e69f1b7d6393d5574b8b363bb06d7a05c74b52cac61c3",
+      "text": "\\begin{lemma}[sides of a triple wall]\\label{lem:triple-sides}\nLet a wall germ have $Z_{\\rm pt}=\\varnothing$ and\n$Z_{\\rm c}=\\{\\{e,f,g\\}\\}$. Then for small $t\\neq0$ the three pairs\n$\\{e,f\\},\\{e,g\\},\\{f,g\\}$ are crossings, their three crossing points\nare distinct, and on each of $E_e,E_f,E_g$ its two crossings occupy adjacent\npositions among the crossing visits on that edge.\n"
+    },
+    {
+      "id": "CV_OBJECT",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 8,
+      "end_line": 19,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "a2175107fe07e29481922115d579957107af5aeff7b8af74d92f85d3e2efdce3",
+      "text": "\\begin{definition}[polygon]\\label{def:polygon}\nLet $n\\geq3$. A \\emph{polygon} on $n$ vertices is a tuple\n$P=(p_1,\\dots,p_n)\\in(\\mathbb{R}^2)^n$ with $p_{i+1}\\neq p_i$ for every $i$,\nindices read cyclically modulo $n$ throughout. Its \\emph{edges} are the closed\nsegments $e_i=[p_i,p_{i+1}]$ and its \\emph{edge directions} are\n$d_i=p_{i+1}-p_i\\in\\mathbb{R}^2\\setminus\\{0\\}$. Two edges are \\emph{consecutive}\nif their index sets meet, and \\emph{remote} otherwise. An edge is \\emph{remote\nto a vertex} $p_M$ when it is remote to both edges incident to $M$ --- the\nstronger of the two possible readings, and the one every consumer of the phrase\nuses: it excludes an edge that merely avoids $p_M$ while sharing a vertex with\none of its edges. We write\n$\\det(u,v)=u_1v_2-u_2v_1$.\n"
+    },
+    {
+      "id": "CV_UNCONDITIONAL",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 42,
+      "end_line": 55,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "7c73a7274cc1409cb900009c6b2f874dbfe416f292b30c16bc6c52d96af125bd",
+      "text": "\\begin{definition}[the guarded list $\\mathcal G$]\\label{def:guarded}\nFix $n$. The \\emph{guarded list} is a finite family of real polynomial functions\non $(\\mathbb R^2)^n$, indexed once and for all by combinatorial data that does\nnot depend on the configuration. Write $d_i=p_{i+1}-p_i$ and, for an edge index\n$e$, write $\\ell_e(x)=\\det(d_e,\\,x-p_e)$ for the affine form vanishing on the\nline of $e$, with coefficient row\n$\\bigl(A_e,B_e,C_e\\bigr)=\\bigl(-d_{e,2},\\;d_{e,1},\\;d_{e,2}p_{e,1}-d_{e,1}p_{e,2}\\bigr)$,\nso that $\\ell_e(x)=A_ex_1+B_ex_2+C_e$.\n\n\\emph{Unconditional members.}\n\\begin{enumerate}\n\\item[(G1)] $\\mathrm{G1}_i=\\det(d_{i-1},d_i)$, for every $i\\in\\{1,\\dots,n\\}$.\n\\item[(G2)] $\\mathrm{G2}_{e,i}=\\ell_e(p_i)=\\det(d_e,\\,p_i-p_e)$, for every edge\nindex $e$ and every $i\\notin\\{e,e+1\\}$.\n"
+    },
+    {
+      "id": "CV_ACTIVATION",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 58,
+      "end_line": 64,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "09ca59ef0a7dcd71db39c858cf7ad9f83d6daac2b74913a3aad580dd550645c0",
+      "text": "\\emph{Activation.} Two remote edges $e,f$ are \\emph{defined} to cross when\n\\[\n   \\mathrm{G2}_{e,f}\\,\\mathrm{G2}_{e,f+1}<0\n   \\quad\\text{and}\\quad\n   \\mathrm{G2}_{f,e}\\,\\mathrm{G2}_{f,e+1}<0 ,\n\\]\na condition on unconditional members alone. The products are \\emph{strict}, and\n"
+    },
+    {
+      "id": "CV_G5",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 99,
+      "end_line": 114,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "e5df462a45fd397d08e37f5a11dac160a81aa0b202beff83e85e5fcaae2118d7",
+      "text": "\\emph{Conditional members.}\n\\begin{enumerate}\n\\item[(G5)] $\\mathrm{G5}_{e,f}=\\det(d_e,d_f)$, for every pair of remote edge\nindices with $1\\leq e<f\\leq n$ as integers --- the comparison is between the\ninteger representatives $1,\\dots,n$ of the edge indices and not a cyclic\ncomparison, there being no such thing; adjacency and remoteness continue to be\nread modulo $n$. This fixes one \\emph{ordered representative} per pair, and an\nunordered pair will not do, because\n$\\det(d_f,d_e)=-\\det(d_e,d_f)$ and the family is used where signs are read, in\nthe sign-change condition that defines a transversal event below; \\emph{active} when $e$\nand $f$ cross. Making it\nconditional rather than unconditional is a fidelity point: the specification\nguards the turn at a smoothing site, and a smoothing site exists only where two\nedges cross. Demanding $\\det(d_e,d_f)\\neq0$ for a pair that does not cross\nwould shrink the generic locus below the specification's and exclude polygons\nthe laws are stated about.\n"
+    },
+    {
+      "id": "CV_G3",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 115,
+      "end_line": 127,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "8590a297d277c406100b4bf18865f64a07145a2dd041d4eae8b94a88e49b59c1",
+      "text": "\\item[(G3)] $\\mathrm{G3}_{e,f,g}=\\det\\begin{pmatrix}A_e&B_e&C_e\\\\\nA_f&B_f&C_f\\\\ A_g&B_g&C_g\\end{pmatrix}$, the rows being the line-coefficient\nrows bound at the head of this definition, one for each of $e$, $f$ and $g$;\nfor every triple of pairwise remote edges $1\\leq e<f<g\\leq n$, ordered by their\ninteger representatives; \\emph{active} when $e,f,g$ pairwise cross. It vanishes exactly when the\nthree lines share a point of the projective plane: either they are concurrent in\nthe plane, or all three are parallel. A parallel \\emph{pair} with a transverse\nthird does \\emph{not} make it vanish --- an earlier revision said it did, and the\nconfiguration $p_0=(0,0)$, $p_1=(1,0)$, $p_2=(0,1)$, $p_3=(1,1)$, $p_4=(2,-1)$,\n$p_5=(2,2)$ refutes it, the rows of $e_0,e_2,e_4$ being $(0,1,0)$, $(0,1,-1)$\nand $(-3,0,6)$ with determinant $3$. On the active domain the three edges\npairwise cross, so no two of the lines are parallel and the vanishing is exactly\na concurrence at a finite point, which is what every consumer reads.\n"
+    },
+    {
+      "id": "CV_G4",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 128,
+      "end_line": 134,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "9f16f70090648dc3a21eee258a07012fac808dbb5490c1de14edcdf0b8123eb7",
+      "text": "\\item[(G4)] $\\mathrm{G4}_{e;f,g}\n=\\det(d_f,\\,p_f-p_e)\\,\\det(d_g,d_e)-\\det(d_g,\\,p_g-p_e)\\,\\det(d_f,d_e)$,\nfor every edge $e$ and every pair of edges remote to $e$ with\n$1\\leq f<g\\leq n$ as integers --- again the comparison is between integer\nrepresentatives, and again one ordered representative per pair, since\n$\\mathrm{G4}_{e;g,f}=-\\mathrm{G4}_{e;f,g}$; \\emph{active} when $f$ and $g$ both\ncross $e$.\n"
+    },
+    {
+      "id": "CV_GENERIC",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 220,
+      "end_line": 237,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "df5234b55c4782f8f811467f956ea32dace3b5f28d505f32108d78c1f18c6e6d",
+      "text": "\\begin{definition}[relevant members, generic polygons and chambers]\\label{def:generic}\n\\begin{enumerate}\n\\item[(A)] A member of $\\mathcal G$ is \\emph{relevant} at a polygon $P$ if it is\nunconditional, or if it is conditional and active at $P$\n(Definition~\\ref{def:guarded}). A polygon $P$\n(Definition~\\ref{def:polygon}) is \\emph{generic} if every member relevant at\n$P$ is nonzero at $P$; equivalently, if every unconditional member of\n$\\mathcal G$ is nonzero at $P$ and every conditional member that is active at\n$P$ is nonzero at $P$. We write $\\mathcal U_n$ for the set of generic polygons\non $n$ vertices.\n\n\\item[(B)] A \\emph{chamber} is a connected component of the set $\\mathcal U_n$ of generic\npolygons on $n$ vertices (clause~(A)). It is \\emph{not} in\ngeneral a component of the set where every member of $\\mathcal G$ is nonzero:\na conditional member that is inactive may vanish, or vanish identically, at a\nperfectly generic polygon, and nothing in this document asks it not to.\n\\end{enumerate}\n\\end{definition}\n"
+    },
+    {
+      "id": "CV_EVENT",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 1072,
+      "end_line": 1086,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "2cbaa5cf8a72a24197cb5722026fa0aa0f60ffc4af74fc5b4280a2cd0f7fdee7",
+      "text": "\\begin{definition}[event, and its zero set]\\label{def:event}\nAn \\emph{event} is a continuous path $t\\mapsto P(t)$ of polygons on $n$\nvertices, $t\\in(-\\varepsilon,\\varepsilon)$, such that $P(t)$ is generic for\nevery $t\\neq0$ and $P(0)$ is not. Its \\emph{zero set} is\n\\[\n   Z=\\bigl\\{g\\in\\mathcal G:\\ g(P(0))=0\\ \\text{ and }\\ g\\ \\text{is relevant at }\n   P(t)\\ \\text{for some }t\\neq0\\bigr\\}.\n\\]\nThe \\emph{two chambers of the event} are the chambers containing\n$P\\bigl((-\\varepsilon,0)\\bigr)$ and $P\\bigl((0,\\varepsilon)\\bigr)$; each of\nthose two sets is connected and consists of generic polygons, so each does lie\nin one chamber. We say the event is \\emph{guarded relative\nto $Z$}, and every appeal to simplicity below names its $Z$.\n\nThe event is \\emph{transversal} if every member of $Z$ changes sign at $t=0$.\n"
+    },
+    {
+      "id": "CV_INDEX",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 168,
+      "end_line": 179,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "71a818bf79b7922812d7e7ee57fae1f127bc4799fc0dfc9d62907111c10f87b7",
+      "text": "The two are used in different places and the distinction is not cosmetic.\nEvery set of guarded predicates formed below --- in particular the zero set of\nan event, defined later in this section --- is a set of \\emph{members} of\n$\\mathcal G$, and membership there is by \\emph{index}: the element is\n$\\mathrm{G4}\\langle e;f,g\\rangle$, the member indexed by the ordered\nrepresentative pair, and not the oriented value, which when $\\epsilon=-1$ is\nthat member's negative and is indexed by nothing. The distinction is one of\nindexing and not of polynomials, and the difference matters: as polynomials a\nnegated member can coincide with another member, since for three pairwise\nremote edges $\\mathrm{G4}_{e;f,g}=-\\mathrm{G3}_{e,f,g}$ --- an identity of\npolynomials, proved in the dictionary section where the canonical factors are\nanalysed --- so $-\\mathrm{G4}_{e;f,g}$ is the polynomial $\\mathrm{G3}_{e,f,g}$,\n"
+    },
+    {
+      "id": "CV_PARAMETERS",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 198,
+      "end_line": 207,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "b910a9ca455d9e96cbb0beae14c2956431302929d1f5ac6f93b1eb90faac6ea3",
+      "text": "$\\det(d_f,d_e)$ and $\\det(d_g,d_e)$ are nonzero, the crossing of $e$ with $f$\nsits at the parameter $t_f=\\det(d_f,p_f-p_e)/\\det(d_f,d_e)$ along $e$, and, for\nthe ordered representative pair $\\bar f<\\bar g$ that indexes the member,\n\\[\n   \\mathrm{G4}_{e;\\bar f,\\bar g}\n      =(t_{\\bar f}-t_{\\bar g})\\det(d_{\\bar f},d_e)\\det(d_{\\bar g},d_e),\n\\]\nso its vanishing is exactly a tie $t_{\\bar f}=t_{\\bar g}$ in the order of\ncrossings along $e$. Presented in the other order the same identity holds for the oriented value,\nboth sides changing sign. Two kinds of consumer read this display, and they read\n"
+    },
+    {
+      "id": "CV_IDENTITIES",
+      "frame": "CV",
+      "file": "d8a_dictionary.tex",
+      "start_line": 429,
+      "end_line": 435,
+      "source_sha256": "6f554465f82a910faf5818581f7fbca506f5ec4286adae3b16226b4b83e897a4",
+      "quote_sha256": "daf54a5e4c41719b39c19192782114c31d3623d48087fe911ef288a43cb7d411",
+      "text": "For three pairwise remote edges, the concurrency determinant and the three\norder predicates satisfy, for a fixed ordering,\n\\[\n \\mathrm{G4}_{e;f,g}=-\\mathrm{G3}_{e,f,g},\\qquad\n \\mathrm{G4}_{f;e,g}=+\\mathrm{G3}_{e,f,g},\\qquad\n \\mathrm{G4}_{g;e,f}=-\\mathrm{G3}_{e,f,g}.\n\\]\n"
+    },
+    {
+      "id": "SM_LEGEND",
+      "frame": "SM11",
+      "file": "sm-0-legend.tex",
+      "start_line": 56,
+      "end_line": 65,
+      "source_sha256": "f6a831033cf573fa60445fb87167bff6a483f9e427a1764fbc2161dc234bac06",
+      "quote_sha256": "a57cf5b60809abb2dc6423fe52f31995a13058ccda010fa2c49c6dcd04fd79b1",
+      "text": "{\\raggedright\n\\paragraph{Frozen sources.} The transcription sources are CV,\n\\path{phase199/manuscript/frames/CV/}; RC,\n\\path{phase198/manuscript/RC_v4/}; and RA,\n\\path{phase1999/evidence/codex/w8_ra_frame_v1/RA/}.\nThe appendix source is the curator-posted read-only copy of appendix v7.\nLocators name labels in those documents. CV uses the same one-based tail\nlabels as this document. RC uses zero-based head labels and\n$[u,v]_*=-\\det(u,v)$; its physical endpoint map is stated in\nSection~\\ref{sec:conventions}. No starred bracket is used here.\\par}\n"
+    },
+    {
+      "id": "SM_C",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1688,
+      "end_line": 1700,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "5600f2e93e417dff298b5593ef55c3ac3c0cfee21b1987da3cf8c5214c1d9ec5",
+      "text": "\\begin{definition}[corner coefficient and the state sum]\\label{def:C}\nFor a subpolygon $Q$ of a decomposition of the generic polygon $P$, let\n$H^+_Q$ be the HOMFLY--PT polynomial of its positive lift and put\n\\[\nd_Q=1-m_Q-|r_Q|,\\qquad c(Q)=\\bigl[a^{d_Q}z^0\\bigr]H^+_Q(a,z)\\in\\ZZ,\n\\]\nthe coefficient of $a^{d_Q}z^0$ (zero if that monomial is absent). The\n\\emph{corner state sum} of $P$ is\n\\[\nC(P)=(-1)^{\\ell(P)}\\sum_{\\substack{S\\in\\Ind(G_P)\\\\ S\\text{ uniform}}}\n(-1)^{|S|}\\prod_{Q\\text{ subpolygon of }S}c(Q).\n\\]\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_SELECTOR",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1787,
+      "end_line": 1796,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "230faeb00bf38484e9b4e5b7b85cc3c04f17ff4ee582fb737ab5f45352a0c945",
+      "text": "\\begin{lemma}[selector form of the carrier state sum]\\label{lem:C-X1}\nFor a carrier $L$ of an independent support $S$, let $k(L)$ be its number\nof corners. Put $\\mathrm{wt}(L)=1$ if all its turns are right,\n$(-1)^{k(L)}$ if all are left, and $0$ if its turns are mixed.\nSet $\\operatorname{wind}(S)=\\prod_L\\mathrm{wt}(L)$. Then\n\\begin{equation}\\label{eq:C-selector-form}\nC(P)=\\sum_{S\\in\\Ind(G_P)}\\operatorname{wind}(S)\\prod_L c(L),\n\\end{equation}\nwhere $c(L)$ remains the coefficient of the actual positive carrier lift\nin Definition~\\ref{def:C}.\n"
+    },
+    {
+      "id": "SM_WARNING",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1812,
+      "end_line": 1820,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "7c23de1ad5b99b0a12ef8c132b825f03a3c9a98a142b2467920f2a02a58348ae",
+      "text": "\\begin{remark}[well-definedness]\nThe positive lift of a subpolygon is an honest knot diagram on an actual\nclosed plane curve (Lemma~\\ref{lem:carriers}); no realization of an abstract\nGauss word is involved, and Literature input~\\ref{lit:homfly} is consumed\nonly on such diagrams. The selector lemma is an identity for this\ndefinition. It asserts no equivalence with a residual-piece polynomial\nconstruction in a frozen source; any use of such an equivalence would\nrequire a separate printed factorization proof.\n\\end{remark}\n"
+    },
+    {
+      "id": "CV_X1",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 908,
+      "end_line": 930,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "02780e645f835df85550797520e2daa03c630d6a09348c77eb6198d8ff05ec79",
+      "text": "\\begin{definition}[the slot, the factor, and $X_1$]\\label{def:X1}\nLet $P$ be generic and $S\\in\\Ind(G_P)$. For a carrier $L$ of $S$ set\n\\[\n  P_{S,L}=\\prod_{H\\text{ carried by }L}P_H,\\qquad\n  w_{S,L}=\\sum_{H\\text{ carried by }L}w(H),\n\\]\nthe products and sums taken over the residual pieces assigned to $L$ by\nLemma~\\ref{lem:carriers}(iv), with the empty product $P_{S,L}=1$ and the empty\nsum $w_{S,L}=0$ when no piece is carried by $L$. Here $P_H$ is the HOMFLY--PT\npolynomial of the link that the piece $H$ presents, in the normalization of\nDefinition~\\ref{def:homfly}; that such a polynomial exists at all is\nAxiom~\\ref{ax:homfly}, and this definition is where it is first read. The \\emph{slot} of $L$ is the\ninteger $1-w_{S,L}-R(L)$, the \\emph{factor} is\n\\[\n   \\Omega_1(S,L)=\\bigl[a^{\\,1-w_{S,L}-R(L)}z^{0}\\bigr]P_{S,L}(a,z)\n\\]\n--- the coefficient itself, taken as a value, with no sign gate and no\nzero-gate applied --- and\n\\[\n   X_1(P)\\;=\\;\\sum_{S\\in\\Ind(G_P)}\\wind(S)\\prod_{L}\\Omega_1(S,L),\n\\]\nthe inner product running over the $|S|+1$ carriers of $S$.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_GAUSS",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 237,
+      "end_line": 255,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "ef776bcefb1611adcb71245dadf9f12f24088bb297f9bcf3c21ed08f971cf04b",
+      "text": "\\begin{definition}[traversal circle and Gauss word]\\label{def:gauss}\nLet $P$ be generic. The \\emph{traversal circle} $\\Gamma(P)$ is the set of\npairs $(i,t)$, $i\\in\\ZZ/n$, $t\\in[0,1)$, with the cyclic order in which\n$(i,t)<(i,t')$ for $t<t'$ and $(i,t)<(i+1,t')$ for all $t,t'$; the point of\nthe plane at $(i,t)$ is $\\mu_i+t\\lt_i$. Each crossing $\\{i,j\\}\\in X(P)$ has\ntwo \\emph{visits} $(i,t_{ij})$ and $(j,t_{ji})$ on $\\Gamma(P)$. The\n\\emph{Gauss word} of $P$ is the cyclic sequence of the $2|X(P)|$ visits in\nthe order of $\\Gamma(P)$, each visit labelled by its crossing.\n\\end{definition}\n\n\\begin{definition}[interlacement]\\label{def:interlace}\nTwo distinct crossings $x,y\\in X(P)$ \\emph{interlace} if the four visits\n$x_0,y_0,x_1,y_1$ occur in the cyclic order $x_0<y_0<x_1<y_1$ (up to rotation),\nthat is, exactly one visit of $y$ lies between the two visits of $x$. The\n\\emph{interlacement graph} $G_P$ has vertex set $X(P)$ and an edge between\neach interlacing pair. $\\Ind(G_P)$ denotes the set of independent subsets of\n$X(P)$, including $\\varnothing$; for $S\\subseteq X(P)$ let $N(S)$ be the set of\ncrossings interlacing some element of $S$, and let\n$U(S)=X(P)\\setminus(S\\cup N(S))$.\n"
+    },
+    {
+      "id": "CV_GAUSS",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 305,
+      "end_line": 313,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "03cb183dd4834d041e6cb8f8bed5a4b977ca09295d31b8b1935cab3252b98897",
+      "text": "Fix a \\emph{diagrammatic} polygon $P$ --- the class defined below, of which\nevery generic polygon is a member --- and let $m=m(P)$ be the number of its\ndouble points, labelled $1,\\dots,m$. Everything in this subsection, up to and\nincluding the residual pieces and their diagrams, is stated for that class:\ngenericity enters later, with the guards, and an earlier revision fixed a\ngeneric polygon here and then claimed the wider scope downstream. Traversing $P$ once from $p_1$ in the direction of\nincreasing index visits each double point exactly twice; recording the labels in\nthe order visited gives a cyclic word of length $2m$ in which every letter occurs\ntwice, the \\emph{Gauss word} of $P$.\n"
+    },
+    {
+      "id": "CV_INTERLACE",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 346,
+      "end_line": 353,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "c08196b21dd3194218dac795b757a2ca7f7b6f30b54d8e33a58d287901f46704",
+      "text": "\\begin{definition}[interlacement graph]\\label{def:interlace}\nThe \\emph{interlacement graph} $G_P$ has vertex set $[m]=\\{1,\\dots,m\\}$, with\n$c\\sim c'$ if and only if exactly one of the two occurrences of $c'$ lies between\nthe two occurrences of $c$ in the Gauss word. (The relation is symmetric.) We\nwrite $\\Ind(G_P)$ for the set of independent sets of $G_P$, including\n$\\varnothing$, and $N_{G_P}(S)$ for the set of vertices adjacent to some element\nof $S$.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_SMOOTH",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 9,
+      "end_line": 27,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "1b84af793817e437ba9f4e0dc000df25a5687e28319e4900a9c7a3993af3af2a",
+      "text": "\\begin{definition}[decomposition]\\label{def:decomposition}\nA \\emph{decomposition} of $P$ is an independent set $S\\in\\Ind(G_P)$ of\ncrossings (Definition~\\ref{def:interlace}): no two crossings of $S$ interlace.\n\\end{definition}\n\n\\begin{definition}[oriented smoothing and subpolygons]\\label{def:smoothing}\nLet $S\\in\\Ind(G_P)$. Cutting the traversal circle $\\Gamma(P)$ at the two\nvisits of each $x\\in S$ and reconnecting the arc arriving at one visit of $x$\nto the arc leaving the other visit of $x$ (for both visits) partitions\n$\\Gamma(P)$ into closed cycles; the \\emph{subpolygons} (or \\emph{carriers})\nof $S$ are the closed polygonal curves in $\\RR^2$ traced by these cycles. Each\nsubpolygon $Q$ is a closed polygon whose corners are the vertices of $P$ it\npasses through and the crossing points of $S$ it turns at (its\n\\emph{smoothing corners}); at a smoothing corner between $E_i$ and $E_j$ it\narrives along one of $\\lt_i,\\lt_j$ and leaves along the other. The\n\\emph{crossings of $Q$} are the crossings $x\\in X(P)\\setminus S$ both of whose\nvisits lie on $Q$; their number is $m_Q$. A crossing in $N(S)$ has its two\nvisits on different subpolygons and is a crossing of no subpolygon.\n\\end{definition}\n"
+    },
+    {
+      "id": "CV_SMOOTH",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 355,
+      "end_line": 381,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "406cb2daa12b7ec0c38944f7ffc64cb886a09e84527366e9d3a31dfb06ce9861",
+      "text": "\\begin{definition}[oriented smoothing]\\label{def:smoothing}\nFor $S\\in\\Ind(G_P)$, the \\emph{oriented smoothing of $P$ along $S$} replaces, at\neach double point of $S$, the two transversally crossing arcs by the two arcs\nthat respect the orientation of $P$ and do not cross. The result is a disjoint\nunion of closed oriented curves, called the \\emph{carriers} of $S$.\n\\end{definition}\n\n\\begin{lemma}[the carriers of a support]\\label{lem:carriers}\nLet $P$ be diagrammatic (Definition~\\ref{def:diagrammatic}) and\n$S\\in\\Ind(G_P)$ --- genericity is not needed here and an earlier revision\nassumed it; what the argument reads is the Gauss word. Let $\\Gamma$ be the\n\\emph{traversal circle}: an abstract oriented circle\ntogether with the traversal map $\\Gamma\\to\\mathbb R^2$ that runs once around\n$P$, on which each double point of $P$ has exactly two preimages, so that\n$\\Gamma$ carries $2m$ marked points. (No coordinate is placed on $\\Gamma$; in\nparticular the crossing-free case $m=0$ is allowed, with no marked points.) Then:\n\\begin{enumerate}\n\\item[(i)] the oriented smoothing of $P$ along $S$ has exactly $|S|+1$ carriers;\n\\item[(ii)] the assignment of traversal points to carriers is \\emph{non-crossing}:\nthere are no four points $u_1,u_2,u_3,u_4$ of $\\Gamma$ in this cyclic order,\nnone of them a preimage of an element of $S$, with $u_1,u_3$ on one carrier and\n$u_2,u_4$ on a different carrier;\n\\item[(iii)] if $c\\in[m]\\setminus S$ is non-adjacent in $G_P$ to every element of\n$S$, then both occurrences of $c$ lie on the same carrier;\n\\item[(iv)] if $H$ is a connected component of the induced graph\n$G_P\\bigl[[m]\\setminus(S\\cup N_{G_P}(S))\\bigr]$, then there is exactly one\ncarrier on which both occurrences of every $c\\in H$ lie.\n"
+    },
+    {
+      "id": "SM_POSITIVE",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 325,
+      "end_line": 335,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "bfc2e045074ec73737795eaf7b3e3e89c69be6831ca857a10c78688ce9ce064d",
+      "text": "\\begin{definition}[positive crossing; positive lift]\\label{def:positive-lift}\nAn oriented link diagram in the plane is a finite collection of closed\noriented curves with finitely many transverse double points, no triple points,\nand at each double point a choice of the \\emph{over} strand. A double point\nwith over-strand direction $u_{\\rm o}$ and under-strand direction $u_{\\rm u}$\nis \\emph{positive} if $\\det(u_{\\rm o},u_{\\rm u})>0$ and \\emph{negative}\notherwise. The \\emph{positive lift} of a subpolygon $Q$ is the oriented knot\ndiagram whose curve is $Q$, whose double points are the crossings of $Q$, and\nin which at every double point the over strand is chosen so that the crossing\nis positive. Its writhe (the sum of crossing signs) is $m_Q$.\n\\end{definition}\n"
+    },
+    {
+      "id": "CV_PIECE",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 565,
+      "end_line": 575,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "1a017c17a6ad554acab01d7ebe4a83e092ae0441a9af784530a6270b11d2788b",
+      "text": "\\begin{definition}[piece diagram, positivity, writhe]\\label{def:piecediagram}\nFor a diagrammatic parent $P$, the diagram of a residual piece $H$ is the parent\ncurve $P$ with every double\npoint outside $H$ erased --- the two strands drawn as passing without\ninteraction --- and every double point of $H$ resolved by the divide convention:\nthe branch whose direction $u_{\\mathrm{over}}$ satisfies\n$\\det(u_{\\mathrm{over}},u_{\\mathrm{under}})>0$ passes over. Under this convention\nevery crossing of the diagram is positive, so its writhe is\n$w(H)=|H|$, the number of double points of $H$. We write $P_H(a,z)$ for the\nHOMFLY--PT polynomial of the link so presented, normalized as in\nDefinition~\\ref{def:homfly}.\n"
+    },
+    {
+      "id": "CV_PIECE_CURVE",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 592,
+      "end_line": 610,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "fa7d9ca3f743d718b3a0bbc64c0b20ec128bffe172d7c2ad5b0adff2d01f0591",
+      "text": "\\begin{lemma}[a residual piece is carried by an actual closed curve]\n\\label{lem:piececurve}\nLet $P$ be diagrammatic (Definition~\\ref{def:diagrammatic}),\n$S\\in\\Ind(G_P)$, and let $H$ be a residual piece of $S$. Let $C_H$ be the closed\nplane curve that the proof's own route constructs, and nothing else: smooth\nevery crossing of $S$ --- of $S$ \\emph{only} --- so that the curve falls into\nthe $|S|+1$ carriers of $S$; take the one carrier that carries $H$, which is\nunique by Lemma~\\ref{lem:carriers}(iv); and apply to it Step 5's iteration,\nsmoothing at each step one double point outside $H$ and keeping the daughter\ncurve that carries $H$, which Step 5 shows is well defined. Then $C_H$ is a\nclosed plane curve whose double points are exactly the crossings of $H$ and\nwhose Gauss word is the parent word restricted to $H$ in the parent's cyclic\norder.\n\nThis binding is the construction and not a description of its result. The\nroute above smooths nothing but $S$, so $H$ lies on one carrier before the\niteration begins, and each subsequent step preserves that. In particular that restricted word is realizable, and the datum of\nDefinition~\\ref{def:piecediagram} is the datum of $C_H$.\n\\end{lemma}\n"
+    },
+    {
+      "id": "SM_BLOCKS",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 4623,
+      "end_line": 4648,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "98208e5ab442593e4652ad921999327c2e1726574a6382f740657e202a3b36dd",
+      "text": "\\begin{definition}[Undominated blocks and their owners]\\label{cb:blocks}\nFix a generic polygon $P$, its interlacement graph $G_P$, and an\nindependent support $S$. For a vertex set $T$ write $N_G(T)$ for the\nunion of its graph neighbourhoods, and put\n\\begin{equation}\\label{cb:undominated}\n U(S)=V(G_P)\\setminus\\bigl(S\\cup N_{G_P}(S)\\bigr).\n\\end{equation}\nThe connected components of $G_P[U(S)]$ are called its \\emph{blocks}.\nAn undominated crossing has both visits on one carrier by\nLemma~\\ref{lem:carriers}; that carrier is its owner. Write $D_A$ for\nthe actual positive diagram of a carrier $A$, and $P_A=P_{D_A}$.\nThese polynomials equal the corresponding $H_A^+$ by\nTheorem~\\ref{lp:core}.\n\\end{definition}\n\n\\begin{lemma}[Actual block diagrams and the carrier product]\n\\label{cb:products}\nEvery block $H$ has one owner and admits an actual positive carrier\ndiagram $D_H$ with exactly its restricted named cyclic record. Its\npolynomial $P_H$ is independent of the further smoothings used to\nproduce it. For every original carrier $A$,\n\\begin{equation}\\label{cb:product}\n P_A=\\prod_{H\\text{ owned by }A}P_H,\n \\qquad m_A=\\sum_{H\\text{ owned by }A}|H|.\n\\end{equation}\nWith no owned blocks the actual diagram has value $1$ and $m_A=0$.\n"
+    },
+    {
+      "id": "CV_BLOCKS",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 514,
+      "end_line": 518,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "0ddfd8b2708f7a2fe811e7cdb735ae7ceb01522495c94e54b4d2763f9b2d087e",
+      "text": "\\begin{definition}[undominated set and residual pieces]\\label{def:pieces}\nFor $S\\in\\Ind(G_P)$ put $U(S)=[m]\\setminus\\bigl(S\\cup N_{G_P}(S)\\bigr)$. The\n\\emph{residual pieces} of $S$ are the connected components\n$H\\in\\pi_0\\bigl(G_P[U(S)]\\bigr)$ of the induced subgraph on $U(S)$.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_LP",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1041,
+      "end_line": 1060,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "9402c11980c960a142530d82a7e4dbae786ff8e2f8b12ddd5260bb53b02c7b37",
+      "text": "\\begin{theorem}[Local campaign polynomial, algebraic part]\\label{lp:core}\nSet $R=\\mathbb Z[a^{\\pm1},z^{\\pm1}]$. The same source construction has\nan evaluation $P_D\\in R$ with\n\\begin{equation}\\label{lp:skein}\n aP_{D_+}-a^{-1}P_{D_-}=zP_{D_0},\n \\qquad \\delta=(a-a^{-1})z^{-1}.\n\\end{equation}\nIts value on every UNDER-first $c$-component diagram is $\\delta^{c-1}$.\nIt equals $H_D$ of Literature input~\\ref{lit:homfly}. It is also the unique\nfunction on this exact diagram domain satisfying this\nskein and all these initialization values. This uniqueness statement\nexplicitly includes the initialization hypothesis; it is not a claim\nproved from only an unknot value and unspecified ambient invariance.\nFor every $c$-component diagram,\n\\begin{equation}\\label{lp:support}\n P_D\\in z^{1-c}\\mathbb Z[a^{\\pm1},z^2],\\qquad P_D\\ne0.\n\\end{equation}\nIn particular $P_{\\bigcirc}=1$, and knot evaluations are polynomials in\n$z^2$, with no negative $z$ exponents. All local invariances in\nLiterature input~\\ref{lp:lm} are retained.\n"
+    },
+    {
+      "id": "SM_RECORD",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1215,
+      "end_line": 1225,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "5423eecc7c04037d3e1e450ac9252d9552ec4ac6e27a7176c1826126ce5476e1",
+      "text": "\\begin{lemma}[Polynomial equality from a named decorated record]\n\\label{rp:record-polynomial}\nLet $D,D'$ be two actual nonempty finite generic oriented link diagrams.\nSuppose there is a bijection of their components and crossing occurrences\nwhich preserves oriented cyclic successor, crossing pairing, over/under\nbits and crossing signs. The component bijection must also include all\ncomponents with no crossing occurrences. Then $F_D(l,m)=F_{D'}(l,m)$.\nConsequently any common Laurent-ring substitution of these two source\nvalues, and every coefficient of the substituted values, agrees.\nThis statement does not require or assert realizability of an arbitrary\nabstract record or an ambient isotopy between the two diagrams.\n"
+    },
+    {
+      "id": "CV_HOMFLY",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 552,
+      "end_line": 563,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "84485ff9cef3ae2f394ba9f6cafd6c70c7144b3d72ccef33da97c354b28454df",
+      "text": "\\begin{definition}[HOMFLY--PT normalization]\\label{def:homfly}\n$P_H$ is normalized by the first two identities below; the third is their\nconsequence, obtained by applying the skein relation at a crossing between $L$\nand a split unknot, and is displayed because it fixes the reader's convention\nfor a split component:\n\\begin{equation}\nP(\\bigcirc)=1,\\qquad\naP(L_+)-a^{-1}P(L_-)=zP(L_0),\\qquad\nP(L\\sqcup\\bigcirc)=\\frac{a-a^{-1}}{z}\\,P(L).\n\\label{eq:homfly}\n\\end{equation}\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_PRINCIPAL",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 374,
+      "end_line": 384,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "37c56dc18bbb7732fae9c0e568eb85ae62a2795b7f51b44f7fa540c689dd09e1",
+      "text": "\\begin{definition}[regular locus and principal turns]\\label{def:regular}\nFor a polygon $P$ and an index $i$ with $\\lt_{i-1},\\lt_i\\neq0$ and $\\lt_i$\nnot a negative real multiple of $\\lt_{i-1}$, the \\emph{principal turn}\n$\\vartheta_i(P)\\in(-\\pi,\\pi)$ is the unique angle with\n$\\cos\\vartheta_i=\\langle\\lt_{i-1},\\lt_i\\rangle/(|\\lt_{i-1}||\\lt_i|)$ and\n$\\sgn\\vartheta_i=\\sgn\\det(\\lt_{i-1},\\lt_i)$. The \\emph{regular locus}\n$\\mathcal R_n$ is the set of polygons with all $\\lt_i\\neq0$ and no $\\lt_i$ a\nnegative multiple of $\\lt_{i-1}$; equivalently, all principal turns exist.\nEvery generic polygon lies in $\\mathcal R_n$ (Lemma~\\ref{lem:g1}(ii)), and\n$\\vartheta_i(P)=0$ exactly when $\\lt_i$ is a positive multiple of $\\lt_{i-1}$.\n\\end{definition}\n"
+    },
+    {
+      "id": "CV_PRINCIPAL",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 22,
+      "end_line": 39,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "05b9638a574b6308be0c146e9f9aa5e43aa1bc894ebfaf83292297568d5fe4b3",
+      "text": "\\begin{definition}[principal turns and the regular locus]\\label{def:regular}\n\\begin{enumerate}\n\\item[(A)] Let $L$ be a closed polygon with corners $q_0,\\dots,q_{c-1}$ and edge directions\n$\\delta_i=q_{i+1}-q_i$. The \\emph{principal turn} at $q_i$ is the unique\n$\\tau_i\\in(-\\pi,\\pi)$ with\n$\\cos\\tau_i=\\frac{\\langle\\delta_{i-1},\\delta_i\\rangle}{|\\delta_{i-1}||\\delta_i|}$\nand $\\sgn\\tau_i=\\sgn\\det(\\delta_{i-1},\\delta_i)$. It exists precisely when\n$\\delta_i$ is not a negative multiple of $\\delta_{i-1}$: if\n$\\det(\\delta_{i-1},\\delta_i)\\neq0$ it is nonzero, and if $\\delta_i$ is a\npositive multiple of $\\delta_{i-1}$ it is $0$. The excluded case\n$\\delta_i\\in\\mathbb R_{<0}\\delta_{i-1}$ is the \\emph{kink}, where the two\ncandidate values $\\pm\\pi$ are both excluded from the open interval.\n\\item[(B)] The \\emph{regular locus} $\\mathcal R_n\\subseteq(\\mathbb R^2)^n$ is the set of\n$P=(p_1,\\dots,p_n)$ with $d_i\\neq0$ for all $i$ and $d_{i+1}\\neq-\\lambda d_i$\nfor all $i$ and all $\\lambda>0$: nonzero edges and no consecutive pair that\ndoubles back. Equivalently, every principal turn of\nclause~(A) exists.\n\\end{enumerate}\n"
+    },
+    {
+      "id": "SM_ROTATION",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 395,
+      "end_line": 406,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "b5e8e00155f2a52100d6c426a120afc9444c8e59513a5d4d577b4cff55156376",
+      "text": "\\begin{lemma}[rotation number]\\label{lem:rot}\nFor $P\\in\\mathcal R_n$ put $\\rot(P)=\\frac1{2\\pi}\\sum_{i\\in\\ZZ/n}\\vartheta_i(P)$.\nThen:\n\\begin{enumerate}\n\\item[(i)] $\\rot(P)\\in\\ZZ$;\n\\item[(ii)] $\\rot$ is constant along every continuous path in $\\mathcal R_n$;\n\\item[(iii)] inserting a vertex in the relative interior of an edge does not\nchange $\\rot$; reversing the traversal negates\nit;\n\\item[(iv)] if $n=3$ then $\\rot(P)=\\tau_1(P)=\\tau_2(P)=\\tau_3(P)\\in\\{\\pm1\\}$\nand in particular $\\rot(P)\\neq0$;\n\\item[(v)] $2|\\rot(P)|<n$.\n"
+    },
+    {
+      "id": "SM_RETAINED",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 242,
+      "end_line": 248,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "62f830c6c90d7b15728edc7bb94617f0227cede27776abda8a182d635bf72794",
+      "text": "\\begin{definition}[uniform subpolygons; retained data]\\label{def:uniform}\nA subpolygon $Q$ is \\emph{uniform} if all its turns have one sign and\n\\emph{mixed} otherwise. A decomposition $S$ is \\emph{uniform} if all its\nsubpolygons are. For a subpolygon $Q$ write $r_Q=\\rot(Q)$\n(Lemma~\\ref{lem:rot}, applicable by Lemma~\\ref{lem:carriers}), $m_Q$ for its\nnumber of crossings, and $\\ell_Q$ for its number of left turns.\n\\end{definition}\n"
+    },
+    {
+      "id": "CV_ABS_ROT",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 782,
+      "end_line": 785,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "43fd799979c8a59c3ba08eb3e9db63c8ae83a067ae6c0dad479976d72b561350",
+      "text": "Lemma~\\ref{lem:turnlift} constructs the lift and proves that these values do\nnot depend on its choices, on the seam, or on an orientation-preserving regular\nreparametrisation. For either a polygon or a $C^1$ regular closed curve put\n$R(L)=|\\rot(L)|$.\n"
+    },
+    {
+      "id": "CV_TURN_SUM",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 798,
+      "end_line": 808,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "e83c843b2d907eb5719ec3918542f8a95e92bbf38dd504b8ef8774e65386b756",
+      "text": "\\item[(ii)] If $L\\in\\mathcal R_c$ has principal turns $\\tau_i$, then\n\\[\n   2\\pi\\rot(L)=\\sum_i\\tau_i.\n\\]\nConsequently rotation is constant along every path in $\\mathcal R_c$, is\nunchanged by a positive flat subdivision, and is negated by orientation\nreversal. Every regular three-corner polygon has rotation $+1$ or $-1$\naccording to the common sign of its three turns.\n\\item[(iii)] Suppose a closed $C^1$ regular curve is obtained from $L$ by\nreplacing every corner by a regular arc whose compatible tangent-angle lift\nhas increment $\\tau_i$. Its rotation equals $\\rot(L)$.\n"
+    },
+    {
+      "id": "CV_WEIGHT",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 487,
+      "end_line": 512,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "bac66f0626651903dd096bddb629c7d6b6add8d2648ae24555184d93376071fa",
+      "text": "\\begin{definition}[corner, turn sign, and $\\wind$]\\label{def:wind}\nLet $P$ be \\emph{generic} and $S\\in\\Ind(G_P)$ --- the binders under which the\ndefinition is read, and which an earlier revision left to the ambient\nsubsection, whose standing hypothesis is only that $P$ is diagrammatic. A\n\\emph{corner} of a carrier of $S$ is either a vertex $p_i$ of $P$ traversed by\nit or a smoothing site of $S$ traversed by it. At each corner the carrier turns\n\\emph{left} or \\emph{right} according to the sign of the determinant of the\nincoming and outgoing directions, which under genericity is nonzero: at a\nvertex by (G1), unconditional and hence relevant, at a smoothing site by (G5),\nactive at a crossing. On a merely diagrammatic polygon the vertex clause is\nfalse --- $((0,0),(1,0),(2,0),(0,1))$ is diagrammatic and its turn at $p_2$ is\nexactly zero --- which is why the generic binder is part of this definition and\nnot decoration. A carrier is \\emph{uniform} if all its corners turn the\nsame way and \\emph{mixed} otherwise. Its \\emph{weight} is\n\\[\n   \\mathrm{wt}(L)=\\begin{cases}\n     +1, & L \\text{ uniform, all turns right},\\\\\n     (-1)^{c(L)}, & L \\text{ uniform, all turns left, } c(L)=\\#\\text{corners},\\\\\n     0, & L \\text{ mixed},\n   \\end{cases}\n\\]\nand $\\wind(S)=\\prod_{L}\\mathrm{wt}(L)$, the product over the $|S|+1$ carriers of\n$S$. In particular $\\wind(S)\\neq0$ forces every carrier of $S$ to be\nuniform: $\\wind(S)$ is a product of integers, a product of integers is\nnonzero only if every factor is, and the weight of a mixed carrier is $0$.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_CHAMBER",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 194,
+      "end_line": 199,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "326109fde629ec8368f529d669cedb639c787f31c00804d47ef326b2953a840a",
+      "text": "\\begin{definition}[chambers]\\label{def:chamber}\nA \\emph{chamber} is a connected component of the space of generic polygons\n$\\mathcal U_n/(\\ZZ/n)$; its preimage in $\\mathcal U_n$ is a union of at most\n$n$ components of $\\mathcal U_n$ permuted by $\\sigma$, the \\emph{labelled\nchambers}.\n\\end{definition}\n"
+    },
+    {
+      "id": "SM_C_LOCAL",
+      "frame": "SM11",
+      "file": "sm-4-knotlaws.tex",
+      "start_line": 36,
+      "end_line": 39,
+      "source_sha256": "146ce4e08fa66c72f11a6c0834144fe3dfe14981d8f567819d6951eb54c81efd",
+      "quote_sha256": "2c7af0a8184509c31841de989e1b85d2848370ddcf47418e5706dbbcc2d8760f",
+      "text": "\\begin{proposition}[chamber constancy]\\label{prop:C-chamber}\nThe state sum $C$ of Definition~\\ref{def:C} is constant on every chamber.\n\\status{proved (refereed: bench A, 2026-09-05T18:22:57Z; transcribed from CV prop:chamberinv, through Lemma~\\ref{lem:carriers} and the named-record bridge (Lemma~\\ref{rp:record-polynomial}, Theorem~\\ref{lp:core}) (C020, C027); F-25-95; single convention, CV one-based tail = this document (F-25-104))}\n\\end{proposition}\n"
+    },
+    {
+      "id": "CV_X_LOCAL",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 932,
+      "end_line": 938,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "c92d68deb08f76e1fdd849b37dded63eb2ee0596d18d746a62fd52715b4ca74a",
+      "text": "\\begin{proposition}[chambers and chamber invariance]\\label{prop:chamberinv}\nFix $n\\geq3$.\n\\begin{enumerate}\n\\item[(i)] The generic locus $\\mathcal U_n$ is open in $(\\mathbb R^2)^n$, and\nevery chamber --- every connected component of it --- is open and path connected.\n\\item[(ii)] $X_1$ is constant on each chamber.\n\\end{enumerate}\n"
+    },
+    {
+      "id": "SM_CROSSINGS",
+      "frame": "SM11",
+      "file": "sm-1-polygons.tex",
+      "start_line": 137,
+      "end_line": 155,
+      "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+      "quote_sha256": "75e0522311e2fd02392373cafc5252b03d0dba6d468ae9f5ed49d78ea6fc9217",
+      "text": "\\begin{definition}[crossings]\\label{def:crossings}\nLet $P$ satisfy (G1). The \\emph{crossing set} $X(P)$ is the set of unordered\npairs $\\{i,j\\}$ of remote edge indices with $E_i\\cap E_j\\neq\\varnothing$. For\n$\\{i,j\\}\\in X(P)$ the \\emph{crossing point} $x_{ij}$ is the unique point of\n$E_i\\cap E_j$, and its \\emph{parameters} $t_{ij}\\in(0,1)$ on $E_i$ and\n$t_{ji}\\in(0,1)$ on $E_j$ are defined by $x_{ij}=\\mu_i+t_{ij}\\lt_i\n=\\mu_j+t_{ji}\\lt_j$. The \\emph{crossing sign} of $\\{i,j\\}$ read from $E_i$ is\n$\\sgn\\det(\\lt_i,\\lt_j)$.\n\\end{definition}\n\n\\begin{lemma}[crossings through the chirotope]\\label{lem:crossing-test}\nLet $P$ satisfy (G1) and let $E_i,E_j$ be remote. Then $\\{i,j\\}\\in X(P)$ if\nand only if\n\\[\n\\chi_{i,i+1,j}\\,\\chi_{i,i+1,j+1}=-1\\quad\\text{and}\\quad\n\\chi_{j,j+1,i}\\,\\chi_{j,j+1,i+1}=-1.\n\\]\nIf $P$ is generic, distinct crossings have distinct crossing points, and\n$X(P)$ is finite. \\status{proved}\n"
+    },
+    {
+      "id": "SM_CARRIER_REGULAR",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 73,
+      "end_line": 91,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "2071cc4d7f9e7def6381969a81bcd6e7c90554bc50b3cae755163c2192d40652",
+      "text": "their cyclic order inherited from the original traversal circle.\nThe two visits of a selected crossing belong to different carriers.\n\\item[(ii)] Every carrier has nonzero edges, at least three corners,\nand no antiparallel consecutive directions. All its corner turns are\nnonzero. At an original vertex $i$ the turn sign is $\\tau_i$.\nAt a selected crossing of $E_i,E_j$, the two smoothing corners have\nsigns $\\operatorname{sgn}\\det(d_i,d_j)$ and\n$\\operatorname{sgn}\\det(d_j,d_i)$, one left and one right.\n\\item[(iii)] A carrier's self-intersections are exactly the unselected\ncrossings both of whose visits are assigned to it. They are transverse,\nnone is a corner, and no carrier has a triple point. An unselected\ncrossing interlacing some element of $S$ has its visits on different\ncarriers; an unselected crossing interlacing no element of $S$ has\nboth visits on one carrier.\n\\item[(iv)] The assignment of \\emph{all} crossing visits is noncrossing.\nThere are no four distinct visits $u_1$, $u_2$, $u_3$, $u_4$ in that cyclic order\nwith $u_1,u_3$ on one carrier and $u_2,u_4$ on a different carrier.\nThis includes selected visits under the stated convention.\n\\end{enumerate}\n"
+    },
+    {
+      "id": "SM_BLOCK_RECORD",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 4671,
+      "end_line": 4681,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "3a109c6aab836e7256cb39d8e59c316a44632452c40f20a99b1fc5bae2462f98",
+      "text": "Lemma~\\ref{lem:carriers} supplies actual geometric carriers for $S_H$.\nThe preceding connectedness argument puts all labels of $H$ on one\nof them. No other self-crossing label survives, so its actual positive\ndiagram is a required $D_H$. Successor splitting retains the cyclic\norder inherited from the original traversal. The surviving crossing\ngerms have not changed. Therefore the complete record of $D_H$ is\nexactly the original record restricted to $H$, with its signs, pairing\nand over/under choices. This statement concerns an actually constructed\ndiagram; it does not assume arbitrary Gauss subwords are realizable.\nAny other choices produce the same named record, so\nLemma~\\ref{rp:record-polynomial} proves independence of $P_H$.\n"
+    },
+    {
+      "id": "CV_SURVIVING_RECORD",
+      "frame": "CV",
+      "file": "d1_setup.tex",
+      "start_line": 661,
+      "end_line": 665,
+      "source_sha256": "0fc86105fe6f0daa7be1d0ac7899e802287042c2ca45c252e28744fcec5adc78",
+      "quote_sha256": "a8b9f34403838f575aa7e1325d9d9b583bc04ab03cfcac307e5994b9d69189f1",
+      "text": "Applying Step 5 to the carrier of $H$ with $K=H$, which Steps 3 and 4\nlicence --- Step 4 supplying both the non-interlacing and the connectedness\nhypotheses --- performs exactly the statement's third operation and gives\n$C_H$. Its rotation system at each surviving crossing is the carrier's,\nwhich is the parent's, since smoothing at other points does not disturb the\n"
+    },
+    {
+      "id": "SM_COEFFICIENT_TRANSPORT",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 981,
+      "end_line": 990,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "5d9c6b65d2722921b9f85549f0944d2dc4ccca6f3878d52f3e9791ea95cd1e94",
+      "text": "\\begin{lemma}[Gaussian coefficient transport of skein uniqueness]\n\\label{lp:coefficient-transport}\nPut $R=\\ZZ[a^{\\pm1},z^{\\pm1}]$. Any two maps $D\\mapsto Q_D\\in R$ on oriented\nlink diagrams that are invariant under planar isotopy and the three\nReidemeister moves, take the value $1$ on the crossing-free circle, and\nsatisfy $aQ_{D_+}-a^{-1}Q_{D_-}=zQ_{D_0}$ on every skein triple coincide.\nNo restriction on the support or on the coefficients of the maps is imposed.\nThe lemma transports the uniqueness clause of Literature\ninput~\\ref{lp:lm-uniqueness} to the ring $R$; it asserts no existence, no\nambient-isotopy invariance and no descent theorem.\n"
+    },
+    {
+      "id": "CV_HOMFLY_AXIOM",
+      "frame": "CV",
+      "file": "d10_axioms.tex",
+      "start_line": 342,
+      "end_line": 349,
+      "source_sha256": "4c809a6e00e27ad35f758f4ad31dc7fa0fc89dedf0c91725a9ef40960934eced",
+      "quote_sha256": "33214b3464886256d97fc8ab21eb4a9cd5fbb8b8147a793a2c3afd825b077bfa",
+      "text": "\\begin{axiom}[HOMFLY--PT]\\label{ax:homfly}\nThere is a unique map $L\\mapsto P_L(a,z)\\in\\mathbb Z[a^{\\pm1},z^{\\pm1}]$ from\nisotopy classes of oriented links in $S^3$ satisfying\n$P_{\\bigcirc}=1$ and $aP_{L_+}-a^{-1}P_{L_-}=zP_{L_0}$ for every skein triple.\nIn particular $P_L$ is invariant under the Reidemeister moves. One consequence\nis consumed as part of this entry: $P_K\\in\\mathbb Z[a^{\\pm1},z^2]$ for a\n\\emph{knot} $K$, so that the $z^0$ coefficient of a product of knot\npolynomials is the product of their $z^0$ coefficients.\n"
+    },
+    {
+      "id": "RA_PARAMETERS",
+      "frame": "RA",
+      "file": "R_ATTACHMENT_WARRANTS.md",
+      "start_line": 45,
+      "end_line": 64,
+      "source_sha256": "af36d99b6162ebf1ecfaa1f8b9ca54a7df6cc184a07a669f958509a0e21ef364",
+      "quote_sha256": "5aaf93b33d6f12aa4d8889cf157c28c2810aa2d2e6205f3f6e6ac48c83136eb0",
+      "text": "**(2a) The order along each bundle edge reverses — with the $\\mathrm{G5}$\nfactors made explicit (repair 2).** `def:guarded` defines\n$$\\mathrm{G4}_{e;f,g}=\\det(d_f,p_f-p_e)\\det(d_g,d_e)-\\det(d_g,p_g-p_e)\\det(d_f,d_e).$$\nWriting $t_f$ for the parameter along $e$ of the crossing $x_{ef}$, the line\nintersection gives $t_f=\\det(d_f,p_f-p_e)/\\det(d_f,d_e)$, and hence the\nfactorization\n$$\\mathrm{G4}_{e;f,g}=(t_f-t_g)\\,\\det(d_f,d_e)\\,\\det(d_g,d_e)\n =(t_f-t_g)\\,\\mathrm{G5}_{e,f}\\,\\mathrm{G5}_{e,g},$$\nthe last equality up to the sign convention $\\mathrm{G5}_{e,f}=\\det(d_e,d_f)$,\nwhose two reversals cancel in the product. Therefore\n$$\\operatorname{sgn}\\mathrm{G4}_{e;f,g}\n=\\operatorname{sgn}(t_f-t_g)\\cdot\\operatorname{sgn}\\mathrm{G5}_{e,f}\n\\cdot\\operatorname{sgn}\\mathrm{G5}_{e,g}.$$\n$\\mathrm{G5}_{e,f}$ and $\\mathrm{G5}_{e,g}$ are **active** ($f$ and $g$ both\ncross $e$), hence relevant, and neither lies in $Z$; so by `lem:guardconst` each\nis nonzero with constant sign on a neighbourhood of $t=0$. $\\mathrm{G4}_{e;f,g}$\nlies in $Z$ and changes sign at $t=0$ by transversality. With the two\n$\\mathrm{G5}$ signs constant, the sign change is carried by $t_f-t_g$ alone:\nthe order of $x_{ef}$ and $x_{eg}$ along $e$ reverses. Identically on $f$ and\n$g$.\n"
+    },
+    {
+      "id": "SM_GAUSSIAN_MAP",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1064,
+      "end_line": 1070,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "84ab857ec0ed2abf24226cc0fc8fa50f69d24422f961aae263aa12765cb8808a",
+      "text": "Start in $R_G=\\mathbb Z[\\mathrm i][a^{\\pm1},z^{\\pm1}]$ with\n$\\mathrm i^2=-1$. The elements $\\mathrm ia$ and $-\\mathrm iz$ are units,\nso they define a Laurent-ring homomorphism and a first evaluation\n\\begin{equation}\\label{lp:gaussian}\n \\phi(l)=\\mathrm ia,\\qquad \\phi(m)=-\\mathrm iz,\n \\qquad P_D^G=\\phi(F_D).\n\\end{equation}\n"
+    },
+    {
+      "id": "SM_INTEGRAL_DESCENT",
+      "frame": "SM11",
+      "file": "sm-3-statesum.tex",
+      "start_line": 1133,
+      "end_line": 1138,
+      "source_sha256": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "quote_sha256": "122ab6a04c00e1c14501bd7b6d257baca36775f3339fd030c50dba9fee02cffe",
+      "text": "Both recurrences therefore put $P_D^G$ in $M_c$. The standard inclusion\n$R\\hookrightarrow R_G$ is injective (the Gaussian coefficient ring has\nthe free integer basis $1,\\mathrm i$). There is consequently one $P_D\\in R$\nwith image $P_D^G$. This proves support and integral descent simultaneously.\nThe local source equalities remain equalities after $\\phi$ and, by\ninjectivity, are equalities in $R$.\n"
+    },
+    {
+      "id": "SM_C_SHIFT",
+      "frame": "SM11",
+      "file": "sm-4-knotlaws.tex",
+      "start_line": 87,
+      "end_line": 98,
+      "source_sha256": "146ce4e08fa66c72f11a6c0834144fe3dfe14981d8f567819d6951eb54c81efd",
+      "quote_sha256": "2f6dbdfde7511c04031ba8beb4442f30c38e85a78c22a8ef1c8716a832f14999",
+      "text": "To pass to unlabelled chambers, first note that cyclically shifting the\nvertex labels preserves $C$ directly from its definition. It merely\nrenames the same directed traversal, crossings and independent supports;\nthe corresponding carrier images and orientations, corner counts,\nrotations, positive lifts and coefficients are unchanged. Openness of the\nlabelled generic locus gives each point a path-connected neighbourhood\ninside it. The path argument makes $C$ locally constant there. Its\ncyclic invariance makes it descend to a locally constant function on the\nquotient by cyclic relabelling: the preimage of any value is an open\nsaturated subset, so its image is open in the quotient topology. A\nlocally constant function on a connected chamber is constant. This proves\nthe stated assertion without assuming a lift of an arbitrary quotient path.\n"
+    }
+  ]
+}

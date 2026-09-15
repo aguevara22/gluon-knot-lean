@@ -1,0 +1,1938 @@
+import CV.X1
+import CV.PieceCurve
+import SM.MarkedProducts
+import SM.CornerStateSum
+import SM.CBBlocks
+
+
+/-! Ported 2026-09-14 06:58Z from work/drafts/cb/CBProducts_Assembled.lean (design panel judge synthesis PLAN_FINAL.md; prover units KL0, KL1, KL2, KL3, T1, GL, AS merged by the assembler, ASSEMBLY_REPORT.md; imports SM.CBBlocks for the row-101 declarations): row cb:products (102), main declaration `SM.cb_products`, bundle `CbProductsData` (fixed in SM/CBBlocks.lean). Only this header added. -/
+/-! # CBProducts — row 102 cb:products: the chain lemmas and the assembled row theorem `SM.cb_products`
+
+Assembled 2026-09-14 from work/drafts/cb/Skeleton_FINAL.lean (judge synthesis; PLAN_FINAL.md §4) and the seven
+proved unit files work/drafts/cb/U_{KL0,KL1,KL2,KL3,T1,GL,AS}.lean. The definitions of namespace `SM.CB`, the
+bundles `CbBlocksDefinitionData` / `CbProductsData` and the row-101 theorem `SM.cb_blocks_definition` live in
+SM/CBBlocks.lean (imported; byte-identical to the skeleton's text) and are not repeated here. Everything below is
+proved: the chain lemmas of the units (KL0 abstract restricted Gauss record; KL1 the carrier record bridge; KL2
+record interlacement = `Interlaces`; KL3 restriction of the abstract record; T1 transport of `restrictCrossings`
+along a `RecordIso`; GL the record blocks of `D_A` are the blocks owned by `A`; PC the block carrier from
+CV:lem:piececurve; AS small assembly lemmas), the glue, the row theorem `SM.cb_products` (header byte-identical
+to the skeleton), and the companion lemmas `SM.greedy_independent` / `SM.greedy_step` (eq. cb:greedy-step) that
+cb:singleton cites. Checked with `cd work/lean && lake env lean ../drafts/cb/CBProducts_Assembled.lean`. -/
+
+namespace SM
+
+open SM.Carrier SM.GeoCarrier SM.Link
+
+attribute [local instance] Classical.propDecidable
+
+/-! ## Chain (Skeleton_FINAL): the leaves by unit (all proved), then the row theorem assembled from them
+
+Units (PLAN_FINAL.md §4): KL0 abstract restricted Gauss record; KL1 the carrier record bridge (the geometric
+heart); KL2 record interlacement = `Interlaces`; KL3 restriction of the abstract record; T1 transport of
+`restrictCrossings` along a `RecordIso`; GL the record blocks of `D_A` are the blocks owned by `A`; PC the
+block carrier (from CV:lem:piececurve, or B's greedy support); AS small assembly leaves. Everything after
+the leaves is proved here. -/
+
+namespace CB
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n}
+
+/-! ### KL0 — the abstract restricted Gauss record `gaussRecord hc T` (one circle, occurrences = the visits of
+the crossings in `T`, successor = cyclic `next` in P's key-sorted Gauss list filtered to `T`, pairing = `visitTwin`,
+over bit = the positive resolution `det(d_v, d_{τv}) > 0`, all signs `+1`) -/
+
+/-- `L_T`: P's key-sorted Gauss list (`geometricGaussList`, accepted) filtered to the crossings in `T`. -/
+noncomputable def gaussList (hc : CrossingGeometry P) (T : Finset (Crossing P)) : List (Visit P) :=
+  (geometricGaussList hc).filter (fun v => decide (v.1 ∈ T))
+
+/-- `L_T` has no duplicates (a filter of the key-sorted Gauss list, `geometricGaussList_nodup`). -/
+theorem kl0_gaussList_nodup (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    (gaussList hc T).Nodup :=
+  (geometricGaussList_nodup hc).filter _
+
+/-- A visit lies in `L_T` iff its crossing is in `T` (every visit is in the Gauss list,
+`mem_geometricGaussList`). -/
+theorem kl0_mem_gaussList (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : Visit P) :
+    v ∈ gaussList hc T ↔ v.1 ∈ T := by
+  unfold gaussList
+  rw [List.mem_filter]
+  simp [mem_geometricGaussList hc v]
+
+/-- `List.formPerm L_T` preserves "the crossing is in `T`" (it permutes the members of `L_T` and fixes
+everything else, `List.formPerm_mem_iff_mem`). -/
+theorem kl0_formPerm_mem_iff (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : Visit P) :
+    ((gaussList hc T).formPerm v).1 ∈ T ↔ v.1 ∈ T := by
+  rw [← kl0_mem_gaussList hc T, ← kl0_mem_gaussList hc T, List.formPerm_mem_iff_mem]
+
+/-- KL0 leaf: the cyclic successor on `L_T` as a permutation of the retained visits. -/
+noncomputable def gaussSucc (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    Equiv.Perm {v : Visit P // v.1 ∈ T} :=
+  (gaussList hc T).formPerm.subtypePerm (kl0_formPerm_mem_iff hc T)
+
+/-- KL0 leaf (spec of `gaussSucc`): it is `List.next` on `L_T`. -/
+theorem gaussSucc_val (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : {v : Visit P // v.1 ∈ T})
+    (hv : v.1 ∈ gaussList hc T) : (gaussSucc hc T v).1 = (gaussList hc T).next v.1 hv := by
+  change (gaussList hc T).formPerm v.1 = _
+  exact List.formPerm_apply_mem_eq_next (kl0_gaussList_nodup hc T) v.1 hv
+
+omit [NeZero n] in
+/-- `visitTwinPerm` preserves "the crossing is in `T`" (`visitTwin_crossing`). -/
+theorem kl0_visitTwinPerm_mem_iff (T : Finset (Crossing P)) (v : Visit P) :
+    (visitTwinPerm v).1 ∈ T ↔ v.1 ∈ T := by
+  rw [visitTwinPerm_apply, visitTwin_crossing]
+
+/-- KL0 leaf: the twin pairing on the retained visits (`visitTwin` keeps the crossing). -/
+noncomputable def gaussPair (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    Equiv.Perm {v : Visit P // v.1 ∈ T} :=
+  visitTwinPerm.subtypePerm (kl0_visitTwinPerm_mem_iff T)
+
+theorem gaussPair_val (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : {v : Visit P // v.1 ∈ T}) :
+    (gaussPair hc T v).1 = visitTwin v.1 := rfl
+
+/-- The over bit of the positive resolution at `v`: `det(d_v, d_{τ v}) > 0` (def:positive-lift). -/
+noncomputable def positiveOverBit (v : Visit P) : Bool :=
+  decide (0 < det (edge P v.2.val) (edge P (visitTwin v).2.val))
+
+/-- One cycle: any two retained visits are in the same `gaussSucc`-cycle. On `L_T` (nodup) the
+`k`-th power of `List.formPerm` moves `L_T[i]` to `L_T[(i + k) % |L_T|]` (`List.formPerm_pow_apply_getElem`);
+take `k = j + |L_T| - i`. Lifted to the subtype by `Equiv.Perm.SameCycle.subtypePerm`. -/
+theorem kl0_gaussSucc_sameCycle (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (v w : {v : Visit P // v.1 ∈ T}) : (gaussSucc hc T).SameCycle v w := by
+  apply Equiv.Perm.SameCycle.subtypePerm
+  have hnd := kl0_gaussList_nodup hc T
+  have hv : v.1 ∈ gaussList hc T := (kl0_mem_gaussList hc T v.1).mpr v.2
+  have hw : w.1 ∈ gaussList hc T := (kl0_mem_gaussList hc T w.1).mpr w.2
+  obtain ⟨i, hi, hiv⟩ := List.getElem_of_mem hv
+  obtain ⟨j, hj, hjw⟩ := List.getElem_of_mem hw
+  refine ⟨((j + (gaussList hc T).length - i : ℕ) : ℤ), ?_⟩
+  rw [zpow_natCast, ← hiv, ← hjw, List.formPerm_pow_apply_getElem _ hnd]
+  have key : ∀ (k : ℕ) (hk : k < (gaussList hc T).length), k = j →
+      (gaussList hc T)[k]'hk = (gaussList hc T)[j]'hj := by
+    rintro k hk rfl
+    rfl
+  apply key
+  have h1 : i + (j + (gaussList hc T).length - i) = j + (gaussList hc T).length := by omega
+  rw [h1, Nat.add_mod_right, Nat.mod_eq_of_lt hj]
+
+omit [NeZero n] in
+/-- The two visits of a crossing get opposite positive over bits: `det(d_{τv}, d_v) = -det(d_v, d_{τv})`
+(`det_swap`), and the determinant is nonzero because `{v.2, (τ v).2}` is a crossing of the geometry
+(`visit_crossing_val_eq_pair`, `crossing_det_ne_zero_of_geometry`). Port of PLAN_B's `positiveOverBit_twin`
+at an arbitrary `hc : CrossingGeometry P`. -/
+theorem kl0_positiveOverBit_twin (hc : CrossingGeometry P) (v : Visit P) :
+    positiveOverBit (visitTwin v) = !positiveOverBit v := by
+  have hne : det (edge P v.2.val) (edge P (visitTwin v).2.val) ≠ 0 := by
+    have hcr : IsCrossing P {v.2.val, (visitTwin v).2.val} := by
+      have h := v.1.property
+      rwa [visit_crossing_val_eq_pair v] at h
+    exact crossing_det_ne_zero_of_geometry hc hcr
+  unfold positiveOverBit
+  rw [visitTwin_involutive, det_swap]
+  by_cases h : 0 < det (edge P v.2.val) (edge P (visitTwin v).2.val)
+  · simp [h, not_lt.mpr h.le]
+  · have hlt : det (edge P v.2.val) (edge P (visitTwin v).2.val) < 0 :=
+      lt_of_le_of_ne (not_lt.mp h) hne
+    simp [h, hlt]
+
+/-- **KL0: the abstract restricted Gauss record.** Data fixed here; the record laws are KL0 leaves. -/
+noncomputable def gaussRecord (hc : CrossingGeometry P) (T : Finset (Crossing P)) : Record where
+  comps := Unit
+  M := {v : Visit P // v.1 ∈ T}
+  comp _ := ()
+  succ := gaussSucc hc T
+  pair := gaussPair hc T
+  isOver v := positiveOverBit v.1
+  sgn _ := 1
+  succ_comp _ := rfl
+  succ_cycle v w _ := kl0_gaussSucc_sameCycle hc T v w
+  pair_ne v h := visitTwin_ne v.1 (congrArg Subtype.val h)
+  pair_invol v := Subtype.ext (visitTwin_involutive v.1)
+  bit_pair v := kl0_positiveOverBit_twin hc v.1
+  sgn_pair _ := rfl
+  sgn_ne _ := by decide
+
+@[simp] theorem gaussRecord_M (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    (gaussRecord hc T).M = {v : Visit P // v.1 ∈ T} := rfl
+
+theorem gaussRecord_componentCount (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    (gaussRecord hc T).componentCount = 1 := Fintype.card_unit
+
+/-- The P-visit of an occurrence of `gaussRecord hc T`. -/
+def occVisit (hc : CrossingGeometry P) (T : Finset (Crossing P)) (x : (gaussRecord hc T).M) : Visit P :=
+  (x : {v : Visit P // v.1 ∈ T}).1
+
+theorem occVisit_mem (hc : CrossingGeometry P) (T : Finset (Crossing P)) (x : (gaussRecord hc T).M) :
+    (occVisit hc T x).1 ∈ T := (x : {v : Visit P // v.1 ∈ T}).2
+
+/-- The geometric crossing ("label") of a record crossing of `gaussRecord hc T` (both occurrences of a chord
+have the same label, `gaussPair_val` + `visitTwin_crossing`). -/
+noncomputable def label (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (p : (gaussRecord hc T).Crossing) : Crossing P :=
+  (p.rep : {v : Visit P // v.1 ∈ T}).1.1
+
+theorem label_mem (hc : CrossingGeometry P) (T : Finset (Crossing P)) (p : (gaussRecord hc T).Crossing) :
+    label hc T p ∈ T := (p.rep : {v : Visit P // v.1 ∈ T}).2
+
+/-- KL0 leaf: the label of the chord of an occurrence is the occurrence's crossing. -/
+theorem label_crossingOf (hc : CrossingGeometry P) (T : Finset (Crossing P)) (x : (gaussRecord hc T).M) :
+    label hc T ((gaussRecord hc T).crossingOf x) = (occVisit hc T x).1 := by
+  have h : ((gaussRecord hc T).crossingOf x).rep ∈
+      ({x, (gaussRecord hc T).pair x} : Finset (gaussRecord hc T).M) :=
+    Record.Crossing.rep_mem ((gaussRecord hc T).crossingOf x)
+  rw [Finset.mem_insert, Finset.mem_singleton] at h
+  unfold label
+  rcases h with h | h
+  · rw [h]; rfl
+  · rw [h]; rfl
+
+/-! ### KL1 — the carrier record bridge (the geometric heart, on the accepted `positiveLift`; prove on
+`geoPositiveLift` and transfer by `geoPositiveLift_eq_generic` if convenient) -/
+
+variable (hn : 3 ≤ n) (hP : Generic P)
+
+/-! #### KL1 helpers (prefix `kl1_`): the occurrence bijection `Φ` and its laws.
+
+Notation in the comments: `D := positiveLift hn hP T q hT`, `Γ := carrierShadow hn hP T q hT` (the one-component
+shadow of the corner polygon `Q := ccpCornerPolygon hn hP T q`), `X := carrierCrossings hn hP T q`,
+`ρ := smoothingSuccessor hn hP T`, `c_j := ccpCornerMark hn hP T q j`, `e_j := (ccpOutSlot hn hP T c_j).1` the
+original edge of `P` carrying the `j`-th edge of `Q` (`ccpCornerPolygon_block`). -/
+
+/-- The original edge of `P` carrying the block (edge) `j` of the corner polygon. -/
+noncomputable def kl1_blockEdge {T : Finset (Crossing P)} (q : Component hn hP T)
+    (j : ZMod (ccpCornerCount hn hP T q)) : ZMod n :=
+  (ccpOutSlot hn hP T (ccpCornerMark hn hP T q j)).1
+
+/-- **Existence of the P-visit of a shadow visit.** For a shadow visit `(x, s)` of `D`, the crossing
+`c := carrierCrossingEquiv x` of `q` has a visit `w` on the original edge `e_{s}` of the strand `s`, whose twin
+lies on the original edge of the other strand of `x` (`nonadjacent_meet`, lem:carriers (iii)). -/
+theorem kl1_visit_exists {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    ∃ w : Visit P, w.1 = (carrierCrossingEquiv hn hP T q hT v.1).val ∧
+      w.2.val = kl1_blockEdge hn hP q v.2.val.2 ∧
+      (visitTwin w).2.val =
+        kl1_blockEdge hn hP q ((carrierShadow hn hP T q hT).other v.1 v.2.2).2 := by
+  obtain ⟨x, s, hs⟩ := v
+  have ht := (carrierShadow hn hP T q hT).other_mem x hs
+  have hna : ¬ adjacent (Shadow.singleStrandEquiv _ s)
+      (Shadow.singleStrandEquiv _ ((carrierShadow hn hP T q hT).other x hs)) :=
+    fun h => (carrierShadow hn hP T q hT).not_adjacent_other x hs
+      ((Shadow.single_adjacent_iff _ _ _).mpr h)
+  have hps : (carrierShadow hn hP T q hT).crossingPoint x ∈
+      edgeSegment (ccpCornerPolygon hn hP T q) (Shadow.singleStrandEquiv _ s) :=
+    (carrierShadow hn hP T q hT).crossingPoint_mem x hs
+  have hpt : (carrierShadow hn hP T q hT).crossingPoint x ∈
+      edgeSegment (ccpCornerPolygon hn hP T q)
+        (Shadow.singleStrandEquiv _ ((carrierShadow hn hP T q hT).other x hs)) :=
+    (carrierShadow hn hP T q hT).crossingPoint_mem x ht
+  obtain ⟨c, w, -, hxc, hw, hwa, hwb⟩ := nonadjacent_meet hn hP T q hT hna hps hpt
+  have hcc : c = (carrierCrossingEquiv hn hP T q hT x).val := by
+    apply generic_crossingPoint_injective hn hP
+    exact hxc.symm.trans (crossingPoint_carrierCrossingEquiv hn hP T q hT x).symm
+  exact ⟨w, hw.trans hcc, hwa, hwb⟩
+
+omit [NeZero n] in
+/-- Two visits of one crossing on the same original edge coincide (the twin is on the other edge). -/
+theorem kl1_visit_unique {c : Crossing P} {w w' : Visit P} (hw : w.1 = c) (hw' : w'.1 = c)
+    (he : w.2.val = w'.2.val) : w = w' := by
+  rcases visit_eq_or_twin w w' (hw'.trans hw.symm) with h | h
+  · exact h.symm
+  · exfalso
+    rw [h] at he
+    exact visitTwin_edge_ne w he.symm
+
+/-- **`Φ` as a function**: the P-visit of the crossing `carrierCrossingEquiv x` lying on the original edge of
+the strand of the shadow visit. -/
+noncomputable def kl1_toVisit {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) : {u : Visit P // u.1 ∈ carrierCrossings hn hP T q} :=
+  ⟨Classical.choose (kl1_visit_exists hn hP hT q v), by
+    rw [(Classical.choose_spec (kl1_visit_exists hn hP hT q v)).1]
+    exact (carrierCrossingEquiv hn hP T q hT v.1).2⟩
+
+theorem kl1_toVisit_crossing {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (kl1_toVisit hn hP hT q v).1.1 = (carrierCrossingEquiv hn hP T q hT v.1).val :=
+  (Classical.choose_spec (kl1_visit_exists hn hP hT q v)).1
+
+theorem kl1_toVisit_edge {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (kl1_toVisit hn hP hT q v).1.2.val = kl1_blockEdge hn hP q v.2.val.2 :=
+  (Classical.choose_spec (kl1_visit_exists hn hP hT q v)).2.1
+
+theorem kl1_toVisit_twin_edge {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (visitTwin (kl1_toVisit hn hP hT q v).1).2.val =
+      kl1_blockEdge hn hP q ((carrierShadow hn hP T q hT).other v.1 v.2.2).2 :=
+  (Classical.choose_spec (kl1_visit_exists hn hP hT q v)).2.2
+
+/-- `Φ` of the twin occurrence is the twin visit (the other strand carries the twin). -/
+theorem kl1_toVisit_twin {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (kl1_toVisit hn hP hT q ((positiveLift hn hP T q hT).twin v)).1 = visitTwin (kl1_toVisit hn hP hT q v).1 := by
+  apply kl1_visit_unique (c := (carrierCrossingEquiv hn hP T q hT v.1).val)
+  · exact kl1_toVisit_crossing hn hP hT q ((positiveLift hn hP T q hT).twin v)
+  · exact kl1_toVisit_crossing hn hP hT q v
+  · exact (kl1_toVisit_edge hn hP hT q ((positiveLift hn hP T q hT).twin v)).trans
+      (kl1_toVisit_twin_edge hn hP hT q v).symm
+
+theorem kl1_toVisit_injective {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T) :
+    Function.Injective (kl1_toVisit hn hP hT q) := by
+  intro v v' h
+  have hc : (carrierCrossingEquiv hn hP T q hT v.1).val = (carrierCrossingEquiv hn hP T q hT v'.1).val := by
+    rw [← kl1_toVisit_crossing hn hP hT q v, ← kl1_toVisit_crossing hn hP hT q v', h]
+  have hx : v.1 = v'.1 := (carrierCrossingEquiv hn hP T q hT).injective (Subtype.ext hc)
+  obtain ⟨x, s, hs⟩ := v
+  obtain ⟨x', s', hs'⟩ := v'
+  change x = x' at hx
+  subst hx
+  by_cases hss : s = s'
+  · subst hss
+    rfl
+  · exfalso
+    have h1 : s' = (carrierShadow hn hP T q hT).other x hs :=
+      (carrierShadow hn hP T q hT).eq_other_of_mem_of_ne x hs hs' (Ne.symm hss)
+    have e1 := kl1_toVisit_twin_edge hn hP hT q ⟨x, s, hs⟩
+    have e2 := kl1_toVisit_edge hn hP hT q ⟨x, s', hs'⟩
+    have e3 := kl1_toVisit_edge hn hP hT q ⟨x, s, hs⟩
+    rw [← h] at e2
+    apply visitTwin_edge_ne (kl1_toVisit hn hP hT q ⟨x, s, hs⟩).1
+    rw [e1, e2]
+    show kl1_blockEdge hn hP q _ = kl1_blockEdge hn hP q s'.2
+    rw [h1]
+
+/-- The retained visits of the crossings of `q` are twice the crossings (two visits per crossing). -/
+theorem kl1_card_retained {T : Finset (Crossing P)} (q : Component hn hP T) :
+    Fintype.card {u : Visit P // u.1 ∈ carrierCrossings hn hP T q} = 2 * (carrierCrossings hn hP T q).card := by
+  rw [Fintype.card_congr (Equiv.subtypeSigmaEquiv (fun c : Crossing P => {i // i ∈ c.val})
+    (fun c => c ∈ carrierCrossings hn hP T q)), Fintype.card_sigma]
+  simp only [visits_per_crossing, Finset.sum_const, Finset.card_univ, smul_eq_mul]
+  rw [Fintype.card_coe, mul_comm]
+
+theorem kl1_toVisit_bijective {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T) :
+    Function.Bijective (kl1_toVisit hn hP hT q) := by
+  rw [Fintype.bijective_iff_injective_and_card]
+  refine ⟨kl1_toVisit_injective hn hP hT q, ?_⟩
+  have h1 : Fintype.card (carrierShadow hn hP T q hT).Visit =
+      2 * Fintype.card (carrierShadow hn hP T q hT).Crossing :=
+    (positiveLift hn hP T q hT).card_visit_eq_two_mul
+  rw [kl1_card_retained, h1, card_carrierShadow_crossing]
+  rfl
+
+/-- **The occurrence bijection `Φ`** of KL1. -/
+noncomputable def kl1_occEquiv {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T) :
+    (carrierShadow hn hP T q hT).Visit ≃ {u : Visit P // u.1 ∈ carrierCrossings hn hP T q} :=
+  Equiv.ofBijective _ (kl1_toVisit_bijective hn hP hT q)
+
+theorem kl1_occEquiv_apply {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) : kl1_occEquiv hn hP hT q v = kl1_toVisit hn hP hT q v := rfl
+
+/-- The over bit: the strand `s` of a shadow visit is the over strand of `D` iff the positive resolution of
+its P-visit is over, `det(d_w, d_{τ w}) > 0` (the strand directions of `Q` are positive multiples of the
+original edge directions, `ccpCornerPolygon_edge`). -/
+theorem kl1_bit {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    positiveOverBit (kl1_toVisit hn hP hT q v).1 = (positiveLift hn hP T q hT).overBit v := by
+  obtain ⟨x, s, hs⟩ := v
+  unfold positiveOverBit Diagram.overBit
+  apply decide_eq_decide.mpr
+  rw [kl1_toVisit_twin_edge hn hP hT q ⟨x, s, hs⟩, kl1_toVisit_edge hn hP hT q ⟨x, s, hs⟩]
+  obtain ⟨C, hC, he⟩ := ccpCornerPolygon_edge hn hP hT q s.2
+  obtain ⟨C', hC', he'⟩ :=
+    ccpCornerPolygon_edge hn hP hT q ((carrierShadow hn hP T q hT).other x hs).2
+  have hdir : det ((carrierShadow hn hP T q hT).dir s)
+      ((carrierShadow hn hP T q hT).dir ((carrierShadow hn hP T q hT).other x hs)) =
+      (C * C') * det (edge P (kl1_blockEdge hn hP q s.2))
+        (edge P (kl1_blockEdge hn hP q ((carrierShadow hn hP T q hT).other x hs).2)) := by
+    rw [Shadow.single_dir, Shadow.single_dir, Shadow.singleStrandEquiv_apply,
+      Shadow.singleStrandEquiv_apply]
+    change det (edge (ccpCornerPolygon hn hP T q) s.2) (edge (ccpCornerPolygon hn hP T q) _) = _
+    rw [he, he', ccp_det_smul_smul]
+    rfl
+  have hiff : 0 < det (edge P (kl1_blockEdge hn hP q s.2))
+      (edge P (kl1_blockEdge hn hP q ((carrierShadow hn hP T q hT).other x hs).2)) ↔
+      0 < det ((carrierShadow hn hP T q hT).dir s)
+        ((carrierShadow hn hP T q hT).dir ((carrierShadow hn hP T q hT).other x hs)) := by
+    rw [hdir]
+    exact (mul_pos_iff_of_pos_left (mul_pos hC hC')).symm
+  rw [hiff]
+  have hpos : 0 < det ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).overStrand x))
+      ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).underStrand x)) :=
+    positiveLift_isPositive hn hP T q hT x
+  constructor
+  · intro hdet
+    by_contra hne
+    have hu : s = (positiveLift hn hP T q hT).underStrand x :=
+      (positiveLift hn hP T q hT).eq_under_of_mem_of_ne x hs hne
+    subst hu
+    have ho : (carrierShadow hn hP T q hT).other x hs = (positiveLift hn hP T q hT).overStrand x :=
+      (carrierShadow hn hP T q hT).other_other x ((positiveLift hn hP T q hT).over_mem x)
+    have h1 : 0 < det ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).underStrand x))
+        ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).overStrand x)) := ho ▸ hdet
+    have h2 := det_swap ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).underStrand x))
+      ((carrierShadow hn hP T q hT).dir ((positiveLift hn hP T q hT).overStrand x))
+    linarith
+  · intro heq
+    have heq' : s = (positiveLift hn hP T q hT).overStrand x := heq
+    subst heq'
+    exact hpos
+
+/-! ##### The successor law. Both successors are cyclic "next" maps: `D.nextVisit` in the order of the Q-keys
+`visitCoord` (traversal coordinate on the corner polygon), `List.next` on `L_X = gaussList hc X` in the order
+of the P-keys `visitKey` (traversal coordinate on `P`). The marks of `q` form one cycle of `ρ_T` (traced by
+`componentMarkList`, the accepted inherited-order list); the P-key increases strictly along that cycle from
+`ML[0]`, the Q-key increases strictly along it from the corner `c_0` (block by block, `ccpCornerPolygon_block`),
+so the two keys induce the same cyclic order on the visits of the self-crossings, and `cycNext_unique` identifies
+the successors. -/
+
+/-- Cyclic betweenness of three indices below `N` is invariant under a cyclic shift by `s < N`
+(arithmetic form: `a'` is `s + a` or `s + a - N`, etc.). -/
+theorem kl1_cycBetween_shift_aux {N s a b c a' b' c' : ℕ} (ha : a < N) (hb : b < N) (hc : c < N)
+    (ha' : a' < N) (hb' : b' < N) (hc' : c' < N)
+    (h1 : a' = s + a ∨ a' + N = s + a) (h2 : b' = s + b ∨ b' + N = s + b)
+    (h3 : c' = s + c ∨ c' + N = s + c) :
+    cycBetween (a : ℝ) b c ↔ cycBetween (a' : ℝ) b' c' := by
+  unfold cycBetween
+  simp only [Nat.cast_lt]
+  rcases h1 with h1 | h1 <;> rcases h2 with h2 | h2 <;> rcases h3 with h3 | h3 <;> omega
+
+/-- Cyclic betweenness of three indices below `N` is invariant under a cyclic shift by `s < N`. -/
+theorem kl1_cycBetween_shift {N s a b c : ℕ} (hs : s < N) (ha : a < N) (hb : b < N) (hc : c < N) :
+    cycBetween (a : ℝ) b c ↔
+      cycBetween (((s + a) % N : ℕ) : ℝ) (((s + b) % N : ℕ) : ℝ) (((s + c) % N : ℕ) : ℝ) :=
+  kl1_cycBetween_shift_aux ha hb hc (Nat.mod_lt _ (by omega)) (Nat.mod_lt _ (by omega))
+    (Nat.mod_lt _ (by omega)) (add_mod_cases N s a hs ha) (add_mod_cases N s b hs hb)
+    (add_mod_cases N s c hs hc)
+
+/-- A key strictly increasing along the indices `< N` transports cyclic betweenness to the indices. -/
+theorem kl1_cycBetween_of_strictMono {N : ℕ} {f : ℕ → ℝ} (hf : ∀ i j, i < j → j < N → f i < f j)
+    {a b c : ℕ} (ha : a < N) (hb : b < N) (hc : c < N) :
+    cycBetween (f a) (f b) (f c) ↔ cycBetween (a : ℝ) b c := by
+  have hlt : ∀ i j, i < N → j < N → (f i < f j ↔ i < j) := by
+    intro i j hi hj
+    refine ⟨fun h => ?_, fun h => hf i j h hj⟩
+    by_contra hij
+    rcases (not_lt.mp hij).lt_or_eq with hji | hji
+    · exact absurd h (not_lt.mpr (hf j i hji hi).le)
+    · subst hji
+      exact lt_irrefl _ h
+  unfold cycBetween
+  simp only [Nat.cast_lt]
+  rw [hlt a b ha hb, hlt b c hb hc, hlt c a hc ha]
+
+/-- In a list strictly sorted by a real key, no entry lies cyclically strictly between an entry and its
+cyclic `next` (the accepted `sorted_next_no_cyclic_between`, for lists). -/
+theorem kl1_sorted_next_no_between {α : Type*} [DecidableEq α] {f : α → ℝ} {l : List α}
+    (hl : l.Pairwise (fun a b => f a < f b)) {x : α} (hx : x ∈ l) {y : α} (hy : y ∈ l) :
+    ¬ cycBetween (f x) (f y) (f (l.next x hx)) := by
+  have hnd : l.Nodup := hl.imp fun {a b} h hab => by rw [hab] at h; exact lt_irrefl _ h
+  have key : ∀ (a b : ℕ) (ha : a < l.length) (hb : b < l.length),
+      f (l[a]'ha) < f (l[b]'hb) ↔ a < b := by
+    intro a b ha hb
+    constructor
+    · intro h
+      by_contra hab
+      rcases (not_lt.mp hab).lt_or_eq with hba | hba
+      · exact absurd h (not_lt.mpr (List.pairwise_iff_getElem.mp hl b a hb ha hba).le)
+      · subst hba
+        exact lt_irrefl _ h
+    · intro h
+      exact List.pairwise_iff_getElem.mp hl a b ha hb h
+  obtain ⟨i, hi, rfl⟩ := List.getElem_of_mem hx
+  obtain ⟨m, hm, rfl⟩ := List.getElem_of_mem hy
+  rw [List.next_getElem l hnd i hi]
+  unfold cycBetween
+  rw [key, key, key]
+  rcases Nat.lt_or_ge (i + 1) l.length with hlt | hge
+  · rw [Nat.mod_eq_of_lt hlt]
+    omega
+  · have h0 : (i + 1) % l.length = 0 := by
+      have : i + 1 = l.length := by omega
+      rw [this, Nat.mod_self]
+    rw [h0]
+    omega
+
+/-- Two distinct members force length at least two. -/
+theorem kl1_two_le_length {α : Type*} {l : List α} {a b : α} (ha : a ∈ l) (hb : b ∈ l) (hab : a ≠ b) :
+    2 ≤ l.length := by
+  by_contra h
+  have hpos := List.length_pos_of_mem ha
+  have hlen : l.length = 1 := by omega
+  obtain ⟨x, rfl⟩ := List.length_eq_one_iff.mp hlen
+  rw [List.mem_singleton] at ha hb
+  exact hab (ha.trans hb.symm)
+
+/-- The inherited mark list `ML` of `q` is traced by `ρ_T` from its first entry: `ρ_T^i ML[0] = ML[i % N]`
+(the accepted `componentMarkList_getElem_successor`, iterated). -/
+theorem kl1_pow_markList_zero {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (i : ℕ) (hN : 0 < (componentMarkList hn hP T q).length) :
+    (smoothingSuccessor hn hP T ^ i) ((componentMarkList hn hP T q)[0]'hN) =
+      (componentMarkList hn hP T q)[i % (componentMarkList hn hP T q).length]'(Nat.mod_lt _ hN) := by
+  induction i with
+  | zero =>
+    rw [pow_zero, Equiv.Perm.one_apply]
+    exact getElem_congr_of_eq rfl (Nat.zero_mod _).symm _ _
+  | succ i ih =>
+    rw [pow_succ', Equiv.Perm.mul_apply, ih]
+    have h : smoothingSuccessor hn hP T
+        ((componentMarkList hn hP T q)[i % (componentMarkList hn hP T q).length]'(Nat.mod_lt _ hN)) =
+        (componentMarkList hn hP T q)[(i % (componentMarkList hn hP T q).length + 1) %
+          (componentMarkList hn hP T q).length]'(Nat.mod_lt _ hN) :=
+      componentMarkList_getElem_successor hn hP hT q ⟨i % (componentMarkList hn hP T q).length, Nat.mod_lt _ hN⟩
+    rw [h]
+    exact getElem_congr_of_eq rfl (Nat.mod_add_mod _ _ _) _ _
+
+theorem kl1_corner_mem_markList {T : Finset (Crossing P)} (q : Component hn hP T) :
+    ccpCornerMark hn hP T q 0 ∈ componentMarkList hn hP T q :=
+  ((componentMarkList_data hn hP T q).2.2.2 _).mpr (ccpCornerMark_owner hn hP T q 0)
+
+/-- Indexing the cycle of `q` from the corner `c_0 = ML[i₀]`: `ρ_T^i c_0 = ML[(i₀ + i) % N]`. -/
+theorem kl1_pow_corner {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {i₀ : ℕ} (hi₀ : i₀ < (componentMarkList hn hP T q).length)
+    (hm₀ : (componentMarkList hn hP T q)[i₀]'hi₀ = ccpCornerMark hn hP T q 0) (i : ℕ) :
+    (smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0) =
+      (componentMarkList hn hP T q)[(i₀ + i) % (componentMarkList hn hP T q).length]'
+        (Nat.mod_lt _ (lt_of_le_of_lt (Nat.zero_le _) hi₀)) := by
+  have hN : 0 < (componentMarkList hn hP T q).length := lt_of_le_of_lt (Nat.zero_le _) hi₀
+  have h1 : (componentMarkList hn hP T q)[i₀]'hi₀ =
+      (smoothingSuccessor hn hP T ^ i₀) ((componentMarkList hn hP T q)[0]'hN) := by
+    rw [kl1_pow_markList_zero hn hP hT q i₀ hN]
+    exact getElem_congr_of_eq rfl (Nat.mod_eq_of_lt hi₀).symm _ _
+  rw [← hm₀, h1, ← Equiv.Perm.mul_apply, ← pow_add, add_comm, kl1_pow_markList_zero hn hP hT q _ hN]
+
+/-- Every mark of `q` is `ρ_T^i c_0` for some `i < N`. -/
+theorem kl1_exists_idx {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {i₀ : ℕ} (hi₀ : i₀ < (componentMarkList hn hP T q).length)
+    (hm₀ : (componentMarkList hn hP T q)[i₀]'hi₀ = ccpCornerMark hn hP T q 0)
+    (m : Mark P) (hm : owner hn hP T m = q) :
+    ∃ i < (componentMarkList hn hP T q).length,
+      (smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0) = m := by
+  obtain ⟨j, hj, hjm⟩ := List.getElem_of_mem (((componentMarkList_data hn hP T q).2.2.2 m).mpr hm)
+  by_cases hle : i₀ ≤ j
+  · refine ⟨j - i₀, by omega, ?_⟩
+    rw [kl1_pow_corner hn hP hT q hi₀ hm₀, ← hjm]
+    exact getElem_congr_of_eq rfl (by rw [Nat.add_sub_cancel' hle, Nat.mod_eq_of_lt hj]) _ _
+  · refine ⟨j + (componentMarkList hn hP T q).length - i₀, by omega, ?_⟩
+    rw [kl1_pow_corner hn hP hT q hi₀ hm₀, ← hjm]
+    refine getElem_congr_of_eq rfl ?_ _ _
+    have heq : i₀ + (j + (componentMarkList hn hP T q).length - i₀) = j + (componentMarkList hn hP T q).length := by
+      omega
+    rw [heq, Nat.add_mod_right, Nat.mod_eq_of_lt hj]
+
+/-- The indexing `i ↦ ρ_T^i c_0` is injective below `N`. -/
+theorem kl1_idx_injective {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {i₀ : ℕ} (hi₀ : i₀ < (componentMarkList hn hP T q).length)
+    (hm₀ : (componentMarkList hn hP T q)[i₀]'hi₀ = ccpCornerMark hn hP T q 0)
+    {i j : ℕ} (hi : i < (componentMarkList hn hP T q).length) (hj : j < (componentMarkList hn hP T q).length)
+    (h : (smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0) =
+      (smoothingSuccessor hn hP T ^ j) (ccpCornerMark hn hP T q 0)) : i = j := by
+  rw [kl1_pow_corner hn hP hT q hi₀ hm₀ i, kl1_pow_corner hn hP hT q hi₀ hm₀ j] at h
+  have hmod := ((componentMarkList_data hn hP T q).1.getElem_inj_iff).mp h
+  rcases add_mod_cases _ i₀ i hi₀ hi with h1 | h1 <;> rcases add_mod_cases _ i₀ j hi₀ hj with h2 | h2 <;> omega
+
+/-- A `≤`-sorted duplicate-free list with an injective key is strictly sorted. -/
+theorem kl1_pairwise_lt {α : Type*} {f : α → ℝ} {l : List α}
+    (hl : l.Pairwise (fun a b => f a ≤ f b)) (hnd : l.Nodup) (hf : Function.Injective f) :
+    l.Pairwise (fun a b => f a < f b) :=
+  (hl.and hnd).imp fun ⟨hle, hne⟩ => lt_of_le_of_ne hle fun h => hne (hf h)
+
+/-- The P-key (`markKey`) increases strictly along `ML` (a filter of the sorted `markList`). -/
+theorem kl1_markKey_lt {T : Finset (Crossing P)} (q : Component hn hP T) (a b : ℕ)
+    (ha : a < (componentMarkList hn hP T q).length) (hb : b < (componentMarkList hn hP T q).length)
+    (hab : a < b) :
+    markKey hn hP.1 ((componentMarkList hn hP T q)[a]'ha) < markKey hn hP.1 ((componentMarkList hn hP T q)[b]'hb) := by
+  have hs : (componentMarkList hn hP T q).Pairwise (fun x y => markKey hn hP.1 x < markKey hn hP.1 y) :=
+    kl1_pairwise_lt ((markList_sorted hn hP).filter _) (componentMarkList_data hn hP T q).1
+      (markKey_injective hn hP)
+  exact List.pairwise_iff_getElem.mp hs a b ha hb hab
+
+/-- **Block position and Q-parameter of a mark of `q`**: `m = ρ_T^r c_j` inside the block `j`
+(`mark_block`), and its plane point is `Q j + t • edge Q j` with `0 ≤ t < 1` (`t = 1` would make `m` the
+corner `c_{j+1}`, `param_eq_of_corner`). -/
+theorem kl1_pos_exists {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) :
+    ∃ p : ZMod (ccpCornerCount hn hP T q) × ℕ × ℝ,
+      (smoothingSuccessor hn hP T ^ p.2.1) (ccpCornerMark hn hP T q p.1) = m ∧
+      BlockInterior hn hP T q p.1 p.2.1 ∧ 0 ≤ p.2.2 ∧ p.2.2 < 1 ∧
+      traversalEvaluation P (markPosition hn hP.1 m) = edgePoint (ccpCornerPolygon hn hP T q) p.1 p.2.2 := by
+  obtain ⟨j, r, hjr, hb, hmem⟩ := mark_block hn hP T q hT m hm
+  obtain ⟨t, ht0, ht1, hpt⟩ := hmem
+  refine ⟨(j, r, t), hjr, hb, ht0, lt_of_le_of_ne ht1 ?_, hpt⟩
+  rintro rfl
+  rw [edgePoint_one] at hpt
+  have hp : IsCarrierParameter hn hP T q ((smoothingSuccessor hn hP T ^ r) (ccpCornerMark hn hP T q j), 0) :=
+    isCarrierParameter_block hn hP T q j r le_rfl zero_lt_one
+  have heq := param_eq_of_corner hn hP T q hT hp (corner_param hn hP T q (j + 1)).1
+    (ccpCornerMark_isTrueCorner hn hP T q (j + 1))
+    (by
+      show smoothingSegment hn hP T _ 0 = _
+      rw [smoothingSegment_zero, hjr, hpt, ccpCornerPolygon_apply])
+    ((corner_param hn hP T q (j + 1)).2.trans (ccpCornerPolygon_apply hn hP T q (j + 1)))
+  have hmk : (smoothingSuccessor hn hP T ^ r) (ccpCornerMark hn hP T q j) = ccpCornerMark hn hP T q (j + 1) :=
+    congrArg Prod.fst heq
+  have hr : r = 0 := hb.eq_zero_of_trueCorner hn hP T q
+    (by rw [hmk]; exact ccpCornerMark_isTrueCorner hn hP T q (j + 1))
+  rw [hr, pow_zero, Equiv.Perm.one_apply] at hmk
+  have hj := ccpCornerMark_injective hn hP T q hmk
+  have h1 : (1 : ZMod (ccpCornerCount hn hP T q)) = 0 := by linear_combination -hj
+  have hval := congrArg ZMod.val h1
+  have hk := ccpCornerCount_ge_three hn hP hT q
+  rw [ZMod.val_one_eq_one_mod, ZMod.val_zero, Nat.mod_eq_of_lt (by omega)] at hval
+  exact one_ne_zero hval
+
+/-- The block position `(j, r)` and Q-parameter `t` of a mark of `q`, chosen. -/
+noncomputable def kl1_pos {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) : ZMod (ccpCornerCount hn hP T q) × ℕ × ℝ :=
+  Classical.choose (kl1_pos_exists hn hP hT q m hm)
+
+theorem kl1_pos_spec {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) :
+    (smoothingSuccessor hn hP T ^ (kl1_pos hn hP hT q m hm).2.1) (ccpCornerMark hn hP T q (kl1_pos hn hP hT q m hm).1) = m ∧
+      BlockInterior hn hP T q (kl1_pos hn hP hT q m hm).1 (kl1_pos hn hP hT q m hm).2.1 ∧
+      0 ≤ (kl1_pos hn hP hT q m hm).2.2 ∧ (kl1_pos hn hP hT q m hm).2.2 < 1 ∧
+      traversalEvaluation P (markPosition hn hP.1 m) =
+        edgePoint (ccpCornerPolygon hn hP T q) (kl1_pos hn hP hT q m hm).1 (kl1_pos hn hP hT q m hm).2.2 :=
+  Classical.choose_spec (kl1_pos_exists hn hP hT q m hm)
+
+/-- Uniqueness of the block position and of the Q-parameter (`block_mark_eq`, `edgePoint_injective`). -/
+theorem kl1_pos_unique {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) {j : ZMod (ccpCornerCount hn hP T q)} {r : ℕ} {t : ℝ}
+    (h1 : (smoothingSuccessor hn hP T ^ r) (ccpCornerMark hn hP T q j) = m) (h2 : BlockInterior hn hP T q j r)
+    (h5 : traversalEvaluation P (markPosition hn hP.1 m) = edgePoint (ccpCornerPolygon hn hP T q) j t) :
+    (kl1_pos hn hP hT q m hm).1 = j ∧ (kl1_pos hn hP hT q m hm).2.1 = r ∧ (kl1_pos hn hP hT q m hm).2.2 = t := by
+  obtain ⟨e1, e2, -, -, e5⟩ := kl1_pos_spec hn hP hT q m hm
+  obtain ⟨hj, hr⟩ := block_mark_eq hn hP T q e2 h2 (e1.trans h1.symm)
+  refine ⟨hj, hr, ?_⟩
+  rw [hj] at e5
+  exact edgePoint_injective (ccpCornerPolygon_edge_ne_zero hn hP hT q j) (e5.symm.trans h5)
+
+/-- **The Q-key of a mark of `q`**: block index plus Q-parameter — the traversal coordinate of its plane
+point on the corner polygon. -/
+noncomputable def kl1_key {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) : ℝ :=
+  ((kl1_pos hn hP hT q m hm).1.val : ℝ) + (kl1_pos hn hP hT q m hm).2.2
+
+theorem kl1_key_congr {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {m m' : Mark P} (h : m = m') (hm : owner hn hP T m = q) (hm' : owner hn hP T m' = q) :
+    kl1_key hn hP hT q m hm = kl1_key hn hP hT q m' hm' := by
+  subst h
+  rfl
+
+/-- **The local step**: the Q-key increases strictly along `ρ_T`, except at the return to the corner `c_0`.
+Same block: the slot parameters on the common original edge increase (`ccpCornerPolygon_block`) and the
+Q-parameter is an increasing affine function of the slot parameter; next corner `c_{j+1} ≠ c_0`: the key jumps
+from `j + t < j + 1` to `(j + 1).val = j.val + 1`. -/
+theorem kl1_key_lt_succ {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (m : Mark P) (hm : owner hn hP T m = q) (hm' : owner hn hP T (smoothingSuccessor hn hP T m) = q)
+    (hne : smoothingSuccessor hn hP T m ≠ ccpCornerMark hn hP T q 0) :
+    kl1_key hn hP hT q m hm < kl1_key hn hP hT q (smoothingSuccessor hn hP T m) hm' := by
+  unfold kl1_key
+  obtain ⟨e1, e2, -, e4, e5⟩ := kl1_pos_spec hn hP hT q m hm
+  obtain ⟨f1, f2, -, -, f5⟩ := kl1_pos_spec hn hP hT q (smoothingSuccessor hn hP T m) hm'
+  set j := (kl1_pos hn hP hT q m hm).1 with hjdef
+  set r := (kl1_pos hn hP hT q m hm).2.1 with hrdef
+  set t := (kl1_pos hn hP hT q m hm).2.2 with htdef
+  obtain ⟨mj, hmj, hchain, hmid, hedges, hparam, ⟨C, hC, hQ⟩, -, -⟩ := ccpCornerPolygon_block hn hP hT q j
+  have hrm : r < mj := by
+    by_contra hle
+    exact e2.not_trueCorner hn hP T q mj hmj (not_lt.mp hle)
+      (hchain ▸ ccpCornerMark_isTrueCorner hn hP T q (j + 1))
+  have hρ : smoothingSuccessor hn hP T m = (smoothingSuccessor hn hP T ^ (r + 1)) (ccpCornerMark hn hP T q j) := by
+    rw [pow_succ', Equiv.Perm.mul_apply, e1]
+  rcases Nat.lt_or_ge (r + 1) mj with hlt | hge
+  · -- `ρ_T m` lies in the same block `j`, at rank `r + 1`
+    have hb' : BlockInterior hn hP T q j (r + 1) := fun i h1 hi => hmid i h1 (by omega)
+    obtain ⟨hj', -⟩ := block_mark_eq hn hP T q f2 hb' (f1.trans hρ)
+    rw [hj'] at f5 ⊢
+    refine add_lt_add_of_le_of_lt le_rfl ?_
+    have hQj : ccpCornerPolygon hn hP T q j =
+        edgePoint P (kl1_blockEdge hn hP q j) (ccpOutSlot hn hP T (ccpCornerMark hn hP T q j)).2.val := by
+      rw [ccpCornerPolygon_apply]
+      exact ccp_evaluation_eq_outSlot hn hP T _
+    have hedgeQ : edge (ccpCornerPolygon hn hP T q) j = C • edge P (kl1_blockEdge hn hP q j) := hQ
+    have hform : ∀ u : ℝ, edgePoint (ccpCornerPolygon hn hP T q) j u =
+        edgePoint P (kl1_blockEdge hn hP q j)
+          ((ccpOutSlot hn hP T (ccpCornerMark hn hP T q j)).2.val + u * C) := by
+      intro u
+      rw [edgePoint, hedgeQ, hQj]
+      apply Prod.ext <;> simp [edgePoint, smul_eq_mul] <;> ring
+    have hm_out := ccp_evaluation_eq_outSlot hn hP T m
+    have hm_edge : (ccpOutSlot hn hP T m).1 = kl1_blockEdge hn hP q j := by
+      rw [← e1]
+      exact hedges r hrm
+    have hρ_out := ccp_evaluation_eq_outSlot hn hP T (smoothingSuccessor hn hP T m)
+    have hρ_edge : (ccpOutSlot hn hP T (smoothingSuccessor hn hP T m)).1 = kl1_blockEdge hn hP q j := by
+      rw [hρ]
+      exact hedges (r + 1) hlt
+    have hτ : (ccpOutSlot hn hP T m).2.val < (ccpOutSlot hn hP T (smoothingSuccessor hn hP T m)).2.val := by
+      have := hparam r hlt
+      rwa [e1, ← hρ] at this
+    have ht : (ccpOutSlot hn hP T (ccpCornerMark hn hP T q j)).2.val + t * C = (ccpOutSlot hn hP T m).2.val := by
+      apply edgePoint_injective ((g1 hn P hP.1).2.1 (kl1_blockEdge hn hP q j))
+      rw [← hform, ← e5, hm_out, hm_edge]
+    have ht' : (ccpOutSlot hn hP T (ccpCornerMark hn hP T q j)).2.val +
+        (kl1_pos hn hP hT q (smoothingSuccessor hn hP T m) hm').2.2 * C =
+        (ccpOutSlot hn hP T (smoothingSuccessor hn hP T m)).2.val := by
+      apply edgePoint_injective ((g1 hn P hP.1).2.1 (kl1_blockEdge hn hP q j))
+      rw [← hform, ← f5, hρ_out, hρ_edge]
+    have hlt' : t * C < (kl1_pos hn hP hT q (smoothingSuccessor hn hP T m) hm').2.2 * C := by linarith
+    exact lt_of_mul_lt_mul_right hlt' hC.le
+  · -- `ρ_T m` is the next corner `c_{j+1}`
+    have hr1 : r + 1 = mj := by omega
+    have hcorner : smoothingSuccessor hn hP T m = ccpCornerMark hn hP T q (j + 1) := by
+      rw [hρ, hr1, hchain]
+    have hr0 : (kl1_pos hn hP hT q (smoothingSuccessor hn hP T m) hm').2.1 = 0 :=
+      f2.eq_zero_of_trueCorner hn hP T q
+        (by rw [f1, hcorner]; exact ccpCornerMark_isTrueCorner hn hP T q (j + 1))
+    rw [hr0, pow_zero, Equiv.Perm.one_apply] at f1
+    have hj' : (kl1_pos hn hP hT q (smoothingSuccessor hn hP T m) hm').1 = j + 1 :=
+      ccpCornerMark_injective hn hP T q (f1.trans hcorner)
+    have ht' : (kl1_pos hn hP hT q (smoothingSuccessor hn hP T m) hm').2.2 = 0 := by
+      rw [hj'] at f5
+      have hQ1 : traversalEvaluation P (markPosition hn hP.1 (smoothingSuccessor hn hP T m)) =
+          ccpCornerPolygon hn hP T q (j + 1) := by
+        rw [hcorner]
+        exact (ccpCornerPolygon_apply hn hP T q (j + 1)).symm
+      exact (edgePoint_injective (ccpCornerPolygon_edge_ne_zero hn hP hT q (j + 1))
+        ((edgePoint_zero _ _).trans (hQ1.symm.trans f5))).symm
+    rw [hj', ht', add_zero]
+    have hne' : j + 1 ≠ 0 := by
+      intro h0
+      apply hne
+      rw [hcorner, h0]
+    have hk := ccpCornerCount_ge_three hn hP hT q
+    have hval : (j + 1).val = j.val + 1 := by
+      rw [ZMod.val_add, ZMod.val_one_eq_one_mod, Nat.mod_eq_of_lt (by omega : 1 < ccpCornerCount hn hP T q)]
+      rcases Nat.lt_or_ge (j.val + 1) (ccpCornerCount hn hP T q) with h | h
+      · exact Nat.mod_eq_of_lt h
+      · exfalso
+        have hjv := ZMod.val_lt j
+        have heq : j.val + 1 = ccpCornerCount hn hP T q := by omega
+        apply hne'
+        rw [← ZMod.val_eq_zero, ZMod.val_add, ZMod.val_one_eq_one_mod,
+          Nat.mod_eq_of_lt (by omega : 1 < ccpCornerCount hn hP T q), heq, Nat.mod_self]
+    rw [hval]
+    push_cast
+    linarith
+
+/-- The Q-key of the `i`-th mark of the cycle of `q` from the corner `c_0`. -/
+noncomputable def kl1_keyIdx {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (i : ℕ) : ℝ :=
+  kl1_key hn hP hT q ((smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0))
+    (by rw [ccp_pow_owner]; exact ccpCornerMark_owner hn hP T q 0)
+
+/-- **The Q-key increases strictly along the cycle of `q` from `c_0`** (local steps; no return to `c_0`
+before `N` steps). -/
+theorem kl1_keyIdx_strictMono {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {i₀ : ℕ} (hi₀ : i₀ < (componentMarkList hn hP T q).length)
+    (hm₀ : (componentMarkList hn hP T q)[i₀]'hi₀ = ccpCornerMark hn hP T q 0) :
+    ∀ i j, i < j → j < (componentMarkList hn hP T q).length → kl1_keyIdx hn hP hT q i < kl1_keyIdx hn hP hT q j := by
+  intro i j hij hjN
+  induction j with
+  | zero => omega
+  | succ j ih =>
+    have hstep : kl1_keyIdx hn hP hT q j < kl1_keyIdx hn hP hT q (j + 1) := by
+      unfold kl1_keyIdx
+      have hne : smoothingSuccessor hn hP T ((smoothingSuccessor hn hP T ^ j) (ccpCornerMark hn hP T q 0)) ≠
+          ccpCornerMark hn hP T q 0 := by
+        intro h
+        have h' : (smoothingSuccessor hn hP T ^ (j + 1)) (ccpCornerMark hn hP T q 0) =
+            (smoothingSuccessor hn hP T ^ 0) (ccpCornerMark hn hP T q 0) := by
+          rw [pow_succ', Equiv.Perm.mul_apply, h, pow_zero, Equiv.Perm.one_apply]
+        have := kl1_idx_injective hn hP hT q hi₀ hm₀ hjN (by omega) h'
+        omega
+      refine lt_of_lt_of_eq (kl1_key_lt_succ hn hP hT q _ _
+        (by rw [owner_successor, ccp_pow_owner]; exact ccpCornerMark_owner hn hP T q 0) hne) ?_
+      exact kl1_key_congr hn hP hT q (by rw [pow_succ', Equiv.Perm.mul_apply]) _ _
+    rcases Nat.lt_or_ge i j with hlt | hge
+    · exact (ih hlt (by omega)).trans hstep
+    · have : i = j := by omega
+      subst this
+      exact hstep
+
+theorem kl1_owner {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) : owner hn hP T (Sum.inr (kl1_toVisit hn hP hT q v).1) = q :=
+  ((mem_carrierCrossings hn hP T q _).mp (kl1_toVisit hn hP hT q v).2).2 _ rfl
+
+/-- **Strand = block.** The P-visit `Φ v` of a shadow visit `v` on the strand (edge) `j` of `Q` lies in the
+block `j` (its crossing point is on the edge `j` and on the block's edge; two different edges of `Q` through
+the point of a self-crossing are the two strands of that crossing). -/
+theorem kl1_block_of_visit {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (kl1_pos hn hP hT q (Sum.inr (kl1_toVisit hn hP hT q v).1) (kl1_owner hn hP hT q v)).1 = v.2.val.2 := by
+  obtain ⟨x, s, hs⟩ := v
+  obtain ⟨e1, e2, e3, e4, e5⟩ := kl1_pos_spec hn hP hT q _ (kl1_owner hn hP hT q ⟨x, s, hs⟩)
+  set w := (kl1_toVisit hn hP hT q ⟨x, s, hs⟩).1 with hwdef
+  set j' := (kl1_pos hn hP hT q (Sum.inr w) (kl1_owner hn hP hT q ⟨x, s, hs⟩)).1 with hj'def
+  set r' := (kl1_pos hn hP hT q (Sum.inr w) (kl1_owner hn hP hT q ⟨x, s, hs⟩)).2.1 with hr'def
+  have hwc : w.1 = (carrierCrossingEquiv hn hP T q hT x).val := kl1_toVisit_crossing hn hP hT q ⟨x, s, hs⟩
+  have hwe : w.2.val = kl1_blockEdge hn hP q s.2 := kl1_toVisit_edge hn hP hT q ⟨x, s, hs⟩
+  have hcX := (carrierCrossingEquiv hn hP T q hT x).2
+  have hpt : (carrierShadow hn hP T q hT).crossingPoint x = crossingPoint (carrierCrossingEquiv hn hP T q hT x).val :=
+    (crossingPoint_carrierCrossingEquiv hn hP T q hT x).symm
+  have hmem' : (carrierShadow hn hP T q hT).crossingPoint x ∈ edgeSegment (ccpCornerPolygon hn hP T q) j' := by
+    refine ⟨_, e3, e4.le, ?_⟩
+    rw [hpt, ← hwc, ← markPosition_evaluation_visit hn hP.1 w]
+    exact e5
+  have hmem : (carrierShadow hn hP T q hT).crossingPoint x ∈ edgeSegment (ccpCornerPolygon hn hP T q) s.2 :=
+    (carrierShadow hn hP T q hT).crossingPoint_mem x hs
+  have hnc := (carrier_selfIntersection_not_corner hn hP T q hcX).2.2.2
+  by_contra hne
+  by_cases hadj : adjacent s.2 j'
+  · rcases hadj with h | h | h
+    · -- `s.2 = j' + 1`
+      have hj : s.2 = j' + 1 := by linear_combination -h
+      rw [hj] at hmem
+      exact hnc _ (ccpCornerMark_isTrueCorner hn hP T q (j' + 1))
+        ((ccpCornerPolygon_apply hn hP T q (j' + 1)).symm.trans
+          ((consecutive_meet hn hP T q hT j' hmem' hmem).symm.trans hpt))
+    · exact hne (by linear_combination h)
+    · -- `j' = s.2 + 1`
+      have hj : j' = s.2 + 1 := by linear_combination h
+      rw [hj] at hmem'
+      exact hnc _ (ccpCornerMark_isTrueCorner hn hP T q (s.2 + 1))
+        ((ccpCornerPolygon_apply hn hP T q (s.2 + 1)).symm.trans
+          ((consecutive_meet hn hP T q hT s.2 hmem hmem').symm.trans hpt))
+  · obtain ⟨c', w₀, -, hxc', hw₀, hw₀a, hw₀b⟩ := nonadjacent_meet hn hP T q hT hadj hmem hmem'
+    have hc' : c' = (carrierCrossingEquiv hn hP T q hT x).val :=
+      generic_crossingPoint_injective hn hP (hxc'.symm.trans hpt)
+    have hr1 : 1 ≤ r' := by
+      by_contra h
+      have hr0 : r' = 0 := by omega
+      rw [hr0, pow_zero, Equiv.Perm.one_apply] at e1
+      have hcorner := ccpCornerMark_isTrueCorner hn hP T q j'
+      rw [e1] at hcorner
+      exact ((mem_carrierCrossings hn hP T q _).mp hcX).1 (hwc ▸ (isTrueCorner_visit T w).mp hcorner)
+    have hwe' : w.2.val = kl1_blockEdge hn hP q j' := e2.visit_edge hn hP T q hr1 e1
+    rcases visit_eq_or_twin w w₀ ((hw₀.trans hc').trans hwc.symm) with h | h
+    · rw [h] at hw₀b
+      exact visitTwin_edge_ne w (hw₀b.trans hwe'.symm)
+    · rw [h] at hw₀a
+      exact visitTwin_edge_ne w (hw₀a.trans hwe.symm)
+
+/-- **The Q-key of a shadow visit is its traversal coordinate `visitCoord`** on the corner polygon. -/
+theorem kl1_visitCoord_eq {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (positiveLift hn hP T q hT).visitCoord v =
+      kl1_key hn hP hT q (Sum.inr (kl1_toVisit hn hP hT q v).1) (kl1_owner hn hP hT q v) := by
+  obtain ⟨-, -, -, -, e5⟩ := kl1_pos_spec hn hP hT q _ (kl1_owner hn hP hT q v)
+  have hj := kl1_block_of_visit hn hP hT q v
+  unfold kl1_key
+  rw [hj] at e5 ⊢
+  have hpt : (carrierShadow hn hP T q hT).crossingPoint v.1 =
+      edgePoint (ccpCornerPolygon hn hP T q) v.2.val.2 (kl1_pos hn hP hT q _ (kl1_owner hn hP hT q v)).2.2 := by
+    rw [← e5, markPosition_evaluation_visit, kl1_toVisit_crossing, crossingPoint_carrierCrossingEquiv]
+  have hcp := ((positiveLift hn hP T q hT).crossingParam_spec v.1 v.2.2).2.2
+  have ht : (positiveLift hn hP T q hT).crossingParam v.1 v.2.2 =
+      (kl1_pos hn hP hT q _ (kl1_owner hn hP hT q v)).2.2 :=
+    edgePoint_injective (ccpCornerPolygon_edge_ne_zero hn hP hT q _) (hcp.symm.trans hpt)
+  show ((v.2.val.2 : ZMod _).val : ℝ) + (positiveLift hn hP T q hT).crossingParam v.1 v.2.2 = _
+  rw [ht]
+
+/-- The Q-key of a shadow visit is the Q-key of the index of its P-visit on the cycle of `q` from `c_0`. -/
+theorem kl1_visitCoord_eq_idx {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) (i : ℕ)
+    (hi : (smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0) = Sum.inr (kl1_toVisit hn hP hT q v).1) :
+    (positiveLift hn hP T q hT).visitCoord v = kl1_keyIdx hn hP hT q i :=
+  (kl1_visitCoord_eq hn hP hT q v).trans (kl1_key_congr hn hP hT q hi.symm _ _)
+
+/-- The P-key of the `i`-th entry of `ML` (index read modulo `N`; `0` for an empty list, which never occurs). -/
+noncomputable def kl1_pkey {T : Finset (Crossing P)} (q : Component hn hP T) (i : ℕ) : ℝ :=
+  if hN : 0 < (componentMarkList hn hP T q).length then
+    markKey hn hP.1 ((componentMarkList hn hP T q)[i % (componentMarkList hn hP T q).length]'(Nat.mod_lt _ hN))
+  else 0
+
+theorem kl1_pkey_eq {T : Finset (Crossing P)} (q : Component hn hP T) (i : ℕ)
+    (hi : i < (componentMarkList hn hP T q).length) :
+    kl1_pkey hn hP q i = markKey hn hP.1 ((componentMarkList hn hP T q)[i]'hi) := by
+  unfold kl1_pkey
+  split_ifs with hN
+  · exact congrArg (markKey hn hP.1) (getElem_congr_of_eq rfl (Nat.mod_eq_of_lt hi) _ _)
+  · exact absurd (lt_of_le_of_lt (Nat.zero_le _) hi) hN
+
+theorem kl1_pkey_strictMono {T : Finset (Crossing P)} (q : Component hn hP T) :
+    ∀ i j, i < j → j < (componentMarkList hn hP T q).length → kl1_pkey hn hP q i < kl1_pkey hn hP q j := by
+  intro i j hij hj
+  rw [kl1_pkey_eq hn hP q i (by omega), kl1_pkey_eq hn hP q j hj]
+  exact kl1_markKey_lt hn hP q i j _ hj hij
+
+/-- The P-key of the P-visit of a shadow visit, through the index of its mark on the cycle from `c_0`. -/
+theorem kl1_visitKey_eq_idx {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    {i₀ : ℕ} (hi₀ : i₀ < (componentMarkList hn hP T q).length)
+    (hm₀ : (componentMarkList hn hP T q)[i₀]'hi₀ = ccpCornerMark hn hP T q 0)
+    (v : (carrierShadow hn hP T q hT).Visit) (i : ℕ)
+    (hi : (smoothingSuccessor hn hP T ^ i) (ccpCornerMark hn hP T q 0) = Sum.inr (kl1_toVisit hn hP hT q v).1) :
+    visitKey hn hP.1 (kl1_toVisit hn hP hT q v).1 = kl1_pkey hn hP q ((i₀ + i) % (componentMarkList hn hP T q).length) := by
+  rw [kl1_pkey_eq hn hP q _ (Nat.mod_lt _ (lt_of_le_of_lt (Nat.zero_le _) hi₀)), ← markKey_visit, ← hi,
+    kl1_pow_corner hn hP hT q hi₀ hm₀]
+
+/-- **Transfer of cyclic order**: cyclic betweenness of Q-keys of shadow visits implies cyclic betweenness
+of the P-keys of their P-visits (both keys increase strictly along the one cycle of `q`, from `c_0` and from
+`ML[0]` respectively; `kl1_cycBetween_shift`). -/
+theorem kl1_cyc_transfer {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (a b c : (carrierShadow hn hP T q hT).Visit)
+    (h : cycBetween ((positiveLift hn hP T q hT).visitCoord a) ((positiveLift hn hP T q hT).visitCoord b)
+      ((positiveLift hn hP T q hT).visitCoord c)) :
+    cycBetween (visitKey hn hP.1 (kl1_toVisit hn hP hT q a).1) (visitKey hn hP.1 (kl1_toVisit hn hP hT q b).1)
+      (visitKey hn hP.1 (kl1_toVisit hn hP hT q c).1) := by
+  obtain ⟨i₀, hi₀, hm₀⟩ := List.getElem_of_mem (kl1_corner_mem_markList hn hP q)
+  have hN : 0 < (componentMarkList hn hP T q).length := lt_of_le_of_lt (Nat.zero_le _) hi₀
+  obtain ⟨ia, hia, hma⟩ := kl1_exists_idx hn hP hT q hi₀ hm₀ _ (kl1_owner hn hP hT q a)
+  obtain ⟨ib, hib, hmb⟩ := kl1_exists_idx hn hP hT q hi₀ hm₀ _ (kl1_owner hn hP hT q b)
+  obtain ⟨ic, hic, hmc⟩ := kl1_exists_idx hn hP hT q hi₀ hm₀ _ (kl1_owner hn hP hT q c)
+  rw [kl1_visitCoord_eq_idx hn hP hT q a ia hma, kl1_visitCoord_eq_idx hn hP hT q b ib hmb,
+    kl1_visitCoord_eq_idx hn hP hT q c ic hmc,
+    kl1_cycBetween_of_strictMono (kl1_keyIdx_strictMono hn hP hT q hi₀ hm₀) hia hib hic,
+    kl1_cycBetween_shift hi₀ hia hib hic] at h
+  rw [kl1_visitKey_eq_idx hn hP hT q hi₀ hm₀ a ia hma, kl1_visitKey_eq_idx hn hP hT q hi₀ hm₀ b ib hmb,
+    kl1_visitKey_eq_idx hn hP hT q hi₀ hm₀ c ic hmc]
+  exact (kl1_cycBetween_of_strictMono (kl1_pkey_strictMono hn hP q) (Nat.mod_lt _ hN) (Nat.mod_lt _ hN)
+    (Nat.mod_lt _ hN)).mpr h
+
+theorem kl1_mem_gaussList {T : Finset (Crossing P)} (q : Component hn hP T) {w : Visit P}
+    (hw : w.1 ∈ carrierCrossings hn hP T q) : w ∈ gaussList (cg hn hP) (carrierCrossings hn hP T q) :=
+  List.mem_filter.mpr ⟨mem_geometricGaussList _ w, decide_eq_true hw⟩
+
+/-- `L_X` is strictly sorted by the P-key `visitKey` (a filter of the sorted `gaussList`). -/
+theorem kl1_gaussList_pairwise {T : Finset (Crossing P)} (q : Component hn hP T) :
+    (gaussList (cg hn hP) (carrierCrossings hn hP T q)).Pairwise
+      (fun v w => visitKey hn hP.1 v < visitKey hn hP.1 w) :=
+  kl1_pairwise_lt ((gaussList_sorted hn hP).filter _) ((gaussList_nodup hn hP).filter _)
+    (visitKey_injective hn hP)
+
+/-- One component: all occurrences of the lift lie on the circle `0`. -/
+theorem kl1_compOf_eq {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (u v : (carrierShadow hn hP T q hT).Visit) :
+    (positiveLift hn hP T q hT).compOf u = (positiveLift hn hP T q hT).compOf v :=
+  Subsingleton.elim (α := Fin 1) _ _
+
+/-- **The successor law**: `Φ` of the record successor of `v` is the cyclic `next` of `Φ v` in `L_X`. -/
+theorem kl1_succ {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (v : (carrierShadow hn hP T q hT).Visit) :
+    (kl1_toVisit hn hP hT q ((positiveLift hn hP T q hT).nextVisit v)).1 =
+      (gaussList (cg hn hP) (carrierCrossings hn hP T q)).next (kl1_toVisit hn hP hT q v).1
+        (kl1_mem_gaussList hn hP q (kl1_toVisit hn hP hT q v).2) := by
+  have hw := kl1_mem_gaussList hn hP q (kl1_toVisit hn hP hT q v).2
+  have hnext := List.next_mem _ _ hw
+  have hX : ((gaussList (cg hn hP) (carrierCrossings hn hP T q)).next (kl1_toVisit hn hP hT q v).1 hw).1 ∈
+      carrierCrossings hn hP T q :=
+    of_decide_eq_true (List.mem_filter.mp hnext).2
+  set v' := (kl1_occEquiv hn hP hT q).symm ⟨_, hX⟩ with hv'
+  have hv'val : kl1_toVisit hn hP hT q v' = ⟨_, hX⟩ := by
+    rw [← kl1_occEquiv_apply, hv', Equiv.apply_symm_apply]
+  have hnd : (gaussList (cg hn hP) (carrierCrossings hn hP T q)).Nodup := (gaussList_nodup hn hP).filter _
+  have h2 : 2 ≤ (gaussList (cg hn hP) (carrierCrossings hn hP T q)).length :=
+    kl1_two_le_length hw (kl1_mem_gaussList hn hP q (by
+      rw [visitTwin_crossing]; exact (kl1_toVisit hn hP hT q v).2)) (visitTwin_ne _).symm
+  have heq : (positiveLift hn hP T q hT).nextVisit v = v' := by
+    apply cycNext_unique (k := (positiveLift hn hP T q hT).visitCoord)
+      (fun a b h => (positiveLift hn hP T q hT).visitCoord_injOn (kl1_compOf_eq hn hP hT q a b) h)
+    · exact (positiveLift hn hP T q hT).nextVisit_ne_self v ((positiveLift hn hP T q hT).twin v)
+        (kl1_compOf_eq hn hP hT q _ _) ((positiveLift hn hP T q hT).twin_ne v)
+    · intro h
+      have h' := congrArg (fun u => (kl1_toVisit hn hP hT q u).1) h
+      simp only [hv'val] at h'
+      exact list_next_ne_self _ hnd h2 _ hw h'
+    · intro u
+      exact (positiveLift hn hP T q hT).nextVisit_no_between v u (kl1_compOf_eq hn hP hT q u v)
+    · intro u hu
+      have := kl1_cyc_transfer hn hP hT q v u v' hu
+      rw [hv'val] at this
+      exact kl1_sorted_next_no_between (kl1_gaussList_pairwise hn hP q) hw
+        (kl1_mem_gaussList hn hP q (kl1_toVisit hn hP hT q u).2) this
+  rw [heq, hv'val]
+
+/-- **KL1 leaf: the named record of the actual positive diagram of a carrier `q` of an independent `T` IS the
+abstract restricted Gauss record of its self-crossings** ("Successor splitting retains the cyclic order inherited
+from the original traversal. The surviving crossing germs have not changed"). -/
+noncomputable def positiveLiftRecordIso {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T)
+    (q : Component hn hP T) :
+    RecordIso (positiveLift hn hP T q hT).record (gaussRecord (cg hn hP) (carrierCrossings hn hP T q)) where
+  e := Equiv.ofUnique (Fin 1) Unit
+  Φ := kl1_occEquiv hn hP hT q
+  comp_eq _ := Subsingleton.elim (α := Unit) _ _
+  succ_eq v := by
+    apply Subtype.ext
+    show (kl1_toVisit hn hP hT q ((positiveLift hn hP T q hT).nextVisit v)).1 =
+      (gaussSucc (cg hn hP) (carrierCrossings hn hP T q) (kl1_toVisit hn hP hT q v)).1
+    rw [gaussSucc_val _ _ _ (kl1_mem_gaussList hn hP q (kl1_toVisit hn hP hT q v).2)]
+    exact kl1_succ hn hP hT q v
+  pair_eq v := by
+    apply Subtype.ext
+    show (kl1_toVisit hn hP hT q ((positiveLift hn hP T q hT).twin v)).1 =
+      (gaussPair (cg hn hP) (carrierCrossings hn hP T q) (kl1_toVisit hn hP hT q v)).1
+    rw [gaussPair_val]
+    exact kl1_toVisit_twin hn hP hT q v
+  bit_eq v := kl1_bit hn hP hT q v
+  sgn_eq v := (positiveLift_sign hn hP T q hT v.1).symm
+
+/-- KL1 leaf (spec of the occurrence bijection): the P-visit assigned to a shadow visit `v` lies at the
+geometric crossing of `v` (`carrierCrossingEquiv`, def:positive-lift). -/
+theorem positiveLiftRecordIso_val {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T)
+    (q : Component hn hP T) (v : (positiveLift hn hP T q hT).Γ.Visit) :
+    (occVisit (cg hn hP) _ ((positiveLiftRecordIso hn hP hT q).Φ v)).1 =
+      (carrierCrossingEquiv hn hP T q hT v.1).val :=
+  kl1_toVisit_crossing hn hP hT q v
+
+/-! ### KL2 — record interlacement on `gaussRecord` is `Interlaces` (def:interlace) -/
+
+/-! KL2 helpers (`kl2_`): `L_T` is a nodup, key-sorted sublist of `geometricGaussList`, whose members are
+exactly the visits of the crossings of `T`; positions (`Record.steps` from the first visit of `L_T`) are the
+list indices, so `ArcBetween` is the cyclic key order `traversalBetween` of the P-visits; `Alternates` at the
+representatives is then `GeometricInterlaces` (via `geometricInterlaces_iff_unique` and the two-visit fibre). -/
+
+theorem kl2_gaussList_nodup (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    (gaussList hc T).Nodup :=
+  (geometricGaussList_nodup hc).filter _
+
+theorem kl2_mem_gaussList (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : Visit P) :
+    v ∈ gaussList hc T ↔ v.1 ∈ T := by
+  unfold gaussList
+  rw [List.mem_filter, decide_eq_true_iff]
+  exact ⟨fun h => h.2, fun h => ⟨mem_geometricGaussList hc v, h⟩⟩
+
+/-- `L_T` is strictly sorted by the visit keys (a sublist of the strictly sorted `geometricGaussList`). -/
+theorem kl2_gaussList_pairwise_lt (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    (gaussList hc T).Pairwise
+      (fun v w => traversalKey (geometricVisitPosition hc v) < traversalKey (geometricVisitPosition hc w)) := by
+  have h : (geometricGaussList hc).Pairwise
+      (fun v w => geometricVisitKey hc v < geometricVisitKey hc w) :=
+    ((geometricGaussList_sorted hc).and (geometricGaussList_nodup hc)).imp
+      (fun ⟨hle, hne⟩ => lt_of_le_of_ne hle (fun h => hne (geometricVisitKey_injective hc h)))
+  exact h.sublist List.filter_sublist
+
+/-- Index order in `L_T` is key order. -/
+theorem kl2_key_lt_iff (hc : CrossingGeometry P) (T : Finset (Crossing P)) {i j : ℕ}
+    (hi : i < (gaussList hc T).length) (hj : j < (gaussList hc T).length) :
+    traversalKey (geometricVisitPosition hc (gaussList hc T)[i]) <
+      traversalKey (geometricVisitPosition hc (gaussList hc T)[j]) ↔ i < j := by
+  have hL := List.pairwise_iff_getElem.mp (kl2_gaussList_pairwise_lt hc T)
+  rcases lt_trichotomy i j with h | rfl | h
+  · exact iff_of_true (hL i j hi hj h) h
+  · exact iff_of_false (lt_irrefl _) (lt_irrefl _)
+  · exact iff_of_false (lt_asymm (hL j i hj hi h)) (not_lt.mpr h.le)
+
+/-- `|M| = |L_T|`: the occurrences of `gaussRecord hc T` are the members of `L_T`. -/
+theorem kl2_card_M (hc : CrossingGeometry P) (T : Finset (Crossing P)) :
+    Fintype.card (gaussRecord hc T).M = (gaussList hc T).length := by
+  classical
+  exact (Fintype.card_of_subtype (gaussList hc T).toFinset
+    (fun v => by rw [List.mem_toFinset, kl2_mem_gaussList])).trans
+    (List.toFinset_card_of_nodup (kl2_gaussList_nodup hc T))
+
+/-- The base occurrence: the first visit of `L_T`. -/
+noncomputable def kl2_base (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (h0 : 0 < (gaussList hc T).length) : (gaussRecord hc T).M :=
+  show {v : Visit P // v.1 ∈ T} from
+    ⟨(gaussList hc T)[0], (kl2_mem_gaussList hc T _).mp (List.getElem_mem h0)⟩
+
+/-- Powers of the successor from the base occurrence walk down `L_T`. -/
+theorem kl2_succ_pow_val (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (h0 : 0 < (gaussList hc T).length) :
+    ∀ (k : ℕ) (hk : k < (gaussList hc T).length),
+      ((((gaussRecord hc T).succ ^ k) (kl2_base hc T h0) : {v : Visit P // v.1 ∈ T})).1 =
+        (gaussList hc T)[k] := by
+  intro k
+  induction k with
+  | zero => intro _; rw [pow_zero, Equiv.Perm.one_apply]; rfl
+  | succ k ih =>
+    intro hk
+    rw [pow_succ', Equiv.Perm.mul_apply]
+    have hx : ((((gaussRecord hc T).succ ^ k) (kl2_base hc T h0) : {v : Visit P // v.1 ∈ T})).1 ∈
+        gaussList hc T :=
+      (kl2_mem_gaussList hc T _).mpr
+        ((((gaussRecord hc T).succ ^ k) (kl2_base hc T h0) : {v : Visit P // v.1 ∈ T})).2
+    rw [show (((gaussRecord hc T).succ (((gaussRecord hc T).succ ^ k) (kl2_base hc T h0)) :
+        {v : Visit P // v.1 ∈ T})).1 = (gaussList hc T).next _ hx from gaussSucc_val hc T _ hx]
+    have key : ∀ (y : Visit P) (hy : y ∈ gaussList hc T), y = (gaussList hc T)[k] →
+        (gaussList hc T).next y hy = (gaussList hc T)[k + 1] := by
+      rintro y hy rfl
+      rw [List.next_getElem _ (kl2_gaussList_nodup hc T) k (by omega)]
+      exact getElem_congr_idx (Nat.mod_eq_of_lt hk)
+    exact key _ hx (ih (by omega))
+
+/-- The position of an occurrence from the base is its index in `L_T`. -/
+theorem kl2_steps_base (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (h0 : 0 < (gaussList hc T).length) (v : (gaussRecord hc T).M) {i : ℕ}
+    (hi : i < (gaussList hc T).length) (hiv : (gaussList hc T)[i] = (v : {v : Visit P // v.1 ∈ T}).1) :
+    (gaussRecord hc T).steps (kl2_base hc T h0) v = i := by
+  rw [(gaussRecord hc T).steps_eq_iff (gaussRecord_componentCount hc T)]
+  refine ⟨by rw [kl2_card_M]; exact hi, ?_⟩
+  exact Subtype.ext ((kl2_succ_pow_val hc T h0 i hi).trans hiv)
+
+/-- Positions compare as the visit keys. -/
+theorem kl2_steps_lt_iff (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (h0 : 0 < (gaussList hc T).length) (v w : (gaussRecord hc T).M) :
+    (gaussRecord hc T).steps (kl2_base hc T h0) v < (gaussRecord hc T).steps (kl2_base hc T h0) w ↔
+      traversalKey (geometricVisitPosition hc (v : {v : Visit P // v.1 ∈ T}).1) <
+        traversalKey (geometricVisitPosition hc (w : {v : Visit P // v.1 ∈ T}).1) := by
+  obtain ⟨i, hi, hiv⟩ := List.mem_iff_getElem.mp
+    ((kl2_mem_gaussList hc T _).mpr (v : {v : Visit P // v.1 ∈ T}).2)
+  obtain ⟨j, hj, hjw⟩ := List.mem_iff_getElem.mp
+    ((kl2_mem_gaussList hc T _).mpr (w : {v : Visit P // v.1 ∈ T}).2)
+  rw [kl2_steps_base hc T h0 v hi hiv, kl2_steps_base hc T h0 w hj hjw, ← hiv, ← hjw]
+  exact (kl2_key_lt_iff hc T hi hj).symm
+
+/-- `ArcBetween` on `gaussRecord hc T` is the cyclic traversal order of the P-visits (def:gauss). -/
+theorem kl2_arcBetween_iff (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (v w u : (gaussRecord hc T).M) :
+    (gaussRecord hc T).ArcBetween v w u ↔
+      traversalBetween (geometricVisitPosition hc (v : {v : Visit P // v.1 ∈ T}).1)
+        (geometricVisitPosition hc (w : {v : Visit P // v.1 ∈ T}).1)
+        (geometricVisitPosition hc (u : {v : Visit P // v.1 ∈ T}).1) := by
+  have h0 : 0 < (gaussList hc T).length :=
+    List.length_pos_of_mem ((kl2_mem_gaussList hc T _).mpr (v : {v : Visit P // v.1 ∈ T}).2)
+  rw [(gaussRecord hc T).arcBetween_iff_posBetween (gaussRecord_componentCount hc T) (kl2_base hc T h0)]
+  unfold Record.PosBetween traversalBetween
+  simp only [kl2_steps_lt_iff hc T h0]
+
+omit [NeZero n] in
+/-- Uniqueness over the two-visit fibre of a crossing is `Xor` at its two visits. -/
+theorem kl2_existsUnique_iff_xor (c : Crossing P) (Q : {k // k ∈ c.val} → Prop)
+    (i j : {k // k ∈ c.val}) (hij : i ≠ j) : (∃! k, Q k) ↔ Xor (Q i) (Q j) := by
+  rw [crossing_unique_visit_iff]
+  unfold Xor
+  constructor
+  · rintro ⟨a, b, hab, ha, hb⟩
+    rcases crossing_visits_exhaust c i j hij a with ha' | ha' <;>
+      rcases crossing_visits_exhaust c i j hij b with hb' | hb'
+    · exact absurd (ha'.trans hb'.symm) hab
+    · exact Or.inl ⟨ha' ▸ ha, hb' ▸ hb⟩
+    · exact Or.inr ⟨ha' ▸ ha, hb' ▸ hb⟩
+    · exact absurd (ha'.trans hb'.symm) hab
+  · rintro (⟨hi, hj⟩ | ⟨hj, hi⟩)
+    · exact ⟨i, j, hij, hi, hj⟩
+    · exact ⟨j, i, hij.symm, hj, hi⟩
+
+/-- `Alternates` at two occurrences of distinct labels is the geometric interlacement of the labels. -/
+theorem kl2_alternates_iff (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    (v w : (gaussRecord hc T).M)
+    (hne : (v : {v : Visit P // v.1 ∈ T}).1.1 ≠ (w : {v : Visit P // v.1 ∈ T}).1.1) :
+    (gaussRecord hc T).Alternates v w ↔
+      GeometricInterlaces hc (v : {v : Visit P // v.1 ∈ T}).1.1 (w : {v : Visit P // v.1 ∈ T}).1.1 := by
+  have hpv : (((gaussRecord hc T).pair v : {v : Visit P // v.1 ∈ T})).1 =
+      visitTwin (v : {v : Visit P // v.1 ∈ T}).1 := gaussPair_val hc T v
+  have hpw : (((gaussRecord hc T).pair w : {v : Visit P // v.1 ∈ T})).1 =
+      visitTwin (w : {v : Visit P // v.1 ∈ T}).1 := gaussPair_val hc T w
+  unfold Record.Alternates
+  rw [kl2_arcBetween_iff, kl2_arcBetween_iff, hpv, hpw]
+  rw [CV.geometricInterlaces_iff_unique hc _ _ (v : {v : Visit P // v.1 ∈ T}).1.2
+    (visitTwin (v : {v : Visit P // v.1 ∈ T}).1).2 (visitTwin_snd_ne _).symm]
+  rw [kl2_existsUnique_iff_xor _ _ (w : {v : Visit P // v.1 ∈ T}).1.2
+    (visitTwin (w : {v : Visit P // v.1 ∈ T}).1).2 (visitTwin_snd_ne _).symm]
+  exact ⟨fun h => ⟨hne, h⟩, fun h => h.2⟩
+
+/-- Distinct record crossings of `gaussRecord hc T` have distinct labels. -/
+theorem kl2_label_injective (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    {p p' : (gaussRecord hc T).Crossing} (h : label hc T p = label hc T p') : p = p' := by
+  unfold label at h
+  rcases visit_eq_or_twin (p.rep : {v : Visit P // v.1 ∈ T}).1 (p'.rep : {v : Visit P // v.1 ∈ T}).1 h.symm
+    with he | he
+  · have hr : p'.rep = p.rep := Subtype.ext he
+    calc p = (gaussRecord hc T).crossingOf p.rep := ((gaussRecord hc T).crossingOf_rep p).symm
+      _ = (gaussRecord hc T).crossingOf p'.rep := by rw [hr]
+      _ = p' := (gaussRecord hc T).crossingOf_rep p'
+  · have hr : p'.rep = (gaussRecord hc T).pair p.rep := Subtype.ext (he.trans (gaussPair_val hc T _).symm)
+    calc p = (gaussRecord hc T).crossingOf p.rep := ((gaussRecord hc T).crossingOf_rep p).symm
+      _ = (gaussRecord hc T).crossingOf ((gaussRecord hc T).pair p.rep) :=
+          ((gaussRecord hc T).crossingOf_pair _).symm
+      _ = (gaussRecord hc T).crossingOf p'.rep := by rw [hr]
+      _ = p' := (gaussRecord hc T).crossingOf_rep p'
+
+/-- KL2 leaf. -/
+theorem gaussRecord_adj_iff (T : Finset (Crossing P)) (p p' : (gaussRecord (cg hn hP) T).Crossing) :
+    (gaussRecord (cg hn hP) T).interlacementGraph.Adj p p' ↔
+      Interlaces hn hP (label (cg hn hP) T p) (label (cg hn hP) T p') := by
+  rw [← geometricInterlaces_iff_generic hn hP (cg hn hP)]
+  by_cases hpp : p = p'
+  · subst hpp
+    exact iff_of_false (SimpleGraph.irrefl _) (geometricInterlaces_irrefl _ _)
+  · have hlab : label (cg hn hP) T p ≠ label (cg hn hP) T p' :=
+      fun h => hpp (kl2_label_injective (cg hn hP) T h)
+    rw [(gaussRecord (cg hn hP) T).adj_iff_alternates (gaussRecord_componentCount _ _) hpp
+      (Record.Crossing.rep_mem p) (Record.Crossing.rep_mem p')]
+    exact kl2_alternates_iff (cg hn hP) T p.rep p'.rep hlab
+
+
+/-! ### KL3 — restriction of the abstract record -/
+
+section kl3_helpers
+
+variable {α β : Type*} [DecidableEq α]
+
+omit [NeZero n] in
+/-- `List.next` depends only on the element (proof irrelevance of the membership argument). -/
+theorem kl3_next_congr (l : List α) {x y : α} (hx : x ∈ l) (hy : y ∈ l) (hxy : x = y) :
+    l.next x hx = l.next y hy := by
+  subst hxy; rfl
+
+omit [NeZero n] in
+/-- `List.next` on equal lists. -/
+theorem kl3_next_congr_list {l l' : List α} (hll : l = l') (x : α) (hx : x ∈ l) :
+    l.next x hx = l'.next x (hll ▸ hx) := by
+  subst hll; rfl
+
+omit [NeZero n] in
+/-- Iterating a permutation that acts as `List.next` on a nodup list: the `j`-th iterate of the entry at
+position `i` is the entry at position `(i + j) % length`. -/
+theorem kl3_pow_val (f : Equiv.Perm β) (g : β → α) (l : List α) (hl : l.Nodup)
+    (hmem : ∀ b, g b ∈ l) (hf : ∀ b, g (f b) = l.next (g b) (hmem b))
+    (b : β) (i : ℕ) (hi : i < l.length) (hb : l[i] = g b) (j : ℕ) :
+    g ((f ^ j) b) = l[(i + j) % l.length]'(Nat.mod_lt _ (Nat.zero_lt_of_lt hi)) := by
+  induction j with
+  | zero =>
+    rw [pow_zero, Equiv.Perm.one_apply, ← hb]
+    exact getElem_congr_idx (by rw [Nat.add_zero, Nat.mod_eq_of_lt hi])
+  | succ j ih =>
+    rw [pow_succ', Equiv.Perm.mul_apply, hf, kl3_next_congr l (hmem _) (List.getElem_mem _) ih,
+      List.next_getElem l hl]
+    exact getElem_congr_idx (by rw [Nat.mod_add_mod, Nat.add_assoc])
+
+omit [NeZero n] [DecidableEq α] in
+/-- Rotations preserve the filtered list up to rotation. -/
+theorem kl3_filter_rotate_isRotated (l : List α) (q : α → Bool) (k : ℕ) :
+    l.filter q ~r (l.rotate k).filter q := by
+  rcases Nat.eq_zero_or_pos l.length with hl0 | hpos
+  · rw [List.length_eq_zero_iff.mp hl0]; simp
+  rw [← List.rotate_mod, List.rotate_eq_drop_append_take (Nat.mod_lt _ hpos).le, List.filter_append]
+  conv_lhs => rw [← List.take_append_drop (k % l.length) l, List.filter_append]
+  exact List.isRotated_append
+
+omit [NeZero n] in
+/-- **The first return of a `List.next`-permutation to the `q`-entries is `List.next` on the filtered list.**
+`f` acts on `β` as `List.next` on the nodup list `l` (through `g`), `p` is the pull-back of `q`; then the
+first return of `f` to the `p`-points from `b` is the successor of `g b` in `l.filter q`. -/
+theorem kl3_firstReturn_next_filter [Fintype β] (f : Equiv.Perm β) (g : β → α) (l : List α)
+    (hl : l.Nodup) (hmem : ∀ b, g b ∈ l) (hf : ∀ b, g (f b) = l.next (g b) (hmem b))
+    (p : β → Prop) [DecidablePred p] (q : α → Bool) (hpq : ∀ b, p b ↔ q (g b) = true)
+    (b : {b // p b}) :
+    g (firstReturn f p b).1 =
+      (l.filter q).next (g b.1) (List.mem_filter.mpr ⟨hmem _, (hpq _).mp b.2⟩) := by
+  classical
+  have hqx : q (g b.1) = true := (hpq _).mp b.2
+  have hxl : g b.1 ∈ l := hmem b.1
+  obtain ⟨i, hi, hli⟩ := List.getElem_of_mem hxl
+  have hpow := kl3_pow_val f g l hl hmem hf b.1 i hi hli
+  have hlen_pos : 0 < l.length := by omega
+  -- the rotation `m` of `l` ending at `g b.1`
+  set m := l.rotate (i + 1) with hm
+  have hm_len : m.length = l.length := List.length_rotate _ _
+  have hm_get : ∀ j (hj : j < l.length),
+      m[j]'(by omega) = l[(j + (i + 1)) % l.length]'(Nat.mod_lt _ hlen_pos) :=
+    fun j hj => List.getElem_rotate l (i + 1) j (by rw [List.length_rotate]; exact hj)
+  have hm_pow : ∀ j (hj : j < l.length), g ((f ^ (j + 1)) b.1) = m[j]'(by omega) := by
+    intro j hj
+    rw [hpow, hm_get j hj]
+    exact getElem_congr_idx (by congr 1; omega)
+  have hm_nodup : m.Nodup := List.nodup_rotate.mpr hl
+  have hxm : g b.1 ∈ m := List.mem_rotate.mpr hxl
+  have hmne : m ≠ [] := List.ne_nil_of_mem hxm
+  have hm_last : m[m.length - 1]'(by omega) = g b.1 := by
+    rw [hm_get _ (by omega)]
+    rw [← hli]
+    exact getElem_congr_idx (by
+      rw [show m.length - 1 + (i + 1) = i + l.length by omega, Nat.add_mod_right, Nat.mod_eq_of_lt hi])
+  -- the first `q`-entry `y` of `m`
+  have hne : m.filter q ≠ [] := List.ne_nil_of_mem (List.mem_filter.mpr ⟨hxm, hqx⟩)
+  obtain ⟨y, rest, hyr⟩ := List.exists_cons_of_ne_nil hne
+  obtain ⟨a, c, hmac, ha, hqy, -⟩ := List.filter_eq_cons_iff.mp hyr
+  have ha_len : a.length < l.length := by
+    have := congrArg List.length hmac
+    simp only [List.length_append, List.length_cons] at this
+    omega
+  have hmy : m[a.length]'(by omega) = y := by
+    rw [List.getElem_of_eq hmac, List.getElem_append_right (le_refl _)]
+    simp
+  -- the return time is `a.length + 1`
+  have hret : returnTime f p b.1 b.2 = a.length + 1 := by
+    rw [returnTime_eq_iff]
+    refine ⟨⟨Nat.succ_pos _, ?_⟩, ?_⟩
+    · rw [hpq, hm_pow a.length ha_len, hmy]; exact hqy
+    · rintro j hj ⟨hj0, hpj⟩
+      obtain ⟨j', rfl⟩ : ∃ j', j = j' + 1 := ⟨j - 1, by omega⟩
+      have hj' : j' < a.length := by omega
+      rw [hpq, hm_pow j' (by omega)] at hpj
+      have hja : m[j']'(by omega) = a[j']'hj' := by
+        rw [List.getElem_of_eq hmac]; exact List.getElem_append_left hj'
+      rw [hja] at hpj
+      exact ha _ (List.getElem_mem hj') hpj
+  -- left side: the first return is `y`
+  have hL : g (firstReturn f p b).1 = y := by
+    rw [firstReturn_apply, hret, hm_pow a.length ha_len, hmy]
+  -- right side: `g b.1` is the last entry of `m.filter q`, whose successor is its first entry `y`
+  have hR : (l.filter q).next (g b.1) (List.mem_filter.mpr ⟨hmem _, hqx⟩) = y := by
+    rw [List.isRotated_next_eq (kl3_filter_rotate_isRotated l q (i + 1)) (hl.filter q)]
+    have hlast : m.getLast hmne = g b.1 := by rw [List.getLast_eq_getElem]; exact hm_last
+    have hsplit : m.filter q = (m.dropLast).filter q ++ [g b.1] := by
+      conv_lhs => rw [← List.dropLast_append_getLast hmne]
+      rw [List.filter_append, hlast, List.filter_cons_of_pos hqx, List.filter_nil]
+    have hlen' : (m.filter q).length = ((m.dropLast).filter q).length + 1 := by
+      rw [hsplit, List.length_append, List.length_singleton]
+    have hL' : ((m.dropLast).filter q).length < (m.filter q).length := by omega
+    have hxL : (m.filter q)[((m.dropLast).filter q).length]'hL' = g b.1 := by
+      rw [List.getElem_of_eq hsplit]; exact List.getElem_concat_length rfl _
+    rw [kl3_next_congr _ _ (List.getElem_mem hL') hxL.symm, List.next_getElem _ (hm_nodup.filter q)]
+    have h0 : (((m.dropLast).filter q).length + 1) % (m.filter q).length = 0 := by
+      rw [hlen', Nat.mod_self]
+    rw [getElem_congr_idx h0, List.getElem_of_eq hyr]
+    rfl
+  rw [hL, hR]
+
+end kl3_helpers
+
+/-- The visits of the crossings in `T` are exactly the entries of `L_T`. -/
+theorem kl3_mem_gaussList (hc : CrossingGeometry P) (T : Finset (Crossing P)) (v : Visit P) :
+    v ∈ gaussList hc T ↔ v.1 ∈ T := by
+  unfold gaussList
+  rw [List.mem_filter, decide_eq_true_iff]
+  exact ⟨fun h => h.2, fun h => ⟨mem_geometricGaussList hc v, h⟩⟩
+
+/-- `L_{T'}` is `L_T` filtered to `T'` when `T' ⊆ T` (`List.filter_filter`). -/
+theorem kl3_gaussList_filter (hc : CrossingGeometry P) {T' T : Finset (Crossing P)} (h : T' ⊆ T) :
+    (gaussList hc T).filter (fun v => decide (v.1 ∈ T')) = gaussList hc T' := by
+  unfold gaussList
+  rw [List.filter_filter]
+  apply List.filter_congr
+  intro v _
+  by_cases hv : v.1 ∈ T'
+  · simp [hv, h hv]
+  · simp [hv]
+
+/-- The retained occurrences of `gaussRecord hc T` for the crossing set `{p | label p ∈ T'}` are the visits
+whose crossing lies in `T'` (KL0's `label_crossingOf`). -/
+theorem kl3_crossKeep_iff (hc : CrossingGeometry P) (T T' : Finset (Crossing P)) (v : (gaussRecord hc T).M) :
+    (gaussRecord hc T).CrossKeep {p | label hc T p ∈ T'} v ↔ (occVisit hc T v).1 ∈ T' := by
+  show label hc T ((gaussRecord hc T).crossingOf v) ∈ T' ↔ _
+  rw [label_crossingOf]
+
+/-- KL3 leaf: restricting `gaussRecord hc T` to the chords labelled in `T' ⊆ T` gives `gaussRecord hc T'`. -/
+theorem gaussRecord_restrict_iso (hc : CrossingGeometry P) {T' T : Finset (Crossing P)} (h : T' ⊆ T) :
+    Nonempty (RecordIso ((gaussRecord hc T).restrictCrossings {p | label hc T p ∈ T'}) (gaussRecord hc T')) := by
+  classical
+  have hkeep := kl3_crossKeep_iff hc T T'
+  have hmemT : ∀ b : (gaussRecord hc T).M, (occVisit hc T b) ∈ gaussList hc T :=
+    fun b => (kl3_mem_gaussList hc T _).mpr (occVisit_mem hc T b)
+  have hl : (gaussList hc T).Nodup := (geometricGaussList_nodup hc).filter _
+  have hf : ∀ b : (gaussRecord hc T).M, occVisit hc T (gaussSucc hc T b) = (gaussList hc T).next (occVisit hc T b) (hmemT b) :=
+    fun b => gaussSucc_val hc T b (hmemT b)
+  have hpq : ∀ b : (gaussRecord hc T).M,
+      (gaussRecord hc T).CrossKeep {p | label hc T p ∈ T'} b ↔ decide ((occVisit hc T b).1 ∈ T') = true :=
+    fun b => (hkeep b).trans decide_eq_true_iff.symm
+  refine ⟨{ e := Equiv.refl Unit
+            Φ := { toFun := fun v => ⟨occVisit hc T v.1, (hkeep v.1).mp v.2⟩
+                   invFun := fun w => ⟨⟨w.1, h w.2⟩, (hkeep _).mpr w.2⟩
+                   left_inv := fun v => Subtype.ext (Subtype.ext rfl)
+                   right_inv := fun w => rfl }
+            comp_eq := fun _ => rfl
+            succ_eq := ?_
+            pair_eq := ?_
+            bit_eq := fun _ => rfl
+            sgn_eq := fun _ => rfl }⟩
+  · -- successor: first return on `L_T` to the visits of `T'` = `List.next` on `L_{T'}`
+    intro v
+    apply Subtype.ext
+    have hL := kl3_firstReturn_next_filter (β := (gaussRecord hc T).M) (gaussSucc hc T) (occVisit hc T)
+      (gaussList hc T) hl hmemT hf ((gaussRecord hc T).CrossKeep {p | label hc T p ∈ T'})
+      (fun w => decide (w.1 ∈ T')) hpq v
+    have hR := gaussSucc_val hc T' ⟨occVisit hc T v.1, (hkeep v.1).mp v.2⟩
+      ((kl3_mem_gaussList hc T' _).mpr ((hkeep v.1).mp v.2))
+    refine hL.trans (Eq.trans ?_ hR.symm)
+    exact kl3_next_congr_list (kl3_gaussList_filter hc h) _ _
+  · -- pairing: both are `visitTwin`
+    intro v
+    apply Subtype.ext
+    have key : ∀ (b : {v : Visit P // v.1 ∈ T}) (hb : b.1.1 ∈ T'),
+        (gaussPair hc T b).1 = (gaussPair hc T' ⟨b.1, hb⟩).1 := by
+      intro b hb
+      rw [gaussPair_val, gaussPair_val]
+    exact key v.1 ((hkeep v.1).mp v.2)
+
+/-! ### T1 — transport of `restrictCrossings` along a `RecordIso` -/
+
+/-- T1 helper: the occurrence-level condition of `restrictCrossings_iso_of_recordIso` read on the
+retained-occurrence predicate `CrossKeep` (`CrossKeep X v := crossingOf v ∈ X`, definitional), in the
+orientation `firstReturn_map_val` consumes. -/
+theorem t1_crossKeep_iff {ρ ρ' : Record} (ι : RecordIso ρ ρ') {X : Set ρ.Crossing} {X' : Set ρ'.Crossing}
+    (hX : ∀ v : ρ.M, ρ.crossingOf v ∈ X ↔ ρ'.crossingOf (ι.Φ v) ∈ X') (v : ρ.M) :
+    ρ'.CrossKeep X' (ι.Φ v) ↔ ρ.CrossKeep X v := (hX v).symm
+
+/-- T1 leaf: a named record isomorphism restricts to corresponding crossing sets (occurrence-level condition). -/
+theorem restrictCrossings_iso_of_recordIso {ρ ρ' : Record} (ι : RecordIso ρ ρ') (X : Set ρ.Crossing)
+    (X' : Set ρ'.Crossing)
+    (hX : ∀ v : ρ.M, ρ.crossingOf v ∈ X ↔ ρ'.crossingOf (ι.Φ v) ∈ X') :
+    Nonempty (RecordIso (ρ.restrictCrossings X) (ρ'.restrictCrossings X')) :=
+  -- `RecordIso.restrict` pattern (SM/LinkRecordExtras.lean) with `CrossKeep` in place of `RestrictKeep`:
+  -- the same circle bijection, `Φ` restricted to the retained occurrences, and the first-return
+  -- successor transported by `firstReturn_map_val`; pairing, bits and signs are inherited verbatim.
+  ⟨{ e := ι.e
+     Φ := Equiv.subtypeEquiv ι.Φ (fun v => (t1_crossKeep_iff ι hX v).symm)
+     comp_eq := fun v => ι.comp_eq v.1
+     succ_eq := fun v =>
+       Subtype.ext (firstReturn_map_val ι.Φ ρ.succ ρ'.succ (ρ.CrossKeep X) (ρ'.CrossKeep X')
+         ι.succ_eq (t1_crossKeep_iff ι hX) v).symm
+     pair_eq := fun v => Subtype.ext (ι.pair_eq v.1)
+     bit_eq := fun v => ι.bit_eq v.1
+     sgn_eq := fun v => ι.sgn_eq v.1 }⟩
+
+/-! ### GL — the record blocks of `D_A` are the blocks owned by `A` -/
+
+/-! #### GL helpers (unit GL, prefixed `gl_`): transport of record interlacement along a `RecordIso`, the
+label map of `D_A`'s record crossings, and the component bijection. -/
+
+section GLHelpers
+
+omit hn hP in
+/-- A named record isomorphism preserves the forward step count. -/
+theorem gl_steps_map {ρ ρ' : Record} (ι : RecordIso ρ ρ') (v w : ρ.M) :
+    ρ'.steps (ι.Φ v) (ι.Φ w) = ρ.steps v w := by
+  have key : ∀ k : ℕ, (ρ'.succ ^ k) (ι.Φ v) = ι.Φ w ↔ (ρ.succ ^ k) v = w := fun k => by
+    rw [← ι.Φ_pow]; exact ι.Φ.injective.eq_iff
+  unfold Record.steps
+  by_cases h : ∃ k : ℕ, (ρ.succ ^ k) v = w
+  · have h' : ∃ k : ℕ, (ρ'.succ ^ k) (ι.Φ v) = ι.Φ w := by
+      obtain ⟨k, hk⟩ := h
+      exact ⟨k, (key k).mpr hk⟩
+    rw [dite_eq_left h', dite_eq_left h]
+    exact le_antisymm (Nat.find_min' h' ((key _).mpr (Nat.find_spec h)))
+      (Nat.find_min' h ((key _).mp (Nat.find_spec h')))
+  · have h' : ¬ ∃ k : ℕ, (ρ'.succ ^ k) (ι.Φ v) = ι.Φ w := by
+      rintro ⟨k, hk⟩
+      exact h ⟨k, (key k).mp hk⟩
+    rw [dite_eq_right h', dite_eq_right h]
+
+omit hn hP in
+theorem gl_arcBetween_map {ρ ρ' : Record} (ι : RecordIso ρ ρ') (v w u : ρ.M) :
+    ρ'.ArcBetween (ι.Φ v) (ι.Φ w) (ι.Φ u) ↔ ρ.ArcBetween v w u := by
+  unfold Record.ArcBetween
+  rw [gl_steps_map, gl_steps_map]
+
+omit hn hP in
+/-- The crossing map induced by a named record isomorphism (the chord of the image of a chosen occurrence). -/
+noncomputable def gl_crossingMap {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x : ρ.Crossing) : ρ'.Crossing :=
+  ρ'.crossingOf (ι.Φ x.rep)
+
+omit hn hP in
+theorem gl_crossingOf_Φ_eq_iff {ρ ρ' : Record} (ι : RecordIso ρ ρ') (v w : ρ.M) :
+    ρ'.crossingOf (ι.Φ v) = ρ'.crossingOf (ι.Φ w) ↔ ρ.crossingOf v = ρ.crossingOf w := by
+  rw [Record.crossingOf_eq_iff, Record.crossingOf_eq_iff]
+  show ι.Φ v ∈ ({ι.Φ w, ρ'.pair (ι.Φ w)} : Finset ρ'.M) ↔ v ∈ ({w, ρ.pair w} : Finset ρ.M)
+  rw [← ι.pair_eq]
+  simp only [Finset.mem_insert, Finset.mem_singleton, ι.Φ.injective.eq_iff]
+
+omit hn hP in
+theorem gl_crossingMap_crossingOf {ρ ρ' : Record} (ι : RecordIso ρ ρ') (v : ρ.M) :
+    gl_crossingMap ι (ρ.crossingOf v) = ρ'.crossingOf (ι.Φ v) := by
+  unfold gl_crossingMap
+  rw [gl_crossingOf_Φ_eq_iff, Record.crossingOf_rep]
+
+omit hn hP in
+theorem gl_crossingMap_inj {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x y : ρ.Crossing) :
+    gl_crossingMap ι x = gl_crossingMap ι y ↔ x = y := by
+  unfold gl_crossingMap
+  rw [gl_crossingOf_Φ_eq_iff, Record.crossingOf_rep, Record.crossingOf_rep]
+
+omit hn hP in
+theorem gl_mem_crossingMap_iff {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x : ρ.Crossing) (v : ρ.M) :
+    ι.Φ v ∈ (gl_crossingMap ι x).1 ↔ v ∈ x.1 := by
+  unfold gl_crossingMap
+  rw [← Record.crossingOf_eq_iff, gl_crossingOf_Φ_eq_iff, Record.crossingOf_rep, Record.crossingOf_eq_iff]
+
+omit hn hP in
+theorem gl_forall_mem_crossingMap {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x : ρ.Crossing) (Q : ρ'.M → Prop) :
+    (∀ v' ∈ (gl_crossingMap ι x).1, Q v') ↔ ∀ v ∈ x.1, Q (ι.Φ v) := by
+  constructor
+  · intro h v hv
+    exact h _ ((gl_mem_crossingMap_iff ι x v).mpr hv)
+  · intro h v' hv'
+    obtain ⟨v, rfl⟩ := ι.Φ.surjective v'
+    exact h v ((gl_mem_crossingMap_iff ι x v).mp hv')
+
+omit hn hP in
+/-- A named record isomorphism preserves record interlacement (mp:blocks' chord interlacement). -/
+theorem gl_interlaces_map {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x y : ρ.Crossing) :
+    ρ'.Interlaces (gl_crossingMap ι x) (gl_crossingMap ι y) ↔ ρ.Interlaces x y := by
+  unfold Record.Interlaces
+  refine and_congr (not_congr (gl_crossingMap_inj ι x y)) ?_
+  rw [gl_forall_mem_crossingMap]
+  refine forall_congr' fun v => forall_congr' fun _ => ?_
+  rw [gl_forall_mem_crossingMap]
+  refine forall_congr' fun w => forall_congr' fun _ => ?_
+  rw [← ι.pair_eq, ← ι.pair_eq, gl_arcBetween_map, gl_arcBetween_map]
+
+omit hn hP in
+/-- A named record isomorphism induces an isomorphism of record interlacement graphs. -/
+theorem gl_adj_map {ρ ρ' : Record} (ι : RecordIso ρ ρ') (x y : ρ.Crossing) :
+    ρ'.interlacementGraph.Adj (gl_crossingMap ι x) (gl_crossingMap ι y) ↔
+      ρ.interlacementGraph.Adj x y := by
+  unfold Record.interlacementGraph
+  rw [SimpleGraph.fromRel_adj, SimpleGraph.fromRel_adj]
+  exact and_congr (not_congr (gl_crossingMap_inj ι x y))
+    (or_congr (gl_interlaces_map ι x y) (gl_interlaces_map ι y x))
+
+omit hn hP in
+/-- Two chords of `gaussRecord hc T` with the same label are equal (each crossing has exactly the two
+visits `v`, `visitTwin v`, which are paired). -/
+theorem gl_label_inj (hc : CrossingGeometry P) (T : Finset (Crossing P))
+    {x x' : (gaussRecord hc T).Crossing} (h : label hc T x = label hc T x') : x = x' := by
+  have hx := (gaussRecord hc T).crossingOf_rep x
+  have hx' := (gaussRecord hc T).crossingOf_rep x'
+  rcases visit_eq_or_twin (x.rep : {v : Visit P // v.1 ∈ T}).1 (x'.rep : {v : Visit P // v.1 ∈ T}).1 h.symm
+    with h1 | h1
+  · have h2 : x'.rep = x.rep := Subtype.ext h1
+    rw [← hx, ← hx', h2]
+  · have h2 : x'.rep = (gaussRecord hc T).pair x.rep := by
+      apply Subtype.ext
+      rw [h1]
+      exact (gaussPair_val hc T x.rep).symm
+    rw [← hx, ← hx', h2, Record.crossingOf_pair]
+
+variable {S : Finset (Crossing P)}
+
+/-- The self-crossings of `A` are the labels of the blocks it owns (same proof as the glue lemma
+`carrierCrossings_eq_biUnion`, needed before the leaf). -/
+theorem gl_carrierCrossings_eq_biUnion (hS : IsDecomposition hn hP S) (A : Component hn hP S) :
+    carrierCrossings hn hP S A = (blocksOwnedBy hn hP S A).biUnion (CV.pieceLabels (cg hn hP) S) := by
+  unfold blocksOwnedBy
+  rw [CV.biUnion_pieceLabels_piecesOn _ (mem_Ind hn hP hS), geoCarrierCrossings_eq_generic,
+    Equiv.apply_symm_apply]
+
+theorem gl_exists_block_of_mem (hS : IsDecomposition hn hP S) (A : Component hn hP S) {c : Crossing P}
+    (hc : c ∈ carrierCrossings hn hP S A) :
+    ∃ H ∈ blocksOwnedBy hn hP S A, c ∈ CV.pieceLabels (cg hn hP) S H := by
+  rw [gl_carrierCrossings_eq_biUnion hn hP hS A] at hc
+  exact Finset.mem_biUnion.mp hc
+
+theorem gl_pieceLabels_subset (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    {H : CV.Piece (cg hn hP) S} (hH : H ∈ blocksOwnedBy hn hP S A) :
+    CV.pieceLabels (cg hn hP) S H ⊆ carrierCrossings hn hP S A := by
+  rw [gl_carrierCrossings_eq_biUnion hn hP hS A]
+  exact Finset.subset_biUnion_of_mem _ hH
+
+theorem gl_mem_U_of_mem (hS : IsDecomposition hn hP S) (A : Component hn hP S) {c : Crossing P}
+    (hc : c ∈ carrierCrossings hn hP S A) : c ∈ CV.U (cg hn hP) S := by
+  obtain ⟨H, -, hcH⟩ := gl_exists_block_of_mem hn hP hS A hc
+  exact CV.pieceLabels_subset _ S H hcH
+
+/-- The geometric crossing ("label") of a record crossing of `D_A`: the label of its image chord in
+`gaussRecord hc (carrierCrossings A)` under KL1's isomorphism. -/
+noncomputable def gl_lbl (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) : Crossing P :=
+  label (cg hn hP) (carrierCrossings hn hP S A) (gl_crossingMap (positiveLiftRecordIso hn hP hS A) p)
+
+theorem gl_lbl_mem (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) : gl_lbl hn hP hS A p ∈ carrierCrossings hn hP S A :=
+  label_mem _ _ _
+
+theorem gl_lbl_mem_U (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) : gl_lbl hn hP hS A p ∈ CV.U (cg hn hP) S :=
+  gl_mem_U_of_mem hn hP hS A (gl_lbl_mem hn hP hS A p)
+
+/-- The label of the chord of a shadow visit is its geometric crossing (KL1's spec). -/
+theorem gl_lbl_crossingOf (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (v : (positiveLift hn hP S A hS).Γ.Visit) :
+    gl_lbl hn hP hS A ((positiveLift hn hP S A hS).record.crossingOf v) =
+      (carrierCrossingEquiv hn hP S A hS v.1).val := by
+  unfold gl_lbl
+  rw [gl_crossingMap_crossingOf, label_crossingOf, positiveLiftRecordIso_val]
+
+/-- Record interlacement of `D_A` is `Interlaces` of the labels (KL1 + KL2). -/
+theorem gl_adj_iff (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p p' : (positiveLift hn hP S A hS).record.Crossing) :
+    (positiveLift hn hP S A hS).record.interlacementGraph.Adj p p' ↔
+      Interlaces hn hP (gl_lbl hn hP hS A p) (gl_lbl hn hP hS A p') := by
+  rw [← gl_adj_map (positiveLiftRecordIso hn hP hS A), gaussRecord_adj_iff]
+  exact Iff.rfl
+
+theorem gl_lbl_injective (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    {p p' : (positiveLift hn hP S A hS).record.Crossing} (h : gl_lbl hn hP hS A p = gl_lbl hn hP hS A p') :
+    p = p' :=
+  (gl_crossingMap_inj (positiveLiftRecordIso hn hP hS A) p p').mp (gl_label_inj _ _ h)
+
+theorem gl_exists_lbl_eq (hS : IsDecomposition hn hP S) (A : Component hn hP S) {c : Crossing P}
+    (hc : c ∈ carrierCrossings hn hP S A) :
+    ∃ p : (positiveLift hn hP S A hS).record.Crossing, gl_lbl hn hP hS A p = c := by
+  let u : (gaussRecord (cg hn hP) (carrierCrossings hn hP S A)).M :=
+    (⟨someVisit c, hc⟩ : {v : Visit P // v.1 ∈ carrierCrossings hn hP S A})
+  refine ⟨(positiveLift hn hP S A hS).record.crossingOf ((positiveLiftRecordIso hn hP hS A).Φ.symm u), ?_⟩
+  unfold gl_lbl
+  rw [gl_crossingMap_crossingOf, Equiv.apply_symm_apply, label_crossingOf]
+  rfl
+
+/-- Membership in the block set of `D_A`'s chords is the label test. -/
+theorem gl_mem_blockRecordCrossings_iff (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (H : CV.Piece (cg hn hP) S) (p : (positiveLift hn hP S A hS).record.Crossing) :
+    p ∈ blockRecordCrossings hn hP hS A H ↔ gl_lbl hn hP hS A p ∈ CV.pieceLabels (cg hn hP) S H := by
+  constructor
+  · rintro ⟨v, rfl, hv⟩
+    rw [gl_lbl_crossingOf]
+    exact hv
+  · intro h
+    refine ⟨(p.rep : (positiveLift hn hP S A hS).Γ.Visit), ((positiveLift hn hP S A hS).record.crossingOf_rep p).symm, ?_⟩
+    rw [← gl_lbl_crossingOf hn hP hS A, (positiveLift hn hP S A hS).record.crossingOf_rep p]
+    exact h
+
+/-- The block of a record crossing of `D_A`: the piece of its label. -/
+noncomputable def gl_piece (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) : CV.Piece (cg hn hP) S :=
+  CV.pieceOf (cg hn hP) S (gl_lbl hn hP hS A p) (gl_lbl_mem_U hn hP hS A p)
+
+theorem gl_piece_mem (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) : gl_piece hn hP hS A p ∈ blocksOwnedBy hn hP S A := by
+  obtain ⟨H, hH, hcH⟩ := gl_exists_block_of_mem hn hP hS A (gl_lbl_mem hn hP hS A p)
+  obtain ⟨hc, hpc⟩ := (CV.mem_pieceLabels _ S H _).mp hcH
+  have h : gl_piece hn hP hS A p = H := hpc
+  rw [h]
+  exact hH
+
+theorem gl_piece_eq_of_adj (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    {p p' : (positiveLift hn hP S A hS).record.Crossing}
+    (h : (positiveLift hn hP S A hS).record.interlacementGraph.Adj p p') :
+    gl_piece hn hP hS A p = gl_piece hn hP hS A p' := by
+  have hI : Interlaces hn hP (gl_lbl hn hP hS A p) (gl_lbl hn hP hS A p') := (gl_adj_iff hn hP hS A p p').mp h
+  have hadj : (CV.residualGraph (cg hn hP) S).Adj ⟨gl_lbl hn hP hS A p, gl_lbl_mem_U hn hP hS A p⟩
+      ⟨gl_lbl hn hP hS A p', gl_lbl_mem_U hn hP hS A p'⟩ := hI
+  exact SimpleGraph.ConnectedComponent.connectedComponentMk_eq_of_adj hadj
+
+theorem gl_piece_eq_of_walk (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    {p p' : (positiveLift hn hP S A hS).record.Crossing}
+    (w : (positiveLift hn hP S A hS).record.interlacementGraph.Walk p p') :
+    gl_piece hn hP hS A p = gl_piece hn hP hS A p' := by
+  induction w with
+  | nil => rfl
+  | cons h _ ih => exact (gl_piece_eq_of_adj hn hP hS A h).trans ih
+
+/-- The block of a record block of `D_A` (well defined: adjacent chords have interlacing labels, hence
+lie in one piece). -/
+noncomputable def gl_pieceOfComp (hS : IsDecomposition hn hP S) (A : Component hn hP S) :
+    (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent → CV.Piece (cg hn hP) S :=
+  SimpleGraph.ConnectedComponent.lift (gl_piece hn hP hS A) fun _ _ w _ => gl_piece_eq_of_walk hn hP hS A w
+
+theorem gl_pieceOfComp_mk (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (p : (positiveLift hn hP S A hS).record.Crossing) :
+    gl_pieceOfComp hn hP hS A ((positiveLift hn hP S A hS).record.interlacementGraph.connectedComponentMk p) =
+      gl_piece hn hP hS A p := rfl
+
+theorem gl_pieceOfComp_mem (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (K : (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent) :
+    gl_pieceOfComp hn hP hS A K ∈ blocksOwnedBy hn hP S A := by
+  induction K using SimpleGraph.ConnectedComponent.ind with
+  | h p => exact gl_piece_mem hn hP hS A p
+
+/-- A walk of `G_P[U(S)]` between two labels of `D_A` lifts to a walk of its record interlacement graph
+(the walk stays in one block owned by `A`, whose labels are self-crossings of `A`; `owner_eq_of_walk`
+pattern). -/
+theorem gl_reachable_of_walk (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    {x y : (↑(CV.U (cg hn hP) S) : Set (Crossing P))} (w : (CV.residualGraph (cg hn hP) S).Walk x y) :
+    ∀ p p' : (positiveLift hn hP S A hS).record.Crossing, gl_lbl hn hP hS A p = x.1 →
+      gl_lbl hn hP hS A p' = y.1 →
+      (positiveLift hn hP S A hS).record.interlacementGraph.Reachable p p' := by
+  induction w with
+  | nil =>
+    intro p p' hp hp'
+    obtain rfl := gl_lbl_injective hn hP hS A (hp.trans hp'.symm)
+    exact SimpleGraph.Reachable.refl p
+  | @cons a b _ hab _ ih =>
+    intro p p' hp hp'
+    have haX : a.1 ∈ carrierCrossings hn hP S A := hp ▸ gl_lbl_mem hn hP hS A p
+    obtain ⟨H, hH, haH⟩ := gl_exists_block_of_mem hn hP hS A haX
+    have hbH : b.1 ∈ CV.pieceLabels (cg hn hP) S H := CV.mem_pieceLabels_of_interlaces _ H haH b.2 hab
+    obtain ⟨p₁, hp₁⟩ := gl_exists_lbl_eq hn hP hS A (gl_pieceLabels_subset hn hP hS A hH hbH)
+    have hadj : (positiveLift hn hP S A hS).record.interlacementGraph.Adj p p₁ := by
+      rw [gl_adj_iff hn hP hS A, hp, hp₁]
+      exact hab
+    exact hadj.reachable.trans (ih p₁ p' hp₁ hp')
+
+theorem gl_pieceOfComp_injective (hS : IsDecomposition hn hP S) (A : Component hn hP S) :
+    Function.Injective (gl_pieceOfComp hn hP hS A) := by
+  intro K K'
+  refine SimpleGraph.ConnectedComponent.ind₂ (fun p p' => ?_) K K'
+  intro h
+  have hr : (CV.residualGraph (cg hn hP) S).Reachable ⟨gl_lbl hn hP hS A p, gl_lbl_mem_U hn hP hS A p⟩
+      ⟨gl_lbl hn hP hS A p', gl_lbl_mem_U hn hP hS A p'⟩ :=
+    SimpleGraph.ConnectedComponent.exact h
+  exact SimpleGraph.ConnectedComponent.sound (hr.elim fun w => gl_reachable_of_walk hn hP hS A w p p' rfl rfl)
+
+theorem gl_pieceOfComp_surj (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (H : CV.Piece (cg hn hP) S) (hH : H ∈ blocksOwnedBy hn hP S A) :
+    ∃ K, gl_pieceOfComp hn hP hS A K = H := by
+  obtain ⟨c, hcH⟩ := CV.pieceLabels_nonempty (cg hn hP) S H
+  obtain ⟨p, hp⟩ := gl_exists_lbl_eq hn hP hS A (gl_pieceLabels_subset hn hP hS A hH hcH)
+  refine ⟨(positiveLift hn hP S A hS).record.interlacementGraph.connectedComponentMk p, ?_⟩
+  obtain ⟨hc, hpc⟩ := (CV.mem_pieceLabels _ S H c).mp hcH
+  subst hp
+  exact hpc
+
+/-- The bijection between the record blocks of `D_A` and the blocks owned by `A`. -/
+noncomputable def gl_blockEquiv (hS : IsDecomposition hn hP S) (A : Component hn hP S) :
+    (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent ≃
+      {H : CV.Piece (cg hn hP) S // H ∈ blocksOwnedBy hn hP S A} :=
+  Equiv.ofBijective (fun K => ⟨gl_pieceOfComp hn hP hS A K, gl_pieceOfComp_mem hn hP hS A K⟩)
+    ⟨fun _ _ h => gl_pieceOfComp_injective hn hP hS A (congrArg Subtype.val h),
+      fun H => by
+        obtain ⟨K, hK⟩ := gl_pieceOfComp_surj hn hP hS A H.1 H.2
+        exact ⟨K, Subtype.ext hK⟩⟩
+
+theorem gl_blockEquiv_val (hS : IsDecomposition hn hP S) (A : Component hn hP S)
+    (K : (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent) :
+    (gl_blockEquiv hn hP hS A K).1 = gl_pieceOfComp hn hP hS A K := rfl
+
+end GLHelpers
+
+/-- GL leaf: the connected components of the record interlacement graph of `D_A` correspond to the blocks
+owned by `A`, with supports the record crossings of the block's labels (KL1 + KL2 + `owner_eq_of_walk`). -/
+theorem exists_blockGraphEquiv {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S) (A : Component hn hP S) :
+    ∃ β : (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent ≃
+        {H : CV.Piece (cg hn hP) S // H ∈ blocksOwnedBy hn hP S A},
+      ∀ K, K.supp = blockRecordCrossings hn hP hS A (β K).1 := by
+  refine ⟨gl_blockEquiv hn hP hS A, fun K => ?_⟩
+  induction K using SimpleGraph.ConnectedComponent.ind with
+  | h p₀ =>
+    ext p
+    rw [SimpleGraph.ConnectedComponent.mem_supp_iff, gl_blockEquiv_val, gl_mem_blockRecordCrossings_iff,
+      gl_pieceOfComp_mk, CV.mem_pieceLabels]
+    constructor
+    · intro h
+      exact ⟨gl_lbl_mem_U hn hP hS A p, congrArg (gl_pieceOfComp hn hP hS A) h⟩
+    · rintro ⟨hc, h⟩
+      have h' : gl_pieceOfComp hn hP hS A
+          ((positiveLift hn hP S A hS).record.interlacementGraph.connectedComponentMk p) =
+          gl_pieceOfComp hn hP hS A
+            ((positiveLift hn hP S A hS).record.interlacementGraph.connectedComponentMk p₀) := h
+      exact gl_pieceOfComp_injective hn hP hS A h'
+
+/-! ### AS — small assembly leaves -/
+
+/-- AS leaf: membership of a chord of `D_A` in the block set is the label test on its occurrence
+(both occurrences of a shadow crossing have the same geometric crossing). -/
+theorem mem_blockRecordCrossings_crossingOf {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S)
+    (A : Component hn hP S) (H : CV.Piece (cg hn hP) S) (v : (positiveLift hn hP S A hS).Γ.Visit) :
+    (positiveLift hn hP S A hS).record.crossingOf v ∈ blockRecordCrossings hn hP hS A H ↔
+      (carrierCrossingEquiv hn hP S A hS v.1).val ∈ CV.pieceLabels (cg hn hP) S H := by
+  constructor
+  · rintro ⟨w, hw, hmem⟩
+    -- `crossingOf v = crossingOf w` means `v ∈ {w, τ w}` (`crossingOf_eq_iff`); either way `v.1 = w.1`.
+    have hv : v ∈ ((positiveLift hn hP S A hS).record.crossingOf w).1 :=
+      ((positiveLift hn hP S A hS).record.crossingOf_eq_iff v
+        ((positiveLift hn hP S A hS).record.crossingOf w)).mp hw
+    have h1 : v.1 = w.1 := by
+      simp only [Record.crossingOf, Finset.mem_insert, Finset.mem_singleton] at hv
+      rcases hv with rfl | rfl
+      · rfl
+      · exact (positiveLift hn hP S A hS).twin_fst w
+    rw [h1]
+    exact hmem
+  · intro h
+    exact ⟨v, rfl, h⟩
+
+/-- AS leaf: a carrier with a self-crossing has a shadow visit (`carrierCrossingEquiv.symm`, one of its two
+strands). -/
+theorem exists_visit_of_mem_carrierCrossings {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S)
+    (A : Component hn hP S) {c : Crossing P} (hc : c ∈ carrierCrossings hn hP S A) :
+    Nonempty (positiveLift hn hP S A hS).Γ.Visit := by
+  -- the shadow crossing at `c` (`carrierCrossingEquiv.symm`) has two strands; take either one.
+  obtain ⟨s, hs⟩ : ((carrierCrossingEquiv hn hP S A hS).symm ⟨c, hc⟩).val.Nonempty := by
+    rw [← Finset.card_pos, Shadow.crossing_card_two]
+    exact two_pos
+  exact ⟨⟨(carrierCrossingEquiv hn hP S A hS).symm ⟨c, hc⟩, ⟨s, hs⟩⟩⟩
+
+/-! ### PC — the block carrier: an independent refinement `T ⊇ S` with a carrier whose self-crossings are
+exactly `H` (proved here from CV:lem:piececurve's `pieceSupport`/`pieceCarrier`, rows 142/143 under review;
+fallback: PLAN_B's greedy support L3 on the SM lane) -/
+
+theorem exists_blockCarrier {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S) (H : CV.Piece (cg hn hP) S) :
+    ∃ (T : Finset (Crossing P)) (hT : IsDecomposition hn hP T) (q : Component hn hP T),
+      S ⊆ T ∧ carrierCrossings hn hP T q = CV.pieceLabels (cg hn hP) S H := by
+  have hD : CV.Diagrammatic P := CV.Generic.diagrammatic hn (CV.generic_of_sm hn hP)
+  have hInd : S ∈ CV.Ind hD.crossingGeometry := mem_Ind hn hP hS
+  refine ⟨S ∪ CV.pieceSupport hD hInd H, ?_, geoComponentEquivGeneric hn hP _ (CV.pieceCarrier hD hInd H),
+    Finset.subset_union_left, ?_⟩
+  · have h := CV.pieceSupport_mem_Ind hD hInd H
+    rwa [CV.Ind_eq_generic hn hP] at h
+  · rw [← geoCarrierCrossings_eq_generic]
+    exact CV.pieceCarrier_geoCarrierCrossings hD hInd H
+
+/-! ### Proved glue (no leaves) -/
+
+section Glue
+
+variable {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S)
+
+/-- "`H` owned by `A`" spelled out (field `owned_by`). -/
+theorem mem_blocksOwnedBy_iff (A : Component hn hP S) (H : CV.Piece (cg hn hP) S) :
+    H ∈ blocksOwnedBy hn hP S A ↔
+      ∀ c ∈ CV.pieceLabels (cg hn hP) S H, ∀ v : Visit P, v.1 = c → owner hn hP S (Sum.inr v) = A := by
+  unfold blocksOwnedBy CV.piecesOn
+  rw [Finset.mem_filter]
+  simp only [Finset.mem_univ, true_and]
+  refine forall_congr' fun c => forall_congr' fun _ => forall_congr' fun v => forall_congr' fun _ => ?_
+  rw [← geoComponentEquivGeneric_owner hn hP S]
+  exact Equiv.eq_symm_apply _
+
+theorem mem_blocksOwnedBy_iff_blockOwner (A : Component hn hP S) (H : CV.Piece (cg hn hP) S) :
+    H ∈ blocksOwnedBy hn hP S A ↔ blockOwner hn hP hS H = A := by
+  unfold blocksOwnedBy blockOwner
+  rw [CV.mem_piecesOn_iff (cg hn hP) (mem_Ind hn hP hS)]
+  exact Equiv.eq_symm_apply _
+
+theorem blockOwner_eq_of_mem {A : Component hn hP S} {H : CV.Piece (cg hn hP) S}
+    (h : H ∈ blocksOwnedBy hn hP S A) : blockOwner hn hP hS H = A :=
+  (mem_blocksOwnedBy_iff_blockOwner hn hP hS A H).mp h
+
+include hS in
+/-- The self-crossings of `A` are the labels of the blocks it owns ("The self-crossings of a carrier are
+exactly its owned undominated labels", proof 4653; CV `biUnion_pieceLabels_piecesOn`). -/
+theorem carrierCrossings_eq_biUnion (A : Component hn hP S) :
+    carrierCrossings hn hP S A = (blocksOwnedBy hn hP S A).biUnion (CV.pieceLabels (cg hn hP) S) := by
+  unfold blocksOwnedBy
+  rw [CV.biUnion_pieceLabels_piecesOn _ (mem_Ind hn hP hS), geoCarrierCrossings_eq_generic,
+    Equiv.apply_symm_apply]
+
+/-- The labels of `H` are self-crossings of its owner. -/
+theorem pieceLabels_subset_carrierCrossings (H : CV.Piece (cg hn hP) S) :
+    CV.pieceLabels (cg hn hP) S H ⊆ carrierCrossings hn hP S (blockOwner hn hP hS H) := by
+  intro c hc
+  rw [carrierCrossings_eq_biUnion hn hP hS, Finset.mem_biUnion]
+  exact ⟨H, (mem_blocksOwnedBy_iff_blockOwner hn hP hS _ H).mpr rfl, hc⟩
+
+/-- `blockRecord H` at the owner `A` of `H`, written at `A`. -/
+theorem blockRecord_eq_at {A : Component hn hP S} {H : CV.Piece (cg hn hP) S} (h : blockOwner hn hP hS H = A) :
+    blockRecord hn hP hS H =
+      (positiveLift hn hP S A hS).record.restrictCrossings (blockRecordCrossings hn hP hS A H) := by
+  subst h; rfl
+
+/-- **The record clause for every block carrier diagram**: the actual positive diagram of any carrier of an
+independent `T` whose self-crossings are exactly `H` has the restricted named cyclic record of `H`
+(KL1 at `q`, KL1 at `A_H`, KL3, T1). -/
+theorem record_iso_blockRecord {T : Finset (Crossing P)} (hT : IsDecomposition hn hP T) (q : Component hn hP T)
+    (H : CV.Piece (cg hn hP) S) (hq : carrierCrossings hn hP T q = CV.pieceLabels (cg hn hP) S H) :
+    Nonempty (RecordIso (positiveLift hn hP T q hT).record (blockRecord hn hP hS H)) := by
+  have ιH := positiveLiftRecordIso hn hP hT q
+  rw [hq] at ιH
+  obtain ⟨κ⟩ := gaussRecord_restrict_iso (cg hn hP) (pieceLabels_subset_carrierCrossings hn hP hS H)
+  obtain ⟨τ⟩ := restrictCrossings_iso_of_recordIso (positiveLiftRecordIso hn hP hS (blockOwner hn hP hS H))
+    (blockRecordCrossings hn hP hS (blockOwner hn hP hS H) H)
+    {p | label (cg hn hP) _ p ∈ CV.pieceLabels (cg hn hP) S H} (fun v => by
+      rw [mem_blockRecordCrossings_crossingOf, Set.mem_setOf_eq,
+        label_crossingOf (cg hn hP) _ ((positiveLiftRecordIso hn hP hS (blockOwner hn hP hS H)).Φ v),
+        positiveLiftRecordIso_val])
+  exact ⟨ιH.trans (κ.symm.trans τ.symm)⟩
+
+/-- eq. cb:product, first identity, given the block diagrams (assembly through the accepted `SM.blocks`). -/
+theorem product_of_chain (A : Component hn hP S) (hne : (blocksOwnedBy hn hP S A).Nonempty)
+    (hbd : ∀ H : CV.Piece (cg hn hP) S, ∃ D : Diagram,
+      IsBlockCarrierDiagram hn hP hS H D ∧ Nonempty (RecordIso D.record (blockRecord hn hP hS H))) :
+    carrierPoly hn hP hS A = ∏ H ∈ blocksOwnedBy hn hP S A, blockPoly hn hP hS H := by
+  obtain ⟨β, hβ⟩ := exists_blockGraphEquiv hn hP hS A
+  choose D hD using hbd
+  let C : (positiveLift hn hP S A hS).record.interlacementGraph.ConnectedComponent → Diagram :=
+    fun K => D (β K).1
+  have hsup : BlockSupply (positiveLift hn hP S A hS).record C := by
+    refine ⟨⟨positiveLift hn hP S A hS, ⟨RecordIso.refl _⟩⟩, ?_, ?_, fun K => ?_⟩
+    · exact Fintype.card_fin 1
+    · obtain ⟨H, hH⟩ := hne
+      obtain ⟨c, hc⟩ := CV.pieceLabels_nonempty (cg hn hP) S H
+      have hcA : c ∈ carrierCrossings hn hP S A := by
+        rw [carrierCrossings_eq_biUnion hn hP hS, Finset.mem_biUnion]
+        exact ⟨H, hH, hc⟩
+      exact exists_visit_of_mem_carrierCrossings hn hP hS A hcA
+    · obtain ⟨ι⟩ := (hD (β K).1).2
+      rw [blockRecord_eq_at hn hP hS (blockOwner_eq_of_mem hn hP hS (β K).2), ← hβ K] at ι
+      exact ⟨ι⟩
+  have hprod := SM.blocks.product _ C hsup (positiveLift hn hP S A hS) ⟨RecordIso.refl _⟩
+  have hfac : ∀ K, SM.P (C K) = blockPoly hn hP hS (β K).1 :=
+    fun K => (recordPolynomial_eq _ _ (hD (β K).1).2).symm
+  show SM.P (positiveLift hn hP S A hS) = _
+  rw [hprod, Fintype.prod_equiv β _ (fun H => blockPoly hn hP hS H.1) hfac]
+  exact Finset.prod_coe_sort _ _
+
+include hS in
+/-- eq. cb:product, second identity. -/
+theorem count_of_chain (A : Component hn hP S) :
+    carrierCrossingCount hn hP S A = ∑ H ∈ blocksOwnedBy hn hP S A, (CV.pieceLabels (cg hn hP) S H).card := by
+  show (carrierCrossings hn hP S A).card = _
+  rw [carrierCrossings_eq_biUnion hn hP hS, Finset.card_biUnion]
+  intro H _ H' _ hne
+  exact CV.pieceLabels_disjoint _ S H H' hne
+
+end Glue
+
+end CB
+
+open CB
+
+variable {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) {S : Finset (Crossing P)}
+
+/-- **Row 102, cb:products** — assembled from the chain leaves. -/
+theorem cb_products (hS : IsDecomposition hn hP S) : CbProductsData hn hP hS where
+  one_owner H := by
+    refine ⟨?_, fun c hc => ?_⟩
+    · obtain ⟨q, hq, huniq⟩ := CV.exists_unique_piece_carrier (cg hn hP) (mem_Ind hn hP hS) H
+      refine ⟨geoComponentEquivGeneric hn hP S q, fun c hc v hv => ?_, fun q' hq' => ?_⟩
+      · rw [← geoComponentEquivGeneric_owner hn hP S]
+        exact congrArg _ (hq c hc v hv)
+      · have h : (geoComponentEquivGeneric hn hP S).symm q' = q :=
+          huniq _ fun c hc v hv => by
+            rw [Equiv.eq_symm_apply, geoComponentEquivGeneric_owner hn hP S]
+            exact hq' c hc v hv
+        rw [← h, Equiv.apply_symm_apply]
+    · show owner hn hP S (Sum.inr (someVisit c)) = _
+      unfold blockOwner
+      rw [← geoComponentEquivGeneric_owner hn hP S]
+      exact congrArg _ (CV.pieceOwner_spec (cg hn hP) (mem_Ind hn hP hS) H c hc (someVisit c) rfl)
+  block_diagram H := by
+    obtain ⟨T, hT, q, hST, hq⟩ := exists_blockCarrier hn hP hS H
+    exact ⟨positiveLift hn hP T q hT, ⟨T, hT, q, hST, hq, rfl⟩, record_iso_blockRecord hn hP hS hT q H hq⟩
+  polynomial_independent H D hD := by
+    obtain ⟨T, hT, q, -, hq, rfl⟩ := hD
+    have ι := record_iso_blockRecord hn hP hS hT q H hq
+    exact ⟨ι, (recordPolynomial_eq _ _ ι).symm⟩
+  owned_by A H := ⟨mem_blocksOwnedBy_iff hn hP A H, mem_blocksOwnedBy_iff_blockOwner hn hP hS A H⟩
+  product A := by
+    rcases (blocksOwnedBy hn hP S A).eq_empty_or_nonempty with h | h
+    · rw [h, Finset.prod_empty]
+      have hX : carrierCrossings hn hP S A = ∅ := by
+        rw [carrierCrossings_eq_biUnion hn hP hS, h, Finset.biUnion_empty]
+      exact P_circle (positiveLift_isCrossingFreeCircle hn hP S A hS hX)
+    · exact product_of_chain hn hP hS A h fun H => by
+        obtain ⟨T, hT, q, hST, hq⟩ := exists_blockCarrier hn hP hS H
+        exact ⟨positiveLift hn hP T q hT, ⟨T, hT, q, hST, hq, rfl⟩, record_iso_blockRecord hn hP hS hT q H hq⟩
+  count A := count_of_chain hn hP hS A
+  no_blocks A h := by
+    have hX : carrierCrossings hn hP S A = ∅ := by
+      rw [carrierCrossings_eq_biUnion hn hP hS, h, Finset.biUnion_empty]
+    refine ⟨positiveLift_isCrossingFreeCircle hn hP S A hS hX,
+      P_circle (positiveLift_isCrossingFreeCircle hn hP S A hS hX), ?_⟩
+    show (carrierCrossings hn hP S A).card = 0
+    rw [hX, Finset.card_empty]
+
+/-! ### Companion lemmas cited by cb:singleton (proof sentences of cb:products, NOT row clauses) -/
+
+omit [NeZero n] in
+/-- "It is adjacent to no selected label, so the enlarged support is independent" (proof 4658–4660;
+accepted `insert_unselected_mem_independentSupports`). -/
+theorem greedy_independent (hS : IsDecomposition hn hP S) {c : Crossing P}
+    (hc : c ∈ supportUnselected hn hP S) : IsDecomposition hn hP (insert c S) :=
+  insert_unselected_mem_independentSupports hn hP hS hc
+
+omit [NeZero n] in
+/-- eq. cb:greedy-step (proof 4661–4663): `U(T ∪ {c}) = U(T) ∖ ({c} ∪ N_{G_P}(c))`. -/
+theorem greedy_step (T : Finset (Crossing P)) (c : Crossing P) :
+    supportUnselected hn hP (insert c T) =
+      supportUnselected hn hP T \ insert c (supportNeighbors hn hP {c}) := by
+  ext y
+  simp only [mem_supportUnselected, mem_supportNeighbors, Finset.mem_sdiff, Finset.mem_insert,
+    Finset.mem_singleton]
+  constructor
+  · rintro ⟨hy, hN⟩
+    refine ⟨⟨fun h => hy (Or.inr h), fun ⟨x, hx, hxy⟩ => hN ⟨x, Or.inr hx, hxy⟩⟩, ?_⟩
+    rintro (rfl | ⟨x, rfl, hxy⟩)
+    · exact hy (Or.inl rfl)
+    · exact hN ⟨x, Or.inl rfl, hxy⟩
+  · rintro ⟨⟨hy, hN⟩, hc⟩
+    refine ⟨?_, ?_⟩
+    · rintro (rfl | h)
+      · exact hc (Or.inl rfl)
+      · exact hy h
+    · rintro ⟨x, hx | hx, hxy⟩
+      · exact hc (Or.inr ⟨x, hx, hxy⟩)
+      · exact hN ⟨x, hx, hxy⟩
+
+end SM

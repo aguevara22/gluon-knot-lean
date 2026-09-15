@@ -1,0 +1,29 @@
+import SM.NamedWallsDefinition
+
+#print SM.NamedWallsData
+#print SM.NamedWallsDefinitionData
+#check @SM.named_walls_definition
+#print axioms SM.named_walls_definition
+#print SM.WallKind
+#print SM.WallCenterKind
+#print SM.FlatCenterAt
+#print SM.CuspCenterAt
+#print SM.VertexCenterAt
+#print SM.TripleCenterAt
+#print SM.ExtensionCenterAt
+#print SM.CutCenterAt
+#print SM.WallGerm.HasWallKind
+#print SM.WallGerm.Simple
+#print SM.WallGerm.Silent
+#print SM.WallGerm.FlatRightSide
+#print SM.WallGerm.FlatLeftSide
+#print SM.WallGerm.contactSign
+#print SM.CuspCase
+#print SM.WallGerm.cuspLoopSide
+#print SM.WallGerm.CuspEmptyAt
+#print SM.GaussVisitsAdjacent
+#print SM.TwoStepAdjacent
+#check @SM.WallGerm.cuspEmptyAt_iff_at
+#check @SM.WallGerm.cuspEmptyAt_relabel
+#check @SM.WallGerm.tripleAt_support_iff
+#check @SM.WallGerm.pureCutAt_support_iff

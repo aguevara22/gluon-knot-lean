@@ -1,0 +1,40 @@
+\begin{theorem}[single-triple wall response]\label{thm:single-triple}
+Let $t\mapsto P(t)$ be a wall germ with $Z_{\rm c}=\varnothing$,
+$Z_{\rm pt}=\{K\}$ a single triple of pairwise distinct vertices,
+and $\chi_K$ changing sign at zero. This includes types (F), (K),
+(V), (E), and (C). Cut at a fixed physical root $g$ and let
+$x<y<z$ be the critical boundary positions. Put
+$I_*=[x,z]$, $L=[x,y]$, $R=[y,z]$, $F=[0,N]$, and
+\begin{equation}\label{afr:wall-data}
+\delta=\frac{H^+(x,y,z)-H^-(x,y,z)}2\in\{-1,1\}.
+\end{equation}
+Write the three wall points as $a_v=p_*+\xi_v\omega$ with
+$\omega\ne0$ and distinct $\xi_v$. Set
+\begin{equation}\label{afr:wall-epsilons}
+\epsilon_L=\sgn\frac{\xi_y-\xi_x}{\xi_z-\xi_x},\qquad
+\epsilon_R=\sgn\frac{\xi_z-\xi_y}{\xi_z-\xi_x}.
+\end{equation}
+For $J=L,R$ use the unchanged interval values of
+Lemma~\ref{lem:farout}, and put
+\begin{equation}\label{afr:wall-uv}
+\mathcal U_J=\begin{cases}\mathcal E_J,&\epsilon_J=1,\\
+\mathcal B_J,&\epsilon_J=-1,\end{cases}\qquad
+\mathcal V_J=\begin{cases}\mathcal B_J,&\epsilon_J=1,\\
+\mathcal E_J,&\epsilon_J=-1.\end{cases}
+\end{equation}
+If $I_*\ne F$, let $Q$ be the polygon obtained at $t=0$ by
+replacing the boundary arc $a_x,\ldots,a_z$ with the single edge
+from $a_x$ to $a_z$. Then $Q$ satisfies (G1), has at least three
+vertices, retains the physical root $g$, and
+\begin{equation}\label{afr:wall-proper}
+A_g(P_+)-A_g(P_-)=\delta\mathcal U_L\mathcal U_R A_g(Q).
+\end{equation}
+If $I_*=F$, instead
+\begin{equation}\label{afr:wall-full}
+A_g(P_+)-A_g(P_-)
+=\delta(\mathcal U_L\mathcal U_R+\mathcal V_L\mathcal V_R).
+\end{equation}
+Here $P_\pm$ are on sufficiently close punctured sides of the germ;
+all gap and contracted coefficients are evaluated at their nondegenerate
+wall data, equivalently at the same signs on either sufficiently close side.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z and 2026-09-05T19:42:49Z; transcribed from RC mt:wall-response (C022))}

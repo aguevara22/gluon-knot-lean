@@ -1,0 +1,106 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "gauss-next-from-empty-arc-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:26:31.413664+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_relgp_full",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root assigned the converse and suggested an explicit subtype-to-base order bridge after the first run. The implementing agent authored the statements, finite-order argument and repairs. Root owns the two kernel executions."
+  },
+  "scope": {
+    "group": "GaussNextFromEmptyArc",
+    "declarations": [
+      "SM.sorted_next_of_no_cyclic_between",
+      "SM.gauss_next_of_no_visit_between",
+      "SM.gauss_next_iff_no_visit_between",
+      "GaussNextFromEmptyArcPrototypeChecks.two_visit_forward",
+      "GaussNextFromEmptyArcPrototypeChecks.two_visit_wrap",
+      "GaussNextFromEmptyArcPrototypeChecks.three_visit_forward",
+      "GaussNextFromEmptyArcPrototypeChecks.three_visit_wrap"
+    ],
+    "implementation_declarations": 3,
+    "prototype_consumers": 4,
+    "source_id": "lem:soft-generic oriented adjacency prerequisite",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1046\u20131053,1143\u20131150"
+  },
+  "assessment": "No technical defect found in the bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/GaussNextFromEmptyArc-prototype-result.json",
+    "receipt_sha256": "dd9a6743d96d0bcb3bc25e3c3e08689464b5c268d6086c4c81be9acb7aa2100f",
+    "receipt_bound_files_sha256": {
+      "work/checks/GaussNextFromEmptyArc.body.lean": "bd464ce41342c8fc13964d3f195307d8fa44a83e5784bc4acb0ffee38409350b",
+      "work/checks/GaussNextFromEmptyArc.prototype.lean": "84bbca88b7f8557b99649748a22774167fdbdd8401a309a3c102c9d72d8bc853",
+      "work/checks/GaussNextFromEmptyArc-second-kernel.log": "e8b7af2e0edec316ba07f7e7fe9b459a723415cdc3ef6a28cc337a72926d21b9"
+    },
+    "declaration_axioms": {
+      "SM.sorted_next_of_no_cyclic_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gauss_next_of_no_visit_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gauss_next_iff_no_visit_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GaussNextFromEmptyArcPrototypeChecks.two_visit_forward": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GaussNextFromEmptyArcPrototypeChecks.two_visit_wrap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GaussNextFromEmptyArcPrototypeChecks.three_visit_forward": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GaussNextFromEmptyArcPrototypeChecks.three_visit_wrap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/GaussCyclicGap.lean": "07b1c0a825415640340da381ebbb9b4f334a608cdba85a2c4cbd81f789158632",
+      "work/lean/SM/SortedCyclicGap.lean": "bdcbd5fd1c714ef7b68a27a7a2009ea471ad06b051e65fe80777b2a25cc72300",
+      "work/lean/SM/GaussWord.lean": "d903156efdddbbe6682eb89d6fe13c2ccc7f02d1f3dde22dc2dc8bbdc936619c",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/checks/GaussNextFromEmptyArc.initial.body.lean": "394099fdb3a4f737175eece611c714fd931ad8af28cdd1992cbbf963741f57ae",
+      "work/checks/GaussNextFromEmptyArc.initial.prototype.lean": "9f8e8f76964793def528664713b3c9c2cc3c0e8959a62b0ec9e0ece9f2e1b28e",
+      "work/checks/GaussNextFromEmptyArc.second.body.lean": "bd464ce41342c8fc13964d3f195307d8fa44a83e5784bc4acb0ffee38409350b",
+      "work/checks/GaussNextFromEmptyArc.second.prototype.lean": "84bbca88b7f8557b99649748a22774167fdbdd8401a309a3c102c9d72d8bc853",
+      "work/checks/GaussNextFromEmptyArc-preparation.json": "85a85201585c2c33e6b606b3725bce0bb6a826dc66d0c2ca3d3dc15ebe5b90b2",
+      "work/checks/GaussNextFromEmptyArc-second-preparation.json": "4f7108862b003b44e5fb3c5b1011a2ad03323c8ca7b0a59720ce471c6e003507",
+      "work/checks/GaussNextFromEmptyArc-first-failed.body.lean": "394099fdb3a4f737175eece611c714fd931ad8af28cdd1992cbbf963741f57ae",
+      "work/checks/GaussNextFromEmptyArc-first-failed.prototype.lean": "9f8e8f76964793def528664713b3c9c2cc3c0e8959a62b0ec9e0ece9f2e1b28e",
+      "work/checks/GaussNextFromEmptyArc-first-kernel.log": "481e08e9e17cab8e4eb85b287d0dad55e81935a31418b85dc27ea817403e2276"
+    }
+  },
+  "findings": [
+    "The general finite-order theorem requires distinct actual members a,b and excludes all members from the oriented open cyclic interval. Distinctness is essential: an empty arc from a to itself alone need not specify its successor. The newborn application separately proves distinctness.",
+    "The proof uses the actual order isomorphism between the sorted finite set and its Fin cardinality. Away from the cut, the rank just after a exists. If b preceded a or lay beyond that next rank, this next element would be in the forbidden oriented arc. Distinctness forces b to have the next rank.",
+    "At the last rank, any positive rank for b puts the rank-zero element strictly on the wrapped arc. Thus b has rank zero. Both cases identify the actual List.next index modulo the cardinality, with no lower bound of three on the number of visits.",
+    "The Gauss theorem instantiates the complete actual visit finset under the canonical visit-key order. It aligns only DecidableEq proof instances and identifies canonical nextGaussVisit with sorted List.next. The iff wrapper combines this converse with the existing checked forward theorem.",
+    "Four additional prototype consumers test two-member and three-member sets, forward and wrapped successors, using the new theorem. These four are auxiliary checks, not source claims or extra implementation lemmas.",
+    "Root second7198 exited0 and all seven traces contain only standard foundational axioms. First33249 failed at five subtype-order simplifications; the repair adds one explicit coe_lt_coe bridge. All three implementation theorem statements and all four consumer bodies are unchanged."
+  ],
+  "limits": "This group proves the general converse and its actual Gauss specialization; it does not by itself construct newborn visits or establish their geometric empty arc. Stronger fidelity, source acceptance and controlled canonical integration remain pending."
+}

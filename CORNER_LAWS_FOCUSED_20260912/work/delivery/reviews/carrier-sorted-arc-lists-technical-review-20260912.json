@@ -1,0 +1,148 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-sorted-arc-lists-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:34:50.075288+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_gates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_gates authored the six generic sorted-arc declarations and the explicit zero-index type repair. Root alone ran the kernels and generated their evidence. This reviewer authored no proof body, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent source and sorted-order/index/membership comparison, assessment of the disclosed elaboration repairs and exact whole-file, prototype and receipt/trace checks."
+  },
+  "scope": {
+    "group": "CarrierSortedArcLists",
+    "declarations": [
+      "SM.Carrier.mod_add_one_wrap",
+      "SM.Carrier.cyclic_mod_add_iff",
+      "SM.Carrier.sorted_rotate_getElem_between_iff",
+      "SM.Carrier.nodup_split_getElem_mem_iff",
+      "SM.Carrier.sorted_rotate_split_mem_iff",
+      "SM.Carrier.sorted_rotate_split_reverse_mem_iff"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "115–139 source splitting induction: the literal lists between selected endpoints are the corresponding open arcs in inherited original cyclic order, including either empty arc. These generic sorted-list lemmas supply the order/membership bridge for actual marks.",
+    "ambient_context": "Generic LinearOrder α and actual Finset s, with a rotated sort equal to the literal list a::(A++b::B). The queried point explicitly satisfies x∈s. Indexed helper hypotheses ensure indices are below list length; no external circular order or supplied arc classification is assumed."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the strict cyclic-order membership criterion for rotated finite sorted lists.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 43464,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      29587
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierSortedArcLists-prototype-result.json",
+    "receipt_sha256": "bccd4c137a6e8fd64ff41a55e205d28d7cbd11e3dc3d01ecbb40ece2bcfa47df",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierSortedArcLists.body.lean": "d47c1604c7d3a66ad8ff710cf6711e5d42103a765634199ed680c3c4e39e00fa",
+      "work/checks/CarrierSortedArcLists.prototype.lean": "ee0ed0a7314b8532286fd5bf547be7c6d962e4d11a752a9db49a8953926a30ec",
+      "work/checks/CarrierSortedArcLists-second-kernel.log": "d99d61bc6379c449c4a1ee7bd54d9fe095ace9b0ab729188cbb9ff1af0176616"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierSortedArcLists.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierSortedArcLists.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 6,
+    "declaration_axioms": {
+      "SM.Carrier.mod_add_one_wrap": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.Carrier.cyclic_mod_add_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.sorted_rotate_getElem_between_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.nodup_split_getElem_mem_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.sorted_rotate_split_mem_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.sorted_rotate_split_reverse_mem_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierSortedArcLists-first-draft.body.lean": "8c025fa7544ed8aa3659ecf11545569ae691dde164055bb3bdd5461c9a743f32",
+      "work/checks/CarrierSortedArcLists-first-draft.prototype.lean": "76b578a5a71a5c9cd1fb52e6d52535ed9abd27bf8b649b9829ed61d90a3f524e",
+      "work/checks/CarrierSortedArcLists-body-dependencies.json": "56810d9cc21533bf85b9f59132c48763bf54e16e9f1bd6cee583f06bded664d3",
+      "work/checks/CarrierSortedArcLists-draft-dependency-bindings.json": "deb35d89193785f27b33595f00a88a8a777f0fc5e56f10ae29612825de1c20f2"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierSortedArcLists.body.lean": "work/checks/CarrierSortedArcLists-first-failed.body.lean",
+      "work/checks/CarrierSortedArcLists.prototype.lean": "work/checks/CarrierSortedArcLists-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierSortedArcLists-first-failed.body.lean": "8c025fa7544ed8aa3659ecf11545569ae691dde164055bb3bdd5461c9a743f32",
+      "work/checks/CarrierSortedArcLists-first-failed.prototype.lean": "76b578a5a71a5c9cd1fb52e6d52535ed9abd27bf8b649b9829ed61d90a3f524e",
+      "work/checks/CarrierSortedArcLists-first-failed-body-dependencies.json": "56810d9cc21533bf85b9f59132c48763bf54e16e9f1bd6cee583f06bded664d3",
+      "work/checks/CarrierSortedArcLists-first-kernel.log": "b0cb7c756757e964e385f78084588dedc82aa937a1fa343de6ab2e9c7d371da4",
+      "work/checks/CarrierSortedArcLists-first-failure-bindings.json": "d74d33b8cf3b09375887343f45125370433bb2978ef2f576bf7f92feb4f7545e",
+      "work/checks/CarrierSortedArcLists-second-draft-repair-bindings.json": "1e66c2c950e03554cb5d8377d514c10e22a36afbb5910623332ad418e8513458"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [
+      "sorted_rotate_getElem_between_iff"
+    ],
+    "proof_only_changed_declarations": [
+      "sorted_rotate_split_mem_iff"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first29587 failed because unannotated zero GetElem indices in sorted_rotate_getElem_between_iff's header inferred an invalid list index type. The author annotated the four header occurrences and the local hzero index as Nat. Exact whole-body/prototype comparisons verify these are the only changes and dependencies are unchanged. One header's text changes while its intended meaning is preserved; the invalid first header was never proved. First29587 and downstream compiler placeholders are preserved and excluded from successful evidence.",
+    "dependency_receipts_sha256": {},
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Finset/Sort.lean": "fcd03de4b5224d42fb39593bb8c90027a11d0d0c59fe12de2e9f506c546bfe9d",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Rotate.lean": "5d66d38ad920ee8564d6659010360557febf0cf6221bbd5fe4c0333edfc2e316",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Cycle.lean": "b211c4e0f5f89e8679d641fbef7674ae0e5787962294cc6cd2758f0669a75112",
+      "work/checks/carrier-arc-baseline-20260912.json": "638e2b341c68f689af695cd6ad25b0b11710bd669efbf9d9322e032e294383e2",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "mod_add_one_wrap assumes both added indices are below N, so their sum crosses the cut at most once. cyclic_mod_add_iff first reduces the arbitrary rotation amount k modulo N; positivity of N follows from the in-range hypothesis. It then proves exactly the strict index interval0<i<j.",
+    "The cyclic comparison is the disjunction of the three strict increasing cyclic arrangements. It includes wraparound and excludes i=0 and i=j. The indexed theorem does not assume the second endpoint is after the first in the unrotated linear order.",
+    "sorted_rotate_getElem_between_iff derives value comparisons from the actual sorted finite set's strict sortedness and compares rotated entries by their cyclic indices. No arbitrary sortedness or circular-order compatibility premise is supplied.",
+    "nodup_split_getElem_mem_iff proves membership in A exactly when an entry's index is strictly between0 and A.length+1. The forward direction identifies its unique occurrence using Nodup; the reverse reads the relevant cons/append index. Thus duplicate occurrences cannot create false arc membership.",
+    "sorted_rotate_split_mem_iff explicitly requires x∈s, obtains its index in the actual rotated sort and locates the two endpoints at indices0 and A.length+1. It combines the literal membership interval with actual strict sorted-order comparison.",
+    "The finite-set membership premise is necessary: a point outside s may geometrically lie between a and b without appearing in A. The theorem does not silently drop this restriction. In the later actual full-mark specialization, univ membership discharges it for every actual mark.",
+    "The literal rotation equality inherits Nodup from Finset.sort and ensures the two endpoint occurrences are distinct. Empty s cannot satisfy that equality; neither A nor B is required nonempty. Endpoint values are excluded by strict inequalities.",
+    "The reverse-slice theorem rotates once more by length(a::A), producing exactly b::(B++a::A), and applies the same forward theorem with endpoints exchanged. This proves membership in B with the correct reverse oriented arc and includes the last/first cut.",
+    "This generic packet does not identify a current carrier cycle with a sorted restriction or prove the source independent-support induction. It provides the concrete order/membership fact for later actual-list specializations.",
+    "First29587 failed on invalid type inference for bare zero indices in sorted_rotate_getElem_between_iff's header. The exact repair annotates its four zero indices and the one local hzero index as Nat, with no other body/prototype or dependency change. This review records the single changed header name and does not claim all six header texts were unchanged or that the invalid first header was a checked theorem."
+  ],
+  "limits": "Generic strict sorted-list arc criterion only. Actual markKey/traversal specialization, current-owner restriction, successor compatibility, inherited-order preservation, full independence induction, carrier count and geometry remain separate. Source acceptance increment0; stronger-model fidelity and canonical integration remain false."
+}

@@ -1,0 +1,610 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "review_schema": "independent-full-source-review-v1",
+  "id": "lem:gates-nonzero",
+  "source_id": "lem:gates-nonzero",
+  "labels": [
+    "lem:gates-nonzero"
+  ],
+  "source_line": 46,
+  "source_lines": "46-62; section G1-only domain lines 3-6; representative permission sm-1-polygons.tex lines 55-60",
+  "declaration": "SM.gates_nonzero",
+  "module": "SM.Gates",
+  "verdict": "faithful",
+  "source_claim_accepted": true,
+  "statement_sha256": "123190f19e018cfb3f7065c2a5b7db9bf5eb3b3bf2474a78997cba1e9343cba8",
+  "in_theorem_library": true,
+  "utc": "2026-09-11T04:19:50.472927+00:00",
+  "reason": "Faithful complete implementation of source lem:gates-nonzero. The canonical theorem quantifies over every actual interval composition under G1 and proves both signs and both step arguments are plus or minus one at every interior cut, both scalar half identities for every nonzero sign pair, and the actual ordinary weight zero for every two-part composition. Strict actual cuts and boundary-index injectivity supply distinct occurrence labels; no G2 premise is used. Independent real-field checks of both scalar identities and arbitrary finite weight products rule out an integer-division rounding reinterpretation. The binary proof uses exact first/last cuts to identify the one near and far sign. Canonical kernel89726 passes all 46 declaration checks and 22 substantive consumers, all canonical printed types match their reviewed prototypes, and immutable whole-project audit060 passes. This exact source row is therefore eligible for map acceptance.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact source domain and unrestricted compositions",
+      "assessment": "All definitions consume the actual RootBoundary IntervalComposition, whose natural part count is unrestricted except for0<s, strict cuts and exact interval endpoints. Its equivalence to every source finite increasing sequence was independently checked in the root review. Gates require only G1 P, exactly the section domain; Generic/G2, Regular, nonzero controls, an extra vertex distinctness oracle or a bounded list of compositions are not assumed. Ambient n>=3 is explicit on the source lemma and the supplementary NeZero condition follows from it."
+    },
+    {
+      "clause": "Near/far orientation and all actual interior cuts",
+      "assessment": "For k:Fin(s-1), the current source cut is r_(k+1), with neighbours r_k and r_(k+2). nearSign is exactly chi of the boundary vertices in order(next,current,previous); farSign is exactly chi(boundary right,current,boundary left). Thus the printed source orientation is preserved, including its reversed outside arguments. chi is the actual sign of det(y-x,z-x), and boundaryIndex selects actual occurrence labels. The independent interior_cut_exhaustion check proves each source1<=k<s corresponds to the represented index k-1; Fin(s-1) adds none and omits none. This includes all actual compositions, not only selected arities."
+    },
+    {
+      "clause": "Nonzero signs and every legal Theta call",
+      "assessment": "Composition strictness and boundaryIndex_injective make all three actual occurrence labels in each near/far triple distinct. For near signs these are the consecutive cut-list positions k,k+1,k+2; for far signs the middle position is strictly between0 ands. G1 therefore gives both signs nonzero without using G2. SignType has values-1,0,1, so nonzero_sign_cases yields exactly the two source signs. sign_product_nonzero derives both h*d and -h*d nonzero, and gates_nonzero explicitly records both as+1 or-1 at every actual cut. signTheta requires a proof that its SignType argument is nonzero, so no call at zero is possible on this interface. Its integer value is1 on+1 and0 on-1. The independently checked real_step_interpretation identifies its real coercion with the source positive-real step on every actual nonzero sign argument. This develops the restriction used by the gates, not an unrelated totalized value at zero or a claim to formalize a standalone step function on arbitrary nonzero reals."
+    },
+    {
+      "clause": "Exact scalar and weight formulas",
+      "assessment": "ordinaryGate is the actual integer-coerced near sign d times signTheta(-h*d); rootGate uses signTheta(h*d). ordinaryWeight and rootWeight are the products of those exact factors over every interior cut. The scalar lemma checks all four allowed nonzero sign pairs and proves the two integer half formulas. Since the source fractions are ordinary exact halves, the independent real_gate_identities additionally proves both corresponding real-field equations on all four pairs. real_weight_identities transports the actual integer finite products into products of these real halves. Thus integer division introduces no rounding discrepancy: on this domain the numerators are-2,0,2 and the checked real equations hold exactly."
+    },
+    {
+      "clause": "Empty and binary cases are the source cases",
+      "assessment": "For an arbitrary composition with parts=1, Fin(parts-1) is empty and both actual products are1. This is proved for every such composition, not merely the distinguished single constructor. For parts=2 the unique interior position has previous cut first and next cut last; binary_near_eq_far uses the actual first/last fields to identify near and far signs. The exact ordinary half formula then makes that actual factor zero and hence the product zero. The independent source_small_part_cases extracts both one-part identities and the arbitrary binary ordinary-zero theorem using only G1. No cancellation assumption or division by a gate value is used."
+    },
+    {
+      "clause": "Simultaneous cyclic relabelling and descent",
+      "assessment": "The separately frozen GatesEquivariance body closes the source representative-reading obligation explicitly. nearSign_shift and farSign_shift apply the actual chi_shift formula, then cancel the root displacement g-a with the tuple shift a in every actual boundary label. The scalar congruence helpers show proof witnesses of nonzeroness do not affect the values. Finite product congruence transports both weights, using only G1 transported by g1_shift_forward. gatesData_shift gives equality of the entire near/far/ordinary/root data function under the same simultaneous shift. The independent source_generator theorem checks the printed g->g-1 rule, rooted_representative_descent checks arbitrary equivalent representative/root pairs even with a different G1 proof, and G1_proof_independence confirms no numerical dependence on that proof. The final prototype therefore records the required descent rather than only claiming it informally."
+    },
+    {
+      "clause": "Canonical aggregate and complete transparent closure",
+      "assessment": "Faithful complete implementation of source lem:gates-nonzero. The canonical theorem quantifies over every actual interval composition under G1 and proves both signs and both step arguments are plus or minus one at every interior cut, both scalar half identities for every nonzero sign pair, and the actual ordinary weight zero for every two-part composition. Strict actual cuts and boundary-index injectivity supply distinct occurrence labels; no G2 premise is used. Independent real-field checks of both scalar identities and arbitrary finite weight products rule out an integer-division rounding reinterpretation. The binary proof uses exact first/last cuts to identify the one near and far sign."
+    },
+    {
+      "clause": "Exact port and independent kernel verification",
+      "assessment": "The current installed modules were read against the authoritative source and compared byte-for-byte to the separately reviewed frozen implementation bodies. All 46 canonical printed implementation types exactly match their previous independent prototype traces. Kernel89726 independently rechecks the 46 declarations and 22 substantive consumer theorems from canonical imports only, without embedding any implementation body. It passes on its first run with only propext, Classical.choice and Quot.sound where needed. The successful immutable whole-project audit060 provides the current canonical definition/proposition and transparent constructor/type/body dependency records; their semantic hash is independently recomputed. Ambient n>=3 supplies NeZero, or an existing interval endpoint supplies it in the independent domain tests; no additional mathematical premise or axiom is introduced."
+    }
+  ],
+  "independence": "Reviewer did not author or edit the frozen Gates, GatesEquivariance or RootBoundary implementation, source, canonical modules or declaration maps. Only independent consumer/type/closure checks and this review were written. The missing explicit equivariance obligation was identified during independent source inspection, then implemented by the root agent in a separate frozen body and independently rechecked here. For this canonical review the reviewer only wrote new review/check evidence. No implementation, source, map or previous evidence was edited. The canonical source bodies were reread and the independent consumer checks were rerun using canonical imports. Finite encoding strategy overlap with a prior reviewer representation test is disclosed in the separate finite-compositions-prototype report; implementation authorship remained with root.",
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a"
+  },
+  "import_closure_roots": [
+    "SM.Gates"
+  ],
+  "import_closure_file_count": 5,
+  "semantic_dependency_count": 28,
+  "required_semantic_definitions_checked": [
+    "SM.gates_nonzero",
+    "SM.G1",
+    "SM.chi",
+    "SM.det",
+    "SM.signTheta",
+    "SM.ordinaryGate",
+    "SM.rootGate",
+    "SM.boundaryIndex",
+    "SM.BoundaryInterval",
+    "SM.BoundaryInterval.mk",
+    "SM.IntervalComposition",
+    "SM.IntervalComposition.mk",
+    "SM.IntervalComposition.nearSign",
+    "SM.IntervalComposition.farSign",
+    "SM.IntervalComposition.ordinaryWeight"
+  ],
+  "prototype_review": "work/reviews/gates-prototype.json",
+  "prototype_review_sha256": "9938bde6b9e74150a5ef4b8f9d33f334963c675ea539ed3d06c8bbc1755a38d2",
+  "prototype_review_binding": {
+    "work/reviews/root-boundary-prototype.json": "1fd4cd5b83f4288a9bb0fa1513d972f6f43fdf96cd6ca163e6b197584eb59239",
+    "work/reviews/finite-compositions-prototype.json": "96dadb424621ed63b30e2dd8e6edc3c59258a5af7183d647683aa2f3811c99c6",
+    "work/reviews/gates-prototype.json": "9938bde6b9e74150a5ef4b8f9d33f334963c675ea539ed3d06c8bbc1755a38d2",
+    "work/checks/root-boundary-review-examples.lean": "4e4fe9235dee8ad59a152fc9df6ff2a1a68e8187a06007f56a46ffe5afb655ac",
+    "work/checks/finite-and-gates-review-examples.lean": "0027ae4b7e8d7427da76a997b40916e268f1b5e221a5ba1a4e625add3c5195f9",
+    "work/checks/gates-equivariance-review-examples.lean": "803b31ed59fd060523e350a061bd57861f3336910a6d2512a0323d5817c6d118",
+    "work/checks/root-boundary-reviewed-types.json": "8d6bd1490216e5d13459f8ef2a8e789f2e6f3129f5ab4a3e033f3e50913c380a",
+    "work/checks/gates-complete-reviewed-types.json": "b4e074bbf70b864fb2e27d4d785d7edd9cfd4cacb99762b3aef85f5b29abf9f1"
+  },
+  "port_review": "work/reviews/root-gates-port.json",
+  "port_review_sha256": "4051eeca4659a40e377fce0e7ac87ed3165c1e0019ecaa4d99a4fd2f96d54733",
+  "evidence": {
+    "independent_trace_source": "work/checks/root-gates-canonical-review-types.lean",
+    "independent_trace_source_sha256": "42d1cb1088b570b4811a1b39b671116d4df04983a3f1798cc7c9990dc82034ee",
+    "independent_trace_log": "work/checks/root-gates-canonical-review-types.log",
+    "independent_trace_log_sha256": "9640f7d472c82408cd2993c3a814feab8b3bf46fc866dba81bbec00d845b9e1d",
+    "independent_kernel_command": "lake env lean ../checks/root-gates-canonical-review-types.lean",
+    "independent_kernel_session": 89726,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.boundaryIndex",
+      "SM.boundaryWord",
+      "SM.boundaryIndex_injective",
+      "SM.boundaryWord_shift",
+      "SM.boundaryWord_first",
+      "SM.boundaryWord_last",
+      "SM.boundaryWord_leaf_edge",
+      "SM.BoundaryInterval",
+      "SM.BoundaryInterval.leaves",
+      "SM.BoundaryInterval.leaves_pos",
+      "SM.IntervalComposition",
+      "SM.IntervalComposition.parts_lt",
+      "SM.IntervalComposition.part",
+      "SM.IntervalComposition.single",
+      "SM.rootData",
+      "SM.IntervalComposition.finiteCode",
+      "SM.IntervalComposition.finiteCode_injective",
+      "SM.IntervalComposition.finite",
+      "SM.IntervalComposition.fintype",
+      "SM.IntervalComposition.part_leaves_lt",
+      "SM.signTheta",
+      "SM.sign_product_nonzero",
+      "SM.ordinaryGate",
+      "SM.rootGate",
+      "SM.gate_pair_identities",
+      "SM.IntervalComposition.nearSign",
+      "SM.IntervalComposition.farSign",
+      "SM.IntervalComposition.nearSign_ne_zero",
+      "SM.IntervalComposition.farSign_ne_zero",
+      "SM.IntervalComposition.ordinaryWeight",
+      "SM.IntervalComposition.rootWeight",
+      "SM.IntervalComposition.one_part_weights",
+      "SM.IntervalComposition.binary_near_eq_far",
+      "SM.IntervalComposition.binary_ordinaryWeight_zero",
+      "SM.gatesData",
+      "SM.nonzero_sign_cases",
+      "SM.gates_nonzero",
+      "SM.ordinaryGate_congr",
+      "SM.rootGate_congr",
+      "SM.IntervalComposition.nearSign_shift",
+      "SM.IntervalComposition.farSign_shift",
+      "SM.IntervalComposition.ordinaryWeight_eq_of_signs",
+      "SM.IntervalComposition.rootWeight_eq_of_signs",
+      "SM.IntervalComposition.ordinaryWeight_shift",
+      "SM.IntervalComposition.rootWeight_shift",
+      "SM.gatesData_shift"
+    ],
+    "declaration_axioms": {
+      "SM.boundaryIndex": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryIndex_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_first": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_leaf_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval": [],
+      "SM.BoundaryInterval.leaves": [],
+      "SM.BoundaryInterval.leaves_pos": [
+        "propext"
+      ],
+      "SM.IntervalComposition": [
+        "propext"
+      ],
+      "SM.IntervalComposition.parts_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part": [
+        "propext"
+      ],
+      "SM.IntervalComposition.single": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.finiteCode": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.finiteCode_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.fintype": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_leaves_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.signTheta": [],
+      "SM.sign_product_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.ordinaryGate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootGate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gate_pair_identities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.one_part_weights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.binary_near_eq_far": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.binary_ordinaryWeight_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gatesData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nonzero_sign_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gates_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.ordinaryGate_congr": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootGate_congr": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_eq_of_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_eq_of_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gatesData_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "RootBoundaryIndependentReview.simultaneous_root_shift",
+      "RootBoundaryIndependentReview.leaf_index_exhaustion",
+      "RootBoundaryIndependentReview.boundary_vertices_distinct",
+      "RootBoundaryIndependentReview.cut_containment",
+      "RootBoundaryIndependentReview.raw_composition_admitted",
+      "RootBoundaryIndependentReview.all_compositions_finite",
+      "RootBoundaryIndependentReview.one_part_exists",
+      "RootBoundaryIndependentReview.root_segment_and_endpoints_shift",
+      "FiniteAndGatesIndependentReview.every_composition_enumerated",
+      "FiniteAndGatesIndependentReview.all_source_children_decrease",
+      "FiniteAndGatesIndependentReview.source_child_relation_wellFounded",
+      "FiniteAndGatesIndependentReview.singleton_measure_equal",
+      "FiniteAndGatesIndependentReview.interior_cut_exhaustion",
+      "FiniteAndGatesIndependentReview.real_step_interpretation",
+      "FiniteAndGatesIndependentReview.real_gate_identities",
+      "FiniteAndGatesIndependentReview.real_weight_identities",
+      "FiniteAndGatesIndependentReview.source_small_part_cases",
+      "FiniteAndGatesIndependentReview.gate_signs_shift",
+      "FiniteAndGatesIndependentReview.gate_weights_shift",
+      "GatesEquivarianceIndependentReview.source_generator",
+      "GatesEquivarianceIndependentReview.rooted_representative_descent",
+      "GatesEquivarianceIndependentReview.G1_proof_independence"
+    ],
+    "additional_example_count": 22,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "RootBoundaryIndependentReview.simultaneous_root_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.leaf_index_exhaustion": [
+        "propext",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.boundary_vertices_distinct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.cut_containment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.raw_composition_admitted": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.all_compositions_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.one_part_exists": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.root_segment_and_endpoints_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.every_composition_enumerated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.all_source_children_decrease": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.source_child_relation_wellFounded": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.singleton_measure_equal": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.interior_cut_exhaustion": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.real_step_interpretation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.real_gate_identities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.real_weight_identities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.source_small_part_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.gate_signs_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.gate_weights_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GatesEquivarianceIndependentReview.source_generator": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GatesEquivarianceIndependentReview.rooted_representative_descent": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GatesEquivarianceIndependentReview.G1_proof_independence": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_46_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.rootData",
+      "SM.BoundaryInterval",
+      "SM.IntervalComposition",
+      "SM.signTheta",
+      "SM.IntervalComposition.nearSign",
+      "SM.IntervalComposition.farSign",
+      "SM.IntervalComposition.ordinaryWeight",
+      "SM.IntervalComposition.rootWeight",
+      "SM.gatesData"
+    ],
+    "independent_closure_evidence": "work/checks/root-gates-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "94ba3672082ee7e72bf337e8727e6008dc4f22b4277ea3846ffe6282b3411ab5",
+    "canonical_semantic_evidence": "work/checks/root-gates-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "3044a459646cbf222aecbf1f17ee63e591415c26c530d37c5252c6160afee412",
+    "root_result_file": "work/checks/root-gates-port-audit-result.json",
+    "root_result_sha256": "33e9120bb409bf488b02ad1b93b67374c0d13b7b8324f93ed4e11868c703ef29",
+    "successful_build_session": 88785,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-060-lean-check.log",
+    "successful_build_log_sha256": "a20da54ee4dfb835e813200151125238dd4aa9e03d198ebc0ef3e06b15bbbe0d",
+    "audit_receipt": "work/checks/checkpoint-060-output.json",
+    "audit_receipt_sha256": "a73c20cca8597c5f4acaa8539f47c3b424fd6bb6a74a6ee63a62edcd3f808bdd",
+    "declaration_audit": "work/checks/checkpoint-060-declaration-audit.json",
+    "declaration_audit_sha256": "4f046929e255344445b4a96471409f46874bb13a9017ee405af25d17a1bc8bee",
+    "scope_note": "The independently rerun consumer checks include raw-composition coverage, complete enumeration, actual child-size well-foundedness, all labels and physical root endpoints, G1-only signs, real half and product identities, empty/binary cases and exact representative descent."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-060-output.json",
+    "receipt_sha256": "a73c20cca8597c5f4acaa8539f47c3b424fd6bb6a74a6ee63a62edcd3f808bdd",
+    "root_audit_session": 88785,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3578,
+    "mapped_claims": 34,
+    "audited_SM_modules": 288,
+    "all_receipt_project_and_bundle_hashes_checked_at_review": true,
+    "scope": "Immutable audit060 is the actual post-port development audit. The earlier unchanged-project pre-port audit56858 is not used as evidence for these installed modules. This review does not claim the later accepted-map audit has already passed."
+  },
+  "acceptance_scope": {
+    "original_claim": "lem:gates-nonzero",
+    "original_rows_added_if_mapped_accepted": 1,
+    "proofs_added_if_mapped_accepted": 1,
+    "definitions_added_if_mapped_accepted": 0,
+    "current_map_was_not_edited_by_reviewer": true,
+    "helper_original_claim_count": 0,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No tree coefficient or plane-tree-sum equivalence is accepted by this source row.",
+    "No state-sum wall law, soft theorem, unconditional R theorem or overall handoff completion is certified."
+  ],
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "from_line": 46,
+    "to_frame": "SM15",
+    "to_source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+    "to_line": 46,
+    "statement_excerpt_status": "tag-only",
+    "from_excerpt_sha256": "3169ffb0ff67cb4b867eb49fef90d2e0ee85991ce2fb9a7ce42abe1bc11b9157",
+    "to_excerpt_sha256": "6b364b2fd824b6cb48fa37359bea72a1404eb736fc64e7da7e49be35d0bca922",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 excerpt differs from the SM12 excerpt only in the \\status{} tag."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-2-amplitude.tex:46-55): if P satisfies (G1) then (1) every near and far sign is +-1, (2) every Theta in def:gates is evaluated at +-1, (3) d*Theta(-hd)=(d-h)/2 and d*Theta(hd)=(d+h)/2 for d,h in {+-1}, (4) V^+(pi)=0 for every two-part composition. Lean SM.gates_nonzero (work/lean/SM/Gates.lean:108-120) assumes 3 <= n, [NeZero n], P : LabelledTuple n, G1 P, arbitrary root g : ZMod n, and concludes: for all I : BoundaryInterval n, pi : IntervalComposition I, k : Fin (pi.parts-1): nearSign = +-1 and farSign = +-1 [clause 1], farSign*nearSign = +-1 and -farSign*nearSign = +-1 [clause 2, exactly the two Theta arguments used in rootGate/ordinaryGate]; pi.parts = 2 -> ordinaryWeight = 0 [clause 4]; and for all nonzero d h : SignType, ordinaryGate d h = (d-h)/2 and rootGate d h = (d+h)/2 in Z [clause 3; integer division is exact since d+-h in {-2,0,2}]. The definitions denote the printed objects: chi P i j k = sign(det(P j - P i)(P k - P i)) (Chirotope.lean:10-11) is chi_{ijk} (sm-1-polygons.tex:66) with det u v = u.1*v.2 - u.2*v.1 (Polygon.lean:16 = sm-1-polygons.tex:5); G1 (Generic.lean:11-12) is (G1) (sm-1-polygons.tex:103); boundaryIndex g k = g+k+1 for k : Fin n (RootBoundary.lean:8-9) is a_k = mu_{g+k+1}, k=0..n-1 (sm-2-amplitude.tex:16-19); BoundaryInterval (left<right in Fin n, RootBoundary.lean:53-56) is [i,j] with 0<=i<j<=N; IntervalComposition (parts>=1, strictly monotone cut : Fin(parts+1) -> Fin n, cut 0 = left, cut last = right; RootBoundary.lean:67-73) is r_0<...<r_s with r_0=i, r_s=j, s>=1; nearSign k = chi P a_{cut(k+2)} a_{cut(k+1)} a_{cut k} (Gates.lean:33-36) is d_{k+1} = chi(a_{r_{k+2}}, a_{r_{k+1}}, a_{r_k}) with chi(x,y,z)=sgn det(y-x,z-x), Lean k in 0..s-2 exhausting source k in 1..s-1; farSign k = chi P a_right a_{cut(k+1)} a_left (Gates.lean:38-41) is h_k = chi(a_j,a_{r_k},a_i); signTheta s _ = if s=1 then 1 else 0 (Gates.lean:12) is Theta on {+-1} (sm-1-polygons.tex:7-9); ordinaryGate/rootGate (Gates.lean:18-22) are d*Theta(-hd), d*Theta(hd); ordinaryWeight/rootWeight (Gates.lean:69-75) are the products over interior cuts with empty product 1 = V^+/V^-. Same hypotheses (G1 only, no G2; n>=3 as in the source's standing assumption), same quantifiers (every interval, every composition, every interior cut, every root), same conclusions. Not vacuous: G1 is satisfiable for n>=3, BoundaryInterval n is inhabited, every I has the one-part composition. sm15_reworded is false; CHANGES_SINCE_20260909.md:26 lists lem:gates-nonzero only among items whose \\status tag was changed, and the statement text at lines 46-53 is unchanged, so the accepted Lean statement matches the SM15 text. All five Lean files and the source file hash-match the pins in work/reviews/lem-gates-nonzero.json.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-2-amplitude.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Gates.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RootBoundary.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-gates-nonzero.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

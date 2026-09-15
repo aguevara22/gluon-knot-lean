@@ -1,0 +1,218 @@
+
+=====[PDF page 44 / 86]=====
+Theorem 3.1 (Lutz-Martinet). Every closed, orientable 3–manifold admits a
+contact structure in each homotopy class of tangent 2–plane ﬁelds.
+In Section 3.2 I present what is essentially J. Martinet’s [90] proof of the
+existence of a contact structure on every 3–manifold. This construction is based
+on a surgery description of 3–manifolds due to R. Lickorish and A. Wallace. For
+the key step, showing how to extend over a solid torus certain contact forms
+deﬁned near the boundary of that torus (which then makes it possible to perform
+Dehn surgeries), we use an approach due to W. Thurston and H. Winkelnkemper;
+this allows to simplify Martinet’s proof slightly.
+In Section 3.3 we show that every orientable 3–manifold is parallelisable and
+then build on this to classify (co-)oriented tangent 2–plane ﬁelds up to homotopy.
+In Section 3.4 we study the so-called Lutz twist, a topologically trivial Dehn
+surgery on a contact manifold (M, ξ) which yields a contact structure ξ′ on M
+that is not homotopic (as 2–plane ﬁeld) to ξ. We then complete the proof of the
+main theorem stated above. These results are contained in R. Lutz’s thesis [84]
+(which, I have to admit, I’ve never seen). Of Lutz’s published work, [83] only deals
+with the 3–sphere (and is only an announcement); [85] also deals with a more
+restricted problem. I learned the key steps of the construction from an exposition
+given in V. Ginzburg’s thesis [50]. I have added proofs of many topological details
+that do not seem to have appeared in a readily accessible source before.
+In Section 3.5 I indicate two further proofs for the existence of contact struc-
+tures on every 3–manifold (and provide references to others). The one by Thur-
+ston and Winkelnkemper uses a description of 3–manifolds as open books due to
+J. Alexander; the crucial idea in their proof is the one we also use to simplify
+Martinet’s argument.
+Indeed, my discussion of the Lutz twist in the present
+section owes more to the paper by Thurston-Winkelnkemper than to any other
+reference. The second proof, by J. Gonzalo, is based on a branched cover descrip-
+tion of 3–manifolds found by H. Hilden, J. Montesinos and T. Thickstun. This
+branched cover description also yields a very simple geometric proof that every
+orientable 3–manifold is parallelisable.
+In Section 3.6 we discuss the fundamental dichotomy between tight and over-
+twisted contact structures, introduced by Eliashberg, as well as the relation of
+these types of contact structures with the concept of symplectic ﬁllability. The
+chapter concludes in Section 3.7 with a survey of classiﬁcation results for contact
+structures on 3–manifolds.
+44
+
+=====[PDF page 45 / 86]=====
+But ﬁrst we discuss, in Section 3.1, an invariant of transverse knots in R3
+with its standard contact structure. This invariant will be an ingredient in the
+proof of the Lutz-Martinet theorem, but is also of independent interest.
+I do not feel embarrassed to use quite a bit of machinery from algebraic and
+diﬀerential topology in this chapter. However, I believe that nothing that cannot
+be found in such standard texts as [14], [77] and [95] is used without proof or an
+explicit reference.
+Throughout this third section M denotes a closed, orientable 3-manifold.
+3.1
+An invariant of transverse knots
+Although the invariant in question can be deﬁned for transverse knots in arbitrary
+contact manifolds (provided the knot is homologically trivial), for the sake of
+clarity I restrict attention to transverse knots in R3 with its standard contact
+structure ξ0 = ker(dz + x dy). This will be suﬃcient for the proof of the Lutz-
+Martinet theorem. In Section 3.7 I say a few words about the general situation
+and related invariants for Legendrian knots.
+Thus, let γ be a transverse knot in (R3, ξ0). Push γ a little in the direction
+of ∂x – notice that this is a nowhere zero vector ﬁeld contained in ξ0, and in
+particular transverse to γ – to obtain a knot γ′. An orientation of γ induces an
+orientation of γ′. The orientation of R3 is given by dx ∧dy ∧dz.
+Deﬁnition 3.2. The self-linking number l(γ) of the transverse knot γ is the
+linking number of γ and γ′.
+Notice that this deﬁnition is independent of the choice of orientation of γ (but
+it changes sign if the orientation of R3 is reversed). Furthermore, in place of ∂x
+we could have chosen any nowhere zero vector ﬁeld X in ξ0 to deﬁne l(γ): The
+diﬀerence between the the self-linking number deﬁned via ∂x and that deﬁned
+via X is the degree of the map γ →S1 given by associating to a point on γ
+the angle between ∂x and X. This degree is computed with the induced map
+Z ∼= H1(γ) →H1(S1) ∼= Z. But the map γ →S1 factors through R3, so the
+induced homomorphism on homology is the zero homomorphism.
+Observe that l(γ) is an invariant under isotopies of γ within the class of
+transverse knots.
+We now want to compute l(γ) from the front projection of γ. Recall that the
+writhe of an oriented knot diagram is the signed number of self-crossings of the
+45
+
+=====[PDF page 46 / 86]=====
+diagram, where the sign of the crossing is given in Figure 10.
++1
+−1
+Figure 10: Signs of crossings in a knot diagram.
+Lemma 3.3. The self-linking number l(γ) of a transverse knot is equal to the
+writhe w(γ) of its front projection.
+Proof. Let γ′ be the push-oﬀof γ as described. Observe that each crossing of the
+front projection of γ contributes a crossing of γ′ underneath γ of the corresponding
+sign. Since the linking number of γ and γ′ is equal to the signed number of times
+that γ′ crosses underneath γ (cf. [98, p. 37]), we ﬁnd that this linking number is
+equal to the signed number of self-crossings of γ, that is, l(γ) = w(γ).
+Proposition 3.4. Every self-linking number is realised by a transverse link in
+standard R3.
+Proof. Figure 11 shows front projections of positively transverse knots (cf. Sec-
+tion 2.6.2) with self-linking number ±3. From that the construction principle for
+realising any odd integer should be clear. With a two component link any even
+integer can be realised.
+Remark 3.5. It is no accident that I do not give an example of a transverse
+knot with even self-linking number. By a theorem of Eliashberg [26, Prop. 2.3.1]
+that relates l(γ) to the Euler characteristic of a Seifert surface S for γ and the
+signed number of singular points of the characteristic foliation Sξ, the self-linking
+number l(γ) of a knot can only take odd values.
+3.2
+Martinet’s construction
+According to Lickorish [81] and Wallace [103] M can be obtained from S3 by
+Dehn surgery along a link of 1–spheres.
+This means that we have to remove
+46
+
+=====[PDF page 47 / 86]=====
++3
+−3
+Figure 11: Transverse knots with self-linking number ±3.
+a disjoint set of embedded solid tori S1 × D2 from S3 and glue back solid tori
+with suitable identiﬁcation by a diﬀeomorphism along the boundaries S1 × S1.
+The eﬀect of such a surgery (up to diﬀeomorphism of the resulting manifold) is
+completely determined by the induced map in homology
+H1(S1 × ∂D2)
+−→
+H1(S1 × ∂D2)
+Z ⊕Z
+−→
+Z ⊕Z,
+which is given by a unimodular matrix
+ 
+n
+q
+m
+p
+!
+∈GL(2, Z). Hence, denoting
+coordinates in S1 × S1 by (θ, ϕ), we may always assume the identiﬁcation maps
+to be of the form
+ 
+θ
+ϕ
+!
+7−→
+ 
+n
+q
+m
+p
+! 
+θ
+ϕ
+!
+.
+The curves µ and λ on ∂(S1 × D2) given respectively by θ = 0 and ϕ = 0 are
+called meridian and longitude. We keep the same notation µ, λ for the homology
+classes these curves represent. It turns out that the diﬀeomorphism type of the
+surgered manifold is completely determined by the class pµ + qλ, which is the
+class of the curve that becomes homotopically trivial in the surgered manifold
+(cf. [98, p. 28]). In fact, the Dehn surgery is completely determined by the surgery
+coeﬃcient p/q, since the diﬀeomorphism of ∂(S1 ×D2) given by (λ, µ) 7→(λ, −µ)
+extends to a diﬀeomorphism of the solid torus that we glue back.
+Similarly, the diﬀeomorphism given by (λ, µ) 7→(λ + kµ, µ) extends. By such
+a change of longitude in S1 × D2 ⊂M, which amounts to choosing a diﬀerent
+47
+
+=====[PDF page 48 / 86]=====
+trivialisation of the normal bundle (i.e. framing) of S1×{0} ⊂M, the gluing map
+is changed to
+ 
+n
+q
+m −kn
+p −kq
+!
+. By a change of longitude in the solid torus
+that we glue back, the gluing map is changed to
+ 
+n + kq
+q
+m + kp
+p
+!
+. Thus, a Dehn
+surgery is a so-called handle surgery (or ‘honest surgery’ or simply ‘surgery’) if
+and only if the surgery coeﬃcient is an integer, that is, q = ±1. For in exactly
+this case we may assume
+ 
+n
+q
+m
+p
+!
+=
+ 
+0
+1
+1
+0
+!
+, and the surgery is given by
+cutting out S1 × D2 and gluing back S1 × D2 with the identity map
+∂(D2 × S1) −→∂(S1 × D2).
+The theorem of Lickorish and Wallace remains true if we only allow handle
+surgeries. However, this assumption does not entail any great simpliﬁcation of
+the existence proof for contact structures, so we shall work with general Dehn
+surgeries.
+Our aim in this section is to use this topological description of 3–manifolds
+for a proof of the following theorem, ﬁrst proved by Martinet [90]. The proof
+presented here is in spirit the one given by Martinet, but, as indicated in the
+introduction to this third section, amalgamated with ideas of Thurston and
+Winkelnkemper [101], whose proof of the same theorem we shall discuss later.
+Theorem 3.6 (Martinet). Every closed, orientable 3–manifold M admits a
+contact structure.
+In view of the theorem of Lickorish and Wallace and the fact that S3 admits
+a contact structure, Martinet’s theorem is a direct consequence of the following
+result.
+Theorem 3.7. Let ξ0 be a contact structure on a 3–manifold M0. Let M be the
+manifold obtained from M0 by a Dehn surgery along a knot K. Then M admits a
+contact structure ξ which coincides with ξ0 outside the neighbourhood of K where
+we perform surgery.
+Proof. By Theorem 2.44 we may assume that K is positively transverse to ξ0.
+Then, by the contact neighbourhood theorem (Example 2.33), we can ﬁnd a
+tubular neighbourhood of K diﬀeomorphic to S1 × D2(δ0), where K is identiﬁed
+with S1 × {0} and D2(δ0) denotes a disc of radius δ0, such that the contact
+48

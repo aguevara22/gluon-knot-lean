@@ -1,0 +1,1147 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "off-leaf-contraction-prototype",
+  "source_id": "thm:single-triple",
+  "source_line": 229,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "319-354, especially345-347; contracted geometric output361-364",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T09:33:33.034021+00:00",
+  "main_declarations": [
+    "SM.IncreasingBoundaryTriple.contractedInterval_side",
+    "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf",
+    "SM.IncreasingBoundaryTriple.subinterval_off_leaf",
+    "SM.IntervalComposition.every_cut_survives_off_leaf",
+    "SM.IntervalComposition.offLeafCompositionEquiv",
+    "SM.contractedTripleArray",
+    "SM.IntervalComposition.expandComposition_weight",
+    "SM.nearFarTransform_expanded_off_leaf",
+    "SM.boundaryUnitArray_expanded_off_leaf",
+    "SM.farOnlyCoordinates_expanded_off_leaf",
+    "SM.IncreasingBoundaryTriple.expandTriple_ne_critical",
+    "SM.contractedTripleArray_eq_off_critical",
+    "SM.contractedTripleArray_neg",
+    "SM.geometricBoundaryArray_contractedWord",
+    "SM.contracted_leaf_inverse_value",
+    "SM.contracted_output_tree",
+    "SM.IntervalComposition.unique_contracted_leaf_child",
+    "SM.expanded_child_product_response",
+    "SM.nonsurviving_child_product_unchanged"
+  ],
+  "main_declarations_by_body": {
+    "OffLeafContraction": [
+      "SM.IncreasingBoundaryTriple.contractedInterval_side",
+      "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf",
+      "SM.IncreasingBoundaryTriple.subinterval_off_leaf",
+      "SM.IntervalComposition.every_cut_survives_off_leaf",
+      "SM.IntervalComposition.offLeafCompositionEquiv",
+      "SM.contractedTripleArray",
+      "SM.IntervalComposition.expandComposition_weight",
+      "SM.nearFarTransform_expanded_off_leaf",
+      "SM.boundaryUnitArray_expanded_off_leaf",
+      "SM.farOnlyCoordinates_expanded_off_leaf"
+    ],
+    "ContractedGeometricArray": [
+      "SM.IncreasingBoundaryTriple.expandTriple_ne_critical",
+      "SM.contractedTripleArray_eq_off_critical",
+      "SM.contractedTripleArray_neg",
+      "SM.geometricBoundaryArray_contractedWord",
+      "SM.contracted_leaf_inverse_value",
+      "SM.contracted_output_tree"
+    ],
+    "ContractedChildResponse": [
+      "SM.IntervalComposition.unique_contracted_leaf_child",
+      "SM.expanded_child_product_response",
+      "SM.nonsurviving_child_product_unchanged"
+    ]
+  },
+  "prototype_files_sha256": {
+    "OffLeafContraction": "1d928af73a7de5b1743121328ad6dbb66faf0fdaa5bf2027842725d7889c826a",
+    "ContractedGeometricArray": "85841ee1a04f48ecca9ebd2a78ee223ba47fd9190587294848b1cb9c52c6fb7a",
+    "ContractedChildResponse": "670c3831de468b4b5327cbed1295eee5dc1f911a4acf0310079315abd08f091a"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/CriticalSourceResponse.lean": "154f456d16f796f6d52fabb1f2979b04b9b62dff8421cc2d785def4a2797b705",
+    "work/lean/SM/CoefficientResponse.lean": "709865501de144f8640efc7a55717e168a735385cbdca7fa02b2ba410769640f",
+    "work/lean/SM/FixedEndpointGate.lean": "3fdfd8603154185a6f82e7aafb86ceb0e7297ede7f4b9c6ce91033784ca55651",
+    "work/lean/SM/CriticalFarOccurrence.lean": "3a85c4eef913ff6e5c7e26374f93a166376ff0686a35995da6d630598b9d81f0",
+    "work/lean/SM/CriticalCutSplit.lean": "057fda75b742c22a8112736bc73f368766212d49d2df07024756673d848bcb1b",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/GapSplitProducts.lean": "6cd04237f5c6358f97c53f8f0222844d27cbe967d798d29181f2e518d696d1c2",
+    "work/lean/SM/CriticalInverseDifference.lean": "8d24a82540feb67b99bcdf636e0642cd11451f8b7718f9f22cdeee29ec22cc17",
+    "work/lean/SM/FarOnlyLocality.lean": "acabcc232d65c15d1b3137751bdc91d16c9f5b452898e33685be67964a29639c",
+    "work/lean/SM/FiniteChiStability.lean": "7160db9c4ac930a64c65ce44b9e9a41d4f139a3442a49604b3c96f9a347cadc9",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SinglePointTriple.lean": "5930e77bd3eb05d371b5226c226d9caa464f99d0be48038b1154d02c623dc2c8",
+    "work/lean/SM/ZeroTriples.lean": "33e64bb519d61fdb2d9e7613cd42af12831246e5774276ca5e2e21f63ea2c23a",
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+    "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+    "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+    "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+    "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+    "work/checks/OffLeafContraction.body.lean": "d1d5b9b3fe2ab7b0c98754ead433363b28822cee6e83b78eda6954fa91a03f73",
+    "work/checks/ContractedGeometricArray.body.lean": "994556496b3b0a24747dd07001d7b8b1506d04c025557eb225eede48d9362605",
+    "work/checks/UniqueChangingChild.body.lean": "fbce177f766e40e57d6dbc6a7fe7e50ee86f20db8d8b8672713bf8945a204926",
+    "work/checks/ContractedChildResponse.body.lean": "9fa72c539417648f78d5b30307945f9f8c299805c9ce8fa554e5317c5375ddc0"
+  },
+  "import_closure_roots": [
+    "SM.CriticalSourceResponse",
+    "SM.FiniteChiStability"
+  ],
+  "import_closure_file_count": 54,
+  "embedded_body_count": 10,
+  "evidence": {
+    "independent_trace_source": "work/checks/off-leaf-contraction-review-types.lean",
+    "independent_trace_source_sha256": "f64ad505565bf8adaa27ae7d0404519e27a1f3273c4da541c4a29ff70a139ce8",
+    "independent_trace_log": "work/checks/off-leaf-contraction-review-types.log",
+    "independent_trace_log_sha256": "9fb8651427425a442d98a3614752abdbcefc328f6f435b2e5c80b7d1ae68c8fa",
+    "independent_kernel_command": "lake env lean ../checks/off-leaf-contraction-review-types.lean",
+    "independent_kernel_session": 92854,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "prior_failed_independent_runs": [],
+    "checked_declarations": [
+      "SM.IncreasingBoundaryTriple.contractedInterval_side",
+      "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf",
+      "SM.IncreasingBoundaryTriple.subinterval_off_leaf",
+      "SM.IntervalComposition.every_cut_survives_off_leaf",
+      "SM.IntervalComposition.offLeafCompositionEquiv",
+      "SM.contractedTripleArray",
+      "SM.IntervalComposition.expandComposition_weight",
+      "SM.nearFarTransform_expanded_off_leaf",
+      "SM.boundaryUnitArray_expanded_off_leaf",
+      "SM.farOnlyCoordinates_expanded_off_leaf",
+      "SM.IncreasingBoundaryTriple.expandTriple_ne_critical",
+      "SM.contractedTripleArray_eq_off_critical",
+      "SM.contractedTripleArray_neg",
+      "SM.geometricBoundaryArray_contractedWord",
+      "SM.contracted_leaf_inverse_value",
+      "SM.contracted_output_tree",
+      "SM.IntervalComposition.unique_contracted_leaf_child",
+      "SM.expanded_child_product_response",
+      "SM.nonsurviving_child_product_unchanged"
+    ],
+    "declaration_count": 19,
+    "declaration_axioms": {
+      "SM.IncreasingBoundaryTriple.contractedInterval_side": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.subinterval_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.every_cut_survives_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.offLeafCompositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contractedTripleArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.expandComposition_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_expanded_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray_expanded_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_expanded_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.expandTriple_ne_critical": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.contractedTripleArray_eq_off_critical": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.contractedTripleArray_neg": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_contractedWord": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contracted_leaf_inverse_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contracted_output_tree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.unique_contracted_leaf_child": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.expanded_child_product_response": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nonsurviving_child_product_unchanged": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "OffLeafContractionIndependentReview.excluded_leaf_iff_wholly_on_one_side",
+      "OffLeafContractionIndependentReview.every_original_raw_composition_roundtrips",
+      "OffLeafContractionIndependentReview.every_raw_part_and_child_preserved",
+      "OffLeafContractionIndependentReview.complete_raw_sum_with_arbitrary_zero_or_nonzero_weights",
+      "OffLeafContractionIndependentReview.inverse_transport_allows_touching_left_endpoint",
+      "OffLeafContractionIndependentReview.inverse_transport_allows_touching_right_endpoint",
+      "OffLeafContractionIndependentReview.all_actual_child_inverse_values_transport",
+      "OffLeafContractionIndependentReview.off_leaf_one_leaf_values_stay_one",
+      "OffLeafContractionIndependentReview.full_reversed_transform_transports",
+      "OffLeafContractionIndependentReview.two_side_arrays_have_identical_entire_contracted_inverse",
+      "OffLeafContractionIndependentReview.arbitrary_critical_entry_is_deleted_from_contracted_array",
+      "OffLeafContractionIndependentReview.actual_geometric_inverse_transport_off_leaf",
+      "OffLeafContractionIndependentReview.full_contraction_uses_formal_leaf_inverse",
+      "OffLeafContractionIndependentReview.actual_proper_output_retains_the_physical_root",
+      "OffLeafContractionIndependentReview.actual_contracted_geometry_commutes_with_reversal",
+      "OffLeafContractionIndependentReview.every_nonunary_expanded_child_is_strictly_shorter",
+      "OffLeafContractionIndependentReview.unary_composition_still_has_one_distinguished_child",
+      "OffLeafContractionIndependentReview.zero_contracted_factor_annuls_conditional_response",
+      "OffLeafContractionIndependentReview.nonsurviving_lists_have_zero_difference_not_zero_value"
+    ],
+    "additional_example_count": 19,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "OffLeafContractionIndependentReview.excluded_leaf_iff_wholly_on_one_side": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.every_original_raw_composition_roundtrips": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.every_raw_part_and_child_preserved": [
+        "propext",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.complete_raw_sum_with_arbitrary_zero_or_nonzero_weights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.inverse_transport_allows_touching_left_endpoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.inverse_transport_allows_touching_right_endpoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.all_actual_child_inverse_values_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.off_leaf_one_leaf_values_stay_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.full_reversed_transform_transports": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.two_side_arrays_have_identical_entire_contracted_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.arbitrary_critical_entry_is_deleted_from_contracted_array": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.actual_geometric_inverse_transport_off_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.full_contraction_uses_formal_leaf_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.actual_proper_output_retains_the_physical_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.actual_contracted_geometry_commutes_with_reversal": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.every_nonunary_expanded_child_is_strictly_shorter": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.unary_composition_still_has_one_distinguished_child": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.zero_contracted_factor_annuls_conditional_response": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "OffLeafContractionIndependentReview.nonsurviving_lists_have_zero_difference_not_zero_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_definitions_printed": [
+      "SM.IncreasingBoundaryTriple.erasedInteriorCount",
+      "SM.IncreasingBoundaryTriple.contractedSize",
+      "SM.IncreasingBoundaryTriple.expandPosition",
+      "SM.IncreasingBoundaryTriple.contractPosition",
+      "SM.IncreasingBoundaryTriple.expandInterval",
+      "SM.IncreasingBoundaryTriple.expandTriple",
+      "SM.IncreasingBoundaryTriple.contractedLeaf",
+      "SM.IntervalComposition.expandComposition",
+      "SM.IntervalComposition.contractComposition",
+      "SM.IntervalComposition.SurvivingCuts",
+      "SM.IntervalComposition.offLeafCompositionEquiv",
+      "SM.IntervalComposition",
+      "SM.IntervalComposition.part",
+      "SM.IntervalComposition.nearFarWeight",
+      "SM.nearFarTransform",
+      "SM.triangularTransform",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.boundaryUnitArray",
+      "SM.contractedTripleArray",
+      "SM.contractedVertexIndex",
+      "SM.contractedWordTuple",
+      "SM.geometricBoundaryArray"
+    ],
+    "supporting_types_printed": [
+      "SM.IntervalComposition.part_leaves_lt",
+      "SM.IntervalComposition.part_bounds",
+      "SM.IntervalComposition.expandComposition_part",
+      "SM.IntervalComposition.expandComposition_nearTriple",
+      "SM.IntervalComposition.expandComposition_farTriple",
+      "SM.IncreasingBoundaryTriple.expandInterval_contains",
+      "SM.IncreasingBoundaryTriple.expandPosition_strict",
+      "SM.IntervalComposition.containingCompositionEquiv",
+      "SM.IntervalComposition.child_product_difference",
+      "SM.IntervalComposition.other_part_excludes",
+      "SM.nearFarTransform_eq_triangular",
+      "SM.farOnlyCoordinates_equation",
+      "SM.contractedWord_G1",
+      "SM.contractedWord_physical_root",
+      "SM.IncreasingBoundaryTriple.contractedSize_of_proper"
+    ],
+    "reviewed_types": "work/checks/off-leaf-contraction-reviewed-types.json",
+    "reviewed_types_sha256": "0d6b9d99f658822a3241da98b0ec845baaf24f729154b2ccb4eba266dd555c39",
+    "independent_closure_evidence": "work/checks/off-leaf-contraction-review-closure.json",
+    "independent_closure_evidence_sha256": "750de9a616f649913cff8d6b87579d8e7f1ab9866966b36145937ecd126db504",
+    "root_successful_results": {
+      "work/checks/BoundaryTripleSupports-prototype-result.json": {
+        "kernel_session": 98450,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:50:25.110049+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/BoundaryTripleSupports.prototype.lean": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+          "work/checks/BoundaryTripleSupports-first-kernel.log": "6cd541d10c340a215848b9073eb49fd32d6df339572f999f969d0105af0ca61a"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.positionSet",
+          "SM.IncreasingBoundaryTriple.positionSet_bounds",
+          "SM.IncreasingBoundaryTriple.positionSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet",
+          "SM.IncreasingBoundaryTriple.vertexSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+          "SM.boundary_chi_nonzero_off_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/CriticalContractionBounds-prototype-result.json": {
+        "kernel_session": 78486,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 83516,
+          "exit_code": 1,
+          "reason": "One final-position proof left a Fin projection opaque to omega. A proof-only change exposes its natural-number value. All18 statements and14-position body unchanged."
+        },
+        "utc": "2026-09-11T08:55:23.980898+00:00",
+        "files_sha256": {
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionPositions-first.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionPositions.prototype.lean": "5c2330fe85add685c5805215459f7013ba65688575a9ec14774c89a50fbda77e",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/CriticalContractionBounds.prototype.lean": "d16aa8d80cb5e6dd9c1c24e8e07daacad050795f862639a47e8392b2dab4fdd4",
+          "work/checks/CriticalContractionBounds-second-kernel.log": "32fcae490a4b260cc4d28d389ecc2e9122e7742361d648e5c8edd7fb41e59b03",
+          "work/checks/CriticalContractionBounds-first.body.lean": "3718caae6bd4771282d2f38f2e3ba439ddda767b1b87222de6e9b93f501368a2",
+          "work/checks/CriticalContractionBounds-first.prototype.lean": "312ea66c209877e43bc52dfbf3ec8690f198d4c190cf0ab2b66a05b48149c07e",
+          "work/checks/CriticalContractionBounds-first-kernel.log": "c14cf3b2249f9db79ad6a3fd78a6890ee628816f6a9964f79c59b75441eb74f9"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.erasedInteriorCount",
+          "SM.IncreasingBoundaryTriple.contractedSize",
+          "SM.IncreasingBoundaryTriple.erasedInteriorCount_pos",
+          "SM.IncreasingBoundaryTriple.contractedSize_bounds",
+          "SM.IncreasingBoundaryTriple.expandPosition",
+          "SM.IncreasingBoundaryTriple.expandPosition_val",
+          "SM.IncreasingBoundaryTriple.expandPosition_strict",
+          "SM.IncreasingBoundaryTriple.expandPosition_lower",
+          "SM.IncreasingBoundaryTriple.expandPosition_upper",
+          "SM.IncreasingBoundaryTriple.expandPosition_survives",
+          "SM.IncreasingBoundaryTriple.contractPosition",
+          "SM.IncreasingBoundaryTriple.expand_contractPosition",
+          "SM.IncreasingBoundaryTriple.contract_expandPosition",
+          "SM.IncreasingBoundaryTriple.survivingPositionEquiv",
+          "SM.IncreasingBoundaryTriple.expandPosition_initial",
+          "SM.IncreasingBoundaryTriple.expandPosition_final",
+          "SM.IncreasingBoundaryTriple.contractedSize_eq_two_iff",
+          "SM.IncreasingBoundaryTriple.contractedSize_of_proper"
+        ],
+        "declarations_by_body": {
+          "CriticalContractionPositions": [
+            "SM.IncreasingBoundaryTriple.erasedInteriorCount",
+            "SM.IncreasingBoundaryTriple.contractedSize",
+            "SM.IncreasingBoundaryTriple.erasedInteriorCount_pos",
+            "SM.IncreasingBoundaryTriple.contractedSize_bounds",
+            "SM.IncreasingBoundaryTriple.expandPosition",
+            "SM.IncreasingBoundaryTriple.expandPosition_val",
+            "SM.IncreasingBoundaryTriple.expandPosition_strict",
+            "SM.IncreasingBoundaryTriple.expandPosition_lower",
+            "SM.IncreasingBoundaryTriple.expandPosition_upper",
+            "SM.IncreasingBoundaryTriple.expandPosition_survives",
+            "SM.IncreasingBoundaryTriple.contractPosition",
+            "SM.IncreasingBoundaryTriple.expand_contractPosition",
+            "SM.IncreasingBoundaryTriple.contract_expandPosition",
+            "SM.IncreasingBoundaryTriple.survivingPositionEquiv"
+          ],
+          "CriticalContractionBounds": [
+            "SM.IncreasingBoundaryTriple.expandPosition_initial",
+            "SM.IncreasingBoundaryTriple.expandPosition_final",
+            "SM.IncreasingBoundaryTriple.contractedSize_eq_two_iff",
+            "SM.IncreasingBoundaryTriple.contractedSize_of_proper"
+          ]
+        },
+        "actual_kernel_prototype": "work/checks/CriticalContractionBounds.prototype.lean",
+        "unused_standalone_prototype": "work/checks/CriticalContractionPositions.prototype.lean",
+        "standalone_position_prototype_executed": false,
+        "state": "Joint18 kernel passed; both bodies and combined prototype frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/ContractedGeometricWord-prototype-result.json": {
+        "kernel_session": 99727,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 34818,
+          "exit_code": 1,
+          "reason": "Redundant rfl after simp closed boundary-word identity; rewriting last-position identity needed explicit positivity arguments. Both proof-only repairs; all10 statements unchanged."
+        },
+        "utc": "2026-09-11T09:10:20.964999+00:00",
+        "files_sha256": {
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedGeometricWord.prototype.lean": "8ece3081bf5863ae249affc347cb53ad53845ef8034c26447dc987ca645be6a1",
+          "work/checks/ContractedGeometricWord-first.body.lean": "8ad3e8386293c527a0537816f686fe9e49f3bbb08f9d9c4739c009e393200b09",
+          "work/checks/ContractedGeometricWord-first.prototype.lean": "783ff97802b42d1379bfa5048d711f5df63270ba76c5b9910ea41cde96606eb1",
+          "work/checks/ContractedGeometricWord-first-kernel.log": "dd262ca16faac81cfdcf42fb35cc44e5b4d9649dfde03cbc31607540f7c93a63",
+          "work/checks/ContractedGeometricWord-second-kernel.log": "b34953ea1266037dc662e642be246ea07d709c4cfb76b924007969a50800444c",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.contractedSize_neZero",
+          "SM.contractedVertexIndex",
+          "SM.contractedVertexIndex_injective",
+          "SM.contractedWordTuple",
+          "SM.contractedWord_boundary",
+          "SM.contractedWord_first_vertex",
+          "SM.contractedWord_last_vertex",
+          "SM.contractedWord_physical_root",
+          "SM.contractedWord_G1",
+          "SM.proper_contracted_polygon_data"
+        ],
+        "declaration_axioms": {
+          "SM.IncreasingBoundaryTriple.contractedSize_neZero": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedVertexIndex": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedVertexIndex_injective": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWordTuple": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWord_boundary": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWord_first_vertex": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWord_last_vertex": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWord_physical_root": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedWord_G1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.proper_contracted_polygon_data": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root10 passed; body/prototype frozen; independent source/type review pending.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      },
+      "work/checks/ContractedIntervals-prototype-result.json": {
+        "kernel_session": 71610,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T09:11:24.966978+00:00",
+        "files_sha256": {
+          "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+          "work/checks/ContractedIntervals.prototype.lean": "06bb0420f52bb916497ce56c01652e1f6bb7655ae153fc207324744efe7838b0",
+          "work/checks/ContractedIntervals-first-kernel.log": "cd20bfc2d45e946a9aafb3dc1427a3aba76f6df2e54145cd0ad5e0e2f8fc3acd",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedGeometricWord-prototype-result.json": "0cdd5deb3187fc591b8732066f1047526ee713239dbcf66bc93d7555b6b6144d"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.expandInterval",
+          "SM.IncreasingBoundaryTriple.expandTriple",
+          "SM.IncreasingBoundaryTriple.contractedLeaf",
+          "SM.IncreasingBoundaryTriple.contractedLeaf_leaves",
+          "SM.IncreasingBoundaryTriple.expandInterval_contractedLeaf",
+          "SM.IncreasingBoundaryTriple.expandInterval_contains",
+          "SM.IncreasingBoundaryTriple.expandInterval_injective",
+          "SM.IncreasingBoundaryTriple.contractInterval",
+          "SM.IncreasingBoundaryTriple.expand_contractInterval",
+          "SM.IncreasingBoundaryTriple.contract_expandInterval",
+          "SM.IncreasingBoundaryTriple.containing_interval_is_expanded",
+          "SM.IncreasingBoundaryTriple.expandInterval_full",
+          "SM.IncreasingBoundaryTriple.containing_contracted_nonleaf"
+        ],
+        "declaration_axioms": {
+          "SM.IncreasingBoundaryTriple.expandInterval": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandTriple": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.contractedLeaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.contractedLeaf_leaves": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandInterval_contractedLeaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandInterval_contains": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandInterval_injective": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.contractInterval": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expand_contractInterval": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.contract_expandInterval": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.containing_interval_is_expanded": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandInterval_full": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.containing_contracted_nonleaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root13 passed; body/prototype frozen; independent source/type review pending.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      },
+      "work/checks/ContractedCompositions-prototype-result.json": {
+        "kernel_session": 81445,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 24501,
+          "exit_code": 1,
+          "reason": "eq_of_parts_cut rfl needed explicit composition operands in the two inverse identities. Proof-only repair, all14 types unchanged."
+        },
+        "utc": "2026-09-11T09:17:50.744349+00:00",
+        "files_sha256": {
+          "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+          "work/checks/ContractedCompositions.prototype.lean": "33e953489328443cd22d964917fde25f7a9a68d7d7567e125c62016967b5a5f7",
+          "work/checks/ContractedCompositions-first.body.lean": "c17e8c6892e44fa4922b460bb57e7829faca1abda86d5614b8cdc36d136e196a",
+          "work/checks/ContractedCompositions-first.prototype.lean": "2521f2c698a0ed338ae07d509fd957f7006f05306819003086d10b068b3b9f4d",
+          "work/checks/ContractedCompositions-first-kernel.log": "910dbd9cbb9c557563571fe4b2e52ceeb2600a9efc913665fda6ce65c878198e",
+          "work/checks/ContractedCompositions-second-kernel.log": "1fb30fe23f61378c1ad54bffdc4d181e3c4b450567124146da557b781380dbe7",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.expandComposition",
+          "SM.IntervalComposition.SurvivingCuts",
+          "SM.IntervalComposition.expandComposition_survives",
+          "SM.IntervalComposition.contractComposition",
+          "SM.IntervalComposition.contract_expandComposition",
+          "SM.IntervalComposition.expand_contractComposition",
+          "SM.IntervalComposition.survivingCompositionEquiv",
+          "SM.IntervalComposition.expandComposition_part",
+          "SM.IntervalComposition.expandComposition_nearTriple",
+          "SM.IntervalComposition.expandComposition_farTriple",
+          "SM.IntervalComposition.survivingCuts_of_containing_child",
+          "SM.IntervalComposition.containing_child_of_survivingCuts",
+          "SM.IntervalComposition.survivingCuts_iff_containing_child",
+          "SM.IntervalComposition.containingCompositionEquiv"
+        ],
+        "declaration_axioms": {
+          "SM.IntervalComposition.expandComposition": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.SurvivingCuts": [
+            "propext"
+          ],
+          "SM.IntervalComposition.expandComposition_survives": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.contractComposition": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.contract_expandComposition": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.expand_contractComposition": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.survivingCompositionEquiv": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.expandComposition_part": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.expandComposition_nearTriple": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.expandComposition_farTriple": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.survivingCuts_of_containing_child": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.containing_child_of_survivingCuts": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.survivingCuts_iff_containing_child": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.containingCompositionEquiv": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root14 passed; body/prototype frozen; independent source/type review pending.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      },
+      "work/checks/OffLeafContraction-prototype-result.json": {
+        "kernel_session": 27795,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T09:18:53.046140+00:00",
+        "files_sha256": {
+          "work/checks/OffLeafContraction.body.lean": "d1d5b9b3fe2ab7b0c98754ead433363b28822cee6e83b78eda6954fa91a03f73",
+          "work/checks/OffLeafContraction.prototype.lean": "1d928af73a7de5b1743121328ad6dbb66faf0fdaa5bf2027842725d7889c826a",
+          "work/checks/OffLeafContraction-first-kernel.log": "9785470b39d7be27299e343765b9aaa126f7ac98789cecee1caa5f7fbde60d1b",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+          "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.contractedInterval_side",
+          "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf",
+          "SM.IncreasingBoundaryTriple.subinterval_off_leaf",
+          "SM.IntervalComposition.every_cut_survives_off_leaf",
+          "SM.IntervalComposition.offLeafCompositionEquiv",
+          "SM.contractedTripleArray",
+          "SM.IntervalComposition.expandComposition_weight",
+          "SM.nearFarTransform_expanded_off_leaf",
+          "SM.boundaryUnitArray_expanded_off_leaf",
+          "SM.farOnlyCoordinates_expanded_off_leaf"
+        ],
+        "declaration_axioms": {
+          "SM.IncreasingBoundaryTriple.contractedInterval_side": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IncreasingBoundaryTriple.subinterval_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.every_cut_survives_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.offLeafCompositionEquiv": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contractedTripleArray": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.IntervalComposition.expandComposition_weight": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.nearFarTransform_expanded_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.boundaryUnitArray_expanded_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.farOnlyCoordinates_expanded_off_leaf": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root10 passed; body/prototype frozen; independent source/type review pending.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      },
+      "work/checks/ContractedGeometricArray-prototype-result.json": {
+        "kernel_session": 39226,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T09:24:00.724523+00:00",
+        "files_sha256": {
+          "work/checks/ContractedGeometricArray.body.lean": "994556496b3b0a24747dd07001d7b8b1506d04c025557eb225eede48d9362605",
+          "work/checks/ContractedGeometricArray.prototype.lean": "85841ee1a04f48ecca9ebd2a78ee223ba47fd9190587294848b1cb9c52c6fb7a",
+          "work/checks/ContractedGeometricArray-first-kernel.log": "7b2bcbcfc20285edd5785710998690cb79c125b79c61c1a2f8a2d3b2d33bb075",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+          "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+          "work/checks/OffLeafContraction.body.lean": "d1d5b9b3fe2ab7b0c98754ead433363b28822cee6e83b78eda6954fa91a03f73"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.expandTriple_ne_critical",
+          "SM.contractedTripleArray_eq_off_critical",
+          "SM.contractedTripleArray_neg",
+          "SM.geometricBoundaryArray_contractedWord",
+          "SM.contracted_leaf_inverse_value",
+          "SM.contracted_output_tree"
+        ],
+        "declaration_axioms": {
+          "SM.IncreasingBoundaryTriple.expandTriple_ne_critical": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.contractedTripleArray_eq_off_critical": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.contractedTripleArray_neg": [
+            "propext",
+            "Quot.sound"
+          ],
+          "SM.geometricBoundaryArray_contractedWord": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contracted_leaf_inverse_value": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.contracted_output_tree": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root6 passed; body/prototype frozen; independent source/type review pending.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      },
+      "work/checks/UniqueChangingChild-prototype-result.json": {
+        "kernel_session": 20040,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T08:57:43.367237+00:00",
+        "files_sha256": {
+          "work/checks/UniqueChangingChild.body.lean": "fbce177f766e40e57d6dbc6a7fe7e50ee86f20db8d8b8672713bf8945a204926",
+          "work/checks/UniqueChangingChild.prototype.lean": "f6e4090c39104f9942e5284c99746b14a48583b0d5249e898d01b8ca41ef8c59",
+          "work/checks/UniqueChangingChild-first-kernel.log": "a98a5b957b3eea14a23bee483c04303651840c6d934ae16a02cf9b9832659236"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.part_contains_unique",
+          "SM.IntervalComposition.other_part_excludes",
+          "SM.IntervalComposition.child_product_unchanged",
+          "SM.IntervalComposition.child_product_difference"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/ContractedChildResponse-prototype-result.json": {
+        "kernel_session": 70378,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T09:25:12.659956+00:00",
+        "files_sha256": {
+          "work/checks/ContractedChildResponse.body.lean": "9fa72c539417648f78d5b30307945f9f8c299805c9ce8fa554e5317c5375ddc0",
+          "work/checks/ContractedChildResponse.prototype.lean": "670c3831de468b4b5327cbed1295eee5dc1f911a4acf0310079315abd08f091a",
+          "work/checks/ContractedChildResponse-first-kernel.log": "52f8d3d901be92e83b2055bc93a6cbd0f8b852d4fc62884beadd79df7abfaa77",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+          "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+          "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+          "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+          "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+          "work/checks/OffLeafContraction.body.lean": "d1d5b9b3fe2ab7b0c98754ead433363b28822cee6e83b78eda6954fa91a03f73",
+          "work/checks/UniqueChangingChild.body.lean": "fbce177f766e40e57d6dbc6a7fe7e50ee86f20db8d8b8672713bf8945a204926"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.unique_contracted_leaf_child",
+          "SM.expanded_child_product_response",
+          "SM.nonsurviving_child_product_unchanged"
+        ],
+        "declaration_axioms": {
+          "SM.IntervalComposition.unique_contracted_leaf_child": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.expanded_child_product_response": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "SM.nonsurviving_child_product_unchanged": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        "state": "Root3 passed; body/prototype frozen; independent source/type review pending. Conditional child product step exposes its induction hypothesis and does not assert completed propagation.",
+        "source_claim_acceptance_increment": 0,
+        "canonical_modules_unchanged": 327
+      }
+    },
+    "root_receipts_sha256": {
+      "work/checks/BoundaryTripleSupports-prototype-result.json": "9d01fd6c9528b498689a788e001933ae0e5e74bb62299c4ca1812fd53653ec5f",
+      "work/checks/CriticalContractionBounds-prototype-result.json": "46c1c53ae3b91d474b6313e4aa584db96e4d0fbf23ca3f19e0e8aa410e8bcc21",
+      "work/checks/ContractedGeometricWord-prototype-result.json": "0cdd5deb3187fc591b8732066f1047526ee713239dbcf66bc93d7555b6b6144d",
+      "work/checks/ContractedIntervals-prototype-result.json": "ad5628f6dc9e00f7f630d67444504ad3baee6cb1d429afa6891936d30d3f8e0c",
+      "work/checks/ContractedCompositions-prototype-result.json": "ff0867d580f0f0a5e116f02507c9281773c2428c6e15feec8f4a9773638abcc3",
+      "work/checks/OffLeafContraction-prototype-result.json": "8db2148e463d45727352579ab6b6a6811f841001f649be225ba6389e6e690cac",
+      "work/checks/ContractedGeometricArray-prototype-result.json": "3b68d2e32bc33c900101b11fd34c2933a2d2ff20df97cee0f9af6ef9cd901901",
+      "work/checks/UniqueChangingChild-prototype-result.json": "9f6af86a1a26244fda4929c1e192bf5a862d89daed4c0c2f7a855377441496c8",
+      "work/checks/ContractedChildResponse-prototype-result.json": "0a6057e504c39f4fd8b43b518bffdbbe75008d7403fa1e33be32ddd83814b229"
+    },
+    "positions_receipt_note": "CriticalContractionPositions has a frozen standalone prototype that was never executed, with no standalone successful receipt. Executed18 evidence comes from the joint CriticalContractionBounds prototype and receipt78486.",
+    "supporting_independent_reviews_sha256": {
+      "work/reviews/critical-contraction-child-independent.json": "fd9237c31dc58cac55734e84f8c50a1e4737ee826c78685bf4c4d5364f0b992d",
+      "work/reviews/contracted-geometric-word-independent.json": "bc2a97148842fa527bf5f350a664543f77ab9bd0de303a24e3340f5fde08f415",
+      "work/reviews/contracted-intervals-compositions-independent.json": "c4a855444d9619cb8a27bcfa93cc3d1d94b864e3cb8196d61056862be98143a7"
+    }
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "prior_checkpoint_bindings_sha256": {
+    "work/reviews/critical-response-port.json": "fd22bf709fcb40f61e4fd214a75c14be1d8bb415ed7e3a50f9a8bd8e6361ef2d",
+    "work/reviews/critical-source-response-canonical-partial.json": "0fbdd72a206b7ba711a5e1507c3246d60c59b99260109e2d1ce0af365c0f71a3",
+    "work/reviews/single-triple-n3-domain-note.json": "6c80aa7a8f9255bb5eff53aec13eefa32f59c830b564d997734ec36183b1d7ad",
+    "work/checks/checkpoint-070-output.json": "07f4e178bb741d9d830e4bb38836ff936bf7f9fe0bf1021ae8188983c6b422aa",
+    "work/checks/checkpoint-070-declaration-audit.json": "0b35a3cbc2164c3ce95a0e01abf9fba744530dd340ced228ff5aca6160a67f7e",
+    "work/checks/checkpoint-070-lean-check.log": "a4e610892517ae36f7161f3da8ae99a7795cce3e13ec1f1cf95ae7d719c0d22e",
+    "work/reviews/boundary-gate-stability-prototype.json": "1669b62133d629a4d65a14263bb3a6cbe3b3d886a8b52791cecb538a4df1b51d",
+    "work/reviews/contracted-geometric-word-independent.json": "bc2a97148842fa527bf5f350a664543f77ab9bd0de303a24e3340f5fde08f415",
+    "work/reviews/critical-contraction-child-independent.json": "fd9237c31dc58cac55734e84f8c50a1e4737ee826c78685bf4c4d5364f0b992d",
+    "work/reviews/contracted-intervals-compositions-independent.json": "c4a855444d9619cb8a27bcfa93cc3d1d94b864e3cb8196d61056862be98143a7"
+  },
+  "reason": "Faithful off-leaf inverse transport, actual contracted geometric-array identification, and explicitly conditional product-response step. Off-leaf intervals lie wholly to one side of the adjacent distinguished leaf, so expansion is a translation and every original raw composition is represented. Full equation transport and a terminating comparison of actual triangular inverse equations derive c=cQ on all such intervals. Contracted arrays omit the actual critical triple, equal the actual contracted word chirotope array at root zero, retain reversal, and yield the formal leaf value and proper rooted output. The product lemma derives its other factors from the proved inverse transport but keeps the changing-child response as an explicit induction premise. Independent19 types and19 consumers pass with standard axioms only; supporting fresh reviews are bound. No completed propagation or original theorem acceptance is asserted.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact distinguished leaf and side separation",
+      "assessment": "The contractedLeaf endpoints are the consecutive positions lower and lower+1. Negating containment of both endpoints in a strict interval J implies J.right<=lower or lower+1<=J.left by integer order. Thus an interval excluding the formal leaf lies entirely to one side, and touching an endpoint is allowed. The independent consumer proves the converse as well, and the two inverse consumers explicitly allow touching either endpoint. This matches the source other-child disjoint-interior condition; it does not incorrectly demand disjoint closed endpoints or assume that a general positive-length old interval can only overlap wholly."
+    },
+    {
+      "clause": "Exact leaf count and unit-array transport",
+      "assessment": "On the left side expandPosition is the identity on both endpoints. On the right it adds the same erasedInteriorCount to both. Subtracting those actual endpoint values preserves J.leaves exactly. The strict endpoint inequalities ensure the natural-number subtraction characterizes right=left+1 without truncation ambiguity. Therefore the source unit array, one on a single leaf and zero otherwise, is transported exactly. The independent leaf consumer checks both actual inverse values equal one when J has one leaf. No zero nonleaf right-hand side is substituted on a unary interval."
+    },
+    {
+      "clause": "Every original raw composition survives off the leaf",
+      "assessment": "For any raw composition of the expanded interval, every cut lies between its actual endpoints. If J is left of the distinguished leaf, all expanded cuts lie at or before the original lower endpoint; if J is right, all lie at or after the original upper endpoint. Hence all cuts satisfy SurvivingCuts automatically. offLeafCompositionEquiv consequently has the entire original raw composition type as its codomain, with no filtering subtype. Its inverse contracts the exact cut list and the independently reviewed contract/expand identities prove both round trips. The current consumer starts with an arbitrary original raw composition, not an assumed survivor, and verifies the complete round trip."
+    },
+    {
+      "clause": "All parts, gate samples, and zero terms are preserved",
+      "assessment": "expandComposition retains the raw part count and expands every cut. Its actual child interval, near triple, and far triple are definitionally the expanded versions of the corresponding original contracted data. contractedTripleArray is exactly precomposition by expandTriple, so the entire nearFarWeight is definitionally preserved for arbitrary independent D,H arrays. Fintype.sum_equiv then transports the full nearFarTransform, with every child factor and every raw composition including the unary one. An independent arbitrary-summand reindexing consumer permits any zero or nonzero weight, and the raw-part/child consumer verifies the exact original child count and intervals. No nonzero gate or product is canceled; the reversed-transform consumer checks the negative-H orientation too."
+    },
+    {
+      "clause": "Actual inverse-coordinate equality is derived, not assumed",
+      "assessment": "farOnlyCoordinates_expanded_off_leaf first transports the actual equation F_H(c(H))=E from the expanded interval, using the full transform theorem and exact unit-array transport. It compares this with the actual defining inverse equation on the contracted array. Rewriting both through the proved triangular form isolates the unary coordinate with coefficient one plus the full nonunary composition sum. For every nonunary child, the child is a subinterval of J and still excludes the distinguished leaf; recursive inverse transport applies there. The stated termination measure is J.leaves, and the kernel checks its decrease using the existing strict part_leaves_lt theorem for parts>=2. Product and sum congruence equate the two nonunary sums. Additive cancellation then gives equality of the two unary inverse coordinates. No inverse transport, propagation formula, or conditional child response is an input to this proof."
+    },
+    {
+      "clause": "Recursive base and every actual other-child value",
+      "assessment": "When J is one leaf, the full nonunary composition type is empty and the two triangular equations determine the unary coordinate from the same unit value. The induction never invokes a recursive call on an equal-size unary child: its recursive calls occur only in the subtype with parts>=2. The independent child consumer transports every actual child of an off-leaf interval, while separate consumers check the exact leaf base and both endpoint-touching cases. Identifying which other child excludes the distinguished leaf is supplied by the separately independently reviewed positive-interval uniqueness theorem, not by assuming the desired inverse equality."
+    },
+    {
+      "clause": "The contracted array omits precisely the possible critical change",
+      "assessment": "Every expanded position survives outside the deleted open critical arc. If an expanded increasing triple equaled the critical triple, its middle position would be the deleted critical middle, contradicting the surviving-position bounds and lower<middle<upper. Therefore H1 and H2 agreeing off the critical triple have identical complete contracted arrays, with reversal commuting definitionally. Independent consumers allow an arbitrary Function.update at the critical entry and prove equality of the entire contracted array and hence the entire actual contracted inverse. This is an array identity derived from physical positions, not an assumption that the contracted inverse or propagation response is unchanged."
+    },
+    {
+      "clause": "Actual contracted geometric word and root",
+      "assessment": "geometricBoundaryArray_contractedWord unfolds the true reversed-order chirotope determinant of the contractedWordTuple at local root zero. The already independently reviewed contractedWord_boundary theorem replaces each of its three actual sampled boundary points by the original boundary point at expandPosition. The resulting determinant is exactly the original geometric array composed with expandTriple, including both integer and ring casts. No G1 assumption is needed for this sample equality. The independent consumer combines it with the proved off-leaf inverse transport to identify the actual original c value with the actual cQ of that geometric contracted word, and another checks reversal on that same array."
+    },
+    {
+      "clause": "Formal leaf base and proper contracted polygon output",
+      "assessment": "contracted_leaf_inverse_value applies the established one-leaf inverse theorem to the proved contractedLeaf length one. This remains an open-word statement when the entire contraction has two positions; the full-contraction consumer verifies exactly that case and does not introduce a two-gon amplitude. For a proper contraction, the separately reviewed size bound supplies at least three positions and the actual contractedWord_G1 proof follows from singleton zero support. The full far-only output then equals the actual treeCoefficient of that contracted word at local root zero. The current proper-output consumer pairs this coefficient equality with the exact directed-edge equality edge(Q,0)=edge(P,g), retaining the source physical root rather than merely renaming an index."
+    },
+    {
+      "clause": "Unique distinguished child without loss of unary compositions",
+      "assessment": "Every complete contracted composition of a containing interval expands to a surviving original cut list and therefore has a child containing the old critical arc. The interval-containment equivalence identifies the corresponding child containing the formal distinguished leaf. The separately reviewed positive-interval child-uniqueness theorem makes it unique even though adjacent children share endpoints. The independent unary consumer retains the one-part composition and its unique child. This is a complete structural domain statement; it does not claim the changing-child induction hypothesis is already available on a unary composition."
+    },
+    {
+      "clause": "Conditional product response and strict induction scope",
+      "assessment": "expanded_child_product_response explicitly assumes the response only on a containing child of the current composition. The exact one-changing-factor product theorem expresses the full difference as that factor difference times all remaining baseline factors. Every other contracted child excludes the positive-length distinguished leaf, so the proved off-leaf inverse theorem, not a new assumption, identifies those other factors with cQ. Substituting the explicit child premise and reassembling the complete product with mul_prod_erase gives s times the full contracted child product, without division. The zero-factor consumer verifies the formula still gives zero when an actual contracted factor vanishes. For an eventual interval-length induction, the response premise is justified only on strictly shorter children; the independent nonunary consumer proves strict decrease for every expanded child when parts>=2. Applying this conditional lemma to a unary composition would require the response of the whole interval as input, so it cannot by itself establish propagation. The final nonunary summation and induction remain pending."
+    },
+    {
+      "clause": "Nonsurviving differences vanish without dropping values",
+      "assessment": "If any child of a nonsurviving composition contained the complete critical span, survivingCuts_of_containing_child would force every top cut to survive, contradicting the premise. Thus each child excludes the critical span. The established off-critical locality theorem makes every actual c factor equal on both sides, and product congruence equates the whole products. The independent consumer states exactly that their difference is zero, not that either product is zero. This supports discarding these differences only after subtraction, as required by the source propagation argument."
+    },
+    {
+      "clause": "Independent evidence and limits",
+      "assessment": "The fresh22 position/unique-child review, fresh10 geometric-word review, and fresh27 interval/composition review are hash-bound and their file bindings are revalidated. Their verdicts do not replace the present reading of the new19 proofs and actual types. The combined current trace compiles all ten exact frozen bodies and independently checks the new19 declarations plus19 consumers over the54-module canonical import closure. CriticalContractionPositions also has a frozen standalone prototype that was never executed; no standalone pass is claimed, and the executed18 evidence is the joint Bounds78486 receipt. No implementation, source, or map was changed. The completed source propagation theorem, its signed nonunary reindexing/induction, and the final proper-span wall formula remain outside this partial review."
+    }
+  ],
+  "independence": "Reviewer authored only the new check consumers, preparation and evidence. No mathematical implementation, source, map, root receipt, or prior frozen review was edited. All three new bodies were frozen after successful root kernels before review consumers were written. The independently reviewed predecessor proofs are bound explicitly, while the current actual types, transparent definitions and source roles were checked directly. No auxiliary child-response premise is misrepresented as a completed induction.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_pending": true,
+    "full_single_triple_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Complete signed nonunary sum reindexing and the interval-length propagation theorem.",
+    "Final proper-span rooted response and assembly with the original wall-data domain.",
+    "The remaining corner wall laws, soft theorem, R theorem and whole stage."
+  ],
+  "not_certified": [
+    "No original thm:single-triple acceptance or canonical semantic hash for these external helpers.",
+    "No claim that the conditional product response proves its own changing-child premise.",
+    "No two-vertex polygon amplitude, no discarded nonzero product values, and no overall stage completion."
+  ]
+}

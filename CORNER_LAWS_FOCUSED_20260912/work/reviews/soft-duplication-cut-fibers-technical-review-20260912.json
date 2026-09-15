@@ -1,0 +1,158 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-cut-fibers-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:01:37.055357+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_mark_transport",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root requested a concrete fiber equivalence and communicated the frozen linear index API. The agent designed the bounded physical subset/endpoints formulation and authored all17 declarations. Root authored the separate cut-set transform bridge, not this body; no repair occurred."
+  },
+  "scope": {
+    "group": "SoftDuplicationCutFibers",
+    "declarations": [
+      "SM.SoftDuplication.exists_position_in_interval",
+      "SM.SoftDuplication.collapseCuts",
+      "SM.SoftDuplication.CutFiberCondition",
+      "SM.SoftDuplication.CutFiber",
+      "SM.SoftDuplication.localCuts",
+      "SM.SoftDuplication.expandCuts",
+      "SM.SoftDuplication.mem_expandCuts",
+      "SM.SoftDuplication.collapse_expandCuts",
+      "SM.SoftDuplication.localCuts_expandCuts_val",
+      "SM.SoftDuplication.expandCuts_collapseCuts",
+      "SM.SoftDuplication.cutFiberEquiv",
+      "SM.SoftDuplication.compositionCutFiberEquiv",
+      "SM.SoftDuplication.cutFiber_subset_pair",
+      "SM.SoftDuplication.cutFiber_empty_iff",
+      "SM.SoftDuplication.cutSetFintype",
+      "SM.SoftDuplication.sum_cutFiber",
+      "SM.SoftDuplication.sum_compositionCutFiber"
+    ],
+    "source_id": "thm:A-soft actual composition-collapse fibers",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1274\u20131369"
+  },
+  "assessment": "No technical defect found in the bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/SoftDuplicationCutFibers-prototype-result.json",
+    "receipt_sha256": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationCutFibers.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+      "work/checks/SoftDuplicationCutFibers-first-kernel.log": "b30ea6c98913d1e2653c31bf84691c72914f9fe35eab4661836c8a5147a5bca7"
+    },
+    "declaration_axioms": {
+      "SM.SoftDuplication.exists_position_in_interval": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapseCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.CutFiberCondition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.CutFiber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.localCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.expandCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.mem_expandCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_expandCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.localCuts_expandCuts_val": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.expandCuts_collapseCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiberEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.compositionCutFiberEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiber_subset_pair": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutFiber_empty_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.cutSetFintype": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_cutFiber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sum_compositionCutFiber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "work/checks/SoftDuplicationCutFibers-body-dependencies.json": "8db155f2ef42c1484e65676df485a1a6d4d4898b23c315b1583e36a55a366005",
+      "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+      "work/checks/SoftDuplicationCutFibers-first-draft.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationCutFibers-first-draft.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84"
+    }
+  },
+  "findings": [
+    "collapseCuts is the Finset.image of the complete actual child cut set. Endpoint membership and bounds follow from monotonicity, and the sole excluded interval is the proven singleton[A,B] whose collapsed endpoints coincide.",
+    "CutFiberCondition allows only physical positions mapping to s inside the actual child interval. Its nonemptiness is equivalent to the core cut at s, and any endpoint mapping to s must be selected. These mandatory endpoint conditions prevent the spurious boundary presentations that an unrestricted nonempty subset of {A,B} would admit.",
+    "expandCuts is explicit: every nonduplicate preimage of a core cut inside the interval, union the specified local subset. Every core position between the collapsed endpoints has an in-interval lift: an old lift outside the interval is clamped to the appropriate endpoint, and monotonicity proves the same collapsed value.",
+    "The forward/inverse proofs preserve complete physical finite sets. The nonduplicate inverse uses the proved singleton collapse fibers; the duplicate part is recovered by filtering exactly collapse=s. The dependent Sigma right inverse transports only the fiber predicate along the proved core cut-set equality, with equal underlying local subsets.",
+    "cutFiberEquiv and compositionCutFiberEquiv are actual bijections with explicit inverse formulas, not cardinality assertions or caller-supplied correspondences. Composition transport uses the canonical exact cutSetEquiv, retaining unary compositions.",
+    "sum_cutFiber and sum_compositionCutFiber reindex the complete finite sums over an arbitrary AddCommMonoid. There are no nonzero summand or factor assumptions. The local Fintype helper only enumerates the existing complete cut-set domain.",
+    "The empty-fiber iff and pair-subset conclusion follow from the exact predicate. Explicit one/three and endpoint-two enumerations, factor transport and singleton[A,B] transform evaluation remain separate steps; this report does not treat the uniform equivalence as a proved weighted duplication theorem.",
+    "Root observed terminal exit0 for first kernel44008; 17 standard-only traces and 2 full-body embeddings are receipt-bound. First drafts are unchanged."
+  ],
+  "limits": "Bounded helper/source comparison only. Stronger statement/definition fidelity, controlled integration, the complete weighted duplication identity and both A/C soft theorems remain pending."
+}

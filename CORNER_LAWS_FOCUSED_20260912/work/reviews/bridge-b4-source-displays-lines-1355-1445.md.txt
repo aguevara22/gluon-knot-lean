@@ -1,0 +1,91 @@
+\end{definition}
+````
+<!-- END QUOTE CV_WEIGHT -->
+
+The common corner directions give the same left/right signs and the same corner count. For each carrier, both selectors are consequently 1 if all turns are right, ((-1)^{\#\text{corners}}) if all are left, and 0 if mixed, exactly as in SM's selector quotation. Their products over the common carriers agree. Multiply (16) over those carriers and then by this common selector. For each independent support the summands in the two formulas agree, including a mixed support with zero selector. Finally sum over the common finite collection of independent supports established in part 1. By the two quoted formulas,
+
+$$
+C^{\rm SM}(P)=X_1^{\rm CV}(P)
+\quad\text{for every }P\in\mathcal U_n^{\rm SM}.
+$$
+
+(17)
+
+This is the separate factorization-based identification required by SM's warning, not a reinterpretation of the restricted selector lemma.
+
+**Part 5: side chambers.** The chamber and constancy clauses are:
+
+<!-- BEGIN QUOTE SM_CHAMBER -->
+**SM_CHAMBER — SM11 `sm-1-polygons.tex:194–199`**
+
+````tex
+\begin{definition}[chambers]\label{def:chamber}
+A \emph{chamber} is a connected component of the space of generic polygons
+$\mathcal U_n/(\ZZ/n)$; its preimage in $\mathcal U_n$ is a union of at most
+$n$ components of $\mathcal U_n$ permuted by $\sigma$, the \emph{labelled
+chambers}.
+\end{definition}
+````
+<!-- END QUOTE SM_CHAMBER -->
+
+<!-- BEGIN QUOTE SM_C_LOCAL -->
+**SM_C_LOCAL — SM11 `sm-4-knotlaws.tex:36–39`**
+
+````tex
+\begin{proposition}[chamber constancy]\label{prop:C-chamber}
+The state sum $C$ of Definition~\ref{def:C} is constant on every chamber.
+\status{proved (refereed: bench A, 2026-09-05T18:22:57Z; transcribed from CV prop:chamberinv, through Lemma~\ref{lem:carriers} and the named-record bridge (Lemma~\ref{rp:record-polynomial}, Theorem~\ref{lp:core}) (C020, C027); F-25-95; single convention, CV one-based tail = this document (F-25-104))}
+\end{proposition}
+````
+<!-- END QUOTE SM_C_LOCAL -->
+
+<!-- BEGIN QUOTE SM_C_SHIFT -->
+**SM_C_SHIFT — SM11 `sm-4-knotlaws.tex:87–98`**
+
+````tex
+To pass to unlabelled chambers, first note that cyclically shifting the
+vertex labels preserves $C$ directly from its definition. It merely
+renames the same directed traversal, crossings and independent supports;
+the corresponding carrier images and orientations, corner counts,
+rotations, positive lifts and coefficients are unchanged. Openness of the
+labelled generic locus gives each point a path-connected neighbourhood
+inside it. The path argument makes $C$ locally constant there. Its
+cyclic invariance makes it descend to a locally constant function on the
+quotient by cyclic relabelling: the preimage of any value is an open
+saturated subset, so its image is open in the quotient topology. A
+locally constant function on a connected chamber is constant. This proves
+the stated assertion without assuming a lift of an arbitrary quotient path.
+````
+<!-- END QUOTE SM_C_SHIFT -->
+
+<!-- BEGIN QUOTE CV_X_LOCAL -->
+**CV_X_LOCAL — CV `d1_setup.tex:932–938`**
+
+````tex
+\begin{proposition}[chambers and chamber invariance]\label{prop:chamberinv}
+Fix $n\geq3$.
+\begin{enumerate}
+\item[(i)] The generic locus $\mathcal U_n$ is open in $(\mathbb R^2)^n$, and
+every chamber --- every connected component of it --- is open and path connected.
+\item[(ii)] $X_1$ is constant on each chamber.
+\end{enumerate}
+````
+<!-- END QUOTE CV_X_LOCAL -->
+
+Take either connected punctured image of the labelled germ from SM `def:germ`. It lies in one labelled SM component. By (1), that component is a connected subset of the labelled CV generic locus, so it lies in a unique CV component. CV `def:event` defines its side chamber as exactly the component containing that same punctured image. Thus the component just found is its CV side chamber. The quotient by cyclic shifts in the SM chamber definition changes the names of representatives, not the value of $C$, whose invariance is quoted above. A fixed continuous labelled representative of the germ suffices on each side.
+
+Choose $t_+>0$ and $t_-<0$ sufficiently near zero. SM's chamber constancy identifies $C(P(t_\pm))$ with its corresponding SM side value. Equation (17) identifies each of those point values with $X_1(P(t_\pm))$. CV's chamber constancy identifies the latter with its value on the containing CV side chamber. Consequently
+
+$$
+C^{\rm SM}(P_+^{\rm SM})=X_1^{\rm CV}(P_+^{\rm CV}),
+\qquad
+C^{\rm SM}(P_-^{\rm SM})=X_1^{\rm CV}(P_-^{\rm CV}).
+$$
+
+(18)
+
+These are equalities of **values on corresponding sides**. They do not assert equality of a quotient SM chamber with a labelled CV chamber, or equality of their underlying generic loci. This proves B4. ∎
+
+## §3. The displayed bridge theorem
+
+**Theorem.** Take the frozen RA result in the exact CV `ax:R` form quoted in §1, with its declared inputs. Let $\mathcal E_{\rm SM11}^{T}$ denote the simple triple wall germs defined in SM11. Then

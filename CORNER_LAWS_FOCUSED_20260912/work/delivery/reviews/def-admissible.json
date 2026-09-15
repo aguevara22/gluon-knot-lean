@@ -1,0 +1,90 @@
+{
+  "id": "def:admissible",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "f573f5525867696d3d0398761286535bb1fc806a4fb4b9534ab106599c759cba",
+  "verdict": "faithful",
+  "reason": "Compared the full original def:admissible at source lines 512-518 with SM.admissible_definition, the definitions Admissible and MinimalAdmissible, and the actual quotient/rotation constructions underlying genericFibre. Admissible is a predicate on two integers, not on natural vertex counts or nonnegative rotation numbers. It contains exactly the three printed requirements: n>=3, the strict integer bound 2*abs(r)<n, and exclusion of the ordered pair (3,0). MinimalAdmissible requires Admissible in addition to precisely the source alternatives: r is nonzero and n=2*abs(r)+1, or the pair is (4,0). Both signs of r and the zero case are handled without a positive-r restriction; the special zero case is not replaced by the nonzero-r formula. The aggregate universally states these equivalences for all integer m and s, retaining negative and otherwise inadmissible parameter inputs for the definitions themselves.\n\nThe fibre is the actual rotation level set in GenericPolygon n. Its generic tuple type is the previously reviewed subtype of real planar labelled tuples satisfying the full source G1 and G2. GenericPolygon is the genuine quotient of that subtype by the cyclic-shift relation, not an assumed combinatorial equivalence class, an integer carrying an arbitrary polygon tag, or a pre-supplied inhabited fibre. The quotient has the previously verified actual quotient topology, though no new topological assertion is needed by this definition. genericPolygonRotation is constructed by Quotient.lift from the actual principal-turn sum divided by 2*pi. Its well-definedness proof extracts the actual cyclic shift relating two generic representatives and invokes the already proved rotationNumber_shift equality. Thus it does not define polygon rotation through a choice of representative without a compatibility proof, or use r itself as a synthetic rotation value.\n\ngenericFibre r is exactly the set of quotient points Q satisfying genericPolygonRotation Q=(r:real). The aggregate's quotient membership clause states this for every Q; its projection clause states the equivalent condition on the actual rotationNumber of every generic labelled representative. Its shift clause proves that every cyclic relabelling of a representative gives the same fibre membership, using equality of the actual quotient projections. The fibre's elements therefore are source generic polygons, points of the cyclic quotient, as explicitly required by the final source sentence. No extra root, marked edge, representative label, or graph-vertex structure is retained as part of the fibre point.\n\nUsing a natural number for the actual length parameter of LabelledTuple/GenericPolygon loses no admissible integer vertex count, since the printed admissibility condition forces that integer to be at least three. The parameter predicates themselves remain on all of Z^2, and the fibre is available for every integer r and every natural n>=3, hence in particular for every admissible pair. Defining the same actual level set at further inadmissible r is a conservative extension, not an existence claim or a changed admissible domain. The NeZero n instance needed for the finite cyclic sum is redundant under the displayed n>=3 hypothesis. No fibre nonemptiness, polygon existence, generic density, or classification theorem is assumed by the construction or asserted in the aggregate. Those are separate later source obligations, particularly lem:fibres.\n\nThe source hash, all 21 inspected local supporting-file hashes, and the independently recomputed semantic dependency hash match the passed checkpoint-025 development receipt. The Admissible module is unchanged from this independent source/type/body review, and the twenty inherited modules are byte-identical to earlier independent reviews. The compiled declaration was independently loaded and its full type checked. The receipt audits 852 project declarations and 20 mapped claims with only the standard propext, Classical.choice and Quot.sound axioms, and explicitly leaves stage_accepted false. This review certifies only the complete original DEFINE row def:admissible. It does not certify nonempty fibres or density, the repaired/original shift lemma, the corner state sum, or the main wall-crossing/soft-theorem targets. Supporting quotient and rotation helpers are not additional original claims. No Lean or declaration-map file was authored or edited by this reviewer.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.genericPolygonRotation_projection",
+    "SM.genericFibre_projection",
+    "SM.genericFibre_shift",
+    "SM.rotationNumber_shift",
+    "SM.projection_eq_iff",
+    "SM.projection_genericShift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Admissible.lean": "4fba139cbb9043e9bdcfa70fc0e699d63922500e798388bc5d9ebe6ef1fa9846",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/EuclideanPlane.lean": "30a5956221225bc9811a792b5a67c6c5967fb6dda0b4cb14be997051b32b7a4f",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PrincipalAngles.lean": "d618c6e2b040d5f5dbaf4b0bc7ef46a565dfb439756587d6f1c83e5c8955672a",
+    "work/lean/SM/RegularDefinition.lean": "1abcbd05624a34d5df1963ebef27e1497296f1986b39dd5a635561fed4ce86e1",
+    "work/lean/SM/RegularLocus.lean": "ad97d04e3eda38ba6f46d435ee9873344808d0d811ce28c410cd91e35b963acf",
+    "work/lean/SM/RegularPairs.lean": "7d09c9ecbb9b2515808d606a060256ee83b744ce42f946c5d9ff9f97ade80a06",
+    "work/lean/SM/RotationNumber.lean": "8d6dc7680484539bf4243b6256155f900061ad34740b29b4f0d0eae6dbd1c0df",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 512,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 539,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "341b75cb51716f6d593e2a2c0b0a6aa1f8d87753cb8bb5ac2eddf6d112734782",
+    "to_excerpt_sha256": "341b75cb51716f6d593e2a2c0b0a6aa1f8d87753cb8bb5ac2eddf6d112734782",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Definition row; the Lean definitions denote the printed objects of def:admissible (reference/SM/sm-1-polygons.tex:539-545; SM15 excerpt byte-identical to SM12, sm15_reworded=false, no CHANGES_SINCE_20260909.md entry touches this label). (1) Admissible (Admissible.lean:10-11) is a predicate on (n r : ℤ) with exactly the three printed clauses 3 ≤ n, 2*|r| < n, (n,r) ≠ (3,0); domain ℤ² preserved, no restriction to ℕ or r ≥ 0. (2) MinimalAdmissible (13-14) = Admissible ∧ ((r ≠ 0 ∧ n = 2|r|+1) ∨ (n,r) = (4,0)), matching \"moreover n=2|r|+1 (for r≠0) or (n,r)=(4,0)\"; the alternative reading without the r≠0 guard is equivalent under Admissible since r=0 forces n=1, which fails 3 ≤ n. (3) The fibre genericFibre r (28-29) is the level set {Q : GenericPolygon n | genericPolygonRotation Q = r}, where GenericPolygon n is the genuine quotient of GenericTuple n = {P : ZMod n → ℝ×ℝ // G1 P ∧ G2 P} by the cyclic-shift setoid (Chambers.lean:14-21; Polygon.lean:22-47). G1 (Generic.lean:11-12) is sign det(P j − P i, P k − P i) ≠ 0 for pairwise distinct i,j,k (Chirotope.lean:10-11), i.e. printed (G1) at source lines 100-104; G2 (Generic.lean:14-17) forbids a point in the open interiors {P i + t·edge, 0<t<1} (Polygon.lean:57-58) of three distinct edges, i.e. printed (G2). genericPolygonRotation (18-23) is Quotient.lift of rotationNumber P.val, and rotationNumber P = (∑ i, principalTurn P i)/(2π) (RotationNumber.lean:10-11) with principalTurn P i = principalAngle (edge P (i−1)) (edge P i) (RegularLocus.lean:15-16), principalAngle u v = arg(conj(u)·v) (RegularPairs.lean:54; EuclideanPlane.lean:55), whose real part is ⟨u,v⟩ and imaginary part det(u,v); on regular pairs this is the unique θ ∈ (−π,π) with cos θ = ⟨u,v⟩/(|u||v|) and sgn θ = sgn det(u,v), exactly the printed principal turn ϑ_i (source 386-397) with ℓ_i = μ_{i+1} − μ_i = edge P i (Polygon.lean:49). Generic ⇒ Regular is supplied for n ≥ 3 (RegularDefinition.lean:16), so on 𝒰_n the Lean rotation is the printed rot of lem:rot (source 407). The printed text writes 𝒰_n ⊆ (ℝ²)^n yet says a fibre point is \"a point of the quotient\"; the formalization remark (source 55-61) makes both readings equivalent, and the Lean covers both: quotient membership (clause 3 of admissible_definition), labelled characterization via polygonProjection (clause 4), and shift invariance (clause 5). The aggregate theorem admissible_definition (41-52) carries the printed n ≥ 3 domain as hn and holds by Iff.rfl plus the two projection/shift lemmas; nothing is vacuous and no existence, nonemptiness or density (lem:fibres) is claimed. Compared afterwards with work/reviews/def-admissible.json: my judgement agrees with the accepted review; all reviewed file hashes and the source hash still match.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "genericFibre r is defined for every r : ℤ and every n with NeZero n (Admissible.lean:16, 28), not only for admissible pairs; on the printed domain (n ≥ 3, (n,r) admissible) it denotes exactly the printed 𝒰_{n,r}, so this is a conservative domain extension of a definition, not a changed claim.",
+      "rotationNumber is total on LabelledTuple n (junk values off the regular locus, RotationNumber.lean:10-11); it agrees with the printed rot on every generic tuple with n ≥ 3 because Generic ⇒ Regular is proven (RegularDefinition.lean:16), so the fibre is unaffected."
+    ],
+    "weaker_than_source": [
+      "The vertex count n of GenericPolygon n is a natural number while the printed pair (n,r) lives in ℤ²; since admissibility forces n ≥ 3 this loses no admissible vertex count, and the integer predicates Admissible/MinimalAdmissible themselves stay on ℤ². Not a fidelity defect."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Admissible.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RotationNumber.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CyclicChambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularLocus.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularPairs.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularDefinition.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PrincipalAngles.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/EuclideanPlane.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-admissible.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

@@ -1,0 +1,524 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "132-144; section G1-only domain3-6; rooted convention10-15; representative permission sm-1-polygons.tex55-60",
+  "source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "Reviewer did not author or edit the six implementation bodies, prototypes, canonical modules, source, maps or previous reviews. Only new independent source consumers, trace/closure/type evidence and these reports were written. The source and proofs were inspected directly; successful compilation was not treated as source fidelity. All frozen implementation bodies were copied verbatim over their actual canonical predecessor imports. The canonical review writes only new check/report evidence; no implementation, source, map or frozen prior review was changed.",
+  "review_schema": "independent-full-source-review-v1",
+  "id": "def:nearfar",
+  "source_id": "def:nearfar",
+  "source_line": 132,
+  "labels": [
+    "def:nearfar"
+  ],
+  "declaration": "SM.nearfarData",
+  "module": "SM.NearFar",
+  "verdict": "faithful",
+  "source_claim_accepted": true,
+  "in_theorem_library": true,
+  "statement_sha256": "91f29768c7e1ce1bb4f0d7c110e5a9e379d62e50b38064d2373ecb64bea22aa0",
+  "utc": "2026-09-11T05:24:58.084113+00:00",
+  "reason": "Faithful complete implementation of def:nearfar: all bounded increasing triples and interval coordinates, exact neighboring/endpoint samples, every source composition including its unary term, correct half products, F/G specialization, E and the actual reversed chirotope arrays. The full geometric array has the source simultaneous shift-equivariance. The exact canonical port passes independent kernel 21424 with 37 declaration checks, 11 substantive consumers and 48 standard-only axiom traces. All printed types equal their reviewed prototype types; the full source definition and transparent closure match immutable audit064. This definition is faithful and eligible for map acceptance.",
+  "mathematical_justification": [
+    {
+      "clause": "Complete finite coordinate domains",
+      "assessment": "IncreasingBoundaryTriple stores precisely lower<middle<upper in Fin n, the bounded natural presentation of0<=x<y<z<=N with N=n-1. TripleArray is an unrestricted scalar-valued function on this full index type; IntervalArray is a scalar-valued function on every actual BoundaryInterval. The independent all_raw_increasing_triples check admits every source natural triple, deriving all Fin n bounds from the printed last bound. Independent injective encodings into Fin n triples and pairs prove both coordinate index sets finite. This does not assert that the scalar-valued array types themselves are finite, and does not truncate or choose a subset of coordinates."
+    },
+    {
+      "clause": "Exact neighboring and endpoint triples",
+      "assessment": "For an interior index k:Fin(parts-1), nearTriple contains cut k, cut(k+1), cut(k+2), while farTriple contains the fixed interval left endpoint, cut(k+1), and fixed right endpoint. Strict composition cuts prove the stored inequalities; first/last equalities identify the endpoint positions exactly. Under the source indexing with cuts1 through s-1 this is precisely the neighboring D triple and enclosing H triple. The complete raw composition domain and all interior cut positions are unchanged from the independently accepted root/gate definitions."
+    },
+    {
+      "clause": "Exact half factors and complete transform",
+      "assessment": "nearFarWeight multiplies (D nearTriple-H farTriple) times the inverse of two at every interior cut. nearFarTransform sums this actual product times the ordered product of child coordinates over every composition, including the unary composition. The independent every_half_factor_is_exact check multiplies the weight by2^(parts-1) and recovers exactly the product of every unhalved numerator; each factor cancels its inverse of two and finite-product distributivity gives the stated exponent. This holds in arbitrary commutative rings with invertible two, without a field, ordered-ring or nontriviality premise. The independent unary_term_is_exact confirms the empty gate product and the sole actual child give precisely X I."
+    },
+    {
+      "clause": "F, G and leaf indicator",
+      "assessment": "farTransform is exactly Phi with D identically zero; nearTransform is exactly Phi with H identically zero. boundaryUnitArray is one exactly when right=left+1, and zero otherwise. The independent unit_array_is_leaf_indicator checks this agrees with actual interval leaf count one; the proof uses strict interval endpoints and natural subtraction, and does not rely on distinguishing zero from one in the coefficient ring."
+    },
+    {
+      "clause": "Geometric arrays and representative descent",
+      "assessment": "geometricBoundaryArray is the integer sign of the actual chi entry at boundary upper, middle, lower, coerced into the arbitrary coefficient ring. Both geometric D and H are this same array and are sampled at different triples. The near and far sampling lemmas are definitional equalities with the already reviewed nearSign and farSign. The array formula is available on arbitrary labelled tuples, hence on the source G1 polygon domain without adding a G2 restriction. The separately frozen geometricBoundaryArray_shift explicitly cancels the tuple shift a with the root shift g-a at every actual boundary label. The independent geometric_arrays_use_same_physical_root consumer verifies this equality of the whole geometric array. The abstract transforms therefore read unchanged arrays under the permitted simultaneous representative/root change."
+    },
+    {
+      "clause": "Complete aggregate and proof boundary",
+      "assessment": "nearfarData exposes the complete increasing-triple type, Phi, F, G, E and the geometric array function over the exact ring/size parameters. The transparent print and independent37-declaration trace bind these actual definitions. Ambient n>=3 supplies the supplementary NeZero condition; no new axiom or geometric premise is inserted. This is the full definition only. Neither factorization nor the geometric or restricted-interval output assertions are claimed by this definition review."
+    },
+    {
+      "clause": "Canonical statement and transparent definition closure",
+      "assessment": "The exact frozen NearFar and NearFarEquivariance bodies are now canonical. The seven-module import closure and the 41-entry source semantic dependency closure include the actual raw composition constructor, cut/part maps, finite instances, increasing-triple constructor, complete arrays, near/far sampling, half products, Phi/F/G/E and geometric chi formula. All 37 printed types agree with the independently reviewed prototypes. Canonical kernel 21424 independently reruns all 11 substantive consumers and 48 axiom traces. Whole-project audit064 checks the installed files; its original definition semantic hash is independently recomputed. No whole source lemma is inferred from a build or hash. No axiom, G2 restriction, coefficient nontriviality assumption or smaller composition domain has been introduced."
+    }
+  ],
+  "main_declarations": [
+    "SM.IncreasingBoundaryTriple",
+    "SM.TripleArray",
+    "SM.IntervalArray",
+    "SM.nearFarTransform",
+    "SM.farTransform",
+    "SM.nearTransform",
+    "SM.boundaryUnitArray",
+    "SM.geometricBoundaryArray",
+    "SM.nearfarData",
+    "SM.geometricBoundaryArray_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a"
+  },
+  "import_closure_roots": [
+    "SM.NearFar"
+  ],
+  "import_closure_file_count": 7,
+  "semantic_dependency_count": 41,
+  "required_semantic_definitions_checked": [
+    "SM.nearfarData",
+    "SM.IncreasingBoundaryTriple",
+    "SM.IncreasingBoundaryTriple.mk",
+    "SM.TripleArray",
+    "SM.IntervalArray",
+    "SM.IntervalComposition",
+    "SM.IntervalComposition.mk",
+    "SM.IntervalComposition.cut",
+    "SM.IntervalComposition.parts",
+    "SM.IntervalComposition.part",
+    "SM.IntervalComposition.finite",
+    "SM.IntervalComposition.fintype",
+    "SM.IntervalComposition.nearTriple",
+    "SM.IntervalComposition.farTriple",
+    "SM.IntervalComposition.nearFarWeight",
+    "SM.nearFarTransform",
+    "SM.farTransform",
+    "SM.nearTransform",
+    "SM.boundaryUnitArray",
+    "SM.geometricBoundaryArray",
+    "SM.BoundaryInterval",
+    "SM.BoundaryInterval.mk",
+    "SM.boundaryIndex",
+    "SM.LabelledTuple",
+    "SM.chi",
+    "SM.det"
+  ],
+  "prototype_review": "work/reviews/nearfar-prototype.json",
+  "prototype_review_sha256": "4780bb37c3ec952d26757e22803c2445791f7d961ebb27ad68b1bbcfe3b44b55",
+  "prototype_review_binding": {
+    "work/reviews/nearfar-prototype.json": "4780bb37c3ec952d26757e22803c2445791f7d961ebb27ad68b1bbcfe3b44b55",
+    "work/reviews/triangular-polynomial-inverse-prototype.json": "5c8e40c84e318e36fe413fabc2c9581dc15b541751ea022bb92c7c362250eef5",
+    "work/checks/nearfar-inverse-reviewed-types.json": "19a3dcec70e1ccd2d31cf773c5acab0358139dd81e7e55e0e39a9e6d6d855612",
+    "work/checks/nearfar-inverse-review-examples.lean": "575aa84c315317e62ffc12c92ed90079312fd96ae1e96b2df7153e2b7ce3ad1f"
+  },
+  "port_review": "work/reviews/nearfar-port.json",
+  "port_review_sha256": "79826e24ca37666ba9af32f59fedfbae069eec6eb93d44d8b1dd792852696bff",
+  "evidence": {
+    "independent_trace_source": "work/checks/nearfar-canonical-review-types.lean",
+    "independent_trace_source_sha256": "ea26818eeed6cd18cf61ffaed04099471b2c04a21dd6b935bdbcbec2faf2bd28",
+    "independent_trace_log": "work/checks/nearfar-canonical-review-types.log",
+    "independent_trace_log_sha256": "c83b7d6a3cee86a738c5d33a5d2130a5398a39eaccf0e9b39e68816cb597704f",
+    "independent_kernel_command": "lake env lean ../checks/nearfar-canonical-review-types.lean",
+    "independent_kernel_session": 21424,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.IncreasingBoundaryTriple",
+      "SM.TripleArray",
+      "SM.IntervalArray",
+      "SM.IntervalComposition.nearTriple",
+      "SM.IntervalComposition.farTriple",
+      "SM.IntervalComposition.nearFarWeight",
+      "SM.nearFarTransform",
+      "SM.farTransform",
+      "SM.nearTransform",
+      "SM.boundaryUnitArray",
+      "SM.geometricBoundaryArray",
+      "SM.geometricBoundaryArray_near",
+      "SM.geometricBoundaryArray_far",
+      "SM.nearfarData",
+      "SM.IntervalComposition.eq_single_of_parts_eq_one",
+      "SM.IntervalComposition.parts_eq_one_iff_eq_single",
+      "SM.IntervalComposition.single_part",
+      "SM.IntervalComposition.single_product",
+      "SM.IntervalComposition.nonSingleEquiv",
+      "SM.triangularTransform",
+      "SM.triangularInverse",
+      "SM.triangularTransform_inverse",
+      "SM.triangularInverse_transform_apply",
+      "SM.triangularInverse_transform",
+      "SM.triangular_solution_unique",
+      "SM.triangularEquiv",
+      "SM.IntervalComposition.nearFarWeight_one",
+      "SM.nearFarTransform_eq_triangular",
+      "SM.nearFarInverse",
+      "SM.nearFarTransform_inverse",
+      "SM.nearFarInverse_transform",
+      "SM.nearFar_solution_unique",
+      "SM.map_triangularInverse",
+      "SM.triangularInversePolynomial",
+      "SM.triangularInversePolynomial_eval",
+      "SM.nearFar_has_polynomial_inverse",
+      "SM.geometricBoundaryArray_shift"
+    ],
+    "declaration_axioms": {
+      "SM.IncreasingBoundaryTriple": [],
+      "SM.TripleArray": [],
+      "SM.IntervalArray": [],
+      "SM.IntervalComposition.nearTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farTransform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearTransform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray": [],
+      "SM.geometricBoundaryArray": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_near": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_far": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearfarData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.eq_single_of_parts_eq_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.parts_eq_one_iff_eq_single": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.single_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.single_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nonSingleEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularTransform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularInverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularTransform_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularInverse_transform_apply": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularInverse_transform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangular_solution_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_eq_triangular": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarInverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarInverse_transform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_solution_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.map_triangularInverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularInversePolynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triangularInversePolynomial_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_has_polynomial_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "NearFarInverseIndependentReview.all_raw_increasing_triples",
+      "NearFarInverseIndependentReview.full_triple_domain_finite",
+      "NearFarInverseIndependentReview.full_interval_domain_finite",
+      "NearFarInverseIndependentReview.unary_term_is_exact",
+      "NearFarInverseIndependentReview.every_half_factor_is_exact",
+      "NearFarInverseIndependentReview.unit_array_is_leaf_indicator",
+      "NearFarInverseIndependentReview.inverse_base_coordinate",
+      "NearFarInverseIndependentReview.unique_solution_for_every_target",
+      "NearFarInverseIndependentReview.inverse_is_coordinate_polynomial",
+      "NearFarInverseIndependentReview.zero_triangular_weights_give_identity",
+      "NearFarInverseIndependentReview.geometric_arrays_use_same_physical_root"
+    ],
+    "additional_example_count": 11,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "NearFarInverseIndependentReview.all_raw_increasing_triples": [
+        "propext",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.full_triple_domain_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.full_interval_domain_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.unary_term_is_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.every_half_factor_is_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.unit_array_is_leaf_indicator": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.inverse_base_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.unique_solution_for_every_target": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.inverse_is_coordinate_polynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.zero_triangular_weights_give_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarInverseIndependentReview.geometric_arrays_use_same_physical_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_37_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.IncreasingBoundaryTriple",
+      "SM.TripleArray",
+      "SM.IntervalArray",
+      "SM.IntervalComposition.nearTriple",
+      "SM.IntervalComposition.farTriple",
+      "SM.IntervalComposition.nearFarWeight",
+      "SM.nearFarTransform",
+      "SM.farTransform",
+      "SM.nearTransform",
+      "SM.boundaryUnitArray",
+      "SM.geometricBoundaryArray",
+      "SM.nearfarData",
+      "SM.triangularTransform",
+      "SM.triangularInverse",
+      "SM.nearFarInverse",
+      "SM.triangularInversePolynomial"
+    ],
+    "independent_closure_evidence": "work/checks/nearfar-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "6fd77ad9feebc9227068ccb6e353d13a531d432e66f53b03104d16172f16a47b",
+    "canonical_semantic_evidence": "work/checks/nearfar-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "65ad0b458af3154bb9e87bd369c496d71a6869c1b3ac3ce00a3d55f864289bb7",
+    "root_result_file": "work/checks/nearfar-port-audit-result.json",
+    "root_result_sha256": "fee7cd9edb5626e2870e95b93f4763ec5ebd71cdabb5ee22715cbd3ac4f597dd",
+    "successful_build_session": 90989,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-064-lean-check.log",
+    "successful_build_log_sha256": "a931ee532b82474165abdb3cd122376d61210ec74ce7f734213e9b77ccca9302",
+    "audit_receipt": "work/checks/checkpoint-064-output.json",
+    "audit_receipt_sha256": "5c98fa9bd41e9fd6ff9a767dcc9af86eaa9aa1869ae7cff53943c252e653a79a",
+    "declaration_audit": "work/checks/checkpoint-064-declaration-audit.json",
+    "declaration_audit_sha256": "74c3c399bc211cecfa762d6f691ea39fd53421fe36662db22959db4d42c68530",
+    "scope_note": "The same 11 substantive external consumers were rerun with canonical imports only: complete triple/interval domains, exact unary term and half factors, actual unit array, inverse base coordinate, every-target uniqueness, explicit coordinate-polynomial evaluation, zero-weight normalization and physical-root geometric array transport."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-064-output.json",
+    "receipt_sha256": "5c98fa9bd41e9fd6ff9a767dcc9af86eaa9aa1869ae7cff53943c252e653a79a",
+    "root_audit_session": 90989,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3804,
+    "mapped_claims": 38,
+    "audited_SM_modules": 299,
+    "audited_project_files": 305,
+    "all_receipt_project_and_bundle_hashes_checked_at_review": true,
+    "all_37_prior_semantic_hashes_unchanged": true,
+    "scope": "Immutable audit064 covers the installed five-module batch while def:nearfar is in review and lem:farout remains pending. No subsequent accepted-map audit is claimed here."
+  },
+  "acceptance_scope": {
+    "original_claim": "def:nearfar",
+    "original_rows_added_if_mapped_accepted": 1,
+    "proofs_added_if_mapped_accepted": 0,
+    "definitions_added_if_mapped_accepted": 1,
+    "current_map_was_not_edited_by_reviewer": true,
+    "helper_original_claim_count": 0,
+    "full_farout_accepted": false,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No full lem:farout, factorization, far-only output or restricted-interval acceptance.",
+    "No original claims for inverse helpers, wall law, soft theorem, R theorem or overall handoff completion."
+  ],
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "from_line": 132,
+    "to_frame": "SM15",
+    "to_source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+    "to_line": 137,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "c50b5533ba7a0d7a92b1c0f35331818c5be9e591c1a8daf08b9729442df64388",
+    "to_excerpt_sha256": "c50b5533ba7a0d7a92b1c0f35331818c5be9e591c1a8daf08b9729442df64388",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "The Lean definitions in work/lean/SM/NearFar.lean denote exactly the printed objects of def:nearfar (sm-2-amplitude.tex:137-149, byte-identical in the SM15 blueprint extract; sm15_reworded=false and the text I read matches). Ring: [CommRing R] [Invertible (2:R)] = \"commutative ring in which 2 is invertible\". Index set: IncreasingBoundaryTriple n (lower<middle<upper in Fin n) is 0<=x<y<z<=N with N=n-1 (def:root, sm-2-amplitude.tex:17-21); TripleArray = arbitrary scalars D,H on it; IntervalArray = (X_ij)_{0<=i<j<=N} via BoundaryInterval (left<right). Compositions: IntervalComposition I (RootBoundary.lean:62-68) is a strictly increasing cut sequence with cut 0 = i, cut last = j, parts>=1, i.e. pi=(i=r_0<...<r_s=j), s>=1; the sum in nearFarTransform (NearFar.lean:55-57) runs over all of them via the Fintype from FiniteCompositions.lean:25-28 (injective finite encoding, so no duplication), including the one-part composition. Weight: nearFarWeight (line 49-50) = prod over k:Fin(parts-1) of (D(nearTriple k) - H(farTriple k)) * inv 2, where nearTriple k = (cut k, cut k+1, cut k+2) = (r_{k-1},r_k,r_{k+1}) and farTriple k = (I.left, cut k+1, I.right) = (i,r_k,j) with the Lean k = source k-1; empty product = 1 for s=1 as in the source. Child product: prod over k:Fin parts of X(part k), part k = [cut k, cut k+1] = X_{r_{k-1} r_k}. farTransform = nearFarTransform 0 H = F_H, nearTransform = nearFarTransform D 0 = G_D, boundaryUnitArray = E (1 iff right = left+1). Geometric array (lines 70-72): chi P (bi g upper) (bi g middle) (bi g lower) with boundaryIndex g k = g+k+1 (RootBoundary.lean:8-9), so a_k = mu_{g+k+1} as in def:root, and chi P i j k = sign det(P j - P i, P k - P i) (Chirotope.lean:10-11) = chi_{ijk}; the value is chi(a_z,a_y,a_x), used for both D and H exactly as printed, cast Z -> R. nearfarData (lines 82-85) bundles precisely these six objects. Nothing is vacuous; no hypothesis is added or dropped.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "geometricBoundaryArray is defined for every LabelledTuple n and root g : ZMod n, not only for polygons satisfying (G1) as the section preamble (sm-2-amplitude.tex:3) assumes; harmless for a definition since chi is total.",
+      "The component definitions (nearFarTransform, farTransform, nearTransform, boundaryUnitArray, geometricBoundaryArray) are available for every n with [NeZero n], not only n >= 3; the bundle nearfarData carries the (unused) hypothesis 3 <= n."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-2-amplitude.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/NearFar.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Gates.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FiniteCompositions.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RootBoundary.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-nearfar.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

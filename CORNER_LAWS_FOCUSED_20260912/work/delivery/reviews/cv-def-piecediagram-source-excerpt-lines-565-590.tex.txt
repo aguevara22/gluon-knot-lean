@@ -1,0 +1,26 @@
+\begin{definition}[piece diagram, positivity, writhe]\label{def:piecediagram}
+For a diagrammatic parent $P$, the diagram of a residual piece $H$ is the parent
+curve $P$ with every double
+point outside $H$ erased --- the two strands drawn as passing without
+interaction --- and every double point of $H$ resolved by the divide convention:
+the branch whose direction $u_{\mathrm{over}}$ satisfies
+$\det(u_{\mathrm{over}},u_{\mathrm{under}})>0$ passes over. Under this convention
+every crossing of the diagram is positive, so its writhe is
+$w(H)=|H|$, the number of double points of $H$. We write $P_H(a,z)$ for the
+HOMFLY--PT polynomial of the link so presented, normalized as in
+Definition~\ref{def:homfly}.
+
+\emph{What ``erased'' means, stated once, and where the statement comes from.}
+The evaluator that defines $X_1$ builds a piece's datum as the parent Gauss word
+restricted to the crossings of $H$, in the parent's cyclic order, together with
+the parent's per-crossing counter-clockwise half-edge order restricted to the
+surviving half-edges and re-expressed in the restricted word's arc labels
+(\texttt{sub\_word\_and\_rot},
+\texttt{engines/polygon\_motivic/ruling\_dp\_statesum\_fin.py:28} of the shipped
+code). So the datum is a word \emph{together with a rotation system}, not a bare
+word, and the definition above is to be read as naming that pair.
+
+To erase a double point is to omit it from that datum. The combinatorial shadow
+of the datum --- the word with its over/under and signs and nothing else --- is
+Definition~\ref{def:record}.
+\end{definition}

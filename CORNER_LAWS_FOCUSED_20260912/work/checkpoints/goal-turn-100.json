@@ -1,0 +1,126 @@
+{
+  "checkpoint": "100",
+  "utc": "2026-09-12T05:47:51.123843+00:00",
+  "goal_status": "active; incomplete",
+  "previous_goal_turn_classification": "progress",
+  "this_goal_turn_classification": "progress:29 checked declarations establish actual marked open-arc/list equivalence, owner-filtered inherited cycles and actual successor compatibility for empty/singleton support; arbitrary-support induction and main corner theorem remain",
+  "original_proofs": 19,
+  "original_proof_total": 132,
+  "original_checklist_accepted": 38,
+  "original_checklist_total": 191,
+  "expanded_checklist_accepted": 39,
+  "expanded_checklist_total": 192,
+  "main_targets_accepted": 0,
+  "main_targets_total": 8,
+  "new_kernel_checked_declarations": 29,
+  "implementation_declarations": 29,
+  "prototype_consumers": 0,
+  "candidate_groups": 4,
+  "root_kernel_state": "none; all8 root kernel attempts terminal:4 passing runs and4 preserved failures",
+  "reviewer_kernel_state": "none launched",
+  "passing_root_sessions": {
+    "CarrierFilteredCycles": 72620,
+    "CarrierSortedArcLists": 43464,
+    "CarrierMarkedArcLists": 74734,
+    "CarrierInheritedOrder": 33064
+  },
+  "same_model_technical_reviews": {
+    "status": "Four sealed; no technical defect within bounded scopes; independent AI authorship and review limitations disclosed; no stronger approval",
+    "files_sha256": {
+      "work/reviews/carrier-filtered-cycles-technical-review-20260912.json": "3c82b8e04a22501e78b04109d681b3f2b937cbd8f94d8e0e0fa14dd30e588ab1",
+      "work/reviews/carrier-sorted-arc-lists-technical-review-20260912.json": "afc39231d13c3689464dab721778679100f3ceffe569cff2c9e14e4c40a3a181",
+      "work/reviews/carrier-marked-arc-lists-technical-review-20260912.json": "0049610a7f3625572a47bc737026a68359a37feb1df095554f0d36771af807e0",
+      "work/reviews/carrier-inherited-order-technical-review-20260912.json": "e73e42d07aa5b239a607ef7778883b872a963bb7368458cd76bde43ba370876b"
+    },
+    "quoted_bindings_verified": 123,
+    "unique_bound_files": 94,
+    "source_fidelity_approval": false
+  },
+  "canonical_modules_unchanged": 327,
+  "baseline_files_unchanged": 2095,
+  "unique_candidate_evidence_files_checked": 70,
+  "passing_receipts_sha256": {
+    "work/checks/CarrierFilteredCycles-prototype-result.json": "347baf17301c2e0bc3764ac3be18a90fa49a36217cce6e403583c3ef783f2186",
+    "work/checks/CarrierSortedArcLists-prototype-result.json": "bccd4c137a6e8fd64ff41a55e205d28d7cbd11e3dc3d01ecbb40ece2bcfa47df",
+    "work/checks/CarrierMarkedArcLists-prototype-result.json": "b268f5911139585a66f55908d06c724294b067b584d4e7b0c465cc44462e3f42",
+    "work/checks/CarrierInheritedOrder-prototype-result.json": "64ecabfed93c6f6938062ba87e4295d0fc4b7ba9ba2eb08cda9c0852c2541f90"
+  },
+  "preserved_failed_sessions": [
+    29587,
+    38819,
+    10734,
+    25323
+  ],
+  "repair_header_changes": {
+    "29587": [
+      "sorted_rotate_getElem_between_iff"
+    ],
+    "38819": [],
+    "10734": [],
+    "25323": []
+  },
+  "proof_repairs": "SortedArcLists first29587: explicit Nat-zero indices in one invalid header and one local proof index; intended meaning unchanged but header text changed. MarkedArcLists first38819: prototype heartbeat limit only, with all mathematical bodies unchanged and earlier incorrect diagnosis explicitly corrected. InheritedOrder first10734 and second25323: proof-only subtype equality, decidability transport and definitional reduction. All failed artifacts preserved and compiler placeholders excluded.",
+  "verifier_execution": "Both new verifiers passed first execution after independent static adaptation review; exact configuration, ledger, every failed repair step, full-file reviews, traces and frozen baseline checked; no acceptance rule relaxed.",
+  "source_claim_acceptance_increment": 0,
+  "new_source_theorem_candidates": [],
+  "source_scope": "SM3 lem:carriers actual arc/list bridge, owner-filtered component representation and inherited-order base/singleton cases only; not full carrier geometry, arbitrary independent-support count or the main corner theorem",
+  "proved_scope": [
+    "Actual componentCycle defined by original markCycle filtered by actual owner, with exact membership, Nodup, nonemptiness, disjointness, injectivity and filtered split representation",
+    "Strict cyclic order of a sorted finite list is equivalent to literal rotated open-slice membership, with explicit endpoint exclusions and wraparound",
+    "Actual physical marked traversal arcs and owner-filtered slices agree, and independence gives same-slice twin consequences; current-owner premises remain explicit for filtered pairs",
+    "Explicit InheritsMarkOrder invariant is proved for empty support and singleton support, with exact two actual singleton inherited cycles and derived successor action, including empty arcs/singleton children"
+  ],
+  "remaining_carrier_scope": [
+    "Local ambient-permutation orbit transport on invariant sets, then exact affected child and unaffected old-component transport",
+    "New owner-filter identities and simultaneous inherited-order/remaining-pair current-orbit induction for arbitrary independent support",
+    "Exact affected two-element and unaffected singleton forget-map fibers, hence general plus-one component count",
+    "Actual geometric positive segments/corners, regularity/turn signs, retained crossings and all-visits noncrossing"
+  ],
+  "remaining_main_goal": "Actual corner-state-sum C, all-sector C-soft and wall laws, full-cusp/comparison and R/bridge; stronger fidelity, controlled integration and final acceptance checks",
+  "whole_library_audit_rerun": false,
+  "last_canonical_audit": "070",
+  "report": "reports/carrier-arc-and-inherited-order-candidates-20260912.md",
+  "next_action_document": "decisions/carrier-ambient-transport-next-step-20260912.md",
+  "next_action": "Implement the generic orbit transport helper and split-list specialization in decisions/carrier-ambient-transport-next-step-20260912.md. Derive equality of restricted permutations from EqOn and BijOn, then exact actual affected child orbits and unaffected component transport. Convert new owner predicates to original-circle filters. Maintain inherited order and remaining-selected-pair current-orbit membership simultaneously, prove exact two/singleton forget-map fibers and general component count. Continue carrier geometry/turns, retained crossings/noncrossing, actual corner coefficients and state sum, all-sector C-soft, wall laws, full-cusp/comparison and R/bridge. Stronger fidelity and controlled integration remain separate.",
+  "progress_watch_session": 78729,
+  "progress_watch_exit_code": 0,
+  "progress_reports_relayed_utc": [
+    "2026-09-12T05:20:24Z",
+    "2026-09-12T05:30:24Z",
+    "2026-09-12T05:40:24Z"
+  ],
+  "exit_progress_report_utc": "2026-09-12T05:46:41Z",
+  "hourly_app_automation": {
+    "id": "hourly-lean-formalization-progress",
+    "state": "Existing hourly heartbeat retained without changes; last saved configuration observation in099",
+    "observation": "work/checks/checkpoint-099-hourly-reporter-observation.json"
+  },
+  "process_inventory_note": "All terminal states use exact observed root session results; reviewers report no kernels. No process-inventory escalation.",
+  "checkpoint_evidence_sha256": {
+    "work/checks/checkpoint-100-verification.json": "d02646d1a2865136701a1070575203f7b4de686d4d183cb95df4b0ec73d8cfa7",
+    "work/checks/checkpoint-100-review-bindings.json": "7e4b6032d7e1636341e8a05a1f0192bf58f8767b1734ef71762d76570bb4531a",
+    "work/checks/checkpoint-100-verifier-static-review.json": "e28261e210404fcde5953faf67465a38ecf36bac79cd883e530eb482a0500d9a",
+    "work/checks/verify_carrier_arc_candidates.py": "208b7aaa4d2979ca13bfed91d9650ad64a3b16ab3ffe9ee2573ac66f525faadc",
+    "work/checks/verify_carrier_arc_review_bindings.py": "51296c9d940c64588b943c88933b49370e98b2b48426caf3159bad48d16e6a97",
+    "work/checks/verify_carrier_arc_candidates-first-draft.py": "208b7aaa4d2979ca13bfed91d9650ad64a3b16ab3ffe9ee2573ac66f525faadc",
+    "work/checks/verify_carrier_arc_review_bindings-first-draft.py": "51296c9d940c64588b943c88933b49370e98b2b48426caf3159bad48d16e6a97",
+    "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+    "work/checks/carrier-arc-baseline-20260912.json": "638e2b341c68f689af695cd6ad25b0b11710bd669efbf9d9322e032e294383e2",
+    "work/checks/carrier-arc-candidate-groups-20260912.json": "a0ecf1f1e353db164d48d084727b4363132ced39b98d6080dbe907f2fe77c993",
+    "work/checks/carrier-arc-preserved-failures-20260912.json": "1831a4d59ce17a214f0d9c5b6154c3df043aabc01c852071f9b561e357651627",
+    "work/checkpoints/goal-turn-100-candidates.json": "899c7404ec2f2d40dd32b2a8f351bbbd0dbf16f6365e215cc776a32c1bdddf4f",
+    "work/reports/carrier-arc-and-inherited-order-candidates-20260912.md": "5baf54c2c1b9917cfa6b1305df2cbece8e1b1b1d23a4b41ed59e3c595dab2ec7",
+    "work/decisions/carrier-ambient-transport-next-step-20260912.md": "142ea0631e953780c56b9b4de25d9fbd3219a31caff639dee506c5fba1b860b2",
+    "work/STATUS.md": "3d712374358a7daa2ee78f5a5fddbe599dacca249aed1218d19cf5a41edce871",
+    "work/TASKS.json": "deef7e60f065fd9c0bb3d6932ac199a5208e3b0137fb259cc7826e419323f748",
+    "work/AUTHOR_NOTES.md": "634084f474668ab7040383cd0289354223695caa9cb9e5e571f3545688e7d35f",
+    "work/reviews/carrier-filtered-cycles-technical-review-20260912.json": "3c82b8e04a22501e78b04109d681b3f2b937cbd8f94d8e0e0fa14dd30e588ab1",
+    "work/reviews/carrier-sorted-arc-lists-technical-review-20260912.json": "afc39231d13c3689464dab721778679100f3ceffe569cff2c9e14e4c40a3a181",
+    "work/reviews/carrier-marked-arc-lists-technical-review-20260912.json": "0049610a7f3625572a47bc737026a68359a37feb1df095554f0d36771af807e0",
+    "work/reviews/carrier-inherited-order-technical-review-20260912.json": "e73e42d07aa5b239a607ef7778883b872a963bb7368458cd76bde43ba370876b",
+    "work/checks/CarrierFilteredCycles-prototype-result.json": "347baf17301c2e0bc3764ac3be18a90fa49a36217cce6e403583c3ef783f2186",
+    "work/checks/CarrierSortedArcLists-prototype-result.json": "bccd4c137a6e8fd64ff41a55e205d28d7cbd11e3dc3d01ecbb40ece2bcfa47df",
+    "work/checks/CarrierMarkedArcLists-prototype-result.json": "b268f5911139585a66f55908d06c724294b067b584d4e7b0c465cc44462e3f42",
+    "work/checks/CarrierInheritedOrder-prototype-result.json": "64ecabfed93c6f6938062ba87e4295d0fc4b7ba9ba2eb08cda9c0852c2541f90"
+  }
+}

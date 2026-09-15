@@ -1,0 +1,58 @@
+{
+  "utc": "2026-09-12T04:28:28.273956+00:00",
+  "source_label": "SM2:thm:A-soft",
+  "declaration": "SM.SoftDuplication.soft_amplitude_source",
+  "state": "Complete source-theorem candidate kernel checked; source acceptance and stronger statement/definition fidelity remain pending.",
+  "source_acceptance_increment": 0,
+  "stronger_model_statement_fidelity_approval": false,
+  "canonical_integration_approved": false,
+  "source_path": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_statement_lines": "1152\u20131162",
+  "source_proof_lines": "1165\u20131467",
+  "root_kernel_session": 40796,
+  "exit_code": 0,
+  "receipt_path": "work/checks/SoftAmplitudeSource-prototype-result.json",
+  "receipt_sha256": "3ee7d9c92e50166a88124e0166f931844dab6fdfc086823c10fcd5dac280e33b",
+  "body_path": "work/checks/SoftAmplitudeSource.body.lean",
+  "body_sha256": "1ab4064122cadfe08b67af5376e199039cbc61331527d1be055370a6d0123e3e",
+  "prototype_path": "work/checks/SoftAmplitudeSource.prototype.lean",
+  "prototype_sha256": "58e84fdc007152ddeea80494c8ebbf254c0b83ef3866821c14ebd46e7cbd1b13",
+  "full_declaration_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "source_clause_mapping": [
+    {
+      "source": "Generic core polygon with at least three vertices; admissible q",
+      "lean": "hn:3\u2264n;hP:Generic P;hq:SoftAdmissible P j q;actual definitions inherited from frozen dependency bodies/canonical modules"
+    },
+    {
+      "source": "epsilon1 in (0,epsilon0]",
+      "lean": "For arbitrary epsilon0>0 constructs epsilon1=min epsilon0(min deltaA deltaG); source epsilon0 is a valid instance"
+    },
+    {
+      "source": "All sufficiently small positive epsilon",
+      "lean": "Entire interval0<epsilon<epsilon1, with actual child Generic produced as a conclusion"
+    },
+    {
+      "source": "Every nonsoft parent root with its corresponding core root; return maps to j",
+      "lean": "For every a\u2260softOldIndex j j obtains unique g with a=softParentEdge j g; actual map sends j to softNewIndex j"
+    },
+    {
+      "source": "A_parent=((chiMinus+chiPlus)/2)A_core",
+      "lean": "Actual treeCoefficient integer values cast to rationals; softAmplitudeMultiplier is the rational average of the physical attachment signs"
+    },
+    {
+      "source": "Same-sign, mixed and loop sector multipliers",
+      "lean": "All three conditional integer equalities are part of the final conclusion; signs and casts are derived, with no integer division"
+    }
+  ],
+  "important_limits": [
+    "This record locates and binds the checked source candidate; it does not independently approve the source meaning of every inherited definition.",
+    "The theorem is A-soft for rooted tree coefficients, not the user main corner-state-sum C-soft or wall-law theorem.",
+    "No accepted declaration-map row was changed."
+  ],
+  "next_required_review": "Stronger statement/definition fidelity of this complete declaration and its inherited mathematical definitions, then controlled canonical integration."
+}

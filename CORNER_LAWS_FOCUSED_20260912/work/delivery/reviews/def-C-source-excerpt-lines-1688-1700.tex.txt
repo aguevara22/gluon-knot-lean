@@ -1,0 +1,13 @@
+\begin{definition}[corner coefficient and the state sum]\label{def:C}
+For a subpolygon $Q$ of a decomposition of the generic polygon $P$, let
+$H^+_Q$ be the HOMFLY--PT polynomial of its positive lift and put
+\[
+d_Q=1-m_Q-|r_Q|,\qquad c(Q)=\bigl[a^{d_Q}z^0\bigr]H^+_Q(a,z)\in\ZZ,
+\]
+the coefficient of $a^{d_Q}z^0$ (zero if that monomial is absent). The
+\emph{corner state sum} of $P$ is
+\[
+C(P)=(-1)^{\ell(P)}\sum_{\substack{S\in\Ind(G_P)\\ S\text{ uniform}}}
+(-1)^{|S|}\prod_{Q\text{ subpolygon of }S}c(Q).
+\]
+\end{definition}

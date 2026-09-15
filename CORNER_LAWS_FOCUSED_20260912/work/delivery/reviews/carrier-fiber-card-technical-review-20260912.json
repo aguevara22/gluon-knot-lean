@@ -1,0 +1,94 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-fiber-card-technical-review-20260912",
+  "sealed_utc": "2026-09-12T06:28:18.769071+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the generic finite-fiber cardinality proof. Root alone ran Lean and generated frozen evidence. This reviewer authored no proof body or dependency, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions comprise independent comparison with the canonical finite fiber-sum and erasure identities, domain and arithmetic checks, and exact complete-file/receipt/ordered-embedding/trace verification."
+  },
+  "scope": {
+    "group": "CarrierFiberCard",
+    "declarations": [
+      "SM.Carrier.fintype_card_eq_add_one_of_fiber_cards"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "115–139 finite splitting induction, whose exact-one-more-component consequence is obtained by this generic finite-fiber calculation after the actual fibers are separately proved.",
+    "ambient_context": "Arbitrary Fintype domain α and codomain β, an arbitrary function f, one actual distinguished q0:β, literal fiber cardinality two over q0 and literal fiber cardinality one over every q≠q0. No ambient permutation, geometry, supplied equivalence or additional surjectivity premise enters."
+  },
+  "assessment": "No mathematical defect found in the generic full finite-fiber sum and exact plus-one cardinality argument.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 51491,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierFiberCard-prototype-result.json",
+    "receipt_sha256": "e2d1c9190af44b76d0704e8573c2fa8cbd0af9c3fdcb950ed1feb8a2778b5674",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierFiberCard.body.lean": "380f0c3925a6403d339a5e3d79fb6e3fc7eaa17ba8da32f64ea9ae0f04f37d56",
+      "work/checks/CarrierFiberCard.prototype.lean": "8ed927896d517463d4ddf558601a4f07d6247e0991531c18b8b2c95ee379b910",
+      "work/checks/CarrierFiberCard-first-kernel.log": "b7aab957882febecc5d3c19739f0d4871c29b30ee3bbbd7b582d761c0d416464"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierFiberCard.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierFiberCard.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 1,
+    "declaration_axioms": {
+      "SM.Carrier.fintype_card_eq_add_one_of_fiber_cards": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierFiberCard-first-draft.body.lean": "380f0c3925a6403d339a5e3d79fb6e3fc7eaa17ba8da32f64ea9ae0f04f37d56",
+      "work/checks/CarrierFiberCard-first-draft.prototype.lean": "8ed927896d517463d4ddf558601a4f07d6247e0991531c18b8b2c95ee379b910",
+      "work/checks/CarrierFiberCard-body-dependencies.json": "8abed5904bf42a9a429abc1cf77f48e670aa8bcdda1f91613b7489b2ccfaf2b6",
+      "work/checks/CarrierFiberCard-draft-dependency-bindings.json": "f80f7f7e8e6f8dfdfac7947c7be4bca64445dd5e91c28969dbc96cc6ca8fa295"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_files_sha256": {},
+    "failure_scope": "No failed CarrierFiberCard run; root first51491 passed with unchanged first-draft body and prototype. Upstream failed evidence is not used as successful evidence.",
+    "dependency_receipts_sha256": {},
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean": "41e5949c81b4c9c855b189701543b96cc98426253bdc7a9f6a8296406fe29298",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Finset/Card.lean": "8fde02f405a78deb476e0e5507cddf6e082cb5d1de2ef29d5cb6465e82b9b815",
+      "work/checks/carrier-count-baseline-20260912.json": "97adfe7f076c7bd50568a1dc8c978eae37b66f4fc5367b6b517db2564bb72839",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "The hypotheses refer to the literal Finset.univ.filter fibers of the given function. The theorem does not assume the desired cardinality, a domain/codomain equivalence, a supplied decomposition, or surjectivity.",
+    "Finset.card_eq_sum_card_fiberwise counts every domain element exactly once over the entire finite codomain. Its MapsTo condition is proved by membership in the codomain univ.",
+    "Every codomain point other than q0 is covered by hother. Summing over univ.erase q0 gives exactly the cardinality of that erased finset, because all those fiber counts equal one.",
+    "Finset.add_sum_erase separates precisely the distinguished fiber from the full sum. Its count is replaced by two, while all remaining fibers contribute one each.",
+    "Finset.card_erase_add_one applies because the actual q0 belongs to univ. The proof uses addition identities rather than truncated natural subtraction or division; 2 plus the erased count becomes the codomain count plus one.",
+    "The distinguished q0 already witnesses a nonempty codomain, and h0 implies a nonempty domain with two distinguished preimages. Empty-domain or empty-codomain edge cases are not silently assumed possible under these hypotheses.",
+    "A codomain with only q0 is included: the remaining sum is empty and the conclusion is two domain elements versus one codomain element. Literal singleton fibers are not omitted.",
+    "This generic theorem alone does not identify any actual carrier fiber. Its source relevance depends on the separate actual componentForgetSwitch fiber proofs and their later instantiation."
+  ],
+  "limits": "Generic finite-cardinality calculation only; no geometry or actual component identification is asserted. Source increment0; stronger fidelity and canonical integration false."
+}

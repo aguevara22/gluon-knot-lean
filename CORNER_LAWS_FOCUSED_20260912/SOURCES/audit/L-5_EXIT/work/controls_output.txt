@@ -1,0 +1,39 @@
+=== jones97_corner.py ===
+Jones Thm 9.7 (as printed) -> campaign corner  [a^{-(r-1)(2r+2)} z^0]
+ r | from Jones 9.7 | SM6 hsm:terminal-value | (-1)^{r-1}Cat_r | match
+ 2 | -2 | -2 | -2 | True
+ 3 | 5 | 5 | 5 | True
+ 4 | -14 | -14 | -14 | True
+ 5 | 42 | 42 | 42 | True
+ 6 | -132 | -132 | -132 | True
+
+BROKEN CONTROLS at r=3 (correct answer is +5):
+  [j]! read as the q-integer factorial: 0
+  sign (-1)^gamma in place of (-1)^beta: 5
+  exponent gamma*m+beta(beta+1)/2: 5
+  lambda = a^-2 (dropping q^-1): 5
+
+=== controls_r4.py ===
+r=4 correct answer: -14  (expect -14)
+  [j]! as q-integer factorial: 0
+  sign (-1)^gamma: 14
+  exponent gamma*m+beta(beta+1)/2: 14
+  lambda=a^-2 (drop q^-1): -14
+  prefactor lambda power off by one: zoo
+
+=== wenzl_lemma21.py ===
+2.1(i)  a_d + a_-d = 1 : True
+2.1(vi) a_m = a_n  iff  q^(m-n)=1 (sample m!=n, generic q): True
+2.1(ii) first form  : True
+2.1(ii) second form : True
+2.1(ii) a_d a_{-d-1} = q/(1+q)^2 : True
+hd:axial-sum        : True
+hd:axial-relation   : True
+common numerator id : (1-qX)(1-qY)-(1-q)(1-qXY) == q(1-X)(1-Y) : True
+pi_[2](e_1)   = a_{-1} = 0  (Wenzl p.365 prints 1)
+pi_[1^2](e_1) = a_{+1} = 1  (Wenzl p.365 prints 0)
+(3.5) numerator  : eta*q*qc - eta*q + eta*qc - eta - q*qc + 1
+(3.6) numerator  : eta*q*qc - eta*q + eta*qc - eta + q - qc
+difference       : -q*qc - q + qc + 1
+one box (qc=1): (3.5) -> 1   (3.6) -> -1
+SM6 hd:correct-numerator equals (3.5) numerator : True

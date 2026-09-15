@@ -1,0 +1,85 @@
+-- Written 10:15Z 2026-09-14 by the pod executor: the row module of fd:linking-calculus (row 88). The nine clauses are those of
+-- SM/LinkingCalculus.lean's LinkingCalculusDataOf (byte-identical fields) with the crossing formula UNCONDITIONAL, discharged by
+-- SM.regularPoleCount (SM/RegularPoleCount.lean).
+import SM.LinkingCalculus
+import SM.RegularPoleCount
+
+/-! # SM fd:linking-calculus — the row bundle (row 88)
+
+Source: reference/SM/sm-3-statesum.tex:2785-2826 (statement 2787-2824). The definitions (`linking`, `DisjointPair`,
+`DisjointPairFamily`, `GenericDirection`, `mixedCrossings`, `lcCrossingSign`, `FramedFamily`, `pushoff`, `TransverseFamily`,
+`IsPositiveTransverseEmbedding`, `selfLinking`, `ey`) and the proofs of the eight unconditional clauses live in SM/LinkingCalculus.lean
+(`fd_linking_calculus_of : LinkingCalculusDataOf`, whose `crossing_formula` clause takes the degree formula `RegularPoleCount` as a
+hypothesis); `SM.regularPoleCount` (SM/RegularPoleCount.lean) proves that formula, so the bundle below has no hypothesis.
+Main declaration: `SM.fd_linking_calculus : LinkingCalculusData`. Readings FR-LC-1..9 are recorded in work/AUTHOR_NOTES.md (D-F14/D-F16)
+and in work/drafts/fd/LINKING_CALCULUS_REPORT.md §4. -/
+
+namespace SM
+
+open scoped RealInnerProductSpace ContDiff
+open Set Function Filter Topology Real
+
+/-- Oriented `ℝ³`, as in SM/LinkingCalculus.lean (its local notation is repeated here). -/
+local notation "E3" => EuclideanSpace ℝ (Fin 3)
+
+/-- fd:linking-calculus (sm-3:2785-2826), one field per printed clause. -/
+structure LinkingCalculusData : Prop where
+  /-- sm-3:2794 "It is symmetric". -/
+  symm : ∀ (P : ℝ) (C₁ C₂ : ℝ → E3), DisjointPair P C₁ C₂ → linking P C₁ C₂ = linking P C₂ C₁
+  /-- sm-3:2794-2795 "and is constant under smooth families of disjoint oriented pairs". -/
+  family_const : ∀ (P : ℝ) (C₁ C₂ : ℝ → ℝ → E3), DisjointPairFamily P C₁ C₂ →
+    ∀ s ∈ Icc (0:ℝ) 1, ∀ s' ∈ Icc (0:ℝ) 1, linking P (C₁ s) (C₂ s) = linking P (C₁ s') (C₂ s')
+  /-- sm-3:2798-2799 "the projection along such a `ν` displays the pair with finitely many
+  transverse mixed crossings" (transversality is the defining independence of `GenericDirection`). -/
+  finite_crossings : ∀ (P : ℝ) (C₁ C₂ : ℝ → E3) (ν : E3), DisjointPair P C₁ C₂ →
+    GenericDirection C₁ C₂ ν → (mixedCrossings P C₁ C₂ ν).Finite
+  /-- sm-3:2802-2804 "Then `ℓ(C₁,C₂)` equals one half the sum over the mixed crossings of the
+  overpass-first sign `sgn det(u_o,u_u)` of the projected over and under tangents" (the degree
+  formula fd:regular-pole-count, sm-3:2894-2897, is the theorem `SM.regularPoleCount`). -/
+  crossing_formula : ∀ (P : ℝ) (C₁ C₂ : ℝ → E3) (ν : E3),
+    DisjointPair P C₁ C₂ → GenericDirection C₁ C₂ ν →
+    linking P C₁ C₂ = (1 / 2) * ∑ᶠ p ∈ mixedCrossings P C₁ C₂ ν, lcCrossingSign C₁ C₂ ν p
+  /-- sm-3:2810-2812 "One common sufficiently small positive `ε` gives disjoint framed pairs
+  `(C_s, C_s + εv_s)` throughout the family." -/
+  framing_uniform : ∀ (P : ℝ) (C v : ℝ → ℝ → E3), FramedFamily P C v →
+    ∃ ε₀ > 0, ∀ s ∈ Icc (0:ℝ) 1, ∀ ε, 0 < ε → ε ≤ ε₀ → DisjointPair P (C s) (pushoff (C s) (v s) ε)
+  /-- sm-3:2812-2813 "Their pairing is independent of that radius and of `s`": for any common radius
+  `ε₀` as in the previous clause, `ℓ(C_s, C_s + εv_s)` does not depend on `s ∈ [0,1]` or
+  `ε ∈ (0, ε₀]`. -/
+  framing_invariant : ∀ (P : ℝ) (C v : ℝ → ℝ → E3), FramedFamily P C v → ∀ ε₀ > 0,
+    (∀ s ∈ Icc (0:ℝ) 1, ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ u u', pushoff (C s) (v s) ε u ≠ C s u') →
+    ∀ s ∈ Icc (0:ℝ) 1, ∀ s' ∈ Icc (0:ℝ) 1, ∀ ε ε', 0 < ε → ε ≤ ε₀ → 0 < ε' → ε' ≤ ε₀ →
+      linking P (C s) (pushoff (C s) (v s) ε) = linking P (C s') (pushoff (C s') (v s') ε')
+  /-- sm-3:2813-2814 "This includes a homotopy of normal framings on a fixed curve": the previous
+  clause with `C_s = C` constant. -/
+  framing_homotopy : ∀ (P : ℝ) (C : ℝ → E3) (v : ℝ → ℝ → E3), FramedFamily P (fun _ => C) v →
+    ∀ ε₀ > 0, (∀ s ∈ Icc (0:ℝ) 1, ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ u u', pushoff C (v s) ε u ≠ C u') →
+    ∀ s ∈ Icc (0:ℝ) 1, ∀ s' ∈ Icc (0:ℝ) 1, ∀ ε ε', 0 < ε → ε ≤ ε₀ → 0 < ε' → ε' ≤ ε₀ →
+      linking P C (pushoff C (v s) ε) = linking P C (pushoff C (v s') ε')
+  /-- sm-3:2817-2820 "there is one `ε₀ > 0` such that `T_s` and `T_s + ε∂_y` are disjoint positive
+  transverse embeddings for every `s` and `0 < ε ≤ ε₀`". -/
+  transverse_uniform : ∀ (P : ℝ) (T : ℝ → ℝ → E3), TransverseFamily P T →
+    ∃ ε₀ > 0, ∀ s ∈ Icc (0:ℝ) 1, ∀ ε, 0 < ε → ε ≤ ε₀ →
+      IsPositiveTransverseEmbedding P (T s) ∧
+      IsPositiveTransverseEmbedding P (pushoff (T s) (fun _ => ey) ε) ∧
+      DisjointPair P (T s) (pushoff (T s) (fun _ => ey) ε)
+  /-- sm-3:2820-2824 "The number `sl(T_s) = ℓ(T_s, T_s + ε∂_y)` is independent of such `ε` and of
+  `s`": for any `ε₀` making the pairs disjoint as in the previous clause. -/
+  self_linking_invariant : ∀ (P : ℝ) (T : ℝ → ℝ → E3), TransverseFamily P T → ∀ ε₀ > 0,
+    (∀ s ∈ Icc (0:ℝ) 1, ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ u u', pushoff (T s) (fun _ => ey) ε u ≠ T s u') →
+    ∀ s ∈ Icc (0:ℝ) 1, ∀ s' ∈ Icc (0:ℝ) 1, ∀ ε ε', 0 < ε → ε ≤ ε₀ → 0 < ε' → ε' ≤ ε₀ →
+      selfLinking P (T s) ε = selfLinking P (T s') ε'
+
+/-- Lemma fd:linking-calculus (row 88). -/
+theorem fd_linking_calculus : LinkingCalculusData where
+  symm := fd_linking_calculus_of.symm
+  family_const := fd_linking_calculus_of.family_const
+  finite_crossings := fd_linking_calculus_of.finite_crossings
+  crossing_formula := fd_linking_calculus_of.crossing_formula regularPoleCount
+  framing_uniform := fd_linking_calculus_of.framing_uniform
+  framing_invariant := fd_linking_calculus_of.framing_invariant
+  framing_homotopy := fd_linking_calculus_of.framing_homotopy
+  transverse_uniform := fd_linking_calculus_of.transverse_uniform
+  self_linking_invariant := fd_linking_calculus_of.self_linking_invariant
+
+end SM

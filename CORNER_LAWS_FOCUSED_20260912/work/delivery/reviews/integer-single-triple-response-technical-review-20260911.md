@@ -1,0 +1,39 @@
+# Integer single-triple response — technical review
+
+2026-09-11. Review by another agent of the **same currently available model**. This is independent technical/source-comparison evidence, **not stronger-model statement-fidelity approval**, and not acceptance of the original source claims. Progress remains 39/192 accepted (20.3%), targets 0/8.
+
+## Findings
+
+No mathematical defect was found in the five reviewed declarations: `geometricBoundaryArray_intCast`, `integer_jump_of_rat_half`, and the three integer response theorems (arbitrary affine representation, constructed representation, and unordered support).
+
+1. **Faithful coefficient conversion.** `single_triple_integer_response_of_affine` specializes the previously reviewed arbitrary-ring response to the rationals, with an actual proof that 2 is invertible. It then applies `Int.cast_injective (α := ℚ)` to the desired integer amplitude equality. The inspected mathlib lemma is injectivity of the integer cast under `CharZero`; it is not an injectivity assumption about arbitrary coefficient rings. In each branch, cast subtraction, multiplication and addition, together with the proved integer U/V cast identities, identify the resulting rational goal with the supplied rational response. No inverse over the integers or integrality of raw inverse coordinates is asserted.
+2. **The scalar has the source normalization and orientation.** `geometricBoundaryArray_intCast` identifies the same reversed boundary chirotope in the integer and rational arrays. `integer_jump_of_rat_half` multiplies the rational half-jump by 2, cancels its inverse, and reflects the equality back to the integers. Thus the conclusion is the actual positive-side gate value minus the negative-side value equals `2 * d`, where `d = -1 ∨ d = 1`. This is precisely the source half-jump normalization expressed without integer division. The witness `d` is outside the radius and parameter quantifiers, so it is fixed independently of both side points.
+3. **Exact integer outputs and both branches.** The proper branch is `d * ((U_L * U_R) * treeCoefficient Q)`; the full branch is `d * (U_L * U_R + V_L * V_R)`. The integer gap definitions use E = the unit array and B = the actual closed-gap tree coefficient on nonleaves, with the formal value 1 on leaves. Their cast theorems identify the complete far-only outputs. Epsilon definitions are the printed signed ratios; the constructed wrapper additionally proves each epsilon is ±1 and at least one is positive. No assumption that the middle point lies between the endpoints is introduced.
+4. **The contracted coefficient is the source Q.** The proper branch uses `contractedWordTuple w.center g t`, retaining exactly the surviving boundary positions in order. Its G1 proof excludes the deleted critical middle label; its arity is proved from properness. `contractedWord_boundary`, the first/last-vertex lemmas, and `contractedWord_physical_root` identify local root 0 with the actual original directed edge. `contracted_output_tree` already identifies that polygon's far-only output with its integer tree coefficient. All data here are at the wall center. The full branch never constructs a two-vertex polygon amplitude. These auxiliary geometric assertions are available in the checked dependencies rather than repeated as separate conjuncts of the new response statement.
+5. **The wrappers preserve the source domain.** The first response theorem covers every affine representation satisfying the printed equations, nonzero direction, and three coordinate inequalities. The next constructs such data from determinant zero and three explicit physical point inequalities. The unordered wrapper accepts any support K with unique zero-support equality, physical pairwise separation, and sign change for any enumeration of K; it constructs the unique increasing boundary reading and transports the sign change to the geometric array's order. It retains `Z_c = ∅`. The explicit bound `3 ≤ n` agrees with the polygon domain and follows in substance from a three-element label support; no bound `4 ≤ n` is added. Physical distinctness remains explicit at arity three.
+6. **Parameters and noncircularity.** A positive radius at most the germ radius precedes universal quantification over independently chosen negative and positive `w.Parameter` values. Both need only satisfy their respective distance bounds. Genericity of each punctured point comes from the wall germ, not an extra caller premise. All affine, support, gap, and Q prerequisites are constructed from geometric input; none assumes the response conclusion. The dependency direction is arbitrary-ring response → integer cast identification → source-input wrappers.
+
+This comparison uses `reference/SM/sm-2-amplitude.tex`, `lem:farout` lines 146–169 and `thm:single-triple` lines 229–373, including `afr:wall-data`, `afr:wall-epsilons`, `afr:wall-uv`, `afr:wall-proper`, and `afr:wall-full`. The statements use wall-center coefficients. The source's equivalent description by sufficiently close unchanged signs is established in the earlier stability dependencies, not restated here. Classification into named wall types and their later specialized laws is outside this five-declaration review.
+
+## Receipt verification and bindings
+
+All **32/32** file hashes in the integer-response receipt and **34/34** in the unordered-wrapper receipt match current bytes. Every listed body occurs verbatim exactly once in its prototype. The passing logs print the corresponding three and two declarations; their axiom traces use only `propext`, `Classical.choice`, and `Quot.sound`. No passing-log error, `sorryAx`, `native_decide`, or `Lean.ofReduceBool` was found. No Lean kernel or build was run by this reviewer.
+
+The integer response passed root's **second session 74454**, exit 0. Preserved first session **36650** failed on the named argument `R` to `Int.cast_injective` and is not passing evidence. Its body differs only by correction to `α`; all three statements are unchanged. The two wrappers passed root's **first session 17021**, exit 0, confirmed by root before report finalization.
+
+The two receipt hashes bind their complete dependency manifests; principal SHA-256 bindings follow (relative to the focused root).
+
+| File | SHA-256 |
+|---|---|
+| `work/checks/IntegerSingleTripleResponse.body.lean` | `227462b1bbe0456ce83377b04e35bc6d78ef8aed641200b783f83f9779d4d130` |
+| `work/checks/IntegerSingleTripleResponse.prototype.lean` | `e2705993d75ba190eb119a510823e6b35db5aa9cf7c089d56f4cb254e8236661` |
+| `work/checks/IntegerSingleTripleResponse-second-kernel.log` | `d0b6df8aa13433cd302a659cb4380a3c1c2e3995d194bff052cbf5cfd9631e72` |
+| `work/checks/IntegerSingleTripleResponse-prototype-result.json` | `c2a60005368d7ff1b4f97537d4e8f8fc25032ac06c0200d63c2cb501e98c3acb` |
+| `work/checks/UnorderedIntegerSingleTripleResponse.body.lean` | `8ca300a7f8e958f411293b362ec270975e3941669313e9a501f75ef9d7e359a4` |
+| `work/checks/UnorderedIntegerSingleTripleResponse.prototype.lean` | `65636b31cd8699eda1ea6a48258d528e974c83d5bc6a96b957e2c8a55243440d` |
+| `work/checks/UnorderedIntegerSingleTripleResponse-first-kernel.log` | `d9deebdcb02150037674025d00bf3614344a1b924d50c63fc62efc6b5ab0a33c` |
+| `work/checks/UnorderedIntegerSingleTripleResponse-prototype-result.json` | `dc06ddd8ad5ef8e1830d80ea0503ef7fdd4a5d1fcf9d3f4b1adffd1db7fb4629` |
+| `work/lean/.lake/packages/mathlib/Mathlib/Data/Int/Cast/Lemmas.lean` | `96045cabdced9868db60ce14a08ed828dab1291951937b2d05ab8d7c476853b3` |
+| `reference/SM/sm-2-amplitude.tex` | `014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf` |
+
+Successful recorded checks and hash agreement do not establish stronger statement fidelity or source acceptance. No frozen Lean body, canonical file, acceptance map, or status was edited.

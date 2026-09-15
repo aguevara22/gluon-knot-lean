@@ -1,0 +1,27 @@
+\begin{definition}[corner, turn sign, and $\wind$]\label{def:wind}
+Let $P$ be \emph{generic} and $S\in\Ind(G_P)$ --- the binders under which the
+definition is read, and which an earlier revision left to the ambient
+subsection, whose standing hypothesis is only that $P$ is diagrammatic. A
+\emph{corner} of a carrier of $S$ is either a vertex $p_i$ of $P$ traversed by
+it or a smoothing site of $S$ traversed by it. At each corner the carrier turns
+\emph{left} or \emph{right} according to the sign of the determinant of the
+incoming and outgoing directions, which under genericity is nonzero: at a
+vertex by (G1), unconditional and hence relevant, at a smoothing site by (G5),
+active at a crossing. On a merely diagrammatic polygon the vertex clause is
+false --- $((0,0),(1,0),(2,0),(0,1))$ is diagrammatic and its turn at $p_2$ is
+exactly zero --- which is why the generic binder is part of this definition and
+not decoration. A carrier is \emph{uniform} if all its corners turn the
+same way and \emph{mixed} otherwise. Its \emph{weight} is
+\[
+   \mathrm{wt}(L)=\begin{cases}
+     +1, & L \text{ uniform, all turns right},\\
+     (-1)^{c(L)}, & L \text{ uniform, all turns left, } c(L)=\#\text{corners},\\
+     0, & L \text{ mixed},
+   \end{cases}
+\]
+and $\wind(S)=\prod_{L}\mathrm{wt}(L)$, the product over the $|S|+1$ carriers of
+$S$. In particular $\wind(S)\neq0$ forces every carrier of $S$ to be
+uniform: $\wind(S)$ is a product of integers, a product of integers is
+nonzero only if every factor is, and the weight of a mixed carrier is $0$.
+\end{definition}
+

@@ -1,0 +1,118 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "formal-near-far-recursion-technical-review-20260911",
+  "sealed_utc": "2026-09-12T00:22:43.696095+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "provider": "OpenAI",
+    "product": "Codex",
+    "model_relationship": "Same currently available model as the root implementer; no stronger-model review performed.",
+    "exact_serving_model_identifier": "Not independently exposed in this session.",
+    "authored_reviewed_bodies": false
+  },
+  "scope": {
+    "group": "FormalNearFarRecursion",
+    "declarations": [
+      "SM.openTreeRec_nearFar_equation",
+      "SM.openTreeRec_nearFar_inverse",
+      "SM.rootedTreeRec_nearFar_farOnly"
+    ],
+    "source_id": "cor:polyform",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "source_lines": "934-984, particularly 946-970; dependent source lem:farout 146-168 and lem:multiaffine 714-746"
+  },
+  "assessment": "No technical defect found in the exact reviewed statements and proofs within this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel": false,
+    "reviewer_ran_build_or_audit": false,
+    "reviewed_bodies_modified": false,
+    "root_kernel_session": 19470,
+    "root_exit_code": 0,
+    "first_run_passed": true
+  },
+  "evidence": {
+    "receipt_path": "work/checks/FormalNearFarRecursion-prototype-result.json",
+    "receipt_sha256": "021fc789f42f8ce5b54cb53da077c5dd0cd48ca3318af3ad87f3c7adc72b2c91",
+    "all_receipt_hashes_matched": true,
+    "receipt_bound_files_sha256": {
+      "work/checks/FormalNearFarRecursion.body.lean": "cb09942ff8dd58949c85ff68239e441c17f132aa94b6d54810c50834738e2666",
+      "work/checks/FormalNearFarRecursion.prototype.lean": "dd08517bbef09a4923a6dae4e2a5956b79533e136100ccc3c1fb66f7793f7c1c",
+      "work/checks/FormalNearFarRecursion-first-kernel.log": "daca774abf801450577e0ca92757abb10b54b0f85ee4986ab63554f2f49704aa"
+    },
+    "exact_body_embedding_counts": {
+      "work/checks/FormalNearFarRecursion.body.lean": 1
+    },
+    "requested_declaration_axioms_verified_from_log": {
+      "SM.openTreeRec_nearFar_equation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_nearFar_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec_nearFar_farOnly": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "passing_log_forbidden_error_or_axiom_hits": [],
+    "canonical_definitions_read_sha256": {
+      "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+      "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+      "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+      "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/PlaneTreeFormal.lean": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9"
+    }
+  },
+  "source_declaration_header_bindings": {
+    "openTreeRec_nearFar_equation": {
+      "source_header": "theorem openTreeRec_nearFar_equation (D H : TripleArray n R) :\n    nearFarTransform D H (openTreeRec (fun _ π => π.nearFarWeight D H)) = boundaryUnitArray",
+      "sha256": "4dca7d09f2e3aa6680bfbce5152dae5d68a34e3dcba8ca47ee11d0cda0d022b5"
+    },
+    "openTreeRec_nearFar_inverse": {
+      "source_header": "theorem openTreeRec_nearFar_inverse (D H : TripleArray n R) :\n    openTreeRec (fun _ π => π.nearFarWeight D H) = nearFarInverse D H boundaryUnitArray",
+      "sha256": "22f5475562ddfcd3f8fb0d5cf9c8d5c7f3657ce3731b00d9c5805f2a94bb875d"
+    },
+    "rootedTreeRec_nearFar_farOnly": {
+      "source_header": "theorem rootedTreeRec_nearFar_farOnly (D H : TripleArray n R) (I : BoundaryInterval n) :\n    rootedTreeRec (fun _ π => π.nearFarWeight D H)\n      (fun _ π => π.nearFarWeight D (-H)) I = farOnlyOutput H I",
+      "sha256": "4c9c9dab126cf19672fd4bd05f643673b50bc31eca891921c610a26643d574fe"
+    }
+  },
+  "findings": [
+    {
+      "topic": "Exact domain and recursion",
+      "finding": "The three theorems quantify over arbitrary arrays D,H in an arbitrary commutative ring with invertible 2 and every actual boundary interval; no geometry, genericity, nonzero weight, integral-domain, or caller solution premise is added. The openTreeRec is the canonical well-founded recursion, whose nonunary children have strictly fewer leaves."
+    },
+    {
+      "topic": "Complete equation, including unary and leaf cases",
+      "finding": "nearFarTransform_eq_triangular separates the actual unique unary composition with weight 1 and its unchanged child coordinate. On a one-leaf interval, every putative nonunary composition contradicts parts_eq_one_of_leaves_eq_one, so the open value and E are both 1. For every other interval, positive length gives at least two leaves; the actual open recursion is minus the entire nonunary sum, which cancels that same sum in the transform. No term or child is omitted."
+    },
+    {
+      "topic": "Actual inverse and full reversed output",
+      "finding": "The equation just proved supplies the hypothesis of canonical nearFar_solution_unique, identifying the complete open array with the constructed two-sided inverse. The rooted theorem instantiates reversedFar_output_of_solution with this actual array and E; canonical factorization then gives F_(-H)(F_H^(-1)(E)). rootedTreeRec is the full raw-composition sum with root product nearFarWeight D (-H), including unary roots and no extra root minus sign."
+    },
+    {
+      "topic": "Source role and noncircularity",
+      "finding": "This implements the formal recursion and far-only reduction in cor:polyform lines 946–967, using the proved arbitrary-ring lem:farout mechanism. It proves the premise needed by the solution helper instead of assuming it. It is independent of realizable chirotopes, step-function values at zero, continuation values, and silent constancy."
+    }
+  ],
+  "limits": [
+    "This is a technical/source comparison by another agent of the same currently available model, NOT the stronger-model statement-fidelity approval requested by the user.",
+    "Receipt matching and prior kernel success are evidence of the exact checked artifacts, not by themselves source fidelity or acceptance.",
+    "No original source row, stage, or corner-law target is accepted by this report."
+  ]
+}

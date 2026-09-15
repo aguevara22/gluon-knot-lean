@@ -1,0 +1,503 @@
+\section{Fixed-count transport}\label{sec:transport}
+
+\subsection{The circular stars}
+
+\begin{definition}[stars and the bow-tie]\label{def:star}
+For $r\geq1$ put $N=2r+1$, $u_k=(\cos\frac{2\pi k}N,\sin\frac{2\pi k}N)$ for
+$k\in\ZZ/N$, and
+\[
+K_r=(\mu_1,\ldots,\mu_N),\qquad \mu_t=u_{r(t-1)},
+\]
+the polygon visiting every $r$-th point of the regular $N$-gon in turn. Put
+$K_{-r}=\overline{K_r}$. The \emph{bow-tie} is
+$K_0=\bigl((0,0),(2,2),(0,2),(2,0)\bigr)$.
+\end{definition}
+
+\begin{lemma}[the stars are generic]\label{lem:star-generic}
+Let $r\geq1$ and $N=2r+1$. Then $\gcd(r,N)=1$, and the following hold.
+\begin{enumerate}
+\item[(i)] $\sigma K_r=R(K_r)$, where $R$ is the rotation of the plane by
+$2\pi r/N$ about the origin. Consequently every principal turn of $K_r$
+equals $2\pi r/N\in(0,\pi)$, all turns are left, and $\rot(K_r)=r$.
+\item[(ii)] Every edge line of $K_r$ is tangent to the circle of radius
+$\rho=\cos(\pi r/N)$ about the origin, at the midpoint of the edge, and the
+origin lies strictly to the left of every directed edge.
+\item[(iii)] $K_r$ is generic; hence $K_{-r}$ is generic with all turns
+right and $\rot(K_{-r})=-r$.
+\item[(iv)] $K_0$ is generic, with
+$(\chi_{123},\chi_{124},\chi_{134},\chi_{234})=(+1,-1,-1,+1)$, turns
+$(\tau_1,\tau_2,\tau_3,\tau_4)=(-1,+1,+1,-1)$, $\rot(K_0)=0$ and
+$X(K_0)=\{\{1,3\}\}$.
+\end{enumerate}
+\status{new (round~4: $\gcd(r,2r+1)=1$ stated, proved and cited at its two uses; adopted from the Codex proposal sm4\_round4\_triple\_star\_v1 (seal 9a82b59a\ldots), F125, re-read by the author; F-25-125; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{lemma}
+\begin{proof}
+First, every common positive divisor of $r$ and $N$ divides
+$N-2r=1$, so $\gcd(r,N)=1$.
+For integer indices $j,k$, if $rj\equiv rk\pmod N$ then
+$N$ divides $r(j-k)$. Multiplying that divisibility by $2$ and
+using $2r=N-1$ shows that $N$ divides $j-k$.
+Thus multiplication by $r$ permutes the residue classes modulo $N$,
+so the displayed star vertices are distinct.
+Moreover $R^k$ is the identity precisely when $kr/N$ is an integer.
+The same divisibility argument makes this equivalent to $N\mid k$;
+the least positive such $k$ is $N$, proving that $R$ has order $N$.
+
+(i) $(\sigma K_r)_t=\mu_{t+1}=u_{rt}=R(u_{r(t-1)})=R(\mu_t)$. Hence
+$\lt_t=R(\lt_{t-1})$ for every $t$, so each principal turn is the angle of
+$R$ reduced to $(-\pi,\pi)$, which is $2\pi r/N$ itself because $2r<N$; the
+$N$ turns sum to $2\pi r$. (ii) $E_t$ is the chord from $u_a$ to $u_{a+r}$
+with $a=r(t-1)$. The counterclockwise arc from $u_a$ to $u_{a+r}$ has angle
+$2\pi r/N<\pi$, so the midpoint of the chord is at distance $\cos(\pi r/N)$
+from the origin and the chord line is tangent there to the circle of that
+radius; a chord directed along a counterclockwise arc of angle less than
+$\pi$ has the centre on its left. (iii) (G1): the residue permutation proved above gives $N$ distinct
+vertices on the unit circle, and no three points of a circle are collinear.
+(G2): the $N$ edge lines are pairwise distinct tangent lines of the circle of
+radius $\rho$ (their tangency points are the $N$ distinct images of one
+midpoint under the powers of $R$, whose order was proved to be $N$). Through a point
+outside a circle pass exactly two tangent lines of the circle, so no three of
+the edge lines are concurrent, and a fortiori no three edge interiors are.
+The statements for $K_{-r}$ are Lemma~\ref{lem:shift}(ii)--(iv). (iv) The
+four determinants are $\det((2,2),(0,2))=4$, $\det((2,2),(2,0))=-4$,
+$\det((0,2),(2,0))=-4$, $\det((-2,0),(0,-2))=4$; the turns are
+$\tau_1=\chi_{412}=\chi_{124}$, $\tau_2=\chi_{123}$, $\tau_3=\chi_{234}$,
+$\tau_4=\chi_{341}=\chi_{134}$ (Lemma~\ref{lem:chi-basic}(i)). The edges
+$E_1=[(0,0),(2,2)]$ and $E_3=[(0,2),(2,0)]$ meet at $(1,1)$, while $E_2$ and
+$E_4$ are disjoint parallel segments; there is one crossing point, so (G2)
+holds. The principal turns are $-\frac{3\pi}4,\frac{3\pi}4,\frac{3\pi}4,-\frac{3\pi}4$,
+which sum to $0$.
+\end{proof}
+
+\subsection{Connectivity of the regular fibres}
+
+% Printed in round 1 from the Codex pack candidate_transport_v1 (C021); no historical machine check is a premise.
+\begin{lemma}[positive closing lengths along a direction path]
+\label{lem:transport-lengths}
+Let $u_1(t),\ldots,u_n(t)$ be continuous unit vectors on a compact interval,
+lying in no closed semicircle at any parameter. There are continuous strictly
+positive lengths $l_i(t)$ with $\sum_i l_i(t)u_i(t)=0$. At either endpoint,
+any prescribed positive closing lengths can be joined to the selected lengths
+while keeping the directions fixed.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV thm:mycyclic, prose proof in d8\_transport (C021))}
+\end{lemma}
+\begin{proof}
+For finitely many planar unit vectors, lying in no closed semicircle is
+equivalent to the origin being in the interior of their convex hull.
+Indeed a supporting line through the origin for a boundary point of that
+convex polygon, or a separating line if the origin is outside it, puts all
+vectors in one closed half-plane through the origin. Conversely, a closed
+half-plane through the origin cannot contain a neighbourhood of the origin.
+This is also valid for a segment or a point as convex hull, since either is
+contained in a closed half-plane through the origin whenever the origin is
+not an interior point in the plane.
+
+Fix a parameter and put $b=\sum_i u_i$. Interiority gives an $\epsilon>0$
+such that $-\epsilon b$ belongs to the convex hull. Write
+$-\epsilon b=\sum_i a_i u_i$ with $a_i\geq0$. Then
+\begin{equation}\label{transport:positive-close}
+ \sum_i(a_i+\epsilon)u_i=-\epsilon b+\epsilon\sum_i u_i=0,
+ \qquad a_i+\epsilon>0.
+\end{equation}
+Thus there is a strictly positive closing vector at each parameter.
+
+Fix such a vector $l$ at $t_0$. Choose $p,q$ with
+$\det(u_p(t_0),u_q(t_0))\ne0$, possible because the vectors are not all
+parallel. Let $E(t)=\sum_i l_i u_i(t)$ and
+$D(t)=\det(u_p(t),u_q(t))$. Correct just two coordinates by
+\begin{equation}\label{transport:cramer}
+ \delta_p(t)=-\frac{\det(E(t),u_q(t))}{D(t)},\qquad
+ \delta_q(t)=-\frac{\det(u_p(t),E(t))}{D(t)}.
+\end{equation}
+The determinant expansion of a vector in the basis $(u_p,u_q)$ gives
+$E+\delta_pu_p+\delta_qu_q=0$. The correction is continuous and vanishes
+at $t_0$, so all corrected lengths remain positive on a neighbourhood of
+$t_0$. This constructs local continuous positive closing vectors.
+
+For a one-point parameter interval the pointwise choice already suffices.
+Otherwise choose a finite cover by proper smaller relative intervals, with
+nonempty complements, whose closures lie in these neighbourhoods.
+Continuous nonnegative weights subordinate to the smaller
+intervals, summing to one, can be obtained by taking distances to their
+complements and normalizing their sum. Multiply each weight by the local
+closing vector on its neighbourhood and sum. The products extend continuously
+by zero outside the smaller intervals because the local vectors are bounded
+on their closures. The result is a continuous positive closing vector: closure
+is linear and every positively weighted local vector has all entries positive.
+Finally, for fixed directions the set of strictly positive closing lengths is
+convex. Straight segments in that set join any prescribed endpoint lengths
+to the selected ones.
+\end{proof}
+
+\begin{lemma}[lifting a semicircle to one real interval]
+\label{lem:transport-angle-interval}
+If a finite real sequence $\theta_0,\ldots,\theta_N$ has
+$|\theta_{i+1}-\theta_i|<\pi$, and all its unit directions lie in a closed
+semicircle, then all its real entries lie in one interval of length $\pi$.
+Conversely, containment of all entries in such an interval puts their unit
+directions in a closed semicircle.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV thm:mycyclic, prose proof in d8\_transport (C021))}
+\end{lemma}
+\begin{proof}
+The inverse image of a fixed closed semicircle under
+$\theta\mapsto(\cos\theta,\sin\theta)$ is a union of intervals
+$[\alpha+2\pi k,\alpha+\pi+2\pi k]$. Distinct consecutive intervals have
+a gap of length $\pi$. A step of absolute size strictly less than $\pi$
+cannot move from one interval to another, so induction fixes one interval
+for the whole sequence. The converse follows by projection of that interval.
+\end{proof}
+
+\begin{theorem}[connectivity of the fibres]\label{thm:mycyclic}
+Let $(n,r)$ be admissible and let $P,P'\in\mathcal R_n$ be labelled tuples
+with $\rot(P)=\rot(P')=r$. If $(n,r)\ne(4,0)$, a continuous path in
+$\mathcal R_n\cap\rot^{-1}(r)$ joins $P$ to $P'$. If $(n,r)=(4,0)$,
+there is a $k\in\mathbb Z/4$ and such a path from $P$ to $\sigma^kP'$.
+The four shifts of $K_0$ lie in the four distinct labelled components,
+distinguished by their turn words. Thus every fibre of cyclic polygon orbits
+is path connected.
+\status{proved (refereed: bench A, 2026-09-05T19:29:31Z; transcribed from CV thm:mycyclic --- the $k=0$ refinement from CV's proof, not its statement --- with RC root:four-components for the realizability of the four words at $(4,0)$; the two locators compose, each supplying a half (C021; F-25-49, F-25-104, F-25-129))}
+\end{theorem}
+\begin{proof}
+Use tail directions $d_i=\mu_{i+1}-\mu_i$, unit directions $u_i=d_i/|d_i|$,
+and principal turns $\vartheta_i\in(-\pi,\pi)$ from $u_{i-1}$ to $u_i$.
+Multiplication of $u_i=e^{\mathrm i\vartheta_i}u_{i-1}$ around the cycle
+shows that $\sum_i\vartheta_i$ is an integer multiple of $2\pi$.
+Principal turns vary continuously on the regular locus, so their normalized
+sum is constant on every path there. The symbols $\tau_i$ remain the signs
+of these real principal turns, not the angles themselves.
+
+\emph{Reconstructing a polygon from directions.}
+A direction path with no antiparallel successive pair and with no closed
+semicircle containment can be closed using
+Lemma~\ref{lem:transport-lengths}. Starting at any continuous base point,
+successively add the positive vectors $l_i(t)u_i(t)$; the final sum is zero,
+so this gives a continuous closed labelled $n$-tuple. Every edge is nonzero,
+and every successive pair has the prescribed principal turn in $(-\pi,\pi)$.
+Consequently the tuple stays in $\mathcal R_n$. Interpolate the base point
+between those of $P,P'$ and use the endpoint length segments of that lemma
+to recover the exact endpoint tuples. No vertex is inserted or deleted.
+
+\emph{Nonzero rotation.}
+Choose real arguments $\beta,\beta'$ for the first unit directions and
+interpolate these arguments and all principal turns linearly. The interpolated
+turns lie strictly between $-\pi$ and $\pi$ and have sum $2\pi r$.
+The lifted edge arguments, starting with $\theta_0(t)=\beta(t)$, are
+\begin{equation}\label{transport:prefix}
+ \theta_k(t)=\beta(t)+\sum_{m=1}^{k}\vartheta_{m+1}(t),
+ \quad 0\leq k\leq n,
+ \qquad \theta_n(t)-\theta_0(t)=2\pi r,
+\end{equation}
+where turn indices are cyclic. The first $n$ entries give the unit directions;
+the last repeats the first direction because $r$ is an integer. If these
+directions lay in a closed semicircle,
+Lemma~\ref{lem:transport-angle-interval} would put the whole lifted sequence
+in one interval of length $\pi$, implying $|2\pi r|\leq\pi$.
+This contradicts $r\ne0$. The reconstruction above therefore joins the exact
+labelled endpoints, with no cyclic shift.
+
+\emph{The zero-rotation angle domain.}
+For $r=0$, the lifted angles close as real numbers and form a cyclic vector
+$\theta=(\theta_1,\ldots,\theta_n)$ satisfying
+\begin{equation}\label{transport:zero-angle-domain}
+ |\theta_{i+1}-\theta_i|<\pi\quad\text{cyclically}.
+\end{equation}
+The directions of any regular closed polygon lie in no closed semicircle.
+For if a normal $v\ne0$ had $\langle v,d_i\rangle\geq0$ for every edge,
+closure would force every scalar product to be zero. All directions would
+then be on the two rays of one line. Antiparallel adjacent directions are
+forbidden, so every edge would point along the same ray. Their positive
+length sum could not be zero. By
+Lemma~\ref{lem:transport-angle-interval}, the cyclic angle vector of a
+zero-rotation polygon consequently has
+$\max_i\theta_i-\min_i\theta_i>\pi$.
+
+For an ordered pair of indices with forward cyclic distance
+$d\in\{2,\ldots,n-2\}$, define
+\begin{equation}\label{transport:chart}
+ \mathcal A(h,d)=\{\theta:\eqref{transport:zero-angle-domain}\text{ holds},
+                  \ \theta_h-\theta_{h+d}>\pi\}.
+\end{equation}
+These open convex charts cover all zero-rotation endpoints: take a maximum
+and a minimum; they cannot be cyclically adjacent by
+\eqref{transport:zero-angle-domain}. Conversely every chart point has
+directions lying in no closed semicircle, by
+Lemma~\ref{lem:transport-angle-interval}. Every continuous angle path inside
+the union can thus be reconstructed as above.
+
+\emph{Connected chart overlaps for $n\geq5$.}
+For $2\leq d\leq n-3$, both of the following chart pairs intersect:
+\begin{equation}\label{transport:chart-moves}
+ \mathcal A(h,d),\mathcal A(h,d+1);
+ \qquad \mathcal A(h,d+1),\mathcal A(h+1,d).
+\end{equation}
+Here is an explicit witness, reading indices $s=0,\ldots,n-1$ from $h$.
+Set the high value to $3\pi/2$ and the low value to zero. For the first pair,
+put the high value at $s=0$, descend linearly to zero at $s=d$, keep zero
+through $s=d+1$, and rise linearly back to the high value at $s=n$.
+For the second pair, keep the high value at $s=0,1$, descend linearly to zero
+at $s=d+1$, and rise linearly back to the high value at $s=n$.
+Every ramp has at least two steps, so each step has magnitude at most
+$3\pi/4<\pi$. Each specified high-minus-low difference is $3\pi/2>\pi$,
+proving both overlaps. The cyclic last step is one of these ramp steps.
+
+The first moves reduce any distance to two. At distance two, the two moves
+$\mathcal A(h,2)\to\mathcal A(h,3)\to\mathcal A(h+1,2)$ advance the high
+index by one, and are valid even for $n=5$. Hence their overlap graph is
+connected. Join endpoint angle vectors to consecutive overlap witnesses by
+straight segments in their convex charts. The resulting finite path of
+feasible angle vectors reconstructs a regular path from $P$ to $P'$, again
+with no relabelling.
+
+\emph{The exceptional four-vertex fibre.}
+For $n=4$ the charts are just $\mathcal A(h,2)$ for four indices $h$.
+They are nonempty: values $3\pi/2,3\pi/4,0,3\pi/4$, beginning at $h$,
+satisfy all their inequalities. If $\theta_h-\theta_{h+2}>\pi$, the two
+intermediate entries satisfy
+\begin{equation}\label{transport:four-orders}
+ \theta_h>\theta_{h+1}>\theta_{h+2},\qquad
+ \theta_h>\theta_{h+3}>\theta_{h+2}.
+\end{equation}
+For example $\theta_{h+1}>\theta_h-\pi>\theta_{h+2}$, and
+$\theta_{h+1}<\theta_{h+2}+\pi<\theta_h$; the other case is identical.
+Thus the turn signs, beginning at vertex $h$, are $(+,-,-,+)$.
+The four charts force the four distinct cyclic rotations of this word.
+They are therefore disjoint, and every rotation-zero four-tuple belongs to
+one of them. In particular no such tuple has a zero turn. Along a regular
+zero-rotation path all four nonzero turn signs remain fixed by continuity,
+so different words cannot be joined. Two tuples with the same word belong
+to the same convex angle chart; their real argument choices can differ by
+a common multiple of $2\pi$, which changes neither the chart inequalities
+nor the reconstruction. Interpolation inside that chart and the positive-length
+construction join them. There are exactly four components.
+
+For $K_0=((0,0),(2,2),(0,2),(2,0))$ the corner determinants are
+$(-4,4,4,-4)$. Its principal turns are the corresponding signs times
+$3\pi/4$, so its rotation is zero. Cyclic shifts rotate this sign word and
+exhibit all four components. Shifting $P'$ to match the word of $P$ gives
+the asserted path in the exceptional case.
+
+Finally a regular triangle is noncollinear: three collinear nonzero closing
+edges must reverse direction at a vertex. All three turn determinants of a
+noncollinear triangle equal its oriented area determinant, so the three
+principal turns have one sign. Their sum is a nonzero multiple of $2\pi$
+of absolute value less than $3\pi$; its rotation is $+1$ or $-1$.
+There is no zero-rotation case at $n=3$. These cases exhaust admissible
+arities. Passing any constructed path to the cyclic quotient identifies
+its shifted target with the original target orbit, proving the orbit statement.
+\end{proof}
+
+\paragraph{Collision boundary of this statement.}
+The regular locus forbids zero edges and antiparallel consecutive directions;
+it does not forbid equality of nonadjacent vertices. Such equality may already
+occur at the endpoints above, so no collision-free strengthening is asserted
+for arbitrary regular endpoints.
+
+\subsection{Transport through simple walls}
+
+
+
+\begin{lemma}[transport]\label{lem:transport}
+Let $P,Z$ be generic labelled tuples in the same fibre $(n,r)$. There are
+$k\in\ZZ/n$, with $k=0$ unless $(n,r)=(4,0)$, and a piecewise-affine path in
+$\mathcal R_n$ from $P$ to $\sigma^kZ$ that is generic except at finitely
+many parameters, at each of which it is a simple wall germ of type (F), (V),
+(T), (E) or (C); at each (F) the deletion is generic, and at each (V) both
+halves are generic, all with fewer than $n$ vertices. \status{proved (refereed: bench A, 2026-09-05T18:22:57Z; transcribed from SM1 lem:transport, from Theorems~\ref{thm:mycyclic}, \ref{thm:relgp} and Lemma~\ref{lem:children}; proof paraphrased in the base (C021); F-25-76)}
+\end{lemma}
+\begin{proof}
+Theorem~\ref{thm:mycyclic} supplies the path from $P$ to $\sigma^kZ$
+in $\mathcal R_n$. Its rotation is constant by Lemma~\ref{lem:rot}(ii).
+Theorem~\ref{thm:relgp} replaces it by a path with only the five listed
+simple wall types. Lemma~\ref{lem:children} gives generic deletions and
+halves.
+\end{proof}
+
+\subsection{Anchors}
+
+\begin{lemma}[rotation of a soft insertion]\label{lem:soft-rotation}
+Let $P$ be generic, $q$ admissible at $j$, and $\varepsilon$ small
+(Lemma~\ref{lem:soft-generic}). Then $\rot(P_\varepsilon)=\rot(P)$ in the
+same-sign and mixed sectors, and $\rot(P_\varepsilon)=\rot(P)-\tau_j(P)$ in
+the loop sector. Moreover the same-sign sector is the open cone of directions
+strictly between $\lt_{j-1}$ and $\lt_j$ (the wedge of the turn), the loop
+sector is the open cone strictly between $-\lt_{j-1}$ and $-\lt_j$, and the
+mixed sector is the complement of the closures of these two cones.
+\status{new}
+\end{lemma}
+\begin{proof}
+Put $u=\lt_{j-1}$, $v=\lt_j$, and
+$\theta=\operatorname{Arg}(v/u)\in(-\pi,\pi)$, using the complex
+identification of the oriented plane. Let
+$\alpha=\operatorname{Arg}(q/u)$ and
+$\beta_0=\operatorname{Arg}(v/q)$ be principal turns. All three
+exist because admissibility makes the relevant pairs nonparallel.
+At the new point the actual turn is
+$\beta_\varepsilon=\operatorname{Arg}((v-\varepsilon q)/q)$,
+which converges to $\beta_0$. The turn at the successor vertex also
+changes, but converges to its old value because its incoming direction
+$v-\varepsilon q$ tends to $v$ and the old corner is regular.
+All other original turns except the replaced turn at $j$ are unchanged.
+By Lemmas~\ref{lem:soft-generic} and~\ref{lem:rot}(ii), the rotation
+of $P_\varepsilon$ is one fixed integer on a sufficiently small
+positive interval. Taking the limit of the full sum of turns therefore
+gives the exact integer identity
+\begin{equation}\label{eq:soft-rotation-limit}
+2\pi\bigl(\rot(P_\varepsilon)-\rot(P)\bigr)
+=\alpha+\beta_0-\theta.
+\end{equation}
+The left side is constant on that interval, not an assertion that the
+successor turn is unchanged at finite $\varepsilon$.
+
+The three direction ratios multiply as $(q/u)(v/q)=v/u$, so
+$\alpha+\beta_0-\theta$ is a multiple of $2\pi$.
+Moreover $\sgn\alpha=-\chi_-$ and $\sgn\beta_0=-\chi_+$.
+In the same-sign sector both have the sign $\tau_j=\sgn\theta$.
+Their sum and $\theta$ lie in the same open interval of length $2\pi$,
+so the multiple is zero. In the mixed sector $\alpha,\beta_0$ have
+opposite signs, making their sum lie in $(-\pi,\pi)$; the difference
+from $\theta$ is again strictly between $-2\pi$ and $2\pi$, so is zero.
+In the loop sector both signs are $-\tau_j$. When $\tau_j=1$,
+the difference lies in $(-3\pi,0)$ and must be $-2\pi$; when
+$\tau_j=-1$ it lies in $(0,3\pi)$ and must be $2\pi$.
+Equation~\eqref{eq:soft-rotation-limit} gives exactly the stated rotations.
+
+For the cone description, set the angle of $u$ equal to zero and that
+of $v$ equal to $\theta$. The determinant signs change only at the
+four rays $u,v,-u,-v$. The same-sign inequalities put $q$ strictly
+inside the turn wedge from $u$ to $v$ of angular width $|\theta|<\pi$;
+the loop inequalities put it inside the opposite wedge. The remaining
+two open angular intervals are exactly the mixed sector. This proves
+the cone statements as well.
+\end{proof}
+
+\begin{definition}[anchors]\label{def:anchors}
+Let $(n,r)$ be admissible with $n\geq4$.
+\begin{enumerate}
+\item[(Z)] If $(n-1,r)$ is admissible, a \emph{zero anchor} is a generic
+$n$-gon of the form $P^{(j,q)}_\varepsilon$ (Definition~\ref{def:soft}) in
+the mixed sector, for some generic $(n-1)$-gon $P$ of rotation $r$, some
+vertex $j$ of $P$, some admissible $q$ and some small $\varepsilon>0$.
+\item[(L)] If $(n,r)$ is minimal with $|r|\geq2$, a \emph{loop anchor} is a
+generic $n$-gon of the form $P^{(j,q)}_\varepsilon$ in the loop sector, for
+some generic $(n-1)$-gon $P$ of rotation $r-\sgn(r)$ and some vertex $j$ of
+$P$ with $\tau_j(P)=-\sgn(r)$.
+\item[(L$_0$)] If $(n,r)=(4,0)$, a \emph{loop anchor} is a generic $4$-gon
+of the form $P^{(j,q)}_\varepsilon$ in the loop sector for a triangle $P$
+and any of its vertices $j$.
+\end{enumerate}
+In all three cases $q$ is admissible and $0<\varepsilon<\varepsilon_0$, where
+$\varepsilon_0=\varepsilon_0(P,j,q)>0$ is the bound of
+Lemma~\ref{lem:soft-generic}: on $(0,\varepsilon_0)$ the insertion is generic
+and lies in one chamber, so that Lemma~\ref{lem:soft-rotation} gives its
+rotation throughout. This geometric bound is part of the anchor data; it is
+not a bound uniform over the functions to which a soft theorem is applied.
+In each case $P$ is the \emph{parent} of the anchor, $j$ its \emph{insertion
+vertex}, and the soft edge of the anchor is its edge $E_j$ (from $\mu_j$ to
+$\mu_*=\mu_{j+1}$ in the labelling of the anchor).
+\end{definition}
+
+\begin{proposition}[anchors exist]\label{prop:anchors-exist}
+For every admissible $(n,r)$ with $n\geq4$, exactly one of the cases
+(Z), (L), (L$_0$) of Definition~\ref{def:anchors} applies. An anchor
+of that type exists, is generic, has $n$ vertices and rotation $r$. For a given generic parent $P$ and vertex $j$, the mixed
+sector and the loop sector both contain admissible vectors $q$, so in case
+(Z) the insertion vertex may be prescribed. \status{new (round~4: the exhaustion of the three cases printed, adopted from the Codex proposal sm4\_round4\_core\_v1, P-25-23, F118, re-read by the author; F-25-118; cleared by bench~A on SM5 (2026-09-06T00:32:58Z) before the round-5 disjointness sentence of the exhaustion paragraph (F-25-150) and the citations of Proposition~\ref{prop:chambers} and of the density clause of Lemma~\ref{lem:fibres} in the loop-anchor construction (F-25-146))}
+\end{proposition}
+\begin{proof}
+\emph{Exhaustion.} If $(n-1,r)$ is admissible, case (Z) applies.
+Otherwise $n-1\geq3$, so Definition~\ref{def:admissible} says that
+either $2|r|\geq n-1$ or $(n-1,r)=(3,0)$. In the first case,
+$2|r|<n$ and integrality give $2|r|=n-1$. Thus
+$n=2|r|+1$, and $n\geq4$ forces $|r|\geq2$, giving (L).
+The exceptional predecessor gives exactly $(n,r)=(4,0)$, case
+(L$_0$). These alternatives are disjoint: in case (L) the predecessor
+$(n-1,r)=(2|r|,r)$ has $2|r|=n-1$ and in case (L$_0$) it is $(3,0)$, so in
+neither is it admissible (Definition~\ref{def:admissible}), which excludes
+(Z); and (L) has $|r|\geq2$ while (L$_0$) has $r=0$. In particular $(4,1)$
+and $(4,-1)$ have admissible triangular predecessors and belong
+ to (Z), not (L).
+
+\emph{Sectors.} By Lemma~\ref{lem:soft-rotation} each sector is a nonempty
+open cone of directions; admissibility removes finitely many lines
+($\det(q,\mu_k-\mu_j)=0$, $k\neq j$), so each sector contains admissible
+vectors. For such $q$ and $0<\varepsilon<\varepsilon_0$, as Definition~\ref{def:anchors}
+requires, Lemma~\ref{lem:soft-generic} makes $P_\varepsilon$ generic and
+Lemma~\ref{lem:soft-rotation} gives its rotation.
+
+(Z) A generic $(n-1)$-gon of rotation $r$ exists by Lemma~\ref{lem:fibres};
+in the mixed sector the rotation is preserved.
+
+(L) Let $r\geq2$. The star $K_{r-1}$ is generic with all turns left and
+rotation $r-1$ (Lemma~\ref{lem:star-generic}; for $r=2$ it is the
+counterclockwise triangle). Subdivide one edge at its midpoint, obtaining a
+$2r$-gon in $\mathcal R_{2r}$ with one zero turn and rotation $r-1$
+(Lemma~\ref{lem:rot}(iii)). Write the subdivided edge as $B-A=w$
+and its moved midpoint as $M=(A+B)/2+\delta v$, where $\delta>0$
+and $\det(w,v)>0$: the displacement is to the left of the directed edge.
+The new corner determinant is
+\begin{equation}\label{eq:anchor-midpoint-turn}
+\det(M-A,B-M)=-\delta\det(w,v)<0.
+\end{equation}
+Thus its turn is right. The two neighbouring turn determinants are
+strictly positive at $\delta=0$ and remain positive for a short move.
+All edge lengths remain positive; the initially positive-flat new
+corner and all other regular corners stay in the open regular locus.
+Rotation therefore remains $r-1$ by Lemma~\ref{lem:rot}(ii). The
+generic locus is open (Proposition~\ref{prop:chambers}) and dense (the
+density clause of Lemma~\ref{lem:fibres}), so a
+small perturbation gives a generic $2r$-gon $P$ of rotation $r-1$ with a
+vertex $j$ of turn $\tau_j=-1=-\sgn(r)$. A loop-sector insertion at $j$ gives
+a generic $(2r+1)$-gon of rotation $r-1-\tau_j=r$. For $r\leq-2$ apply the
+reflection $(x,y)\mapsto(x,-y)$ to the construction for $-r$: it negates every
+chirotope and every rotation number, maps generic polygons to generic
+polygons, and maps a loop-sector insertion to a loop-sector insertion (the
+sectors are defined by sign patterns relative to $\tau_j$, which all flip
+together).
+
+(L$_0$) Insert a loop at any vertex of the counterclockwise triangle: the
+rotation becomes $1-1=0$, and the result is generic with four vertices.
+\end{proof}
+
+\begin{proposition}[anchor values]\label{prop:anchor-values}
+Let $F$ be a function on generic polygons of all arities, constant
+on chambers and satisfying the soft theorem in the form of
+Theorem~\ref{thm:C-soft} at every admissible soft insertion into
+a generic polygon. With $P$ the parent and $j$ the insertion vertex,
+\[
+F(Z)=0\quad\text{for every zero anchor},\qquad
+F(Y)=\tau_j(P)F(P)\quad\text{for every loop anchor}.
+\]
+In case (L), $\tau_j(P)=-\sgn(r)$; in case (L$_0$), it is the
+orientation sign of the parent triangle. The function $C$ satisfies
+these hypotheses. The same identities hold for $A_g$ at every
+anchor root other than the soft edge, with the corresponding
+parent root used on the right-hand side.
+\status{new (round~4: chamber constancy added to the hypothesis and the function-dependent soft threshold handled by transport along the initial chamber; adopted from the Codex proposal sm4\_round4\_core\_v1, P-25-23, F119, re-read by the author; F-25-119; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{proposition}
+\begin{proof}
+Fix an anchor with parameter $\varepsilon$ and geometric bound
+$\varepsilon_0$ from Definition~\ref{def:anchors}. For its fixed
+parent, vertex and admissible vector, the soft hypothesis for $F$
+supplies a bound $\delta_F>0$. Choose
+$0<\varepsilon'<\min\{\varepsilon,\delta_F\}$.
+The whole parameter interval between $\varepsilon'$ and
+$\varepsilon$ is contained in $(0,\varepsilon_0)$, so both tuples
+lie in the same chamber by Lemma~\ref{lem:soft-generic}.
+Chamber constancy equates their $F$ values. At $\varepsilon'$ the
+soft theorem applies. Its multiplier is zero in the mixed sector,
+since the attachment signs are opposite. In the loop sector both
+attachment signs equal $\tau_j(P)$, so the multiplier is
+$\tau_j(P)$. This proves both identities at the original
+$\varepsilon$, without requiring a bound uniform over functions.
+
+Proposition~\ref{prop:C-chamber} and Theorem~\ref{thm:C-soft}
+supply the two hypotheses for $C$. For $A_g$, fix the physical
+nonsoft edge throughout the labelled family and its corresponding
+edge of the parent. Theorem~\ref{thm:A-soft} gives the required
+identity on an initial interval for that root. Throughout the
+geometric interval the tuple remains generic, so every initially
+nonzero determinant keeps its sign along the connected parameter
+interval. Proposition~\ref{prop:A-chamber} therefore makes $A_g$
+constant along that family. The same smaller-parameter argument
+proves the rooted assertion, without using root independence.
+\end{proof}

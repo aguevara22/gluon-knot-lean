@@ -1,0 +1,969 @@
+
+=====[PDF page 126 / 458]=====
+108
+Knots in contact 3–manifolds
+sum of the components of Lc one can obtain a knot Kc representing that
+same class c.
+Remark 3.4.3 It is important to note that in spite of what we have just said
+it is not true that [M, CP ∞] = [M, CP 1], since a map F : M ×[0, 1] →CP ∞
+with F(M × {0, 1}) ⊂CP 1 is not, in general, homotopic rel (M × {0, 1})† to
+a map into CP 1. However, we do have [M, CP ∞] = [M, CP 2].
+Proposition 3.4.4 Let M be a closed, oriented 3–manifold. Every homology
+class c ∈H2(M; Z) is represented by a (smoothly embedded) closed, oriented
+surface Σc ⊂M.
+Remark 3.4.5 In general, Σc will have several components.
+Proof This proof is completely analogous to the preceding one, except that
+K(Z, 2) has to be replaced by K(Z, 1) = S1. That is, for c ∈H2(M; Z) we
+set u = PD(c) ∈H1(M; Z). Under the isomorphism
+H1(M; Z) ∼= [M, K(Z, 1)] ∼= [M, S1],
+the class u corresponds to a homotopy class of maps f : M →S1 with f ∗u0 =
+u, where u0 is a positive generator of H1(S1; Z) for a chosen orientation of S1.
+Let p be a regular value of f. Then
+PD(c) = u = f ∗u0 = f ∗PD[p]S 1 = PD[f −1(p)]M ,
+so we can set Σc = f −1(p).
+Remark 3.4.6 The proofs of the two preceding propositions work for arbi-
+trary dimension of M and homology classes of codimension 2 and 1, respec-
+tively.
+Proposition 3.4.7 Let M be a closed 3–manifold (which is not required
+to be orientable). Every homology class c ∈H2(M; Z2) is represented by
+a smoothly embedded, possibly non-orientable closed surface Σ. Moreover,
+if [K] ∈H1(M; Z2) is a class represented by a smoothly embedded circle
+K ⊂M, and the intersection product [K] • c is equal to 1 (over Z2), then Σ
+can be chosen to have exactly one transverse intersection point with K.
+Proof For the ﬁrst part, we argue as before. The Eilenberg–MacLane space
+† Here ‘rel A’ is used as shorthand for ‘relative to A’, meaning that the subset A stays
+pointwise ﬁxed during the homotopy.
+
+=====[PDF page 127 / 458]=====
+3.4 Interlude: topology of submanifolds
+109
+K(Z2, 1) can be realised as the inﬁnite projective space RP ∞. The char-
+acteristic element u0 is the generator of H1(RP ∞; Z2) = Z2. Notice that
+this u0 pulls back to the Poincar´e dual of [RP k−1]RP k (over Z2) under the
+natural inclusion RP k ⊂RP ∞.
+Set u = PD(c) ∈H1(M; Z2), where PD now denotes the Poincar´e duality
+map from homology to cohomology with Z2–coeﬃcients. The isomorphism
+H1(M; Z2) ∼= [M, K(Z2, 1)] ∼= [M, RP ∞]
+tells us that u corresponds to a homotopy class of maps f : M →RP ∞such
+that f ∗u0 = u. Because of dim M = 3, any such map f is homotopic to a
+smooth map f0 : M →RP 3. Moreover, f0 can be chosen transverse to RP 2.
+Then
+PD(c) = u = f ∗
+0 u0 = f ∗
+0 PD[RP 2]RP 3 = PD[f −1
+0
+(RP 2)]M .
+Then Σ = f −1
+0
+(RP 2) is an embedded surface in M representing the class c.
+If, furthermore, a class [K] is given as described, we can make Σ transverse
+to K. The fact that the intersection product of [K] and [Σ] equals 1 over
+Z2 translates into saying that geometrically K and Σ have an odd number
+of intersection points.
+By adding a cylinder to Σ around a segment on
+C between two adjacent intersection points, and removing two discs in Σ
+around these intersection points, that pair of intersections can be removed†
+at the cost of increasing the genus of Σ (but without changing the homology
+class it represents). Iterating this procedure, we can reduce to a single point
+of intersection.
+The next proposition is an example of a relative version of the preceding
+results. This will be relevant for the deﬁnition of linking numbers of knots
+in 3–manifolds.
+Proposition 3.4.8 Let K be a nullhomologous oriented knot in a closed, ori-
+ented 3–manifold M, that is, [K]M = 0 ∈H1(M), with integral coeﬃcients
+for homology understood. Let c ∈H2(M, K) be a relative class that maps
+to ∂∗c = [K], the generator of H1(K), under the boundary homomorphism
+∂∗: H2(M, K) →H1(K); such a class exists by the homology long exact
+sequence of the pair (M, K). Then there is an embedded compact, oriented
+surface Σc in M with ∂Σc = K (as oriented manifolds) and [Σc](M ,K ) = c.
+Proof As earlier, we write νK for a tubular neighbourhood of K. The pair
+(M, K) is homotopy equivalent to the pair (M, νK), hence
+H2(M, K) ∼= H2(M, νK) ∼= H2(M \ νK, ∂(νK)),
+† This argument will be described more carefully in the proof of Lemma 8.2.11.
+
+=====[PDF page 128 / 458]=====
+110
+Knots in contact 3–manifolds
+where the second isomorphism is induced by excision and retraction. We
+identify H2(M, K) with H2(M \ νK, ∂(νK)) under this isomorphism. More-
+over, we have a Poincar´e duality isomorphism
+PD: H2(M \ νK, ∂(νK)) −→H1(M \ νK).
+As in the proof of Proposition 3.4.4, this implies that PD(c) corresponds
+to a homotopy class of maps f : M \ νK →S1, and we ﬁnd an embedded
+surface Σ′
+c ⊂M \ νK as the inverse image of a regular value of f.
+Theorem 3.4.1 also holds in the relative case; the same proof goes through
+without change. (Observe that the Thom class is also deﬁned for neat sub-
+manifolds in the sense of [132, Section 1.4], see [35, Section VI.11].) This
+implies that Σ′
+c represents the class c, interpreted as a class in the homology
+group H2(M \ νK, ∂(νK)). Since ∂∗c = [K], it follows that ∂Σc ⊂∂(νK)
+is a longitude, that is, a simple closed curve isotopic (as an oriented curve
+in νK) to the spine K of νK, or possibly a collection of parallel longitudes,
+with some oriented positively and one less oriented negatively. This implies
+that we can add a collar to Σ′
+c so as to obtain a surface Σc ⊂M with
+∂Σc = K and [Σc] = c; if ∂Σ′
+c has several components, we can join positive
+and negative longitudes in pairs by an annulus (beginning with a pair of
+adjacent longitudes), and then add a collar to the one remaining positive
+longitude.
+Deﬁnition 3.4.9 Let K be a nullhomologous knot in a closed, oriented
+3–manifold. An embedded connected, compact, orientable surface Σ with
+boundary ∂Σ = K is called a Seifert surface for K.
+By the preceding proposition, such a surface always exists.
+While the
+surface Σc constructed in that proposition may have several components, all
+but one of them will be closed, and the one component with boundary K
+will be a Seifert surface. Notice that in that proposition we assumed our
+3–manifold to be closed. The only non-closed 3–manifold where we want
+to appeal to the existence of Seifert surfaces is R3.
+Here one can apply
+the proposition by passing to the one-point compactiﬁcation S3; the Seifert
+surface can always be assumed to miss that one extra point.
+3.4.3 Linking numbers
+Let M be an oriented 3–manifold and K ⊂M a nullhomologous oriented
+knot. We continue to write νK for a tubular neighbourhood of K and µ, λ
+for (oriented) meridian and a chosen longitude for K.
+
+=====[PDF page 129 / 458]=====
+3.4 Interlude: topology of submanifolds
+111
+By excision and homotopy equivalence, we have
+H2(M, M \ K) ∼= H2(νK, ∂(νK)),
+generated by a meridional disc (as follows from considering the homology
+long exact sequence of the pair (S1 ×D2, T 2)). The homology exact sequence
+of the pair (M, M \ K) then shows that the kernel of the homomorphism
+H1(M \ K) −→H1(M)
+induced by inclusion is isomorphic to Z, generated by the homology class [µ].
+Deﬁnition 3.4.10 Let K′ be a second nullhomologous oriented knot disjoint
+from K. Then the homology class [K′]M \K lies in the kernel of the above
+homomorphism, hence
+[K′]M \K = n[µ]
+for a uniquely determined n ∈Z. This number, which is clearly an isotopy
+invariant, is called the linking number lk(K, K′) of K and K′.
+Observe that the linking number is additive in the following sense. Given
+two disjoint nullhomologous oriented knots K′
+1, K′
+2 in the complement of
+K, the homology class [K′
+1 + K′
+2]M \K represented by their connected sum
+K′
+1 + K′
+2 is the sum of the homology classes represented by the two knots,
+hence
+lk(K, K′
+1 + K′
+2) = lk(K, K′
+1) + lk(K, K′
+2).
+Moreover, it is obvious that lk(K, µ) = 1. In particular, adding a right-
+handed twist to K′ with respect to K, i.e. passing to the connected sum
+K′ + µ, increases the linking number by 1. Finally, notice that lk(K, K′)
+changes its sign if the orientation of either K or K′ is reversed.
+Here is a diﬀerent interpretation of this linking number. Let Σ′ be a Seifert
+surface for K′, which we may assume to be transverse to K. Then K and Σ′
+intersect in ﬁnitely many points; counting these points with sign gives the
+intersection number K •Σ′. (If the orientation of K at the intersection point
+followed by the orientation of Σ′ gives the orientation of M, the intersection
+point counts positively; negatively otherwise.)
+Proposition 3.4.11 lk(K, K′) = K • Σ′.
+Proof Set n = K • Σ′. Figure 3.9 shows that the connected sum K′ −nµ
+of K′ with n copies of −µ (for n > 0) or −n copies of µ (for n < 0) bounds
+a surface disjoint from K.
+This implies that [K′ −nµ]M \K = 0, hence
+[K′]M \K = n[µ], which by deﬁnition means that lk(K, K′) = n.
+
+=====[PDF page 130 / 458]=====
+112
+Knots in contact 3–manifolds
+K′
+K
+µ
+Σ′
+Fig. 3.9. Removing a (positive) intersection point.
+Corollary 3.4.12 The linking number is symmetric, that is, for any two dis-
+joint nullhomologous oriented knots K, K′ we have lk(K, K′) = lk(K′, K).
+Proof Let Σ, Σ′ be Seifert surfaces for K, K′, respectively. We may assume
+that these surfaces intersect transversely, so the intersection Σ ∩Σ′ consists
+of a ﬁnite collection of circles and arcs with endpoints on K or K′. These
+endpoints are exactly the intersection points of K with Σ′ or K′ with Σ. If
+an arc joins two points of the ﬁrst kind or two of the second kind, then these
+points can be seen to have opposite orientation, so they do not contribute to
+K •Σ′ or K′•Σ, respectively. If an arc in Σ∩Σ′ joins a point of K ∩Σ′ with a
+point of K′ ∩Σ, then both points have the same sign, see Figure 3.10. Hence
+K • Σ′ = K′ • Σ, and therefore lk(K, K′) = lk(K′, K) by the preceding
+proposition.
+Remark 3.4.13 The fact that adding a right-handed twist to K′ with re-
+spect to K increases the linking number by 1 can also be seen from the
+computation of lk(K, K′) as K′ • Σ, for adding a right-handed twist to K′
+will produce one additional positive intersection with the Seifert surface Σ.
+From this observation it is easy to derive a recipe for computing the linking
+number of two knots in 3–space. Given disjoint knots K, K′ in R3, represent
+them by their images under a generic projection onto a 2–plane in R3, i.e.
+choose the 2–plane in such a way that the projected knots are immersed
+except for transverse double points. We call the image of a knot or link
+under such a projection a knot or link diagram, respectively.
+
+=====[PDF page 131 / 458]=====
+3.4 Interlude: topology of submanifolds
+113
+K′
+Σ
+K
+Σ′
+Fig. 3.10. Arc in Σ ∩Σ′ joining two positive intersections.
+With each crossing in an oriented knot or link diagram we associate a sign
+as in Figure 3.11.
++1
+−1
+Fig. 3.11. Signs of crossings in a knot or link diagram.
+Proposition 3.4.14 For two disjoint oriented knots K, K′ ⊂R3, given by
+a link diagram, the linking number lk(K, K′) equals the number of crossings
+where K′ crosses under K, counted with sign.
+Proof A positive crossing of K′ under K can be turned into an overcrossing
+by replacing K′ with the connected sum K′ −µ; analogously, a negative
+undercrossing can be turned into an overcrossing by passing to K′+µ. Hence,
+if n ∈Z denotes the total number of times the knot K′ crosses under K, then
+
+=====[PDF page 132 / 458]=====
+114
+Knots in contact 3–manifolds
+K′ −nµ crosses over K at all crossings. This implies lk(K, K′ −nµ) = 0,
+and hence lk(K, K′) = n.
+3.5 The classical invariants
+After these topological preparations, we now discuss the three invariants –
+a couple for Legendrian knots and one for transverse knots – that are com-
+monly referred to as the ‘classical’ ones. The deﬁnition of these invariants is
+given only for homologically trivial knots, although it is possible to extend
+the deﬁnition to some other cases, for instance linear Legendrian curves on
+the 3–torus with its standard contact structure (Example 1.2.4), see [144]
+and [101].
+3.5.1 Legendrian knots
+In the following deﬁnitions we make a little more hullabaloo than is strictly
+necessary for introducing the classical invariants of Legendrian knots. These
+deﬁnitions, however, will come into prominence in our discussion of surgery
+on contact 3–manifolds.
+Deﬁnition 3.5.1 Let K be a Legendrian knot in a 3–manifold M with
+cooriented contact structure ξ. Since TpK ⊂ξp for all p ∈K, the normal
+bundle NK = (TM|K )/TK of K in M splits into a Whitney sum of trivial
+line bundles
+NK ∼= (TM|K )/(ξ|K ) ⊕(ξ|K )/TK.
+The contact framing of K is the trivialisation of NK deﬁned by this
+splitting.
+This is a rather roundabout way of expressing something geometrically
+very simple. In order to deﬁne a framing of K, we need to specify a parallel
+curve to K, which we take as a longitude on the boundary of a tubular
+neighbourhood of K. The contact framing is the one corresponding to the
+parallel curve we get by pushing K in a direction transverse to ξ. In the
+formal deﬁnition above, this would correspond to choosing a section of the
+factor (TM|K )/(ξ|K ). Alternatively, we may take as longitude a parallel
+curve obtained by pushing K in a direction tangent to ξ but transverse
+to K. This would correspond to choosing a section of (ξ|K )/TK, and yields
+the same overall trivialisation of NK.
+Deﬁnition 3.5.2 Let K be a homologically trivial knot in an oriented 3–
+manifold M, and let Σ be a Seifert surface for K. The surface framing
+
+=====[PDF page 133 / 458]=====
+3.5 The classical invariants
+115
+of K is the trivialisation of the normal bundle NK corresponding to the
+parallel curve obtained by pushing K along Σ.
+Remark 3.5.3 An equivalent characterisation of the surface framing is that
+it is determined by a parallel curve that has linking number 0 with K. (On
+page 43 we referred to this parallel curve as the preferred longitude.) In
+particular, the deﬁnition of the surface framing is independent of the choice
+of Seifert surface.
+Deﬁnition 3.5.4 Let K be a homologically trivial Legendrian knot in a
+contact 3–manifold (M, ξ). The Thurston–Bennequin invariant of K,
+denoted by tb(K), is the twisting of the contact framing relative to the
+surface framing of K, with right-handed twists being counted positively.
+In other words (see Remark 3.4.13), if we choose a vector ﬁeld along K
+transverse to ξ and deﬁne a parallel knot K′ by pushing K along this vector
+ﬁeld, then tb(K) equals the linking number lk(K, K′) of K with K′. (Here
+K is given any orientation, and K′ is given the corresponding orientation
+that makes K and K′ isotopic as oriented knots.)
+Remark 3.5.5 It follows from the Legendrian isotopy extension theorem
+(Thm. 2.6.2) that tb(K) is indeed invariant under Legendrian isotopies of K.
+Moreover, observe that tb(K) does not depend on the choice of orientation
+for K.
+Remark 3.5.6 In order to speak of linking numbers, an orientation for M
+needs to be chosen. Our convention throughout is that the orientation of a
+3–dimensional contact manifold (M, ξ) is the one that turns ξ into a positive
+contact structure, i.e. such that, for any local 1–form α deﬁning ξ = ker α,
+the 3–form α ∧dα is a positive volume form for M, see Remark 1.1.6.
+Example 3.5.7 In S3 ⊂R4 with its standard contact structure ξst = ker α,
+where
+α = x1 dy1 −y1 dx1 + x2 dy2 −y2 dx2,
+consider the Legendrian unknot
+K = {x2
+1 + x2
+2 = 1, y1 = y2 = 0}.
+This circle bounds the 2–disc
+Σ = {x2
+1 + x2
+2 + y2
+1 = 1, y1 ≥0, y2 = 0},
+so the surface framing of K is given by the vector ﬁeld ∂y1 (or, equiva-
+lently, ∂y2 ).
+
+=====[PDF page 134 / 458]=====
+116
+Knots in contact 3–manifolds
+In order to compute tb(K), we choose an orientation of K, say the one
+deﬁned by the unit tangent vector ﬁeld T := x1 ∂x2 −x2 ∂x1 . Along K, the
+volume form α ∧dα on S3 takes the form
+(α ∧dα)|K = 2x1 dy1 ∧dx2 ∧dy2 + 2x2 dy2 ∧dx1 ∧dy1.
+The inner product of this volume form with T is −2 dy1 ∧dy2.
+So with
+respect to the chosen orientation of K, the oriented surface framing is given
+by the ordered basis {∂y2 , ∂y1 }.
+The vector ﬁeld N := x1 ∂y2 −x2 ∂y1 along K lies in ξst, and together with
+T it spans the contact planes. Therefore, tb(K) is given by the number of
+rotations of N relative to the ordered basis {∂y2 , ∂y1 } as we traverse K once
+in the chosen positive direction. It is easily seen that this yields tb(K) = −1.
+Example 3.5.8 In the front projection picture for Legendrian knots in
+(R3, ξst), consider the ‘shark’ K, see Figure 3.12. Since the vector ﬁeld ∂z is
+everywhere transverse to the standard contact structure ξst = ker(dz+x dy),
+a parallel Legendrian knot K′ corresponding to the contact framing is simply
+given by pushing the front projection of the knot in the z–direction. In this
+particular example we ﬁnd that tb(K) = lk(K, K′) = −2.
+K′
+K
+Fig. 3.12. Topological unknot K with tb(K) = −2.
+We now want to generalise this example and give a recipe for computing
+the Thurston–Bennequin invariant of a Legendrian knot in standard R3 from
+its front projection. Apart from the cusps, we shall also have to take the
+self-crossings of the front projection into account. Recall that the writhe
+of an oriented knot diagram is the signed number of self-crossings of the
+diagram, where the sign of the crossing is given in Figure 3.11. Notice that
+the writhe of a knot diagram is independent of the chosen orientation of the
+knot, for if the orientation is reversed, both strands at each crossing reverse
+their direction, which leaves the sign of the crossing unchanged.
+
+=====[PDF page 135 / 458]=====
+3.5 The classical invariants
+117
+Proposition 3.5.9 Let K be a Legendrian knot in (R3, ξst). Write KF for
+the knot diagram of K obtained by the front projection. Then the Thurston–
+Bennequin invariant of K is given by
+tb(K) = writhe(KF) −1
+2#(cusps(KF)).
+Proof
+By slight abuse of notation we ignore the distinction between K
+and KF. Fix an orientation for K. We compute tb(K) as in the example, i.e.
+we deﬁne a parallel copy K′ of K, with the induced orientation, by pushing
+(the front projection of) K in the z–direction, and then compute tb(K) as
+linking number lk(K, K′). That linking number, in turn, we compute by
+counting the crossings of K′ under K with sign.
+It is easy to see that a self-crossing of K will contribute a crossing of K′
+under K of the same sign, a cusp on the right† will give a negative crossing
+of K′ under K, and a cusp on the left will give a crossing of K′ over K.
+Since there are as many cusps on the left as cusps on the right, the claimed
+formula follows.
+Remark 3.5.10 An alternative way to see that tb(K) is a Legendrian
+isotopy invariant, at least for Legendrian knots in (R3, ξst), would be to es-
+tablish the Legendrian analogues of Reidemeister moves for front projection
+pictures, and then to verify that tb(K), computed by the above formula, is
+invariant under those moves, see [82].
+Here is the corresponding formula in the Lagrangian projection.
+Proposition 3.5.11 The Thurston–Bennequin invariant tb(K) of a Legen-
+drian knot K in (R3, ξst) is equal to the writhe of its Lagrangian projection.
+Proof
+Write KL for the knot diagram of K obtained by the Lagrangian
+projection.
+The parallel copy K′ of K may be obtained by pushing K
+in a direction tangent to ξst but transverse to K. Under the Lagrangian
+projection, ξst projects isomorphically onto the (x, y)–plane. This implies
+that K′ can be represented by a diagram K′
+L parallel to KL in the (x, y)–
+plane. The result now follows from the deﬁnitions and Proposition 3.4.14.
+We now come to the deﬁnition of the second classical invariant for Legen-
+drian knots, the so-called rotation number. Let K be an oriented Legen-
+drian knot in an oriented contact 3–manifold (M, ξ) with oriented contact
+structure. Let Σ be a Seifert surface for K, oriented in such a way that
+† By Remark 3.2.4 we can sensibly speak of left and right cusps.
+
+=====[PDF page 136 / 458]=====
+118
+Knots in contact 3–manifolds
+the given orientation of K equals its orientation as boundary of Σ. Write
+c ∈H2(M, K) for the relative homology class represented by Σ. (Notice
+that not all relative homology classes can be represented in this way, since
+by deﬁnition Σ is assumed to be connected, and its orientation is ﬁxed by
+that of K.)
+As a surface with boundary, Σ retracts onto its 1–skeleton
+(which, by the classiﬁcation of surfaces, is a bouquet of 2g copies of S1).
+Since the only orientable 2–plane bundle over S1 is the trivial one, we can
+ﬁnd a trivialisation of ξ|Σ (compatible with the given orientation of ξ).
+Let γ : S1 →K ⊂M be a (regular) parametrisation of K compatible with
+its orientation. Given a trivialisation ξ|Σ = Σ × R2 (as oriented bundles†),
+this induces a map γ′ : S1 →R2 \ {0}.
+Deﬁnition 3.5.12 The rotation number rot(K, c) of the nullhomologous
+oriented Legendrian knot K relative to the class c ∈H2(M, K) is the degree
+of that map γ′. In other words, rot(K, c) counts the number of rotations of
+the (positive) tangent vector to K relative to the trivialisation of ξ|Σ as we
+go once around K.
+Remark 3.5.13 Here, too, the Legendrian isotopy extension theorem im-
+plies that rot(K, c) is invariant under such isotopies. However, in contrast
+with the Thurston–Bennequin invariant, the rotation number does depend
+on the choice of orientation of K. If K denotes K with reversed orientation,
+we have rot(K, c) = −rot(K, −c). Also, the sign of the rotation number
+(but not that of tb) depends on the choice of orientation for ξ.
+In order to justify our terminology, we need to show that rot(K, c) is
+independent of the choices in this construction. For greater clarity, we write
+rot(K, Σ) for the time being.
+Lemma 3.5.14 The rotation number rot(K, Σ) does not depend on the
+choice of trivialisation of ξ|Σ.
+Proof With an appropriate choice of labels a1, b1, . . . , ag, bg for the circles
+making up the 1–skeleton of Σ, the boundary K = ∂Σ is homotopic (in Σ)
+to the word !g
+i=1[ai, bi], a product of commutators. The trivialisation of
+ξ|Σ is determined, up to homotopy, by choosing a trivialisation along the
+1–skeleton. Since K is homotopic to a word involving each loop in the 1–
+skeleton together with its inverse, any two trivialisations of ξ|Σ will have
+zero relative rotation when going once around K.
+Slightly more formally, one may argue as follows. A trivialisation of the
+† This will always be understood here when we speak of a ‘trivialisation’.
+
+=====[PDF page 137 / 458]=====
+3.5 The classical invariants
+119
+oriented plane ﬁeld ξ|Σ is determined by the choice of a non-vanishing sec-
+tion. Suppose we have two diﬀerent trivialisations, corresponding to non-
+vanishing sections X1, X2 of ξ|Σ. The diﬀerence between the rotation number
+computed relative to X1 and that computed relative to X2 is the degree of
+the map S1 ∼= K →S1 associating to p ∈K the oriented angle between X1
+and X2 at p (where we have chosen an auxiliary metric on ξ). This degree can
+be computed via the induced homomorphism Z ∼= H1(K) →H1(S1) ∼= Z in
+homology. But the trivialisations are deﬁned over Σ, so the map K →S1
+factors through Σ, and the corresponding factorisation of the induced ho-
+momorphism on the ﬁrst homology group forces that homomorphism to be
+trivial.
+Proposition 3.5.15 Let Σ, Σ′ be Seifert surfaces for K representing the
+classes c, c′ ∈H2(M, K). Then
+rot(K, Σ) −rot(K, Σ′) = ⟨e(ξ), c −c′⟩,
+where c −c′ is regarded as a class in H2(M), and e(ξ) denotes the Euler
+class of the (oriented) 2–plane bundle ξ.
+In particular, by taking c = c′ in this proposition we see that the rota-
+tion number rot(K, Σ) does not depend on the choice of Seifert surface Σ
+representing a given class c, which justiﬁes our notation rot(K, c).
+Proof Consider the closed orientable surface Σ −Σ′, obtained by gluing Σ
+and Σ′ (with reversed orientation) along K. By a homotopy we may assume
+that the trivialisations of ξ|Σ and ξ|Σ′ coincide along an interval in K; they
+then deﬁne a trivialisation of ξ over Σ −Σ′ with a disc D2 removed. See
+Figure 3.13; here K ∩D2 makes up the complementary interval in K. With
+the indicated orientation of K (which determines that of Σ), the orientation
+of D2 is the standard one.
+Over D2 there is a unique trivialisation of ξ up to homotopy, which may
+be assumed to coincide along K ∩D2 with the trivialisation deﬁned by
+the positive tangent vector to K.
+(Homotopically, we can think of ξ|D 2
+as coinciding with the tangent bundle TD2 and of the trivialisation as the
+one given by a constant vector ﬁeld.) Then the Euler number ⟨e(ξ), c −c′⟩
+measures the number of rotations of the trivialisation of ξ over (Σ−Σ′)\D2
+along ∂D2 (traversed in counterclockwise direction) relative to this constant
+vector ﬁeld.
+On the other hand, when computing the diﬀerence rot(K, Σ)−rot(K, Σ′),
+our assumptions imply that we need only consider the relative rotations of
+the appropriate vector ﬁelds along K ∩D2. The relevant contribution of
+
+=====[PDF page 138 / 458]=====
+120
+Knots in contact 3–manifolds
+−Σ′
+Σ
+D2
+K
+Fig. 3.13. Computing the rotation number.
+the term rot(K, Σ) is the number of rotations of the constant vector ﬁeld
+relative to the trivialisation of ξ|Σ along the path K ∩D2, which is oriented
+homotopic rel endpoints to ∂D2 ∩Σ traversed in clockwise direction. This
+equals the contribution to the Euler number (on the right-hand side of our
+equation) coming from ∂D2 ∩Σ, since both the relative roles of the vector
+ﬁelds and the direction of traversal are reversed.
+When comparing the contribution of the term rot(K, Σ′) with the con-
+tribution to the Euler number from ∂D ∩Σ′, we notice that only the roles
+of the vector ﬁelds are interchanged, but not the direction of traversal of
+∂D2 ∩Σ′. This accounts for the minus sign in the equation and proves the
+proposition.
+Corollary 3.5.16 If e(ξ) = 0, then the rotation number rot(K, c) is inde-
+pendent of c. Conversely, if rot(K, c) depends on K only, for each Legen-
+drian knot K in (M, ξ), then e(ξ) = 0.
+Proof The equality in the preceding proposition may be read as
+rot(K, c) −rot(K, c′) = ⟨e(ξ), c −c′⟩.
+Hence, if e(ξ) = 0, then rot(K, c) = rot(K, c′) for any c, c′ ∈H2(M, K)
+that can be represented by a Seifert surface for K.
+Conversely, assume that the rotation number is independent of the choice
+of relative homology class. Given any absolute class ˜c ∈H2(M), represent it
+(using Proposition 3.4.4) by a closed, orientable surface Σ embedded in M.
+Assume that Σ is connected; the general case follows by considering the
+components of Σ individually. Choose any oriented simple closed curve on Σ
+separating Σ into two components and isotope it to an oriented Legendrian
+
+=====[PDF page 139 / 458]=====
+3.5 The classical invariants
+121
+knot K (Thm. 3.3.1). By the topological isotopy extension theorem, there
+is an ambient isotopy that will move Σ to a surface, still representing the
+homology class ˜c, that contains K as a separating curve. The splitting of this
+new surface along K into two components translates into a splitting ˜c = c−c′
+with c, c′ ∈H2(M, K). Hence, the fact that the rotation numbers do not
+depend on the choice of relative homology class, together with the preceding
+proposition, yields ⟨e(ξ), ˜c⟩= 0. Since the choice of ˜c was arbitrary, this
+gives e(ξ) = 0.
+Remark 3.5.17 The ﬁrst part of this corollary admits an easy proof without
+reference to the preceding proposition. The condition e(ξ) = 0 is equivalent
+to saying that ξ is a trivial 2–plane bundle (see the comments after Theorem
+4.3.1 below or the more formal argument in the proof of Proposition 8.1.1).
+So the rotation number of an oriented Legendrian knot K may be computed
+by counting the number of rotations of the (positive) tangent vector to K
+relative to a global trivialisation of ξ. Even in that case, however, the con-
+dition that K be homologically trivial is necessary for the rotation number
+not to depend on the choice of global trivialisation.
+Whenever rot(K, c) is independent of c, we shall simply write rot(K).
+Example 3.5.18 Consider the standard Legendrian unknot K in the stan-
+dard 3–sphere (S3, ξst) as in Example 3.5.7. The vector ﬁeld
+x1 ∂x2 −x2 ∂x1 + y2 ∂y1 −y1 ∂y2
+is a nowhere zero section of ξst that coincides along K with the tangent
+vector ﬁeld u to K. This shows that rot(K) = 0.
+The contact manifold (R3, ξst) is a further example to which the above
+corollary applies. The next proposition gives a formula for computing the
+rotation number of a knot from its front projection. Notice that the orienta-
+tion of K allows us to speak of cusps being oriented upwards or downwards.
+Proposition 3.5.19 Let K be an oriented Legendrian knot in (R3, ξst),
+with ξst cooriented by the vector ﬁeld ∂z. Write λ+ or λ−for the number
+(in the front projection of K) of left cusps oriented upwards or downwards,
+respectively; similarly we write ρ± for the number of right cusps with one
+or the other orientation. Finally, we write c± for the total number of cusps
+oriented upwards or downwards, respectively. Then the rotation number of
+K is given by
+rot(K) = λ−−ρ+ = ρ−−λ+ = 1
+2(c−−c+).
+
+=====[PDF page 140 / 458]=====
+122
+Knots in contact 3–manifolds
+Proof
+Observe that the vector ﬁelds e1 = ∂x and e2 = ∂y −x ∂z deﬁne a
+positively oriented trivialisation of ξst. Therefore, rot(K) can be computed
+by counting (with sign) how often the positive tangent vector to K crosses
+∂x as we travel once along K.
+Since x equals the negative slope of the front projection, points of K where
+the (positive) tangent vector equals ∂x are exactly the left cusps oriented
+downwards (see Figure 3.14) and the right cusps oriented upwards.
+y
+x
+z
+Fig. 3.14. Contribution of a cusp to rot(K).
+At a left cusp oriented downwards, the tangent vector to K, expressed
+in terms of e1, e2, changes from having a negative component in the e2–
+direction to a positive one, i.e. such a cusp yields a positive contribution
+to rot(K). Analogously, one sees that a right cusp oriented upwards gives
+a negative contribution to the rotation number. This proves the formula
+rot(K) = λ−−ρ+.
+The second expression for the rotation number is obtained by counting
+crossings through −e1 instead; the third expression is found by averaging
+the ﬁrst two.
+As mentioned earlier, the front projection is usually more convenient to
+work with than the Lagrangian projection, so the preceding proposition is
+important in that respect.
+However, the rotation number of Legendrian
+
+=====[PDF page 141 / 458]=====
+3.5 The classical invariants
+123
+knots in (R3, ξst) actually admits a much simpler interpretation in the La-
+grangian projection. First recall the following deﬁnition:
+Deﬁnition 3.5.20 The rotation number rot(γ) of an immersion γ : S1 →
+R2 is the degree of its diﬀerential γ′ : S1 →R2 \ {0}.
+In other words, rot(γ) can be computed by counting (with sign) how often
+γ′ crosses ∂x. Since a global trivialisation of ξst is given by the vector ﬁelds
+∂x and ∂y −x ∂z, the following proposition is immediate.
+Proposition 3.5.21 Let γ : S1 →K ⊂R3 be a regular parametrisation of
+an oriented Legendrian knot K in (R3, ξst) and γL its Lagrangian projection.
+Then rot(K) = rot(γL).
+Remark 3.5.22 The two preceding propositions allow us to deﬁne the ro-
+tation number also for Legendrian immersions of S1 in (R3, ξst). This will
+be discussed further in Section 6.3.1.
+There are various relations between the Thurston–Bennequin invariant
+and the rotation number of Legendrian realisations of a given knot type.
+Arguably the most important one is the Bennequin inequality
+tb(K) + |rot(K)| ≤−χ(Σ),
+where χ(Σ) denotes the Euler characteristic of a Seifert surface Σ for the
+Legendrian knot K in (R3, ξst). This will be proved (for Legendrian knots in
+more general contact manifolds) in Section 4.6.5. For the moment, we only
+prove a very simple relation.
+Proposition 3.5.23 Let K be a Legendrian knot in (R3, ξst). Then
+tb(K) + rot(K) ≡1 mod 2.
+Proof From Propositions 3.5.9 and 3.5.19 we have
+tb(K) + rot(K)
+=
+writhe(K) −1
+2(c−+ c+) + 1
+2(c−−c+)
+=
+writhe(K) −c+.
+For computing the expression writhe(K) −c+, we may replace the front
+projection of K by a smooth knot diagram, with c+ counting the (isolated)
+vertical tangencies oriented upwards. If we change a crossing in this diagram,
+the writhe changes by an even number. We may therefore assume that the
+diagram represents the unknot, since any knot can be transformed to the
+unknot by crossing changes (see [209, Thm. 3.8] for a nice proof of that simple
+
+=====[PDF page 142 / 458]=====
+124
+Knots in contact 3–manifolds
+fact). By the Reidemeister theorem [209, Thm. 1.7], such a knot diagram can
+be transformed to the trivial diagram (i.e. a simple closed curve in the plane)
+by Reidemeister moves and planar isotopies. It is easy to see, from Remark
+3.5.24 (2) below, that the number writhe(K) −c+ mod 2 is an invariant of
+such moves, and for the circle it equals 1.
+Remarks 3.5.24 (1) This congruence relation holds for homologically trivial
+Legendrian knots in arbitrary contact 3–manifolds, see Remark 4.6.35.
+(2) The invariance of writhe(K) −c+ mod 2 under the three Reidemei-
+ster moves is a simple check. Under planar isotopies, writhe(K) is clearly
+invariant. Observe that c+ mod 2 may be regarded as the mod 2 degree
+of the Gauß mapping K →S1. A planar isotopy corresponds to a smooth
+homotopy of that Gauß map, and the invariance of the mod 2 degree under
+such a smooth homotopy, while fairly obvious in this particular case, is a
+general fact; see Chapter 4 of Milnor’s little gem [186].
+Example 3.5.25 When K is the unknot, we may take the Seifert surface Σ
+to be a disc. So the Bennequin inequality reads
+tb(K) + |rot(K)| ≤−1.
+This yields the restriction tb(K) ≤−1. For tb(K) = −m, m ∈N, the
+Bennequin inequality and the parity condition from Proposition 3.5.23 imply
+that
+rot(K) ∈{−m + 1, −m + 3, . . . , m −3, m −1}.
+Figure 3.15 shows that any combination of tb and rot permitted by these
+conditions can indeed be realised by a Legendrian unknot. The Legendrian
+unknot with a front projection diagram as shown, with c−= 2n−+ 1 down
+cusps and c+ = 2n+ + 1 up cusps (n−, n+ ∈N0) and no crossings, has
+tb = −1 −(n−+ n+),
+rot = 1
+2(n−−n+).
+The example in the picture has n−= 2 and n+ = 1.
+It is natural to ask to what extent these classical invariants classify Le-
+gendrian knots. In other words, given two Legendrian knots of the same
+topological knot type and with equal Thurston–Bennequin invariants and
+rotation numbers, are these knots Legendrian isotopic? This question has
+generated some deep mathematics. The ﬁrst result in this direction is due
+to Eliashberg and Fraser [74].
+
+=====[PDF page 143 / 458]=====
+3.5 The classical invariants
+125
+Fig. 3.15. A Legendrian unknot.
+Theorem 3.5.26 (Eliashberg–Fraser) Let K, K′ be two topologically triv-
+ial Legendrian knots in (R3, ξst). Then they are Legendrian isotopic if and
+only if tb(K) = tb(K′) and rot(K) = rot(K′).
+Remark 3.5.27 In fact, Eliashberg and Fraser prove this theorem for topo-
+logically trivial Legendrian knots in arbitrary tight contact 3–manifolds.
+This result has been extended to some topologically non-trivial knot types
+by Etnyre and Honda [85], see also [82] and [53]. In general, however, the
+classical invariants do not suﬃce for classifying Legendrian knots in a given
+knot type.
+Chekanov ([45], [46]) found an example of two topologically isotopic Le-
+gendrian knots in (R3, ξst) with the same classical invariants which can be
+shown not to be Legendrian isotopic with the help of a more subtle invari-
+ant. This invariant derives from a combinatorial version of what is known
+as ‘contact homology’, see [75].
+3.5.2 Transverse knots
+Now let K be a homologically trivial transverse knot in a contact 3–manifold
+(M, ξ), with M oriented such that ξ is a positive contact structure. Let Σ be
+a Seifert surface for K. As in the deﬁnition of the rotation number, we make
+use of the fact that the plane ﬁeld ξ|Σ is trivial. Choose a non-vanishing
+section X of ξ|Σ and push K in the direction of X to obtain a parallel copy
+K′ of K.
+Choose any orientation for K, and give K′ the corresponding
+orientation. The following deﬁnition will not depend on this choice.
+Deﬁnition 3.5.28 The self-linking number sl(K, Σ) of the transverse
+knot K relative to the Seifert surface Σ is the linking number of K and K′.
+
+=====[PDF page 144 / 458]=====
+126
+Knots in contact 3–manifolds
+Remarks 3.5.29 (1) A transverse knot can be regarded as a 1–dimensional
+contact submanifold in the sense of Deﬁnition 2.1.14, see Remark 2.1.15.
+So the invariance of sl(K, Σ) under isotopies within the class of transverse
+knots follows from the isotopy extension theorem for contact submanifolds
+(Thm. 2.6.12).
+(2) The fact that sl(K, Σ) is independent of the choice of X (the non-
+vanishing section of ξ|Σ) follows by the argument used in the proof of Lem-
+ma 3.5.14. The dependence on the choice of Σ will be discussed presently. In
+contrast with the notation for rotation numbers, we do not write sl(K, c),
+with c ∈H2(M, K) the class represented by Σ, because this would force us
+to ﬁx (compatible) orientations of Σ and K.
+Proposition 3.5.30 Let Σ, Σ′ be oriented Seifert surfaces for K, inducing
+the same (boundary) orientation of K. Let c, c′ ∈H2(M, K) be the relative
+homology classes represented by Σ, Σ′, respectively. Choose a coorientation
+(and hence orientation) of the contact structure ξ, and write e(ξ) for the
+Euler class of this oriented 2–plane bundle. Then
+sl(K, Σ) −sl(K, Σ′) = ∓⟨e(ξ), c −c′⟩,
+where, as in Proposition 3.5.15, c −c′ is regarded as a class in H2(M).
+The sign in this equation depends on whether K is positively or negatively
+transverse to ξ for the given choice of coorientation.
+Proof Given oriented Seifert surfaces Σ, Σ′ (and hence an orientation of K),
+we may without loss of generality choose the coorientation of ξ such that K
+is positively transverse.
+Now the argument is modelled on that for proving Proposition 3.5.15.
+With the notation as in that proof – refer once more to Figure 3.13 – we
+may assume again that the trivialisations of ξ|Σ and ξ|Σ′ (given by the choice
+of a non-vanishing vector ﬁeld X in ξ) coincide along the interval K \ D2,
+and hence induce a trivialisation of ξ over (Σ −Σ′) \ D2. We may be more
+speciﬁc and require X along K \D2 to be given by the outward normal to Σ.
+Homotopically, we may think of ξ|D 2 as the trivial bundle of ‘horizontal’
+planes in Figure 3.13, with standard orientation when seen from above, and
+with trivialisation given by a constant vector ﬁeld X0. The Euler number
+⟨e(ξ), c −c′⟩, as before, measures the number of rotations of X relative to
+X0 along ∂D2 (traversed in a counterclockwise direction).
+On the other hand, the self-linking number sl(K, Σ) is given by the linking
+number lk(K, K′), where K′ is obtained by pushing K in the direction of X.
+By Proposition 3.4.11, this is the same as the intersection number K′ • Σ.
+Our choices imply that along the interval K \D2 we get no contribution to
+
+=====[PDF page 145 / 458]=====
+3.5 The classical invariants
+127
+this intersection number. Along K ∩D2, which is homotopic rel endpoints
+to the left half of ∂D2 in Figure 3.13, but with opposite orientation, this
+intersection number is given by the rotations of X relative to X0.
+Likewise, sl(K, Σ′) = K′ • Σ′ measures the rotations of X relative to X0
+as we travel along K ∩D2, or the right half of ∂D2 in Figure 3.13, now
+with the correct orientation, since we are dealing with −Σ′ in that ﬁgure.
+Thus, −sl(K, Σ′) is again the opposite of what we get when we compute
+the relevant contribution to ⟨e(ξ), c −c′⟩.
+Putting this together, we have the claimed formula for a positively trans-
+verse knot K.
+The following corollary is proved by essentially the same argument as
+Corollary 3.5.16.
+Corollary 3.5.31 If e(ξ) = 0, then the self-linking number sl(K, Σ) does
+not depend on the choice of Seifert surface Σ; we then simply write sl(K).
+Conversely, if sl(K, Σ) depends on K only, for each transverse knot K in
+(M, ξ), then e(ξ) = 0.
+For transverse knots in (R3, ξst), this invariant, too, can easily be com-
+puted from the front projection.
+Proposition 3.5.32 The self-linking number sl(K) of a transverse knot K
+in (R3, ξst) is equal to the writhe of its front projection.
+Proof This argument is completely analogous to that used for proving Propo-
+sition 3.5.11. We can take X = ∂x in the deﬁnition of sl(K). This means
+that K′ is obtained from K by pushing it vertically (with respect to the
+front projection). Hence, by a small isotopy we may assume that the front
+projection of K′ is a parallel curve to the front projection of K. We then
+observe that each crossing of the front projection of K contributes a crossing
+of K′ underneath K of the corresponding sign. By Proposition 3.4.14 this
+implies
+sl(K) = lk(K, K′) = writhe (K),
+as claimed.
+Remark 3.5.33 The analogue of Theorem 3.5.26 for transverse knots has
+been proved by Eliashberg [70]: topologically trivial transverse knots in
+(R3, ξst) (or in fact an arbitrary tight contact 3–manifold) with the same
+self-linking number are isotopic as transverse knots.
+
+=====[PDF page 146 / 458]=====
+128
+Knots in contact 3–manifolds
+The next proposition will be relevant for the construction of contact struc-
+tures on 3–manifolds (see the proof of Theorem 4.3.1 at the end of Sec-
+tion 4.3).
+Proposition 3.5.34 Every integer can be realised as the self-linking number
+of some transverse link in (R3, ξst).
+Proof
+Figure 3.16 shows front projections of positively transverse knots
+with self-linking number ±3. From that ﬁgure the construction principle for
+realising any odd integer should be clear. With a two-component link any
+even integer can be realised.
++3
+−3
+Fig. 3.16. Transverse knots with self-linking number ±3.
+Remark 3.5.35 It is no accident that I do not give an example of a trans-
+verse knot with even self-linking number, see Remark 4.6.35.
+3.5.3 Transverse push-oﬀs
+We end this chapter by proving an important relation between the Thurston–
+Bennequin invariant and rotation number of a homologically trivial Legen-
+drian knot on the one hand, and the self-linking number of its positive or
+negative transverse push-oﬀ(as deﬁned on page 95) on the other.
+Proposition 3.5.36 Let K be a homologically trivial oriented Legendrian
+knot, with compatibly oriented Seifert surface Σ, in a contact 3–manifold
+(M, ξ). Let K± be the positive or negative, respectively, transverse push-oﬀ
+
+=====[PDF page 147 / 458]=====
+3.5 The classical invariants
+129
+of K. We may regard Σ also as a Seifert surface for K± (since K and K±
+are topologically isotopic). Then
+sl(K±, Σ) = tb(K) ∓rot(K, [Σ]).
+(3.1)
+Proof Let X be a nowhere zero section of ξ|Σ. We may (and will) think of X
+as a section of ξ deﬁned in a neighbourhood of Σ that has Σ as deformation
+retract. First suppose that rot(K, [Σ]) = 0. With γ : S1 →K a positively
+oriented parametrisation of K, this means that the total number of rotations
+of γ′ relative to X is zero as we traverse K. We may therefore change X
+by a homotopy so that it is everywhere transverse to γ′.
+Then K± can
+be obtained from K by pushing it in the direction of ±X. (We may have
+to replace X by −X so that the signs correspond nicely.) Let K′
+± be the
+knot obtained by pushing K± a little further in the direction of ±X. Then
+lk(K, K±) = lk(K±, K′
+±). But, by the deﬁnitions, the ﬁrst linking number
+is precisely tb(K), the second, sl(K±, Σ).
+In the general case, beside the section X of ξ|Σ we also consider a section
+X0 of ξ over a neighbourhood of K, transverse to γ′ along K. The knots
+K± can now be deﬁned by pushing K in the direction of ±X0. The knots
+K′
+± we deﬁne as before by pushing K± in the direction of ±X, and we let
+K0
+± be the knots obtained by pushing K± further in the direction of ±X0.
+Then
+lk(K, K±) = lk(K±, K0
+±) = tb(K)
+(3.2)
+and
+lk(K±, K′
+±) = sl(K±, Σ).
+(3.3)
+Moreover, rot(K, [Σ]) is given by the number of rotations of X0 relative to
+X as we traverse K once in positive direction. For the positively transverse
+knot K+, rotations of X0 relative to X contribute positively to lk(K+, K0
++)
+relative to lk(K+, K′
++). For the negatively transverse knot K−, the sign of
+this contribution changes. This means that
+lk(K±, K0
+±) = lk(K±, K′
+±) ± rot(K, [Σ]).
+(3.4)
+Equations (3.2), (3.3) and (3.4) imply Equation (3.1).
+Remark 3.5.37 In [26], Bennequin denotes the positively transverse push-
+oﬀof a Legendrian knot γ by γ−, the negatively transverse push-oﬀby γ+.
+This has led to some sign errors in the literature regarding Equation (3.1).
+
+=====[PDF page 148 / 458]=====
+4
+Contact structures on 3–manifolds
+‘Singularity is almost invariably a clue.’
+Arthur Conan Doyle,
+The Boscombe Valley Mystery
+Throughout the present chapter, M will denote a connected, closed, ori-
+entable 3–manifold. Our ﬁrst major aim here is to prove the one-to-one cor-
+respondence between isotopy classes of so-called overtwisted contact struc-
+tures on M on the one hand, and homotopy classes of tangent 2–plane ﬁelds
+on M on the other.
+This programme is carried out in the following steps. In Section 4.1 I
+present what is essentially Martinet’s [175] proof of the existence of a con-
+tact structure on every 3–manifold. This construction is based on the surgery
+description of 3–manifolds due to Lickorish and Wallace (Thm. 1.7.5). The
+key point is to show how suitable contact forms deﬁned near the boundary of
+a solid torus can be extended over the whole solid torus. This will enable us
+to perform Dehn surgeries (along transverse knots) on contact 3–manifolds.
+For this extension procedure we use an approach due to Thurston and Win-
+kelnkemper [233]; this yields a slight simpliﬁcation of Martinet’s original
+construction.
+In Section 4.2 we show that every orientable 3–manifold is parallelisable
+and then build on this to classify cooriented tangent 2–plane ﬁelds up to
+homotopy.
+In Section 4.3 we study the so-called Lutz twist, a topologically trivial
+Dehn surgery on a contact manifold (M, ξ) which yields a contact structure
+ξ′ on M that is not, in general, homotopic (as 2–plane ﬁeld) to ξ. We then
+use this to show that every tangent 2–plane ﬁeld on a given 3–manifold M
+is homotopic to a contact structure. These results are contained in Lutz’s
+thesis [168], albeit in a language that diﬀers markedly from the one used be-
+low: for instance, the concept of self-linking number of transverse knots had
+130
+
+=====[PDF page 149 / 458]=====
+Contact structures on 3–manifolds
+131
+not been available at the time. Of Lutz’s published work, the announcement
+[167] deals only with the 3–sphere; [169], too, deals only with a restricted
+problem. I learned the key steps of the construction from an exposition given
+in Ginzburg’s thesis [103], but I have added proofs of many topological de-
+tails. Sections 4.1 to 4.3 have appeared previously, with minor variations,
+in [97].
+Further proofs of Martinet’s theorem are presented in Section 4.4: one by
+Gonzalo, based on a description of 3–manifolds as branched covers over the
+3–sphere, and one by Thurston and Winkelnkemper, based on open book
+decompositions of 3–manifolds.
+In Section 4.5 we discuss the fundamental dichotomy between tight and
+overtwisted contact structures, introduced by Eliashberg. It turns out that
+the contact structures found by the Lutz–Martinet construction may always
+be assumed to be overtwisted.
+Thus, the proof of the result advertised
+above is completed (in Section 4.7) by showing that two overtwisted contact
+structures that are homotopic as plane ﬁelds are in fact isotopic as contact
+structures. This result is due to Eliashberg [64], who in fact proved a stronger
+statement also involving the higher homotopy groups of the corresponding
+spaces (a precise formulation will be given below).
+This proof relies in an essential way on an understanding of surfaces in
+contact 3–manifolds and properties of their characteristic foliations. These
+are investigated systematically in Section 4.6. We include there also the ma-
+terial that will be used later in the classiﬁcation of tight contact structures:
+elements of convex surface theory, the elimination lemma for reducing the
+number of singularities of a characteristic foliation, restrictions on the Euler
+classes realisable by tight contact structures, and the Bennequin inequality
+for Legendrian or transverse knots in a tight contact 3–manifold.
+Section 4.8 contains a more systematic introduction to convex surface
+theory, i.e. the theory of surfaces that admit a transverse contact vector ﬁeld.
+This concept is central to many developments in modern contact topology,
+and has proved indispensable for the classiﬁcation of tight contact structures.
+There are at least a couple of approaches towards this classiﬁcation ques-
+tion.
+The one I develop in Section 4.9 is tomography, as introduced by
+Giroux, i.e. the study of contact structures on a product manifold S×[−1, 1],
+where S is a closed, oriented surface, via the characteristic foliations induced
+on each S × {z}. This is then used in Section 4.10 to classify tight contact
+structures on S3, R3, S2 × S1, and on the 3–ball.
+Section 4.11 contains the proof of Cerf’s theorem as advertised in Section
+1.7.1 (modulo the technique of ﬁlling by holomorphic discs, which is only
+sketched).
+
+=====[PDF page 150 / 458]=====
+132
+Contact structures on 3–manifolds
+Finally, in Section 4.12 it is shown that the prime decomposition theorem
+for 3–manifolds has a direct analogue for tight contact 3–manifolds.
+4.1 Martinet’s construction
+The ﬁrst step towards the classiﬁcation of overtwisted contact structures on
+3–manifolds is the following theorem of Martinet [175].
+Theorem 4.1.1 (Martinet) Every closed, orientable 3–manifold M admits
+a contact structure.
+In view of the theorem of Lickorish and Wallace and the fact that S3
+admits a contact structure, Martinet’s theorem is a direct consequence of
+the following result.
+Theorem 4.1.2 Let ξ0 be a contact structure on a 3–manifold M0. Let
+M be the manifold obtained from M0 by a Dehn surgery along a knot K.
+Then M admits a contact structure ξ which coincides with ξ0 outside the
+neighbourhood of K where we perform surgery.
+Proof By Theorem 3.3.1 we may assume that K is positively transverse to ξ0.
+Then, by the contact neighbourhood theorem (Example 2.5.16), we can ﬁnd
+a tubular neighbourhood νK of K diﬀeomorphic to S1 × D2
+δ0 , where K is
+identiﬁed with S1 × {0} and D2
+δ0 denotes a disc of radius δ0, such that the
+contact structure ξ0 is given as the kernel of dθ + r2dϕ, with θ denoting the
+S1–coordinate and (r, ϕ) polar coordinates on D2
+δ0 . Notice that this contact
+structure is rotationally symmetric about S1 ×{0}, so a transverse knot does
+not inherit any preferred framing from the contact structure. (We have seen
+in Deﬁnition 3.5.1 that the situation is markedly diﬀerent for Legendrian
+knots.)
+Now perform a Dehn surgery along K. In order to describe that surgery,
+we ﬁx an identiﬁcation of (νK, ξ0) with
+
+S1 × D2
+δ0 , ker(dθ + r2dϕ)
+
+and give K the framing deﬁned by this identiﬁcation. This means that we
+cut out S1 ×D2
+δ ⊂S1 ×D2
+δ0 for some δ < δ0, and we write µ for the meridian
+∗× ∂D2
+δ and λ for the longitude S1 × ∗, with ∗denoting a point in S1 or
+∂D2
+δ , respectively.
+Now glue back a copy of S1 ×D2
+δ , whose meridian and longitude we denote
+by µ0 and λ0. If the surgery coeﬃcient of the Dehn surgery with respect to
+the framing given by λ is p/q ∈Q ∪{∞}, this means that the gluing map

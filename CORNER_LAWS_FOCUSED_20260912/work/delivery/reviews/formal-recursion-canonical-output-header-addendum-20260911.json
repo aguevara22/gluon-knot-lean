@@ -1,0 +1,80 @@
+{
+  "review_schema": "same-model-review-metadata-addendum-v1",
+  "sealed_utc": "2026-09-12T00:24:26.029972+00:00",
+  "reviewer": "/root/review_contraction_candidates",
+  "reviewer_is_ai": true,
+  "model_relationship": "Same currently available model as root; no stronger-model approval.",
+  "purpose": "Correct partial source-header metadata only. The earlier eval_canonicalTreePolynomial_farOnly header was truncated by splitting at the named argument R := rationals. The complete-body SHA and receipt bindings were correct. The original sealed reviews remain unchanged. All complete declaration source, including ambient binders and proofs, is recorded here.",
+  "groups": [
+    {
+      "group": "FormalNearFarRecursion",
+      "unchanged_sealed_review": "work/reviews/formal-near-far-recursion-technical-review-20260911.json",
+      "unchanged_sealed_review_sha256": "1eb96dd15d573c1d9f3e7752a6d23d479df9482c81a7edb221e9687b7e0cd23f",
+      "body_path": "work/checks/FormalNearFarRecursion.body.lean",
+      "body_sha256": "cb09942ff8dd58949c85ff68239e441c17f132aa94b6d54810c50834738e2666",
+      "complete_declarations_with_ambient_namespace_section_and_binders": "namespace SM\n\nnoncomputable section\nvariable {n : ℕ} [NeZero n] {R : Type*} [CommRing R] [Invertible (2 : R)]\n\n/-- The actual open tree recursion solves the complete near/far system\nfor arbitrary arrays in the full ring, without a geometric specialization. -/\ntheorem openTreeRec_nearFar_equation (D H : TripleArray n R) :\n    nearFarTransform D H (openTreeRec (fun _ π => π.nearFarWeight D H)) = boundaryUnitArray := by\n  rw [nearFarTransform_eq_triangular]\n  funext I\n  have hp := I.leaves_pos\n  have hi : I.right.val = I.left.val + 1 ↔ I.leaves = 1 := by\n    have := I.increasing\n    unfold BoundaryInterval.leaves\n    change I.left.val < I.right.val at this\n    omega\n  by_cases hI : I.leaves = 1\n  · letI : IsEmpty {π : IntervalComposition I // 2 ≤ π.parts} :=\n      ⟨fun π => by have := π.val.parts_eq_one_of_leaves_eq_one hI; have := π.property; omega⟩\n    simp [triangularTransform, boundaryUnitArray, hi.mpr hI, openTreeRec_one _ I hI]\n  · have hm : 2 ≤ I.leaves := by omega\n    simp only [triangularTransform, boundaryUnitArray,\n      show ¬I.right.val = I.left.val + 1 from fun h => hI (hi.mp h), if_false]\n    rw [openTreeRec_many _ I hm]\n    exact neg_add_cancel _\n\n/-- Uniqueness identifies the actual formal recursion with the existing\npolynomial inverse on every interval. -/\ntheorem openTreeRec_nearFar_inverse (D H : TripleArray n R) :\n    openTreeRec (fun _ π => π.nearFarWeight D H) = nearFarInverse D H boundaryUnitArray :=\n  nearFar_solution_unique D H _ _ (openTreeRec_nearFar_equation D H)\n\n/-- The actual rooted recursion is the far-only output as a full ring\nidentity, with each root weight the entire reversed-far cut product. -/\ntheorem rootedTreeRec_nearFar_farOnly (D H : TripleArray n R) (I : BoundaryInterval n) :\n    rootedTreeRec (fun _ π => π.nearFarWeight D H)\n      (fun _ π => π.nearFarWeight D (-H)) I = farOnlyOutput H I := by\n  exact congrFun (reversedFar_output_of_solution D H\n    (openTreeRec (fun _ π => π.nearFarWeight D H)) boundaryUnitArray\n    (openTreeRec_nearFar_equation D H)) I\n\nend\nend SM\n",
+      "complete_headers": {
+        "openTreeRec_nearFar_equation": {
+          "complete_source_header": "theorem openTreeRec_nearFar_equation (D H : TripleArray n R) :\n    nearFarTransform D H (openTreeRec (fun _ π => π.nearFarWeight D H)) = boundaryUnitArray",
+          "exact_header_bytes_sha256": "4dca7d09f2e3aa6680bfbce5152dae5d68a34e3dcba8ca47ee11d0cda0d022b5",
+          "earlier_header_was_partial": false
+        },
+        "openTreeRec_nearFar_inverse": {
+          "complete_source_header": "theorem openTreeRec_nearFar_inverse (D H : TripleArray n R) :\n    openTreeRec (fun _ π => π.nearFarWeight D H) = nearFarInverse D H boundaryUnitArray",
+          "exact_header_bytes_sha256": "22f5475562ddfcd3f8fb0d5cf9c8d5c7f3657ce3731b00d9c5805f2a94bb875d",
+          "earlier_header_was_partial": false
+        },
+        "rootedTreeRec_nearFar_farOnly": {
+          "complete_source_header": "theorem rootedTreeRec_nearFar_farOnly (D H : TripleArray n R) (I : BoundaryInterval n) :\n    rootedTreeRec (fun _ π => π.nearFarWeight D H)\n      (fun _ π => π.nearFarWeight D (-H)) I = farOnlyOutput H I",
+          "exact_header_bytes_sha256": "4c9c9dab126cf19672fd4bd05f643673b50bc31eca891921c610a26643d574fe",
+          "earlier_header_was_partial": false
+        }
+      },
+      "partial_earlier_headers": []
+    },
+    {
+      "group": "CanonicalTreeFarOutput",
+      "unchanged_sealed_review": "work/reviews/canonical-tree-far-output-technical-review-20260911.json",
+      "unchanged_sealed_review_sha256": "9da76dccd29a361596aa641d4d50436fdaaeaa3669393fa0d7c946abfd88e0e0",
+      "body_path": "work/checks/CanonicalTreeFarOutput.body.lean",
+      "body_sha256": "a8db84464fabbfe8160d9d3db54a3ee260ccc669bb6c5ad59a3d02de9a64ca3d",
+      "complete_declarations_with_ambient_namespace_section_and_binders": "namespace SM\n\nnoncomputable section\nvariable {n : ℕ} [NeZero n]\nattribute [local instance] silentPolynomialTwoInvertible\n\ntheorem canonicalPolynomial_half :\n    (MvPolynomial.C (1 / 2 : ℚ) : MvPolynomial (IncreasingBoundaryTriple n) ℚ) =\n      ⅟ (2 : MvPolynomial (IncreasingBoundaryTriple n) ℚ) := by\n  simpa only [invOf_eq_inv, one_div] using\n    (ringHom_map_half (MvPolynomial.C : ℚ →+* MvPolynomial (IncreasingBoundaryTriple n) ℚ))\n\nnamespace IntervalComposition\nvariable {I : BoundaryInterval n} (π : IntervalComposition I)\n\n/-- Every ordinary gate variable is specialized to its entire cut product,\nnot to one linear factor representing the whole composition. -/\ntheorem tripleOrdinaryWeight_nearFar (g : ZMod n) :\n    π.tripleOrdinaryWeight g = π.nearFarWeight (formalBoundaryChi g) (formalBoundaryChi g) := by\n  unfold tripleOrdinaryWeight nearFarWeight\n  apply Finset.prod_congr rfl\n  intro k _\n  rw [tripleOrdinaryFactor, canonicalPolynomial_half]\n  exact mul_comm _ _\n\n/-- The root weight specializes to the entire reversed-far product,\nincluding the empty product for a unary root. -/\ntheorem tripleRootWeight_nearFar (g : ZMod n) :\n    π.tripleRootWeight g = π.nearFarWeight (formalBoundaryChi g) (-formalBoundaryChi g) := by\n  unfold tripleRootWeight nearFarWeight\n  apply Finset.prod_congr rfl\n  intro k _\n  simp only [tripleRootFactor, canonicalPolynomial_half, Pi.neg_apply, sub_neg_eq_add]\n  exact mul_comm _ _\n\nend IntervalComposition\n\n/-- The actual prescribed canonical physical-triple polynomial equals the\nfar-only output as an identity in its unrestricted rational polynomial ring. -/\ntheorem canonicalTreePolynomial_farOnly (g : ZMod n) (hn : 3 ≤ n) :\n    canonicalTreePolynomial g hn = farOnlyOutput (formalBoundaryChi g) (fullBoundaryInterval hn) := by\n  unfold canonicalTreePolynomial\n  simp_rw [IntervalComposition.tripleOrdinaryWeight_nearFar,\n    IntervalComposition.tripleRootWeight_nearFar]\n  exact rootedTreeRec_nearFar_farOnly (formalBoundaryChi g) (formalBoundaryChi g) _\n\n/-- Polynomial evaluation at every tuple, including simultaneous silent\nzeros, equals the geometric far-only output. No step-function gate at zero\nor genericity assumption enters this full polynomial identity. -/\ntheorem eval_canonicalTreePolynomial_farOnly (P : LabelledTuple n) (g : ZMod n)\n    (hn : 3 ≤ n) :\n    MvPolynomial.eval (canonicalTripleValue P) (canonicalTreePolynomial g hn) =\n      farOnlyOutput (geometricBoundaryArray (R := ℚ) P g) (fullBoundaryInterval hn) := by\n  rw [canonicalTreePolynomial_farOnly]\n  have h := map_farOnlyOutput (MvPolynomial.eval (canonicalTripleValue P))\n    (formalBoundaryChi g) (fullBoundaryInterval hn)\n  have he : (fun t => MvPolynomial.eval (canonicalTripleValue P) (formalBoundaryChi g t)) =\n      geometricBoundaryArray (R := ℚ) P g := by\n    funext t\n    exact eval_formalBoundaryChi P g t\n  rw [he] at h\n  exact h\n\nend\nend SM\n",
+      "complete_headers": {
+        "canonicalPolynomial_half": {
+          "complete_source_header": "theorem canonicalPolynomial_half :\n    (MvPolynomial.C (1 / 2 : ℚ) : MvPolynomial (IncreasingBoundaryTriple n) ℚ) =\n      ⅟ (2 : MvPolynomial (IncreasingBoundaryTriple n) ℚ)",
+          "exact_header_bytes_sha256": "249e24bb7d95269b5949644b891e7bdda739ec416a20a3725875567d3d93d53b",
+          "earlier_header_was_partial": false
+        },
+        "tripleOrdinaryWeight_nearFar": {
+          "complete_source_header": "theorem tripleOrdinaryWeight_nearFar (g : ZMod n) :\n    π.tripleOrdinaryWeight g = π.nearFarWeight (formalBoundaryChi g) (formalBoundaryChi g)",
+          "exact_header_bytes_sha256": "2a5acefa593db9c7116ea417c05b6259ae99006143b60696a814823e5bd0736c",
+          "earlier_header_was_partial": false
+        },
+        "tripleRootWeight_nearFar": {
+          "complete_source_header": "theorem tripleRootWeight_nearFar (g : ZMod n) :\n    π.tripleRootWeight g = π.nearFarWeight (formalBoundaryChi g) (-formalBoundaryChi g)",
+          "exact_header_bytes_sha256": "bece7eac1a61e6362e7fba2e978a2bd759fd8878dcd58f89f7c653c8cd1b1684",
+          "earlier_header_was_partial": false
+        },
+        "canonicalTreePolynomial_farOnly": {
+          "complete_source_header": "theorem canonicalTreePolynomial_farOnly (g : ZMod n) (hn : 3 ≤ n) :\n    canonicalTreePolynomial g hn = farOnlyOutput (formalBoundaryChi g) (fullBoundaryInterval hn)",
+          "exact_header_bytes_sha256": "91a4deecd87f66f1cf8aab53e746d355601cd066ed033c18d9228c6b095eabf5",
+          "earlier_header_was_partial": false
+        },
+        "eval_canonicalTreePolynomial_farOnly": {
+          "complete_source_header": "theorem eval_canonicalTreePolynomial_farOnly (P : LabelledTuple n) (g : ZMod n)\n    (hn : 3 ≤ n) :\n    MvPolynomial.eval (canonicalTripleValue P) (canonicalTreePolynomial g hn) =\n      farOnlyOutput (geometricBoundaryArray (R := ℚ) P g) (fullBoundaryInterval hn)",
+          "exact_header_bytes_sha256": "8bd1047b84c50acf95e72299c7d313b3a9e02afe8aa6132bc71e20a3204d95f4",
+          "earlier_header_was_partial": true
+        }
+      },
+      "partial_earlier_headers": [
+        "eval_canonicalTreePolynomial_farOnly"
+      ]
+    }
+  ],
+  "proof_files_modified": false,
+  "lean_kernel_or_build_run": false,
+  "technical_assessments_changed": false,
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0
+}

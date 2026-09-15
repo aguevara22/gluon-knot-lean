@@ -1,0 +1,59 @@
+{
+  "checkpoint": "075",
+  "utc": "2026-09-11T19:32:15.544704+00:00",
+  "goal_status": "active; incomplete",
+  "previous_goal_turn_classification": "progress",
+  "this_goal_turn_classification": "progress: 17 new Lean-checked candidates, including both single-triple branches, coordinate construction and signed normalization",
+  "original_proofs": 19,
+  "original_proof_total": 132,
+  "original_checklist_accepted": 38,
+  "original_checklist_total": 191,
+  "expanded_checklist_accepted": 39,
+  "expanded_checklist_total": 192,
+  "main_targets_accepted": 0,
+  "main_targets_total": 8,
+  "new_kernel_checked_candidate_declarations": 17,
+  "root_kernel_state": "none; all handles terminal",
+  "reviewer_kernel_state": "none launched this turn",
+  "same_model_technical_reviews": {
+    "status": "sealed; no defect found in reviewed candidates",
+    "files_sha256": {
+      "work/reviews/contraction-candidates-technical-review-20260911.md": "daff29fbdc79ee5e132a54d58255fc0d3fe04377cccd99e5045aecd901edec24",
+      "work/reviews/contraction-output-technical-review-20260911.md": "d1f569f0dadbd0df2d86bc2439a1020cd6ae0b20f6ad7f7e93b154d73ecab47d",
+      "work/reviews/proper-germ-technical-review-20260911.md": "52599dab0db79f7de84a6dd96af6526532fa24f88b944c3690da820acd2ba125",
+      "work/reviews/critical-affine-data-technical-review-20260911.md": "54d13066acfea1dea559a16f945f76ee9d8490a8455755dbec3264cc87d6b9a4",
+      "work/reviews/signed-critical-jump-technical-review-20260911.md": "b36e2c5f869a327ce6af11d4b5e7e70ea891154b74b489d3f5f5037ced8cd099",
+      "work/reviews/single-triple-tree-technical-review-20260911.md": "0ca9b4f833c0f7080d64c9172393443877d90581fcd5c1fc9df65f408ef0221c"
+    },
+    "source_fidelity_approval": false
+  },
+  "canonical_modules_unchanged": 327,
+  "baseline_files_unchanged": 436,
+  "evidence_verification_sha256": "f0807986440bcdf5b22924bf4463730833ad90c807049c87396a1542721c4f09",
+  "passing_receipts_sha256": {
+    "work/checks/ContractionOutput-prototype-result.json": "45421c9733362067d5e7a393af96e8f6410d4e8d06d0624b6da8b3a41bc0da85",
+    "work/checks/ProperSpanGermResponse-prototype-result.json": "ee4714dbdaaa9346add7739312d4de126f9935d9ce5bdc2b7e6546d20b436635",
+    "work/checks/CriticalAffineData-prototype-result.json": "58dab6647c5d18a65dcacb41a15c1ff84af06685543fc1923b17657b933a741d",
+    "work/checks/SignedCriticalJump-prototype-result.json": "b45f5af2057369405ddde0680db6f30c3c14e34096b3f771228f3186919bc501",
+    "work/checks/SingleTripleTreeResponse-prototype-result.json": "62507d282623027bf41689eb410b684eb107e8e6c50c6501d8bfa41cdfa9ec61"
+  },
+  "preserved_failed_sessions": [
+    57122,
+    66657
+  ],
+  "source_claim_acceptance_increment": 0,
+  "source_row": "thm:single-triple remains pending in unchanged map",
+  "whole_library_audit_rerun": false,
+  "last_canonical_audit": "070",
+  "report": "reports/single-triple-candidate-20260911.md",
+  "next_action": "Complete the source-presentation wrappers in decisions/single-triple-source-packaging-next.md: unordered critical support to increasing boundary positions with SignChanges permutation transport, and explicit faithful rational/real coefficient specialization. Then pursue thm:A-S3 with the three physical-root cases in decisions/flat-tree-law-next.md. Keep all accepted definitions, source statements, axioms and checks unchanged; stronger fidelity review and canonical integration remain pending, not an author question.",
+  "progress_watch_session": 15135,
+  "progress_watch_exit_policy": "stop before final response; app hourly automation retained",
+  "prior_evidence_verification_sha256": "9d36b78e1057b62df5dd7f15b2d483a39a5d0e2bd0a052b126db089055a04df0",
+  "verification_report_revalidation": {
+    "utc": "2026-09-11T19:33:12.284099+00:00",
+    "previous_hash": "9d36b78e1057b62df5dd7f15b2d483a39a5d0e2bd0a052b126db089055a04df0",
+    "current_hash": "f0807986440bcdf5b22924bf4463730833ad90c807049c87396a1542721c4f09",
+    "reason": "Startup rerun of the newly introduced verifier rewrote its diagnostic report with a new UTC timestamp. The 17 declarations, receipts, 37 evidence files, source hash and all436 baseline files reverified unchanged. The verifier has been made idempotent; subsequent runs preserve the report bytes. No kernel evidence, source statement, acceptance map or existing acceptance checker was changed."
+  }
+}

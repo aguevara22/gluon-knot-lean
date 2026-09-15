@@ -1,0 +1,172 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-filtered-cycles-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:28:48.832984+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the ten new filtered-component-cycle declarations. Root assembled their frozen prototype, alone ran first72620 and generated the passing receipt. This reviewer authored no proof body or dependency proof, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent comparison of actual owner filtering, quotient rotation, membership and inherited-order/source interfaces, plus full-file, ordered-embedding and receipt/trace checks. Earlier review documents by this reviewer do not constitute proof authorship."
+  },
+  "scope": {
+    "group": "CarrierFilteredCycles",
+    "declarations": [
+      "SM.Carrier.componentCycle",
+      "SM.Carrier.componentCycle_eq_filtered_markList",
+      "SM.Carrier.mem_componentCycle",
+      "SM.Carrier.componentCycle_nodup",
+      "SM.Carrier.mem_componentCycle_owner",
+      "SM.Carrier.componentCycle_nonempty",
+      "SM.Carrier.componentCycle_members_disjoint",
+      "SM.Carrier.componentCycle_injective",
+      "SM.Carrier.componentCycle_empty",
+      "SM.Carrier.componentCycle_eq_filtered_splitList"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "97–113 actual marked successor and incoming ownership; 115–139 splitting induction's inherited original cyclic order and split lists. The equality of reconnected successor order to this inherited order is a separate invariant.",
+    "ambient_context": "{n : ℕ} [NeZero n], hn:3≤n, actual Generic P, arbitrary actual finite crossing support T and actual orbit quotient component q. componentCycle is defined by filtering the complete original markCycle using decide(owner T m=q), not by supplying a cycle or assuming successor compatibility."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the inherited original cyclic order of actual component mark sets.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 72620,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierFilteredCycles-prototype-result.json",
+    "receipt_sha256": "347baf17301c2e0bc3764ac3be18a90fa49a36217cce6e403583c3ef783f2186",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierVisitTwin.body.lean": "9f80a477adaf4a1238b58160c0ff258eebeb37a6bc0b153dd6cbb0c1bdb6d2f8",
+      "work/checks/CarrierSmoothing.body.lean": "27ddd25cb6878afd24f7c71cfee7b003e9bd539c5dbc00eea05bc7642205c61e",
+      "work/checks/CycleFiltering.body.lean": "9b0aa68627a006733a347c879574724b54f833724579820e13a6fbc8f1722c5e",
+      "work/checks/CarrierFilteredCycles.body.lean": "17e091e45f8844dc366f67f985691accf2678d3a529692278113c3099ff2649e",
+      "work/checks/CarrierFilteredCycles.prototype.lean": "e8f81c3482729b310c36d91cefdda040c91992eb7d426ac4e675ccb9c58ee6a3",
+      "work/checks/CarrierFilteredCycles-first-kernel.log": "c9921d9805236c783556b8de4e93243e183b080b3931c9d70dd6deec9022122a"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean",
+      "work/checks/CarrierVisitTwin.body.lean",
+      "work/checks/CarrierSmoothing.body.lean",
+      "work/checks/CycleFiltering.body.lean",
+      "work/checks/CarrierFilteredCycles.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1,
+      "work/checks/CarrierVisitTwin.body.lean": 1,
+      "work/checks/CarrierSmoothing.body.lean": 1,
+      "work/checks/CycleFiltering.body.lean": 1,
+      "work/checks/CarrierFilteredCycles.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 10,
+    "declaration_axioms": {
+      "SM.Carrier.componentCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_eq_filtered_markList": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.mem_componentCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_nodup": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.mem_componentCycle_owner": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_nonempty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_members_disjoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_empty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.componentCycle_eq_filtered_splitList": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierFilteredCycles-first-draft.body.lean": "17e091e45f8844dc366f67f985691accf2678d3a529692278113c3099ff2649e",
+      "work/checks/CarrierFilteredCycles-first-draft.prototype.lean": "e8f81c3482729b310c36d91cefdda040c91992eb7d426ac4e675ccb9c58ee6a3",
+      "work/checks/CarrierFilteredCycles-body-dependencies.json": "fd5a9daccd0529bd0490710aa51699d53c4eead7956522c6a0b5dcc79c39c3a0",
+      "work/checks/CarrierFilteredCycles-draft-dependency-bindings.json": "8817d0db84d644a5960914a29bad0d3ae06aa66b70d7e456aeee7b7ce3ff079a"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_files_sha256": {},
+    "failure_scope": "No failed CarrierFilteredCycles run; root first72620 passed with unchanged first-draft body and prototype. Upstream failed evidence is not used as successful evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierSmoothing-prototype-result.json": "4e06aa76bbc821b6ef8c506d0c704a89b6e8e979ebabf8a6d291b5aa5768eada",
+      "work/checks/CycleFiltering-prototype-result.json": "5c29fec5a1a0c5128e3e8c98ca53bf44aa5f0a8306407b9d0e8d8c9baf456767"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/GaussVisits.lean": "50dbbfa547bf24786d4491717f422aff25e179126e5ccee18146bbe7847e5496",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Cycle.lean": "b211c4e0f5f89e8679d641fbef7674ae0e5787962294cc6cd2758f0669a75112",
+      "work/reviews/carrier-marks-technical-review-20260912.json": "5d10777ec8da18b257f6c9e0eca534f4735550bb8e2b1a73461357f805f75504",
+      "work/reviews/carrier-successor-technical-review-20260912.json": "82b60dffb9d5f2e7579fd705e59e785703895e33ca3197763c216e6bd0d2a282",
+      "work/reviews/carrier-smoothing-technical-review-20260912.json": "fc8a062ea9740c092b3031876f43eb3662c217792d8705a79d503f3528dd0ab7",
+      "work/checks/carrier-arc-baseline-20260912.json": "638e2b341c68f689af695cd6ad25b0b11710bd669efbf9d9322e032e294383e2",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "componentCycle is exactly the original complete markCycle filtered by the predicate that an actual mark's incoming orbit owner equals q. The original marked circle contains vertices as well as all actual visits. The definition contains no equality between Cycle.next and smoothingSuccessor and no assumed carrier order.",
+    "The consumed frozen CycleFiltering body defines Cycle.filter as Quotient.map of List.filter, justified by a proved rotation-compatibility lemma. Thus this is inherited cyclic order independent of the chosen first mark. The body retains its actual List and Cycle namespaces unchanged in the six-body prototype; it is not renamed into SM.Carrier.",
+    "componentCycle_eq_filtered_markList is the exact original sorted representative filtered by that same actual owner predicate. It gives a concrete inherited list but does not assert that this is the current successor's orbit traversal.",
+    "mem_componentCycle removes only the automatic original-circle membership condition, using completeness of markCycle. Its remaining condition is exactly owner T m=q. No geometric equality of planar points replaces equality of actual mark or owner identities.",
+    "componentCycle_nodup follows duplicate-freeness of the actual original circle under filtering. Each mark belongs to the filtered cycle of its own owner, and any actual quotient component has some mark representative by owner_surjective. Therefore componentCycle_nonempty requires no crossing-nonempty premise or component-count assumption.",
+    "Distinct actual components cannot share a retained mark because every mark has one owner. componentCycle_injective uses a representative of a proved nonempty filtered component to turn equality of cycles into equality of owner values; it does not infer injectivity from an unproved orbit count.",
+    "At empty support the already proved actual Component subsingleton forces every mark's owner to equal the supplied q. Cycle.filter_eq_self then yields the entire original markCycle. This covers crossing-free polygons because the original vertices remain present.",
+    "componentCycle_eq_filtered_splitList uses an explicit actual rotation equality hrot and explicit owner equalities for both endpoints. It derives the literal list a::(filter A++b::filter B) in the cycle quotient. Either filtered intervening list may be empty; the endpoints remain because their membership is proved, not presumed.",
+    "All statements are valid for arbitrary support T as inherited orderings of the actual owner sets. The source assertion that an independent support's reconnected successor follows that order is intentionally absent here and cannot be inferred merely from the name componentCycle.",
+    "The six complete frozen bodies occur exactly once in the prototype in manifest order. First72620 binds the unchanged first own body/prototype and exact success log; all ten printed own declarations use only standard foundational axioms. Consumed CycleFiltering's earlier failure remains separate and is not this packet's passing evidence."
+  ],
+  "limits": "Inherited owner-filtered cyclic order only. Equality to the actual current smoothing successor, its preservation under insertion, current-cycle representation, general independence induction and |S|+1 count, all-visits noncrossing ownership and carrier geometry remain separate. Source acceptance increment0; stronger-model fidelity and canonical integration remain false."
+}

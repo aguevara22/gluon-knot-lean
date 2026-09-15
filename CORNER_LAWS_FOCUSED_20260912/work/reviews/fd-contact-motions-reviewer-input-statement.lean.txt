@@ -1,0 +1,991 @@
+-- Ported 09:21Z 2026-09-14 from work/drafts/fd/ContactMotionsFinal.lean (fd:contact-motions unit + SmoothDependence unit, row 86) by the pod executor; body verbatim.
+import Mathlib.Analysis.ODE.PicardLindelof
+import Mathlib.Analysis.ODE.ExistUnique
+import Mathlib.Analysis.ODE.Gronwall
+import Mathlib.Analysis.InnerProductSpace.Calculus
+import Mathlib.Analysis.Calculus.FDeriv.Symmetric
+import Mathlib.Analysis.Calculus.ContDiff.Deriv
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
+import Mathlib.Analysis.Calculus.BumpFunction.FiniteDimension
+import Mathlib.Analysis.Calculus.ContDiff.FiniteDimension
+
+/-! # SM fd:contact-motions — explicit contact motions (row 86)
+
+Source: reference/SM/sm-3-statesum.tex:2586-2597 (statement), 2598-2611 (proof).  Drafted
+2026-09-14 in work/drafts/fd/ as `ContactMotions.lean` (statement, contact identity, compositions)
+and `SmoothDependence.lean` (smooth dependence of the flow on the initial point), merged here as
+the final row-86 module (the fd block 84-88; row 85 fd:parameter-avoidance is the style model,
+`ParameterAvoidance.lean`).  Pure analysis, Mathlib only.  Intended home:
+`work/lean/SM/ContactMotions.lean`.
+Main declaration: `SM.fd_contact_motions : SM.ContactMotionsData` (unconditional).  The classical
+smooth-dependence theorem, absent from Mathlib at this pin, is stated as `SM.SmoothDependence` (§6)
+and proved as `SM.smoothDependence` (§7–§13).
+Check: `cd work/lean && lake env lean ../drafts/fd/ContactMotionsFinal.lean`.
+
+## The printed statement (sm-3:2586-2597, verbatim)
+
+"For a smooth compactly supported H : ℝ³ → ℝ, the vector field
+X_H = −H_y ∂_x + (H_x + y H_z) ∂_y + (H − y H_y) ∂_z
+has a global flow φ_H^s of coorientation-preserving contact diffeomorphisms for α = dz − y dx:
+(φ_H^s)^*α = c_s^H α with a smooth positive function c_s^H, its conformal factor.  Finite
+compositions of their small-time flows depend smoothly on the times and are arbitrarily C^k-close
+to the identity on compact sets for each fixed finite k."
+
+Printed proof (sm-3:2598-2611): `α(X_H) = H`, `ι_{X_H} dα = H_z α − dH`, so `L_{X_H} α = H_z α`;
+differentiating the pullback and solving the scalar ODE gives
+`(φ_H^s)^*α = exp(∫_0^s H_z ∘ φ_H^v dv) α`, the positive conformal factor; the field is bounded and
+compactly supported, so trajectories do not escape in finite time, continuation gives all times,
+backwards uniqueness the inverse; "smooth ODE dependence proves the last assertion".
+
+## Printed notion → Lean
+
+`ℝ³ = EuclideanSpace ℝ (Fin 3)`, `(x, y, z) = (p 0, p 1, p 2)`; `∞` is `C^∞`.
+
+| printed | Lean |
+|---|---|
+| "smooth compactly supported `H`" (2587) | `ContactMotionsHyp H`: `ContDiff ℝ ∞ H`, `HasCompactSupport H` |
+| `X_H` (2588-2590) | `ContactMotions.hamVF H p = !₂[−H_y, H_x + y H_z, H − y H_y]` with `pd H i p = fderiv ℝ H p (e i)` |
+| `α = dz − y dx` | `ContactMotions.alpha p v = v 2 − p 1 * v 0` |
+| "global flow `φ_H^s`" (2591) | `hamFlow H : ℝ → ℝ³ → ℝ³` with `IsGlobalFlow (hamVF H) (hamFlow H)`: `φ 0 = id`, `∂_s φ s p = X_H (φ s p)`; the flow law `φ (s+t) = φ s ∘ φ t` |
+| "coorientation-preserving contact diffeomorphisms" (2591-2592) | `diffeo` (jointly `C^∞`, `φ_{−s}` the `C^∞` two-sided inverse), `contact`, `confFactor_pos` |
+| `(φ_H^s)^*α = c_s^H α` (2592) | `alpha (φ s p) (fderiv ℝ (φ s) p v) = confFactor H s p * alpha p v` for all `p, v` |
+| "a smooth positive function `c_s^H`, its conformal factor" (2593) | `confFactor H s p = exp (∫_0^s pd H 2 (φ v p) dv)` (`confFactor_eq`, the printed formula 2603-2606), `confFactor_pos`, `confFactor_smooth` (jointly in `(s, p)`) |
+| "Finite compositions of their small-time flows depend smoothly on the times" (2594-2595) | `composeFlows n Hs a = φ_{H_0}^{a_0} ∘ ⋯ ∘ φ_{H_{n−1}}^{a_{n−1}}`; `compositions_smooth`: `C^∞` in `(a, p) ∈ ℝ^n × ℝ³` |
+| "arbitrarily `C^k`-close to the identity on compact sets for each fixed finite `k`" (2595-2596) | `compositions_close`: `∀ K` compact, `k`, `ε > 0`, `∃ δ > 0`, `|a_i| < δ → ∀ j ≤ k, ∀ p ∈ K, ‖iteratedFDeriv ℝ j (Φ_a − id) p‖ < ε` |
+
+## Route
+
+* §1 coordinates: `e`, `alpha`, `pd`, `hamVF`; `alpha_hamVF : α(X_H) = H` (2599); `X_H` is `C^∞`
+  and compactly supported (`contDiff_hamVF`, `hasCompactSupport_hamVF`).
+* §2 global flows of a bounded globally Lipschitz field on a complete space: existence on
+  `(−(n+1), n+1)` by `IsPicardLindelof.of_time_independent` with radius `L(n+1)`
+  (`exists_solution_Ioo`), gluing by `ODE_solution_unique_of_mem_Ioo` (`exists_solution_global`,
+  "ODE continuation gives all finite times", 2609-2610), `exists_isGlobalFlow`; uniqueness, flow
+  law, inverse `φ (−s)`, bijectivity, `C^∞` in time (`IsGlobalFlow.*`).
+* §3 compactly supported `C^1` fields on `ℝ³` are bounded and Lipschitz
+  (`HasCompactSupport.isCompact_range`, `lipschitzWith_of_nnnorm_fderiv_le`);
+  `globalFlow X := Classical.epsilon (IsGlobalFlow X)`.
+* §4 the contact identity for a jointly smooth flow: the variational equation
+  `∂_s Dφ_s = DX_H ∘ Dφ_s` from `ContDiffAt.isSymmSndFDerivAt` (`hasDerivAt_fderiv_flow`); the
+  algebraic identity `α_q(DX_H(q) w) = dH_q(w) − H_y w_y` (`alpha_fderiv_hamVF`, no second
+  derivatives of `H` needed since `(X_H)_z = H + y (X_H)_x`); the infinitesimal identity
+  `∂_s α_{φ_s p}(Dφ_s v) = H_z(φ_s p) α_{φ_s p}(Dφ_s v)` (`hasDerivAt_alpha_flow`, the coordinate
+  form of `L_{X_H} α = H_z α`, 2599-2601); the scalar ODE `∂_s c = (H_z ∘ φ) c` and its solution
+  by constancy of `β e^{−∫}` (`alpha_flow_eq`, 2602-2605); smoothness of `c` via
+  `c = α_{φ_s p}(Dφ_s ∂_z)` (`contDiff_confFactorOf`).
+* §5 `composeFlows`, `contDiff_composeFlows` (induction), `composeFlows_close`: the partial
+  iterated derivative is the full one restricted to the `ℝ³`-directions
+  (`iteratedFDeriv_partial`, via `iteratedFDeriv_comp_add_left` and
+  `ContinuousLinearMap.iteratedFDeriv_comp_right`), which is continuous in `(a, p)` and vanishes on
+  `{0} × ℝ³`; `generalized_tube_lemma` on `{0} × K` gives `δ`.
+* §6 the statement `SmoothDependence`, the bundle `ContactMotionsData`, the row from that
+  hypothesis (`fd_contact_motions_of_smoothDependence`).
+* §7–§12 the proof of `SmoothDependence` for any finite-dimensional real normed space `E : Type`:
+  time reversal and Lipschitz dependence by Grönwall (§7); the variational estimate — if `D`
+  solves `D' = DX(φ t p) ∘ D`, `D 0 = 1`, then `φ T` has derivative `D T` at `p`, by the mean value
+  inequality and Grönwall on the error `φ t (p+h) − φ t p − D t h` (§8); compactly supported `C^1`
+  fields are bounded, Lipschitz, with uniformly continuous derivative (§9); the augmented system
+  `(x, A) ↦ (X x, DX(x) ∘ A)` on `E × (E →L E)`, cut off by a bump in `A` so that it is again `C^∞`
+  compactly supported (§10); induction on the order `k` — `S k` = "every such flow is `C^k` in
+  space" — where `S (k+1)` follows from `S k` applied to the cut-off augmented flow, whose second
+  component is the derivative of `φ s` (§11); joint smoothness in `(s, p)` by suspension — the
+  time-one map of the flow of `(τ, x) ↦ (0, χ(τ) • X x)` on `ℝ × E` is `(τ, φ τ x)` for `|τ| < R`
+  (§12).
+* §13 `smoothDependence : SmoothDependence` and the unconditional row `fd_contact_motions`.
+
+## Smooth dependence on the initial point (`SmoothDependence`, proved in §7–§13)
+
+`SM.SmoothDependence : Prop` — for a `C^∞` compactly supported field on `ℝ³`, every global flow is
+`C^∞` jointly in `(s, p)` ("smooth ODE dependence", sm-3:2611).  This is the classical smooth
+dependence of ODE solutions on the initial point, which Mathlib (this pin) does not contain
+(`Mathlib/Analysis/ODE/*` has existence, uniqueness, Grönwall and regularity in time only); it is
+proved in this module (`smoothDependence`, §7–§13, route above).  It enters the row exactly once
+(`ContactMotionsHyp.contDiff_uncurry_hamFlow`); the global existence of the flow, its uniqueness,
+the group law and the `C^∞` time dependence do not use it (`ContactMotionsHyp.isGlobalFlow`,
+`hamFlow_add`, `hamFlow_bijective`, `hamFlow_unique`, `contDiff_hamFlow_time`), and the contact
+identity is proved for any jointly smooth flow of `X_H` (`alpha_flow_eq`, `contact_of_contDiff`).
+See `FD_84_86_FEASIBILITY.md` §1 and `SMOOTH_DEPENDENCE_REPORT.md`.
+
+## Fidelity readings
+
+* **FR-CM-1 (pullback in coordinates).** Mathlib has no pullback calculus of differential forms;
+  `(φ_s)^*α = c α` is stated pointwise on vectors, `α_{φ_s p}(Dφ_s(p) v) = c_s(p) α_p(v)`.
+* **FR-CM-2 (coorientation-preserving).** `c_s^H > 0` (the paper: "positive").
+* **FR-CM-3 (smooth conformal factor).** `c` is shown `C^∞` jointly in `(s, p)`, which contains the
+  printed "smooth function `c_s^H`" (smooth in `p` for each `s`).
+* **FR-CM-4 (diffeomorphism).** Each `φ_H^s` is `C^∞` with the `C^∞` two-sided inverse `φ_H^{−s}`
+  (the paper: "backwards uniqueness gives the inverse", 2610).
+* **FR-CM-5 (compositions).** "Finite compositions of their small-time flows" is
+  `composeFlows n Hs a` for any `n`, any Hamiltonians `H_0, …, H_{n−1}` satisfying the hypothesis
+  and any times `a ∈ ℝ^n`; smooth dependence is joint in `(a, p)`; "small-time" enters through
+  `|a_i| < δ` in the closeness clause.
+* **FR-CM-7 (smooth ODE dependence, 2611).** The paper cites it as a standard fact; here it is
+  the theorem `smoothDependence`, proved for `C^∞` compactly supported fields on any
+  finite-dimensional real normed space `E : Type` (`ContactMotions.contDiff_uncurry`) and
+  specialised to `ℝ³`.
+* **FR-CM-6 (`C^k`-closeness).** "arbitrarily `C^k`-close to the identity on compact sets" is the
+  uniform bound `‖D^j(Φ_a − id)(p)‖ < ε` for all `j ≤ k` and `p ∈ K` (the sup norm of the first
+  `k` derivatives on `K`), for all `|a_i| < δ`.  The `δ` may depend on `K, k, ε` and the `H_i`. -/
+
+namespace SM
+
+open scoped ContDiff Topology NNReal
+open Set Filter Function
+
+noncomputable section
+
+local notation "ℝ³" => EuclideanSpace ℝ (Fin 3)
+
+namespace ContactMotions
+
+/-! ## 1. Coordinates, the contact form `α = dz − y dx`, the field `X_H` -/
+
+/-- The standard basis vector `e i` of `ℝ³`; `(x, y, z) = (p 0, p 1, p 2)`. -/
+def e (i : Fin 3) : ℝ³ := EuclideanSpace.single i 1
+
+@[simp] lemma e_apply (i j : Fin 3) : e i j = if j = i then 1 else 0 := by
+  sorry
+
+
+/-- The contact form `α = dz − y dx` at `p`, evaluated on `v`: `α_p(v) = v_z − p_y v_x`. -/
+def alpha (p v : ℝ³) : ℝ := v 2 - p 1 * v 0
+
+/-- The partial derivative `∂_i H` (`H_x, H_y, H_z` for `i = 0, 1, 2`). -/
+def pd (H : ℝ³ → ℝ) (i : Fin 3) (p : ℝ³) : ℝ := fderiv ℝ H p (e i)
+
+/-- `X_H = −H_y ∂_x + (H_x + y H_z) ∂_y + (H − y H_y) ∂_z` (sm-3:2588-2590). -/
+def hamVF (H : ℝ³ → ℝ) (p : ℝ³) : ℝ³ :=
+  !₂[-(pd H 1 p), pd H 0 p + p 1 * pd H 2 p, H p - p 1 * pd H 1 p]
+
+@[simp] lemma hamVF_apply_zero (H : ℝ³ → ℝ) (p : ℝ³) : hamVF H p 0 = -(pd H 1 p) := by
+  sorry
+
+
+@[simp] lemma hamVF_apply_one (H : ℝ³ → ℝ) (p : ℝ³) :
+    hamVF H p 1 = pd H 0 p + p 1 * pd H 2 p := by
+  sorry
+
+
+@[simp] lemma hamVF_apply_two (H : ℝ³ → ℝ) (p : ℝ³) : hamVF H p 2 = H p - p 1 * pd H 1 p := by
+  sorry
+
+
+/-- "Substitution gives `α(X_H) = H`" (sm-3:2599). -/
+lemma alpha_hamVF (H : ℝ³ → ℝ) (p : ℝ³) : alpha p (hamVF H p) = H p := by
+  sorry
+
+
+lemma alpha_e_two (p : ℝ³) : alpha p (e 2) = 1 := by
+  sorry
+
+
+lemma alpha_add (p v w : ℝ³) : alpha p (v + w) = alpha p v + alpha p w := by
+  sorry
+
+
+lemma alpha_smul (p : ℝ³) (c : ℝ) (v : ℝ³) : alpha p (c • v) = c * alpha p v := by
+  sorry
+
+
+/-- The `i`-th coordinate functional of `ℝ³` as a continuous linear map. -/
+def coordCLM (i : Fin 3) : ℝ³ →L[ℝ] ℝ := PiLp.proj 2 (fun _ : Fin 3 => ℝ) i
+
+@[simp] lemma coordCLM_apply (i : Fin 3) (p : ℝ³) : coordCLM i p = p i := by
+  sorry
+
+
+/-- The coordinate functionals are smooth. -/
+lemma contDiff_coord (i : Fin 3) : ContDiff ℝ ∞ (fun p : ℝ³ => p i) := by
+  sorry
+
+
+lemma hasFDerivAt_coord (i : Fin 3) (p : ℝ³) :
+    HasFDerivAt (fun p : ℝ³ => p i) (coordCLM i) p := by
+  sorry
+
+
+lemma fderiv_coord (i : Fin 3) (p v : ℝ³) : fderiv ℝ (fun p : ℝ³ => p i) p v = v i := by
+  sorry
+
+
+/-- Coordinate of a derivative: `(Df(p) v) i = D(f_i)(p) v`. -/
+lemma fderiv_apply_coord {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F] {f : F → ℝ³} {p : F}
+    (hf : DifferentiableAt ℝ f p) (v : F) (i : Fin 3) :
+    fderiv ℝ f p v i = fderiv ℝ (fun q => f q i) p v := by
+  sorry
+
+
+lemma hasDerivAt_coord {γ : ℝ → ℝ³} {γ' : ℝ³} {t : ℝ} (h : HasDerivAt γ γ' t) (i : Fin 3) :
+    HasDerivAt (fun t => γ t i) (γ' i) t := by
+  sorry
+
+
+lemma contDiff_pd {H : ℝ³ → ℝ} (hH : ContDiff ℝ ∞ H) (i : Fin 3) : ContDiff ℝ ∞ (pd H i) := by
+  sorry
+
+
+lemma contDiff_hamVF {H : ℝ³ → ℝ} (hH : ContDiff ℝ ∞ H) : ContDiff ℝ ∞ (hamVF H) := by
+  sorry
+
+
+/-- Outside the (closed) support of `H` every partial derivative vanishes. -/
+lemma pd_eq_zero_of_notMem {H : ℝ³ → ℝ} {p : ℝ³} (hp : p ∉ tsupport H) (i : Fin 3) :
+    pd H i p = 0 := by
+  sorry
+
+
+lemma hasCompactSupport_hamVF {H : ℝ³ → ℝ} (hc : HasCompactSupport H) :
+    HasCompactSupport (hamVF H) := by
+  sorry
+
+
+/-! ## 2. Global flows of bounded globally Lipschitz vector fields -/
+
+section flows
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+
+/-- A global flow of the (autonomous) vector field `X`: `φ 0 = id` and
+`∂_s φ s p = X (φ s p)` for all `s ∈ ℝ`, `p`. -/
+structure IsGlobalFlow (X : E → E) (φ : ℝ → E → E) : Prop where
+  zero : ∀ p, φ 0 p = p
+  hasDerivAt : ∀ s p, HasDerivAt (fun s => φ s p) (X (φ s p)) s
+
+/-- Uniqueness of global solutions (backwards and forwards) for a globally Lipschitz field. -/
+lemma ODE_unique_global {X : E → E} {K : ℝ≥0} (hK : LipschitzWith K X) {f g : ℝ → E}
+    (hf : ∀ t, HasDerivAt f (X (f t)) t) (hg : ∀ t, HasDerivAt g (X (g t)) t) {t₀ : ℝ}
+    (h : f t₀ = g t₀) : f = g := by
+  sorry
+
+
+/-- Uniqueness on an open interval. -/
+lemma ODE_unique_Ioo {X : E → E} {K : ℝ≥0} (hK : LipschitzWith K X) {f g : ℝ → E} {a b t₀ : ℝ}
+    (ht₀ : t₀ ∈ Ioo a b) (hf : ∀ t ∈ Ioo a b, HasDerivAt f (X (f t)) t)
+    (hg : ∀ t ∈ Ioo a b, HasDerivAt g (X (g t)) t) (h : f t₀ = g t₀) : EqOn f g (Ioo a b) := by
+  sorry
+
+
+variable [CompleteSpace E]
+
+/-- Existence on the symmetric interval `(−(n+1), n+1)` for every initial point: Picard–Lindelöf
+with radius `a = L (n+1)`, which is available because `X` is bounded by `L` and `K`-Lipschitz on
+the whole space ("trajectories cannot escape to infinity in finite time", sm-3:2607-2609). -/
+lemma exists_solution_Ioo {X : E → E} {K L : ℝ≥0} (hK : LipschitzWith K X)
+    (hL : ∀ p, ‖X p‖ ≤ L) (n : ℕ) (p : E) :
+    ∃ γ : ℝ → E, γ 0 = p ∧ ∀ t ∈ Ioo (-((n : ℝ) + 1)) ((n : ℝ) + 1), HasDerivAt γ (X (γ t)) t := by
+  sorry
+
+
+/-- A global solution through every point ("ODE continuation gives all finite times",
+sm-3:2609-2610): the local solutions on `(−(n+1), n+1)` agree where both are defined, by
+uniqueness, and glue to one solution on `ℝ`. -/
+lemma exists_solution_global {X : E → E} {K L : ℝ≥0} (hK : LipschitzWith K X)
+    (hL : ∀ p, ‖X p‖ ≤ L) (p : E) :
+    ∃ γ : ℝ → E, γ 0 = p ∧ ∀ t, HasDerivAt γ (X (γ t)) t := by
+  sorry
+
+
+/-- Existence of a global flow. -/
+theorem exists_isGlobalFlow {X : E → E} {K L : ℝ≥0} (hK : LipschitzWith K X)
+    (hL : ∀ p, ‖X p‖ ≤ L) : ∃ φ : ℝ → E → E, IsGlobalFlow X φ := by
+  sorry
+
+
+end flows
+
+section flowProps
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {X : E → E} {φ : ℝ → E → E}
+
+namespace IsGlobalFlow
+
+/-- Any two global flows of a globally Lipschitz field coincide. -/
+theorem unique {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) {ψ : ℝ → E → E}
+    (hψ : IsGlobalFlow X ψ) : ψ = φ := by
+  sorry
+
+
+/-- The flow law `φ (s + t) = φ s ∘ φ t` (a "flow", sm-3:2591), by uniqueness. -/
+theorem add {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s t : ℝ) (p : E) :
+    φ (s + t) p = φ s (φ t p) := by
+  sorry
+
+
+/-- `φ (−s)` inverts `φ s` ("backwards uniqueness gives the inverse", sm-3:2610). -/
+theorem neg_apply {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) (p : E) :
+    φ (-s) (φ s p) = p := by
+  sorry
+
+
+theorem leftInverse {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) :
+    LeftInverse (φ (-s)) (φ s) := by
+  sorry
+
+
+theorem rightInverse {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) :
+    RightInverse (φ (-s)) (φ s) := by
+  sorry
+
+
+theorem bijective {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) :
+    Bijective (φ s) := by
+  sorry
+
+
+theorem continuous_time (hφ : IsGlobalFlow X φ) (p : E) : Continuous fun s => φ s p := by
+  sorry
+
+
+/-- Solutions of a `C^n` autonomous ODE are `C^{n+1}` in time (an induction on `n` with
+`deriv (φ · p) = X ∘ φ · p`). -/
+theorem contDiff_time_nat (hφ : IsGlobalFlow X φ) (n : ℕ) (hX : ContDiff ℝ n X) (p : E) :
+    ContDiff ℝ (n + 1) (fun s => φ s p) := by
+  sorry
+
+
+/-- The flow is `C^∞` in time. -/
+theorem contDiff_time (hφ : IsGlobalFlow X φ) (hX : ContDiff ℝ ∞ X) (p : E) :
+    ContDiff ℝ ∞ (fun s => φ s p) := by
+  sorry
+
+
+end IsGlobalFlow
+
+end flowProps
+
+/-! ## 3. Compactly supported `C^1` fields on `ℝ³` are bounded and globally Lipschitz -/
+
+section compact
+
+/-- A continuous compactly supported map is bounded. -/
+lemma exists_bound_of_hasCompactSupport {F : Type*} [NormedAddCommGroup F] {f : ℝ³ → F}
+    (hc : HasCompactSupport f) (hf : Continuous f) : ∃ L : ℝ≥0, ∀ p, ‖f p‖ ≤ L := by
+  sorry
+
+
+/-- A `C^1` compactly supported map is globally Lipschitz. -/
+lemma exists_lipschitzWith_of_hasCompactSupport {F : Type*} [NormedAddCommGroup F]
+    [NormedSpace ℝ F] {f : ℝ³ → F} (hc : HasCompactSupport f) (hf : ContDiff ℝ 1 f) :
+    ∃ K : ℝ≥0, LipschitzWith K f := by
+  sorry
+
+
+/-- Every compactly supported `C^1` vector field on `ℝ³` has a global flow. -/
+theorem exists_isGlobalFlow_of_hasCompactSupport {X : ℝ³ → ℝ³} (hc : HasCompactSupport X)
+    (hX : ContDiff ℝ 1 X) : ∃ φ : ℝ → ℝ³ → ℝ³, IsGlobalFlow X φ := by
+  sorry
+
+
+/-- The global flow of a vector field, chosen once and for all (the unique one when `X` is
+globally Lipschitz). -/
+def globalFlow (X : ℝ³ → ℝ³) : ℝ → ℝ³ → ℝ³ := Classical.epsilon (IsGlobalFlow X)
+
+theorem isGlobalFlow_globalFlow {X : ℝ³ → ℝ³} (hc : HasCompactSupport X) (hX : ContDiff ℝ 1 X) :
+    IsGlobalFlow X (globalFlow X) := by
+  sorry
+
+
+end compact
+/-! ## 4. The contact identity for a jointly smooth global flow of `X_H` -/
+
+section contact
+
+variable {H : ℝ³ → ℝ} {φ : ℝ → ℝ³ → ℝ³}
+
+/-- Time direction of the joint derivative: `DΦ(s,p)(1,0) = X_H(φ s p)` when `Φ = uncurry φ`. -/
+lemma fderiv_uncurry_time (hφ : IsGlobalFlow (hamVF H) φ) (hs : ContDiff ℝ ∞ (uncurry φ)) (s : ℝ)
+    (p : ℝ³) : fderiv ℝ (uncurry φ) (s, p) (1, 0) = hamVF H (φ s p) := by
+  sorry
+
+
+/-- Space direction of the joint derivative: `Dφ_s(p) v = DΦ(s,p)(0,v)`. -/
+lemma fderiv_flow_space (hs : ContDiff ℝ ∞ (uncurry φ)) (s : ℝ) (p v : ℝ³) :
+    fderiv ℝ (φ s) p v = fderiv ℝ (uncurry φ) (s, p) (0, v) := by
+  sorry
+
+
+/-- `φ s` is smooth when the flow is jointly smooth. -/
+lemma contDiff_flow_space (hs : ContDiff ℝ ∞ (uncurry φ)) (s : ℝ) : ContDiff ℝ ∞ (φ s) := by
+  sorry
+
+
+lemma minSmoothness_two_le : minSmoothness ℝ 2 ≤ ∞ := by
+  sorry
+
+
+/-- The variational equation `∂_s (Dφ_s(p) v) = DX_H(φ_s p) (Dφ_s(p) v)`, from the symmetry of
+the second derivative of the jointly smooth `Φ = uncurry φ`. -/
+lemma hasDerivAt_fderiv_flow (hφ : IsGlobalFlow (hamVF H) φ) (hs : ContDiff ℝ ∞ (uncurry φ))
+    (hH : ContDiff ℝ ∞ H) (s : ℝ) (p v : ℝ³) :
+    HasDerivAt (fun s => fderiv ℝ (φ s) p v)
+      (fderiv ℝ (hamVF H) (φ s p) (fderiv ℝ (φ s) p v)) s := by
+  sorry
+
+
+/-- `α_q(DX_H(q) w) = dH_q(w) − H_y(q) w_y`: the `z`- and `x`-components of `X_H` are
+`H + y X_x` and `X_x`, so the second derivatives of `H` cancel (sm-3:2599-2600). -/
+lemma alpha_fderiv_hamVF (hH : ContDiff ℝ ∞ H) (q w : ℝ³) :
+    alpha q (fderiv ℝ (hamVF H) q w) = fderiv ℝ H q w - pd H 1 q * w 1 := by
+  sorry
+
+
+/-- `dH_q(w) = H_x w_x + H_y w_y + H_z w_z`. -/
+lemma fderiv_apply_expand (H : ℝ³ → ℝ) (q w : ℝ³) :
+    fderiv ℝ H q w = pd H 0 q * w 0 + pd H 1 q * w 1 + pd H 2 q * w 2 := by
+  sorry
+
+
+/-- The infinitesimal contact identity along the flow: with `β_s(v) = α_{φ_s p}(Dφ_s(p) v)`,
+`β_s'(v) = H_z(φ_s p) β_s(v)`.  This is the coordinate form of `L_{X_H} α = H_z α`
+(sm-3:2599-2601: `α(X_H) = H`, `ι_{X_H} dα = H_z α − dH`). -/
+lemma hasDerivAt_alpha_flow (hφ : IsGlobalFlow (hamVF H) φ) (hs : ContDiff ℝ ∞ (uncurry φ))
+    (hH : ContDiff ℝ ∞ H) (s : ℝ) (p v : ℝ³) :
+    HasDerivAt (fun s => alpha (φ s p) (fderiv ℝ (φ s) p v))
+      (pd H 2 (φ s p) * alpha (φ s p) (fderiv ℝ (φ s) p v)) s := by
+  sorry
+
+
+/-- The conformal factor `c_s^H(p) = exp (∫_0^s H_z (φ_v p) dv)` (sm-3:2603-2606), for a given
+flow `φ` of `X_H`. -/
+def confFactorOf (H : ℝ³ → ℝ) (φ : ℝ → ℝ³ → ℝ³) (s : ℝ) (p : ℝ³) : ℝ :=
+  Real.exp (∫ v in (0 : ℝ)..s, pd H 2 (φ v p))
+
+/-- "it is positive" (sm-3:2606). -/
+lemma confFactorOf_pos (H : ℝ³ → ℝ) (φ : ℝ → ℝ³ → ℝ³) (s : ℝ) (p : ℝ³) :
+    0 < confFactorOf H φ s p := by
+  sorry
+
+
+lemma confFactorOf_zero (H : ℝ³ → ℝ) (φ : ℝ → ℝ³ → ℝ³) (p : ℝ³) : confFactorOf H φ 0 p = 1 := by
+  sorry
+
+
+lemma hasDerivAt_integral_pd (hφ : IsGlobalFlow (hamVF H) φ) (hH : ContDiff ℝ ∞ H) (p : ℝ³)
+    (s : ℝ) : HasDerivAt (fun s => ∫ v in (0 : ℝ)..s, pd H 2 (φ v p)) (pd H 2 (φ s p)) s := by
+  sorry
+
+
+/-- "the resulting scalar ODE" (sm-3:2602): `∂_s c = (H_z ∘ φ_s) c`. -/
+lemma hasDerivAt_confFactorOf (hφ : IsGlobalFlow (hamVF H) φ) (hH : ContDiff ℝ ∞ H) (p : ℝ³)
+    (s : ℝ) : HasDerivAt (fun s => confFactorOf H φ s p)
+      (pd H 2 (φ s p) * confFactorOf H φ s p) s := by
+  sorry
+
+
+/-- **The contact identity** `(φ_H^s)^*α = c_s^H α` (sm-3:2592, 2603-2605), for any jointly smooth
+global flow `φ` of `X_H`: `α_{φ_s p}(Dφ_s(p) v) = c_s^H(p) · α_p(v)`. -/
+theorem alpha_flow_eq (hφ : IsGlobalFlow (hamVF H) φ) (hs : ContDiff ℝ ∞ (uncurry φ))
+    (hH : ContDiff ℝ ∞ H) (s : ℝ) (p v : ℝ³) :
+    alpha (φ s p) (fderiv ℝ (φ s) p v) = confFactorOf H φ s p * alpha p v := by
+  sorry
+
+
+/-- The conformal factor is smooth in `(s, p)` ("a smooth positive function", sm-3:2593): it equals
+`α_{φ_s p}(Dφ_s(p) ∂_z)`, a polynomial expression in the jointly smooth flow and its derivative. -/
+theorem contDiff_confFactorOf (hφ : IsGlobalFlow (hamVF H) φ) (hs : ContDiff ℝ ∞ (uncurry φ))
+    (hH : ContDiff ℝ ∞ H) :
+    ContDiff ℝ ∞ (fun q : ℝ × ℝ³ => confFactorOf H φ q.1 q.2) := by
+  sorry
+
+
+end contact
+
+/-! ## 5. The flow of `X_H`, finite compositions, `C^k`-closeness -/
+
+/-- The global flow `φ_H` of `X_H`. -/
+def hamFlow (H : ℝ³ → ℝ) : ℝ → ℝ³ → ℝ³ := globalFlow (hamVF H)
+
+/-- The conformal factor `c_s^H` of `φ_H^s`. -/
+def confFactor (H : ℝ³ → ℝ) (s : ℝ) (p : ℝ³) : ℝ := confFactorOf H (hamFlow H) s p
+
+/-- The printed hypotheses on `H` (sm-3:2587): "a smooth compactly supported `H : ℝ³ → ℝ`". -/
+structure ContactMotionsHyp (H : ℝ³ → ℝ) : Prop where
+  /-- sm-3:2587 "smooth". -/
+  smooth : ContDiff ℝ ∞ H
+  /-- sm-3:2587 "compactly supported". -/
+  compactSupport : HasCompactSupport H
+
+namespace ContactMotionsHyp
+
+variable {H : ℝ³ → ℝ} (h : ContactMotionsHyp H)
+include h
+
+theorem contDiff_hamVF : ContDiff ℝ ∞ (hamVF H) := by
+  sorry
+
+
+theorem hasCompactSupport_hamVF : HasCompactSupport (hamVF H) := by
+  sorry
+
+
+theorem exists_lipschitzWith : ∃ K : ℝ≥0, LipschitzWith K (hamVF H) := by
+  sorry
+
+
+/-- "has a global flow `φ_H^s`" (sm-3:2591): unconditional. -/
+theorem isGlobalFlow : IsGlobalFlow (hamVF H) (hamFlow H) := by
+  sorry
+
+
+theorem hamFlow_zero (p : ℝ³) : hamFlow H 0 p = p := by
+  sorry
+
+
+theorem hamFlow_add (s t : ℝ) (p : ℝ³) : hamFlow H (s + t) p = hamFlow H s (hamFlow H t p) := by
+  sorry
+
+
+theorem hamFlow_leftInverse (s : ℝ) : LeftInverse (hamFlow H (-s)) (hamFlow H s) := by
+  sorry
+
+
+theorem hamFlow_rightInverse (s : ℝ) : RightInverse (hamFlow H (-s)) (hamFlow H s) := by
+  sorry
+
+
+theorem hamFlow_bijective (s : ℝ) : Bijective (hamFlow H s) := by
+  sorry
+
+
+/-- Any global flow of `X_H` is `hamFlow H`. -/
+theorem hamFlow_unique {ψ : ℝ → ℝ³ → ℝ³} (hψ : IsGlobalFlow (hamVF H) ψ) : ψ = hamFlow H := by
+  sorry
+
+
+/-- `φ_H^s p` is `C^∞` in `s`: unconditional. -/
+theorem contDiff_hamFlow_time (p : ℝ³) : ContDiff ℝ ∞ (fun s => hamFlow H s p) := by
+  sorry
+
+
+/-- The contact identity, given the joint smoothness of `φ_H`. -/
+theorem contact_of_contDiff (hs : ContDiff ℝ ∞ (uncurry (hamFlow H))) (s : ℝ) (p v : ℝ³) :
+    alpha (hamFlow H s p) (fderiv ℝ (hamFlow H s) p v) = confFactor H s p * alpha p v := by
+  sorry
+
+
+theorem contDiff_confFactor_of_contDiff (hs : ContDiff ℝ ∞ (uncurry (hamFlow H))) :
+    ContDiff ℝ ∞ (fun q : ℝ × ℝ³ => confFactor H q.1 q.2) := by
+  sorry
+
+
+end ContactMotionsHyp
+
+theorem confFactor_pos (H : ℝ³ → ℝ) (s : ℝ) (p : ℝ³) : 0 < confFactor H s p := by
+  sorry
+
+
+/-- The conformal factor is the printed exponential (sm-3:2603-2606). -/
+theorem confFactor_eq (H : ℝ³ → ℝ) (s : ℝ) (p : ℝ³) :
+    confFactor H s p = Real.exp (∫ v in (0 : ℝ)..s, pd H 2 (hamFlow H v p)) := by
+  sorry
+
+
+/-- `composeFlows n Hs a p = φ_{H_0}^{a_0} (φ_{H_1}^{a_1} (⋯ (φ_{H_{n-1}}^{a_{n-1}} p)))`, the
+"finite compositions of their small-time flows" (sm-3:2594). -/
+def composeFlows : (n : ℕ) → (Fin n → ℝ³ → ℝ) → (Fin n → ℝ) → ℝ³ → ℝ³
+  | 0, _, _, p => p
+  | n + 1, Hs, a, p => hamFlow (Hs 0) (a 0) (composeFlows n (Fin.tail Hs) (Fin.tail a) p)
+
+/-- Compositions depend smoothly on the times (and the point), given the joint smoothness of each
+flow (sm-3:2594-2595 "depend smoothly on the times"). -/
+theorem contDiff_composeFlows (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (h : ∀ i, ContDiff ℝ ∞ (uncurry (hamFlow (Hs i)))) :
+    ContDiff ℝ ∞ (fun q : (Fin n → ℝ) × ℝ³ => composeFlows n Hs q.1 q.2) := by
+  sorry
+
+
+/-- At zero times the composition is the identity. -/
+theorem composeFlows_zero (n : ℕ) (Hs : Fin n → ℝ³ → ℝ) (h : ∀ i p, hamFlow (Hs i) 0 p = p)
+    (p : ℝ³) : composeFlows n Hs 0 p = p := by
+  sorry
+
+
+/-- The iterated derivative of a partial map `p ↦ f (a, p)` is the iterated derivative of `f`
+restricted to the `G`-directions. -/
+lemma iteratedFDeriv_partial {A G F : Type*} [NormedAddCommGroup A] [NormedSpace ℝ A]
+    [NormedAddCommGroup G] [NormedSpace ℝ G] [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {f : A × G → F} (hf : ContDiff ℝ ∞ f) (a : A) (j : ℕ) (p : G) :
+    iteratedFDeriv ℝ j (fun p => f (a, p)) p =
+      (iteratedFDeriv ℝ j f (a, p)).compContinuousLinearMap
+        fun _ => ContinuousLinearMap.inr ℝ A G := by
+  sorry
+
+
+/-- "arbitrarily `C^k`-close to the identity on compact sets for each fixed finite `k`"
+(sm-3:2595-2596), given the joint smoothness of each flow. -/
+theorem composeFlows_close (n : ℕ) (Hs : Fin n → ℝ³ → ℝ)
+    (h : ∀ i, ContDiff ℝ ∞ (uncurry (hamFlow (Hs i)))) (h0 : ∀ i p, hamFlow (Hs i) 0 p = p)
+    {K : Set ℝ³} (hK : IsCompact K) (k : ℕ) {ε : ℝ} (hε : 0 < ε) :
+    ∃ δ > 0, ∀ a : Fin n → ℝ, (∀ i, |a i| < δ) → ∀ j ≤ k, ∀ p ∈ K,
+      ‖iteratedFDeriv ℝ j (fun p => composeFlows n Hs a p - p) p‖ < ε := by
+  sorry
+
+
+end ContactMotions
+
+/-! ## 6. `SmoothDependence`, the bundle, the row from the hypothesis -/
+
+open ContactMotions
+
+/-- **Smooth dependence of the flow on the initial point** ("Smooth ODE dependence", sm-3:2611):
+for a `C^∞` compactly supported vector field on `ℝ³`, every global flow (there is exactly one,
+`IsGlobalFlow.unique`) is `C^∞` jointly in `(s, p)`.  Mathlib (this pin) has existence,
+uniqueness, Grönwall (Lipschitz dependence on the initial point) and `C^∞` dependence on time, but
+not this; it is a named `Prop` so that `fd_contact_motions_of_smoothDependence` records exactly
+where it enters, and it is proved below as `smoothDependence` (§7–§13). -/
+def SmoothDependence : Prop :=
+  ∀ X : ℝ³ → ℝ³, ContDiff ℝ ∞ X → HasCompactSupport X →
+    ∀ φ : ℝ → ℝ³ → ℝ³, IsGlobalFlow X φ → ContDiff ℝ ∞ (uncurry φ)
+
+/-- fd:contact-motions (sm-3:2586-2597), one field per printed clause.  `hamFlow H = φ_H`,
+`confFactor H s p = c_s^H(p) = exp ∫_0^s H_z ∘ φ_H^v`, `alpha p v = α_p(v) = v_z − p_y v_x`,
+`composeFlows n Hs a = φ_{H_0}^{a_0} ∘ ⋯ ∘ φ_{H_{n-1}}^{a_{n-1}}`. -/
+structure ContactMotionsData : Prop where
+  /-- sm-3:2591 "has a global flow `φ_H^s`": `φ_H^0 = id`, `∂_s φ_H^s p = X_H(φ_H^s p)` on all of
+  `ℝ × ℝ³`. -/
+  isGlobalFlow : ∀ H, ContactMotionsHyp H → IsGlobalFlow (hamVF H) (hamFlow H)
+  /-- sm-3:2591 "flow": the group law `φ_H^{s+t} = φ_H^s ∘ φ_H^t`. -/
+  flow_add : ∀ H, ContactMotionsHyp H → ∀ s t p, hamFlow H (s + t) p = hamFlow H s (hamFlow H t p)
+  /-- sm-3:2591-2592 "diffeomorphisms": `φ_H^s` is `C^∞` (jointly in `(s, p)`), and `φ_H^{−s}` is
+  its (`C^∞`) two-sided inverse. -/
+  diffeo : ∀ H, ContactMotionsHyp H → ContDiff ℝ ∞ (uncurry (hamFlow H)) ∧
+    ∀ s, ContDiff ℝ ∞ (hamFlow H s) ∧ ContDiff ℝ ∞ (hamFlow H (-s)) ∧
+      LeftInverse (hamFlow H (-s)) (hamFlow H s) ∧ RightInverse (hamFlow H (-s)) (hamFlow H s)
+  /-- sm-3:2591-2593 "contact … for `α = dz − y dx`: `(φ_H^s)^*α = c_s^H α`": for every `p, v`,
+  `α_{φ_H^s p}(Dφ_H^s(p) v) = c_s^H(p) α_p(v)`. -/
+  contact : ∀ H, ContactMotionsHyp H → ∀ s p v,
+    alpha (hamFlow H s p) (fderiv ℝ (hamFlow H s) p v) = confFactor H s p * alpha p v
+  /-- sm-3:2591 "coorientation-preserving", sm-3:2593 "positive": `c_s^H > 0`. -/
+  confFactor_pos : ∀ H, ContactMotionsHyp H → ∀ s p, 0 < confFactor H s p
+  /-- sm-3:2593 "with a smooth positive function `c_s^H`": `c` is `C^∞` in `(s, p)`. -/
+  confFactor_smooth : ∀ H, ContactMotionsHyp H →
+    ContDiff ℝ ∞ (fun q : ℝ × ℝ³ => confFactor H q.1 q.2)
+  /-- sm-3:2594-2595 "Finite compositions of their small-time flows depend smoothly on the times":
+  `(a, p) ↦ φ_{H_0}^{a_0} ∘ ⋯ ∘ φ_{H_{n-1}}^{a_{n-1}} (p)` is `C^∞` on `ℝ^n × ℝ³`. -/
+  compositions_smooth : ∀ (n : ℕ) (Hs : Fin n → ℝ³ → ℝ), (∀ i, ContactMotionsHyp (Hs i)) →
+    ContDiff ℝ ∞ (fun q : (Fin n → ℝ) × ℝ³ => composeFlows n Hs q.1 q.2)
+  /-- sm-3:2595-2596 "and are arbitrarily `C^k`-close to the identity on compact sets for each
+  fixed finite `k`": for every compact `K`, `k`, `ε > 0` there is `δ > 0` such that all times
+  `|a_i| < δ` give `‖D^j(Φ_a − id)(p)‖ < ε` for `j ≤ k`, `p ∈ K`. -/
+  compositions_close : ∀ (n : ℕ) (Hs : Fin n → ℝ³ → ℝ), (∀ i, ContactMotionsHyp (Hs i)) →
+    ∀ K : Set ℝ³, IsCompact K → ∀ (k : ℕ) (ε : ℝ), 0 < ε → ∃ δ > 0, ∀ a : Fin n → ℝ,
+      (∀ i, |a i| < δ) → ∀ j ≤ k, ∀ p ∈ K,
+        ‖iteratedFDeriv ℝ j (fun p => composeFlows n Hs a p - p) p‖ < ε
+
+/-- Under `SmoothDependence`, `φ_H` is jointly smooth. -/
+theorem ContactMotions.ContactMotionsHyp.contDiff_uncurry_hamFlow (hsd : SmoothDependence)
+    {H : ℝ³ → ℝ}
+    (h : ContactMotionsHyp H) : ContDiff ℝ ∞ (uncurry (hamFlow H)) := by
+  sorry
+
+
+/-- **fd:contact-motions** (sm-3:2586-2597) from the hypothesis `SmoothDependence`; the hypothesis
+is discharged by `smoothDependence` (§13), which gives the unconditional row theorem
+`fd_contact_motions`. -/
+theorem fd_contact_motions_of_smoothDependence (hsd : SmoothDependence) : ContactMotionsData := by
+  sorry
+
+
+end
+
+end SM
+
+/-! ## 7–12. Smooth dependence on the initial point: the proof of `SmoothDependence`
+
+For any finite-dimensional real normed space `E : Type`, a `C^∞` compactly supported `X : E → E`
+and a global flow `φ` of `X`, `uncurry φ` is `C^∞` (`contDiff_uncurry`, §12).  Route:
+
+1. **Time reversal** `IsGlobalFlow.neg`: `(s, p) ↦ φ (-s) p` is a global flow of `-X`; every
+   estimate is proved forward in time and reflected.
+2. **Lipschitz dependence** `IsGlobalFlow.dist_le`: `dist (φ s p) (φ s q) ≤ dist p q · e^{K|s|}`
+   (Grönwall, `dist_le_of_trajectories_ODE`).
+3. **The variational estimate** `hasFDerivAt_flow_of_variational`: if `X` is differentiable with
+   `‖DX‖ ≤ K` and `DX` uniformly continuous, and `D : ℝ → E →L E` solves the variational equation
+   `D' = DX(φ t p) ∘ D`, `D 0 = 1` on `[0, T]`, then `φ T` has derivative `D T` at `p`.  The error
+   `f t = φ t (p+h) − φ t p − D t h` satisfies `‖f'‖ ≤ (K+1)‖f‖ + η e^{KT}‖h‖` (mean value
+   inequality `Convex.norm_image_sub_le_of_norm_hasFDerivWithin_le'` + uniform continuity of `DX`)
+   and `f 0 = 0`, so Grönwall (`norm_le_gronwallBound_of_norm_deriv_right_le`) gives
+   `‖f T‖ ≤ η e^{KT} e^{(K+1)T} ‖h‖`, i.e. `o(‖h‖)`.
+4. **The augmented system** on `F = E × (E →L E)`: `Y (x, A) = (X x, DX(x) ∘ A)`, cut off by a
+   bump `b` in the `A`-variable (`augFieldCut`), is `C^∞` and compactly supported.  For its flow
+   `Ψ`, the curve `t ↦ Ψ t (p, 1)` has second component bounded by `e^{Kt}` (Grönwall), so it
+   stays where the cut-off is `1`; its first component is `φ t p` (forward uniqueness) and its
+   second component solves the variational equation.  With (3), `fderiv (φ s) p = (Ψ s (p, 1)).2`.
+5. **Induction on `k`** (`spaceSmooth`): `S k := ` "for every finite-dimensional `E`, every `C^∞`
+   compactly supported `X`, every global flow `φ`, every `s`: `φ s ∈ C^k`".  `S 0` is (2);
+   `S k → S (k+1)` applies `S k` to the augmented flow `Ψ` on `F` and uses
+   `contDiff_succ_iff_fderiv`.  Hence `φ s ∈ C^∞` in space, for every `s` (`contDiff_space`).
+6. **Joint smoothness by suspension** (`contDiff_uncurry`): for the field
+   `X̂ (τ, x) = (0, χ(τ) • X x)` on `ℝ × E`, `χ = b • id` a cut-off equal to `τ` on `[-R, R]`,
+   `(s, (τ, x)) ↦ (τ, φ (χ τ · s) x)` is a global flow; its **time-one map** is `C^∞` in the
+   space variable `(τ, x)` by (5), and equals `(τ, φ τ x)` for `|τ| < R`.  So `uncurry φ` is
+   `C^∞` near every point.  No "continuous partials ⇒ jointly differentiable" lemma is needed. -/
+
+namespace SM
+namespace ContactMotions
+
+open scoped ContDiff Topology NNReal
+open Set Filter Function
+
+noncomputable section
+
+/-! ## 7. Time reversal and Lipschitz dependence on the initial point -/
+
+namespace IsGlobalFlow
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {X : E → E} {φ : ℝ → E → E}
+
+/-- Time reversal: `(s, p) ↦ φ (-s) p` is a global flow of `-X`. -/
+theorem neg (hφ : IsGlobalFlow X φ) : IsGlobalFlow (fun x => -X x) (fun s p => φ (-s) p) := by
+  sorry
+
+
+/-- Grönwall: `dist (φ s p) (φ s q) ≤ dist p q · e^{K s}` for `s ≥ 0`. -/
+theorem dist_le_nonneg {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) {s : ℝ}
+    (hs : 0 ≤ s) (p q : E) : dist (φ s p) (φ s q) ≤ dist p q * Real.exp (K * s) := by
+  sorry
+
+
+/-- Lipschitz dependence on the initial point: `dist (φ s p) (φ s q) ≤ dist p q · e^{K |s|}`. -/
+theorem dist_le {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) (p q : E) :
+    dist (φ s p) (φ s q) ≤ dist p q * Real.exp (K * |s|) := by
+  sorry
+
+
+theorem lipschitzWith_space {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) :
+    LipschitzWith ⟨Real.exp (K * |s|), (Real.exp_pos _).le⟩ (φ s) := by
+  sorry
+
+
+theorem continuous_space {K : ℝ≥0} (hK : LipschitzWith K X) (hφ : IsGlobalFlow X φ) (s : ℝ) :
+    Continuous (φ s) := by
+  sorry
+
+
+end IsGlobalFlow
+
+/-! ## 8. The variational estimate: differentiability in the initial point -/
+
+section variational
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {X : E → E} {φ : ℝ → E → E}
+
+/-- Grönwall's bound with `δ = 0` and constant `K + 1 > 0`. -/
+lemma gronwallBound_zero_le {K ε T : ℝ} (hK : 0 ≤ K) (hε : 0 ≤ ε) :
+    gronwallBound 0 (K + 1) ε T ≤ ε * Real.exp ((K + 1) * T) := by
+  sorry
+
+
+/-- **The variational estimate.**  Let `X` be differentiable with `‖DX‖ ≤ K` everywhere and `DX`
+uniformly continuous, let `φ` be a global flow of `X`, `p ∈ E`, `T ≥ 0`, and let
+`D : ℝ → E →L[ℝ] E` solve the variational equation `D' = DX(φ t p) ∘ D`, `D 0 = 1`, on `[0, T]`.
+Then `φ T` is differentiable at `p` with derivative `D T`. -/
+theorem hasFDerivAt_flow_of_variational {K : ℝ≥0} (hX : Differentiable ℝ X)
+    (hK : ∀ x, ‖fderiv ℝ X x‖₊ ≤ K) (hU : UniformContinuous (fderiv ℝ X))
+    (hφ : IsGlobalFlow X φ) {T : ℝ} (hT : 0 ≤ T) (p : E) {D : ℝ → E →L[ℝ] E} (hD0 : D 0 = 1)
+    (hD : ∀ t ∈ Icc 0 T, HasDerivAt D ((fderiv ℝ X (φ t p)).comp (D t)) t) :
+    HasFDerivAt (φ T) (D T) p := by
+  sorry
+
+
+end variational
+
+/-! ## 9. Compactly supported `C^1` fields on a finite-dimensional space -/
+
+section compact
+
+variable {E : Type*} [NormedAddCommGroup E]
+
+/-- A continuous compactly supported map is bounded (general-`E` form of §3). -/
+lemma exists_bound_of_hasCompactSupport' {F : Type*} [NormedAddCommGroup F] {f : E → F}
+    (hc : HasCompactSupport f) (hf : Continuous f) : ∃ L : ℝ≥0, ∀ p, ‖f p‖ ≤ L := by
+  sorry
+
+
+variable [NormedSpace ℝ E]
+
+/-- The derivative of a `C^1` compactly supported map is bounded. -/
+lemma exists_nnnorm_fderiv_le {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F] {f : E → F}
+    (hc : HasCompactSupport f) (hf : ContDiff ℝ 1 f) : ∃ K : ℝ≥0, ∀ p, ‖fderiv ℝ f p‖₊ ≤ K := by
+  sorry
+
+
+/-- A `C^1` compactly supported map is globally Lipschitz (general-`E` form of §3). -/
+lemma exists_lipschitzWith_of_hasCompactSupport' {F : Type*} [NormedAddCommGroup F]
+    [NormedSpace ℝ F] {f : E → F} (hc : HasCompactSupport f) (hf : ContDiff ℝ 1 f) :
+    ∃ K : ℝ≥0, LipschitzWith K f := by
+  sorry
+
+
+/-- The derivative of a `C^1` compactly supported map is uniformly continuous. -/
+lemma uniformContinuous_fderiv {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F] {f : E → F}
+    (hc : HasCompactSupport f) (hf : ContDiff ℝ 1 f) : UniformContinuous (fderiv ℝ f) := by
+  sorry
+
+
+/-- Every compactly supported `C^1` vector field on a complete space has a global flow (general-`E` form of §3). -/
+theorem exists_isGlobalFlow_of_hasCompactSupport' [CompleteSpace E] {X : E → E}
+    (hc : HasCompactSupport X) (hX : ContDiff ℝ 1 X) : ∃ φ : ℝ → E → E, IsGlobalFlow X φ := by
+  sorry
+
+
+/-- Outside the support the derivative vanishes. -/
+lemma fderiv_eq_zero_of_notMem_tsupport {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {f : E → F} {p : E} (hp : p ∉ tsupport f) : fderiv ℝ f p = 0 := by
+  sorry
+
+
+end compact
+
+/-! ## 10. The augmented (variational) system with a cut-off in the linear variable -/
+
+section augmented
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
+
+/-- The cut-off augmented field on `E × (E →L E)`:
+`Y_b (x, A) = b(A) • (X x, DX(x) ∘ A)`, with `b` a smooth bump on `E →L E`. -/
+def augFieldCut (X : E → E) (b : ContDiffBump (0 : E →L[ℝ] E)) (q : E × (E →L[ℝ] E)) :
+    E × (E →L[ℝ] E) :=
+  (b q.2 • X q.1, b q.2 • (fderiv ℝ X q.1).comp q.2)
+
+lemma contDiff_augFieldCut {X : E → E} (hX : ContDiff ℝ ∞ X) (b : ContDiffBump (0 : E →L[ℝ] E)) :
+    ContDiff ℝ ∞ (augFieldCut X b) := by
+  sorry
+
+
+lemma hasCompactSupport_augFieldCut {X : E → E} (hc : HasCompactSupport X)
+    (b : ContDiffBump (0 : E →L[ℝ] E)) : HasCompactSupport (augFieldCut X b) := by
+  sorry
+
+
+/-- The norm of the second component of the cut-off field is at most `‖DX(x)‖ ‖A‖`. -/
+lemma norm_augFieldCut_snd_le {X : E → E} (b : ContDiffBump (0 : E →L[ℝ] E))
+    (q : E × (E →L[ℝ] E)) :
+    ‖(augFieldCut X b q).2‖ ≤ ‖fderiv ℝ X q.1‖ * ‖q.2‖ := by
+  sorry
+
+
+end augmented
+
+/-! ## 11. Smoothness in space, by induction on the order -/
+
+/-- The induction statement `S k`: for every finite-dimensional real normed space `E`, every
+`C^∞` compactly supported field `X` on `E`, every global flow `φ` of `X` and every time `s`, the
+time-`s` map `φ s : E → E` is `C^k`. -/
+def SpaceSmooth (k : ℕ) : Prop :=
+  ∀ (E : Type) [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] (X : E → E),
+    ContDiff ℝ ∞ X → HasCompactSupport X →
+      ∀ φ : ℝ → E → E, IsGlobalFlow X φ → ∀ s : ℝ, ContDiff ℝ k (φ s)
+
+/-- `S 0`: continuity in the initial point (Lipschitz dependence). -/
+theorem spaceSmooth_zero : SpaceSmooth 0 := by
+  sorry
+
+
+section step
+
+variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
+  {X : E → E} {φ : ℝ → E → E}
+
+/-- The induction step for `s ≥ 0`: if `S k` holds, then `φ s` is `C^{k+1}`.  The derivative is
+read off from the flow `Ψ` of the cut-off augmented field: `fderiv (φ s) p = (Ψ s (p, 1)).2`. -/
+theorem contDiff_space_succ_nonneg (k : ℕ) (IH : SpaceSmooth k) (hX : ContDiff ℝ ∞ X)
+    (hc : HasCompactSupport X) (hφ : IsGlobalFlow X φ) {s : ℝ} (hs : 0 ≤ s) :
+    ContDiff ℝ ((k : WithTop ℕ∞) + 1) (φ s) := by
+  sorry
+
+
+end step
+
+/-- `S k → S (k + 1)`. -/
+theorem spaceSmooth_succ (k : ℕ) (IH : SpaceSmooth k) : SpaceSmooth (k + 1) := by
+  sorry
+
+
+theorem spaceSmooth (k : ℕ) : SpaceSmooth k := by
+  sorry
+
+
+section space
+
+variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
+  {X : E → E} {φ : ℝ → E → E}
+
+/-- **Smooth dependence on the initial point, fixed time**: `φ s` is `C^∞` for every `s`. -/
+theorem contDiff_space (hX : ContDiff ℝ ∞ X) (hc : HasCompactSupport X) (hφ : IsGlobalFlow X φ)
+    (s : ℝ) : ContDiff ℝ ∞ (φ s) := by
+  sorry
+
+
+end space
+
+/-! ## 12. Joint smoothness by suspension -/
+
+section joint
+
+variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] {X : E → E} {φ : ℝ → E → E}
+
+/-- The suspended field `(τ, x) ↦ (0, χ τ • X x)` on `ℝ × E`, with `χ τ = b τ * τ` for a bump
+`b` on `ℝ` (so `χ τ = τ` for `|τ| ≤ b.rIn`). -/
+def suspField (X : E → E) (b : ContDiffBump (0 : ℝ)) (q : ℝ × E) : ℝ × E :=
+  (0, (b q.1 * q.1) • X q.2)
+
+lemma contDiff_suspField (hX : ContDiff ℝ ∞ X) (b : ContDiffBump (0 : ℝ)) :
+    ContDiff ℝ ∞ (suspField X b) := by
+  sorry
+
+
+lemma hasCompactSupport_suspField (hc : HasCompactSupport X) (b : ContDiffBump (0 : ℝ)) :
+    HasCompactSupport (suspField X b) := by
+  sorry
+
+
+/-- `(s, (τ, x)) ↦ (τ, φ (χ τ * s) x)` is a global flow of the suspended field. -/
+lemma isGlobalFlow_suspFlow (hφ : IsGlobalFlow X φ) (b : ContDiffBump (0 : ℝ)) :
+    IsGlobalFlow (suspField X b) (fun s q => (q.1, φ (b q.1 * q.1 * s) q.2)) := by
+  sorry
+
+
+variable [FiniteDimensional ℝ E]
+
+/-- **Smooth dependence on initial conditions.**  The global flow of a `C^∞` compactly supported
+vector field on a finite-dimensional real normed space is `C^∞` jointly in `(s, p)`. -/
+theorem contDiff_uncurry (hX : ContDiff ℝ ∞ X) (hc : HasCompactSupport X)
+    (hφ : IsGlobalFlow X φ) : ContDiff ℝ ∞ (uncurry φ) := by
+  sorry
+
+
+end joint
+
+end
+
+end ContactMotions
+
+/-! ## 13. `SmoothDependence` is a theorem; the row, unconditional -/
+
+open scoped ContDiff
+
+/-- `SM.SmoothDependence`, structure-free: for a `C^∞` compactly supported vector field `X` on `ℝ³`
+and any `φ : ℝ → ℝ³ → ℝ³` with `φ 0 p = p` and `∂_s φ s p = X (φ s p)`, the map
+`uncurry φ : ℝ × ℝ³ → ℝ³` is `C^∞`. -/
+theorem smoothDependence_of_flow (X : EuclideanSpace ℝ (Fin 3) → EuclideanSpace ℝ (Fin 3))
+    (hX : ContDiff ℝ ∞ X) (hc : HasCompactSupport X)
+    (φ : ℝ → EuclideanSpace ℝ (Fin 3) → EuclideanSpace ℝ (Fin 3))
+    (h0 : ∀ p, φ 0 p = p) (hd : ∀ s p, HasDerivAt (fun s => φ s p) (X (φ s p)) s) :
+    ContDiff ℝ ∞ (Function.uncurry φ) := by
+  sorry
+
+
+/-- **Smooth ODE dependence** (sm-3:2611): `SM.SmoothDependence` holds. -/
+theorem smoothDependence : SmoothDependence := by
+  sorry
+
+
+/-- **fd:contact-motions** (sm-3:2586-2597), unconditional: the row theorem. -/
+theorem fd_contact_motions : ContactMotionsData := by
+  sorry
+
+
+end SM

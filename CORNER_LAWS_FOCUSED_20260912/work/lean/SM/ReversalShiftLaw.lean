@@ -1,0 +1,26 @@
+import SM.TreeReversal
+
+/-! Source prop:A-reversal (reference/SM/sm-2-amplitude.tex:1508, frame SM15): reversal and
+cyclic shift of the tree coefficient. Main declaration: `SM.treeCoefficient_reversal_shift_law`.
+
+Notation. `shift 1 P = σP` (`(σP)_i = μ_{i+1}`, def:polygon / def:shift); `reversal P = P̄`
+with `P̄_i = μ_{2-i}` (def:shift, `SM.reversal_definition`); `g^∨ = 1 - g`; `treeCoefficient P hP g hn
+= A_g(P)` (def:treesum); (G1) of `σP` and `P̄` is `g1_shift_forward 1 hP`, `g1_reversal_forward hP`.
+All vertex and edge indices are elements of `ZMod n` (read modulo `n`). -/
+
+namespace SM
+
+variable {n : ℕ} [NeZero n]
+
+/-- prop:A-reversal (reversal and cyclic shift), as printed on SM15: for every polygon satisfying
+(G1) and every root `g`, (i) `A_g(σP) = A_{g+1}(P)`; (ii) with `P̄_i = μ_{2-i}` and `g^∨ = 1 - g`,
+`A_{g^∨}(P̄) = (-1)^n A_g(P)`. -/
+theorem treeCoefficient_reversal_shift_law (hn : 3 ≤ n) (P : LabelledTuple n) (hP : G1 P)
+    (g : ZMod n) :
+    treeCoefficient (shift 1 P) (g1_shift_forward 1 hP) g hn = treeCoefficient P hP (g + 1) hn ∧
+    (∀ i : ZMod n, reversal P i = P (2 - i)) ∧
+    treeCoefficient (reversal P) (g1_reversal_forward hP) (1 - g) hn =
+      (-1) ^ n * treeCoefficient P hP g hn :=
+  ⟨treeCoefficient_shift_one P hP g hn, fun _ => rfl, treeCoefficient_reversal P hP g hn⟩
+
+end SM

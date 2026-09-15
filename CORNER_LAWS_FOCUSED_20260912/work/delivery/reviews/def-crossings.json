@@ -1,0 +1,79 @@
+{
+  "id": "def:crossings",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "c5f223d0372ebf4762a0a62cb0eea801b201d6a7b9b26bb712a944e273008d0a",
+  "verdict": "faithful",
+  "reason": "Compared the complete source def:crossings and inherited cyclic-representative conventions with the compiled aggregate SM.crossingData and all supporting definitions and properties. The aggregate includes the actual crossing set, common point, on-edge parameter and directed crossing sign, and the audited semantic dependencies bind every defining component. IsCrossing requires a support equal to an unordered pair of remote modular indices whose actual closed affine edge segments have nonempty intersection. crossingSet is precisely the finite set of those supports, by mem_crossingSet, and crossing_card_two shows that remoteness forces exactly two indices. The Crossing subtype adds only this geometric membership proof, not an ordering or distinguished edge. crossingPoint is chosen from a proved existence of a point on both constituent segments; crossingPoint_mem supplies membership, and crossingPoint_unique identifies it with the unique geometric intersection on the source G1 domain. crossingPoint_interior and crossingParameter_interior supply strict interior membership and 0<t<1. crossingParameter_spec gives exactly x=P i+t*(P(i+1)-P i), so each chosen parameter is the source parameter on its specified tail-indexed edge. Parameter uniqueness follows from the proved injectivity of edgePoint when that edge is nonzero, which G1 establishes for n>=3. This prevents Classical.choose from supplying arbitrary values unrelated to the geometry. crossingSign P i j is sign(det(edge P i,edge P j)), with the first index denoting the edge from which the crossing is read, and crossingSign_swap gives the expected reversal. Raw definitions are extended beyond G1, but uniqueness and interiority are proved under precisely G1 and the inherited n>=3 domain; no source case is discarded or extra hypothesis required. The added crossingShiftEquiv is an actual equivalence between crossings of P and shift a P: its forward support translation sends an old index i to i-a, and its explicit inverse sends the shifted index back by adding a. Both inverse identities are proved. This direction matches shift a P at index i being P(i+a). crossingPoint_shift preserves the actual geometric point, crossingParameter_shift preserves each parameter on its translated index, and crossingSign_shift preserves the directed determinant sign. Together with mem_crossingSet these prove cyclic equivariance of the complete crossing construction. The source expressly allows labelled representatives with these relabelling laws, so no arbitrary fixed-label structure is imposed on the polygon quotient. All definition clauses and the representative convention are accounted for. The former missing equivariance obligation is resolved; none of the supporting helper results is counted as an additional original source claim. The seven previously reviewed supporting files were verified byte-for-byte unchanged, and the final eighth file was inspected including the explicit finite-support inverse proof.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.mem_crossingSet",
+    "SM.crossing_card_two",
+    "SM.crossingPoint_mem",
+    "SM.crossingPoint_unique",
+    "SM.crossingPoint_interior",
+    "SM.crossingParameter_spec",
+    "SM.crossingParameter_interior",
+    "SM.edgePoint_injective",
+    "SM.crossingSign_swap",
+    "SM.crossingShiftEquiv",
+    "SM.crossingPoint_shift",
+    "SM.crossingParameter_shift",
+    "SM.crossingSign_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 137,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 138,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "3c81e4a0129758d6ed93cf1aa29980d01f8884d0c319ba9846349a595b21fbf8",
+    "to_excerpt_sha256": "3c81e4a0129758d6ed93cf1aa29980d01f8884d0c319ba9846349a595b21fbf8",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:138-146, byte-identical to the blueprint extract; not in the SM15 change table, sm15_reworded=false) defines, for P satisfying (G1): X(P) = unordered pairs {i,j} of remote edge indices with E_i ∩ E_j ≠ ∅; x_ij = the unique point of E_i ∩ E_j; parameters t_ij, t_ji ∈ (0,1) with x_ij = μ_i + t_ij λ_i = μ_j + t_ji λ_j; crossing sign read from E_i = sgn det(λ_i, λ_j). Lean (work/lean/SM/Crossings.lean:12-19, 41-42, 70-72, 80-81; aggregate SM.crossingData at CrossingEquiv.lean:79-80): IsCrossing P s := ∃ i j, s = {i,j} ∧ remote i j ∧ (edgeSegment P i ∩ edgeSegment P j).Nonempty, with remote := ¬(j−i ∈ {−1,0,1}) (Polygon.lean:63-66) exactly the printed adjacency/remoteness, edgeSegment P i = {μ_i + t λ_i : 0 ≤ t ≤ 1} (Polygon.lean:49-55), so crossingSet P = filter IsCrossing over all finsets is X(P) as a set of 2-element finsets (remote forces i ≠ j; crossing_card_two). crossingPoint c is a chosen common point of both segments; crossingPoint_unique (Crossings.lean:61-63) proves under G1 that any common point equals it, so on the printed domain it denotes the unique point x_ij; crossingPoint_interior gives relative-interior membership. crossingParameter c i hi is a t with 0 ≤ t ≤ 1 and crossingPoint c = P i + t • (P(i+1) − P i) (crossingParameter_spec, Crossings.lean:74-78), i.e. x_ij = μ_i + t_ij λ_i on edge i (and likewise for j), unique because edge P i ≠ 0 under G1 (edgePoint_injective, g1_edge_ne_zero) and strictly in (0,1) under 3 ≤ n and G1 (crossingParameter_interior, Crossings.lean:102-104). crossingSign P i j = SignType.sign (det (edge P i) (edge P j)) with det u v = u.1*v.2 − u.2*v.1 (Polygon.lean:16) is sgn det(λ_i, λ_j) read from E_i. G1 (Generic.lean:11-12) and chi (Chirotope.lean:10-11) match def:generic (G1) and def:chirotope. Working on labelled tuples with shift-equivariance recorded (crossingShiftEquiv, crossingPoint_shift, crossingParameter_shift, crossingSign_shift; shift 1 = σ since (shift a P) i = P(i+a)) is expressly permitted by the source's formalization remark. Nothing is vacuous: the definitions have the intended content for every n ≥ 3, and for n ≤ 3 the crossing set is correctly empty. All eight reviewed Lean files hash-match the accepted review; no sorry/axiom. My independent judgement agrees with the existing review.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "The Lean crossing set, point, parameter and sign are total definitions on every LabelledTuple n (only [NeZero n] for crossingSet/crossingData), not restricted to P satisfying (G1) or to n ≥ 3; on the printed domain (G1, n ≥ 3) the uniqueness/interiority theorems show they coincide with the printed objects, and off it the source defines nothing, so this is a harmless generalization (crossingPoint is then merely some common point).",
+      "crossingSign P i j is defined for every ordered pair (i, j), not only for pairs in X(P); on crossings it is exactly the printed 'sign read from E_i'.",
+      "Shift-equivariance of all four components is stated explicitly (crossingShiftEquiv, crossingPoint_shift, crossingParameter_shift, crossingSign_shift), which the source only asserts in prose ('invariant under σ up to relabelling')."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CrossingEquiv.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Crossings.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/G1Consequences.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CrossingCriterion.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Segment.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-crossings.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

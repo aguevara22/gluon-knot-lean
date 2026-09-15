@@ -1,0 +1,202 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "transport-area-direction-partial",
+  "source_id": "lem:transport-polynomials",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1292–1383, specifically Δ at 1294–1299 and the q/Δ/H irreducibility argument at 1318–1332",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The actual scalar-coordinate model, full-ring determinant/shear proofs, Δ irreducibility/nonzeroness, and auxiliary remote-direction H irreducibility/nonzeroness. This is not the full original lemma.",
+  "reason": "The four new modules faithfully close the reviewed Δ/H portion. I inspected their complete definitions, theorem types and proof bodies, the actual determinant evaluation identities, and the algebraic-map hypotheses. The result is in the full multivariate scalar vertex-coordinate ring, with an explicit algebra automorphism carrying the independent determinant to the actual Δ or H polynomial. Extra variables remain in that same ring throughout. No unused-variable extension axiom, geometric-independence hypothesis, desired irreducibility premise or Generic restriction is introduced. The independently compiled trace confirms the source n≥3 discharges H’s explicit Nontrivial(ZMod n) instance.",
+  "mathematical_justification": [
+    "DeterminantPolynomial works for an arbitrary ambient variable type σ. It writes X_a X_b−X_c X_d as X_b·X_a+g with g=−X_c X_d. The assumptions a≠b,c,d show that a is absent from both coefficient polynomials. X_b is nonzero and prime. The assumptions b≠c,d imply X_b does not divide g, so it is relatively prime to g. The pinned irreducible_mul_X_add theorem applies over the actual real-coefficient polynomial domain. This proves irreducibility without removing unused variables. No c≠d assumption is needed for this stronger helper; the Δ/H uses do in fact instantiate four distinct scalar labels.",
+    "PolynomialShear defines actual ℝ-algebra maps (indeed over any CommRing R) by aeval: selected X_i is sent to X_i−X_parent(i), and the proposed inverse adds the same parent variable; unselected variables are fixed. The sole condition is that the parent of every selected variable is unselected. Both compositions are proved equal to the identity on every generator, then by algebra-hom extensionality. AlgEquiv.ofAlgHom uses those two proved inverse equations. Parent injectivity, an inverse map or variable independence is not assumed as unexplained source data.",
+    "ScalarCoordinate n is ZMod n × Fin 2. scalarCoordinates takes the first and second real components of each actual Plane value; tupleOfScalarCoordinates reconstructs that same unrestricted labelled tuple. Both inverse equations are proved, including exhaustive Fin 2 cases. Thus scalarCoordinateEquiv covers all scalar assignments and all tuples. For source n≥3 these are exactly the 2n scalar vertex coordinates. coordinateX and coordinateY are the corresponding actual indeterminates, with evaluation equal to the actual point components.",
+    "areaPolynomial i j k is exactly (x_j−x_i)(y_k−y_i)−(y_j−y_i)(x_k−x_i). eval_areaPolynomial proves evaluation at any actual tuple equals det(P_j−P_i,P_k−P_i), with the printed orientation. For distinct i,j,k, the independent determinant using the j/k scalar coordinates is irreducible in the whole coordinate ring. vertexCoordinateTranslation selects every non-base vertex coordinate, sends its parent to the same scalar component of base i, and derives the unselected-parent condition. Its algebra-map formulas replace those four variables by their differences from the base. Irreducibility transfers through this proved automorphism to areaPolynomial, and nonzeroness follows from irreducibility. There is no restriction on the tuple at which this polynomial may be evaluated.",
+    "directionPolynomialX/Y are exactly the scalar coordinate differences from tail e to head e+1. Their evaluations are the two components of the actual directed edge. SeparatedEdgeHeads E says no selected head is a selected tail. For a pair of remote edges, the existing exact endpoint inequalities give all cross-edge cases; Nontrivial(ZMod n) gives the two self head/tail cases. These are derived combinatorial facts about the labels, not assumptions that numerical direction vectors happen to be independent.",
+    "tailDirectionTranslation selects exactly the coordinates whose vertex label minus one belongs to E, namely the heads of edges in E, and chooses the preceding vertex with the same scalar component as parent. If that parent were also selected, two edges in E would violate SeparatedEdgeHeads. Hence the generic shear supplies an actual inverse on the full coordinate ring. On each selected head it sends x_(e+1),y_(e+1) to the corresponding direction polynomials. All unused variables and tails are retained, and modular wraparound is handled by the exact ZMod addition/subtraction identities.",
+    "For remote e,f, the two heads are distinct, so their four scalar labels instantiate the ambient irreducible determinant theorem. Mapping it through tailDirectionTranslation {e,f} gives exactly directionDeterminantPolynomial e f. The evaluation identity is det(edge P e,edge P f), the source auxiliary H with its directed sign. Both H irreducibility and formal nonzeroness are then proved. The review trace independently kernel-checks that 3≤n implies Nontrivial(ZMod n); this instance therefore adds no restriction to the source polygon domain. H is auxiliary to the later T argument, not an additional original family member or accepted source proof.",
+    "The nonzero conclusions concern formal polynomials. Evaluation may vanish at a collinear triple or a parallel pair; no pointwise nonvanishing assertion is being inferred from irreducibility. The proof route is an algebraic alternative to the printed matrix-rank argument, and it now includes the actual coordinate transport that the earlier four-variable prototype did not establish."
+  ],
+  "not_certified": [
+    "The full original lem:transport-polynomials remains pending and unmapped by this review.",
+    "The finite family with one representative per unordered support, all T definitions/expansion/coprimality/irreducibility, and distinct-member nonassociation are not established by these modules.",
+    "Coordinate-wise affinity, genuine-dependence slopes, nonzero ad−bc and the specialized simple-root/no-common-root conclusions remain open.",
+    "No original PROVE or checklist increment, main corner state-sum wall law, soft theorem or stage completion is certified."
+  ],
+  "principal_declarations_inspected": [
+    "SM.determinantPolynomial_irreducible",
+    "SM.polynomialShearSub",
+    "SM.polynomialShearAdd",
+    "SM.polynomialShearSub_comp_add",
+    "SM.polynomialShearAdd_comp_sub",
+    "SM.polynomialShear",
+    "SM.scalarCoordinates",
+    "SM.tupleOfScalarCoordinates",
+    "SM.tupleOf_scalarCoordinates",
+    "SM.scalarCoordinates_tupleOf",
+    "SM.scalarCoordinateEquiv",
+    "SM.areaPolynomial",
+    "SM.eval_areaPolynomial",
+    "SM.vertexCoordinateTranslation",
+    "SM.areaPolynomial_irreducible",
+    "SM.areaPolynomial_ne_zero",
+    "SM.SeparatedEdgeHeads",
+    "SM.separatedEdgeHeads_pair",
+    "SM.tailDirectionTranslation",
+    "SM.directionPolynomialX",
+    "SM.directionPolynomialY",
+    "SM.eval_directionPolynomialX",
+    "SM.eval_directionPolynomialY",
+    "SM.directionDeterminantPolynomial",
+    "SM.eval_directionDeterminantPolynomial",
+    "SM.directionDeterminantPolynomial_irreducible",
+    "SM.directionDeterminantPolynomial_ne_zero"
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6"
+  },
+  "import_closure_root": "SM.DirectionPolynomials",
+  "import_closure_file_count": 8,
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465"
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "pinned_library_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean": "fab026fd520913a5ae196a911a719a612b3cb692222f757c7fdca9e5c4f5ac59",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Equiv.lean": "3e2ef0b3cfa3713e0e56b21ad0eb753d4b178c8c5752b81b8d854591a6159d54"
+    },
+    "pinned_library_files_verified_against_git_revision": true,
+    "library_proof_inspected": "MvPolynomial.irreducible_mul_X_add and its ambient polynomial-variable equivalence and relative-prime hypotheses, in the pinned IrreducibleQuadratic file."
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/transport-area-direction-review-types.lean",
+    "independent_trace_source_sha256": "ddfd698f0e4e818b5059f6071be62b11873ccdd44a85648deb746cd2c1f650dc",
+    "independent_trace_log": "work/checks/transport-area-direction-review-types.log",
+    "independent_trace_log_sha256": "ffdfe9202b97412bddec9a45ebaa534b8eaa978d5d3633afd3a478c55d1aacc9",
+    "independent_kernel_command": "lake env lean ../checks/transport-area-direction-review-types.lean",
+    "independent_kernel_session": 83654,
+    "independent_kernel_exit_code": 0,
+    "source_domain_instance_checked": "The trace includes an independently compiled example deriving Nontrivial(ZMod n) from 3≤n.",
+    "declaration_axioms": {
+      "SM.determinantPolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomialShearSub_comp_add": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomialShearAdd_comp_sub": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomialShear": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarCoordinateEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_areaPolynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.areaPolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.areaPolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separatedEdgeHeads_pair": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tailDirectionTranslation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_directionDeterminantPolynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.directionDeterminantPolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.directionDeterminantPolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "build_logs_sha256": {
+      "work/checks/determinant-polynomial-build.log": "782405df552a869b61ac14ef9c99f8c7c95af35080e100312a0d6d7ace1182d9",
+      "work/checks/polynomial-shear-build.log": "4f55ea772f531c7f06fc259954411641e9dfcb2226a2f644e1b5e60ba94ec2b7",
+      "work/checks/coordinate-polynomials-build.log": "c6a23b299bc9db8ce80dca272fe911292b93f84ad879a12db01a3a0e4c3c4c59",
+      "work/checks/direction-polynomials-build.log": "09db9a7eed582bf2896ac086e794cc6622134dd682c77a3e600101944ac6bc70"
+    }
+  },
+  "receipt_binding": {
+    "receipt": "work/checks/checkpoint-048-output.json",
+    "receipt_sha256": "35530b5abc6934f5ffd1e7f3077816b243eba168451e4cdbe982fa25724b14eb",
+    "stage_development_byte_identical": true,
+    "passed": true,
+    "stage_accepted": false,
+    "SM_module_count": 230,
+    "local_declaration_count": 2407,
+    "mapped_claim_count": 29,
+    "project_file_count": 236,
+    "frozen_file_count": 38,
+    "exact_Lean_inventory_count": 232,
+    "all_project_and_frozen_hashes_independently_recomputed": true,
+    "prior_226_SM_files_unchanged": true,
+    "four_inherited_closure_files_match_previous_independent_reviews": true,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "56ce57278aa35a3ee7ba181f97984f4c1916b36b9623f8ac435c0f823757b13a",
+    "scope": "Current whole-project development evidence only. No full original source-row semantic hash or acceptance is claimed for this partial unit."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer did not author or edit any theorem-library implementation. Only the independent trace under work/checks and this partial review were created.",
+  "edits": "No Lean theorem-library, source, declaration-map or progress-metadata edits. Review evidence only."
+}

@@ -1,0 +1,684 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "refinement-transport-prototype",
+  "source_id": "lem:farout",
+  "source_line": 146,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "Proof180-199: exact refinement indexing180-187, actual neighboring samples190-193, full child-coordinate product194, and all independent marked selections195-197. The complete factorization151 is not yet certified.",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T05:57:19.065319+00:00",
+  "main_declarations": [
+    "SM.BoundaryCutSet.Consecutive",
+    "SM.BoundaryInterval.eq_of_endpoints",
+    "SM.BoundaryCutSet.consecutive_restrict_iff",
+    "SM.IntervalComposition.part_consecutive",
+    "SM.IntervalComposition.part_injective",
+    "SM.IntervalComposition.exists_part_of_consecutive",
+    "SM.IntervalComposition.partConsecutiveEquiv",
+    "SM.IntervalComposition.consecutive_contained_in_part",
+    "SM.IntervalComposition.containing_part_unique",
+    "SM.IncreasingBoundaryTriple.leftInterval",
+    "SM.IncreasingBoundaryTriple.rightInterval",
+    "SM.BoundaryCutSet.consecutive_eq_of_left",
+    "SM.BoundaryCutSet.consecutive_eq_of_right",
+    "SM.IncreasingBoundaryTriple.eq_of_entries",
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+    "SM.IntervalComposition.nearTriple_leftInterval",
+    "SM.IntervalComposition.nearTriple_rightInterval",
+    "SM.IntervalComposition.nearTriple_consecutive",
+    "SM.IntervalComposition.nearTriple_middle_position",
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+    "SM.IntervalComposition.refinementInner",
+    "SM.IntervalComposition.refinedChildIndex",
+    "SM.IntervalComposition.inner_child_consecutive",
+    "SM.IntervalComposition.exists_refined_child",
+    "SM.IntervalComposition.refinedChildIndex_part",
+    "SM.IntervalComposition.refinedChildIndex_injective",
+    "SM.IntervalComposition.refinedChildIndex_surjective",
+    "SM.IntervalComposition.refinedChildrenEquiv",
+    "SM.IntervalComposition.prod_refined_children",
+    "SM.IntervalComposition.refinementInner_flatten",
+    "SM.IntervalComposition.prod_nested_children",
+    "SM.IntervalComposition.indexMarks",
+    "SM.IntervalComposition.markIndices",
+    "SM.IntervalComposition.markIndices_indexMarks",
+    "SM.IntervalComposition.indexMarks_markIndices",
+    "SM.IntervalComposition.marksIndexEquiv",
+    "SM.IntervalComposition.position_mem_indexMarks",
+    "SM.IntervalComposition.indexMarks_compl",
+    "SM.IntervalComposition.prod_indexMarks",
+    "SM.IntervalComposition.prod_markIndices",
+    "SM.IntervalComposition.sum_all_indexMarks"
+  ],
+  "main_declarations_by_body": {
+    "ConsecutiveCuts": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.BoundaryInterval.eq_of_endpoints",
+      "SM.BoundaryCutSet.consecutive_restrict_iff",
+      "SM.IntervalComposition.part_consecutive",
+      "SM.IntervalComposition.part_injective",
+      "SM.IntervalComposition.exists_part_of_consecutive",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.consecutive_contained_in_part",
+      "SM.IntervalComposition.containing_part_unique"
+    ],
+    "ConsecutiveTriples": [
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.BoundaryCutSet.consecutive_eq_of_left",
+      "SM.BoundaryCutSet.consecutive_eq_of_right",
+      "SM.IncreasingBoundaryTriple.eq_of_entries",
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+      "SM.IntervalComposition.nearTriple_leftInterval",
+      "SM.IntervalComposition.nearTriple_rightInterval",
+      "SM.IntervalComposition.nearTriple_consecutive",
+      "SM.IntervalComposition.nearTriple_middle_position",
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive"
+    ],
+    "RefinedChildren": [
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.inner_child_consecutive",
+      "SM.IntervalComposition.exists_refined_child",
+      "SM.IntervalComposition.refinedChildIndex_part",
+      "SM.IntervalComposition.refinedChildIndex_injective",
+      "SM.IntervalComposition.refinedChildIndex_surjective",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.prod_refined_children",
+      "SM.IntervalComposition.refinementInner_flatten",
+      "SM.IntervalComposition.prod_nested_children"
+    ],
+    "MarkedCutIndex": [
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.markIndices_indexMarks",
+      "SM.IntervalComposition.indexMarks_markIndices",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.position_mem_indexMarks",
+      "SM.IntervalComposition.indexMarks_compl",
+      "SM.IntervalComposition.prod_indexMarks",
+      "SM.IntervalComposition.prod_markIndices",
+      "SM.IntervalComposition.sum_all_indexMarks"
+    ]
+  },
+  "prototype_files_sha256": {
+    "ConsecutiveCuts": "377469610683ccdac4ad2ff8defcc94975c98757762f8ca322687993ae64576f",
+    "ConsecutiveTriples": "7a14f877a896eca5f1eda6490f5e4691101ab7865a6b3a326e372fc6eddcc936",
+    "RefinedChildren": "403487a455f5c093bec977747a1abe1321bd9724540eb1c3e23f300f151d9abf",
+    "MarkedCutIndex": "86ab00c7df0088a6c9a1aa6bfea0f8299b2fb7ae1c512190bc647666971e26e8"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/checks/ConsecutiveCuts.body.lean": "c7887dc7d921a89a4bc993e3afeae4cecfa16a9e900c1d69e77b1a3dc891b29f",
+    "work/checks/ConsecutiveTriples.body.lean": "4d3ef3e74037439b35eb804605766ce8dc1d1675af3dd9826b5366fe054faec2",
+    "work/checks/RefinedChildren.body.lean": "3019454092fbf6d22f419d94a1cc69f7057021f65dc1e9cde2046525a61e2abc",
+    "work/checks/MarkedCutIndex.body.lean": "58fdc443e7532f4e5dab5dbd237ffa0ca23d873c3277b8fc179f9a28b9306819"
+  },
+  "import_closure_roots": [
+    "SM.MarkedRefinement",
+    "SM.InteriorCutIndex",
+    "SM.NearFar",
+    "SM.UnaryComposition"
+  ],
+  "import_closure_file_count": 14,
+  "embedded_body_count": 4,
+  "inherited_review_binding": {
+    "work/reviews/nearfar-helper-port.json": "827cd20235e2e5c6c5b0faa8cc48fd20d21d9289d90ae25020ac4615e442f1e3",
+    "work/reviews/nearfar-refinement-canonical-partial.json": "93537539849574269dd1609dcb76e125a9e56002498a04d29db1bd96edd2549f",
+    "work/reviews/composition-cut-set-canonical-partial.json": "37bd41b7708dce3be1dfaf5fd3a0cf4b84b382f7495627eef7acdb6352021121",
+    "work/reviews/def-nearfar.json": "933022e776a0440ac35e0f9fbfa193c9e3fc32d6e8c0f67e3560c61361dd314a"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/refinement-transport-review-types.lean",
+    "independent_trace_source_sha256": "308a7e8aae54b6b9487e732dda86ed46e2514dce3b3eb2ec3b530fb5f851ddcc",
+    "independent_trace_log": "work/checks/refinement-transport-review-types.log",
+    "independent_trace_log_sha256": "44e4a47ef7bf23d9c5861bc3aa102b373cbc6577a316a1ad30a9534cb4a0c4df",
+    "independent_kernel_command": "lake env lean ../checks/refinement-transport-review-types.lean",
+    "independent_kernel_session": 45200,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": false,
+    "prior_failed_independent_run": {
+      "session": 85368,
+      "exit_code": 1,
+      "source": "work/checks/refinement-transport-review-first.lean",
+      "source_sha256": "3bb8db376cebd50049b71602a75cb13e06067724870d0f254ac620b33f939731",
+      "log": "work/checks/refinement-transport-review-first.log",
+      "log_sha256": "9c3a5750acf51b26abc54acb1f5a444e097883b423c4c99ba3426b9a039b8af4",
+      "reason": "The unary marking-sum consumer reduced to a unique default Finset(Fin 0); an explicit subsingleton equality identifies it with the empty set. This is a reviewer normalization proof correction only. All implementation traces passed, and no consumer statement or implementation was changed."
+    },
+    "checked_declarations": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.BoundaryInterval.eq_of_endpoints",
+      "SM.BoundaryCutSet.consecutive_restrict_iff",
+      "SM.IntervalComposition.part_consecutive",
+      "SM.IntervalComposition.part_injective",
+      "SM.IntervalComposition.exists_part_of_consecutive",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.consecutive_contained_in_part",
+      "SM.IntervalComposition.containing_part_unique",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.BoundaryCutSet.consecutive_eq_of_left",
+      "SM.BoundaryCutSet.consecutive_eq_of_right",
+      "SM.IncreasingBoundaryTriple.eq_of_entries",
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+      "SM.IntervalComposition.nearTriple_leftInterval",
+      "SM.IntervalComposition.nearTriple_rightInterval",
+      "SM.IntervalComposition.nearTriple_consecutive",
+      "SM.IntervalComposition.nearTriple_middle_position",
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.inner_child_consecutive",
+      "SM.IntervalComposition.exists_refined_child",
+      "SM.IntervalComposition.refinedChildIndex_part",
+      "SM.IntervalComposition.refinedChildIndex_injective",
+      "SM.IntervalComposition.refinedChildIndex_surjective",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.prod_refined_children",
+      "SM.IntervalComposition.refinementInner_flatten",
+      "SM.IntervalComposition.prod_nested_children",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.markIndices_indexMarks",
+      "SM.IntervalComposition.indexMarks_markIndices",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.position_mem_indexMarks",
+      "SM.IntervalComposition.indexMarks_compl",
+      "SM.IntervalComposition.prod_indexMarks",
+      "SM.IntervalComposition.prod_markIndices",
+      "SM.IntervalComposition.sum_all_indexMarks"
+    ],
+    "declaration_count": 41,
+    "declaration_axioms": {
+      "SM.BoundaryCutSet.Consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.eq_of_endpoints": [
+        "propext"
+      ],
+      "SM.BoundaryCutSet.consecutive_restrict_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_injective": [
+        "propext"
+      ],
+      "SM.IntervalComposition.exists_part_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.partConsecutiveEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.consecutive_contained_in_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.containing_part_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.leftInterval": [],
+      "SM.IncreasingBoundaryTriple.rightInterval": [],
+      "SM.BoundaryCutSet.consecutive_eq_of_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.consecutive_eq_of_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_entries": [
+        "propext"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_leftInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_rightInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_middle_position": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.inner_child_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.exists_refined_child": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildrenEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refined_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner_flatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_nested_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.marksIndexEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.position_mem_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_compl": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.sum_all_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs",
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer",
+      "RefinementTransportIndependentReview.actual_near_sample_unique",
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors",
+      "RefinementTransportIndependentReview.refined_index_keeps_interval",
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts",
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data",
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product",
+      "RefinementTransportIndependentReview.all_inner_unary_product",
+      "RefinementTransportIndependentReview.empty_and_full_index_marks",
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative",
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport",
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality",
+      "RefinementTransportIndependentReview.unary_marking_sum"
+    ],
+    "additional_example_count": 14,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_near_sample_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.refined_index_keeps_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_inner_unary_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.empty_and_full_index_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unary_marking_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.marksIndexEquiv"
+    ],
+    "reviewed_types": "work/checks/refinement-transport-reviewed-types.json",
+    "reviewed_types_sha256": "cd681b4b4f54b62004381d9921a259625e4cff67efe8b865e2fbc3362ce93e00",
+    "independent_closure_evidence": "work/checks/refinement-transport-review-closure.json",
+    "independent_closure_evidence_sha256": "346863b544ee37570e2cb4d44c7b63c449b7132e24150edeb6c1265645bb8e86",
+    "root_successful_results": {
+      "ConsecutiveCuts": {
+        "kernel_session": 16404,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_session": 82125,
+        "prior_failure": "Ambiguous Fin.val projection domain in part injectivity; explicit domain fixes proof only",
+        "files_sha256": {
+          "work/checks/ConsecutiveCuts-second-kernel.log": "ee123e64a2ce89fb65b7f1e4aa4825ecf8e477fc592ef7b0ee6508abd8083622",
+          "work/checks/ConsecutiveCuts.body.lean": "c7887dc7d921a89a4bc993e3afeae4cecfa16a9e900c1d69e77b1a3dc891b29f",
+          "work/checks/ConsecutiveCuts.prototype.lean": "377469610683ccdac4ad2ff8defcc94975c98757762f8ca322687993ae64576f"
+        },
+        "printed_declarations": [
+          "SM.BoundaryInterval.eq_of_endpoints",
+          "SM.BoundaryCutSet.consecutive_restrict_iff",
+          "SM.IntervalComposition.part_consecutive",
+          "SM.IntervalComposition.part_injective",
+          "SM.IntervalComposition.exists_part_of_consecutive",
+          "SM.IntervalComposition.partConsecutiveEquiv",
+          "SM.IntervalComposition.consecutive_contained_in_part",
+          "SM.IntervalComposition.containing_part_unique"
+        ],
+        "state": "kernel passed; frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/ConsecutiveCuts-prototype-result.json",
+        "receipt_sha256": "b23679deda42d77bce1268010a5fb8c14d58ce0dcb7bbc7302201736d054171d"
+      },
+      "ConsecutiveTriples": {
+        "supervisor_session": 42270,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/ConsecutiveTriples-first-kernel.log": "b7b0dd705fd322096eefba14285dcb403738d52ec57082c654a8347bb34b965f",
+          "work/checks/ConsecutiveTriples.body.lean": "4d3ef3e74037439b35eb804605766ce8dc1d1675af3dd9826b5366fe054faec2",
+          "work/checks/ConsecutiveTriples.prototype.lean": "7a14f877a896eca5f1eda6490f5e4691101ab7865a6b3a326e372fc6eddcc936"
+        },
+        "printed_declarations": [
+          "SM.BoundaryCutSet.consecutive_eq_of_left",
+          "SM.BoundaryCutSet.consecutive_eq_of_right",
+          "SM.IncreasingBoundaryTriple.eq_of_entries",
+          "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+          "SM.IntervalComposition.nearTriple_leftInterval",
+          "SM.IntervalComposition.nearTriple_rightInterval",
+          "SM.IntervalComposition.nearTriple_consecutive",
+          "SM.IntervalComposition.nearTriple_middle_position",
+          "SM.IntervalComposition.nearTriple_eq_of_consecutive"
+        ],
+        "state": "kernel passed; frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/ConsecutiveTriples-prototype-result.json",
+        "receipt_sha256": "177c5f02350aa7a7be33545e1c35309024026b1c0e9ee0335ab14b8aae701e34"
+      },
+      "RefinedChildren": {
+        "supervisor_session": 15076,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": false,
+        "files_sha256": {
+          "work/checks/RefinedChildren-second-kernel.log": "7325f95747a02cdc39cd6311f16516d559eb7cd3bcdaea559098496b661a5abe",
+          "work/checks/RefinedChildren.body.lean": "3019454092fbf6d22f419d94a1cc69f7057021f65dc1e9cde2046525a61e2abc",
+          "work/checks/RefinedChildren.prototype.lean": "403487a455f5c093bec977747a1abe1321bd9724540eb1c3e23f300f151d9abf"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.inner_child_consecutive",
+          "SM.IntervalComposition.exists_refined_child",
+          "SM.IntervalComposition.refinedChildIndex_part",
+          "SM.IntervalComposition.refinedChildIndex_injective",
+          "SM.IntervalComposition.refinedChildIndex_surjective",
+          "SM.IntervalComposition.refinedChildrenEquiv",
+          "SM.IntervalComposition.prod_refined_children",
+          "SM.IntervalComposition.refinementInner_flatten",
+          "SM.IntervalComposition.prod_nested_children"
+        ],
+        "state": "kernel passed; frozen; independent review pending",
+        "acceptance_increment": 0,
+        "prior_failed_supervisor": 42270,
+        "prior_failure": "Dependent sigma-product pattern matching and inner-family rewriting; curried sigma theorem and whole-family congruence fix proofs without changing statements.",
+        "receipt": "work/checks/RefinedChildren-prototype-result.json",
+        "receipt_sha256": "43cd971997f47feb44813004c1d7d4c872595322d2b331e0a762c3e13dadebc8"
+      },
+      "MarkedCutIndex": {
+        "supervisor_session": 15076,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/MarkedCutIndex-first-kernel.log": "6952b21d4789c9ba3ddc1aeaa119d6581abc9894976d269e663fb01c4d40c602",
+          "work/checks/MarkedCutIndex.body.lean": "58fdc443e7532f4e5dab5dbd237ffa0ca23d873c3277b8fc179f9a28b9306819",
+          "work/checks/MarkedCutIndex.prototype.lean": "86ab00c7df0088a6c9a1aa6bfea0f8299b2fb7ae1c512190bc647666971e26e8"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.markIndices_indexMarks",
+          "SM.IntervalComposition.indexMarks_markIndices",
+          "SM.IntervalComposition.marksIndexEquiv",
+          "SM.IntervalComposition.position_mem_indexMarks",
+          "SM.IntervalComposition.indexMarks_compl",
+          "SM.IntervalComposition.prod_indexMarks",
+          "SM.IntervalComposition.prod_markIndices",
+          "SM.IntervalComposition.sum_all_indexMarks"
+        ],
+        "state": "kernel passed; frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/MarkedCutIndex-prototype-result.json",
+        "receipt_sha256": "7fe30ec2051dfdb1036a4118c690280ec5b246e38ed253097d54d634e7a9d3d9"
+      }
+    },
+    "scope_note": "The independent trace uses the actual canonical raw composition, near-array and marked-refinement definitions, plus the four byte-identical external bodies. It checks the actual selected intervals, sample entries, products, sums and edge cases; root compilation alone does not establish this fidelity."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "reason": "Faithful external supporting development for the source refinement proof. Actual raw parts are exactly consecutive cut pairs; actual neighboring near triples are uniquely fixed by their physical middle cut. All recovered inner child indices correspond to the globally refined children, preserving their full intervals and the complete nested product for arbitrary coordinate values in any commutative monoid. Every marked physical subset corresponds to every interior index subset, with the correct relative complement, products and total sum. Independent kernel 45200 passes 41 declarations and 14 substantive consumers with 55 standard-or-empty axiom traces. No domain is narrowed, no axiom is added, and no full inner-near/outer-far coefficient transport or factorization is inferred.",
+  "mathematical_justification": [
+    {
+      "clause": "Consecutive positions mean actual cut membership",
+      "assessment": "BoundaryCutSet.Consecutive J requires both actual endpoints of J in the original cut set and excludes every cut strictly between them. It does not select an enumeration or assume a child is already known. part_consecutive follows because no natural index lies strictly between k and k+1; the converse finds the next original cut and uses the no-intervening-cut condition to force the right endpoint. part_injective follows from the strictly increasing original cut map. The independent actual_parts_are_exact_consecutive_pairs combines these into unique existence of the raw part index."
+    },
+    {
+      "clause": "Restriction and containment preserve all relevant positions",
+      "assessment": "consecutive_restrict_iff assumes only that J lies in the restricting interval whose two endpoints are retained. Every possible intervening cut is then in the restriction, proving equivalence of the actual predicate. A globally consecutive fine child starts in an existing half-open outer part; an outer right endpoint strictly inside it would be a retained fine cut, a contradiction. The fine child therefore lies wholly in that outer part. Its strictly positive length prevents containment in two ordered outer parts even when they share an endpoint. The independent unique-outer consumer verifies this exact existence/uniqueness statement."
+    },
+    {
+      "clause": "Actual near samples and their forced neighbors",
+      "assessment": "Consecutive intervals with a common left endpoint have the same right endpoint, since otherwise the smaller would intervene; the analogous right-endpoint statement fixes the previous cut. Thus a pair of consecutive intervals is uniquely determined by the middle position. IncreasingBoundaryTriple.leftInterval/rightInterval store the actual lower-middle and middle-upper entries. The nearTriple interval lemmas identify them with the two adjacent original composition parts, and its middle is the actual interiorPosition. Independent consumers prove unique existence of this triple at every interior index and equality of its sample under an arbitrary coefficient array. This fixes the actual neighboring positions, without assuming any geometric sign or scalar equality."
+    },
+    {
+      "clause": "Complete refined child-index bijection",
+      "assessment": "refinementInner is the exact raw composition reconstructed from the closed restriction of the refining cut set to an outer part. Each local child is globally consecutive by the restriction equivalence, and hence is one actual part of the globally sorted refinement. refinedChildIndex chooses that index and immediately proves equality of the complete child interval. Equality of two images forces equality of outer parts by positive-length containment uniqueness, then equality of their inner indices by raw part injectivity. Conversely every globally fine child belongs to an outer part and occurs among its recovered inner children. The resulting equivalence covers the entire dependent sigma of all inner child indices, with no excluded arity or boundary case."
+    },
+    {
+      "clause": "Actual nested coordinate product",
+      "assessment": "prod_refined_children rewrites the double product as a product over that full sigma domain and reindexes it by the proved interval-preserving bijection. For arbitrary X, equality of the child intervals gives equality of each actual factor, so no coordinate is replaced or omitted. The coefficient structure is only a CommMonoid, enough for this finite product reordering and weaker than the source CommRing. refinementInner_flatten recovers the original raw inner compositions exactly. Whole-family congruence then transfers the product to every original inner family, retaining dependent part counts and cut functions. The independent consumers check exact interval preservation, total child count, raw cut-map recovery, the product through the actual nestedMarkedCutEquiv output, and the all-inner-unary normalization."
+    },
+    {
+      "clause": "Every physical marking and exact relative complement",
+      "assessment": "indexMarks images any interior-index finset under the injective actual position map. markIndices filters the full interior-index universe by membership in the given physical marked set. Injectivity and previously proved physical-position coverage give both inverse laws. Complementary index subsets map to the refined interior cut set minus the selected marks, not to the complement in all Fin n boundary positions. Independent empty/full and relative-complement consumers verify that every marked and unmarked position stays strictly between the original endpoints and within the actual refinement."
+    },
+    {
+      "clause": "Selected products and all-marking sums",
+      "assessment": "prod_indexMarks uses injectivity to reindex the selected product with exactly the same physical argument. The inverse-law rewrite gives prod_markIndices; combining this with the relative complement theorem transports both marked and unmarked products. sum_all_indexMarks uses the full marked-subset equivalence for arbitrary AddCommMonoid-valued weights, so each possible marking appears once. Independent consumers prove there are exactly 2^(parts-1) physical markings and that the complete unary sum consists of the unique empty marking. The source arbitrary/empty/full subsets and unary cases are retained."
+    },
+    {
+      "clause": "Precise remaining factorization boundary",
+      "assessment": "These helpers supply the complete child-coordinate product identity and the induced arbitrary marked-index transport missing from the previous batch. ConsecutiveTriples supplies a criterion for matching near samples in a fixed cut set, but this batch does not yet carry each actual unmarked inner near triple into the global refinement and prove its coefficient equality there. It also does not transport the actual marked outer far triples or assemble those coefficient factors and child products through the weighted nested sum. Those remaining identifications are needed for Phi=F composed with G; no full factorization or farout consequence is certified here."
+    }
+  ],
+  "independence": "The reviewer is distinct from the implementer and independently read the authoritative source and every frozen new definition/proof. The reviewer authored independent semantic consumers and checked exact input/output domains and actual factors, rather than inheriting root verdicts. Only new work/checks and work/reviews files were written; no implementation, source, map, root receipt or frozen prior review was changed.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_and_current_semantic_audit_pending": true,
+    "full_farout_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Actual inner-near and outer-far coefficient transport through the full nested refinement map.",
+    "Complete weighted-sum factorization Phi(D,H)=F(H) composed with G(D).",
+    "All remaining far-only and restricted-subpolygon consequences of lem:farout."
+  ],
+  "not_certified": [
+    "No original acceptance for these four supporting helpers alone.",
+    "No full factorization, complete lem:farout, wall law, soft theorem, R theorem or stage completion."
+  ]
+}

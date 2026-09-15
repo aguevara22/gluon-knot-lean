@@ -1,0 +1,26 @@
+\begin{definition}[event, and its zero set]\label{def:event}
+An \emph{event} is a continuous path $t\mapsto P(t)$ of polygons on $n$
+vertices, $t\in(-\varepsilon,\varepsilon)$, such that $P(t)$ is generic for
+every $t\neq0$ and $P(0)$ is not. Its \emph{zero set} is
+\[
+   Z=\bigl\{g\in\mathcal G:\ g(P(0))=0\ \text{ and }\ g\ \text{is relevant at }
+   P(t)\ \text{for some }t\neq0\bigr\}.
+\]
+The \emph{two chambers of the event} are the chambers containing
+$P\bigl((-\varepsilon,0)\bigr)$ and $P\bigl((0,\varepsilon)\bigr)$; each of
+those two sets is connected and consists of generic polygons, so each does lie
+in one chamber. We say the event is \emph{guarded relative
+to $Z$}, and every appeal to simplicity below names its $Z$.
+
+The event is \emph{transversal} if every member of $Z$ changes sign at $t=0$.
+Every named event of the convention that lists them is required to be
+transversal. Without that requirement the definition admits a tangency: the
+path
+\[
+   p_1=(0,0),\quad p_2(t)=(2,-t^2),\quad p_3=(1,0),\quad p_4=(3,2)
+\]
+is generic for $t\neq0$ and has exactly the cusp zero bundle at $t=0$, yet
+$P(t)=P(-t)$, so its two punctured sides are the same chamber and no crossing
+is created. A tangency is not a wall crossing and every wall law would be
+vacuous or false there.
+\end{definition}

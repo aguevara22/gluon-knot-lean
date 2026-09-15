@@ -1,0 +1,146 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "multivariate-avoidance-prototype",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1429–1458, specifically the common finite-polynomial avoidance step at 1451–1457; full theorem begins at 1385",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "Only the general simultaneous nonvanishing principle and its explicit coordinate-line proof. No full thm:relgp source acceptance or concrete waypoint construction is claimed.",
+  "reason": "The prototype faithfully proves the algebraic avoidance principle used for the source’s one joint waypoint choice: for one finite family of nonzero real multivariate polynomials and one nonempty open set of assignments, there is one assignment in that set at which every family member is nonzero. Its quantifier order is the required common choice, not a separate point for each condition. The proof uses the actual polynomial restriction to a continuous affine coordinate line, multivariate polynomial extensionality over the infinite real domain, finiteness of nonzero univariate roots and finite intersections of open dense sets. It is valid for arbitrary variable types with the product topology, hence includes the finite-dimensional joint space once that space and the constraint pullbacks are constructed. Those geometric constructions and all remaining relative-general-position conclusions are absent and are explicitly not certified. The exact prototype was independently kernel-checked outside the theorem-library inventory, including its five axiom sets and the empty finite-family boundary case.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual affine line and polynomial substitution",
+      "assessment": "scalarAssignmentLine x y t has each coordinate x i+t*(y i−x i), takes x at zero and y at one, and is continuous into the product topology by continuity of every coordinate. multivariateLineRestriction is the genuine ring-homomorphic substitution X_i ↦ C(x_i)+X*C(y_i−x_i) into a real univariate polynomial. Equality of evaluation ring homomorphisms proves its evaluation at every t equals full multivariate evaluation at that actual line point. No restriction polynomial or evaluation law is assumed."
+    },
+    {
+      "clause": "Existence of a nonzero evaluation",
+      "assessment": "If a nonzero real multivariate polynomial vanished at every assignment, MvPolynomial.funext would identify it with the zero polynomial, a contradiction. The inspected pinned theorem uses the infinite integral-domain property of ℝ and reduces arbitrary variable types to a finite renaming of the polynomial’s finite support. This justifies the witness y without a finite-variable premise or an unproved real-algebraic assertion."
+    },
+    {
+      "clause": "Nonvanishing in every nonempty open assignment set",
+      "assessment": "Given x in an arbitrary nonempty open U and y with p(y)≠0, the restriction q satisfies q(1)=p(y), so q is a nonzero actual univariate polynomial. Its real roots form a finite set. The complement is dense in ℝ, using the real topology’s absence of isolated points. Continuity of the line makes its inverse image of U open, and that preimage contains zero. Choose a parameter in this nonempty open preimage outside the finite root set. The resulting line point lies in U and evaluates p nonzero. The parameter need not lie in [0,1]; the line is an auxiliary density argument, not the source’s final polygonal path. The source uses induction on variables for this same avoidance principle; the alternate line argument proves the required statement with no extra premise."
+    },
+    {
+      "clause": "One simultaneous finite-family choice and genuine topology",
+      "assessment": "Each polynomial’s nonzero-evaluation set is open because actual multivariate evaluation is continuous and ℝ minus zero is open, and each is dense by the preceding proof. Finite ι makes the range of those sets finite. The inspected Set.Finite.dense_sInter theorem proves their intersection dense by finite induction in an arbitrary topological space; it does not require a BaireSpace assumption. Membership in this intersection yields all conditions on the same assignment. The final theorem has exactly ∃ x∈U, ∀ i, eval x (p i)≠0, with only Finite ι, nonzero p i, openness and nonemptiness of U. Empty condition families are permitted and were checked independently. This does not assert avoidance of an arbitrary infinite family."
+    },
+    {
+      "clause": "Boundary of the actual joint-space application",
+      "assessment": "The variable type σ is arbitrary and the open set U is supplied as an actual subset of the common assignment space, so the result can be specialized to all internal waypoint scalar variables jointly. The prototype does not yet define that finite joint variable type, prove that the product of the prescribed waypoint overlaps is the required nonempty open set, or construct the endpoint-hybrid, remaining-coordinate slope/resultant, step and vertex-difference pullback polynomials. Their nonzeroness is still a hypothesis here, not a proved property of the future geometric family. Fixed original endpoints must be kept out of the independently variable coordinates as in the source; no endpoint-collar argument is contained in this file."
+    }
+  ],
+  "not_certified": [
+    "No full thm:relgp acceptance, declaration-map change, original proof increment or checklist increment.",
+    "No concrete joint waypoint variable type or open product of overlap constraints, and no proof that all actual hybrid/sloped/resultant/step/difference pullbacks are nonzero.",
+    "No subdivision, regular cube containment, coordinate hybridization, fixed-endpoint collar preservation, uniform approximation or piecewise-affine path construction.",
+    "No simple isolated central roots, collision freedom, inactive-root treatment, complete F/V/T/E/C wall dictionary, cusp exclusion or occurrence-label transport.",
+    "The prototype remains outside the audited theorem-library inventory. Audit 052 supplies the unchanged project context; only the independent prototype compilation checks this file."
+  ],
+  "prototype_file": "work/checks/MultivariateAvoidance.prototype.lean",
+  "prototype_sha256": "954a4b5f5d67a82650d9a94e30780855d1e5cbb9dba3a2f1ec577ae7cb9b5a5f",
+  "reviewed_files_sha256": {
+    "work/checks/MultivariateAvoidance.prototype.lean": "954a4b5f5d67a82650d9a94e30780855d1e5cbb9dba3a2f1ec577ae7cb9b5a5f"
+  },
+  "project_SM_import_closure_file_count": 0,
+  "direct_Mathlib_import_count": 6,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "direct_import_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Funext.lean": "6e141eba2ee0db181c3d2b8d26bb388b7854476de3274cbf27fa455428de1b4e",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/CharZero/Infinite.lean": "26f32e9e6fd9eb2fa045869cd7f25a1760ec6f5cbd38a728946c063cce2037da",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Algebra/MvPolynomial.lean": "85ac5d20944ed63164f486576a0a346cf471412a5b77e56fbfbe209b591cb093",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Algebra/Polynomial.lean": "d78fd83744050fc71be1b8649b5bfab2f61fd66ac486c2a9a355ce921b4e610d",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Baire/Lemmas.lean": "e900422fa7b230d49677ec153214058a33f130a4ac62839cf3ab78d4b5960217",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Real/Basic.lean": "b1dde0e82be30e8a9ca87b23c46d04afc92be61818622ba6d4603daa4d4a9f70"
+    },
+    "inspected_supporting_library_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Funext.lean": "6e141eba2ee0db181c3d2b8d26bb388b7854476de3274cbf27fa455428de1b4e",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Algebra/MvPolynomial.lean": "85ac5d20944ed63164f486576a0a346cf471412a5b77e56fbfbe209b591cb093",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Baire/Lemmas.lean": "e900422fa7b230d49677ec153214058a33f130a4ac62839cf3ab78d4b5960217",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/Roots.lean": "fe8cd6724459d2461098ff4f246f3496115210a1e36802c33565f2f73fa1640c",
+      "work/lean/.lake/packages/mathlib/Mathlib/Topology/Separation/Basic.lean": "07aadcb5d96cbd2b8d55aaf994e230fced6cc7587d7c3a708583fbda1951df07"
+    },
+    "library_files_verified_against_pinned_git_revision": true,
+    "library_review_scope": "Inspected the named extensionality, polynomial evaluation continuity, finite-intersection density, finite-root-set and finite-set-complement density proofs; direct-import file hashes are also bound. This is not a claim to have independently reviewed every transitive standard-library file."
+  },
+  "evidence": {
+    "independent_check_source": "work/checks/multivariate-avoidance-review.lean",
+    "independent_check_source_sha256": "889a97a9f11ffdcb999b01fc679e956a2f5966fbab46ce783dcfa59417ec1284",
+    "independent_check_prefix_is_exact_prototype": true,
+    "independent_trace_log": "work/checks/multivariate-avoidance-review.log",
+    "independent_trace_log_sha256": "a6165b6f7999363b358d338b9a6f391d198cdde8a041576d02b8917a2a2298e4",
+    "independent_kernel_command": "lake env lean ../checks/multivariate-avoidance-review.lean",
+    "independent_kernel_session": 13618,
+    "independent_kernel_exit_code": 0,
+    "declaration_axioms": {
+      "SM.multivariateLineRestriction_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_nonzero_multivariate_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.dense_nonzero_multivariate_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.dense_finite_nonzero_multivariate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_simultaneous_nonzero_in_open": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "empty_finite_condition_family_checked": true,
+    "root_build_log": "work/checks/multivariate-avoidance-prototype-family.log",
+    "root_build_log_sha256": "5fd282713463559afdcc7211b6259dd082d973d645ffcd141093b8437571756a",
+    "root_build_session": 78849,
+    "root_build_exit_code": 0,
+    "root_result_record": "work/checks/multivariate-avoidance-prototype-result.json",
+    "root_result_record_sha256": "8372c44743517f7a2ccc6068d7d58787306b70fbb727bbe791b5d5e102e5e819"
+  },
+  "receipt_binding": {
+    "receipt": "work/checks/checkpoint-052-output.json",
+    "receipt_sha256": "b9cd9804c4c3f4176819cc3ec511bb6e4392ea4c67b52483bfa64cf1ff3b8f7d",
+    "stage_development_byte_identical": true,
+    "passed": true,
+    "stage_accepted": false,
+    "SM_module_count": 251,
+    "local_declaration_count": 2749,
+    "mapped_claim_count": 30,
+    "project_file_count": 257,
+    "frozen_file_count": 38,
+    "exact_Lean_inventory_count": 253,
+    "all_project_and_frozen_hashes_independently_recomputed": true,
+    "all_251_SM_files_unchanged_from_051": true,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "e4bf115972f9fb50e708844e8a1f93ce82ef299429cc07911bca4c9ae26c332e",
+    "scope": "Accepted-metadata audit context only. The prototype is not a project file and has no mapped source declaration or source-row semantic acceptance hash."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no prototype or theorem-library implementation. The independent check copies the exact prototype only as kernel-check evidence and appends type/definition inspection plus a boundary example.",
+  "edits": "No prototype, Lean theorem-library, frozen-source, declaration-map or progress edits. Only independent check evidence and this partial review report were written."
+}

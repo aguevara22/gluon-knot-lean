@@ -1,0 +1,651 @@
+{
+  "targets": {
+    "def:root": {
+      "declaration": "SM.rootData",
+      "module": "SM.RootBoundary",
+      "statement_sha256": "dfcef42f11cca897af0adb1a6904e350abfb7ad8472df6d2fc4b55906ed14282",
+      "semantic_dependency_count": 17,
+      "semantic_declarations": [
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.leaves",
+        "SM.BoundaryInterval.left",
+        "SM.BoundaryInterval.mk",
+        "SM.BoundaryInterval.right",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.part",
+        "SM.IntervalComposition.part._proof_1",
+        "SM.IntervalComposition.parts",
+        "SM.LabelledTuple",
+        "SM.Plane",
+        "SM.boundaryIndex",
+        "SM.boundaryWord",
+        "SM.edge",
+        "SM.rootData"
+      ],
+      "required_transparent_definitions_and_constructors": [
+        "SM.rootData",
+        "SM.LabelledTuple",
+        "SM.Plane",
+        "SM.edge",
+        "SM.boundaryWord",
+        "SM.boundaryIndex",
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.mk",
+        "SM.BoundaryInterval.leaves",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.parts",
+        "SM.IntervalComposition.part"
+      ],
+      "semantic_dependency_record_sha256": {
+        "SM.BoundaryInterval": "1556b71445ff6ca1de5b94ff4e763ec0f656aaa9909cd5aa14cf0c9f12283791",
+        "SM.IntervalComposition": "639fc8751d8deba32e74f30f895519081f6a25663693341430fc1658dd225e6a",
+        "SM.LabelledTuple": "19fb1d6d4a62b930ec8667f5aa5fa2d66125680bea76e6af4347e02fe7174f9a",
+        "SM.Plane": "940089f08c3cdbcde13dac8a91251508170570507f856d94d817df533a12356f",
+        "SM.boundaryIndex": "9e3d4b93ea2500e1080a3adc6646f6b1af5b9e48de523ae14b9f97fb4819bfe1",
+        "SM.boundaryWord": "6033bd6c89bc888f0da064a508040f38a60a4a569114f51c58cfab2de58003cc",
+        "SM.edge": "6dde570ac2da100734461ed06d294890ce9c1f7b0b1ab1e0618b7410f520695a",
+        "SM.rootData": "afdee772508607426c9f1f622e210b5231e1991403a51efaa1b29c64a87af9f3",
+        "SM.BoundaryInterval.leaves": "aa5db8bfae7a5c513255d77d69eb073e651f0edb45c1e33eb7bb8549227eae8e",
+        "SM.BoundaryInterval.left": "f9df296433ec742c7f8e5e0d162c3fd10c60890d384a35cfc0ebba8ad41aec81",
+        "SM.BoundaryInterval.mk": "23df47df4d2d2e14e2a6425c724f7ee023d7dfe5571c1ae73da30a1a0ef0e694",
+        "SM.BoundaryInterval.right": "7b5a2cb8376162e988386e9dc1c6ff45d5d0cafae82ab4b5646c5883b3ac6488",
+        "SM.IntervalComposition.cut": "e8fe6ccff6368da3e62947ab936a138a5373b0851cd96938e47d2ea60c0f4f6f",
+        "SM.IntervalComposition.mk": "b5ba188c08faf38d019189e8f0eed19ec13dba9775910e898b4ecdf395fb9119",
+        "SM.IntervalComposition.part": "38de71de63d98bf80ba204a95a70011ad10c95aa1adda04b9b45415826605c7c",
+        "SM.IntervalComposition.parts": "d832b8bdd4fce868cd028ee67ec8e0ed4b54eef4c0e3f2a8ba63c4dd16e73b5b",
+        "SM.IntervalComposition.part._proof_1": "60567874ff0d4ce4cc7a21f3f62d9a476f561c5dc136c32fad6a0e1eefbf51b0"
+      }
+    },
+    "def:gates": {
+      "declaration": "SM.gatesData",
+      "module": "SM.Gates",
+      "statement_sha256": "6046c5a12d8e8a2f993208f96a05690f1f202a628a4dccf0556d69b36ee00229",
+      "semantic_dependency_count": 29,
+      "semantic_declarations": [
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.left",
+        "SM.BoundaryInterval.mk",
+        "SM.BoundaryInterval.right",
+        "SM.G1",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.farSign",
+        "SM.IntervalComposition.farSign_ne_zero",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.nearSign",
+        "SM.IntervalComposition.nearSign._proof_4",
+        "SM.IntervalComposition.nearSign._proof_5",
+        "SM.IntervalComposition.nearSign._proof_6",
+        "SM.IntervalComposition.nearSign_ne_zero",
+        "SM.IntervalComposition.ordinaryWeight",
+        "SM.IntervalComposition.parts",
+        "SM.IntervalComposition.rootWeight",
+        "SM.LabelledTuple",
+        "SM.Plane",
+        "SM.boundaryIndex",
+        "SM.chi",
+        "SM.det",
+        "SM.gatesData",
+        "SM.ordinaryGate",
+        "SM.ordinaryGate._proof_1",
+        "SM.rootGate",
+        "SM.rootGate._proof_1",
+        "SM.signTheta"
+      ],
+      "required_transparent_definitions_and_constructors": [
+        "SM.gatesData",
+        "SM.G1",
+        "SM.chi",
+        "SM.det",
+        "SM.signTheta",
+        "SM.ordinaryGate",
+        "SM.rootGate",
+        "SM.boundaryIndex",
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.mk",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.nearSign",
+        "SM.IntervalComposition.farSign",
+        "SM.IntervalComposition.ordinaryWeight",
+        "SM.IntervalComposition.rootWeight"
+      ],
+      "semantic_dependency_record_sha256": {
+        "SM.BoundaryInterval": "1556b71445ff6ca1de5b94ff4e763ec0f656aaa9909cd5aa14cf0c9f12283791",
+        "SM.G1": "5a361379de85afb047dbf9d30354d1b4c1d1088dc3f1a834ced0b69eb041a575",
+        "SM.IntervalComposition": "639fc8751d8deba32e74f30f895519081f6a25663693341430fc1658dd225e6a",
+        "SM.LabelledTuple": "19fb1d6d4a62b930ec8667f5aa5fa2d66125680bea76e6af4347e02fe7174f9a",
+        "SM.Plane": "940089f08c3cdbcde13dac8a91251508170570507f856d94d817df533a12356f",
+        "SM.boundaryIndex": "9e3d4b93ea2500e1080a3adc6646f6b1af5b9e48de523ae14b9f97fb4819bfe1",
+        "SM.chi": "6a664601c9a941486c940eebcbc14f6c6a186d1bc346100099fc6d12453463a6",
+        "SM.det": "9c2f44b94c03f09f96587e9862a503d267342e02c2f57186f079bc565acf5a3f",
+        "SM.gatesData": "aa47eb3468420cd9b787a85c3cf6fb4f45104a0e2d3ab597fd071e55475babb4",
+        "SM.ordinaryGate": "3654739a2d72aaa9f7d51b2cbae30588770342834dd5d1bf838942baa5584bfe",
+        "SM.rootGate": "c7b71c0ab801a1f0dba96169df642a911beea5b3e5410345203db2ba680e759d",
+        "SM.signTheta": "bbcfc1f8ccd9033305dc7c01328187544e72765c64c24a38b207b8d87b12a294",
+        "SM.BoundaryInterval.left": "f9df296433ec742c7f8e5e0d162c3fd10c60890d384a35cfc0ebba8ad41aec81",
+        "SM.BoundaryInterval.mk": "23df47df4d2d2e14e2a6425c724f7ee023d7dfe5571c1ae73da30a1a0ef0e694",
+        "SM.BoundaryInterval.right": "7b5a2cb8376162e988386e9dc1c6ff45d5d0cafae82ab4b5646c5883b3ac6488",
+        "SM.IntervalComposition.cut": "e8fe6ccff6368da3e62947ab936a138a5373b0851cd96938e47d2ea60c0f4f6f",
+        "SM.IntervalComposition.farSign": "f2b5f9ff65bea2a9d480930f458df17981c1c7a8b3794300512eaf26973b5212",
+        "SM.IntervalComposition.farSign_ne_zero": "3d416f3583d9972e8868c07989ccf1d0ea7216be7a91bd29f5b3f9e0122e1e5d",
+        "SM.IntervalComposition.mk": "b5ba188c08faf38d019189e8f0eed19ec13dba9775910e898b4ecdf395fb9119",
+        "SM.IntervalComposition.nearSign": "97b8065d07101aab0c38ee9aa5b35f8bc05776f1f7e19e2906105057e11c59a8",
+        "SM.IntervalComposition.nearSign_ne_zero": "f47206a737d776f8891169d6a87d1619f8a9109766d0777c7ce9e10e651ba574",
+        "SM.IntervalComposition.ordinaryWeight": "77cb0680ca71eb1b797a27b060e4bc6b68ba898e89a4e076f867913eca1624ce",
+        "SM.IntervalComposition.parts": "d832b8bdd4fce868cd028ee67ec8e0ed4b54eef4c0e3f2a8ba63c4dd16e73b5b",
+        "SM.IntervalComposition.rootWeight": "363e7a73069c565da87a800d351fa342b4730561e177d9b4f80912bc351e7299",
+        "SM.ordinaryGate._proof_1": "d5b8f0aa38624bcb74deb74879a467df19edffdb5a96dbcbcec73b1600f2170b",
+        "SM.rootGate._proof_1": "8e53eb206aabc14c2ef4776fa41e802a25829e281a9094f2d1a5fe3f355b2131",
+        "SM.IntervalComposition.nearSign._proof_4": "333de9fb942ff091fdd51c2618780c1a329c4b74348162adf303b259f3a61671",
+        "SM.IntervalComposition.nearSign._proof_5": "baadbc3e44355bdbca9ad8a5ee2f19e1a6f3963f7423ec83922f3b4753c2c5e8",
+        "SM.IntervalComposition.nearSign._proof_6": "626af47f0d405e06cade245d69d40257d6cd686f8bc2a453866ae0a779d63ae2"
+      }
+    },
+    "lem:gates-nonzero": {
+      "declaration": "SM.gates_nonzero",
+      "module": "SM.Gates",
+      "statement_sha256": "123190f19e018cfb3f7065c2a5b7db9bf5eb3b3bf2474a78997cba1e9343cba8",
+      "semantic_dependency_count": 28,
+      "semantic_declarations": [
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.left",
+        "SM.BoundaryInterval.mk",
+        "SM.BoundaryInterval.right",
+        "SM.G1",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.cut",
+        "SM.IntervalComposition.farSign",
+        "SM.IntervalComposition.farSign_ne_zero",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.nearSign",
+        "SM.IntervalComposition.nearSign._proof_4",
+        "SM.IntervalComposition.nearSign._proof_5",
+        "SM.IntervalComposition.nearSign._proof_6",
+        "SM.IntervalComposition.nearSign_ne_zero",
+        "SM.IntervalComposition.ordinaryWeight",
+        "SM.IntervalComposition.parts",
+        "SM.LabelledTuple",
+        "SM.Plane",
+        "SM.boundaryIndex",
+        "SM.chi",
+        "SM.det",
+        "SM.gates_nonzero",
+        "SM.ordinaryGate",
+        "SM.ordinaryGate._proof_1",
+        "SM.rootGate",
+        "SM.rootGate._proof_1",
+        "SM.signTheta"
+      ],
+      "required_transparent_definitions_and_constructors": [
+        "SM.gates_nonzero",
+        "SM.G1",
+        "SM.chi",
+        "SM.det",
+        "SM.signTheta",
+        "SM.ordinaryGate",
+        "SM.rootGate",
+        "SM.boundaryIndex",
+        "SM.BoundaryInterval",
+        "SM.BoundaryInterval.mk",
+        "SM.IntervalComposition",
+        "SM.IntervalComposition.mk",
+        "SM.IntervalComposition.nearSign",
+        "SM.IntervalComposition.farSign",
+        "SM.IntervalComposition.ordinaryWeight"
+      ],
+      "semantic_dependency_record_sha256": {
+        "SM.BoundaryInterval": "1556b71445ff6ca1de5b94ff4e763ec0f656aaa9909cd5aa14cf0c9f12283791",
+        "SM.G1": "5a361379de85afb047dbf9d30354d1b4c1d1088dc3f1a834ced0b69eb041a575",
+        "SM.IntervalComposition": "639fc8751d8deba32e74f30f895519081f6a25663693341430fc1658dd225e6a",
+        "SM.LabelledTuple": "19fb1d6d4a62b930ec8667f5aa5fa2d66125680bea76e6af4347e02fe7174f9a",
+        "SM.Plane": "940089f08c3cdbcde13dac8a91251508170570507f856d94d817df533a12356f",
+        "SM.boundaryIndex": "9e3d4b93ea2500e1080a3adc6646f6b1af5b9e48de523ae14b9f97fb4819bfe1",
+        "SM.chi": "6a664601c9a941486c940eebcbc14f6c6a186d1bc346100099fc6d12453463a6",
+        "SM.det": "9c2f44b94c03f09f96587e9862a503d267342e02c2f57186f079bc565acf5a3f",
+        "SM.gates_nonzero": "b17cff4247aea4cff15cdcfea1730a06b6f01af1656bced8312a8e4a28ffb64c",
+        "SM.ordinaryGate": "3654739a2d72aaa9f7d51b2cbae30588770342834dd5d1bf838942baa5584bfe",
+        "SM.rootGate": "c7b71c0ab801a1f0dba96169df642a911beea5b3e5410345203db2ba680e759d",
+        "SM.signTheta": "bbcfc1f8ccd9033305dc7c01328187544e72765c64c24a38b207b8d87b12a294",
+        "SM.BoundaryInterval.left": "f9df296433ec742c7f8e5e0d162c3fd10c60890d384a35cfc0ebba8ad41aec81",
+        "SM.BoundaryInterval.mk": "23df47df4d2d2e14e2a6425c724f7ee023d7dfe5571c1ae73da30a1a0ef0e694",
+        "SM.BoundaryInterval.right": "7b5a2cb8376162e988386e9dc1c6ff45d5d0cafae82ab4b5646c5883b3ac6488",
+        "SM.IntervalComposition.cut": "e8fe6ccff6368da3e62947ab936a138a5373b0851cd96938e47d2ea60c0f4f6f",
+        "SM.IntervalComposition.farSign": "f2b5f9ff65bea2a9d480930f458df17981c1c7a8b3794300512eaf26973b5212",
+        "SM.IntervalComposition.farSign_ne_zero": "3d416f3583d9972e8868c07989ccf1d0ea7216be7a91bd29f5b3f9e0122e1e5d",
+        "SM.IntervalComposition.mk": "b5ba188c08faf38d019189e8f0eed19ec13dba9775910e898b4ecdf395fb9119",
+        "SM.IntervalComposition.nearSign": "97b8065d07101aab0c38ee9aa5b35f8bc05776f1f7e19e2906105057e11c59a8",
+        "SM.IntervalComposition.nearSign_ne_zero": "f47206a737d776f8891169d6a87d1619f8a9109766d0777c7ce9e10e651ba574",
+        "SM.IntervalComposition.ordinaryWeight": "77cb0680ca71eb1b797a27b060e4bc6b68ba898e89a4e076f867913eca1624ce",
+        "SM.IntervalComposition.parts": "d832b8bdd4fce868cd028ee67ec8e0ed4b54eef4c0e3f2a8ba63c4dd16e73b5b",
+        "SM.ordinaryGate._proof_1": "d5b8f0aa38624bcb74deb74879a467df19edffdb5a96dbcbcec73b1600f2170b",
+        "SM.rootGate._proof_1": "8e53eb206aabc14c2ef4776fa41e802a25829e281a9094f2d1a5fe3f355b2131",
+        "SM.IntervalComposition.nearSign._proof_4": "333de9fb942ff091fdd51c2618780c1a329c4b74348162adf303b259f3a61671",
+        "SM.IntervalComposition.nearSign._proof_5": "baadbc3e44355bdbca9ad8a5ee2f19e1a6f3963f7423ec83922f3b4753c2c5e8",
+        "SM.IntervalComposition.nearSign._proof_6": "626af47f0d405e06cade245d69d40257d6cd686f8bc2a453866ae0a779d63ae2"
+      }
+    }
+  },
+  "canonical_printed_types": {
+    "SM.boundaryIndex": "SM.boundaryIndex {n : \u2115} (g : ZMod n) (k : Fin n) : ZMod n",
+    "SM.boundaryWord": "SM.boundaryWord {n : \u2115} (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin n) : SM.Plane",
+    "SM.boundaryIndex_injective": "SM.boundaryIndex_injective {n : \u2115} [NeZero n] (g : ZMod n) : Function.Injective (SM.boundaryIndex g)",
+    "SM.boundaryWord_shift": "SM.boundaryWord_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g a : ZMod n) :\n  SM.boundaryWord (SM.shift a P) (g - a) = SM.boundaryWord P g",
+    "SM.boundaryWord_first": "SM.boundaryWord_first {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (hn : 0 < n) :\n  SM.boundaryWord P g \u27e80, hn\u27e9 = P (g + 1)",
+    "SM.boundaryWord_last": "SM.boundaryWord_last {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (hn : 0 < n) :\n  SM.boundaryWord P g \u27e8n - 1, \u22ef\u27e9 = P g",
+    "SM.boundaryWord_leaf_edge": "SM.boundaryWord_leaf_edge {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (k : \u2115) (hk : k + 1 < n) :\n  SM.boundaryWord P g \u27e8k + 1, hk\u27e9 - SM.boundaryWord P g \u27e8k, \u22ef\u27e9 = SM.edge P (g + \u2191(k + 1))",
+    "SM.BoundaryInterval": "SM.BoundaryInterval (n : \u2115) : Type",
+    "SM.BoundaryInterval.leaves": "SM.BoundaryInterval.leaves {n : \u2115} (I : SM.BoundaryInterval n) : \u2115",
+    "SM.BoundaryInterval.leaves_pos": "SM.BoundaryInterval.leaves_pos {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) : 0 < I.leaves",
+    "SM.IntervalComposition": "SM.IntervalComposition {n : \u2115} (I : SM.BoundaryInterval n) : Type",
+    "SM.IntervalComposition.parts_lt": "SM.IntervalComposition.parts_lt {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  \u03c0.parts < n",
+    "SM.IntervalComposition.part": "SM.IntervalComposition.part {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (k : Fin \u03c0.parts) :\n  SM.BoundaryInterval n",
+    "SM.IntervalComposition.single": "SM.IntervalComposition.single {n : \u2115} (I : SM.BoundaryInterval n) : SM.IntervalComposition I",
+    "SM.rootData": "SM.rootData (n : \u2115) [NeZero n] (_hn : 3 \u2264 n) :\n  Type \u00d7\n    (SM.LabelledTuple n \u2192 ZMod n \u2192 SM.Plane) \u00d7\n      (SM.LabelledTuple n \u2192 ZMod n \u2192 Fin n \u2192 SM.Plane) \u00d7\n        Type \u00d7\n          (SM.BoundaryInterval n \u2192 \u2115) \u00d7\n            (SM.BoundaryInterval n \u2192 Type) \u00d7\n              ((I : SM.BoundaryInterval n) \u2192 (\u03c0 : SM.IntervalComposition I) \u2192 Fin \u03c0.parts \u2192 SM.BoundaryInterval n)",
+    "SM.IntervalComposition.finiteCode": "SM.IntervalComposition.finiteCode {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  (s : Fin n) \u00d7 (Fin (\u2191s + 1) \u2192 Fin n)",
+    "SM.IntervalComposition.finiteCode_injective": "SM.IntervalComposition.finiteCode_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} :\n  Function.Injective SM.IntervalComposition.finiteCode",
+    "SM.IntervalComposition.finite": "SM.IntervalComposition.finite {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} : Finite (SM.IntervalComposition I)",
+    "SM.IntervalComposition.fintype": "SM.IntervalComposition.fintype {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} : Fintype (SM.IntervalComposition I)",
+    "SM.IntervalComposition.part_leaves_lt": "SM.IntervalComposition.part_leaves_lt {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (hp : 2 \u2264 \u03c0.parts) (k : Fin \u03c0.parts) : (\u03c0.part k).leaves < I.leaves",
+    "SM.signTheta": "SM.signTheta (s : SignType) (_hs : s \u2260 0) : \u2124",
+    "SM.sign_product_nonzero": "SM.sign_product_nonzero (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : h * d \u2260 0 \u2227 -h * d \u2260 0",
+    "SM.ordinaryGate": "SM.ordinaryGate (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : \u2124",
+    "SM.rootGate": "SM.rootGate (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : \u2124",
+    "SM.gate_pair_identities": "SM.gate_pair_identities (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) :\n  SM.ordinaryGate d h hd hh = (\u2191d - \u2191h) / 2 \u2227 SM.rootGate d h hd hh = (\u2191d + \u2191h) / 2",
+    "SM.IntervalComposition.nearSign": "SM.IntervalComposition.nearSign {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : SignType",
+    "SM.IntervalComposition.farSign": "SM.IntervalComposition.farSign {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : SignType",
+    "SM.IntervalComposition.nearSign_ne_zero": "SM.IntervalComposition.nearSign_ne_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P : SM.LabelledTuple n} (hP : SM.G1 P) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.nearSign P g k \u2260 0",
+    "SM.IntervalComposition.farSign_ne_zero": "SM.IntervalComposition.farSign_ne_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P : SM.LabelledTuple n} (hP : SM.G1 P) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.farSign P g k \u2260 0",
+    "SM.IntervalComposition.ordinaryWeight": "SM.IntervalComposition.ordinaryWeight {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) : \u2124",
+    "SM.IntervalComposition.rootWeight": "SM.IntervalComposition.rootWeight {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) : \u2124",
+    "SM.IntervalComposition.one_part_weights": "SM.IntervalComposition.one_part_weights {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hparts : \u03c0.parts = 1) :\n  \u03c0.ordinaryWeight P hP g = 1 \u2227 \u03c0.rootWeight P hP g = 1",
+    "SM.IntervalComposition.binary_near_eq_far": "SM.IntervalComposition.binary_near_eq_far {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (hparts : \u03c0.parts = 2) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.nearSign P g k = \u03c0.farSign P g k",
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": "SM.IntervalComposition.binary_ordinaryWeight_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hparts : \u03c0.parts = 2) :\n  \u03c0.ordinaryWeight P hP g = 0",
+    "SM.gatesData": "SM.gatesData {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (I : SM.BoundaryInterval n)\n  (\u03c0 : SM.IntervalComposition I) : (Fin (\u03c0.parts - 1) \u2192 SignType) \u00d7 (Fin (\u03c0.parts - 1) \u2192 SignType) \u00d7 \u2124 \u00d7 \u2124",
+    "SM.nonzero_sign_cases": "SM.nonzero_sign_cases (s : SignType) (hs : s \u2260 0) : s = 1 \u2228 s = -1",
+    "SM.gates_nonzero": "SM.gates_nonzero {n : \u2115} [NeZero n] (_hn : 3 \u2264 n) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) :\n  (\u2200 (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I),\n      (\u2200 (k : Fin (\u03c0.parts - 1)),\n          (\u03c0.nearSign P g k = 1 \u2228 \u03c0.nearSign P g k = -1) \u2227\n            (\u03c0.farSign P g k = 1 \u2228 \u03c0.farSign P g k = -1) \u2227\n              (\u03c0.farSign P g k * \u03c0.nearSign P g k = 1 \u2228 \u03c0.farSign P g k * \u03c0.nearSign P g k = -1) \u2227\n                (-\u03c0.farSign P g k * \u03c0.nearSign P g k = 1 \u2228 -\u03c0.farSign P g k * \u03c0.nearSign P g k = -1)) \u2227\n        (\u03c0.parts = 2 \u2192 \u03c0.ordinaryWeight P hP g = 0)) \u2227\n    \u2200 (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0),\n      SM.ordinaryGate d h hd hh = (\u2191d - \u2191h) / 2 \u2227 SM.rootGate d h hd hh = (\u2191d + \u2191h) / 2",
+    "SM.ordinaryGate_congr": "SM.ordinaryGate_congr {d h d' h' : SignType} (ed : d = d') (eh : h = h') (hd : d \u2260 0) (hh : h \u2260 0) (hd' : d' \u2260 0)\n  (hh' : h' \u2260 0) : SM.ordinaryGate d h hd hh = SM.ordinaryGate d' h' hd' hh'",
+    "SM.rootGate_congr": "SM.rootGate_congr {d h d' h' : SignType} (ed : d = d') (eh : h = h') (hd : d \u2260 0) (hh : h \u2260 0) (hd' : d' \u2260 0)\n  (hh' : h' \u2260 0) : SM.rootGate d h hd hh = SM.rootGate d' h' hd' hh'",
+    "SM.IntervalComposition.nearSign_shift": "SM.IntervalComposition.nearSign_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g a : ZMod n) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.nearSign (SM.shift a P) (g - a) k = \u03c0.nearSign P g k",
+    "SM.IntervalComposition.farSign_shift": "SM.IntervalComposition.farSign_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g a : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.farSign (SM.shift a P) (g - a) k = \u03c0.farSign P g k",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": "SM.IntervalComposition.ordinaryWeight_eq_of_signs {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P Q : SM.LabelledTuple n) (hP : SM.G1 P) (hQ : SM.G1 Q) (g h : ZMod n)\n  (hd : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.nearSign P g k = \u03c0.nearSign Q h k)\n  (hh : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.farSign P g k = \u03c0.farSign Q h k) :\n  \u03c0.ordinaryWeight P hP g = \u03c0.ordinaryWeight Q hQ h",
+    "SM.IntervalComposition.rootWeight_eq_of_signs": "SM.IntervalComposition.rootWeight_eq_of_signs {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P Q : SM.LabelledTuple n) (hP : SM.G1 P) (hQ : SM.G1 Q) (g h : ZMod n)\n  (hd : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.nearSign P g k = \u03c0.nearSign Q h k)\n  (hh : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.farSign P g k = \u03c0.farSign Q h k) : \u03c0.rootWeight P hP g = \u03c0.rootWeight Q hQ h",
+    "SM.IntervalComposition.ordinaryWeight_shift": "SM.IntervalComposition.ordinaryWeight_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) :\n  \u03c0.ordinaryWeight (SM.shift a P) \u22ef (g - a) = \u03c0.ordinaryWeight P hP g",
+    "SM.IntervalComposition.rootWeight_shift": "SM.IntervalComposition.rootWeight_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) : \u03c0.rootWeight (SM.shift a P) \u22ef (g - a) = \u03c0.rootWeight P hP g",
+    "SM.gatesData_shift": "SM.gatesData_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) :\n  SM.gatesData (SM.shift a P) \u22ef (g - a) = SM.gatesData P hP g"
+  },
+  "canonical_printed_type_sha256": {
+    "SM.boundaryIndex": "13409ff5cdae019de6840caa6e7a4b3e91ed48b81809c46812a5599d1e83bbc0",
+    "SM.boundaryWord": "d48c4cc74fcd195c092f82259ff114f49fa4aa7d77b9232f7b1a5384c0c58b63",
+    "SM.boundaryIndex_injective": "53502dcecd4afba29cfb60d6528a7e6f5a53cb4ddd67ff6877281a3e28f5698c",
+    "SM.boundaryWord_shift": "931b79cc858b3061dc4c5176e83dc43c6d89596445515dedbd1ccf3349ea7d6f",
+    "SM.boundaryWord_first": "ba0d68251d3569a47b6961c6e01e4837d57e46b91b206ed1bb7ea0de2177c294",
+    "SM.boundaryWord_last": "822cb3e26eb5c09e540d3982c2e51cd32aa139f5aaf0c3bdc5a761033d993328",
+    "SM.boundaryWord_leaf_edge": "2d36f6cb76363eab5b424fd27f62ae77f8dce6c5a724ddaf405598cbe517795b",
+    "SM.BoundaryInterval": "812f304753774e3d660cbb0f5a53143ca33eeedc50f87e225c196839ff215dcb",
+    "SM.BoundaryInterval.leaves": "423b099197c12246270cebf445ef19a3e30671a7127222ae2c598a79cafec346",
+    "SM.BoundaryInterval.leaves_pos": "c2b6ad7e48c256231f4ba3cfe2be366ef239bff6cfec9f222bc9b3c6600f00d8",
+    "SM.IntervalComposition": "5533262906f66cdecf7ffb5aee18f8995a2fd401893f9bce155874e85299c6b1",
+    "SM.IntervalComposition.parts_lt": "0e28d656b679e34c996323802e8c5c223614c5f6067fdb9e9d81abd14698680b",
+    "SM.IntervalComposition.part": "e6b179422a43928a2d83783ebebdfd4c7325583711a424ea8efa06dc2d82c6a6",
+    "SM.IntervalComposition.single": "03351dc14f8805d135354c2e0afa11b95985513882398e8831a50d2cd3e1a97b",
+    "SM.rootData": "2b41f7285acf07b31a02344fe94e0ad0702c8ace41e7facb186d8a9df0457c56",
+    "SM.IntervalComposition.finiteCode": "3dddfee42a42e355bc100a3557795cd928d7d61d38df1c780dc1d611aa129f98",
+    "SM.IntervalComposition.finiteCode_injective": "fe490ea1dc1190de0507cb69ca867d6c790ef13637bde53e977ac4e23d849e8a",
+    "SM.IntervalComposition.finite": "cd14d786113561cbbfd0ab268e052de7f97843d44d322dd2fbd7d6687e57f55e",
+    "SM.IntervalComposition.fintype": "96ad7419f94de626a3f0b4f0fa0c0475149d6215d636ca04721d4d2bd6b7199a",
+    "SM.IntervalComposition.part_leaves_lt": "0c51aa88c9e1d7f204723958728f8b9b5be60536a8d73b83e5a6888c35b23c32",
+    "SM.signTheta": "0e4c76c06dce2f77a91859b4c8d0ffde5cb1641943988904290c77f1d9916348",
+    "SM.sign_product_nonzero": "7c9ca05e143d0ddb3884fcdf5b5a5532392405d340fdf2f94600fb3cef781b45",
+    "SM.ordinaryGate": "11cf7f8ba0e13b1a558790e44aac29a6a23c4b312516507404b050b867dbc43a",
+    "SM.rootGate": "63dd97f3e2ea03a2e55015f8843bd071b0488ebdf131435904a034b4a45a4fed",
+    "SM.gate_pair_identities": "46830425a98835f6f839e16f15a231616adf45dd13f25f36ba149bf47aae3d55",
+    "SM.IntervalComposition.nearSign": "b198600947ddea98ad0184d6e92c2e976db8d0c5eded4dadf36b8a95624ef053",
+    "SM.IntervalComposition.farSign": "cfd145daaa341b34c05bb377695e229f27670554e3cf5b2f4b1ae1caded7d3a4",
+    "SM.IntervalComposition.nearSign_ne_zero": "953b52fd667cf6df9f7b3e37ae930688c975cbd5800a149f87168d891c175f26",
+    "SM.IntervalComposition.farSign_ne_zero": "fc7d0181789f2574a81764b007bcc16944899fcb29b1ac579a169373d0bd094d",
+    "SM.IntervalComposition.ordinaryWeight": "62a18726d8fc176b816bc6c5094d0d19ecbb373d1c4352d8afc302f522a7c32d",
+    "SM.IntervalComposition.rootWeight": "e3813970a49b73b38c9d0ac201ac537d4835e812452a3cb7b3b93aa3ac8bd292",
+    "SM.IntervalComposition.one_part_weights": "8ec5a1c0e898772d244fa542c706aec5eacde501fee9165768f9d0611aaa9686",
+    "SM.IntervalComposition.binary_near_eq_far": "c6ac82596abd6cdb510b2b696d1e825e685edf46723e76f4068588b7db792255",
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": "c15915003c5bada3234c37e760bcd081e538979c3722bde23a8fae565ddc4f2a",
+    "SM.gatesData": "8990eb30228386d55bc85bf76615096643f0ed5e59f99ae47b5cc4208546e755",
+    "SM.nonzero_sign_cases": "29bc4535866bede006f6c124f86da20cffc17a00ef029fd5d636767957079c11",
+    "SM.gates_nonzero": "a7be8d4207fe466142148f94b36cd48c5c3fa697180d28ab567a68fbc18efd7e",
+    "SM.ordinaryGate_congr": "9013f809af9916f9b2c9d49a7b38d526ee51a2dfc46297e4351a03b7c33b2aed",
+    "SM.rootGate_congr": "8e79edc6cd99d6c231b88ca9b2a894c8914980ec2524686296ae3bf3dd2574e0",
+    "SM.IntervalComposition.nearSign_shift": "6900aee304236960db8d816a90d645c7404bb636a3cfb2210af0787bce9af1b3",
+    "SM.IntervalComposition.farSign_shift": "c1929665994115ec440ace4cef639922ac0052f4cfea24e928d9730647b76647",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": "688460f143ec378efb2a7dab6cb6d45d820b2dd4ded61965f329c4b77de671e9",
+    "SM.IntervalComposition.rootWeight_eq_of_signs": "2596bf8c3b28571f71f467418daa3f7c8167779b525e506e42c56d2395c6d82c",
+    "SM.IntervalComposition.ordinaryWeight_shift": "753a71c2af6ffa1185b9ef0700e6853a0e3c5d9f35e2207b844fdf54000255e4",
+    "SM.IntervalComposition.rootWeight_shift": "522dbc1029b7748d96f82532d123dc23e3331bdb8c41c5dd502d4d7c43dbdc12",
+    "SM.gatesData_shift": "a8c3f8dcd53a8448ca1c14d06bf503a878d00a9f0c50e3a4245a7ddc57c90007"
+  },
+  "all_46_prototype_canonical_printed_types_equal": true,
+  "axioms": {
+    "SM.boundaryIndex": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.boundaryWord": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryIndex_injective": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.boundaryWord_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryWord_first": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryWord_last": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryWord_leaf_edge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryInterval": [],
+    "SM.BoundaryInterval.leaves": [],
+    "SM.BoundaryInterval.leaves_pos": [
+      "propext"
+    ],
+    "SM.IntervalComposition": [
+      "propext"
+    ],
+    "SM.IntervalComposition.parts_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part": [
+      "propext"
+    ],
+    "SM.IntervalComposition.single": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.finiteCode": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.finiteCode_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.fintype": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_leaves_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.signTheta": [],
+    "SM.sign_product_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.ordinaryGate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootGate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gate_pair_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.one_part_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.binary_near_eq_far": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gatesData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nonzero_sign_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gates_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.ordinaryGate_congr": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootGate_congr": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_eq_of_signs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gatesData_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.simultaneous_root_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.leaf_index_exhaustion": [
+      "propext",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.boundary_vertices_distinct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.cut_containment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.raw_composition_admitted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.all_compositions_finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.one_part_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RootBoundaryIndependentReview.root_segment_and_endpoints_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.every_composition_enumerated": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.all_source_children_decrease": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.source_child_relation_wellFounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.singleton_measure_equal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.interior_cut_exhaustion": [
+      "propext",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_step_interpretation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_gate_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_weight_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.source_small_part_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.gate_signs_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.gate_weights_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.source_generator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.rooted_representative_descent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.G1_proof_independence": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "canonical_semantic_hashes_independently_recomputed": true
+}

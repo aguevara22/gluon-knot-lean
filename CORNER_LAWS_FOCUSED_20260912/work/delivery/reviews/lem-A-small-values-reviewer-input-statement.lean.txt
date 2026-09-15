@@ -1,0 +1,26 @@
+import SM.SmallValues
+
+/-! Source lem:A-small-values (reference/SM/sm-6-comparison.tex:5, frame SM15): triangle and
+bow-tie values of the tree coefficient. Main declaration: `SM.A_small_values_lemma`.
+
+Notation. A labelled triangle is a `LabelledTuple 3`; (G1) is `G1` (def:generic); the turns are
+`turn P i = τ_i(P) ∈ {-1, 0, +1}` (`SignType`, def:chirotope); a physical root `g` of an `n`-gon is
+an edge label `g : ZMod n`, and `A_g(P) = treeCoefficient P hP g hn : ℤ` is the tree coefficient at
+the root `g` (def:tree-coefficient; `hP : G1 P`, `hn : 3 ≤ n`). The bow-tie `K_0` of def:star is
+`bowTie : LabelledTuple 4`; the cyclic shift `σ` is `shift 1` and `σ^k` for an integer `k` is
+`shift (k : ZMod 4)` (def:shift; `shift a (shift b P) = shift (a + b) P`), which satisfies (G1) by
+`g1_shift_forward`. -/
+
+namespace SM
+
+/-- lem:A-small-values as printed on SM15. (i) For every labelled triangle satisfying (G1), all
+turns have a common sign `τ`, and `A_g = -τ` at every physical root `g`. (ii) For the bow-tie
+`K_0`, `A_g(σ^k K_0) = -1` for every physical root `g` and every integer `k`. -/
+theorem A_small_values_lemma :
+    (∀ (P : LabelledTuple 3) (hP : G1 P), ∃ τ : SignType, τ ≠ 0 ∧ (∀ i, turn P i = τ) ∧
+      ∀ g : ZMod 3, treeCoefficient P hP g (by norm_num) = -(τ : ℤ)) ∧
+    (∀ (k : ℤ) (g : ZMod 4),
+      treeCoefficient (shift (k : ZMod 4) bowTie) (g1_shift_forward (k : ZMod 4) bowTie_G1) g
+        (by norm_num) = -1) := sorry
+
+end SM

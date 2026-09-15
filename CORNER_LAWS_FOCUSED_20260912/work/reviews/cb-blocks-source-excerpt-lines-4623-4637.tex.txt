@@ -1,0 +1,15 @@
+\begin{definition}[Undominated blocks and their owners]\label{cb:blocks}
+Fix a generic polygon $P$, its interlacement graph $G_P$, and an
+independent support $S$. For a vertex set $T$ write $N_G(T)$ for the
+union of its graph neighbourhoods, and put
+\begin{equation}\label{cb:undominated}
+ U(S)=V(G_P)\setminus\bigl(S\cup N_{G_P}(S)\bigr).
+\end{equation}
+The connected components of $G_P[U(S)]$ are called its \emph{blocks}.
+An undominated crossing has both visits on one carrier by
+Lemma~\ref{lem:carriers}; that carrier is its owner. Write $D_A$ for
+the actual positive diagram of a carrier $A$, and $P_A=P_{D_A}$.
+These polynomials equal the corresponding $H_A^+$ by
+Theorem~\ref{lp:core}.
+\end{definition}
+

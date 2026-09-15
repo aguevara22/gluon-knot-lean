@@ -1,0 +1,79 @@
+{
+  "id": "def:chamber",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "a23c4c9416052d693aabd52d331df64250e3fbfba03d95df06a82b26dca81adb",
+  "verdict": "faithful",
+  "reason": "Compared every clause of source def:chamber with the full theorem aggregate SM.chamber_definition and the concrete definitions it binds. GenericTuple n is the actual subtype of real-coordinate labelled tuples satisfying G1 and G2, with the induced product/subspace topology. GenericPolygon n is its quotient by the cyclic-shift equivalence, obtained by comapping cyclicSetoid along Subtype.val. Its canonical mathlib topology is explicitly the coinduced topology of Quotient.mk', as verified in the pinned Mathlib.Topology.Constructions source; no discrete, indiscrete or chirotope-class topology is substituted. polygonProjection is the actual quotient map, and projection_eq_iff proves that its equal fibres are exactly cyclic translates of a tuple. chamber and labelledChamber are connectedComponent in those genuine quotient and generic spaces. The theorem's only size premise n>=3 is the inherited source domain. Its quantified representative P covers all quotient points by quotient surjectivity, and hence covers every chamber, rather than only one selected component. In addition to binding the two component definitions, the aggregate proves the exact preimage equality q^-1(chamber(q P)) = union over a in ZMod n of labelledChamber(genericShift a P). It separately exhibits a finite set S of actual labelled connected components, S.card<=n, whose union is precisely that preimage. Because S is a Finset, repeated component values are removed; the bound counts components rather than merely indexing them n times. Every member is explicitly a labelledChamber, so arbitrary subsets cannot satisfy the decomposition in place of source components. The final clause gives sigma applied to the component at shift a P as exactly the component at shift(a+1) P. Since a maps to a+1 bijectively and genericShift 1 is a proved homeomorphism, this is the source permutation of the family, including when several translates give the same component. The proof establishes the component image equality using a saturated finite clopen union and the genuine quotient topology. It does not assume an unproved path-lifting theorem or presume the desired decomposition. The audited semantic dependency inventory contains GenericTuple, GenericPolygon, genericCyclicSetoid, cyclicSetoid, Generic, shift, genericShift, polygonProjection, chamber and labelledChamber, so the aggregate's hash binds every definition giving its component, preimage, bound and permutation statements meaning. A theorem aggregate is appropriate because this source definition also contains these mathematical assertions; it certifies the full row rather than only the first definitional sentence. Only standard Lean axioms occur, and supporting helper lemmas are not counted as additional original claims.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.projection_eq_iff",
+    "SM.genericShiftHomeomorph",
+    "SM.genericShift_labelledChamber",
+    "SM.preimage_projection_image",
+    "SM.isClopen_cyclicChamberUnion",
+    "SM.projection_labelledChamber_eq_chamber",
+    "SM.chamber_preimage_eq_cyclic_union",
+    "SM.labelledChambersOver_card_le",
+    "SM.labelledChambersOver_union",
+    "SM.sigma_permutes_labelledChambers"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 194,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 206,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "326109fde629ec8368f529d669cedb639c787f31c00804d47ef326b2953a840a",
+    "to_excerpt_sha256": "326109fde629ec8368f529d669cedb639c787f31c00804d47ef326b2953a840a",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source def:chamber (reference/SM/sm-1-polygons.tex:206-211, byte-identical in the SM15 blueprint extract; sm15_reworded=false and CHANGES_SINCE_20260909.md does not touch it) says: a chamber is a connected component of U_n/(Z/n); its preimage in U_n is a union of at most n components of U_n permuted by sigma, called labelled chambers. The Lean denotes exactly these objects. U_n is SM.GenericTuple n = {P : ZMod n -> R x R // Generic P} (Chambers.lean:14) with Generic = G1 and G2 (Generic.lean:11-19: chi nonzero on pairwise distinct triples; no point in the edgeInterior of three distinct-index edges), carrying the subspace topology of the product topology on (R^2)^n; U_n/(Z/n) is SM.GenericPolygon n = Quotient of the comap of cyclicSetoid (Q = shift k P, Polygon.lean:34) along Subtype.val (Chambers.lean:16-19), with Mathlib's coinduced quotient topology; polygonProjection is Quotient.mk. shift k P = fun i => P (i + k) (Polygon.lean:22), so genericShift 1 is exactly the source sigma ((sigma P)_i = mu_{i+1}). chamber P := connectedComponent P in GenericPolygon n and labelledChamber P := connectedComponent P in GenericTuple n (Chambers.lean:22-27) are the printed definitions. SM.chamber_definition (CyclicChambers.lean:154-163), under the source's standing n >= 3, binds both definitions and states the definition's assertions: the preimage of chamber(proj P) equals the union over a in ZMod n of labelledChamber(genericShift a P); there is a Finset S of sets, each a labelledChamber, with S.card <= n whose union is that preimage (\"union of at most n components\"); and genericShift 1 maps labelledChamber(genericShift a P) onto labelledChamber(genericShift (a+1) P) for every a (\"permuted by sigma\"). Since polygonProjection is surjective, quantifying over P : GenericTuple n covers every chamber. No hypotheses beyond n >= 3 are added, nothing is vacuous, no combinatorial surrogate replaces the topological components, and no custom topology instances exist in work/lean/SM. Definition bodies were read in full; theorem proofs were skipped. My independent judgement agrees with the existing review work/reviews/def-chamber.json, whose recorded file hashes match the files I read.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "CyclicChambers.lean:156-157 gives the preimage explicitly as the union of the components of the n cyclic translates genericShift a P, where the source (sm-1-polygons.tex:208-209) only says it is a union of at most n components.",
+      "CyclicChambers.lean:161-162 gives the sigma-action explicitly on the indexed family (component at shift a maps onto component at shift a+1), which is slightly more precise than the printed 'permuted by sigma'."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CyclicChambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GenericTopology.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-chamber.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

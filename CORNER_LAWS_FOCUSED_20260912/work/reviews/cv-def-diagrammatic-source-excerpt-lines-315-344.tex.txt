@@ -1,0 +1,30 @@
+\begin{definition}[diagrammatic polygon]\label{def:diagrammatic}
+A polygon $P$ is \emph{diagrammatic} if its self-intersections are finitely
+many, each of them an isolated transverse crossing of two edges with exactly two
+preimages on the traversal circle, no two of them sharing an image or a
+preimage, none of them at a corner, and no vertex of $P$ lying on an edge not
+incident to it. The clause about preimages and shared images is not implied by
+the others, and an earlier revision omitted it: the polygon
+$((-3,0),(3,0),(0,-3),(0,3),(-2,-2),(2,2))$ has its edges $e_0,e_2,e_4$ meeting
+pairwise transversally --- the three determinants are $36$, $24$, $-24$ --- at
+the \emph{single} point $(0,0)$, so three strands pass through one point, and the
+$2m$-letter Gauss word does not exist.
+
+Every generic polygon is diagrammatic: the (G2) members forbid a vertex on a
+remote edge, the (G5) members make each crossing transversal, and a triple point
+would make a (G3) member vanish while all three pairs cross, so that member is
+active, hence relevant, hence nonzero. So is the polygon at a simple positive
+flat wall, whose only degeneracy is a vanishing turn with the middle vertex
+\emph{inside} the segment. That last qualification matters: at an exterior
+collinear vertex the two incident edges overlap and the far one carries the
+middle vertex, as in $((0,0),(2,0),(1,0),(0,1))$, which is not diagrammatic ---
+an earlier revision said "any polygon whose only degeneracy is a vanishing
+turn".
+
+The class is named because the Gauss word, the interlacement graph, the
+independent sets, the undominated sets, the residual pieces and their diagrams
+are read off a diagrammatic polygon and need nothing more; genericity is what
+$X_1$ needs, through the guards, and is a strictly stronger condition. Three
+sections use exactly this class: the flat law at its wall, the rounding lemma,
+and the carrier floor.
+\end{definition}

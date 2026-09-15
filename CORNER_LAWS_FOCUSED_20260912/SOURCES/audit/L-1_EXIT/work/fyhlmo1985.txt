@@ -1,0 +1,429 @@
+NPAGES 8
+
+
+===== PDFPAGE 1 =====
+BULLETIN (New Series) OF THE 
+AMERICAN MATHEMATICAL SOCIETY 
+Volume 12, Number 2, April 1985 
+A NEW POLYNOMIAL INVARIANT OF KNOTS AND LINKS 1 
+BY P. FREYD, D. YETTER; J. HOSTE; 
+W. B. R. LICKORISH, K. MILLETT; AND A. OCNEANU 
+The purpose of this note is to announce a new isotopy invariant of oriented 
+links of tamely embedded circles in 3-space. 
+We represent links by plane projections, using the customary conventions 
+that the image of the link is a union of transversely intersecting immersed 
+curves, each provided with an orientation, and undercrossings are indicated 
+by broken lines. Following Conway [6], we use the symbols L+, Lo, L_ to 
+denote links having plane projections which agree except in a small disk, and 
+inside that disk are represented by the pictures of Figure 1. 
+Conway showed that the one-variable Alexander polynomials of L+, Lo, 
+L_ (when suitably normalized) satisfy the relation 
+AL+(t) - AL_(t) + (t1'2 - r 1/2)A L o(t) - 0. 
+FIGURE l 
+Received by the editors January 14, 1985. 
+1980 Mathematics Subject Classification. Primary 57M25. 
+1 Editor's Note. The editors received, virtually within a period of a few days in late 
+September and early October 1984, four research announcements, each describing the same 
+result—the existence and properties of a new polynomial invariant for knots and links. 
+There was variation in the approaches taken by the four groups and variation in corollaries 
+and elaboration. These were: A new invariant for knots and links by Peter Freyd and David 
+Yetter; A polynomial invariant of knots and links by Jim Hoste; Topological invariants of knots and 
+links, by W. B. R. Lickorish and Kenneth C. Millett, and A polynomial invariant for knots: A 
+œrnbinatorial and an algebraic approach, by A. Ocneanu. 
+It was evident from the circumstances that the four groups arrived at their results 
+completely independently of each other, although all were inspired by the work of Jones 
+(cf. [10], and also [8, 9]). The degree of simultaneity was such that, by common consent, 
+it was unproductive to try to assess priority. Indeed it would seem that there is enough 
+credit for all to share in. 
+Each of these papers was refereed, and we would have happily published any one of 
+them, had it been the only one under consideration. Because the alternatives of publication 
+of all four or of none were both unsatisfying, all have agreed to the compromise embodied 
+here of a paper carrying all six names as coauthors, consisting of an introductory section 
+describing the basics written by a disinterested party, and followed by four sections, one 
+written by each of the four groups, briefly describing the highlights of their own approach 
+and elaboration. 
+©1985 American Mathematical Society 
+0273-0979/85 $1.00 + $.25 per page 
+239 
+V 
+
+
+===== PDFPAGE 2 =====
+240 
+P. FREYD ET AL. 
+Recently, Vaughan Jones [10] constructed a new polynomial invariant sat-
+isfying the relation 
+tvL+(t) - rlvL_(t) + (t1/2 - r1/2)VL„(t) = o. 
+Our invariant, which can be regarded either as a nonhomogeneous polyno-
+mial in two variables or a homogeneous polynomial in three variables, gener-
+alizes both the Alexander-Conway [2, 6] and the Jones polynomials. 
+MAIN THEOREM. There is a unique function P from the set of isotopy 
+classes of tame oriented links to the set of homogeneous Laurent polynomials 
+of degree 0 in x, y, z such that 
+(1) xPL+ (x, s/, z) + yPL_ (x, y, z) + zPLo(x, y, z) = 0, 
+(2) PL,(x,y,z) = 1 if L consists of a single unknotted component. 
+REMARKS. (1) If L consists of n unlinked and unknotted components, then 
+PL(x,y,z) 
+= (-(x + 
+y)/z)n'1. 
+(2) The Alexander-Conway polynomial of L is 
+AL(t) = 
+PL(l,-ht1/2-t-1/2)> 
+and the Jones polynomial is 
+VL{t) = 
+PL{t,-r\tl'2-t-^). 
+(3) Since Pi,(x,y,z) 
+is homogeneous, it can be viewed (in many ways) 
+as a polynomial in two nonhomogeneous variables. A convenient way to do 
+this is to set PL{1^TÏI) = PL(/,/-1,ra). In this notation the basic relation is 
+lPL+{lim) + l-1PL_(l,m) 
++ mPLo(l,m) 
+= 0. 
+(4) Reversing the orientation of R3 has the effect 
+PL{x,y,z) 
+<-> PL(y,x,z), 
+pL(/,m) *-»/^(l"1,™). 
+However, neither polynomial is changed by simultaneous reversal of orienta-
+tions on all components of L. 
+(5) If L is a connected sum of links L\ and L2, then PL = PL^PLI* 
+(6) The following examples are easily computed by using the recurrence 
+relation and the values of P for unlinks. 
+L = 
+QQ 
+: PL = yz~l + aT Y * " 1 - aT1*, 
+L = 
+(Q) 
+: PL = x - V - 2x~1y - x~ V , 
+L= 
+CQ) 
+:pL = y - V _ 2xy-i __ x2y-25 
+L = 
+( 5 ) 
+: PL = aTV Y - xy-1 - x-1^ - 1. 
+
+
+===== PDFPAGE 3 =====
+A NEW POLYNOMIAL INVARIANT OF KNOTS AND LINKS 
+241 
+We wish to express our appreciation to Vaughan Jones for communicating 
+his results to us. The particular viewpoints of the various authors are outlined 
+below. 
+T H E FREYD-YETTER APPROACH 
+In order to reduce the unique existence of the homfly invariant to a word 
+problem, let R be the ring of Laurent polynomials on x, y, z\ Wn the set of 
+words on n — 1,..., 2,1, — 1,..., — n + 1 (no zero); W the disjoint union of 
+the Wn's; F the free R-module generated by W. An element of W is denoted 
+[u]n, where u G Wn. R —> F denotes the map that sends 1 to [ ]i. F —• M 
+denotes the quotient module obtained by imposing the following relations, in 
+which u,v E Wn and 0 < b < a < n: 
+(AO) 
+[ua(-a)v]n = [uv]n = [u(-a)av]n, 
+(Al) 
+[itafa;]n = [u6ai>]n if b < a — 1, 
+(A2) 
+[ua(a — l)av]n = [u(a — l)a(o — l)v]n, 
+(Ml) 
+[uv]n = [vti]n, 
+(M2) 
+[unv]n+i = [w]n = 
+[u(-n)v]n+u 
+(PI) 
+x[uav]n + 2/[w(-o)v]n + z[uv]n = 0. 
+LEMMA. R -+ F ^ M is an isomorphism. 
+This lemma implies the Main Theorem by the following argument. Each 
+element of Wn describes a braid on n strands. By the classic theorem of Art in 
+[1], the map W —» F —» M sends two elements of Wn to the same element of 
+M if they describe equivalent braids (AO), (Al), (A2). A braid gives rise to a 
+link by joining its top and bottom. By the classic theorem stated by Markov 
+[12] and proved by Birman [3], two braids are sent to the same element in M 
+if they induce the same link (Ml), (M2). The resulting function from links to 
+M satisfies condition one of the Main Theorem (PI). Invert the isomorphism 
+to obtain an R-valued function that satisfies both conditions. 
+To prove the lemma consider the following six directed substitution rules 
+(still with u, v £ Wn, 0 < b < a < n): 
+(51) 
+[uabv]n —> [ubav]n for b < a — 1, 
+(52) 
+[ua(a - 1) • • • {b + l)bav]n -> [u{a - l)a(o - 1) • • • (6 + l)Hn, 
+(53) 
+[u(-a)v]n -> -xy~1[uav]n - 
+y~1z[uv]n, 
+m 
+.x 
+r 
+T 
+_ 1 
+r 
+i 
+_ 1 
+r 
+i 
+(54) 
+[txaavjn —• — x~ly[uv]n — x~l z[uav]n, 
+(55) 
+[ura;]n+i -> [uv]n, 
+(56) 
+H n + i -^ -(x + ^ ^ H n -
+LEMMA. These rules obey the DCC: that is, there is no infinite sequence 
+of correct applications starting with a single form. 
+LEMMA. Suppose that ƒ is a form and that it is possible to apply a rule to 
+obtain the form g and to make another application (of possibly another rule) 
+to obtain the form h. Then there is a form j , a sequence of applications from 
+g to j , and a sequence of applications from h to j . 
+
+
+===== PDFPAGE 4 =====
+242 
+P. FREYD ET AL. 
+An inductive proof then shows that starting with any form ƒ and arbitrarily 
+applying the rules, one inevitably arrives at a unique "terminal form" T(f) 
+on which no rule applies. 
+LEMMA. A form is terminal iff it is an R-multiple of [ ]i. 
+The Main Theorem is thus established with 
+LEMMA. T{f) = T{g)ifff 
+= g. 
+For the most part these four lemmas have straightforward (but tedious) 
+proofs. The DCC lemma needs a "complexity" measurement on forms guar-
+anteed to decrease under each of the substitution rules. The next lemma 
+reduces to 21 separate cases, one for each pair of rules. Each is proven by the 
+simple expedient of applying in sequence the unique rule that applies. The 
+characterization of terminal forms is achieved by finding at least one rule that 
+applies to [u]n for n > 1. The last lemma is easy if (Ml) is deleted from the 
+relations. ((Ml) is in fact a consequence of the other relations.) The proof 
+that T[uv]k = T[vu]k quickly reduces to the case T[mw]n+i = T[m>n]n+i, 
+where u and v are descending words of positive elements, u starting with n — 1, 
+v with n. If v is empty or a singleton or if u is empty, a mindless verifica-
+tion works. Separate arguments are needed for the two remaining cases (u of 
+length one, u of length greater than one). If long computational proofs are 
+acceptable, a mindless approach works for both (as it must if these lemmas 
+are true): Apply any sequence of applicable substitution rules. 
+THE HOSTE APPROACH 
+We define P as follows. Given any oriented link L first choose some projec-
+tion S of L and then "resolve" S by first "changing" and "smoothing" some 
+crossing in 5, and then again changing and smoothing a crossing in each of 
+the two projections that result from S, and so on until only unlinks remain. 
+Next use property (1) of the Main Theorem and the values of P for the un-
+links given in Remark (1) to obtain a value of P for S. We prove that the 
+polynomial so produced is well defined and depends only on the isotopy class 
+of L. 
+To avoid difficulties that arise from the fact that S can be resolved in in-
+finitely many ways, we begin with a slightly different definition of P. Given 
+5, first order the components of S and also distinguish a point on each com-
+ponent. We may then gain more control on the resolution of S by first giving 
+a rule whereby an ordering and pointing is induced on projections obtained 
+from 5, and then demanding that the resolution ends, not just in unlinks, 
+but in "descending" projections. (A pointed ordered projection is descending 
+if one never crosses over one's path while traversing the components in the 
+given order and direction starting on each at the distinguished point.) Now 
+use this "distinguished" resolution to compute P of S, denoted Pg. 
+We next show Ps is well defined—i.e., independent of the choice of or-
+dering, pointing, and distinguished resolution, by induction on the number 
+of crossings in S. To prove the inductive step we first show the choice of 
+resolution is immaterial. This is made possible by the pointing and ordering 
+
+
+===== PDFPAGE 5 =====
+A NEW POLYNOMIAL INVARIANT OF KNOTS AND LINKS 
+243 
+scheme, which essentially implies that any two resolutions must eventually 
+change all the same crossings, but perhaps in different orders. Employing the 
+inductive hypothesis, it remains only to prove that (1) changing a crossing 
+and immediately changing it back has no effect, and (2) changing the ith. and 
+then the jth crossings has the same effect as first changing the jth and then 
+the ith crossings. Next we show that Ps is unchanged if S is repointed. This 
+can be reduced to the case where S is descending and one distinguished point 
+is moved forward along its component past one crossing. Finally, we prove 
+Ps is independent of the ordering of S. This is the hardest step, although 
+we can first reduce to the case where S has two components and is descend-
+ing, but not with respect to its own ordering. Now we show that S can be 
+transformed into a split descending projection (one where the components do 
+not cross each other and, hence, the ordering does not matter) by a finite 
+sequence of Reidemeister moves that never increase the number of crossings 
+(so we can make use of the inductive hypothesis) and, furthermore, preserve 
+Ps-
+Once Ps is known to be well defined, it is not hard to show that it is 
+preserved by Reidemeister moves. Thus it depends only on the isotopy class 
+of L. At this point we finally know that any distinguished resolution of the 
+unlink produces the unlink polynomial, and from this we can prove that any 
+resolution can be used to compute P, not just ones that are distinguished 
+with respect to some choice of pointing and ordering of S. 
+THE LICKORISH AND MILLETT APPROACH 
+Once the announced Main Theorem is believed, the only difficulty is prov-
+ing that PL can be well defined; uniqueness, calculations, and Remark (4) are 
+easy. Our combinatorial proof has simplicity: Let Cn be all planar projec-
+tions of oriented links of at most n crossings with components ordered and 
+base-pointed. If L E Ln let aL E Cn be L-with-changed-crossings so that 
+aL ascends from the base point of the first component onwards (thus, fol-
+lowing along the components of aL in the given order, always beginning at 
+base points, a crossing is always first encountered as an underpass). Initially 
+P is defined as a function P:\Jn £n -> Z[/ ± 1,m ± 1]. For L G \Jn Cn define 
+POLL = \xcL~x, where // = — (/ -f /~1)m~1, and L has cL components. In-
+ductively, assume that on £ n_i, P has been defined, is independent of base 
+points and orders, and 
+(*) 
+IPL++1~1PL^ 
++mPLo =0. 
+For L in £ n define PL to be the polynomial obtained from PaL using (*) 
+(and the inductive definition) on a sequence of crossing changes that creates 
+aL from L. The choice of sequence is irrelevant, (*) holds in £ n, and PL is 
+unchanged by those Reidemeister moves that remain within £n. If now f3L 
+denotes the new ascending element of Cn formed from L by reference to a 
+new set of base points and component order, the induction step is completed 
+by showing that PpL, as calculated from P&L, is /i c L _ 1. A straightforward ar-
+gument on sliding base points along components shows (using the prescribed 
+value of /i) that this is so if only base points are changed; a change of compo-
+nent order requires a very careful use of the permitted Reidemeister moves on 
+
+
+===== PDFPAGE 6 =====
+244 
+P. FREYD ET AL. 
+f3L to change (3L to another ascending projection with fewer crossings, thus 
+determining P@L by induction. This done, PL is defined independent of base 
+point and ordering; it is invariant under all Reidemeister moves, and the Main 
+Theorem is proved. 
+The entire dependence of PL on (*) demands a redevelopment of Conway's 
+skein theory [7] in the two-variable context. At once this new version of 
+linear skein theory produces the elementary results that PLI#L 2 = PL1PL2
+ 
+= 
+V>~1PL1UL2 • Applied to two-string tangles [11], it shows that PL is unchanged 
+by mutation (rotation through 7r of such a tangle) in L. Thus the two eleven-
+crossing knots (of distinct genera) for which A(t) = 1 have the same P(/,m), 
+which is, by calculation, not trivial (so PL depends on more than the Alexander 
+module of L). Also, mutation shows that for a pretzel knot K{a\,..., 
+ar), PK 
+is unchanged by permutation of the a%. Further, if S and T are two-string 
+tangles, if S + T is 
+and SN and SD are the polynomials for 
+( S 7 
+and 
+then 
+(1 - fi2)(S + T)N = (SNTD + SDTN) 
+- fi{SNTN + 
+SDTD). 
+This can be much applied in producing formulae for the polynomials of ra-
+tional and other arborescent links. Two knots of Birman [4] with distinct 
+signatures have the same polynomial. Thus if signature is a skein invariant, 
+then P is not injective on the set of skein-equivalence classes of oriented links. 
+Two-variable analogues exist for most of the other skein-theoretic results given 
+in [7]. 
+Tables will be produced (with computer aid) of the values of P for oriented 
+links of low crossing number. At present the literature lacks an agreed nota-
+tion and even a set of diagrams for oriented links. Manual calculations of the 
+polynomials proceed via various neat recursion formulae for particular types 
+(e.g., rational and pretzel) of links. Calculations of M. B. Thistlethwaite show 
+that if K is the knot II388 (in the notation of K. Perko) and K is its mirror 
+image, then PK ^ P^, but both VK = V^ an<^ ^x 
+= ^ K -
+THE OCNEANU APPROACH 
+We define for each permutation in Sn a layered braid in the n-string braid 
+group Bn. We show combinatorially that under the equivalence relation in 
+the Main Theorem, any braid decomposes uniquely as a linear combination 
+of layered braids. With the coefficients of the decomposition we construct 
+invariants to conjugation in Bn, and obtain the invariant PL of the closed 
+braid as an invariant to the Markov moves [3]. 
+We then study the algebraic structure of the invariant PL- Linear combi-
+nations of braids in Bn have an algebra structure in which layered braids form 
+m 
+
+
+===== PDFPAGE 7 =====
+A NEW POLYNOMIAL INVARIANT OF KNOTS AND LINKS 
+245 
+a basis. The algebra turns out to be the Hecke algebra Hn with Dynkin dia-
+gram An [5]. In this way we explicitly construct a family of finite-dimensional 
+irreducible representations of i?n, indexed by n-Young diagrams. The invari-
+ant appears as a weighted trace, explicitly determined via the S-functions 
+associated to the discrete Euler /3-function [13]. 
+We then study the values of the variables for which the representation has 
+additional orthogonality and positivity structure. 
+THEOREM. Let r G C. 
+The free C*-algebra AT over C generated by 
+{ek\k = 1,2,...}, satisfying e2, = e*k = ek and 
+ekek+\ek - rek = ek+xekek+i - re^+i, 
+k e N, 
+eket = eiek 
+if \k - l\ > 2, 
+is nonzero if and only if r G [0, |] U {(4cos(7r/n))_1, n = 3,4, 5,...}. D 
+THEOREM. Let a, 6 G C, and let 
+r = (4cosh2 0) - 1, 
+rj = ± ( l - t a n h a tan0). 
+Consider on the C*-algebra AT a positive linear functional [i — ^T^ satisfying 
+fi(xy) = jJ>(yx), i.e., ji is a trace, 1,2/G AT, and fi(wen+i) = rjfi(w), w G AT,n. 
+Such a functional fi exists if and only if r, rj are given by one of the following 
+values of a, 6: 
+(i) 9 G R +, a G R (the normal range)] 
+(ii) 0 G R +, a — kO + ni/2, k G Z\{0} (the exceptional lines); 
+(iii) 6 = mjm, m = 3,4,5,... ; a = (fc/ra+l/2)7ri, k = 1,2,..., [(ra-l)/2] 
+(the exceptional points), 
+or, if0<r)<l 
+and r = rj(l — rj) (the limit line). 
+The trace // is then uniquely determined and the corresponding weak closure 
+RT^ of AT is the hyperfinite II1 factor for rj ^ 0,1, and C for rj — 0,1. D 
+For a, 0 as above consider the representation 7 = 7a,0,r/ of the braid group 
+Bn into Rr^ given by 
+-7(<rfc) - i(e-*-dek 
+- e-"+*(l - cfc)), 
+A; = 1,..., n - 1. 
+Consider on i2rr7 the trace 
+0 = 0a, 0 — (icoshacsch0)n~VT)r?. 
+THEOREM. For b E Bn the invariant polynomial P^ of the closure b is 
+given by Ph(ea, -e-a,2ismh0) 
+= <t>(l(b)). 
+PL is given by a positive trace of a unitary representation precisely at the 
+exceptional points. The Jones invariant corresponds to the line k — 2 and the 
+Alexander invariant to k — 0; the Arf invariant to m = 4, k = 2. For k = 1, 
+PL = 1, and for k = - 1 , PL = ±1. This shows that for any knot K, P# - 1 
+is divided by Ptrefoil - 1. 
+
+
+===== PDFPAGE 8 =====
+246 
+P. FREYD ET AL. 
+We have implemented a program which computes the coefficients of PL. 
+REMARK. H. Wenzl has independently obtained the structure of the simple 
+modules of the Hecke algebras by studying subfactors of the hyperfmite II i 
+factor and has computed the index and entropy of the subfactor generated by 
+e 2 , c 3 , . . . in 
+Raj. 
+R E F E R E N C E S 
+I.E. Art in, Theorie der Zopfe, Hamburg Abh 9, pp. 47-72. 
+2. J. W. Alexander, Topological invariants of knots and links, Trans. Amer. Math. Soc. 30 
+(1928), 275-306. 
+3. J. Birman, Braids, links andrnapping class groups, Ann. Math. Studies 82 (1974). 
+4. 
+, On the Jones polynomial of closed 3-braids (to appear). 
+5. N. Bourbaki, Groupes et algèbres de Lie, Chaps. 4, 5, 6, no. 1337, Hermann, Paris, 
+1960 1972. 
+6. J. H. Conway, An enumeration of knots and links, Computational Problems in Abstract 
+Algebra, Pergamon, N.Y., 1970, pp. 329-358. 
+7. C. Giller, A family of links and the Conway calculus, Trans. Amer. Math. Soc. 270 (1982), 
+75-109. 
+8. V. F. R. Jones, Index for subfactors, Invent. Math. 72 (1983), 1-25. 
+9. 
+, Braid groups, Hecke algebras and type Hi factors, Proc. Japan-U.S. Conf., 1983 (to 
+appear). 
+10. 
+, A polynomial invariant for knots via von Neumann algebras, Bull. Amer. Math. Soc. 
+12 (1985), 103-112. 
+11. W. B. R. Lickorish, Prime knots and tangles, Trans. Amer. Math. Soc. 267 (1981), 
+321-332. 
+12. A. A. Markov, Uber die freie Aequivalenz geschlossener Zopfe, Mat. Sb. 1 (1935), 73-78. 
+13. A. Wasserman, Thesis, Univ. of Pennsylvania, 1981. 
+D E P A R T M E N T O F MATHEMATICS, UNIVERSITY O F PENNSYLVANIA, PHILADEL-
+PHIA, PENNSYLVANIA 19146 (Current address of P. Freyd) 
+D E P A R T M E N T O F MATHEMATICS, CLARK UNIVERSITY, W O R C E S T E R , 
+MASSA-
+CHUSETTS 01610 (Current address of D. Yetter) 
+D E P A R T M E N T O F MATHEMATICS, RUTGERS UNIVERSITY, N E W BRUNSWICK, 
+NEW JERSEY 08903 (Current address of J. Hoste) 
+D E P A R T M E N T O F MATHEMATICS, UNIVERSITY O F CAMBRIDGE, 
+CAMBRIDGE, 
+ENGLAND (Current address of W. B. R. Lickorish) 
+DEPARTMENT OF MATHEMATICS, UNIVERSITY OF CALIFORNIA AT SANTA BAR-
+BARA, SANTA BARBARA, CALIFORNIA 93106 (Current address of K. Millett) AND 
+MATHEMATICAL SCIENCES RESEARCH INSTITUTE, BERKELEY, CALIFORNIA 94720 
+MATHEMATICAL SCIENCES RESEARCH INSTITUTE, BERKELEY, 
+CALIFORNIA 
+94720 (Current address of A. Ocneanu) 

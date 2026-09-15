@@ -1,0 +1,169 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-same-arc-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:08:38.723012+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the eight new declarations, frozen drafts and sole proof-only predicate-case repair. Root alone ran both kernels and generated the preserved failure and passing evidence. This reviewer authored no body or dependency proof, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent source, actual crossing-fiber, traversal-order and support-interface comparison, with complete-file, ordered-embedding and receipt/trace checks. Prior technical reviews by this reviewer do not constitute proof-body authorship."
+  },
+  "scope": {
+    "group": "CarrierSameArc",
+    "declarations": [
+      "SM.Carrier.not_interlaces_iff_same_arc_status",
+      "SM.Carrier.not_interlaces_iff_one_open_arc",
+      "SM.Carrier.not_interlaces_all_visits_same_arc",
+      "SM.Carrier.independent_crossing_visits_same_arc",
+      "SM.Carrier.independent_crossing_visits_one_open_arc",
+      "SM.Carrier.not_interlaces_iff_twin_same_arc",
+      "SM.Carrier.not_interlaces_iff_twin_one_open_arc",
+      "SM.Carrier.independent_twin_one_open_arc"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "115–139 splitting induction, especially130–136: each remaining selected crossing has both visits in one of the two original open arcs because the pairs do not interlace. The actual incoming-visit convention is at29–39.",
+    "ambient_context": "{n : ℕ}, actual P : LabelledTuple n, hn:3≤n and hP:Generic P. Statements compare actual distinct crossings and actual distinct visit pairs, or specialize to the constructed visitTwin. Independent-support corollaries use membership in canonical independentSupports; no current carrier or orbit correspondence is assumed or concluded."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the actual noninterlacement and original open-arc equivalence.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 34983,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      56023
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierSameArc-prototype-result.json",
+    "receipt_sha256": "8a977edb32da535082fbd6355b2951bb46a409548277de539eb383b09d0f342b",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierVisitTwin.body.lean": "9f80a477adaf4a1238b58160c0ff258eebeb37a6bc0b153dd6cbb0c1bdb6d2f8",
+      "work/checks/CarrierSameArc.body.lean": "b32a82571b8c09dcdc2e2d057cfb9f7ae23c01cbbe4b62878c4bbce723ab744a",
+      "work/checks/CarrierSameArc.prototype.lean": "6163b8097cf3a81998320d832422603e687f2d2709b51eba545ed9aec692ee1f",
+      "work/checks/CarrierSameArc-second-kernel.log": "bfc37bc3d498aeeaaecc91836efa35c78d2d0c19e7e55a31e6ca4ad305744aed"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierVisitTwin.body.lean",
+      "work/checks/CarrierSameArc.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierVisitTwin.body.lean": 1,
+      "work/checks/CarrierSameArc.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 8,
+    "declaration_axioms": {
+      "SM.Carrier.not_interlaces_iff_same_arc_status": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.not_interlaces_iff_one_open_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.not_interlaces_all_visits_same_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.independent_crossing_visits_same_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.independent_crossing_visits_one_open_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.not_interlaces_iff_twin_same_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.not_interlaces_iff_twin_one_open_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.independent_twin_one_open_arc": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierSameArc-first-draft.body.lean": "44f9e9d20f0944bfd3f4bc3bdc4d5106c3ced25bfd5c1fee238707b3be9fb589",
+      "work/checks/CarrierSameArc-first-draft.prototype.lean": "d8683bb85a041a6ed4ad6cfc9e05cbbb791e986ea446f4a31fe9c2e33496dcb9",
+      "work/checks/CarrierSameArc-body-dependencies.json": "77d899037f0840a17b130e950f8f9808a8c6fb3689147ba8312ec9edaf014068",
+      "work/checks/CarrierSameArc-draft-dependency-bindings.json": "36e31bc8894f1605b4bbfbe44afd2f836aff160319988cfc9b254beb3a72f6e3"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierSameArc.body.lean": "work/checks/CarrierSameArc-first-failed.body.lean",
+      "work/checks/CarrierSameArc.prototype.lean": "work/checks/CarrierSameArc-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierSameArc-first-failed.body.lean": "44f9e9d20f0944bfd3f4bc3bdc4d5106c3ced25bfd5c1fee238707b3be9fb589",
+      "work/checks/CarrierSameArc-first-failed.prototype.lean": "d8683bb85a041a6ed4ad6cfc9e05cbbb791e986ea446f4a31fe9c2e33496dcb9",
+      "work/checks/CarrierSameArc-first-failed-body-dependencies.json": "77d899037f0840a17b130e950f8f9808a8c6fb3689147ba8312ec9edaf014068",
+      "work/checks/CarrierSameArc-first-kernel.log": "88cdce9befc3de5cf8d51d125ebfdcde288fef383a82220a5a514cf1bd3fdc3b",
+      "work/checks/CarrierSameArc-first-failure-bindings.json": "22529925561ca2f88c18f83ff4ab837c9145c3f4117b385fadfeb5a1618adf2c",
+      "work/checks/CarrierSameArc-second-draft-repair-bindings.json": "561782ed42ac3a240f3f6f6b4eb979dfe83e5bfc61dfe024b45696249a63b9c3"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "not_interlaces_iff_one_open_arc"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first56023 failed only at tauto in the one-open-arc equivalence proof. The author replaced that tactic with explicit cases on the two actual crossingVisitBetween predicates and simp. Exact whole-body/prototype comparison verifies this is the only change; all eight headers, premises, definitions and dependencies are unchanged. The preserved first attempt and its compiler placeholders are excluded from successful evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierVisitTwin-prototype-result.json": "d5c2a43534dad4ddaa0deccf97bdda42f5c29e7f394aadffb80a6c8f1604d640"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/TraversalArcs.lean": "293a8a075c368a340c64c763d252e815922cb3a2c915a562ed653bf398bd8800",
+      "work/lean/SM/CrossingPair.lean": "d8e3c78897cedbf024c3676b66e529b7a937d991f8839a449b02a1623cf4a933",
+      "work/lean/SM/Interlacement.lean": "a762f207004d4f128d4f6b41810c3ea79e273b205a700f356ac73d73678addb9",
+      "work/lean/SM/InterlaceCount.lean": "94ba915c268288b5a09ae9062a74fe1f8a2ce9de3f0b45e2ea5f325a057f0f04",
+      "work/lean/SM/InterlaceSupports.lean": "2195d77dcf5c15107445ffb98bc74a3b1a2aef3a745afa081eae89b270a7ce3a",
+      "work/reviews/carrier-visit-twin-technical-review-20260912.json": "118e276254ad83e39490dafdaac37d928ec4b95b38dbf8b6acb78ea28b5ed84c",
+      "work/checks/carrier-split-baseline-20260912.json": "bd192d1bb1dbecf27bf30d23ff22728d1c92ec43d1a3371230a1ea7388d8ec06",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "The compared visits are the actual members of the two-edge supports of actual Crossing P values. crossingVisitBetween evaluates their actual traversal positions; Interlaces is the canonical alternating-pair definition. No auxiliary cyclic order or supplied word correspondence is introduced.",
+    "not_interlaces_iff_same_arc_status works with either ordering of each actual pair. In the forward direction unequal statuses would put one visit on each complementary arc and construct actual interlacement. Conversely interlacement provides exactly one actual second-crossing visit on the chosen arc; pair exhaustion and equal statuses force both distinct visits to satisfy that unique predicate, a contradiction.",
+    "not_interlaces_iff_one_open_arc converts equal statuses to the disjunction that both visits occupy the forward open arc or both occupy its complement. The canonical complement theorem requires distinct crossings and distinct endpoints and derives distinct actual positions using Generic. Endpoint cases are therefore excluded by proved geometry, not silently omitted.",
+    "The open arcs use the actual oriented traversalBetween, including wraparound at the chosen linear-key cut. Reversing the first crossing's endpoint order exchanges the two alternatives, rather than changing which visits are retained.",
+    "not_interlaces_all_visits_same_arc explicitly permits its two second-crossing input visits to coincide. That case is reflexive; the distinct case follows the two-visit equivalence. This avoids an unnecessary distinctness premise in the all-visits consequence.",
+    "The independent-support theorems obtain noninterlacement directly from canonical mem_independentSupports_iff for two distinct selected crossings. The resulting conclusion concerns their original traversal-arc positions and has no hypothesis or conclusion identifying a current successor component.",
+    "The twin-specialized theorems use the actually constructed visitTwin and derive both within-fiber pair inequalities from crossing_other_visit. Their displayed conclusions are literally traversalBetween on visitPosition for v,w and their twins. The different-crossing premise remains explicit.",
+    "These declarations supply the original-circle noninterlacement input to the source splitting induction. They do not yet connect original arc membership to a current cycle's inherited list or prove that every unprocessed selected pair shares a current component.",
+    "The two frozen body files are embedded exactly once in the prototype in manifest order. The passing second-run receipt binds the exact repaired own body, unchanged actual-twin body, full prototype and eight successful traces, all using standard foundations.",
+    "First56023 failed only at the propositional tauto step after the canonical same-status and complement rewrites. The repair explicitly cases on the same two actual predicates and simplifies; it changes no header, premise or consumed equivalence. The exact first failure and old drafts are retained separately and are not successful evidence."
+  ],
+  "limits": "This packet proves the actual original open-arc criterion and its independent-support consequence. It does not prove current-orbit placement, inherited-cycle-list representation, orbit splitting/count, selected endpoint separation, noncrossing carrier ownership or carrier geometry. Source acceptance increment0; stronger-model fidelity and canonical integration remain unapproved."
+}

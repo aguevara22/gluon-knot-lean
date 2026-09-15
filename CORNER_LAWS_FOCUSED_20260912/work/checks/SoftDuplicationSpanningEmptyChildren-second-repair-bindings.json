@@ -1,0 +1,34 @@
+{
+  "utc": "2026-09-12T03:30:26.737098+00:00",
+  "author": "/root/review_mark_transport",
+  "state": "One-token proof repair after first54430; waiting for root second kernel",
+  "all_16_headers_unchanged": true,
+  "repair": "Use the current Finset.notMem_empty lemma spelling in the empty-membership simplification.",
+  "exact_diff": "--- first-failed\n+++ repaired-current\n@@ -42,7 +42,7 @@\n   change p \u2208 (emptySpanningCutSet s I hI C hs).cuts \u2194\n     ((I.left \u2264 p \u2227 p \u2264 I.right) \u2227 collapse s p \u2208 C.cuts \u2227 collapse s p \u2260 s) \u2228\n       p \u2208 (emptyCutFiber s I hI C hs).val at hm\n-  simp only [emptyCutFiber, Finset.not_mem_empty, or_false] at hm\n+  simp only [emptyCutFiber, Finset.notMem_empty, or_false] at hm\n   rw [hm]\n   constructor\n   \u00b7 intro hp\n",
+  "files_sha256": {
+    "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.prototype.lean": "2a7933ec25ad4beb268d625a3c92094527452405e61f87b6b6c1c75e8c16b3a6",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-kernel.log": "4056084bbac87c27ea8e7638d56f901888d5b5df35ac529af4cd5a6a7ea10652",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failure-bindings.json": "1df5b0425a1d3752e6eba0c585442eb044d75733db07e2f765a5b4ea11c33a09",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-draft-dependency-bindings.json": "768393aff0c887add32464fdb7199c05a936c94bd9b9c742f689f8945c3766f7",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-body-dependencies.json": "18fae04d3997c86936a367117c4fafc0033fb96ba3bc40c39f9f1ee6c150d3dc"
+  },
+  "body_dependencies_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c"
+  },
+  "agent_ran_kernel": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "stronger_model_statement_fidelity_approval": false,
+  "canonical_integration_approved": false
+}

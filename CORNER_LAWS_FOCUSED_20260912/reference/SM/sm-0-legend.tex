@@ -1,0 +1,56 @@
+\section*{Reading rules and status legend}
+
+\paragraph{Objects.} A polygon is a cyclic orbit of labelled tuples of points
+of $\RR^2$ (Definition~\ref{def:polygon}); every construction is made on a
+representative with labels $1,\ldots,n$ and is shift-equivariant, and a root
+or base vertex, when one is needed, is part of the construction's data.
+``Generic'' has one meaning (Definition~\ref{def:generic}). Each wall type is a named germ
+(Definition~\ref{def:walls}); no law is asserted at a configuration that is not
+a named germ.
+
+\ifprintstatus
+\paragraph{Status tags.} Every definition-free statement ends with one tag.
+A tag records the provenance and the audit state of the printed proof; it is
+a claim of this document, and the audit ledger of Phase~2.5 is the status.
+\begin{itemize}
+\item \textsc{proved}: a complete proof is printed here and either carried
+unchanged from frame SM1 --- such items were carried from SM1 unrefereed, read
+by both benches on SM12, repaired in rounds~12--13 and re-read on SM13 and SM14;
+all eight carry the refereed tag from frame SM15 (CUR-PROC-4) --- or printed in round~1 from a
+frozen campaign document and refereed on frame SM2 by the auditor bench~A on
+both axes, fidelity to the source and the argument (ruling R-25-20); in the
+second case the tag reads \textsc{proved (refereed: bench A, stamp;
+transcribed from locator)} and keeps the locator; an item cleared again
+after a directed touch lists both stamps, and Lemma~\ref{lem:carriers}
+carries the tag on its clauses (i)--(iii) with clause (iv) named as a new
+argument. The tag remains a claim of
+this frame; the audit ledger is the status.
+\item \textsc{transcribed (unrefereed)}: a complete proof is printed here
+(round~1 of Phase~2.5, or so retagged in round~2), written from the frozen
+campaign document named after the colon (CV = Phase~1.999 output, frame CV,
+files \texttt{d1}--\texttt{d10}; RC = Phase~1.98 release candidate RC\_v4; RA =
+the R3 attachment frame; appendix\_v7 = the main text's appendix file; SM1 =
+frame SM1 of this phase, for a proof whose SM1 bytes were paraphrased in
+round~1) in the present conventions;
+neither its fidelity to that source nor the argument itself has been refereed
+yet. A held transcription whose statement was repaired in round~3, round~4,
+round~5, round~6, round~8 or round~9 keeps this tag with the repair named after the locator; one whose proof
+text was changed in round~3, round~4, round~5, round~6, round~8 or round~9 is tagged \textsc{new} with the locator
+kept. A cleared item touched by a directed repair reverts to this tag with
+its clearance history recorded, until re-refereed. The transcription table is Section~\ref{sec:transcriptions}. No statement of this frame carries this tag.
+\item \textsc{open}: a proof obligation not discharged anywhere. No statement
+of this frame carries this tag; the open obligations are listed in
+Section~\ref{sec:open}.
+\end{itemize}
+\fi
+
+{\raggedright
+\paragraph{Frozen sources.} The transcription sources are CV,
+\path{phase199/manuscript/frames/CV/}; RC,
+\path{phase198/manuscript/RC_v4/}; and RA,
+\path{phase1999/evidence/codex/w8_ra_frame_v1/RA/}.
+The appendix source is the curator-posted read-only copy of appendix v7.
+Locators name labels in those documents. CV uses the same one-based tail
+labels as this document. RC uses zero-based head labels and
+$[u,v]_*=-\det(u,v)$; its physical endpoint map is stated in
+Section~\ref{sec:conventions}. No starred bracket is used here.\par}

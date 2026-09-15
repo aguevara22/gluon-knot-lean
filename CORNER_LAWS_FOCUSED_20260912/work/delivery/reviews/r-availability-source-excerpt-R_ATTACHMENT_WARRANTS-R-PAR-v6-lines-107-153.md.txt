@@ -1,0 +1,47 @@
+## R-PAR-v6 — parity and availability
+
+### Statement
+
+Let $t\mapsto P(t)$ be a simple transversal Reidemeister-III event with
+triangle $T=\{x_{ef},x_{eg},x_{fg}\}$, and let $P$ be either side's polygon,
+near the wall. Then:
+
+**(P1) Parity.** Every crossing $y\notin T$ interlaces exactly $0$ or exactly
+$2$ of the three crossings of $T$ — never $1$, never $3$. Moreover the
+interlaced pair, when nonempty, is one of $\{x_{ef},x_{eg}\}$,
+$\{x_{ef},x_{fg}\}$, $\{x_{eg},x_{fg}\}$ — the two crossings sharing one of the
+three bundle edges.
+
+**(P2) Trichotomy.** For any set $S'$ of crossings disjoint from $T$, the set
+$\mathrm{avail}(S')=\{x\in T: x$ interlaces no member of $S'\}$ has size $3$,
+$1$, or $0$ — never $2$. And $\mathrm{avail}(S')$ is the same set on the two
+sides of the wall.
+
+### Proof
+
+**Clumps.** By R-LOC (2), on each bundle edge the two triangle visits occupy
+adjacent crossing-visits of $\Gamma$. Write the three adjacent pairs as clumps
+$C_e=\{$visits of $x_{ef},x_{eg}$ on $e\}$, $C_f$, $C_g$. Each crossing of $T$
+has one visit in each of two clumps: $x_{ef}$ in $C_e$ and $C_f$, $x_{eg}$ in
+$C_e$ and $C_g$, $x_{fg}$ in $C_f$ and $C_g$.
+
+**(P1).** Let $y\notin T$ with visits $u,v$. These are crossing-visits, and no
+crossing-visit lies between the two members of a clump (adjacency), so neither
+$u$ nor $v$ lies inside a clump: each clump lies wholly in one of the two arcs
+that $u,v$ cut $\Gamma$ into. This is a $2$-colouring
+$\chi:\{C_e,C_f,C_g\}\to\{1,2\}$. A crossing of $T$ interlaces $y$ exactly when
+its two visits lie in different arcs, i.e. exactly when its two clumps get
+different colours. A $2$-colouring of three objects has either $0$ bichromatic
+pairs (monochromatic) or exactly $2$ (the odd object pairs bichromatically with
+each of the other two, while those two pair monochromatically). Never $1$,
+never $3$. When there is an odd clump $C_h$, the interlaced pair is the two
+crossings with a visit in $C_h$ — the two crossings sharing the edge $h$.
+
+**(P2).** $\mathrm{avail}(S')=T\setminus\bigcup_{y\in S'}I(y)$ where, by (P1),
+each $I(y)$ is empty or one of the three named pairs. A union of such sets is
+empty, one pair (size $2$), or — as soon as two *distinct* pairs occur — all of
+$T$, since any two of the three pairs cover the three elements. So the union
+has size $0$, $2$, or $3$, and its complement has size $3$, $1$, or $0$.
+Wall-invariance is R-LOC's conclusion that no $T$-to-outside interlacement
+changes, so each $I(y)$ is the same set on both sides. $\qquad\blacksquare$
+

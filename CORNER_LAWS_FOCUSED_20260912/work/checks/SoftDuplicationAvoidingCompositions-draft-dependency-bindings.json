@@ -1,0 +1,79 @@
+{
+  "utc": "2026-09-12T02:32:22.389151+00:00",
+  "author": "/root/review_contraction_candidates",
+  "architecture_proposed_by": "/root",
+  "same_model_as_root": true,
+  "kernel_run": false,
+  "state": "Uncompiled implementation candidate; root owns serial kernel and independent review.",
+  "statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "source_scope": "A-soft formal duplication, intervals not containing both occurrences, SM2 lines1273\u20131277; direct cut/child/triple correspondence only.",
+  "canonical_imports": [
+    "import SM.RootBoundary",
+    "import Mathlib.Order.Fin.Basic",
+    "import Mathlib.Data.Fin.SuccPred",
+    "import SM.InteriorCutSet",
+    "import Mathlib.Data.Subtype",
+    "import Mathlib.Data.Fintype.Powerset",
+    "import Mathlib.Algebra.BigOperators.Group.Finset.Sigma",
+    "import Mathlib.Tactic",
+    "import SM.NearFar",
+    "import SM.CompositionSegments"
+  ],
+  "ordered_full_body_paths": [
+    "work/checks/SoftDuplicationIndices.body.lean",
+    "work/checks/SoftDuplicationCutFibers.body.lean",
+    "work/checks/SoftDuplicationAvoiding.body.lean",
+    "work/checks/SoftDuplicationArrays.body.lean",
+    "work/checks/SoftDuplicationAvoidingCompositions.body.lean"
+  ],
+  "files_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationAvoiding.body.lean": "56633f8a83dac836b61e00e369f1916188333fe509807dcae44c95e8cd1aa118",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationAvoidingCompositions.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806"
+  },
+  "prototype_sha256": "e46888ecd0a5929f6d051ecf3f19e37cb219bf0841cc033202cf4ac563dfeb52",
+  "printed_declarations": [
+    "SM.SoftDuplication.collapseComposition",
+    "SM.SoftDuplication.collapseComposition_parts",
+    "SM.SoftDuplication.collapseComposition_cut",
+    "SM.SoftDuplication.collapseComposition_endpoints",
+    "SM.SoftDuplication.collapseComposition_cutSet",
+    "SM.SoftDuplication.collapseComposition_eq_avoidingCompositionEquiv",
+    "SM.SoftDuplication.collapseComposition_part_endpoints",
+    "SM.SoftDuplication.composition_part_avoiding",
+    "SM.SoftDuplication.collapseComposition_part",
+    "SM.SoftDuplication.collapseComposition_nearTriple_positions",
+    "SM.SoftDuplication.collapseComposition_farTriple_positions",
+    "SM.SoftDuplication.triple_plain_of_avoiding_interval",
+    "SM.SoftDuplication.nearTriple_plain_of_avoiding",
+    "SM.SoftDuplication.farTriple_plain_of_avoiding",
+    "SM.SoftDuplication.collapseComposition_nearTriple",
+    "SM.SoftDuplication.collapseComposition_farTriple"
+  ],
+  "source_receipts_sha256": {
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationAvoiding-prototype-result.json": "54d4ad05e95abef533cc33d18bd6dd8770ea3fa8f86e8b8b9a9535d53454037a",
+    "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95"
+  },
+  "first_drafts_sha256": {
+    "work/checks/SoftDuplicationAvoidingCompositions-first-draft.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806",
+    "work/checks/SoftDuplicationAvoidingCompositions-first-draft.prototype.lean": "e46888ecd0a5929f6d051ecf3f19e37cb219bf0841cc033202cf4ac563dfeb52"
+  },
+  "canonical_source_sha256": {
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/decisions/amplitude-soft-after-family-assembly.md": "dcffb9ccc557eebdaa27f94ecd040d9c72494cd2c3b2ee54ca13e0ecfa31905a",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+  }
+}

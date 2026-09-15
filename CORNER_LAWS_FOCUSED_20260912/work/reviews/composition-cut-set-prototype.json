@@ -1,0 +1,266 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "composition-cut-set-prototype",
+  "source_id": "lem:farout",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "Original composition definition23-27; cut/refinement proof180-193, helper scope only",
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "prototype_file": "work/checks/CompositionCutSet.prototype.lean",
+  "prototype_sha256": "91813e78c96acf85c11aa2854623dc8b69e6a8d51a76b2b152f84212f45a308b",
+  "main_declarations": [
+    "SM.BoundaryCutSet",
+    "SM.BoundaryCutSet.ext",
+    "SM.BoundaryCutSet.card_ge_two",
+    "SM.BoundaryCutSet.toComposition",
+    "SM.IntervalComposition.cutSet",
+    "SM.IntervalComposition.cutSet_card",
+    "SM.IntervalComposition.cutSet_injective",
+    "SM.BoundaryCutSet.toComposition_cutSet",
+    "SM.IntervalComposition.cutSet_toComposition",
+    "SM.IntervalComposition.cutSetEquiv"
+  ],
+  "reason": "Faithful representation helper: all raw strictly increasing compositions of an interval are equivalent to all bounded finite cut sets containing both endpoints. Sorting and taking the image are inverse on the complete source domain, preserving the exact natural part count and ordered cuts. Unary endpoint sets and full interval cut sets are independently checked, including maximal full-cut arity. Kernel62454 passes15 implementation declarations and6 substantive consumers with standard axioms only. This helper does not yet prove the marked-cut/nested-composition bijection or factorization and accepts no original farout claim.",
+  "mathematical_justification": [
+    {
+      "clause": "Complete cut-set domain",
+      "assessment": "BoundaryCutSet contains a Finset of actual Fin n boundary positions, both interval endpoints, and only the printed closed-interval bounds. It requires or forbids no interior position. The endpoints are distinct because BoundaryInterval is increasing; their two-element subset proves card>=2. The independent every_raw_cut_set_admitted test starts with any such finite set and returns an actual raw composition with exactly that cut set and part count plus one equal to its cardinality."
+    },
+    {
+      "clause": "Sorted reconstruction",
+      "assessment": "toComposition sets the part count to card(cuts)-1, derives positivity from the two endpoints, and uses orderEmbOfFin to enumerate every set element strictly increasingly. Its first value is the left endpoint: monotonicity places it no higher than the index of that endpoint, while the set bounds place it no lower. The analogous maximum argument proves the last value is the right endpoint. Thus the reconstruction is an original IntervalComposition, without an arity cap or additional geometric premise. The independent exact_cut_membership test proves all and only the original set elements occur among its cuts."
+    },
+    {
+      "clause": "No loss of the ordered raw composition",
+      "assessment": "cutSet takes the image of all actual cut-list positions; first/last membership and interval bounds follow from the existing fields and strict monotonicity. Injectivity of the cut map gives cutSet.card=parts+1. Two raw compositions with equal cut sets therefore have equal natural part counts. Each strictly increasing cut function is the unique increasing enumeration of this same finite set, so the entire dependent cut functions agree; proof irrelevance then gives equality of the structures. The independent same_cut_set_iff_same_composition and complete_raw_roundtrip checks verify exact recovery, rather than only equal cardinality or a surjective encoding."
+    },
+    {
+      "clause": "Both inverse laws and boundary cases",
+      "assessment": "The image of the sorted enumeration is exactly the original finite set, yielding toComposition_cutSet by BoundaryCutSet extensionality. Cut-set injectivity then yields cutSet_toComposition for every raw composition. These form the explicit equivalence. The independent unary_cut_set_is_exactly_endpoints checks that the endpoint-only set reconstructs the unique one-part composition and vice versa. The independent full_cut_coverage checks that every interval position is retained by the maximal cut set and its reconstructed part count equals the actual interval leaf count, using the finite interval cardinality formula. Both extreme marked-cut possibilities remain available to future factorization work."
+    },
+    {
+      "clause": "Verified scope and remaining mathematics",
+      "assessment": "The exact frozen body and the separately reviewed UnaryComposition predecessor are copied unchanged over the actual five-module canonical import closure. All15 declaration checks and6 consumer theorems pass on the first independent run with only standard axioms; all five predecessor printed types exactly match their earlier trace. This is the composition/cut-set equivalence only. Restricting a refined composition to outer parts, recovering marked subsets, matching adjacent near triples, the coefficient expansion, and every remaining farout clause require their own proofs and reviews."
+    }
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/checks/UnaryComposition.body.lean": "2d1893ca9f46648d2e799bb818bb42a58e3f22666e15b9b5881e4914e69df9b7",
+    "work/checks/UnaryComposition.prototype.lean": "9caf13c864d147e28ce26dfe94d87129a8464f766f17f44350e48d51280cc3de",
+    "work/checks/UnaryComposition-second-kernel.log": "d7a18c33a3860fa57e84109e0a1ce93f8260c29797256c2cbac6c25827dc427b",
+    "work/checks/CompositionCutSet-first-kernel.log": "002769949314a13bec19f60fecaac06cfc4f1034473525bbd484ca7d08e7255e",
+    "work/checks/CompositionCutSet.body.lean": "8c5adedcca981b1b44faa750ad5c95738e06560be89041eed31908aa264a0123",
+    "work/checks/CompositionCutSet.prototype.lean": "91813e78c96acf85c11aa2854623dc8b69e6a8d51a76b2b152f84212f45a308b"
+  },
+  "import_closure_roots": [
+    "SM.FiniteCompositions"
+  ],
+  "import_closure_file_count": 5,
+  "inherited_review_binding": {
+    "work/reviews/def-root.json": "bdd0d6766fbc4c5e956c04dcd1d0290fa5fbeeeb802ecb66eeb9fbf3f8f56ae3",
+    "work/reviews/finite-compositions-prototype.json": "96dadb424621ed63b30e2dd8e6edc3c59258a5af7183d647683aa2f3811c99c6",
+    "work/reviews/triangular-polynomial-inverse-prototype.json": "5c8e40c84e318e36fe413fabc2c9581dc15b541751ea022bb92c7c362250eef5"
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "Reviewer did not author or edit the implementation, source, canonical modules, declaration map or previous reviews. Only new independent raw-domain and boundary-case consumer checks, trace/closure/type evidence and this helper review were written.",
+  "evidence": {
+    "independent_trace_source": "work/checks/composition-cut-set-review-types.lean",
+    "independent_trace_source_sha256": "2bf0c5de092695977f4845ecee5f8ac5c6650419c9539344360143c1e3c9a377",
+    "independent_trace_log": "work/checks/composition-cut-set-review-types.log",
+    "independent_trace_log_sha256": "6f332587d8827286502dfd55760fc558ff4f93e554a0a761fe84d3b3ad373d33",
+    "independent_kernel_command": "lake env lean ../checks/composition-cut-set-review-types.lean",
+    "independent_kernel_session": 62454,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.IntervalComposition.eq_single_of_parts_eq_one",
+      "SM.IntervalComposition.parts_eq_one_iff_eq_single",
+      "SM.IntervalComposition.single_part",
+      "SM.IntervalComposition.single_product",
+      "SM.IntervalComposition.nonSingleEquiv",
+      "SM.BoundaryCutSet",
+      "SM.BoundaryCutSet.ext",
+      "SM.BoundaryCutSet.card_ge_two",
+      "SM.BoundaryCutSet.toComposition",
+      "SM.IntervalComposition.cutSet",
+      "SM.IntervalComposition.cutSet_card",
+      "SM.IntervalComposition.cutSet_injective",
+      "SM.BoundaryCutSet.toComposition_cutSet",
+      "SM.IntervalComposition.cutSet_toComposition",
+      "SM.IntervalComposition.cutSetEquiv"
+    ],
+    "declaration_axioms": {
+      "SM.IntervalComposition.eq_single_of_parts_eq_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.parts_eq_one_iff_eq_single": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.single_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.single_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nonSingleEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.ext": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.card_ge_two": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.toComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.cutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.cutSet_card": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.cutSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.toComposition_cutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.cutSet_toComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.cutSetEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "CompositionCutSetIndependentReview.every_raw_cut_set_admitted",
+      "CompositionCutSetIndependentReview.unary_cut_set_is_exactly_endpoints",
+      "CompositionCutSetIndependentReview.full_cut_coverage",
+      "CompositionCutSetIndependentReview.exact_cut_membership",
+      "CompositionCutSetIndependentReview.complete_raw_roundtrip",
+      "CompositionCutSetIndependentReview.same_cut_set_iff_same_composition"
+    ],
+    "additional_example_count": 6,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "CompositionCutSetIndependentReview.every_raw_cut_set_admitted": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CompositionCutSetIndependentReview.unary_cut_set_is_exactly_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CompositionCutSetIndependentReview.full_cut_coverage": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CompositionCutSetIndependentReview.exact_cut_membership": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CompositionCutSetIndependentReview.complete_raw_roundtrip": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CompositionCutSetIndependentReview.same_cut_set_iff_same_composition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.BoundaryCutSet",
+      "SM.BoundaryCutSet.toComposition",
+      "SM.IntervalComposition.cutSet"
+    ],
+    "printed_types": "work/checks/composition-cut-set-reviewed-types.json",
+    "printed_types_sha256": "bd8314397366a0a979932fc3bebd373c5f479a4e64209cbd18daf1f107670562",
+    "all_five_UnaryComposition_predecessor_types_unchanged": true,
+    "independent_closure_evidence": "work/checks/composition-cut-set-review-closure.json",
+    "independent_closure_evidence_sha256": "9632145e5873bd9cf15f157d201af325dc40896f5c7247e2b867ad3e2bb42596",
+    "root_receipts_sha256": {
+      "work/checks/UnaryComposition-prototype-result.json": "ed1bd2c6161bb8f804a4d95433264725222975129665e02262dc8a1f7c4deb03",
+      "work/checks/CompositionCutSet-prototype-result.json": "587d7acfb786defc98515d35fdaaf4af8c50e8a984f7660eb3683ab5362e4beb"
+    },
+    "frozen_files_sha256": {
+      "work/checks/UnaryComposition.body.lean": "2d1893ca9f46648d2e799bb818bb42a58e3f22666e15b9b5881e4914e69df9b7",
+      "work/checks/UnaryComposition.prototype.lean": "9caf13c864d147e28ce26dfe94d87129a8464f766f17f44350e48d51280cc3de",
+      "work/checks/UnaryComposition-second-kernel.log": "d7a18c33a3860fa57e84109e0a1ce93f8260c29797256c2cbac6c25827dc427b",
+      "work/checks/CompositionCutSet-first-kernel.log": "002769949314a13bec19f60fecaac06cfc4f1034473525bbd484ca7d08e7255e",
+      "work/checks/CompositionCutSet.body.lean": "8c5adedcca981b1b44faa750ad5c95738e06560be89041eed31908aa264a0123",
+      "work/checks/CompositionCutSet.prototype.lean": "91813e78c96acf85c11aa2854623dc8b69e6a8d51a76b2b152f84212f45a308b"
+    },
+    "successful_root_kernel_session": 97447,
+    "successful_root_kernel_exit_code": 0
+  },
+  "utc": "2026-09-11T05:09:19.573863+00:00",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "full_farout_accepted": false,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No full factorization or marked-cut/nested-composition equivalence.",
+    "No geometric output, restricted-interval farout clause, original farout acceptance, wall law, soft theorem, R theorem or stage completion."
+  ]
+}

@@ -1,0 +1,1567 @@
+\section{Polygons, chirotopes, chambers, and walls}\label{sec:polygons}
+
+\subsection{Conventions}\label{sec:conventions}
+
+For $u=(u_1,u_2)$, $v=(v_1,v_2)\in\RR^2$ put $\det(u,v)=u_1v_2-u_2v_1$.
+The sign function is $\sgn\colon\RR\to\{-1,0,1\}$. The step function is
+\[
+\Theta\colon\RR\setminus\{0\}\to\{0,1\},\qquad
+\Theta(x)=1\ (x>0),\qquad \Theta(x)=0\ (x<0);
+\]
+it is never evaluated at $0$ in this document, and every statement that
+consults it is made on a domain where its argument is nonzero
+(Lemma~\ref{lem:gates-nonzero}). For $n\geq3$ indices of vertices and edges
+are elements of $\ZZ/n$; $i+1$, $i-1$ are read modulo $n$. The main text
+writes $[u,v]=u_2v_1-u_1v_2=-\det(u,v)$; this document uses $\det$ only.
+The frozen source CV uses one-based tail labels: its edge $e_i$ runs
+from $p_i$ to $p_{i+1}$, so $p_i=\mu_i$ requires no index shift.
+RC instead uses zero-based head labels: $e_r$ runs from $p_{r-1}$
+to $p_r$, and its starred bracket is $[u,v]_*=-\det(u,v)$.
+Under $p_r=\mu_{r+1}$ an RC vertex $r$ becomes vertex $r+1$;
+its incoming edge $e_r$ is the SM tail edge $E_r$, with residue zero
+represented by $n$. Here $E_i=[\mu_i,\mu_{i+1}]$ and
+$\lt_i=\mu_{i+1}-\mu_i$, as in the main text.
+
+\subsection{Polygons and chirotopes}
+
+\begin{definition}[labelled tuples and polygons]\label{def:polygon}
+Let $n\geq3$. A \emph{labelled tuple} is an element
+$P=(\mu_1,\ldots,\mu_n)\in(\RR^2)^n$, indices in $\ZZ/n$ with $\mu_{n+1}=\mu_1$. The
+\emph{cyclic shift} is $(\sigma P)_i=\mu_{i+1}$. A \emph{polygon} on $n$
+vertices is an orbit $[P]=\{\sigma^kP:k\in\ZZ/n\}$ of labelled tuples; a
+labelled tuple in the orbit is a \emph{representative}, and the space of
+polygons is the quotient $(\RR^2)^n/(\ZZ/n)$. Every notion below is
+introduced on a representative and is invariant under $\sigma$ (up to the
+induced relabelling of indices, which is recorded where it matters); it
+therefore defines a notion on polygons. A polygon has no distinguished vertex
+and no distinguished edge; when a construction needs one (a root, a base
+vertex), that choice is part of the construction's data.
+
+For a representative, the \emph{edge vectors} are
+\[
+\lt_i=\mu_{i+1}-\mu_i\qquad(i\in\ZZ/n),
+\]
+so that $\sum_i\lt_i=0$, and the \emph{edge segments} are
+$E_i=[\mu_i,\mu_{i+1}]=\{\mu_i+t\lt_i:0\leq t\leq1\}$. Vertex $i$ is
+\emph{incident} to $E_{i-1}$ and $E_i$. Two edges $E_i,E_j$ are
+\emph{adjacent} if $j-i\in\{-1,0,1\}$ and \emph{remote} otherwise; an edge
+$E_j$ is \emph{remote to the vertex} $i$ if $j\notin\{i-1,i\}$, and
+\emph{remote to the vertex and its two edges} if $j\notin\{i-2,i-1,i,i+1\}$.
+No condition is imposed on the tuple by this definition; in particular
+coincident vertices and zero edges are allowed at this level.
+\end{definition}
+
+\begin{remark}[formalization]
+The quotient by the finite group $\ZZ/n$ is the only quotient used. On the
+generic locus the action is free (distinct vertices), so the quotient is a
+$2n$-manifold and its connected components are the orbits of the components
+of the labelled generic locus. A formalization may work with labelled tuples
+throughout and record each construction's shift-equivariance as a lemma; the
+statements below are written so that both readings agree.
+\end{remark}
+
+\begin{definition}[chirotope and turns]\label{def:chirotope}
+For $i,j,k\in\ZZ/n$ put
+\[
+\chi_{ijk}(P)=\sgn\det(\mu_j-\mu_i,\ \mu_k-\mu_i)\in\{-1,0,1\}.
+\]
+The \emph{turn} at vertex $i$ is $\tau_i(P)=\chi_{i-1,i,i+1}(P)$. The number
+of \emph{left turns} is $\ell(P)=\#\{i:\tau_i(P)=1\}$.
+\end{definition}
+
+\begin{lemma}[elementary properties of $\chi$]\label{lem:chi-basic}
+For all $i,j,k$:
+\begin{enumerate}
+\item[(i)] $\chi_{ijk}$ is alternating: it changes sign under a transposition
+of two of its indices and is unchanged under a cyclic permutation; it is $0$
+when two indices coincide.
+\item[(ii)] $\chi_{ijk}=\sgn\bigl([\mu_j-\mu_i,\ \mu_j-\mu_k]\bigr)$ with the
+main text's bracket $[u,v]=u_2v_1-u_1v_2$.
+\item[(iii)] $\chi_{i,i+1,k}=\sgn\det(\lt_i,\ \mu_k-\mu_i)$; when $\lt_i\neq0$
+we say (a naming convention) that $\mu_k$ lies \emph{strictly to the left} of
+the directed line through $E_i$ if this sign is $+1$ and \emph{strictly to the
+right} if it is $-1$.
+\item[(iv)] $\tau_i=\sgn\det(\lt_{i-1},\lt_i)$; $\tau_i=+1$ is a left turn.
+\end{enumerate}
+\status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, repaired in round 12 (F-25-194), re-read on SM13)}
+\end{lemma}
+\begin{proof}
+(i) $\det$ is alternating and $\det(\mu_j-\mu_i,\mu_k-\mu_i)$ is the standard
+area form of the ordered triple; a cyclic permutation of the triple is even.
+(ii) $[\mu_j-\mu_i,\mu_j-\mu_k]=-\det(\mu_j-\mu_i,\mu_j-\mu_k)
+=\det(\mu_j-\mu_i,\mu_k-\mu_j)=\det(\mu_j-\mu_i,\mu_k-\mu_i)$, the last step
+by $\det(u,v-u)=\det(u,v)$. (iii) is the case $j=i+1$ of the definition.
+(iv) $\det(\mu_i-\mu_{i-1},\mu_{i+1}-\mu_{i-1})=\det(\lt_{i-1},\lt_{i-1}+\lt_i)
+=\det(\lt_{i-1},\lt_i)$.
+\end{proof}
+
+\subsection{Generic polygons and chambers}
+
+\begin{definition}[generic polygon]\label{def:generic}
+A polygon $P$ is \emph{generic} if
+\begin{enumerate}
+\item[(G1)] $\chi_{ijk}(P)\neq0$ for all pairwise distinct $i,j,k\in\ZZ/n$;
+\item[(G2)] there is no point of $\RR^2$ lying in the relative interiors of
+three distinct edge segments.
+\end{enumerate}
+The set of generic polygons on $n$ vertices is $\mathcal U_n\subseteq(\RR^2)^n$.
+\end{definition}
+
+\begin{lemma}[what (G1) gives]\label{lem:g1}
+Let $P$ satisfy (G1). Then:
+\begin{enumerate}
+\item[(i)] all vertices are distinct and every edge vector is nonzero;
+\item[(ii)] every turn $\tau_i$ is $\pm1$; consecutive edge vectors are
+linearly independent, so no edge vector is a positive or negative multiple
+(``flat'' or ``kink'') of its predecessor;
+\item[(iii)] no vertex lies on the line spanned by an edge not incident to it;
+in particular no vertex lies on a non-incident closed edge segment;
+\item[(iv)] two distinct adjacent edges meet exactly in their common vertex;
+\item[(v)] two remote edges are either disjoint or meet in exactly one point,
+which lies in the relative interior of both and at which the two edge
+directions are linearly independent.
+\end{enumerate}
+\status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, repaired in round 12 (F-25-190, F-25-195), re-read on SM13)}
+\end{lemma}
+\begin{proof}
+(i) If $\mu_i=\mu_j$ with $i\neq j$, then $\chi_{ijk}=0$ for any third index
+$k$ (there is one since $n\geq3$). (ii) $\tau_i=\sgn\det(\lt_{i-1},\lt_i)\neq0$.
+(iii) If $\mu_k$ lies on the line through $\mu_i,\mu_{i+1}$ with
+$k\notin\{i,i+1\}$ then $\chi_{i,i+1,k}=0$. (iv) By (ii) the two edges at a
+vertex span the plane, so their lines meet only at the vertex. (v) Let
+$E_i,E_j$ be remote and $x\in E_i\cap E_j$. By (iii) $x$ is not an endpoint
+of either. If $\lt_i,\lt_j$ were parallel, the two segments would lie on one
+line, and then an endpoint of one would lie on the line of the other, contrary
+to (iii). Two segments on non-parallel lines meet in at most one point.
+\end{proof}
+
+\begin{definition}[crossings]\label{def:crossings}
+Let $P$ satisfy (G1). The \emph{crossing set} $X(P)$ is the set of unordered
+pairs $\{i,j\}$ of remote edge indices with $E_i\cap E_j\neq\varnothing$. For
+$\{i,j\}\in X(P)$ the \emph{crossing point} $x_{ij}$ is the unique point of
+$E_i\cap E_j$, and its \emph{parameters} $t_{ij}\in(0,1)$ on $E_i$ and
+$t_{ji}\in(0,1)$ on $E_j$ are defined by $x_{ij}=\mu_i+t_{ij}\lt_i
+=\mu_j+t_{ji}\lt_j$. The \emph{crossing sign} of $\{i,j\}$ read from $E_i$ is
+$\sgn\det(\lt_i,\lt_j)$.
+\end{definition}
+
+\begin{lemma}[crossings through the chirotope]\label{lem:crossing-test}
+Let $P$ satisfy (G1) and let $E_i,E_j$ be remote. Then $\{i,j\}\in X(P)$ if
+and only if
+\[
+\chi_{i,i+1,j}\,\chi_{i,i+1,j+1}=-1\quad\text{and}\quad
+\chi_{j,j+1,i}\,\chi_{j,j+1,i+1}=-1.
+\]
+If $P$ is generic, distinct crossings have distinct crossing points, and
+$X(P)$ is finite. \status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, repaired in round 12 (F-25-196), re-read on SM13)}
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:g1}(i),(iii) the edge vectors $\lt_i,\lt_j$ are nonzero and
+none of the four endpoints of $E_i,E_j$ lies on the line of the other segment,
+so the four chirotope entries in the display are $\pm1$. Separation
+criterion: along $E_j$ the signed distance from the line of $E_i$,
+$f(t)=\det(\lt_i,\ \mu_j+t\lt_j-\mu_i)$, is affine in $t$ with
+$f(0),f(1)\neq0$, so $E_j$ meets the line of $E_i$ exactly when
+$f(0)f(1)<0$, that is, when $\chi_{i,i+1,j}\,\chi_{i,i+1,j+1}=-1$
+(Lemma~\ref{lem:chi-basic}(iii)); then $f$ has nonzero slope
+$\det(\lt_i,\lt_j)$, the two lines meet in one point, and that point lies in
+the relative interior of $E_j$. Symmetrically, $E_i$ meets the line of $E_j$
+exactly when the second condition holds. If both conditions hold, the common
+point of the two lines lies in the relative interior of both segments, so
+$E_i\cap E_j\neq\varnothing$; conversely, a point of $E_i\cap E_j$ is a point
+of $E_j$ on the line of $E_i$ and a point of $E_i$ on the line of $E_j$, so
+both conditions hold. If two distinct crossings had the same point, that
+point would lie in the relative interior of three distinct edges (the two
+crossings share at most one edge), contrary to (G2). Finiteness is clear.
+\end{proof}
+
+\begin{lemma}[stability of separated segment intersections]
+\label{lem:wall-segment-stability}
+Consider finitely many continuously varying nonzero oriented segments.
+For a specified pair, suppose that at the centre the segments are either
+disjoint or meet transversely in both relative interiors. In the first case
+they stay disjoint nearby. In the second case their unique intersection
+persists, remains transverse and interior, and its two parameters vary
+continuously. For finitely many such persistent crossings on a segment,
+every pair with distinct central parameters keeps its parameter order nearby.
+\status{new (round~4: no frozen-source statement carries this lemma --- the former locator RC tr:five-events is the five-event classification and does not state it, and the persistence argument appears only inside proofs (CV lem:dictionary, clause~(b); RC guard:canonical); the round-1 proof printed here is self-contained; F-25-139; cleared by bench~A on SM4 (2026-09-05T23:49:15Z))}
+\end{lemma}
+\begin{proof}
+Disjoint compact segments have positive distance. Moving their endpoints by
+at most $\eta$ moves every convex combination of the endpoints by at most
+$\eta$, so a sufficiently small perturbation preserves their disjointness.
+For the second case write the segments as $A+uD$ and $B+vH$, where
+$0\leq u,v\leq1$. Solving $A+uD=B+vH$ by taking determinants gives
+\begin{equation}\label{wallgeo:parameters}
+ u=\frac{\det(B-A,H)}{\det(D,H)},\qquad
+ v=\frac{\det(B-A,D)}{\det(D,H)}.
+\end{equation}
+The central denominator is nonzero. These quotients are therefore continuous
+near the centre, and their central values in $(0,1)$ remain in that interval.
+A nonzero continuous difference of two central parameters has constant sign
+after shrinking. There are only finitely many requirements, so one common
+interval satisfies all of them.
+\end{proof}
+
+\begin{definition}[chambers]\label{def:chamber}
+A \emph{chamber} is a connected component of the space of generic polygons
+$\mathcal U_n/(\ZZ/n)$; its preimage in $\mathcal U_n$ is a union of at most
+$n$ components of $\mathcal U_n$ permuted by $\sigma$, the \emph{labelled
+chambers}.
+\end{definition}
+
+\begin{proposition}[chambers]\label{prop:chambers}
+$\mathcal U_n$ is open in $(\RR^2)^n$, and every chamber is open and path
+connected. Along any path in $\mathcal U_n$ the following data are constant:
+the chirotope $(\chi_{ijk})$; the crossing set $X(P)$; and, for every edge
+$E_i$, the order of the parameters $t_{ij}$, $\{i,j\}\in X(P)$, along $E_i$.
+\status{new (round~5: the two persistence clauses of the proof cited to Lemma~\ref{lem:wall-segment-stability}, F-25-143; the remainder is the SM1 proof, audited there)}
+\end{proposition}
+\begin{proof}
+The finitely many determinants $\det(\mu_j-\mu_i,\mu_k-\mu_i)$ are continuous
+and nonzero on $\mathcal U_n$, so (G1) is open. Condition (G2) is open as well:
+if three edge interiors had a common point at a limit of polygons, the three
+segments would meet in the limit; we argue directly. Fix $P\in\mathcal U_n$.
+By Lemma~\ref{lem:g1}(v) each pair of remote edges is either disjoint or
+meets transversally in one interior point; the first condition persists under
+small perturbation, and in the second the crossing persists and varies
+continuously (Lemma~\ref{lem:wall-segment-stability}).
+The finitely many crossing points of $P$ are pairwise distinct
+(Lemma~\ref{lem:crossing-test}), hence remain distinct nearby; a common point
+of three edge interiors nearby would be a coincidence of two crossing points
+(any two of the three edges are remote, since an adjacent pair meets only at
+its vertex by Lemma~\ref{lem:g1}(iv), and a vertex on a remote edge is excluded
+by (G1) nearby). So $\mathcal U_n$ is open. An open subset of $\RR^{2n}$ is
+locally path connected, so its components are open and path connected.
+
+Along a path in $\mathcal U_n$ each $\chi_{ijk}$ is a continuous nonzero
+integer-valued function, hence constant. The crossing set is a function of the
+chirotope (Lemma~\ref{lem:crossing-test}). Two crossings on a common edge $E_i$
+change their order only if their parameters coincide at some time; at that
+time the two crossing points coincide, which puts a common point in three edge
+interiors, contrary to (G2) --- the two other edges are remote to $E_i$ and,
+if they were adjacent to each other, their only common point is their shared
+vertex, which cannot lie on $E_i$ by (G1).
+\end{proof}
+
+\subsection{The Gauss word, interlacement, and the visible signature}
+
+\begin{definition}[traversal circle and Gauss word]\label{def:gauss}
+Let $P$ be generic. The \emph{traversal circle} $\Gamma(P)$ is the set of
+pairs $(i,t)$, $i\in\ZZ/n$, $t\in[0,1)$, with the cyclic order in which
+$(i,t)<(i,t')$ for $t<t'$ and $(i,t)<(i+1,t')$ for all $t,t'$; the point of
+the plane at $(i,t)$ is $\mu_i+t\lt_i$. Each crossing $\{i,j\}\in X(P)$ has
+two \emph{visits} $(i,t_{ij})$ and $(j,t_{ji})$ on $\Gamma(P)$. The
+\emph{Gauss word} of $P$ is the cyclic sequence of the $2|X(P)|$ visits in
+the order of $\Gamma(P)$, each visit labelled by its crossing.
+\end{definition}
+
+\begin{definition}[interlacement]\label{def:interlace}
+Two distinct crossings $x,y\in X(P)$ \emph{interlace} if the four visits
+$x_0,y_0,x_1,y_1$ occur in the cyclic order $x_0<y_0<x_1<y_1$ (up to rotation),
+that is, exactly one visit of $y$ lies between the two visits of $x$. The
+\emph{interlacement graph} $G_P$ has vertex set $X(P)$ and an edge between
+each interlacing pair. $\Ind(G_P)$ denotes the set of independent subsets of
+$X(P)$, including $\varnothing$; for $S\subseteq X(P)$ let $N(S)$ be the set of
+crossings interlacing some element of $S$, and let
+$U(S)=X(P)\setminus(S\cup N(S))$.
+\end{definition}
+
+\begin{definition}[visible signature]\label{def:visible}
+The \emph{visible signature} of a generic $P$ is the triple
+\[
+\bigl((\tau_i)_{i\in\ZZ/n},\ X(P),\ \text{the Gauss word of }P\bigr).
+\]
+By Proposition~\ref{prop:chambers} it is constant on chambers.
+\end{definition}
+
+
+\begin{definition}[weakly generic polygons and the silent locus]\label{def:weak}
+A polygon $P$ is \emph{weakly generic} if every edge vector is nonzero, every
+turn $\tau_i$ is nonzero, no vertex lies on a non-incident closed edge
+segment, any two remote edges meet in at most one point and there
+transversally, and (G2) holds. This is the main text's ``generic''. Every
+generic polygon is weakly generic; the \emph{silent locus} is
+$\mathcal S_n=\mathcal W_n\setminus\mathcal U_n$, where $\mathcal W_n$ is the
+set of weakly generic polygons. A \emph{visible chamber} is a connected
+component of $\mathcal W_n$.
+\end{definition}
+
+\begin{lemma}[openness of the weak locus]\label{lem:weak-open}
+Read on labelled representatives, $\mathcal W_n$ is open in
+$(\RR^2)^n$. Every connected component is open and polygonally
+connected. In particular, every labelled weakly generic tuple has
+an open ball contained in its visible chamber.
+\status{new (round~4; adopted from the Codex proposal sm4\_round4\_core\_v1, P-25-23, F116-OPEN, re-read by the author; F-25-116)}
+\end{lemma}
+\begin{proof}
+Fix a tuple $P$ satisfying Definition~\ref{def:weak}. Nonzero edge
+vectors and nonzero turn determinants persist under small perturbations
+by continuity. Thus distinct adjacent segments still meet only at their common
+endpoint: their supporting lines are independent and have that point
+in common.
+
+Suppose every vertex moves by at most $\varepsilon$. A point of an
+edge at affine parameter $t\in[0,1]$ moves by at most
+$(1-t)\varepsilon+t\varepsilon=\varepsilon$, by the triangle
+inequality. Consequently a vertex--segment distance, or a distance
+between two segments, decreases by at most $2\varepsilon$.
+Every vertex of $P$ has positive distance from every nonincident
+closed segment, since the segment is compact and does not contain
+the vertex. There are finitely many such pairs, so these separations
+all persist nearby. In particular, remote segments cannot acquire
+an endpoint contact.
+
+Each disjoint pair of remote closed segments has positive compact
+distance; preserve all these distances as well. This step allows
+parallel or collinear disjoint segments. For an intersecting remote
+pair, the endpoint exclusion puts the intersection in both relative
+interiors, and weak genericity makes the two directions independent.
+Write their initial points as $p,q$ and directions as $u,v$, and put
+$a=q-p$ and $D=\det(u,v)\neq0$. The intersection equation is
+$tu-sv=a$. Taking its determinant with $v$ gives
+$tD=\det(a,v)$. Taking its determinant with $u$ gives
+$sD=\det(a,u)$, since $-\det(v,u)=D$. Thus the two parameters are
+\begin{equation}\label{eq:weak-open-parameters}
+ t=\frac{\det(a,v)}D,\qquad s=\frac{\det(a,u)}D.
+\end{equation}
+The denominator stays nonzero nearby. Both parameters, and hence the
+intersection point $p+tu$, vary continuously. Shrink the neighbourhood
+so the parameters remain strictly between zero and one. The two
+supporting lines then have exactly this one transverse intersection.
+
+Intersection points belonging to distinct unordered pairs of remote edges at $P$ are
+distinct: if two were equal, their union would contain at least three
+distinct edges whose relative interiors contain that point, contrary
+to (G2). Preserve the finitely many positive distances between these
+points. Every nearby intersecting remote pair was already intersecting
+at $P$, because the disjoint pairs remain disjoint. A nearby point in
+three edge interiors would involve pairwise remote edges, since
+adjacent interiors are disjoint. It would therefore identify the
+points of two distinct preserved crossing pairs, a contradiction.
+If there were initially fewer than two crossing pairs, the same
+argument gives a contradiction before any separation needs to be
+chosen. Thus (G2) persists.
+
+Intersecting the finitely many neighbourhoods just constructed
+preserves every condition of weak genericity. This proves openness.
+A sufficiently small ball about any point is contained in the open
+set and is convex; it therefore lies in the connected component of
+its centre. Hence every component is open. Within one component,
+fix a point and consider the points reachable from it by a finite
+polygonal path. A small ball about a reachable point is reachable
+by adding a final segment. A small ball about an unreachable point
+cannot contain a reachable point, since a final segment would then
+reach its centre. The reachable set and its complement are both
+relatively open. Connectedness makes the reachable set the entire
+component, proving polygonal connectedness.
+\end{proof}
+
+\begin{lemma}[the silent locus]\label{lem:silentlocus}
+If $P$ is weakly generic and $\chi_{ijk}(P)=0$ for pairwise distinct
+$i,j,k$, then either no two of $i,j,k$ are consecutive (a pure chord), or
+exactly one pair is consecutive, say $\{i,i+1\}$, and $\mu_k$ lies on the
+line of $E_i$ outside the closed segment $E_i$ (an exterior extension). The
+visible signature (Definition~\ref{def:visible}) is defined and locally
+constant on $\mathcal W_n$, hence constant on visible chambers, and
+$\mathcal U_n$ is open and dense in $\mathcal W_n$. \status{new (round~5: the density clause cites Lemma~\ref{lem:weak-open} for the openness of $\mathcal W_n$ it relies on and names the polynomial whose zero set is avoided, F-25-147; the remainder is the SM1 proof, audited there)}
+\end{lemma}
+\begin{proof}
+Two consecutive pairs in $\{i,j,k\}$ make it a turn triple, excluded. One
+consecutive pair $\{i,i+1\}$ with $\mu_k$ on the line of $E_i$: $\mu_k$ is not
+on the closed segment by hypothesis. Crossings are created or destroyed only
+by a vertex passing through a remote closed segment, and their order along an
+edge changes only through a coincidence of crossing points; both are excluded
+on $\mathcal W_n$ exactly as in Proposition~\ref{prop:chambers}, so the
+visible signature is locally constant. Density: $\mathcal W_n$ is open
+(Lemma~\ref{lem:weak-open}) and $\mathcal U_n$ is its subset on which every
+$\chi_{ijk}$ is nonzero; the zero set of the nonzero polynomial
+$\prod\det(\mu_j-\mu_i,\mu_k-\mu_i)$ over the triples has empty interior in
+$(\RR^2)^n$, so it contains no open subset of $\mathcal W_n$, and every point
+of $\mathcal W_n$ is a limit of points of $\mathcal U_n$.
+\end{proof}
+
+\subsection{Rotation number}
+
+\begin{definition}[regular locus and principal turns]\label{def:regular}
+For a polygon $P$ and an index $i$ with $\lt_{i-1},\lt_i\neq0$ and $\lt_i$
+not a negative real multiple of $\lt_{i-1}$, the \emph{principal turn}
+$\vartheta_i(P)\in(-\pi,\pi)$ is the unique angle with
+$\cos\vartheta_i=\langle\lt_{i-1},\lt_i\rangle/(|\lt_{i-1}||\lt_i|)$ and
+$\sgn\vartheta_i=\sgn\det(\lt_{i-1},\lt_i)$. The \emph{regular locus}
+$\mathcal R_n$ is the set of polygons with all $\lt_i\neq0$ and no $\lt_i$ a
+negative multiple of $\lt_{i-1}$; equivalently, all principal turns exist.
+Every generic polygon lies in $\mathcal R_n$ (Lemma~\ref{lem:g1}(ii)), and
+$\vartheta_i(P)=0$ exactly when $\lt_i$ is a positive multiple of $\lt_{i-1}$.
+\end{definition}
+
+\begin{definition}[reversal]\label{def:shift}
+For a representative $P=(\mu_1,\ldots,\mu_n)$ the \emph{reversal} is
+$(\overline P)_i=\mu_{2-i}$ ($i\in\ZZ/n$), which fixes $\mu_1$ and reverses
+the traversal. Reversal commutes with the shift up
+to a shift, so it is defined on polygons; it is not a relabelling but a change
+of orientation, and no law below is asserted to be invariant under it except
+where stated. Write $\rho(P)=\overline P$ for this reversal map.
+\end{definition}
+
+\begin{lemma}[rotation number]\label{lem:rot}
+For $P\in\mathcal R_n$ put $\rot(P)=\frac1{2\pi}\sum_{i\in\ZZ/n}\vartheta_i(P)$.
+Then:
+\begin{enumerate}
+\item[(i)] $\rot(P)\in\ZZ$;
+\item[(ii)] $\rot$ is constant along every continuous path in $\mathcal R_n$;
+\item[(iii)] inserting a vertex in the relative interior of an edge does not
+change $\rot$; reversing the traversal negates
+it;
+\item[(iv)] if $n=3$ then $\rot(P)=\tau_1(P)=\tau_2(P)=\tau_3(P)\in\{\pm1\}$
+and in particular $\rot(P)\neq0$;
+\item[(v)] $2|\rot(P)|<n$.
+\end{enumerate}
+\status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, no text change, re-read on SM13)}
+\end{lemma}
+\begin{proof}
+Identify $\RR^2$ with $\mathbb C$ and put $q_i=\lt_i/|\lt_i|$. The defining
+property of the principal turn is $q_i=e^{\mathrm i\vartheta_i}q_{i-1}$.
+Multiplying around the cycle gives $\exp(\mathrm i\sum_i\vartheta_i)=1$, so
+the sum is in $2\pi\ZZ$: (i). The principal turn is a continuous function of
+$(\lt_{i-1},\lt_i)$ on the open set where both are nonzero and not
+antiparallel, so $\rot$ is a continuous integer-valued function on
+$\mathcal R_n$: (ii). Inserting a vertex on an edge adds one zero turn and
+changes no other turn; reversal reverses the cyclic order of the pairs and
+replaces each $(\lt_{i-1},\lt_i)$ by $(-\lt_i,-\lt_{i-1})$, negating every
+principal turn: (iii). For (iv), all three turn determinants of a triangle
+equal $\det(\mu_2-\mu_1,\mu_3-\mu_1)$, which is nonzero for $P\in\mathcal R_3$
+(three collinear points with nonzero edges have a doubled-back consecutive
+pair); so the three turns have one sign, their sum lies strictly between $0$
+and $3\pi$ in absolute value, and is a multiple of $2\pi$. For (v),
+$2\pi|\rot(P)|\leq\sum_i|\vartheta_i|<n\pi$.
+\end{proof}
+
+\begin{lemma}[rotation of uniform and one-dissent polygons]\label{lem:uniformrot}
+Let $P\in\mathcal R_n$ have all turns nonzero.
+\begin{enumerate}
+\item[(i)] If all turns are left, then $\rot(P)\geq1$; if all are right, then
+$\rot(P)\leq-1$.
+\item[(ii)] If exactly one turn is right and all others are left, then
+$\rot(P)\geq1$; symmetrically with left and right exchanged, $\rot(P)\leq-1$.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV lem:uniformrot (mirror clauses by reversal, C033))}
+\end{lemma}
+\begin{proof}
+(i) All $\vartheta_i>0$ and there are at least three of them, so the sum is
+positive and $\rot(P)$ is a positive integer. (ii) Let $\alpha\in(0,\pi)$ be
+the magnitude of the right turn and $\Pi$ the sum of the left turns, so
+$\Pi-\alpha=2\pi\rot(P)$. If $\rot(P)\leq0$ then $\Pi\leq\alpha<\pi$. Cut the
+traversal after the right-turn vertex; the edge directions from there on are
+obtained by successive positive turns summing to $\Pi<\pi$, so all edge
+vectors lie in a closed angular sector of width $<\pi$, whose dual cone is
+nonempty: there is $u$ with $\langle u,\lt_i\rangle>0$ for all $i$. Summing
+contradicts $\sum_i\lt_i=0$.
+
+Both negative cases follow by reversing the traversal: this exchanges left
+and right turns and negates rotation by Lemma~\ref{lem:rot}(iii). Applying
+the respective positive case to the reversed polygon proves each claim.
+\end{proof}
+
+\begin{remark}[the chirotope formula at a hull vertex]\label{prop:whitney}
+For comparison with Whitney's formula~\cite{Whitney}, let $P$ be generic and suppose $\mu_1$ is a vertex of the convex hull of
+$\{\mu_1,\ldots,\mu_n\}$. Then
+\[
+\rot(P)=\chi_{n,1,2}+\sum_{\substack{\{i,j\}\in X(P)\\ 1\le i<j\le n}}\chi_{i,i+1,j},
+\]
+where the crossing pairs are written with $i<j$ as integers in
+$\{1,\ldots,n\}$ --- equivalently $E_i$ is visited before $E_j$ when the
+traversal starts at $\mu_1$.
+This is explanatory background only; no proof in this document uses this remark.
+\end{remark}
+
+\begin{remark}[the hull hypothesis cannot be dropped]\label{rem:whitney-base}
+Without the hull hypothesis the formula can fail: for the embedded dart
+$P=((2,1),(2,4),(0,0),(4,0))$, traversed counterclockwise, $\rot(P)=1$, there
+are no crossings, and the turn at the reflex base vertex $\mu_1=(2,1)$ is
+$-1$; the formula returns $-1$. With any of the three hull vertices as base it
+returns $+1$. The
+general formula with an arbitrary base vertex adds the winding numbers of the
+two regions adjacent to the base vertex in place of the turn sign
+\cite{Polyak}; at a hull vertex one adjacent region is the unbounded one,
+with winding number $0$, and the general form reduces to the displayed one.
+The hull hypothesis is sufficient, not necessary: at a convex vertex of an
+embedded polygon the two adjacent winding numbers are $0$ and $\tau_1$
+whether or not that vertex lies on the hull. The main text should either
+restrict to a hull vertex or state the general form.
+\end{remark}
+
+\subsection{Cyclic shift and reversal}
+
+\begin{lemma}[behaviour under shift and reversal]\label{lem:shift}
+\begin{enumerate}
+\item[(i)] The chirotope identities are
+\[
+ \chi_{ijk}(\sigma P)=\chi_{i+1,j+1,k+1}(P),\qquad
+ \chi_{ijk}(\overline P)=\chi_{2-i,2-j,2-k}(P).
+\]
+The edge $E_i(\sigma P)$ is $E_{i+1}(P)$, and the edge
+$E_i(\overline P)$ is $E_{1-i}(P)$ traversed backwards.
+\item[(ii)] $\sigma$ and $\rho$ map $\mathcal U_n$ onto itself and map chambers
+onto chambers; they preserve $X(P)$ up to relabelling of edges.
+\item[(iii)] $\tau_i(\sigma P)=\tau_{i+1}(P)$ and $\tau_i(\overline P)=-\tau_{2-i}(P)$;
+hence $\ell(\overline P)=n-\ell(P)-z(P)$, where $z(P)=\#\{i:\tau_i(P)=0\}$;
+in particular $\ell(\overline P)=n-\ell(P)$ for $P\in\mathcal U_n$
+(Lemma~\ref{lem:g1}(ii)).
+\item[(iv)] for $P\in\mathcal R_n$: $\sigma P$ and $\overline P$ lie in
+$\mathcal R_n$, $\rot(\sigma P)=\rot(P)$ and $\rot(\overline P)=-\rot(P)$.
+\end{enumerate}
+\status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, repaired in round 12 (F-25-189, F-25-193), re-read on SM13)}
+\end{lemma}
+\begin{proof}
+(i) is the definition; for the reversal, $\det(\mu_{2-j}-\mu_{2-i},\mu_{2-k}-\mu_{2-i})$
+is the determinant of the triple $(2-i,2-j,2-k)$ of $P$. (ii): (G1) and (G2) are
+conditions on the set of vertices and edges, which are preserved; both maps are
+linear homeomorphisms of $(\RR^2)^n$. (iii): $\tau_i(\overline P)=
+\chi_{i-1,i,i+1}(\overline P)=\chi_{3-i,2-i,1-i}(P)=-\chi_{1-i,2-i,3-i}(P)
+=-\tau_{2-i}(P)$ by Lemma~\ref{lem:chi-basic}(i). Since $i\mapsto2-i$ is a
+bijection of $\ZZ/n$, the turn multiset of $\overline P$ is the negative of
+that of $P$: the left turns of $\overline P$ are the right turns of $P$, of
+which there are $n-\ell(P)-z(P)$; on $\mathcal U_n$ every turn is $\pm1$
+(Lemma~\ref{lem:g1}(ii)), so $z(P)=0$ there.
+(iv): $\sigma$ permutes the edge vectors cyclically,
+$\lt_i(\sigma P)=\lt_{i+1}(P)$, and $\rho$ negates and reverses them,
+$\lt_i(\overline P)=-\lt_{1-i}(P)$, so the consecutive pairs
+$(\lt_{i-1},\lt_i)$ of $\sigma P$ are those of $P$ and the consecutive pairs
+of $\overline P$ are the pairs $(-\lt_k,-\lt_{k-1})$ of $P$; the condition of
+Definition~\ref{def:regular} (every edge vector nonzero, no $\lt_k$ a negative
+multiple of $\lt_{k-1}$) is symmetric in the pair and invariant under
+negation, so it is preserved and $\sigma P,\overline P\in\mathcal R_n$. The
+identity for $\rho$ is then Lemma~\ref{lem:rot}(iii), and for $\sigma$ the
+multiset of principal turns is unchanged.
+\end{proof}
+
+\begin{definition}[admissible pairs]\label{def:admissible}
+A pair $(n,r)\in\ZZ^2$ is \emph{admissible} if $n\geq3$, $2|r|<n$ and
+$(n,r)\neq(3,0)$. It is \emph{minimal} if moreover $n=2|r|+1$ (for $r\neq0$)
+or $(n,r)=(4,0)$. For an admissible pair the \emph{fibre} is
+$\mathcal U_{n,r}=\{P\in\mathcal U_n:\rot(P)=r\}$; a vertex of a fibre is a
+generic polygon, a point of the quotient.
+\end{definition}
+
+\begin{lemma}[nonempty fibres]
+\label{lem:fibres}
+For integers $n,r$, a generic polygon with $n$ vertices and rotation $r$
+exists exactly when $n\geq3$, $2|r|<n$, and $(n,r)\ne(3,0)$.
+Here genericity means that every determinant of three distinct vertices
+is nonzero and no three distinct edge interiors meet. Moreover, for $n\geq3$
+the generic polygons are dense in $(\RR^2)^n$: every nonempty open set of
+labelled $n$-tuples contains a generic polygon.
+\status{proved (refereed: bench A, 2026-09-05T23:45:25Z and 2026-09-06T01:58:43Z; transcribed from CV thm:zeroanchor(A) (C003); round~4 scope note: CV(A) supplies existence for CV's genericity (every relevant member of CV's guarded list nonzero, which constrains only vertex triples containing a cyclically consecutive pair), strictly weaker than the genericity stated here from $n=6$ on (bench~A's witness $((0,0),\allowbreak(8,-11),\allowbreak(2,0),\allowbreak(5,-9),\allowbreak(-7,0),\allowbreak(6,-11))$); the all-triple construction $D_{ijk}$ printed in the proof is this document's own strengthening, refereed sound by bench~A (F-25-138); round~5: the density clause its proof establishes (every nonempty open subset of $(\RR^2)^n$, $n\geq3$, contains a generic polygon) exported in the statement, with one sentence of the proof pointing the avoidance argument at an arbitrary open set, F-25-146)}
+\end{lemma}
+\begin{proof}
+We use only Lemma~\ref{lem:rot}: rotation is
+integer-valued and constant on paths in the regular locus; subdivision
+preserves it; regular triangles have rotation $\pm1$; and a regular
+$n$-gon satisfies $2|\operatorname{rot}|<n$. The regular locus consists
+of polygons with nonzero edges and without antiparallel consecutive
+directions. Thus the three stated conditions are necessary. We print
+the existence argument, including its polynomial-avoidance step.
+
+\emph{Regular seeds.}
+First let $r>0$ and put $m=2r+1$, $\alpha=2\pi r/m$, and
+$q=\exp(\mathrm i\alpha)$. Identify the plane with $\mathbb C$ and take
+the ordered vertices $z_j=q^{j-1}$ for $1\leq j\leq m$.
+The integers $r,m$ are coprime, since a common divisor would divide
+$m-2r=1$. These vertices are therefore distinct. With cyclic indices,
+the edge directions satisfy
+\begin{equation}\label{fibpr:directions}
+d_j=z_{j+1}-z_j=q^{j-1}(q-1).
+\end{equation}
+Here $q^m=1$, so this includes the closing edge, and $q\ne1$, so every
+edge is nonzero. Successive directions satisfy $d_j=q d_{j-1}$, also
+across the closing corner. Since $0<\alpha<\pi$, every principal turn
+is exactly $\alpha$. The seed is regular, and its total turn is
+\begin{equation}\label{fibpr:rotation}
+\sum_{j=1}^{m}\vartheta_j=m\alpha=2\pi r.
+\end{equation}
+Consequently its rotation is $r$. For negative $r$, reverse the seed
+constructed for $|r|$; reversal negates rotation and preserves regularity.
+This construction uses no genericity or concurrency claim about a
+regular star and does not refer to a later star definition.
+
+For $r=0$, use the four ordered vertices
+$(0,0),(2,2),(0,2),(2,0)$. Its four directions are
+$(2,2),(-2,0),(2,-2),(-2,0)$, and its principal turns, starting at the
+first vertex, are respectively
+\begin{equation}\label{fibpr:bowtie}
+-3\pi/4,\quad 3\pi/4,\quad 3\pi/4,\quad-3\pi/4.
+\end{equation}
+Their sum is zero and none is antiparallel. This is a regular seed of
+rotation zero. In each case let $m$ be the number of seed vertices.
+The stated admissibility conditions imply $n\geq m$.
+
+\emph{Subdivision and a regular neighbourhood.}
+Insert $n-m$ distinct interior subdivision points in traversal order
+on any seed edge. All refined edge vectors are positive multiples of
+the former vector; each new principal turn is zero and all old turns
+are unchanged. The resulting $n$-gon $P_0$ is regular with rotation $r$.
+The regular locus is open: nonzero vectors form an open set, and for
+two nonzero vectors the condition that their unit directions sum to a
+nonzero vector is open and excludes exactly antiparallel directions.
+Choose an open ball $B$ about $P_0$ contained in this locus.
+Every point of $B$ is connected to $P_0$ by a straight path in $B$,
+so it has rotation $r$ by the preceding rotation-number lemma.
+
+\emph{Explicit nonzero polynomials.}
+All coordinates of all $n$ vertices may vary in $B$.
+For every three distinct indices $i,j,k$, let
+\begin{equation}\label{fibpr:triple}
+D_{ijk}=\det(\mu_j-\mu_i,\mu_k-\mu_i).
+\end{equation}
+This polynomial is not identically zero: assign these three vertices
+the coordinates $(0,0),(1,0),(0,1)$, respectively, obtaining value $1$.
+The remaining coordinates can be arbitrary for this test.
+
+For an edge from $(x_i,y_i)$ to $(x_{i+1},y_{i+1})$, define its
+homogeneous line-coefficient row by
+\begin{equation}\label{fibpr:line}
+\ell_i=(y_i-y_{i+1},\ x_{i+1}-x_i,\
+               x_i y_{i+1}-x_{i+1}y_i).
+\end{equation}
+Both endpoints satisfy $\ell_i\cdot(x,y,1)=0$ by direct substitution.
+For each unordered triple of pairwise remote edges $i,j,k$, put
+\begin{equation}\label{fibpr:concurrence}
+H_{ijk}=\det\begin{pmatrix}\ell_i\\\ell_j\\\ell_k\end{pmatrix}.
+\end{equation}
+These three edges have six distinct endpoint indices. Hence we can
+assign their ordered endpoint pairs independently as
+$(0,0),(1,0)$; $(0,0),(0,1)$; and $(0,1),(1,1)$.
+The rows in this assignment are $(0,1,0)$, $(-1,0,0)$, and $(0,1,-1)$;
+their determinant is $-1$. Thus each $H_{ijk}$ is a nonzero polynomial.
+Coinciding coordinates in this witness are harmless: it proves a
+polynomial identity is nonzero on the full coordinate space, rather
+than purporting to be a generic polygon or a point of $B$.
+
+If the three supporting lines have a common finite point $(x,y)$,
+their coefficient matrix annihilates the nonzero vector $(x,y,1)$.
+Its determinant then vanishes. Thus $H_{ijk}\ne0$ excludes triple
+interior concurrence for these three edges. It is a sufficient
+condition; no converse is used.
+
+\emph{Simultaneous avoidance in the small ball.}
+Let $F$ be the finite product of all the polynomials $D_{ijk}$, taking
+one order for each index triple, and all the polynomials $H_{ijk}$.
+An empty family of edge triples contributes the factor $1$.
+The polynomial ring over $\mathbb R$ has no zero divisors (the highest
+nonzero monomials in lexicographic order multiply to a nonzero highest
+monomial), so $F$ is nonzero.
+For completeness, a nonzero real polynomial cannot vanish on a
+nonempty open box. For one variable this follows from the finite root
+bound. Induct on the number of variables, writing the polynomial as a
+polynomial in the last variable with coefficient polynomials in the
+others. If it vanishes on a box, fixing the other variables makes it
+vanish on an interval; all its coefficients vanish at that fixed
+choice. They therefore vanish on the lower-dimensional box, and the
+inductive hypothesis makes every coefficient identically zero, a
+contradiction. Every open ball contains an open box. Hence some
+$P\in B$ has $F(P)\ne0$. The same avoidance applies to any nonempty open
+subset of $(\RR^2)^n$ in place of $B$, since it too contains an open box;
+with the genericity of such a $P$ shown next, this proves the density clause.
+
+At this $P$, the nonvanishing of every $D_{ijk}$ gives (G1), in
+particular nonzero edges and noncollinear consecutive vertices.
+Adjacent edges can meet only at their common endpoint: their lines
+are distinct and nonparallel because the consecutive-vertex
+determinant is nonzero. A point in three edge interiors therefore
+would require three pairwise remote edges. Its concurrence would
+force the corresponding $H_{ijk}$ to vanish, contrary to $F(P)\ne0$.
+This proves (G2). The polygon is generic and has rotation $r$ because
+it lies in $B$. This proves sufficiency and the lemma.
+\end{proof}
+
+\subsection{Walls}
+
+\begin{definition}[wall germ; sides]\label{def:germ}
+A \emph{wall germ} is a continuous map $P\colon(-\varepsilon,\varepsilon)\to
+(\RR^2)^n$ such that $P(t)\in\mathcal U_n$ for $t\neq0$ and $P(0)\notin
+\mathcal U_n$. Its \emph{sides} $P_-$ and $P_+$ are the chambers containing
+$P((-\varepsilon,0))$ and $P((0,\varepsilon))$; each of these two sets is
+connected and generic, hence lies in one chamber. For a function $F$ that is
+constant on chambers, $F(P_\pm)$ denotes its value on the respective side.
+At the centre $P(0)$ put
+\begin{align*}
+Z_{\rm pt}&=\bigl\{\{i,j,k\}\text{ pairwise distinct}:\chi_{ijk}(P(0))=0\bigr\},\\
+Z_{\rm c}&=\bigl\{\{e,f,g\}\text{ pairwise remote}:
+\operatorname{relint}E_e\cap\operatorname{relint}E_f\cap\operatorname{relint}E_g\neq\varnothing\text{ at }t=0\bigr\}.
+\end{align*}
+A real function $\phi$ of the germ \emph{changes sign at $0$} if there is
+$\delta>0$ with $\phi(P(t))\phi(P(-t))<0$ for $0<t<\delta$.
+\end{definition}
+
+\begin{lemma}[sides of a triple wall]\label{lem:triple-sides}
+Let a wall germ have $Z_{\rm pt}=\varnothing$ and
+$Z_{\rm c}=\{\{e,f,g\}\}$. Then for small $t\neq0$ the three pairs
+$\{e,f\},\{e,g\},\{f,g\}$ are crossings, their three crossing points
+are distinct, and on each of $E_e,E_f,E_g$ its two crossings occupy adjacent
+positions among the crossing visits on that edge.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RA R-LOC-2, stated there for a simple transversal event; the printed proof covers every germ with $Z_{\rm pt}=\varnothing$ and $Z_{\rm c}$ the single triple $\{e,f,g\}$ (C015; F-25-44))}
+\end{lemma}
+\begin{proof}
+At the centre (G1) holds. In particular all vertices and edges are nonzero,
+adjacent edges meet only at their common endpoint, and no vertex lies on the
+line of a nonincident edge. The specified common point $q$ lies in all three
+relative interiors. Two of their directions cannot be parallel: their lines
+would then coincide, forcing an endpoint of one remote edge onto the line
+of the other, contrary to (G1). Thus all three central intersections are
+transverse. Lemma~\ref{lem:wall-segment-stability} makes them persistent
+interior crossings. On either punctured side (G2) makes the three points
+distinct.
+
+In fact every remote edge pair at the centre is either disjoint or a transverse
+interior pair: endpoint incidence or overlapping collinear remote edges would
+contradict (G1). Thus the same stability lemma applies to all remote pairs and
+gives a fixed finite crossing set with continuous parameters near the centre.
+
+Suppose, contrary to the required adjacency on $E_e$, that for a sequence
+$t_\nu\to0$ another crossing lies between $x_{ef}$ and $x_{eg}$ on $E_e$.
+There are finitely many crossing labels, so after taking a subsequence this
+crossing has one fixed other edge $h\notin\{e,f,g\}$. The two bounding
+parameters converge to the parameter of $q$; the intervening parameter must
+have the same limit. Continuity of its intersection parameters puts $q$ in
+the relative interiors of $E_e$ and $E_h$. It is also interior to $E_f$.
+The edges $E_h,E_f$ cannot be adjacent: under (G1) adjacent edges meet only
+at their shared endpoint, whereas $q$ is interior to both. Hence $e,f,h$
+are pairwise remote and define an element of $Z_{\rm c}$ distinct from
+$\{e,f,g\}$, a contradiction. The same argument on $E_f$ and $E_g$ proves
+all three adjacency assertions on one common punctured interval. No sign-change
+hypothesis was used for this lemma.
+\end{proof}
+
+
+\begin{definition}[the named walls]\label{def:walls}
+A wall germ is \emph{simple of one of the following types}; the types are
+mutually exclusive.
+\begin{enumerate}
+\item[(F)] \emph{Flat at $j$} ($n\geq4$): $Z_{\rm pt}=\{\{j-1,j,j+1\}\}$,
+$Z_{\rm c}=\varnothing$, $\mu_j(0)$ lies strictly between $\mu_{j-1}(0)$ and
+$\mu_{j+1}(0)$, and $\tau_j$ changes sign at $0$. The \emph{right side} is the
+side with $\tau_j=-1$ and the \emph{left side} the one with $\tau_j=+1$.
+\item[(K)] \emph{Cusp at $j$} ($n\geq4$): $Z_{\rm pt}=\{\{j-1,j,j+1\}\}$,
+$Z_{\rm c}=\varnothing$, the three points $\mu_{j-1}(0),\mu_j(0),\mu_{j+1}(0)$
+are collinear with $\mu_j(0)$ outside the closed segment
+$[\mu_{j-1}(0),\mu_{j+1}(0)]$, and $\tau_j$ changes sign at $0$. The
+\emph{newborn pair} is $\{j-1,j+1\}$ if $\mu_{j+1}(0)$ lies between
+$\mu_{j-1}(0)$ and $\mu_j(0)$, and $\{j-2,j\}$ if $\mu_{j-1}(0)$ lies between
+$\mu_j(0)$ and $\mu_{j+1}(0)$. The \emph{loop side} $P_{\rm loop}$ is the side
+on which the newborn pair is a crossing and the \emph{no-loop side}
+$P_{\rm no}$ the other. The cusp is
+\emph{empty} if on the loop side the two visits of the newborn crossing are
+cyclically adjacent in the Gauss word.
+\item[(V)] \emph{Vertex--edge at $(M;a)$}: $M\notin\{a-1,a,a+1,a+2\}$,
+$Z_{\rm pt}=\{\{a,a+1,M\}\}$, $Z_{\rm c}=\varnothing$, $\mu_M(0)$ lies in the
+relative interior of $E_a(0)$, and $\chi_{a,a+1,M}$ changes sign at $0$. The
+germ is of \emph{bigon} type if $\chi_{a,a+1,M-1}(P(0))=\chi_{a,a+1,M+1}(P(0))$
+and of \emph{sliding} type otherwise. The \emph{contact sign} is
+$s=\chi_{a,a+1,M}(P_-)$.
+\item[(T)] \emph{Triple at $\{e,f,g\}$}: $Z_{\rm pt}=\varnothing$,
+$Z_{\rm c}=\{\{e,f,g\}\}$, and on each of the three edges the two crossing
+parameters of the other two edges (which exist on both sides by
+Lemma~\ref{lem:triple-sides}) have a difference that changes sign at $0$.
+\item[(E)] \emph{Exterior extension at $(M;a)$}: $M\notin\{a-1,a,a+1,a+2\}$,
+$Z_{\rm pt}=\{\{a,a+1,M\}\}$, $Z_{\rm c}=\varnothing$, $\mu_M(0)$ lies on the
+line of $E_a(0)$ outside the closed segment $E_a(0)$, and $\chi_{a,a+1,M}$
+changes sign at $0$.
+\item[(C)] \emph{Pure cut at $\{i,j,k\}$}: no two of $i,j,k$ are consecutive
+modulo $n$, $Z_{\rm pt}=\{\{i,j,k\}\}$, $Z_{\rm c}=\varnothing$, and
+$\chi_{ijk}$ changes sign at $0$.
+\end{enumerate}
+The walls (E) and (C) are called \emph{silent}. The type is determined by the
+centre; the sign-change conditions exclude tangential germs.
+\end{definition}
+
+\begin{lemma}[flat-side geometry]\label{lem:flat-sides}
+Let $n\geq4$ and let $P(t)=(\mu_1(t),\ldots,\mu_n(t))$ be continuous for
+$|t|<\varepsilon$. Indices are cyclic modulo $n$; put
+$E_i=[\mu_i,\mu_{i+1}]$ and $d_i=\mu_{i+1}-\mu_i$.
+For $t\ne0$ assume that no three distinct vertices are collinear and no
+three edge interiors concur. At $t=0$ suppose that the only collinear
+triple is $\{j-1,j,j+1\}$, that no three pairwise remote edge interiors
+concur, and that $\mu_j$ is strictly between $\mu_{j-1}$ and
+$\mu_{j+1}$. Suppose also that
+$\tau_j(t)=\operatorname{sgn}\det(d_{j-1}(t),d_j(t))$ changes sign at zero.
+At a transverse crossing of $E_e,E_f$, the \emph{positive over/under
+data} mean that $E_e$ is over $E_f$ exactly when $\det(d_e,d_f)>0$.
+Then, after shrinking the interval:
+\begin{enumerate}
+\item[(i)] The central polygon has nonzero edges and no antiparallel
+consecutive directions. Its only zero turn is at $j$, where the two
+directions are positive multiples. Every other point-triple determinant
+has constant nonzero sign on the whole interval.
+\item[(ii)] The set of remote edge pairs that cross is constant,
+including at zero. Each crossing is interior and transverse, no crossing
+is a vertex, all crossing points are distinct, and the crossing visits
+have constant order on every edge. Hence their cyclic Gauss word,
+pairing, interlacement graph, and positive over/under data are constant.
+Here the central crossing data are read from the segments of $P(0)$
+exactly as for a generic polygon: a crossing is a transverse intersection
+of the relative interiors of two remote edge segments, its two visits are
+ordered along each edge by the intersection parameters, and the Gauss
+word, pairing, interlacement graph and positive over/under data are formed
+from these visits as in Definitions~\ref{def:crossings}, \ref{def:gauss}
+and~\ref{def:interlace}; no function on the generic locus is evaluated at
+the flat centre.
+\item[(iii)] The deletion $Q=P(0)\setminus j$ is generic. The directions
+$u=d_{j-1}(0)$ and $v=d_j(0)$ fuse to $w=\mu_{j+1}(0)-\mu_{j-1}(0)$,
+and there is $0<\lambda<1$ with
+\begin{equation}\label{flatpr:fusion}
+u=\lambda w,\qquad v=(1-\lambda)w.
+\end{equation}
+Replacing either incident edge in a crossing label by the fused edge
+gives a bijection with the crossings of $Q$, preserving their cyclic
+visit order, pairing, determinant signs, and positive over/under data.
+The deletions $P(t)\setminus j$ are generic on a smaller interval and
+lie in the chamber of $Q$.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T23:45:25Z and 2026-09-06T04:22:56Z; transcribed from CV lem:flatdata --- (i),(ii) from its clauses (i),(ii); (iii) from its clause (ii) (the deletion is generic and carries the same data under the fused-edge identification) together with the fused-segment paragraph of its proof (the incident directions are positive multiples of the fused direction) and, for the nearby deletions lying in the chamber of the central one, CV thm:main(A)(i) (d9\_induction; stated there for CV's simple flat events under its guarded genericity, whereas this lemma asserts it under the all-triple genericity of its hypothesis, the printed proof carrying the wider scope; bench B, P-25-37/38, F-25-177) (P-25-3, C007); round~4: the flat-centre crossing data defined in clause~(ii), F-25-140; the proof's ``positive lift'' phrase replaced by the statement's positive over/under data, F-25-112)}
+\end{lemma}
+
+\begin{proof}
+Write $A=\mu_{j-1}(0)$, $M=\mu_j(0)$ and $B=\mu_{j+1}(0)$.
+All central vertices are distinct: if two coincided, adjoining each
+of two further indices would produce two distinct collinear triples;
+there are two further indices because $n\geq4$. This contradicts the
+unique-triple assumption. Thus all edges are nonzero. Every turn other
+than the one at $j$ uses a different triple, so its determinant is
+nonzero. Strict betweenness gives $M=A+\lambda(B-A)$ for exactly one
+$\lambda\in(0,1)$, proving \eqref{flatpr:fusion}. In particular the
+turn at $j$ is positive-flat, not antiparallel. Continuity and the
+finitely many nonzero central determinants give (i).
+
+\emph{No vertex contact at the centre.}
+A vertex on the line of an edge not incident to it would give a
+collinear triple. The sole permitted triple can occur in this way only
+as $B$ on the line of $[A,M]$ or $A$ on the line of $[M,B]$.
+Strict betweenness puts each such point outside the corresponding
+closed segment. Thus no vertex lies on a nonincident closed segment.
+Two adjacent edges other than the flat pair have nonparallel directions,
+and meet only at their common endpoint. The flat pair consists of the
+successive subsegments $[A,M]$ and $[M,B]$, also meeting only at their
+common endpoint. Hence no adjacent edge interiors meet.
+
+\emph{Crossing pairs.}
+For a remote pair whose four endpoint-against-line triples avoid
+$\{j-1,j,j+1\}$, those determinants have nonzero limits and constant
+signs. Two segments with all endpoints off the other segment's line
+cross if and only if each line separates the other segment's two
+endpoints. This is the pair of strict opposite-sign tests. To see
+sufficiency, intersect the two lines: opposite endpoint signs place
+their unique intersection inside each segment. Necessity follows by
+restricting the affine signed line equation to the other segment.
+The tests therefore give the same crossing answer at zero and on both
+sides. An actual intersection cannot be parallel: parallel intersecting
+lines would coincide, forcing an endpoint determinant to vanish.
+
+The only remote pairs whose tests can use the critical triple are
+$\{j-2,j\}$ and $\{j-1,j+1\}$. The line of $E_{j-2}(0)$ meets the
+flat line only at $A$; its other endpoint is off that line by the
+unique-triple assumption. Since $A\notin[M,B]$, the compact segments
+$E_{j-2}(0)$ and $E_j(0)$ are disjoint. Similarly the line of
+$E_{j+1}(0)$ meets the flat line only at $B\notin[A,M]$, so
+$E_{j-1}(0)$ and $E_{j+1}(0)$ are disjoint. Positive distances between
+these compact segment pairs persist under small changes of their
+endpoints. These pairs remain noncrossing on both sides. This covers
+all remote pairs, including when $n=4$.
+
+\emph{Order and crossing records.}
+Each crossing at zero has two nonparallel directions. Solving its
+two-by-two line-intersection system therefore gives continuous crossing
+parameters, strictly between zero and one at zero. There are finitely
+many pairs, so all these strict inequalities persist on one interval.
+If two distinct central crossings had the same point, at least three
+edge interiors would contain that point. None of those edges could be
+adjacent, by the preceding paragraph. This would be a forbidden
+concurrence of three pairwise remote edges. Thus crossing points are
+distinct. In particular, on a fixed edge all crossing parameters are
+distinct. The finitely many nonzero parameter differences retain their
+signs by continuity; crossing visits neither collide nor reorder.
+The Gauss word is just these edgewise lists concatenated in traversal
+order. Pairing is indexed by the fixed edge pairs, and interlacement is
+read from that word. For each actual crossing, the nonzero direction
+determinant keeps its sign. The same physical strand therefore remains
+over in the positive over/under data of the statement. This proves (ii)
+without a triple-wall lemma.
+
+\emph{Deletion and fusion.}
+The deletion's point triples are central parent triples avoiding $j$,
+so they are all noncollinear. At zero the oriented segment $[A,B]$
+is precisely the traversal of $[A,M]$ followed by $[M,B]$.
+No crossing of a remote edge with this segment can occur at $M$:
+that would put the parent vertex $M$ on a nonincident edge, already
+excluded. Thus such a crossing lies in exactly one of the two open
+subsegments and inherits its transverse direction and its pairing.
+An edge remote from $[A,B]$ is remote from both old subsegments.
+The reverse implication needs care only for the neighbours at $A,B$:
+their possible opposite-subsegment pairs are exactly the two compact
+disjoint pairs treated above. They create no discarded crossing.
+One remote straight edge cannot meet both old subsegments, since it
+meets their common line at most once. Hence the crossing-label map is
+bijective.
+
+If a crossing parameter on $[A,M]$ is $a$, its parameter on $[A,B]$
+is $\lambda a$; if it is $b$ on $[M,B]$, its fused parameter is
+$\lambda+(1-\lambda)b$. Thus the old first-edge visits precede the
+old second-edge visits, in exactly their original orders. Equation
+\eqref{flatpr:fusion} shows that every direction determinant involved
+changes only by a positive factor, preserving signs and over/under
+data. No triple of deletion edge interiors can concur: away from $M$
+it would give three parent edge interiors at the same point; at $M$
+it would put a remote parent edge through that parent vertex. Both
+are excluded. This proves genericity and all stated crossing data for
+$Q$. Finally, the finitely many strict noncollinearity, transverse
+crossing, disjointness and crossing-order conditions used above also
+prove openness of genericity near $Q$. By continuity, the connected
+small path $P(t)\setminus j$ stays in that open generic neighbourhood
+and hence in the chamber of $Q$. This proves (iii).
+\end{proof}
+
+\begin{lemma}[the sides of the named walls]\label{lem:wall-sides}
+Let the germ be simple of type (F), (V), (T), (E) or (C). Then
+$P(0)\in\mathcal R_n$. After shrinking the interval, every chirotope outside
+$Z_{\rm pt}$ is nonzero with constant sign. Every crossing not involved in
+the stated local degeneration persists, and the order of any two persistent
+visits with distinct central parameters is constant. Moreover:
+\begin{enumerate}
+\item[(F)] The crossing set and Gauss word are the same on both sides and
+at the centre.
+\item[(V)] In the bigon branch,
+\[
+ X(P_+)\mathbin\triangle X(P_-)=\{\{a,M-1\},\{a,M\}\},
+\]
+with both pairs crossing on one side and neither on the other. In the sliding
+branch exactly one of these two pairs crosses on each side, and the two sides
+exchange them. No other crossing is created or lost, and no order changes
+outside the contact neighbourhood.
+\item[(T)] The crossing set is the same on both sides. The only visit-order
+changes are the exchanges of the two triangle crossings on each of
+$E_e,E_f,E_g$.
+\item[(E),(C)] The crossing set and Gauss word are the same on both sides
+and at the centre.
+\end{enumerate}
+Here, when crossing data are mentioned at a nongeneric centre, they mean the
+transverse intersections of the relative interiors of the actual segments and
+their traversal order. This does not evaluate a function defined only on
+generic polygons at that centre.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV lem:flatdata; CV lem:silence, its proof, for (E),(C); RC tr:five-events, gw:germs (S3/S4/S7/R3 only), flat:pure (C015; F-25-45))}
+\end{lemma}
+\begin{proof}
+Case (F), including its central regularity and crossing data, is
+Lemma~\ref{lem:flat-sides}. We prove the remaining cases directly
+in the one-based tail convention $d_i=\mu_{i+1}-\mu_i$.
+
+\emph{Central distinctness and regularity.}
+The remoteness requirements give $n\geq5$ in (V),(E) and $n\geq6$ in (T),(C).
+If two central vertices coincided, adjoining each of two further indices
+would give two different zero point triples. This contradicts the permitted
+zero set, which has at most one member. Thus all central vertices are distinct
+and every edge is nonzero. A zero turn would give a consecutive zero triple.
+There is no such triple in any of (V),(T),(E),(C): the point zero set is empty
+in (T), has no adjacent pair in (C), and has just the adjacent pair $a,a+1$
+in (V),(E), because $M\notin\{a-1,a,a+1,a+2\}$. Hence every central turn
+in these cases is nonzero. In particular the centre has no kink and belongs
+to $\mathcal R_n$. Each other point determinant is nonzero at zero and is
+continuous; finitely many such determinants retain their signs nearby.
+
+\emph{Which segment pairs can change.}
+No remote pair can have collinear overlapping segments at the centre: its
+four distinct endpoint indices on a line would give more than one zero
+point triple. Apart from an endpoint incidence, a remote pair is therefore
+either disjoint or a transverse interior pair, and
+Lemma~\ref{lem:wall-segment-stability} applies. An endpoint incidence requires
+a zero point triple containing the two endpoints of its base edge. In (C)
+the only zero triple contains no adjacent pair, and in (T) there is no zero
+triple, so these cases have no endpoint incidence. In (V),(E), the only
+possible incidence is the specified vertex $M$ on the line of $E_a$.
+The only possibly affected remote pairs are consequently
+$\{a,M-1\}$ and $\{a,M\}$. All other pairs satisfy the stability lemma.
+
+\emph{The two vertex--edge branches, with the finite-segment test.}
+Write $A=\mu_a$, $B=\mu_{a+1}$, $D=B-A$, $M=\mu_M$, and take in turn
+$U=\mu_{M-1}$ and $U=\mu_{M+1}$. Put
+\begin{equation}\label{wallgeo:heights}
+ h=\det(D,M-A),\qquad h_U=\det(D,U-A).
+\end{equation}
+At the centre $h=0$ and $h_U\ne0$: another zero $h_U$ would give a second
+point triple, since both neighbour indices differ from $a,a+1,M$.
+Shrink so $h_U$ and $h_U-h$ are nonzero. The intersection of the supporting
+line of $E_a$ with the line $MU$ has the exact form
+\begin{equation}\label{wallgeo:contact-foot}
+ q_U=M+r_U(U-M),\qquad r_U=-\frac{h}{h_U-h}.
+\end{equation}
+Indeed its height is $h+r_U(h_U-h)=0$. When $h$ and $h_U$ have opposite
+signs, $r_U=|h|/(|h|+|h_U|)$ lies strictly between zero and one. When their
+signs agree, the height of every point in the relative interior of $MU$ has
+that common sign, so there is no such intersection. In the first case
+$r_U\to0$ and $q_U\to M(0)$. In case (V), $M(0)$ is strictly inside $E_a(0)$.
+The parameter of $q_U$ on the line $AB$ therefore tends to a number in $(0,1)$
+and remains in $(0,1)$ nearby. This supplies the second, finite-segment
+condition, not merely the straddling of the supporting line. The crossing is
+transverse since the two line directions have determinant $h_U-h\ne0$.
+
+Consequently each contact pair crosses precisely when the sign of $h$ is
+opposite to its neighbour sign. The two neighbour signs are equal in the
+bigon branch, giving both crossings or neither. They are opposite in the
+sliding branch, giving precisely one crossing on each side. By the defining
+sign change of $h$, the asserted exchanges follow. The predecessor leg is
+$E_{M-1}$ and the successor leg is $E_M$, so these are exactly the displayed
+tail-indexed pairs.
+
+\emph{Exterior extension.}
+At the centre in (E), each contact leg meets the supporting line of $E_a$
+only at $M(0)$, because $h_U(0)\ne0$. That point is outside the closed
+segment $E_a(0)$. Thus each contact leg is compact-disjoint from $E_a(0)$,
+and both pairs remain disjoint by Lemma~\ref{lem:wall-segment-stability}.
+All remote crossing pairs are therefore constant, including at the centre,
+in (E), as they already are in (C) and (T).
+
+\emph{Orders and localization.}
+Consider two persistent crossings on a common edge whose central parameters
+coincide. The other two edges then meet that base edge at the same point.
+If those other edges are remote, their common interior point gives a member
+of $Z_{\rm c}$. If they are adjacent, their nonzero central turn implies that
+their lines meet only at their shared vertex. The coincidence would put that
+vertex on the base edge. In (E),(C) no such endpoint incidence exists; in
+(T) none exists either, and its only concurrence is the named triple.
+It follows that all parameters in (E),(C) are centrally distinct and their
+orders are constant. Their fixed edge order then gives a fixed cyclic Gauss
+word, including at zero. In (T) the only possible ties are the two triangle
+visits on a bundle edge. Lemma~\ref{lem:triple-sides} makes each such pair
+adjacent. Their differences change sign by the definition of (T), so they
+exchange order, and every other order is fixed by the stability lemma.
+
+For (V), no persistent crossing has central point $M(0)$: any additional
+edge through that point would give a second endpoint-incidence triple.
+All persistent crossing parameters on $E_a$ are therefore separated from its
+contact parameter. Those on either incident leg are separated from its
+endpoint at $M$. Formula~\eqref{wallgeo:contact-foot} puts any newborn contact
+crossings arbitrarily close to those contact parameters. Finiteness gives
+neighbourhoods free of other crossings. Every other pair of persistent visits
+has distinct central parameters, since a tie would give either a forbidden
+triple concurrence or an additional vertex incidence. Their orders remain
+fixed. This proves the claimed localization and completes all cases.
+\end{proof}
+
+
+
+\begin{lemma}[sides of a cusp]\label{lem:cusp-sides}
+Let $n\geq4$ and let
+$P(t)=(\mu_1(t),\ldots,\mu_n(t))$, $|t|<\varepsilon$, be continuous.
+Indices are read modulo $n$, and
+$E_i=[\mu_i,\mu_{i+1}]$,
+$\widetilde\lambda_i=\mu_{i+1}-\mu_i$ and
+$\tau_i=\operatorname{sgn}\det(\widetilde\lambda_{i-1},\widetilde\lambda_i)$.
+Assume that $P(t)$ is generic for $t\ne0$: no three distinct vertices are
+collinear and no three edge interiors concur. At $t=0$ assume that the only
+collinear triple of distinct vertex indices is $\{j-1,j,j+1\}$, that no
+three pairwise remote edge interiors concur, that $\mu_j$ lies outside the
+closed segment $[\mu_{j-1},\mu_{j+1}]$, and that $\tau_j$ changes sign.
+These are the simple-cusp hypotheses in the present conventions.
+
+Use the following data, with the betweenness conditions imposed at $t=0$:
+\begin{equation}\label{cusppr:data}
+\begin{array}{c|c|c|c|c}
+\text{case}&\text{middle point on the line}&(f,g)&(c_1,c_2)&\Delta(t)\\ \hline
+\mathrm A&\mu_{j+1}\in(\mu_{j-1},\mu_j)&(j-1,j+1)&(j,j+1)&
+ \det(\widetilde\lambda_{j-1},\widetilde\lambda_{j+1})\\
+\mathrm B&\mu_{j-1}\in(\mu_j,\mu_{j+1})&(j-2,j)&(j-1,j)&
+ \det(\widetilde\lambda_{j-2},\widetilde\lambda_j)
+\end{array}
+\end{equation}
+Exactly one case applies. After shrinking the parameter interval:
+\begin{enumerate}
+\item[(i)] $\Delta$ is nonzero with constant sign. The remote pair
+$\{f,g\}$ crosses precisely on the side with
+$\tau_j=-\operatorname{sgn}\Delta$, called the loop side; it does not cross
+on the side with $\tau_j=\operatorname{sgn}\Delta$, called the no-loop side.
+No other crossing pair changes.
+\item[(ii)] On the no-loop side the turns at $c_1,c_2$ have opposite signs.
+On the loop side both have sign $\tau_j$.
+\item[(iii)] On the loop side, one oriented traversal arc between the two
+visits of the newborn crossing consists of a terminal portion of $E_f$,
+the complete edge between $c_1$ and $c_2$, and an initial portion of $E_g$.
+Its only polygon vertices are $\mu_{c_1},\mu_{c_2}$. This arc is allowed to
+contain other crossing visits. If the two newborn visits are cyclically
+adjacent in the Gauss word, this particular arc contains no other crossing
+visit. In that case the complete edge between $c_1,c_2$ carries no crossing
+on either side of the wall.
+\item[(iv)] With rotation defined by the sum of principal turns,
+\begin{equation}\label{cusppr:rotation-law}
+\operatorname{rot}(P_{\rm loop})-\operatorname{rot}(P_{\rm no})
+=\tau_j(P_{\rm loop})\in\{-1,1\}.
+\end{equation}
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV lem:cuspcases; RC mt:s4 for the rotation clause, $\kappa=+\tau_j$ on the loop side (P-25-1, C004))}
+\end{lemma}
+
+\begin{proof}
+First, all vertex coordinates at the centre are distinct. If two coincided,
+their triples with either of two further vertex indices would both be
+collinear. Such further indices exist because $n\geq4$, contradicting the
+sole-triple hypothesis. All edges at the centre are therefore nonzero.
+Put $A=\mu_{j-1}$, $M=\mu_j$, $B=\mu_{j+1}$, and, as functions of $t$, put
+\begin{equation}\label{cusppr:local-data}
+u=M-A,\qquad v=B-M,\qquad T=\det(u,v).
+\end{equation}
+Thus $\tau_j=\operatorname{sgn}T$ on the punctured sides. The distinct
+collinear points $A,M,B$ have a unique middle point; it is not $M$.
+This proves the two-case assertion. On each punctured side every point-triple
+determinant is nonzero, so its sign is constant by continuity.
+
+\emph{The newborn crossing in case A.}
+Let $w=\widetilde\lambda_{j+1}$, so that $E_g$ starts at $B$ and has
+direction $w$. Here $\Delta=\det(u,w)$. If $\Delta(0)=0$, the nonzero
+vector $w(0)$ would be parallel to the cusp line through $A,M,B$.
+Its other endpoint $\mu_{j+2}(0)$ would lie on that line too. The indices
+$j-1,j,j+2$ are distinct and give a second zero triple, a contradiction.
+Therefore $\Delta(0)\ne0$; it has one nonzero sign on a smaller interval.
+
+Write the intersection of the two supporting lines as $X=B+s w$.
+Membership in the line through $E_f$ means $\det(u,X-A)=0$.
+Since $B-A=u+v$, bilinearity gives, in separate steps,
+\begin{equation}\label{cusppr:A-det}
+\det(u,B-A)=\det(u,u)+\det(u,v)=T,
+\end{equation}
+\begin{equation}\label{cusppr:A-intersection}
+0=\det(u,X-A)=T+s\Delta,
+\qquad s=-\frac{T}{\Delta}.
+\end{equation}
+At $t=0$, $X=B$ lies strictly inside $E_f=[A,M]$ and $s=0$.
+The line intersection varies continuously because $\Delta$ remains nonzero.
+Consequently its parameter on $E_f$ remains strictly between $0$ and $1$,
+and $|s|<1$ on a smaller interval. It lies in the interior of $E_g$ exactly
+when $s>0$. Thus $E_f,E_g$ cross exactly when $T$ and $\Delta$ have
+opposite signs. This also proves that the new crossing is interior and
+transverse on the stated side.
+
+\emph{The newborn crossing in case B.}
+Let $h=\widetilde\lambda_{j-2}$, so that $E_f$ ends at $A$ and has
+direction $h$. Here $\Delta=\det(h,v)$. If $\Delta(0)=0$, the other
+endpoint $\mu_{j-2}(0)$ of $E_f$ would also lie on the cusp line, again
+giving a second zero triple. Hence $\Delta$ is nonzero with constant sign
+on a smaller interval. Write the intersection as $X=A-s h$, so $s>0$
+means moving into $E_f$ from its endpoint $A$. The relevant determinant is
+\begin{equation}\label{cusppr:B-det}
+\det(v,A-M)=\det(v,-u)=-\det(v,u)=T.
+\end{equation}
+Because $\det(v,h)=-\Delta$, its line equation becomes
+\begin{equation}\label{cusppr:B-intersection}
+0=\det(v,X-M)=T-s\det(v,h)=T+s\Delta,
+\qquad s=-\frac{T}{\Delta}.
+\end{equation}
+At $t=0$, $X=A$ is strictly inside $E_g=[M,B]$. Its parameter there
+remains interior, and $|s|<1$ on a smaller interval. The two segments
+therefore cross exactly when $s>0$, equivalently when $T$ and $\Delta$
+have opposite signs. Since $T$ changes sign, the loop and no-loop sides
+in both cases are distinct and have exactly the signs in (i).
+
+\emph{No other crossing pair changes.}
+For any remote pair, strict crossing is determined by the four signs of the
+endpoint-against-line determinants: each segment must separate the endpoints
+of the other. This criterion applies on both generic punctured sides.
+If none of those four triples is $\{j-1,j,j+1\}$, all four signs have
+the same nonzero limits and hence agree across the wall. Such a crossing
+pair cannot change.
+
+The only remote pairs whose tests can contain that triple are
+$\{j-1,j+1\}$ and $\{j-2,j\}$. Indeed the only edges joining two critical
+vertices are $[A,M]$ and $[M,B]$; adjoining the third critical vertex as an
+endpoint of a remote edge gives precisely these two pairs. In case A,
+the unused pair is $E_{j-2},E_j$. At the centre the supporting line of
+$E_{j-2}$ meets the cusp line only at $A$, since its other endpoint is
+off that line. But $A$ lies outside $[M,B]$, so the two compact segments
+are disjoint and remain disjoint nearby. In case B the unused pair is
+$E_{j-1},E_{j+1}$; the supporting line of $E_{j+1}$ meets the cusp line
+only at $B$, which lies outside $[A,M]$. The same compact-disjointness
+argument applies. This proves the last assertion of (i). It does not
+assert that the order of thread crossings is unchanged.
+
+\emph{The two needle turns.}
+In case A there is $a>0$ with $v(0)=-a u(0)$, because $B$ lies strictly
+between $A$ and $M$. The turn determinant at $B=\mu_{j+1}$ satisfies
+\begin{equation}\label{cusppr:A-needle}
+\det(v(0),w(0))=-a\det(u(0),w(0))=-a\Delta(0).
+\end{equation}
+It is nonzero and retains sign $-\operatorname{sgn}\Delta$ nearby.
+The other needle corner is $M$, whose sign is $\tau_j$. By (i), these
+signs are opposite on the no-loop side and equal on the loop side.
+In case B there is $a>0$ with $u(0)=-a v(0)$. The turn determinant at
+$A=\mu_{j-1}$ is therefore
+\begin{equation}\label{cusppr:B-needle}
+\det(h(0),u(0))=-a\det(h(0),v(0))=-a\Delta(0).
+\end{equation}
+It too retains sign $-\operatorname{sgn}\Delta$, while the other corner
+is $M$. Applying (i) gives (ii) also in case B.
+
+\emph{Threads and the empty condition.}
+In case A, start at the newborn visit on $E_{j-1}$ and follow the
+orientation. The traversal runs to $M$, along $E_j$ to $B$, and then
+along $E_{j+1}$ to the other newborn visit. This is the arc in (iii).
+In case B it runs from the newborn visit on $E_{j-2}$ to $A$, along
+$E_{j-1}$ to $M$, and then along $E_j$ to the other visit.
+Each description contains exactly the two specified polygon vertices.
+
+No crossing other than the newborn can have both visits on this short
+arc. The arc is contained in three consecutive edges. The two adjacent
+pairs have no interior intersection because their incident directions
+are linearly independent on a generic side. The remaining pair is the
+newborn pair; its two nonparallel supporting lines meet only once, at
+the newborn crossing itself. Thus any other crossing visit in the open
+short arc has its partner in the complementary open arc.
+
+If the newborn visits are cyclically adjacent in the Gauss word, at
+least one of those two open arcs contains no crossing visit. A crossing
+visit in the short arc would force a partner in the complementary arc,
+so would make both nonempty. Hence the short arc is crossing-free.
+In particular the complete edge between $c_1,c_2$ has no crossing on the
+loop side. This middle edge belongs to neither member of the newborn
+pair. By (i), every crossing pair involving it is unchanged, so it has
+no crossing on the no-loop side either. This proves (iii) without
+assuming that a general cusp is empty.
+
+\emph{The rotation sign.}
+Let $\vartheta_i(t)\in(-\pi,\pi)$ be the principal turn at vertex $i$
+on a punctured side. The quotient of consecutive unit edge directions
+is $\exp(\mathrm i\vartheta_i)$; multiplying around the polygon gives
+$\exp(\mathrm i\sum_i\vartheta_i)=1$. Therefore
+$\sum_i\vartheta_i$ is an integer multiple of $2\pi$, and
+$\operatorname{rot}(P)=(2\pi)^{-1}\sum_i\vartheta_i$ is an integer.
+Every principal turn is continuous away from an antiparallel pair of
+incident edges. It follows that rotation is constant on each of the two
+connected punctured sides.
+
+At the centre, every turn determinant except that at $j$ is nonzero:
+its three vertex indices would otherwise give a second collinear triple.
+The corresponding principal turns therefore have the same limits from
+the two sides. At $j$ the nonzero incident vectors are antiparallel.
+The principal turn tends to $+\pi$ on the side with $T>0$ and to
+$-\pi$ on the side with $T<0$. Set $s=\tau_j(P_{\rm loop})$.
+Then the loop-side limit of $\vartheta_j$ is $s\pi$ and the no-loop-side
+limit is $-s\pi$. Cancelling the common limits of all other turns gives
+\begin{equation}\label{cusppr:rotation-limits}
+2\pi\bigl(\operatorname{rot}(P_{\rm loop})-
+                 \operatorname{rot}(P_{\rm no})\bigr)
+=s\pi-(-s\pi)=2s\pi.
+\end{equation}
+Dividing by $2\pi$ proves (iv). No rotation is assigned to the singular
+centre, and no differentiability or unthreadedness was used.
+\end{proof}
+
+\begin{definition}[deletion and halves]\label{def:deletion-halves}
+For $n\geq4$ and $j\in\ZZ/n$, the \emph{deletion} $P\setminus j$ is the
+$(n-1)$-tuple obtained by omitting $\mu_j$, with the induced cyclic order.
+At a simple vertex--edge wall at $(M;a)$ with $b=a+1$, the \emph{halves} at
+the centre $P^0=P(0)$ are the polygons
+\[
+\lambda_1=(\mu_M,\mu_{M+1},\ldots,\mu_a),\qquad
+\lambda_2=(\mu_M,\mu_b,\mu_{b+1},\ldots,\mu_{M-1}),
+\]
+all vertices taken at $t=0$: $\lambda_1$ follows the edges $E_M,\ldots,E_{a-1}$
+of $P^0$ and closes with the segment $[\mu_a,\mu_M]\subset E_a$; $\lambda_2$
+opens with $[\mu_M,\mu_b]\subset E_a$, follows $E_b,\ldots,E_{M-2}$ and closes
+with $E_{M-1}$.
+\end{definition}
+
+\begin{lemma}[deletions and halves are generic]\label{lem:children}
+\begin{enumerate}
+\item[(i)] At a simple flat wall at $j$ with $n\geq4$, $P(0)\setminus j$
+is generic, and for small $t\ne0$ the deletions $P(t)\setminus j$ lie in
+the chamber of $P(0)\setminus j$.
+\item[(ii)] At a simple vertex--edge wall at $(M;a)$, both halves of
+Definition~\ref{def:deletion-halves} are generic and have between $3$ and
+$n-2$ vertices. The central parent is automatically regular.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T18:22:57Z; transcribed from CV lem:flatdata(ii), thm:main(H); RC flat:s3, s7:halves (C015); the two locators use different index conventions --- CV one-based tail, identical to this document; RC zero-based head with a one-step shift, its vertex $r$ being vertex $r+1$ here and its incoming edge $e_r$ the edge $E_r$ (Section~\ref{sec:conventions}) --- and the deletion $P(0)\setminus j$ and the vertex counts of the halves are stated in this document's labels (F-25-104); round~5: clause (i)'s chamber conclusion is also CV thm:main(A)(i), stated there for CV's simple flat events under its guarded genericity (Convention conv:events), whereas this document asserts it for the simple flat wall of Definition~\ref{def:walls} under the all-triple genericity of Definition~\ref{def:generic} --- the printed proof (Lemma~\ref{lem:flat-sides}(iii) with the openness of the generic locus) carries the wider scope, F-25-104 (codex B-Q1-CHILD-AI))}
+\end{lemma}
+\begin{proof}
+Clause (i) is the deletion assertion in
+Lemma~\ref{lem:flat-sides}(iii), which includes the fused-edge
+genericity proof. Its chamber conclusion also follows directly from openness
+of the generic locus and continuity of deletion: after shrinking, the image
+of the whole parameter interval, including zero, is connected and generic,
+so it lies in the connected component containing the central deletion.
+
+For (ii), put $b=a+1$. By Lemma~\ref{lem:wall-sides} the central parent
+has nonzero edges and nonzero turns. Relabel cyclically for the count only,
+so $M=1$ and $a=k$. The imposed restriction
+$M\notin\{a-1,a,a+1,a+2\}$ excludes $k=1,2,n-1,n$. Thus
+$3\leq k\leq n-2$. The first half has $k$ vertices and the second has
+$n-k+1$, which satisfies the same bounds. This count uses the stated SM1
+remoteness condition; it does not add a separate regular-path hypothesis.
+
+Each child vertex is a distinct inherited parent vertex. The only zero
+parent point triple is $\{a,b,M\}$. The first half contains $a,M$ but not
+$b$, and the second contains $M,b$ but not $a$, so neither contains this
+triple. Every child point determinant is therefore a nonzero parent
+determinant, proving (G1) for both halves.
+
+Every inherited child edge is a parent edge. The one cut edge in either
+half is a positive subsegment of $E_a$. More explicitly, for
+$M=A+\lambda(B-A)$ with $0<\lambda<1$, its two possible directed vectors
+are $\lambda d_a$ and $(1-\lambda)d_a$, respectively. A point in the
+relative interior of either cut edge is in the relative interior of $E_a$.
+If three distinct child edge interiors concurred, their parent edge images
+would be three distinct parent edges with an interior concurrence: each
+half has only one cut edge, so this edge map is injective. The parent edges
+must be pairwise remote, because adjacent central parent edges with nonzero
+turn meet only at their shared endpoint. Such a concurrence contradicts
+$Z_{\rm c}=\varnothing$. Hence both halves satisfy (G2), and together with
+their already proved (G1) this is exactly SM1 genericity.
+\end{proof}
+
+\subsection{Relative general position in the regular locus}
+
+% Printed in round 1 from the Codex pack candidate_transport_v1 (C021); the statement is RC tr:factors restricted to the Delta and T classes with RC tr:bezout for the per-coordinate certificates; the coordinate-affine specialization and the irreducibility argument are printed here (F-25-183).
+\begin{lemma}[the polynomial controls for SM genericity]
+\label{lem:transport-polynomials}
+Write the scalar vertex coordinates as $x_1,\ldots,x_{2n}$.
+For each unordered triple of distinct vertex indices use one ordered
+representative of
+\begin{equation}\label{transport:delta}
+ \Delta_{ijk}=\det(\mu_j-\mu_i,\mu_k-\mu_i).
+\end{equation}
+For each unordered triple of pairwise remote edges use one ordered
+representative of
+\begin{equation}\label{transport:T}
+ T_{efg}=\det\begin{pmatrix}\ell_e\\\ell_f\\\ell_g\end{pmatrix},
+ \qquad \ell_i=(-d_{i,y},d_{i,x},\det(\mu_i,d_i)),
+ \quad d_i=\mu_{i+1}-\mu_i.
+\end{equation}
+Let $\mathcal F$ be this finite family. Every member is nonzero and
+irreducible over $\mathbb R$, and distinct named members are nonassociate.
+Each is affine in every scalar coordinate separately. If $F$ depends on
+$x_j$, write $F=a x_j+b$; then $a$ is a nonzero polynomial in the other
+coordinates. If distinct $F=a x_j+b$ and $G=c x_j+d$ both depend on $x_j$,
+the polynomial $ad-bc$ is nonzero. At a specialization with $a\ne0$,
+the root of $F$ in $x_j$ is simple; at a specialization with $ad-bc\ne0$,
+the two polynomials have no common root.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC tr:factors restricted to the $\Delta$ and $T$ classes, with RC tr:bezout for the per-coordinate certificates (C021); the coordinate-affine specialization and the irreducibility argument are printed here (F-25-183))}
+\end{lemma}
+\begin{proof}
+The quadratic $q(u,v)=u_xv_y-u_yv_x$ has symmetric matrix, in the order
+$(u_x,u_y,v_x,v_y)$,
+\begin{equation}\label{transport:qmatrix}
+ \frac12\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
+\end{equation}
+Its rank is four. A nontrivial factorization of a homogeneous quadratic is
+a product of two homogeneous linear forms. If their coefficient vectors are
+$a,b$, the symmetric matrix of their product is
+$(ab^{\mathsf T}+ba^{\mathsf T})/2$, of rank at most two. Thus $q$ is
+irreducible. The vector pairs defining $\Delta$ and the auxiliary remote
+direction determinant $H_{ef}=\det(d_e,d_f)$ are independent linear coordinates:
+complete either surjective linear map to an invertible coordinate change.
+The polynomial is then $q$ with extra unused variables. A factorization cannot
+depend on an unused variable because polynomial degrees in that variable add.
+This proves irreducibility and nonzeroness of $\Delta$ and $H$.
+
+For $T$, the six endpoint occurrences are independent. Use the invertible
+tail/direction coordinates $(\mu_e,d_e),(\mu_f,d_f),(\mu_g,d_g)$.
+Writing the cross product of the first two line rows as $(A,B,C)$ gives
+$C=H_{ef}$. Expansion in the third row yields
+\begin{equation}\label{transport:T-expand}
+ T=d_{g,y}(\mu_{g,x}C-A)+d_{g,x}(B-\mu_{g,y}C).
+\end{equation}
+These two coefficients have no common nonconstant divisor. Indeed any
+irreducible common divisor is independent of $\mu_{g,x}$ because the second
+coefficient is, and independent of $\mu_{g,y}$ because the first is.
+Comparing coefficients would make it divide $A,B,C$. But $C=H_{ef}$ is
+irreducible and does not divide both $A,B$: take $d_e=d_f=(1,0)$ and tails on
+different horizontal lines. Then $C=0$ while $A\ne0$. Therefore the two
+coefficients in \eqref{transport:T-expand} are coprime. In a factorization
+of a polynomial homogeneous of degree one in $(d_{g,x},d_{g,y})$, one factor
+is independent of both variables and divides both coefficients. It must be
+a unit. This proves irreducibility of $T$; the same expansion proves it is
+nonzero.
+
+Each $\Delta$ depends on every vertex in its three-element support. Each
+$T$ depends on every endpoint in its six-element support: with one endpoint
+fixed, the line through it can be varied by moving its other endpoint;
+choose the other two lines to intersect away from the fixed endpoint to
+make the determinant vary. Thus different supports cannot give associates,
+and the three- and six-vertex families cannot give associates. For a fixed
+six-vertex support, the three pairwise remote cycle edges form a perfect
+matching. A proper subset of a cycle induces disjoint paths, each of which
+has at most one perfect matching (remove its first edge recursively).
+The only possible two matchings occur when $n=6$ and the support is the
+whole cycle; they are the two alternating matchings. At the specialization
+\begin{equation}\label{transport:T-n6-witness}
+ (\mu_1,\ldots,\mu_6)=((1,0),(2,0),(0,1),(0,2),(1,1),(2,2))
+\end{equation}
+the tail-indexed values are $T_{135}=0$ and $T_{246}=2$. Hence they too are
+nonassociate. One representative per unordered point triple already removes
+the sign associates among the $\Delta$'s.
+
+Every scalar endpoint coordinate occurs affinely in its edge line row, and
+the three rows of $T$ have disjoint endpoint supports. Hence $T$ is affine
+in each scalar coordinate. The same assertion for $\Delta$ follows by
+expanding its area determinant. Genuine dependence therefore has a nonzero
+slope $a$. Irreducibility of $a x_j+b$ implies that $a,b$ are coprime in
+the polynomial ring of the other coordinates: a nonconstant common divisor
+would factor $F$. Likewise $c,d$ are coprime. If $ad-bc=0$, coprimality
+of $a,b$ in this unique factorization domain implies $a\mid c$; put $c=au$.
+The identity then gives $d=bu$. Coprimality of $c,d$ forces $u$ to be a unit,
+so $G=uF$, contradicting nonassociation. Thus $ad-bc$ is a nonzero polynomial.
+After specialization, a nonzero slope makes a linear root simple, and
+$cF-aG=cb-ad$ excludes a common root when $ad-bc\ne0$.
+\end{proof}
+
+\begin{theorem}[relative general position and the wall dictionary]
+\label{thm:relgp}
+Let $\gamma:[0,1]\to\mathcal R_n$ be continuous with generic endpoints,
+and let $\delta>0$. There is a piecewise-affine path in $\mathcal R_n$ with
+the same labelled endpoints, uniformly within $\delta$ of $\gamma$, which
+is collision-free and whose nongeneric parameters are finitely many isolated
+simple wall germs, each of exactly one of the types (F), (V) bigon, (V)
+sliding, (T), (E), (C). No cusp occurs. Every occurrence label is retained.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z and 2026-09-06T01:50:42Z; transcribed from RC tr:gp, tr:five-events (C021))}
+\end{theorem}
+\begin{proof}
+\emph{Open neighbourhoods and endpoint collars.}
+The regular locus is open: nonzero edge lengths and avoidance of antiparallel
+direction pairs are open conditions. The generic locus is open as well.
+To see this directly under SM (G1),(G2), finitely many nonzero point determinants
+retain their signs near a generic tuple. Every central remote pair is either
+compact-disjoint or an interior transverse pair (Lemma~\ref{lem:g1}(v));
+disjointness persists, and a transverse interior crossing persists with
+continuous parameters, by Lemma~\ref{lem:wall-segment-stability}. Distinct crossing points have positive pairwise separation, since
+a coincidence would place at least three edge interiors at one point. Thus
+no triple interior concurrence appears in a sufficiently small neighbourhood.
+This proves openness even when a concurrence polynomial vanishes at an
+inactive configuration, such as three line extensions concurrent outside the
+segments. No all-polynomials-nonzero endpoint assumption is needed.
+
+Cover the compact image of $\gamma$ by axis-parallel open cubes with closures
+in $\mathcal R_n$ and diameters less than $\delta$. The endpoint cubes may
+be chosen inside the generic locus. A sufficiently fine subdivision
+$0=t_0<\cdots<t_N=1$ has each image
+$\gamma([t_{i-1},t_i])$ inside one such cube $C_i$, with the first and last
+cubes generic. Consecutive cubes overlap in a nonempty open set because they
+both contain $\gamma(t_i)$. Refine if necessary so $N\geq3$.
+
+Choose independent internal waypoints $z_i\in C_i\cap C_{i+1}$, while
+$z_0=\gamma(0)$ and $z_N=\gamma(1)$ remain fixed. Connect $z_{i-1}$ to $z_i$
+by changing their $2n$ scalar coordinates one at a time in a fixed order.
+Every intermediate hybrid belongs to $C_i$, since an axis-parallel cube is
+closed under coordinate hybridization. Parameterize these legs over
+$[t_{i-1},t_i]$. The old and new points at each time belong to the same
+cube, proving the uniform $\delta$ bound. All legs are regular. The first
+and last coordinate polylines are entirely generic; they are endpoint collars.
+Only legs joining two independently variable internal waypoints need further
+conditions.
+
+\emph{One joint algebraic choice for the central legs.}
+The product of the open waypoint sets is an open subset of a finite-dimensional
+real coordinate space. For each central leg moving scalar coordinate $x_j$,
+impose the following nonvanishing requirements:
+\begin{enumerate}
+\item Every $F\in\mathcal F$ is nonzero at both endpoint hybrids.
+\item For every $x_j$-dependent $F=a x_j+b$, the fixed-coordinate slope $a$
+is nonzero; for every distinct such pair $F,G$, its fixed-coordinate
+linear resultant $ad-bc$ is nonzero.
+\item The scalar step is nonzero, and both coordinate differences of every
+pair of vertex occurrences are nonzero at the endpoint hybrids.
+\end{enumerate}
+Every requirement is the nonvanishing of a nonzero polynomial in the joint
+waypoint variables. For the first two assertions, a central hybrid selects
+each coordinate from one of two independent internal waypoints; its projection
+contains an open coordinate box. A nonzero polynomial in the hybrid coordinates,
+or in the fixed coordinates of the leg, therefore cannot pull back to the zero
+polynomial. The nonzero slopes and resultants are supplied by
+Lemma~\ref{lem:transport-polynomials}. Coordinate-difference polynomials use
+distinct occurrence variables; the scalar step uses two independent values
+of the moving coordinate, so these polynomials also are nonzero.
+
+There are finitely many conditions. Their product is a nonzero polynomial,
+which cannot vanish on a nonempty real open set. For completeness, this last
+fact follows by induction on the number of variables: a univariate nonzero
+polynomial has finitely many roots; on a product of open intervals, fixing all
+but one variable would force every coefficient polynomial to vanish, and the
+induction hypothesis then forces the original polynomial to be zero.
+Thus one joint waypoint choice satisfies all requirements. Fixed original
+endpoints are excluded from this choice, which is why collars were separated.
+
+\emph{Finite simple roots and collision avoidance.}
+On a central leg a factor independent of $x_j$ stays at its nonzero endpoint
+value. A dependent factor is a genuinely linear polynomial in the moving
+coordinate with nonzero slope, hence has at most one root on the leg.
+Different factors have no common root by their nonzero linear resultant.
+No root is at a leg endpoint, and each root changes the sign of exactly one
+named factor because the scalar step is nonzero. Consequently all central
+roots are finite, isolated, smooth hypersurface crossings. Tangencies and
+intersections of distinct control hypersurfaces have been avoided by the
+explicit slope and resultant conditions, not by an unproved generic-position
+assertion.
+
+On a leg moving the $x$-coordinate of one vertex, its $y$-difference from
+every other vertex is fixed and nonzero. It cannot collide with any of them.
+All other vertex pairs are fixed and distinct. The same argument exchanges
+$x,y$ on a $y$-coordinate leg. The collars are generic and hence have distinct
+vertices. Thus the whole resulting path is collision-free, including its
+fixed endpoints. Every physical edge occurrence stays nonzero because all
+legs lie in their regular cubes. A chosen labelled edge can therefore be
+followed along the path without relabelling or deletion; no root-independence
+statement is used.
+
+If all members of $\mathcal F$ are nonzero, (G1) holds. Any triple interior
+concurrence would, under (G1), use pairwise remote edges and make one $T$
+zero, so (G2) holds too. Hence every nongeneric parameter is among the finite
+central roots. Some roots of an inactive $T$ may still be generic; they are
+not declared wall events. Collars contain no nongeneric parameters even when
+an inactive polynomial there has nonisolated zeros.
+
+\emph{A point-determinant root.}
+At a root of $\Delta_K$, exactly the point triple $K$ is collinear, all
+vertices remain distinct, and all $T$'s are nonzero. Thus $Z_{\rm pt}=\{K\}$
+and $Z_{\rm c}=\varnothing$. The determinant changes sign simply on the leg.
+Count the cyclically adjacent pairs in $K$. If there are at least two and
+$n\geq4$, $K=\{j-1,j,j+1\}$ is a consecutive triple. Its middle vertex
+must lie strictly between its neighbours, because otherwise the two consecutive
+directions there are antiparallel, contrary to regularity. This is exactly (F).
+When $n=3$, a distinct collinear triple forms a closed collinear triangle and
+necessarily has an antiparallel consecutive pair; such a root cannot lie in
+the regular cube.
+
+If there is exactly one adjacent pair, write it as $a,b=a+1$ and call the
+third index $M$. The lack of a second adjacent pair is precisely
+$M\notin\{a-1,a,a+1,a+2\}$. The contact point is not either endpoint, by
+collision freedom. If $M$ is strictly inside $[\mu_a,\mu_b]$, this is (V).
+Both neighbours of $M$ have nonzero heights over that line, since another
+zero height would be another point triple. Equal height signs give the bigon
+branch and opposite signs the sliding branch. If $M$ lies outside the closed
+segment, this is (E). Finally, no adjacent pair gives exactly the pairwise
+nonadjacent point triple of (C). These alternatives are exhaustive and disjoint.
+
+\emph{An active concurrence root.}
+At a root of a single $T_{efg}$ all point determinants are nonzero. If it is
+nongeneric, some three edge interiors concur; they must be pairwise remote,
+and their concurrence polynomial must be this unique zero member. Thus
+$Z_{\rm pt}=\varnothing$ and $Z_{\rm c}=\{\{e,f,g\}\}$. At their common
+interior point every pair is transverse, since coincident remote supporting
+lines would force a point-determinant zero. All three crossing pairs persist
+on nearby punctured sides by their continuous interior intersection parameters.
+
+To verify the sign-change part of (T), put $H_{ef}=\det(d_e,d_f)$ and write
+$q_{ef}=\mu_e+t_{ef}d_e$. The cross product of the first two line rows in
+\eqref{transport:T} equals $H_{ef}(q_{ef,x},q_{ef,y},1)$, as follows from
+its third coordinate $H_{ef}$ and the two line equations. Therefore
+\begin{equation}\label{transport:T-order}
+ T_{efg}=H_{ef}\det(d_g,q_{ef}-\mu_g)
+        =-(t_{ef}-t_{eg})H_{ef}H_{eg}.
+\end{equation}
+The second equality subtracts $q_{eg}=\mu_e+t_{eg}d_e$, which lies on
+the $g$ line, and uses $\det(d_g,d_e)=-H_{eg}$. The two $H$ factors are
+nonzero with constant sign near the root. The simple sign change of $T$
+therefore changes the sign of $t_{ef}-t_{eg}$. Apply the same calculation
+after cyclic permutation of $(e,f,g)$ to obtain the other two required
+parameter-difference sign changes. This is exactly (T).
+
+Every nongeneric parameter has now been classified as one named simple wall.
+There are no cusp walls, because their central antiparallel pair is excluded
+throughout the regular cubes. Both the endpoints and every occurrence label
+have been kept exactly as required.
+\end{proof}
+

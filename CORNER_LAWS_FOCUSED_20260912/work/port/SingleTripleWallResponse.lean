@@ -1,0 +1,141 @@
+import SM.UnorderedIntegerSingleTripleResponse
+
+/-! Source thm:single-triple (reference/SM/sm-2-amplitude.tex, frame SM15): the
+single-triple wall response of the tree coefficient `A_g`. Main declaration:
+`SM.WallGerm.single_triple_wall_response`.
+
+Notation of the statement. `w : WallGerm n` is the wall germ `t ↦ P(t)` (def:germ),
+`w.center = P(0)`; `pointZeroTriples`/`concurrenceTriples` are `Z_pt`/`Z_c`;
+`w.SignChanges φ` is "φ changes sign at 0"; `g` is the fixed physical root and
+`boundaryWord w.center g k = a_k`; an `IncreasingBoundaryTriple` `t` is `x<y<z`
+with `t.spanInterval = I_* = [x,z]`, `t.leftInterval = L`, `t.rightInterval = R`,
+`fullBoundaryInterval hn = F = [0,N]`; `geometricBoundaryArray P g t = H(x,y,z)
+= χ(a_z,a_y,a_x)` (def:nearfar); `wallLeftEpsilon`/`wallRightEpsilon` are ε_L, ε_R
+(afr:wall-epsilons); `gapE`/`gapB` below are `𝓔_J`/`𝓑_J` of lem:farout(iii);
+`wallU`/`wallV` are `𝓤_J`/`𝓥_J` (afr:wall-uv); `contractedWordTuple w.center g t`
+is `Q` (the boundary arc `a_x,…,a_z` replaced by the single edge from `a_x` to
+`a_z`, read from the root edge `0` = the original physical root `g`);
+`treeCoefficient` is `A_g`.
+
+The proof is the previous executor's kernel-checked candidate lane (work/checks,
+prototype UnorderedIntegerSingleTripleResponse, kernel session 17021), ported
+verbatim into the modules imported here, plus the glue in this file. -/
+
+namespace SM
+
+noncomputable section
+variable {n : ℕ} [NeZero n]
+
+local instance : Invertible (2 : ℚ) := invertibleOfNonzero (by norm_num)
+
+/-- `𝓔_J = F_H(c)_J` with `c = F_H⁻¹(E)` (lem:farout(iii)), over ℚ. -/
+def gapE (H : TripleArray n ℚ) (J : BoundaryInterval n) : ℚ :=
+  farTransform H (farOnlyCoordinates H) J
+
+/-- `𝓑_J = F_{-H}(c)_J` with `c = F_H⁻¹(E)` (lem:farout(iii)), over ℚ. -/
+def gapB (H : TripleArray n ℚ) (J : BoundaryInterval n) : ℚ :=
+  farTransform (-H) (farOnlyCoordinates H) J
+
+/-- afr:wall-uv: `𝓤_J = 𝓔_J` if `ε_J = 1`, `𝓑_J` if `ε_J = -1`. -/
+def wallU (H : TripleArray n ℚ) (J : BoundaryInterval n) (ε : SignType) : ℚ :=
+  if ε = 1 then gapE H J else gapB H J
+
+/-- afr:wall-uv: `𝓥_J = 𝓑_J` if `ε_J = 1`, `𝓔_J` if `ε_J = -1`. -/
+def wallV (H : TripleArray n ℚ) (J : BoundaryInterval n) (ε : SignType) : ℚ :=
+  if ε = 1 then gapB H J else gapE H J
+
+theorem wallGapU_eq_wallU (H : TripleArray n ℚ) (J : BoundaryInterval n) (ε : SignType) :
+    wallGapU H J ε = wallU H J ε := by
+  unfold wallGapU wallU gapE gapB farOnlyOutput
+  rw [farOnlyCoordinates_equation]
+
+theorem wallGapV_eq_wallV (H : TripleArray n ℚ) (J : BoundaryInterval n) (ε : SignType) :
+    wallGapV H J ε = wallV H J ε := by
+  unfold wallGapV wallV gapE gapB farOnlyOutput
+  rw [farOnlyCoordinates_equation]
+
+namespace WallGerm
+
+attribute [local instance] IncreasingBoundaryTriple.contractedSize_neZero
+attribute [local instance] Classical.propDecidable
+
+/-- thm:single-triple (single-triple wall response), all clauses as printed on SM15.
+Hypotheses: a wall germ with `Z_c = ∅`, `Z_pt = {K}` a single triple of pairwise
+distinct vertices, `χ_K` changing sign at zero, cut at a fixed physical root `g`.
+Conclusions: `x<y<z` are the critical boundary positions (the unique increasing
+reading of `K` at the root); the three wall points can be written
+`a_v = p + ξ_v • ω` with `ω ≠ 0` and distinct `ξ_v`; when `I_* ≠ F`, `Q` satisfies
+(G1), has at least three vertices and retains the physical root `g`; and for
+every such affine writing, `ε_L, ε_R ∈ {±1}`, `δ ∈ {-1, 1}` with
+`H⁺(x,y,z) - H⁻(x,y,z) = 2δ` on all sufficiently close punctured sides, and on
+those sides `A_g(P_+) - A_g(P_-) = δ 𝓤_L 𝓤_R A_g(Q)` if `I_* ≠ F`, and
+`= δ (𝓤_L 𝓤_R + 𝓥_L 𝓥_R)` if `I_* = F`, all gap and contracted values taken at
+the wall centre. -/
+theorem single_triple_wall_response (w : WallGerm n) (hn : 3 ≤ n) (g : ZMod n)
+    (K : Finset (ZMod n)) (hZpt : pointZeroTriples w.center = {K})
+    (hZc : concurrenceTriples w.center = ∅)
+    (hK : (K : Set (ZMod n)).Pairwise (fun i j => w.center i ≠ w.center j))
+    (a b c : ZMod n) (habc : ({a, b, c} : Finset (ZMod n)) = K)
+    (hchange : w.SignChanges (fun P => (chi P a b c : ℝ))) :
+    ∃ t : IncreasingBoundaryTriple n, ∃ hZt : pointZeroTriples w.center = {t.vertexSet g},
+      t.vertexSet g = K ∧ (∀ u : IncreasingBoundaryTriple n, u.vertexSet g = K → u = t) ∧
+      (∃ p ω : Plane, ∃ x y z : ℝ, ω ≠ 0 ∧
+        boundaryWord w.center g t.lower = p + x • ω ∧
+        boundaryWord w.center g t.middle = p + y • ω ∧
+        boundaryWord w.center g t.upper = p + z • ω ∧ y ≠ x ∧ z ≠ y ∧ z ≠ x) ∧
+      (t.spanInterval ≠ fullBoundaryInterval hn →
+        G1 (contractedWordTuple w.center g t) ∧ 3 ≤ t.contractedSize ∧
+        contractedWordTuple w.center g t 0 = w.center g ∧
+        contractedWordTuple w.center g t 1 = w.center (g + 1) ∧
+        edge (contractedWordTuple w.center g t) 0 = edge w.center g) ∧
+      ∀ p ω : Plane, ∀ x y z : ℝ, ω ≠ 0 →
+        boundaryWord w.center g t.lower = p + x • ω →
+        boundaryWord w.center g t.middle = p + y • ω →
+        boundaryWord w.center g t.upper = p + z • ω → y ≠ x → z ≠ y → z ≠ x →
+        (wallLeftEpsilon x y z = 1 ∨ wallLeftEpsilon x y z = -1) ∧
+        (wallRightEpsilon x y z = 1 ∨ wallRightEpsilon x y z = -1) ∧
+        ∃ d : ℤ, (d = -1 ∨ d = 1) ∧ ∃ δ : ℝ, 0 < δ ∧ δ ≤ w.radius ∧
+          ∀ sMinus sPlus : w.Parameter, ∀ hMinus : sMinus.val < 0, ∀ hPlus : 0 < sPlus.val,
+            |sMinus.val| < δ → |sPlus.val| < δ →
+            (geometricBoundaryArray (R := ℤ) (w.curve sPlus) g t -
+              geometricBoundaryArray (R := ℤ) (w.curve sMinus) g t = 2 * d) ∧
+            ((treeCoefficient (w.curve sPlus) (w.generic_punctured sPlus (ne_of_gt hPlus)).1 g hn : ℚ) -
+              (treeCoefficient (w.curve sMinus) (w.generic_punctured sMinus (ne_of_lt hMinus)).1 g hn : ℚ) =
+              (d : ℚ) *
+                (if hp : t.spanInterval ≠ fullBoundaryInterval hn then
+                  wallU (geometricBoundaryArray w.center g) t.leftInterval (wallLeftEpsilon x y z) *
+                    wallU (geometricBoundaryArray w.center g) t.rightInterval (wallRightEpsilon x y z) *
+                    (treeCoefficient (contractedWordTuple w.center g t)
+                      (contractedWord_G1 w.center g t hZt) 0 (t.contractedSize_of_proper hn hp) : ℚ)
+                else
+                  wallU (geometricBoundaryArray w.center g) t.leftInterval (wallLeftEpsilon x y z) *
+                    wallU (geometricBoundaryArray w.center g) t.rightInterval (wallRightEpsilon x y z) +
+                  wallV (geometricBoundaryArray w.center g) t.leftInterval (wallLeftEpsilon x y z) *
+                    wallV (geometricBoundaryArray w.center g) t.rightInterval (wallRightEpsilon x y z))) := by
+  obtain ⟨t, ⟨ht, ⟨hba, hcb, hca⟩, hsign⟩, _⟩ :=
+    w.single_triple_boundary_data g K hZpt hK a b c habc hchange
+  have hZt : pointZeroTriples w.center = {t.vertexSet g} := by rw [ht]; exact hZpt
+  refine ⟨t, hZt, ht,
+    fun u hu => IncreasingBoundaryTriple.vertexSet_injective g (hu.trans ht.symm), ?_, ?_, ?_⟩
+  · exact critical_boundary_affine_data w.center g t hZt hba hcb hca
+  · intro hp
+    exact ⟨contractedWord_G1 w.center g t hZt, t.contractedSize_of_proper hn hp,
+      contractedWord_last_vertex w.center g t, contractedWord_first_vertex w.center g t,
+      contractedWord_physical_root w.center g t⟩
+  · intro p ω x y z hω hx hy hz hyx hzy hzx
+    have hε := wall_epsilons_one_or_neg_one x y z hyx hzy hzx
+    refine ⟨hε.1, hε.2, ?_⟩
+    obtain ⟨d, hd, δ, hδ, hrad, hresp⟩ :=
+      w.single_triple_tree_response_of_affine (R := ℚ) g hn t hZt hZc hsign
+        p ω x y z hω hx hy hz hyx hzy hzx
+    refine ⟨d, hd, δ, hδ, hrad, ?_⟩
+    intro sMinus sPlus hMinus hPlus hnm hnp
+    have hr := hresp sMinus sPlus hMinus hPlus hnm hnp
+    refine ⟨?_, ?_⟩
+    · apply integer_jump_of_rat_half
+      simpa only [geometricBoundaryArray_intCast] using hr.1
+    · simpa only [wallGapU_eq_wallU, wallGapV_eq_wallV] using hr.2
+
+end WallGerm
+end
+end SM

@@ -1,0 +1,42 @@
+\begin{lemma}[subpolygons and their visit assignment]\label{lem:carriers}
+Let $P=(\mu_1,\ldots,\mu_n)$, $n\geq3$, be a generic polygon: for every
+three distinct indices the vertex determinant is nonzero, and no three
+edge interiors concur.
+Use one-based cyclic indices, directed edges
+$E_i=[\mu_i,\mu_{i+1}]$, directions $d_i=\mu_{i+1}-\mu_i$, and turns
+$\tau_i=\operatorname{sgn}\det(d_{i-1},d_i)$.
+Let $X(P)$ be its set of transverse crossings of remote edges. The
+traversal circle has two visits for each crossing, in the order of the
+oriented traversal. Crossings interlace when their two pairs of visits
+alternate on that circle. Let $S\subseteq X(P)$ be independent: no two
+elements of $S$ interlace. Perform the above oriented reconnections,
+tracing the resulting cycles by inherited straight subsegments, with
+corners at original vertices and selected smoothing sites. Call these
+polygonal cycles the carriers, and use the incoming-visit convention.
+Then:
+\begin{enumerate}
+\item[(i)] There are exactly $|S|+1$ carriers, independent of the order
+of reconnections. Each carrier traverses the visits assigned to it in
+their cyclic order inherited from the original traversal circle.
+The two visits of a selected crossing belong to different carriers.
+\item[(ii)] Every carrier has nonzero edges, at least three corners,
+and no antiparallel consecutive directions. All its corner turns are
+nonzero. At an original vertex $i$ the turn sign is $\tau_i$.
+At a selected crossing of $E_i,E_j$, the two smoothing corners have
+signs $\operatorname{sgn}\det(d_i,d_j)$ and
+$\operatorname{sgn}\det(d_j,d_i)$, one left and one right.
+\item[(iii)] A carrier's self-intersections are exactly the unselected
+crossings both of whose visits are assigned to it. They are transverse,
+none is a corner, and no carrier has a triple point. An unselected
+crossing interlacing some element of $S$ has its visits on different
+carriers; an unselected crossing interlacing no element of $S$ has
+both visits on one carrier.
+\item[(iv)] The assignment of \emph{all} crossing visits is noncrossing.
+There are no four distinct visits $u_1$, $u_2$, $u_3$, $u_4$ in that cyclic order
+with $u_1,u_3$ on one carrier and $u_2,u_4$ on a different carrier.
+This includes selected visits under the stated convention.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T19:48:09Z; transcribed from CV lem:carriers, lem:carrierword (d7\_anchors, d6\_vertexedge); RC def:canonical-total) for clauses (i)--(iii); clause (iv), ``including every selected visit'', is a new argument of round~1 with no frozen-source locator, cleared by bench~A on SM4 (2026-09-05T19:48:09Z) and listed in Section~\ref{sec:newlist} (F-25-133, F-25-134; with Convention~\ref{conv:selected-visits}, C005)}
+\end{lemma}
+
+\begin{proof}

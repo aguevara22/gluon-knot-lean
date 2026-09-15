@@ -1,0 +1,46 @@
+-- STATEMENT ONLY (proof removed). Module: SM.ShiftTheorem ; declaration: SM.shift_reversal
+import SM.ShiftReversal
+
+namespace SM
+
+variable {n : ℕ} [NeZero n]
+
+/-- z(P): the number of zero turns of a labelled tuple (SM15 lem:shift(iii)). -/
+noncomputable def zeroTurns (P : LabelledTuple n) : ℕ :=
+  (Finset.univ.filter (fun i => turn P i = 0)).card
+
+/-- All four clauses of SM15 lem:shift for the labelled tuple `P` (n ≥ 3):
+(i) the chirotope and edge identities under σ = `shift 1` and ρ = `reversal`;
+(ii) σ and ρ map the generic locus onto itself, map (labelled and cyclic)
+chambers onto chambers, and relabel the crossing set; (iii) the turn identities
+and ℓ(P̄) = n − ℓ(P) − z(P), with ℓ(P̄) = n − ℓ(P) for generic P; (iv) on the
+regular locus σP and P̄ are regular, rot(σP) = rot(P) and rot(P̄) = −rot(P). -/
+theorem shift_reversal (hn : 3 ≤ n) (P : LabelledTuple n) :
+    (∀ i j k, chi (shift 1 P) i j k = chi P (i + 1) (j + 1) (k + 1)) ∧
+    (∀ i j k, chi (reversal P) i j k = chi P (2 - i) (2 - j) (2 - k)) ∧
+    (∀ i, edge (shift 1 P) i = edge P (i + 1)) ∧
+    (∀ i t, edgePoint (shift 1 P) i t = edgePoint P (i + 1) t) ∧
+    (∀ i, edge (reversal P) i = -edge P (1 - i)) ∧
+    (∀ i t, edgePoint (reversal P) i t = edgePoint P (1 - i) (1 - t)) ∧
+    (Generic (shift 1 P) ↔ Generic P) ∧
+    (Generic (reversal P) ↔ Generic P) ∧
+    Function.Surjective (genericShift (1 : ZMod n)) ∧
+    Function.Surjective (genericReversal (n := n)) ∧
+    (∀ Q : GenericTuple n,
+      genericShift 1 '' labelledChamber Q = labelledChamber (genericShift 1 Q)) ∧
+    (∀ Q : GenericTuple n, polygonProjection (genericShift 1 Q) = polygonProjection Q) ∧
+    (∀ Q : GenericTuple n,
+      genericReversal '' labelledChamber Q = labelledChamber (genericReversal Q)) ∧
+    (∀ Q : GenericPolygon n,
+      genericPolygonReversal '' chamber Q = chamber (genericPolygonReversal Q)) ∧
+    crossingSet (shift 1 P) = (crossingSet P).image (translateSupport (-1)) ∧
+    crossingSet (reversal P) = (crossingSet P).image reverseSupport ∧
+    (∀ i, turn (shift 1 P) i = turn P (i + 1)) ∧
+    (∀ i, turn (reversal P) i = -turn P (2 - i)) ∧
+    (leftTurns (reversal P) : ℤ) = n - leftTurns P - zeroTurns P ∧
+    (Generic P → zeroTurns P = 0 ∧ (leftTurns (reversal P) : ℤ) = n - leftTurns P) ∧
+    (Regular P → Regular (shift 1 P) ∧ Regular (reversal P) ∧
+      rotationNumber (shift 1 P) = rotationNumber P ∧
+      rotationNumber (reversal P) = -rotationNumber P) := sorry -- (proof withheld from the reviewer)
+
+end SM

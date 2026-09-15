@@ -1,0 +1,43 @@
+{
+  "utc": "2026-09-11T19:24:21.087021+00:00",
+  "kernel_session": 61164,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "files_sha256": {
+    "work/checks/SignedCriticalJump.prototype.lean": "ae571bf82ef0fc96f3eb001129666d40e10e4cbf98a3fc5ba0840f7356dc71e7",
+    "work/checks/SignedCriticalJump-second-kernel.log": "5f2a0428d8b316524d183866250fc2229523342b1240c979a92cede50e43230d",
+    "work/checks/SignedCriticalJump.body.lean": "98e8e750a50f6c3ead9740ebcfba4ea05cceda3624a0c7f6ec81e7a485c31ffc"
+  },
+  "printed_declarations": [
+    "SM.sign_half_difference",
+    "SM.WallGerm.side_chi_signChanges_opposite",
+    "SM.WallGerm.chi_signChanges_parameters",
+    "SM.WallGerm.boundary_half_jump_signed"
+  ],
+  "declaration_axioms": {
+    "SM.sign_half_difference": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.side_chi_signChanges_opposite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.chi_signChanges_parameters": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.boundary_half_jump_signed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Four signed-jump candidates passed; frozen. Stronger statement-fidelity review pending.",
+  "preserved_failed_session": 57122,
+  "proof_repair": "In a proof-local finite sign case split, substituted the opposite sign before kernel decide. All theorem statements retained.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

@@ -1,0 +1,65 @@
+{
+  "id": "def:shift",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "e63594e2c5752b11f26d08cf49a2797e65957691b02b6255ad179f237be6e7ef",
+  "verdict": "faithful",
+  "reason": "Compared the complete source definition labelled def:shift (the reversal definition) with SM.reversal_definition, SM.reversal and its actual cyclic-quotient construction. The representative map is exactly reversal P i=P(2-i), with index arithmetic in ZMod n, and the theorem explicitly proves that label 1 retains P 1. This matches the source one-based convention, including residue zero representing the final vertex, rather than using the different map i maps to -i or reversing around a different base vertex. The formula reverses cyclic traversal: the supporting edge identity is edge(reversal P,i)=-edge(P,1-i), and the supporting turn identity is turn(reversal P,i)=-turn(P,2-i), both with the correct orientation and offsets. The exact conjugacy reversal(shift a P)=shift(-a)(reversal P) proves the source's 'commutes with the shift up to a shift.' reversal_respects_cyclic then supplies well-definedness to Quotient.map on the existing Polygon n hn quotient, and polygonReversal_mk identifies its value on every representative with the class of that representative's actual reversal. The cyclic equivalence relation has not been enlarged to identify a polygon with its reversal. Involution is proved for the quotient map, as an additional valid property, without replacing reversal by a trivial identity. All raw tuples on the inherited n>=3 domain are included; no genericity, nonzero edge, regularity or orientation-invariance hypothesis is added. Degenerate or specially symmetric tuples may of course have a reversal in their own cyclic orbit, but no universal distinction or universal cyclic equivalence is asserted. The source rho notation denotes this same reversal map, so no separate operation is missing. The text's caution that later laws are not automatically reversal-invariant is respected: the aggregate asserts the source operation and its descent plus concrete sign-changing edge/turn formulas, not invariance of the corner laws or any later theorem. The audited semantic dependency inventory binds reversal, polygonReversal, the actual Polygon/cyclicSetoid/shift definitions and the geometric edge/turn meanings. All source clauses are covered. Current source and all three inspected supporting file hashes match the passed development receipt, which audited 344 declarations with only propext, Classical.choice and Quot.sound and is not a completed-stage certificate. This is one original definition row; the supporting involution, edge and turn lemmas are not additional original claims.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.reversal_apply",
+    "SM.reversal_fixes_one",
+    "SM.reversal_involutive",
+    "SM.reversal_shift",
+    "SM.reversal_respects_cyclic",
+    "SM.polygonReversal_mk",
+    "SM.polygonReversal_involutive",
+    "SM.edge_reversal",
+    "SM.turn_reversal"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Reversal.lean": "be95b73303a842c7eefbd41aa0422541e05e97e0a4f4f71f7f06cb070707747b"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 386,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 398,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "0ee8085b1d6934386f2651298f5b3889356a005deb9ae3f1b4ec4de98f1bb43a",
+    "to_excerpt_sha256": "0ee8085b1d6934386f2651298f5b3889356a005deb9ae3f1b4ec4de98f1bb43a",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:398-405, byte-identical in SM15, not reworded) defines on a representative P=(mu_1..mu_n) the reversal (P-bar)_i = mu_{2-i} for i in Z/n, notes it fixes mu_1 and reverses the traversal, asserts it commutes with the shift up to a shift and hence descends to polygons, and names the map rho. Lean (work/lean/SM/Reversal.lean): `reversal P := fun i => P (2 - i)` on `LabelledTuple n = ZMod n -> Plane` (Polygon.lean:14) is exactly mu_{2-i} with one-based labels in ZMod n (the same index convention as `shift k P i = P (i+k)`, Polygon.lean:22, so shift 1 = sigma); `reversal_fixes_one` (Reversal.lean:16) is 'fixes mu_1'; `reversal_shift` (Reversal.lean:26) gives reversal (shift a P) = shift (-a) (reversal P), the precise form of 'commutes with the shift up to a shift'; `reversal_respects_cyclic` and `polygonReversal := Quotient.map reversal _` (Reversal.lean:33-41) on the actual `Polygon n hn = Quotient (cyclicSetoid n)` (Polygon.lean:34-47, orbit relation exists k, Q = shift k P) is the asserted descent to polygons, with `polygonReversal_mk` pinning its value on every representative. The bundling theorem `reversal_definition (hn : 3 <= n)` (Reversal.lean:75-88) conjoins these clauses plus involutivity and the identities edge (reversal P) i = -edge P (1-i), turn (reversal P) i = -turn P (2-i) (checked by hand against `edge P i = P(i+1) - P i`, Polygon.lean:49, and `turn P i = chi P (i-1) i (i+1)`, `chi = sign det`, Chirotope.lean:10-13), which make the 'reverses the traversal / change of orientation' remark concrete. Domain n >= 3 as in def:polygon; no genericity or other hypothesis added; every clause is universally quantified over all tuples, nothing vacuous; the cyclic relation is not enlarged to identify P with its reversal. The Lean definitions denote the printed objects. The remaining sentence ('not a relabelling ... no law below is asserted to be invariant under it') is meta-commentary with no formal content and is correctly not asserted. Current file hashes for Polygon.lean, Chirotope.lean, Reversal.lean and sm-1-polygons.tex match the accepted review record.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Reversal.lean:20-24 / 75-88: involutivity of reversal and of polygonReversal is proved and included in reversal_definition; the source definition does not state it (true, harmless extra).",
+      "Reversal.lean:56-72 / 85-86: the explicit identities edge (reversal P) i = -edge P (1 - i) and turn (reversal P) i = -turn P (2 - i) are asserted; the source only says informally that reversal 'reverses the traversal' and is 'a change of orientation' (the turn negation is later used in the proof of lem:rot(iii)). These are correct consequences, not part of the printed definition.",
+      "Reversal.lean:11: `reversal` on LabelledTuple n is defined for every n (including n < 3), whereas the source works with n >= 3; the bundling theorem and polygonReversal carry the source's `3 <= n`, so this is only a harmless generalization of the helper."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Reversal.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-shift.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

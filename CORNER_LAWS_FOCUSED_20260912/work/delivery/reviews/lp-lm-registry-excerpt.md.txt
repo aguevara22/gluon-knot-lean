@@ -1,0 +1,33 @@
+## lp:lm — AXIOM
+
+reference/SM/sm-3-statesum.tex:935–960
+
+```tex
+\begin{literature}[Exact local LM construction projection]\label{lp:lm}\label{src:lm}
+For every such diagram $D$, let $F_D(l,m)$ be the function constructed in
+Section~1 of Lickorish--Millett~\cite{LickorishMillett}, not an arbitrary function with similar
+values. The source constructs it in
+$\mathbb Z[l^{\pm1},m^{\pm1}]$, independently of the auxiliary component
+order, nonsingular basepoints, and order of required crossing switches.
+It is defined modulo positive page isotopy, satisfies
+\begin{equation}\label{lp:source-skein}
+ l F_{D_+}+l^{-1} F_{D_-}+m F_{D_0}=0,
+ \qquad \mu=-(l+l^{-1})m^{-1},
+\end{equation}
+and has the initialization $F_D=\mu^{c-1}$ for every based ordered
+$c$-component UNDER-first diagram. UNDER-first means that, traversing
+components in their order, from their basepoints and in their orientations,
+the first encounter with each crossing is the underpass. In particular
+every crossing-free $c$-component diagram has that value, regardless of
+nesting or orientations. Here $c\geq1$.
+
+The same function is invariant under each actual ordinary oriented
+Reidemeister move. For a supplied finite sequence, take the maximum of the
+finitely many crossing counts and apply source Proposition~4 at that level
+one move at a time. No bound by the endpoint crossing counts is required.
+The imported construction and its Propositions~1--6 stop before the final
+p120 inference from arbitrary ambient isotopy to a finite move sequence.
+\status{lit: Registry~\ref{reg:homfly}; local construction only}
+\end{literature}
+```
+

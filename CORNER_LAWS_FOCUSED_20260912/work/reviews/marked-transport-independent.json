@@ -1,0 +1,193 @@
+{
+  "review_schema": "independent-read-only-fragment-statement-review-v1",
+  "reviewer": "/root/review_mark_transport",
+  "timestamp_utc": "2026-09-11T06:12:47.605816+00:00",
+  "status": "pass: independent source-fidelity review of the two frozen declarations only",
+  "independence": "Reviewer authored neither frozen declaration nor the earlier review_relgp_full consumer from which these fragments were adapted. The canonical implementation, authoritative source and mathlib transport definitions were read directly. The earlier consumer was read for provenance; its verdict is not used as a substitute for this review.",
+  "read_only": {
+    "implementation_edits": false,
+    "existing_file_edits": false,
+    "kernel_executed": false,
+    "lake_executed": false,
+    "build_executed": false,
+    "audit_executed": false,
+    "only_created_file": "work/reviews/marked-transport-independent.json"
+  },
+  "scope": {
+    "declarations": [
+      "SM.BoundaryCutSet.marked_transport_val",
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks"
+    ],
+    "not_reviewed": "Other declarations in NearFarFactorization.body.lean, the complete factorization proof, factor weights, child-product transport, inverse maps, far-only output, and source lemma farout as a whole are outside this review.",
+    "acceptance_increment": 0
+  },
+  "files_sha256": {
+    "work/checks/NearFarFactorization.body.lean": "35c2ef4e8fea67fc7b2dd25ecd3adb4c201f98ae54229d19a6e84fa55c50e21b",
+    "work/checks/NearFarFactorization.prototype.lean": "c0de88b2dff15d65ef66a6e9a1e0660e55f340ba2f156082d0daaef7b2e2c2a3",
+    "work/checks/NearFarFactorization-prototype-result.json": "eb3142c2d6998710afbe1c0c5a4bd7ed1ba12436c7a29aeda868bec5dde82f24",
+    "work/checks/NearFarFactorization-first-subprocess-result.json": "787ff83234a52aab2c374a461b90b8e50ee4c25ea54f9b2a4991f31b52c85897",
+    "work/checks/NearFarFactorization-first-kernel.log": "b7d02b2419d4ad4117ed67ead89db8acf4687e587d4634a59167a4d328011fb8",
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/.lake/packages/mathlib/Mathlib/Logic/Equiv/Defs.lean": "0c4b1241027da7c0b0766af8c3dfb1616fd0af73caec56270970edf4842c76b1",
+    "work/lean/.lake/packages/mathlib/Mathlib/Logic/Equiv/Basic.lean": "7ecb0239b0db90f731ec3f8fdb73b12ba74229ccf4b3a30ae86a4af9e2529fcd",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "lean/axiom-policy.json": "272a02de90d1ee3db99bc73fa77e070875e7d222c28193b04b421018c650c9b3",
+    "FINAL_REVIEW.md": "f56627a4f4a5ff7a4750383e480e27f01cfc2b5f61440ffe279e3d19f912487b"
+  },
+  "body_occurs_exactly_once_in_prototype": true,
+  "reviewed_declarations": [
+    {
+      "path": "work/checks/NearFarFactorization.body.lean",
+      "first_line": 7,
+      "last_line": 10,
+      "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+      "sha256": "0a325635d4e5ed7914c055892db136deb39559039a9c01521bd786fe668f89de",
+      "text": "theorem BoundaryCutSet.marked_transport_val {S T : BoundaryCutSet I} (h : S = T)\n    (m : MarkedCuts S) : (h ▸ m : MarkedCuts T).val = m.val := by\n  subst T\n  rfl\n",
+      "declaration": "SM.BoundaryCutSet.marked_transport_val",
+      "lexical_context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {I : BoundaryInterval n}; second declaration additionally inside namespace IntervalComposition",
+      "statement_text": "theorem BoundaryCutSet.marked_transport_val {S T : BoundaryCutSet I} (h : S = T)\n    (m : MarkedCuts S) : (h ▸ m : MarkedCuts T).val = m.val",
+      "statement_text_sha256": "47af37fb01ee332964c249b241db1086c5ea72fdb91c43e5481ac8a85000b3c7",
+      "type_status": "Exact frozen source statement with surrounding variable and namespace context; this is not a fresh elaborator #check/#print extraction."
+    },
+    {
+      "path": "work/checks/NearFarFactorization.body.lean",
+      "first_line": 16,
+      "last_line": 24,
+      "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+      "sha256": "f61dd34066bff4049b6c88e84cee163b03b8dfc7a645a4b74388c6ecb0aca9bc",
+      "text": "theorem nestedMarkedCutEquiv_marks (π : IntervalComposition I)\n    (σ : ∀ k : Fin π.parts, IntervalComposition (π.part k)) :\n    (nestedMarkedCutEquiv I ⟨π, σ⟩).2.val = π.cutSet.interior.val := by\n  let T := π.flattenCutSets (fun k => (σ k).cutSet)\n  let m : MarkedCuts T := ⟨π.cutSet.interior.val,\n    (BoundaryCutSet.cuts_subset_iff_interior_subset π.cutSet T).mp\n      (π.outer_cuts_subset_flatten (fun k => (σ k).cutSet))⟩\n  change (T.toComposition_cutSet.symm ▸ m : MarkedCuts T.toComposition.cutSet).val = _\n  exact BoundaryCutSet.marked_transport_val T.toComposition_cutSet.symm m\n",
+      "declaration": "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+      "lexical_context": "namespace SM; noncomputable section; variable {n : ℕ} [NeZero n] {I : BoundaryInterval n}; second declaration additionally inside namespace IntervalComposition",
+      "statement_text": "theorem nestedMarkedCutEquiv_marks (π : IntervalComposition I)\n    (σ : ∀ k : Fin π.parts, IntervalComposition (π.part k)) :\n    (nestedMarkedCutEquiv I ⟨π, σ⟩).2.val = π.cutSet.interior.val",
+      "statement_text_sha256": "f567a061fa1d6dc43d074593811704c62bb3d9b68e8de47a48d97cd6fd081be0",
+      "type_status": "Exact frozen source statement with surrounding variable and namespace context; this is not a fresh elaborator #check/#print extraction."
+    }
+  ],
+  "canonical_equivalence": {
+    "path": "work/lean/SM/MarkedRefinement.lean",
+    "first_line": 83,
+    "last_line": 91,
+    "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+    "sha256": "609f5d3d2249611b05acefc940b52277d2123eaff4fa0f0db1d2c362e213338a",
+    "text": "def nestedMarkedCutEquiv (I : BoundaryInterval n) :\n    (Σ π : IntervalComposition I, ∀ k : Fin π.parts, IntervalComposition (π.part k)) ≃\n      Σ ρ : IntervalComposition I, MarkedCuts ρ.cutSet :=\n  (Equiv.sigmaCongrRight (fun π => π.nestedCompositionEquiv)).trans\n    ((swapSigmaSubtype (fun (π : IntervalComposition I) (T : BoundaryCutSet I) =>\n        π.cutSet.cuts ⊆ T.cuts)).trans\n      ((Equiv.sigmaCongrRight (fun T => outerCompositionMarkedEquiv T)).trans\n        (Equiv.sigmaCongrLeft (β := fun T : BoundaryCutSet I => MarkedCuts T)\n          (cutSetEquiv I)).symm))\n"
+  },
+  "canonical_mark_domain": {
+    "path": "work/lean/SM/MarkedRefinement.lean",
+    "first_line": 9,
+    "last_line": 10,
+    "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+    "sha256": "6ee017d7456925fa906add474af2b76aece2c10ebb587032cc1d34572accaa3e",
+    "text": "abbrev MarkedCuts (S : BoundaryCutSet I) :=\n  {m : Finset (Fin n) // m ⊆ S.interior.val}\n"
+  },
+  "mathlib_dependent_transport": {
+    "path": "work/lean/.lake/packages/mathlib/Mathlib/Logic/Equiv/Defs.lean",
+    "first_line": 701,
+    "last_line": 706,
+    "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+    "sha256": "e513d4ee5bbbc22dc8193399e852c5003cdc26ddd682e918ef4b18d58bbe9541",
+    "text": "def sigmaCongrLeft {α₁ α₂ : Type*} {β : α₂ → Sort _} (e : α₁ ≃ α₂) :\n    (Σ a : α₁, β (e a)) ≃ Σ a : α₂, β a where\n  toFun a := ⟨e a.1, a.2⟩\n  invFun a := ⟨e.symm a.1, (e.right_inv' a.1).symm ▸ a.2⟩\n  left_inv := fun ⟨a, b⟩ => by simp\n  right_inv := fun ⟨a, b⟩ => by simp\n"
+  },
+  "authoritative_source": {
+    "composition_domain": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 23,
+      "last_line": 27,
+      "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+      "sha256": "e1a1d4e01a1c458f6fb91b25c02f53ca3e73318544637b353238a84a7b35e5d1",
+      "text": "$[i,j]$ of integers $0\\leq i<j\\leq N$; it has $j-i$ leaves. A\n\\emph{composition} of $[i,j]$ is a sequence $\\pi=(r_0<r_1<\\cdots<r_s)$ with\n$r_0=i$, $r_s=j$, $s\\geq1$; its \\emph{parts} are the intervals\n$[r_{k-1},r_k]$, and $|\\pi|=s$.\n\\end{definition}\n"
+    },
+    "refinement_proof": {
+      "path": "reference/SM/sm-2-amplitude.tex",
+      "first_line": 180,
+      "last_line": 199,
+      "extraction": "Inclusive UTF-8 source lines, exact bytes including terminating newlines",
+      "sha256": "fcedca141f48afd1be0cf5ade7003d387abe5cfe20718f4e5db1e43b6452ab39",
+      "text": "Expand $F_H(G_D(X))_{ij}$. Its terms are indexed by an outer\ncomposition of $[i,j]$ and an inner composition of each outer part.\nTheir ordered union is a refined composition\n$\\rho=(r_0<\\cdots<r_s)$, with the subset of its interior cuts marked\nas outer cuts. Conversely, cut $\\rho$ at the marked cuts to recover\nthe outer parts and restrict $\\rho$ to each part to recover its inner\ncomposition. This is a bijection, including empty and full marked\nsubsets and unary inner or outer compositions.\n\nAt a marked cut $r_k$ the coefficient is $-H(i,r_k,j)/2$.\nAt an unmarked cut its immediate neighbors in $\\rho$ are precisely\nits neighbors inside the same inner part, since that part's endpoints\nare also in $\\rho$. Its coefficient is\n$D(r_{k-1},r_k,r_{k+1})/2$. Each interior cut supplies one factor,\nand the product of child coordinates is exactly the refined product.\nSumming over every subset of marked cuts independently chooses the\nnear or negative far summand at each cut. Distributivity yields the\nproduct of their sums, precisely the coefficient of $\\rho$ in\nDefinition~\\ref{def:nearfar}. This proves \\eqref{afr:factor}, with all\nneighboring near gates accounted for.\n"
+    }
+  },
+  "source_fidelity_findings": [
+    {
+      "topic": "Physical cut positions",
+      "assessment": "MarkedCuts S is the subtype of finite subsets of Fin n contained in S.interior.val. Consequently the conclusion compares the actual boundary positions. It does not compare cardinalities, enumeration indices, or an arbitrary equivalent marking domain."
+    },
+    {
+      "topic": "Equality transport lemma",
+      "assessment": "For arbitrary equal BoundaryCutSet values S and T on the same interval and any MarkedCuts S, equality elimination identifies T with S. Transport then reduces to identity, so the underlying Finset is unchanged. The proof subst T; rfl justifies precisely that step. The equality hypothesis is structural transport data, not an assumed version of the source refinement theorem."
+    },
+    {
+      "topic": "Forward canonical equivalence",
+      "assessment": "nestedCompositionEquiv first replaces every raw inner composition by its complete cut set and unions them as T = π.flattenCutSets (fun k => (σ k).cutSet), retaining the derived containment of the outer cut set. swapSigmaSubtype records T first while retaining π. outerCompositionMarkedEquiv applies cutSetEquiv to π and outerMarkedEquiv then selects π.cutSet.interior.val. These maps preserve the exact outer cuts before the final dependent transport."
+    },
+    {
+      "topic": "Dependent transport direction",
+      "assessment": "The final inverse sigmaCongrLeft uses cutSetEquiv.symm T = T.toComposition. Its inverse function transports the marking by the symmetry of its right-inverse equality. Here that equality is T.toComposition_cutSet : T.toComposition.cutSet = T; hence the applied transport is T.toComposition_cutSet.symm : T = T.toComposition.cutSet. This exactly matches the frozen change line. The first reviewed lemma proves its .val remains π.cutSet.interior.val."
+    },
+    {
+      "topic": "Validity of the constructed mark",
+      "assessment": "outer_cuts_subset_flatten includes every outer cut in T because it is an endpoint of an inner part, also handling the global right endpoint. cuts_subset_iff_interior_subset removes the two common global endpoints, proving π.cutSet.interior.val is a subset of T.interior.val. Thus m is constructed from existing proved containment; no new hypothesis is introduced."
+    },
+    {
+      "topic": "Endpoint conventions",
+      "assessment": "BoundaryInterval has left < right in Fin n; IntervalComposition has an arbitrary positive natural part count and a strictly increasing cut sequence with those exact endpoints. cutSet includes both endpoints, and interior is exactly (cuts.erase I.left).erase I.right. Global endpoints are therefore never marked, while interior outer boundaries, including shared inner endpoints, are retained once as physical positions. This agrees with source lines 23-27 and 180-187."
+    },
+    {
+      "topic": "Complete and unary domains",
+      "assessment": "The theorem quantifies over every raw outer IntervalComposition I and every dependent family of raw inner compositions. No lower bound beyond parts_pos or nonempty-mark premise occurs. Unary outer compositions have no interior marks; unary inner compositions supply their two endpoint cuts. MarkedCuts permits the empty and entire interior subset. outerFromMarks adjoins exactly the two endpoints, so the canonical inverse represents these extreme cases without discarding them."
+    },
+    {
+      "topic": "Extra premises and concealed assumptions",
+      "assessment": "Both fragments occur before coefficient ring variables are introduced. They assume only the boundary types, the structural equality in the transport helper, and the original complete nested input. The ambient [NeZero n] is inherited; any BoundaryInterval already has two strictly ordered positions, so this introduces no source-domain loss. No geometric condition, asserted bijection, factorization premise, extra arity bound, sorry, admit, native_decide, or axiom declaration appears in the reviewed proof text. The existing kernel log reports only policy-standard axioms for both declarations."
+    }
+  ],
+  "existing_kernel_evidence": {
+    "receipt": "work/checks/NearFarFactorization-prototype-result.json",
+    "receipt_hashes_match_current_body_prototype_log": true,
+    "recorded_first_run_passed": true,
+    "recorded_subprocess_exit_code": 0,
+    "reviewed_axiom_log_lines": [
+      "'SM.BoundaryCutSet.marked_transport_val' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "'SM.IntervalComposition.nestedMarkedCutEquiv_marks' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    "standard_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "evidence_nature": "Read existing successful prototype receipt/log, with fresh byte-hash matching; did not execute or independently reproduce the kernel run. The receipt is kernel evidence, not the basis of mathematical source fidelity."
+  },
+  "limitations_and_next_check": {
+    "type_and_proof_limit": "No fresh elaborated type extraction, transitive axiom traversal, or imported-olean/source consistency check was performed. The exact declaration source and canonical dependency sources read here are hash-bound. Existing successful prototype compilation and its axiom trace support proof/type correctness; this report independently supplies source-fidelity reasoning only.",
+    "independent_kernel_needed_for_this_statement_review": false,
+    "kernel_rationale": "No unresolved type or proof concern calls for a duplicate independent kernel run of these unchanged prototype fragments. This does not assert that such a run occurred, waive final acceptance checks, or cover a later canonical port. Recompilation and normal axiom/source checks remain required for changed files or a canonical installation, with final checker requirements governed by FINAL_REVIEW.md."
+  },
+  "progress_snapshot_read_only": {
+    "path": "work/progress/latest.json",
+    "value": {
+      "timestamp_utc": "2026-09-11T05:48:35+00:00",
+      "name": "Corner state sum: wall laws and soft theorem",
+      "metric": "accepted checklist rows (reported statuses; not effort or proof verification)",
+      "accepted": 38,
+      "total": 192,
+      "percentage": 19.8,
+      "added_since_previous": [],
+      "targets_accepted": 0,
+      "targets_total": 8,
+      "active": [
+        "SM-foundations"
+      ],
+      "blocked_local": [
+        "SM-shift-original-scope"
+      ],
+      "acceptance": {
+        "1": "not established by a current checker receipt"
+      }
+    },
+    "note": "Stored reported-status snapshot only; this reviewer did not run the shared progress reporter or change checklist acceptance."
+  }
+}

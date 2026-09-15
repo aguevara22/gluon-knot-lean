@@ -1,0 +1,144 @@
+{
+  "types": {
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": "SM.IntervalComposition.eq_single_of_parts_eq_one {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (hparts : \u03c0.parts = 1) : \u03c0 = SM.IntervalComposition.single I",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": "SM.IntervalComposition.parts_eq_one_iff_eq_single {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : \u03c0.parts = 1 \u2194 \u03c0 = SM.IntervalComposition.single I",
+    "SM.IntervalComposition.single_part": "SM.IntervalComposition.single_part {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n)\n  (k : Fin (SM.IntervalComposition.single I).parts) : (SM.IntervalComposition.single I).part k = I",
+    "SM.IntervalComposition.single_product": "SM.IntervalComposition.single_product.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  (X : SM.BoundaryInterval n \u2192 R) (I : SM.BoundaryInterval n) : \u220f k, X ((SM.IntervalComposition.single I).part k) = X I",
+    "SM.IntervalComposition.nonSingleEquiv": "SM.IntervalComposition.nonSingleEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  { \u03c0 // \u03c0 \u2260 SM.IntervalComposition.single I } \u2243 { \u03c0 // 2 \u2264 \u03c0.parts }",
+    "SM.BoundaryCutSet": "SM.BoundaryCutSet {n : \u2115} (I : SM.BoundaryInterval n) : Type",
+    "SM.BoundaryCutSet.ext": "SM.BoundaryCutSet.ext {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S T : SM.BoundaryCutSet I) (h : S.cuts = T.cuts) :\n  S = T",
+    "SM.BoundaryCutSet.card_ge_two": "SM.BoundaryCutSet.card_ge_two {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) : 2 \u2264 S.cuts.card",
+    "SM.BoundaryCutSet.toComposition": "SM.BoundaryCutSet.toComposition {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) :\n  SM.IntervalComposition I",
+    "SM.IntervalComposition.cutSet": "SM.IntervalComposition.cutSet {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) : SM.BoundaryCutSet I",
+    "SM.IntervalComposition.cutSet_card": "SM.IntervalComposition.cutSet_card {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  \u03c0.cutSet.cuts.card = \u03c0.parts + 1",
+    "SM.IntervalComposition.cutSet_injective": "SM.IntervalComposition.cutSet_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} :\n  Function.Injective SM.IntervalComposition.cutSet",
+    "SM.BoundaryCutSet.toComposition_cutSet": "SM.BoundaryCutSet.toComposition_cutSet {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) :\n  S.toComposition.cutSet = S",
+    "SM.IntervalComposition.cutSet_toComposition": "SM.IntervalComposition.cutSet_toComposition {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : \u03c0.cutSet.toComposition = \u03c0",
+    "SM.IntervalComposition.cutSetEquiv": "SM.IntervalComposition.cutSetEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  SM.IntervalComposition I \u2243 SM.BoundaryCutSet I"
+  },
+  "type_sha256": {
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": "7d790735a60090fb6d6a46be61060857eb70b64d803e015cb09bf382699c5147",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": "6e056711324ee54f35381dc337aac8fd38de192996c4ff21f170f1c9ddcb3e0b",
+    "SM.IntervalComposition.single_part": "dc57be8ab7e262e789c274bcdc57f2c9be4ba75e0cdf548b8a553cffb1fd85a3",
+    "SM.IntervalComposition.single_product": "4891ed810edd707d3b7f0b5a9d4dcaf3f149aabf7012f5705b2ea385fa46b3bc",
+    "SM.IntervalComposition.nonSingleEquiv": "4e29b72aa634fa84dae10640fa9ccd32d0282dd0f1d7d5d8c173d4596b8951eb",
+    "SM.BoundaryCutSet": "39f09e18efb6ffc25213b0a212fa9780784059406d2b1122fbaa8af238217bce",
+    "SM.BoundaryCutSet.ext": "4a28a910f505ad9f93b9cd107f0170f257cce0e3a10fb001539ce58648c24ed9",
+    "SM.BoundaryCutSet.card_ge_two": "8c8c93e90f2141f6ba6291167f92522a6941d8eccfbb5f922c2349d248c7b175",
+    "SM.BoundaryCutSet.toComposition": "0cf11ba5bd048e25f1fe53bb62a53cf3b6db8f47b053f954e2e153b896783050",
+    "SM.IntervalComposition.cutSet": "6b1cd69b7d0017ef4d3fb30cdf3ee27f1d76e1422e8a79dbaba3f1b809b94a6a",
+    "SM.IntervalComposition.cutSet_card": "5f8c49b8e4e28690b05a4b71a796c864fbe3ba4a65c60a139b55575d2e6a5188",
+    "SM.IntervalComposition.cutSet_injective": "66527e831532615b828cb75d1518ad6afa1b9e9952ae56f68cf0b6b9b8e0cd66",
+    "SM.BoundaryCutSet.toComposition_cutSet": "edb99497fdc17c520fc30d38a226ac421722225ac84eb0383cf4a71f9302a702",
+    "SM.IntervalComposition.cutSet_toComposition": "5b383b653f2db41abe059cda91798ed01d002447deac036bf3b99d54d3b1ff75",
+    "SM.IntervalComposition.cutSetEquiv": "879b929dbab2bfe613c29767eeee18a02469da168bf5c98c22858ca61dd61059"
+  },
+  "axioms": {
+    "SM.IntervalComposition.eq_single_of_parts_eq_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.single_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.single_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nonSingleEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.ext": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.card_ge_two": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.toComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.cutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.cutSet_card": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.cutSet_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.toComposition_cutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.cutSet_toComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.cutSetEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.every_raw_cut_set_admitted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.unary_cut_set_is_exactly_endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.full_cut_coverage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.exact_cut_membership": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.complete_raw_roundtrip": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CompositionCutSetIndependentReview.same_cut_set_iff_same_composition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "all_five_UnaryComposition_predecessor_types_unchanged": true
+}

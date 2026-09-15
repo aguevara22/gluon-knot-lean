@@ -1,0 +1,44 @@
+\begin{axiom}[HOMFLY--PT]\label{ax:homfly}
+There is a unique map $L\mapsto P_L(a,z)\in\mathbb Z[a^{\pm1},z^{\pm1}]$ from
+isotopy classes of oriented links in $S^3$ satisfying
+$P_{\bigcirc}=1$ and $aP_{L_+}-a^{-1}P_{L_-}=zP_{L_0}$ for every skein triple.
+In particular $P_L$ is invariant under the Reidemeister moves. One consequence
+is consumed as part of this entry: $P_K\in\mathbb Z[a^{\pm1},z^2]$ for a
+\emph{knot} $K$, so that the $z^0$ coefficient of a product of knot
+polynomials is the product of their $z^0$ coefficients.
+
+\emph{Why it is not proved here.} The existence of the invariant is a theorem
+about all links at once, proved by induction over the full skein tree with a
+descending complexity. This document does not construct that invariant; the relative induction in
+Lemma~\ref{lem:homflyrows} starts with $P$ already supplied and compares
+based-link expressions only.
+\emph{Used in:} Definition~\ref{def:X1} (to have $P_H$ at all);
+Proposition~\ref{prop:chamberinv}(ii), Lemma~\ref{lem:flatdata} and
+Lemma~\ref{lem:silence}; Lemma~\ref{lem:curl} and Theorem~\ref{thm:carrierfloor},
+clauses~(C) and~(R); Lemma~\ref{lem:homflyrows},
+Proposition~\ref{prop:sectortarget}(B), Lemma~\ref{lem:fulltwist},
+Lemma~\ref{lem:triplebridge} and Lemma~\ref{lem:nitransport}, clause~(A); and, through the
+knot-parity clause, Theorem~\ref{thm:s7universal}(D)(i) and
+Theorem~\ref{thm:s7universal}(D)(iv)(c).
+\end{axiom}
+
+\begin{remark}[the trimmed clauses of Axiom~\ref{ax:homfly}]
+\label{rem:homflywhole}
+This remark is about one entry and two clauses, and it makes no claim about
+any other.
+
+\emph{Axiom~\ref{ax:homfly}, clause dropped.} The disjoint-union value
+$P_{L\sqcup\bigcirc}=\frac{a-a^{-1}}{z}P_L$ left the entry as a duplicate and
+not as a narrowing: it is a consequence of the skein relation and it is
+displayed in Definition~\ref{def:homfly} where the normalization is fixed.
+
+\emph{Axiom~\ref{ax:homfly}, clause still dropped.} The general
+$z$-order bound for a multi-component link is not restored.
+Lemma~\ref{lem:homflyrows}(ii) uses only the retained knot clause: smoothing a
+mixed crossing gives a knot, and
+$[z^{-2}]P_K=0$ because $P_K\in\mathbb Z[a^{\pm1},z^2]$ has nonnegative even
+$z$-powers. It then proves the two-component coefficient identity directly by
+mixed switches and split separation. No order bound for a multi-component
+polynomial is assumed.
+
+\end{remark}

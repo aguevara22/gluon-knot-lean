@@ -1,0 +1,188 @@
+{
+  "state": "exact five candidate body comparison and canonical trace complete; installation, audit and independent kernel pending",
+  "port_manifest": "work/checks/nearfar-port-preparation.json",
+  "port_manifest_sha256": "76abac1e2516296c540ae4ec83dd3c2f54bd390c51509ac08c2ba05d28ba84a7",
+  "ports": {
+    "work/lean/SM/NearFar.lean": {
+      "candidate": "work/checks/nearfar-port-candidate/SM/NearFar.lean",
+      "candidate_sha256": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "source_fragments": [
+        {
+          "source": "work/checks/NearFar.body.lean",
+          "source_sha256": "f2a8c7d533d6bd55bcad20ad13147bea4d30a46921077db22bd154bb7403a3b0"
+        },
+        {
+          "source": "work/checks/NearFarEquivariance.body.lean",
+          "source_sha256": "7150150ae2986b5ffd3262ee7485d29720024e1e125e64844a79c4e8d2406104"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.Gates",
+        "SM.FiniteCompositions"
+      ]
+    },
+    "work/lean/SM/UnaryComposition.lean": {
+      "candidate": "work/checks/nearfar-port-candidate/SM/UnaryComposition.lean",
+      "candidate_sha256": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+      "source_fragments": [
+        {
+          "source": "work/checks/UnaryComposition.body.lean",
+          "source_sha256": "2d1893ca9f46648d2e799bb818bb42a58e3f22666e15b9b5881e4914e69df9b7"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions"
+      ]
+    },
+    "work/lean/SM/TriangularInverse.lean": {
+      "candidate": "work/checks/nearfar-port-candidate/SM/TriangularInverse.lean",
+      "candidate_sha256": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+      "source_fragments": [
+        {
+          "source": "work/checks/TriangularInverse.body.lean",
+          "source_sha256": "76e3409ffff99162a1d2dbf4dbd0d041306dc941dbc2094397993d878ff0c2c3"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions"
+      ]
+    },
+    "work/lean/SM/NearFarTriangular.lean": {
+      "candidate": "work/checks/nearfar-port-candidate/SM/NearFarTriangular.lean",
+      "candidate_sha256": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+      "source_fragments": [
+        {
+          "source": "work/checks/NearFarTriangular.body.lean",
+          "source_sha256": "654b65e4b11337a0271dd86a8f4709a547f2e36d690d80e9175ea7fb0579bd90"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NearFar",
+        "SM.UnaryComposition",
+        "SM.TriangularInverse"
+      ]
+    },
+    "work/lean/SM/TriangularPolynomial.lean": {
+      "candidate": "work/checks/nearfar-port-candidate/SM/TriangularPolynomial.lean",
+      "candidate_sha256": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+      "source_fragments": [
+        {
+          "source": "work/checks/TriangularPolynomial.body.lean",
+          "source_sha256": "cb2b640008e99d82b05c25e741db36a599dad8ca14beed9e55d1a092598d339d"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NearFarTriangular",
+        "Mathlib.Algebra.MvPolynomial.Eval"
+      ]
+    }
+  },
+  "prior_SM_count": 294,
+  "all_294_prior_SM_unchanged": true,
+  "checked_declarations": [
+    "SM.IncreasingBoundaryTriple",
+    "SM.TripleArray",
+    "SM.IntervalArray",
+    "SM.IntervalComposition.nearTriple",
+    "SM.IntervalComposition.farTriple",
+    "SM.IntervalComposition.nearFarWeight",
+    "SM.nearFarTransform",
+    "SM.farTransform",
+    "SM.nearTransform",
+    "SM.boundaryUnitArray",
+    "SM.geometricBoundaryArray",
+    "SM.geometricBoundaryArray_near",
+    "SM.geometricBoundaryArray_far",
+    "SM.nearfarData",
+    "SM.IntervalComposition.eq_single_of_parts_eq_one",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single",
+    "SM.IntervalComposition.single_part",
+    "SM.IntervalComposition.single_product",
+    "SM.IntervalComposition.nonSingleEquiv",
+    "SM.triangularTransform",
+    "SM.triangularInverse",
+    "SM.triangularTransform_inverse",
+    "SM.triangularInverse_transform_apply",
+    "SM.triangularInverse_transform",
+    "SM.triangular_solution_unique",
+    "SM.triangularEquiv",
+    "SM.IntervalComposition.nearFarWeight_one",
+    "SM.nearFarTransform_eq_triangular",
+    "SM.nearFarInverse",
+    "SM.nearFarTransform_inverse",
+    "SM.nearFarInverse_transform",
+    "SM.nearFar_solution_unique",
+    "SM.map_triangularInverse",
+    "SM.triangularInversePolynomial",
+    "SM.triangularInversePolynomial_eval",
+    "SM.nearFar_has_polynomial_inverse",
+    "SM.geometricBoundaryArray_shift"
+  ],
+  "additional_examples": [
+    "NearFarInverseIndependentReview.all_raw_increasing_triples",
+    "NearFarInverseIndependentReview.full_triple_domain_finite",
+    "NearFarInverseIndependentReview.full_interval_domain_finite",
+    "NearFarInverseIndependentReview.unary_term_is_exact",
+    "NearFarInverseIndependentReview.every_half_factor_is_exact",
+    "NearFarInverseIndependentReview.unit_array_is_leaf_indicator",
+    "NearFarInverseIndependentReview.inverse_base_coordinate",
+    "NearFarInverseIndependentReview.unique_solution_for_every_target",
+    "NearFarInverseIndependentReview.inverse_is_coordinate_polynomial",
+    "NearFarInverseIndependentReview.zero_triangular_weights_give_identity",
+    "NearFarInverseIndependentReview.geometric_arrays_use_same_physical_root"
+  ],
+  "transparent_definitions_printed": [
+    "SM.IncreasingBoundaryTriple",
+    "SM.TripleArray",
+    "SM.IntervalArray",
+    "SM.IntervalComposition.nearTriple",
+    "SM.IntervalComposition.farTriple",
+    "SM.IntervalComposition.nearFarWeight",
+    "SM.nearFarTransform",
+    "SM.farTransform",
+    "SM.nearTransform",
+    "SM.boundaryUnitArray",
+    "SM.geometricBoundaryArray",
+    "SM.nearfarData",
+    "SM.triangularTransform",
+    "SM.triangularInverse",
+    "SM.nearFarInverse",
+    "SM.triangularInversePolynomial"
+  ],
+  "trace": "work/checks/nearfar-canonical-review-types.lean",
+  "trace_sha256": "ea26818eeed6cd18cf61ffaed04099471b2c04a21dd6b935bdbcbec2faf2bd28",
+  "predicted_import_closures": {
+    "SM.NearFar": [
+      "SM.Chirotope",
+      "SM.FiniteCompositions",
+      "SM.Gates",
+      "SM.Generic",
+      "SM.NearFar",
+      "SM.Polygon",
+      "SM.RootBoundary"
+    ],
+    "SM.TriangularPolynomial": [
+      "SM.Chirotope",
+      "SM.FiniteCompositions",
+      "SM.Gates",
+      "SM.Generic",
+      "SM.NearFar",
+      "SM.NearFarTriangular",
+      "SM.Polygon",
+      "SM.RootBoundary",
+      "SM.TriangularInverse",
+      "SM.TriangularPolynomial",
+      "SM.UnaryComposition"
+    ]
+  },
+  "external_review_binding": {
+    "work/reviews/nearfar-prototype.json": "4780bb37c3ec952d26757e22803c2445791f7d961ebb27ad68b1bbcfe3b44b55",
+    "work/reviews/triangular-polynomial-inverse-prototype.json": "5c8e40c84e318e36fe413fabc2c9581dc15b541751ea022bb92c7c362250eef5"
+  },
+  "scope": "Only def:nearfar may be accepted. The canonical inverse helpers remain partial farout(i) evidence and cannot accept full farout."
+}

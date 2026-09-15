@@ -1,0 +1,277 @@
+{
+  "types": {
+    "SM.IncreasingBoundaryTriple.contractedInterval_side": "SM.IncreasingBoundaryTriple.contractedInterval_side {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) :\n  J.right \u2264 t.contractedLeaf.left \u2228 t.contractedLeaf.right \u2264 J.left",
+    "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf": "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) : (t.expandInterval J).leaves = J.leaves",
+    "SM.IncreasingBoundaryTriple.subinterval_off_leaf": "SM.IncreasingBoundaryTriple.subinterval_off_leaf {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (I J : SM.BoundaryInterval t.contractedSize)\n  (hI : \u00ac(I.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 I.right))\n  (hJI : I.left \u2264 J.left \u2227 J.right \u2264 I.right) : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)",
+    "SM.IntervalComposition.every_cut_survives_off_leaf": "SM.IntervalComposition.every_cut_survives_off_leaf {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (J : SM.BoundaryInterval t.contractedSize) (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right))\n  (\u03c0 : SM.IntervalComposition (t.expandInterval J)) : SM.IntervalComposition.SurvivingCuts t \u03c0",
+    "SM.IntervalComposition.offLeafCompositionEquiv": "SM.IntervalComposition.offLeafCompositionEquiv {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) :\n  SM.IntervalComposition J \u2243 SM.IntervalComposition (t.expandInterval J)",
+    "SM.contractedTripleArray": "SM.contractedTripleArray.{u_1} {n : \u2115} {R : Type u_1} (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R) :\n  SM.TripleArray t.contractedSize R",
+    "SM.IntervalComposition.expandComposition_weight": "SM.IntervalComposition.expandComposition_weight.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) {J : SM.BoundaryInterval t.contractedSize} (\u03c0 : SM.IntervalComposition J)\n  (D H : SM.TripleArray n R) :\n  (SM.IntervalComposition.expandComposition t \u03c0).nearFarWeight D H =\n    \u03c0.nearFarWeight (SM.contractedTripleArray t D) (SM.contractedTripleArray t H)",
+    "SM.nearFarTransform_expanded_off_leaf": "SM.nearFarTransform_expanded_off_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (D H : SM.TripleArray n R) (X : SM.IntervalArray n R)\n  (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) :\n  SM.nearFarTransform (SM.contractedTripleArray t D) (SM.contractedTripleArray t H) (fun I => X (t.expandInterval I))\n      J =\n    SM.nearFarTransform D H X (t.expandInterval J)",
+    "SM.boundaryUnitArray_expanded_off_leaf": "SM.boundaryUnitArray_expanded_off_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) :\n  SM.boundaryUnitArray (t.expandInterval J) = SM.boundaryUnitArray J",
+    "SM.farOnlyCoordinates_expanded_off_leaf": "SM.farOnlyCoordinates_expanded_off_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R) (J : SM.BoundaryInterval t.contractedSize)\n  (hJ : \u00ac(J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right)) :\n  SM.farOnlyCoordinates H (t.expandInterval J) = SM.farOnlyCoordinates (SM.contractedTripleArray t H) J",
+    "SM.IncreasingBoundaryTriple.expandTriple_ne_critical": "SM.IncreasingBoundaryTriple.expandTriple_ne_critical {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (u : SM.IncreasingBoundaryTriple t.contractedSize) : t.expandTriple u \u2260 t",
+    "SM.contractedTripleArray_eq_off_critical": "SM.contractedTripleArray_eq_off_critical.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = H\u2082 u) :\n  SM.contractedTripleArray t H\u2081 = SM.contractedTripleArray t H\u2082",
+    "SM.contractedTripleArray_neg": "SM.contractedTripleArray_neg.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R) :\n  SM.contractedTripleArray t (-H) = -SM.contractedTripleArray t H",
+    "SM.geometricBoundaryArray_contractedWord": "SM.geometricBoundaryArray_contractedWord.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) :\n  SM.geometricBoundaryArray (SM.contractedWordTuple P g t) 0 =\n    SM.contractedTripleArray t (SM.geometricBoundaryArray P g)",
+    "SM.contracted_leaf_inverse_value": "SM.contracted_leaf_inverse_value.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R) :\n  SM.farOnlyCoordinates (SM.contractedTripleArray t H) t.contractedLeaf = 1",
+    "SM.contracted_output_tree": "SM.contracted_output_tree.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (hn : 3 \u2264 n)\n  (hZ : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t})\n  (hproper : t.spanInterval \u2260 SM.fullBoundaryInterval hn) :\n  SM.farOnlyOutput (SM.contractedTripleArray t (SM.geometricBoundaryArray P g)) (SM.fullBoundaryInterval \u22ef) =\n    \u2191(SM.treeCoefficient (SM.contractedWordTuple P g t) \u22ef 0 \u22ef)",
+    "SM.IntervalComposition.unique_contracted_leaf_child": "SM.IntervalComposition.unique_contracted_leaf_child {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  {J : SM.BoundaryInterval t.contractedSize} (\u03c0 : SM.IntervalComposition J)\n  (hJ : J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right) :\n  \u2203! k, (\u03c0.part k).left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 (\u03c0.part k).right",
+    "SM.expanded_child_product_response": "SM.expanded_child_product_response.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (hH : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = H\u2082 u) {J : SM.BoundaryInterval t.contractedSize}\n  (\u03c0 : SM.IntervalComposition J) (hJ : J.left \u2264 t.contractedLeaf.left \u2227 t.contractedLeaf.right \u2264 J.right) (s : R)\n  (hchild :\n    \u2200 (k : Fin \u03c0.parts),\n      (\u03c0.part k).left \u2264 t.contractedLeaf.left \u2192\n        t.contractedLeaf.right \u2264 (\u03c0.part k).right \u2192\n          SM.farOnlyCoordinates H\u2082 (t.expandInterval (\u03c0.part k)) -\n              SM.farOnlyCoordinates H\u2081 (t.expandInterval (\u03c0.part k)) =\n            s * SM.farOnlyCoordinates (SM.contractedTripleArray t H\u2081) (\u03c0.part k)) :\n  \u220f k, SM.farOnlyCoordinates H\u2082 (t.expandInterval (\u03c0.part k)) -\n      \u220f k, SM.farOnlyCoordinates H\u2081 (t.expandInterval (\u03c0.part k)) =\n    s * \u220f k, SM.farOnlyCoordinates (SM.contractedTripleArray t H\u2081) (\u03c0.part k)",
+    "SM.nonsurviving_child_product_unchanged": "SM.nonsurviving_child_product_unchanged.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (t : SM.IncreasingBoundaryTriple n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (hH : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = H\u2082 u) {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (h\u03c0 : \u00acSM.IntervalComposition.SurvivingCuts t \u03c0) :\n  \u220f k, SM.farOnlyCoordinates H\u2081 (\u03c0.part k) = \u220f k, SM.farOnlyCoordinates H\u2082 (\u03c0.part k)"
+  },
+  "type_sha256": {
+    "SM.IncreasingBoundaryTriple.contractedInterval_side": "1ac32915daf290a8873248d8f96286a09d834c2863b0d1745098201d709d20dc",
+    "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf": "9b3445f5e855121a34471545a5cc22f46eaea494df6cbc4be31a0e9209ef7f74",
+    "SM.IncreasingBoundaryTriple.subinterval_off_leaf": "51c68db547ad0d7cf799d73b0e59cc33f5cfd5668f3d767470da91aba5a6e45c",
+    "SM.IntervalComposition.every_cut_survives_off_leaf": "c3eac833bbc6b3249cc80b82c48626bd6fe6cb6dc99d3166ef99fd9d69e409d5",
+    "SM.IntervalComposition.offLeafCompositionEquiv": "8191c078b307f8996fb913f3ca2688c21fb54fe79329a51bf2bb5a0758e4eb27",
+    "SM.contractedTripleArray": "2b93209b64e57dc53016190de337c385e3cdf1f8ebee1d64e60fbcfb643fcedb",
+    "SM.IntervalComposition.expandComposition_weight": "3582286107916a1a01646b8f9d57ca88eacf3336e0277a17538c90bb83b4bdc5",
+    "SM.nearFarTransform_expanded_off_leaf": "d6808f361f3f3347c4641dcddbf029cf1d822ae2d8cbb373afd72ff6afac3c36",
+    "SM.boundaryUnitArray_expanded_off_leaf": "d6515e10f0915483dcafde6084b369f40efec4b19a23f18d2dd4262858d4ccce",
+    "SM.farOnlyCoordinates_expanded_off_leaf": "950db08fdc4424208cb75226aebd0b6d5fb9fdad86141779a8b722f14e38cc0d",
+    "SM.IncreasingBoundaryTriple.expandTriple_ne_critical": "71060b2846c529d71cc6ccfedade73d94d23a94684b938543781794fedc8e69e",
+    "SM.contractedTripleArray_eq_off_critical": "209491df13d18482c1b6f914937f87a226ecd9fed8a028a93257c2f9fdaa0019",
+    "SM.contractedTripleArray_neg": "1cf9aa914bb78843a2494415131d53beb316508255a4dbe51da985362554b5c8",
+    "SM.geometricBoundaryArray_contractedWord": "a75f89e3f789317a5625d5b917833bfed5e34e55365947845c7ef609f9db73fe",
+    "SM.contracted_leaf_inverse_value": "982d0560ee05d48eeed3ca425facf021647a5c042fa260a4bbf5632ce120ea03",
+    "SM.contracted_output_tree": "cf0f1969d84837dd5e523b3d084e9019e391c1817d5b051d81bb4a6b2474fd09",
+    "SM.IntervalComposition.unique_contracted_leaf_child": "82f38ae7f9a507db045a52a8f7cc197ffdd7580ef9b6be0a4ec937fb09695604",
+    "SM.expanded_child_product_response": "15c7a7e4b8b80d1d56314482917d63000ee46b47a84e978930917b6900f630f8",
+    "SM.nonsurviving_child_product_unchanged": "dc8fc618e81cf085785a85cacaee87aa40d10413e7186f161034be12807431bf"
+  },
+  "axioms": {
+    "SM.IncreasingBoundaryTriple.contractedInterval_side": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.subinterval_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.every_cut_survives_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.offLeafCompositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.contractedTripleArray": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.expandComposition_weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarTransform_expanded_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryUnitArray_expanded_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates_expanded_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.expandTriple_ne_critical": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.contractedTripleArray_eq_off_critical": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.contractedTripleArray_neg": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.geometricBoundaryArray_contractedWord": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.contracted_leaf_inverse_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.contracted_output_tree": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.unique_contracted_leaf_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.expanded_child_product_response": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nonsurviving_child_product_unchanged": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.excluded_leaf_iff_wholly_on_one_side": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.every_original_raw_composition_roundtrips": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.every_raw_part_and_child_preserved": [
+      "propext",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.complete_raw_sum_with_arbitrary_zero_or_nonzero_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.inverse_transport_allows_touching_left_endpoint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.inverse_transport_allows_touching_right_endpoint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.all_actual_child_inverse_values_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.off_leaf_one_leaf_values_stay_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.full_reversed_transform_transports": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.two_side_arrays_have_identical_entire_contracted_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.arbitrary_critical_entry_is_deleted_from_contracted_array": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.actual_geometric_inverse_transport_off_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.full_contraction_uses_formal_leaf_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.actual_proper_output_retains_the_physical_root": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.actual_contracted_geometry_commutes_with_reversal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.every_nonunary_expanded_child_is_strictly_shorter": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.unary_composition_still_has_one_distinguished_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.zero_contracted_factor_annuls_conditional_response": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "OffLeafContractionIndependentReview.nonsurviving_lists_have_zero_difference_not_zero_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.IncreasingBoundaryTriple.contractedInterval_side",
+    "SM.IncreasingBoundaryTriple.expandInterval_leaves_off_leaf",
+    "SM.IncreasingBoundaryTriple.subinterval_off_leaf",
+    "SM.IntervalComposition.every_cut_survives_off_leaf",
+    "SM.IntervalComposition.offLeafCompositionEquiv",
+    "SM.contractedTripleArray",
+    "SM.IntervalComposition.expandComposition_weight",
+    "SM.nearFarTransform_expanded_off_leaf",
+    "SM.boundaryUnitArray_expanded_off_leaf",
+    "SM.farOnlyCoordinates_expanded_off_leaf",
+    "SM.IncreasingBoundaryTriple.expandTriple_ne_critical",
+    "SM.contractedTripleArray_eq_off_critical",
+    "SM.contractedTripleArray_neg",
+    "SM.geometricBoundaryArray_contractedWord",
+    "SM.contracted_leaf_inverse_value",
+    "SM.contracted_output_tree",
+    "SM.IntervalComposition.unique_contracted_leaf_child",
+    "SM.expanded_child_product_response",
+    "SM.nonsurviving_child_product_unchanged"
+  ],
+  "additional_examples": [
+    "OffLeafContractionIndependentReview.excluded_leaf_iff_wholly_on_one_side",
+    "OffLeafContractionIndependentReview.every_original_raw_composition_roundtrips",
+    "OffLeafContractionIndependentReview.every_raw_part_and_child_preserved",
+    "OffLeafContractionIndependentReview.complete_raw_sum_with_arbitrary_zero_or_nonzero_weights",
+    "OffLeafContractionIndependentReview.inverse_transport_allows_touching_left_endpoint",
+    "OffLeafContractionIndependentReview.inverse_transport_allows_touching_right_endpoint",
+    "OffLeafContractionIndependentReview.all_actual_child_inverse_values_transport",
+    "OffLeafContractionIndependentReview.off_leaf_one_leaf_values_stay_one",
+    "OffLeafContractionIndependentReview.full_reversed_transform_transports",
+    "OffLeafContractionIndependentReview.two_side_arrays_have_identical_entire_contracted_inverse",
+    "OffLeafContractionIndependentReview.arbitrary_critical_entry_is_deleted_from_contracted_array",
+    "OffLeafContractionIndependentReview.actual_geometric_inverse_transport_off_leaf",
+    "OffLeafContractionIndependentReview.full_contraction_uses_formal_leaf_inverse",
+    "OffLeafContractionIndependentReview.actual_proper_output_retains_the_physical_root",
+    "OffLeafContractionIndependentReview.actual_contracted_geometry_commutes_with_reversal",
+    "OffLeafContractionIndependentReview.every_nonunary_expanded_child_is_strictly_shorter",
+    "OffLeafContractionIndependentReview.unary_composition_still_has_one_distinguished_child",
+    "OffLeafContractionIndependentReview.zero_contracted_factor_annuls_conditional_response",
+    "OffLeafContractionIndependentReview.nonsurviving_lists_have_zero_difference_not_zero_value"
+  ],
+  "trace_log": "work/checks/off-leaf-contraction-review-types.log",
+  "trace_log_sha256": "9fb8651427425a442d98a3614752abdbcefc328f6f435b2e5c80b7d1ae68c8fa",
+  "independent_kernel_session": 92854,
+  "exit_code": 0
+}

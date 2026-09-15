@@ -1,0 +1,177 @@
+\begin{definition}[the guarded list $\mathcal G$]\label{def:guarded}
+Fix $n$. The \emph{guarded list} is a finite family of real polynomial functions
+on $(\mathbb R^2)^n$, indexed once and for all by combinatorial data that does
+not depend on the configuration. Write $d_i=p_{i+1}-p_i$ and, for an edge index
+$e$, write $\ell_e(x)=\det(d_e,\,x-p_e)$ for the affine form vanishing on the
+line of $e$, with coefficient row
+$\bigl(A_e,B_e,C_e\bigr)=\bigl(-d_{e,2},\;d_{e,1},\;d_{e,2}p_{e,1}-d_{e,1}p_{e,2}\bigr)$,
+so that $\ell_e(x)=A_ex_1+B_ex_2+C_e$.
+
+\emph{Unconditional members.}
+\begin{enumerate}
+\item[(G1)] $\mathrm{G1}_i=\det(d_{i-1},d_i)$, for every $i\in\{1,\dots,n\}$.
+\item[(G2)] $\mathrm{G2}_{e,i}=\ell_e(p_i)=\det(d_e,\,p_i-p_e)$, for every edge
+index $e$ and every $i\notin\{e,e+1\}$.
+\end{enumerate}
+
+\emph{Activation.} Two remote edges $e,f$ are \emph{defined} to cross when
+\[
+   \mathrm{G2}_{e,f}\,\mathrm{G2}_{e,f+1}<0
+   \quad\text{and}\quad
+   \mathrm{G2}_{f,e}\,\mathrm{G2}_{f,e+1}<0 ,
+\]
+a condition on unconditional members alone. The products are \emph{strict}, and
+that is a decision, not a formality: an earlier revision wrote
+$\sgn\neq\sgn$, which is undecided exactly where it is consumed. At a wall
+point one of the four members vanishes, and the three available readings
+disagree there. The strict product makes the pair \emph{inactive} at such a
+point; a three-valued $\sgn\in\{-1,0,+1\}$ would make it active, and then the
+sliding bundle of the wall dictionary of
+Section~\ref{sec:dictionary} would be $\{\mathrm{G2},\mathrm{G4}\}$ rather than
+the singleton that dictionary's item~(iii) records;
+and the shipped evaluator's test treats a zero as negative, which is asymmetric
+between the two edges. The strict product is taken, and the divergence from the
+evaluator is recorded here rather than left silent. What can be said about its
+consequences is scoped to this document: every statement below evaluates $X_1$
+at \emph{generic} polygons, where no $\mathrm{G2}$ vanishes and the two
+readings agree, so no statement below depends on which reading the code takes.
+What an external caller passes to that code is outside this document's claims
+--- a caller that hands it a collinear configuration reaches the divergence, and
+nothing here says otherwise. An earlier revision wrote that the code "never
+reaches" such a configuration, which is a claim about the code's callers and not
+about this document. It is the sign
+condition, and not the geometric phrase ``their relative interiors meet'', that
+every consumer below reads and that the shipped evaluator computes.
+
+The two agree wherever the four members are nonzero, and there they say that
+each edge has its two endpoints strictly on opposite sides of the other's line,
+which for segments is exactly a transverse interior crossing. They do
+\emph{not} agree everywhere in $\mathcal R_n$, and an earlier revision wrote
+``exactly when'' as though they did: two collinear overlapping remote edges have
+meeting relative interiors while all four members vanish, so the sign condition
+fails. Such a configuration is not generic --- those vanishing members are
+unconditional, hence relevant --- so the generic locus defined below and the
+discriminant $\mathcal D$ of Section~\ref{sec:dictionary} are the same sets under
+either reading, and no statement
+below changes. What changes is that activation is now decided by a formula.
+
+\emph{Conditional members.}
+\begin{enumerate}
+\item[(G5)] $\mathrm{G5}_{e,f}=\det(d_e,d_f)$, for every pair of remote edge
+indices with $1\leq e<f\leq n$ as integers --- the comparison is between the
+integer representatives $1,\dots,n$ of the edge indices and not a cyclic
+comparison, there being no such thing; adjacency and remoteness continue to be
+read modulo $n$. This fixes one \emph{ordered representative} per pair, and an
+unordered pair will not do, because
+$\det(d_f,d_e)=-\det(d_e,d_f)$ and the family is used where signs are read, in
+the sign-change condition that defines a transversal event below; \emph{active} when $e$
+and $f$ cross. Making it
+conditional rather than unconditional is a fidelity point: the specification
+guards the turn at a smoothing site, and a smoothing site exists only where two
+edges cross. Demanding $\det(d_e,d_f)\neq0$ for a pair that does not cross
+would shrink the generic locus below the specification's and exclude polygons
+the laws are stated about.
+\item[(G3)] $\mathrm{G3}_{e,f,g}=\det\begin{pmatrix}A_e&B_e&C_e\\
+A_f&B_f&C_f\\ A_g&B_g&C_g\end{pmatrix}$, the rows being the line-coefficient
+rows bound at the head of this definition, one for each of $e$, $f$ and $g$;
+for every triple of pairwise remote edges $1\leq e<f<g\leq n$, ordered by their
+integer representatives; \emph{active} when $e,f,g$ pairwise cross. It vanishes exactly when the
+three lines share a point of the projective plane: either they are concurrent in
+the plane, or all three are parallel. A parallel \emph{pair} with a transverse
+third does \emph{not} make it vanish --- an earlier revision said it did, and the
+configuration $p_0=(0,0)$, $p_1=(1,0)$, $p_2=(0,1)$, $p_3=(1,1)$, $p_4=(2,-1)$,
+$p_5=(2,2)$ refutes it, the rows of $e_0,e_2,e_4$ being $(0,1,0)$, $(0,1,-1)$
+and $(-3,0,6)$ with determinant $3$. On the active domain the three edges
+pairwise cross, so no two of the lines are parallel and the vanishing is exactly
+a concurrence at a finite point, which is what every consumer reads.
+\item[(G4)] $\mathrm{G4}_{e;f,g}
+=\det(d_f,\,p_f-p_e)\,\det(d_g,d_e)-\det(d_g,\,p_g-p_e)\,\det(d_f,d_e)$,
+for every edge $e$ and every pair of edges remote to $e$ with
+$1\leq f<g\leq n$ as integers --- again the comparison is between integer
+representatives, and again one ordered representative per pair, since
+$\mathrm{G4}_{e;g,f}=-\mathrm{G4}_{e;f,g}$; \emph{active} when $f$ and $g$ both
+cross $e$.
+
+\emph{Normalization of cyclic aliases.} Edge indices are read cyclically, so
+one edge has many names: $e_0$, $e_n$ and $e_{2n}$ are the same edge. Every
+comparison of indices in this document --- the $f<g$ of (G5), the $e<f<g$ of
+(G3), the $f<g$ of (G4) --- is a comparison of \emph{representatives}: each
+index is first reduced to the unique integer in $\{1,\dots,n\}$ naming that
+edge, and the reduced integers are compared. Adjacency, remoteness and the
+edges themselves are unaffected by the reduction; only the choice of ordered
+representative depends on it, and only that choice carries a sign.
+
+\emph{The two accessors.} Consumers meet a pair of edges in the order the
+geometry gives, which after reduction may be the reverse of the representative
+order. Let $f,g$ be distinct edges remote to $e$, presented in some order and
+possibly under aliases, and let $\bar f,\bar g\in\{1,\dots,n\}$ be their
+representatives. Define
+\[
+   \mathrm{G4}\langle e;f,g\rangle
+   =\mathrm{G4}_{e;\min(\bar f,\bar g),\,\max(\bar f,\bar g)}\in\mathcal G,
+   \qquad
+   \epsilon(f,g)=\begin{cases}+1,&\bar f<\bar g,\\ -1,&\bar f>\bar g,\end{cases}
+\]
+the first a \emph{member-valued} accessor --- it returns an element of the
+guarded list, the one indexed by the ordered representative pair --- and the
+second an \emph{orientation sign} in $\{\pm1\}$, a constant of the index data
+and not a function of the configuration. Their product
+\[
+   \widehat{\mathrm{G4}}_{e;f,g}
+   =\epsilon(f,g)\cdot\mathrm{G4}\langle e;f,g\rangle
+\]
+is the \emph{oriented value}: a real polynomial function on $(\mathbb R^2)^n$,
+antisymmetric in the ordered pair, equal to the member up to the orientation
+sign.
+
+The two are used in different places and the distinction is not cosmetic.
+Every set of guarded predicates formed below --- in particular the zero set of
+an event, defined later in this section --- is a set of \emph{members} of
+$\mathcal G$, and membership there is by \emph{index}: the element is
+$\mathrm{G4}\langle e;f,g\rangle$, the member indexed by the ordered
+representative pair, and not the oriented value, which when $\epsilon=-1$ is
+that member's negative and is indexed by nothing. The distinction is one of
+indexing and not of polynomials, and the difference matters: as polynomials a
+negated member can coincide with another member, since for three pairwise
+remote edges $\mathrm{G4}_{e;f,g}=-\mathrm{G3}_{e,f,g}$ --- an identity of
+polynomials, proved in the dictionary section where the canonical factors are
+analysed --- so $-\mathrm{G4}_{e;f,g}$ is the polynomial $\mathrm{G3}_{e,f,g}$,
+which \emph{is} a member. An earlier revision said the
+oriented value "is not a member of $\mathcal G$ when $\epsilon=-1$", which as a
+statement about polynomials is false.
+
+Statements about vanishing, activation and relevance are statements about the
+member and are insensitive to the presentation order. Statements about
+\emph{sign} --- a sign change across an event, a factorization whose two sides
+must agree in sign, the order of two crossings along an edge --- read the
+oriented value, and there the orientation sign $\epsilon$ is carried
+explicitly. Both kinds occur below, and the next display is of the first kind.
+
+Two illustrations of the reduction, both used below. At $j=0$ the pair
+$(e_{j-1},e_j)$ is $(e_{n-1},e_n)$, whose representatives are already
+increasing: $\epsilon=+1$, and the oriented value is the member. At $j=1$ it is
+$(e_0,e_1)$, whose representatives are $(n,1)$: $\epsilon=-1$, and the member
+is $\mathrm{G4}_{e;1,n}$. An earlier revision wrote
+$\mathrm{G4}_{h;e_{j-1},e_j}$ where the reduction makes that name empty and the
+sign opposite, and a later one placed the wrap at $j=0$, where there is none. When active, both
+$\det(d_f,d_e)$ and $\det(d_g,d_e)$ are nonzero, the crossing of $e$ with $f$
+sits at the parameter $t_f=\det(d_f,p_f-p_e)/\det(d_f,d_e)$ along $e$, and, for
+the ordered representative pair $\bar f<\bar g$ that indexes the member,
+\[
+   \mathrm{G4}_{e;\bar f,\bar g}
+      =(t_{\bar f}-t_{\bar g})\det(d_{\bar f},d_e)\det(d_{\bar g},d_e),
+\]
+so its vanishing is exactly a tie $t_{\bar f}=t_{\bar g}$ in the order of
+crossings along $e$. Presented in the other order the same identity holds for the oriented value,
+both sides changing sign. Two kinds of consumer read this display, and they read
+different things. Those that need only the \emph{vanishing} --- the two collision arguments
+below, in the chamber-invariance proposition and in the silence lemma --- read
+the member, and the presentation order is irrelevant to them. Those that
+need the \emph{sign} --- the order of the two crossings along $e$, and the
+bigon-bundle computation of Section~\ref{sec:dictionary} --- read the oriented
+value $\widehat{\mathrm{G4}}_{e;f,g}=\epsilon(f,g)\,\mathrm{G4}\langle
+e;f,g\rangle$ and carry $\epsilon$. An earlier revision said the vanishing was
+"the only reading the consumers of this display take", which the sign-reading
+sites contradict.
+\end{enumerate}
+\end{definition}

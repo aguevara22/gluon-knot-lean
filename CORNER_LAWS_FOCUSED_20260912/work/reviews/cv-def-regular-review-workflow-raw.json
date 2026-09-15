@@ -1,0 +1,170 @@
+{
+ "reviews": [
+  {
+   "verdict": "faithful",
+   "reason": "Row CV:def:regular = reference/R/CV/d1_setup.tex 22-40 (excerpt verified byte-identical to the source by diff). Statement file: work/reviews/cv-setup-reviewer-input-statement.lean.txt (stmt). Primitives (inspected, not trusted from docstrings): Plane = ℝ×ℝ, LabelledTuple n = ZMod n → Plane, edge P i = P(i+1) − P i (SM/Polygon.lean 13-14, 49) = d_i / δ_i; det u v = u.1*v.2 − u.2*v.1 (Polygon.lean 16) = the det(u,v)=u_1v_2−u_2v_1 of def:polygon (source 19); planeDot u v = u.1*v.1 + u.2*v.2 (EuclideanPlane.lean 27) = ⟨u,v⟩; euclideanLength u = ‖planeComplex u‖ = sqrt(u.1²+u.2²) (EuclideanPlane.lean 29, 31-34) = |u|; SignType.sign = sgn into {−1,0,1}. Namespace resolution: inside `namespace CV` with `open SM`, `Regular`, `principalTurn`, `PrincipalTurnSpec`, `Kink` resolve to the CV declarations (current namespace wins over open decls); `edge`, `det`, `planeDot`, `euclideanLength`, `RegularPair`, `PrincipalAngleSpec`, `principalAngle` resolve to SM; `SM.Regular`/`SM.principalTurn` are written explicitly. No duplicate declarations of the row names elsewhere in the file (grep).\n\n(A) principal turn specification (source 25-28: \"the unique τ_i ∈ (−π,π) with cos τ_i = ⟨δ_{i−1},δ_i⟩/(|δ_{i−1}||δ_i|) and sgn τ_i = sgn det(δ_{i−1},δ_i)\"). stmt 167-171 `PrincipalTurnSpec L i τ := (−Real.pi < τ ∧ τ < Real.pi) ∧ Real.cos τ = planeDot (edge L (i−1)) (edge L i) / (euclideanLength (edge L (i−1)) * euclideanLength (edge L i)) ∧ SignType.sign τ = SignType.sign (det (edge L (i−1)) (edge L i))`. Open interval both ends, cosine quotient with the Euclidean lengths, sign of the determinant in the printed argument order (δ_{i−1} first, δ_i second), indices cyclic in ZMod c. Exact. Bundle field `principal_turn_spec` (stmt 266-271) pins this unfolding as an iff. Uniqueness (\"the unique\", source 25-26): field `principal_turn_unique` (stmt 273-274), any two solutions of the spec coincide, unconditionally (the spec itself forces nonzero, non-antiparallel edges — SM.principalAngleSpec_nonzero / regularPair_of_principalAngleSpec, PrincipalAngles.lean 34-61). Existence of the named value: `principalTurn L i := principalAngle (edge L (i−1)) (edge L i)` (stmt 174-175) = arg of the corner rotor star(δ_{i−1})·δ_i whose re = planeDot, im = det, norm = |δ_{i−1}||δ_i| (EuclideanPlane.lean 55-67; RegularPairs.lean 54); field `principal_turn_value` (stmt 276-279): under `RegularPair (edge L (i−1)) (edge L i)` (= δ_{i−1} ≠ 0 ∧ δ_i ≠ 0 ∧ ¬∃ r<0, δ_i = r•δ_{i−1}, RegularPairs.lean 8-9) the value satisfies the spec and every solution equals it. Together these render \"the unique τ_i\".\n\n(A) existence condition (source 28-29 \"It exists precisely when δ_i is not a negative multiple of δ_{i−1}\"): field `exists_iff` (stmt 281-282) `(∃! τ, PrincipalTurnSpec L i τ) ↔ edge L (i−1) ≠ 0 ∧ edge L i ≠ 0 ∧ ¬ Kink L i`. On the source's domain (L a closed polygon, hence nonzero edges) the right side is exactly \"δ_i ∉ ℝ_{<0}δ_{i−1}\"; the two nonzero-edge conjuncts only make the standing polygon hypothesis explicit because the Lean L is an arbitrary labelled tuple. ∃! versus the printed \"exists\" is justified by the printed \"unique\".\n\n(A) \"if det(δ_{i−1},δ_i) ≠ 0 it is nonzero\" (source 29-30): field `nonzero_of_det` (stmt 284-286). The extra RegularPair hypothesis is redundant (det ≠ 0 already implies it) and harmless.\n\n(A) \"if δ_i is a positive multiple of δ_{i−1} it is 0\" (source 30-31): field `zero_of_positive_multiple` (stmt 288-290), `edge L (i−1) ≠ 0 → (∃ r, 0 < r ∧ edge L i = r • edge L (i−1)) → principalTurn L i = 0`. One direction only, as printed (CV, unlike SM def:regular 395, does not say \"exactly when\"); the nonzero hypothesis is again the polygon standing assumption.\n\n(A) kink (source 31-33 \"The excluded case δ_i ∈ ℝ_{<0}δ_{i−1} is the kink, where the two candidate values ±π are both excluded from the open interval\"): `Kink L i := ∃ r : ℝ, r < 0 ∧ edge L i = r • edge L (i−1)` (stmt 178-179), pinned by field `kink` first conjunct (stmt 294); second conjunct `Kink L i → ¬ ∃ τ, PrincipalTurnSpec L i τ` (stmt 295) renders \"excluded\"/\"both excluded from the open interval\" by its operative content (no τ in (−π,π) satisfies the spec). The literal \"candidates are ±π\" is explanatory and appears only as this consequence; the defined notion is unaffected.\n\n(B) regular locus (source 34-37 \"𝓡_n ⊆ (ℝ²)^n is the set of P with d_i ≠ 0 for all i and d_{i+1} ≠ −λ d_i for all i and all λ > 0\"): `Regular P := (∀ i, edge P i ≠ 0) ∧ ∀ i (l : ℝ), 0 < l → edge P (i+1) ≠ (−l) • edge P i` (stmt 184-185), `regularLocus n := {P | Regular P}` (stmt 188) as a Set (LabelledTuple n) = subset of (ℝ²)^n; field `regular_locus` (stmt 298-300) pins the membership condition verbatim. Stated on CV's own tuples with CV's own conditions, not via SM (decision F2 respected). The unused `_hn : 3 ≤ n` matches def:polygon's standing n ≥ 3; the definition itself carries no such restriction.\n\n(B) \"Equivalently, every principal turn of clause (A) exists\" (source 37-38): field `regular_iff_turns_exist` (stmt 302-303) `Regular P ↔ ∀ i, ∃! τ, PrincipalTurnSpec P i τ`, applying clause (A) to P itself. Exact.\n\nRelation to SM (requested by the brief): field `regular_iff_sm` (stmt 305) `Regular P ↔ SM.Regular P` for all n, where SM.Regular P := ∀ i, RegularPair (edge P (i−1)) (edge P i) (RegularLocus.lean 12-13) — a theorem, not an identification; field `principal_turn_eq_sm` (stmt 307-308) `principalTurn L i = SM.principalTurn L i` (RegularLocus.lean 15-16, definitionally equal). Both are relations, not narrowings.\n\nNo printed clause lacks a Lean counterpart and no Lean field lacks a printed counterpart (the two SM-relation fields are the recorded theorems the brief asks for). Cosmetic only: several docstring line citations are off by one relative to the source (e.g. spec cited as 23–28, actually 25–28; kink cited 30–32, actually 31–33; (B) cited 33–38, actually 34–37; \"Equivalently\" cited 38–39, actually 37–38); this does not affect the statement.",
+   "discrepancies": [],
+   "stronger_than_source": [
+    "Clause (A) is stated for every c : ℕ and every labelled tuple L : LabelledTuple c (stmt 167, 174, 178, 266-295), not only for closed polygons with nonzero edges; the nonzero-edge conditions are therefore made explicit as hypotheses/conjuncts (exists_iff stmt 282, zero_of_positive_multiple stmt 289) and the results reduce to the printed ones on the source's domain. This is added generality, not narrowing.",
+    "principal_turn_unique (stmt 273-274) holds with no hypothesis on L (the spec itself forces nonzero, non-antiparallel edges), whereas the source only speaks under the closed-polygon hypothesis.",
+    "regular_iff_sm (stmt 305) and principal_turn_eq_sm (stmt 307-308) are stated for all n and all c with no 3 ≤ n restriction."
+   ],
+   "weaker_than_source": [
+    "The explanatory sub-clause 'where the two candidate values ±π are both excluded from the open interval' (source 32-33) is rendered only by its consequence, kink.2 : Kink L i → ¬ ∃ τ, PrincipalTurnSpec L i τ (stmt 295); the Lean does not separately state that at a kink the cosine/sign equations single out ±π. The defined notion (Kink, non-existence of the turn) is unaffected.",
+    "nonzero_of_det (stmt 284-286) carries a redundant RegularPair hypothesis in addition to det ≠ 0 (det ≠ 0 already implies RegularPair); harmless, but formally a hypothesis the source does not state.",
+    "regular_locus and regular_iff_turns_exist (stmt 298, 302) carry an unused `_hn : 3 ≤ n`, restricting those two bundle fields to the source's n ≥ 3 domain; the definitions Regular/regularLocus themselves (stmt 184-188) have no such restriction."
+   ],
+   "supporting_definitions_inspected": [
+    "SM.Plane",
+    "SM.LabelledTuple",
+    "SM.det",
+    "SM.edge",
+    "SM.planeComplex",
+    "SM.planeDot",
+    "SM.euclideanLength",
+    "SM.euclideanLength_formula",
+    "SM.cornerRotor",
+    "SM.cornerRotor_re",
+    "SM.cornerRotor_im",
+    "SM.cornerRotor_norm",
+    "SM.RegularPair",
+    "SM.negativeScalar_iff_dot_det",
+    "SM.positiveScalar_iff_dot_det",
+    "SM.principalAngle",
+    "SM.principalAngle_bounds",
+    "SM.principalAngle_cos",
+    "SM.principalAngle_sign",
+    "SM.principalAngle_eq_zero_iff",
+    "SM.PrincipalAngleSpec",
+    "SM.principalAngle_spec",
+    "SM.principalAngleSpec_unique",
+    "SM.principalAngleSpec_nonzero",
+    "SM.regularPair_of_principalAngleSpec",
+    "SM.principalAngle_existsUnique_iff",
+    "SM.Regular",
+    "SM.principalTurn",
+    "SM.regular_iff_edges",
+    "SM.regular_iff_principalTurns_exist",
+    "SM.principalTurn_spec",
+    "SM.principalTurn_unique",
+    "SM.principalTurn_eq_zero_iff",
+    "SM.regular_definition",
+    "CV.PrincipalTurnSpec",
+    "CV.principalTurn",
+    "CV.Kink",
+    "CV.Regular",
+    "CV.regularLocus",
+    "CV.RegularData",
+    "CV.regular_definition"
+   ],
+   "reviewer_files_read": [
+    "work/port/review_prompt_cv-setup.md",
+    "work/reviews/cv-def-regular-source-excerpt-lines-22-40.tex.txt",
+    "work/reviews/cv-def-polygon-source-excerpt-lines-8-19.tex.txt",
+    "work/reviews/cv-setup-reviewer-input-statement.lean.txt",
+    "reference/R/CV/d1_setup.tex (lines 1-7, 22-40 diff-check against the excerpt, 239-314)",
+    "reference/SM/sm-1-polygons.tex (lines 27-62, 386-397)",
+    "work/lean/SM/Polygon.lean",
+    "work/lean/SM/EuclideanPlane.lean",
+    "work/lean/SM/RegularPairs.lean",
+    "work/lean/SM/PrincipalAngles.lean",
+    "work/lean/SM/RegularLocus.lean",
+    "work/lean/SM/RegularDefinition.lean"
+   ]
+  },
+  {
+   "verdict": "faithful",
+   "reason": "Row CV:def:regular = d1_setup.tex 22-40 (excerpt file line k = tex line 21+k). Statement file (S) lines 161-310. Primitives checked: Plane = ℝ×ℝ, LabelledTuple n = ZMod n → Plane, edge P i = P(i+1) − P i (SM/Polygon.lean 13-14, 49) so δ_i/d_i = edge; det u v = u.1*v.2 − u.2*v.1 (Polygon.lean 16) = CV's det (def:polygon excerpt 11-12); planeDot = u.1 v.1 + u.2 v.2, euclideanLength = ‖planeComplex u‖ = sqrt(u.1²+u.2²) (EuclideanPlane.lean 27-34); SignType.sign is sgn with sgn 0 = 0.\n\n(A) excerpt 3-7 / tex 24-28, \"the unique τ_i ∈ (−π,π) with cos τ_i = ⟨δ_{i−1},δ_i⟩/(|δ_{i−1}||δ_i|) and sgn τ_i = sgn det(δ_{i−1},δ_i)\": PrincipalTurnSpec L i τ (S 167-171) is literally (−π<τ ∧ τ<π) ∧ cos τ = planeDot(edge L (i−1))(edge L i)/(len·len) ∧ sign τ = sign(det(edge L (i−1))(edge L i)); field principal_turn_spec (S 266-271) pins this unfolding; field principal_turn_unique (S 273-274) renders \"the unique\"; field principal_turn_value (S 276-279) pins the value principalTurn L i := principalAngle (edge L (i−1)) (edge L i) (S 174-175) as the spec's unique solution on the existence domain RegularPair (edge L (i−1)) (edge L i) = both nonzero ∧ no negative multiple (SM/RegularPairs.lean 8-9). PrincipalTurnSpec is definitionally SM.PrincipalAngleSpec (SM/PrincipalAngles.lean 9-12; S 190-191 Iff.rfl), which I verified clause by clause. Turn at q_i uses the pair (δ_{i−1}, δ_i) — matches.\n\n(A) excerpt 7-8 / tex 28-29, \"exists precisely when δ_i is not a negative multiple of δ_{i−1}\": field exists_iff (S 281-282): (∃! τ, spec) ↔ edge L (i−1) ≠ 0 ∧ edge L i ≠ 0 ∧ ¬Kink L i. The two nonzero conjuncts are the standing polygon hypothesis (\"closed polygon\", CV def:polygon d_i ≠ 0), made explicit because the Lean quantifies over all tuples; on polygons the RHS is exactly ¬Kink. ∃! vs \"exists\" is harmless since uniqueness holds unconditionally (principal_turn_unique). With Lean's x/0 = 0, a zero edge forces cos τ = 0 and sign τ = 0, i.e. no solution, so the spec agrees with the source on and off the polygon domain.\n\n(A) excerpt 9 / tex 30, \"if det ≠ 0 it is nonzero\": field nonzero_of_det (S 284-286), under RegularPair (redundant, since det ≠ 0 already implies RegularPair) — no weakening. Excerpt 9-10 / tex 30-31, \"if δ_i is a positive multiple of δ_{i−1} it is 0\": field zero_of_positive_multiple (S 288-290), hypothesis edge L (i−1) ≠ 0 is the polygon hypothesis; the printed clause is one-directional and so is the Lean.\n\n(A) excerpt 10-12 / tex 31-33, kink: Kink L i := ∃ r<0, edge L i = r • edge L (i−1) (S 178-179) = δ_i ∈ ℝ_{<0}δ_{i−1}; field kink (S 293-295) pins the definition and renders \"both candidate values ±π are excluded from the open interval\" by its operative content Kink → ¬∃ τ, PrincipalTurnSpec L i τ.\n\n(B) excerpt 13-16 / tex 34-37, \"𝓡_n ⊆ (ℝ²)^n is the set of P with d_i ≠ 0 ∀i and d_{i+1} ≠ −λ d_i ∀i, ∀λ>0\": Regular P := (∀ i, edge P i ≠ 0) ∧ ∀ i (l:ℝ), 0<l → edge P (i+1) ≠ (−l) • edge P i (S 184-185) is a verbatim transcription; regularLocus n := {P | Regular P} : Set (LabelledTuple n) (S 188) is 𝓡_n on CV's own locus of labelled tuples (no SM quotient, decision F2); field regular_locus (S 298-300) pins membership to the printed clause for n ≥ 3 (the source's polygon range). \"Nonzero edges and no consecutive pair that doubles back\" is the gloss of the same clause.\n\n(B) excerpt 16-17 / tex 37-38, \"Equivalently, every principal turn of clause (A) exists\": field regular_iff_turns_exist (S 302-303): Regular P ↔ ∀ i, ∃! τ, PrincipalTurnSpec P i τ, i.e. the turn at every vertex p_i between d_{i−1} and d_i exists (Regular P is P ∈ regularLocus n by rfl).\n\nRelation to SM (fields regular_iff_sm S 305, principal_turn_eq_sm S 307-308): SM.Regular P := ∀ i, RegularPair (edge P (i−1)) (edge P i) (SM/RegularLocus.lean 12-13), which is SM def:regular (sm-1-polygons.tex 386-397: all ℓ_i ≠ 0, no ℓ_i a negative multiple of ℓ_{i−1}; cf. regular_iff_edges RegularLocus 18-19). I checked the equivalence CV.Regular ↔ SM.Regular by hand in both directions for every n (reindex i ↔ i±1, λ = −r); it is stated as a theorem on all labelled tuples, no narrowing of the CV notion to SM's, exactly as F2 requires. SM.principalTurn P i := principalAngle (edge P (i−1)) (edge P i) (RegularLocus 15-16), so principal_turn_eq_sm is rfl and CV's value is SM's accepted one. Both `_sm` fields are the relation theorems the brief expects, not extra printed content.\n\nEvery printed clause of (A) and (B) has a field; every field has a printed counterpart or is one of the two expected SM-relation theorems (plus principal_turn_value, which is how \"the unique τ_i\" becomes a value). Cosmetic only: several docstring line citations are off by about one tex line (e.g. \"(B) 33–38\" is 34–38, \"Equivalently 38–39\" is 37–38, kink \"30–32\" is 31–33); this does not affect the statements.",
+   "discrepancies": [],
+   "stronger_than_source": [
+    "All (A) fields (principal_turn_spec, principal_turn_unique, principal_turn_value, exists_iff, nonzero_of_det, zero_of_positive_multiple, kink; S 266-295) quantify over every c : ℕ and every L : LabelledTuple c, not only closed polygons with c ≥ 3 and nonzero edges; on the source's domain the notions coincide (the extra nonzero-edge conjuncts in exists_iff and the edge L (i−1) ≠ 0 hypothesis in zero_of_positive_multiple are exactly the polygon hypothesis made explicit).",
+    "principal_turn_unique (S 273-274) asserts uniqueness of a spec solution unconditionally (no existence/polygon hypothesis); the source only speaks of 'the unique τ_i' where it exists.",
+    "regular_iff_sm (S 305) holds for every n (no 3 ≤ n hypothesis) and on the whole labelled-tuple type, whereas SM def:regular is stated for polygons (n ≥ 3, cyclic orbits).",
+    "nonzero_of_det (S 284-286): its RegularPair hypothesis is implied by det ≠ 0, so the field is equivalent to the unconditional 'det(δ_{i−1},δ_i) ≠ 0 → τ_i ≠ 0'."
+   ],
+   "weaker_than_source": [
+    "Explanatory gloss only, not a defect of the defined notion: the kink sub-clause 'the two candidate values ±π are both excluded from the open interval' (excerpt 11-12 / tex 32-33) is rendered by its conclusion Kink L i → ¬∃ τ, PrincipalTurnSpec L i τ (field kink, S 293-295); the Lean does not separately state that at a kink the cosine/sign equations would single out τ ≡ ±π."
+   ],
+   "supporting_definitions_inspected": [
+    "SM.Plane",
+    "SM.LabelledTuple",
+    "SM.det",
+    "SM.edge",
+    "SM.shift",
+    "SM.planeDot",
+    "SM.euclideanLength",
+    "SM.planeComplex",
+    "SM.cornerRotor",
+    "SM.RegularPair",
+    "SM.principalAngle",
+    "SM.PrincipalAngleSpec",
+    "SM.Regular",
+    "SM.principalTurn",
+    "SM.regular_iff_edges",
+    "SM.regular_iff_principalTurns_exist",
+    "SM.principalAngle_existsUnique_iff",
+    "SM.principalAngle_spec",
+    "SM.principalAngleSpec_unique",
+    "SM.regularPair_of_principalAngleSpec",
+    "SM.principalAngle_eq_zero_iff",
+    "SM.principalTurn_unique",
+    "SM.regular_definition",
+    "CV.PrincipalTurnSpec",
+    "CV.principalTurn",
+    "CV.Kink",
+    "CV.Regular",
+    "CV.regularLocus",
+    "CV.RegularData",
+    "CV.regular_definition",
+    "CV.IsPolygon",
+    "CV.PolygonData.edge_direction"
+   ],
+   "reviewer_files_read": [
+    "work/port/review_prompt_cv-setup.md",
+    "work/reviews/cv-def-regular-source-excerpt-lines-22-40.tex.txt",
+    "work/reviews/cv-def-polygon-source-excerpt-lines-8-19.tex.txt",
+    "reference/R/CV/d1_setup.tex (lines 1-7 only)",
+    "reference/SM/sm-1-polygons.tex (lines 27-62, 386-397)",
+    "work/reviews/cv-setup-reviewer-input-statement.lean.txt (lines 1-420 in full; grep and lines 790-810, 945-960 for later mentions of Regular)",
+    "work/lean/SM/RegularLocus.lean",
+    "work/lean/SM/RegularPairs.lean",
+    "work/lean/SM/RegularDefinition.lean",
+    "work/lean/SM/PrincipalAngles.lean (definition of PrincipalAngleSpec and lemma statements)",
+    "work/lean/SM/Polygon.lean (lines 1-60)",
+    "work/lean/SM/EuclideanPlane.lean (definitions and lemma statements)"
+   ]
+  }
+ ],
+ "refuters": [
+  {
+   "refuted": false,
+   "argument": "After a clause-by-clause search I could not find a polygon on which the printed def:regular and the Lean CV.Regular / CV.principalTurn (as pinned by CV.RegularData) disagree, nor a printed clause without a field, nor a field that adds or narrows content on the printed domain. Verdict: faithful.\n\nClause (A), spec of τ_i (source lines 4-7 of the excerpt): CV.PrincipalTurnSpec L i τ (statement file 167-171) is literally (−π<τ ∧ τ<π) ∧ cos τ = planeDot(edge L (i−1), edge L i)/(euclideanLength·euclideanLength) ∧ SignType.sign τ = SignType.sign(det …). Primitives checked: edge P i = P(i+1) − P i (SM/Polygon.lean:49) = δ_i with the incoming/outgoing pair δ_{i−1}, δ_i at corner q_i; planeDot = u1v1+u2v2 (EuclideanPlane.lean:27); euclideanLength u = sqrt(u1²+u2²) (EuclideanPlane.lean:29,31-34, the Euclidean |·|, not the product norm); det = u1v2 − u2v1 (Polygon.lean:16); SignType.sign is Mathlib's ordinary sgn (if 0<a then 1 else if a<0 then −1 else 0; Mathlib/Data/Sign/Defs.lean:266). Field principal_turn_spec (266-271) pins exactly this. principalTurnSpec_iff is Iff.rfl against SM.PrincipalAngleSpec (PrincipalAngles.lean:9-12), which is the same formula.\n\n\"the unique τ_i\": field principal_turn_unique (273-274). \"principal turn\" as an object: CV.principalTurn L i := principalAngle(edge L (i−1))(edge L i) = arg(conj(δ_{i−1})·δ_i) (RegularPairs.lean:54); field principal_turn_value (276-279) asserts it satisfies the spec and is the unique solution under RegularPair, i.e. exactly when the printed turn exists.\n\n\"It exists precisely when δ_i is not a negative multiple of δ_{i−1}\" (8-9): field exists_iff (281-282): (∃! τ, spec) ↔ edge(i−1)≠0 ∧ edge i≠0 ∧ ¬Kink. The two nonzero-edge conjuncts are the standing polygon hypothesis of (A) (\"Let L be a closed polygon\", with d_i ≠ 0 by def:polygon) made explicit because the Lean fields are stated on every LabelledTuple c; restricted to polygons the field reads (∃! τ) ↔ ¬Kink, exactly the printed sentence. This is a conservative widening (stronger), not a narrowing.\n\n\"if det ≠ 0 it is nonzero\" (9): field nonzero_of_det (284-286). The extra RegularPair hypothesis is implied by det ≠ 0 (det ≠ 0 forces both vectors nonzero and non-collinear), so nothing is lost. \"if δ_i is a positive multiple of δ_{i−1} it is 0\" (9-10): field zero_of_positive_multiple (288-290) with hypothesis edge(i−1) ≠ 0 (polygon context). Kernel-checked probe_zero_turn: for u ≠ 0, RegularPair u (2•u) ∧ principalAngle u (2•u) = 0 — so a flat (zero-turn) corner is regular with turn 0 in both readings. CV printed says only \"if\" (SM says \"exactly when\"); Lean gives only \"if\", matching CV.\n\nKink (10-12): CV.Kink L i := ∃ r<0, edge L i = r • edge L (i−1) (178-179) is literally δ_i ∈ ℝ_{<0}δ_{i−1}; field kink (293-295) records the definition and that no τ satisfies the spec at a kink. The printed gloss \"the two candidate values ±π are both excluded from the open interval\" is the reason no τ exists (cos τ = −1 forces τ = ±π, outside (−π,π)); the Lean records its definitional consequence rather than the reason. I judge this explanatory, not a lost clause.\n\nClause (B) (13-17): CV.Regular P := (∀ i, edge P i ≠ 0) ∧ ∀ i (l:ℝ), 0<l → edge P (i+1) ≠ (−l) • edge P i (184-185) is word-for-word \"d_i ≠ 0 for all i and d_{i+1} ≠ −λ d_i for all i and all λ>0\"; regularLocus n = {P | Regular P} ⊆ LabelledTuple n = ZMod n → ℝ² = (ℝ²)^n for n ≥ 3 (188); field regular_locus (298-300). \"Equivalently, every principal turn of clause (A) exists\": field regular_iff_turns_exist (302-303), Regular P ↔ ∀ i, ∃! τ, spec. The `3 ≤ n` hypotheses on these two fields are CV's own standing assumption (def:polygon \"Let n ≥ 3\"), not an SM narrowing; the definitions themselves are unrestricted and the general theorems (258-260) hold for all n.\n\nRelation to SM (fields regular_iff_sm 305, principal_turn_eq_sm 307-308): SM.Regular P := ∀ i, RegularPair(edge P (i−1))(edge P i) (RegularLocus.lean:12-13), RegularPair u v := u≠0 ∧ v≠0 ∧ ¬∃ r<0, v = r•u (RegularPairs.lean:8-9); re-indexing i ↦ i+1 and l = −r gives CV.Regular ↔ SM.Regular — the two printed loci are the same set. SM.principalTurn (RegularLocus.lean:15-16) is definitionally CV.principalTurn. Name resolution inside namespace CV with `open SM` picks CV.Regular / CV.principalTurn first (resolveUsingNamespace precedes open decls), so `Regular P ↔ SM.Regular P` relates the two intended objects.\n\nThe specific disagreement cases I hunted for: (1) antiparallel consecutive edges (kink): printed — no turn, P ∉ 𝓡_n; Lean — Kink holds, exists_iff/kink give no τ, Regular fails (edge(i) = r•edge(i−1), r<0 violates the second conjunct with l = −r). Agreement. (2) zero turn (positive multiple): both allow it in the locus with turn 0. Agreement. (3) zero edge: both exclude from 𝓡_n; Lean additionally records no turn exists (outside the printed domain, harmless). The only thing a reader should know is that CV.principalTurn is a total function with junk values off the printed domain — kernel-checked probe_kink_junk: principalAngle u (−u) = π for every u ≠ 0 (and arg 0 = 0 at a zero edge) — whereas the printed turn is undefined there. No bundle field asserts anything about principalTurn at a kink (principal_turn_value is guarded by RegularPair, and kink asserts non-existence of a spec value), so this is the standard Lean total-function convention, not a discrepancy in what is claimed. No field is weaker than, or adds content to, the printed definition on its domain.",
+   "evidence": [
+    "Source (A) lines 4-7: 'the unique τ_i∈(−π,π) with cos τ_i=⟨δ_{i−1},δ_i⟩/(|δ_{i−1}||δ_i|) and sgn τ_i=sgn det(δ_{i−1},δ_i)'  ⇔  Lean 167-171: `PrincipalTurnSpec L i τ := (-Real.pi < τ ∧ τ < Real.pi) ∧ Real.cos τ = planeDot (edge L (i - 1)) (edge L i) / (euclideanLength (edge L (i - 1)) * euclideanLength (edge L i)) ∧ SignType.sign τ = SignType.sign (det (edge L (i - 1)) (edge L i))`; primitives: edge P i = P (i+1) - P i (SM/Polygon.lean:49), planeDot u v = u.1*v.1+u.2*v.2 (SM/EuclideanPlane.lean:27), euclideanLength u = sqrt(u.1*u.1+u.2*u.2) (EuclideanPlane.lean:31-34), det u v = u.1*v.2-u.2*v.1 (Polygon.lean:16), SignType.sign = if 0<a then 1 else if a<0 then -1 else 0 (Mathlib/Data/Sign/Defs.lean:266-267).",
+    "Source (A) lines 7-9: 'It exists precisely when δ_i is not a negative multiple of δ_{i−1}'  ⇔  Lean field exists_iff 281-282: `(∃! τ, PrincipalTurnSpec L i τ) ↔ edge L (i - 1) ≠ 0 ∧ edge L i ≠ 0 ∧ ¬ Kink L i`, with Kink 178-179: `∃ r : ℝ, r < 0 ∧ edge L i = r • edge L (i - 1)` = 'δ_i∈ℝ_{<0}δ_{i−1}' (source 11). On a polygon (edges nonzero by def:polygon line 13 'd_i∈ℝ²∖{0}') this is (∃! τ) ↔ ¬Kink.",
+    "Source (A) line 9: 'if det(δ_{i−1},δ_i)≠0 it is nonzero' ⇔ field nonzero_of_det 284-286; source 9-10 'if δ_i is a positive multiple of δ_{i−1} it is 0' ⇔ field zero_of_positive_multiple 288-290 `edge L (i - 1) ≠ 0 → (∃ r : ℝ, 0 < r ∧ edge L i = r • edge L (i - 1)) → principalTurn L i = 0`. Kernel-checked probe_zero_turn (/tmp/cvreg/Probe.lean, axioms propext/Classical.choice/Quot.sound): ∀ u ≠ 0, RegularPair u (2•u) ∧ principalAngle u (2•u) = 0.",
+    "Source (A) lines 10-12: 'The excluded case δ_i∈ℝ_{<0}δ_{i−1} is the kink, where the two candidate values ±π are both excluded from the open interval' ⇔ field kink 293-295: `(Kink L i ↔ ∃ r : ℝ, r < 0 ∧ edge L i = r • edge L (i - 1)) ∧ (Kink L i → ¬ ∃ τ, PrincipalTurnSpec L i τ)`. Kernel-checked probe_kink_no_spec: ∀ u ≠ 0, ¬ ∃ θ, PrincipalAngleSpec u (-u) θ.",
+    "Source (B) lines 13-16: 'the set of P=(p_1,…,p_n) with d_i≠0 for all i and d_{i+1}≠−λd_i for all i and all λ>0' ⇔ Lean 184-185: `Regular P := (∀ i, edge P i ≠ 0) ∧ ∀ i (l : ℝ), 0 < l → edge P (i + 1) ≠ (-l) • edge P i`; regularLocus n := {P | Regular P} : Set (LabelledTuple n) (188), LabelledTuple n = ZMod n → ℝ×ℝ (Polygon.lean:13-14) = (ℝ²)^n; field regular_locus 298-300.",
+    "Source (B) lines 16-17: 'Equivalently, every principal turn of clause (A) exists' ⇔ field regular_iff_turns_exist 302-303: `Regular P ↔ ∀ i, ∃! τ, PrincipalTurnSpec P i τ` (general theorem regular_iff_principalTurns 258-260 has no n-hypothesis).",
+    "SM relation: SM.Regular P := ∀ i, RegularPair (edge P (i - 1)) (edge P i) (SM/RegularLocus.lean:12-13), RegularPair u v := u ≠ 0 ∧ v ≠ 0 ∧ ¬ ∃ r : ℝ, r < 0 ∧ v = r • u (SM/RegularPairs.lean:8-9); SM.principalTurn P i := principalAngle (edge P (i-1)) (edge P i) (RegularLocus.lean:15-16) = CV.principalTurn (174-175, rfl at 193-194). SM def:regular (sm-1-polygons.tex 386-397) 'all ℓ_i≠0 and no ℓ_i a negative multiple of ℓ_{i−1}' is the same set as CV (B) under i ↦ i+1, λ = −r.",
+    "Total-function junk (observation, not a claimed discrepancy): kernel-checked probe_kink_junk: ∀ u ≠ 0, principalAngle u (-u) = Real.pi, i.e. CV.principalTurn returns π at a kink where the printed turn does not exist; every bundle field about the value of principalTurn (principal_turn_value 276-279, nonzero_of_det 284-286) is guarded by RegularPair / nonzero-edge hypotheses, so no field asserts a value off the printed domain."
+   ],
+   "files_read": [
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/review_prompt_cv-setup.md",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/cv-def-regular-source-excerpt-lines-22-40.tex.txt",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/cv-def-polygon-source-excerpt-lines-8-19.tex.txt",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/R/CV/d1_setup.tex (lines 1-7 only)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/cv-setup-reviewer-input-statement.lean.txt (lines 1-312)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean (lines 1-95)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/EuclideanPlane.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularPairs.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PrincipalAngles.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularLocus.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RegularDefinition.lean",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex (lines 27-62, 386-397)",
+    "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/.lake/packages/mathlib/Mathlib/Data/Sign/Defs.lean (lines 260-275)",
+    "/tmp/cvreg/Probe.lean (scratch probes written and kernel-checked by me; not under work/)"
+   ]
+  }
+ ]
+}

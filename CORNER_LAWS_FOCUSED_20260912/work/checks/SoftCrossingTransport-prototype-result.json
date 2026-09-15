@@ -1,0 +1,197 @@
+{
+  "utc": "2026-09-12T01:18:01.567670+00:00",
+  "kernel_session": 16475,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "preserved_failed_sessions": [
+    21028
+  ],
+  "files_sha256": {
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+    "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+    "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+    "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+    "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+    "work/checks/SoftInheritedParameters.body.lean": "d885e062bf2d6045a74d94d4cb2a6b7c880a93a70479574373172e311ad005f5",
+    "work/checks/SoftParentPairStability.body.lean": "eaabc7f1f8eba5f41e9f1c4e42290e27040d06450ff05c3b8804afaefbe2d0d5",
+    "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+    "work/checks/SoftFamilyG1.body.lean": "f38072ce5dd3115bf51680818786b67d6572c82467f6b407fc6a2b6a2e1efa07",
+    "work/checks/SoftFamilyLocalCrossing.body.lean": "07230f4aad3bd90f97166a7dcb432230d15fe0ac262650f80558e463721ea50b",
+    "work/checks/SoftEdgeAvoidance.body.lean": "f5ed6d2cb736c9dbf00b1c85e5f62295470f608c5694965c287722f7e9066c19",
+    "work/checks/SoftCrossingClassification.body.lean": "1320198b785d5ac23df54042b0c92e0f7839cda6aad001d6e6c4e5d7248de994",
+    "work/checks/SoftFamilyG2.body.lean": "27be5e01086f99918cfa387946e4a22bf317eb427eccd54eb7fa091d9457a3f5",
+    "work/checks/SoftCrossingTransport.body.lean": "cec41591e595a35c6c7de8874cc6d5b31a597b39e727ee22e7333f9bb153ced7",
+    "work/checks/SoftCrossingTransport.prototype.lean": "b5be531d845a4bb1c93f71517024d276e3d35b3d8aaeb7ec560b9151dc1d9048",
+    "work/checks/SoftCrossingTransport-second-kernel.log": "4720fa0f48e4960dbdd8e53a50b01dc66535731aff9223c13034ff1378c6e82b"
+  },
+  "printed_declarations": [
+    "SM.SoftCrossingPersistence",
+    "SM.SoftCrossingClassificationAt",
+    "SM.soft_small_crossing_transport_data",
+    "SM.softInheritedCrossing",
+    "SM.softInheritedCrossing_support",
+    "SM.softInheritedCrossing_injective",
+    "SM.softInheritedCrossing_ne_newborn",
+    "SM.softInheritedCrossing_range_iff",
+    "SM.softInheritedCrossingEquiv",
+    "SM.softInheritedCrossing_surjective_nonloop",
+    "SM.softCrossingEquivNonloop",
+    "SM.softNewbornCrossing",
+    "SM.softNewbornCrossing_support",
+    "SM.softInheritedCrossing_range_loop",
+    "SM.softInheritedVisit",
+    "SM.softInheritedVisit_crossing",
+    "SM.softInheritedVisit_edge",
+    "SM.softInheritedVisit_injective",
+    "SM.softInheritedVisit_pairing",
+    "SM.softInheritedVisit_range_crossing_iff",
+    "SM.softInheritedVisit_range_iff",
+    "SM.softInheritedVisitEquiv",
+    "SM.softInheritedVisit_surjective_nonloop",
+    "SM.softVisitEquivNonloop",
+    "SM.softInheritedVisit_range_loop",
+    "SM.softInheritedVisit_parameter",
+    "SM.softInheritedVisit_parameter_exists"
+  ],
+  "declaration_axioms": {
+    "SM.SoftCrossingPersistence": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftCrossingClassificationAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.soft_small_crossing_transport_data": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_support": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_ne_newborn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_range_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossingEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_surjective_nonloop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softCrossingEquivNonloop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softNewbornCrossing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softNewbornCrossing_support": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedCrossing_range_loop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_crossing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_edge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_pairing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_range_crossing_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_range_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisitEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_surjective_nonloop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softVisitEquivNonloop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_range_loop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_parameter": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.softInheritedVisit_parameter_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Kernel-checked candidate; frozen; stronger fidelity and controlled canonical integration pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

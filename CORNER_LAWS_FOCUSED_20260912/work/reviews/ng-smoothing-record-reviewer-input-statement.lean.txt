@@ -1,0 +1,429 @@
+import SM.FrontSmooth
+
+/-! Ported 2026-09-14 from work/drafts/front/FrontRecordBridge.lean (front lane unit α2, rebased on the repaired SM/FrontSmooth.lean; the executor trimmed the bundle to the seven clauses of the printed STATEMENT — the seven fields rendering sentences of the printed proof stay in the module as lemmas). Row ng:smoothing-record, main declaration `SM.ng_smoothing_record` (bundle `SmoothingRecordData`). Only this header added. -/
+
+/-! # Independence of the rounding (Lemma ng:smoothing-record)
+
+Source: reference/SM/sm-3-statesum.tex:1843-1862 (row 74 of tools/claims.py).  Design:
+work/reports/front-block-design-FINAL-20260913.md §5 item 2, §9 FR-1 and FR-4, §11 (module
+`SM/FrontRecordBridge.lean`).  Row 73 (Definition ng:front-domain) is `SM/FrontSmooth.lean`.
+Main declaration: `SM.ng_smoothing_record : SmoothingRecordData` (§6; on the v2 basis of row 73,
+see "Basis" below).
+
+## The printed text (sm-3:1843-1850, verbatim)
+
+"Let F be a front on the domain of Definition ng:front-domain. Any two ordinary diagrams S(F)
+obtained by the cusp replacement of that definition have the same full named record: the same
+component circles, including crossing-free ones, and the same crossing occurrences, cyclic orders,
+over/under bits and signs. Consequently P_{S(F)} does not depend on the choice of rounding."
+
+## The printed proof (sm-3:1851-1862, verbatim)
+
+"A cusp replacement inside a clean cusp disc creates no crossing and changes no successor of an
+old crossing visit along the oriented parameter circle: the replacing arc has the same oriented
+attachments as the cusp it replaces. Every crossing pairing, sign and over/under bit is determined
+by germs outside the cusp discs, which are unchanged, and the component correspondence is the
+identity on the parameter circles, including those without crossings. Thus any two such diagrams
+have a named decorated-record isomorphism, and Lemma rp:record-polynomial identifies their
+polynomial values. This does not use an ambient identification with a spatial cusp-shaped link."
+
+## Basis (2026-09-14)
+
+The row-73 module of the morning (unit α1) rendered the rounding with a cusp-free `SmoothFront` `G`
+and a `GeomRounding` whose `clean` used the OPEN arc; its independent review and, independently,
+this unit (`GeomRounding.false_of_cusp`, kept in the scratch record /tmp/front_scratch/) found both
+`GeomRounding` and `Rounding` provably empty for cusped fronts.  The ported repair (v2 of
+`SM/FrontSmooth.lean`, 2026-09-14 03:47) stores the arc end points `a b`, uses the CLOSED arc in
+`clean` with `arc_in` and `arc_simple`, takes the rounded curves as a plain family
+`G : Fin F.c → SmoothLoop`, and reads the record of `S(F)` as the front's own named record:
+`Rounding S = ⟨G, geom : GeomRounding F G, marking : F.Marking S⟩`, `IsRounding S := Nonempty …`.
+This file is written on that basis.  The justification that the record of `S(F)` *is* `F`'s record
+(the printed proof's first two sentences) is in the module (`GeomRounding.isDouble_iff`,
+`eval_eq_of_isDouble`, `deriv_eq_of_isDouble`, `agree`) and completed here by the consequences the
+printed proof names (§3: occurrence set, slopes, signs, germs); the row's content proper is §4-§7.
+
+## Printed notion → Lean
+
+| printed | Lean |
+|---|---|
+| a front `F` of ng:front-domain | `SmoothFront` (row 73) |
+| an ordinary diagram `S(F)` obtained by the cusp replacement | `F.IsRounding S` = `Nonempty (F.Rounding S)`, `Rounding S = ⟨G, geom, marking⟩` (FR-1: a polygonal `Diagram` carrying the named record of `F` — justified by the module's `GeomRounding.isDouble_iff`/`deriv_eq_of_isDouble` and §3: the rounded curves have exactly `F`'s double points and `F`'s germs there) |
+| "the same full named record" | `Nonempty (RecordIso S.record S'.record)` (the accepted `RecordIso`: circles, occurrences, successor, pairing, bits, signs) |
+| "the same component circles, including crossing-free ones" | `S.componentCount = F.c`, `S'.componentCount = F.c`, and `ι.e : Fin S.Γ.c ≃ Fin S'.Γ.c` with `S'.compOf (ι.Φ v) = ι.e (S.compOf v)` (`RecordIso.compOf_eq`) |
+| "the same crossing occurrences" | `ι.Φ : S.Γ.Visit ≃ S'.Γ.Visit` respecting the pairing (`RecordIso.twin_eq`), both in bijection with `F.Occ` |
+| "cyclic orders" | `ι.Φ (S.nextVisit v) = S'.nextVisit (ι.Φ v)` and `S'.VisitBetween (ι.Φ v) (ι.Φ w) (ι.Φ u) ↔ S.VisitBetween v w u` (accepted `RecordIso.visitBetween_iff`) |
+| "over/under bits and signs" | `S'.overBit (ι.Φ v) = S.overBit v`, `S'.sign (ι.Φ v).1 = S.sign v.1` |
+| "P_{S(F)} does not depend on the choice of rounding" | `P S = P S'` via the accepted `presentations` (rp:record-polynomial / lc:presentations) |
+| (proof) "creates no crossing" | `GeomRounding.isDoubleOf_iff : IsDoubleOf G p q ↔ F.IsDouble p q` (= the module's `isDouble_iff`) |
+| (proof) "changes no successor of an old crossing visit along the oriented parameter circle" | `GeomRounding.occSetOf_eq : occSetOf G = F.occSet` (the same parameters on the same oriented circles) |
+| (proof) "the replacing arc has the same oriented attachments" | `GeomRounding.agree` (FR-4) |
+| (proof) "determined by germs outside the cusp discs, which are unchanged" | `GeomRounding.eventuallyEq_of_isDouble : (G p.1).γ =ᶠ[𝓝 p.2] (F.comp p.1).γ` at every double-point parameter; `slopeOf_eq`, `crossSignOf_eq` (via the module's `deriv_eq_of_isDouble`) |
+| (proof) "the component correspondence is the identity on the parameter circles" | the marking is `F.Marking S`: `e : Fin F.c ≃ Fin S.Γ.c` on `F`'s own circles, `comp_eq` |
+| (proof) "Thus any two such diagrams have a named decorated-record isomorphism" | `Marking.recordIso (m : F.Marking S) (m' : F.Marking S') : RecordIso S.record S'.record` |
+| (proof) "Lemma rp:record-polynomial identifies their polynomial values" | `presentations` |
+| (proof) "This does not use an ambient identification with a spatial cusp-shaped link" | `#print axioms`: standard axioms and `SM.lp_lm` (through `P`) only |
+
+FR-1 (polygonal reading of `S(F)`; FINAL §9) and FR-4 (parametrized rounding: `G` lives on the
+front's parameter circles and equals `F` off the replaced arcs) are cited at §3, `Marking.recordIso`
+and the bundle. -/
+
+namespace SM
+
+open Link Filter Topology
+
+noncomputable section
+open Classical
+
+/-! ## 1. Signs are determined by their integer values -/
+
+/-- the sign of a crossing is determined by its integer value -/
+theorem signType_intCast_injective : Function.Injective (fun s : SignType => (s : ℤ)) := by
+  intro s s' h
+  cases s <;> cases s' <;> simp at h <;> rfl
+
+
+namespace SmoothFront
+
+/-! ## 2. Double points, occurrences, slopes and signs of a family of smooth loops
+
+The rounded curve of the corrected row 73 is a plain family `G : Fin F.c → SmoothLoop` on the
+front's parameter circles (not a `SmoothFront`).  Its double points, crossing occurrences, slopes
+and over-first signs are read exactly as for a front (`IsDouble`, `occSet`, `slope`, `crossSign`
+of SM/FrontSmooth.lean), on the parameters. -/
+
+variable {c : ℕ}
+
+/-- a double point of the loops, as an ordered pair of parameters of distinct points -/
+def IsDoubleOf (G : Fin c → SmoothLoop) (p q : Param c) : Prop :=
+  ¬ SameParam p q ∧ (G p.1).γ p.2 = (G q.1).γ q.2
+
+theorem IsDoubleOf.symm {G : Fin c → SmoothLoop} {p q : Param c} (h : IsDoubleOf G p q) :
+    IsDoubleOf G q p :=
+  ⟨fun h' => h.1 h'.symm, h.2.symm⟩
+
+/-- the crossing occurrences of the loops (parameters in the fundamental period) -/
+def occSetOf (G : Fin c → SmoothLoop) : Set (Param c) :=
+  {p | p.2 ∈ Set.Ico (0 : ℝ) 1 ∧
+    ∃ q : Param c, q.2 ∈ Set.Ico (0 : ℝ) 1 ∧ p ≠ q ∧ (G p.1).γ p.2 = (G q.1).γ q.2}
+
+theorem mem_occSetOf {G : Fin c → SmoothLoop} {p : Param c} :
+    p ∈ occSetOf G ↔ p.2 ∈ Set.Ico (0 : ℝ) 1 ∧
+      ∃ q : Param c, q.2 ∈ Set.Ico (0 : ℝ) 1 ∧ p ≠ q ∧ (G p.1).γ p.2 = (G q.1).γ q.2 := Iff.rfl
+
+/-- the slope `dz/dx` of the loops at a parameter -/
+def slopeOf (G : Fin c → SmoothLoop) (p : Param c) : ℝ :=
+  (deriv (G p.1).γ p.2).2 / (deriv (G p.1).γ p.2).1
+
+/-- the over-first tangent-determinant sign of the loops at a pair of parameters -/
+def crossSignOf (G : Fin c → SmoothLoop) (p q : Param c) : ℤ :=
+  if 0 < det (deriv (G p.1).γ p.2) (deriv (G q.1).γ q.2) then 1 else -1
+
+/-- sanity: on a front these are the front's own notions -/
+theorem isDoubleOf_comp (F : SmoothFront) (p q : Param F.c) :
+    IsDoubleOf F.comp p q ↔ F.IsDouble p q := Iff.rfl
+
+theorem occSetOf_comp (F : SmoothFront) : occSetOf F.comp = F.occSet := rfl
+
+theorem slopeOf_comp (F : SmoothFront) (p : Param F.c) : slopeOf F.comp p = F.slope p := rfl
+
+theorem crossSignOf_comp (F : SmoothFront) (p q : Param F.c) :
+    crossSignOf F.comp p q = F.crossSign p q := rfl
+
+/-! ## 3. The rounded curves have the front's occurrences, slopes and signs
+
+The ported row 73 proves that the rounded curves `G` of `r : F.GeomRounding G` have exactly the
+front's double points (`GeomRounding.isDouble_iff`, "creates no crossing") and the front's value
+and velocity at each of them (`eval_eq_of_isDouble`, `deriv_eq_of_isDouble`; the germ agrees:
+`eventuallyEq_of_closedArcFree` at `closedArcFree_of_isDouble`).  The printed proof names the
+consequences: the crossing occurrences are the same parameters on the same oriented circles (so
+"changes no successor of an old crossing visit along the oriented parameter circle"), and the
+slopes (over rule) and over-first signs are the front's ("every crossing pairing, sign and over/under
+bit is determined by germs outside the cusp discs, which are unchanged"). -/
+
+namespace GeomRounding
+
+variable {F : SmoothFront} {G : Fin F.c → SmoothLoop} (r : F.GeomRounding G)
+include r
+
+/-- "creates no crossing", in the loop-family vocabulary -/
+theorem isDoubleOf_iff (p q : Param F.c) : IsDoubleOf G p q ↔ F.IsDouble p q :=
+  r.isDouble_iff p q
+
+/-- "determined by germs outside the cusp discs, which are unchanged": at every double point of the
+front the germ of the rounded curve is the germ of the front -/
+theorem eventuallyEq_of_isDouble {p q : Param F.c} (h : F.IsDouble p q) :
+    (G p.1).γ =ᶠ[𝓝 p.2] (F.comp p.1).γ :=
+  r.eventuallyEq_of_closedArcFree (r.closedArcFree_of_isDouble h)
+
+/-- "changes no successor of an old crossing visit along the oriented parameter circle": the
+crossing occurrences of the rounded curves are those of the front, as the same parameters of the
+same oriented circles — so the cyclic order of the occurrences on each circle, hence every
+successor, is literally unchanged -/
+theorem occSetOf_eq : occSetOf G = F.occSet := by
+  ext p
+  simp only [mem_occSetOf, mem_occSet]
+  constructor
+  · rintro ⟨hp, q, hq, hne, he⟩
+    have hd : IsDoubleOf G p q := ⟨fun hs => hne (SameParam.eq_of_mem_Ico hp hq hs), he⟩
+    exact ⟨hp, q, hq, hne, ((r.isDoubleOf_iff p q).mp hd).2⟩
+  · rintro ⟨hp, q, hq, hne, he⟩
+    have hd : F.IsDouble p q := ⟨fun hs => hne (SameParam.eq_of_mem_Ico hp hq hs), he⟩
+    exact ⟨hp, q, hq, hne, ((r.isDoubleOf_iff p q).mpr hd).2⟩
+
+/-- the over rule picks the same branch: at a double point the rounded curve has the front's slope -/
+theorem slopeOf_eq {p q : Param F.c} (h : F.IsDouble p q) : slopeOf G p = F.slope p := by
+  unfold slopeOf slope
+  rw [r.deriv_eq_of_isDouble h]
+
+/-- the over-first tangent-determinant sign is the front's -/
+theorem crossSignOf_eq {p q : Param F.c} (h : F.IsDouble p q) :
+    crossSignOf G p q = F.crossSign p q := by
+  unfold crossSignOf crossSign
+  rw [r.deriv_eq_of_isDouble h, r.deriv_eq_of_isDouble h.symm]
+
+end GeomRounding
+
+/-! ## 4. Two polygonal readings of one front are record-isomorphic
+
+The printed proof's third sentence: "Thus any two such diagrams have a named decorated-record
+isomorphism".  Given `m : F.Marking S` and `m' : F.Marking S'`, the composite `m'.Φ ∘ m.Φ⁻¹` is a
+bijection of occurrences respecting circles (`comp_eq`), the cyclic orders (both are the cyclic
+order of the same front parameters, so by the accepted `nextVisit_comm_of_visitBetween_iff` the
+successors correspond), the pairing (both are the pairing of the same double points), the bits
+(over = smaller slope on both sides) and the signs (the same `crossSign`). -/
+
+namespace Marking
+
+variable {F : SmoothFront} {S S' : Diagram}
+
+/-- every crossing occurrence has a partner: the other branch of its double point -/
+theorem exists_partner (p : F.Occ) : ∃ q : F.Occ, p ≠ q ∧ F.eval p = F.eval q := by
+  obtain ⟨hp, q, hq, hne, he⟩ := F.mem_occSet.mp p.2
+  exact ⟨⟨q, F.mem_occSet.mpr ⟨hq, p.1, hp, hne.symm, he.symm⟩⟩,
+    fun h => hne (congrArg Subtype.val h), he⟩
+
+/-- the occurrence sent to the twin of `Φ p` is the partner of `p` -/
+theorem partner_of_Φ_eq_twin (m : F.Marking S) {p q : F.Occ} (h : m.Φ q = S.twin (m.Φ p)) :
+    p ≠ q ∧ F.eval p = F.eval q := by
+  obtain ⟨q₀, hne, he⟩ := exists_partner p
+  have hq : q₀ = q := m.Φ.injective ((m.pair_eq p q₀ hne he).trans h.symm)
+  subst hq
+  exact ⟨hne, he⟩
+
+theorem compOf_eq_e (m : F.Marking S) (v : S.Γ.Visit) : S.compOf v = m.e (m.Φ.symm v).1.1 := by
+  have h := m.comp_eq (m.Φ.symm v)
+  rwa [Equiv.apply_symm_apply] at h
+
+theorem compOf_eq_iff (m : F.Marking S) (v w : S.Γ.Visit) :
+    S.compOf v = S.compOf w ↔ (m.Φ.symm v).1.1 = (m.Φ.symm w).1.1 := by
+  rw [m.compOf_eq_e v, m.compOf_eq_e w, m.e.apply_eq_iff_eq]
+
+/-- the cyclic order of three occurrences of one circle, read on the front's parameters -/
+theorem visitBetween_iff (m : F.Marking S) {p q r : F.Occ} (hpq : p.1.1 = q.1.1)
+    (hqr : q.1.1 = r.1.1) :
+    S.VisitBetween (m.Φ p) (m.Φ q) (m.Φ r) ↔ cycBetween p.1.2 q.1.2 r.1.2 :=
+  (m.between_iff p q r hpq hqr).symm
+
+/-- **Composition.**  Two polygonal readings of the named record of one front are isomorphic
+named records (the accepted `RecordIso`: circles, occurrences, successor, pairing, bits, signs). -/
+def recordIso (m : F.Marking S) (m' : F.Marking S') : RecordIso S.record S'.record where
+  e := m.e.symm.trans m'.e
+  Φ := m.Φ.symm.trans m'.Φ
+  comp_eq v := by
+    show S'.compOf (m'.Φ (m.Φ.symm v)) = m'.e (m.e.symm (S.compOf v))
+    rw [m'.comp_eq, m.compOf_eq_e v, Equiv.symm_apply_apply]
+  succ_eq v := by
+    show (m.Φ.symm.trans m'.Φ) (S.nextVisit v) = S'.nextVisit ((m.Φ.symm.trans m'.Φ) v)
+    apply S.nextVisit_comm_of_visitBetween_iff (m.Φ.symm.trans m'.Φ)
+    · intro v w
+      show S'.compOf (m'.Φ (m.Φ.symm v)) = S'.compOf (m'.Φ (m.Φ.symm w)) ↔ _
+      rw [m'.comp_eq, m'.comp_eq, m'.e.apply_eq_iff_eq, m.compOf_eq_iff]
+    · intro v w u hw hu
+      rw [m.compOf_eq_iff] at hw hu
+      show S'.VisitBetween (m'.Φ (m.Φ.symm v)) (m'.Φ (m.Φ.symm w)) (m'.Φ (m.Φ.symm u)) ↔ _
+      rw [m'.visitBetween_iff hw.symm (hw.trans hu.symm)]
+      have h := m.visitBetween_iff (p := m.Φ.symm v) (q := m.Φ.symm w) (r := m.Φ.symm u)
+        hw.symm (hw.trans hu.symm)
+      simp only [Equiv.apply_symm_apply] at h
+      exact h.symm
+  pair_eq v := by
+    show m'.Φ (m.Φ.symm (S.twin v)) = S'.twin (m'.Φ (m.Φ.symm v))
+    have hΦ : m.Φ (m.Φ.symm (S.twin v)) = S.twin (m.Φ (m.Φ.symm v)) := by
+      rw [Equiv.apply_symm_apply, Equiv.apply_symm_apply]
+    obtain ⟨hne, he⟩ := m.partner_of_Φ_eq_twin hΦ
+    exact m'.pair_eq _ _ hne he
+  bit_eq v := by
+    show S'.overBit (m'.Φ (m.Φ.symm v)) = S.overBit v
+    obtain ⟨q, hne, he⟩ := exists_partner (m.Φ.symm v)
+    have h1 := m.over_iff _ q hne he
+    have h2 := m'.over_iff _ q hne he
+    rw [Equiv.apply_symm_apply] at h1
+    exact Bool.eq_iff_iff.mpr (h2.trans h1.symm)
+  sgn_eq v := by
+    show S'.sign (m'.Φ (m.Φ.symm v)).1 = S.sign v.1
+    set p := m.Φ.symm v with hp
+    obtain ⟨q, hne, he⟩ := exists_partner p
+    have hv : m.Φ p = v := Equiv.apply_symm_apply _ _
+    have hd : F.IsDouble p.1 q.1 := Occ.isDouble_of_ne F hne he
+    apply signType_intCast_injective
+    rcases lt_or_gt_of_ne (F.slope_ne_of_isDouble hd) with hs | hs
+    · have h1 := m.sgn_eq p q hne he hs
+      have h2 := m'.sgn_eq p q hne he hs
+      rw [hv] at h1
+      exact h2.trans h1.symm
+    · have h1 := m.sgn_eq q p hne.symm he.symm hs
+      have h2 := m'.sgn_eq q p hne.symm he.symm hs
+      have e1 : (m.Φ q).1 = v.1 := by rw [m.pair_eq p q hne he, S.twin_fst, hv]
+      have e2 : (m'.Φ q).1 = (m'.Φ p).1 := by rw [m'.pair_eq p q hne he, S'.twin_fst]
+      rw [e1] at h1
+      rw [e2] at h2
+      exact h2.trans h1.symm
+
+@[simp] theorem recordIso_e (m : F.Marking S) (m' : F.Marking S') (i : Fin S.Γ.c) :
+    (m.recordIso m').e i = m'.e (m.e.symm i) := rfl
+
+@[simp] theorem recordIso_Φ (m : F.Marking S) (m' : F.Marking S') (v : S.Γ.Visit) :
+    (m.recordIso m').Φ v = m'.Φ (m.Φ.symm v) := rfl
+
+end Marking
+
+
+end SmoothFront
+
+/-! ### 5. Reading a `RecordIso` between diagram records in the diagram vocabulary -/
+
+namespace Link.RecordIso
+
+variable {S S' : Diagram} (ι : RecordIso S.record S'.record)
+
+theorem compOf_eq (v : S.Γ.Visit) : S'.compOf (ι.Φ v) = ι.e (S.compOf v) := ι.comp_eq v
+
+theorem nextVisit_eq (v : S.Γ.Visit) : ι.Φ (S.nextVisit v) = S'.nextVisit (ι.Φ v) := ι.succ_eq v
+
+theorem twin_eq (v : S.Γ.Visit) : ι.Φ (S.twin v) = S'.twin (ι.Φ v) := ι.pair_eq v
+
+theorem overBit_eq (v : S.Γ.Visit) : S'.overBit (ι.Φ v) = S.overBit v := ι.bit_eq v
+
+theorem sign_eq (v : S.Γ.Visit) : S'.sign (ι.Φ v).1 = S.sign v.1 := ι.sgn_eq v
+
+/-  `ι.compOf_iff` and `ι.visitBetween_iff` (successor preservation = preservation of the oriented
+cyclic orders) are the accepted `RecordIso.compOf_iff` / `RecordIso.visitBetween_iff` of
+SM/LinkDiagramRecord.lean. -/
+
+end Link.RecordIso
+
+/-! ## 6. The row theorem on the marking layer
+
+On the v2 basis a rounding `ρ : F.Rounding S` carries `ρ.marking : F.Marking S` (the record of
+`S(F)` is the front's own named record, justified by §3), so the row theorem is the composition of
+§4 followed by the accepted `presentations`. -/
+
+namespace SmoothFront
+
+variable {F : SmoothFront} {S S' : Diagram}
+
+/-- two polygonal readings of the named record of one front are record-isomorphic -/
+theorem recordIso_nonempty_of_markings (h : Nonempty (F.Marking S)) (h' : Nonempty (F.Marking S')) :
+    Nonempty (RecordIso S.record S'.record) :=
+  h.elim fun m => h'.elim fun m' => ⟨m.recordIso m'⟩
+
+/-- hence they have the same polynomial (rp:record-polynomial / lc:presentations) -/
+theorem P_eq_of_markings (h : Nonempty (F.Marking S)) (h' : Nonempty (F.Marking S')) : P S = P S' :=
+  presentations S S' (recordIso_nonempty_of_markings h h')
+
+theorem defect_eq_of_markings (h : Nonempty (F.Marking S)) (h' : Nonempty (F.Marking S')) :
+    F.defect S = F.defect S' :=
+  F.defect_eq_of_recordIso (recordIso_nonempty_of_markings h h')
+
+
+/-! ## 7. The row theorem and bundle -/
+
+namespace Rounding
+
+variable {F : SmoothFront} {S : Diagram}
+
+/-- the named record isomorphism between two roundings of one front: the composite of their
+markings of the front's own record (§4) -/
+def iso (ρ : F.Rounding S) {S' : Diagram} (ρ' : F.Rounding S') : RecordIso S.record S'.record :=
+  ρ.marking.recordIso ρ'.marking
+
+@[simp] theorem iso_Φ (ρ : F.Rounding S) {S' : Diagram} (ρ' : F.Rounding S') (v : S.Γ.Visit) :
+    (ρ.iso ρ').Φ v = ρ'.marking.Φ (ρ.marking.Φ.symm v) := rfl
+
+@[simp] theorem iso_e (ρ : F.Rounding S) {S' : Diagram} (ρ' : F.Rounding S') (i : Fin S.Γ.c) :
+    (ρ.iso ρ').e i = ρ'.marking.e (ρ.marking.e.symm i) := rfl
+
+end Rounding
+
+namespace IsRounding
+
+variable {F : SmoothFront} {S S' : Diagram}
+
+/-- an `S(F)` carries the named record of `F` -/
+theorem marking_nonempty (h : F.IsRounding S) : Nonempty (F.Marking S) :=
+  h.elim fun ρ => ⟨ρ.marking⟩
+
+/-- **ng:smoothing-record, first assertion**: two roundings of one front have isomorphic named
+records -/
+theorem recordIso_nonempty (h : F.IsRounding S) (h' : F.IsRounding S') :
+    Nonempty (RecordIso S.record S'.record) :=
+  h.elim fun ρ => h'.elim fun ρ' => ⟨ρ.iso ρ'⟩
+
+/-- **ng:smoothing-record, second assertion**: `P_{S(F)}` does not depend on the rounding
+(rp:record-polynomial / lc:presentations, the accepted `presentations`) -/
+theorem P_eq (h : F.IsRounding S) (h' : F.IsRounding S') : P S = P S' :=
+  presentations S S' (h.recordIso_nonempty h')
+
+/-- hence `d(F)` and `B(F)` (display ng:defect) are independent of the rounding -/
+theorem defect_eq (h : F.IsRounding S) (h' : F.IsRounding S') : F.defect S = F.defect S' :=
+  F.defect_eq_of_recordIso (h.recordIso_nonempty h')
+
+end IsRounding
+
+end SmoothFront
+
+open SmoothFront in
+/-- Lemma ng:smoothing-record (sm-3:1843-1850) with its proof (sm-3:1851-1862), one field per
+printed clause.  Throughout, `F` is a front of Definition ng:front-domain (`SmoothFront`), and
+`S`, `S'` are "ordinary diagrams `S(F)` obtained by the cusp replacement of that definition"
+(`F.IsRounding S`, `F.IsRounding S'`; explicit roundings `ρ`, `ρ'` where the clause names the
+isomorphism `ρ.iso ρ'`). -/
+structure SmoothingRecordData : Prop where
+  /-- "Any two ordinary diagrams S(F) obtained by the cusp replacement of that definition have the
+  same full named record" -/
+  full_named_record : ∀ (F : SmoothFront) (S S' : Diagram), F.IsRounding S → F.IsRounding S' →
+    Nonempty (RecordIso S.record S'.record)
+  /-- "the same component circles, including crossing-free ones": both diagrams have exactly the
+  front's `c` circles (crossing-free ones included), and the isomorphism's circle bijection `e`
+  carries the circle of each occurrence to the circle of its image -/
+  component_circles : ∀ (F : SmoothFront) (S S' : Diagram) (ρ : F.Rounding S) (ρ' : F.Rounding S'),
+    S.componentCount = F.c ∧ S'.componentCount = F.c ∧
+    ∀ v, S'.compOf ((ρ.iso ρ').Φ v) = (ρ.iso ρ').e (S.compOf v)
+  /-- "and the same crossing occurrences": both occurrence sets are in bijection with the front's
+  occurrences, and the isomorphism's occurrence bijection `Φ` respects the pairing into double
+  points -/
+  crossing_occurrences : ∀ (F : SmoothFront) (S S' : Diagram) (ρ : F.Rounding S)
+      (ρ' : F.Rounding S'),
+    Fintype.card S.Γ.Visit = Fintype.card F.Occ ∧ Fintype.card S'.Γ.Visit = Fintype.card F.Occ ∧
+    ∀ v, (ρ.iso ρ').Φ (S.twin v) = S'.twin ((ρ.iso ρ').Φ v)
+  /-- "cyclic orders": `Φ` commutes with the forward successor on every oriented circle,
+  equivalently preserves the oriented cyclic order of the occurrences of each circle -/
+  cyclic_orders : ∀ (F : SmoothFront) (S S' : Diagram) (ρ : F.Rounding S) (ρ' : F.Rounding S'),
+    (∀ v, (ρ.iso ρ').Φ (S.nextVisit v) = S'.nextVisit ((ρ.iso ρ').Φ v)) ∧
+    ∀ v w u, S.compOf w = S.compOf v → S.compOf u = S.compOf v →
+      (S'.VisitBetween ((ρ.iso ρ').Φ v) ((ρ.iso ρ').Φ w) ((ρ.iso ρ').Φ u) ↔ S.VisitBetween v w u)
+  /-- "over/under bits" -/
+  over_under_bits : ∀ (F : SmoothFront) (S S' : Diagram) (ρ : F.Rounding S) (ρ' : F.Rounding S'),
+    ∀ v, S'.overBit ((ρ.iso ρ').Φ v) = S.overBit v
+  /-- "and signs." -/
+  signs : ∀ (F : SmoothFront) (S S' : Diagram) (ρ : F.Rounding S) (ρ' : F.Rounding S'),
+    ∀ v, S'.sign ((ρ.iso ρ').Φ v).1 = S.sign v.1
+  /-- "Consequently P_{S(F)} does not depend on the choice of rounding." -/
+  polynomial : ∀ (F : SmoothFront) (S S' : Diagram), F.IsRounding S → F.IsRounding S' → P S = P S'
+
+theorem ng_smoothing_record : SmoothingRecordData := by
+  sorry
+
+end
+
+end SM

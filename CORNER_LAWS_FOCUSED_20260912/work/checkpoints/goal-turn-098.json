@@ -1,0 +1,122 @@
+{
+  "checkpoint": "098",
+  "utc": "2026-09-12T04:55:11.500397+00:00",
+  "goal_status": "active; incomplete",
+  "previous_goal_turn_classification": "progress",
+  "this_goal_turn_classification": "progress:80 checked declarations construct actual full marked traversal, crossing twins, cyclic successor and selected outgoing successor/orbit components, including the empty-support single-component case; full carrier and main corner theorems remain",
+  "original_proofs": 19,
+  "original_proof_total": 132,
+  "original_checklist_accepted": 38,
+  "original_checklist_total": 191,
+  "expanded_checklist_accepted": 39,
+  "expanded_checklist_total": 192,
+  "main_targets_accepted": 0,
+  "main_targets_total": 8,
+  "new_kernel_checked_declarations": 80,
+  "implementation_declarations": 80,
+  "prototype_consumers": 0,
+  "candidate_groups": 4,
+  "root_kernel_state": "none; all7 root kernel attempts terminal:4 passing runs and3 preserved first failures",
+  "reviewer_kernel_state": "none launched",
+  "passing_root_sessions": {
+    "CarrierMarks": 24989,
+    "CarrierVisitTwin": 56376,
+    "CarrierSuccessor": 45949,
+    "CarrierSmoothing": 67282
+  },
+  "same_model_technical_reviews": {
+    "status": "Four sealed; no technical defect within bounded scopes; independent AI authorship and review limits disclosed; no stronger approval",
+    "files_sha256": {
+      "work/reviews/carrier-marks-technical-review-20260912.json": "5d10777ec8da18b257f6c9e0eca534f4735550bb8e2b1a73461357f805f75504",
+      "work/reviews/carrier-visit-twin-technical-review-20260912.json": "118e276254ad83e39490dafdaac37d928ec4b95b38dbf8b6acb78ea28b5ed84c",
+      "work/reviews/carrier-successor-technical-review-20260912.json": "82b60dffb9d5f2e7579fd705e59e785703895e33ca3197763c216e6bd0d2a282",
+      "work/reviews/carrier-smoothing-technical-review-20260912.json": "fc8a062ea9740c092b3031876f43eb3662c217792d8705a79d503f3528dd0ab7"
+    },
+    "quoted_bindings_verified": 104,
+    "unique_bound_files": 73,
+    "source_fidelity_approval": false
+  },
+  "canonical_modules_unchanged": 327,
+  "baseline_files_unchanged": 1920,
+  "unique_candidate_evidence_files_checked": 52,
+  "passing_receipts_sha256": {
+    "work/checks/CarrierMarks-prototype-result.json": "e2c26037204cd196acc809b474422d2957c3211584a55f9a64853c807d9971a6",
+    "work/checks/CarrierVisitTwin-prototype-result.json": "d5c2a43534dad4ddaa0deccf97bdda42f5c29e7f394aadffb80a6c8f1604d640",
+    "work/checks/CarrierSuccessor-prototype-result.json": "7811e0b37ad0f1bd99a68c70a214d107ea85941daf0137cb3bc8cc9075bc9fa4",
+    "work/checks/CarrierSmoothing-prototype-result.json": "4e06aa76bbc821b6ef8c506d0c704a89b6e8e979ebabf8a6d291b5aa5768eada"
+  },
+  "preserved_failed_sessions": [
+    19827,
+    46163,
+    85290
+  ],
+  "repair_header_changes": {
+    "19827": [
+      "markList_nonempty"
+    ],
+    "46163": [
+      "markSuccessor_sameCycle_getElem"
+    ],
+    "85290": []
+  },
+  "proof_repairs": "First failed bodies/prototypes/dependency lists/logs preserved before repairs. Marks replaced nonexistent List.Nonempty with intended existential; Successor supplied membership and annotated Nat zero in one header; Smoothing repaired only quotient equality and singleton-count proofs. First invalid headers and failed compiler placeholders were never accepted.",
+  "verifier_execution": "Both new verifiers passed first execution; bounded independent static diff inspection preceded concrete execution; no acceptance rule relaxed.",
+  "source_claim_acceptance_increment": 0,
+  "new_source_theorem_candidates": [],
+  "source_scope": "SM3 finite successor construction and empty-support orbit case only; not the complete def:smoothing or lem:carriers",
+  "proved_scope": [
+    "Every actual original vertex and crossing visit; position/key injectivity, complete sorted marked list, exact length and nonemptiness",
+    "Actual distinct unique crossing twin and selected swap involutions, commutation and disjoint-union law",
+    "Concrete cyclic successor/predecessor, modular formulas and no intervening mark; every mark in the original successor orbit",
+    "Actual selected outgoing-slot reconnection; physical switch endpoint equality and exact vertex/visit/union/empty formulas",
+    "Actual SameCycle component quotient, surjective incoming-node ownership, finite/nonempty components and exactly one component for empty support"
+  ],
+  "remaining_carrier_scope": [
+    "Independent-support splitting/refinement/count, inherited cyclic order and selected endpoint separation",
+    "Positive straight segments, actual corner-compressed polygonal carriers, regularity and corner signs",
+    "Retained crossing ownership and all-visits noncrossing assignment"
+  ],
+  "remaining_main_goal": "Actual corner-state-sum C, direct all-sector C-soft and wall laws, full-cusp/comparison and R/bridge; stronger statement/definition fidelity, controlled integration and final acceptance checks",
+  "whole_library_audit_rerun": false,
+  "last_canonical_audit": "070",
+  "report": "reports/carrier-successor-candidates-20260912.md",
+  "next_action_document": "decisions/carrier-cycle-splitting-inventory-20260912.md",
+  "next_action": "Execute decisions/carrier-cycle-splitting-inventory-20260912.md. Prove the outgoing-swap split-list identity with empty intervening lists and singleton children; derive actual singleton selected switch equality; establish noninterlacement same-arc and inherited cyclic-order/current-orbit invariants; prove orbit refinement, selected endpoint separation and independent-support component count. Then construct actual positive carrier segments/corners and turns, retained crossings/noncrossing ownership, and continue the direct all-sector corner soft law, all wall laws, full-cusp/comparison and R/bridge. Preserve frozen A-soft and current carrier candidates; stronger fidelity/integration remain separate.",
+  "progress_watch_session": 13212,
+  "progress_watch_exit_code": 0,
+  "progress_reports_relayed_utc": [
+    "2026-09-12T04:32:24Z",
+    "2026-09-12T04:42:24Z",
+    "2026-09-12T04:52:24Z"
+  ],
+  "exit_progress_report_utc": "2026-09-12T04:53:59Z",
+  "hourly_app_automation": "retained",
+  "process_inventory_note": "All terminal states use exact observed root session results; reviewers report no kernels. No process-inventory escalation used.",
+  "checkpoint_evidence_sha256": {
+    "work/checks/checkpoint-098-verification.json": "e808736afb5c9602b980087a3a42f6d42a664f94ab1fd3ff0575f90d3a5811f8",
+    "work/checks/checkpoint-098-review-bindings.json": "1d28c9f828e76823e6af3c1fa50d0fc24b20e74a21a8c8ec42258234e8da9ccb",
+    "work/checks/checkpoint-098-verifier-static-review.json": "1590f1d99b783e818dca88cfbdf507ee092202cfaa3d846d2370e9c175d78012",
+    "work/checks/verify_carrier_successor_candidates.py": "2205ee5ea78ed22cae11ae7f61dda7afb1e333df864da77b1c0f8d03c1386ddb",
+    "work/checks/verify_carrier_successor_review_bindings.py": "a152a2246548ce4ba58a2dd394b50cfb597254a8d9c83993c475d7f68bf7fab6",
+    "work/checks/verify_carrier_successor_candidates-first-draft.py": "2205ee5ea78ed22cae11ae7f61dda7afb1e333df864da77b1c0f8d03c1386ddb",
+    "work/checks/verify_carrier_successor_review_bindings-first-draft.py": "a152a2246548ce4ba58a2dd394b50cfb597254a8d9c83993c475d7f68bf7fab6",
+    "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+    "work/checks/carrier-successor-baseline-20260912.json": "d1d5be00e0ed33d844ec329bfedb39ac2568f7b9d82c56728c85a3c8e75b8372",
+    "work/checks/carrier-successor-candidate-groups-20260912.json": "206f254fe5fe06fdc875cd80e5d50f91887f8b3220242c8ca9add5b08a60de28",
+    "work/checks/carrier-successor-preserved-failures-20260912.json": "bb91e6d95a1ff4287966de36a816aea8c12567d540233e6e63b34246cc2b044e",
+    "work/checkpoints/goal-turn-098-candidates.json": "c8c5b9fd71b0161b44d262fdf22b23beef685cb09b0b3cbed9ebd29d51ecabfc",
+    "work/reports/carrier-successor-candidates-20260912.md": "6a6f18104f9003d6e63807b877dd62ad3e1d44c6dd307d876408d8741e28b4ec",
+    "work/decisions/carrier-cycle-splitting-inventory-20260912.md": "8732ac02716313c10c43e5ba9e07c31def4f422d1a14fd4ca1f84b4c7be1e7e8",
+    "work/STATUS.md": "ad0552102db7605216091fb2e357bcd677a5111a02eae970ff11c728373c08ec",
+    "work/TASKS.json": "605e5ef7c5afa37bcc48b8b4a63f4fedbed59f6fea72d33e8db468d9deeb6f35",
+    "work/AUTHOR_NOTES.md": "515c5b2f3153608014a772b03f153a4427bc66e4bef291db97df28f250034f1c",
+    "work/reviews/carrier-marks-technical-review-20260912.json": "5d10777ec8da18b257f6c9e0eca534f4735550bb8e2b1a73461357f805f75504",
+    "work/reviews/carrier-visit-twin-technical-review-20260912.json": "118e276254ad83e39490dafdaac37d928ec4b95b38dbf8b6acb78ea28b5ed84c",
+    "work/reviews/carrier-successor-technical-review-20260912.json": "82b60dffb9d5f2e7579fd705e59e785703895e33ca3197763c216e6bd0d2a282",
+    "work/reviews/carrier-smoothing-technical-review-20260912.json": "fc8a062ea9740c092b3031876f43eb3662c217792d8705a79d503f3528dd0ab7",
+    "work/checks/CarrierMarks-prototype-result.json": "e2c26037204cd196acc809b474422d2957c3211584a55f9a64853c807d9971a6",
+    "work/checks/CarrierVisitTwin-prototype-result.json": "d5c2a43534dad4ddaa0deccf97bdda42f5c29e7f394aadffb80a6c8f1604d640",
+    "work/checks/CarrierSuccessor-prototype-result.json": "7811e0b37ad0f1bd99a68c70a214d107ea85941daf0137cb3bc8cc9075bc9fa4",
+    "work/checks/CarrierSmoothing-prototype-result.json": "4e06aa76bbc821b6ef8c506d0c704a89b6e8e979ebabf8a6d291b5aa5768eada"
+  }
+}

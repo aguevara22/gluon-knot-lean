@@ -1,0 +1,503 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "critical-cut-split-occurrence-prototype",
+  "source_id": "thm:single-triple",
+  "source_line": 229,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "thm:single-triple229-269, proof281-289 exact occurrence/splitting; ordinary one-gate sign289 and reversed difference313-317.",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T07:08:05.198851+00:00",
+  "main_declarations": [
+    "SM.IncreasingBoundaryTriple.MiddleCutSet",
+    "SM.IncreasingBoundaryTriple.MiddleComposition",
+    "SM.IncreasingBoundaryTriple.spanInterval",
+    "SM.IncreasingBoundaryTriple.joinGapCuts",
+    "SM.IncreasingBoundaryTriple.splitGapCuts",
+    "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+    "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+    "SM.IncreasingBoundaryTriple.gapCutEquiv",
+    "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+    "SM.IncreasingBoundaryTriple.sum_middle_compositions",
+    "SM.IntervalComposition.farTriple_eq_iff",
+    "SM.IntervalComposition.farTriple_injective",
+    "SM.IntervalComposition.existsUnique_farTriple_iff",
+    "SM.IntervalComposition.farWeight_unchanged_off_span",
+    "SM.IntervalComposition.farWeight_unchanged_without_middle",
+    "SM.IntervalComposition.farWeight_difference_at_critical",
+    "SM.IntervalComposition.reversedFarWeight_difference_at_critical"
+  ],
+  "main_declarations_by_body": {
+    "CriticalCutSplit": [
+      "SM.IncreasingBoundaryTriple.MiddleCutSet",
+      "SM.IncreasingBoundaryTriple.MiddleComposition",
+      "SM.IncreasingBoundaryTriple.spanInterval",
+      "SM.IncreasingBoundaryTriple.joinGapCuts",
+      "SM.IncreasingBoundaryTriple.splitGapCuts",
+      "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+      "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+      "SM.IncreasingBoundaryTriple.gapCutEquiv",
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+      "SM.IncreasingBoundaryTriple.sum_middle_compositions"
+    ],
+    "CriticalFarOccurrence": [
+      "SM.IntervalComposition.farTriple_eq_iff",
+      "SM.IntervalComposition.farTriple_injective",
+      "SM.IntervalComposition.existsUnique_farTriple_iff",
+      "SM.IntervalComposition.farWeight_unchanged_off_span",
+      "SM.IntervalComposition.farWeight_unchanged_without_middle",
+      "SM.IntervalComposition.farWeight_difference_at_critical",
+      "SM.IntervalComposition.reversedFarWeight_difference_at_critical"
+    ]
+  },
+  "prototype_files_sha256": {
+    "CriticalCutSplit": "765604b67cc21ecb5f2e7aa3051ed5b0dc2a94af16fb161161461c42e6d4a70c",
+    "CriticalFarOccurrence": "ccfce1e6bb8eaacd9ec6207dc17062144265dc30476258e25c55302002d85eaf"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90",
+    "work/checks/CriticalFarOccurrence.body.lean": "c1edfcaafc092fb601de6472f65f48f4b4f765458afbf1b26db685982a563662"
+  },
+  "import_closure_roots": [
+    "SM.Farout"
+  ],
+  "import_closure_file_count": 32,
+  "embedded_body_count": 2,
+  "inherited_review_binding": {
+    "work/reviews/lem-farout.json": "4edce603db73c068608295762fcfef682e428a1694bd35fa2442d8268f219358",
+    "work/reviews/farout-port.json": "fa559a031f8a2b29c4a17eb23316244e077d0f83b68b2e2a1ed97cfb92483e0c",
+    "work/reviews/marked-transport-independent.json": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "work/reviews/far-only-locality-prototype.json": "67026a1a50f6b53ee84b6d3865cd5f0d65b8fde3d89a5c6669a0e010abbafda1"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/critical-cut-review-types.lean",
+    "independent_trace_source_sha256": "17456809bb4b3bdc82d89ee8572be73453ced1c4fdfdd3f1c56b1f8ae11028cf",
+    "independent_trace_log": "work/checks/critical-cut-review-types.log",
+    "independent_trace_log_sha256": "c5e0b26e7dfab481f11266680cde12020d1a83a843b60576b2b855b24d1211ee",
+    "independent_kernel_command": "lake env lean ../checks/critical-cut-review-types.lean",
+    "independent_kernel_session": 4913,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": false,
+    "prior_failed_independent_run": {
+      "session": 65808,
+      "exit_code": 1,
+      "source": "work/checks/critical-cut-review-first.lean",
+      "log": "work/checks/critical-cut-review-first.log",
+      "reason": "Only reviewer binary consumer failed: misspelled Finset empty-set lemma and broad simp normalized subtraction in an unhelpful direction. Corrected lemma name and used explicit neg_mul simplification. All implementation statements and proofs were unchanged and their traces passed.",
+      "source_sha256": "9603cbc7ae44ab43dea7ba21dfe08becc05ba7bbc8c57c879ae291c477295904",
+      "log_sha256": "8f0fd7a42a59cb7eb78e6c7cd4941efe58b7bd92f0ae2410b9955c67e8f29f9f"
+    },
+    "checked_declarations": [
+      "SM.IncreasingBoundaryTriple.MiddleCutSet",
+      "SM.IncreasingBoundaryTriple.MiddleComposition",
+      "SM.IncreasingBoundaryTriple.spanInterval",
+      "SM.IncreasingBoundaryTriple.joinGapCuts",
+      "SM.IncreasingBoundaryTriple.splitGapCuts",
+      "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+      "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+      "SM.IncreasingBoundaryTriple.gapCutEquiv",
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+      "SM.IncreasingBoundaryTriple.sum_middle_compositions",
+      "SM.IntervalComposition.farTriple_eq_iff",
+      "SM.IntervalComposition.farTriple_injective",
+      "SM.IntervalComposition.existsUnique_farTriple_iff",
+      "SM.IntervalComposition.farWeight_unchanged_off_span",
+      "SM.IntervalComposition.farWeight_unchanged_without_middle",
+      "SM.IntervalComposition.farWeight_difference_at_critical",
+      "SM.IntervalComposition.reversedFarWeight_difference_at_critical"
+    ],
+    "declaration_count": 21,
+    "root_printed_declaration_count": 19,
+    "additional_transparent_domain_count": 2,
+    "declaration_axioms": {
+      "SM.IncreasingBoundaryTriple.MiddleCutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.MiddleComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.spanInterval": [
+        "propext"
+      ],
+      "SM.IncreasingBoundaryTriple.joinGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.splitGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.split_joinGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.join_splitGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCutEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.sum_middle_compositions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farTriple_eq_iff": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farTriple_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.existsUnique_farTriple_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farWeight_unchanged_off_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farWeight_unchanged_without_middle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farWeight_difference_at_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.reversedFarWeight_difference_at_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "CriticalCutIndependentReview.shared_endpoint_is_exact_intersection",
+      "CriticalCutIndependentReview.left_unary_roundtrip",
+      "CriticalCutIndependentReview.right_unary_roundtrip",
+      "CriticalCutIndependentReview.all_pairs_are_counted",
+      "CriticalCutIndependentReview.all_joined_positions_are_exact",
+      "CriticalCutIndependentReview.arbitrary_left_right_summands",
+      "CriticalCutIndependentReview.middle_composition_has_exactly_one_gate",
+      "CriticalCutIndependentReview.no_critical_far_gate_on_any_other_coordinate",
+      "CriticalCutIndependentReview.no_middle_means_no_critical_gate",
+      "CriticalCutIndependentReview.unary_far_coefficients_are_one",
+      "CriticalCutIndependentReview.no_middle_keeps_both_coefficients",
+      "CriticalCutIndependentReview.binary_gate_has_both_delta_signs",
+      "CriticalCutIndependentReview.general_scalar_delta_preserves_all_other_factors"
+    ],
+    "additional_example_count": 13,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "CriticalCutIndependentReview.shared_endpoint_is_exact_intersection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.left_unary_roundtrip": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.right_unary_roundtrip": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.all_pairs_are_counted": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.all_joined_positions_are_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.arbitrary_left_right_summands": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.middle_composition_has_exactly_one_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.no_critical_far_gate_on_any_other_coordinate": [
+        "propext",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.no_middle_means_no_critical_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.unary_far_coefficients_are_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.no_middle_keeps_both_coefficients": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.binary_gate_has_both_delta_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "CriticalCutIndependentReview.general_scalar_delta_preserves_all_other_factors": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.IncreasingBoundaryTriple.spanInterval",
+      "SM.IncreasingBoundaryTriple.MiddleCutSet",
+      "SM.IncreasingBoundaryTriple.MiddleComposition",
+      "SM.IncreasingBoundaryTriple.joinGapCuts",
+      "SM.IncreasingBoundaryTriple.splitGapCuts",
+      "SM.IncreasingBoundaryTriple.gapCutEquiv",
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+      "SM.IntervalComposition.farTriple",
+      "SM.IntervalComposition.interiorPosition",
+      "SM.IntervalComposition.nearFarWeight"
+    ],
+    "reviewed_types": "work/checks/critical-cut-reviewed-types.json",
+    "reviewed_types_sha256": "5f84821a3ed534a7215da6b6370838ad4f8ffab35b7bfcafa527df4a79827c1b",
+    "independent_closure_evidence": "work/checks/critical-cut-review-closure.json",
+    "independent_closure_evidence_sha256": "46fb583a5c342a67747cd1ff0c40d82f6b376a852d63b19d27d7159d7b5dc606",
+    "root_successful_results": {
+      "work/checks/CriticalCutSplit-prototype-result.json": {
+        "kernel_session": 14499,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_session": 25820,
+        "utc": "2026-09-11T07:00:56.249363+00:00",
+        "files_sha256": {
+          "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90",
+          "work/checks/CriticalCutSplit.prototype.lean": "765604b67cc21ecb5f2e7aa3051ed5b0dc2a94af16fb161161461c42e6d4a70c",
+          "work/checks/CriticalCutSplit-second-kernel.log": "068628fa045382cdd50790bb6189821cd7e82a115cc1fc75b1eb05b8ad82fec0"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.spanInterval",
+          "SM.IncreasingBoundaryTriple.joinGapCuts",
+          "SM.IncreasingBoundaryTriple.splitGapCuts",
+          "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+          "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+          "SM.IncreasingBoundaryTriple.gapCutEquiv",
+          "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+          "SM.IncreasingBoundaryTriple.sum_middle_compositions"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/CriticalFarOccurrence-prototype-result.json": {
+        "kernel_session": 54928,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:02:09.706224+00:00",
+        "files_sha256": {
+          "work/checks/CriticalFarOccurrence.body.lean": "c1edfcaafc092fb601de6472f65f48f4b4f765458afbf1b26db685982a563662",
+          "work/checks/CriticalFarOccurrence.prototype.lean": "ccfce1e6bb8eaacd9ec6207dc17062144265dc30476258e25c55302002d85eaf",
+          "work/checks/CriticalFarOccurrence-first-kernel.log": "8a7015c4de21db80b4dd6381169733255bf6d98596c91c0242546948436d04cb",
+          "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.farTriple_eq_iff",
+          "SM.IntervalComposition.farTriple_injective",
+          "SM.IntervalComposition.existsUnique_farTriple_iff",
+          "SM.IntervalComposition.farWeight_unchanged_off_span",
+          "SM.IntervalComposition.farWeight_unchanged_without_middle",
+          "SM.IntervalComposition.farWeight_difference_at_critical",
+          "SM.IntervalComposition.reversedFarWeight_difference_at_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      }
+    },
+    "root_receipts_sha256": {
+      "work/checks/CriticalCutSplit-prototype-result.json": "341645ee400739e6cb84d69121ceba7502eb8f33703df1c3a89b51c8478ec0b3",
+      "work/checks/CriticalFarOccurrence-prototype-result.json": "469a658e9cdfb38f62d46de809c140f74c2b812e0533727cd21872cfae6a0501"
+    },
+    "scope_note": "Two exact frozen external bodies over the actual 32-module canonical Farout closure. All 19 root-printed declarations and both middle-domain aliases receive full printed types and axiom traces; 13 substantive consumers check actual domains, sums, occurrence and signs."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "reason": "Faithful exact splitting and critical far-gate steps within the partial proof of thm:single-triple. The complete raw middle-cut composition domain is bijective with every pair of actual gap compositions, including unary gaps, through the existing exact cut-set representation and explicit closed-gap filters/union. Arbitrary sums are reindexed by this proved bijection. An actual far triple is critical exactly at its full span with middle cut, and then occurs once. Coefficients elsewhere or without the middle cut remain unchanged. Removing that unique factor gives ordinary negative-delta and reversed positive-delta formulas with all other factors retained. Independent second kernel 4913 checks 21 declarations and 13 consumers with 34 standard-or-empty traces. The first reviewer run failed only a consumer proof and is preserved. Full gap child/gate product transport, wall geometry, jumps and propagation remain outside these files; no original wall theorem is accepted.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact positive critical span and raw domains",
+      "assessment": "spanInterval has the actual lower and upper positions of an increasing triple x<y<z; both gaps [x,y] and [y,z] are strictly positive-length intervals. MiddleCutSet is exactly every bounded endpoint-containing cut set of [x,z] that also contains y. MiddleComposition is exactly every original raw IntervalComposition of [x,z] whose actual cut set contains y. No fixed arity, nonunary domain restriction or extra gap-length lower bound is imposed. The existing composition/cut-set equivalence preserves all cut positions and recovers the full raw structure, with finite arity derived from strict ordering."
+    },
+    {
+      "clause": "Physical splitting and joining with one shared endpoint",
+      "assessment": "joinGapCuts takes the union of both actual gap cut sets. Their left/right endpoint membership and interval bounds imply this is a valid whole-span cut set containing y. splitGapCuts restricts to both closed gap intervals using literal position filters. In split after join, a cut imported from the wrong gap can lie in the other closed gap only if it is y, and y is already an endpoint of that gap. In join after split, each whole-span cut lies on at least one side of y by total order; neither filter introduces a new cut. Extensionality therefore proves both full inverse laws. An independent consumer proves that the intersection of the two original cut sets is exactly the singleton {y}, establishing that the shared position appears once in the joined finite ordered list."
+    },
+    {
+      "clause": "Full raw composition equivalence and all pair coverage",
+      "assessment": "gapCompositionEquiv composes the exact whole-span raw composition/cut-set equivalence, the proved physical gap-cut equivalence, and both inverse gap composition/cut-set equivalences. Its range is the entire Cartesian product of all left and right raw compositions. Explicit left/right cut lemmas expose the two closed-interval filters; the inverse cut lemma exposes the literal union. Since the sorted cut-set representation is proved equivalent to the unchanged raw composition type, this identifies actual ordered cut lists and their arities, not only abstract cardinalities. Independent consumers check the exact union membership of every physical position, both separate unary-gap roundtrips with the other gap arbitrary, and full finite cardinality of the Cartesian-product domain."
+    },
+    {
+      "clause": "Arbitrary complete-sum reindexing",
+      "assessment": "sum_middle_compositions uses Fintype.sum_equiv with the actual proved gapCompositionEquiv; the summand equality is the exact inverse law. The resulting product-type sum is expanded into a sum over every left composition and every right composition. The summand is arbitrary and only AddCommMonoid is required, so no wall-response identity, coefficient transport or factorization is assumed. An independent consumer applies this to an arbitrary function of both actual split components and simplifies the inverse-forward laws, yielding precisely the full double gap sum. This is the source index bijection, not yet a proof that the original weighted child product becomes a product of gap contributions."
+    },
+    {
+      "clause": "Exact far-triple occurrence and uniqueness",
+      "assessment": "By definition a farTriple reads the current coordinate interval endpoints and its actual interior cut. Equality to the critical triple therefore implies that the coordinate interval equals [x,z] and the actual interiorPosition equals y; conversely these equalities imply equality of all three triple entries. The interior-position map is injective by strict cut ordering, hence the far-triple map is injective. Existence of the critical far triple is equivalent to whole-span equality and actual middle-cut membership: the strict x<y<z bounds ensure middle membership is interior membership, and the existing exact interior-index equivalence supplies its unique index. The independent middle-composition consumer also derives parts>=2, so the existential index is nonvacuous and the unary composition cannot accidentally contain an interior critical gate."
+    },
+    {
+      "clause": "Other coordinates versus off-span inverse locality",
+      "assessment": "If the current coordinate differs from [x,z], every one of its far triples differs from the critical triple, even if the coordinate strictly contains [x,z]. Equality of all noncritical array entries therefore preserves its entire far coefficient product. Likewise a composition without the middle cut cannot contain the critical far triple, so its coefficient is unchanged. Independent no-occurrence consumers verify both conditions directly, and a paired consumer checks ordinary and reversed coefficients without the middle cut. This is correctly distinct from c locality: coefficients of a larger coordinate are unchanged while its child inverse coordinates may change. No erroneous claim of unchanged c on every coordinate other than [x,z] is made."
+    },
+    {
+      "clause": "Ordinary one-gate difference with arbitrary ring scalars",
+      "assessment": "For a selected index k whose actual far triple is critical, injectivity shows that every j different from k samples a noncritical triple. All factors in the product over univ.erase k are consequently equal between H1 and H2. The proof separates the k factor from each complete finite product by mul_prod_erase, rewrites the common remaining product, and distributes the subtraction. The changed factor is -(H2(t)-H1(t))*inverse(2), so the result is negative delta times the complete product of remaining negative far factors. This uses arbitrary CommRing with invertible two; no field, ordering, nonzero scalar or geometric sign premise is added. Exactly-once occurrence describes the varying input gate, not a claim that the numerical product difference is nonzero for arbitrary ring arrays."
+    },
+    {
+      "clause": "Separate reversed-far sign and retained reversed factors",
+      "assessment": "The reversed coefficient theorem applies the ordinary difference calculation to the arrays -H1 and -H2 and explicitly simplifies the negations. Its critical multiplier is +(H2(t)-H1(t))*inverse(2), and every remaining factor is +H1 of its actual far triple times inverse two. Thus both the changing sign and all retained signs are reversed, as required in source313-317. The independent general-delta consumer introduces an arbitrary scalar delta equal to this half difference and verifies both complete formulas. The binary consumer proves the erased index set is empty when parts=2, reducing the differences to precisely -delta and +delta; this also checks empty products are one."
+    },
+    {
+      "clause": "Unary and boundary cases are retained",
+      "assessment": "Either gap may be unary and is explicitly included in the raw product range. The whole-span unary composition has no interior far index and its nearFarWeight is one for both H and -H; an independent consumer checks both values without an array agreement premise. A middle-cut composition has at least two parts by existence of its interior index. The binary case leaves no remaining factors after removing its critical gate. These facts cover the source empty-product and minimal-composition conventions without imposing extra positivity or geometric assumptions."
+    },
+    {
+      "clause": "Precise remaining proof scope",
+      "assessment": "The two bodies implement source281-289 occurrence and cut-list splitting, together with ordinary/reversed single-gate scalar differences used in source313-317. They do not yet identify the complete product of joined child coordinates with the two gap products, nor transport all remaining far gate samples to actual gap gates with epsilon signs. The wall-germ common-shrink sign comparison, gap G1, epsilon identities, critical c jump, contracted polygon and larger-interval propagation formulas remain unproved by this batch. The later draft GapSplitProducts is explicitly excluded. The complete thm:single-triple and final corner wall laws therefore remain unaccepted."
+    }
+  ],
+  "independence": "The reviewer independently read the authoritative source, both exact frozen bodies, actual canonical cut/composition/array definitions and proof constructions, and wrote only new reviewer consumers and reports. No implementation, source, map, root receipt or frozen prior report was edited. The first consumer failure was preserved and corrected only in its proof. These two implementation bodies contain no reviewer-authored fragment. Earlier Farout marking-fragment provenance remains disclosed through the bound accepted source review and fresh noncontributing fragment review.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_pending": true,
+    "full_single_triple_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Complete joined child-coordinate and epsilon-weighted gap-factor product transport.",
+    "Wall-germ sign stability, nondegenerate gap geometry and epsilon identities.",
+    "Critical-coordinate c and reversed-output jump formulas.",
+    "Contraction and larger-interval propagation.",
+    "Both final single-triple wall-response formulas."
+  ],
+  "not_certified": [
+    "No original thm:single-triple acceptance or canonical semantic hash.",
+    "Later untested GapSplitProducts is outside this frozen review.",
+    "No complete corner wall law, soft theorem, R theorem or overall stage completion."
+  ]
+}

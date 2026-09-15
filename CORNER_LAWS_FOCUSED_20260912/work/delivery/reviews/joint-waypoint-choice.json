@@ -1,0 +1,268 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "joint-waypoint-choice",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1429–1458 in context of the full relative general position theorem beginning at 1385",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "main_declaration": "SM.exists_joint_waypoint_conditions_in_domains",
+  "module": "SM.WaypointOpenDomain",
+  "review_flags_scope": "The actual common joint-waypoint choice for every supplied finite central-leg family inside arbitrary supplied nonempty open internal-waypoint domains. No complete path or wall theorem is accepted.",
+  "reason": "Faithful implementation of the source’s joint algebraic choice. The joint variables are actual pairs of an internal waypoint label and a scalar-coordinate label. Full and remaining-coordinate hybrid substitutions are injective polynomial renamings, so their nonzero pullbacks are proved. The finite condition family contains both endpoint evaluations of every actual named Δ/T control, every genuinely dependent slope, every distinct dependent-pair resultant, the actual moving-coordinate step, and both scalar-component differences for every distinct vertex pair at both endpoints. All formal nonzeroness obligations are discharged by the accepted concrete polynomial-control theorems and injectivity; none is supplied as an extra hypothesis of the joint-choice theorem. A proved equivalence connects the constraints to transparent actual endpoint/fixed-assignment conditions. One simultaneous nonvanishing argument produces one W satisfying all conditions for all legs, and the actual finite product of arbitrary prescribed open nonempty waypoint domains is proved open and nonempty. The compiled type has the required common quantifier order. The five modules were reviewed in full, with exact inherited source/body bindings and a successful independent 23-declaration trace. The source’s subdivision, fixed endpoint collars, geometric domain construction, path assembly, regularity and wall classification remain outside this bounded result.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual joint coordinate selectors and nonzero pullbacks",
+      "assessment": "waypointSelection tag z=(tag z,z) retains the scalar index as its second component, so equality of selected joint variables forces equality of the original scalars even if many scalars use the same waypoint label. waypointPullback is the actual MvPolynomial.rename algebra homomorphism for this injective selector. rename_injective proves injectivity, and mapping zero then proves that every nonzero polynomial stays nonzero. eval_waypointPullback is the actual substitution/evaluation identity. remainingWaypointSelection uses exactly {w // w≠moving}, again retaining the scalar index; Subtype.ext proves its injectivity. Thus slopes and resultants are pulled back from the actual remaining-variable ring with the same nonzero and evaluation guarantees. This proves the algebraic content of the source’s open-projection observation without assuming a nonzero pullback or a surrogate polynomial."
+    },
+    {
+      "clause": "The central coordinate leg and its real endpoint values",
+      "assessment": "CoordinateWaypointLeg contains two distinct internal waypoint labels, a moving scalar, and the set of already switched scalars excluding the moving scalar. beforeTag chooses the right waypoint on switched coordinates and the left on the others; afterTag changes only the moving coordinate to the right waypoint. Therefore the moving endpoint values are the two independently labelled values, while all other endpoint scalars agree. fixedAssignment is exactly the subtype assignment off the moving scalar and is proved to reconstruct both endpoints with their actual moving values. The step polynomial is X(right,moving)−X(left,moving), nonzero because left≠right; its evaluation is the actual after-minus-before step. The interpolation definition changes only the moving coordinate and has proved zero/one endpoints and fixed other coordinates. An arbitrary switched set is an abstract central leg, not a proof that the source’s ordered coordinate polyline has already been assembled."
+    },
+    {
+      "clause": "Exact finite constraint inventory and every nonzero proof",
+      "assessment": "JointLegCondition is a finite sum: Bool×all control names; names whose actual polynomial vars contain the moving scalar; distinct pairs with both actual dependencies; one step condition; and Bool×ordered distinct vertex pairs×Fin 2. Both endpoint controls use the real named Δ/T family from the accepted transport-polynomials row. Slopes and resultants use the exact before-tag restriction to the fixed coordinates. Their formal nonzero proofs use the established affine, dependence, irreducibility and complete nonassociation results of the concrete family. For each vertex pair and component, the original scalar variables are distinct; injectivity of X and then of the hybrid renaming proves the coordinate-difference pullback nonzero. Resultant-pair duplication and opposite orientations merely repeat finite nonzero conditions and do not omit any source requirement. jointLegConstraint_ne_zero has only n≥3, the actual leg and a condition; no polynomial-nonzeroness parameter remains."
+    },
+    {
+      "clause": "Meaningful conditions, not arbitrary polynomial tests",
+      "assessment": "JointLegConditions exposes all five actual conclusions: every control is nonzero at each hybrid endpoint, every dependent slope and distinct dependent-pair resultant is nonzero at the common fixed assignment, the real moving step is nonzero, and both scalar components distinguish every vertex pair at each endpoint. jointLegConditions_iff proves both directions between this structure and nonvanishing of every enumerated joint polynomial, using the proved evaluation identities. Thus the avoidance theorem’s output is exactly the source’s geometric-coordinate conditions. These endpoint requirements apply only to central hybrid endpoints drawn from the internal joint variables; they are not new all-control-nonzero requirements on the original fixed path endpoints."
+    },
+    {
+      "clause": "One common assignment across all legs",
+      "assessment": "For finite leg index ι, the dependent sum of every leg with its finite condition type is finite. The proof builds the actual constraint family on this whole sum and supplies jointLegConstraint_ne_zero for every entry. The simultaneously reviewed multivariate avoidance theorem then yields ∃W∈U, ∀i, JointLegConditions (legs i) W. W is shared across all legs, including legs that reuse internal waypoint labels. It is not chosen separately for each polynomial or each leg. Only the source’s nonempty open joint domain is assumed at this stage; no generic-position oracle, algebraic certificate or additional independence of the leg family is supplied."
+    },
+    {
+      "clause": "Actual open and nonempty prescribed waypoint domain",
+      "assessment": "waypointProjection k W is the complete scalar assignment z↦W(k,z), and is continuous coordinatewise. waypointDomain O is exactly the set of W whose every waypoint projection belongs to its prescribed O k. For finite κ it is the finite intersection of those continuous preimages and hence open. Choosing one member of each nonempty O k and assembling W(k,z) proves nonemptiness. The final theorem yields one W that belongs to every supplied domain and satisfies every leg condition. No disjointness of the domains or common intersection of all O k is assumed: each is a constraint on its own waypoint. Arbitrary genuine nonempty open scalar domains are allowed. Constructing them from the geometric cube overlaps and relating the eventual waypoint index system to the original path remains a separate obligation."
+    },
+    {
+      "clause": "Inherited avoidance, domain instances and unproved path scope",
+      "assessment": "The mathematical namespace body of SM.MultivariateAvoidance is exactly the previously reviewed prototype, with only the module comment changed and terminal print commands removed. It proves actual common finite avoidance by line restriction, finite roots and finite open-dense intersections. The main theorem retains n≥3 and a redundant NeZero n instance; finite κ and finite ι express the finite internal-waypoint and leg choices. It contains no Generic or Regular premise, no prescribed nonzero-polynomial hypothesis, and no claim of avoiding cusps or constructing a path. ScalarCoordinateTopology and CentralLegCollision were inspected preliminarily but are explicitly excluded from this five-module review and its 44-file closure."
+    }
+  ],
+  "not_certified": [
+    "The full original thm:relgp remains pending, with no original proof/checklist increment.",
+    "No construction of the finite subdivision, geometric regular cubes, overlap domains, actual ordered coordinate-leg family or fixed generic endpoint collars.",
+    "No assembled continuous piecewise-affine path, actual labelled endpoint preservation, uniform Euclidean approximation or regularity/cube-containment conclusion.",
+    "No finite-root isolation/sign-change assembly, collision theorem, inactive-concurrence treatment, full wall dictionary, cusp exclusion or occurrence-label transport in this scoped result.",
+    "The two separately developing ScalarCoordinateTopology and CentralLegCollision modules are not included or certified here."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/WaypointOpenDomain.lean": "1267b6c71c1ec34e435068fb8f21b9017df3cdafc0cc33ff452f9a1b3a398b41"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointOpenDomain.lean": "1267b6c71c1ec34e435068fb8f21b9017df3cdafc0cc33ff452f9a1b3a398b41",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9"
+  },
+  "import_closure_root": "SM.WaypointOpenDomain",
+  "import_closure_file_count": 44,
+  "inherited_review_binding": {
+    "accepted_polynomial_controls_review": "work/reviews/lem-transport-polynomials.json",
+    "accepted_polynomial_controls_review_sha256": "8274567d955ea7337ff008a27555a4cbd198f7551d5c07342cd0e52d009a9839",
+    "inherited_file_count": 39,
+    "all_inherited_file_hashes_match": true,
+    "avoidance_prototype_review": "work/reviews/multivariate-avoidance-prototype.json",
+    "avoidance_prototype_review_sha256": "d2853b0311f247589c24e7183ad6b8e38bed73e6e5ed3da8099264ee3be5c985",
+    "prototype_file": "work/checks/MultivariateAvoidance.prototype.lean",
+    "prototype_sha256": "954a4b5f5d67a82650d9a94e30780855d1e5cbb9dba3a2f1ec577ae7cb9b5a5f",
+    "avoidance_namespace_body_port_exact": true
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/joint-waypoint-review-types.lean",
+    "independent_trace_source_sha256": "6ad1dce61de0ac418a33d9f0e72acef274d6e44e0c8d5eadce52d666c131f819",
+    "independent_trace_log": "work/checks/joint-waypoint-review-types.log",
+    "independent_trace_log_sha256": "43600bbfcb0abe393dbb25ad87720389840c8d6edb8fb01e52f1eefe5f287b77",
+    "independent_kernel_command": "lake env lean ../checks/joint-waypoint-review-types.lean",
+    "independent_kernel_session": 62188,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 23,
+    "declaration_axioms": {
+      "SM.waypointPullback_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.waypointPullback_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_waypointPullback": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.remainingWaypointPullback_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.remainingWaypointPullback_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_remainingWaypointPullback": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.waypoint_coordinateDifference_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.endpoints_agree_other": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.endpoint_reconstruct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.stepPolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.eval_stepPolynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.assignment_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.assignment_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.assignment_other": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.jointLegConstraint_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.jointLegConditions_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_joint_waypoint_conditions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_waypointProjection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_waypointDomain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nonempty_waypointDomain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_joint_waypoint_conditions_in_domains": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.waypointSelection_injective": [],
+      "SM.remainingWaypointSelection_injective": []
+    },
+    "successful_build_log": "work/checks/waypoint-open-domain-build.log",
+    "successful_build_log_sha256": "100957e5dc6e8d9720d9cc6c546245912bf20c6b08a390321d8f04eb436c2042",
+    "successful_build_session": 64346,
+    "successful_build_exit_code": 0,
+    "candidate_inventory": "work/checks/joint-waypoint-candidate-files.json",
+    "candidate_inventory_sha256": "578d69cde216aaaedec553f136a8171a24c4e4027328bf87a4ced46a4e77e2e4",
+    "candidate_closure_independently_recomputed_and_exact": true
+  },
+  "audit_context": {
+    "last_completed_prior_receipt": "work/checks/checkpoint-052-output.json",
+    "last_completed_prior_receipt_sha256": "b9cd9804c4c3f4176819cc3ec511bb6e4392ea4c67b52483bfa64cf1ff3b8f7d",
+    "all_251_prior_SM_files_unchanged": true,
+    "scope": "Receipt 052 predates these five new modules and is not represented as their whole-project audit. The current partial review is bound directly to the successful scoped build, independent kernel trace and exact 44-file closure. A later whole-project checkpoint can additionally bind this report."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no theorem implementation. Only independent trace evidence and this review were written.",
+  "edits": "No Lean theorem-library, prototype, frozen-source, declaration-map or progress edits."
+}

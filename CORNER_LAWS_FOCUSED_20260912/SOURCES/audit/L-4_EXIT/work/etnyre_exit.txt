@@ -1,0 +1,2986 @@
+
+===== PDFPAGE 1 =====
+arXiv:math/0306256v2  [math.SG]  22 Nov 2004
+LEGENDRIAN AND TRANSVERSAL KNOTS
+JOHN B. ETNYRE
+1. Introduction
+Contact structures on manifolds and Legendrian and transversal knots in them are very natural
+objects, born over two centuries ago, in the work of Huygens, Hamilton and Jacobi on geometric
+optics and work of Lie on partial diﬀerential equations. They touch on diverse areas of mathematics
+and physics, and have deep connections with topology and dynamics in low dimensions. The study
+of Legendrian knots is now a rich and beautiful theory with many applications. This survey is
+an introduction to, and overview of the current state of knot theory in contact geometry. For a
+discussion of the driving questions in the ﬁeld see [38] and for a more historical discussion of contact
+geometry see [48].
+This paper will concentrate on Legendrian and transversal knots in dimension three where their
+theory is most fully developed and where they are most intimately tied to topology. Moreover, in
+this dimension one may use a predominately topological and combinatorial approach to their study.
+In Section 6 we will make our only excursion into the study of higher dimensional Legendrian knots.
+Throughout this survey we assume the reader is familiar with basic topology at the level of [76].
+We have tried to keep the contact geometry prerequisites to a minimum, but it would certainly be
+helpful to have had some prior exposure to the basics as can be found in [33, 49]. Some of the proofs
+in Section 5 rely on convex surface theory which can be found in [33], but references to convex
+surfaces can be largely ignored without serious loss of continuity.
+Contents
+1.
+Introduction
+1
+2.
+Deﬁnitions and examples
+4
+2.1.
+The standard contact structure on R3
+4
+2.2.
+Other contact structures
+4
+2.3.
+Legendrian knots
+5
+2.4.
+Transverse knots
+10
+2.5.
+Types of classiﬁcation
+12
+2.6.
+Invariants of Legendrian and transversal knots
+13
+2.7.
+Stabilizations
+16
+2.8.
+Surfaces and the classical invariants
+17
+2.9.
+Relation between Legendrian and transversal knots
+19
+3.
+Tightness and bounds on invariants
+20
+3.1.
+Bennequin’s inequality
+20
+3.2.
+Slice genus
+21
+3.3.
+Other inequalities in (R3, ξstd)
+22
+4.
+New invariants
+23
+4.1.
+Contact homology (aka Chekanov-Eliashberg DGA)
+23
+4.2.
+Linearization
+26
+4.3.
+The characteristic algebra
+29
+4.4.
+Lifting the DGA to Z[t, t−1]
+30
+4.5.
+DGA’s in the front projection
+31
+1991 Mathematics Subject Classiﬁcation. Primary 53D10; Secondary 57M27.
+Key words and phrases. tight, contact structure, Legendrian, convex surface.
+Supported in part by NSF Grant # DMS-0203941.
+1
+
+===== PDFPAGE 2 =====
+2
+JOHN B. ETNYRE
+4.6.
+Decomposition Invariants
+33
+5.
+Classiﬁcation results
+35
+5.1.
+The unknot
+36
+5.2.
+Torus knots
+36
+5.3.
+Figure eight knot
+38
+5.4.
+Connected sums
+39
+5.5.
+Cables
+40
+5.6.
+Links
+41
+5.7.
+The homotopy type of the space of Legendrian knots.
+43
+5.8.
+Transverse knots
+44
+5.9.
+Knots in overtwisted contact structures
+45
+6.
+Higher dimensions
+46
+6.1.
+Legendrian knots in R2n+1
+46
+6.2.
+Generalizations of the Chekanov-Eliashberg DGA
+48
+6.3.
+Examples
+49
+7.
+Applications
+50
+7.1.
+Legendrian surgery
+51
+7.2.
+Invariants of contact structures
+52
+7.3.
+Plane curves
+52
+7.4.
+Knot concordance
+53
+7.5.
+Invariants of classical knots
+54
+7.6.
+Contact homology and topological knot invariants
+54
+References
+56
+
+===== PDFPAGE 3 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+3
+This paper is part of the forthcoming book:
+Table of Contents for the Handbook of Knot Theory
+William W. Menasco and Morwen B. Thistlethwaite, Editors
+(1) Colin Adams, Hyperbolic knots
+(2) Joan S. Birman and Tara Brendle Braids: A Survey
+(3) John Etnyre, Legendrian and transversal knots
+(4) Greg Friedman Knot Spinning
+(5) Jim Hoste The enumeration and classiﬁcation of knots and links
+(6) Louis Kauﬀman Knot Diagrammatics
+(7) Charles Livingston A survey of classical knot concordance
+(8) Lee Rudolph Knot theory of complex plane curves
+(9) Marty Scharlemann Thin position in the theory of classical knots
+(10) JeﬀWeeks Computation of hyperbolic structures in knot theory
+
+===== PDFPAGE 4 =====
+4
+JOHN B. ETNYRE
+2. Definitions and examples
+A contact structure on an oriented 3–manifold M is a completely non-integrable plane ﬁeld ξ in
+the tangent bundle of M. That ξ is a plane ﬁeld simply means that at each point x ∈M, ξx is a two
+dimensional subspace of TxM. Near each point one may always describe a plane ﬁeld as the kernel
+of a (locally deﬁned) 1–form, i.e. there is a 1–form α so that ξx = ker(αx). The plane ﬁled ξ is
+completely non-integrable if any 1–form α deﬁning ξ satisﬁes α∧dα̸ = 0. We will require that α∧dα
+deﬁnes the given orientation on M. This orientation compatibility has become a fairly standard part
+of the deﬁnition of contact structure, but in the past such a contact structure was called a positive
+contact structure. The condition α∧dα̸ = 0 implies that ξ is not everywhere tangent to any surface.
+Intuitively one can see this in Figure 1. There one sees the plane ﬁelds twisting. This twisting
+prevents the planes from being everywhere tangent to a surface. To make this “not everywhere
+tangent” condition precise one should consult the Frobenius Theorem [17].
+2.1. The standard contact structure on R3. The simplest example of a contact structures is on
+R3 (with Cartesian coordinates (x, y, z)) and is given by
+ξstd = span
+ ∂
+∂y, ∂
+∂x + y ∂
+∂z
+
+.
+Clearly ξstd is the kernel of the 1–from α = dz −ydx and thus one may easily verify that it is a
+contact structure. The plane ﬁeld is indicated in Figure 1. We observe a few things about the plane
+x
+y
+z
+x
+y
+z
+Figure 1. The contact structure ξstd (left) and ξsym (right) on R3. (Figures cour-
+tesy of S. Sch¨onenberger.)
+ﬁelds that will be useful later. Note that the plane ﬁelds along the xz-plane are all horizontal (ie.
+parallel to the xy-plane). Moving out along the y axis the planes start horizontal and “twist” around
+the y axis in a left handed manner. Traversing the y axis from the origin “to inﬁnity” the planes
+will make a 90◦twist. Somehow it is this twisting that makes the plane ﬁeld contact.
+There are many other contact structures on R3 and all 3-manifolds have many contact structures,
+but Darboux’s theorem [1, 64] says that all of them locally look like this one. By this we mean that
+any point in a manifold has a neighborhood that is diﬀeomorphic to a neighborhood of the origin
+in R3 by a diﬀeomorphism that takes the contact structure on the manifold to the one described
+above. Throughout much of this article we will restrict attention to the contact structure above.
+This is largely to simply the discussion. In a few places it will be essential that we are in (R3, ξstd)
+and we will make that clear then.
+2.2. Other contact structures. We begin with a symmetric version of ξstd on R3.
+Example 2.1 Let α = dz + xdy −ydx or in cylindrical coordinates α = dz + r2dθ. The contact
+structure ξsym = ker α is as shown on the right hand side of Figure 1. One can ﬁnd a diﬀeomorphism
+
+===== PDFPAGE 5 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+5
+of R3 taking ξstd to ξsym. Such a diﬀeomorphism is called a contactomorphism. Thus in some sense
+they are the same contact structure, but for various purposes one is sometimes easier to work with
+than the other.
+Example 2.2 In R3 with cylindrical coordinates consider α = cosrdz + r sin rdθ. The contact
+structure ξot ker α is as shown in Figure 2. Note the plane ﬁelds are similar to the ones in ξsym
+but as you move out along rays perpendicular to the z-axis the planes twist around many times
+(inﬁnitely often) whereas for ξsym they twist only 90◦.
+Figure 2. The contact structure ξot on R3. (Figures courtesy of S. Sch¨onenberger.)
+Notice in this last example the disk D = {(r, θ, z)|z = 0, r ≤π} is tangent to the contact
+planes along the boundary. Such a disk is called an overtwisted disk. A contact structure is called
+overtwisted if there is an embedded overtwisted disk, otherwise it is called tight. From the discussion
+above we see that the plane ﬁeld must twist to be a contact structure, but ξot twists much more that
+is necessary, hence the name “overtwisted”. Clearly ξot is overtwisted and below we will see that
+ξstd and ξsym are tight. Moreover, we will also see that tight contact structures tell us interesting
+things about knots related to them. For more discussion of tight and overtwisted contact structures
+see [23, 33]. Throughout this survey we will be mainly concerned with tight contact structures with
+a real focus on (R3, ξstd).
+We end this section with a contact structure on a closed manifold.
+Example 2.3 Let S3 be the unit three sphere in R4. Let
+α = i∗1
+2(x1dy2 −y1dx1 + x2dy2 −y2dx2)
+where i : S3 →R4 is the inclusion map.
+One may readily check that α is a contact form so
+ξ = ker α is a contact structure on S3. If one removes a point form S3 the contact structure ξ is
+contactomorphic to ξstd on R3. For a more thorough discussion of this and similar examples see [33].
+For other examples of contact structures on closed manifolds see [1, 33, 53, 64].
+2.3. Legendrian knots. A Legendrian knot L in a contact manifold (M 3, ξ) is an embedded S1
+that is always tangent to ξ :
+TxL ∈ξx,
+x ∈L.
+For the rest of this section we restrict attention to (R3, ξstd). This is for two reasons. First,
+according to Darboux’s theorem all contact structures look locally like (R3, ξstd) and thus we are
+studying the “local Legendrian knot theory” in any contact manifold.
+Secondly, when studying
+this contact structure we can use various projections to help us understand the Legendrian knots,
+allowing us to “get a feel for Legendrian knots”.
+Below it will be convenient to have a parameterization of L. So throughout this section
+φ : S1 →R3 : θ 7→(x(θ), y(θ), z(θ))
+
+===== PDFPAGE 6 =====
+6
+JOHN B. ETNYRE
+will be a parameterization of L. Moreover, we will assume that φ is at least a C1 immersion. Now
+the fact that L is tangent to ξ can be easily expressed by
+φ′(θ) ∈ξφ(θ)
+or since ξ = ker(dz −ydx)
+(1)
+z′(θ) −y(θ)x′(θ) = 0.
+There are two ways to picture Legendrian knots in (R3, ξstd), that is via the front projection and
+the Lagrangian projection. We begin with the front projection. Let
+Π : R3 →R2 : (x, y, z) →(x, z).
+The image, Π(L), of L under the map Π is called the front projection of L. If φ above parameterizes
+L then
+φΠ : S1 →R2 : θ 7→(x(θ), z(θ))
+parameterizes Π(L). While φ was an immersion (in fact an embedding), φΠ will certainly not be
+one. To see this note that Equation (1) implies that z′(θ) = y(θ)x′(θ) thus anytime x′(θ) vanishes
+so must z′(θ). So if ψΠ is to be an immersion x′(θ) must never vanish. But this implies that Π(L)
+has no vertical tangencies and of course any immersion of S1 into R2 must have vertical tangencies.
+(Here and below “vertical” means spanned by
+∂
+∂z.) This brings us to our ﬁrst important fact about
+front projections.
+FF 1. Front projections Π(L) have no vertical tangencies.
+So how does ψΠ fail to be an immersion?
+Note the discussion above implies that z′(θ) always
+vanishes to at least the order of x′(θ). Thus we can always recover the y-coordinate of φ from φΠ by
+rewriting Equation (1) as
+(2)
+y(θ) = z′(θ)
+x′(θ),
+if x′(θ) is non-zero. If x′ is zero at some θ0 then we have
+(3)
+y(θ0) = lim
+θ→θ0
+z′(θ)
+x′(θ).
+There are Legendrian knots for which x′(θ) = 0 on open intervals, see top of Figure 3, but this is
+not a stable phenomena. We can easily make the cusp point in the projection “sharper”, see bottom
+of Figure 3. This leads to a Legendrian isotopic arc where x′(θ) = 0 only at one point. From this
+x
+x
+x
+x
+y
+y
+z
+z
+Figure 3. Top row shows two projections of a Legendrian arc with x′(θ) = 0 on a
+open interval. Bottom row shows a near by Legendrian arc with x′(θ) = 0 only at
+one point.
+it is easy to convince oneself that for a generic C1 smooth Legendrian embedding in R3, x′(θ) can
+only vanish at isolated points. Moreover, at these isolated points there is a well deﬁned tangent line
+in the front projection. Thus we may assume that
+
+===== PDFPAGE 7 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+7
+FF 2. Front projections may be parameterized by a map that is an immersion except at a ﬁnite
+number of points, at which there is still a well deﬁned tangent line. Such points are called
+generalized cusps.
+Actually this condition only guarantees the y coordinate deﬁned by Equation (2) is a C0 function.
+We need to add conditions on the second derivatives of x and z to get the y coordinate to be C1.
+We will not concern ourselves here with this. It is interesting to note that if we demand that all the
+coordinates be C∞then generically our cusps must be “semi-cubic parabolas”. By this we mean
+that after a change of coordinates z(θ) = 3θ3 and x(θ) = 2θ2.
+Our above discussion implies that FF 1. and FF 2. characterize front projections. In particular,
+any map f : S1 →xz–plane : θ 7→(xf(θ), zf(θ)) that satisﬁes FF 1. and FF 2. represents a
+Legendrian knot, since under these conditions we can always deﬁne y(θ) by Equation (2). Then the
+image of the map φ(θ) = (xf(θ), y(θ), zf(θ)) will be a Legendrian knot.
+Interpreting this in terms of knot diagrams one sees that given any knot diagram
+(1) that has no vertical tangencies,
+(2) the only non-smooth points are generalized cusps and
+(3) at each crossing the slope of the overcrossing is smaller (that is, more negative) than the
+undercrossing
+represents the front projection of a Legendrian knot. To understand the condition on the overcrossing
+recall that in order to have the standard orientation on R3 the positive y axis goes into the page.
+Example 2.4 In Figure 4 we show front diagrams for Legendrian knots realizing the unknot, right
+and left trefoil knots and the ﬁgure eight knot.
+Figure 4. Legendrian knots realizing the unknot, right and left trefoil knots and
+the ﬁgure eight knot.
+Using these observations one can easily prove.
+Theorem 2.5. Given any topological knot K there is a Legendrian knot C0 close to it. In particular,
+there are Legendrian knots representing any topological knot type.
+Proof. Consider (R3, ξstd). First we show that any knot type can be represented by a Legendrian
+knot. This is now quite simple, just take any diagram for the knot (Figure 5), make the modiﬁcations
+shown if Figure 6 and then use the above procedure to recover a Legendrian knot (Figure 5).
+Of course the problem with the construction of a Legendrian knot this way is that it is certainly
+not C0 close to the original knot since the diﬀerence between y-coordinates of the original knot
+and the Legendrian knot determined by the front projection can be quite far apart. This problem
+with the y-coordinate can be ﬁxed with the idea illustrated in Figure 7 that any arc may be C0
+approximated rel end points by a Legendrian arc.
+Using Darboux’s theorem (that all contact structures are locally the same as (R3, ξstd)) one may
+easily ﬁnish the proof for a general contact 3–manifold.
+□
+
+===== PDFPAGE 8 =====
+8
+JOHN B. ETNYRE
+Figure 5. Converting a knot diagram (left) into a Legendrian front (right).
+or
+Figure 6. Realizing a knot type as a Legendrian knot.
+Figure 7. C0 approximating an arc by a Legendrian arc.
+Of course we could have used this last technique to show that any knot type has a Legendrian
+representative thus avoiding the ﬁrst part of the proof. But, in practice, if one is trying to construct
+Legendrian representatives of a knot type (and not C0 approximations of a speciﬁc knot) one uses
+Figure 6. This is because using Figure 7 introduces too many “zig-zags”. We will see below it is
+best to avoid these as much as possible.
+Just as there are Reidemeister moves for topological knot diagrams there is a set of “Reidemeister”
+moves for front diagrams too.
+Theorem 2.6 (See [81]). Two front diagrams represent the Legendrian isotopic Legendrian knots
+if and only if they are related by regular homotopy and a sequence of moves shown in Figure 8.
+Example 2.7 If Figure 9 we show that two diﬀerent front diagrams for a Legendrian unknot are
+Legendrian isotopic.
+To illustrate the diﬃculty in using these move one might want to try to show the two Legendrian
+ﬁgure eight knots in Figure 10 are Legendrian isotopic.
+We now discuss the Lagrangian projection of a Legendrian knot. Let
+π : R3 →R2 : (x, y, z) 7→(x, y).
+Then the Lagrangian projection of a Legendrian knot L is π(L). The terminology “Lagrangian
+projection” comes from the fact that dα|xy−plane, which is a symplectic form, vanishes when restricted
+to π(L). This is very important when considering Legendrian knots in R2n+1 but is irrelevant in our
+discussion. However, we keep the terminology for the sake of consistency. If we again parameterize L
+
+===== PDFPAGE 9 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+9
+Figure 8. Legendrian Reidemeister moves. (Also need the corresponding ﬁgures
+rotated 180 degrees about all three coordinate axes.)
+Figure 9. Various fronts of the same Legendrian unknot.
+Figure 10. Two fronts of the same Legendrian ﬁgure eight knot.
+by φ (all notation is as above) then π(L) is parameterized by φπ(θ) = (x(θ), y(θ)). Unlike the front
+projection, the Lagrangian projection is always parameterized by an immersion, since if x′(θ) =
+y′(θ) = 0 for some θ then z′(θ)̸ = 0 so the tangent vector to L is pointing in the
+∂
+∂z direction which
+does not lie in ξ.
+The Legendrian knot L can be recovered (up to translation in the z-direction) from the Lagrangian
+projection as follows: pick some number z0 and deﬁne z(0) = z0. Then deﬁne
+(4)
+z(θ) = z0 +
+Z θ
+0
+y(θ)x′(θ)dθ.
+Since a Legendrian knot satisﬁes Equation (1) we see this equation can be written
+z(θ) = z0 +
+Z θ
+0
+z′(θ)dθ,
+which is a tautology. So the only ambiguity in recovering L is the choice of z0.
+Let’s observe a few restrictions on immersions S1 →R2 that can be Lagrangian projections of a
+Legendrian knot. First let g : S1 →R2 : θ 7→(x(θ), y(θ)) be any immersion. If we try to deﬁne z(θ)
+by Equation (4) then we run into problems. Speciﬁcally, if we think of θ ∈[0, 2π] then z(θ) will be
+a well deﬁned function on S1 only if z(0) = z(2π). This condition can be written
+Z 2π
+0
+y(θ)x′(θ)dθ = 0
+and of course is not satisﬁed for all immersions g. This is the only obstruction to lifting g to an
+immersion G : S1 →R3 whose image is tangent to ξ. The image of G will be a Legendrian knot if
+
+===== PDFPAGE 10 =====
+10
+JOHN B. ETNYRE
+G is an embedding. The only way it can fail to be an embedding is if double points in the image of
+g lift to have the same z-coordinate. Thus an immersion g lifts to a Legendrian knot (well deﬁned
+up to isotopy) if
+(1)
+R 2π
+0
+y(θ)x′(θ)dθ = 0 and
+(2)
+R θ1
+θ0 y(θ)x′(θ)dθ̸ = 0 for all θ0̸ = θ1 with g(θ0) = g(θ1).
+Unfortunately these conditions are not easy to interpret diagrammatically, making working with
+Lagrangian projections somewhat harder that working with front projections. None the less, La-
+grangian projections are still quite useful as we will see below. We also note that Theorem 2.5 can
+be proven using Lagrangian projections. Speciﬁcally, given any topological arc γ : [0, 1] →R3 we
+want to use the Lagrangian projection to prove γ([0, 1]) can be C0 approximated by a Legendrian
+arc with the same end points. By considering Figure 11 one may clearly do this.
+Figure 11. Using the Lagrangian projection to approximate topological arcs.
+We also have a weak Reidemeister type theorem.
+Theorem 2.8. Two Lagrangian diagrams represent Legendrian isotopic Legendrian knots only if
+their diagrams are related by a sequence of moves shown if Figure 12.
+Figure 12. Legendrian Reidemeister moves in the Lagrangian projection. (Also
+need the corresponding ﬁgures rotated 180 degrees about all three coordinate axes.)
+Unfortunately these moves are not suﬃcient to guarantee Legendrian isotopy due to the integral
+constraints discussed above.
+In Section 4.5 we will discuss converting a front projection into a Lagrangian projection.
+2.4. Transverse knots. A transverse knot T in a contact manifold (M 3, ξ) is an embedded S1 that
+is always transverse to ξ :
+TxT ⊕ξx = TxM,
+x ∈T.
+If ξ is orientable (i.e. if it is deﬁned globally by a 1-form) then we can ﬁx an orientation on ξ. Recall
+our deﬁnition of contact structure requires a ﬁxed orientation on M, thus if T is transverse to ξ we
+can orient T so that it always intersects ξ positively. When T is so oriented we call T a positive
+transverse knot. If we give T the opposite orientation then we call T a negative transverse knot.
+If we do not put positive/negative in front of the phrase “transverse knot” then positive is always
+implied. In particular transverse knots are always oriented (unless ξ is not orientable).
+For the rest of this section we restrict attention to (R3, ξstd). Transverse knots are usually studied
+via the analogy of the front projection: Π : R3 →R2 : (x, y, z) 7→(x, z). Unlike for Legendrian knots
+we cannot recover T from Π(T ), however we can reconstruct T up to isotopy through transverse
+
+===== PDFPAGE 11 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+11
+knots (i.e.
+we can recover the transverse isotopy class of T ). Thus it is reasonable to study T
+through Π(T ).
+Let’s examine Π(T ). Since the condition on a knot being transverse is an open condition in the
+space of embeddings S1 →R3 it is easy to check that for a generic transverse knot Π(T ) will be the
+image of an immersion. This immersion satisﬁes two obvious constraints:
+(1) the immersion has no vertical tangencies pointing down and
+(2) there are no double points as shown in Figure 13.
+Figure 13. Segments excluded from projections of transverse knots.
+To check these conditions let φ : S2 →R3 : θ 7→(x(θ), y(θ), z(θ)) be a parameterization for T. The
+fact that T is a positive transverse knot implies that
+z′(θ) −y(θ)x′(θ) > 0.
+Now the projection of T is parameterized by φΠ(θ) = (x(θ), z(θ)). At a vertical tangency pointing
+down we have x′ = 0 and z′ < 0, this contradicts the above equation thus establishing condition (1).
+To see condition (2) note that
+y(θ) < z′(θ)
+x′(θ).
+Thus the y coordinate is bounded by the slope of the diagram in the xz-plane. (Once again recall
+the positive y axis points into the page.) One may now easily check that the picture on the right
+side of Figure 13 cannot be the projection of a transverse knot.
+Theorem 2.9 (See [37, 81]). Any diagram satisfying conditions (1) and (2) above can be lifted to a
+transversal knot in R3 well deﬁned up to isotopy through transversal knots. Moreover, two diagrams
+will represent the same transverse isotopy class of transverse knots if any only if they are related by
+a sequence of move shown in Figure 14.
+Figure 14. Transverse Reidemeister moves. Add arrows in all ways that don’t
+violate the conditions in Figure 13. (Also need the corresponding ﬁgures rotated
+180 degrees about all three coordinate axes.)
+A second way to study transversal knots is by using closed braids. Recall a closed braid is simply
+a knot (or link) in R3 (we will use cylindrical coordinates (r, ψ, z) now) that can be parameterized
+
+===== PDFPAGE 12 =====
+12
+JOHN B. ETNYRE
+by a map f : S1 →R3 : θ 7→(r(θ), ψ(θ), z(θ)) for which r(θ)̸ = 0 and ψ′(θ) > 0 for all θ. For more
+on braids and closed braids see [6].
+To see the connection between braids and transverse knots we use the symmetric version of
+the standard contact structure (R3, ξsym). Since this contact structure is contactomorphic to the
+standard one we can transfer any question about the contact structure ξstd to the contact structure
+ξsym. Now given a closed braid B we can isotopy it through closed braid so that it is far from the
+z-axis. Very far from the z-axis the planes that make up ξsym are almost vertical, that is close to
+the planes spanned by
+∂
+∂z and
+∂
+∂r. Thus the closed braid type B represents a transversal knot.
+Bennequin proved the opposite assertion:
+Theorem 2.10 (Bennequin 1983, [5]). Any transverse knot in (R3, ξsym) is transversely isotopic to
+a closed braid.
+The proof of this theorem is quite similar to the proof that knots can be braided [6]. One just
+needs the check that the “braiding process” can be done in a transverse way. For details see [5, 75].
+Recall, ﬁxing n points pi, in a disk D2, an n-braid is an embedding of n arcs γi : [0, 1] →D2×[0, 1]
+so that γi(t) ∈D2 × {t} and the endpoints of the γi corresponding to 0 (resp. 1) as a set map to
+{pi}n
+i=1 in D2 × {0} (resp. D2 × {1}). The set of all n-braids Bn form a group. It is easy to see
+the group is generated by σi, i = 1, . . . n −1, where σi is the n braid with the i and i + 1 strands
+interchanging in a right handed fashion and the rest unchanged, see Figure 15.
+The group Bn
+Figure 15. A generator σi for the braid group Bn.
+naturally includes in Bn+1. Given a braid b in Bn the positive stabilization of b is bσn in Bn+1.
+Theorem 2.11 (Orevkov and Shevchishin 2003, [75]; Wrinkle, [85]). Two braids represent the same
+transverse knot if and only if they are related by positive stabilization and conjugation in the braid
+group.
+2.5. Types of classiﬁcation. In trying to classify Legendrian or transverse knots one could mean
+many diﬀerent things. We concentrate on Legendrian knots here but an analogous discussion holds
+for transverse knots too.
+One can classify Legendrian knots up to isotopy through Legendrian knots. That is L0 and L1 are
+Legendrian isotopic if there is a continuous family Lt, t ∈[0, 1], of Legendrian knots starting at L0 and
+ending at L1. One can also classify Legendrian knots up to ambient contact isotopy. Here we mean
+L0 and L1 are ambient contact isotopic if there is a one parameter family φt : M →M, t ∈[0, 1],
+(here (M, ξ) is the ambient contact manifold) of contactomorphisms of M such that φ0 is the identity
+map and φ1(L0) = L1.
+Theorem 2.12. The classiﬁcation of Legendrian knots up to Legendrian isotopy is equivalent to the
+classiﬁcation up to contact isotopy. The analogous statement is true for transverse knots.
+Proof. The implication of contact isotopy to Legendrian isotopy is obvious. For the other implication
+assume Lt, t ∈[0, 1] is an isotopy through Legendrian knots in the contact manifold (M, ξ). There
+is a family of diﬀeomorphisms φt : M →M, t ∈[0, 1], such that φt(L0) = Lt. Moreover, it is easy to
+arrange that φ∗
+t (ξ|Lt) = ξ|L0. Let ξt = φ∗
+t (ξ). This is a one parameter family of contact structures
+with ξt = ξ0 along L0. Thus Gray’s Theorem, [1, 64], implies there is a family of diﬀeomorphisms
+ψt such that ψ∗
+t (ξt) = ξ0 and ψt is the identity on L0. Now set ft = φt ◦ψt. Note
+f ∗
+t (ξ0) = ψ∗
+t (ξt) = ξ0.
+Thus ft are all contactomorphisms of ξ0 = ξ. Moreover ft(L0) = φt(L0) = Lt.
+□
+
+===== PDFPAGE 13 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+13
+In S3 with the standard contact structure there is another type of classiﬁcation that is equivalent
+to these.
+Theorem 2.13. In (S3, ξstd) (or (R3, ξstd)) two Legendrian knots are Legendrian isotopic if and
+only if their compliments are contactomorphic.
+This theorem is not necessarily true in other contact manifolds.
+Proof. A Legendrian knot L has a canonical neighborhood N(L). Denote by M(L) the closure of
+the complement of N(L). If two Legendrian knots L0 and L1 in (S3, ξstd) have contactomorphic
+complements, then let ψ : M(L0) →M(L1) be the contactomorphism.
+We can extend ψ over
+N(L0) so that it takes N(L0) to N(L1) and is a contactomorphism for (S3, ξstd). In [25], Eliashberg
+has shown that there is a unique tight contact structure on S3. That coupled with Gray’s Theorem
+implies there is a family of contactomorphisms ψt : S3 →S3, t ∈[0, 1] with ψ0 the identity map and
+ψ1 = ψ. Thus Lt = ψt(L0) is an Legendrian isotopy from L0 to L1.
+□
+2.6. Invariants of Legendrian and transversal knots. Though it is not always essential we will
+always consider oriented knots.
+2.6.1. Classical invariants of Legendrian knots. The most obvious invariant of a Legendrian knot is
+its underlying topological knot type, since any Legendrian isotopy between two Legendrian knots is,
+among other things, a topological isotopy of the underlying knots. Given a Legendrian knot L we
+will denote its underlying topological knot type by k(L). We will use Kto denote a topological knot
+type (i.e. the set of topological knots isotopic to a ﬁxed knot) and the set of all Legendrian knots
+L with k(L) ∈K will be denoted by L(K).
+The next invariant of a Legendrian knot L is the Thurston–Bennequin invariant which intuitively
+measures the “twisting of ξ around L”. More rigorously this invariant is deﬁned by a trivialization
+of the normal bundle ν of L. A ﬁxed identiﬁcation of ν with L × R2 is called a trivialization of ν or
+a framing of L. A Legendrian knot has a canonical framing: since ξx and νx intersect transversally
+(TxL ⊂ξx) one gets a line bundle lx = ξx ∩νx, for x ∈L. The line bundle l gives a framing of ν
+over L. This framing is the Thurston–Bennequin framing of L and is denoted tbf(L).
+If the normal bundle has a preassigned framing F then we can assign a number to the Thurston–
+Bennequin framing of L. This number tw(L, F) is just the twisting of l with respect to F and is
+called the twisting of L with respect to F. If L is null homologous then L has a framing given by a
+Seifert surface. The twisting of L with respect to this Seifert framing will be called the Thurston-
+Bennequin invariant of L and is denoted tb(L). One may alternately deﬁne tb(L) as follows: let v
+be a non-zero vector ﬁeld along L in ν ∩ξ and let L′ be a copy of L obtained by pushing L slightly
+in the direction of v. Now deﬁne tb(L) as the linking of L with L′, i.e. tb(L) = lk(L, L′).
+Remark 2.14. If v′ is a nonzero vector ﬁeld along L transverse to ξ and L′′ is obtained from L by
+pushing L slightly in the direction of v′ then tb(L) = lk(L, L′′).
+The last “classical” invariant of a Legendrian knot L is the rotation number of L. This invariant
+will only be deﬁned for null homologous knots, so assume that L = ∂Σ where Σ is an embedded
+orientable surface. The contact planes when restricted to Σ, ξ|Σ, form a trivial two dimensional
+bundle (any orientable two plane bundle is trivial over a surface with boundary). This trivialization
+of ξ|Σ induces a trivialization ξ|L = L × R2. Recall L has an orientation, so let v be a non zero
+vector ﬁeld tangent to L pointing in the direction of the orientation on L. The vector ﬁeld v is in
+ξ|L = L × R2 and thus using this trivialization we can think of v as a path of non zero vectors in
+R2, as such it has a winding number. This winding number r(L) is the rotation number of L. Note
+the rotation number depends on the orientation of L and changes sign if the orientation is reversed.
+Remark 2.15. One can also deﬁne r(L) as the obstruction to extending v to a non-zero vector ﬁeld
+in ξ|Σ.
+The invariants k(L), tb(L) and r(L) will be called the classical invariants of L.
+
+===== PDFPAGE 14 =====
+14
+JOHN B. ETNYRE
+2.6.2. Computation of the classical invariants via projection. We now consider Legendrian knots
+L in the standard contact structure on R3 and interpret the classical invariants in the front and
+Lagrangian projection of L. We begin with the rotation number. Let w =
+∂
+∂y. This is a nonzero
+section of ξ and thus can be used to trivialize ξ|L independent of ﬁnding a Seifert surface for L.
+Now to compute the rotation number of L we just need to see how many times a nonzero tangent
+vector ﬁeld v to L, thought of as living in R2 via the trivialization given by w, winds around the
+origin of R2. This is equivalent to making a signed count of how many times v and w point in the
+same direction, we call this an intersection of v and w. The “sign of the intersection” is determined
+by whether v passes w counterclockwise (+1) or clockwise (−1). Now in the front projection v will
+be pointing in the direction of ±w = ± ∂
+∂y at the cusps. One may easily check that the intersection
+will be positive when going down a cusp and negative when going up a cusp. Moreover, since this
+counts the number of times v “intersects” ±w we need to divide by two in order to get r(L). Thus
+in the front projection
+(5)
+r(L) = 1
+2(D −U),
+where U is the number of up cusps in the front projection and D is the number of down cusps. In
+the Lagrangian projection w projects to
+∂
+∂y and thus the rotation number is easily seen to be the
+winding number of the tangent vectors to π(L)
+(6)
+r(L) = winding(π(L)).
+For the Thurston–Bennequin invariant. Let v =
+∂
+∂z then for any Legendrian knot L, v is a vector
+ﬁeld transverse to ξ along L (as in Remark 2.14). Thus tb(L) is the linking of L with a copy L′
+of L obtained by shifting slightly in the z direction. So in the front projection L and L′ are as in
+Figure 16. Now the linking number of L and L′ is just one half the signed count of the intersections
+Figure 16. Knots L (black) and L′ (grey) used to compute tb(L).
+between them. Where an intersection is positive if it is right handed and negative if it is left handed
+(Recall L and hence L′ are oriented). See Figure 17. One can see that at each right (left) handed
++
+−
+Figure 17. Right handed crossing (on left) and a left handed crossing (on right).
+Note this ﬁgure is to indicate that right (left) crossings contribute +(−) to the write
+of a knot. The picture on the right cannot occur in a front projection, but non the
+less left handed crossings can.
+self crossing of the projection of L there will be two right (left) handed crossings of L and L′ and at
+a right or left cusp of L there will be a left handed crossing of L and L′. Thus in the front projection
+(7)
+tb(L) = writhe(Π(L)) −1
+2(number of cusps in Π(L)).
+In the Lagrangian projection L and L′ project to the same diagram, but we have
+(8)
+tb(L) = writhe(π(L)).
+
+===== PDFPAGE 15 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+15
+One may prove this formula by ﬁrst recalling tb(L) is the linking number of L and L′. In the
+Lagrangian projection think about trying to pull L′ straight up. If during this process L′ never
+intersects L then their linking is 0. Moreover, each crossing in the diagram for L contributes ±1 to
+the linking number.
+2.6.3. Classical invariants of transverse knots. For transverse knots T there are only two classical
+invariants, the topological knot type k(T ) and the self-linking number (this is sometimes called the
+Bennequin number). We denote transverse knots in a ﬁxed topological knot type Kby T (K). To
+deﬁne the self-linking number of T we assume it is homologically trivial. (There is a “relative”
+version of the self-linking number if this is not true but we will not discuss this point here.) Thus
+there is an orientable surface Σ such that ∂Σ = T. As above we know that ξ|Σ is trivial so we can
+ﬁnd a nonzero vector ﬁeld v over Σ in ξ. Let T ′ be a copy of T obtained by pushing T slightly in
+the direction of v. The self-linking number sl(T ) of T is the linking of T ′ with T.
+The self-linking number also has an interpretation in terms of a relative Euler class. To see this
+let v be a non zero vector in ξ ∩T Σ along T that points out of Σ. If this v were to extend over Σ
+then we could use it to get T ′ above and the self-linking would be 0. If v does not extend then the
+self-linking is not 0.
+Remark 2.16. The self-linking number l(T ) is precisely the obstruction to extending v over Σ to
+a non-zero vector ﬁeld in ξ.
+2.6.4. Computations of the self-linking number. To compute sl(T ) for a transverse knot in the stan-
+dard contact structure on R3 note that the vector v =
+∂
+∂y is always in ξstd and thus can be used to
+trivialize ξstd independent of a Seifert surface for T. Now let T ′ be a copy of T obtained by pushing
+T along v. The self-linking number of T is the linking number of T and T ′. If we consider T and T ′
+in the “front projection” we see that
+(9)
+sl(T ) = writhe(Π(L)).
+The argument for this formula is exactly like the one for Equation (8).
+We would also like to see a formula for sl(T ) in terms of a braid representation for T. To do this
+recall we must use the cylindrically symmetric contact structure ξ1 on R3. For our non zero vector
+ﬁeld we take v =
+∂
+∂r on {x ≥ǫ}, v = −∂
+∂r for {x ≤−ǫ} and on {−ǫ < x < ǫ} we have interpolate
+between these two choices by rotating clockwise in the contact planes. If we think of all the braiding
+as occurring in {x ≥ǫ} the we see each generator σ± contributes ±1 to the self-linking number. See
+Figure 18. Moreover each strand as it passes in and out of {x ≤ǫ} contributes −1 to the self-linking
+Figure 18. The braid T in black and its push oﬀby v in grey.
+number. Thus we have
+(10)
+sl(T ) = a(T ) −n(T ),
+where n(t) is the number of strands in the braid b representing T and a(T ) is the algebraic length
+of b when written in terms of the generators σi (algebraic length is the sum of the exponents on the
+generators). This useful equality was ﬁrst observed by Bennequin [5].
+
+===== PDFPAGE 16 =====
+16
+JOHN B. ETNYRE
+2.7. Stabilizations. Given a Legendrian knot L there is a simple way to get another Legendrian
+knot in the same topological knot type: stabilization. We describe stabilization in the standard
+contact structure on R3. If a strand of L in the front projection of L is as on the left hand side
+of Figure 19 then the stabilization of L is obtained by removing the stand and replacing it with
+S+
+S−
+S+
+S−
+Figure 19. Stabilizations in the front projection (top) and the Lagrangian projec-
+tion (bottom).
+one of the zig-zags shown on the right hand side of Figure 19. If down cusps are added then the
+stabilization is called positive, and denoted S+(L), and if up cusps are added then the stabilization
+is called negative, and denoted S−(L). Since stabilizations are done locally, this actually deﬁnes, via
+Darboux’s Theorem, stabilizations for Legendrian knots in any manifolds. Note
+(11)
+tb(S±(L)) = tb(L) −1,
+and
+(12)
+r(S±(L)) = r(L) ± 1.
+It is important to observe that stabilization is a well deﬁned operation, that is, it does not depend
+at what point the stabilization is done. This is true in general [37] but in R3 it is somewhat easier
+to prove [46]. One only needs to check that the “zig-zags” used to deﬁne the stabilization can be
+move past cusps and crossings in the front projection. Using Theorem 2.6 this is a fun exercise.
+One important fact concerning stabilizations is the following.
+Theorem 2.17 (Fuchs and Tabachnikov 1997, [46]). Given two Legendrian knots L1 and L2 in
+(R3, ξstd) that are topologically isotopic then after each has been stabilized some number of times
+they will be Legendrian isotopic.
+So the topological classiﬁcation of knots is equivalent to the stable classiﬁcation of Legendrian
+knots. To prove this theorem one checks that the topological Reidemeister moves can be performed
+via Legendrian Reidemeister moves after suﬃciently many stabilizations. It should not be diﬃcult
+to prove this theorem in any contact 3-manifold, but such a proof does not exist in the literature.
+Note using stabilization it is easy to get Legendrian knots with arbitrarily negative Thurston-
+Bennequin invariants. In any tight contact structure there is an upper bound on the Thurston-
+Bennequin invariant (see Section 3). Thus while it is easy to stabilize a knot it is not necessarily
+easy to “destabilize” a knot.
+We say L destabilizes if there is a Legendrian knot L′ such that
+L = S±(L′).
+There is notion of transverse stabilization too. The stabilization of a transverse knot T is formed
+by taking an arc in the front projection as shown on the left hand side of Figure 20 and replacing it
+
+===== PDFPAGE 17 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+17
+with the arc on the right hand side. Denote the resulting knot by S(T ). Note there is only one type
+Figure 20. Transverse stabilization.
+of stabilization here and
+(13)
+sl(S(T )) = sl(T ) −2.
+Once again it is not hard to show that stabilization is well deﬁned for transverse knots. We also
+have
+Theorem 2.18 (Fuchs and Tabachnikov 1997, [46]). Given two transverse knots T1 and T2 in
+(R3, ξstd) that are topologically isotopic then after each has been stabilized some number of times
+they will be transversely isotopic.
+There is a notion of destabilization for transverse knots that is exactly analogous to destabilization
+of Legendrian knots.
+2.8. Surfaces and the classical invariants. In this section we see how to compute the classical
+invariants of a Legendrian and transverse knot in terms of the characteristic foliation on a surface
+bounded by the knot. We will also see how convex surface theory [50, 55] can be used to understand
+the classical invariants of Legendrian knots.
+Let T be a transverse knot bounding the surface Σ. Orient Σ so that T is its oriented boundary.
+With this orientation the characteristic foliation Σξ points out of ∂Σ = T (recall the characteristic
+foliation is oriented).
+Perturb Σ so that Σξ is generic.
+In particular, we can assume that all
+the singularities are isolated elliptic or hyperbolic points. Moreover, each singularity has a sign
+depending on whether the orientation of ξ and T Σ agree at the singularity. Let e± be the number of
+± elliptic singularities in Σξ and let h± be the number of ± hyperbolic singularities. We now have
+(14)
+−sl(T ) = (e+ −h+) −(e−−h−).
+This formula follows easily by interpreting sl(T ) as a relative Euler class (that is let v be a vector
+ﬁeld along T tangent to ΣT and contained in ξ and pointing into ΣT , then sl(T ) is the obstruction
+to extending v to a nonzero vector ﬁeld on ΣT ).
+By looking at the characteristic foliation one may frequently see how to destabilize a transverse
+knot. In particular, if one sees Figure 21 in the characteristic foliation of a surface with a transverse
+T ′
+T
++
+−
+Figure 21. Using the characteristic foliation to recognize a destabilization.
+knot T in its boundary, then one can let T ′ be the knot shown in the picture and it is clear that
+sl(T ′) = sl(T ) + 2. With a little work one can, in fact, see that S(T ′) = T. Thus when one ﬁnds a
+negative hyperbolic point on a surface whose unstable manifolds separate oﬀa disk with one elliptic
+point (necessarily positive), then the knot can be destabilized. Such a disk is called a transverse
+bypass and ﬁrst appeared in [32] and was used in the classiﬁcation of some transverse torus knots in
+[31].
+
+===== PDFPAGE 18 =====
+18
+JOHN B. ETNYRE
+Now consider a Legendrian knot L with Seifert surface Σ. It is relatively easy to see we may
+isotopy Σ relative to its boundary so that the singularities in the characteristic foliation along the
+boundary alternate in sign. When this is arranged it is easy to see | tb(L)| is simply half the number
+of singularities along the boundary. We now observe:
+Lemma 2.19 (Eliashberg and Fraser 1998, [28]). Assume the singularities in the characteristic
+foliation along ∂Σ = L alternate in sign. If tb(L) ≤0 then positive/negative singularities along the
+boundary will be sources/sinks (along the boundary). If tb(L) > 0 the positive/negative singularities
+along the boundary will be sinks/sources (along the boundary).
+The idea for this lemma is simply to examine how the characteristic foliation inherits an orien-
+tation from the contact planes and the Seifert surface. A singularity along the boundary is positive
+or negative depending on whether the contact planes are twisting past Σ in a right handed or left
+handed fashion.
+Recall that elliptic singularities in the characteristic foliation are sources (sinks) when the singu-
+larity is positive (negative). Thus when tb(L) > 0 we see from this lemma that all the singularities
+must be hyperbolic! So the characteristic foliation can be standardized along the boundary when
+tb(L) > 0.
+When tb(L) ≤0 it takes a little more work to normalize to characteristic foliation near the
+boundary.
+In addition, the foliation can be normalized in various ways. In particular, one can
+arrange that all the singularities are hyperbolic, or that all the singularities are elliptic, or that they
+alternate between hyperbolic and elliptic [28].
+If tb(L) ≤0 then we can isotope Σ relative to L so that it is convex. Denote the dividing curves
+of Σ by Γ and the ± regions of Σ \ Γ by Σ±. Then we have
+(15)
+tb(L) = −1
+2(L ∩Γ),
+and
+(16)
+r(L) = χ(Σ+) −χ(Σ−).
+Call a properly embedded arc a ⊂Γ in Σ boundary parallel if the closure of one of the components
+of Σ \ a is a disk that contains no components of Γ in its interior. Such a boundary parallel dividing
+curve is frequently called a bypass, because it allows one to “bypass” some twisting as the following
+lemma shows. Bypasses were ﬁrst introduced in [55].
+Lemma 2.20. If the dividing curves Γ of Σ contain a boundary parallel arc and tb(L) < 1 or Σ
+has genus greater than 0, then L can be destabilized.
+Proof. The Legendrian Realization Principle [50, 55] says that we can alter the characteristic foliation
+to any other singular foliation as long as Γ “divides” this foliation. Thus we may realize the foliation
+shown in Figure 22 near the boundary parallel arc. We then let L′ be the Legendrian knot indicated
+L′
+L
+Figure 22. Characteristic foliation associated to a boundary parallel dividing
+curve (left). The destabilization L′ of L (right).
+on the right hand side of Figure 22 (after the corners are smoothed). It is not hard to show that
+L = S±(L′).
+□
+Remark 2.21. A bypass is technically the disk cobounded by L and L′ but using this lemma we
+see that this is essentially equivalent to the deﬁnition above.
+
+===== PDFPAGE 19 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+19
+2.9. Relation between Legendrian and transversal knots. Let L be a Legendrian knot in a
+contact manifold (M, ξ). Let A = S1 ×[−1, 1] be an embedded annulus in M such that S1 ×{0} = L
+and A is transverse to ξ. If A is suﬃciently “thin” then the characteristic foliation on A is as shown
+in Figure 23. Given such an A the curve L+ = S1 × {+ 1
+2} (resp. L−= S1 × {−1
+2}) is a positively
+L−
+L
+L+
+Figure 23. Annulus involved in transverse push-oﬀof L.
+(resp. negatively) transverse knot. The knots L± are called the positive (resp. negative) transverse
+push oﬀof L. It is easy to check that any two transversal push-oﬀs are transversely isotopic.
+Warning. The deﬁnition of the positive and negative push-oﬀis not standard in the literature.
+Some authors (eg. Bennequin [5]) reverse the naming of positive and negative push-oﬀs.
+In the standard contact structure on R3 we can see this transverse push oﬀin the front projection.
+Let L be an oriented Legendrian knot and consider its front projection. Away from the cusps, any
+strand oriented to the right should be pushed in the −y-direction slightly to get L+ any strand
+oriented to the left should be pushed in the y direction slightly. Thus way from the cusps the front
+projection of L and L+ agree. A careful analysis near the cusps shows that they change as shown
+in Figure 24.
+Figure 24. Positive transverse push-oﬀin the front projection.
+Given a Legendrian knot L we can construct a positive and a negative transversal knot T±(L)
+the relation between their classical invariants is described in the following lemma.
+Lemma 2.22. The invariants of Legendrian knots and their transverse push oﬀs are related by
+(17)
+sl(T±(L)) = tb(L) ∓r(L).
+Proof. Given L a Legendrian knot and Σ a Seifert surface for L we let τ be a nonzero vector in
+ξ|L that extends to a nonzero vector in ξ|Σ. Thus if v is a nonzero vector ﬁeld tangent to L then
+r(L) is the twisting of v relative to τ in ξ which we denote: r(l) = t(v, τ, ξ|L). If ν is the normal
+bundle to L, s is the outward pointing normal to Σ and w is a vector ﬁeld in ξ|L transverse to v
+then tb(L) = t(w, s, ν).
+Let v+, w+, τ+ be the vector ﬁelds in ξ|L+ coming naturally from the deﬁnition of L+. Note we
+can think of s as the same as s+ since L and L+ are the same topological knots. Now keeping in
+mind ν = ξ|L+ we have
+sl(L+) = t(τ+, s, ν) = t(τ+, w+, ν) + t(w+, s, ν)
+= t(τ, w, ξ) + t(w, s, ν) = −r(L) + tb(L).
+The equation for L−is similar except that ν = −ξ so t(τ+, w+, ν) = −t(τ, w, ξ).
+For Legendrian knots in (R3, ξstd) there is a direct diagrammatic proof of these formulas using
+the formulas derived in the previous sections and Figure 24.
+□
+
+===== PDFPAGE 20 =====
+20
+JOHN B. ETNYRE
+There is also a Legendrian push oﬀof a transversal knot.
+Let T be a transverse knot.
+We
+want to construct a standard model for a neighborhood of T. To this end consider (R3, ξsym).
+Recall ξsym = ker(dz + r2dφ). Now let M be R3 modulo the action z 7→z + 1. The contact
+structure ξsym clearly induces a contact structure on M (also denoted ξsym). Now M = S1 × R2
+and Ta = {r = a} ⊂M is a torus that bounds the solid torus Sa = {r ≤a} ⊂M. The characteristic
+foliation of Ta is by lines of slope a2. A standard application of Moser’s technique shows that the
+transverse knots T has a neighborhood N contactomorphic to Sa for some a. Thus in a neighborhood
+of T there is a torus Tb with b < a and b2 = 1
+n for some positive integer n. The characteristic foliation
+on Tb is by lines of slope b2 = 1
+n. Let Tl be a leaf in the foliation of Tb. It is easy to see that Tl is
+a Legendrian knot topologically isotopic to T. The Legendrian knot Tl is called a Legendrian push
+oﬀof T. By considering the obvious annulus between T and Tl it is easy to see that the positive
+transverse push oﬀof Tl is T.
+Notice that Tl is called a Legendrian push oﬀand not the Legendrian push oﬀ. The reason for
+this is that there are many other Legendrian push oﬀs. Note that we can ﬁnd a c < b < a such
+that c2 =
+1
+n+1. The the Legendrian push oﬀobtained using Tc, denote it T ′
+l , is related to Tl by a
+negative stabilization [37]: T ′
+l = S−(Tl). We say two Legendrian knots are negatively stably isotopic if
+they are Legendrian isotopic after each has been negatively stabilized some number of times. Thus
+the Legendrian push oﬀof a transverse knot gives a well deﬁned negative stable isotopy class of
+Legendrian knots.
+Theorem 2.23 (In (R3, ξstd), Epstein, Fuchs and Meyer 2001, [30]: In a general contact manifold,
+Etnyre and Honda 2001, [37]). Two Legendrian knots are negatively stably isotopic if and only if
+their transverse push oﬀs are transversely isotopic.
+It is quite easy to show the “only if” part of this theorem. The “if” part is much more diﬃcult.
+Since we know all transverse knots are the transverse push oﬀof some Legendrian knot, the
+classiﬁcation of transversal knots is equivalent to the classiﬁcation of Legendrian knots up to negative
+stabilization.
+3. Tightness and bounds on invariants
+In the standard contact structure on R3, or more generally in a tight contact structure, there are
+many bounds on the classical invariants of a Legendrian or transversal knot. In fact, the existence
+of some of these bounds is at the heart of the nature of tightness. In this section we discuss these
+inequalities.
+3.1. Bennequin’s inequality. Part of the origins of modern contact geometry can be found in the
+following theorem.
+Theorem 3.1 (Eliashberg 1992, [25]). Let (M, ξ) be a tight contact 3-manifold. Let L be a Legen-
+drian knot in M with Seifert surface ΣL and T be a transverse knot with Seifert surface ΣT . Then
+(18)
+sl(T ) ≤−χ(ΣT ),
+and
+(19)
+tb(L) + |r(L)| ≤−χ(ΣL).
+Sketch of Proof. Clearly the second inequality follows from the ﬁrst and Equation (17). To prove
+the ﬁrst inequality recall the discussion in Section 2.8: if the foliation on Σ is generic then
+−sl(T ) = (e+ −h+) −(e−−h−).
+Moreover one may easily show
+χ(ΣT ) = (e+ + e−) −(h+ + h−).
+Thus
+sl(T ) + χ(ΣT ) = 2(e−−h−).
+
+===== PDFPAGE 21 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+21
+So we can prove Inequality 18 by showing that we may isotop ΣT (rel boundary) so that e−= 0. This
+is done by showing that the tightness of ξ implies that each positive elliptic point is connected to a
+positive hyperbolic point and then canceling this pair. This argument is discussed in [25, 33].
+□
+This bound is not sharp for many knot types. This is easily seen once other inequalities are
+established, so we defer this discussion until later in this section.
+The inequalities in Theorem 3.1 are called the Bennequin inequalities. However, the theorem as
+stated is due to Eliashberg [25]. What Bennequin actually showed was that for any transverse knot
+in (R3, ξstd) Equation (18) holds [5]. One reason for this is that the notion of tight vs. overtwisted
+was unknown at the time.
+Bennequin was trying to show that R3 has more than one contact
+structure. He did this by showing that in the standard contact structure Equation (18) is true while
+it is not in the contact structure ξot deﬁned in Example 2.2. Speciﬁcally the Legendrian unknot
+L = {z = 0, r = π} in (R3, ξot) is easily seen to have tb(L) = 0.
+This was one of the ﬁrst indications of the existence of a tight vs. overtwisted dichotomy. In fact,
+tightness can be characterized in terms of knots.
+Theorem 3.2. A contact structure ξ is overtwisted if and only if there is a Legendrian unknot with
+Thurston–Bennequin invariant equal to 0 if and only if there is a transverse unknot with self-linking
+number equal to 0.
+Using Theorem 3.1 the only non-trivial (but still easy) part of this theorem is that overtwisted
+implies the existence of a transverse unknot with self-linking 0.
+Since Equation 19 gives an upper bound on the Thurston–Bennequin invariant of a knot L in a
+tight contact structure we can make the following deﬁnition
+tb(K) = max{tb(L)|L ∈L(K)}.
+So tb(K) is the maximal Thurston-Bennequin invariant for Legendrian knots in the knot type K.
+Clearly this is an invariant of the topological knot type.
+3.2. Slice genus. There has been a reﬁnement of Bennequin’s inequality for knots in Stein ﬁllable
+contact structures. For a discussion of Stein ﬁllable contact structures see [33, 53]. The important
+point here is that the standard tight contact structure on S3 is Stein ﬁllable by B4 (with its standard
+complex structure).
+Theorem 3.3 (Lisca and Matic 1998, [63]). Let X be a Stein manifold with boundary M and ξ the
+induced contact structure. If L is a Legendrian knot in M then
+(20)
+tb(L) + |r(L)| ≤−χ(Σ),
+where Σ is an embedded oriented surface in X with ∂Σ = L.
+Given a knot type K in M = ∂X, let gs(K) denote the minimal genus of an embedded orientable
+surface Σ in X with ∂Σ = K. This is called the slice genus of K in (X, M). Equation (20) can be
+interpreted in terms of the slice genus:
+1
+2(tb(L) + |r(L)| + 1) ≤gs(K)
+for all L ∈L(K). Clearly the genus of a knot is an upper bound on the slice genus, thus this inequality
+implies the Bennequin inequality.
+For Legendrian knots in the standard contact structure in S3 this theorem is due to Rudolph
+[78]. In full generality is appears in [63]. Currently, the most direct proof of this theorem involves a
+standard adjunction type inequality in Seiberg-Witten theory and an embedding theorem for Stein
+manifolds proved in [62].
+While much of the deep mathematical content to the above theorem is Seiberg-Witten theory,
+the language of Legendrian knots provides a user friendly “front end” for the Seiberg-Witten theory.
+In particular, in many examples it is easy to simply draw pictures to see knots cannot be slice or to
+get bounds on their slice genus without ever having to explicitly invoke Seiberg-Witten theory. We
+will see applications of this in Section 7.4. Here we illustrate the usefulness of this theorem with a
+simple example. Let K be a knot type and K be its mirror image. It is well known [76] that K#K is
+
+===== PDFPAGE 22 =====
+22
+JOHN B. ETNYRE
+slice. Thus the maximal Thurston–Bennequin invariant satisﬁes tb(K#K) ≤−1. But later we will
+see (Section 5.4) that tb(K#K) = tb(K) + tb(K) + 1. Thus
+tb(K) ≤−tb(K) −2.
+By drawing pictures (see Section 5.2) one may easily see that for p, q positive and relatively prime,
+a (p, q)-torus knot K(p,q) has tb(K(p,q)) = pq −p −q. Thus
+tb(K(−p,q)) = tb(K(p,q)) ≤p + q −pq −2,
+and we see the Bennequin inequality is not sharp. (Later we will see that tb(K(−p,q)) = −pq.)
+3.3. Other inequalities in (R3, ξstd). We begin by recalling the deﬁnition of several knot polyno-
+mials. Consider a projection of an oriented knot K. To this projection we associate the HOMELY
+(Laurent) polynomial (aka, two variable Jones polynomial) PK(v, z) which is deﬁned by the skien
+relation
+1
+v PK+ −vPK−= zPK0,
+where K is either K+ or K−and K+, K−, K0 are related to each other as shown in the top row of
+Figure 25.
+Figure 25. The relation between K+, K−, K0 (top), K+, K−, K0, K∞(middle)
+and Kr, K (bottom).
+Let D be a regular projection of a (non-oriented) topological knot K. To this projection we
+associate a two variable (Laurent) polynomial LK(a, x) deﬁned by
+LU = a −a−1
+x
++ 1,
+LK+ −LK−= x(LK0 −LK∞),
+LKr = aLK,
+where K+, K−, K0, K∞are as related in the middle row of Figure 25, Kr, K are as related in the
+bottom row of Figure 25 and U is the diagram for the unknot with no crossings. The polynomial
+L is an invariant of D through regular homotopies. The polynomial FK(a, x) = awrithe(D)H(a, x) is
+the Kauﬀman polynomial of K. It is an invariant of the topological knot K.
+Theorem 3.4. Let K be a topological knot type. For any L ∈L(K) we have
+(1) tb(L) + |r(L)| ≤dPK and
+(2) tb(K) ≤dFK.
+Where dPK is the lowest degree in v of PK(v, z) and dFK is the lowest degree in a of FK(a, x).
+
+===== PDFPAGE 23 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+23
+The ﬁrst inequality, observed by Fuchs and Tabachnikov [46], follows from work of Franks and
+Williams [41] and Morton [69] who showed that for an n braid with algebraic length a,
+a −n ≤dPK,
+and the fact we observed in Section 2.6 that sl = a −n. Thus this inequality gives a bound on the
+self-linking numbers of transverse knots. The relation between the invariants of a Legendrian knot
+and its transverse push oﬀcomplete the proof of the ﬁrst inequality in the theorem.
+The second inequality is originally due to Rudolph [77]. Both inequalities can be proved using
+state models for the polynomials, see [83].
+Both inequalities have been extended to Legendrian
+knots in J1S1 the one jet space of S1, see [14]. For a more detailed discussion of the history of these
+inequalities see [40].
+Example 3.5 For the left handed trefoil we have
+PK(v, z) = v−3(v −v−1
+z
+)((2v −v−1 −vz2)
+and
+FK(a, x) = a−3(1 + a −a−1
+x
+)(2a −a−1 + z −a−2z + az2 −a−1z2).
+Thus we get the following bounds on Legendrian left handed trefoils L
+tb(L) + |r(L)| ≤dPK = −5
+and
+tb(L) ≤−6.
+We will see below that the maximal tb for left handed trefoils is −6 thus the second inequality seems
+sharper, but the trefoils with tb = −6 must have r = ±1. Thus both inequalities are sharp in this
+case. Note that in this case the Bennequin inequality is not sharp, as it only give an upper bound
+of 1.
+While no known bound on tb is always sharp the Kauﬀman polynomial FK frequently seems to
+be very good. For example
+Theorem 3.6 (Ng 2001, [74]). If Kis a 2-bridge knot, then the Kauﬀman bound is sharp: tb(K) =
+dFK. Moreover, the Kauﬀman bound is sharp for all knot types with eight or fewer crossings except
+the (4, −3) torus knot (819 in [76]).
+4. New invariants
+In this section we discuss two invariants of Legendrian knots that have been deﬁned in recent
+years. They are considerably more complicated than the “classical invariants” of Legendrian knots
+and currently we do not know exactly what they tell us about Legendrian knots.
+But they do
+show us that the classical invariants do not completely determine the Legendrian isotopy type of
+Legendrian knots.
+4.1. Contact homology (aka Chekanov-Eliashberg DGA). In [27] Eliashberg ﬁrst outlined the
+general theory of contact homology. It is a sophisticated algebraic tool for keeping track of “Reeb
+cords” and “pseudo-holomorphic curves” in symplecizations of contact manifolds. Subsequently the
+more elaborate framework of Symplectic Field Theory has been developed in [29]. The foundational
+parts of these grand theories (especially the parts of interest here) are currently being developed. In
+certain circumstances one can translate the general ideas into simpler terms and rigorously establish
+a theory based in these simpler terms. The diﬀerential graded algebra (DGA) of Chekanov [11]
+is such a theory for Legendrian knots in R3. We will concentrate on this simpler, but still deep,
+theory here. For a discussion of how the theory described here ﬁts into the “big picture” see [39]. In
+[80] a similar theory was established for Legendrian knots in circle bundles (with contact structures
+transverse to the circle ﬁbers).
+Let L be such a Legendrian knot. To L we want to assign a graded algebra and a diﬀerential on
+the algebra. There are various levels of sophistication one can use in deﬁning the algebra and its
+diﬀerential. We begin with the simplest description and discuss generalizations in Section 4.4.
+
+===== PDFPAGE 24 =====
+24
+JOHN B. ETNYRE
+The Algebra. Denote the double points in π(L) (recall this is the Lagrangian projection of L) by
+C. We assume C is a ﬁnite set of transverse double points (for a generic Legendrian this is clearly
+true). Let AZ2 be the free associative unital algebra over Z2 generated by C. If we want to make
+the generators explicit we write AZ2(C).
+The Grading. To each crossing c ∈C there are two points c+ and c−in L ⊂R3 that project to
+c. We let c+ be the point with larger z coordinate. Choose a map γc : [0, 1] →L that parametrizes
+an arc running from c+ to c−(note there are two such arcs, we can choose either). Let P be the
+projectivized unit circle in the xy-plane (i.e. identify antipodal points). We get a map gc : [0, 1] →P
+by gc(t) =
+γ′
+c(t)
+|γ′c(t)|. Since c is a transverse double point gc(0)̸ = gc(1). We extend gc to a map
+gc : S1 →P by rotating gc(1) clockwise until it agrees with gc(0). Now deﬁne the grading on c to be
+|c| = degree (gc).
+See Figure 26. Note the grading is not well-deﬁned! If we chose the other arc from c+ to c−in L
+Figure 26. On the right are two crossings, the thicker arc is γc. On the right is
+the image of the Gauss map for the arc. The grey arrow indicates the completion of
+gc to a closed loop. When the Gauss map is projectivized we see the top example
+has grading 1 and the bottom example has grading 3.
+then we could have gotten a diﬀerent number. Note the union of the two arcs is all of L. From this
+it is easy to see that the diﬀerence between the two possible gradings on c is the twice the rotation
+number of L (recall the rotation number is the degree of the Gauss map for the immersion π(L)).
+Thus |c| is well deﬁned modulo 2r(L). Thus A is a graded algebra with grading in Z2r(L).
+The Diﬀerential. We will deﬁne the diﬀerential ∂on AZ2 by deﬁning it on the generators of A
+and then extending by the signed Leibniz rule:
+∂ab = (∂a)b + (−1)|a|a∂b.
+(Note that since we are working over Z2 we do not really need the (−1)|a| in this formula, but when
+working over other rings/ﬁelds the sign is important so we keep it in the formula.) The neighborhood
+of a crossing c in R2 is divided into four quadrants by π(L) two are labeled + quadrants and two
+are labeled −quadrants as shown in Figure 27. Let a ∈C be a generator of A and let b1 . . . bk be a
++
+−
++
+−
+Figure 27. Quadrants near a crossing in π(L).
+word in the “letters” C. Let Pk+1 be a k + 1 sided polygon with vertices labeled counterclockwise
+
+===== PDFPAGE 25 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+25
+v0, . . . , vk and set
+Ma
+b1...bk = {u : (Pk+1, ∂Pk+1) →(R2, π(L))| u satisﬁes 1.– 3. below}/ reparam.
+where R2 denotes the xy-plane and the conditions are
+1. u is an immersion
+2. u(v0) = a and near a the image of a small neighborhood of v0 under u covers a + quadrant.
+3. u(vi) = bi, i = 1, . . . , k, and near bi the image of a small neighborhood of vi under u covers
+a −quadrant.
+We can now deﬁne
+∂a =
+X
+b1...bk
+(#2M)b1b2 . . . bk,
+where the sum is taken over all words in the letters Cand #2 denotes the modulo two count of
+elements in M. It is not hard to show that M is ﬁnite and the sum is ﬁnite [11], thus the diﬀerential
+is well-deﬁned.
+Lemma 4.1 (Chekanov 2002, [11]). The map ∂is a diﬀerential:
+∂◦∂= 0,
+and lowers degree by one.
+Example 4.2 Here we compute the graded algebra and the diﬀerential for the Legendrian unknot
+with tb = −2 (and r = ±1). The Lagrangian projection is shown on the right hand side of Figure 28.
+We have two generators of the algebra a1, a2. Each has grading 1. Moreover, ∂ai = 1 for i = 1, 2.
+b1
+b2
+b3
+a1
+a2
+a1
+a2
++
++
++
++
++
++
++
+Figure 28. The Lagrangian projection of a Legendrian trefoil and unknot. One
+corner of each crossings has been labeled with a + to help determine the signs of
+all the quadrants near the crossing.
+Example 4.3 Consider the Legendrian right handed trefoil with tb = 1. The Lagrangian projection
+is shown on the left of Figure 28. The algebra has ﬁve generators a1, a2, b1, b2, b3. Their gradings are
+|ai| = 1,
+|bi| = 0.
+One easily computes
+∂a1 = 1 + b1 + b3 + b1b2b3
+∂a2 = 1 + b1 + b3 + b3b2b1
+∂bi = 0.
+To discuss the invariance of (AZ2, ∂) under Legendrian isotopy we need a few preliminary deﬁni-
+tions. An automorphism of AZ2(c1, . . . , cn) of the form
+(21)
+φ(ci) =
+(
+ci,
+i̸ = j
+±cj + u,
+u ∈A(c1, . . . , cj−1, cj+1, . . . , cn), i = j.
+for some ﬁxed j is called elementary. A composition of such automorphism is called a tame auto-
+morphism. A tame isomorphism is an identiﬁcation of the generators of two algebras followed by a
+tame automorphism. (Since our algebras are all graded our automorphisms are also assumed to be
+graded automorphisms).
+
+===== PDFPAGE 26 =====
+26
+JOHN B. ETNYRE
+An index i stabilization of a DGA (AZ2(c1, . . . , cn), ∂) is the graded algebra AZ2(c1, . . . , cn, a, b)
+where |a| = |b| −1 = i and the diﬀerential on this algebra agrees with the original diﬀerential on the
+ci’s and ∂a = 0, and ∂b = a. If the index of a stabilization is unimportant then it is simply referred
+to as a stabilization instead of an index i stabilization.
+Two DGA’s are stably tame isomorphic if after stabilizing each of the DGA’s some number of
+times they become tame isomorphic.
+Theorem 4.4 (Chekanov 2002, [11]). The diﬀerential graded algebra (AZ2, ∂) associated to a Legen-
+drian knot changes by stable tame isomorphisms under Legendrian isotopy, moreover the homology
+CH∗(L) =
+ker ∂
+image ∂
+is unchanged under Legendrian isotopy.
+Example 4.5 The contact homology for the Legendrian unknot in Example 4.2 is
+CH∗(L) = 0,
+since ∂a1 = 1. Indeed ker(∂) is spanned by a1 −a2 but ∂(a1(a1 −a2)) = a1 −a2.
+Remark 4.6. In general it is easy to show that anytime ∂a = 1 for some element in the algebra
+then CH∗= 0.
+Example 4.7 The contact homology for the Legendrian trefoil in Example 4.3 is
+CH∗(L) = CH0(L) = ⟨b1, b2, b3|b1b2b3 = b3b2b1 = 0⟩
+Proposition 4.8 (Chekanov 2002, [11]). The DGA associated to a stabilized knot is stably tame
+isomorphic to the “trivial” algebra, that is the algebra generated by one element a such that ∂a = 1.
+In particular, the contact homology is 0.
+The main observation in the proof of this proposition is that a stabilization in the Lagrangian
+projection is achieved by adding a small loop (see Figure 19). Since this loop is small a generator a
+has been added to the algebra for which ∂a = 1 by the following lemma.
+Lemma 4.9 (Chekanov 2002, [11]). If u : Pk+1 →R2 is a polygon in Ma
+b1...bk then
+h(a) −
+k
+X
+i=1
+h(bi) =
+Z
+Pk+1
+u∗(dx ∧dy)
+where h(c) is the diﬀerence in the z-coordinates of the two points c+, c−in L lying above a double
+point c.
+Thus we easily see the contact homology is 0 as in Example 4.5. With a little more work one can
+see the algebra is as claimed in the proposition.
+4.2. Linearization. Since our algebra is non-commutative it is quite hard in general to look at the
+homology of two DGA’s and determine if they are the same or not. In this section we describe two
+methods to extract more “computable” invariants out of the DGA associated to a Legendrian knot.
+Given a DGA (A, ∂) we can ﬁlter A by “word length”. That is, deﬁne An to be the vector space
+generated by words in the generators of A of length less than or equal to n. Note An is not an algebra,
+but merely a vector space. We call the DGA augmented if for each generator a ∈A, ∂a contains no
+constant term. Said another way the “the diﬀerential is non-decreasing on word length”. It is easy
+to see that if (A, ∂) is an augmented DGA then ∂induces a diﬀerential ∂n on An by applying ∂to
+a generator of An and projecting the result to An. If (A, ∂) is the DGA associated to a Legendrian
+knot L and it is augmented then we call the homology of (An, ∂n) the order n contact homology of
+(A, ∂) and is denoted LnCH∗(L). The ﬁrst order contact homology is frequently referred to as the
+linear (or linearized) contact homology. The Poincar´e polynomial
+Pn(λ) =
+X
+i∈Z2r(L)
+dim(LnCHi(L))λi
+
+===== PDFPAGE 27 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+27
+of LnCH∗(L) is called the order n Chekanov-Poincar´e polynomial of (A, ∂). It is interesting to
+observe (see [11]) that one can compute the Thurston–Bennequin invariant of a Legendrian knot by
+evaluating P1(λ) at −1 :
+tb(L) = P1(−1).
+Important Facts: First, not all DGA’s are augmented, and second, the order n contact homol-
+ogy and order n Chekanov-Poincar´e polynomial of (A, ∂) is not an invariant of the stable tame
+isomorphism class of (A, ∂)!
+These two facts seem to indicate these notions are useless for Legendrian knots and that our
+notation is not so good. It turns out we can still make use of these order n approximations to the
+contact homology. If A is generated by a1, . . . , ak then set
+G(A) = {g a graded automorphism of A of the form ai 7→ai + ci where ci ∈Z2.}
+Every element g ∈G(A) gives a tame isomorphism of DGA’s from (A, ∂) to (A, ∂g), where ∂g =
+g∂g−1. Now set
+Ga(A) = {g ∈G(A) : (A, ∂g) is augmented}.
+Theorem 4.10 (Chekanov 2002, [11]). The sets
+In(L) = {Chekanov-Poincar´e polynomial of order n for (A, ∂g) : g ∈Ga(A)}
+and
+LnCH∗(L) = {LnCH∗(A, ∂g) : g ∈Ga(A)}
+are invariants of the Legendrian knot L.
+It is relatively easy to show these sets do not change under tame isomorphisms. Thus to prove
+this theorem one only needs to check what happens to Ga, In and LnCH∗under stabilization.
+A convenient way to ﬁnd Ga(A) is via augmentations. Let (A, ∂) be a DGA. A map
+ǫ : A →Z2
+is called an augmentation of A if ǫ(1) = 1, ǫ ◦∂= 0 and ǫ vanishes on any element of non-zero
+degree.
+Lemma 4.11. The augmentations of (A, ∂) are in one to one correspondence with Ga(A).
+This lemma is simple to prove once one observes that given an augmentation ǫ the tame auto-
+morphism g(ai) = ai + ǫ(ai) is in Ga(A).
+Example 4.12 In this example we consider the two “Chekanov-Eliashberg knots”. These were the
+ﬁrst two Legendrian knots with the same tb, r and knot type that were shown to be non Legendrian
+isotopic. The Lagrangian projection of these knots is shown if Figure 29. The generators for L are
+1
+2
+3
+4
+5
+6
+7
+8
+9
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Figure 29. The knot L (left) and L′ (right).
+
+===== PDFPAGE 28 =====
+28
+JOHN B. ETNYRE
+ai, i = 1, . . . 9. Their gradings are
+|ai| = 1,
+i = 1 . . . 4,
+|a5| = 2,
+|a6| = −2,
+|ai| = 0,
+i = 7 . . . 9
+and the boundary map is
+∂a1 = 1 + a7 + a7a6a5,
+∂a2 = 1 + a9 + a5a6a9,
+∂a3 = 1 + a8a7,
+∂a4 = 1 + a9a8,
+∂ai = 0
+i ≥5.
+The generators for L′ are bi, i = 1, . . . 9. Their gradings are
+|bi| = 1,
+i = 1 . . . 4,
+|bi| = 0,
+i = 5 . . . 9
+and the boundary map is
+∂b1 = 1 + b7 + b7b6b5 + b5 + b9b8b5,
+∂b2 = 1 + b9 + b5b6b9,
+∂b3 = 1 + b8b7,
+∂b4 = 1 + b9b8,
+∂bi = 0
+i ≥5.
+Though these diﬀerentials look diﬀerent it is diﬃcult at this stage to see that the algebras are
+not stability tame isomorphic. We now compute the linearized contact homology of L. We begin by
+looking for augmentations. These must be maps ǫ : A →Z2 that send ai to 0 for i ≤6 and send ai
+to ai + ci for i ≥7 where ci is 0 or 1. The equation ǫ ◦∂= 0 implies
+1 + c7 + c7c6c5 = 0,
+1 + c9 + c5c6c9 = 0,
+1 + c8c7 = 0,
+1 + c9c8 = 0.
+The only solution to these equations is c7 = c8 = c9 = 1. The diﬀerential ∂ǫ associated to this
+augmentation is
+∂ǫa1 = a7 + a6a5 + a7a6a5,
+∂ǫa2 = a9 + a5a6 + a5a6a9,
+∂ǫa3 = a8 + a7 + a8a7,
+∂ǫa4 = a9 + a8 + a9a8,
+∂ǫai = 0
+i ≥5.
+Thus one easily computes the linearized homology is generated by a1 + a2 + a3 + a4, a5, a6. It has
+dimension one in grading −2, 1, 2 so P1(λ) = λ−2 + λ + λ2.
+For A(L′) one ﬁnds three augmentations ci = 0, i = 1 . . . 4, c7 = c8 = c9 = 1 and c5c6 = 0. No
+matter which augmentation is used one ﬁnds the linearized homology generated by b1 + b2 + b3 +
+b4, b5, b6. Thus it has dimension one in grading 1 and dimension two in grading 0.
+Hence one can distinguish L and L′ using the linearized contact homology.
+
+===== PDFPAGE 29 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+29
+4.3. The characteristic algebra. Let (A, ∂) be the DGA generated by a1, . . . , ak. Let I be the
+two sided ideal in Agenerated by ⟨∂ai⟩k
+i=1. The characteristic algebra of (A, ∂) is
+C(A) = A/I.
+Two characteristic algebras A1/I1 and A2/I2 are tame isomorphic if after adding some generators
+to Ai and the same generators to Ii, i = 1, 2, then there is a tame isomorphism of A1 to A2 taking
+I1 to I2. It is important to note that the deﬁnition of tame isomorphism for characteristic algebras
+actually requires the pair A, I not just A/I. So one should probably deﬁne the characteristic algebra
+to be the pair (A, I) but we will hold with tradition and deﬁne C(A) = A/I, keeping in mind the need
+to remember both A and I. We say A1/I1 and A2/I2 are equivalent if after adding some (possibly
+diﬀerent) number of generators to both A1 and A2 (but not the ideals Ii) the algebras A1/I1 and
+A2/I2 are tame isomorphic.
+Theorem 4.13 (Ng 2001, [74]). Legendrian isotopic knots have equivalent characteristic algebras.
+We will illustrate the eﬃcacy of the characteristic algebra by addressing Ng’s solution to the
+“Legendrian mirror problem” [46]. That is: given a Legendrian knot L is it isotopic to its image
+under the map (x, y, z) 7→(x, −y, −z)? The answer is sometimes NO.
+Example 4.14 Consider the Legendrian knot L whose Lagrangian projection is shown if Figure 30.
+The algebra has 11 generators with gradings |a1|, = |a2| = |a7| = |a9| = |a10| = 1, |a3| = |a4| = 0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+Figure 30. The Legendrian knots L.
+and |a5| = |a6| = |a8| = |a11| = −1. The diﬀerential is
+∂a1 = 1 + a10a5a3
+∂a6 = a11a8
+∂a2 = 1 + a3(1 + a6a10 + a11a7)
+∂a7 = a8a10
+∂a4 = a11 + (1 + a6a11 + a11a7)a3
+∂a9 = 1 + a10a11
+∂a5 = ∂a8 = ∂a11 = ∂a3 = 0.
+Let I be the ideal generated by these relations and set C(A) = A/I. The characteristic algebra
+C(A′), the algebra associated to the Legendrian mirror of L, is the same except all the terms in I
+are reversed.
+One may show [74] that
+C(A) = ⟨a1, . . . , a10⟩/⟨1 + a10a5a3, 1 + a3a10a5, 1 + a2
+10a2
+5, 1 + a10a5 + a6a10 + a10a2
+5a7⟩
+We note that C(A) does not have elements v and w of grading −1 and 1, respectively, that satisfy
+vw = 1. The reason for this is if there were such elements then we could consider the further quotient
+algebra C′ obtained by setting a3 = 1, a1 = a2 = a6 = a7 = a9 = 0. This algebra has presentation
+⟨a5, a10⟩/⟨1 + a10a5⟩. Moreover the elements v and w would map to such elements in C′. But in C′
+one may easily see that such elements do not exist.
+Now in C(A′) we see the elements v = a10 and w = a5a3 satisfy vw = 1. Thus L is not Legendrian
+isotopic to its mirror.
+Let γi be the number of generators of degree i of the DGA (A, ∂). The degree distribution of A is
+the map
+γ : Z2r(L) →Z≥0 : i 7→γi
+where r(L) is the rotation number of L.
+
+===== PDFPAGE 30 =====
+30
+JOHN B. ETNYRE
+Theorem 4.15 (Ng 2001, [74]). The ﬁrst and second order Poincar´e-Chekanov polynomials for all
+possible augmentations of the DGA (A, ∂) are determined by the characteristic algebra C(A) and the
+degree distribution of A
+Ng has found examples that the characteristic algebra distinguishes that have the same linearized
+contact homology. Thus the characteristic algebra is a strictly stronger invariant that the linearized
+contact homology.
+4.4. Lifting the DGA to Z[t, t−1]. It is fairly simple to describe the lift of the DGA to Z[t, t−1].
+Once again we start with the Lagrangian projection π(L) of the Legendrian knot L and assume
+the set of double point Cis ﬁnite and consists of transverse double points. Now let A be the free
+associative unital algebra over Z[t, t−1] generated by C. We grade the generators as above and set
+|t| = 2r(L). The grading in this case is over Z (and not just Z2r(L)). Recall to deﬁne the grading
+on c ∈C we chose paths γc from the upper point c+ ∈L above c to the lower point c−∈L. To
+deﬁne the diﬀerential we want to assign to each u ∈Ma
+b1...bk (for the notation see Section 4.1) an
+integer nu and a sign su. We begin with the integer. Given u ∈Ma
+b1...bk note that the image of the
+boundary u(∂Pk+1) is a union of arcs in π(L) that can all be uniquely lifted to arcs αi in L. Let
+Γu = ∪αi ∪γa ∪γbi. This is a closed loop in L. We orient Γu so that all the arcs αi are oriented as
+the boundary of the polygon u(Pk+1). Now Γu is an oriented loop in the oriented L = S1. As such
+it corresponds to an element in H1(L, Z) = Z. This integer is denoted nu. Now for the sign. To each
+corner vi of Pk+1 we assign a sign s(vi) as shown in Figure 31. The sign is u is deﬁned to be
++
++
++
++
++
++
+−
+−
+Figure 31. Signs s(vi) associated to a corner.
+su =
+k
+Y
+i=0
+s(vi).
+Now the boundary map is deﬁned on a generator a ∈C by
+∂a =
+X
+b1...bk
+X
+u∈M
+a
+b1...bk
+sub1b2 . . . bktnu,
+where the ﬁrst sum is taken over all words in the letters C.
+Once again we have
+Theorem 4.16 (Etnyre, Ng and Sabloﬀ2002, [39]). The map ∂is a diﬀerential
+∂◦∂= 0.
+The stable tame isomorphism class of (A, ∂) is invariant under Legendrian isotopy.
+Example 4.17 Here we compute the contact homology of the Legendrian ﬁgure eight knot with
+tb = −3. From Figure 32 we see the algebra has seven generators with |a2| = |a4| = |a5| = |a7| = 1,
+|a1| = |a3| = 0 and |a6| = −1. We compute the diﬀerential
+∂a1 = a6 −a6a3 −ta6a3a5a6,
+∂a2 = t−1 + a1a3 −a6a3a4,
+∂a4 = 1 −a3 + ta5a6a3,
+∂a7 = t−1 + a3 −ta3a6a3a5,
+∂a3 = ∂a5 = ∂a6 = 0.
+
+===== PDFPAGE 31 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+31
+1
+2
+3
+4
+5
+6
+7
+Figure 32. The Legendrian knots L.
+It is not currently known if this reﬁned contact homology is a stronger invariant of Legendrian
+knots than the original contact homology. One can still deﬁne the order n contact homology, and in
+particular the linearization (though augmentations are much harder to ﬁnd), and the characteristic
+algebra of this enhanced contact homology.
+One potential beneﬁt of including orientations when we count disks in Ma
+b1...bk is that we can
+abelianize. In particular we can deﬁne AQ to be the supercommutative associative algebra with
+unit over Q[t, t−1] generated by C, the crossings in a Lagrangian projection of a Legendrian knot.
+We grade the elements of AQ as we did before and the diﬀerential is deﬁned as above as well.
+Theorem 4.18 (Etnyre, Ng and Sabloﬀ2002, [39]). The stable tame isomorphism class and homol-
+ogy of (AQ, ∂) are invariants of the Legendrian isotopy class of the Legendrian knot L.
+The homology of (AQ, ∂) is called the abelianized contact homology of L. It is surprising but
+not known if one can abelianize the contact homology over Z or Z2. In the proof of this theorem
+it is simple to show the stable tame isomorphism class of the diﬀerential algebra is an invariant
+of L but to show its homology is invariant one writes down a chain map that involves division by
+integers. Thus if the abelianized contact homology over Z or Z2 is invariant the proof will have to
+be considerably diﬀerent from the proof of the above theorem.
+4.5. DGA’s in the front projection. Though it is more natural to deﬁne Chekanov’s DGA in the
+Lagrangian projection it is somewhat diﬃcult to work with Lagrangian projections of Legendrian
+knots. In this section we discuss Ng’s description of the DGA in the front projection [74]. This front
+description is based on the following observation.
+Theorem 4.19. Given the front projection of a Legendrian knot L one can obtain a diagram isotopic
+to the the Lagrangian projection by altering the cusps in the front diagram as shown in Figure 33.
+Figure 33. Transition from a front projection to a Lagrangian projection.
+Sketch of Proof. The idea is to stretch any Lagrangian projection in the x-direction so that it is
+very long and ﬂat. Then it is easy to arrange that except near crossings and cusps each strand of
+the projection has constant z-value. Now, in the complement of the crossings and the cusps, tilt
+the strands so that they each have a distinct slope ǫz, where z is the z coordinate of the line before
+it is tilted. Form the crossings by arcs whose slopes lie between the slopes of the arcs involved and
+form the left cusps in a similar fashion. See Figure 34. It is easy to see the Lagrangian projection
+of these constant slope lines. With a moments thought the crossings and cusps project as indicated
+in the statement of the theorem. For full details see [74].
+□
+
+===== PDFPAGE 32 =====
+32
+JOHN B. ETNYRE
+Figure 34. Top left: the front projection of a Legendrian unknot. Top right: the
+stretched projection. Middle: the tilted projection that is easy to convert into the
+Lagrangian projection (bottom).
+With this theorem in mind it is simple to translate the elements used in the DGA into the front
+projection.
+The Algebra. Let Cbe the double points and right cusp points in the projection. Let A be the
+free associative unital algebra over Z2 generated by C. (One can of course translate the algebra over
+Z[t, t−1] too, but we leave this to the reader, or see [39].)
+The Grading. Each right cusp point has grading 1. To each double point c choose a capping
+path γc as we did in Section 4.1 for double points in the Lagrangian projection. The grading of the
+crossing is
+|c| = Dc −Uc,
+where Dc (respectively Uc) is the number of cusps traversed downward (respectively upward) along
+γc.
+The Diﬀerential. Label the quadrants near a double point as in Figure 27. We will think of a
+right cusps as a corner (or quadrant) and put a + there. Left cusps are not thought of as corners.
+The diﬀerential is exactly as in Section 4.1 for crossings, except that it may have a corner or branch
+point at a right vertex, see Figure 35. Branch point are counted as corners and a corner at a right
+Figure 35. The ways a disk can have a negative corner at a right cusp (top) and
+the corresponding disk in the Lagrangian projection (bottom).
+The gray is the
+image of the disk. The left two diagrams indicate a branch point at the cusp. In
+this case we count the cusp as a corner. The right hand picture indicates a corner
+at the cusp. In this case we count the “corner” as a double corner. That is we count
+it twice when reading oﬀthe work that goes into the diﬀerential.
+cusp counts as two corners. The reason for this can be seen by transforming the front projection
+into the Lagrangian projection as described in Theorem 4.19. Moreover a polygon can pass by a
+right cusp as shown in Figure 36. The diﬀerential of a right cusp is 1 plus the diﬀerential deﬁned
+above for a crossing.
+One may easily use Theorem 4.19 to see that this DGA is exactly the one you would get using
+the Lagrangian projection of L.
+
+===== PDFPAGE 33 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+33
+Figure 36. A polygon can cross a right cusp as shown here (left). The correspond-
+ing disk in the Lagrangian projection is also shown (right).
+Example 4.20 Consider the front projection of the Legendrian ﬁgure eight knot in Figure 37.
+There are seven generators for the algebra, three from cusps and 4 from crossings. Their gradings
+are |ai| = 1, i = 1, . . . 4, |ai| = 0, i = 5, 6, 7 and |a7| = −1. The boundary map is
+1
+2
+3
+4
+5
+6
+7
+Figure 37. The front projection of the Legendrian ﬁgure eight knot with tb = −3.
+∂a1 = 1 + a6a6a4a6a7 + (1 + a6a5)a3a6a7 + a6a2(1 + a6 + a7a4a6)a7,
+∂a2 = 1 + a5a6,
+∂a3 = 1 + a6 + a6a7a4,
+∂a4 = ∂a5 = ∂a6 = ∂a7 = 0.
+Remark 4.21. Note that many of the disks in the above computation of diﬃcult to ﬁnd. This is
+because of the right cusps. They allow disks to be quite complicated. To eliminate this problem one
+can use the Legendrian Reidemeister moves (Theorem 2.6) to move them all to the far right of the
+diagram. This will usually increase the number of crossings in the diagram, but the computation of
+the boundary map will usually be considerably easier.
+4.6. Decomposition Invariants. Here we deﬁne another new invariant of Legendrian knots. This
+invariant was also discovered by Chekanov [12, 13] and can be used to solve Arnold’s famous four
+cusp conjecture, see Section 7.3.
+Let F be the front projection of a Legendrian knot L. Let C(F) denote the cusp points in F
+and let S(F) be the smooth components of F \ C(F). These are called the set of “strands” in F. A
+Maslov potential for F is a map
+µ : S(F) →Z2r(L)
+whose value on the upper stand at a cusp is one larger than its value on the lower strand. Note the
+Maslov potential is well deﬁned up to adding a constant. A double point in F is called Maslov if
+the value of the Maslov potential evaluated on the two strands crossing there are are the same. See
+Figure 38
+Now let D(F) be the double points in F and let A(F) be the closure of the components in
+F \ (D(F) ∪C(F)). We call A(F) the arcs in F. A decomposition of F is the collection of simple
+closed curves DF = {F1 . . . Fk} such that each Fi is the union of arcs in F, each arc is used in only
+one Fi, and all arcs are in some Fi. A crossing in F is called switching or non-switching as indicated
+in Figure 39. A decomposition is called admissible if
+(1) Each Fi bonds a disk Bi
+(2) The “vertical slice” Bi,x = Bi ∩{x = constant} of each disk is an interval, a cusp point or
+empty
+
+===== PDFPAGE 34 =====
+34
+JOHN B. ETNYRE
+0
+1
+2
+1
+Figure 38. The four strands associated (right) associated with the front (left).
+The numbers are a Maslov potential.
+Figure 39. The left two ﬁgures are switching crossings the right two are non-
+switching crossings. (Diﬀerent line weights represent diﬀerent components in the
+decomposition.)
+(3) Near a switching crossing the intervals Bi,x and Bj,x are disjoint or one is contained within
+the other, where Fi and Fj are two components of the decomposition coming together at
+the crossing.
+(4) Each switching crossing is Maslov.
+Note Item (1) rules out trivial decompositions (except for the unknot with tb = −1). Item (2)
+rules out the left two decompositions shown in Figure 40. (In fact, a stabilization in a diagram will
+prevent it from having any admissible decompositions because of Item (2).) Item (3) rules out things
+like that shown if Figure 40.
+Figure 40. Left two ﬁgures are not admissible by Item (2). The right ﬁgure is not
+admissible by Item (3).
+Let Adm(F) be the set of admissible decompositions of F. Deﬁne the function
+θ : Adm(F) →Z
+by θ(DF ) = #(DF ) −S(DF ) where S(DF ) is the number of switching crossings that occur in the
+decomposition DF .
+Theorem 4.22 (Chekanov and Pushkar, [13]). Let L, L′ be two Legendrian knots in R3 with generic
+front projections F, F ′. If L and L′ are Legendrian isotopic then there is a one to one correspondence
+f : Adm(F) →Adm(F ′) such that θ(f(DF )) = θ(DF ).
+Thus we have two new invariants of Legendrian knots! The cardinality of Adm(Π(L)) and the
+map θ.
+Example 4.23 We can once again distinguish the Chekanov-Eliashberg knots. Here we draw the
+Chekanov examples somewhat diﬀerently, see Figure 41. In this projection of L one may easily
+see in any admissible decomposition crossings 2, 3, 4, 5 must be switching crossings (by property
+(1) and (2)). Moreover, crossings 1 and 6 cannot be switching since they are not Maslov. Thus
+one sees that this projection of L has |Adm(Π(L))| = 1. Similarly in the projection of L′ crossings
+2, 3, 4, 5 must be switching and either crossings 1, 6 are both switching or both non-switching. Thus
+|Adm(Π(L′))| = 2.
+
+===== PDFPAGE 35 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+35
+1
+2
+3
+4
+5
+6
+1
+2
+3
+4
+5
+6
+Figure 41. Legendrian projections of the two “Chekanov knots” from Figure 29.
+L is on the left and L′ is on the right.
+It is interesting to note that, just as the contact homology did, this invariant also vanishes on
+stabilized Legendrian knots since there are no admissible decompositions of a stabilized knot diagram.
+The existence of admissible decompositions has an interesting relation to augmentations of the
+Chekanov-Eliashberg DGA. In particular Fuchs has shown the following theorem.
+Theorem 4.24 (Fuchs, [44]). If the front projection of a Legendrian knot has an admissible decom-
+position then its DGA has an augmentation.
+Very recently Fuchs and Ishkhanov, and independently Sabloﬀ, have found a converse to the
+above theorem.
+Theorem 4.25 (Fuchs and Ishkhanov [45]; Sabloﬀ[79]). If the DGA of a Legendrian knot L has a
+(graded) augmentation, then any front projection of L has a ruling.
+An interesting corollary of this result is the following.
+Corollary 4.26. If the DGA of a Legendrian knot L has a (graded) augmentation then its rotation
+number is zero.
+5. Classification results
+In considering the classiﬁcation of Legendrian knots it is convenient to consider the map
+Ψ : eL →eK × Z × Z : (L) 7→(k(L), tb(L), r(L)),
+where eL is the space of all oriented Legendrian knots and eK is the space of all oriented topological
+knots and k(L) is the topological knot type underlying L. The main questions one would like to
+answer are: What is the image of Ψ? and is Ψ injective? The answer to the second question is NO
+as the Chekanov-Eliashberg examples in Figure 29 show.
+We can reﬁne the above questions by considering the map Ψ restricted to L(K) for some knot
+type K. This map is denoted ΨK. A knot type Kis called Legendrian simple if ΨK is injective. So
+for Legendrian simple knot types a classiﬁcation of Legendrian knots amounts to the identiﬁcation
+of the range of ΨK.
+One can also consider the map
+Φ : eL →eT × Z,
+where eT is the space of all transverse knots and Φ(L) = (L+, tb(L)). Recall L+ is the (positive)
+transverse push-oﬀof L. Note we did not include the rotation number in the range of Φ since
+r(L) = tb(L) −sl(L+). This map is potentially a better invariant than Ψ. It turns out this map is
+not injective either.
+Example 5.1 Let E(k, l) be the Legendrian knots shown in Figure 42.
+Note the topological
+knots underlying E(k, l) are determined by k + l. In [30] it was shown that E(k, l) is Legendrian
+isotopic to E(k′, l′) if and only if the unordered pairs {k, l} {k′, l′} are the same. This proof involves
+computations of the linearized contact homology. However if l is odd then the transverse push-oﬀs
+E(k, l)+ and E(k −1, l + 1)+ are transversely isotopic.
+
+===== PDFPAGE 36 =====
+36
+JOHN B. ETNYRE
+l
+k
+Figure 42. The Legendrian knot E(k, l). There are l crossings on the right hand
+side and k on the left.
+Finally we note that all the new invariants described in Section 4 vanish on stabilized knots thus
+cannot distinguish non Legendrian isotopic knots if the knots are stabilized. Below in Section 5.4
+we will show there are stabilized Legendrian knots that are not Legendrian isotopic. Thus contact
+homology and the decomposition invariants are not complete invariants.
+A standard procedure for trying to classify Legendrian knots in a knot type Kis to show
+• All Legendrian knots in L(K) can be destabilized except those with maximal Thurston-
+Bennequin invariant.
+• Classify Legendrian knots in L(K) with maximal Thurston-Bennequin invariant.
+• Understand when Legendrian knots become the same under stabilization.
+Recall, a Legendrian knot L destabilizes if there is a Legendrian knot L′ such that L = S±(L′).
+This procedure does not always work (see the sections on connected sums and cablings) but it is
+frequently a useful strategy.
+5.1. The unknot. The main theorem concerning unknots is the following.
+Theorem 5.2 (Eliashberg and Fraser 1995, [28]). In any tight contact three manifold, Legendrian
+unknots are determined by their Thurston-Bennequin invariant and rotation number. All Legendrian
+unknots are stabilizations of the unique one with tb = −1 and rotation r = 0, see Figure 4.
+The bound on the Thurston Bennequin invariant follows from Bennequin’s inequality (19). The
+theorem then follows from two lemmas.
+Lemma 5.3. Any Legendrian unknot with tb < −1 destabilizes.
+Proof. Let D be a disk that L bounds. If tb(L) < −1 then we may make D convex and it will have
+at least two dividing curves by Equation (15). Since D is a disk one of these dividing curves must be
+boundary parallel (recall this means that it separates oﬀa disk containing no other dividing curves).
+As discussed in Section 2.8 we may use this dividing curve to destabilize L.
+□
+Lemma 5.4. There is a unique Legendrian unknot with tb = −1.
+Proof. Let Li be two Legendrian unknots with tb = −1. Let Di be a disk that Li bounds. We
+can make Di convex. Using the Legendrian Realization Principle [50, 55] we can arrange that the
+characteristic foliation on Di has two elliptic point on ∂Di and the foliation on the rest of Di is by
+arcs. Thus we may Legendrian isotop Li to an arbitrarily small neighborhood of an arc Ai. One
+may easily show that any two Legendrian arcs are Legendrian isotopic. Thus we can take A1 = A2.
+It is now an exercise that any two “thickenings” of A = Ai to a Legendrian unknot are Legendrian
+isotopic.
+□
+5.2. Torus knots. Let T be the boundary of a neighborhood of an unknot in M 3. A knot that can
+be isotoped to sit on T is called a torus knot.
+Theorem 5.5 (Etnyre and Honda 2001, [37]). In any tight contact three manifold, Legendrian torus
+knots are determined up to Legendrian isotopy by their knot type, Thurston-Bennequin invariant and
+rotation number.
+
+===== PDFPAGE 37 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+37
+To complete the classiﬁcation of Legendrian torus knots we need to identify the invariants that are
+realized. For this we need to more carefully describe torus knots. Let V be an embedded unknoted
+solid torus in M. Let µ be the meridian to V and λ be the longitude. Now all torus knots can be
+isotoped onto ∂V so they can be expressed by pµ + qλ where |p| > q > 0 and (p, q) = 1. If p > 0
+then the torus knot is called positive otherwise it is called negative.
+Theorem 5.6 (Etnyre and Honda 2001, [37]). All Legendrian positive (p, q)-torus knots are stabi-
+lizations of the unique one with tb = pq −p −q and rotation r = 0, see Figure 43.
+p
+q
+Figure 43. Positive (p, q)-torus knot.
+Theorem 5.7 (Etnyre and Honda 2001, [37]). All Legendrian negative (p, q)-torus knots are stabi-
+lizations of one with maximal tb which is equal to pq. Moreover, (p, q)-torus knots with maximal tb
+are classiﬁed by their rotation number and the set of realized rotation number is
+{±(p + q + n2q)|0 ≤n ≤2(p + q)
+q
+},
+See Figure 44.
+B =
+e
+n1B
+n2B
+Figure 44. Negative (−p, q)-torus knot. Here p = (n1 + n2 + 1)q + e. So for each
+such pair of positive integers n1, n2 there is a maximal tb, (−p, q)-torus knot.
+In Figure 45 we see the possible tb and r of Legendrian (−9, 4)-torus knots. The points indicate a
+unique Legendrian knot with corresponding invariants. The edges indicate either positive or negative
+stabilizations (depending on whether the edge has a positive or negative slope). This picture will be
+called the mountain range associated to the knot type. We have not discussed mountain ranges up
+till now because all previous knot types had a particularly simple mountain range.
+Proof of Theorem 5.5. We restrict our attention to (S3, ξstd) for convenience. Let T be a standardly
+embedded convex torus in (S3, ξstd) with two dividing curves.
+We will need two facts [52, 55]
+concerning this situation:
+(1) The slope s of the dividing curves ΓT on T is less than 0.
+(2) Any other slope in (−∞, 0) can be realized by a standardly embedded convex torus parallel
+(and disjoint from) T with two dividing curves. Moreover, slopes larger than s are realized
+by tori on one side of T and slopes smaller than s are realized on the other.
+
+===== PDFPAGE 38 =====
+38
+JOHN B. ETNYRE
+−10−9−8−7−6−5−4−3−2−1 0
+1 2
+3 4 5
+6
+7 8 9 10
+tb = −36
+−37
+−38
+−39
+−40
+−41
+r =
+Figure 45. Possible tb and r for the (−9, 4)-torus knot.
+We also need the following topological fact: the framing on the normal bundle of a (p, q)-torus
+knot given by its Seifert surface diﬀers from the one induced by the standard torus T on which it
+sits by pq.
+Now consider a Legendrian positive (p, q)-torus knot L. The Bennequin inequality says that
+tb(L) ≤pq −p −q. Thus tw(L, T ) ≤−p −q < 0, so we can make T convex without moving L.
+Throughout this section we will assume T has only two dividing curves. It is easy to deal with
+the more general case but this is left to the reader. Suppose the dividing curves on T have slope
+−n
+m, then tw(L, T ) = −(pm + qn). For all positive, relatively prime n, m this number is always less
+than or equal to −(p + q) with equality only when m = n = 1. Thus if tw(L, T ) < −(p + q) (that
+is tb(L) < pq −p −q) then there is a convex torus T ′ whose dividing curves have slope −1 and
+cobounds with T a toric annulus N = T 2 × [0, 1]. Let A = L × [0, 1] in N, here L = L × {0}. We can
+assume that ∂A is Legendrian and A is convex. All the dividing curves on A are properly embedded
+arcs and they intersect L × {0} ⊂∂A, 2(pm + qn) times and L × {1} ⊂∂A, 2(p + q) times. From
+this one may easily conclude that there is a dividing curve on A that has boundary on L = L × {0}
+and separates oﬀa disk from A. Thus as discussed in Section 2.8 we can use this dividing curve to
+destabilize L.
+Using almost the same argument it is easy to show that a negative (p, q)-torus knot destabilized to
+pq. This is left as an exercise, or see [37]. The fact that this is the maximal tb for such a Legendrian
+knot is more diﬃcult to establish. In particular, when q is odd it does not follow from any of the
+inequalities in Section 3. See [44].
+□
+Proof of Theorem 5.6. Let L1 and L2 be two Legendrian positive (p, q)-torus knots with maximal
+tb. From the proof of the previous theorem we know that Li sits on a convex torus Ti with two
+dividing curves of slope −1, for i = 1, 2. Let Vi andV ′
+i be the two solid tori into which Ti breaks S3.
+Using the Legendrian realization principle we may isotop Ti relative to Li so that the characteristic
+foliation on T1 is the same as the one on T2. Let φ be a diﬀeomorphism T1 to T2 that preserves
+the characteristic foliation and takes L1 to L2. By the classiﬁcation of contact structures on solid
+tori we know φ extends, as a contactomorphism, over V1 and V ′
+1. Thus φ is a contactomorphism
+of S3 to itself that takes L1 to L2. Applying Theorem 2.13 we see that L1 and L2 are Legendrian
+isotopic.
+□
+The proof of Theorem 5.7 is similar to the above proof in spirit but somewhat more involved. We
+refer the reader to [37].
+5.3. Figure eight knot. The main theorem concerning Legendrian ﬁgure eight knots is the follow-
+ing.
+Theorem 5.8 (Etnyre and Honda 2001, [37]). In any tight contact three manifold, Legendrian
+ﬁgure eight knots are determined by their Thurston-Bennequin invariant and rotation number. All
+Legendrian ﬁgure eight knots are stabilizations of the unique one with tb = −3 and r = 0, see
+Figure 4.
+The bound on tb comes from the inequality in Theorem 3.4. Thus the following two lemmas
+establish the theorem.
+Lemma 5.9. Any Legendrian ﬁgure eight knot with tb < −3 destabilizes.
+
+===== PDFPAGE 39 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+39
+Lemma 5.10. There is a unique Legendrian ﬁgure eight knot with tb = −3.
+To prove any Legendrian ﬁgure eight knot L with tb < −3 destabilizes we consider a minimal
+genus Seifert surface Σ for L. So Σ is a punctured torus and we can make it convex. We would like
+to ﬁnd a bypass for L on Σ so we can destabilize L. We might not always be able to do this. Thus
+to prove L destabilizes we need to isotop Σ until we do see a bypass for L on Σ. To accomplish this
+we use the ﬁbration on the complement of the ﬁgure eight knot. Speciﬁcally, let X = S3 \ N where
+N is a standard neighborhood of a L. Then X is a Σ bundle over S1. The monodromy for X is
+Ψ =
+2
+1
+1
+1
+
+.
+If we cut X open along Σ then we get Σ×[0, 1]. Because of the monodromy map the dividing curves
+on Σ×{0} and Σ×{1} will be diﬀerent. We can then take an annulus A = S1 ×[0, 1] where S1 ⊂Σ,
+make ∂A Legendrian and A convex. If we choose S1 correctly we will be able to ﬁnd a bypass on A
+for a boundary component of A. We can use this to alter the dividing curves on Σ, [55]. This will
+frequently produce a bypass on Σ for L. The rigorous argument is somewhat involved. The reader
+is referred to [37] for details.
+To prove there is a unique Legendrian ﬁgure eight knot with tb = −3 we use the above ideas to
+show that the dividing curves on Σ in this situation can always be arranged to look a certain way
+and that there is a unique tight contact structure on X that is a subset of S3 and has the given
+dividing curves. The uniqueness proof is then ﬁnished as in the proof of Theorem 5.6.
+5.4. Connected sums. There is a standard way to take a contact connect sum of manifolds. If
+(Mi, ξi) are two contact three manifolds, then let Bi be a ball with convex boundary contained in
+a neighborhood of a point. The connect sum M1#M2 is obtained from Mi \ Bi by gluing their
+boundaries together by a contactomorphism. This construction preserves tightness [15]. If Li is a
+Legendrian knot in Mi we can arrange that Li ∩Bi looks like the intersection of the x-axis with a
+unit ball about the origin in (R3, ξstd). We can then deﬁne the connect sum L1#L2 in M1#M2 to be
+the closure of L1 \ B1 ∪L2 \ B2 (here we of course need to arrange that the gluing map for M1#M2
+sends ∂(L1 ∩B1) to ∂(L2 ∩B2)).
+In (R3, ξstd) the connect sum has a diagrammatic interpretation in the front projection (note
+R3#R3 is not R3 so we are somewhat abusing notation, but we may think of one of the R3’s as S3
+with its standard contact structure). This diagrammatic connect sum is shown in Figure 46. It is
+L1
+L2
+L1
+L2
+Figure 46. The connect sum in the front projection.
+a good exercise to show that this is the same a the connect sum deﬁned above and that it is well
+deﬁned. Moreover using this diagrammatic interpretation it is easy to see
+tb(L1#L2) = tb(L1) + tb(L2) + 1
+and
+r(L1#L2) = r(L1) + r(L2).
+While all the theorems concerning the connect sum work with the more general deﬁnition we
+restrict attention here to the diagrammatic version in R3. The following theorem says that the
+prime decomposition of Legendrian knots is unique up to shifting stabilization from one summand
+to the other and topological symmetries.
+Theorem 5.11 (Etnyre and Honda 2003, [35]). Let K = K1# . . . #Kn be topological connected sum
+knot type in R3, with Ki prime. The map
+L(K1) × . . . × L(Kn)
+∼
+→L(K1# . . . #Kn)
+given by connect sum is a one to one correspondence where ∼is generated by
+
+===== PDFPAGE 40 =====
+40
+JOHN B. ETNYRE
+(1) (. . . , S±(Li), . . . , Lj, . . .) ∼(. . . , Li, . . . , S±(Lj), . . .) and
+(2) (L1, . . . , Ln) ∼(Lσ(1), . . . , Lσ(n)) where σ is permutation of 1, . . . , n such that Ki = Kσ(i).
+The idea for the proof of this theorem is quite simple. One just uses the spheres implicated in the
+deﬁnition of connect sum. Make these spheres convex, cut the manifold along the spheres and glue
+in standard contact balls with a standard Legendrian arc in them. One then analyses what happens
+if one decomposes using a diﬀerent convex sphere. The details can be found in [35].
+While the proof of this theorem is fairly straightforward it has some very interesting consequences.
+Corollary 5.12. Given any integers n and m there is a topological knot type K and Legendrian
+knots L1, . . . , Ln ∈L(K) with the same tb and r that are not Legendrian isotopic. Moreover, they
+stay non isotopic even after m stabilizations of any type.
+These are the ﬁrst examples that cannot be distinguished by the Chekanov-Eliashberg DGA or
+the decomposition invariants. In fact, there is no known invariant distinguishing many of them.
+Recall Theorem 2.17 says that any two Legendrian knots in the same knot type become Legendrian
+isotopic after some number of positive and negative stabilizations. There are many theorems in
+topology concerning some type of equivalence under stabilization (eg. for Heegaard splittings of
+three manifolds, smooth structures on four manifolds, . . . ), but this is the ﬁrst time one can show
+that more than one stabilization is required in the equivalence.
+We indicate the proof of this corollary in the case n = 2 and m = 0. To this end consider the
+(−5, 2) torus knots K. In L(K) there are four Legendrian knots with maximal tb (this maximum is
+−10) having rotation numbers −3, −1, 1, 3. Denote them by Kr where the r indicates their rotation
+number. Now set L1 = K−3#K3 and L2 = K−1#K1. Clearly both L1 and L2 have tb = −19
+and r = 0. However they are not Legendrian isotopic since their summands are not related by the
+equivalence relation in Theorem 5.11. Using the fact that S+(K−3) = S−(K−1) and S−(K3) =
+S+(K1) one may easily check that S+(L1) = S+(L2) and S−(L1) = S−(L2). Thus our examples
+only satisfy m = 0 in the corollary. The reason for this is that the valleys in the mountain range for
+K (see Section 5.2 for the terminology) are only one deep. Thus to ﬁnd examples with m > 0 we
+just need to ﬁnd torus knots having very deep valleys. This is a simple exercise, or see [35].
+5.5. Cables. We now discuss Legendrian knots in cabled knot types. To do this we need some
+preliminary deﬁnitions. We say a solid torus S represents a knot type Kif its core curve is in K.
+Deﬁne the width of a knot type as
+(22)
+w(K) = sup
+1
+slope(Γ∂S),
+where the supremum is taken over all solid tori with convex boundary representing K, and Γ∂S are
+the dividing curves on the boundary of S. This is clearly an invariant of topological knots. Since the
+standard neighborhood of a Legendrian knot with tb = n has dividing curves on its boundary with
+slope 1
+n we can see that
+tb(K) ≤w(K) ≤tb(K) + 1.
+A knot type Kis called uniformly thick if
+(1) w(K) = tb(K) and
+(2) any solid torus S representing Kis contained in the interior of a solid torus that is the
+standard neighborhood for a Legendrian knot in L(K) with maximal tb.
+For the unknot one may easily check that w = 0 while tb = −1, thus the unknot is not uniformly
+thick. We will see below that there are many knot types that are uniformly thick, but ﬁrst we
+indicate the importance of being uniformly thick.
+Let γ be a (p, q) curve on ∂(S), where S = S1 × D2. Given a knot type K let S′ be a solid torus
+representing Kand choose a diﬀeomorphisms S →S′ sending S1 × {pt} to a longitude of S′ and
+{pt} × ∂D2 to a meridian. Then the knot type K(p,q) determined by γ under this diﬀeomorphism is
+called the (p, q)-cable of K.
+Theorem 5.13 (Etnyre and Honda, [34]). Let Kbe a Legendrian simple, uniformly thick knot type.
+Then the knot type K(p,q) is also Legendrian simple.
+
+===== PDFPAGE 41 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+41
+Thus we cannot say the cables of Legendrian simple knots are Legendrian simple, but this is true
+if the knot type is uniformly thick.
+Theorem 5.14 (Etnyre and Honda, [34]). We have the following:
+(1) Negative torus knots are uniformly thick.
+(2) If Kis uniformly thick and p
+q < w(K) then K(p,q) is uniformly thick.
+(3) If K1 and K2 are uniformly thick then K1#K2 is uniformly thick.
+The proofs of these last two theorems are in principle quite similar to the proofs in the proceeding
+sections, especially the section on torus knots.
+There are knot types that are not uniformly thick.
+As mentioned above the unknot is not
+uniformly thick, but it acts somewhat as if it is. For example its cables (torus knots) are Legendrian
+simple. It would appear that all positive torus knots are not Legendrian simple, but this seems
+diﬃcult to prove in general. We have the following:
+Theorem 5.15 (Etnyre and Honda, [34]). If K′ is the (2, 3)-cable of the (2, 3)-torus knot, then
+L(K′) is classiﬁed as in Figure 47. This entails the following:
+(1) There exist exactly two maximal Thurston-Bennequin representatives K± ∈L(K′). They
+satisfy tb(K±) = 6, r(K±) = ±1.
+(2) There exist exactly two non-destabilizable representatives L± ∈L(K′) which have non-
+maximal Thurston-Bennequin invariant. They satisfy tb(L±) = 5 and r(L±) = ±2.
+(3) Every L ∈L(K′) is a stabilization of one of K+, K−, L+, or L−.
+(4) S+(K−) = S−(K+), S−(L−) = S2
+−(K−), and S+(L+) = S2
++(K+).
+(5) Sk
++(L−) is not (Legendrian) isotopic to Sk
++S−(K−) and Sk
+−(L+) is not isotopic to Sk
+−S+(K+),
+for all positive integers k. Also, S2
+−(L−) is not isotopic to S2
++(L+).
+−5 −4 −3 −2
+−1
+0
+1
+2
+3
+4
+5
+tb = 6
+5
+4
+3
+2
+r =
+Figure 47. Classiﬁcation of Legendrian (2, 3)-cables of (2, 3)-torus knots. Concen-
+tric circles indicate multiplicities, ie, the number of distinct isotopy classes with a
+given r and tb.
+This example is quite interesting since it is the ﬁrst known example where there are Legendrian
+knots which do not have the maximal tb for the knot type and yet they do not destabilize. Moreover,
+this is the ﬁrst knot type where there are Legendrian representatives with the same invariants that
+do not become Legendrian isotopic after some number of stabilizations of a ﬁxed sign. See the
+section on transverse knots for more discussion of this knot type.
+5.6. Links. There has not been much study of Legendrian links.
+One of the ﬁrst result about
+links appeared in [68] and addressed the question: Given a link type is there a Legendrian real-
+ization such that each component has maximal Thurston–Bennequin invariant in its knot type?
+The answer is NO. For a link L = ∪Li deﬁne its Thurston–Bennequin invariant to be the sum of
+the Thurston–Bennequin invariants of its components tb(L) = P tb(Li). Then the inequality for
+the Thurston–Bennequin invariant involving the HOMFLY polynomial in Theorem 3.4 still holds.
+For the Borromean rings B and the Whitehead link W a simple computations of the HOMFLY
+polynomial yield
+tb(B) ≤−4
+
+===== PDFPAGE 42 =====
+42
+JOHN B. ETNYRE
+and
+tb(W) ≤−5.
+Since B had 3 components and W has 2 we clearly cannot realized them with components consisting
+of unknots with maximal Thurston–Bennequin invariant. These bounds are realized, see Figure 48.
+Also in this ﬁgure it is shown that the mirror of the Whitehead link can be realized by Legendrian
+unknots of tb = −1, once again illustrating the “cirality” of Legendrian knots. In general, very
+little is known concerning realizing Legendrian links with given Legendrian knot components and
+the restrictions on the Thurston–Bennequin invariants.
+Figure 48. Legendrian Borromean rings with tb = −4 (top left), Legendrian
+Whitehead link with tb = −5 (top right) and Legendrian Whitehead mirror re-
+alized by two tb = −1 unknots (bottom).
+The N-copy of a Legendrian knot has also been studied. Given a Legendrian knot L in (R3, ξstd),
+let LN be the Legendrian link obtained by talking N copies of L each shifted slightly in the z
+direction.
+See Figure 49.
+The link LN is a Legendrian link in the topological link type of the
+Figure 49. A 2-copy of the right handed trefoil (right) and a 3-copy of the unknot (left).
+(Ntb(L), N)-cable of L. If L had maximal tb for Legendrian knots in its knot type then LN is a
+Legendrian realization of its link type with each component having maximal tb in its knot type.
+Topologically one can always realize any arbitrary permutation of the components of this link
+via isotopy. Can this be done for the components of the Legendrian N-copy. We have the following
+result.
+Theorem 5.16 (Michatchev 2001, [67]). If L is a Legendrian unknot, then only cyclic permutations
+of the components of LN are possible via Legendrian isotopy.
+One may easily check that cyclic permutations are possible. To show other permutations are not
+possible one must use an enhanced version of contact homology see [67].
+One can study other cables as well. The following result follows easily from [37].
+
+===== PDFPAGE 43 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+43
+Theorem 5.17. Let p > q > 0 be relatively prime. There is a unique Legendrian link with maximal
+Thurston–Bennequin invariant in the (np, nq)-torus link type.
+Moreover, each component of the
+link has maximal tb in its knot type and any permutation of its components can be realized by a
+Legendrian isotopy.
+5.7. The homotopy type of the space of Legendrian knots. Recall K denotes a topological
+knot type. That is Kis a space of topological knots isotopic to a ﬁxed knot. Also recall L(K) denotes
+the set of all Legendrian knots in K. All the classiﬁcation results above can be thought of in terms
+of identifying the kernel of the map
+i∗: π0(L(K)) →π0(K),
+where i : L(K) →K is the natural inclusion map. In general, studying the homotopy groups of
+L(K) is an interesting problem. To this end, ﬁx a component L of L(K) and consider the inclusion
+i : L →K. Recently K´alm´an [58, 59] has shown the induced map on π1 need not be injective.
+Speciﬁcally, if L is the set of maximal Thurston-Bennequin invariant, Legendrian right handed
+trefoil knots then consider the loop Ωin L illustrated in Figure 50.
+Figure 50. A loop of Legendrian trefoils.
+Theorem 5.18 (K´alm´an [58, 59]). The loop Ω6 is non-trivial in π1(L) but i(Ω6) is trivial in π1(K).
+The key ingredient in proving this theorem is the following result.
+Theorem 5.19 (K´alm´an [58]). If L is a ﬁxed (generic) Legendrian knot in L then there is a
+multiplicative homomorphism
+µ : π1(L, L) →Aut(CH(L))
+deﬁned by continuation on the Chekanov-Eliashberg contact homology.
+Now showing that Ω6 is a non-trivial loop amounts to a computation that µ of this loop is non-
+trivial. This is carried out in [58]. Moreover, in [59] non-trivial loops are found for all maximal
+Thurston-Bennequin invariant positive torus knots.
+
+===== PDFPAGE 44 =====
+44
+JOHN B. ETNYRE
+5.8. Transverse knots. Recall a knot type Kis transversely simple if transverse knots in the knot
+type are determined by their self-linking numbers. By Theorem 2.23 we know that the negative
+stable classiﬁcation of Legendrian knots implies the transverse classiﬁcation. Thus from the results
+above we know the following knot types are transversely simple
+(1) the unknot ([26]),
+(2) torus knots (positive torus knots in [31], all torus knots in [37, 65, 66]), and
+(3) the ﬁgure eight knot ([37]).
+The theorem on Legendrian connect sum implies that the connect sum of Legendrian simple knot
+types need not be Legendrian simple, but this is not the case for transverse knots.
+Theorem 5.20 (Etnyre and Honda 2003, [35]). If K1 and K2 are transversely simple then K1#K2
+is also transversely simple.
+This theorem easily follows from Theorem 5.11 on Legendrian connect sums and the observation
+if a knot type is transversely simple then its tb-r mountain range (see Figure 45) is connected via
+negative stabilizations. The proof is an easy exercise or see [35].
+Once again there is an interesting relation between transverse knots and braids. We call a knot
+type Kexchange reducible if any braid representing Kcan be reduced to a unique minimal braid index
+braid for Kby a sequence of braid destabilizations and exchange moves. An exchange move is shown
+in Figure 51.
+B1
+B2
+B1
+B2
+Figure 51. Exchange move.
+Theorem 5.21 (Birman and Wrinkle 2000, [10]). If Kis exchange reducible then it is transversely
+simple.
+To prove this theorem one needs to observe that there are two types of braid destabilizations.
+A positive one and a negative one. The positive one can be realized by a transverse isotopy and
+the negative one corresponds to a transverse destabilization of the transverse knot. Moreover, an
+exchange move can also be done by a transverse isotopy of the knot. Thus being exchange reducible
+implies that any transverse knot destabilizes to a unique maximal self-linking number transverse
+knot and thus the knot type is transversely simple.
+One can easily reprove that the unknot is
+transversely simple with this theorem [9], see also [65, 66] for a discussion of torus knots and cables
+from this perspective.
+The search for non-transversely simple knot types was long and diﬃcult, due in part to the lack
+of non classical invariants for transverse knots. But we now know there are non-transversely simple
+knot types.
+Theorem 5.22 (Birman and Menasco, [7]). The transverse knots represented by the closures of
+the braids σ3
+1σ4
+2σ2
+1σ−1
+2
+and σ3
+1σ−1
+2 σ2
+1σ4
+2 are not transversely isotopic, but have the same self-linking
+number.
+Many other examples arise from Birman and Menasco’s analysis, see [7, 8], but they are all three
+braids. They prove the knots are not transversely isotopic by classifying all closed three braids and
+understanding how to pass from one three braid to another representing the same knot type. (They
+can also show that there must exist non transversely simple knots types that are not three braids,
+but the speciﬁc knot types cannot identiﬁed at this time.)
+
+===== PDFPAGE 45 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+45
+The classiﬁcation of Legendrian knots in the knot type Kof the (2, 3)-cable of the (2, 3)-torus knot
+in Theorem 5.15 implies that Kis not transversely simple. In particular we get the ﬁrst classiﬁcation
+of transverse knots in a non-transversely simple knot type.
+Theorem 5.23 (Etnyre and Honda, [34]). Let Kbe the (2, 3)-cable of the (2, 3)-torus knot. Each odd
+integer less than or equal to seven is the self-linking number of a transverse knot in T (K). Moreover,
+the self-linking number determines the transverse knot if sl̸ = 3 and there are precisely two transverse
+knots with sl = 3.
+One should be able to construct many more such examples of cables of positive torus knot using
+the ideas from [34].
+5.9. Knots in overtwisted contact structures. Overtwisted contact structures have been clas-
+siﬁed by Eliashberg in [23] and are determined by their homotopy type of plane ﬁeld. Since [23]
+overtwisted structures have not been studied much. In particular, Legendrian knots in overtwisted
+contact structures have been somewhat ignored. There are however a few things we do know.
+If L is a Legendrian knot in an overtwisted contact manifold (M, ξ) then call L loose if the contact
+structure on M \L is overtwisted. While it has been claimed by several authors that if a Legendrian
+knot L violates the Bennequin inequality then it is loose, this is not actually true as can be seen
+from the example below (this was ﬁrst observed in [18]). Concerning the classiﬁcation of loose knots
+we have the following theorem.
+Theorem 5.24 (Eliashberg and Fraser 1995, [28]: and Dymara 2001, [19]). Fix an overtwisted
+contact structure on S3, then two loose Legendrian knots in the same knot type and having the same
+tb and r are contactomorphic. Moreover, if there is a ﬁxed overtwisted disk in the complement of
+both Legendrian knots then they are Legendrian isotopic.
+The proof of this theorem relies on the classiﬁcation of overtwisted contact structures in [23].
+In particular, tb and r determine the homotopy type of the contact structure on the complement
+of L. Thus two loose knots with the same invariants are related by a contactomorphism of the
+ambient contact manifold. One gets a global contact isotopy if there is a ﬁxed overtwisted disk in
+the complement of both Legendrian knot.
+In [28] it was asked if non-loose knots exist in overtwisted contact structures. In fact they do, as
+shown in [19]. The example given there goes as follows. The standard tight contact structure on S3
+can be thought to be the planes orthogonal (in the standard round metric) to the Hopf ﬁbration.
+Now let ξ be the contact structure obtained by a “half-Lutz twist.” To understand this write the
+Hopf ﬁbration as π : S3 →S2. Let A ⊂S2 be an embedded annulus A = S1×[0, 1]. Let N = π−1(A).
+Thus N = A × S1. where the S1 are the Hopf ﬁbers. The standard contact structure intersects the
+tori Tt = S1 × {t} × S1 in a linear foliation. On N alter the contact structure by adding an extra
+half twist, that is leave the contact structure ﬁxed at the boundary of N but as t move from 0 to
+1 make the slopes of the foliations induced on the Tt change more rapidly so that the angles swept
+out by the foliations are π more that then angles swept out by the standard contact structure. Call
+this new contact structure ξ. Note there will be a t such that the characteristic foliation on Tt is
+parallel the the ﬁbers in the Hopf ﬁbration. Let γ be a leaf in this characteristic foliation. In [19]
+it was shown that the overtwisted contact structure ξ is tight when restricted to S3 \ γ. Intuitively
+this is because γ intersects all the obvious overtwisted disks. To prove the complement is tight one
+needs to examine the universal cover, R3, of the complement and prove that the contact structure
+pulls back the standard contact structure on R3. Note γ is a Legendrian unknot and one may easily
+compute (in a manner similar to the computation for torus knots) that tb = 1 and r = 0. It is easy
+to ﬁnd another Legendrian γ′ with tb = 1 and r = 0 so that the complement is still overtwisted (just
+take the connected sum the boundaries of two disjoint overtwisted disks). Now γ and γ′ cannot be
+Legendrian isotopic since their complements are not contactomorphic.
+From this example it seems the classiﬁcation of Legendrian unknots in (S3, ξ) is more complicated
+the the classiﬁcation of Legendrian unknots in tight contact structures. It would be quite interesting
+(and probably not too hard) to completely classify Legendrian unknots in this contact structure, or
+more generally all overtwisted contact structures on S3. It seems studying Legendrian unknots in
+overtwisted contact structures might be very interesting. But this must wait for future work.
+
+===== PDFPAGE 46 =====
+46
+JOHN B. ETNYRE
+6. Higher dimensions
+A contact structure on a 2n+1 dimensional manifold M is a hyperplane ﬁeld ξ that can be locally
+given as the kernel of a 1-form α such that α ∧(dα)n̸ = 0. As in dimension three one should think
+of such a plane ﬁeld as “maximally nonintegrable”. The standard contact structure ξ on R2n+1 is
+given as the kernel of
+(23)
+α = dz −
+n
+X
+j=1
+yjdxj,
+where x1, y1, . . . , xn, yn, z are Euclidean coordinates on R2n+1. In this section we restrict attention to
+(R2n+1, ξ). A Legendrian knot (or Legendrian submanifold) of R2n+1 is an n dimensional submanifold
+L ⊂R2m+1 that is tangent to ξ at each point. We will frequently use L to denote the Legendrian
+submanifold and the domain of a Legendrian embedding. We also recall that the standard symplectic
+structure on Cn is given by
+(24)
+ω =
+n
+X
+j=1
+dxj ∧dyj,
+and a Lagrangian submanifold is an n dimensional submanifold L ⊂Cn for which ω(v1, v2) = 0 for
+all vectors v1, v2 ∈T L.
+6.1. Legendrian knots in R2n+1. As in three dimensions there are two standard projections that
+are useful in studying Legendrian knots. The ﬁrst is the Lagrangian projection (sometimes called
+the complex projection) which projects out the z coordinate:
+(25)
+π : R2n+1 →Cn : (x1, y1, . . . , xn, yn, z) 7→(x1, y1, . . . , xn, yn).
+The second is called the front projection and it projects out the yj’s:
+(26)
+Π : R2n+1 →Rn+1 : (x1, y1, . . . , xn, yn, z) 7→(x1, . . . , xn, z).
+We begin with the Lagrangian projection.
+If L is an embedded Legendrian knot then π(L)
+is an immersed Lagrangian submanifold of Cn. If L is generic, that is in a C∞dense subset of
+all Lagrangian embeddings, then π(L) will have a ﬁnite number of isolated double points.
+The
+embedding of L in R2n+1 can be recovered (up to rigid translation in the z direction) from π(L) as
+in the n = 1 case described above. Speciﬁcally, pick a point p ∈π(L) and choose any z coordinate
+for p then the z coordinate of any other point p′ is determined by
+(27)
+n
+X
+j=1
+Z
+γ
+yjdxj,
+where γ is any path in π(L) from p to p′. Furthermore, given any Lagrangian immersion in Cn with
+isolated double points, if the integral in Equation 27 is independent of the path γ then we obtain a
+Legendrian immersion in R2n+1. Note that we will get an embedding as long as the above integral is
+not zero for paths connecting the double points. The integral in Equation (27) will be independent
+of γ when we have exact Lagrangian immersions i : L →R2n, i.e. ones for which i∗(Pn
+j=1 xjdyj) is
+exact. In particular, if H1(L) = 0, as is the case for Sn if n̸ = 1, then all Lagrangian immersions
+are exact. Thus an isotopy L′
+t of exact Lagrangian manifolds in Cn with transverse double points
+will lift to an isotopy Lt of Legendrian manifolds in R2n+1 (again there is no guarantee that the
+manifolds will be embedded).
+Example 6.1 Here we consider the most basic example of an exact Lagrangian immersion of a
+sphere in Cn, thus providing a Legendrian sphere in R2n+1. Let Sn = {(x, y) ∈Rn×R : |x|2+y2 = 1}
+and then deﬁne
+(28)
+f(x, y) : Sn →Cn : (x, y) 7→((1 + iy)x).
+We claim that the image of f is an exact Lagrangian sphere in Cn with one double point that lifts
+to an embedded sphere in R2n+1. When n = 1 the image is a ﬁgure eight in the plane with a double
+point at the origin.
+
+===== PDFPAGE 47 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+47
+The Reidemeister type theorem here is
+Lemma 6.2. If two Legendrian knots in R2n+1, n > 1, are Legendrian isotopic then their Lagrangian
+projections are related by regular homotopies and isolated double point moves (see the left hand side
+of Figure 12).
+Though the Lagrangian projection of Legendrian knots has many nice properties, for example
+Lemma 6.2, it has some drawbacks as well. Speciﬁcally, given a submanifold Ln of Cn it is not
+clear whether or not it is an exact Lagrangian submanifold or lifts to an embedded Legendrian
+knot. Thus it is sometimes useful to consider the front projection of a Legendrian knot. The front
+projection Π(L) is a codimension one subvariety of Rn+1. Living in a lower dimensional space makes
+it somewhat easier to visualize. The drawback to the front projection is that Π(L) will have certain
+singularities. In fact, any singularity with a well deﬁned tangent space one would expect from a
+projection of Ln ⊂R2n+1 to Rn+1 can occur except tangential double points (these would correspond
+to double points of L in R2n+1). But any map from an n dimensional space to Rn+1 with no vertical
+tangencies and the appropriate type of singularities will lift to a Legendrian knot in R2n+1.
+To see that any map into Rn+1 with the appropriate singularities can be lifted to a Legendrian
+knot we observe that at cusp edges (and all other allowable singularities) there is a well deﬁned
+tangent plane to the image of the map. Thus we can recover the yi coordinate of the Legendrian
+knot by looking at the slope of the tangent plane in the xiz-plane (since for the lift to be Legendrian
+its tangent planes have to satisfy dz = Pn
+i=1 yidxi).
+If φ : L →R2n+1 is a Legendrian embedding then (after a C∞small perturbation to another
+Legendrian) oﬀof a codimension one subset Σ ⊂L the map Π ◦φ : L →Rn+1 will be an immersion.
+For a generic point p in Σ we can ﬁnd a neighborhood N of p in L, with coordinates (x1, . . . , xn),
+and a coordinate neighborhood N ′ of Π ◦φ(p) such that ΠF ◦φ is expressed in these coordinates
+by (x1, . . . , xn) 7→(3x2
+1, x2, . . . , xn, ±2x3
+1). We say such a point is on a cusp edge. See Figure 52.
+Note that the image of Π ◦φ cannot have tangent planes containing the z-direction (since φ(L) is
+Figure 52. Front projection with a cusp edge (right) and a “swallow-tail” singu-
+larity (left).
+Legendrian). It is the cusp edges that allow our front projections to avoid these vertical tangencies.
+For a generic one dimensional Legendrian knot only cusp edges occur in the front projection. In
+higher dimensions there can be other singularities as well, however they all occur in codimension
+larger than one. So the top dimensional strata of Σ consists entirely of cusp edges. In particular,
+later it will be important that any path on L can be perturbed so that it only intersects Σ in cusp
+edges. For a thorough discussion of allowable singularities see [4].
+For Legendrian knots L in R2n+1 we have two “classical” invariants. First, Tabachnikov [82] has
+shown how to generalize the Thurston–Bennequin invariant to higher dimension. Speciﬁcally, let L′
+be a copy of L obtained by pushing L slightly in the z-direction, then
+(29)
+tb(L) = linking(L, L′).
+It is interesting to note that when n is even tb(L) = 1
+2χ(L) and thus is a trivial invariant of the
+Legendrian isotopy class of L. When n is odd tb(L) is a non trivial invariant (see Section 6.3).
+It is more diﬃcult to generalize the rotation number a Legendrian knot in three manifolds to
+higher dimensions. To each point x ∈L we get a Lagrangian plane dπx(TxL) in Cn. Thus we get a
+map L to Lag(Cn) the space of Lagrangians in Cn. The homotopy class of this map is an invariant
+of L. In dimension three, π1(Lag(C)) = Z and thus to Legendrian knots in three manifolds we have
+
+===== PDFPAGE 48 =====
+48
+JOHN B. ETNYRE
+a rotation number. In higher dimensions and when L is not just a sphere this homotopy class can
+be much more complicated than an integer. Again it is interesting to note that when n is even and
+L is an n sphere then this rotation class is always trivial. Thus when n is even there are no classical
+invariants of Legendrian knots.
+6.2. Generalizations of the Chekanov-Eliashberg DGA. Contact homology naturally gener-
+alizes to higher dimensions. Here we deﬁne the DGA associated to a Legendrian knot in R2n+1.
+The Algebra. Denote the double points of the Lagrangian projection, π(L), by C. We assume C is a
+ﬁnite set of transverse double points. Let A be the free associative unital algebra over Z2 generated
+by C.
+The Grading. To each crossing c ∈C there are two points c+ and c−in L ⊂R2n+1 that project
+to c. We denote by c+ the point with larger z-coordinate. Choose a map γc : [0, 1] →L that
+parametrizes an arc running from c+ to c−. (Note there could be more that one path.) For each
+point γ(θ) ∈L we have a Lagrangian plane dπγ(θ)(Tγ(θ)L) in Cn. Thus γ give us a path bγ in Lag(Cn).
+Since c is a transverse double point bγ(0) is transverse to bγ(1). Thus we can ﬁnd a complex structure
+J on R2n that (1) induces the same orientation on Cn as the standard complex structure and (2)
+J(bγ(1)) = bγ(0). Now set γ(θ) = eJθbγ(1). Note that bγ followed by γ is a closed loop in Lag(Cn).
+Moreover π1(Lag(Cn) = Z thus to this closed loop we get an integer, cz(c), the Conley-Zehnder
+invariant of c. The grading on c is
+|c| = cz(c) −1.
+We note that c in general depends on the path γ with which we started.
+To take care of this
+ambiguity note that to each circle immersed in L we get an integer through the above procedure.
+Let n be the greatest common divisor of all these integers. It is easy to convince oneself that |c| is
+well deﬁned modulo n.
+The Diﬀerential. We will deﬁne the diﬀerential ∂on A by deﬁning it on the generators of A and
+then extending by the signed Leibniz rule:
+∂ab = (∂a)b + (−1)|a|a∂b.
+Let a ∈C be a generator of A and let b1 . . . bk be a word in the “letters” C.
+Let Pk+1 be a
+k + 1 sided polygon in C with vertices labeled counterclockwise v0, . . . , vk. We will consider maps
+u : (Pk+1, ∂Pk+1) →(Cn, π(L)) such that u|∂Pk+1\{vi} lifts to a map to L ⊂R2n+1. Call a vertex vi
+mapping to the double point c is positive (resp. negative) if the lift of the arc just clockwise of vi in
+∂Pk+1 lifts to an arc approaching c+ (resp. c−) and the arc just counterclockwise of vi lifts to an
+arc approaching c−(resp. c+), where c± are as in the deﬁnition of grading. Set
+Ma
+b1...bk = {u : (Pk+1, ∂Pk+1) →(Cn, π(L)) such that u satisﬁes 1.– 4. below}/ ∼
+where ∼is holomorphic reparameterization and the conditions are
+1. u|∂Pk+1\{vi} lifts to a map to L ⊂R2n+1,
+2. u(v0) = a and v0 is positive,
+3. u(vi) = bi, i = 1, . . . , k, and vi is negative,
+4. u is holomorphic.
+We can now deﬁne
+∂a =
+X
+b1...bk
+(#2M)b1b2 . . . bk,
+where the sum is taken over all words in the letters Cfor which dim(Ma
+b1...bn) = 0 and #2 denotes
+the modulo two count of elements in M.
+Theorem 6.3 (Ekholm, Etnyre and Sullivan, [20, 21]). With the notation above:
+(1) The map ∂is a well deﬁned diﬀerential that reduces the grading by 1.
+(2) The stable tame isomorphism class of (A, ∂) is an invariant of L.
+(3) The homology of (A, ∂) is an invariant of L.
+We will compute some simple examples below.
+
+===== PDFPAGE 49 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+49
+6.3. Examples. The DGA of a Legendrian knot L is deﬁned in terms of the Lagrangian projection,
+but it will be much easier to construct examples in the front projection. Thus we would like to be able
+to recognize the double points in the Lagrangian projection by looking at the front projection. We
+begin by noting that generically we can assume that the double points in the Lagrangian projection
+do not occur along singularities in the front projection. So we consider a point p ∈Π(L) in the
+front projection that is not singular. Since Π(L) is embedded near p and the tangent plane does not
+contain the vector
+∂
+∂z we can ﬁnd an open set U in Rn and a function f : U →R such that near p,
+Π(L) is given by the graph of f.
+Let c+ and c−be two points in Π(L). If they correspond to double point in the Lagrangian pro-
+jection then they must have the same xi coordinates, which we denote x, and diﬀerent z coordinates.
+We assume the z coordinate of c+ is larger. Let f ± be the functions described above for c±. We can
+assume that f + and f −have the same domain. Let f = f + −f −. The following are equivalent:
+• c+ and c−correspond to a double point in π(L)
+• Tc+Π(L) = Tc−Π(L)
+• df +
+x = df −
+x
+• dfx = 0
+Thus we have a double point if x is a critical point of f. Moreover, the double point is transverse if
+and only if x is a nondegenerate double point. Thus to a transverse double point we have a Morse
+index, Indx(f). Suppose c+, c−correspond to a double point. Let γ be a path from c+ to c−that is
+transverse to the singular set of Π(L). Thus it intersects the singular set along the cusp edges in a
+ﬁnite number of points. Let D be the number of times γ intersects the cusps while its z coordinate
+is decreasing and U the number of times with its z coordinate increasing.
+Lemma 6.4 (Ekholm, Etnyre and Sullivan, [20]). With the notation as above. If c+ and c−corre-
+spond to a transverse double point c then
+(30)
+cz(c) = Indx(f) + D −U.
+We are now ready for some examples.
+Example 6.5 In Figure 53 the front projections of two Legendrian knots are shown. Though the
+pictures are of Legendrian S2’s in R5 there are clearly analogous Legendrian Sn’s in R2n+1. We use
+contact homology to distinguish these examples in all dimensions. When n is even they cannot be
+distinguished by any classical invariants. When n is odd they have diﬀerent Thurston-Bennequin
+invariants. Note the Legendrian L on the left has only one double point (the “axis” of the ﬂying
+Figure 53. The front projection of two Legendrian spheres.
+saucer) c. Using the above lemma we see that cz(c) = n + 1 so |c| = n. Since ∂is degree −1 we see
+that ∂c = 0. So the contact homology is generated by one element in grading n.
+For L′ on the right of the ﬁgure, there is a double point c corresponding the the “axis” again,
+but now one must go down 3 cusp edges from c+ to c−thus |c| = n + 2. If the picture is drawn
+symmetrically, there are an Sn−1’s worth of double point. By deforming the picture slightly so the
+cusps are tilted we can break the Sn−1’s worth of double points into two double point a and b. They
+will have gradings |a| = n and |b| = 1. We can again conclude that ∂c = 0 but we do not know if
+∂b = 0 or 1, and when n = 2 if ∂a = b or 0. But in any case the contact homology of L′ will be
+diﬀerent from that of L.
+
+===== PDFPAGE 50 =====
+50
+JOHN B. ETNYRE
+We now describe a procedure for changing a given Legendrian knot. Suppose L is a Legendrian
+knot in R2n+1 containing two disks Lu and Ll that project to the same disk under the Lagrangian
+projection. This is a degenerate situation, but it is easy to isotop any Legendrian knot so that
+it has such disks. Assume Lu is above Ll. Let M be a k-manifold embedded in Ll. There is an
+ambient isotopy of Rn+1 that is supported near Π(M) × R, where the R factor is the z-axis, that
+moves Π(M) up just past Π(Lu). In the front projection replace Π(Ll) with the disk obtained from
+Π(Ll) by applying the ambient isotopy. This new front diagram describes a new Legendrian knot
+LM called the stabilization of L along M. One may show
+Proposition 6.6 (Ekholm, Etnyre and Sullivan, [20]). If LM is the stabilization of L along M and
+the notation is as above then
+(1) The rotation class of LM is the same as the rotation class of L.
+(2) If D, U are the number of down, up, cusps along a generic path from Π(Lu) to Π(Ll) in
+Π(L) then
+tb(LM) =
+(
+tb(L),
+n even,
+tb(L) + (−1)(D−U)2χ(M),
+n odd,
+(3) If the stabilization of the Legendrian knot L takes place in a small neighborhood of a cusp
+edge of Π(L) then CH∗(L) = 0.
+Remark 6.7. Note using this proposition it is easy to see that when n is odd and not 1 then we
+can realize any any integer, of the appropriate parity, as the tb of some Legendrian knot.
+It is important that stabilization does not always force the contact homology to be trivial.
+Example 6.8 Let L be the Legendrian knot shown in Figure 54. It is clearly Legendrian isotopic
+p
+c
+c
+Figure 54. The Legendrian knot L (left). To form L a neighborhood of the arc c
+should be replaced with the tube shown on the right.
+to the standard “ﬂying saucer” in Figure 53. Let L1 be the stabilization of L along the point p
+indicated in the ﬁgure. Let Lk = Lk−1#L1 where # is deﬁned by replacing an arc connecting cusp
+edges of the two front projection by the tube shown on the right of Figure 54. One can show [20]
+that the grading −1 linearized contact homology of Lk has dimension k:
+dim(L1CH−1(Lk)) = k.
+Thus none of the Lk’s are Legendrian isotopic. These examples generalize to all dimensions but
+when n is odd the knots Lk are already distinguished by their tb. Thus when n is odd to get an
+inﬁnite family of examples of distinct Legendrian knots with the same classical invariants one must
+alter the above construction. For details see [20].
+For other examples of Legendrian knots in high dimensions and other constructions see [20, 22].
+7. Applications
+There are numerous applications of Legendrian knot theory to topology and contact geometry.
+We describe a few of these applications below.
+
+===== PDFPAGE 51 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+51
+7.1. Legendrian surgery. Let (M, ξ) be a contact manifold and L a Legendrian knot in M. There
+is a standard neighborhood N of L with convex boundary. The dividing curves Γ∂N consist of two
+parallel curves. We can choose a framing on N so that the dividing curves have slope ∞and of
+course the meridian has slope 0. Let M ′ be the manifold obtained by gluing S1 × D2 to M \ N by
+the map A : ∂(S1 × D2) →∂M \ N given by
+A =
+
+1
+1
+−1
+0
+
+.
+Here we are using the framing on ∂N and product structure on ∂S1 × D2 to write the map as a
+matrix.
+The manifold M ′ has a contact structure deﬁned on the complement of S1 × D2, but ∂(S1 × D2)
+has an induced convex characteristic foliation. Using the classiﬁcation of tight contact structures
+on the solid torus there is a unique tight contact structure on S1 × D2 inducing this characteristic
+foliation. Thus we can get a well deﬁned contact structure ξ′ on M ′. We say the contact manifold
+(M ′, ξ′) is obtained form (M, ξ) by Legendrian surgery on L. There is an obvious generalization to
+Legendrian surgery on a Legendrian link in (M, ξ). The fundamental result concerning Legendrian
+surgery is
+Theorem 7.1. If (M, ξ) is a ﬁllable contact structure then any contact manifold obtained by Leg-
+endrian surgery from (M, ξ) is also ﬁllable.
+Recall that a ﬁllable contact structure is tight [24]. Moreover, the standard contact structure on
+S3 is ﬁllable. Thus we can construct many tight contact structures on three manifolds by doing
+Legendrian surgery on links in S3.
+Example 7.2 Legendrian surgery on a Legendrian unknot in S3 with tb = −k yields tight contact
+structures on the lens spaces L(k + 1, 1).
+To get other lens spaces L(p, q) consider the continued fractions expansion of −p
+q :
+−p
+q = r0 −
+1
+r1 −. . . 1
+rn
+.
+Then the lens space L(p, q) as a surgery presentation as shown in Figure 55, [76]. It is easy to see
+r0
+r1
+rn−1
+r2
+rn
+−p
+q
+Figure 55. Two surgery presentation of the lens space L(p, q).
+that all the ri < −1 thus we can realize the right hand side of Figure 55 by Legendrian unknots with
+tb = ri + 1. Thus Legendrian surgery on this link will yield a tight contact structure on L(p, q). In
+is interesting to note that all tight contact structures on L(p, q) come from Legendrian surgery on a
+link in S3 [52, 55].
+For an extensive discussion of the use of Legendrian surgery to construct tight contact structures
+see [53]
+One of the main questions in contact geometry is the following.
+Question. Does Legendrian surgery on a tight contact structure produce a tight contact structure?
+The answer is NO if the manifold is allowed to have boundary [57] (cf. [16]) , but it is still possible
+that for closed contact three manifolds this answer is YES.
+
+===== PDFPAGE 52 =====
+52
+JOHN B. ETNYRE
+7.2. Invariants of contact structures. Now that we have seen how to construct contact structures
+using Legendrian knots we examine how to use Legendrian knots to distinguishing contact structures
+on three manifolds. For examples consider the contact structures
+ξn = ker(sin(nz)dx + cos(nz)dy),
+on T 3 = T 2 ×S1 where x, y are coordinates on T 2, and z is the coordinate on S1. It is easy to see all
+these contact structures on T 3 are tight (when pulled back to the universal cover of T 3 the contact
+structures become the standard contact structure on R3, [52, 55, 60]) and certainly look diﬀerent.
+But how can they actually be distinguished? They are in the same homotopy class of plane ﬁeld
+so there is no “algebraic” way to distinguish them. Consider γ = {(x, y, z)|x = y = 0}. This is a
+Legendrian knot in (T 3, ξn) and the twisting of the contact planes relative to the natural product
+framing F is tw(γ, F) = −n. The twisting with respect to F we will denote tb(γ), this is a slight
+abuse of notation but should not be confusing. It turns out that this is the maximal twisting for
+any Legendrian knot in this knot type.
+Theorem 7.3. Let K be the topological knot type containing γ. Then for the contact structure ξn
+we have
+tb(K) = −n.
+Thus all the contact structures ξn on T 3 are distinct.
+Similar arguments have been used in distinguish some contact structures on other T 2 bundles
+over S1 and on some S1 bundles over surfaces [52, 55, 56]. This illustrates that Legendrian knots
+are a very subtle invariant of contact structures. In fact, it is possible that contact structures are
+completely determined by the Legendrian knots that exist within them.
+7.3. Plane curves. Chekanov and Pushkar have recently solved Arnold’s famous “four vertex
+conjecture”[2] using invariants of Legendrian knots [13]. Arnold conjecture is about generic wave
+fronts. A generic wave front is a curve in R2 that is immersed at all but a ﬁnite number of points
+at which there is a semi cubic cusp. Thus a curve looks very much like the front projection of
+a Legendrian knot discussed in Section 2.3 except there might be vertical tangents. Consider the
+manifold M = R2 × S1 with the contact structure
+ξ = ker((cosθ)dx + (sinθ)dy),
+where x, y are coordinates on R2 and θ(mod 2π) is the coordinate on S1. (If we think of M as the
+unit cotangent bundle of R2 then ξ is a natural contact structure induced from the standard complex
+structure on T ∗R2.) Now if γ is a generic (oriented) wave front in R2 then we can lift γ to γl in M
+by sending p ∈γ to (p, θ) in M where θ is the π
+2 plus the angle Tpγ makes with the x-axis in R2.
+Clearly γl is a Legendrian curve in M. In addition generic Legendrian curves in M will project to
+generic wave fronts in R2. Thus we may clearly study wave fronts by studying their corresponding
+Legendrian lifts.
+Suppose γt, t ∈[0, 1] is a family of generic (oriented) wave fronts in R2 with γ0 and γ1 oppositely
+oriented smooth circular wave fronts and for all t, γt having no self tangencies at which the orienta-
+tions on the two intersecting strands agree. Such a family is usually called an “eversion of a smooth
+circular wave front with no dangerous self tangencies”. Note this last condition guarantees that the
+Legendrian lift of each γt is an embedded Legendrian knot in M. Thus such a family of wave fronts
+gives a Legendrian isotopy of the Legendrian lifts.
+Conjecture 1 (Arnold’s Four Cusp Conjecture, [2]). An eversion of a smooth circular wave front
+with no dangerous self tangencies must contain some curves with at least four cusps.
+In [2] Arnold veriﬁed this conjecture in certain cases. Using an invariant for Legendrian knots
+in M similar to the decomposition invariant described in Section 4.6, Chekanov and Pushkar have
+veriﬁed the conjecture in all cases [13].
+
+===== PDFPAGE 53 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+53
+7.4. Knot concordance. Using the inequality
+1
+2(tb(L) + |r(L)| + 1) ≤gs(K)
+for all L ∈L(K) from Section 3.2 we can easily make many observations about (non) slice knots
+and, in particular, ﬁnd many examples of elements of inﬁnite order in the knot concordance group.
+We be begin with the simple observation
+Lemma 7.4. If there is a Legendrian knot L ∈L(K) with tb(L) + |r(L)| + 1 ≥0 then K is not
+smoothly slice. Moreover K is of inﬁnite order in the knot concordance group.
+The ﬁrst observation follows directly from the above inequality. The second follows from the
+inequality and the fact that tb(L + L′) = tb(L) + tb(L′) + 1.
+We now apply these ideas to study Whitehead doubles of knots. If the neighborhood N of a knot
+K is replaced by the solid torus D2 × S1 shown if Figure 56, so that {pt} × S1, with pt ∈∂D2, is
+C
+W−3(K)
+Figure 56. The solid torus used in the Whitehead double (top) and the −3 twisted
+double of the left handed trefoil knot.
+identiﬁed with a longitude for K on ∂N then the image of C is called the 0-Whitehead double of a
+knot K and is denoted W0(K). The n-twisted Whitehead double Wn(K) is obtained in an analogous
+way after putting n-full right handed twist in the solid torus D2 × S1. One may compute that the
+Alexander polynomial of Wn(K) is 0 for any know type. Freedman [43] has used this to show that
+the zero twisted Whitehead double of any knot is topologically locally ﬂatly slice. There is a well
+known conjecture:
+Conjecture 2. A knot is smoothly slice if and only if its zero twisted Whitehead double is.
+In relation to this conjecture we can show the following theorem is true.
+Theorem 7.5 (Rudolph 1995, [78]). Given any knot type K for which tb(K) ≥0 then all iterated
+zero twisted Whitehead doubles of K are not smoothly slice.
+To prove this theorem we consider the a Legendrian version of the Whitehead double. Let L be
+a Legendrian knot in (R3, ξstd) and L′ a parallel copy pushed up (in the z-direction) slightly from
+L. The Legendrian Whitehead double LW(L) of L is obtained by replacing a horizontal stand of L
+and L′ by a clasp as shown in Figure 57. One may easily compute that as a topological knot LW(L)
+is Wtb(L)(L) and that
+tb(LW(L)) = 1
+and
+r(LW(L)) = 0.
+Thus given Klet L be an Legendrian knot in L(K) realizing maximal tb. Forming LW(L) we see that
+Wtb(K)(K) is of inﬁnite order in the concordance group. By considering the Legendrian doubles of
+
+===== PDFPAGE 54 =====
+54
+JOHN B. ETNYRE
+L′
+L
+LW (L)
+Figure 57. The change to L ∪L′ used to make LW(L). Legendrian Whitehead
+double of the trefoil (bottom).
+stabilizations of L we see that Wn(K) is of inﬁnite order for all n ≤tb(K). In particular if tb(K) ≥0
+then the zero twisted Whitehead double is not slice.
+7.5. Invariants of classical knots. It is quite easy to construct invariants of topological knots out
+of Legendrian knot theory. For example the maximal Thurston–Bennequin invariant is a topological
+knot invariant
+tb(K) = max{tb(L)|L ∈L(K)}.
+As we have seen in Section 3.2 this invariant is closely related to the slice genus of a knot. Moreover
+it is very sensitive to mirroring.
+Example 7.6 Let K be a (p, q) torus knot, with p, q > 0. It’s mirror K is a (−p, q) torus knot.
+From Section 5.2 we know tb(K) = pq −p −q and tb(K) = −pq.
+It also seems that tb is sensitive to many topological operations on a knot, like mutation. This
+prospect seems very interesting but has not been pursued.
+Analogous to the deﬁnition of ﬁnite type invariants of topological knots one can deﬁne ﬁnite type
+invariants of Legendrian knots.
+Theorem 7.7 (Fuchs and Tabachnikov 1997, [46]). Any ﬁnite type Legendrian knot invariant for
+Legendrian knots in (R3, ξstd) with the same tb and r is also ﬁnite type invariant of the underlying
+framed topological knot type.
+Put another way, two distinct Legendrian knots with the same topological knot type, tb and r
+cannot be distinguished by a ﬁnite order invariant. This theorem has been generalized to other
+contact manifold, [84].
+One might try to use this theorem to try to construct inﬁnite order invariants of topological knots
+out of Legendrian knot theory. For example let Lm(K) be all the Legendrian knots with maximal tb
+and set CH(K) = {CH∗(L)|L ∈L}. So CH(K) is the set of all contact homologies for Legendrian
+knots in L(K) with maximal tb. Since CH∗(L) is not a ﬁnite type invariant of L it would be surprising
+if CH(K) is a ﬁnite type invariant of K. More generally we ask the following question.
+Question. Can one extract non ﬁnite type invariants of topological knots K out of the DGA asso-
+ciated to Legendrian knots in L(K)?
+7.6. Contact homology and topological knot invariants. In this section we discuss invariants
+of topological knots in R3 that come from from high dimensional Legendrian knot theory. Speciﬁcally,
+to a topological knot in R3 we will construct a Legendrian torus in R3 ×S2. The Legendrian isotopy
+class of this torus will be an invariant of the knot. Thus any invariant of the Legendrian torus will
+be an invariant of the topological knot.
+
+===== PDFPAGE 55 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+55
+Let W = {(x, v) ∈T ∗R3|v ∈T ∗
+xM and |v| = 1} be the unit cotangent bundle of R3. It is easy to
+see there is a natural contact structure ξ on W. Speciﬁcally let xi be coordinates on R3 and yi be
+coordinates on the ﬁbers of T ∗R3. The restriction of λ = P yidxi to W is a contact form on W. Let
+ξ = ker α.
+Given a topological knot K in R3 let TK = {(x, v) ∈W|v(TxK) = 0} be the unit conormal
+bundle. One may easily check that TK is a Legendrian torus in W and that a topological isotopy of
+K will produce a Legendrian isotopy of the associated torus. Thus TK is an invariant of K.
+As discussed above there is no “classical invariants” of TK, but one can use the contact homology
+of TK to come up with an invariant of K. It is actually somewhat diﬃcult to compute the contact
+homology (not to mention contact homology has not been shown to be well deﬁned in this case yet),
+but following this idea Ng [70] has combinatorially deﬁned the invariants of topological knots and
+braids. Moreover, in [70] it is shown that these contact homology invariants can distinguish knots
+with the same Alexander polynomial and signature. In [71] a topological interpretation is given
+to a small piece of the contact homology invariant. Here we describe some of the geometric idea
+behind the braid invariants and refer the reader to [70, 71] for details on knot invariant and the
+combinatorial proofs of invariance.
+Let U be the unknot in R3 represented as a 1-braid. So TU is a Legendrian torus in W. A Legen-
+drian submanifold always has a neighborhood contactomorphic to the 1-jet space of the submanifold
+[49, 64]. That is, given a manifold M its one jet space is J1(M) = T ∗M × R with the contact form
+α = dz + λ (here z is the coordinate in the R direction and λ is the tautological 1-form on T ∗M). It
+is easy to see that the zero section Z in J1(M) is a Legendrian submanifold. Thus the Legendrian
+torus TU has a neighborhood contactomorphic to J1(T 2).
+Any braid B in R3 can be isotoped into an arbitrarily small neighborhood of the unknot U.
+Moreover, any isotopy of the braid can be done in this small neighborhood. Thus the Legendrian
+manifold TB in W can be thought to sit inside J1(T 2) and the Legendrian isotopy class of TB as a
+subset of J1(T 2) depends only on the isotopy class of B as a braid.
+There is a projection π : J1(T 2) →T ∗T 2 that has properties identical to the Lagrangian projec-
+tion discussed in Sections 6.1. Thus π(TB) is a Lagrangian submanifold of T ∗T 2 and generically has
+a ﬁnite number of transverse double points. We can now deﬁne the contact homology of TB as in
+Section 6.2. It is the contact homology of TB that is the invariant of B.
+We now describe (at least heuristically) how to compute CH∗(TB). The 1-jet space also has a
+“front projection” Π : J1(T 2) →T 2 × R. This front projection has all the properties described
+in Section 6.1 for the standard front projection. If B is an n-braid we can ﬁnd n functions fi :
+[0, 1] →R2 that parameterize B in the sense that their graphs in [0, 1] × R2/(0, x) ∼(1, x) give B.
+With such a representation of B we can express Π(TB) as the union of the graphs of the functions
+Fi(t, θ) = fi(t) · (cos 2πθ, sin 2πθ) : [0, 1]2 →R, where [0, 1]2 glued to form T 2. As described in
+Section 6.3 the double point the the Lagrangian projection of TB correspond to the critical points
+of Fi −Fj, and these correspond to the critical points of |fi −fj|. The function |fi −fj| must have a
+maximum and a minimum, we label these bij, aij, respectively. Though there may be other critical
+points for |fi −fj| we can eliminate them up to stable tame isomorphism. There are no cusps in
+the front projection of TB so the grading on the double points is one less than the Morse index of
+Fi −Fj, thus |aij| = 0 and |bij| = 1.
+We now describe the diﬀerential. Clearly we have
+∂aij = 0.
+The diﬀerential on the bij’s is somewhat more complicated.
+(31)
+∂bij = aij −φB(aij).
+
+===== PDFPAGE 56 =====
+56
+JOHN B. ETNYRE
+Where φB is deﬁned as follows: let for a generator σk of the braid group we deﬁne
+(32)
+φσk :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+aki 7→−ak+1,i −ak+1,kaki
+i̸ = k, k + 1
+aik 7→−ai,k+1 −aikak,k+1
+i̸ = k, k + 1
+ak+1,i 7→aki
+i̸ = k, k + 1
+ai,k+1 7→aik
+i̸ = k, k + q
+ak,k+1 7→ak+1,k
+ak+1,k 7→ak,k+1
+aij 7→aij
+i, j̸ = k, k + 1.
+If B = σi1 . . . σil then deﬁne φB = φσil ◦. . . ◦φσi1 . This diﬀerential ∂is computed by looking for
+holomorphic disks in T ∗(T 2) with boundary on the projection of TB. This is done by considering
+“gradient ﬂow trees” for all the functions Fi −Fj. See [70]. In addition, see [70], for a description of
+the knot invariant.
+References
+[1] B. Aebisher, et. al., Symplectic Geometry, Progress in Math. 124, Birkh¨auser, Basel, Boston and Berlin,
+1994.
+[2] V.I. Arnold, Sur les propri´et´es topologiques des proections Lagrangiennes eu geom´etrie symplectique des
+caustiques, Preprint no. 9320 CEREMADE, Universit´e Paris-Dauphine, 1993.
+[3] V.I. Arnold, Mathematical Methods of Classical Mechanics, GTM 60, Springer-Verlag New York, Berlin,
+Heidelberg, 1978.
+[4] V. Arnold and A. Givental, Symplectic Geometry, in Dynamical Systems IV edited by Arnold and Novikov,
+Springer-Verlag 1990.
+[5] D. Bennequin, Entrelacements et ´equations de Pfaﬀ, Ast´erisque 107–108 (1983), 87–161.
+[6] J. Birman, Braids, Links, and Mapping Class Groups, Annals of Math. Studies 82, Princeton University
+Press, Princeton 1975.
+[7] J.
+Birman,
+W.
+Menasco,
+Stabilization
+in
+the
+braid
+group
+II:
+Transversal
+simplicity
+of
+knots,
+(www.arxiv.org/abs/math.GT/0310280).
+[8] J. Birman, W. Menasco, Studying links via closed braids. III. Classifying links which are closed 3-braids,
+Paciﬁc J. Math. 161 (1993), no. 1, 25–113.
+[9] J. Birman, W. Menasco, Studying links via closed braids. V. The unlink, Trans. Amer. Math. Soc. 329
+(1992), no. 2, 585–606.
+[10] J. Birman, N. Wrinkle, On transversally simple knots, J. Diﬀerential Geom. 55 (2000), no. 2, 325–354.
+[11] Yu. Chekanov, Diﬀerential algebra of Legendrian links, Invent. Math. 150 (2002), no. 3, 441–483.
+[12] Yu. Chekanov, New invariants of Legendrian knots, European Congress of Mathematics, Vol. II (Barcelona,
+2000), 525–534.
+[13] Y. Chekanov and P. Pushkar, Arnold’s four cusp conjecture and invariants of Legendrian knots, in prepa-
+ration.
+[14] S. Chmutov, V. Goryunov, Polynomial invariants of Legendrian links and their fronts, KNOTS ’96 (Tokyo),
+239–256, World Sci. Publishing, River Edge, NJ, 1997.
+[15] V. Colin, Chirurgies d’indice un et isotopies de sph`eres dans les vari´et´es de contact tendues, C. R. Acad.
+Sci. Paris S´er. I Math. 324 (1997), 659–663.
+[16] V. Colin, Chirurgies de Dehn admissibles dans les vari´et´es de contact tendues, Ann. Inst. Fourier (Grenoble)
+51 (2001), 1419–1435.
+[17] L. Conlon, Diﬀerentialble Manifolds a ﬁrst course, Birkh¨auser, Boston, Basel, Berlin, 1993.
+[18] K. Dymara, Legendrian knots in overtwisted contact structures, (www.arxiv.org/abs/math.GT/0410122).
+[19] K. Dymara, Legendrian knots in overtwisted contact structures on S3, Ann. Global Anal. Geom. 19 (2001),
+no. 3, 293–305.
+[20] T.
+Ekholm,
+J.
+Etnyre
+and
+M.
+Sullivan,
+Non-isotopic
+Legendrian
+Submanifolds
+in
+R2n+1,
+(www.arxiv.org/abs/math.SG/0210124).
+[21] T. Ekholm, J. Etnyre and M. Sullivan, The Contact Homology of Legendrian Submanifolds in R2n+1,
+preprint 2003.
+[22] T. Ekholm, J. Etnyre and M. Sullivan, Orientations in Legendrian Contact Homology and Exact Lagrangian
+Immersions, (www.arxiv.org/abs/math.SG/0408411).
+[23] Y. Eliashberg, Classiﬁcation of overtwisted contact structures on 3-manifolds, Invent. Math. 98 (1989),
+623–637.
+[24] Y. Eliashberg, Filling by holomorphic discs and its applications, Geometry of Low-Dimensional Manifolds,
+Vol. II (Donaldson and Thomas eds.), 45–67, London Math. Soc. Lecture Note Ser., 151, Cambridge, 1990.
+[25] Y. Eliashberg, Contact 3-manifolds twenty years since J. Martinet’s work, Ann. Inst. Fourier 42 (1992),
+165–192.
+
+===== PDFPAGE 57 =====
+LEGENDRIAN AND TRANSVERSAL KNOTS
+57
+[26] Y. Eliashberg, Legendrian and transversal knots in tight contact 3-manifolds, Topological Methods in Modern
+Mathematics (1993), 171–193, Publish or Perish, Houston, TX, 1993.
+[27] Y. Eliashberg, Invariants in contact topology, Proceedings of the International Congress of Mathematicians,
+Vol. II (Berlin, 1998). Doc. Math. 1998, Extra Vol. II, 327–338.
+[28] Y. Eliashberg and M. Fraser, Classiﬁcation of topologically trivial Legendrian knots, in Geometry, topology,
+and dynamics (Montreal, PQ, 1995), 17–51, CRM Proc. Lecture Notes, 15, Amer. Math. Soc., Providence,
+RI, 1998.
+[29] Y. Eliashberg, A. Givental, and H. Hofer, Introduction to symplectic ﬁeld theory, GAFA 2000 (Tel Aviv,
+1999). Geom. Funct. Anal. 2000, Special Volume, Part II, 560–673.
+[30] J. Epstein, D. Fuchs, and M. Meyer, Chekanov-Eliashberg invariants and transverse approximations of
+Legendrian knots, Paciﬁc J. Math. 201 (2001), no. 1, 89–106.
+[31] J. Etnyre, Transversal torus knots, Geom. Topol. 3 (1999), 253–268.
+[32] J. Etnyre, Tight Contact Structures on Lens Spaces, Commun. in Contemp. Math. 2 No. 4 (2000), 559–577.
+[33] J. Etnyre, Introductory Lectures on Contact Geometry, Topology and geometry of manifolds (Athens, GA,
+2001), 81–107, Proc. Sympos. Pure Math., 71, Amer. Math. Soc., Providence, RI, 2003.
+[34] J.
+Etnyre
+and
+K.
+Honda,
+Legendrian
+Cables
+and
+Transverse
+Simplicity,
+preprint
+2003
+(www.arxiv.org/abs/math.SG/0306330).
+[35] J. Etnyre and K. Honda, On connected sums and Legendrian knots, Adv. Math. 179 (2003), no. 1, 59–74.
+[36] J. Etnyre and K. Honda, On the nonexistence of tight contact structures, Annals of Math. 153 (2001),
+749–766.
+[37] J. Etnyre and K. Honda, Knots and contact geometry I: torus knots and the ﬁgure eight, Journal of Sympl.
+Geom. 1 (2001) no. 1, 63-120.
+[38] J. Etnyre and L. Ng Problems in Low Dimensional Contact Topology, Topology and geometry of manifolds
+(Athens, GA, 2001), 337–357, Proc. Sympos. Pure Math., 71, Amer. Math. Soc., Providence, RI, 2003.
+[39] J. Etnyre, L. Ng and J. Sabloﬀ, Invariants of Legendrian Knots and Coherent Orientations, J. Symplectic
+Geom. 1 (2002), no. 2, 321–367.
+[40] E. Ferrand, On Legendrian knots and polynomial invariants, Proc. Amer. Math. Soc. 130 (2002), no. 4,
+1169–1176.
+[41] J. Franks, R. Williams, Braids and the Jones polynomial, Trans. Amer. Math. Soc. 303 (1987), no. 1, 97–108.
+[42] M. Fraser, Example of nonisotopic Legendrian curves not distinguished by the invariants tb and r, Internat.
+Math. Res. Notices 19 (1996), 923–928
+[43] M. Freedman, The topology of four-dimensional manifolds, J. Diﬀerential Geom. 17 (1982), 357–453.
+[44] D. Fuchs, Chekanov-Eliashberg Invariants of Legendrian Knots: Existance of Augmentations, J. Geom.
+Phys. 47 (2003), no. 1, 43–65.
+[45] D. Fuchs and T. Ishkhanov, Invariants of Legendrian knots and decompositions of front diagrams, Moscow
+Math. J. (2004), To appear.
+[46] D. Fuchs and S. Tabachnikov, Invariants of Legendrian and transverse knots in the standard contact space,
+Topology 36 (1997) no. 5, 1025–1053.
+[47] D. Gay, Symplectic 2-Handles and Transverse Links, Trans. Amer. Math. Soc. 354 (2002), no. 3, 1027–1047.
+[48] H. Geiges, A brief history of contact geometry and topology, Expo. Math. 19 (2001), no. 1, 25–53.
+[49] H. Geiges, Contact Geometry, to appear in Handbook of Diﬀeretial Geometry, vol 2
+[50] E. Giroux, Convexit´e en topologie de contact, Comment. Math. Helv. 66 (1991), no. 4, 637–677.
+[51] E. Giroux, Topologie de contact en dimension 3 (autour des travaux de Yakov Eliashberg), S´eminaire Bour-
+baki, Ast´erisque 216 (1993), Exp. No. 760, 3, 7–33.
+[52] E. Giroux, Structures de contact en dimension trois et bifurcations des feuilletages de surfaces, Invent.
+Math. 141 (2000), 615–689.
+[53] R. Gompf, Handlebody construction of Stein surfaces, Annals of Math. 148 (1998), 619–693.
+[54] M. Gromov, Pseudoholomorphic curves in symplectic manifolds, Invent. Math. 82 (1985), 307–347.
+[55] K. Honda, On the classiﬁcation of tight contact structures I, Geom. Topol. 4 (2000), 309–368.
+[56] K. Honda, On the classiﬁcation of tight contact structures II, J. Diﬀerential Geom. 55 (2000), no. 1, 83–143.
+[57] K. Honda, Gluing tight contact structures, Duke Math. J., 115 (2002), no. 3, 435–478.
+[58] T. K´alm´an, One parameter families of Legendrian torus knots, (www.arxiv.org/abs/math.GT/0409005).
+[59] T.
+K´alm´an,
+Contact
+homology
+and
+one
+parameter
+families
+of
+Legendrian
+knots,
+(www.arxiv.org/abs/math.GT/0407347).
+Title: Contact homology and one parameter families of Legendrian knots
+[60] Y. Kanda, The classiﬁcation of tight contact structures on the 3-torus, Comm. in Anal. and Geom. 5 (1997)
+413–438.
+[61] P. Kronheimer and T. Mrowka, Monopoles and contact structures, Invent. Math. 130 (1997), 209–255.
+[62] P. Lisca and G. Mati´c, Tight contact structures and Seiberg-Witten invariants, Invent. Math. 129 (1997),
+no. 3, 509–525.
+[63] P. Lisca and G. Mati´c, Stein 4-manifolds with boundary and contact structures, Symplectic, contact and
+low-dimensional topology (Athens, GA, 1996). Topology Appl. 88 (1998), no. 1-2, 55–66.
+[64] D. McDuﬀand D. Salamon, Introduction to Symplectic Topology, Oxford University Press, 1995.
+[65] W. Menasco, On iterated torus knots and transversal knots, Geom. Topol. 5 (2001), 651–682.
+[66] W. Menasco, Erratum to: On iterated torus knots and transversal knots, in preparation.
+
+===== PDFPAGE 58 =====
+58
+JOHN B. ETNYRE
+[67] K. Michatchev, Invariants of Legendrian and Transversal Links, Stanford PhD Thesis 2001.
+[68] K. Mohnke, Legendrian links of topological unknots, Contemp. Math., 279, Amer. Math. Soc., Providence,
+RI, 2001, 209–211.
+[69] H. Morton, Seifert circles and knot polynomials, Math. Proc. Cambridge Philos. Soc. 99 (1986), no. 1,
+107–109.
+[70] L. Ng, Knot and braid invariants from contact homology, (www.arxiv.org/abs/math.GT/0302099).
+[71] L. Ng, Knot and braid invariants from contact homology II, (www.arxiv.org/abs/math.GT/0303343).
+[72] L. Ng, Framed knot contact homology, (www.arxiv.org/abs/math.GT/0407071).
+[73] L. Ng, Computable Legendrian invariants, Topology 42 (2003), no. 1, 55–82.
+[74] L. Ng, Maximal Thurston-Bennequin number of two-bridge links. Algebr. Geom. Topol. 1 (2001), 427–434.
+[75] S. Orevkov and V. Shevchishin, Markov Theorem for Transverse Links, J. Knot Theory Ramiﬁcations 12
+(2003), no. 7, 905–913.
+[76] D. Rolfsen, Knots and Links, Mathematics Lecture Series 7 (1976), Publish or Perish Inc.
+[77] L. Rudolph, A congruence between link polynomials, Math. Proc. Cambridge Philos. Soc. 107 (1990), no. 2,
+319–327.
+[78] L. Rudolph, An obstruction to sliceness via contact geometry and “classical” gauge theory, Invent. Math.
+119 (1995), 155–163.
+[79] J. Sabloﬀ, Augmentations and Rulings of Legendrian Knots, (www.arxiv.org/abs/math.SG/0409032).
+[80] J. Sabloﬀ, Invariants of Legendrian Knots in Circle Bundles, Commun. Contemp. Math. 5 (2003), no. 4,
+569–627.
+[81] J. Swiatkowski, On the isotopy of Legendrian knots, Ann. Glob. Anal. Geom. 10 (1992), 195–207.
+[82] S. Tabachnikov, An invariant of a submanifold that is transversal to a distribution, (Russian) Uspekhi Mat.
+Nauk 43 (1988), no. 3(261),193–194 translation in Russian Math. Surveys 43 (1988), no. 3, 225–226.
+[83] S. Tabachnikov, Estimates for the Bennequin number of Legendrian links from state models for knot poly-
+nomials, Math. Res. Lett. 4 (1997), no. 1, 143–156.
+[84] V. Tchernov, Vassiliev invariants of Legendrian, transverse, and framed knots in contact three-manifolds,
+Topology 42 (2003), no. 1, 1–33.
+[85] N. Wrinkle, The Markov Theorem for transverse knots, (www.arxiv.org/abs/math.GT/0202055).
+University of Pennsylvania, Philadelphia, PA 19104
+E-mail address: etnyre@math.upenn.edu
+URL: http://www.math.upenn.edu/~etnyre

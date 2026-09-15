@@ -1,0 +1,165 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "canonical-tree-far-output-technical-review-20260911",
+  "sealed_utc": "2026-09-12T00:22:43.753428+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "provider": "OpenAI",
+    "product": "Codex",
+    "model_relationship": "Same currently available model as the root implementer; no stronger-model review performed.",
+    "exact_serving_model_identifier": "Not independently exposed in this session.",
+    "authored_reviewed_bodies": false
+  },
+  "scope": {
+    "group": "CanonicalTreeFarOutput",
+    "declarations": [
+      "SM.canonicalPolynomial_half",
+      "SM.IntervalComposition.tripleOrdinaryWeight_nearFar",
+      "SM.IntervalComposition.tripleRootWeight_nearFar",
+      "SM.canonicalTreePolynomial_farOnly",
+      "SM.eval_canonicalTreePolynomial_farOnly"
+    ],
+    "source_id": "cor:polyform",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "source_lines": "934-984, particularly 946-970; dependent source lem:farout 146-168 and lem:multiaffine 714-746"
+  },
+  "assessment": "No technical defect found in the exact reviewed statements and proofs within this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel": false,
+    "reviewer_ran_build_or_audit": false,
+    "reviewed_bodies_modified": false,
+    "root_kernel_session": 15687,
+    "root_exit_code": 0,
+    "first_run_passed": true
+  },
+  "evidence": {
+    "receipt_path": "work/checks/CanonicalTreeFarOutput-prototype-result.json",
+    "receipt_sha256": "8447af8da2c6c59f6aec7de82fa40080cbea0a5b1444a33e8fea9e6486f55490",
+    "all_receipt_hashes_matched": true,
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/FormalOrderedChi.body.lean": "1df0e2ad12df3d28dc32318201fe2a786eb880fe56ea2fff374f7fc3f2d3ebe6",
+      "work/checks/CompositionTripleSupports.body.lean": "c6600e67a028ccffb28c0aae1d02e782b689f24e823ddd3a49b297e0cb069cff",
+      "work/checks/FormalTriplePolynomial.body.lean": "138f5620027a3be64bbaed123b2a8ef6723b50fe6911bd4b2f6cf06a8b6c2d84",
+      "work/checks/NearFarRingMaps.body.lean": "7a5aaadbc1a8041a39f316fb825632afd3493d892e0722fc32defd8fc64c8f16",
+      "work/checks/SilentFarPolynomial.body.lean": "46ce117365d9aa9b3f262c215a50a73bde1f4c4939fd2eeb9aed64051a876fe0",
+      "work/checks/FormalNearFarRecursion.body.lean": "cb09942ff8dd58949c85ff68239e441c17f132aa94b6d54810c50834738e2666",
+      "work/checks/CanonicalTreeFarOutput.body.lean": "a8db84464fabbfe8160d9d3db54a3ee260ccc669bb6c5ad59a3d02de9a64ca3d",
+      "work/checks/CanonicalTreeFarOutput.prototype.lean": "4bd88ff70fb75d3a979d8cb9003be4bbd234f866bea52f60b203996202ca50ae",
+      "work/checks/CanonicalTreeFarOutput-first-kernel.log": "52d5db2e7e34b5ad2f0e1807844a75e9f245c05047ab508ad0682db5772ada1c"
+    },
+    "exact_body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/FormalOrderedChi.body.lean": 1,
+      "work/checks/CompositionTripleSupports.body.lean": 1,
+      "work/checks/FormalTriplePolynomial.body.lean": 1,
+      "work/checks/NearFarRingMaps.body.lean": 1,
+      "work/checks/SilentFarPolynomial.body.lean": 1,
+      "work/checks/FormalNearFarRecursion.body.lean": 1,
+      "work/checks/CanonicalTreeFarOutput.body.lean": 1
+    },
+    "requested_declaration_axioms_verified_from_log": {
+      "SM.canonicalPolynomial_half": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.tripleOrdinaryWeight_nearFar": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.tripleRootWeight_nearFar": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalTreePolynomial_farOnly": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_canonicalTreePolynomial_farOnly": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "passing_log_forbidden_error_or_axiom_hits": [],
+    "canonical_definitions_read_sha256": {
+      "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+      "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+      "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+      "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/PlaneTreeFormal.lean": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9"
+    }
+  },
+  "source_declaration_header_bindings": {
+    "canonicalPolynomial_half": {
+      "source_header": "theorem canonicalPolynomial_half :\n    (MvPolynomial.C (1 / 2 : ℚ) : MvPolynomial (IncreasingBoundaryTriple n) ℚ) =\n      ⅟ (2 : MvPolynomial (IncreasingBoundaryTriple n) ℚ)",
+      "sha256": "249e24bb7d95269b5949644b891e7bdda739ec416a20a3725875567d3d93d53b"
+    },
+    "tripleOrdinaryWeight_nearFar": {
+      "source_header": "theorem tripleOrdinaryWeight_nearFar (g : ZMod n) :\n    π.tripleOrdinaryWeight g = π.nearFarWeight (formalBoundaryChi g) (formalBoundaryChi g)",
+      "sha256": "2a5acefa593db9c7116ea417c05b6259ae99006143b60696a814823e5bd0736c"
+    },
+    "tripleRootWeight_nearFar": {
+      "source_header": "theorem tripleRootWeight_nearFar (g : ZMod n) :\n    π.tripleRootWeight g = π.nearFarWeight (formalBoundaryChi g) (-formalBoundaryChi g)",
+      "sha256": "bece7eac1a61e6362e7fba2e978a2bd759fd8878dcd58f89f7c653c8cd1b1684"
+    },
+    "canonicalTreePolynomial_farOnly": {
+      "source_header": "theorem canonicalTreePolynomial_farOnly (g : ZMod n) (hn : 3 ≤ n) :\n    canonicalTreePolynomial g hn = farOnlyOutput (formalBoundaryChi g) (fullBoundaryInterval hn)",
+      "sha256": "91a4deecd87f66f1cf8aab53e746d355601cd066ed033c18d9228c6b095eabf5"
+    },
+    "eval_canonicalTreePolynomial_farOnly": {
+      "source_header": "theorem eval_canonicalTreePolynomial_farOnly (P : LabelledTuple n) (g : ZMod n)\n    (hn : 3 ≤ n) :\n    MvPolynomial.eval (canonicalTripleValue P) (canonicalTreePolynomial g hn) =\n      farOnlyOutput (geometricBoundaryArray (R",
+      "sha256": "a8351c4149073374c2210e56907a08b86f41e363c5733e6bd3af8f92a7259bbc"
+    }
+  },
+  "findings": [
+    {
+      "topic": "Half normalization and exact full gate products",
+      "finding": "canonicalPolynomial_half transports the actual inverse of 2 through the rational constant ring map; the polynomial-ring Invertible 2 instance is already proved. The two weight identities unfold products over every k : Fin (parts-1). Each ordinary factor is the prescribed half-difference of the actual near/far entries; each root factor is the prescribed half-sum, obtained by negating the whole H array. Commutativity only moves the half scalar. Fin 0 products remain 1 for unary compositions; binary factors retain their existing exact definitions."
+    },
+    {
+      "topic": "Unrestricted polynomial identity and physical root",
+      "finding": "canonicalTreePolynomial_farOnly is an equality in MvPolynomial (IncreasingBoundaryTriple n) rationals before evaluation. It rewrites the actual rooted recursion weights, then invokes the arbitrary-ring FormalNearFarRecursion result. formalBoundaryChi g is the reverse order upper,middle,lower in boundaryIndex g k = g+k+1, expressed as a fixed signed canonical physical-triple variable. Arbitrary g is retained, with fullBoundaryInterval 0 to n-1 for every hn : 3 <= n, including n=3. No root-independence claim or root restriction is inserted."
+    },
+    {
+      "topic": "Same polynomial as the source tree sum",
+      "finding": "The frozen FormalTriplePolynomial definition uses the complete actual cut products in rootedTreeRec and already proves equality to the signed finite rooted-tree sum. Canonical PlaneTreeFormal proves ring-map evaluation of the independent gate-variable recursion. Thus the reviewed identities implement the source cut-factor specialization in the unrestricted rational polynomial ring, without using equality on realizable chirotopes as a polynomial identity argument."
+    },
+    {
+      "topic": "All-tuple evaluation, including simultaneous zeros",
+      "finding": "eval_canonicalTreePolynomial_farOnly quantifies over arbitrary LabelledTuple P, with no G1 or WeakGeneric premise. map_farOnlyOutput transports the complete inverse and reversed output through polynomial evaluation; eval_formalBoundaryChi identifies the entire evaluated array with the actual rational geometricBoundaryArray. This covers repeated/zero actual signs through the previously proved signed-order evaluation and does not evaluate ordinaryGate, rootGate, or Theta at zero."
+    },
+    {
+      "topic": "Exact source scope",
+      "finding": "These five declarations establish the canonical formal output and its all-tuple far-only evaluation used in cor:polyform lines 946–970. They do not yet establish freezing of all initially nonzero canonical variables, constancy in the remaining variables, or identification with the chamber continuation. No standalone homomorphism with codomain the dyadic subring Z[1/2][X] is exported here; the required identity is proved directly in the source unrestricted rational polynomial ring using the exact dyadic half factors."
+    }
+  ],
+  "limits": [
+    "This is a technical/source comparison by another agent of the same currently available model, NOT the stronger-model statement-fidelity approval requested by the user.",
+    "Receipt matching and prior kernel success are evidence of the exact checked artifacts, not by themselves source fidelity or acceptance.",
+    "No original source row, stage, or corner-law target is accepted by this report."
+  ],
+  "authorship_disclosure": "The reviewer authored the older embedded CompositionTripleSupports dependency; root independently reviewed that dependency. The reviewer did not author either body reviewed here. This report does not present self-review of the inherited combinatorial construction as independent evidence.",
+  "inherited_review_sha256": {
+    "work/reviews/composition-triple-supports-technical-review-20260911.md": "1873942067abdb990d28a5cd1b646ef0cf43d3379508a4201e08dd8a5d5e9355",
+    "work/reviews/formal-ordered-chi-and-tree-polynomial-technical-review-20260911.md": "466b1f310c4e1ea91d653acbe0a211d93d37aabeaaccb3d3673e0d79388367f9",
+    "work/reviews/near-far-ring-maps-technical-review-20260911.md": "06b3c12b6e19e777e858c5a0e0bdc475235812dbc797cc771a8030e4c9611047",
+    "work/reviews/silent-far-polynomial-technical-review-20260911.md": "8440ec15c6e6862a45522cd9bd2228ce5327b31ffaa837393b463889e671912f"
+  }
+}

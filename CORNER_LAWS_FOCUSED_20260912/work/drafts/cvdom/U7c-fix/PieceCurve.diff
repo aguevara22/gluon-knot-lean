@@ -1,0 +1,243 @@
+--- work/lean/CV/PieceCurve.lean	2026-09-14 04:34:28.000000000 +0000
++++ work/drafts/cvdom/U7c-fix/PieceCurve.lean	2026-09-14 05:21:34.000000000 +0000
+@@ -4,6 +4,16 @@
+ 
+ 
+ /-! Ported 2026-09-14 04:34Z from work/drafts/cvdom/U7c/CVPieceCurve.lean (CV-DOM unit U7c, report work/drafts/cvdom/U7c/REPORT.md; DECISION_FINAL.md §5/§7): rows CV:def:piecediagram (142, `CV.piecediagram_definition`, bundle PieceDiagramData) and CV:lem:piececurve (143, `CV.piececurve`, bundle PieceCurveData). Only this header added. -/
++/-! Repaired 2026-09-14 (unit U7c-fix, report work/drafts/cvdom/U7c-fix/REPORT.md), row 143 only: the
++review of `CV.piececurve` (NOT FAITHFUL, two refuters) found that the printed last sentence "the datum of
++Definition def:piecediagram is the datum of `C_H`" (d1:608–609) names a word TOGETHER WITH a rotation
++system (d1:577–585; proof d1:664–666) and that `PieceCurveData` rendered only the word. `PieceCurveData`
++now has the field `rotation_system` (the second half of the datum) and its field `realizable` is a
++crossing-point-preserving bijection instead of a bare `Nonempty (_ ≃ _)`; the supporting lemmas
++`cornerPolygon_edge_of_crossingPoint_mem`, `pieceShadow_strand_dir`, `pieceShadow_rotationSystem`,
++`pieceShadowCrossingEquiv_crossingPoint` are new (§6). Every other declaration of the module — in
++particular row 142 (`PieceDiagramData`, `piecediagram_definition`) and everything `CV/X1.lean` uses — is
++byte-identical to the 04:34Z port. -/
+ /-! # CV:lem:piececurve (row 143) and CV:def:piecediagram (row 142) on the accepted geo carrier layer
+ 
+ CV-DOM unit **U7c** (work/drafts/cvdom/DECISION_FINAL.md §0 option (C), §2 fidelity and the three
+@@ -78,6 +88,40 @@
+ determined only up to that choice in the text as well; every admissible terminal `K` yields a curve
+ with double points exactly `H` and Gauss word the parent word restricted to `H`.
+ 
++## The datum of def:piecediagram, both halves (row 143, last printed sentence; U7c-fix)
++
++def:piecediagram (d1:577–585) fixes what "erased" means: the evaluator "builds a piece's datum as the
++parent Gauss word restricted to the crossings of `H`, in the parent's cyclic order, together with the
++parent's per-crossing counter-clockwise half-edge order restricted to the surviving half-edges … So the
++datum is a word *together with a rotation system*, not a bare word". lem:piececurve ends (d1:608–609)
++"In particular that restricted word is realizable, and the datum of Definition def:piecediagram is the
++datum of `C_H`", and its proof closes (d1:664–666) "Its rotation system at each surviving crossing is the
++carrier's, which is the parent's, since smoothing at other points does not disturb the half-edge order at
++a survivor; that is the second half of the datum." The clause map of `PieceCurveData` for this sentence:
++
++* **first half, the word — `realizable`:** `∃ e : (pieceShadow …).Crossing ≃ {c // c ∈ H}, ∀ x,
++  crossingPoint x = crossingPoint (e x)` — the double points of the actual closed curve `C_H` are the
++  crossings of `H`, each sitting at the parent's crossing point (not merely a cardinality statement:
++  the bijection is the one that identifies the double point of `C_H` with the parent crossing it *is*);
++  together with `gauss_word` this is "that restricted word is realizable". Proof:
++  `pieceShadowCrossingEquiv` (U4 `geoCarrierCrossingEquiv` ∘ `pieceCarrier_geoCarrierCrossings`) and
++  `pieceShadowCrossingEquiv_crossingPoint` (U4 `crossingPoint_geoCarrierCrossingEquiv`).
++* **second half, the rotation system — `rotation_system`:** for every surviving crossing `c ∈ H` and
++  every double point `x` of the shadow of `C_H` at `crossingPoint c`, a bijection
++  `e : {s // s ∈ x.val} ≃ {i // i ∈ c.val}` between the two strands of `C_H` through `x` and the two
++  parent edges of `c` with `dir s = t • edge P (e s)`, `t > 0`: each strand of `C_H` at the survivor is
++  directed along the parent edge it survives from. The four half-edges of `C_H` at `x` (the two
++  strands, each entering and leaving `x`) are therefore the parent's four half-edges at `c` with the
++  same directions, so their counter-clockwise order is the parent's — "the carrier's, which is the
++  parent's" — restricted to `H`. Proof (`pieceShadow_rotationSystem`): U2b `geoCornerPolygon_edge_smul`
++  (every edge of the corner polygon is a positive multiple of the parent edge of its block), the block
++  parametrisation `geo_edgeSegment_param` and U2c `geo_carrier_crossingPoint_parameters` (a carrier
++  passes through `crossingPoint c` exactly at the visits of `c`), `GeoBlockInterior.visit_edge` (an
++  interior block mark lies on the block's parent edge) and `geo_carrier_selfIntersection_not_corner`
++  (no crossing point is a corner) give `cornerPolygon_edge_of_crossingPoint_mem`; injectivity of
++  strand ↦ edge is U4's transversality `pieceShadow_generic.transverse` (two strands along one parent
++  edge would be parallel), and the two-element counts make it a bijection.
++
+ ## Tiers
+ 
+ §1–§5 (the support, the carrier, the words) are tier 0 (`hP : CrossingGeometry P`); the geometric
+@@ -85,7 +129,8 @@
+ through U2b/U2c/U4. No tier-2 fact (`WeakGeneric`) is used anywhere: the rows stay on the printed
+ `Diagrammatic` binder.
+ 
+-Checked with `cd work/lean && lake env lean ../drafts/cvdom/U7c/CVPieceCurve.lean`. -/
++Checked with `cd work/lean && lake env lean ../drafts/cvdom/U7c/CVPieceCurve.lean` (04:34Z port) and, for the
++U7c-fix repair of row 143, `cd work/lean && lake env lean ../drafts/cvdom/U7c-fix/PieceCurve.lean`. -/
+ 
+ namespace CV
+ 
+@@ -476,6 +521,113 @@
+     (pieceCarrier hD hS H)).trans
+     (Equiv.subtypeEquivRight fun c => by rw [pieceCarrier_geoCarrierCrossings hD hS H])
+ 
++/-- The bijection `pieceShadowCrossingEquiv` preserves the crossing point: every double point of the
++shadow of `C_H` sits at the crossing point of the crossing of `H` it corresponds to (U4
++`crossingPoint_geoCarrierCrossingEquiv`; the transport along `pieceCarrier_geoCarrierCrossings` keeps the
++underlying crossing). -/
++theorem pieceShadowCrossingEquiv_crossingPoint (x : (pieceShadow hn hD hS H).Crossing) :
++    (pieceShadow hn hD hS H).crossingPoint x =
++      crossingPoint (pieceShadowCrossingEquiv hn hD hS H x).1 :=
++  (crossingPoint_geoCarrierCrossingEquiv hn (CarrierGeometry.ofDiagrammatic hD)
++    (pieceSupport_geoIndependent hD hS H) (pieceCarrier hD hS H) x).symm
++
++include hn in
++/-- **An edge of a corner polygon through a crossing point is directed along a parent edge of that
++crossing** (tier 1; U7c-fix). If the crossing point of a crossing `c` of the carrier `q` of an
++independent `T` lies on the edge `k` of the corner polygon `Q` of `q`, then `edge Q k = t • edge P i`
++with `t > 0` and `i` one of the two parent edges of `c`. U2b `geoCornerPolygon_edge_smul` gives the
++parent edge of the block of `k` (the outgoing slot of the corner `c_k`); the crossing point is traced on
++the edge `k` at a block parameter `(ρ_T^r c_k, u)` (`geo_edgeSegment_param`) which U2c
++`geo_carrier_crossingPoint_parameters` identifies as `(w, 0)` for a visit `w` of `c`; `r ≠ 0` because
++`c` is unselected and `c_k` is a true corner, so `w` is an interior block mark and lies on the block's
++parent edge (`GeoBlockInterior.visit_edge`); the end corner `Q (k+1)` is excluded because no crossing
++point is the plane point of a true corner (`geo_carrier_selfIntersection_not_corner`). -/
++theorem cornerPolygon_edge_of_crossingPoint_mem (hG : CarrierGeometry P)
++    {T : Finset (Crossing P)} (hT : GeoIndependent hG.cg T) (q : GeoComponent hG.cg T)
++    {c : Crossing P} (hc : c ∈ geoCarrierCrossings hG.cg T q) (k : ZMod (geoCornerCount hG.cg T q))
++    (hk : crossingPoint c ∈ edgeSegment (geoCornerPolygon hG.cg T q) k) :
++    ∃ i ∈ c.val, ∃ t : ℝ, 0 < t ∧ edge (geoCornerPolygon hG.cg T q) k = t • edge P i := by
++  obtain ⟨t, ht, hedge⟩ := geoCornerPolygon_edge_smul hn hG.cg hT q k
++  refine ⟨(geoOutSlot hG.cg T (geoCornerMark hG.cg T q k)).1, ?_, t, ht, hedge⟩
++  have hcS : c ∉ T := ((mem_geoCarrierCrossings hG.cg T q c).mp hc).1
++  rcases geo_edgeSegment_param hn hG.cg hT q k hk with ⟨r, u, hu0, hu1, hb, hx⟩ | hx
++  · -- the crossing point is traced at a block parameter of the edge `k`: a visit `w` of `c`
++    obtain ⟨w, hw, -, hp⟩ := (geo_carrier_crossingPoint_parameters hn hG T q c _).mp
++      ⟨geoIsCarrierParameter_block hG.cg T q k r hu0 hu1, hx⟩
++    have hmark : (geoSmoothingSuccessor hG.cg T ^ r) (geoCornerMark hG.cg T q k) = Sum.inr w :=
++      congrArg Prod.fst hp
++    have hr : 1 ≤ r := by
++      by_contra h
++      have hr0 : r = 0 := by omega
++      rw [hr0, pow_zero, Equiv.Perm.one_apply] at hmark
++      have hcorner := isTrueCorner_geoCornerMark hG.cg T q k
++      rw [hmark] at hcorner
++      exact hcS (hw ▸ (isTrueCorner_visit T w).mp hcorner)
++    rw [← hb.visit_edge hG.cg T q hr hmark, ← hw]
++    exact w.2.property
++  · -- the crossing point is the end corner `Q (k+1)`: impossible, no crossing point is a corner
++    exfalso
++    rw [geoCornerPolygon_apply] at hx
++    exact (geo_carrier_selfIntersection_not_corner hG T q hc).2.2.2 _
++      (isTrueCorner_geoCornerMark hG.cg T q (k + 1)) hx.symm
++
++/-- Each strand of a double point `x` of the shadow of `C_H` lying at the crossing point of `c ∈ H` is
++directed along one of the two parent edges of `c`, with a positive factor
++(`cornerPolygon_edge_of_crossingPoint_mem` at `q_H`, through `pieceCarrier_geoCarrierCrossings`). -/
++theorem pieceShadow_strand_dir {c : Crossing P} (hc : c ∈ pieceLabels hD.crossingGeometry S H)
++    (x : (pieceShadow hn hD hS H).Crossing)
++    (hx : (pieceShadow hn hD hS H).crossingPoint x = crossingPoint c)
++    {s : (pieceShadow hn hD hS H).Strand} (hs : s ∈ x.val) :
++    ∃ i ∈ c.val, ∃ t : ℝ, 0 < t ∧ (pieceShadow hn hD hS H).dir s = t • edge P i := by
++  have hc' : c ∈ geoCarrierCrossings hD.crossingGeometry (S ∪ pieceSupport hD hS H)
++      (pieceCarrier hD hS H) := by
++    rw [pieceCarrier_geoCarrierCrossings hD hS H]
++    exact hc
++  have hk : crossingPoint c ∈ edgeSegment
++      (geoCornerPolygon hD.crossingGeometry (S ∪ pieceSupport hD hS H) (pieceCarrier hD hS H)) s.2 := by
++    rw [← hx]
++    exact (pieceShadow hn hD hS H).crossingPoint_mem x hs
++  exact cornerPolygon_edge_of_crossingPoint_mem hn (CarrierGeometry.ofDiagrammatic hD)
++    (pieceSupport_geoIndependent hD hS H) (pieceCarrier hD hS H) hc' s.2 hk
++
++/-- **The rotation system of `C_H` at a surviving crossing is the parent's** (d1:664–666 "Its rotation
++system at each surviving crossing is the carrier's, which is the parent's, since smoothing at other
++points does not disturb the half-edge order at a survivor"): at a double point `x` of the shadow of
++`C_H` lying at the crossing point of `c ∈ H`, the two strands of `x` correspond bijectively to the two
++parent edges of `c`, each strand directed along its parent edge with a positive factor. Injectivity of
++strand ↦ parent edge is the transversality of the generic shadow (two strands along the same parent edge
++would have `det = 0`); both sides have two elements. -/
++theorem pieceShadow_rotationSystem {c : Crossing P} (hc : c ∈ pieceLabels hD.crossingGeometry S H)
++    (x : (pieceShadow hn hD hS H).Crossing)
++    (hx : (pieceShadow hn hD hS H).crossingPoint x = crossingPoint c) :
++    ∃ e : {s // s ∈ x.val} ≃ {i // i ∈ c.val},
++      ∀ s : {s // s ∈ x.val}, ∃ t : ℝ, 0 < t ∧
++        (pieceShadow hn hD hS H).dir s.1 = t • edge P (e s).1 := by
++  let f : {s // s ∈ x.val} → {i // i ∈ c.val} := fun s =>
++    ⟨Classical.choose (pieceShadow_strand_dir hn hD hS H hc x hx s.2),
++      (Classical.choose_spec (pieceShadow_strand_dir hn hD hS H hc x hx s.2)).1⟩
++  have hf : ∀ s : {s // s ∈ x.val}, ∃ t : ℝ, 0 < t ∧
++      (pieceShadow hn hD hS H).dir s.1 = t • edge P (f s).1 :=
++    fun s => (Classical.choose_spec (pieceShadow_strand_dir hn hD hS H hc x hx s.2)).2
++  have hinj : Function.Injective f := by
++    intro s s' hss'
++    by_contra hne
++    have hne' : s.1 ≠ s'.1 := fun h => hne (Subtype.ext h)
++    obtain ⟨hna, hmeet⟩ := (pieceShadow hn hD hS H).crossing_pair_spec x s.2 s'.2 hne'
++    have hdet := (pieceShadow_generic hn hD hS H).transverse s.1 s'.1 hna hmeet
++    obtain ⟨t, -, ht⟩ := hf s
++    obtain ⟨t', -, ht'⟩ := hf s'
++    apply hdet
++    rw [ht, ht', hss']
++    simp only [det, Prod.smul_fst, Prod.smul_snd, smul_eq_mul]
++    ring
++  have hbij : Function.Bijective f := by
++    rw [Fintype.bijective_iff_injective_and_card]
++    refine ⟨hinj, ?_⟩
++    rw [Fintype.card_coe, Fintype.card_coe, (pieceShadow hn hD hS H).crossing_card_two x,
++      SM.crossing_card_two c]
++  exact ⟨Equiv.ofBijective f hbij, hf⟩
++
+ end PieceCurveGeometry
+ 
+ /-! ## 7. Row 143 — CV:lem:piececurve (d1_setup.tex:592–611), the bundle -/
+@@ -488,7 +640,10 @@
+ /-- CV:lem:piececurve (d1_setup.tex:592–611) as printed, one field per printed sentence, on the printed
+ binder `hD : Diagrammatic P`, `S ∈ Ind(G_P)`, `H` a residual piece of `S`. `C_H` is `pieceCurve hD hS H`,
+ the corner polygon of the carrier `pieceCarrier` of `S ∪ pieceSupport` (reading (ii)); `hn : 3 ≤ n` is
+-carried for the geometric clauses only (reading (iii), §5 shape `CV.piececurve (hn) …`). -/
++carried for the geometric clauses only (reading (iii), §5 shape `CV.piececurve (hn) …`). The last printed
++sentence (d1:608–609) names the datum of def:piecediagram, "a word together with a rotation system"
++(d1:577–585); it is rendered by two fields, `realizable` (the word) and `rotation_system` (the rotation
++system), see the module docstring's clause map (U7c-fix). -/
+ structure PieceCurveData : Prop where
+   /-- "smooth every crossing of `S` — of `S` *only* — so that the curve falls into the `|S|+1` carriers
+   of `S`" (lem:carriers (i)) -/
+@@ -538,10 +693,32 @@
+       (geometricGaussList hD.crossingGeometry).filter
+         (fun v : Visit P => decide (v.1 ∈ pieceLabels hD.crossingGeometry S H))
+   /-- "In particular that restricted word is realizable, and the datum of Definition def:piecediagram is
+-  the datum of `C_H`": the restricted word is read off an actual closed plane curve — the double points
+-  of the shadow of `C_H` are in bijection with `H` -/
+-  realizable : Nonempty ((pieceShadow hn hD hS H).Crossing ≃
+-    {c : Crossing P // c ∈ pieceLabels hD.crossingGeometry S H})
++  the datum of `C_H`" — the **first half of the datum, the word** (d1:577–580 "the parent Gauss word
++  restricted to the crossings of `H`, in the parent's cyclic order"): the restricted word is read off an
++  actual closed plane curve — the double points of the shadow of `C_H` are in bijection with `H`, each
++  double point of the shadow sitting at the crossing point of the crossing of `H` it corresponds to -/
++  realizable : ∃ e : (pieceShadow hn hD hS H).Crossing ≃
++      {c : Crossing P // c ∈ pieceLabels hD.crossingGeometry S H},
++    ∀ x : (pieceShadow hn hD hS H).Crossing,
++      (pieceShadow hn hD hS H).crossingPoint x = crossingPoint (e x).1
++  /-- "and the datum of Definition def:piecediagram is the datum of `C_H`" — the **second half of the
++  datum, the rotation system** (d1:580–585: "together with the parent's per-crossing counter-clockwise
++  half-edge order restricted to the surviving half-edges … So the datum is a word *together with a
++  rotation system*, not a bare word"; proof d1:664–666: "Its rotation system at each surviving crossing
++  is the carrier's, which is the parent's, since smoothing at other points does not disturb the
++  half-edge order at a survivor; that is the second half of the datum"): at every surviving crossing
++  `c ∈ H`, the two strands of `C_H` through `crossingPoint c` are the two parent edges of `c` — for the
++  double point `x` of the shadow of `C_H` at `crossingPoint c`, a bijection between the strands of `x`
++  and the two edges of `c` under which each strand is directed along its parent edge with a positive
++  factor (`dir s = t • edge P i`, `t > 0`). Hence the four half-edges of `C_H` at `x` are the parent's
++  four half-edges at `c`, in the same counter-clockwise order: the parent's rotation system at `c`,
++  restricted to `H` -/
++  rotation_system : ∀ c ∈ pieceLabels hD.crossingGeometry S H,
++    ∀ x : (pieceShadow hn hD hS H).Crossing,
++      (pieceShadow hn hD hS H).crossingPoint x = crossingPoint c →
++        ∃ e : {s // s ∈ x.val} ≃ {i // i ∈ c.val},
++          ∀ s : {s // s ∈ x.val}, ∃ t : ℝ, 0 < t ∧
++            (pieceShadow hn hD hS H).dir s.1 = t • edge P (e s).1
+ 
+ /-- **Row 143, CV:lem:piececurve** (d1_setup.tex:592–611), on the printed binder. -/
+ theorem piececurve : PieceCurveData hn hD S hS H where
+@@ -554,7 +731,8 @@
+   double_points := ⟨pieceCarrier_geoCarrierCrossings hD hS H, pieceCurve_selfIntersections hn hD hS H⟩
+   gauss_word := ⟨pieceSupport_inheritsMarkOrder hD hS H, pieceCarrier_traced hD hS H,
+     pieceCarrier_gaussWord hD hS H⟩
+-  realizable := ⟨pieceShadowCrossingEquiv hn hD hS H⟩
++  realizable := ⟨pieceShadowCrossingEquiv hn hD hS H, pieceShadowCrossingEquiv_crossingPoint hn hD hS H⟩
++  rotation_system := fun _ hc x hx => pieceShadow_rotationSystem hn hD hS H hc x hx
+ 
+ end PieceCurveRow
+ 

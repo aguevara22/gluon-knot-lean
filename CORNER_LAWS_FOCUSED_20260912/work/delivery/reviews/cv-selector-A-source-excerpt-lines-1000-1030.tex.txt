@@ -1,0 +1,31 @@
+its cycle becomes. (b): both arcs incident to such a corner lie strictly
+inside its interval --- a corner is not a boundary half-edge --- and the cut
+alters the curve only at the two contact stretches, so the incoming and
+outgoing directions are unchanged as an ordered pair. (c): the principal turn
+is a function of that ordered pair, so it is unchanged in magnitude and sign.
+(d): the corner $M$ of $L^{*}$ lies on the cut itself; the two closing
+sub-segments of Definition~\ref{def:halves} give $L_1$ and $L_2$ one new
+corner each at the contact, the ones Lemma~\ref{lem:contactturnboth} computes,
+and no other corner is created, the closing sub-segments being straight. Hence
+$c(L_1)+c(L_2)=(c(L^{*})-1)+2$. (e): a non-distinguished carrier is untouched
+by the cut --- its cycle lies inside one interval --- so its matched half
+carrier has literally the same corner set with the same pairs and turns, by
+(a)--(c); equal turn-sign lists give equal uniformity status
+(Definition~\ref{def:wind}); and $L^{*}$'s data pass to $(L_1,L_2)$ by
+(a)--(d).
+\end{proof}
+
+\begin{lemma}[minimum carrier corners and selector identities]\label{lem:selectorid}
+\begin{enumerate}
+\item[(A)] Under the guards of Definition~\ref{def:generic}(A), every carrier of every
+support has at least three corners.
+\item[(B)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible, with parts $T_A,T_B$. Write $P_{\mathrm L}$ and
+$P_{\mathrm H}$ for the low and high chambers of the event --- upright
+subscripts, since the italic $P_H$ already names the polynomial of a residual
+piece $H$ (Corollary~\ref{cor:groupedknot}(B)), and an earlier revision wrote
+$\wind_{P_H}$ with the two collided. Write $W_T=\wind_{P_{\mathrm H}}(T)$,
+$W_1=\wind_{\lambda_1}(T_A)$ and $W_2=\wind_{\lambda_2}(T_B)$, each with its
+argument and its ambient polygon. Let $s_{\mathrm{low}}$ be the sign \eqref{eq:S6} evaluated with $P_-$ taken to
+be the \emph{low} chamber of the event --- the sign of
+$\det(p_b-p_a,\,p_M-p_a)$ there --- which is a datum of the event and of the

@@ -1,0 +1,32 @@
+\begin{corollary}[flat carrier data]\label{cor:flat-carriers}
+Under the hypotheses of Lemma~\ref{lem:flat-sides}, fix an independent
+set $S$ in the common interlacement graph and form the carriers of $S$ on
+both sides, at the centre and on the deletion
+(Definition~\ref{def:flat-carriers}). Then:
+\begin{enumerate}
+\item[(i)] The carriers correspond under their named traversal arcs.
+Exactly one contains $\mu_j$. The central copy of that carrier differs
+from its deletion copy only by the positive-flat subdivision at $\mu_j$;
+every other central carrier is unchanged by deletion. Every carrier
+has nonzero segments and no antiparallel corner; except for that one
+central zero turn, all corner turns are nonzero.
+\item[(ii)] Corresponding carriers have the same retained self-crossing
+visits, pairing, signs and positive over/under bits. They have the same
+signed rotation and hence the same absolute rotation. Every corresponding
+corner away from $\mu_j$ has the same turn sign on both sides and in
+the deletion. The extra corner at $\mu_j$ is right on the right side
+and left on the left side.
+\item[(iii)] Define a carrier's selector to be $1$ if all its turns are
+right, $(-1)^c$ if all its $c$ turns are left, and $0$ if its turns are
+mixed. For the carrier through $\mu_j$, let $W_{\rm right}$,
+$W_{\rm left}$, and $W_{\rm del}$ be these selectors on the two sides
+and on the deletion. Then
+\begin{equation}\label{flatpr:selector-identity}
+W_{\rm right}-W_{\rm left}=W_{\rm del}.
+\end{equation}
+All other corresponding carrier selectors agree.
+\end{enumerate}
+These assertions concern geometric and combinatorial carrier data.
+They make no assignment of a state-sum value at the flat centre.
+\status{proved (refereed: bench A, 2026-09-05T23:45:25Z; transcribed from CV lem:flatdata, carrier data (P-25-3, C007); round~3: the carriers are those of Definition~\ref{def:flat-carriers}, F-25-102; round~4: clause~(ii)'s rotation sentence covers the centre copy as well, which CV lem:flatdata(iv) omits --- a broadening of this document, refereed sound by bench~A (F-25-141))}
+\end{corollary}

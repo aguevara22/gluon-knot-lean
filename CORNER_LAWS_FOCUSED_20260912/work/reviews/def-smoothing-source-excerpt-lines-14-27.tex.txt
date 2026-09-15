@@ -1,0 +1,14 @@
+\begin{definition}[oriented smoothing and subpolygons]\label{def:smoothing}
+Let $S\in\Ind(G_P)$. Cutting the traversal circle $\Gamma(P)$ at the two
+visits of each $x\in S$ and reconnecting the arc arriving at one visit of $x$
+to the arc leaving the other visit of $x$ (for both visits) partitions
+$\Gamma(P)$ into closed cycles; the \emph{subpolygons} (or \emph{carriers})
+of $S$ are the closed polygonal curves in $\RR^2$ traced by these cycles. Each
+subpolygon $Q$ is a closed polygon whose corners are the vertices of $P$ it
+passes through and the crossing points of $S$ it turns at (its
+\emph{smoothing corners}); at a smoothing corner between $E_i$ and $E_j$ it
+arrives along one of $\lt_i,\lt_j$ and leaves along the other. The
+\emph{crossings of $Q$} are the crossings $x\in X(P)\setminus S$ both of whose
+visits lie on $Q$; their number is $m_Q$. A crossing in $N(S)$ has its two
+visits on different subpolygons and is a crossing of no subpolygon.
+\end{definition}

@@ -1,0 +1,284 @@
+{
+  "review_schema": "independent-full-source-prototype-review-v1",
+  "id": "root-boundary-prototype",
+  "source_id": "def:root",
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "10-27, with section domain lines3-6 and labelled-representative permission in reference/SM/sm-1-polygons.tex55-60",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "in_theorem_library": false,
+  "prototype_file": "work/checks/RootBoundary.prototype.lean",
+  "prototype_sha256": "c577dacdb59697e477152b1d9edc49cec64b0c8385fb86f450f810bfc2b6b0bf",
+  "main_declarations": [
+    "SM.boundaryIndex",
+    "SM.boundaryWord",
+    "SM.boundaryIndex_injective",
+    "SM.boundaryWord_shift",
+    "SM.boundaryWord_first",
+    "SM.boundaryWord_last",
+    "SM.boundaryWord_leaf_edge",
+    "SM.BoundaryInterval",
+    "SM.BoundaryInterval.leaves",
+    "SM.BoundaryInterval.leaves_pos",
+    "SM.IntervalComposition",
+    "SM.IntervalComposition.parts_lt",
+    "SM.IntervalComposition.part",
+    "SM.IntervalComposition.single",
+    "SM.rootData"
+  ],
+  "reason": "Faithful complete representative-based implementation of source def:root. The actual cyclic root index, simultaneous root/tuple relabelling, complete boundary word, exact endpoint and leaf formulas, full finite ordered interval domain, arbitrary-natural-part-count strictly increasing compositions, and exact constituent parts match the source. Independent consumer checks establish physical root placement and segment invariance, exhaustion of every nonroot leaf label, G1-only vertex distinctness, cut containment, admission of every raw natural source composition, finiteness of the complete composition type and the one-part case. These checks expose rather than assume the relevant representation equivalences. No G2 premise or artificial composition truncation is used. This is a full-source prototype fidelity verdict; original definition acceptance remains pending exact canonical port, semantic hash and current project audit.",
+  "mathematical_justification": [
+    {
+      "clause": "Labelled representative and root meaning",
+      "assessment": "The source explicitly permits working with labelled tuples while proving simultaneous shift equivariance. rootData exposes the actual ZMod n root-index type, existing edge-vector function, boundary word, interval type, leaves and unrestricted composition type/parts. The pair (P,g) retains the actual source root occurrence E_g from P(g) to P(g+1), including its placement; it is not replaced by an abstract vector up to translation. Although the aggregate bundles the vector function rather than a separate segment field, the existing edgeSegment on the same P,g gives the exact placed segment. The independent root_segment_and_endpoints_shift check proves invariance of that actual segment and both actual endpoints, in addition to the vector and boundary word. No rooted quotient type is silently asserted; this is precisely the permitted representative presentation."
+    },
+    {
+      "clause": "Boundary word, wraparound and all nonroot leaves",
+      "assessment": "boundaryIndex g k is g+k+1 for every k:Fin n. Thus positions are exactly0 through n-1=N. The checked first/last theorems return P(g+1) and P(g), the latter using the actual equality n=0 in ZMod n. boundaryWord_leaf_edge identifies consecutive boundary vertex differences with the actual labelled edge g+k+1, for every0<=k<n-1. boundaryIndex_injective proves no two boundary positions give the same occurrence label. The independent leaf_index_exhaustion check proves every such leaf label differs from g and every e!=g occurs, by taking k=(e-g).val-1. Its positivity follows from e!=g and its bound from ZMod.val_lt; no leaf occurrence is omitted at the cyclic wraparound. These are occurrence statements and do not assume the physical tuple injective."
+    },
+    {
+      "clause": "Simultaneous shift and geometric domain",
+      "assessment": "The checked boundaryWord_shift handles an arbitrary shift a with root g-a, hence the source generator g->g-1 is included. Algebraically the added a in shift cancels the subtracted root shift. The existing edge and edgeSegment shift lemmas and the independent tests preserve the same placed root and its orientation. Interval/composition data depend only on the unchanged finite order positions and therefore require no relabelling of those positions. The combinatorial definitions themselves need neither G1 nor G2; making them available on all tuples preserves their restriction to the source section domain. The independent distinct-boundary-vertices check uses only G1 to compose actual tuple injectivity with boundaryIndex_injective. G2 is never assumed."
+    },
+    {
+      "clause": "Intervals and actual leaves",
+      "assessment": "BoundaryInterval is exactly a pair of positions left,right:Fin n together with left<right. This is the source integer domain0<=i<j<=N, presented by bounded natural positions. leaves is exactly right.val-left.val, not a separately supplied size. The positivity lemma derives its nonzeroness. Each part uses successive cuts k.castSucc and k.succ, and strict monotonicity proves it is a valid increasing interval. The independent cut_containment theorem derives every cut is between the fixed first and last cuts; it also derives every part has positive leaf count. No cut outside the original interval can enter the represented type."
+    },
+    {
+      "clause": "Complete composition domain, not a convenient truncation",
+      "assessment": "IntervalComposition has an arbitrary natural parts field s, the printed requirement0<s, a cut map Fin(s+1)->Fin n, StrictMono cut, and exact first/last cuts. There is no extra assumption s<n, maximum arity, absence of a one-part composition, or special endpoint pattern. parts_lt derives s<n from injectivity and finite cardinality. The independent raw_composition_admitted theorem begins with any natural strictly increasing cut sequence with the source endpoints; each cut bound<n is derived from its last cut, and it returns a composition with exactly that s and heterogeneously equal cut map. This explicitly checks that the bounded-position representation admits every source composition, rather than only proving soundness for constructed ones."
+    },
+    {
+      "clause": "Finiteness and the one-part boundary case",
+      "assessment": "The independent all_compositions_finite theorem embeds the entire existing IntervalComposition type into the finite sigma of s:Fin n and functions Fin(s+1)->Fin n. The derived parts_lt supplies the finite index, and equality of the sigma pair determines both the original natural part count and every original cut; proof irrelevance then determines the structure. Thus finiteness is established for the complete raw domain. It does not alter that domain or merely count a separately bounded alternative. single I explicitly gives cuts [I.left,I.right]; strictness comes from I.increasing. The independent one_part_exists check verifies its only part is exactly I. These finite-domain/coverage theorems are independent representation checks outside the canonical library; no Fintype enumeration implementation or tree-sum theorem is claimed."
+    },
+    {
+      "clause": "Aggregate scope and axiom fidelity",
+      "assessment": "The fully printed rootData aggregate contains the actual underlying definitions, including the arbitrary-natural composition type and exact part extraction. The independent trace checks all15 prototype declarations and eight consumer/representation theorems, with only propext, Classical.choice and Quot.sound where needed. The prototype source/proof prefix is copied unchanged and its actual import closure is exactly three unchanged SM modules; the full current285-module canonical inventory remains unchanged. Helper NeZero conditions are already consequences of ambient n>=3, or are derived inside the independent interval tests from an existing Fin n endpoint. No new source premise, admitted proof, literature axiom, G2 restriction, gate evaluation, or state-sum claim is inserted."
+    }
+  ],
+  "independence": "Reviewer did not author or edit the RootBoundary implementation, canonical Lean files, source text, maps or predecessor reviews. Only independent semantic/representation checks, trace/closure evidence and this new review were written. The independent checks are evidence outside the theorem library, not silently counted implementation additions.",
+  "utc": "2026-09-11T03:45:50.014829+00:00",
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d"
+  },
+  "import_closure_roots": [
+    "SM.Generic"
+  ],
+  "import_closure_file_count": 3,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/root-boundary-review-types.lean",
+    "independent_trace_source_sha256": "b419e8b3ff8ffdf50138fc4829a944597af4db547ff1d334c3a4e7cd204f464a",
+    "independent_trace_log": "work/checks/root-boundary-review-types.log",
+    "independent_trace_log_sha256": "0153b6031f59411970ff734fa09fdb7bbd36c8a0dfe342481decd425aafa9612",
+    "independent_kernel_command": "lake env lean ../checks/root-boundary-review-types.lean",
+    "independent_kernel_session": 74342,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": [
+      "SM.boundaryIndex",
+      "SM.boundaryWord",
+      "SM.boundaryIndex_injective",
+      "SM.boundaryWord_shift",
+      "SM.boundaryWord_first",
+      "SM.boundaryWord_last",
+      "SM.boundaryWord_leaf_edge",
+      "SM.BoundaryInterval",
+      "SM.BoundaryInterval.leaves",
+      "SM.BoundaryInterval.leaves_pos",
+      "SM.IntervalComposition",
+      "SM.IntervalComposition.parts_lt",
+      "SM.IntervalComposition.part",
+      "SM.IntervalComposition.single",
+      "SM.rootData"
+    ],
+    "declaration_axioms": {
+      "SM.boundaryIndex": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryIndex_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_first": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryWord_leaf_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval": [],
+      "SM.BoundaryInterval.leaves": [],
+      "SM.BoundaryInterval.leaves_pos": [
+        "propext"
+      ],
+      "SM.IntervalComposition": [
+        "propext"
+      ],
+      "SM.IntervalComposition.parts_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part": [
+        "propext"
+      ],
+      "SM.IntervalComposition.single": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "RootBoundaryIndependentReview.simultaneous_root_shift",
+      "RootBoundaryIndependentReview.leaf_index_exhaustion",
+      "RootBoundaryIndependentReview.boundary_vertices_distinct",
+      "RootBoundaryIndependentReview.cut_containment",
+      "RootBoundaryIndependentReview.raw_composition_admitted",
+      "RootBoundaryIndependentReview.all_compositions_finite",
+      "RootBoundaryIndependentReview.one_part_exists",
+      "RootBoundaryIndependentReview.root_segment_and_endpoints_shift"
+    ],
+    "additional_example_count": 8,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "RootBoundaryIndependentReview.simultaneous_root_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.leaf_index_exhaustion": [
+        "propext",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.boundary_vertices_distinct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.cut_containment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.raw_composition_admitted": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.all_compositions_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.one_part_exists": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RootBoundaryIndependentReview.root_segment_and_endpoints_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "independent_examples_source": "work/checks/root-boundary-review-examples.lean",
+    "independent_examples_source_sha256": "4e4fe9235dee8ad59a152fc9df6ff2a1a68e8187a06007f56a46ffe5afb655ac",
+    "independent_closure_evidence": "work/checks/root-boundary-review-closure.json",
+    "independent_closure_evidence_sha256": "ab5eed4cbae3975abdeebb5e3581c8a7f3424a57d08853ff41e70d01fcd3a754",
+    "printed_type_evidence": "work/checks/root-boundary-reviewed-types.json",
+    "printed_type_evidence_sha256": "8d6bd1490216e5d13459f8ef2a8e789f2e6f3129f5ab4a3e033f3e50913c380a",
+    "transparent_predicates_printed": [
+      "SM.rootData",
+      "SM.boundaryIndex",
+      "SM.boundaryWord",
+      "SM.BoundaryInterval",
+      "SM.IntervalComposition",
+      "SM.IntervalComposition.part"
+    ],
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "root_result_file": "work/checks/root-boundary-prototype-result.json",
+    "root_result_sha256": "67448a8e1520562dc8b2278859e6de5be9bc4a83153400d6a06018414786a9c0",
+    "successful_build_session": 82017,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/root-boundary-prototype.log",
+    "successful_build_log_sha256": "216615567e7f2eb96d2206ba2c9740c79178c1ea571e21dc1a97278815313307",
+    "earlier_independent_runs": [
+      {
+        "session": 92217,
+        "exit_code": 1,
+        "reason": "All15 implementation checks and shift/leaf/G1 examples passed. Reviewer-added consumer tests needed local NeZero derivation from an existing interval, corrected structure-literal syntax, and an explicit positive Fin zero witness."
+      },
+      {
+        "session": 50769,
+        "exit_code": 1,
+        "reason": "The same unchanged failed auxiliary checks were accidentally rerun before the correction script executed because that script used the wrong working directory. No implementation changed."
+      }
+    ],
+    "initial_trace_source": "work/checks/root-boundary-review-types-initial.lean",
+    "initial_trace_source_sha256": "6475af4ed1bf16cbe13b7f06426e19681403e47c8936d25c4f108017a691b939",
+    "initial_trace_log": "work/checks/root-boundary-review-types-initial.log",
+    "initial_trace_log_sha256": "f76c4ee79028261f842e46cdfbd3c5e2362e97c2d4159d1630e38c90bb5439a6",
+    "non_failing_trace_warnings": "Reviewer letI style warnings only in the final successful run; no errors or sorryAx dependencies remain."
+  },
+  "audit_context": {
+    "prior_receipt": "work/checks/checkpoint-059-output.json",
+    "prior_receipt_sha256": "234214b2bdc5f55480e4f6c63c5630bca7a3127c3d832a608b7bf67e147a7d9e",
+    "scope": "Audit059 is the prior accepted-map whole-project receipt; the RootBoundary external prototype is not a mapped canonical definition yet. All285 canonical SM modules match their frozen inventory. No later port/audit is asserted."
+  },
+  "accounting": {
+    "original_definition_increment": 0,
+    "original_proof_increment": 0,
+    "full_def_root_prototype_fidelity": true,
+    "canonical_definition_acceptance_pending": true,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No canonical RootBoundary module, declaration-map acceptance or new original definition count is asserted by this external report.",
+    "No gates definition/weight theorem, tree recursion, tree-sum equivalence or state-sum wall/soft target is reviewed here.",
+    "The independent finite-composition theorem proves mathematical finiteness, but no executable composition enumeration or canonical Fintype instance is supplied or claimed."
+  ]
+}

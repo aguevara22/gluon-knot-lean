@@ -1,0 +1,752 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T05:33:51.886069+00:00",
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/checks/CompositionCutSet.body.lean": "8c5adedcca981b1b44faa750ad5c95738e06560be89041eed31908aa264a0123",
+    "work/checks/InteriorCutSet.body.lean": "49310ab6314127f8c84e5839b188954aba5507fb0d577f35b1e62fc7253f22c2",
+    "work/checks/CompositionSegments.body.lean": "2cea3d21b1602d9fc81390d100d9ba457b0ba337d5b39f3fa16783f8fe1aa03f",
+    "work/checks/NestedCutSets.body.lean": "150592887db0c3ca7831c28fc8c2649276184902f41927e01a2150346baf0639",
+    "work/checks/MarkedRefinement.body.lean": "5536ddc3444f28db6f572a290fb2d18b5b987a3e03257afd0497fefab236c42a",
+    "work/checks/InteriorCutIndex.body.lean": "f1a9aba5f203469b215b252524a66fc816ae24a6fd8701eea588df6daed50068",
+    "work/checks/NearFarCutExpansion.body.lean": "e9dab21ed3d583c9fba821ba18d5fcab33b2cbef9f090c1b15c836b6b1edfcd8",
+    "work/checks/GeometricNearFar.body.lean": "d944c6743dde3d7b1c9a2eb38288035636833695b0aecd83e51655a44b2b4f9d"
+  },
+  "import_closure_roots": [
+    "SM.TreeCoefficient",
+    "SM.TriangularPolynomial"
+  ],
+  "import_closure_file_count": 12,
+  "embedded_body_count": 8,
+  "inherited_review_binding": {
+    "work/reviews/composition-cut-set-prototype.json": "714cde56be2117d47c1fc8301f216e029f3142ab46b47dd254e35be9bbcbc246",
+    "work/reviews/def-nearfar.json": "933022e776a0440ac35e0f9fbfa193c9e3fc32d6e8c0f67e3560c61361dd314a",
+    "work/reviews/triangular-polynomial-inverse-canonical-partial.json": "bf3e5d8fbcea2b3b9bc1d2a2257dbf20eba813efb9f7d47f140905fecfeb8a4e",
+    "work/reviews/def-treesum.json": "699286e490aa7af29a65d75be3bf339eba379c2659f4e8578a451b8332d7d269",
+    "work/reviews/def-gates.json": "ec2553ec6d18437aa3694c2d41af44932f3d28107808f1b516df51d9caaf8094",
+    "work/reviews/lem-gates-nonzero.json": "1783ee8dc862e5a01b4139914b044f817e469ab597f8102f54a42c4f0d7021be"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/nearfar-refinement-review-types.lean",
+    "independent_trace_source_sha256": "f9604899160843204bba03d87d0a9361c12e7d6119d73328c96a0fe6f7d30246",
+    "independent_trace_log": "work/checks/nearfar-refinement-review-types.log",
+    "independent_trace_log_sha256": "89441140d79f7b6890559f7b9d2b0e0ee628f42a989143d67085ec29070554da",
+    "independent_kernel_command": "lake env lean ../checks/nearfar-refinement-review-types.lean",
+    "independent_kernel_session": 52709,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": false,
+    "prior_failed_independent_run": {
+      "session": 38150,
+      "exit_code": 1,
+      "source": "work/checks/nearfar-refinement-review-first.lean",
+      "log": "work/checks/nearfar-refinement-review-first.log",
+      "reason": "Two independent consumer failures only: a missing closing Sigma constructor bracket and a false assumption that dependent marked-subtype transport reduced by rfl. The latter was replaced by an explicit equality-induction proof that transport preserves the underlying marked finset. No implementation or consumer statement was changed.",
+      "source_sha256": "d171844efb6f34402fc83e0ff49cb6526853818d587a24ec9dcceb58576d4828",
+      "log_sha256": "b6df43bdaa3eef3b4d000e51cc3e55a34def5baf3e7ad1920fdfe3d4f9d13b3a"
+    },
+    "checked_declarations": [
+      "SM.InteriorCutSet",
+      "SM.BoundaryCutSet.interior",
+      "SM.BoundaryCutSet.ofInterior",
+      "SM.BoundaryCutSet.interior_ofInterior",
+      "SM.BoundaryCutSet.ofInterior_interior",
+      "SM.BoundaryCutSet.interiorEquiv",
+      "SM.BoundaryCutSet.restrict",
+      "SM.BoundaryCutSet.mem_restrict",
+      "SM.BoundaryCutSet.restrict_self",
+      "SM.BoundaryCutSet.restrict_restrict",
+      "SM.IntervalComposition.interiorCutSetEquiv",
+      "SM.IntervalComposition.part_bounds",
+      "SM.IntervalComposition.part_order",
+      "SM.IntervalComposition.exists_halfOpen_part",
+      "SM.IntervalComposition.exists_closed_part",
+      "SM.IntervalComposition.part_interior_unique",
+      "SM.RefiningCutSet",
+      "SM.IntervalComposition.halfOpen_part_unique",
+      "SM.IntervalComposition.flattenCutSets",
+      "SM.IntervalComposition.mem_flattenCutSets",
+      "SM.IntervalComposition.outer_cuts_subset_flatten",
+      "SM.IntervalComposition.flattenRefinement",
+      "SM.IntervalComposition.unflattenCutSets",
+      "SM.IntervalComposition.unflatten_flatten",
+      "SM.IntervalComposition.flatten_unflatten",
+      "SM.IntervalComposition.nestedCutSetEquiv",
+      "SM.IntervalComposition.nestedCompositionEquiv",
+      "SM.MarkedCuts",
+      "SM.BoundaryCutSet.cuts_subset_iff_interior_subset",
+      "SM.BoundaryCutSet.outerFromMarks",
+      "SM.BoundaryCutSet.outerFromMarks_subset",
+      "SM.BoundaryCutSet.outerMarkedEquiv",
+      "SM.swapSigmaSubtype",
+      "SM.IntervalComposition.outerCompositionMarkedEquiv",
+      "SM.IntervalComposition.nestedMarkedCutEquiv",
+      "SM.IntervalComposition.interiorPosition",
+      "SM.IntervalComposition.interiorPosition_injective",
+      "SM.IntervalComposition.interiorPosition_mem",
+      "SM.IntervalComposition.mem_interior_iff_exists_index",
+      "SM.IntervalComposition.interiorPositionEquiv",
+      "SM.IntervalComposition.nearFarWeight_marked_expansion",
+      "SM.gate_pair_cast",
+      "SM.IntervalComposition.ordinaryWeight_cast",
+      "SM.IntervalComposition.rootWeight_cast",
+      "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one",
+      "SM.geometric_nearFar_open",
+      "SM.geometric_nearFar_root"
+    ],
+    "declaration_count": 47,
+    "declaration_axioms": {
+      "SM.InteriorCutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.interior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.ofInterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.interior_ofInterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.ofInterior_interior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.interiorEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.mem_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.restrict_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.restrict_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.interiorCutSetEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_order": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.exists_halfOpen_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.exists_closed_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_interior_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RefiningCutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.halfOpen_part_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.flattenCutSets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.mem_flattenCutSets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outer_cuts_subset_flatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.flattenRefinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.unflattenCutSets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.unflatten_flatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.flatten_unflatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedCutSetEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedCompositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.MarkedCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.cuts_subset_iff_interior_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.outerFromMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.outerFromMarks_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.outerMarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.swapSigmaSubtype": [],
+      "SM.IntervalComposition.outerCompositionMarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedMarkedCutEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.interiorPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.interiorPosition_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.interiorPosition_mem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.mem_interior_iff_exists_index": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.interiorPositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_marked_expansion": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.gate_pair_cast": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_cast": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_cast": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_nearFar_open": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_nearFar_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "NearFarRefinementIndependentReview.geometric_open_is_actual_inverse",
+      "NearFarRefinementIndependentReview.geometric_root_retains_full_transform",
+      "NearFarRefinementIndependentReview.arbitrary_interior_subset_realized",
+      "NearFarRefinementIndependentReview.actual_half_open_partition",
+      "NearFarRefinementIndependentReview.nested_forward_cut_union",
+      "NearFarRefinementIndependentReview.nested_inner_raw_roundtrip",
+      "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts",
+      "NearFarRefinementIndependentReview.every_marked_refinement_recovered",
+      "NearFarRefinementIndependentReview.empty_and_full_markings_allowed",
+      "NearFarRefinementIndependentReview.empty_marks_give_unary_outer",
+      "NearFarRefinementIndependentReview.full_marks_recover_refined_outer",
+      "NearFarRefinementIndependentReview.full_nested_and_marked_domains_finite",
+      "NearFarRefinementIndependentReview.interior_indices_have_exact_coverage",
+      "NearFarRefinementIndependentReview.unary_has_no_interior_positions",
+      "NearFarRefinementIndependentReview.unary_marked_expansion_equals_one",
+      "NearFarRefinementIndependentReview.extreme_array_weights"
+    ],
+    "additional_example_count": 16,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "NearFarRefinementIndependentReview.geometric_open_is_actual_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.geometric_root_retains_full_transform": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.arbitrary_interior_subset_realized": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.actual_half_open_partition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.nested_forward_cut_union": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.nested_inner_raw_roundtrip": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.every_marked_refinement_recovered": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.empty_and_full_markings_allowed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.empty_marks_give_unary_outer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.full_marks_recover_refined_outer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.full_nested_and_marked_domains_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.interior_indices_have_exact_coverage": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.unary_has_no_interior_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.unary_marked_expansion_equals_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarRefinementIndependentReview.extreme_array_weights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.InteriorCutSet",
+      "SM.BoundaryCutSet.interior",
+      "SM.BoundaryCutSet.ofInterior",
+      "SM.BoundaryCutSet.restrict",
+      "SM.RefiningCutSet",
+      "SM.IntervalComposition.flattenCutSets",
+      "SM.IntervalComposition.flattenRefinement",
+      "SM.IntervalComposition.unflattenCutSets",
+      "SM.IntervalComposition.nestedCompositionEquiv",
+      "SM.MarkedCuts",
+      "SM.BoundaryCutSet.outerFromMarks",
+      "SM.BoundaryCutSet.outerMarkedEquiv",
+      "SM.IntervalComposition.nestedMarkedCutEquiv",
+      "SM.IntervalComposition.interiorPosition",
+      "SM.IntervalComposition.interiorPositionEquiv"
+    ],
+    "reviewed_types": "work/checks/nearfar-refinement-reviewed-types.json",
+    "reviewed_types_sha256": "0bd2a753009eaa0578004ab55651681c309b6548ed9907e5119551a717d7cc0e",
+    "independent_closure_evidence": "work/checks/nearfar-refinement-review-closure.json",
+    "independent_closure_evidence_sha256": "259ae8f972c7416345236ec04f47d21edbce9d27f89fd86530d093d27e5e5b7e",
+    "root_successful_results": {
+      "InteriorCutSet": {
+        "supervisor_session": 22520,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/InteriorCutSet-first-kernel.log": "f949a352611aa96186b9f656e8b0f16a06ecec405d7f17c3d799cb2669991046",
+          "work/checks/InteriorCutSet.body.lean": "49310ab6314127f8c84e5839b188954aba5507fb0d577f35b1e62fc7253f22c2",
+          "work/checks/InteriorCutSet.prototype.lean": "dacd6b83c2cb2b5188f851381703c5d05ae94cb50d5fda153a76404f9cf405c8"
+        },
+        "printed_declarations": [
+          "SM.BoundaryCutSet.interior_ofInterior",
+          "SM.BoundaryCutSet.ofInterior_interior",
+          "SM.BoundaryCutSet.interiorEquiv",
+          "SM.BoundaryCutSet.mem_restrict",
+          "SM.BoundaryCutSet.restrict_self",
+          "SM.BoundaryCutSet.restrict_restrict",
+          "SM.IntervalComposition.interiorCutSetEquiv"
+        ],
+        "state": "kernel passed; body/prototype frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/InteriorCutSet-prototype-result.json",
+        "receipt_sha256": "9d33c6d5417b710c9b9e8b7fb697c8ac42e27e1a7c9b5314846ee9e1fedc94ac"
+      },
+      "CompositionSegments": {
+        "supervisor_session": 22520,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/CompositionSegments-first-kernel.log": "f2482445627b62f278e9f4d0cb372a3e6ae3e68a5bf345dac36b37137a4bda71",
+          "work/checks/CompositionSegments.body.lean": "2cea3d21b1602d9fc81390d100d9ba457b0ba337d5b39f3fa16783f8fe1aa03f",
+          "work/checks/CompositionSegments.prototype.lean": "0c841bd9544a31a2df842ea42a4e65fc375c1c9933d2a28d3d4b754f477f07d9"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.part_bounds",
+          "SM.IntervalComposition.part_order",
+          "SM.IntervalComposition.exists_halfOpen_part",
+          "SM.IntervalComposition.exists_closed_part",
+          "SM.IntervalComposition.part_interior_unique"
+        ],
+        "state": "kernel passed; body/prototype frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/CompositionSegments-prototype-result.json",
+        "receipt_sha256": "8d0fec278eaff7ff7425044631cc189fbdf7c7a03789b33605aa266524c03841"
+      },
+      "NestedCutSets": {
+        "kernel_session": 34206,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_session": 76522,
+        "prior_failure": "Equal dependent part indices needed explicit substitution; proof-only correction, unchanged statements",
+        "files_sha256": {
+          "work/checks/NestedCutSets-second-kernel.log": "5083022bdf87e74e3a553ddf37e46105f84d0d52f0301d64d56ce296dc2cce24",
+          "work/checks/NestedCutSets.body.lean": "150592887db0c3ca7831c28fc8c2649276184902f41927e01a2150346baf0639",
+          "work/checks/NestedCutSets.prototype.lean": "95514ad6620175a565bf60e0a97ad590b9816409c93a6dbec3f24b8c27fc8f71"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.halfOpen_part_unique",
+          "SM.IntervalComposition.mem_flattenCutSets",
+          "SM.IntervalComposition.outer_cuts_subset_flatten",
+          "SM.IntervalComposition.unflatten_flatten",
+          "SM.IntervalComposition.flatten_unflatten",
+          "SM.IntervalComposition.nestedCutSetEquiv",
+          "SM.IntervalComposition.nestedCompositionEquiv"
+        ],
+        "state": "kernel passed; frozen; independent review pending; full marked-cut reindexing and factorization still pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/NestedCutSets-prototype-result.json",
+        "receipt_sha256": "b7526bd03bd13ddd64ba0e3739dda9f8f2c66c9bf38abc1cacee5435a5555adc"
+      },
+      "MarkedRefinement": {
+        "kernel_session": 22498,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_supervisor": 73951,
+        "prior_failure": "Ambiguous Subtype.val domain in right inverse; explicit domain fixes proof without changing statements",
+        "files_sha256": {
+          "work/checks/MarkedRefinement-second-kernel.log": "3ce073827e4cc47775444fb5370dc1ae84f196c249b3563e55629c5ff881e29f",
+          "work/checks/MarkedRefinement.body.lean": "5536ddc3444f28db6f572a290fb2d18b5b987a3e03257afd0497fefab236c42a",
+          "work/checks/MarkedRefinement.prototype.lean": "495897c33c9a1366a2983d40215cf429a19205a328ff5675f26990df35ada808"
+        },
+        "printed_declarations": [
+          "SM.BoundaryCutSet.cuts_subset_iff_interior_subset",
+          "SM.BoundaryCutSet.outerFromMarks_subset",
+          "SM.BoundaryCutSet.outerMarkedEquiv",
+          "SM.swapSigmaSubtype",
+          "SM.IntervalComposition.outerCompositionMarkedEquiv",
+          "SM.IntervalComposition.nestedMarkedCutEquiv"
+        ],
+        "state": "kernel passed; frozen; full actual raw nested/marked composition bijection; term/weight transport and full factorization still pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/MarkedRefinement-prototype-result.json",
+        "receipt_sha256": "7d4ab7bd5db5353a2ea7007d99d57088764e02b14a24e104a4ce539acd2c9acd"
+      },
+      "InteriorCutIndex": {
+        "supervisor_session": 73951,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/InteriorCutIndex-first-kernel.log": "c81fb58a2a56f4efcd79c785082673e997134bd67c101e5c97075e6510224610",
+          "work/checks/InteriorCutIndex.body.lean": "f1a9aba5f203469b215b252524a66fc816ae24a6fd8701eea588df6daed50068",
+          "work/checks/InteriorCutIndex.prototype.lean": "216db6bfc0213799b80a17c296fd62eaf1f8ec605fec14038271c90a99de351c"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.interiorPosition_injective",
+          "SM.IntervalComposition.interiorPosition_mem",
+          "SM.IntervalComposition.mem_interior_iff_exists_index",
+          "SM.IntervalComposition.interiorPositionEquiv"
+        ],
+        "state": "kernel passed; frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/InteriorCutIndex-prototype-result.json",
+        "receipt_sha256": "e0c6dc58b990b006e91490c7e59f9237c11292d45f21fc18921ae60dcfb2e2be"
+      },
+      "NearFarCutExpansion": {
+        "supervisor_session": 22520,
+        "supervisor_exit_code": 0,
+        "subprocess_exit_code": 0,
+        "first_run_passed": true,
+        "files_sha256": {
+          "work/checks/NearFarCutExpansion-first-kernel.log": "40363e6c2e56f741835eb0043b99597ff564a185445bf3b8dd3f922d80e03d9c",
+          "work/checks/NearFarCutExpansion.body.lean": "e9dab21ed3d583c9fba821ba18d5fcab33b2cbef9f090c1b15c836b6b1edfcd8",
+          "work/checks/NearFarCutExpansion.prototype.lean": "66f8115993b4b363e8137ab20fcd4c184e6aa5bdb1d936f0379eb6b098362346"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.nearFarWeight_marked_expansion"
+        ],
+        "state": "kernel passed; body/prototype frozen; independent review pending",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/NearFarCutExpansion-prototype-result.json",
+        "receipt_sha256": "2d3912a059eae9c1d128ddcfa3e070f908c085dd2aefebf2dab349376900ff86"
+      },
+      "GeometricNearFar": {
+        "kernel_session": 31655,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_supervisor": 22520,
+        "prior_failure": "Int-to-arbitrary-CommRing cast elaboration and weight rewrite; proof-only corrections; no statement changes",
+        "files_sha256": {
+          "work/checks/GeometricNearFar-second-kernel.log": "e7b743ab61ab486ff1f66e64857c6791753406ad364ea1139e069e01c5e72a8d",
+          "work/checks/GeometricNearFar.body.lean": "d944c6743dde3d7b1c9a2eb38288035636833695b0aecd83e51655a44b2b4f9d",
+          "work/checks/GeometricNearFar.prototype.lean": "e9ccdf4c8c37a468ea477877fb3479bbb0ab3e44ab3960ffb9b5733cacfc486b"
+        },
+        "printed_declarations": [
+          "SM.gate_pair_cast",
+          "SM.IntervalComposition.ordinaryWeight_cast",
+          "SM.IntervalComposition.rootWeight_cast",
+          "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one",
+          "SM.geometric_nearFar_open",
+          "SM.geometric_nearFar_root"
+        ],
+        "state": "second kernel passed; body/prototype frozen; independent review pending; full farout still incomplete",
+        "acceptance_increment": 0,
+        "receipt": "work/checks/GeometricNearFar-prototype-result.json",
+        "receipt_sha256": "353e069213e300ea17499df6fc35fe9e3edb373361096c4dca80155990e03a20"
+      }
+    },
+    "scope_note": "The independent trace imports the actual canonical definitions and tree/inverse theorems, then embeds the exact eight frozen body fragments in dependency order. It checks the seven new scopes and reruns 16 substantive consumers. Root success is supporting evidence; source fidelity is based on independently reading the source statements, transparent domains, constructions and proofs."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "The reviewer is distinct from the implementer, independently read the authoritative source and all seven new frozen body/proof scopes, checked their transparent definitions and exact source domains, and authored independent consumer proofs. Only new reviewer check/report evidence was written. No implementation, canonical module, source, map, root receipt or frozen prior review was edited. Source status is not inferred from compilation, historical acceptance, hashes or another review verdict.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "definition_increment": 0,
+    "proof_increment": 0,
+    "canonical_port_and_current_semantic_audit_pending": true,
+    "full_farout_accepted": false,
+    "stage_complete": false
+  },
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "nearfar-refinement-prototype",
+  "source_id": "lem:farout",
+  "source_line": 146,
+  "source_lines": "Full raw nested/marked refinement bijection at proof180-187; local independent factor expansion at195-197; neighboring/child-product transport189-194 and the full factorization151 remain outside this batch.",
+  "prototype_files_sha256": {
+    "InteriorCutSet": "dacd6b83c2cb2b5188f851381703c5d05ae94cb50d5fda153a76404f9cf405c8",
+    "CompositionSegments": "0c841bd9544a31a2df842ea42a4e65fc375c1c9933d2a28d3d4b754f477f07d9",
+    "NestedCutSets": "95514ad6620175a565bf60e0a97ad590b9816409c93a6dbec3f24b8c27fc8f71",
+    "MarkedRefinement": "495897c33c9a1366a2983d40215cf429a19205a328ff5675f26990df35ada808",
+    "InteriorCutIndex": "216db6bfc0213799b80a17c296fd62eaf1f8ec605fec14038271c90a99de351c",
+    "NearFarCutExpansion": "66f8115993b4b363e8137ab20fcd4c184e6aa5bdb1d936f0379eb6b098362346"
+  },
+  "main_declarations": [
+    "SM.InteriorCutSet",
+    "SM.BoundaryCutSet.interior",
+    "SM.BoundaryCutSet.ofInterior",
+    "SM.BoundaryCutSet.interior_ofInterior",
+    "SM.BoundaryCutSet.ofInterior_interior",
+    "SM.BoundaryCutSet.interiorEquiv",
+    "SM.BoundaryCutSet.restrict",
+    "SM.BoundaryCutSet.mem_restrict",
+    "SM.BoundaryCutSet.restrict_self",
+    "SM.BoundaryCutSet.restrict_restrict",
+    "SM.IntervalComposition.interiorCutSetEquiv",
+    "SM.IntervalComposition.part_bounds",
+    "SM.IntervalComposition.part_order",
+    "SM.IntervalComposition.exists_halfOpen_part",
+    "SM.IntervalComposition.exists_closed_part",
+    "SM.IntervalComposition.part_interior_unique",
+    "SM.RefiningCutSet",
+    "SM.IntervalComposition.halfOpen_part_unique",
+    "SM.IntervalComposition.flattenCutSets",
+    "SM.IntervalComposition.mem_flattenCutSets",
+    "SM.IntervalComposition.outer_cuts_subset_flatten",
+    "SM.IntervalComposition.flattenRefinement",
+    "SM.IntervalComposition.unflattenCutSets",
+    "SM.IntervalComposition.unflatten_flatten",
+    "SM.IntervalComposition.flatten_unflatten",
+    "SM.IntervalComposition.nestedCutSetEquiv",
+    "SM.IntervalComposition.nestedCompositionEquiv",
+    "SM.MarkedCuts",
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset",
+    "SM.BoundaryCutSet.outerFromMarks",
+    "SM.BoundaryCutSet.outerFromMarks_subset",
+    "SM.BoundaryCutSet.outerMarkedEquiv",
+    "SM.swapSigmaSubtype",
+    "SM.IntervalComposition.outerCompositionMarkedEquiv",
+    "SM.IntervalComposition.nestedMarkedCutEquiv",
+    "SM.IntervalComposition.interiorPosition",
+    "SM.IntervalComposition.interiorPosition_injective",
+    "SM.IntervalComposition.interiorPosition_mem",
+    "SM.IntervalComposition.mem_interior_iff_exists_index",
+    "SM.IntervalComposition.interiorPositionEquiv",
+    "SM.IntervalComposition.nearFarWeight_marked_expansion"
+  ],
+  "reason": "Faithful supporting development of the source refinement indexing: all raw compositions correspond to interior cut subsets, nested compositions flatten and restrict inversely, and the actual full nested index domain is equivalent to refined compositions with any selected interior marks. The final forward map has the actual union of inner cut positions and the actual outer interior marks, as independently checked. Unary outer/inner compositions, shared endpoints, no marks and all marks are retained. An exact interior-position/index bijection and local independent near/far product expansion are proved. Independent kernel52709 passes all47 implementation declarations and16 consumers with63 standard-or-empty traces. This is not yet termwise transport or a proof of the factorization, and no original source claim is accepted.",
+  "mathematical_justification": [
+    {
+      "clause": "Complete interior selections and exact restriction",
+      "assessment": "InteriorCutSet is every Finset of positions strictly between the interval endpoints. BoundaryCutSet.interior removes exactly the two fixed endpoints; ofInterior adjoins exactly those endpoints, with mutual inverse proofs by membership. Composing this with the independently reviewed raw composition/cut-set equivalence retains the entire source composition type, including arbitrary natural part count and the empty interior subset. Restriction is the original cut set filtered by a closed interval whose endpoints occur; membership, identity restriction and nested restriction are proved directly. It neither discards a valid interior cut nor invents an endpoint."
+    },
+    {
+      "clause": "Actual part coverage and endpoint cases",
+      "assessment": "CompositionSegments derives part bounds and ordered separation from the strictly increasing cut map. For every point before the final endpoint it chooses the greatest cut at or before that point; the next cut must be larger. The last endpoint is separately covered by the final closed part. The original exists_halfOpen_part theorem only states existence despite its comment; NestedCutSets now explicitly proves halfOpen_part_unique, so the independent actual_half_open_partition combines the two into existence and uniqueness even at shared cuts. Closed parts may share endpoints, as required."
+    },
+    {
+      "clause": "Flattening and restriction are exact inverses",
+      "assessment": "flattenCutSets is the finite union of all actual inner cut sets. The first inner left endpoint and last inner right endpoint give the global endpoints; every outer cut is an inner endpoint and remains in the union. Restriction back to a fixed outer part recovers its own cut set: cuts from an earlier or later part can enter only at the shared endpoint, which is already present. Conversely every refined cut lies in a closed outer part, so the union of restrictions recovers the entire refined set. These proofs hold for unary outer compositions and arbitrary unary/nonunary inner data. nestedCompositionEquiv composes those inverses with the exact raw composition/cut-set equivalences, not with a cardinality-only representation."
+    },
+    {
+      "clause": "Full marked-refinement domain and actual forward behavior",
+      "assessment": "MarkedCuts is every subset of the refined physical interior positions. An outer cut set contained in a refinement is equivalent to such a mark set by deleting/adjoining the two common endpoints. Exchanging the two sigma indices retains the containment certificate, and the raw composition/cut-set equivalence then gives the full source nestedMarkedCutEquiv. The independent marked_forward_has_actual_cuts proves that its refined cut set equals the union of actual inner cut sets and its underlying marked finset equals the original outer interior cuts. The second clause needs equality transport through a dependent subtype; the consumer proves transport preserves the underlying finset by equality induction. Thus the check verifies which equivalence was implemented, not merely that some equivalence exists."
+    },
+    {
+      "clause": "Unary, empty/full marks, complete finite indexing",
+      "assessment": "Independent consumers realize every interior selection and every marked refinement, recover the exact raw inner family, prove empty marks give a one-part outer composition, and prove all marks recover the refined outer composition itself. Another consumer verifies both complete sigma domains are finite using the unchanged raw finite composition instances and the full marked-subset type. No arity restriction or omitted endpoint case is inserted. These are the full finite index domains needed for the source sum, although reindexing weighted sums is not claimed here."
+    },
+    {
+      "clause": "Exact interior indices and local independent expansion",
+      "assessment": "interiorPosition sends k:Fin(parts-1) to the actual cut(k+1). Strictness proves injectivity and endpoint exclusion; every physical interior cut has an original cut index strictly between zero and parts, so subtraction of one gives its inverse. The consumer strengthens coverage to unique existence and checks that unary compositions have no interior positions. nearFarWeight_marked_expansion rewrites each factor as its negative-far half plus its near half and applies finite distributivity over all subsets of the index set. The independent unary expansion is one, while zero near/far arrays give the expected full/empty choices. This proves the local product expansion in every CommRing with invertible two."
+    },
+    {
+      "clause": "What remains for source factorization",
+      "assessment": "The implemented equivalence uses physical cut positions, whereas the local product expansion uses interior cut indices; the exact individual position/index equivalence is present, but this batch does not yet state its induced marked-finset or product transport. More importantly, it does not prove that the neighbors of each unmarked refined cut equal its neighbors in the relevant inner composition, that each marked far triple agrees with the outer one, or that the nested product of child coordinates equals the refined product. Those termwise facts and the resulting finite-sum reindexing are still needed to deduce Phi=F composed with G. No factorization or full farout consequence is inferred from a bijection or successful build alone."
+    }
+  ],
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Termwise near/far triple identification under the actual refinement map.",
+    "Nested child-coordinate product equals the refined product; induced marked-subset/product transport.",
+    "Complete weighted finite-sum reindexing and Phi=F composed with G.",
+    "Full far-only and restricted-interval consequences of lem:farout."
+  ],
+  "not_certified": [
+    "No original source claim is accepted for these helpers alone.",
+    "No full factorization, far-only output or restricted-subpolygon coefficient theorem.",
+    "No wall law, soft theorem, R theorem or stage completion."
+  ]
+}

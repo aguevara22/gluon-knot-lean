@@ -1,0 +1,25 @@
+{
+  "scope": "Prototype for thm:relgp joint-polynomial avoidance, outside audited theorem library",
+  "status": "kernel-compiled-independent-review-pending",
+  "source_file": "work/checks/MultivariateAvoidance.prototype.lean",
+  "source_sha256": "954a4b5f5d67a82650d9a94e30780855d1e5cbb9dba3a2f1ec577ae7cb9b5a5f",
+  "log": "work/checks/multivariate-avoidance-prototype-family.log",
+  "log_sha256": "5fd282713463559afdcc7211b6259dd082d973d645ffcd141093b8437571756a",
+  "session": 78849,
+  "exit_code": 0,
+  "declarations": [
+    "SM.multivariateLineRestriction_eval",
+    "SM.exists_nonzero_multivariate_eval",
+    "SM.dense_nonzero_multivariate_eval",
+    "SM.dense_finite_nonzero_multivariate",
+    "SM.exists_simultaneous_nonzero_in_open"
+  ],
+  "traced_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "original_source_acceptance": false,
+  "original_increment": 0,
+  "notes": "General arbitrary scalar type; actual coordinate-line restriction, existence of nonzero evaluation from MvPolynomial.funext, finite-root density and simultaneous avoidance in any nonempty open subset. No finite-waypoint pullback or geometric path claims yet."
+}

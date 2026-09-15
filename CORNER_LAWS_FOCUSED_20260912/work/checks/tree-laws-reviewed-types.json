@@ -1,0 +1,469 @@
+{
+  "types": {
+    "SM.openTreeRec": "SM.openTreeRec.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) : R",
+    "SM.rootedTreeRec": "SM.rootedTreeRec.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) : R",
+    "SM.openTreeRec_one": "SM.openTreeRec_one.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n)\n  (hI : I.leaves = 1) : SM.openTreeRec ordinary I = 1",
+    "SM.openTreeRec_many": "SM.openTreeRec_many.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n)\n  (hI : 2 \u2264 I.leaves) : SM.openTreeRec ordinary I = -\u2211 \u03c0, ordinary I \u2191\u03c0 * \u220f k, SM.openTreeRec ordinary ((\u2191\u03c0).part k)",
+    "SM.fullBoundaryInterval": "SM.fullBoundaryInterval {n : \u2115} (hn : 3 \u2264 n) : SM.BoundaryInterval n",
+    "SM.openTreeSum": "SM.openTreeSum {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (I : SM.BoundaryInterval n) : \u2124",
+    "SM.treeCoefficient": "SM.treeCoefficient {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) : \u2124",
+    "SM.mainTreeCoefficient": "SM.mainTreeCoefficient {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (hn : 3 \u2264 n) : \u2124",
+    "SM.openTreeSum_one": "SM.openTreeSum_one {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (I : SM.BoundaryInterval n)\n  (hI : I.leaves = 1) : SM.openTreeSum P hP g I = 1",
+    "SM.openTreeSum_many": "SM.openTreeSum_many {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (I : SM.BoundaryInterval n)\n  (hI : 2 \u2264 I.leaves) :\n  SM.openTreeSum P hP g I = -\u2211 \u03c0, (\u2191\u03c0).ordinaryWeight P hP g * \u220f k, SM.openTreeSum P hP g ((\u2191\u03c0).part k)",
+    "SM.treeCoefficient_eq": "SM.treeCoefficient_eq {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) :\n  SM.treeCoefficient P hP g hn = \u2211 \u03c0, \u03c0.rootWeight P hP g * \u220f k, SM.openTreeSum P hP g (\u03c0.part k)",
+    "SM.treesumData": "SM.treesumData {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) :\n  (SM.BoundaryInterval n \u2192 \u2124) \u00d7 \u2124 \u00d7 \u2124",
+    "SM.IntervalComposition.nearSign_eq_of_chi": "SM.IntervalComposition.nearSign_eq_of_chi {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P Q : SM.LabelledTuple n} (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n)\n  (k : Fin (\u03c0.parts - 1)) : \u03c0.nearSign P g k = \u03c0.nearSign Q g k",
+    "SM.IntervalComposition.farSign_eq_of_chi": "SM.IntervalComposition.farSign_eq_of_chi {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P Q : SM.LabelledTuple n} (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n)\n  (k : Fin (\u03c0.parts - 1)) : \u03c0.farSign P g k = \u03c0.farSign Q g k",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_chi": "SM.IntervalComposition.ordinaryWeight_eq_of_chi {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) {P Q : SM.LabelledTuple n} (hP : SM.G1 P) (hQ : SM.G1 Q)\n  (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n) :\n  \u03c0.ordinaryWeight P hP g = \u03c0.ordinaryWeight Q hQ g",
+    "SM.IntervalComposition.rootWeight_eq_of_chi": "SM.IntervalComposition.rootWeight_eq_of_chi {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) {P Q : SM.LabelledTuple n} (hP : SM.G1 P) (hQ : SM.G1 Q)\n  (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n) : \u03c0.rootWeight P hP g = \u03c0.rootWeight Q hQ g",
+    "SM.openTreeSum_eq_of_chi": "SM.openTreeSum_eq_of_chi {n : \u2115} [NeZero n] {P Q : SM.LabelledTuple n} (hP : SM.G1 P) (hQ : SM.G1 Q)\n  (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n) (I : SM.BoundaryInterval n) :\n  SM.openTreeSum P hP g I = SM.openTreeSum Q hQ g I",
+    "SM.treeCoefficient_eq_of_chi": "SM.treeCoefficient_eq_of_chi {n : \u2115} [NeZero n] {P Q : SM.LabelledTuple n} (hP : SM.G1 P) (hQ : SM.G1 Q)\n  (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n) (hn : 3 \u2264 n) :\n  SM.treeCoefficient P hP g hn = SM.treeCoefficient Q hQ g hn",
+    "SM.openTreeSum_shift": "SM.openTreeSum_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n)\n  (I : SM.BoundaryInterval n) : SM.openTreeSum (SM.shift a P) \u22ef (g - a) I = SM.openTreeSum P hP g I",
+    "SM.treeCoefficient_shift": "SM.treeCoefficient_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) (hn : 3 \u2264 n) :\n  SM.treeCoefficient (SM.shift a P) \u22ef (g - a) hn = SM.treeCoefficient P hP g hn",
+    "SM.mainTreeCoefficient_shift": "SM.mainTreeCoefficient_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (a : ZMod n) (hn : 3 \u2264 n) :\n  SM.mainTreeCoefficient (SM.shift a P) \u22ef hn = SM.treeCoefficient P hP a hn",
+    "SM.treesumData_shift": "SM.treesumData_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) (hn : 3 \u2264 n) :\n  SM.treesumData (SM.shift a P) \u22ef (g - a) hn =\n    (SM.openTreeSum P hP g, SM.treeCoefficient P hP g hn, SM.treeCoefficient P hP a hn)",
+    "SM.tree_data_eq_of_chi": "SM.tree_data_eq_of_chi {n : \u2115} [NeZero n] {P Q : SM.LabelledTuple n} (hP : SM.G1 P) (hQ : SM.G1 Q)\n  (hchi : \u2200 (i j k : ZMod n), SM.chi P i j k = SM.chi Q i j k) (g : ZMod n) (hn : 3 \u2264 n) :\n  (\u2200 (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I),\n      \u03c0.ordinaryWeight P hP g = \u03c0.ordinaryWeight Q hQ g \u2227 \u03c0.rootWeight P hP g = \u03c0.rootWeight Q hQ g) \u2227\n    (\u2200 (I : SM.BoundaryInterval n), SM.openTreeSum P hP g I = SM.openTreeSum Q hQ g I) \u2227\n      SM.treeCoefficient P hP g hn = SM.treeCoefficient Q hQ g hn",
+    "SM.labelled_chamber_chi_constant": "SM.labelled_chamber_chi_constant {n : \u2115} [NeZero n] (P Q : SM.GenericTuple n) (hQ : Q \u2208 SM.labelledChamber P)\n  (i j k : ZMod n) : SM.chi (\u2191P) i j k = SM.chi (\u2191Q) i j k",
+    "SM.tree_data_labelled_chamber_constant": "SM.tree_data_labelled_chamber_constant {n : \u2115} [NeZero n] (P Q : SM.GenericTuple n) (hQ : Q \u2208 SM.labelledChamber P)\n  (g : ZMod n) (hn : 3 \u2264 n) :\n  (\u2200 (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I),\n      \u03c0.ordinaryWeight \u2191P \u22ef g = \u03c0.ordinaryWeight \u2191Q \u22ef g \u2227 \u03c0.rootWeight \u2191P \u22ef g = \u03c0.rootWeight \u2191Q \u22ef g) \u2227\n    (\u2200 (I : SM.BoundaryInterval n), SM.openTreeSum \u2191P \u22ef g I = SM.openTreeSum \u2191Q \u22ef g I) \u2227\n      SM.treeCoefficient \u2191P \u22ef g hn = SM.treeCoefficient \u2191Q \u22ef g hn",
+    "SM.tree_data_G1_path_constant": "SM.tree_data_G1_path_constant {n : \u2115} [NeZero n] {P Q : { P // SM.G1 P }} (\u03b3 : Path P Q)\n  (hchi : \u2200 (s t : \u2191unitInterval) (i j k : ZMod n), SM.chi (\u2191(\u03b3 s)) i j k = SM.chi (\u2191(\u03b3 t)) i j k) (g : ZMod n)\n  (hn : 3 \u2264 n) (s t : \u2191unitInterval) :\n  (\u2200 (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I),\n      \u03c0.ordinaryWeight \u2191(\u03b3 s) \u22ef g = \u03c0.ordinaryWeight \u2191(\u03b3 t) \u22ef g \u2227 \u03c0.rootWeight \u2191(\u03b3 s) \u22ef g = \u03c0.rootWeight \u2191(\u03b3 t) \u22ef g) \u2227\n    (\u2200 (I : SM.BoundaryInterval n), SM.openTreeSum \u2191(\u03b3 s) \u22ef g I = SM.openTreeSum \u2191(\u03b3 t) \u22ef g I) \u2227\n      SM.treeCoefficient \u2191(\u03b3 s) \u22ef g hn = SM.treeCoefficient \u2191(\u03b3 t) \u22ef g hn",
+    "SM.treeCoefficient_quotient_chamber_transport": "SM.treeCoefficient_quotient_chamber_transport {n : \u2115} [NeZero n] (P Q : SM.GenericTuple n) (hn : 3 \u2264 n)\n  (hQ : SM.polygonProjection Q \u2208 SM.chamber (SM.polygonProjection P)) :\n  \u2203 a,\n    Q \u2208 SM.labelledChamber (SM.genericShift a P) \u2227\n      \u2200 (g : ZMod n), SM.treeCoefficient \u2191Q \u22ef (g - a) hn = SM.treeCoefficient \u2191P \u22ef g hn",
+    "SM.OpenPlaneTree": "SM.OpenPlaneTree {n : \u2115} : SM.BoundaryInterval n \u2192 Type",
+    "SM.openPlaneTreeUngraft": "SM.openPlaneTreeUngraft {n : \u2115} (I : SM.BoundaryInterval n) :\n  SM.OpenPlaneTree I \u2243\n    PLift (I.leaves = 1) \u2295 (\u03c0 : { \u03c0 // 2 \u2264 \u03c0.parts }) \u00d7 ((k : Fin (\u2191\u03c0).parts) \u2192 SM.OpenPlaneTree ((\u2191\u03c0).part k))",
+    "SM.openPlaneTree_finite": "SM.openPlaneTree_finite {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) : Finite (SM.OpenPlaneTree I)",
+    "SM.RootedPlaneTree": "SM.RootedPlaneTree {n : \u2115} (I : SM.BoundaryInterval n) : Type",
+    "SM.OpenPlaneTree.weight": "SM.OpenPlaneTree.weight.{u} {n : \u2115} {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n} :\n  SM.OpenPlaneTree I \u2192 R",
+    "SM.OpenPlaneTree.ordinaryCount": "SM.OpenPlaneTree.ordinaryCount {n : \u2115} {I : SM.BoundaryInterval n} : SM.OpenPlaneTree I \u2192 \u2115",
+    "SM.OpenPlaneTree.ordinaryProduct": "SM.OpenPlaneTree.ordinaryProduct.{u} {n : \u2115} {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n} :\n  SM.OpenPlaneTree I \u2192 R",
+    "SM.OpenPlaneTree.weight_eq_signed_product": "SM.OpenPlaneTree.weight_eq_signed_product.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n}\n  (T : SM.OpenPlaneTree I) :\n  SM.OpenPlaneTree.weight ordinary T = (-1) ^ T.ordinaryCount * SM.OpenPlaneTree.ordinaryProduct ordinary T",
+    "SM.RootedPlaneTree.weight": "SM.RootedPlaneTree.weight.{u} {n : \u2115} {R : Type u} [CommRing R]\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n}\n  (T : SM.RootedPlaneTree I) : R",
+    "SM.RootedPlaneTree.ordinaryCount": "SM.RootedPlaneTree.ordinaryCount {n : \u2115} {I : SM.BoundaryInterval n} (T : SM.RootedPlaneTree I) : \u2115",
+    "SM.RootedPlaneTree.ordinaryProduct": "SM.RootedPlaneTree.ordinaryProduct.{u} {n : \u2115} {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n}\n  (T : SM.RootedPlaneTree I) : R",
+    "SM.RootedPlaneTree.weight_eq_signed_product": "SM.RootedPlaneTree.weight_eq_signed_product.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n}\n  (T : SM.RootedPlaneTree I) :\n  SM.RootedPlaneTree.weight ordinary rootWeight T =\n    (-1) ^ T.ordinaryCount * rootWeight I T.fst * SM.RootedPlaneTree.ordinaryProduct ordinary T",
+    "SM.openPlaneTreeSum": "SM.openPlaneTreeSum.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) : R",
+    "SM.OpenPlaneTree.eq_leaf": "SM.OpenPlaneTree.eq_leaf {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (hI : I.leaves = 1) (T : SM.OpenPlaneTree I) :\n  T = SM.OpenPlaneTree.leaf hI",
+    "SM.openPlaneTreeSum_one": "SM.openPlaneTreeSum_one.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n)\n  (hI : I.leaves = 1) : SM.openPlaneTreeSum ordinary I = 1",
+    "SM.openPlaneTreeSum_many": "SM.openPlaneTreeSum_many.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n)\n  (hI : 2 \u2264 I.leaves) :\n  SM.openPlaneTreeSum ordinary I = -\u2211 \u03c0, ordinary I \u2191\u03c0 * \u220f k, SM.openPlaneTreeSum ordinary ((\u2191\u03c0).part k)",
+    "SM.openTreeRec_eq_planeTreeSum": "SM.openTreeRec_eq_planeTreeSum.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) :\n  SM.openTreeRec ordinary I = SM.openPlaneTreeSum ordinary I",
+    "SM.rootedTreeRec_eq_planeTreeSum": "SM.rootedTreeRec_eq_planeTreeSum.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) :\n  SM.rootedTreeRec ordinary rootWeight I = \u2211 T, SM.RootedPlaneTree.weight ordinary rootWeight T",
+    "SM.rootedTreeRec_eq_signed_planeTreeSum": "SM.rootedTreeRec_eq_signed_planeTreeSum.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R]\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) :\n  SM.rootedTreeRec ordinary rootWeight I =\n    \u2211 T, (-1) ^ T.ordinaryCount * rootWeight I T.fst * SM.RootedPlaneTree.ordinaryProduct ordinary T",
+    "SM.OpenPlaneTree.map_weight": "SM.OpenPlaneTree.map_weight.{u, v} {n : \u2115} [NeZero n] {R : Type u} {S : Type v} [CommRing R] [CommRing S] (f : R \u2192+* S)\n  (ordinary : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) {I : SM.BoundaryInterval n}\n  (T : SM.OpenPlaneTree I) :\n  f (SM.OpenPlaneTree.weight ordinary T) = SM.OpenPlaneTree.weight (fun J \u03c0 => f (ordinary J \u03c0)) T",
+    "SM.RootedPlaneTree.map_weight": "SM.RootedPlaneTree.map_weight.{u, v} {n : \u2115} [NeZero n] {R : Type u} {S : Type v} [CommRing R] [CommRing S]\n  (f : R \u2192+* S) (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R)\n  {I : SM.BoundaryInterval n} (T : SM.RootedPlaneTree I) :\n  f (SM.RootedPlaneTree.weight ordinary rootWeight T) =\n    SM.RootedPlaneTree.weight (fun J \u03c0 => f (ordinary J \u03c0)) (fun J \u03c0 => f (rootWeight J \u03c0)) T",
+    "SM.map_rootedTreeRec": "SM.map_rootedTreeRec.{u, v} {n : \u2115} [NeZero n] {R : Type u} {S : Type v} [CommRing R] [CommRing S] (f : R \u2192+* S)\n  (ordinary rootWeight : (I : SM.BoundaryInterval n) \u2192 SM.IntervalComposition I \u2192 R) (I : SM.BoundaryInterval n) :\n  f (SM.rootedTreeRec ordinary rootWeight I) =\n    SM.rootedTreeRec (fun J \u03c0 => f (ordinary J \u03c0)) (fun J \u03c0 => f (rootWeight J \u03c0)) I",
+    "SM.TreeWeightIndex": "SM.TreeWeightIndex (n : \u2115) : Type",
+    "SM.formalOrdinaryWeight": "SM.formalOrdinaryWeight {n : \u2115} (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I) :\n  MvPolynomial (SM.TreeWeightIndex n) \u2124",
+    "SM.formalRootWeight": "SM.formalRootWeight {n : \u2115} (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I) :\n  MvPolynomial (SM.TreeWeightIndex n) \u2124",
+    "SM.planeTree_formal_identity": "SM.planeTree_formal_identity {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  SM.rootedTreeRec SM.formalOrdinaryWeight SM.formalRootWeight I =\n    \u2211 T,\n      (-1) ^ T.ordinaryCount * SM.formalRootWeight I T.fst *\n        SM.RootedPlaneTree.ordinaryProduct SM.formalOrdinaryWeight T",
+    "SM.planeTree_formal_evaluation": "SM.planeTree_formal_evaluation.{v} {n : \u2115} [NeZero n] {S : Type v} [CommRing S] (I : SM.BoundaryInterval n)\n  (values : SM.TreeWeightIndex n \u2192 S) :\n  (MvPolynomial.eval\u2082Hom (Int.castRingHom S) values) (SM.rootedTreeRec SM.formalOrdinaryWeight SM.formalRootWeight I) =\n    SM.rootedTreeRec (fun J \u03c0 => values (Bool.false, \u27e8J, \u03c0\u27e9)) (fun J \u03c0 => values (Bool.true, \u27e8J, \u03c0\u27e9)) I",
+    "SM.treeCoefficient_eq_signed_planeTreeSum": "SM.treeCoefficient_eq_signed_planeTreeSum {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n)\n  (hn : 3 \u2264 n) :\n  SM.treeCoefficient P hP g hn =\n    \u2211 T,\n      (-1) ^ T.ordinaryCount * T.fst.rootWeight P hP g *\n        SM.RootedPlaneTree.ordinaryProduct (fun x \u03c0 => \u03c0.ordinaryWeight P hP g) T",
+    "SM.treesum_trees": "SM.treesum_trees.{v} {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) :\n  SM.treeCoefficient P hP g hn =\n      \u2211 T,\n        (-1) ^ T.ordinaryCount * T.fst.rootWeight P hP g *\n          SM.RootedPlaneTree.ordinaryProduct (fun x \u03c0 => \u03c0.ordinaryWeight P hP g) T \u2227\n    SM.rootedTreeRec SM.formalOrdinaryWeight SM.formalRootWeight (SM.fullBoundaryInterval hn) =\n        \u2211 T,\n          (-1) ^ T.ordinaryCount * SM.formalRootWeight (SM.fullBoundaryInterval hn) T.fst *\n            SM.RootedPlaneTree.ordinaryProduct SM.formalOrdinaryWeight T \u2227\n      \u2200 (A : Type v) [inst : CommRing A] (values : SM.TreeWeightIndex n \u2192 A),\n        (MvPolynomial.eval\u2082Hom (Int.castRingHom A) values)\n            (SM.rootedTreeRec SM.formalOrdinaryWeight SM.formalRootWeight (SM.fullBoundaryInterval hn)) =\n          SM.rootedTreeRec (fun J \u03c0 => values (Bool.false, \u27e8J, \u03c0\u27e9)) (fun J \u03c0 => values (Bool.true, \u27e8J, \u03c0\u27e9))\n            (SM.fullBoundaryInterval hn)"
+  },
+  "type_sha256": {
+    "SM.openTreeRec": "1099726773eddf1fe9b7d694c3536cd8af2e441fecd694ca63c2df2be374107d",
+    "SM.rootedTreeRec": "1c28c4796e36c66dacaa592b1a28f397bce29761f9b5051a221b32ea937c78df",
+    "SM.openTreeRec_one": "4fb9b605b59c7c6757f2dcfedd2674cc9925ca96b613d2ff34fec6b3416b7cc5",
+    "SM.openTreeRec_many": "c7edef50665273f5ea15fa175127ec004bc174f6f98e571d31fd571d43c87c5f",
+    "SM.fullBoundaryInterval": "228ad2285b280dc7fab8c20a94c2c35832e08feeb87c0a59b9bd330036332b9a",
+    "SM.openTreeSum": "5154a4ef2547ecd367d0133b256c5b4fd4f6d685599ecd4ce6d11366924b8d3f",
+    "SM.treeCoefficient": "748b8b62020b6c9e334729a3e14306dcf2e0a60e11678992398b28868ac62033",
+    "SM.mainTreeCoefficient": "be696ef5516f429a802ff6a277dd040206a55806c9f0cde7701ed910c38fff00",
+    "SM.openTreeSum_one": "89c0769584ef56f1701e576b8914cc817586efbbbde0d004fee05da30e9a3903",
+    "SM.openTreeSum_many": "962f2b91660e68c14e654d95ecd14c1f98c5766e360a0fe124a8380c493c1df8",
+    "SM.treeCoefficient_eq": "5b121f15f7ea33a3af6b5e54af7b049611c3215ed8f9549e1e924b70c523e4fc",
+    "SM.treesumData": "82f109b3ad4fdf065efccbadaa3d7769410f2eacd9bee8bfdb390c8706b6169b",
+    "SM.IntervalComposition.nearSign_eq_of_chi": "be715676acff88219ee27d338936b3709e9684f14c44ac527c6b9d7303f68669",
+    "SM.IntervalComposition.farSign_eq_of_chi": "a9e20664122bbee7706b86bc30f0fa6f3603a2e5816805185c010b4113c51b67",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_chi": "355fe1bdea8c12df5ac7bc2b8cd7a53d66425a53063931d87244767f085b1ac1",
+    "SM.IntervalComposition.rootWeight_eq_of_chi": "dcb9f6b530e099974ac03d1935249f7baa5b83b0d9d2cecdf0c2ce54e06d13a1",
+    "SM.openTreeSum_eq_of_chi": "d2dd2fb4434cbe6f8f52de2d163c421ca235f8d3f824346974d90f31747885c3",
+    "SM.treeCoefficient_eq_of_chi": "2564e8b6455a81eedef49118609a8f77f45a990c03d6d4e28e09f8b2a270d8c9",
+    "SM.openTreeSum_shift": "045aa05d6213d35b071adb35fad56eeb1de67749ea2ed713e905838490ab8fc4",
+    "SM.treeCoefficient_shift": "1ff352724867955eca69ede44702458c79fd7d6f0264a2126681fc11a84f54ac",
+    "SM.mainTreeCoefficient_shift": "ab4712831bd1a8fe0cf7411b94286297c5a38075c4e3ba00eb9837f7ee5d222a",
+    "SM.treesumData_shift": "f54e1f741940dc750bdceccec0e07edb79a3dfe26e1ea4e37abd508fca577c8c",
+    "SM.tree_data_eq_of_chi": "b5ea766a71c7b5d1710550562148512e9410edf847d23462c77663614ee8e70d",
+    "SM.labelled_chamber_chi_constant": "14bbf7d12c49badd1a3806b6a856ef6df20637a61a3b0125d06ba70b82693ab0",
+    "SM.tree_data_labelled_chamber_constant": "3cdc6d8a672365c58adc4e942376d4b0249395c18ae40450b57fcb99e2b8c65e",
+    "SM.tree_data_G1_path_constant": "44499ab2cd9a2c6477b21dbccf5a45080697d84450cb7826574a259c200eef2f",
+    "SM.treeCoefficient_quotient_chamber_transport": "78a63c5b7f5c5d4739e7b57c5b7f9623432053e0d568bb9a09e5dfb82f95d722",
+    "SM.OpenPlaneTree": "617a11a659ccdd6a680264dcecb38836b4d190aff50ffcc2ba7430e2fdb98e95",
+    "SM.openPlaneTreeUngraft": "0eb1fb530c0d81b917d47c946e6bcb89f74a7d7695711974e6c9d98a2509505c",
+    "SM.openPlaneTree_finite": "d5a237945c64bfaba1efc81e9bb220b83b41b88692b975eb5f28dc51709ac8f3",
+    "SM.RootedPlaneTree": "f52559a2db9fb246fd450c3134901083a1d2fed51482dd2964f49fcf383757c9",
+    "SM.OpenPlaneTree.weight": "f336557863202a4963709e81f40de79fa61b6ed0a7ffe63afddb030e877d89f0",
+    "SM.OpenPlaneTree.ordinaryCount": "07078ca32becf8aa4ed6e19fe821185292de34e36dc1f7f0abb0d2e5384451f0",
+    "SM.OpenPlaneTree.ordinaryProduct": "557a4b8f061d274e823e1490028291499348bc925c5c6c304535d8580b8a8981",
+    "SM.OpenPlaneTree.weight_eq_signed_product": "e1540b723d82e656e1cce869ee63123130a78b27a4bd6ec132cbae696bef82a9",
+    "SM.RootedPlaneTree.weight": "56c5c3f5b7176c677803c9bf624d1f6f5324fd37db88cade3345f565f0a96a23",
+    "SM.RootedPlaneTree.ordinaryCount": "172566d0a16bcfb937e50de8ed9d9413d9b54dc2e6e9809ad2e15e86cf1d3ed6",
+    "SM.RootedPlaneTree.ordinaryProduct": "4232dca6e1a1ba30c2b2b00780ae79c7460de8c4673d3021d789577f3a50010a",
+    "SM.RootedPlaneTree.weight_eq_signed_product": "c570c6bd93dbeb8716ec91d298dcba70cf7ec7403bb8bc9d3d9b9b8bb84ecfa3",
+    "SM.openPlaneTreeSum": "9689646f7a778150916ebce048d83ac2e5be42c415bef624a3c01e8d680aaebf",
+    "SM.OpenPlaneTree.eq_leaf": "87876fc04578809f3cf1c69c2d64b73cc98a8dae360246e1109090c6f8bdfe9b",
+    "SM.openPlaneTreeSum_one": "f15d629077b1748f9d2a14e3e5b1f6a3f3b55fc5780305e5dae47dcd7ea8e031",
+    "SM.openPlaneTreeSum_many": "9a509c406cf75c3f9148b2f0247db33816cd6d9c1f193be7ad2627107c02fc6d",
+    "SM.openTreeRec_eq_planeTreeSum": "2a245454b3ee8629d7871b0d85b4cef9377b5d25f46069061342bca4cbe8480d",
+    "SM.rootedTreeRec_eq_planeTreeSum": "417c871d97f73c5566ee94d1e5511746d550a30f6b7231087be4c558b8c1477d",
+    "SM.rootedTreeRec_eq_signed_planeTreeSum": "987d1505dbd61f97249b38048f00c70e55d04da22110310e1fc7fb24513e2ddc",
+    "SM.OpenPlaneTree.map_weight": "fa0e2a01ba481dc940038083a0295aa3583cc0789d08ab223007af0554a1a2ca",
+    "SM.RootedPlaneTree.map_weight": "0bf37679401c385be04afd87f6cf85b05d621d36662521b39948b805ee7b465f",
+    "SM.map_rootedTreeRec": "ffda79ef40a16df73563f7cc2c021f7aad410ea11b30ab6b91c35da2949f757e",
+    "SM.TreeWeightIndex": "e9bd7f35c186aaef7c3a466cdb7ceeb755701374d05e44bc61090889140bd338",
+    "SM.formalOrdinaryWeight": "1253ef3fd1dea2ec56d6b9a01e02381b19cf6a41f93cccac92e4bf2a485140fe",
+    "SM.formalRootWeight": "aef35a3afe1466eba71c1664c94c9e64c92b5de17be2b81981a2ca2ad0729816",
+    "SM.planeTree_formal_identity": "0e7750795c3abd8d6e8fda364a350c04c979a201a2d8f1f6a80c736401066e3c",
+    "SM.planeTree_formal_evaluation": "e8f0f5f742e991a3eb19992f13ccce820a36fc14bdffafec69be08056c3f9692",
+    "SM.treeCoefficient_eq_signed_planeTreeSum": "3ea9abeb076b438ffcdbe0fecf1f81621938a6c2695c7f2dd2799c52c9e71dfc",
+    "SM.treesum_trees": "e1577e2360afae94a8d1b331bc22d59c999accc13bbac2a4d287b8c091a10618"
+  },
+  "axioms": {
+    "SM.openTreeRec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootedTreeRec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeRec_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeRec_many": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.fullBoundaryInterval": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.openTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.mainTreeCoefficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeSum_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeSum_many": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treesumData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeSum_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeSum_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.mainTreeCoefficient_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treesumData_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.tree_data_eq_of_chi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.labelled_chamber_chi_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.tree_data_labelled_chamber_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.tree_data_G1_path_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_quotient_chamber_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree": [
+      "propext"
+    ],
+    "SM.openPlaneTreeUngraft": [
+      "propext"
+    ],
+    "SM.openPlaneTree_finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree": [
+      "propext"
+    ],
+    "SM.OpenPlaneTree.weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree.ordinaryCount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree.ordinaryProduct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree.weight_eq_signed_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree.weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree.ordinaryCount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree.ordinaryProduct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree.weight_eq_signed_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openPlaneTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree.eq_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openPlaneTreeSum_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openPlaneTreeSum_many": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.openTreeRec_eq_planeTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootedTreeRec_eq_planeTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootedTreeRec_eq_signed_planeTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.OpenPlaneTree.map_weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RootedPlaneTree.map_weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.map_rootedTreeRec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.TreeWeightIndex": [
+      "propext"
+    ],
+    "SM.formalOrdinaryWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.formalRootWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.planeTree_formal_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.planeTree_formal_evaluation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_eq_signed_planeTreeSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treesum_trees": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.interval_recursion_cases": [
+      "propext",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.part_leaf_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.source_arity_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.one_part_root_term": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.source_recursion_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.full_interval_and_last_root": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.exact_root_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.actual_tree_leaf_count": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft": [
+      "propext",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.arbitrary_root_weight_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.binary_tree_formal_weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.ordinary_root_variables_distinct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.arbitrary_separate_assignments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TreeDefinitionIndependentReview.actual_source_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

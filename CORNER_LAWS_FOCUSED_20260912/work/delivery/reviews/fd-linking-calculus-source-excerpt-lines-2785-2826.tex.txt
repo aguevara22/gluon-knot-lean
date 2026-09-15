@@ -1,0 +1,42 @@
+\begin{lemma}[Linking calculus and uniform transverse framing]
+\label{fd:linking-calculus}
+For two disjoint smooth oriented parametrized circles $C_1,C_2$ in
+oriented $\RR^3$, use the normalized linking pairing
+\begin{equation}\label{fd:gauss-linking}
+ \ell(C_1,C_2)=\frac1{4\pi}\int_{S^1\times S^1}
+       G\cdot(G_u\times G_v)\,du\,dv,
+ \qquad G(u,v)=\frac{C_2(v)-C_1(u)}{|C_2(v)-C_1(u)|}.
+\end{equation}
+It is symmetric and is constant under smooth families of disjoint
+oriented pairs. Call a direction $\nu\in S^2$ \emph{generic for the pair} if at
+every parameter pair $(u,v)$ at which $C_2(v)-C_1(u)$ is parallel to $\nu$
+the tangents of the two circles projected along $\nu$ are linearly
+independent; the projection along such a $\nu$ displays the pair with
+finitely many transverse mixed crossings. Let $\nu$ point toward the
+observer and orient the projection plane so that its positive basis followed
+by $\nu$ is positive in $\RR^3$; at a mixed crossing the strand nearer the
+observer is over. Then $\ell(C_1,C_2)$ equals one half the sum over the
+mixed crossings of the overpass-first sign $\sgn\det(u_{\rm o},u_{\rm u})$
+of the projected over and under tangents.
+Thus it has exactly the linking normalization used in the source's
+front calculations.
+
+More generally, let $C_s$, $0\leq s\leq1$, be a smooth family of embedded oriented
+circles and let $v_s$ be a smooth vector field along them, everywhere
+linearly independent of $\partial_uC_s$. One common sufficiently small
+positive $\epsilon$ gives disjoint framed pairs
+$(C_s,C_s+\epsilon v_s)$ throughout the family. Their pairing is
+independent of that radius and of $s$. This includes a homotopy of
+normal framings on a fixed curve.
+
+If $T_s:S^1\to\RR^3$, $0\leq s\leq1$, is a smooth family of
+embeddings with $(dz-y\,dx)(\partial_uT_s)>0$, there is one
+$\epsilon_0>0$ such that $T_s$ and $T_s+\epsilon\partial_y$ are
+disjoint positive transverse embeddings for every $s$ and
+$0<\epsilon\leq\epsilon_0$. The number
+\begin{equation}\label{fd:framed-linking}
+            sl(T_s)=\ell(T_s,T_s+\epsilon\partial_y)
+\end{equation}
+is independent of such $\epsilon$ and of $s$.
+\status{proved (refereed: bench A, 2026-09-06T00:35:51Z and 2026-09-06T01:58:43Z; transcribed from RC d2d\_contact\_constructions (C030); round~3: the convention sentence moved to Remark~\ref{rem:sl-convention}, F-25-81; round~5: the projection-genericity class of the mixed-crossing clause defined in the statement (a direction regular for the pair) and the observer direction and plane orientation that fix its sign stated there, as its proof uses them, F-25-155)}
+\end{lemma}

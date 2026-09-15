@@ -1,0 +1,63 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "visible-generic-sign-persistence-technical-review-20260912",
+  "sealed_utc": "2026-09-12T00:24:37.917832+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "model_relationship": "Same model; no stronger-model fidelity review performed.",
+    "authored_reviewed_body": false,
+    "disclosure": "Root suggested the existing Filter.inter_mem as the proof-line repair after the first kernel failed; agent implemented it. Root did not author the statement or construction."
+  },
+  "scope": {
+    "group": "VisibleGenericSignPersistence",
+    "declarations": [
+      "SM.visible_chamber_generic_preserving_nonzero_chi"
+    ],
+    "source_id": "cor:polyform",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "977–989: sign-persistent generic tuple in the actual visible chamber"
+  },
+  "assessment": "No technical defect found within this bounded review.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "source_declaration": {
+    "ambient_context": "namespace SM; variable {n : ℕ}; open Set Filter Topology",
+    "complete_header": "theorem visible_chamber_generic_preserving_nonzero_chi\n    (hn : 3 ≤ n) (P : WeakTuple n) :\n    ∃ Q : GenericTuple n,\n      (⟨Q.val, generic_implies_weak hn Q.property⟩ : WeakTuple n) ∈\n        labelledVisibleChamber P ∧\n      ∀ i j k : ZMod n, chi P.val i j k ≠ 0 →\n        chi Q.val i j k = chi P.val i j k",
+    "sha256": "8c9896b60f5e87af9447a2090a432310697fe8ce967aafd819f83f79ddb3ffe1"
+  },
+  "evidence": {
+    "receipt_path": "work/checks/VisibleGenericSignPersistence-prototype-result.json",
+    "receipt_sha256": "44d01ac050fb400449094f08c5cdfeded46a0693ad351275407af08c80e77d8a",
+    "receipt_bound_files_sha256": {
+      "work/checks/VisibleGenericSignPersistence.body.lean": "4a440e836f439ea0475cb26c0f647f45a1596876f54197c1a561ac12c7b3d8c7",
+      "work/checks/VisibleGenericSignPersistence.prototype.lean": "9d65b74f038dc1892ee99275e6e916e114bcaa6a9f4571446156772d9a5b1b71",
+      "work/checks/VisibleGenericSignPersistence-second-kernel.log": "09a23a3b4b87cfecf3dcf7933f0ae902ec1ebafd0f9ad831f8a9ff5fa8185eb4"
+    },
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/WeakOpen.lean": "d529ddd96240311708fe3a840c9fb4cf2692764943435b77dae59e5c56b79bd5",
+      "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+      "work/lean/SM/FiniteChiStability.lean": "7160db9c4ac930a64c65ce44b9e9a41d4f139a3442a49604b3c96f9a347cadc9",
+      "work/checks/polyform-preserved-failures-20260912.json": "a1ab2bf1ba1f111f6377c57bf852d75edea4979fcc5493a6809bf5bd36dfee45"
+    },
+    "requested_declaration_axioms": {
+      "SM.visible_chamber_generic_preserving_nonzero_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  },
+  "findings": [
+    "P ranges over every WeakTuple with n ≥ 3. A NeZero n instance is derived from that inequality. There is no G1 or Generic premise at P and no bound on its zero triples.",
+    "The actual connected component image contains P and is ambient open by weak_visible_components. Filter.inter_mem combines its neighborhood with finite_nonzero_chi_persists for all ordered triples simultaneously.",
+    "mem_nhds_iff supplies an actual nonempty open subset containing P. generic_in_nonempty_open supplies a full Generic tuple there, rather than only a G1 tuple.",
+    "The image witness W is transported by Subtype.ext to the exact WeakTuple representative constructed by generic_implies_weak. Thus chamber membership and all initially nonzero ordered signs refer to the same generic Q.",
+    "First failed artifacts are preserved. The repair changed no theorem type. The successful second root kernel has only propext, Classical.choice and Quot.sound."
+  ],
+  "limits": "Technical review only; stronger definition/statement fidelity and controlled canonical integration remain pending."
+}

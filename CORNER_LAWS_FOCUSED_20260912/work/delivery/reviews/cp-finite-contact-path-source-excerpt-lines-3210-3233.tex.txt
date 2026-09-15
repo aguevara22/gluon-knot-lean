@@ -1,0 +1,24 @@
+\begin{lemma}[The supplied contact-path diagram endpoints]
+\label{cp:finite-contact-path}
+Let $C$ be a finite nonempty disjoint union of oriented parameter circles,
+and let $L:C\to\RR^3$ be a smooth embedding with nonvanishing parameter
+derivative. Assume its $xz$ projection $F$ is regular except at finitely
+many cusps, each with the exact germ
+\begin{equation}\label{cp:exact-cusp}
+ x=x_0+Au^2,\qquad y=y_0+u,\qquad
+ z=z_0+Ay_0u^2+\frac23Au^3,\qquad A\ne0.
+\end{equation}
+Assume the only multiple points of $F$ are finitely many transverse
+double points, none at a cusp, and the two $y$ values differ at every
+double point. Suppose a supplied jointly
+smooth family of oriented spatial embeddings $G_t$ starts at this
+parametrized $L$ and ends at $T$, whose specified $xz$ projection $D_T$
+is an ordinary finite regular generic diagram. Then every clean ordinary
+cusp smoothing $S(F)$, with smaller $y$ over at the unchanged crossings,
+has the same campaign polynomial as $D_T$:
+\begin{equation}\label{cp:endpoint-polynomial}
+                    P_{S(F)}=P_{D_T}.
+\end{equation}
+No contact condition is imposed on $G_t$ or on the rounding family.
+\status{new (round~5: the uniform normal-injectivity radius of the ambient extension supplied, by the argument of the uniform normal chart in the proof of Lemma~\ref{fd:linking-calculus} applied to the family $H_s$ of embeddings of the finite union $C$, F-25-151; Corollary~\ref{ce:smoothing-record} cited for the smoothing-independence of $P_{S(F)}$, F-25-136; the remainder is the round-1 transcription of RC d2e\_contact\_bound (C030), held by bench~A; round~9: the status word at the L1 premise removed, F-25-180)}
+\end{lemma}

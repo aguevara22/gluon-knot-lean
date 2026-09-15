@@ -1,0 +1,708 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "boundary-gate-stability-prototype",
+  "source_id": "thm:single-triple",
+  "source_line": 229,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "229-244,271-283,290-301",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T08:49:34.252726+00:00",
+  "main_declarations": [
+    "SM.pointFarSign",
+    "SM.sign_rescale_nonzero",
+    "SM.wallLeftEpsilon",
+    "SM.wallRightEpsilon",
+    "SM.wall_epsilons_nonzero",
+    "SM.wall_epsilons_one_or_neg_one",
+    "SM.wall_epsilon_positive",
+    "SM.affine_line_difference",
+    "SM.collinear_left_gate_sign",
+    "SM.collinear_right_gate_sign",
+    "SM.affine_collinear_left_gate",
+    "SM.affine_collinear_right_gate",
+    "SM.geometricBoundaryArray_pointFarSign",
+    "SM.boundary_collinear_left_sign",
+    "SM.boundary_collinear_right_sign",
+    "SM.IncreasingBoundaryTriple.positionSet",
+    "SM.IncreasingBoundaryTriple.positionSet_bounds",
+    "SM.IncreasingBoundaryTriple.positionSet_injective",
+    "SM.IncreasingBoundaryTriple.vertexSet",
+    "SM.IncreasingBoundaryTriple.vertexSet_injective",
+    "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+    "SM.boundary_chi_nonzero_off_critical",
+    "SM.farOnlyOutput_local",
+    "SM.farOnlyOutput_unchanged_off_critical",
+    "SM.geometric_array_persists_off_critical",
+    "SM.geometric_inverse_persists_off_span",
+    "SM.geometric_output_persists_off_span"
+  ],
+  "main_declarations_by_body": {
+    "CollinearGateSigns": [
+      "SM.pointFarSign",
+      "SM.sign_rescale_nonzero",
+      "SM.wallLeftEpsilon",
+      "SM.wallRightEpsilon",
+      "SM.wall_epsilons_nonzero",
+      "SM.wall_epsilons_one_or_neg_one",
+      "SM.wall_epsilon_positive",
+      "SM.affine_line_difference",
+      "SM.collinear_left_gate_sign",
+      "SM.collinear_right_gate_sign",
+      "SM.affine_collinear_left_gate",
+      "SM.affine_collinear_right_gate"
+    ],
+    "BoundaryGateSigns": [
+      "SM.geometricBoundaryArray_pointFarSign",
+      "SM.boundary_collinear_left_sign",
+      "SM.boundary_collinear_right_sign"
+    ],
+    "BoundaryTripleSupports": [
+      "SM.IncreasingBoundaryTriple.positionSet",
+      "SM.IncreasingBoundaryTriple.positionSet_bounds",
+      "SM.IncreasingBoundaryTriple.positionSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet",
+      "SM.IncreasingBoundaryTriple.vertexSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+      "SM.boundary_chi_nonzero_off_critical"
+    ],
+    "FarOnlyOutputLocality": [
+      "SM.farOnlyOutput_local",
+      "SM.farOnlyOutput_unchanged_off_critical"
+    ],
+    "BoundaryArrayStability": [
+      "SM.geometric_array_persists_off_critical",
+      "SM.geometric_inverse_persists_off_span",
+      "SM.geometric_output_persists_off_span"
+    ]
+  },
+  "prototype_files_sha256": {
+    "CollinearGateSigns": "c3d05fc111fa800c1d25157a39a359b104d8c3852634974e341e2b224b358401",
+    "BoundaryGateSigns": "51c54062115c3498a31a53862640419e486f51d29c557ec8db0c13971305c22c",
+    "BoundaryTripleSupports": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+    "FarOnlyOutputLocality": "c0a5dc5d64c30dbad1c6f6aff7cf18ae064564e527d6daf83b85f4b1ccdccb7d",
+    "BoundaryArrayStability": "8dcd7f72ad6b3fa419239a788dd3737b499d80535fa39764bebd62708c4b92b2"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/CriticalSourceResponse.lean": "154f456d16f796f6d52fabb1f2979b04b9b62dff8421cc2d785def4a2797b705",
+    "work/lean/SM/CoefficientResponse.lean": "709865501de144f8640efc7a55717e168a735385cbdca7fa02b2ba410769640f",
+    "work/lean/SM/FixedEndpointGate.lean": "3fdfd8603154185a6f82e7aafb86ceb0e7297ede7f4b9c6ce91033784ca55651",
+    "work/lean/SM/CriticalFarOccurrence.lean": "3a85c4eef913ff6e5c7e26374f93a166376ff0686a35995da6d630598b9d81f0",
+    "work/lean/SM/CriticalCutSplit.lean": "057fda75b742c22a8112736bc73f368766212d49d2df07024756673d848bcb1b",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/GapSplitProducts.lean": "6cd04237f5c6358f97c53f8f0222844d27cbe967d798d29181f2e518d696d1c2",
+    "work/lean/SM/CriticalInverseDifference.lean": "8d24a82540feb67b99bcdf636e0642cd11451f8b7718f9f22cdeee29ec22cc17",
+    "work/lean/SM/FarOnlyLocality.lean": "acabcc232d65c15d1b3137751bdc91d16c9f5b452898e33685be67964a29639c",
+    "work/lean/SM/FiniteChiStability.lean": "7160db9c4ac930a64c65ce44b9e9a41d4f139a3442a49604b3c96f9a347cadc9",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SinglePointTriple.lean": "5930e77bd3eb05d371b5226c226d9caa464f99d0be48038b1154d02c623dc2c8",
+    "work/lean/SM/ZeroTriples.lean": "33e64bb519d61fdb2d9e7613cd42af12831246e5774276ca5e2e21f63ea2c23a",
+    "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+    "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+    "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee"
+  },
+  "import_closure_roots": [
+    "SM.CriticalSourceResponse",
+    "SM.FiniteChiStability"
+  ],
+  "import_closure_file_count": 54,
+  "embedded_body_count": 5,
+  "evidence": {
+    "independent_trace_source": "work/checks/boundary-gate-stability-review-types.lean",
+    "independent_trace_source_sha256": "b3ca6a49e8e877a7e9990b291dfa2fc1e01d17fd7a7b12e80ed16c3b4ab4d5fb",
+    "independent_trace_log": "work/checks/boundary-gate-stability-review-types.log",
+    "independent_trace_log_sha256": "f7049c3e6fd7e9e2c761fbd6c6c1707c20584f94d5486271e1df5907a56331d6",
+    "independent_kernel_command": "lake env lean ../checks/boundary-gate-stability-review-types.lean",
+    "independent_kernel_session": 23810,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": false,
+    "prior_failed_independent_runs": [
+      {
+        "session": 58099,
+        "exit_code": 1,
+        "source": "work/checks/boundary-gate-stability-review-first.lean",
+        "log": "work/checks/boundary-gate-stability-review-first.log",
+        "examples": "work/checks/boundary-gate-stability-review-examples-first.lean",
+        "preparation": "work/checks/boundary-gate-stability-review-first-preparation.json",
+        "failure": "One reviewer-only eta-elaboration error: explicit lambda needed when using Function.Injective in Iff.intro. Corrected only the proof argument application; statements and frozen implementation unchanged.",
+        "source_sha256": "9326e085ee6d58adeab438cca17cb05a5b6cb343ee52c2ba0b50c6940d030a2c",
+        "log_sha256": "7df5f3ba8103365c9153841e562d0f6e478587ce5c057fd9d09cfb6da025c379",
+        "examples_sha256": "ffeb5b8912a15f59ae0f97ea0708e978ff9fb8250ec95b8a6ad687ff129e88e6",
+        "preparation_sha256": "b06327823728f73fd601fc22a1a82cf3acefbcc73779f20f7c3379350afeada5"
+      }
+    ],
+    "checked_declarations": [
+      "SM.pointFarSign",
+      "SM.sign_rescale_nonzero",
+      "SM.wallLeftEpsilon",
+      "SM.wallRightEpsilon",
+      "SM.wall_epsilons_nonzero",
+      "SM.wall_epsilons_one_or_neg_one",
+      "SM.wall_epsilon_positive",
+      "SM.affine_line_difference",
+      "SM.collinear_left_gate_sign",
+      "SM.collinear_right_gate_sign",
+      "SM.affine_collinear_left_gate",
+      "SM.affine_collinear_right_gate",
+      "SM.geometricBoundaryArray_pointFarSign",
+      "SM.boundary_collinear_left_sign",
+      "SM.boundary_collinear_right_sign",
+      "SM.IncreasingBoundaryTriple.positionSet",
+      "SM.IncreasingBoundaryTriple.positionSet_bounds",
+      "SM.IncreasingBoundaryTriple.positionSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet",
+      "SM.IncreasingBoundaryTriple.vertexSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+      "SM.boundary_chi_nonzero_off_critical",
+      "SM.farOnlyOutput_local",
+      "SM.farOnlyOutput_unchanged_off_critical",
+      "SM.geometric_array_persists_off_critical",
+      "SM.geometric_inverse_persists_off_span",
+      "SM.geometric_output_persists_off_span"
+    ],
+    "declaration_count": 27,
+    "declaration_axioms": {
+      "SM.pointFarSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.sign_rescale_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallLeftEpsilon": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallRightEpsilon": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilons_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilons_one_or_neg_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilon_positive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_line_difference": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.collinear_left_gate_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.collinear_right_gate_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_collinear_left_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_collinear_right_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_pointFarSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_collinear_left_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_collinear_right_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet_reversed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_chi_nonzero_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_local": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_unchanged_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_array_persists_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_inverse_persists_off_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_output_persists_off_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "BoundaryGateStabilityIndependentReview.support_has_three_positions",
+      "BoundaryGateStabilityIndependentReview.support_has_three_labels",
+      "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality",
+      "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign",
+      "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_between",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_before",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_after",
+      "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible",
+      "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate",
+      "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio",
+      "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio",
+      "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple",
+      "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged",
+      "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged",
+      "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement",
+      "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output",
+      "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates",
+      "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs"
+    ],
+    "additional_example_count": 19,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "BoundaryGateStabilityIndependentReview.support_has_three_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.support_has_three_labels": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_before": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_after": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_definitions_printed": [
+      "SM.pointFarSign",
+      "SM.wallLeftEpsilon",
+      "SM.wallRightEpsilon",
+      "SM.IncreasingBoundaryTriple",
+      "SM.IncreasingBoundaryTriple.positionSet",
+      "SM.IncreasingBoundaryTriple.vertexSet",
+      "SM.boundaryIndex",
+      "SM.boundaryWord",
+      "SM.geometricBoundaryArray",
+      "SM.PointZeroTriple",
+      "SM.pointZeroTriples",
+      "SM.chi",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.farTransform",
+      "SM.nearFarTransform",
+      "SM.IntervalComposition.nearFarWeight",
+      "SM.BoundaryInterval",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval"
+    ],
+    "supporting_types_printed": [
+      "SM.boundaryIndex_injective",
+      "SM.chi_nonzero_outside_singleton",
+      "SM.chi_locally_constant_of_ne_zero",
+      "SM.finite_nonzero_chi_persists",
+      "SM.farOnlyCoordinates_local",
+      "SM.farOnlyCoordinates_unchanged_off_critical",
+      "SM.IntervalComposition.part_bounds"
+    ],
+    "reviewed_types": "work/checks/boundary-gate-stability-reviewed-types.json",
+    "reviewed_types_sha256": "02ff16e122b5232ba420d7980f786dd8b8764f830b17cb169d408fce90ac7989",
+    "independent_closure_evidence": "work/checks/boundary-gate-stability-review-closure.json",
+    "independent_closure_evidence_sha256": "b8881565d4acfd6b18719abae391259be75359f94757b4a118e116da792c422d",
+    "root_successful_results": {
+      "work/checks/CollinearGateSigns-prototype-result.json": {
+        "kernel_session": 50086,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:32:14.300156+00:00",
+        "files_sha256": {
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+          "work/checks/CollinearGateSigns.prototype.lean": "c3d05fc111fa800c1d25157a39a359b104d8c3852634974e341e2b224b358401",
+          "work/checks/CollinearGateSigns-first-kernel.log": "93ed12f96a6d68567b94f1daef8c69adc1ff1d9bfc84891e7e90eb03a79ce8ff"
+        },
+        "printed_declarations": [
+          "SM.pointFarSign",
+          "SM.sign_rescale_nonzero",
+          "SM.wallLeftEpsilon",
+          "SM.wallRightEpsilon",
+          "SM.wall_epsilons_nonzero",
+          "SM.wall_epsilons_one_or_neg_one",
+          "SM.wall_epsilon_positive",
+          "SM.affine_line_difference",
+          "SM.collinear_left_gate_sign",
+          "SM.collinear_right_gate_sign",
+          "SM.affine_collinear_left_gate",
+          "SM.affine_collinear_right_gate"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryGateSigns-prototype-result.json": {
+        "kernel_session": 24750,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:43:34.280322+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+          "work/checks/BoundaryGateSigns.prototype.lean": "51c54062115c3498a31a53862640419e486f51d29c557ec8db0c13971305c22c",
+          "work/checks/BoundaryGateSigns-first-kernel.log": "31795aa7c376159a6b7548433df52eb8734c603998a9fa41240815593fe09285",
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40"
+        },
+        "printed_declarations": [
+          "SM.geometricBoundaryArray_pointFarSign",
+          "SM.boundary_collinear_left_sign",
+          "SM.boundary_collinear_right_sign"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryTripleSupports-prototype-result.json": {
+        "kernel_session": 98450,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:50:25.110049+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/BoundaryTripleSupports.prototype.lean": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+          "work/checks/BoundaryTripleSupports-first-kernel.log": "6cd541d10c340a215848b9073eb49fd32d6df339572f999f969d0105af0ca61a"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.positionSet",
+          "SM.IncreasingBoundaryTriple.positionSet_bounds",
+          "SM.IncreasingBoundaryTriple.positionSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet",
+          "SM.IncreasingBoundaryTriple.vertexSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+          "SM.boundary_chi_nonzero_off_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/FarOnlyOutputLocality-prototype-result.json": {
+        "kernel_session": 21440,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:51:11.120532+00:00",
+        "files_sha256": {
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+          "work/checks/FarOnlyOutputLocality.prototype.lean": "c0a5dc5d64c30dbad1c6f6aff7cf18ae064564e527d6daf83b85f4b1ccdccb7d",
+          "work/checks/FarOnlyOutputLocality-first-kernel.log": "291bca2230b873fa68990533346fe17077ac31c7e4a92c89f82d4de2b81cff59"
+        },
+        "printed_declarations": [
+          "SM.farOnlyOutput_local",
+          "SM.farOnlyOutput_unchanged_off_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryArrayStability-prototype-result.json": {
+        "kernel_session": 68168,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:52:11.220647+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee",
+          "work/checks/BoundaryArrayStability.prototype.lean": "8dcd7f72ad6b3fa419239a788dd3737b499d80535fa39764bebd62708c4b92b2",
+          "work/checks/BoundaryArrayStability-first-kernel.log": "cdc3e5a6e2a53b12c22d6d33bf1ce0a7e390b28ca55b67fb651554efad1a0867",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03"
+        },
+        "printed_declarations": [
+          "SM.geometric_array_persists_off_critical",
+          "SM.geometric_inverse_persists_off_span",
+          "SM.geometric_output_persists_off_span"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      }
+    },
+    "root_receipts_sha256": {
+      "work/checks/CollinearGateSigns-prototype-result.json": "b5f578b1ad81402c9f8122aae4685dd503ee4e52902e7d8e6678eb74ae28776d",
+      "work/checks/BoundaryGateSigns-prototype-result.json": "a25a476db0181b65ce6931c83d7804a8e7b0305611898e921beb9369d7671df1",
+      "work/checks/BoundaryTripleSupports-prototype-result.json": "9d01fd6c9528b498689a788e001933ae0e5e74bb62299c4ca1812fd53653ec5f",
+      "work/checks/FarOnlyOutputLocality-prototype-result.json": "af99909a0aeac9fc15beb1893fa466d1e1558039d6c88f9d7e4584b2d13d4f11",
+      "work/checks/BoundaryArrayStability-prototype-result.json": "fb267c4a1f3b8e6cf0b60ffca09bba7e28c4219211d49e8116113f69ddcf5949"
+    }
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "prior_checkpoint_bindings_sha256": {
+    "work/reviews/critical-response-port.json": "fd22bf709fcb40f61e4fd214a75c14be1d8bb415ed7e3a50f9a8bd8e6361ef2d",
+    "work/reviews/critical-source-response-canonical-partial.json": "0fbdd72a206b7ba711a5e1507c3246d60c59b99260109e2d1ce0af365c0f71a3",
+    "work/reviews/single-triple-n3-domain-note.json": "6c80aa7a8f9255bb5eff53aec13eefa32f59c830b564d997734ec36183b1d7ad",
+    "work/checks/checkpoint-070-output.json": "07f4e178bb741d9d830e4bb38836ff936bf7f9fe0bf1021ae8188983c6b422aa",
+    "work/checks/checkpoint-070-declaration-audit.json": "0b35a3cbc2164c3ce95a0e01abf9fba744530dd340ced228ff5aca6160a67f7e",
+    "work/checks/checkpoint-070-lean-check.log": "a4e610892517ae36f7161f3da8ae99a7795cce3e13ec1f1cf95ae7d719c0d22e"
+  },
+  "reason": "Faithful partial geometric and locality development for the single-triple wall proof. The actual unordered label support identifies exactly one increasing boundary triple; all other source determinants are nonzero. Finite chirotope continuity supplies one common ambient neighborhood for all noncritical geometric entries and all inverse/output coordinates whose intervals exclude the full critical span. Exact collinear determinant identities retain the printed left and right epsilon orientations and cast to the actual geometric arrays. Independent checks cover all27 types and19 consumers. This does not certify a full wall theorem, gap polygon nondegeneracy, or later side-radius and gap-value assembly.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact ordered and unordered support correspondence",
+      "assessment": "positionSet contains precisely lower,middle,upper in Fin n. Strict inequalities give three distinct positions, independently checked by cardinality. The proof that this set determines the ordered triple first identifies the minimum and maximum using the proved bounds, then rules out both endpoints as the other middle. vertexSet is exactly its image under the actual root boundaryIndex. That map is injective on every Fin n position, so equality of these unordered source label sets is equivalent to equality of the increasing triples. Reversing the displayed labels changes no set. Independent consumers check three labels, exact support equality, and the zero critical versus nonzero noncritical actual point signs. No geometric point-injectivity is used."
+    },
+    {
+      "clause": "Every noncritical actual determinant is nonzero",
+      "assessment": "Under pointZeroTriples P={t.vertexSet g}, the canonical singleton-zero theorem applies to the reversed actual labels of any u distinct from t. Strict boundary inequalities and injectivity of boundaryIndex establish pairwise distinct labels. If its unordered support were the critical support, the support injection would force u=t, a contradiction. Therefore its chi is nonzero. This matches the source exception by unordered triple, not merely one permutation or one occurrence; the statement is about actual P labels and not an abstract array assumption."
+    },
+    {
+      "clause": "Correct far-sign orientation and determinant rescaling",
+      "assessment": "pointFarSign a r c is sign(det(r-c,a-c)), exactly the source chi(c,r,a). In the left identity cyclic area invariance rewrites the determinants to share the actual first endpoint a. The relation b-a=s(c-a) scales the first determinant factor by s. In the right identity the common endpoint is c and b-c=s(a-c) scales the second determinant factor. For nonzero s, sign(s)^2=1 and sign multiplicativity recover the original sign. This remains valid if the determinant itself is zero; nonzero determinant claims are supplied separately for noncritical source triples. The independent zero-gate consumer verifies that the scalar theorem has no hidden determinant nonvanishing premise."
+    },
+    {
+      "clause": "The two source epsilon ratios, including reversed order",
+      "assessment": "wallLeftEpsilon is sign((y-x)/(z-x)); wallRightEpsilon is sign((z-y)/(z-x)). Distinct scalar coordinates prove both nonzero and hence +/-1. Their two real ratios sum to one, so at least one sign is positive, without assuming the labelled middle point is geometrically between the endpoints. Affine subtraction is proved componentwise. The left substitution uses ((y-x)/(z-x))*(z-x)=y-x. The right uses ((z-y)/(z-x))*(x-z)=y-z, reversing both differences and keeping the printed orientation. Independent consumers check the three geometric order regimes (++),(-+),(+-), rule out (--), and specialize the actual left and right sign equalities in the respective negative-ratio cases."
+    },
+    {
+      "clause": "Bridge to physical boundary samples and arbitrary coefficient rings",
+      "assessment": "geometricBoundaryArray_pointFarSign is a definitional equality between the existing reversed chirotope array and the three actual boundaryWord points, cast SignType to integers and then into R. Each left/right bridge uses actual equalities of those three wall vertices with p+xi*omega, and a physical r strictly inside the appropriate gap. The global sample is (lower,r,upper); the local sample is (lower,r,middle) or (middle,r,upper), respectively. The determinant sign identity is then transported through multiplicative integer/ring casts. The proof never substitutes a near sample or moves a physical endpoint. CommRing suffices for these bridges; no invertibility-of-two, G1, G2, or geometric-injectivity premise is added. The source distinct xi data are explicit; omega nonzero is not needed for this weaker sign identity and is not inferred from it."
+    },
+    {
+      "clause": "Complete reversed output locality",
+      "assessment": "farOnlyOutput is the actual full F_(-H)(c(H)) coordinate. Unfolding it retains the entire finite sum over unchanged raw compositions, including unary compositions. Each far coefficient sample has the original J endpoints, so agreement on every actual triple contained in J equates every coefficient factor. For each child, the canonical bounds place every triple contained in that child inside J, allowing the proved inverse-coordinate locality theorem to equate that complete child value. Product and sum congruence then give equality of the full output. No independence of individual geometric tree terms or genericity is assumed. The off-critical corollary follows because an interval excluding the entire critical span cannot contain the critical triple. Consumers cover both gap intervals, arbitrary critical-entry replacement, and the one-leaf output without any array agreement."
+    },
+    {
+      "clause": "One common ambient neighborhood for all source signs",
+      "assessment": "The canonical finite_nonzero_chi_persists theorem takes the finite intersection over all label triples of the neighborhoods supplied by continuity of the area and local constancy of sign at a nonzero real. It gives one eventual Q before universally quantifying every label triple. boundary_chi_nonzero_off_critical supplies the required nonzero values for every noncritical increasing boundary triple; applying the two casts yields simultaneous actual geometric-array equality. The ambient center P may be nongeneric and Q is not required to be generic. Thus this theorem does not accidentally assume G1 at the wall or hide a radius depending on a particular triple."
+    },
+    {
+      "clause": "Common neighborhood for all actual inverse and output intervals",
+      "assessment": "The inverse and output neighborhood theorems each start from that same simultaneous array-stability event, then quantify every BoundaryInterval J. The exact off-critical-span locality theorems apply with the actual arrays at Q and P. Both values therefore retain their wall values for every interval excluding the full critical span, with unary gaps allowed. An independent consumer takes the finite intersection of the three events and obtains joint array,c,B preservation. Another produces one set in the neighborhood filter on which any two tuples have equal complete outputs for all excluded intervals. These are common ambient-neighborhood conclusions; the later explicit common radius on an actual wall germ is outside this five-body review."
+    },
+    {
+      "clause": "n=3 is not silently replaced by n>=4",
+      "assessment": "All support and neighborhood helpers require only NeZero n and an actual increasing triple. They do not invoke singlePointTriple_vertices_injective, which correctly requires n>=4. An independent consumer proves that for n=3 there is only one increasing boundary triple, so the noncritical increasing-triple domain is empty there; this is legitimate in the partial stability claims and does not assert geometric distinctness. The separately bound source note explains why singleton Zpt alone does not force distinct geometric center points for n=3. The printed theorem also explicitly supplies pairwise distinct vertices and distinct xi; that interpretation remains explicit source data for future assembly, not an implication silently added by these helpers."
+    },
+    {
+      "clause": "Remaining source scope",
+      "assessment": "These bodies prove the exact support, sign-ratio, and ambient-locality portions of source271-283 and290-301. They do not construct a common wall-germ time radius, identify signed gap sums as the source U/V values, establish G1 for nontrivial closed gap polygons, build the contracted polygon with its physical root, propagate the critical response, or prove either final geometric wall formula. The new root-authored WallArrayNeighborhood, WallGapValues, BoundaryGapGates and later bodies are explicitly excluded. No original source claim is accepted from this helper review."
+    }
+  ],
+  "independence": "This reviewer independently read the source and all five frozen bodies, checked their actual transparent definitions and canonical dependency types, and authored only review consumers and evidence. No implementation, source, map, root receipt, or frozen report was edited. The separate earlier proper-child conceptual-overlap review remains bound through the accepted canonical partial report; none of those disputed fragments is new in this batch. The present direct output-locality proof compares full coefficient/child products; an earlier reviewer consumer had obtained output restriction through the already canonical restriction theorem, a different proof, and no reuse of that consumer has been asserted.",
+  "separate_source_domain_note": "work/reviews/single-triple-n3-domain-note.json",
+  "separate_source_domain_note_sha256": "6c80aa7a8f9255bb5eff53aec13eefa32f59c830b564d997734ec36183b1d7ad",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_pending": true,
+    "full_single_triple_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Explicit wall-germ common time radius and transfer of the wall sign identities to both sufficiently close sides.",
+    "Natural gap U/V identification and G1 of closed nontrivial gap polygons.",
+    "Contracted polygon, physical root, larger-interval propagation and final proper/full wall formulas."
+  ],
+  "not_certified": [
+    "No original thm:single-triple acceptance or canonical semantic hash for these external helpers.",
+    "No derivation of geometric distinctness from singleton Zpt at n=3.",
+    "No complete corner wall law, soft theorem, R theorem, or overall stage completion."
+  ]
+}

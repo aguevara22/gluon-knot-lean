@@ -1,0 +1,137 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-parent-order-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:17:08.894557+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_mark_transport",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "authorship_disclosure": "Root authored all seven reviewed declarations. Reviewer supplied neither their statements, implementation nor the proof repairs. Prior reviews concerned independent predecessor groups."
+  },
+  "scope": {
+    "group": "SoftParentOrder",
+    "declarations": [
+      "SM.canonicalPosition_val_zero",
+      "SM.canonicalPosition_val_nonzero",
+      "SM.softParentEdge_natCast",
+      "SM.softParentEdge_val",
+      "SM.softParentEdge_val_lt_iff",
+      "SM.softParentEdge_val_le_iff",
+      "SM.softParentEdge_zero"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "Arithmetic helper for the physical insertion in def:soft and the edge-order identification needed by lem:soft-generic(iii)–(iv). Source physical order 1,...,n is distinguished from the canonical numerical traversal cut 0,1,...,n-1."
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 81102,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      17757
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and exact complete body embeddings; full reviewed body retained below. No extracted-header hashes.",
+    "receipt_path": "work/checks/SoftParentOrder-prototype-result.json",
+    "receipt_sha256": "cb69d9d964168284944bec4575923462bb8b36f0d05fa2f1977e7dab6f9dc74f",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftParentOrder.body.lean": "c5598d7e148d33bfe30c6704a47001aa6c9f00489a6aaadebe740a9e4ef55d37",
+      "work/checks/SoftParentOrder.prototype.lean": "641ef6996427b6f1f60f6fd96262db8eec084b56f92d80b1d35d75e5d5be12be",
+      "work/checks/SoftParentOrder-second-kernel.log": "e8972ad68d7e7fe1e1a440a73cb22f56310a9825688cd687ae9ba39f480beb86"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftParentOrder.body.lean": 1
+    },
+    "printed_trace_count": 7,
+    "declaration_axioms": {
+      "SM.canonicalPosition_val_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalPosition_val_nonzero": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.softParentEdge_natCast": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentEdge_val": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentEdge_val_lt_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentEdge_val_le_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softParentEdge_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/GaussVisits.lean": "50dbbfa547bf24786d4491717f422aff25e179126e5ccee18146bbe7847e5496",
+      "work/lean/SM/GaussDefinition.lean": "c649abae154373c0ebe7409ac269a847af254bbafa41661e2161cc2304883a6d",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/ZMod/Basic.lean": "844baab1b85ab66c4264402d69b7a8e75e55a1df62a340732cb880935410f6fd",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean": "2ed3367d49bfdd7066b4397850a4eba88221173ccc037bb9af39cd8f3a4ef446",
+      "work/checks/SoftParentOrder-first-failed.body.lean": "756b469f655cc8372c6a1298d00d567e46b1ffc3e4d0c0b40695cd7235e6dbf1",
+      "work/checks/SoftParentOrder-first-failed.prototype.lean": "f50e7154077ba94c8050668f41d9755c306d0ebe84ac8218eb700cd3c8b0d721",
+      "work/checks/SoftParentOrder-first-kernel.log": "f0cef6bb95daae4d6020d9fd3fe332551cf643c0a6ea4bd5bb01a1d37d0a1aad",
+      "work/reviews/soft-insertion-indices-technical-review-20260911.json": "75deca0aa5e9a32a4d11a96b335f637ee5a1bfe05c47a7c2fab5fb7d472505d4",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502"
+    },
+    "full_reviewed_body_text": "namespace SM\n\nnoncomputable section\nvariable {n : ℕ} [NeZero n]\n\ntheorem canonicalPosition_val_zero : (canonicalPosition (0 : ZMod n)).val = n - 1 := by\n  obtain ⟨m, rfl⟩ := Nat.exists_eq_add_one_of_ne_zero (NeZero.ne n)\n  simp [canonicalPosition]\n\ntheorem canonicalPosition_val_nonzero (k : ZMod n) (hk : k ≠ 0) :\n    (canonicalPosition k).val = k.val - 1 := by\n  have hp := ZMod.val_pos.mpr hk\n  have hn := ZMod.val_lt k\n  haveI : Fact (1 < n) := ⟨by omega⟩\n  change (k - 1).val = k.val - 1\n  rw [ZMod.val_sub (by rw [ZMod.val_one]; omega), ZMod.val_one]\n\n/-- Exact numerical label formula for the corresponding parent edge. The\nreturn edge, rather than the soft edge, inherits the parent label's place\nin the traversal order, including parent label zero. -/\ntheorem softParentEdge_natCast (j k : ZMod n) :\n    softParentEdge j k = if j = 0 ∨ k.val < j.val then (k.val : ZMod (n + 1))\n      else ((k.val + 1 : ℕ) : ZMod (n + 1)) := by\n  have hn := NeZero.pos n\n  have hkn := ZMod.val_lt k\n  have hjn := ZMod.val_lt j\n  by_cases hj : j = 0\n  · subst j\n    simp only [true_or, ite_true]\n    by_cases hk : k = 0\n    · subst k\n      rw [softParentEdge_at_attachment, softNewIndex_physical, canonicalPosition_val_zero]\n      have he : n - 1 + 2 = n + 1 := by omega\n      rw [he, ZMod.natCast_self, ZMod.val_zero, Nat.cast_zero]\n    · rw [softParentEdge_of_ne 0 k hk]\n      have hp := ZMod.val_pos.mpr hk\n      have he := softOldIndex_physical (0 : ZMod n) (canonicalPosition k)\n      rw [boundaryIndex_canonicalPosition, canonicalPosition_val_nonzero k hk,\n        canonicalPosition_val_zero] at he\n      have hle : k.val - 1 ≤ n - 1 := by omega\n      rw [if_pos hle] at he\n      have hv : k.val - 1 + 1 = k.val := by omega\n      simpa only [hv] using he\n  · have hjp := ZMod.val_pos.mpr hj\n    by_cases hkj : k = j\n    · subst k\n      simp only [hj, false_or, lt_self_iff_false, ite_false]\n      rw [softParentEdge_at_attachment, softNewIndex_physical, canonicalPosition_val_nonzero j hj]\n      have hv : j.val - 1 + 2 = j.val + 1 := by omega\n      rw [hv]\n    · rw [softParentEdge_of_ne j k hkj]\n      have he := softOldIndex_physical j (canonicalPosition k)\n      rw [boundaryIndex_canonicalPosition, canonicalPosition_val_nonzero j hj] at he\n      by_cases hk : k = 0\n      · subst k\n        rw [canonicalPosition_val_zero] at he\n        have hgt : ¬ n - 1 ≤ j.val - 1 := by omega\n        rw [if_neg hgt] at he\n        have hv : n - 1 + 2 = n + 1 := by omega\n        simp only [hv, ZMod.natCast_self] at he\n        simp only [hj, false_or, ZMod.val_zero, hjp, ite_true, Nat.cast_zero]\n        exact he\n      · have hkp := ZMod.val_pos.mpr hk\n        have hne : k.val ≠ j.val := fun h => hkj (ZMod.val_injective n h)\n        rw [canonicalPosition_val_nonzero k hk] at he\n        by_cases hlt : k.val < j.val\n        · have hle : k.val - 1 ≤ j.val - 1 := by omega\n          have hv : k.val - 1 + 1 = k.val := by omega\n          simpa only [hj, false_or, hlt, ite_true, hle, hv] using he\n        · have hgt : ¬ k.val - 1 ≤ j.val - 1 := by omega\n          have hv : k.val - 1 + 2 = k.val + 1 := by omega\n          simpa only [hj, false_or, hlt, ite_false, hgt, hv] using he\n\ntheorem softParentEdge_val (j k : ZMod n) :\n    (softParentEdge j k).val = if j = 0 ∨ k.val < j.val then k.val else k.val + 1 := by\n  rw [softParentEdge_natCast]\n  split_ifs\n  · exact ZMod.val_natCast_of_lt (by have := ZMod.val_lt k; omega)\n  · exact ZMod.val_natCast_of_lt (by have := ZMod.val_lt k; omega)\n\n/-- Unlike a general cyclic relabelling, this parent-edge correspondence\npreserves the actual numerical traversal cut, even when inserting after\nsource label n. This supports equality of inherited sorted visit lists. -/\ntheorem softParentEdge_val_lt_iff (j k l : ZMod n) :\n    (softParentEdge j k).val < (softParentEdge j l).val ↔ k.val < l.val := by\n  rw [softParentEdge_val, softParentEdge_val]\n  by_cases hj : j = 0\n  · simp only [hj, true_or, ite_true]\n  · simp only [hj, false_or]\n    split_ifs <;> omega\n\ntheorem softParentEdge_val_le_iff (j k l : ZMod n) :\n    (softParentEdge j k).val ≤ (softParentEdge j l).val ↔ k.val ≤ l.val := by\n  simpa only [not_lt] using not_congr (softParentEdge_val_lt_iff j l k)\n\ntheorem softParentEdge_zero (j : ZMod n) : softParentEdge j 0 = 0 := by\n  apply ZMod.val_injective\n  rw [softParentEdge_val, ZMod.val_zero]\n  by_cases hj : j = 0\n  · simp only [hj, true_or, ite_true, ZMod.val_zero]\n  · have hp := ZMod.val_pos.mpr hj\n    simp only [hj, false_or, ZMod.val_zero, hp, ite_true]\n\nend\nend SM\n",
+    "root_log_limit": "The successful root log prints seven axiom traces, not full elaborated types for these declarations. Full source statements, section context and proofs are bound by the exact frozen body/prototype bytes. No reviewer elaboration or global canonical audit was run."
+  },
+  "findings": [
+    "canonicalPosition is defined as the value of k-1 in ZMod n. Residue zero represents the final source physical label n and has position n-1. For k!=0, k.val>0 and k.val<n imply n>1; ordinary subtraction by one is therefore valid and gives k.val-1. The temporary Fact(1<n) is derived inside this nonzero-label proof, not imposed as a global premise.",
+    "The numerical formula is obtained from the actual physical insertion maps, not from an abstract monotone substitute. For j=0, the return edge at the appended newborn has enlarged label n+1, hence residue zero, while every other parent label remains unchanged. For nonzero j, the return edge corresponding to k=j receives j.val+1; positive labels below j retain their values; later positive labels increase by one.",
+    "The k=0 branch with j!=0 is treated separately: the old last physical label moves to the enlarged last physical label n+1, again residue zero. It therefore belongs to the k.val<j.val branch of the formula. This distinction correctly reconciles physical order 1,...,n with numerical order beginning at residue zero.",
+    "Both displayed natural-cast branches are strictly below n+1: k.val<n and k.val+1<=n. Thus taking ZMod.val loses no further modular information. The exact value formula is k.val when j=0 or k.val<j.val, and k.val+1 otherwise.",
+    "For j=0 the value map is the identity. Otherwise it inserts one gap at the threshold j.val: values below the threshold are unchanged and all values at or above it increase by one. Splitting the two threshold tests proves both directions of strict order; equality and cross-threshold cases remain covered. Non-strict order follows by negating the reversed strict comparison.",
+    "softParentEdge_zero follows from the exact value formula and value injectivity. This is specifically the parent-edge correspondence, in which the return edge inherits the original outgoing edge place. It should not be substituted for the old-vertex map, which behaves differently when insertion is after residue zero.",
+    "All seven statements quantify over arbitrary j,k,l and every nonzero n, with no geometric hypothesis. At n=1 the only residue is zero: canonicalPosition has value0, the single parent edge maps to the return label0 of ZMod2, and both order equivalences reduce correctly. The nonzero-label theorem has an impossible antecedent there. No source polygon or amplitude at arity1 is asserted.",
+    "The canonical traversal key uses the numerical edge value followed by the segment parameter. These helpers provide precisely its different-edge order comparison under the actual insertion map, including cyclic seams. They do not themselves transport same-edge parameters or construct inherited visits, sorted lists or a Cycle equality.",
+    "The preserved first failed body differs only by supplying n to ZMod.val_injective in one proof and adding ZMod.val_zero to the final simplification. Applying exactly these two replacements reproduces the frozen body; replacing that body in the first prototype reproduces the tested prototype. All seven statement texts are unchanged. The failed log retains its errors and sorryAx traces; only root81102 provides the successful evidence.",
+    "All seven complete embedded bodies match their current frozen files exactly once. The successful log contains six traces with propext, Classical.choice and Quot.sound and one trace with propext and Quot.sound; no extra axiom, sorryAx or native_decide is present."
+  ],
+  "limits": "This is numerical cyclic-label arithmetic for the exact physical soft insertion. It proves neither full visit order nor inherited gaussList equality, newborn adjacency, Gauss-word deletion or a source theorem. The n=1 extension is an indexing helper domain, not a geometric or amplitude claim. Only existing root kernel evidence was inspected; no independent kernel check was run. Stronger fidelity/source acceptance and controlled canonical integration remain pending."
+}

@@ -1,0 +1,71 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "transport-determinant-core-prototype",
+  "source_id": "lem:transport-polynomials",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1318–1327, within full lemma 1292–1383",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "statement_sha256": null,
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "Only the concrete four-independent-variable determinant irreducibility prototype. No acceptance of the full source lemma or its geometric coordinate transfers.",
+  "reason": "The prototype faithfully proves the isolated q irreducibility fact. Its polynomial ring is MvPolynomial (Bool ⊕ Bool) ℝ, so the four Sum/Bool labels are distinct independent indeterminates. The exact polynomial is X(inl false)·X(inr false) − X(inl true)·X(inr true). Naming those variables respectively u_x, v_y, u_y and v_x gives the printed q(u,v)=u_x v_y−u_y v_x. This naming identifies the isolated formal variables only; no map to geometric vertex or direction coordinates has been implemented here. The proof uses a valid alternative to the printed symmetric-matrix-rank argument.",
+  "proof_steps_reviewed": [
+    "determinantCore_bilinear proves equality with the actual finite bilinear sum, using determinantCoefficients=single false 1 + single true (−1). The linear map sumSMulXSMulY sends coefficient index i to X(inl i)·X(inr i). Linearity and singleton evaluation therefore give exactly the two monomials with the required minus sign.",
+    "The pinned Mathlib irreducible_sumSMulXSMulY theorem requires a commutative domain, at least two distinct indices with nonzero coefficients, and every common scalar divisor of all coefficients to be a unit. ℝ has the required domain structure. The prototype explicitly supplies false and true, proves their coefficient values nonzero and proves the two indices distinct using kernel decide.",
+    "For primitivity, any proposed common coefficient divisor divides determinantCoefficients false=1. isUnit_of_dvd_one proves that divisor is a unit. No irreducibility or geometric-independence hypothesis is assumed. Applying the inspected Mathlib theorem and rewriting by the proved polynomial equality yields Irreducible determinantCore in the actual four-variable ring.",
+    "I read the pinned theorem and its disjoint-monomial-support proof, verified the file matches its pinned Git revision, and independently reran lake env lean on the exact prototype. It terminated with exit 0 and reported only propext, Classical.choice and Quot.sound."
+  ],
+  "not_certified": [
+    "The geometric Δ and auxiliary H coordinate substitutions, surjectivity/invertible coordinate changes, and adjoining unused variables are not proved by this prototype.",
+    "T, its tail/direction coordinate change, coefficient coprimality and irreducibility are not proved here.",
+    "No family of geometric controls, nonassociation, coordinate-wise affinity, slope/resultant certificate or specialized root assertion is established here.",
+    "The full original lem:transport-polynomials remains pending. The printed rank-four matrix argument itself is not formalized, and no main wall law or soft theorem is certified."
+  ],
+  "principal_declarations_inspected": [
+    "SM.TransportPolynomialCandidate.determinantCore",
+    "SM.TransportPolynomialCandidate.determinantCoefficients",
+    "SM.TransportPolynomialCandidate.determinantCore_bilinear",
+    "SM.TransportPolynomialCandidate.determinantCore_irreducible",
+    "MvPolynomial.sumSMulXSMulY",
+    "MvPolynomial.irreducible_sumSMulXSMulY",
+    "MvPolynomial.irreducible_of_disjoint_support",
+    "MvPolynomial.irreducible_mul_X_add"
+  ],
+  "reviewed_files_sha256": {
+    "work/checks/determinant-core-candidate.lean": "3c423c51057caed6ff0626ec12f5d08721b5533ee3b03ac8d2f326ee6c95e076",
+    "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean": "fab026fd520913a5ae196a911a719a612b3cb692222f757c7fdca9e5c4f5ac59"
+  },
+  "evidence": {
+    "prototype_source_sha256": "3c423c51057caed6ff0626ec12f5d08721b5533ee3b03ac8d2f326ee6c95e076",
+    "provided_kernel_log": "work/checks/determinant-core-candidate.log",
+    "provided_kernel_log_sha256": "b45c11778dbd700bb4f2fb7b42a4d22af84fd4aaa64e06d4c29bd45e3fbc3b11",
+    "independent_kernel_command": "lake env lean ../checks/determinant-core-candidate.lean",
+    "independent_kernel_workdir": "work/lean",
+    "independent_kernel_session": 19219,
+    "independent_kernel_exit_code": 0,
+    "printed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "mathlib_theorem_file_verified_against_git_revision": true,
+    "pins_sha256": {
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88"
+    },
+    "prior_project_receipt": "work/checks/checkpoint-047-output.json",
+    "prior_project_receipt_sha256": "b8aefcd0b4e37f9d5b4a999ef990725c8777b819b6ab2422232a90af1eed73c3",
+    "audit_scope": "The prototype is outside work/lean and outside the checkpoint-047 project inventory. Its direct successful kernel check is separately recorded; checkpoint 047 is not claimed to audit this prototype."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "edits": "Only this partial review JSON was written; no Lean, source, declaration map or progress metadata was edited."
+}

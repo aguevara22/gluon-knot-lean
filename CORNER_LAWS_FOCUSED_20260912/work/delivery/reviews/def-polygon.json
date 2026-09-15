@@ -1,0 +1,60 @@
+{
+  "id": "def:polygon",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "fbffadabe446c75d26dc07d63bdfad22f9fc0dc3a71bf449d1495d3a801987db",
+  "verdict": "faithful",
+  "reason": "Compared the complete source definition at lines 27-51, its conventions, and the following formalization remark against SM.polygonData and every component definition. Plane is the concrete real coordinate plane and LabelledTuple n is precisely a function ZMod n to that plane. Polygon requires n >= 3 and is the quotient by the equivalence relation Q = shift k P. shift 1 sends coordinate i to P(i+1), so these are exactly the cyclic orbits, with neither a distinguished vertex nor an additional geometric identification. No distinctness, genericity or nonzero-edge condition is imposed; coincident vertices and zero edges remain legal. edge and edgeSegment have the exact tail-indexed vector and closed affine-segment formulas. incident, adjacent (including self-adjacency), remote, remoteToVertex and remoteToVertexAndEdges reproduce the specified modular index sets exactly. The aggregate and its audited semantic dependencies include every one of these definitions, resolving the initial incomplete hash coverage. SM.sum_edges proves the source's zero-sum assertion for all nonzero n and therefore every source n >= 3. edge_shift, edgePoint_shift and edgeSegment_shift implement the induced index relabelling. Index-only incidence/remoteness formulas are unchanged by simultaneous translation, by cancellation in ZMod n. The source expressly permits working with labelled representatives and recording equivariance, so no quotient-valued fixed-index edge is required. This review covers this definition, not the later manifold assertion or any unimplemented construction.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.sum_edges",
+    "SM.edge_shift",
+    "SM.edgePoint_shift",
+    "SM.edgeSegment_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 27,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 27,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "317f39dd1b70b2e97a2da696f81471bb7fb5cbbe73a8ff6c7dc8302c05bcab6c",
+    "to_excerpt_sha256": "317f39dd1b70b2e97a2da696f81471bb7fb5cbbe73a8ff6c7dc8302c05bcab6c",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Every object introduced in the printed definition (reference/SM/sm-1-polygons.tex:27–52, sm15 text byte-identical to SM12) has a Lean counterpart in work/lean/SM/Polygon.lean that denotes the same thing. Plane = ℝ×ℝ (l.13); LabelledTuple n = ZMod n → Plane (l.14) is (ℝ²)^n with indices in ℤ/n (label n ↔ residue 0, the relabelling the legend itself uses, immaterial since all clauses are shift/difference formulas); shift k P i = P(i+k) (l.22) so shift 1 is σ exactly as (σP)_i = μ_{i+1}; cyclicSetoid (l.33) relates P,Q iff Q = σ^k P, i.e. same orbit, and Polygon n (3 ≤ n) = Quotient of it (l.47) is (ℝ²)^n/(ℤ/n) with the source's n ≥ 3 carried as an argument; edge P i = P(i+1) − P i (l.49) is ℓ_i; edgeSegment (l.54) is {μ_i + tℓ_i : 0 ≤ t ≤ 1}; incident i j ↔ j ∈ {i−1,i} (l.60); adjacent i j ↔ j−i ∈ {−1,0,1} (l.63, reflexive as printed, consistent with the SM15 lem:g1(iv) gloss); remote = ¬adjacent (l.66); remoteToVertex = ¬incident (l.68); remoteToVertexAndEdges ↔ j ∉ {i−2,i−1,i,i+1} (l.70). No distinctness, nonzero-edge or genericity condition is imposed, matching the last sentence of the definition. The clause Σℓ_i = 0 is stated (and proved) as sum_edges (l.86) for all NeZero n, covering n ≥ 3. The aggregate polygonData (l.96) binds Polygon, shift, edge, edgeSegment and all five index relations; LabelledTuple/cyclicSetoid/edgePoint enter through them, and det/bracket (l.16–17) match the conventions of sec:conventions. Nothing is vacuous. The SM15 text is unchanged for this label, so the accepted statement matches SM15.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Helper definitions (shift, edge, edgeSegment, incident, adjacent, remote, remoteToVertex, remoteToVertexAndEdges, sum_edges) are defined for every n (sum_edges for every NeZero n), whereas the source states everything under n ≥ 3; only Polygon n carries the 3 ≤ n hypothesis. This is extra generality of the helpers, not a change of meaning at n ≥ 3.",
+      "edgeInterior (l.57) is defined in the module although def:polygon introduces only closed edge segments; it is not part of polygonData and does not affect the printed objects."
+    ],
+    "weaker_than_source": [
+      "The printed meta-clause 'every notion below is invariant under σ' is not part of the definition's content and is only partially witnessed here (edge_shift, edgePoint_shift, edgeSegment_shift, l.72–82); the source's own formalization remark (l.54–61) explicitly permits recording equivariance construction by construction, so this is not a fidelity defect of def:polygon."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/DIFF_SM12_to_SM15.txt",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-polygon.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

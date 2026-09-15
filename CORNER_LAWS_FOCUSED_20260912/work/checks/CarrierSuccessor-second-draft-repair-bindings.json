@@ -1,0 +1,23 @@
+{
+  "utc": "2026-09-12T04:45:32.270406+00:00",
+  "author": "/root/spanning_children",
+  "state": "Second authored draft; root first failed run preserved; no second kernel run yet.",
+  "failed_kernel_session": 46163,
+  "repair_reason": "Supply the concrete membership proof in the forward List.next change step and annotate the first-list-entry zero index as Nat.",
+  "statement_change_disclosure": "The markSuccessor_sameCycle_getElem header text changes from [0] to [(0 : \u2115)] to resolve the failed index elaboration. Its intended statement, premises and conclusion remain unchanged; the first header did not elaborate. All other declaration headers are unchanged.",
+  "proof_changes": [
+    "markSuccessor_getElem now supplies mem_markList for its actual indexed mark in the List.next change step."
+  ],
+  "dependency_change": false,
+  "files_sha256": {
+    "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+    "work/checks/CarrierSuccessor.prototype.lean": "56b90908a02258f34d671c61251ee48fcd8bf964b1b5c1300e6ab895032ac52b",
+    "work/checks/CarrierSuccessor-body-dependencies.json": "149d183696e1462eced63c5868b5c2b4f5c7297745030b787b41839bb480e1dd",
+    "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+    "work/checks/CarrierMarks-prototype-result.json": "e2c26037204cd196acc809b474422d2957c3211584a55f9a64853c807d9971a6",
+    "work/checks/CarrierSuccessor-first-failure-bindings.json": "87a386b64ecf0b9a4e6e4bb810c5ff59adab0885a1dc8dd3330fc0243002c24a"
+  },
+  "source_claim_acceptance_increment": 0,
+  "stronger_model_statement_fidelity_approval": false,
+  "integration_approval": false
+}

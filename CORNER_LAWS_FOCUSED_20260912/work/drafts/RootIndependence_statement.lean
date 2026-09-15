@@ -1,0 +1,34 @@
+import Mathlib.Topology.LocallyConstant.Basic
+import SM.TreeChamber
+import SM.FlatLawTree
+import SM.VertexEdgeLawTree
+import SM.TripleSilentLawsTree
+import SM.SoftTheoremTree
+import SM.SoftRotationLaw
+import SM.ReversalShiftLaw
+import SM.StarGenericLaw
+import SM.SmallValuesLemma
+import SM.MycyclicTheorem
+import SM.RelativeGeneralPosition
+import SM.Children
+import SM.Anchors
+import SM.FibreExistence
+import SM.GenericCurveChamber
+import SM.GermTreeEquality
+import SM.TransportLemma
+
+namespace SM
+
+/-- **thm:root-indep-proof** (`reference/SM/sm-6-comparison.tex`, lines 53–104): for every
+generic polygon `P` with `n ≥ 3` vertices and any two edge labels `g, h`, the tree coefficients
+agree, `A_g(P) = A_h(P)`. Strong induction on `n`: base `n = 3` by lem:A-small-values (i)
+(`A_small_values_lemma`); step by transporting `Δ_gh = A_g − A_h` along the path of
+lem:transport (`SM.transport_lemma`) — locally constant off the finitely many walls by the
+chi-congruence of prop:A-chamber, zero jump at F/V walls by thm:A-S3 / thm:A-S7 with the
+induction hypothesis at the deletion / halves, zero jump at T/E/C walls by thm:A-R3E — to a
+target where `Δ_gh = 0` (soft zero anchor, star `K_r`, or bow-tie). -/
+theorem root_independence (n : ℕ) [NeZero n] (hn : 3 ≤ n) (P : LabelledTuple n) (hP : Generic P) (g h : ZMod n) :
+    treeCoefficient P hP.1 g hn = treeCoefficient P hP.1 h hn := by
+  sorry
+
+end SM

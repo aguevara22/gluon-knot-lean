@@ -1,0 +1,225 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "source_id": "lem:transport-polynomials",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "pinned_library_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean": "fab026fd520913a5ae196a911a719a612b3cb692222f757c7fdca9e5c4f5ac59",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/NoZeroDivisors.lean": "d9e5beb100d4840329ac1d8f2ec5e961a9f2ccd1aa32b193ded0cf8c63e3669d",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean": "11fd527aebb2082f5e8770a295883d327cc3ea24b94b8823ed4e2bf1b5030f3f"
+    },
+    "library_files_verified_against_pinned_git_revision": true
+  },
+  "receipt_binding": {
+    "receipt": "work/checks/checkpoint-049-output.json",
+    "receipt_sha256": "9cb9399e7808c0cf2674cca6a3ce46d4a828c7ff0cb06e1ccbfdeccf95196c79",
+    "stage_development_byte_identical": true,
+    "passed": true,
+    "stage_accepted": false,
+    "SM_module_count": 237,
+    "local_declaration_count": 2497,
+    "mapped_claim_count": 29,
+    "project_file_count": 243,
+    "frozen_file_count": 38,
+    "exact_Lean_inventory_count": 239,
+    "all_project_and_frozen_hashes_independently_recomputed": true,
+    "prior_230_SM_files_unchanged": true,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "34c29b2a755d17a755073906441a2b7045a7a57f9992af2052fc87d4d7e0e31d",
+    "scope": "Successful whole-project development audit only; no complete original source-row semantic acceptance hash is claimed for these partial clauses."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no theorem-library implementation. Only independent check evidence and these partial review reports were written.",
+  "edits": "No Lean theorem-library, frozen source, declaration-map or progress-metadata edits.",
+  "id": "transport-concurrence-partial",
+  "source_lines": "1292–1383; T definition at 1300–1305 and irreducibility/nonzeroness argument at 1334–1351",
+  "review_flags_scope": "Only the actual T polynomial, evaluation and irreducibility/nonzeroness portion; not the full original lemma.",
+  "reason": "The five new modules faithfully prove irreducibility and nonzeroness of the actual T polynomial in the full scalar vertex-coordinate ring. I reviewed the primitive-linear degree argument twice, first as the general algebraic lemma and then with every concrete first-two-line coefficient and freshness premise instantiated. The public concurrencePolynomial_irreducible and concurrencePolynomial_ne_zero types require only 3≤n and the three printed pairwise-remoteness conditions. All coefficient-relative-primality, variable separation, endpoint inequalities and algebra-automorphism obligations are proved internally. No Generic condition, nonzero geometric determinant, arbitrary polynomial or assumed irreducibility is added to the source-facing result.",
+  "mathematical_justification": [
+    "PolynomialLinearCore proves the needed degree statements with their nonzero hypotheses intact. When p is nonzero and the chosen variable occurs in neither p nor q, p*X_i has degree one in i and q has degree zero, so adding or subtracting q cannot cancel the leading term. If a nonzero q were divisible by a polynomial p of larger degree in i, the factorization q=p*r makes p and r nonzero; exact degree additivity then contradicts the strict degree inequality. The proof never uses degree additivity on a zero factor.",
+    "In the general core, set f=C*X_x−A and g=(B−C*X_y)*X_u. The proved RelPrime(C,A), C≠0 and absence of x from A,C make f irreducible by the pinned primitive-linear theorem. Independently, C*X_y−B has degree one in y, so it is nonzero; therefore g is nonzero. The required variable inequalities and freshness show x is absent from g, whereas f has x-degree one. Thus f cannot divide g. Since f is irreducible, f and g are relatively prime in the common-divisor sense. Both avoid v, so the same primitive-linear theorem proves irreducibility of f*X_v+g. No Bézout identity or arbitrary desired coprimality is assumed. The helper does not need y≠u, and all four variables are in fact distinct in the actual application.",
+    "LinePolynomials defines the exact row (−d_y,d_x,det(μ,d)) using the actual scalar coordinate differences. concurrencePolynomial is the actual Fin-3 matrix determinant of those three rows. Its six-term determinant expansion has the printed signs. The evaluation theorem holds for every unrestricted labelled tuple and agrees with the existing concurrenceDet; the inspected inherited edgeLineA/B/C formulas are exactly −d_y, d_x and det(μ,d). Thus this is the source polynomial, not only an abstract associate or a polynomial with the same zero set.",
+    "Before the shear, head-coordinate slots represent independent direction variables. freeLinePairA, B and C are the exact cross-product coefficients of the first two free line rows: A=d_ex*L_f−L_e*d_fx, B=d_ey*L_f−L_e*d_fy and C=d_ex*d_fy−d_ey*d_fx. C is irreducible by the already reviewed determinant theorem in the whole ambient coordinate ring. The explicit formal-coordinate witness sets the two tails to (0,0),(0,1) and both free direction slots to (1,0). Remote endpoint inequalities make these four assignments consistent. Exact evaluation gives C=0 and A=−1. Hence C cannot divide A, since evaluating a proposed factorization would give −1=0. Irreducibility of C then gives RelPrime(C,A). This is a specialization in formal tail/direction coordinates; it is not a claim that the raw tuple used to hold those assignments has parallel geometric edge differences before the shear.",
+    "The coefficients A,B,C use only e,e+1,f,f+1 scalar coordinates. The actual remote_endpoints inequalities for (e,g) and (f,g) prove that all four scalar coordinates at g and g+1 are absent from every coefficient. No independent-variable oracle is used. The core is instantiated with x=x_g, y=y_g, u=x_(g+1), v=y_(g+1); the remaining self head/tail inequalities follow from Nontrivial(ZMod n), supplied internally by source n≥3 in the public theorem.",
+    "freeConcurrencePolynomial is (C*x_g−A)*y_(g+1)+(B−C*y_g)*x_(g+1), exactly the printed expansion in the last direction pair. Pairwise remoteness proves SeparatedEdgeHeads for the three selected edges. The previously reviewed tailDirectionTranslation is an explicit invertible algebra map on the full coordinate ring. New tail formulas prove that all selected tails remain fixed, while the existing head formulas replace every selected head by its directed head-minus-tail difference. Expanding the determinant and these proved map identities yields exact equality of the shear image with concurrencePolynomial, with no unit or sign ambiguity. Irreducibility transports along this automorphism, and formal nonzeroness follows.",
+    "The nonzero conclusion is about the formal polynomial, not its value at every tuple: concurrent or other degenerate line configurations may still evaluate to zero. The proof is a valid algebraic implementation of the printed coefficient argument with all remaining variables retained in the ambient ring. The independent compiled type/axiom trace confirms the exact public domain and only the standard Lean axioms."
+  ],
+  "not_certified": [
+    "The full original lem:transport-polynomials remains pending; this review adds no source-row acceptance or original proof/checklist count.",
+    "The finite named family and distinct-member nonassociation, including the six-cycle matching case, are not proved here.",
+    "Coordinate affinity is covered by a separate partial review. Explicit decomposition over the remaining-variable ring, nonzero slopes, nonzero resultants and specialized root conclusions are not certified here.",
+    "No main corner state-sum wall law, soft theorem or stage completion is certified."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60"
+  },
+  "import_closure_root": "SM.ConcurrencePolynomialIrreducible",
+  "import_closure_file_count": 23,
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "inherited_closure_files_matching_prior_independent_reviews": 18,
+  "evidence": {
+    "independent_trace_source": "work/checks/transport-concurrence-review-types.lean",
+    "independent_trace_source_sha256": "90468b7f5d3112277795d715239e5e3ac92ce352f0f1bbf85b94200b3739716e",
+    "independent_trace_log": "work/checks/transport-concurrence-review-types.log",
+    "independent_trace_log_sha256": "6a2908a21e1828841491070f728e96afc1277649b94a92d16d62cc1f065a6e04",
+    "independent_kernel_command": "lake env lean ../checks/transport-concurrence-review-types.lean",
+    "independent_kernel_session": 78218,
+    "independent_kernel_exit_code": 0,
+    "declaration_axioms": {
+      "SM.polynomial_linear_degree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomial_not_dvd_of_degree_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomial_linear_sub_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.linearConcurrence_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrencePolynomial_formula": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_concurrencePolynomial": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separatedEdgeHeads_triple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeLinePairC_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeLinePair_parallel_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeLinePairC_not_dvd_A": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeLinePairCA_relprime": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeLinePair_avoids": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.freeConcurrencePolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tailDirectionTranslation_concurrence": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrencePolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrencePolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "successful_build_log": "work/checks/concurrence-polynomial-irreducible-build.log",
+    "successful_build_log_sha256": "1bf394b455f50c451066d3e642d14e0b7cc40a4cfdb779b2293bb987cb5b6357"
+  },
+  "principal_declarations_inspected": [
+    "SM.polynomial_linear_degree",
+    "SM.polynomial_not_dvd_of_degree_lt",
+    "SM.polynomial_linear_sub_irreducible",
+    "SM.linearConcurrence_irreducible",
+    "SM.concurrencePolynomial_formula",
+    "SM.eval_concurrencePolynomial",
+    "SM.separatedEdgeHeads_triple",
+    "SM.freeLinePairC_irreducible",
+    "SM.freeLinePair_parallel_values",
+    "SM.freeLinePairC_not_dvd_A",
+    "SM.freeLinePairCA_relprime",
+    "SM.freeLinePair_avoids",
+    "SM.freeConcurrencePolynomial_irreducible",
+    "SM.tailDirectionTranslation_concurrence",
+    "SM.concurrencePolynomial_irreducible",
+    "SM.concurrencePolynomial_ne_zero",
+    "SM.linePolynomialA",
+    "SM.linePolynomialB",
+    "SM.linePolynomialC",
+    "SM.concurrencePolynomial",
+    "SM.freeLineConstant",
+    "SM.freeLinePairA",
+    "SM.freeLinePairB",
+    "SM.freeLinePairC",
+    "SM.parallelLineCoefficientWitness"
+  ]
+}

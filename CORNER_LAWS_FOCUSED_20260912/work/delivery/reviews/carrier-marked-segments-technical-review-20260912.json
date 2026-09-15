@@ -1,0 +1,141 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-marked-segments-technical-review-20260912",
+  "sealed_utc": "2026-09-12T06:44:43.621154+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the three actual marked-successor declarations. Root alone ran Lean and generated evidence. This reviewer authored no proof body or dependency, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions comprise independent inspection of actual vertex witnesses, recut cyclic-gap reasoning, parameter classification and source scope, plus exact complete-file/ordered-embedding/receipt/axiom-trace verification. The author supplied the local product/subtype equality repair after root preserved the failed run. This reviewer inspected the exact proof-only diff and unchanged statements without supplying repair code."
+  },
+  "scope": {
+    "group": "CarrierMarkedSegments",
+    "declarations": [
+      "SM.Carrier.markSuccessor_ne_self",
+      "SM.Carrier.markSuccessor_position_cases",
+      "SM.Carrier.markSuccessor_subsegment_data"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "95–112 complete marked traversal and consecutive original subsegments; 179–201 strictly increasing consecutive marked parameters and positive outgoing original-edge subsegments.",
+    "ambient_context": "hn:3≤n and actual Generic P. The successor is the constructed complete original markSuccessor, whose mark set contains all original vertices and actual crossing visits. Position classification uses actual half-open edge parameters and the proved cyclic-order-preserving traversalShift."
+  },
+  "assessment": "No mathematical or source-domain defect found in no fixed original marks, the complete cyclic successor position classification and strictly forward original-edge endpoint data.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 4362,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      19499
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierMarkedSegments-prototype-result.json",
+    "receipt_sha256": "1ee94c1f6999618ac902862cdcd59cb062b152572af80b66ec93e5b0dbac2e5d",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierMarkedSegments.body.lean": "0e6444e24b4270772f3fcbf3c50bf18f75d7445c58bb52ed4e400870a17698b7",
+      "work/checks/CarrierMarkedSegments.prototype.lean": "e32059285d8b26a4fa26aa833e511473c0fac463abba8d93ec576708f581cc92",
+      "work/checks/CarrierMarkedSegments-second-kernel.log": "e639c321751c8ab7445c97349b2cfe2f0237f9db7a95b8ba4011197bcfdc0e64"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean",
+      "work/checks/CarrierMarkedSegments.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1,
+      "work/checks/CarrierMarkedSegments.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.Carrier.markSuccessor_ne_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_position_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_subsegment_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierMarkedSegments-first-draft.body.lean": "0edd583e72620ee319cdcc331e842230841ec1e6e1a0cf022a3c68b3f2a3b0c0",
+      "work/checks/CarrierMarkedSegments-first-draft.prototype.lean": "a7873acc9c53cef16b20eeb3ea63e435baae5aa2b4265e304cbcb07f53b42ad6",
+      "work/checks/CarrierMarkedSegments-body-dependencies.json": "f6073eccfecd1cf5f466de6141165220b7179ef7d1de0caefc3c88b1368ea50a",
+      "work/checks/CarrierMarkedSegments-draft-dependency-bindings.json": "11961f578aac1220890794fb49ec301b5be2e763edfef059f372ee40bd8c65f0"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierMarkedSegments.body.lean": "work/checks/CarrierMarkedSegments-first-failed.body.lean",
+      "work/checks/CarrierMarkedSegments.prototype.lean": "work/checks/CarrierMarkedSegments-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierMarkedSegments-first-failed.body.lean": "0edd583e72620ee319cdcc331e842230841ec1e6e1a0cf022a3c68b3f2a3b0c0",
+      "work/checks/CarrierMarkedSegments-first-failed.prototype.lean": "a7873acc9c53cef16b20eeb3ea63e435baae5aa2b4265e304cbcb07f53b42ad6",
+      "work/checks/CarrierMarkedSegments-first-failed-body-dependencies.json": "f6073eccfecd1cf5f466de6141165220b7179ef7d1de0caefc3c88b1368ea50a",
+      "work/checks/CarrierMarkedSegments-first-kernel.log": "77f87eafc629dc8e881cb8ddf6cee2e1ea616a3f5730be7cd9ad035f05b57751",
+      "work/checks/CarrierMarkedSegments-draft-dependency-bindings.json": "11961f578aac1220890794fb49ec301b5be2e763edfef059f372ee40bd8c65f0",
+      "work/checks/CarrierMarkedSegments-first-failure-bindings.json": "ea8d68467cbb4e33a1237d3b92744feab2a447fd61e0b653a91cc823fc169730",
+      "work/checks/CarrierMarkedSegments-second-draft-repair-bindings.json": "01d5950e0a17f5fe127c0e603c1eebe6ec30f95eef61c239e2b3d52edd09dd66"
+    },
+    "second_draft_files_sha256": {
+      "work/checks/CarrierMarkedSegments-second-draft.body.lean": "0e6444e24b4270772f3fcbf3c50bf18f75d7445c58bb52ed4e400870a17698b7",
+      "work/checks/CarrierMarkedSegments-second-draft.prototype.lean": "e32059285d8b26a4fa26aa833e511473c0fac463abba8d93ec576708f581cc92"
+    },
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "markSuccessor_position_cases"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first19499 failed only in the local shifted-next-vertex equality hv: simplification left equality of the two zero half-open-interval subtype values unsolved. The author replaced that local proof with Prod.ext, the same edge-index group identity, and Subtype.ext/rfl on the parameter. All three header texts, the position-case meanings and both dependency bodies are unchanged. Exact first-failed body/prototype/dependency list/log are preserved; the entire failed attempt and propagated compiler sorryAx traces are excluded from passing evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierSuccessor-prototype-result.json": "7811e0b37ad0f1bd99a68c70a214d107ea85941daf0137cb3bc8cc9075bc9fa4"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/TraversalRelabel.lean": "a06ef7c15fb0244303882a96dbf3cc3e4ef5b356840dba5590c338e6a25b97ab",
+      "work/checks/carrier-segments-baseline-20260912.json": "02cfbd9368d7ef172243c9e02015279dd074396d1ae8c038f8a5eda633226389",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+      "work/reviews/carrier-successor-technical-review-20260912.json": "82b60dffb9d5f2e7579fd705e59e785703895e33ca3197763c216e6bd0d2a282"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "markSuccessor_ne_self uses the proved single actual original successor orbit and two distinct original vertex marks, zero and one. Their distinction is derived from n≥3 using ZMod values; no crossing-nonempty premise or arbitrary orbit witness is assumed.",
+    "markSuccessor_position_cases recuts the actual cyclic coordinate at the starting edge. The start has shifted key s∈[0,1), and the actual next original vertex has shifted key one. This treats the wraparound edge exactly as every other edge.",
+    "The proved absence of an intervening actual mark excludes that next vertex from the cyclic gap to the successor. Distinct successor and start keys follow from actual markPosition injectivity, traversalKey injectivity and the no-fixed-original-mark result.",
+    "If the shifted successor key were below the starting key, the next vertex would lie in the wraparound gap; if it exceeded one, that vertex would lie in the direct gap. Both contradict the actual no-intervening-mark theorem. Thus the successor key lies strictly above s and at most one.",
+    "Half-open parameter nonnegativity forces the shifted successor edge-index value to be zero or one. Index zero yields the same original edge with strictly increasing parameter. Index one forces parameter zero and therefore the exact next original vertex, by markPosition injectivity.",
+    "The finite-to-real index comparisons are explicit, and n≥3 justifies the ZMod value of one. No linear ordering of the whole cyclic traversal without recutting is silently used.",
+    "markSuccessor_subsegment_data chooses the actual successor parameter in the same-edge case, or t=1 in the next-vertex case. In both cases t>s and t≤1 are proved, and the evaluated successor is exactly edgePoint on the starting original edge.",
+    "This construction includes crossing-free polygons and an edge with no later crossing mark: the next-vertex branch supplies its full remaining interval. No positive subsegment parameter or successor classification is supplied as an extra premise.",
+    "These are original-successor endpoint facts. Positive smoothed displacement, Euclidean length, segment containment and local injectivity require the separate actual smoothing-segment application."
+  ],
+  "limits": "Original marked-successor classification and forward original-edge endpoint data only. Actual smoothed segment geometry and global geometric carrier realization remain separate. Source increment0; stronger fidelity and canonical integration false."
+}

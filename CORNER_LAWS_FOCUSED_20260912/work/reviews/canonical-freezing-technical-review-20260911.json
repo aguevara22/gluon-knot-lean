@@ -1,0 +1,162 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "canonical-freezing-technical-review-20260911",
+  "sealed_utc": "2026-09-12T00:25:06.944290+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "provider": "OpenAI",
+    "product": "Codex",
+    "model_relationship": "Same currently available model as the root implementer. This is not stronger-model statement-fidelity approval.",
+    "exact_serving_model_identifier": "Not independently exposed in this session.",
+    "authored_reviewed_bodies": false
+  },
+  "scope": {
+    "group": "CanonicalFreezing",
+    "declarations": [
+      "SM.canonicalFreezeValue",
+      "SM.canonicalFreezeHom",
+      "SM.canonicalFreezeHom_C",
+      "SM.canonicalFreezeHom_X_zero",
+      "SM.canonicalFreezeHom_X_nonzero",
+      "SM.eval_canonicalFreezeHom_of_agree",
+      "SM.eval_canonicalFreezeHom_base",
+      "SM.boundaryTripleData_geometric",
+      "SM.canonicalFreezeHom_formalBoundaryChi_nonzero"
+    ],
+    "source_id": "cor:polyform",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "source_lines": "937-989, with formal proof context 946-975 and continuation argument 976-986"
+  },
+  "assessment": "No technical defect found in the exact reviewed statements and proofs within this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel": false,
+    "reviewer_ran_build_or_audit": false,
+    "reviewed_bodies_modified": false,
+    "root_kernel_session": 14458,
+    "root_exit_code": 0,
+    "first_run_passed": true
+  },
+  "evidence": {
+    "receipt_path": "work/checks/CanonicalFreezing-prototype-result.json",
+    "receipt_sha256": "5f086881ea2b8c165935c27d0423414a24c6844b2c2bdc19648b77d172d297a0",
+    "all_receipt_hashes_matched": true,
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/FormalOrderedChi.body.lean": "1df0e2ad12df3d28dc32318201fe2a786eb880fe56ea2fff374f7fc3f2d3ebe6",
+      "work/checks/CompositionTripleSupports.body.lean": "c6600e67a028ccffb28c0aae1d02e782b689f24e823ddd3a49b297e0cb069cff",
+      "work/checks/FormalTriplePolynomial.body.lean": "138f5620027a3be64bbaed123b2a8ef6723b50fe6911bd4b2f6cf06a8b6c2d84",
+      "work/checks/NearFarRingMaps.body.lean": "7a5aaadbc1a8041a39f316fb825632afd3493d892e0722fc32defd8fc64c8f16",
+      "work/checks/SilentFarPolynomial.body.lean": "46ce117365d9aa9b3f262c215a50a73bde1f4c4939fd2eeb9aed64051a876fe0",
+      "work/checks/FormalNearFarRecursion.body.lean": "cb09942ff8dd58949c85ff68239e441c17f132aa94b6d54810c50834738e2666",
+      "work/checks/CanonicalTreeFarOutput.body.lean": "a8db84464fabbfe8160d9d3db54a3ee260ccc669bb6c5ad59a3d02de9a64ca3d",
+      "work/checks/CanonicalFreezing.body.lean": "eaef2d5b55b1cde02c04eb34653677eefec816fa77b03a1c645ea23130d0e0d2",
+      "work/checks/CanonicalFreezing.prototype.lean": "969bea94c5047ee960f8e74b41d07e06e1e655c4842aff1f97c1c3d7f7bd3342",
+      "work/checks/CanonicalFreezing-first-kernel.log": "739640abdd9ca88d6604906c999f38deb6e01bf258ff266712d5ab7b8d306cea"
+    },
+    "exact_body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/FormalOrderedChi.body.lean": 1,
+      "work/checks/CompositionTripleSupports.body.lean": 1,
+      "work/checks/FormalTriplePolynomial.body.lean": 1,
+      "work/checks/NearFarRingMaps.body.lean": 1,
+      "work/checks/SilentFarPolynomial.body.lean": 1,
+      "work/checks/FormalNearFarRecursion.body.lean": 1,
+      "work/checks/CanonicalTreeFarOutput.body.lean": 1,
+      "work/checks/CanonicalFreezing.body.lean": 1
+    },
+    "requested_declaration_axioms_verified_from_log": {
+      "SM.canonicalFreezeValue": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalFreezeHom": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalFreezeHom_C": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalFreezeHom_X_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalFreezeHom_X_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_canonicalFreezeHom_of_agree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.eval_canonicalFreezeHom_base": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryTripleData_geometric": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalFreezeHom_formalBoundaryChi_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "passing_log_forbidden_error_or_axiom_hits": [],
+    "canonical_definitions_read_sha256": {
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+      "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4"
+    }
+  },
+  "declaration_binding_method": "Complete frozen body SHA-256, including all namespace/section contexts, typeclass and variable binders, definitions, theorem statements and proofs; no delimiter-split header extraction.",
+  "findings": [
+    {
+      "topic": "Exact canonical labels and independent variables",
+      "finding": "canonicalTripleValue uses the increasing physical labels boundaryIndex 0 t.lower,middle,upper: source labels 1 through n, with residue zero representing label n. canonicalFreezeValue tests the actual rational cast of that ordered chi. A zero entry is sent to X t itself; every nonzero entry is sent to C of its exact value. canonicalFreezeHom is the full eval2 ring endomorphism of the unrestricted rational polynomial ring, fixing coefficients. It neither identifies distinct zero variables nor imposes realizability or chirotope relations."
+    },
+    {
+      "topic": "Full domain and simultaneous agreement",
+      "finding": "All nine declarations apply to arbitrary LabelledTuple P with n nonzero, without WeakGeneric, G1, or a restriction on zero triples. The three generator lemmas give exact constants/zero/nonzero behavior. eval_canonicalFreezeHom_of_agree proves equality of composed ring homomorphisms on all constants and every generator, then applies it to arbitrary p. The assignment v is any rational function on all canonical triples agreeing only where P is nonzero; the base evaluation is its reflexive specialization."
+    },
+    {
+      "topic": "Reverse-order parity and support bridge",
+      "finding": "boundaryTripleData_geometric evaluates the already proved signed canonical expression for the actual boundary order upper,middle,lower. Its coefficient is the fixed sorting parity. If the geometric rational entry is nonzero, its canonical factor must be nonzero: otherwise the exact product equality would make the geometric value zero. Freezing thus sends the complete signed variable to the same geometric constant, using multiplication through C and the exact integer-sign cast. No accidental sign reversal, root restriction, division by a geometric sign, or zero-det exclusion enters this proof."
+    },
+    {
+      "topic": "Source role and limits",
+      "finding": "The group supplies the simultaneous nonzero-entry substitution and the signed-label bridge used in cor:polyform lines 969–975. Its agreement theorem is a substitution identity for arbitrary polynomials, not an assertion that an arbitrary polynomial is constant. Constancy of the tree polynomial is proved separately by CanonicalSilentConstancy."
+    }
+  ],
+  "inherited_review_sha256": {
+    "work/reviews/composition-triple-supports-technical-review-20260911.md": "1873942067abdb990d28a5cd1b646ef0cf43d3379508a4201e08dd8a5d5e9355",
+    "work/reviews/canonical-triple-signs-technical-review-20260911.md": "42cc793b68b6117c3a0f322720b948e0c058bc6035dabc0ebb7ac8014826c040",
+    "work/reviews/formal-ordered-chi-and-tree-polynomial-technical-review-20260911.md": "466b1f310c4e1ea91d653acbe0a211d93d37aabeaaccb3d3673e0d79388367f9",
+    "work/reviews/canonical-tree-far-output-technical-review-20260911.json": "9da76dccd29a361596aa641d4d50436fdaaeaa3669393fa0d7c946abfd88e0e0"
+  },
+  "authorship_disclosure": "The reviewer did not author either body reviewed here. The reviewer authored older embedded CompositionTripleSupports and, for the constancy dependency chain, SelectedCutRefinement, the original PositionalCutDecomposition construction, FiniteLineGaps, and SilentGapTransform. Their separate root technical reviews are bound above; this report does not claim an independent self-review of those constructions.",
+  "limits": [
+    "Independent technical/source comparison by another agent of the same currently available model, NOT the stronger-model statement-fidelity approval requested by the user.",
+    "Hashes and root kernel success bind checked artifacts but do not themselves establish source fidelity or acceptance.",
+    "No original source row, canonical integration, stage, or corner-law target is accepted by this report."
+  ]
+}

@@ -1,0 +1,13 @@
+\begin{lemma}[Actual block diagrams and the carrier product]
+\label{cb:products}
+Every block $H$ has one owner and admits an actual positive carrier
+diagram $D_H$ with exactly its restricted named cyclic record. Its
+polynomial $P_H$ is independent of the further smoothings used to
+produce it. For every original carrier $A$,
+\begin{equation}\label{cb:product}
+ P_A=\prod_{H\text{ owned by }A}P_H,
+ \qquad m_A=\sum_{H\text{ owned by }A}|H|.
+\end{equation}
+With no owned blocks the actual diagram has value $1$ and $m_A=0$.
+\status{proved (refereed: bench A, 2026-09-06T00:35:51Z and 2026-09-06T02:03:45Z; transcribed from RC d6\_vertexedge, carrier products (C035); round~3, per clause (F-25-105): (a) one owner per block --- printed here from Lemma~\ref{lem:carriers}(iii),(iv); in RC the assertion sits with its canonical definition (def:canonical, d1\_setup: ``each such component has a unique owner carrier'', ``each undominated crossing has one owner'') and the splitting argument of def:canonical-total, and is applied in the unlabelled carrier-realization paragraph immediately after the proof of mp:blocks (d2c\_polynomial\_products, lines 471--489; the proof ends at line 469), not inside it (bench B, P-25-36/37 F105-POSITION); the round-3 locators s7:owner-restriction (an owner-restricted-set display) and s7:singleton (the singleton-cut lemma) do not carry it (F-25-105, re-checked in round~5); (b) an actual block diagram with the restricted record --- the greedy support printed here (RC mp:blocks takes such diagrams as supplied); (c) independence of $P_H$ from the further smoothings --- printed here from Lemma~\ref{rp:record-polynomial}; the product identity --- Lemma~\ref{mp:blocks} (RC d2c\_polynomial\_products mp:blocks))}
+\end{lemma}

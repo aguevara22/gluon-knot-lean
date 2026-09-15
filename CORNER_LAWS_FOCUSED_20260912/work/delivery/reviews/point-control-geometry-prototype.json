@@ -1,0 +1,495 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "Flags apply only to the explicitly implemented and independently checked bounded scope. They do not accept the entire original theorem.",
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "additional_pinned_library_files_read_sha256": {
+      "Mathlib/Analysis/Analytic/Polynomial.lean": "744a9dfd3e4658eaea491b7ed997bcfa68987cb4ab0d305c22ab1841d6fb886f",
+      "Mathlib/Analysis/Calculus/ContDiff/Operations.lean": "7eee3478a18610a1ba0acb83e8dd31059f4c338df34dfdecb16d396cb740c6d1",
+      "Mathlib/Analysis/Calculus/ContDiff/Defs.lean": "55f7a7343c0150ddea659c8bc4a9d138723a3e0ce252861efae8f6be6c1abcb1",
+      "Mathlib/Topology/LocallyFinite.lean": "13243d7bc2d850a44062d387730915e23a95ea18aa6f7fea8fab1cf6ef73a8f7",
+      "Mathlib/Data/Set/Finite/Basic.lean": "46117578ac47cd272b20cc9b739c9c4025e52c45ef14e6357654d7f9a581f3c9",
+      "Mathlib/Analysis/Calculus/Deriv/Comp.lean": "e9665150f347dc2da9a5a4cc3ca10489bb1a98053a36f75c06059e9461fad85d",
+      "Mathlib/Analysis/Calculus/Deriv/Add.lean": "0c337370d60b27ce270b4efb71ecf5c7a2a11ddf2cda2ad19ba1049d7174b47c",
+      "Mathlib/Analysis/Calculus/Deriv/Mul.lean": "9a5f4cda6bdba50954d27879160adfdb7d408b41c49dde6343cd03a30227b242",
+      "Mathlib/Data/Finset/Card.lean": "8fde02f405a78deb476e0e5507cddf6e082cb5d1de2ef29d5cb6465e82b9b815"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-057-output.json",
+    "receipt_sha256": "86bd5fee9a6698dc54d6e5d0aa876b205ca3a107eefa11f76a588029c4d3a939",
+    "root_audit_session": 74390,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3314,
+    "mapped_claims": 30,
+    "audited_SM_modules": 279,
+    "audited_project_files": 285,
+    "frozen_bundle_files": 38,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "ab60be7a91123e7e09d4c32e32b73c514ed11cbe09a42866cf7ecd9305d11ed1",
+    "current_SM_modules": 280,
+    "exact_current_SM_inventory_verified": true,
+    "all_279_prior_SM_files_unchanged": true,
+    "all_prior_project_files_except_Supplemental_unchanged": true,
+    "all_38_frozen_bundle_hashes_verified": true,
+    "current_delta": [
+      "work/lean/SM/SingleControlCenters.lean",
+      "one import appended to work/lean/Supplemental.lean"
+    ],
+    "scope": "Audit057 covers the 279 inherited canonical modules, not the new SingleControlCenters port or external PointControlGeometry prototype. The port is independently bound to its exact body/import delta, successful build 73710, and the successful current independent trace. The external geometry prototype is bound to its exact bytes, root kernel 87453 and the independent trace. No new whole-project audit058 or original-source acceptance is claimed."
+  },
+  "accounting": {
+    "original_source_claims_accepted": 0,
+    "original_proof_count_increment": 0,
+    "original_checklist_increment": 0,
+    "full_thm_relgp_accepted": false,
+    "stage_completed": false
+  },
+  "independence": "Independent reviewer did not author or edit the implementation. Source clauses, transparent predicates, actual proof bodies, inherited hashes, domain conditions, and source-to-certificate examples were checked; compilation/hashes alone were not treated as mathematical fidelity.",
+  "edits": "Only independent check evidence and these review files were written. No source, prototype, canonical Lean, Supplemental, declaration map, progress, or author communication was changed.",
+  "id": "point-control-geometry-prototype",
+  "source_lines": "1489-1510 (point-root cases), 1535-1538 (no cusp); original def:walls central conditions at 710-750",
+  "in_theorem_library": false,
+  "prototype_file": "work/checks/PointControlGeometry.prototype.lean",
+  "prototype_sha256": "01a9ddaafb0e56d8051f83c18dd18a152babaa7422d4fb4da48e790ff432e19d",
+  "main_declarations": [
+    "SM.triple_support_of_adjacent_pair",
+    "SM.triple_support_cases",
+    "SM.regular_pointZeroTriple_size",
+    "SM.regular_consecutive_strictBetween",
+    "SM.separated_contact_on_line",
+    "SM.separated_contact_interior_or_exterior",
+    "SM.regular_single_point_center_cases",
+    "SM.WallGerm.not_cuspAt_of_regular"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AffineSegments.lean": "6d028816c7e7e5ec6b2cdb440f4ec88b3dc3877ce2b4310d7e2c71234e6d1c58",
+    "work/lean/SM/AngleScaling.lean": "781af6da4003ffb1d862496edefdc5cb6c0d716d0919d2d547f8df458217465a",
+    "work/lean/SM/AreaDensity.lean": "feb216f85720f9efba537288047ebedb5ec4e58c71738ff343fe750889c1af5b",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/CentralLegFiniteRoots.lean": "d178caa0c02f5faffecf7265e5c62c5fd715e88e9320e942c37e58736b174b26",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/CentralRootGerms.lean": "d3ed85423d8f7663c022d53ccf0b938bd90c351d6762f72c7648b0e22d352e4d",
+    "work/lean/SM/CentralRootNeighborhoods.lean": "4a98ffe2f0c26cc907760651d9f0fd2e994f9e1e8cc1f3307e6e6cde24f10480",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceDensity.lean": "a554f55511441e5c45f1d50423bb586f9578eaaecd33d1002b85aa661796b726",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContactCenter.lean": "088773192feb3d06b423eeebc35bbe760577da281f6ffe33093267cc78437e67",
+    "work/lean/SM/ContactIndices.lean": "7c89d34ffd6e6d173d85822fc8138e6f95bc505f8c409b33700d178c86dbc56e",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/CrossingGeometry.lean": "c349208214f58edda2ec95db5f8ce7229cef89206d2ff45389810c630ea4999d",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CubeWaypointDomains.lean": "497a2d3b8874a502f9fc06c90f3dd8c205b0efba48091ea2a51cc5250c9be644",
+    "work/lean/SM/CubeWaypoints.lean": "fecf3bf0f2e337f37d70c2148757815495943ccd068ebce38eccd73ec77b64c3",
+    "work/lean/SM/CurveCubeSubdivision.lean": "cc057ff8d1a78675b1431a8adca09b0a4ed66f167fdcdd2cdb560b457337e44b",
+    "work/lean/SM/CuspBetweenness.lean": "3d2383bb06316f72490a2d8cbd22235c110139e89d5a2c44abb63d3c9f038326",
+    "work/lean/SM/CuspCenter.lean": "507adf843a91d3152f71ed95ff4d54753653a7340ed378481b2e8a85c7471768",
+    "work/lean/SM/CuspDefinition.lean": "af2d8abcea1c4ac66b975b22e5d79d4c1e95a44e271923bb8323ab4a1a105bda",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/EuclideanPlane.lean": "30a5956221225bc9811a792b5a67c6c5967fb6dda0b4cb14be997051b32b7a4f",
+    "work/lean/SM/EuclideanTuple.lean": "acf79a23b262961b245ec4333627f06d02af2cbe74e9c3385ea237a98f016e69",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/GermDefinition.lean": "bd33269270393122371529e33deed075c34348d1a2455537303abc4579206ed8",
+    "work/lean/SM/GermRelabel.lean": "6b3b502329e87eb0abd75e9d42cf8cfb41280ee90675b9c0142ac762d337934f",
+    "work/lean/SM/GermSides.lean": "a95418d15b11a300c5e6a88cbb43ecd9877b5fd061dab754e2efc19eac625d0a",
+    "work/lean/SM/GermSignChange.lean": "18a9abb6b32839d22aabfdba3e45d533ff515aef021adc6efb5337854be0d91a",
+    "work/lean/SM/GlobalEventCertificate.lean": "34120d10fe7d59581191ff6e8a7949e3a74742cee1301a422235379a8bb8c3df",
+    "work/lean/SM/GlobalTimedCollars.lean": "dfedff99e05fc323b894abe627409805e2ee05d9e0ec97b72be5ecc5542ea8cc",
+    "work/lean/SM/GlobalTimedGerms.lean": "e2de5bf631261fc1154887c2a00eb491d4fe9110d1b78fcc756dc64094ee8e13",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultiCellCoordinatePolyline.lean": "b0c5fe8c85ed00fdefdeeaf8cf8aad0b2da7090d4c31f35213d69e967b0d5cb0",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/NamedWallPredicates.lean": "828a9c5dc91455d6d171a01c0ece96901708dd9720f3a379563850b0a61e7513",
+    "work/lean/SM/NonFlatCenter.lean": "79297e5edc3912d5dbaab3583f6e5dbb29f20935f183ace13dcc8c4feeea907b",
+    "work/lean/SM/NonzeroControlsGeneric.lean": "50e2ea943174b598758ec808c53d5dfe411dd32a778a96a7e70cea3cfc6654dc",
+    "work/lean/SM/OrderedCoordinateLegs.lean": "df1ce600a46565cc70a9e089996e7becd8a9fdc851d6c707fb394e9cb692d121",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolygonalConnected.lean": "63c87005b5678e811be587290a0cfb2924825f3463c7263119611940db6e33e2",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/PrincipalAngles.lean": "d618c6e2b040d5f5dbaf4b0bc7ef46a565dfb439756587d6f1c83e5c8955672a",
+    "work/lean/SM/PureCutIndices.lean": "6ba45cb5653d6d5a768729309e8bb632b73ff1ef3525d347d267c6e06037f426",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/RegularDefinition.lean": "1abcbd05624a34d5df1963ebef27e1497296f1986b39dd5a635561fed4ce86e1",
+    "work/lean/SM/RegularLocus.lean": "ad97d04e3eda38ba6f46d435ee9873344808d0d811ce28c410cd91e35b963acf",
+    "work/lean/SM/RegularPairs.lean": "7d09c9ecbb9b2515808d606a060256ee83b744ce42f946c5d9ff9f97ade80a06",
+    "work/lean/SM/RegularPerturbation.lean": "78b538c140845ef82b4cb9ee638e00306a40e2e8e93ebe2226273d8264a4072e",
+    "work/lean/SM/RegularScalarBoxes.lean": "0eb747eb64d4c4710298531e0379f1b096f5f199e526f2837c833a093d83ea01",
+    "work/lean/SM/RegularTriangle.lean": "f57e8ad619b28abffc5b94c0e70e623685b116bc95346f19c0653c999c98215d",
+    "work/lean/SM/RotationBounds.lean": "ef8a6e795cae03b9c4fc7a1a41f0e2b3e0e709b78ec6ce9f36d620608d3ac84f",
+    "work/lean/SM/RotationContinuity.lean": "bf50759ea133797a9261172c39e32e551bb40b23dfed483b8c541524d3c6c005",
+    "work/lean/SM/RotationNumber.lean": "8d6dc7680484539bf4243b6256155f900061ad34740b29b4f0d0eae6dbd1c0df",
+    "work/lean/SM/ScalarBoxes.lean": "4f381863e439983f18b282f38e52346c3fb566a1543986c2cb6c0606d45108d4",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SingleControlCenters.lean": "1e1c28bd8aeba703bf7411de2f5163ad9d177daf4090956e52fd4d7a67fdeed2",
+    "work/lean/SM/SinglePointTriple.lean": "5930e77bd3eb05d371b5226c226d9caa464f99d0be48038b1154d02c623dc2c8",
+    "work/lean/SM/SingleTripleTransverse.lean": "b87c994ee8d533210f16b8ba0c19f53b7ee7b069cfe4cd813a4e84c897fbf72f",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/SmoothControlGraph.lean": "db5e58079cdfa0c47e3e53394bc538517bf974582f3c04f131379180c3552907",
+    "work/lean/SM/StrictBetween.lean": "8237f0fbd090fd42b15f62c1436cb3ba7f790e921df48d6a9d6a8e4b80becdce",
+    "work/lean/SM/TimedCoordinatePolyline.lean": "5aa232780c3c0278cf40c7546f2b0d3c8336c325f0ba1c6c480e2dcd64be980b",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/TurnSupports.lean": "dae8e2331c348700930337443fc9af9d1a51d9ca54fc73174265aa5c325aa468",
+    "work/lean/SM/UniformMesh.lean": "b6f48ce12858a888b4db43ea28a09d308c5f03e966b1e0c4a4365d3df863015f",
+    "work/lean/SM/UniformMeshCells.lean": "281298210789caf9f0fbac9c2adb309d46d43c1e43694c94362e82c53d540ee7",
+    "work/lean/SM/WallCenterKinds.lean": "9347b1eb957e0f364357ee90e460b7109f35587075fe5424ec8a2371314ed098",
+    "work/lean/SM/WallGerm.lean": "fca24dab7111c6b6f404b075ab4e1b8c20d2fb48083565b6ba89758ebf684f9b",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointOpenDomain.lean": "1267b6c71c1ec34e435068fb8f21b9017df3cdafc0cc33ff452f9a1b3a398b41",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+    "work/lean/SM/WeakGeometry.lean": "4504cad4539531adc6f8271d30d389c62aa72249e3506cffed0352b73f22bcb2",
+    "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2",
+    "work/lean/SM/ZeroTripleRelabel.lean": "ba2a7a5174923198645d8eed3a0e72bc46ba6d58ce812ee6c81f58fa44f0dae7",
+    "work/lean/SM/ZeroTriples.lean": "33e64bb519d61fdb2d9e7613cd42af12831246e5774276ca5e2e21f63ea2c23a"
+  },
+  "import_closure_roots": [
+    "SM.SingleControlCenters",
+    "SM.WallCenterKinds",
+    "SM.CuspCenter",
+    "SM.RegularTriangle"
+  ],
+  "import_closure_file_count": 112,
+  "reason": "Faithful bounded implementation of the exhaustive point-root central geometry and Regular no-cusp obstruction. It takes genuine labelled tuples, actual three-element unordered supports and actual Regular, and proves the central alternatives without assuming Simple or a wall type. The only ambient n>=3 restriction is the source restriction; n>=4 for a regular collinear triple and n>=5 for a separated contact are proved. Cyclic ZMod arithmetic handles wrapped adjacent pairs. Physical injectivity is derived from the singleton point-zero support, then excludes closed-segment endpoints. For consecutive triples, the actual exterior-collinearity alternatives would make the consecutive edge vectors negative multiples, contradicting Regular; hence the middle vertex is strictly between its neighbours. A separated third vertex lies on the actual edge line, then lies either strictly inside the finite segment or outside the closed segment. Together with the no-adjacent-pair case this gives the exact existing FlatCenterAt, VertexCenterAt, ExtensionCenterAt, or CutCenterAt predicates, including the unchanged zero/concurrence sets. These are explicitly central conditions: the prototype does not silently promote them to sign-changing named walls. The actual existing CuspAt predicate is excluded from every regular germ by its negative-multiple pair. The independent raw-source example constructs one A and applies the results to every actual point-control event using the same certificate and A.regular, with no supplied wall/simple/transversality premise.",
+  "mathematical_justification": [
+    {
+      "declarations": [
+        "SM.triple_support_of_adjacent_pair",
+        "SM.triple_support_cases"
+      ],
+      "justification": "For a three-element support containing a,a+1, the two-element pair has strictly smaller cardinality, so an actual third member M exists. Its distinctness plus a+1 != a gives a three-element contactSupport subset of the original; equal finite cardinality gives equality. If M=a-1 or M=a+2, exact ZMod arithmetic and finite-set permutation identify the actual turnSupport at a or a+1. Otherwise all four ContactSeparated exclusions hold. If no adjacent pair exists, the original NoConsecutive predicate holds. This proves exhaustive alternatives without a linear-order cut or a Simple premise; the theorem does not assert uniqueness of the chosen witness."
+    },
+    {
+      "declarations": [
+        "SM.regular_pointZeroTriple_size"
+      ],
+      "justification": "Under n>=3, failure of n>=4 forces n=3. A three-element support is then the whole actual index set, so the determinant of P1-P0 and P2-P0 is zero. Bilinearity/coordinate expansion changes the latter vector to P2-P1 without changing this determinant. The accepted regular_triangle_det_ne_zero applies to the actual closing triangle and contradicts zero. It derives the obstruction using Regular only, including no supplied collision or Generic hypothesis."
+    },
+    {
+      "declarations": [
+        "SM.regular_consecutive_strictBetween"
+      ],
+      "justification": "The singleton point support and derived size yield actual vertex injectivity: if two vertices coincided, triples with two distinct third labels would give two zero supports. Thus the neighbouring endpoints differ. The vanishing actual turn chirotope gives true collinearity. If the middle vertex were exterior to the closed segment, the proved collinear_exterior_cases supplies one of the two actual CuspCase strict betweenness configurations. In either case cusp_negative_pair explicitly makes the outgoing edge a negative multiple of the incoming edge, forbidden by Regular. Closed membership follows. Injectivity excludes t=0 and t=1, giving the exact StrictBetween predicate with 0<t<1 and the affine equality."
+    },
+    {
+      "declarations": [
+        "SM.separated_contact_on_line",
+        "SM.separated_contact_interior_or_exterior"
+      ],
+      "justification": "ContactSeparated derives n>=5, so the unique zero support supplies a nonzero actual edge and vertex injectivity. The actual chi(a,a+1,M)=0 gives det(edge a,PM-Pa)=0. The dot-product scalar formula for a nonzero direction produces an actual real t with PM=edgePoint a t. Splitting actual closed-segment membership, the endpoint exclusions M != a,a+1 and injectivity make any closed parameter strict; otherwise the point lies outside the closed segment. The Extension aggregate separately retains line membership, so exterior never loses the collinearity requirement."
+    },
+    {
+      "declarations": [
+        "SM.regular_single_point_center_cases"
+      ],
+      "justification": "The support decomposition is applied to the actual singleton zero support; Regular supplies size>=4. The consecutive branch yields the exact FlatCenterAt record. The separated branch yields actual VertexCenterAt or ExtensionCenterAt, preserving both complete zero-set equalities, the exact index exclusions, and finite segment meaning. NoConsecutive plus an actual enumeration of the three-element support yields CutCenterAt. All records refer to the same P. No central G1, Generic, global embedding, Simple or selected wall type is assumed."
+    },
+    {
+      "declarations": [
+        "SM.WallGerm.not_cuspAt_of_regular"
+      ],
+      "justification": "Actual CuspAt entails one of the two proved actual CuspCase configurations. Either supplies a negative multiple of the incident edge, contradicting the RegularPair condition at that same corner. The theorem quantifies every index for an arbitrary actual regular germ centre; no root or support premise is added."
+    },
+    {
+      "declarations": [
+        "independent certificate and raw-source examples"
+      ],
+      "justification": "The examples first derive the actual nongeneric centre from E.germ, use E.center_sets and the explicit vertex-control branch to obtain the singleton/empty sets, and transport A.regular(t) along E.germ_center. Applying the geometry theorem then yields centre alternatives for precisely E.germ. A second example constructs d, one common W, and one actual A from the raw continuous Regular curve and Generic endpoints, then quantifies over all actual nongeneric times before choosing each certificate. It neither presupposes a classification nor creates a different approximation for each event."
+    }
+  ],
+  "not_certified": [
+    "No full FlatAt, VertexEdgeAt, VertexBigonAt, VertexSlidingAt, ExtensionAt, PureCutAt, Simple or complete wall-classification theorem is proved here; the sign-change transfers are still outside this frozen prototype.",
+    "Nonzero contact-neighbour heights and equal/opposite-sign V subtype selection are not proved by these eight declarations.",
+    "The support theorem gives exhaustive central alternatives, not a new disjointness/uniqueness theorem; any later use of exclusivity must use separately proved centre separation.",
+    "The active concurrence parameter-difference sign changes and full T wall condition remain separate.",
+    "The complete original thm:relgp and any main corner-state-sum wall laws or soft theorem are not accepted or counted."
+  ],
+  "inherited_review_binding": {
+    "reviews_sha256": {
+      "work/reviews/single-control-centers-port.json": "50234f0bc1fdbfcad3048e8e53706b2d79e6973710327089b8cc58216c0bd9f6",
+      "work/reviews/def-walls.json": "1c337dbfccd7961c2360b02e97433d4ec2b4909ed50bf6dd9b8489836f00c0e0",
+      "work/reviews/lem-cusp-sides.json": "1e4fe3928dab67e4c8b5f27fc76777bbbfc7b620684fefae96d946d20c665cb0",
+      "work/reviews/lem-rot.json": "a9a715579d13a37d9a44c6a0223c32b9bb38d9783cd0b700984e1934d55fc81c"
+    },
+    "all_112_imported_local_files_match": true,
+    "scope": "The exact 112-file closure consists of the independently checked canonical 91-file centre-set port closure and 21 unchanged geometry imports. Their source/body fidelity is supported by the cited independent reviews; every supporting file hash in those reviews was recomputed, and relevant central predicates, strict betweenness, cusp negative-pair proof, triangle obstruction and singleton injectivity were reread."
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/point-control-geometry-review-types.lean",
+    "independent_trace_source_sha256": "587f58ae75915bcaa84f91e0660e9b719d4c357c947f146992d8af48532ac2c0",
+    "independent_trace_log": "work/checks/point-control-geometry-review-types.log",
+    "independent_trace_log_sha256": "f13820a545d9e1c299794bc0201f912606ae4a9f97ae6c0fe6b02943de22ebb4",
+    "independent_kernel_command": "lake env lean ../checks/point-control-geometry-review-types.lean",
+    "independent_kernel_session": 81914,
+    "independent_kernel_exit_code": 0,
+    "shared_trace_checked_declarations": [
+      "SM.vertex_control_zero_iff",
+      "SM.edge_control_zero_of_concurrence",
+      "SM.pointZeroTriples_eq_singleton_of_unique_vertex_control",
+      "SM.pointZeroTriples_empty_of_vertex_controls_nonzero",
+      "SM.concurrenceTriples_empty_of_edge_controls_nonzero",
+      "SM.concurrenceTriples_nonempty_of_g1_nongeneric",
+      "SM.concurrenceTriples_eq_singleton_of_unique_active_control",
+      "SM.ControlCenterSets",
+      "SM.unique_named_control_center_sets",
+      "SM.CurveCubeSubdivision.TimedEventCertificate.center_sets",
+      "SM.triple_support_of_adjacent_pair",
+      "SM.triple_support_cases",
+      "SM.regular_pointZeroTriple_size",
+      "SM.regular_consecutive_strictBetween",
+      "SM.separated_contact_on_line",
+      "SM.separated_contact_interior_or_exterior",
+      "SM.regular_single_point_center_cases",
+      "SM.WallGerm.not_cuspAt_of_regular"
+    ],
+    "shared_trace_declaration_axioms": {
+      "SM.vertex_control_zero_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.edge_control_zero_of_concurrence": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.pointZeroTriples_eq_singleton_of_unique_vertex_control": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.pointZeroTriples_empty_of_vertex_controls_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrenceTriples_empty_of_edge_controls_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrenceTriples_nonempty_of_g1_nongeneric": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrenceTriples_eq_singleton_of_unique_active_control": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.ControlCenterSets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.unique_named_control_center_sets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.TimedEventCertificate.center_sets": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triple_support_of_adjacent_pair": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triple_support_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_pointZeroTriple_size": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_consecutive_strictBetween": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separated_contact_on_line": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separated_contact_interior_or_exterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_single_point_center_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.WallGerm.not_cuspAt_of_regular": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "shared_trace_import_closure_file_count": 112,
+    "shared_trace_scope": "The shared trace imports the real canonical SingleControlCenters module and the other geometry dependencies, then copies the exact frozen external PointControlGeometry definition/proof prefix before its print commands. Thus canonical port declarations are checked by import, not redefined from the old prototype.",
+    "additional_examples": [
+      "Raw source hypotheses construct one actual A; every actual nongeneric time has a certificate with exact ControlCenterSets.",
+      "An existing certificate derives nongenericness from its actual germ and therefore supplies ControlCenterSets without a separate hng premise.",
+      "Conditional inactive-root guard: a Generic tuple has empty actual concurrence set even if an edge control vanishes; this does not assert existence of such a tuple.",
+      "A point-branch event certificate alone yields actual F/V/E/C centre alternatives plus no CuspAt, deriving Regular from A.regular and nongenericness from its actual germ.",
+      "Raw continuous Regular curve, Generic endpoints, n>=3 and positive tolerance construct one d/W/A; every nongeneric time has a certificate, no cusp, and every vertex-control branch is classified into the actual F/V/E/C centre alternatives without Simple/wall/root/transversality hypotheses.",
+      "Every regular actual WallGerm has no CuspAt at any index, without a supplied zero-set or Simple assumption.",
+      "An actual Regular labelled triangle admits no PointZeroTriple, without assuming global vertex distinctness.",
+      "The support {3,0,1} in ZMod 4 is the actual turnSupport at 0, including the cyclic numeric cut."
+    ],
+    "additional_examples_passed": true,
+    "additional_example_count": 8,
+    "independent_closure_evidence": "work/checks/point-control-geometry-review-closure.json",
+    "independent_closure_evidence_sha256": "dbe0655c8c0be020241e12c67f2f24102d3cb4be487bae8ac488047ca4d5fa30",
+    "earlier_independent_runs": [
+      {
+        "session": 23509,
+        "exit_code": 1,
+        "reason": "Only the reviewer-added final finite ZMod 4 wraparound example failed: norm_num left {3,0,1}={-1,0,1}. All 18 implementation declaration checks and the other seven examples passed."
+      },
+      {
+        "session": 80674,
+        "exit_code": 1,
+        "reason": "A reviewer preparation script used the Lean subdirectory with root-relative paths, so the intended example correction did not execute; this reran the unchanged trace and repeated the same final example failure. No implementation file was changed."
+      }
+    ],
+    "earlier_independent_trace_source": "work/checks/point-control-geometry-review-types-initial.lean",
+    "earlier_independent_trace_source_sha256": "d9cefac47a4525a12ab37cebeda5ff378b88ff2a67f1207cbf79139bf8b98af7",
+    "earlier_independent_trace_log": "work/checks/point-control-geometry-review-types-initial.log",
+    "earlier_independent_trace_log_sha256": "0affe341e3ad91012801f636c34c83fe39dc1df3e1308433e0e0d2000a572823",
+    "reviewer_only_correction": "The finite wraparound example now explicitly exposes the actual finite equality and proves it with ordinary kernel decide, not native_decide. The frozen geometry prefix and canonical files remained unchanged.",
+    "non_failing_trace_warnings": "Style/deprecation/unused redundant NeZero warnings only. The final trace has no errors and every example passed.",
+    "checked_declarations": [
+      "SM.triple_support_of_adjacent_pair",
+      "SM.triple_support_cases",
+      "SM.regular_pointZeroTriple_size",
+      "SM.regular_consecutive_strictBetween",
+      "SM.separated_contact_on_line",
+      "SM.separated_contact_interior_or_exterior",
+      "SM.regular_single_point_center_cases",
+      "SM.WallGerm.not_cuspAt_of_regular"
+    ],
+    "declaration_axioms": {
+      "SM.triple_support_of_adjacent_pair": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.triple_support_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_pointZeroTriple_size": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_consecutive_strictBetween": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separated_contact_on_line": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.separated_contact_interior_or_exterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.regular_single_point_center_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.WallGerm.not_cuspAt_of_regular": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "transparent_predicates_printed": [
+      "SM.FlatCenterAt",
+      "SM.VertexCenterAt",
+      "SM.ExtensionCenterAt",
+      "SM.CutCenterAt"
+    ],
+    "successful_build_log": "work/checks/point-control-geometry-prototype.log",
+    "successful_build_log_sha256": "084b71cf03bd74d5f6813533359b7ddeaa64e427b0896c8853477a7056c86ee0",
+    "successful_build_session": 87453,
+    "successful_build_exit_code": 0,
+    "root_result_file": "work/checks/point-control-geometry-prototype-result.json",
+    "root_result_sha256": "5d39eeeaea6bc1190280d3975db5d09817abd54ab720705256105f004c0095c3",
+    "earlier_root_runs": [
+      {
+        "session": 95987,
+        "exit_code": 1,
+        "reason": "Unknown finite-pair cardinality helper and two explicit edgePoint endpoint rewrites; corrected proofs without statement changes."
+      }
+    ]
+  }
+}

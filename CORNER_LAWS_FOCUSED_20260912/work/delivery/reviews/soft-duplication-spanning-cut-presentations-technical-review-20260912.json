@@ -1,0 +1,329 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "state": "Sealed bounded same-model technical review; no original-source acceptance or stronger fidelity approval.",
+  "reviewer_identity": {
+    "agent": "/root/review_relgp_full",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same-model technical review, not stronger-model statement-fidelity approval.",
+    "contribution_disclosure": "Reviewer authored none of these nine declarations and made no implementation edits. The reviewer independently reviewed the StartingChildren dependency earlier and authored separate EndingChildren and SpanningCutNeighbors bodies, neither embedded here. The earlier EndingChildren tail-image proof has a similar structural pattern; this report discloses that method overlap rather than claiming an entirely noncontributing provenance review."
+  },
+  "scope": {
+    "group": "SoftDuplicationSpanningCutPresentations",
+    "declarations": [
+      "SM.SoftDuplication.spanningCutSet",
+      "SM.SoftDuplication.spanning_old_cut_bounds",
+      "SM.SoftDuplication.spanning_tail_cut_bounds",
+      "SM.SoftDuplication.spanningCutSet_zero_cuts",
+      "SM.SoftDuplication.spanningCutSet_one_cuts",
+      "SM.SoftDuplication.spanningCutSet_two_insert_B",
+      "SM.SoftDuplication.spanningCutSet_two_insert_A",
+      "SM.SoftDuplication.spanningChildrenZeroEquiv",
+      "SM.SoftDuplication.spanningChildrenOneEquiv"
+    ],
+    "new_declaration_count": 9,
+    "embedded_body_count": 7,
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1342-1360, actual three presentations in the strict-spanning core-cut branch",
+    "ambient_context": "namespace SM.SoftDuplication; noncomputable; local Classical.propDecidable; {n : Nat} [NeZero n]; all complete core cut sets C with actual hs:s in C.cuts and strict exterior parent endpoints.",
+    "source_id_context": "thm:A-soft bounded combinatorial prerequisite only"
+  },
+  "findings": [
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet",
+      "finding": "spanningCutSet is exactly the frozen expandCuts evaluated at spanningRows, with local selections A only, B only, then both. Fin3 is not an assumed three-element enumeration: the frozen spanningRowsEquiv and actual cutFiberEquiv prove that the branch hs:s in C.cuts has exactly these nonempty subsets and that expansion/collapse are inverse. The source table prints B-only first and A-only second; the formal indices deliberately reverse those two display rows. Accordingly the later row-zero child multiplier must be etaPlus-t(R), while row one uses etaMinus-t(L), each divided by two. This packet does not yet assert those weights."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanning_old_cut_bounds",
+      "finding": "Every old image of a core cut lies inside the actual child interval. Both bounds are transported through old_strictMono and then the exact old_collapse_of_ne_B at each strict exterior endpoint. The inequalities I.left<A and B<I.right prove both endpoint exclusions. The proof does not silently assume global old images are bounded by the supplied interval."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanning_tail_cut_bounds",
+      "finding": "The tail image differs from the old image only at s. If k=s, its image is the actual B, whose bounds follow from I.left<A<B<I.right. Otherwise the exact tail_eq_old equation transfers the already proved old bound. No additional tail-endpoint hypothesis is required."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_zero_cuts",
+      "finding": "The row-zero membership proof expands the literal finite filter/union. A non-distinguished selected point is the unique retained old preimage of its collapsed cut; the distinguished selected point is A=old(s). Conversely every old image of an actual core cut meets the bounds and nonduplicate condition, except s which contributes exactly A. This proves equality of complete cut sets, retaining both endpoints and every chosen interior cut."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_one_cuts",
+      "finding": "The row-one proof uses the same full nonduplicate preimage set, but its selected distinguished point is B=tail(s). The unique non-distinguished fiber and tail_eq_old identify every other point. Thus the complete B-only row is the entire tail-section image, not a local endpoint substitution without full domain coverage."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_two_insert_B",
+      "finding": "The both-cut row has exactly the same nonduplicate filter as A-only and adds the single physical B. Extensional finite membership proves the insert equality; old images never equal B, so no duplicate presentation or unintended cut removal occurs."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningCutSet_two_insert_A",
+      "finding": "The same both-cut set is insert A of the B-only image. The proof uses the exact section-image equality under hs:s in C.cuts, which is essential: that common image includes the distinguished occurrence. It does not assert this set identity without hs, nor equate the A-only and B-only rows."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChildrenZeroEquiv",
+      "finding": "The row-zero child equivalence is the actual interval map through startingOldEmbedding. Its input domain is all core consecutive intervals and its output all consecutive intervals in the actual A-only set. The required whole cut-image equality is the proved row-zero equality, so the generic correspondence hypothesis is discharged."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChildrenOneEquiv",
+      "finding": "The row-one child equivalence likewise maps actual endpoints through startingTailEmbedding and uses the proved B-only image equality. Generic order-image consecutiveness proves injectivity and exhaustion of complete child intervals. The body does not yet construct the mixed-section both-row child domain, its added singleton, or any child/gate product."
+    }
+  ],
+  "boundary_scope": [
+    "Strict spanning forces the collapsed endpoints strictly outside s. Thus hs is genuinely an interior cut and the raw core composition has at least two parts; no supplied nonunary assumption appears. The unary no-core-cut branch remains a separate source case, not dropped from the full theorem by this helper packet.",
+    "The n=3 source case is represented by child interval[0,3],s=1: A-only cuts{0,1,3},B-only{0,2,3},both{0,1,2,3}. No n>=4 or extra point-genericity hypothesis occurs.",
+    "The hI exclusion merely forms collapseInterval; it already follows from a strict exterior endpoint and imposes no extra source restriction. Finite images retain all source choices of exterior/internal cuts.",
+    "There are no arrays or scalars in this packet, so no nonzero-value restriction, division of a child value, or assumed recurrence can enter. Both-row child transport and all weights/products remain outstanding."
+  ],
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false,
+  "review_id": "soft-duplication-spanning-cut-presentations-technical-review-20260912",
+  "sealed_utc": "2026-09-12T03:34:05.249139+00:00",
+  "assessment": "No defect found in the stated bounded source scope. All universal claims are supported by reviewed proofs and the bound root kernel evidence; finite checks are supplementary only.",
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_body_or_frozen_evidence": false,
+    "root_kernel_session": 43902,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      51756
+    ]
+  },
+  "declaration_headers": {
+    "SM.SoftDuplication.spanningCutSet": "def spanningCutSet (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts)\n    (i : Fin 3) : BoundaryCutSet I",
+    "SM.SoftDuplication.spanning_old_cut_bounds": "theorem spanning_old_cut_bounds (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (k : Fin n) (hk : k ∈ C.cuts) :\n    I.left ≤ old s k ∧ old s k ≤ I.right",
+    "SM.SoftDuplication.spanning_tail_cut_bounds": "theorem spanning_tail_cut_bounds (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (k : Fin n) (hk : k ∈ C.cuts) :\n    I.left ≤ startingTailEmbedding s k ∧ startingTailEmbedding s k ≤ I.right",
+    "SM.SoftDuplication.spanningCutSet_zero_cuts": "theorem spanningCutSet_zero_cuts (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    (spanningCutSet s I hI C hL hR hs 0).cuts = C.cuts.image (old s)",
+    "SM.SoftDuplication.spanningCutSet_one_cuts": "theorem spanningCutSet_one_cuts (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    (spanningCutSet s I hI C hL hR hs 1).cuts = C.cuts.image (startingTailEmbedding s)",
+    "SM.SoftDuplication.spanningCutSet_two_insert_B": "theorem spanningCutSet_two_insert_B (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    (spanningCutSet s I hI C hL hR hs 2).cuts =\n      insert (B s) (spanningCutSet s I hI C hL hR hs 0).cuts",
+    "SM.SoftDuplication.spanningCutSet_two_insert_A": "theorem spanningCutSet_two_insert_A (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    (spanningCutSet s I hI C hL hR hs 2).cuts =\n      insert (A s) (spanningCutSet s I hI C hL hR hs 1).cuts",
+    "SM.SoftDuplication.spanningChildrenZeroEquiv": "def spanningChildrenZeroEquiv (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    {K : BoundaryInterval n // C.Consecutive K} ≃\n      {K : BoundaryInterval (n + 1) // (spanningCutSet s I hI C hL hR hs 0).Consecutive K}",
+    "SM.SoftDuplication.spanningChildrenOneEquiv": "def spanningChildrenOneEquiv (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n    {K : BoundaryInterval n // C.Consecutive K} ≃\n      {K : BoundaryInterval (n + 1) // (spanningCutSet s I hI C hL hR hs 1).Consecutive K}"
+  },
+  "declaration_header_context": "Exact source headers reviewed with complete namespace/implicit context; no independently run kernel or printed-type check is claimed.",
+  "declaration_axioms": {
+    "SM.SoftDuplication.spanningCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanning_old_cut_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanning_tail_cut_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningCutSet_zero_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningCutSet_one_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningCutSet_two_insert_B": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningCutSet_two_insert_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChildrenZeroEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChildrenOneEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "proof_repair_exact_diff": "--- first-failed\n+++ passing-body\n@@ -70,7 +70,8 @@\n   change p ∈ (spanningCutSet s I hI C hL hR hs 1).cuts ↔\n     ((I.left ≤ p ∧ p ≤ I.right) ∧ collapse s p ∈ C.cuts ∧ collapse s p ≠ s) ∨\n       p ∈ (spanningRows s I hI C hL hR hs 1).val at hm\n-  simp only [spanningRows, Matrix.cons_val_one, Finset.mem_singleton] at hm\n+  have hrow : (spanningRows s I hI C hL hR hs 1).val = {B s} := rfl\n+  rw [hrow, Finset.mem_singleton] at hm\n   rw [hm]\n   constructor\n   · rintro (h | rfl)\n@@ -93,9 +94,10 @@\n     (hL : I.left < A s) (hR : B s < I.right) (hs : s ∈ C.cuts) :\n     (spanningCutSet s I hI C hL hR hs 2).cuts =\n       insert (B s) (spanningCutSet s I hI C hL hR hs 0).cuts := by\n+  have hzero : (spanningRows s I hI C hL hR hs 0).val = {A s} := rfl\n+  have htwo : (spanningRows s I hI C hL hR hs 2).val = {A s, B s} := rfl\n   ext p\n-  simp only [spanningCutSet, mem_expandCuts, spanningRows, Matrix.cons_val_zero,\n-    Matrix.cons_val_one, Matrix.cons_val_two, Finset.mem_insert, Finset.mem_singleton]\n+  simp only [spanningCutSet, mem_expandCuts, hzero, htwo, Finset.mem_insert, Finset.mem_singleton]\n   tauto\n \n /-- The same actual both-cut row inserts exactly A into the B-only cut set. -/\n",
+  "public_headers_unchanged_from_failed_attempt": true,
+  "ordered_embedded_bodies_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationSpanningCutPresentations.body.lean": "155262478f01a20d335582251d3f48a027207400f06aa4d4f097c069d3f04ba5"
+  },
+  "body_embeddings_verified_once_and_in_order": true,
+  "direct_imports": [
+    "SM.RootBoundary",
+    "Mathlib.Order.Fin.Basic",
+    "Mathlib.Data.Fin.SuccPred",
+    "SM.InteriorCutSet",
+    "Mathlib.Data.Subtype",
+    "Mathlib.Data.Fintype.Powerset",
+    "Mathlib.Algebra.BigOperators.Group.Finset.Sigma",
+    "Mathlib.Tactic",
+    "Mathlib.Algebra.BigOperators.Fin",
+    "SM.NearFar",
+    "SM.CompositionCutSet",
+    "SM.ConsecutiveTriples"
+  ],
+  "canonical_dependency_closure_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a"
+  },
+  "canonical_dependency_closure_count": 14,
+  "canonical_baseline_integrity": {
+    "preserved_module_count": 327,
+    "all_preserved": true,
+    "note": "Byte integrity of all327 is distinct from substantive review of the actual dependency closure."
+  },
+  "checkpoint094_frozen_file_integrity": {
+    "count": 1693,
+    "all_preserved": true
+  },
+  "files_sha256": {
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+    "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+    "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+    "work/checks/SoftDuplicationCutFibers-first-kernel.log": "b30ea6c98913d1e2653c31bf84691c72914f9fe35eab4661836c8a5147a5bca7",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationCutFibers.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationIndices-second-kernel.log": "603465c598208976950bc46d68d96118188745b7b03ba7029ac99e8cb7efa615",
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationIndices.prototype.lean": "331f6b9e1aa4ab9984dd0509d6b3857b4ac678a42a3a2b755469455007ea721b",
+    "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "work/checks/SoftDuplicationPresentations-second-kernel.log": "4994df21a7517052259c35efd39e69edd81b290b3bbc566b159cb8b7c584d135",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/SoftDuplicationPresentations.prototype.lean": "fb625b3aa88da121872d66ca0f6f53d2f0de6b6c2f98e7386309e92566d2cb8c",
+    "work/checks/SoftDuplicationSpanningCutPresentations-body-dependencies.json": "3cca3f7d1b6d1978cac326bc133451cbbf62ead589b8c220dc1fc1222d2b8ff7",
+    "work/checks/SoftDuplicationSpanningCutPresentations-draft-dependency-bindings.json": "cb6e33b91951f4937c753a1ab0cf05473d6717deeb08732455410c65251d7a6a",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-draft.body.lean": "5918a525eeecd1f56f78a24743599c6fd04d585cf3e420c2f2623d00c5a492fb",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-draft.prototype.lean": "53c882b36afa0481212ced35c3f2490eb6e7e6db8899eeca265e946f057c842f",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failed.body.lean": "5918a525eeecd1f56f78a24743599c6fd04d585cf3e420c2f2623d00c5a492fb",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failed.prototype.lean": "53c882b36afa0481212ced35c3f2490eb6e7e6db8899eeca265e946f057c842f",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failure-bindings.json": "5a6af7b7b7a053ffa5b9f3050bf141c6c8cf097ac3fc0e542e9bf391311d3700",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-kernel.log": "382bef475cdf81d53bad3e9d71586fe0e6f7d5284019a279dfe07501ec7ac1da",
+    "work/checks/SoftDuplicationSpanningCutPresentations-prototype-result.json": "41af8963bed9351d2d9dde5b8bff747bd360b57d1d73d4d726338d6e595556d6",
+    "work/checks/SoftDuplicationSpanningCutPresentations-second-draft-repair-bindings.json": "66c765c4d49aadd45a8418ceb6fd32d528058d8a9b14049f1eba50018eb71354",
+    "work/checks/SoftDuplicationSpanningCutPresentations-second-kernel.log": "38ca3643e7df192c77ae98b5ba66f751103562a05ab4eea64889a082a32a8abf",
+    "work/checks/SoftDuplicationSpanningCutPresentations.body.lean": "155262478f01a20d335582251d3f48a027207400f06aa4d4f097c069d3f04ba5",
+    "work/checks/SoftDuplicationSpanningCutPresentations.prototype.lean": "705fbea37658b21d82e887c7dc7e961ccf1bc19e46c0ee82a73d6015ab85954b",
+    "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+    "work/checks/SoftDuplicationStartingChildren-second-kernel.log": "da8263c7943dd883c4e1a55ba01c66c2279d3aa40ec58b0c4cea3ad11b4fd075",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationStartingChildren.prototype.lean": "036b236c072c2ce7e0cdb62ca31d4268335e96349968dd8c1bde83d85994a7ec",
+    "work/checks/SoftRootBoundary-draft-dependency-bindings.json": "f0e12c0b80269ddcb6c91c8f3263f551ca59ea0fca03072f8f925e90c96e48ae",
+    "work/checks/review-spanning-cut-presentations-finite-20260912.json": "0f95c0bbfb50dc6b28c987d708c4f6447fcfa6a733ee8539edd1bd9eb8bda358",
+    "work/checks/review-spanning-cut-presentations-preparation-20260912.json": "7ab10be6b0ff8eaa79a6d4286eb4d16781d3171484a481f3ba5be22a8e0b4a4d",
+    "work/checks/seal-spanning-reviews-20260912.py": "d52cf69bd85bbd69a2f93895fba15bca535837826c1d2d9197aead1f0bafa780",
+    "work/checks/soft-duplication-spanning-complete-baseline-20260912.json": "2687758b7be032129268e9a9830a7616d3f0e81707ea5a41f9ce4d4b752b22d0",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/reviews/soft-duplication-starting-children-technical-review-20260912.json": "9d6783973bfe2d70a9d04c2319ceb9ad9c5c24c2f6c0a2f50fc18075aafc2235"
+  },
+  "reviewed_files_sha256": {
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+    "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+    "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+    "work/checks/SoftDuplicationCutFibers-first-kernel.log": "b30ea6c98913d1e2653c31bf84691c72914f9fe35eab4661836c8a5147a5bca7",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationCutFibers.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationIndices-second-kernel.log": "603465c598208976950bc46d68d96118188745b7b03ba7029ac99e8cb7efa615",
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationIndices.prototype.lean": "331f6b9e1aa4ab9984dd0509d6b3857b4ac678a42a3a2b755469455007ea721b",
+    "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "work/checks/SoftDuplicationPresentations-second-kernel.log": "4994df21a7517052259c35efd39e69edd81b290b3bbc566b159cb8b7c584d135",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/SoftDuplicationPresentations.prototype.lean": "fb625b3aa88da121872d66ca0f6f53d2f0de6b6c2f98e7386309e92566d2cb8c",
+    "work/checks/SoftDuplicationSpanningCutPresentations-body-dependencies.json": "3cca3f7d1b6d1978cac326bc133451cbbf62ead589b8c220dc1fc1222d2b8ff7",
+    "work/checks/SoftDuplicationSpanningCutPresentations-draft-dependency-bindings.json": "cb6e33b91951f4937c753a1ab0cf05473d6717deeb08732455410c65251d7a6a",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-draft.body.lean": "5918a525eeecd1f56f78a24743599c6fd04d585cf3e420c2f2623d00c5a492fb",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-draft.prototype.lean": "53c882b36afa0481212ced35c3f2490eb6e7e6db8899eeca265e946f057c842f",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failed.body.lean": "5918a525eeecd1f56f78a24743599c6fd04d585cf3e420c2f2623d00c5a492fb",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failed.prototype.lean": "53c882b36afa0481212ced35c3f2490eb6e7e6db8899eeca265e946f057c842f",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-failure-bindings.json": "5a6af7b7b7a053ffa5b9f3050bf141c6c8cf097ac3fc0e542e9bf391311d3700",
+    "work/checks/SoftDuplicationSpanningCutPresentations-first-kernel.log": "382bef475cdf81d53bad3e9d71586fe0e6f7d5284019a279dfe07501ec7ac1da",
+    "work/checks/SoftDuplicationSpanningCutPresentations-prototype-result.json": "41af8963bed9351d2d9dde5b8bff747bd360b57d1d73d4d726338d6e595556d6",
+    "work/checks/SoftDuplicationSpanningCutPresentations-second-draft-repair-bindings.json": "66c765c4d49aadd45a8418ceb6fd32d528058d8a9b14049f1eba50018eb71354",
+    "work/checks/SoftDuplicationSpanningCutPresentations-second-kernel.log": "38ca3643e7df192c77ae98b5ba66f751103562a05ab4eea64889a082a32a8abf",
+    "work/checks/SoftDuplicationSpanningCutPresentations.body.lean": "155262478f01a20d335582251d3f48a027207400f06aa4d4f097c069d3f04ba5",
+    "work/checks/SoftDuplicationSpanningCutPresentations.prototype.lean": "705fbea37658b21d82e887c7dc7e961ccf1bc19e46c0ee82a73d6015ab85954b",
+    "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+    "work/checks/SoftDuplicationStartingChildren-second-kernel.log": "da8263c7943dd883c4e1a55ba01c66c2279d3aa40ec58b0c4cea3ad11b4fd075",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationStartingChildren.prototype.lean": "036b236c072c2ce7e0cdb62ca31d4268335e96349968dd8c1bde83d85994a7ec",
+    "work/checks/SoftRootBoundary-draft-dependency-bindings.json": "f0e12c0b80269ddcb6c91c8f3263f551ca59ea0fca03072f8f925e90c96e48ae",
+    "work/checks/review-spanning-cut-presentations-finite-20260912.json": "0f95c0bbfb50dc6b28c987d708c4f6447fcfa6a733ee8539edd1bd9eb8bda358",
+    "work/checks/review-spanning-cut-presentations-preparation-20260912.json": "7ab10be6b0ff8eaa79a6d4286eb4d16781d3171484a481f3ba5be22a8e0b4a4d",
+    "work/checks/seal-spanning-reviews-20260912.py": "d52cf69bd85bbd69a2f93895fba15bca535837826c1d2d9197aead1f0bafa780",
+    "work/checks/soft-duplication-spanning-complete-baseline-20260912.json": "2687758b7be032129268e9a9830a7616d3f0e81707ea5a41f9ce4d4b752b22d0",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/reviews/soft-duplication-starting-children-technical-review-20260912.json": "9d6783973bfe2d70a9d04c2319ceb9ad9c5c24c2f6c0a2f50fc18075aafc2235"
+  }
+}

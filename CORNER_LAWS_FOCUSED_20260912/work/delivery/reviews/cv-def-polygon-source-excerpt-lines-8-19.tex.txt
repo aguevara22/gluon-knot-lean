@@ -1,0 +1,12 @@
+\begin{definition}[polygon]\label{def:polygon}
+Let $n\geq3$. A \emph{polygon} on $n$ vertices is a tuple
+$P=(p_1,\dots,p_n)\in(\mathbb{R}^2)^n$ with $p_{i+1}\neq p_i$ for every $i$,
+indices read cyclically modulo $n$ throughout. Its \emph{edges} are the closed
+segments $e_i=[p_i,p_{i+1}]$ and its \emph{edge directions} are
+$d_i=p_{i+1}-p_i\in\mathbb{R}^2\setminus\{0\}$. Two edges are \emph{consecutive}
+if their index sets meet, and \emph{remote} otherwise. An edge is \emph{remote
+to a vertex} $p_M$ when it is remote to both edges incident to $M$ --- the
+stronger of the two possible readings, and the one every consumer of the phrase
+uses: it excludes an edge that merely avoids $p_M$ while sharing a vertex with
+one of its edges. We write
+$\det(u,v)=u_1v_2-u_2v_1$.

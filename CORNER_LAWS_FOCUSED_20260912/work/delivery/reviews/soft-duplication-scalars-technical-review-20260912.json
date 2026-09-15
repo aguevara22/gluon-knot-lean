@@ -1,0 +1,144 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-scalars-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:55:01.033336+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The prototype embeds only this root-authored scalar body and uses canonical imports. No body authored by this reviewer is embedded. The reviewer separately authored SoftDuplicationIndices, which is not a dependency of these scalar identities."
+  },
+  "scope": {
+    "group": "SoftDuplicationScalars",
+    "declarations": [
+      "SM.SoftDuplication.first_ordinary",
+      "SM.SoftDuplication.first_root",
+      "SM.SoftDuplication.last_ordinary",
+      "SM.SoftDuplication.last_root",
+      "SM.SoftDuplication.ordinary_residual",
+      "SM.SoftDuplication.root_residual",
+      "SM.SoftDuplication.sign_square",
+      "SM.SoftDuplication.three_ordinary",
+      "SM.SoftDuplication.three_root",
+      "SM.SoftDuplication.three_ordinary_with_exterior",
+      "SM.SoftDuplication.three_root_with_exterior"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1217\u20131402; first/last ordinary/root formulas and spanning three-presentation residual formulas at 1291\u20131388",
+    "source_comparison": "Exact local scalar multipliers for the two- and three-presentation cases of the formal duplication argument.",
+    "ambient_context": "namespace SM.SoftDuplication. All scalar parameters are rational numbers; sign_square takes an actual nonzero SignType and uses its integer cast followed by the rational cast."
+  },
+  "assessment": "No technical mathematical defect found in this bounded eleven-declaration scalar scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 5998,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes, complete body embedding and exact initial snapshots; no extracted-header hashes.",
+    "receipt_path": "work/checks/SoftDuplicationScalars-prototype-result.json",
+    "receipt_sha256": "0ac71bed8be4a03dd4c569b12fb74d2216b17e98c9d464f82ce307b68ac22f72",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationScalars.body.lean": "973ca649718c7956de0e7b6fb0cdbdae2281397a8f42bc58295193bd9150dce8",
+      "work/checks/SoftDuplicationScalars.prototype.lean": "a7b9c836c4852278374b5bb152e72bd21cad054b7ba1df308b0da5dc6ee4ed76",
+      "work/checks/SoftDuplicationScalars-first-kernel.log": "853e7391b187d7649f86911a31a3584b793ae7e4f20bd66c35a2c68e9611c3ad"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationScalars.body.lean": 1
+    },
+    "printed_trace_count": 11,
+    "declaration_axioms": {
+      "SM.SoftDuplication.first_ordinary": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.first_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.last_ordinary": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.last_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinary_residual": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.root_residual": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.sign_square": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.three_ordinary": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.three_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.three_ordinary_with_exterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.three_root_with_exterior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationScalars-first-draft.body.lean": "973ca649718c7956de0e7b6fb0cdbdae2281397a8f42bc58295193bd9150dce8",
+      "work/checks/SoftDuplicationScalars-first-draft.prototype.lean": "a7b9c836c4852278374b5bb152e72bd21cad054b7ba1df308b0da5dc6ee4ed76",
+      "work/checks/SoftDuplicationScalars-body-dependencies.json": "8bfae60e90a507f4fa574b1b2fc8fcb10ff55971feab3ad10585bc44a5e9f864"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "dependency_list_matches_single_embedded_body": true,
+    "preserved_failure_evidence": "None: the first root run passed.",
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/decisions/amplitude-soft-after-family-assembly.md": "dcffb9ccc557eebdaa27f94ecd040d9c72494cd2c3b2ee54ca13e0ecfa31905a",
+      "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Sign/Defs.lean": "c644960a660519f90bf83ef514557cd68f9df3e358ba146b2b0ea06247dc2bdc"
+    }
+  },
+  "findings": [
+    "first_ordinary and first_root reproduce the interval-start formulas with eta interpreted as eta_plus, tX the first core boundary value, and tY the far endpoint value. The middle tX cancels additively; the ordinary result retains minus tY and the root result plus tY. No assumption on these rational values is used.",
+    "last_ordinary and last_root preserve the different source ordering: eta is eta_minus, tY is the last core boundary value and tX the exterior endpoint value. The tY terms cancel, giving the printed minus/plus tX factors. These are not obtained by silently reversing the meaning of the source endpoint labels.",
+    "ordinary_residual and root_residual each retain the exact residual (h^2-a^2)/4 before imposing a sign condition. The ordinary factors use a-h and b-h; the root factors use a+h and b+h. The b-dependent terms cancel, so no relation between the remote b value and a or h is needed. The body does not incorrectly assert vanishing for arbitrary far scalars.",
+    "sign_square checks the actual three-constructor SignType. Its nonzero assumption excludes the zero constructor; the negative and positive constructors cast through Int to the corresponding rational values, whose squares are one. Applying it to the source a and h supplies h^2=a^2. The three-row identities require only that equality, a weaker algebraic hypothesis than separately assuming both are signs.",
+    "three_ordinary and three_root have the source row order and factors: the B-only exceptional child multiplier (eta_minus-a)/2, the A-only multiplier (eta_plus-b)/2, and the both-cut product of the two local gates. The sum equals k times the core gate after a proved ring expansion gives the residual and hsq removes it. This is a scalar identity conditional on that explicit square equality, not an assumed transform identity.",
+    "The exterior-factor versions factor the three summands by distributivity, invoke the already proved scalar identity, and multiply back. They never divide or cancel by F. Hence F=0 and all zero child/exterior products are included.",
+    "The group is specifically over the rational field, appropriate to the intended rational amplitude recursion with discrete sign inputs and exact denominators two and four. It does not establish a theorem for arbitrary coefficient rings or treat sign-square identities as consequences of unrestricted rational values."
+  ],
+  "limits": "The eleven declarations prove scalar equalities only. They do not construct the one/two/three composition fibers, identify near/far gates and common child products, prove endpoint-neighbor identities or one-leaf E cases, or establish the complete ordinary/root transforms and their inverse solution. Those concrete source obligations remain separate work. No source acceptance or stronger fidelity approval is granted."
+}

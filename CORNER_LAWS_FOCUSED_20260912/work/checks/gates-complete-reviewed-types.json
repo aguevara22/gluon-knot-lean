@@ -1,0 +1,291 @@
+{
+  "types": {
+    "SM.IntervalComposition.finiteCode": "SM.IntervalComposition.finiteCode {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  (s : Fin n) \u00d7 (Fin (\u2191s + 1) \u2192 Fin n)",
+    "SM.IntervalComposition.finiteCode_injective": "SM.IntervalComposition.finiteCode_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} :\n  Function.Injective SM.IntervalComposition.finiteCode",
+    "SM.IntervalComposition.finite": "SM.IntervalComposition.finite {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} : Finite (SM.IntervalComposition I)",
+    "SM.IntervalComposition.fintype": "SM.IntervalComposition.fintype {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} : Fintype (SM.IntervalComposition I)",
+    "SM.IntervalComposition.part_leaves_lt": "SM.IntervalComposition.part_leaves_lt {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (hp : 2 \u2264 \u03c0.parts) (k : Fin \u03c0.parts) : (\u03c0.part k).leaves < I.leaves",
+    "SM.signTheta": "SM.signTheta (s : SignType) (_hs : s \u2260 0) : \u2124",
+    "SM.sign_product_nonzero": "SM.sign_product_nonzero (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : h * d \u2260 0 \u2227 -h * d \u2260 0",
+    "SM.ordinaryGate": "SM.ordinaryGate (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : \u2124",
+    "SM.rootGate": "SM.rootGate (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) : \u2124",
+    "SM.gate_pair_identities": "SM.gate_pair_identities (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) :\n  SM.ordinaryGate d h hd hh = (\u2191d - \u2191h) / 2 \u2227 SM.rootGate d h hd hh = (\u2191d + \u2191h) / 2",
+    "SM.IntervalComposition.nearSign": "SM.IntervalComposition.nearSign {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : SignType",
+    "SM.IntervalComposition.farSign": "SM.IntervalComposition.farSign {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : SignType",
+    "SM.IntervalComposition.nearSign_ne_zero": "SM.IntervalComposition.nearSign_ne_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P : SM.LabelledTuple n} (hP : SM.G1 P) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.nearSign P g k \u2260 0",
+    "SM.IntervalComposition.farSign_ne_zero": "SM.IntervalComposition.farSign_ne_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {P : SM.LabelledTuple n} (hP : SM.G1 P) (g : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.farSign P g k \u2260 0",
+    "SM.IntervalComposition.ordinaryWeight": "SM.IntervalComposition.ordinaryWeight {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) : \u2124",
+    "SM.IntervalComposition.rootWeight": "SM.IntervalComposition.rootWeight {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) : \u2124",
+    "SM.IntervalComposition.one_part_weights": "SM.IntervalComposition.one_part_weights {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hparts : \u03c0.parts = 1) :\n  \u03c0.ordinaryWeight P hP g = 1 \u2227 \u03c0.rootWeight P hP g = 1",
+    "SM.IntervalComposition.binary_near_eq_far": "SM.IntervalComposition.binary_near_eq_far {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g : ZMod n) (hparts : \u03c0.parts = 2) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.nearSign P g k = \u03c0.farSign P g k",
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": "SM.IntervalComposition.binary_ordinaryWeight_zero {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (hparts : \u03c0.parts = 2) :\n  \u03c0.ordinaryWeight P hP g = 0",
+    "SM.gatesData": "SM.gatesData {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) (I : SM.BoundaryInterval n)\n  (\u03c0 : SM.IntervalComposition I) : (Fin (\u03c0.parts - 1) \u2192 SignType) \u00d7 (Fin (\u03c0.parts - 1) \u2192 SignType) \u00d7 \u2124 \u00d7 \u2124",
+    "SM.nonzero_sign_cases": "SM.nonzero_sign_cases (s : SignType) (hs : s \u2260 0) : s = 1 \u2228 s = -1",
+    "SM.gates_nonzero": "SM.gates_nonzero {n : \u2115} [NeZero n] (_hn : 3 \u2264 n) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) :\n  (\u2200 (I : SM.BoundaryInterval n) (\u03c0 : SM.IntervalComposition I),\n      (\u2200 (k : Fin (\u03c0.parts - 1)),\n          (\u03c0.nearSign P g k = 1 \u2228 \u03c0.nearSign P g k = -1) \u2227\n            (\u03c0.farSign P g k = 1 \u2228 \u03c0.farSign P g k = -1) \u2227\n              (\u03c0.farSign P g k * \u03c0.nearSign P g k = 1 \u2228 \u03c0.farSign P g k * \u03c0.nearSign P g k = -1) \u2227\n                (-\u03c0.farSign P g k * \u03c0.nearSign P g k = 1 \u2228 -\u03c0.farSign P g k * \u03c0.nearSign P g k = -1)) \u2227\n        (\u03c0.parts = 2 \u2192 \u03c0.ordinaryWeight P hP g = 0)) \u2227\n    \u2200 (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0),\n      SM.ordinaryGate d h hd hh = (\u2191d - \u2191h) / 2 \u2227 SM.rootGate d h hd hh = (\u2191d + \u2191h) / 2",
+    "SM.ordinaryGate_congr": "SM.ordinaryGate_congr {d h d' h' : SignType} (ed : d = d') (eh : h = h') (hd : d \u2260 0) (hh : h \u2260 0) (hd' : d' \u2260 0)\n  (hh' : h' \u2260 0) : SM.ordinaryGate d h hd hh = SM.ordinaryGate d' h' hd' hh'",
+    "SM.rootGate_congr": "SM.rootGate_congr {d h d' h' : SignType} (ed : d = d') (eh : h = h') (hd : d \u2260 0) (hh : h \u2260 0) (hd' : d' \u2260 0)\n  (hh' : h' \u2260 0) : SM.rootGate d h hd hh = SM.rootGate d' h' hd' hh'",
+    "SM.IntervalComposition.nearSign_shift": "SM.IntervalComposition.nearSign_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g a : ZMod n) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.nearSign (SM.shift a P) (g - a) k = \u03c0.nearSign P g k",
+    "SM.IntervalComposition.farSign_shift": "SM.IntervalComposition.farSign_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (g a : ZMod n) (k : Fin (\u03c0.parts - 1)) : \u03c0.farSign (SM.shift a P) (g - a) k = \u03c0.farSign P g k",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": "SM.IntervalComposition.ordinaryWeight_eq_of_signs {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P Q : SM.LabelledTuple n) (hP : SM.G1 P) (hQ : SM.G1 Q) (g h : ZMod n)\n  (hd : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.nearSign P g k = \u03c0.nearSign Q h k)\n  (hh : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.farSign P g k = \u03c0.farSign Q h k) :\n  \u03c0.ordinaryWeight P hP g = \u03c0.ordinaryWeight Q hQ h",
+    "SM.IntervalComposition.rootWeight_eq_of_signs": "SM.IntervalComposition.rootWeight_eq_of_signs {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P Q : SM.LabelledTuple n) (hP : SM.G1 P) (hQ : SM.G1 Q) (g h : ZMod n)\n  (hd : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.nearSign P g k = \u03c0.nearSign Q h k)\n  (hh : \u2200 (k : Fin (\u03c0.parts - 1)), \u03c0.farSign P g k = \u03c0.farSign Q h k) : \u03c0.rootWeight P hP g = \u03c0.rootWeight Q hQ h",
+    "SM.IntervalComposition.ordinaryWeight_shift": "SM.IntervalComposition.ordinaryWeight_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) :\n  \u03c0.ordinaryWeight (SM.shift a P) \u22ef (g - a) = \u03c0.ordinaryWeight P hP g",
+    "SM.IntervalComposition.rootWeight_shift": "SM.IntervalComposition.rootWeight_shift {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) : \u03c0.rootWeight (SM.shift a P) \u22ef (g - a) = \u03c0.rootWeight P hP g",
+    "SM.gatesData_shift": "SM.gatesData_shift {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (hP : SM.G1 P) (g a : ZMod n) :\n  SM.gatesData (SM.shift a P) \u22ef (g - a) = SM.gatesData P hP g"
+  },
+  "type_sha256": {
+    "SM.IntervalComposition.finiteCode": "3dddfee42a42e355bc100a3557795cd928d7d61d38df1c780dc1d611aa129f98",
+    "SM.IntervalComposition.finiteCode_injective": "fe490ea1dc1190de0507cb69ca867d6c790ef13637bde53e977ac4e23d849e8a",
+    "SM.IntervalComposition.finite": "cd14d786113561cbbfd0ab268e052de7f97843d44d322dd2fbd7d6687e57f55e",
+    "SM.IntervalComposition.fintype": "96ad7419f94de626a3f0b4f0fa0c0475149d6215d636ca04721d4d2bd6b7199a",
+    "SM.IntervalComposition.part_leaves_lt": "0c51aa88c9e1d7f204723958728f8b9b5be60536a8d73b83e5a6888c35b23c32",
+    "SM.signTheta": "0e4c76c06dce2f77a91859b4c8d0ffde5cb1641943988904290c77f1d9916348",
+    "SM.sign_product_nonzero": "7c9ca05e143d0ddb3884fcdf5b5a5532392405d340fdf2f94600fb3cef781b45",
+    "SM.ordinaryGate": "11cf7f8ba0e13b1a558790e44aac29a6a23c4b312516507404b050b867dbc43a",
+    "SM.rootGate": "63dd97f3e2ea03a2e55015f8843bd071b0488ebdf131435904a034b4a45a4fed",
+    "SM.gate_pair_identities": "46830425a98835f6f839e16f15a231616adf45dd13f25f36ba149bf47aae3d55",
+    "SM.IntervalComposition.nearSign": "b198600947ddea98ad0184d6e92c2e976db8d0c5eded4dadf36b8a95624ef053",
+    "SM.IntervalComposition.farSign": "cfd145daaa341b34c05bb377695e229f27670554e3cf5b2f4b1ae1caded7d3a4",
+    "SM.IntervalComposition.nearSign_ne_zero": "953b52fd667cf6df9f7b3e37ae930688c975cbd5800a149f87168d891c175f26",
+    "SM.IntervalComposition.farSign_ne_zero": "fc7d0181789f2574a81764b007bcc16944899fcb29b1ac579a169373d0bd094d",
+    "SM.IntervalComposition.ordinaryWeight": "62a18726d8fc176b816bc6c5094d0d19ecbb373d1c4352d8afc302f522a7c32d",
+    "SM.IntervalComposition.rootWeight": "e3813970a49b73b38c9d0ac201ac537d4835e812452a3cb7b3b93aa3ac8bd292",
+    "SM.IntervalComposition.one_part_weights": "8ec5a1c0e898772d244fa542c706aec5eacde501fee9165768f9d0611aaa9686",
+    "SM.IntervalComposition.binary_near_eq_far": "c6ac82596abd6cdb510b2b696d1e825e685edf46723e76f4068588b7db792255",
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": "c15915003c5bada3234c37e760bcd081e538979c3722bde23a8fae565ddc4f2a",
+    "SM.gatesData": "8990eb30228386d55bc85bf76615096643f0ed5e59f99ae47b5cc4208546e755",
+    "SM.nonzero_sign_cases": "29bc4535866bede006f6c124f86da20cffc17a00ef029fd5d636767957079c11",
+    "SM.gates_nonzero": "a7be8d4207fe466142148f94b36cd48c5c3fa697180d28ab567a68fbc18efd7e",
+    "SM.ordinaryGate_congr": "9013f809af9916f9b2c9d49a7b38d526ee51a2dfc46297e4351a03b7c33b2aed",
+    "SM.rootGate_congr": "8e79edc6cd99d6c231b88ca9b2a894c8914980ec2524686296ae3bf3dd2574e0",
+    "SM.IntervalComposition.nearSign_shift": "6900aee304236960db8d816a90d645c7404bb636a3cfb2210af0787bce9af1b3",
+    "SM.IntervalComposition.farSign_shift": "c1929665994115ec440ace4cef639922ac0052f4cfea24e928d9730647b76647",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": "688460f143ec378efb2a7dab6cb6d45d820b2dd4ded61965f329c4b77de671e9",
+    "SM.IntervalComposition.rootWeight_eq_of_signs": "2596bf8c3b28571f71f467418daa3f7c8167779b525e506e42c56d2395c6d82c",
+    "SM.IntervalComposition.ordinaryWeight_shift": "753a71c2af6ffa1185b9ef0700e6853a0e3c5d9f35e2207b844fdf54000255e4",
+    "SM.IntervalComposition.rootWeight_shift": "522dbc1029b7748d96f82532d123dc23e3331bdb8c41c5dd502d4d7c43dbdc12",
+    "SM.gatesData_shift": "a8c3f8dcd53a8448ca1c14d06bf503a878d00a9f0c50e3a4245a7ddc57c90007"
+  },
+  "axioms": {
+    "SM.IntervalComposition.finiteCode": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.finiteCode_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.fintype": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_leaves_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.signTheta": [],
+    "SM.sign_product_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.ordinaryGate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootGate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gate_pair_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.one_part_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.binary_near_eq_far": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.binary_ordinaryWeight_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gatesData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nonzero_sign_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gates_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.ordinaryGate_congr": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.rootGate_congr": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearSign_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.farSign_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_eq_of_signs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gatesData_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.every_composition_enumerated": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.all_source_children_decrease": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.source_child_relation_wellFounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.singleton_measure_equal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.interior_cut_exhaustion": [
+      "propext",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_step_interpretation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_gate_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.real_weight_identities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.source_small_part_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.gate_signs_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FiniteAndGatesIndependentReview.gate_weights_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.source_generator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.rooted_representative_descent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GatesEquivarianceIndependentReview.G1_proof_independence": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "all22_previous_core_and_finite_types_preserved": true
+}

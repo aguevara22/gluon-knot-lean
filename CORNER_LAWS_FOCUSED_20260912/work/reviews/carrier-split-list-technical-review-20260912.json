@@ -1,0 +1,183 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-split-list-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:11:09.032103+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_gates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_gates authored the12 generic list-splitting declarations and the sole proof-only List.nil_append normalization repair. Root assembled or received the frozen prototype, alone ran the kernel and generated its evidence. This reviewer authored no proof body, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are source comparison, inspection of the full permutation/list/orbit interfaces including singleton-child cases, and exact whole-file/embedding/receipt checks. The reviewer flagged singleton support loss as a review criterion before seeing the draft, but supplied no proof construction or repair."
+  },
+  "scope": {
+    "group": "CarrierSplitList",
+    "declarations": [
+      "SM.Carrier.formPerm_append_shared",
+      "SM.Carrier.formPerm_map_perm",
+      "SM.Carrier.formPerm_conj_swap_head",
+      "SM.Carrier.formPerm_disjoint_of_disjoint",
+      "SM.Carrier.splitList_child_data",
+      "SM.Carrier.splitList_identity",
+      "SM.Carrier.formPerm_mul_isCycleOn_left",
+      "SM.Carrier.splitList_left_isCycleOn",
+      "SM.Carrier.splitList_right_isCycleOn",
+      "SM.Carrier.splitList_left_sameCycle_iff",
+      "SM.Carrier.splitList_right_sameCycle_iff",
+      "SM.Carrier.splitList_not_sameCycle"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "115–139 source split from(a,A...,b,B...) into(a,B...) and(b,A...), explicitly allowing either open-arc list to be empty. These are generic finite-list identities for the later actual carrier induction.",
+    "ambient_context": "Arbitrary type α with DecidableEq, actual lists A,B and endpoints a,b, and exact Nodup(a::(A++b::B)). No assumption that A or B is nonempty, no finite-ambient-type hypothesis and no supplied split permutation equality. This is a generic list lemma, not an already completed actual-polygon carrier theorem."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the generic exact outgoing-swap split identity and child-orbit characterization.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 33822,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      84550
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierSplitList-prototype-result.json",
+    "receipt_sha256": "181bf6e2d85fcd43e0ef4439d5303d65b9c90f63c1e743ef83da52c61d1d4733",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierSplitList.body.lean": "cff54b56e0d3b8963aef1508e2f6b0d4a167bf2242bd77ebd4ed9a26951ec9fc",
+      "work/checks/CarrierSplitList.prototype.lean": "16c253ca0ce78cc53488218751a81afeebdef67cb4fd308218517d5a2fc4ffd8",
+      "work/checks/CarrierSplitList-second-kernel.log": "8a77e3b363dfe4b7c1a109626731a92e95b47af8aa4b41dc52d7edfe8e3e1a15"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierSplitList.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierSplitList.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 12,
+    "declaration_axioms": {
+      "SM.Carrier.formPerm_append_shared": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.formPerm_map_perm": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.formPerm_conj_swap_head": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.formPerm_disjoint_of_disjoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_child_data": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.formPerm_mul_isCycleOn_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_left_isCycleOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_right_isCycleOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_left_sameCycle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_right_sameCycle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_not_sameCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierSplitList-first-draft.body.lean": "041d95590818aa050026dd2ac6e8dea7d948dd2e652776c2aefef6eef64a9fb0",
+      "work/checks/CarrierSplitList-first-draft.prototype.lean": "f6cd1f4521411412a690e58ea7edbd1cbf8e3260dfefa2067fccea92e3053da4",
+      "work/checks/CarrierSplitList-body-dependencies.json": "b9692bfe3389c4df84e73020363e9799f1c9253e37a1cf44141056111dd38608",
+      "work/checks/CarrierSplitList-draft-dependency-bindings.json": "08c3f13f38aef54a248f34cb7417d295adbef450311b53dfa6aa6e6a1027ace3"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierSplitList.body.lean": "work/checks/CarrierSplitList-first-failed.body.lean",
+      "work/checks/CarrierSplitList.prototype.lean": "work/checks/CarrierSplitList-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierSplitList-first-failed.body.lean": "041d95590818aa050026dd2ac6e8dea7d948dd2e652776c2aefef6eef64a9fb0",
+      "work/checks/CarrierSplitList-first-failed.prototype.lean": "f6cd1f4521411412a690e58ea7edbd1cbf8e3260dfefa2067fccea92e3053da4",
+      "work/checks/CarrierSplitList-first-failed-body-dependencies.json": "b9692bfe3389c4df84e73020363e9799f1c9253e37a1cf44141056111dd38608",
+      "work/checks/CarrierSplitList-first-kernel.log": "ccf46d609aba6a19e6b3d6b6b64fc062f137cc3fcb1b5553581c2315b0fb4413",
+      "work/checks/CarrierSplitList-first-failure-bindings.json": "25cdb7084d82ed7259380f09cd2277c3478e5104c8d98ab5ddcf45ecd5a0fadd",
+      "work/checks/CarrierSplitList-second-draft-repair-bindings.json": "8cd0a82b5dd05c8a5231ae473018def73b0fbc0749ed5ad818c13b1c68d0ae96"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "splitList_identity"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "First84550 failed because a local shortened-list Nodup proof retained []++B after a restricted simplification. The author added only List.nil_append to that proof's simpa only list. Exact full-body/prototype comparison verifies this sole repair; all12 headers, definitions, premises and dependencies are unchanged. The first failure and its compiler placeholders are preserved separately and excluded from successful evidence.",
+    "dependency_receipts_sha256": {},
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/List.lean": "422fdb4d6ae97421283aeb85c9b9bb05d87dc78d400fdd75ead265d0a6882db6",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/Cycle/Basic.lean": "e8dcb2b6b203e3b73f22c8183b65171275b46e6275baeeb7b7321a51f4d5afed",
+      "work/checks/carrier-split-baseline-20260912.json": "bd192d1bb1dbecf27bf30d23ff22728d1c92ec43d1a3371230a1ea7388d8ec06",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "List.formPerm is the actual adjacent-transposition product associated with the displayed list. On a Nodup list it sends each listed element to the next listed element cyclically and fixes elements outside the list. The theorem's input is this concrete list construction, not an arbitrary permutation with a supplied splitting law.",
+    "The shared-endpoint concatenation and relabelling-conjugation lemmas are generic product identities. The head-conjugation lemma fixes every tail element because both alternative heads are absent, so it exchanges only the named head. These intermediate identities do not hide extra distinctness assumptions.",
+    "splitList_child_data derives the distinctness of a,b, all endpoint exclusions, the two child Nodup facts and disjoint child node sets from the single exact old-list Nodup premise. In particular neither child loses its incoming endpoint.",
+    "splitList_identity right-multiplies the original permutation by swap a b, so the swap applies first and exchanges the two old outgoing slots. Its result is exactly formPerm(a::B) times formPerm(b::A), preserving the source incoming-visit ordering instead of attaching a to A.",
+    "The proof factors at the shared endpoint, rotates the concrete prefix using its proved Nodup property, conjugates the two head cycles by the transposition, and commutes the final two factors using disjointness. It derives the entire permutation identity, including action outside the listed nodes.",
+    "Disjoint list node sets imply disjoint permutation supports through the one-way fixed-outside-list fact. The proof does not assert that a singleton list's permutation support equals its node set; List.formPerm[a] is the identity.",
+    "formPerm_mul_isCycleOn_left proves preservation and orbit transitivity on the explicit node-membership set. It compares integer powers using commutation and the second factor's pointwise fixing property. Canonical IsCycleOn allows the identity on a singleton set, so this proof retains one-node child cycles.",
+    "The two child IsCycleOn theorems and exact SameCycle membership equivalences identify the complete orbits of a and b with the sets of entries of(a::B) and(b::A). The forward implication uses invariance under integer powers and the reverse uses cycle transitivity. These statements remain valid when either or both of A,B are empty.",
+    "splitList_not_sameCycle uses disjointness of the two explicit child node sets to separate the incoming endpoints. When both arcs are empty, the switched permutation is the identity on the two distinct endpoints, correctly yielding their two separate singleton orbits.",
+    "The exact two-child conclusion concerns the displayed old-list domain. Elements elsewhere in an arbitrary ambient type are fixed by formPerm and can form additional singleton orbits. The packet makes no false claim that the entire arbitrary ambient type has only two components.",
+    "The source's actual-current-cycle representation by an inherited Nodup list and its induction maintaining that representation remain separate obligations. This generic theorem is sufficient as a split identity once those data are proved, but does not itself derive them from polygon independence.",
+    "First84550 failed at a local Nodup simplification leaving the expression[]++B. Adding only List.nil_append resolves that normalization. Complete body/prototype comparisons verify no other edit and no header or dependency change. The passing receipt binds all12 successful traces, using only standard foundations; the exact first failure and compiler placeholders remain excluded."
+  ],
+  "limits": "Generic exact list-splitting packet only. It does not identify an arbitrary current smoothing orbit with the displayed list, prove actual inherited-list order, maintain unprocessed twin placement, or derive the final |S|+1 carrier count, selected separation, noncrossing ownership or geometry. Source acceptance increment0; stronger-model fidelity and canonical integration remain false."
+}

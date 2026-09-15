@@ -1,0 +1,465 @@
+{
+  "types": {
+    "SM.InteriorCutSet": "SM.InteriorCutSet {n : \u2115} (I : SM.BoundaryInterval n) : Type",
+    "SM.BoundaryCutSet.interior": "SM.BoundaryCutSet.interior {n : \u2115} {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) : SM.InteriorCutSet I",
+    "SM.BoundaryCutSet.ofInterior": "SM.BoundaryCutSet.ofInterior {n : \u2115} {I : SM.BoundaryInterval n} (s : SM.InteriorCutSet I) : SM.BoundaryCutSet I",
+    "SM.BoundaryCutSet.interior_ofInterior": "SM.BoundaryCutSet.interior_ofInterior {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (s : SM.InteriorCutSet I) :\n  (SM.BoundaryCutSet.ofInterior s).interior = s",
+    "SM.BoundaryCutSet.ofInterior_interior": "SM.BoundaryCutSet.ofInterior_interior {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) :\n  SM.BoundaryCutSet.ofInterior S.interior = S",
+    "SM.BoundaryCutSet.interiorEquiv": "SM.BoundaryCutSet.interiorEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  SM.BoundaryCutSet I \u2243 SM.InteriorCutSet I",
+    "SM.BoundaryCutSet.restrict": "SM.BoundaryCutSet.restrict {n : \u2115} {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) (J : SM.BoundaryInterval n)\n  (hl : J.left \u2208 S.cuts) (hr : J.right \u2208 S.cuts) : SM.BoundaryCutSet J",
+    "SM.BoundaryCutSet.mem_restrict": "SM.BoundaryCutSet.mem_restrict {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  (J : SM.BoundaryInterval n) (hl : J.left \u2208 S.cuts) (hr : J.right \u2208 S.cuts) (x : Fin n) :\n  x \u2208 (S.restrict J hl hr).cuts \u2194 x \u2208 S.cuts \u2227 J.left \u2264 x \u2227 x \u2264 J.right",
+    "SM.BoundaryCutSet.restrict_self": "SM.BoundaryCutSet.restrict_self {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) :\n  S.restrict I \u22ef \u22ef = S",
+    "SM.BoundaryCutSet.restrict_restrict": "SM.BoundaryCutSet.restrict_restrict {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  (J K : SM.BoundaryInterval n) (hjl : J.left \u2208 S.cuts) (hjr : J.right \u2208 S.cuts)\n  (hkl : K.left \u2208 (S.restrict J hjl hjr).cuts) (hkr : K.right \u2208 (S.restrict J hjl hjr).cuts) :\n  (S.restrict J hjl hjr).restrict K hkl hkr = S.restrict K \u22ef \u22ef",
+    "SM.IntervalComposition.interiorCutSetEquiv": "SM.IntervalComposition.interiorCutSetEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  SM.IntervalComposition I \u2243 SM.InteriorCutSet I",
+    "SM.IntervalComposition.part_bounds": "SM.IntervalComposition.part_bounds {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (k : Fin \u03c0.parts) : I.left \u2264 (\u03c0.part k).left \u2227 (\u03c0.part k).right \u2264 I.right",
+    "SM.IntervalComposition.part_order": "SM.IntervalComposition.part_order {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  {k l : Fin \u03c0.parts} (h : k < l) : (\u03c0.part k).right \u2264 (\u03c0.part l).left",
+    "SM.IntervalComposition.exists_halfOpen_part": "SM.IntervalComposition.exists_halfOpen_part {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (x : Fin n) (hl : I.left \u2264 x) (hr : x < I.right) :\n  \u2203 k, (\u03c0.part k).left \u2264 x \u2227 x < (\u03c0.part k).right",
+    "SM.IntervalComposition.exists_closed_part": "SM.IntervalComposition.exists_closed_part {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (x : Fin n) (hl : I.left \u2264 x) (hr : x \u2264 I.right) : \u2203 k, (\u03c0.part k).left \u2264 x \u2227 x \u2264 (\u03c0.part k).right",
+    "SM.IntervalComposition.part_interior_unique": "SM.IntervalComposition.part_interior_unique {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (x : Fin n) {k l : Fin \u03c0.parts} (hk : (\u03c0.part k).left < x \u2227 x < (\u03c0.part k).right)\n  (hl : (\u03c0.part l).left < x \u2227 x < (\u03c0.part l).right) : k = l",
+    "SM.RefiningCutSet": "SM.RefiningCutSet {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) : Type",
+    "SM.IntervalComposition.halfOpen_part_unique": "SM.IntervalComposition.halfOpen_part_unique {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (x : Fin n) {k l : Fin \u03c0.parts} (hk : (\u03c0.part k).left \u2264 x \u2227 x < (\u03c0.part k).right)\n  (hl : (\u03c0.part l).left \u2264 x \u2227 x < (\u03c0.part l).right) : k = l",
+    "SM.IntervalComposition.flattenCutSets": "SM.IntervalComposition.flattenCutSets {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (S : (k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) : SM.BoundaryCutSet I",
+    "SM.IntervalComposition.mem_flattenCutSets": "SM.IntervalComposition.mem_flattenCutSets {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (S : (k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) (x : Fin n) :\n  x \u2208 (\u03c0.flattenCutSets S).cuts \u2194 \u2203 k, x \u2208 (S k).cuts",
+    "SM.IntervalComposition.outer_cuts_subset_flatten": "SM.IntervalComposition.outer_cuts_subset_flatten {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (S : (k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) :\n  \u03c0.cutSet.cuts \u2286 (\u03c0.flattenCutSets S).cuts",
+    "SM.IntervalComposition.flattenRefinement": "SM.IntervalComposition.flattenRefinement {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (S : (k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) : SM.RefiningCutSet \u03c0",
+    "SM.IntervalComposition.unflattenCutSets": "SM.IntervalComposition.unflattenCutSets {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts) : SM.BoundaryCutSet (\u03c0.part k)",
+    "SM.IntervalComposition.unflatten_flatten": "SM.IntervalComposition.unflatten_flatten {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (S : (k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) : \u03c0.unflattenCutSets (\u03c0.flattenRefinement S) = S",
+    "SM.IntervalComposition.flatten_unflatten": "SM.IntervalComposition.flatten_unflatten {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) : \u03c0.flattenRefinement (\u03c0.unflattenCutSets T) = T",
+    "SM.IntervalComposition.nestedCutSetEquiv": "SM.IntervalComposition.nestedCutSetEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  ((k : Fin \u03c0.parts) \u2192 SM.BoundaryCutSet (\u03c0.part k)) \u2243 SM.RefiningCutSet \u03c0",
+    "SM.IntervalComposition.nestedCompositionEquiv": "SM.IntervalComposition.nestedCompositionEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : ((k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) \u2243 SM.RefiningCutSet \u03c0",
+    "SM.MarkedCuts": "SM.MarkedCuts {n : \u2115} {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I) : Type",
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset": "SM.BoundaryCutSet.cuts_subset_iff_interior_subset {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (S T : SM.BoundaryCutSet I) : S.cuts \u2286 T.cuts \u2194 \u2191S.interior \u2286 \u2191T.interior",
+    "SM.BoundaryCutSet.outerFromMarks": "SM.BoundaryCutSet.outerFromMarks {n : \u2115} {I : SM.BoundaryInterval n} (T : SM.BoundaryCutSet I) (m : SM.MarkedCuts T) :\n  SM.BoundaryCutSet I",
+    "SM.BoundaryCutSet.outerFromMarks_subset": "SM.BoundaryCutSet.outerFromMarks_subset {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (T : SM.BoundaryCutSet I)\n  (m : SM.MarkedCuts T) : (T.outerFromMarks m).cuts \u2286 T.cuts",
+    "SM.BoundaryCutSet.outerMarkedEquiv": "SM.BoundaryCutSet.outerMarkedEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (T : SM.BoundaryCutSet I) :\n  { S // S.cuts \u2286 T.cuts } \u2243 SM.MarkedCuts T",
+    "SM.swapSigmaSubtype": "SM.swapSigmaSubtype.{u_1, u_2} {A : Type u_1} {B : Type u_2} (rel : A \u2192 B \u2192 Prop) :\n  (a : A) \u00d7 { b // rel a b } \u2243 (b : B) \u00d7 { a // rel a b }",
+    "SM.IntervalComposition.outerCompositionMarkedEquiv": "SM.IntervalComposition.outerCompositionMarkedEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (T : SM.BoundaryCutSet I) : { \u03c0 // \u03c0.cutSet.cuts \u2286 T.cuts } \u2243 SM.MarkedCuts T",
+    "SM.IntervalComposition.nestedMarkedCutEquiv": "SM.IntervalComposition.nestedMarkedCutEquiv {n : \u2115} [NeZero n] (I : SM.BoundaryInterval n) :\n  (\u03c0 : SM.IntervalComposition I) \u00d7 ((k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) \u2243\n    (\u03c1 : SM.IntervalComposition I) \u00d7 SM.MarkedCuts \u03c1.cutSet",
+    "SM.IntervalComposition.interiorPosition": "SM.IntervalComposition.interiorPosition {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (k : Fin (\u03c0.parts - 1)) : Fin n",
+    "SM.IntervalComposition.interiorPosition_injective": "SM.IntervalComposition.interiorPosition_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : Function.Injective \u03c0.interiorPosition",
+    "SM.IntervalComposition.interiorPosition_mem": "SM.IntervalComposition.interiorPosition_mem {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) : \u03c0.interiorPosition k \u2208 \u2191\u03c0.cutSet.interior",
+    "SM.IntervalComposition.mem_interior_iff_exists_index": "SM.IntervalComposition.mem_interior_iff_exists_index {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (x : Fin n) : x \u2208 \u2191\u03c0.cutSet.interior \u2194 \u2203 k, \u03c0.interiorPosition k = x",
+    "SM.IntervalComposition.interiorPositionEquiv": "SM.IntervalComposition.interiorPositionEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : Fin (\u03c0.parts - 1) \u2243 \u21a5\u2191\u03c0.cutSet.interior",
+    "SM.IntervalComposition.nearFarWeight_marked_expansion": "SM.IntervalComposition.nearFarWeight_marked_expansion.{u} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u}\n  [CommRing R] [Invertible 2] (\u03c0 : SM.IntervalComposition I) (D H : SM.TripleArray n R) :\n  \u03c0.nearFarWeight D H = \u2211 marked, (\u220f k \u2208 marked, -H (\u03c0.farTriple k) * \u215f2) * \u220f k \u2208 marked\u1d9c, D (\u03c0.nearTriple k) * \u215f2",
+    "SM.gate_pair_cast": "SM.gate_pair_cast.{u} {R : Type u} [CommRing R] [Invertible 2] (d h : SignType) (hd : d \u2260 0) (hh : h \u2260 0) :\n  \u2191(SM.ordinaryGate d h hd hh) = (\u2191\u2191d - \u2191\u2191h) * \u215f2 \u2227 \u2191(SM.rootGate d h hd hh) = (\u2191\u2191d + \u2191\u2191h) * \u215f2",
+    "SM.IntervalComposition.ordinaryWeight_cast": "SM.IntervalComposition.ordinaryWeight_cast.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2]\n  {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) :\n  \u2191(\u03c0.ordinaryWeight P hP g) = \u03c0.nearFarWeight (SM.geometricBoundaryArray P g) (SM.geometricBoundaryArray P g)",
+    "SM.IntervalComposition.rootWeight_cast": "SM.IntervalComposition.rootWeight_cast.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2]\n  {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (P : SM.LabelledTuple n) (hP : SM.G1 P) (g : ZMod n) :\n  \u2191(\u03c0.rootWeight P hP g) = \u03c0.nearFarWeight (SM.geometricBoundaryArray P g) (-SM.geometricBoundaryArray P g)",
+    "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one": "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (hI : I.leaves = 1) : \u03c0.parts = 1",
+    "SM.geometric_nearFar_open": "SM.geometric_nearFar_open.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (hP : SM.G1 P) (g : ZMod n) :\n  (SM.nearFarTransform (SM.geometricBoundaryArray P g) (SM.geometricBoundaryArray P g) fun I =>\n      \u2191(SM.openTreeSum P hP g I)) =\n    SM.boundaryUnitArray",
+    "SM.geometric_nearFar_root": "SM.geometric_nearFar_root.{u} {n : \u2115} [NeZero n] {R : Type u} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) :\n  \u2191(SM.treeCoefficient P hP g hn) =\n    SM.nearFarTransform (SM.geometricBoundaryArray P g) (-SM.geometricBoundaryArray P g)\n      (fun I => \u2191(SM.openTreeSum P hP g I)) (SM.fullBoundaryInterval hn)"
+  },
+  "type_sha256": {
+    "SM.InteriorCutSet": "1c41a0fc218a2760985fce326d6b341160afd4115685ccc56d0858c3c84800a0",
+    "SM.BoundaryCutSet.interior": "556e51e8c6bea9302704ac041b66c07abd8883d6a6f24795940a69943bd210bd",
+    "SM.BoundaryCutSet.ofInterior": "f7c4caca68eef88a4b1babe94bd054347d79b7c9658445defb9db8aa6b130d00",
+    "SM.BoundaryCutSet.interior_ofInterior": "bebea18b38dff8a94d2dfc698e4825706fe3234c3adb4e0a27f75bfb67204b11",
+    "SM.BoundaryCutSet.ofInterior_interior": "14358072c3335133747b9ac35c9957f2d2377133cb6f85f28d99b3afdc77c7d2",
+    "SM.BoundaryCutSet.interiorEquiv": "a3563cfabbd56d202e4d4669c3072d85c78936aadacca3a0eac2d6e546858249",
+    "SM.BoundaryCutSet.restrict": "340d50363dbe2f69b257800f90a3310015a7309dc87299baa666a444cf79f3af",
+    "SM.BoundaryCutSet.mem_restrict": "ea8b79b44388151be278108724b47e120b6f532f91e1d92b8e6221c8924af37b",
+    "SM.BoundaryCutSet.restrict_self": "356c8d93da2cb817a711ede743576454447f2976c5efe809482f2f06cd26a611",
+    "SM.BoundaryCutSet.restrict_restrict": "e5f5c9e1c703415a0faabdabbb87b7cf99fe9c26a0bc7057df00b60b7fa85c18",
+    "SM.IntervalComposition.interiorCutSetEquiv": "4fee46c4ed54c51652bd276c974962e554c6c4ac03c8877ede3c966779323dbf",
+    "SM.IntervalComposition.part_bounds": "300252a4ece1414043ba02e9061784ad373a6d1914cab08e2512c1681e622bab",
+    "SM.IntervalComposition.part_order": "ae6645cd77fffefaed28d1232f3fa35928b4e10746ece01389130bc5b48a1e77",
+    "SM.IntervalComposition.exists_halfOpen_part": "f123e4bfea1da20ccda4bb1348fb483dce482aeeeafd961e0d10c4f395776130",
+    "SM.IntervalComposition.exists_closed_part": "8b0ae1544ce29e80bd63c8bc0f0497fb42dc03aca5176e756677715ff9bb7563",
+    "SM.IntervalComposition.part_interior_unique": "9d2e45238f4b7184e76a4cb400fae5f5508e9dcd1696854b4d2531fa5e4642d8",
+    "SM.RefiningCutSet": "48d0882e64a7eb46bc5dd433402478f00e36cbbf15a95db8f4413af5408a29b3",
+    "SM.IntervalComposition.halfOpen_part_unique": "f37e49fb0cde79dab9af38db68d76d6bf4498f9dedbd0f3622b8e024fedc9d14",
+    "SM.IntervalComposition.flattenCutSets": "9c99f5e7a95ada37d4fd1cbd567a6e5d4f2ec7b920d6b55f6510eba0c191e55c",
+    "SM.IntervalComposition.mem_flattenCutSets": "12c4e012ac3cd4204577fd231c2b16084d19b9d8a4e27cf0e3a46ce1fd47ab26",
+    "SM.IntervalComposition.outer_cuts_subset_flatten": "e657c6de7545a912b023cd3f054bb1655363068a29c2caf61878f3f7474e80ce",
+    "SM.IntervalComposition.flattenRefinement": "302eeda69f70d3bb904bf1c4fcb9293dce2ea15562dc02ee973a65b8e8cce0cf",
+    "SM.IntervalComposition.unflattenCutSets": "34314290ed147405769b0a702572e80998aeadd9c0c1657b4d9d16f730b77775",
+    "SM.IntervalComposition.unflatten_flatten": "ecb3aa24d578b13c586a19fe728b1a811be5b65b1ceebe49bc2264e342f29e0b",
+    "SM.IntervalComposition.flatten_unflatten": "6be512a636dcb35befb729d652e66d8058f10d1024c7844aead49572a72d9bfc",
+    "SM.IntervalComposition.nestedCutSetEquiv": "636b4c2f6381105eacfbe41f6d79a8668a7e76d99262d602230bc9538f9b326c",
+    "SM.IntervalComposition.nestedCompositionEquiv": "81dcfa73e475640295602366936e38a1af775cf6900976573f4e6edb2d319563",
+    "SM.MarkedCuts": "2d07b871dcfb8ae78bd9aaaf91d5f72fe8c5ca2da7dce8e41e1e94a71c673c6d",
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset": "51245e79a422ae408a7007fc41951b7764caf883d7bfe222e89b7e431e5f2bb7",
+    "SM.BoundaryCutSet.outerFromMarks": "88111ccd06672f1e553d435fb22693a9245e3cda42eb97dc333a29a98e9224b9",
+    "SM.BoundaryCutSet.outerFromMarks_subset": "bb6f536353f0c22ddb80ffbea4f4847e652e921e76392a1c1338c57eb25a30ec",
+    "SM.BoundaryCutSet.outerMarkedEquiv": "5de571e1c3afb3810fcc21494cffe256de5f9db56289523b1ad048a0b7cb3b5f",
+    "SM.swapSigmaSubtype": "07ef2487ef609bc37205bbbd7d5a507077abb1c28315b726412b4dbbea8b356a",
+    "SM.IntervalComposition.outerCompositionMarkedEquiv": "93dc3361ec874c9acabad94cc015601c28e063f182091eddc18a5eea8eb69086",
+    "SM.IntervalComposition.nestedMarkedCutEquiv": "fb873cfd237cf6b69f06b4d2c7b61cc9f79385aa5e23971d4246f23a9602de7a",
+    "SM.IntervalComposition.interiorPosition": "74171526b5556ff661390073f9a35d1c36505039f1257b2171ffed4900435492",
+    "SM.IntervalComposition.interiorPosition_injective": "58f6611c895e83b52da7a8c50338a401d6609cb2b5f2eae4c2f63578bf306328",
+    "SM.IntervalComposition.interiorPosition_mem": "5044eb6bf9e86d3e1d0065c506825ef0d25305e1a8aafaba0047c2a670261b75",
+    "SM.IntervalComposition.mem_interior_iff_exists_index": "8b6d7fd5eefda943e0aac0ee8e9746e7fef0cea11b822206d19c796b67330869",
+    "SM.IntervalComposition.interiorPositionEquiv": "1921a89eedd7ff8aed9ab57137aa5fff7ee96fad7f6291d50789c0a8309fc975",
+    "SM.IntervalComposition.nearFarWeight_marked_expansion": "6bced575fa1cfe8fb31a5d9b3d61a65b7ea8494316e5eefdfc4f90f1398b5fa7",
+    "SM.gate_pair_cast": "2ca15091852ba6f8109927f605b3f3f5695c2e21675cf2385827899fb7d44c25",
+    "SM.IntervalComposition.ordinaryWeight_cast": "f48cb79fb36f1192e793f356a94e1e81984ab73e8b79a3215df345c932a20ce3",
+    "SM.IntervalComposition.rootWeight_cast": "08cf04cb82887a2902b327fc165c860633d9999b6da29c3b601dccc18c291233",
+    "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one": "0bd565a166fea70621cbbf2a081d23e3e4588a8ac8f1faba6d7e7e92715bb328",
+    "SM.geometric_nearFar_open": "c3b6ac33366230ff219a386ed37901a100ebbf88ca8f4d879e449a051ab692bc",
+    "SM.geometric_nearFar_root": "3307cb153fc0a1624b2719d096a7d9310c6f0df05e8291ba6dc3dff84475832d"
+  },
+  "axioms": {
+    "SM.InteriorCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.interior": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.ofInterior": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.interior_ofInterior": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.ofInterior_interior": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.interiorEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.restrict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.mem_restrict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.restrict_self": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.restrict_restrict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.interiorCutSetEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_order": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.exists_halfOpen_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.exists_closed_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_interior_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.RefiningCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.halfOpen_part_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.flattenCutSets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.mem_flattenCutSets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.outer_cuts_subset_flatten": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.flattenRefinement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.unflattenCutSets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.unflatten_flatten": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.flatten_unflatten": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedCutSetEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedCompositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.MarkedCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.outerFromMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.outerFromMarks_subset": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.outerMarkedEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.swapSigmaSubtype": [],
+    "SM.IntervalComposition.outerCompositionMarkedEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedMarkedCutEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.interiorPosition": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.interiorPosition_injective": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.interiorPosition_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.mem_interior_iff_exists_index": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.interiorPositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearFarWeight_marked_expansion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.gate_pair_cast": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.ordinaryWeight_cast": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.rootWeight_cast": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_nearFar_open": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_nearFar_root": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.geometric_open_is_actual_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.geometric_root_retains_full_transform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.arbitrary_interior_subset_realized": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.actual_half_open_partition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.nested_forward_cut_union": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.nested_inner_raw_roundtrip": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.every_marked_refinement_recovered": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.empty_and_full_markings_allowed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.empty_marks_give_unary_outer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.full_marks_recover_refined_outer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.full_nested_and_marked_domains_finite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.interior_indices_have_exact_coverage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.unary_has_no_interior_positions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.unary_marked_expansion_equals_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarRefinementIndependentReview.extreme_array_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.InteriorCutSet",
+    "SM.BoundaryCutSet.interior",
+    "SM.BoundaryCutSet.ofInterior",
+    "SM.BoundaryCutSet.interior_ofInterior",
+    "SM.BoundaryCutSet.ofInterior_interior",
+    "SM.BoundaryCutSet.interiorEquiv",
+    "SM.BoundaryCutSet.restrict",
+    "SM.BoundaryCutSet.mem_restrict",
+    "SM.BoundaryCutSet.restrict_self",
+    "SM.BoundaryCutSet.restrict_restrict",
+    "SM.IntervalComposition.interiorCutSetEquiv",
+    "SM.IntervalComposition.part_bounds",
+    "SM.IntervalComposition.part_order",
+    "SM.IntervalComposition.exists_halfOpen_part",
+    "SM.IntervalComposition.exists_closed_part",
+    "SM.IntervalComposition.part_interior_unique",
+    "SM.RefiningCutSet",
+    "SM.IntervalComposition.halfOpen_part_unique",
+    "SM.IntervalComposition.flattenCutSets",
+    "SM.IntervalComposition.mem_flattenCutSets",
+    "SM.IntervalComposition.outer_cuts_subset_flatten",
+    "SM.IntervalComposition.flattenRefinement",
+    "SM.IntervalComposition.unflattenCutSets",
+    "SM.IntervalComposition.unflatten_flatten",
+    "SM.IntervalComposition.flatten_unflatten",
+    "SM.IntervalComposition.nestedCutSetEquiv",
+    "SM.IntervalComposition.nestedCompositionEquiv",
+    "SM.MarkedCuts",
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset",
+    "SM.BoundaryCutSet.outerFromMarks",
+    "SM.BoundaryCutSet.outerFromMarks_subset",
+    "SM.BoundaryCutSet.outerMarkedEquiv",
+    "SM.swapSigmaSubtype",
+    "SM.IntervalComposition.outerCompositionMarkedEquiv",
+    "SM.IntervalComposition.nestedMarkedCutEquiv",
+    "SM.IntervalComposition.interiorPosition",
+    "SM.IntervalComposition.interiorPosition_injective",
+    "SM.IntervalComposition.interiorPosition_mem",
+    "SM.IntervalComposition.mem_interior_iff_exists_index",
+    "SM.IntervalComposition.interiorPositionEquiv",
+    "SM.IntervalComposition.nearFarWeight_marked_expansion",
+    "SM.gate_pair_cast",
+    "SM.IntervalComposition.ordinaryWeight_cast",
+    "SM.IntervalComposition.rootWeight_cast",
+    "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one",
+    "SM.geometric_nearFar_open",
+    "SM.geometric_nearFar_root"
+  ],
+  "consumer_count": 16,
+  "trace_log": "work/checks/nearfar-refinement-review-types.log",
+  "trace_log_sha256": "89441140d79f7b6890559f7b9d2b0e0ee628f42a989143d67085ec29070554da",
+  "independent_kernel_session": 52709,
+  "exit_code": 0
+}

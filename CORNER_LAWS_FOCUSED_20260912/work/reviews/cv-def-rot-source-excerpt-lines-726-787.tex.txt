@@ -1,0 +1,62 @@
+\begin{definition}[rotation number, computably]\label{def:rot}
+Let $L$ be a closed polygon through corner points $q_0,\dots,q_{c-1}$, lying
+in the regular locus $\mathcal R_c$ of Definition~\ref{def:regular}(B) ---
+nonzero edges, no consecutive pair doubling back; equivalently, every
+principal turn of Definition~\ref{def:regular}(A) exists --- and put
+$\delta_i=q_{i+1}-q_i$. Choose $r\in\mathbb{R}^2$ with $\det(r,\delta_i)\neq0$
+for all $i$; such $r$ exists because the $\delta_i$ are finitely many. Then
+\[
+   \rot(L)=\sum_{i}\epsilon_i,\qquad
+   \epsilon_i=\begin{cases}
+     +1,&\det(\delta_{i-1},\delta_i)>0,\ \det(\delta_{i-1},r)>0,\ \det(r,\delta_i)>0,\\
+     -1,&\det(\delta_{i-1},\delta_i)<0,\ \det(\delta_{i-1},r)<0,\ \det(r,\delta_i)<0,\\
+     0,&\text{otherwise.}
+   \end{cases}
+\]
+All comparisons are exact sign tests of determinants: no angles and no
+tolerances occur.
+
+\emph{Why regularity is part of the definition.} The sum is independent of
+the admissible $r$, and regularity is what makes it so; a vanishing turn is
+harmless. First delete flat corners: if $\delta_i=\lambda\delta_{i-1}$ with
+$\lambda>0$ then $\det(\delta_{i-1},\delta_i)=0$, so $\epsilon_i=0$ for every
+$r$, and deleting $q_i$ merges the two edges into one of the same direction,
+changing no other $\epsilon_j$, since every determinant a surviving term
+reads is altered only by a positive scale. The deletion lands in
+$\mathcal R_{c-1}$, and no polygon of any $\mathcal R_c$ is all-flat --- a
+closed polygon with every turn flat would traverse one direction forever and
+could not close --- so finitely many deletions reach a polygon with every
+$\det(\delta_{i-1},\delta_i)\neq0$ and the same sum. On that polygon,
+$\epsilon_i$ depends on $r$ only through $\det(\delta_{i-1},r)$ and
+$\det(r,\delta_i)$, so it moves only as $r$ crosses the line of
+$\delta_{i-1}$ or of $\delta_i$. Crossing the line of $\delta_j$ moves
+exactly $\epsilon_j$ and $\epsilon_{j+1}$, and in each of the four sign cases
+one gains what the other loses, so the sum is unchanged; if several edges
+share that line they are pairwise nonconsecutive --- consecutive ones would
+be flat or doubling back, and both are gone --- so their pairs are disjoint
+and each is preserved separately. Regularity is not decoration: the polygon
+$((-7,4),(-9,6),(9,-9),(3,3),(9,-9),(-7,-7),(-7,-6))$, whose consecutive
+pair $(-6,12),(6,-12)$ doubles back, returns both $-1$ and $0$ at admissible
+rays.
+
+\emph{Direction loops and smooth curves.}
+For a continuous loop $T\colon\mathbb R/\mathbb Z\to S^1$, a
+\emph{tangent-angle lift} at a seam is a continuous
+$\theta\colon[0,1]\to\mathbb R$ such that
+$T(s)=(\cos\theta(s),\sin\theta(s))$. Put
+\[
+   \operatorname{tw}(T)=\frac{\theta(1)-\theta(0)}{2\pi}.
+\]
+For a closed $C^1$ regular oriented curve
+$\gamma\colon\mathbb R/\mathbb Z\to\mathbb R^2$, put
+\[
+   T_\gamma=\frac{\gamma'}{|\gamma'|},
+   \qquad
+   \rot(\gamma)=\operatorname{tw}(T_\gamma).
+\]
+Lemma~\ref{lem:turnlift} constructs the lift and proves that these values do
+not depend on its choices, on the seam, or on an orientation-preserving regular
+reparametrisation. For either a polygon or a $C^1$ regular closed curve put
+$R(L)=|\rot(L)|$.
+
+\end{definition}

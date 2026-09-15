@@ -1,0 +1,297 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "smooth-control-graph-prototype",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1459–1470 ambient smooth control-hypersurface crossing claim, using the exact affine-control construction at 1292–1383 and joint-condition context 1429–1458",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The actual affine-control zero set on an open ambient nonzero-slope neighborhood is a C-infinity graph, with smooth injective graph parameterization, smooth inverse coordinate projection and exhaustive zero-set/image equality. At an actual central root the needed slope-domain membership is derived from JointLegConditions. No full original claim acceptance.",
+  "prototype_file": "work/checks/SmoothControlGraph.prototype.lean",
+  "prototype_sha256": "1cd9286ad8d2f8beb9e180c79644e1bed8d71b20707d86b83b48987c4c97590a",
+  "in_theorem_library": false,
+  "main_declarations": [
+    "SM.contDiffOn_coordinateRootFunction",
+    "SM.coordinate_graph_actual_assignment",
+    "SM.contDiffOn_coordinate_graph",
+    "SM.contDiff_remaining_projection",
+    "SM.coordinate_zero_set_eq_graph",
+    "SM.central_root_smooth_graph"
+  ],
+  "reason": "The frozen prototype faithfully establishes the concrete ambient smooth-graph characterization of each actual affine control zero set wherever its evaluated remaining-coordinate slope is nonzero. The slope and intercept are the actual coefficients supplied by the proved coordinate-isolation equivalence. Their polynomial evaluations are smooth, the nonzero-slope set is open, and the rational root function -intercept/slope is C-infinity there. Replacing precisely the moving scalar coordinate by this root gives an actual smooth injective graph parameterization; the actual remaining-coordinate projection is smooth and is its inverse on the graph. The equality of the full ambient zero set within this open domain with the image of that graph is proved in both directions. Thus this is substantive ambient geometry, not only a nonzero derivative along a path. The central-root theorem derives coordinate dependence and nonzero evaluated slope from the actual control root and JointLegConditions, with no additional smoothness/regular-value premise; it includes the actual central assignment on the graph. The independent example additionally assembles open ambient-domain membership, full graph smoothness/injectivity/projection, exhaustive zero-set equality and actual point membership for that same root, deriving NeZero from n>=3. A second example checks the inverse identity on every actual ambient zero in the domain. All 14 declarations independently kernel-check with only standard axioms. This explicit smooth-graph characterization is a sufficient concrete meaning of a local smooth hypersurface, without requiring a separate manifold API. A stronger global event certificate must still attach these data to the same control, moving coordinate and actual root of each returned globally timed germ; the complete named-wall dictionary and original thm:relgp remain unaccepted.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual coefficient model and domain",
+      "assessment": "For a polynomial affine in coordinate i, the accepted coordinate-isolation/evaluation identities give p(rho)=a(eta)*rho(i)+b(eta), where eta retains every coordinate other than i and a,b are the actual coordinateSlope and coordinateIntercept polynomials. The domain U consists exactly of eta with eval_eta(a) nonzero, and the root function is exactly -eval_eta(b)/eval_eta(a). No slope oracle or new polynomial model replaces the actual coefficients. The function is total as a Lean real-division expression, but no smoothness or zero-set equivalence is asserted at a zero denominator. A general polynomial may have empty U; the actual central-root application separately proves that its fixed assignment belongs to U, so the source application is not vacuous."
+    },
+    {
+      "clause": "Smooth coefficients, rational root and open ambient domain",
+      "assessment": "The pinned multivariate polynomial evaluation theorem is obtained from polynomial induction and analytic coordinate projections, and its global analyticity implies C-infinity smoothness. Applied to the remaining-coordinate slope and intercept polynomials, it proves their evaluations smooth and continuous. The nonzero-slope domain is the complement of the closed equality-to-zero set, hence open. The inspected ContDiffOn division rule uses exactly the nonzero denominator on U and proves the rational root function smooth there. The ambient domain is the preimage of U under the actual remaining-coordinate projection; that projection is continuous, so the ambient domain is open. It allows all values of the moving coordinate, rather than only the original leg or a prespecified graph slice."
+    },
+    {
+      "clause": "Exact full zero-set characterization",
+      "assessment": "The affine specialization theorem identifies evaluation at extendCoordinateAssignment(i,eta,t) with the actual specialized linear polynomial. Its previously proved unique-root equation, under the evaluated nonzero slope, gives zero iff t=-b/a for EVERY real t. Reconstructing an arbitrary actual ambient assignment from its remaining coordinates and its i-th coordinate gives the same iff for every rho in the open ambient domain. To prove the set/image equality, each ambient zero is represented by its own remaining coordinates and reconstructed from that equality. Conversely every graph parameter in U extends to an actual zero, and projecting its unchanged remaining coordinates proves ambient-domain membership. Neither direction omits an actual zero or assumes one is already on the graph."
+    },
+    {
+      "clause": "Smooth graph parameterization and smooth projection inverse",
+      "assessment": "The graph map inserts the actual rational root only in coordinate i and retains eta(j) for every other j. Componentwise smoothness follows from the root-function theorem in the i case and actual coordinate projections in the other cases. Applying the remaining-coordinate projection to any graph value recovers eta exactly, so the graph is injective, including for the total graph map outside U. The remaining-coordinate projection is itself globally C-infinity by componentwise smoothness. On the zero set in the ambient domain, the exact root equation reconstructs rho from its projection, giving the other inverse identity; this latter identity was also independently kernel-checked as a separate example. Restricted to U and its graph, these are genuine inverse smooth coordinate maps with their actual induced topologies."
+    },
+    {
+      "clause": "Actual central roots supply nonzero slope without an extra premise",
+      "assessment": "The central theorem starts with an actual eval(leg.assignment W r)(namedControlPolynomial name)=0 and the actual JointLegConditions. The exact parameter-polynomial evaluation identity turns this into a genuine parameter root. A control independent of the moving coordinate would remain at a nonzero endpoint value, so the proved root-forces-dependency theorem gives actual variable dependence. JointLegConditions then supplies the evaluated remaining-coordinate slope nonzero. This is precisely membership of leg.fixedAssignment W in U. The assignment_other identity proves that projecting the actual central assignment equals that fixed assignment. The actual root equation therefore places the central i-th coordinate at the root function of those same fixed coordinates. No Generic or Regular centre, root interior, separate gradient assumption, supplied open domain or abstract smoothness premise is used; this valid graph result also covers inactive control roots."
+    },
+    {
+      "clause": "Meaning of ambient smooth hypersurface",
+      "assessment": "The finite-dimensional scalar ambient space is the actual space of all occurrence scalar coordinates. The parameter domain retains exactly all coordinates except the chosen moving coordinate; the local zero set is the graph of one C-infinity real function over an OPEN subset of that remaining-coordinate space, with smooth inverse projection. This is the explicit smooth-graph characterization of a local embedded hypersurface and gives the substantive source geometry. A separate manifold object or dimension API has not been constructed; it is unnecessary if the source-facing hypersurface predicate uses this explicit characterization. If a later theorem instead asserts a distinct library embedded-submanifold or regular-level predicate, its bridge must be proved rather than inferred from a build. No norm-isometry substitution is required: the smooth statements concern the actual finite scalar-coordinate space."
+    },
+    {
+      "clause": "Independent genuine-root and actual-point checks",
+      "assessment": "The independent compiled example assumes only n>=3, an actual leg, W, JointLegConditions and a genuine named-control zero. It internally derives NeZero and the nonzero-slope membership, then assembles the actual open U, smooth injective graph G, smooth remaining projection R, projection-left-inverse identity, open ambient preimage R^{-1}(U), membership of leg.assignment W r in that domain, exhaustive ambient zero-set equality and membership of that actual assignment in G(U). No additional nonzero-slope or smoothness condition is supplied. A second example proves G(R(rho))=rho for every actual ambient zero in the slope neighborhood. All 14 new declarations and both transparent coefficient-domain/root-function definitions were inspected in the successful independent trace."
+    },
+    {
+      "clause": "Remaining global event integration",
+      "assessment": "The reviewed global timed-germ theorem internally proves fine-cell membership and equality with the actual rescaled leg expression, but its existential conclusion does not retain those facts or the selected control zero as fields tied to the returned k/name/g. A stronger source-facing event certificate is needed to expose the same actual fine cell, central-leg expression, central control zero and corresponding graph domain for that returned event. Then this graph characterization and the nonzero actual global-time derivative can be attached to the same control and coordinate. This is a remaining interface integration step, not a defect in the current graph theorem. The named F/V-bigon/V-sliding/T/E/C classification, no-cusp argument and final original theorem assembly remain separate."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance and no original proof/checklist increment.",
+    "No stronger global event certificate coupling the returned germ, fine-cell membership, exact rescaled leg, selected central zero and this actual ambient graph; this attachment remains to be implemented.",
+    "No complete named-wall classification, no-cusp conclusion or final wall-dictionary/source theorem assembly.",
+    "No separate manifold-library object or embedded-submanifold API statement is certified. The reviewed explicit open smooth-graph characterization itself suffices for that concrete source-facing meaning.",
+    "This remains an external prototype outside the theorem-library inventory and is not a mapped accepted original claim."
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9"
+  },
+  "import_closure_roots": [
+    "SM.CentralLegRootControls"
+  ],
+  "import_closure_file_count": 46,
+  "inherited_review_binding": {
+    "reviews_sha256": {
+      "work/reviews/central-leg-roots.json": "eb237abb2f3df42ea5484b30f3f4533e796678819e5124a3a8bf2a6308735935"
+    },
+    "all_46_imported_local_files_match": true,
+    "scope": "Every actual local import is in the independently reviewed central-leg-roots closure. All 46 current import hashes and all inherited file bindings in that review were recomputed; the original transport-polynomial coefficient/evaluation semantics remain unchanged."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "additional_pinned_library_files_read_sha256": {
+      "Mathlib/Analysis/Analytic/Polynomial.lean": "744a9dfd3e4658eaea491b7ed997bcfa68987cb4ab0d305c22ab1841d6fb886f",
+      "Mathlib/Analysis/Calculus/ContDiff/Operations.lean": "7eee3478a18610a1ba0acb83e8dd31059f4c338df34dfdecb16d396cb740c6d1",
+      "Mathlib/Analysis/Calculus/ContDiff/Defs.lean": "55f7a7343c0150ddea659c8bc4a9d138723a3e0ce252861efae8f6be6c1abcb1"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/smooth-control-graph-review-types.lean",
+    "independent_trace_source_sha256": "8a8ccbe54debcf8e9065b599679ca45ab17fe43b518f0be5e21bc0b0f8fabd8b",
+    "independent_trace_log": "work/checks/smooth-control-graph-review-types.log",
+    "independent_trace_log_sha256": "2af27a2415e118201b8278bf6371cd9bbd4afe9ec494ccf4f6dcd3bcadcbf3dd",
+    "independent_kernel_command": "lake env lean ../checks/smooth-control-graph-review-types.lean",
+    "independent_kernel_session": 5906,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": [
+      "SM.contDiff_polynomial_eval",
+      "SM.coordinateSlopeDomain",
+      "SM.coordinateRootFunction",
+      "SM.isOpen_coordinateSlopeDomain",
+      "SM.contDiffOn_coordinateRootFunction",
+      "SM.coordinate_graph_zero_iff",
+      "SM.coordinate_graph_actual_assignment",
+      "SM.isOpen_coordinate_graph_ambient_domain",
+      "SM.coordinate_graph_injective",
+      "SM.contDiffOn_coordinate_graph",
+      "SM.coordinate_graph_projection",
+      "SM.contDiff_remaining_projection",
+      "SM.coordinate_zero_set_eq_graph",
+      "SM.central_root_smooth_graph"
+    ],
+    "declaration_axioms": {
+      "SM.contDiff_polynomial_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateSlopeDomain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateRootFunction": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_coordinateSlopeDomain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contDiffOn_coordinateRootFunction": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_graph_zero_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_graph_actual_assignment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_coordinate_graph_ambient_domain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_graph_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contDiffOn_coordinate_graph": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_graph_projection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.contDiff_remaining_projection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_zero_set_eq_graph": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_smooth_graph": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "additional_examples": [
+      "Genuine central root plus JointLegConditions and n>=3 derives full actual smooth graph/open ambient domain/point membership, with no extra slope or smoothness premise.",
+      "The smooth coordinate projection has the actual graph map as right inverse on every ambient zero in the domain."
+    ],
+    "additional_examples_passed": true,
+    "successful_build_log": "work/checks/smooth-control-graph-prototype.log",
+    "successful_build_log_sha256": "ddcdaa3a1ecc30b8b8a17c501b80e879430d33e2b609f4498aeebdc6efdeaa23",
+    "successful_build_session": 18529,
+    "successful_build_exit_code": 0,
+    "root_result_file": "work/checks/smooth-control-graph-prototype-result.json",
+    "root_result_sha256": "8929b2b0136b92369c7f118d785bb45a23993c37ef07bf5c36566f124837cafd",
+    "earlier_root_runs": [
+      {
+        "session": 5138,
+        "exit_code": 1,
+        "reason": "ContDiff infinity notation scope missing; parser cascades only."
+      },
+      {
+        "session": 43952,
+        "exit_code": 1,
+        "reason": "Explicit unfolding of slope-domain membership needed."
+      },
+      {
+        "session": 65065,
+        "exit_code": 0,
+        "scope": "Initial graph/root theorem before added parametrization, projection and full zero-set equality."
+      },
+      {
+        "session": 7101,
+        "exit_code": 1,
+        "reason": "Two projection theorem type arguments and one lambda target needed explicit elaboration."
+      }
+    ],
+    "independent_closure_evidence": "work/checks/smooth-control-graph-review-closure.json",
+    "independent_closure_evidence_sha256": "ae7b9c13eaf025135b3506a8117ab3db702bcb785182eaf3a6db17c85bf50b6b",
+    "non_failing_trace_warnings": "Inherited unused section-variable/deprecated membership-lemma warnings and reviewer letI/deprecated membership style warnings; no errors. Both examples passed in the first independent kernel run."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-056-output.json",
+    "receipt_sha256": "5c4f93ec90e4b107ffcb2366f5ac1639ef9e016713a73c30287320d03e093f66",
+    "root_audit_session": 85835,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3163,
+    "mapped_claims": 30,
+    "SM_modules": 273,
+    "all_46_import_hashes_match_receipt": true,
+    "all_frozen_bundle_hashes_reverified": true,
+    "scope": "Audit056 covers all 46 imported SM modules. The external SmoothControlGraph prototype is outside the audited project inventory and is bound to its exact hash and successful root/independent kernel traces. No mapped original claim or updated project inventory is inferred from this prototype."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "full_original_claim_accepted": false
+  },
+  "independence": "Independent source/type/body review by review_chirotope-independent-20260910, who did not author or edit the root prototype or theorem-library dependencies. The implementation author is root. Inherited independent semantics were reused after exact current-file checks.",
+  "edits": "Only independent check evidence and this partial review were written. No source, root-prototype, theorem-library, declaration-map, status or progress edits."
+}

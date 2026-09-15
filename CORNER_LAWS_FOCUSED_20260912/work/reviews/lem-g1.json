@@ -1,0 +1,77 @@
+{
+  "id": "lem:g1",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "fc19ab5a1af2a730e0802722bb8415f586c76caa987ab633aaa73abe1d99906a",
+  "verdict": "faithful",
+  "reason": "Compared all five clauses of source lem:g1, its proof and its inherited polygon conventions with the complete Lean proposition SM.g1. Its only mathematical assumptions are a concrete labelled tuple P, the source domain n>=3 and G1 P; nonzero n and nontrivial ZMod are derived inside the proof, and G2 is not assumed. Clause (i) is Function.Injective P and all edge vectors nonzero. Clause (ii) gives each actual turn equal to +1 or -1, consecutive edges IndependentPair, and no outgoing edge equal to any real scalar multiple of its incoming edge. IndependentPair is exactly the two-vector definition of linear independence: every zero linear combination has both coefficients zero. The explicit real scalar quantifier includes positive, negative and zero values; the source's flat/kink wording concerns these edge directions, as its determinant proof confirms, rather than origin-dependent scalar relations among vertex positions. Clause (iii) excludes each nonincident vertex from every real affine parameter of the supporting line, and separately from the closed segment; the modular endpoint exclusions are precisely nonincidence. Clause (iv) explicitly covers both possible orientations of two distinct adjacent edges and identifies their intersection with the singleton common endpoint. CONTEXTUAL DISAMBIGUATION: the source adjacency relation includes self-adjacency, but the phrase 'two adjacent edges' with 'their common vertex' and the source proof's 'two edges at a vertex span the plane' identify the two distinct incident edges. I accept the explicitly documented i!=j quantifier as this intended contextual reading. The literal alternative allowing i=j would be false under G1 because a nonzero edge intersects itself in the whole segment; it is not claimed or silently certified. Clause (v) is the full disjoint-or-singleton dichotomy for any remote indices, with the crossing point in both actual segment interiors and the two actual directions linearly independent. This establishes existence, uniqueness, interior membership and transversality, rather than merely a parameter uniqueness statement or abstract crossing relation. All construction uses real coordinate points and the definitions already reviewed for polygons and chirotopes. The source allows labelled representatives; all index and segment operations use the same cyclic-equivariant definitions. The development audit supplies kernel validation with only the standard axioms; this independent semantic review supplies the domain and complete-clause comparison. No helper is counted as an additional original claim.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.g1_vertices_injective",
+    "SM.g1_edge_ne_zero",
+    "SM.g1_turn_nonzero",
+    "SM.independent_of_det_ne_zero",
+    "SM.no_multiple_of_det_ne_zero",
+    "SM.g1_vertex_off_edge_line",
+    "SM.g1_vertex_not_mem_edge",
+    "SM.g1_adjacent_intersection",
+    "SM.g1_remote_dichotomy"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 109,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 110,
+    "statement_excerpt_status": "wording-changed",
+    "from_excerpt_sha256": "535ad9ced96a953bced0dd361c51a96e443ed41f9f40852ca311eb54790d5369",
+    "to_excerpt_sha256": "7371acaddbeb80fd41191cec38cf300f164d2f90bd52e7d8a5fb10a1960b8858",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 wording changed; see re_review.",
+    "re_review": "SM15 adds 'distinct' in clause (iv) and rewords the clause (ii) gloss to 'no edge vector is a positive or negative multiple of its predecessor' (formal change of (iv), CHANGES_SINCE_20260909.md section 1). SM.g1 clause (iv) already quantifies over i != j with adjacent i j and gives both orientations with the single common vertex; clause (ii) states IndependentPair (edge P (i-1)) (edge P i) and forall t : R, edge P i != t * edge P (i-1), which excludes every real multiple including the positive and negative ones. The SM12 review's contextual reading of 'two adjacent edges' as distinct edges is now the printed statement. Verdict: faithful.",
+    "countersign_requested": "The package's independent reviewer should countersign this re-read at the next checkpoint.",
+    "countersigned_20260913": {
+      "by": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent; AI reviewer)",
+      "verdict": "faithful",
+      "utc": "2026-09-13T16:02:07+00:00",
+      "note": "The accepted Lean statement was re-read against the SM15 wording; see countersignature_20260913 in this file for the full reason. This answers countersign_requested."
+    }
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "SM.g1 (work/lean/SM/G1Consequences.lean:108-123) has exactly the printed hypotheses of lem:g1 (reference/SM/sm-1-polygons.tex:110-125): n >= 3 (the document-wide convention, sm-1-polygons.tex:13), a labelled tuple P (the formalization remark at lines 54-61 explicitly allows working with representatives), and G1 P, where G1 (Generic.lean:11-12) is literally 'chi_ijk != 0 for pairwise distinct i,j,k' with chi (Chirotope.lean:10-11) = sign(det(P j - P i, P k - P i)) and det (Polygon.lean:16) = u1 v2 - u2 v1, matching source lines 5 and 65-67. No extra instance hypotheses appear in the statement (NeZero / Fact are derived inside the proof). Each of the five printed clauses has a Lean conjunct with the same quantifiers and conclusion: (i) Function.Injective P and forall i, edge P i != 0 (edge = P(i+1) - P i = l_i); (ii) turn P i = 1 or -1 (turn = chi P (i-1) i (i+1) = tau_i; Mathlib SignType has neg = -1, sign a = -1 iff a < 0), IndependentPair (edge P (i-1)) (edge P i) with IndependentPair the literal two-vector linear-independence definition (Segment.lean:10-11), and forall t, edge P i != t * edge P (i-1) with the edge vector as subject and its predecessor as object, as in the SM15 gloss; (iii) for k != i and k != i+1 (exactly 'E_i not incident to vertex k', since vertex k is incident to E_{k-1}, E_k, source line 46) P k is off every point of the affine line edgePoint P i t and off the closed segment edgeSegment P i (Polygon.lean:54-55 = {mu_i + t l_i : 0<=t<=1}); (iv) for i != j with adjacent i j (Polygon.lean:63-64 = j - i in {-1,0,1}, the printed reflexive relation) the intersection of the two segments is the singleton of the common vertex, given in both orientations (P j when j = i+1, P i when i = j+1); (v) for remote i j (= not adjacent) either Disjoint of the two segments or a unique common point x with x in edgeInterior of both (Polygon.lean:57-58, 0<t<1, which is the relative interior since (i) makes every edge nondegenerate) and IndependentPair (edge P i) (edge P j). The statement is not vacuous (G1 is satisfied by any nondegenerate triangle). SM15 rewording: CHANGES_SINCE_20260909.md section 1 records the only formal change as clause (iv) adding 'distinct' and a wording-only change to the clause (ii) gloss; the accepted Lean statement already carries i != j in clause (iv) (line 116) and states the (ii) gloss with the edge vector as subject (line 113), so the Lean statement matches the SM15 text. The existing review (work/reviews/lem-g1.json), read only after forming this judgement, reaches the same conclusion for the same reasons.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Clause (ii), Lean line 113: 'forall t : R, edge P i != t • edge P (i - 1)' quantifies over every real t including t = 0, whereas the source gloss (sm-1-polygons.tex:114-116) says 'positive or negative multiple'; the t = 0 case is already implied by clause (i) (nonzero edge), so this is a harmless sharpening.",
+      "Clause (iv), Lean lines 116-118: the Lean names the common vertex explicitly in each orientation (P j when j = i + 1, P i when i = j + 1), where the source (line 119) says only 'their common vertex'; the content is equivalent since these are the common endpoints."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/G1Consequences.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Segment.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-g1.json",
+      "/root/lean-lake/packages/mathlib/Mathlib/Data/Sign/Defs.lean"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

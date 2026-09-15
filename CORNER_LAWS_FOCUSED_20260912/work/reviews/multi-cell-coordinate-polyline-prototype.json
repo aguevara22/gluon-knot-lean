@@ -1,0 +1,391 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "multi-cell-coordinate-polyline-prototype",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1408–1487, especially actual global parameterization, same-time cube containment, collision avoidance and finiteness of nongeneric times; not the subsequent wall dictionary",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The constructed continuous global labelled-tuple approximation, its actual finite affine pieces, exact endpoints, synchronous Euclidean bound, full-time Regular/collision assertions and finite nongeneric set. This is a partial prototype outside the theorem library, not full thm:relgp.",
+  "prototype_file": "work/checks/MultiCellCoordinatePolyline.prototype.lean",
+  "prototype_sha256": "5cc9484c7ce4eea9162b60f1cb05ebd225eebba380e3d919cef58678cdfbb6cf",
+  "body_file": "work/checks/MultiCellCoordinatePolyline.body.lean",
+  "body_sha256": "b8a12629c3ec9572095154489bfc37fd038594b9cc67174dc5972b0e634d43de",
+  "in_theorem_library": false,
+  "main_declarations": [
+    "SM.exists_multiCellCoordinatePolyline",
+    "SM.CurveCubeSubdivision.nonempty_cubeCoordinateApproximation",
+    "SM.CurveCubeSubdivision.CubeCoordinateApproximation.central_branch",
+    "SM.CurveCubeSubdivision.CubeCoordinateApproximation.collision_free",
+    "SM.CurveCubeSubdivision.CubeCoordinateApproximation.finite_nongeneric",
+    "SM.CurveCubeSubdivision.exists_joint_cubeCoordinateApproximation"
+  ],
+  "reason": "The prototype faithfully constructs the global approximation required by this bounded portion of the printed proof. It flattens N coarse cells and m ordered scalar legs per cell onto the actual N*m uniform mesh, retaining the coarse label by division and the moving-coordinate label by remainder. All closed-cell branch intersections are proved to agree, including the carry from the last coordinate of one coarse cell to the first coordinate of the next. Genuine finite closed-set gluing supplies a continuous global map with the exact original labelled endpoints. Explicit scalar affine formulas hold on every fine cell. Fine-cell containment in its actual coarse time cell puts both the approximation and the original curve at the SAME time in the same actual cube, proving the actual Euclidean distance bound and Regular membership. Generic first/last coarse-cell branches supply the collar-cell assertion without requiring nonvanishing control polynomials at fixed original endpoints. On every central cell the map equals the actual leg assignment from ONE joint waypoint choice. That exact identity proves full-time vertex injectivity and finiteness of actual nongeneric global times by injectively pulling back finite local nongeneric sets and taking a finite union. Inactive control roots are not silently declared nongeneric. The independent raw-source example derives the cube subdivision, common waypoint assignment and actual path solely from n>=3, continuity, pointwise Regular membership, Generic endpoints and delta>0; it derives NeZero internally and exposes all exact endpoint, affine, collision, finiteness and error conclusions. All checked declarations use only standard axioms. Explicit globally rescaled wall germs, ambient smoothness and the complete simple-wall dictionary are not certified here.",
+  "mathematical_justification": [
+    {
+      "clause": "Source domain and one actual waypoint assignment",
+      "assessment": "The geometry is that of the existing LabelledTuple, Regular and Generic predicates, with the original fixed occurrence labels. The main prototype is stated over an actual CurveCubeSubdivision; the independent example derives that object from precisely the raw source curve assumptions. The typeclass NeZero n is constructed from n>=3, so it adds no source size restriction. The same W is chosen in all actual adjacent open overlaps with all central JointLegConditions, then used to construct A. The final existence package does not return overlap membership separately, but its proof uses that proved membership to construct the actual path and retains the exact branch identity to this W. There is no supplied approximating path, arbitrary nonzero-polynomial premise or separately chosen W for different legs."
+    },
+    {
+      "clause": "Fine-cell indexing and the carry between coarse cells",
+      "assessment": "For a fine index k, divNat is its natural quotient by m and modNat its remainder; the branch joins waypoint quotient to its successor and changes precisely the remainder coordinate. The quotient_remainder_successor proof uses a=m*q+r with 0<=r<m. If r+1<m, q*m<=a+1<(q+1)*m gives the same quotient and remainder r+1. Otherwise r+1=m and a+1=(q+1)*m, giving next quotient and remainder zero. The noncarry branch endpoint is the next ordered hybrid on the same pair of waypoints. In the carry case the old final hybrid is exactly the old right waypoint and the new zero hybrid is the new left waypoint; the proved Fin equality identifies them. Existence of the adjacent fine index prevents overflow at the final cell. There is no cyclic identification of the final endpoint with the initial endpoint."
+    },
+    {
+      "clause": "Actual global continuity, exact endpoints and finite affine pieces",
+      "assessment": "Actual uniform closed cells exhaust the whole unit interval, and two differently ordered intersecting cells must be consecutive and meet at their shared mesh endpoint. The actual endpoint formulas and carry proof yield branch agreement for every intersection; equality and reversed order are also covered. The inherited finite closed-set gluing theorem therefore constructs a continuous g and equality with each branch throughout its entire closed cell. The first index has quotient/remainder zero; the final fine index N*m-1 has quotient+1=N and remainder+1=m. Thus g(0)=v(0) and g(1)=v(N). For endpoint hybrids x,y on fine cell k, the explicit global-time coefficients are a=x-k*(y-x) and b=(N*m)*(y-x); substituting local time (N*m)*t-k proves branch=a+t*b coordinatewise. The finite closed-cell cover therefore gives genuine piecewise-affine data, not a name standing for an arbitrary continuous map."
+    },
+    {
+      "clause": "Synchronous cube containment and actual Euclidean error",
+      "assessment": "If t lies in fine cell k then k/ (N*m)<=t<=(k+1)/(N*m). Writing k=m*q+r and using 0<=r and r+1<=m yields q/N<=t<=(q+1)/N because both N and m are positive. This proves containment in the actual coarse time cell indexed by q. The approximation at t is the actual ordered leg at local time in [0,1], so it belongs to that coarse cube by the two waypoint endpoint memberships and coordinate hybridization. The original curve at the same t lies in the same cube by the proved subdivision property. Its actual Euclidean pairwise distance bound gives dist(tupleCoordinates(A.path t),tupleCoordinates(gamma t))<delta for every t. The proof never replaces the Euclidean metric by the scalar product maximum metric or compares unrelated source times. Cube closure membership supplies Regular at every time."
+    },
+    {
+      "clause": "Generic collars without endpoint polynomial assumptions",
+      "assessment": "For each fine cell whose quotient is the first or last coarse index, the actual cube closure is Generic. Full closed-cell containment therefore gives Generic for every time in that fine cell, including both endpoints. Original labelled endpoints are the fixed gamma(0), gamma(1), not the freely chosen internal waypoint variables. Thus inactive polynomial zeros at source endpoints cause no new premise. The present package states Generic collar cells; the later separately authored positive-width global collar and strict central-event-location interface is outside this review."
+    },
+    {
+      "clause": "Exact central-branch bridge and full-time collision freedom",
+      "assessment": "The scalar branch identity is inverted using the actual tuple/scalar equivalence, then the accepted central ordered-leg identity identifies that value with the actual centralLeg.assignment W at the real local time. For arbitrary global t, cell exhaustion supplies a fine cell. In a collar cell Generic gives actual vertex injectivity. Otherwise the coarse index is strictly internal, and the central bridge plus the corresponding JointLegConditions of the same W yields actual vertex injectivity for that leg. The argument covers all real local parameters and all global shared endpoints; it does not assume central Generic or conclude collision freedom merely from Regular."
+    },
+    {
+      "clause": "Actual finite nongeneric global time set",
+      "assessment": "For each fine cell, take the actual set of unit-interval times in that cell at which A.path is nongeneric. Collar sets are empty by actual Generic membership. In a central cell the exact branch identity places this set in the preimage of the already proved actual finite local nongeneric set. The local time map has positive slope N*m and is injective on the unitInterval subtype: equality cancels the nonzero real slope, followed by subtype extensionality. The inspected pinned Finite.preimage theorem requires precisely this injectivity on the preimage. A subset of that finite preimage is finite. Taking the finite union over all fine indices and using cell exhaustion proves finiteness of the entire actual nongeneric time set. No assertion that every control zero is nongeneric is used, preserving inactive T roots. No root event is introduced on a Generic collar."
+    },
+    {
+      "clause": "Independent compiled specializations",
+      "assessment": "The independent raw-source example derives d, one W and the actual A from source hypotheses, internally supplies NeZero from n>=3, and exposes continuity, exact labelled endpoints, pointwise Regular membership, same-time actual Euclidean distance<delta, full-time injectivity, finiteness of the actual nongeneric set, and the explicit finite-cell affine formulas. This guards against hiding a path or extra waypoint/transversality assumption in the main structure. A second kernel-decided arithmetic example verifies the coarse-cell carry at m=6, the actual number of scalar coordinates for the n=3 source boundary case. All 26 prototype declarations were independently type/axiom checked from the exact frozen implementation prefix."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance, no original proof/checklist increment and no acceptance of main wall laws or the soft theorem.",
+    "No explicit globally centred/rescaled wall-germ data, global root transversality or ambient control-hypersurface smoothness conclusion.",
+    "No complete unique F/V-bigon/V-sliding/T/E/C classification, complete occurrence-event dictionary or no-cusp conclusion.",
+    "The separately authored GlobalTimedCollars and GlobalTimedGerms bodies/prototypes are excluded from this review; positive-width collar/event-interior interfaces are not certified from those unchecked extensions."
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaDensity.lean": "feb216f85720f9efba537288047ebedb5ec4e58c71738ff343fe750889c1af5b",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/CentralLegFiniteRoots.lean": "d178caa0c02f5faffecf7265e5c62c5fd715e88e9320e942c37e58736b174b26",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceDensity.lean": "a554f55511441e5c45f1d50423bb586f9578eaaecd33d1002b85aa661796b726",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CubeWaypointDomains.lean": "497a2d3b8874a502f9fc06c90f3dd8c205b0efba48091ea2a51cc5250c9be644",
+    "work/lean/SM/CubeWaypoints.lean": "fecf3bf0f2e337f37d70c2148757815495943ccd068ebce38eccd73ec77b64c3",
+    "work/lean/SM/CurveCubeSubdivision.lean": "cc057ff8d1a78675b1431a8adca09b0a4ed66f167fdcdd2cdb560b457337e44b",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/EuclideanPlane.lean": "30a5956221225bc9811a792b5a67c6c5967fb6dda0b4cb14be997051b32b7a4f",
+    "work/lean/SM/EuclideanTuple.lean": "acf79a23b262961b245ec4333627f06d02af2cbe74e9c3385ea237a98f016e69",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/NonzeroControlsGeneric.lean": "50e2ea943174b598758ec808c53d5dfe411dd32a778a96a7e70cea3cfc6654dc",
+    "work/lean/SM/OrderedCoordinateLegs.lean": "df1ce600a46565cc70a9e089996e7becd8a9fdc851d6c707fb394e9cb692d121",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolygonalConnected.lean": "63c87005b5678e811be587290a0cfb2924825f3463c7263119611940db6e33e2",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/PrincipalAngles.lean": "d618c6e2b040d5f5dbaf4b0bc7ef46a565dfb439756587d6f1c83e5c8955672a",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/RegularDefinition.lean": "1abcbd05624a34d5df1963ebef27e1497296f1986b39dd5a635561fed4ce86e1",
+    "work/lean/SM/RegularLocus.lean": "ad97d04e3eda38ba6f46d435ee9873344808d0d811ce28c410cd91e35b963acf",
+    "work/lean/SM/RegularPairs.lean": "7d09c9ecbb9b2515808d606a060256ee83b744ce42f946c5d9ff9f97ade80a06",
+    "work/lean/SM/RegularPerturbation.lean": "78b538c140845ef82b4cb9ee638e00306a40e2e8e93ebe2226273d8264a4072e",
+    "work/lean/SM/RegularScalarBoxes.lean": "0eb747eb64d4c4710298531e0379f1b096f5f199e526f2837c833a093d83ea01",
+    "work/lean/SM/RotationContinuity.lean": "bf50759ea133797a9261172c39e32e551bb40b23dfed483b8c541524d3c6c005",
+    "work/lean/SM/RotationNumber.lean": "8d6dc7680484539bf4243b6256155f900061ad34740b29b4f0d0eae6dbd1c0df",
+    "work/lean/SM/ScalarBoxes.lean": "4f381863e439983f18b282f38e52346c3fb566a1543986c2cb6c0606d45108d4",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/UniformMesh.lean": "b6f48ce12858a888b4db43ea28a09d308c5f03e966b1e0c4a4365d3df863015f",
+    "work/lean/SM/UniformMeshCells.lean": "281298210789caf9f0fbac9c2adb309d46d43c1e43694c94362e82c53d540ee7",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointOpenDomain.lean": "1267b6c71c1ec34e435068fb8f21b9017df3cdafc0cc33ff452f9a1b3a398b41",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+    "work/lean/SM/WeakGeometry.lean": "4504cad4539531adc6f8271d30d389c62aa72249e3506cffed0352b73f22bcb2",
+    "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2"
+  },
+  "import_closure_roots": [
+    "SM.CubeWaypoints",
+    "SM.CentralLegFiniteRoots",
+    "SM.UniformMeshCells",
+    "SM.OrderedCoordinateLegs"
+  ],
+  "import_closure_file_count": 76,
+  "inherited_review_binding": {
+    "reviews_sha256": {
+      "work/reviews/curve-cubes-waypoints.json": "3376f95c779cb8c263d9f9dd37348f01f2e19824574417db9270a9d35a06eaf3",
+      "work/reviews/central-leg-roots.json": "eb237abb2f3df42ea5484b30f3f4533e796678819e5124a3a8bf2a6308735935",
+      "work/reviews/timed-coordinate-polyline-prototype.json": "c256e4995ee645bce31e971601787012ea9a16ada49b026e41786d5991e368e9"
+    },
+    "all_76_imported_local_files_match": true,
+    "scope": "All 76 actual SM imports match the union of the current independently reviewed cube/waypoint and central-leg-root closures. The exact included local timed-polyline definitions/proofs match the separately reviewed frozen timed prototype. Every inherited file binding in the three cited reports was recomputed."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "additional_pinned_library_files_read_sha256": {
+      "Mathlib/Topology/LocallyFinite.lean": "13243d7bc2d850a44062d387730915e23a95ea18aa6f7fea8fab1cf6ef73a8f7",
+      "Mathlib/Data/Set/Finite/Basic.lean": "46117578ac47cd272b20cc9b739c9c4025e52c45ef14e6357654d7f9a581f3c9"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/multi-cell-coordinate-polyline-review-types.lean",
+    "independent_trace_source_sha256": "e36832309ae41819ae626730c6accedbe35ed13e3b0de0d0b2abe8d9f04cad91",
+    "independent_trace_log": "work/checks/multi-cell-coordinate-polyline-review-types.log",
+    "independent_trace_log_sha256": "754098ec1b0892577a3522f9d95f4fb0a1cbb6a577060045bff6720a07b36a4d",
+    "independent_kernel_command": "lake env lean ../checks/multi-cell-coordinate-polyline-review-types.lean",
+    "independent_kernel_session": 68093,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": [
+      "SM.exists_finite_closed_gluing",
+      "SM.uniformMeshLocalTime",
+      "SM.continuous_uniformMeshLocalTime",
+      "SM.uniformMeshLocalTime_mem_unit",
+      "SM.uniformMeshLocalTime_left",
+      "SM.uniformMeshLocalTime_right",
+      "SM.timedScalarBranch",
+      "SM.continuous_timedScalarBranch",
+      "SM.timedScalarBranch_left",
+      "SM.timedScalarBranch_right",
+      "SM.timedScalarBranches_agree_of_lt",
+      "SM.exists_timedCoordinatePolyline",
+      "SM.multiScalarBranch",
+      "SM.continuous_multiScalarBranch",
+      "SM.multiScalarBranch_left",
+      "SM.multiScalarBranch_right",
+      "SM.quotient_remainder_successor",
+      "SM.multiScalarBranch_join",
+      "SM.fine_uniformMeshCell_subset_coarse",
+      "SM.exists_multiCellCoordinatePolyline",
+      "SM.multiScalarBranch_affine",
+      "SM.CurveCubeSubdivision.nonempty_cubeCoordinateApproximation",
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.central_branch",
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.collision_free",
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.finite_nongeneric",
+      "SM.CurveCubeSubdivision.exists_joint_cubeCoordinateApproximation"
+    ],
+    "declaration_axioms": {
+      "SM.exists_finite_closed_gluing": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshLocalTime": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_uniformMeshLocalTime": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshLocalTime_mem_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshLocalTime_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshLocalTime_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.timedScalarBranch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_timedScalarBranch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.timedScalarBranch_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.timedScalarBranch_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.timedScalarBranches_agree_of_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_timedCoordinatePolyline": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.multiScalarBranch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_multiScalarBranch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.multiScalarBranch_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.multiScalarBranch_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.quotient_remainder_successor": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.multiScalarBranch_join": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.fine_uniformMeshCell_subset_coarse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_multiCellCoordinatePolyline": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.multiScalarBranch_affine": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.nonempty_cubeCoordinateApproximation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.central_branch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.collision_free": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.CubeCoordinateApproximation.finite_nongeneric": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CurveCubeSubdivision.exists_joint_cubeCoordinateApproximation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "exact_frozen_body_in_assembled_prototype": true,
+    "additional_examples": [
+      "Raw source continuous Regular curve with Generic endpoints and delta>0 yields actual d, one W and continuous A with exact endpoints, affine pieces, Regular membership, synchronous Euclidean bound, injectivity and finite nongeneric set; NeZero derived from n>=3.",
+      "The quotient/remainder carry for m=6 and k=5 gives coarse index+1 and coordinate zero."
+    ],
+    "additional_examples_passed": true,
+    "successful_build_log": "work/checks/multi-cell-coordinate-polyline-prototype.log",
+    "successful_build_log_sha256": "93b6dddb14478623171127b319b8ed3faccabb6ab33c392603995d9f10668788",
+    "successful_build_session": 74114,
+    "successful_build_exit_code": 0,
+    "root_result_file": "work/checks/multi-cell-coordinate-polyline-prototype-result.json",
+    "root_result_sha256": "d1c03fb6590570fcece733a4b56e8ce23b5ff93dee2433654211c262c93dce6b",
+    "root_initial_kernel_session": 30318,
+    "root_initial_kernel_exit_code": 1,
+    "root_initial_failure_scope": "Five proof-only elaboration issues: quotient Nat lower bound, two Fin.divNat values, subtype-to-real bound, Fin zero waypoint rewrite. Statements unchanged.",
+    "independent_closure_evidence": "work/checks/multi-cell-coordinate-polyline-review-closure.json",
+    "independent_closure_evidence_sha256": "d010bb5fe88f17d01deb3d7cdb3aab01a9a2d2171832b4ed3e71ecbb2c590566",
+    "non_failing_trace_warnings": "Two inherited tactic-style warnings and one reviewer letI style suggestion; no errors. The independent kernel run passed without an intervening failed reviewer run."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-056-output.json",
+    "receipt_sha256": "5c4f93ec90e4b107ffcb2366f5ac1639ef9e016713a73c30287320d03e093f66",
+    "root_audit_session": 85835,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3163,
+    "mapped_claims": 30,
+    "SM_modules": 273,
+    "project_files": 279,
+    "frozen_bundle_files": 38,
+    "exact_project_Lean_inventory_count": 275,
+    "exact_project_Lean_inventory_verified": true,
+    "all_project_and_frozen_hashes_verified": true,
+    "all_268_previous_SM_module_bytes_unchanged": true,
+    "receipt_equal_stage_development_at_verification": true,
+    "scope": "Audit056 covers all current theorem-library imports, including the five cube/waypoint modules. The external global prototype itself is bound by its exact source/body hashes and the separate successful root and independent kernel traces, not by a mapped audited original claim."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "full_original_claim_accepted": false
+  },
+  "independence": "Independent source, theorem-type and body review by review_chirotope-independent-20260910, who did not author the prototype or its theorem-library dependencies. Parent implementation author is distinct. Prior independently reviewed inherited semantics were reused only after current hash verification.",
+  "edits": "Only independent evidence and this partial review were written; no source, prototype, theorem-library, declaration-map, status or progress edits."
+}

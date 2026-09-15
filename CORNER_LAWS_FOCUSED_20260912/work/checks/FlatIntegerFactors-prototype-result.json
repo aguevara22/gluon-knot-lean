@@ -1,0 +1,45 @@
+{
+  "utc": "2026-09-11T20:01:39.282025+00:00",
+  "kernel_session": 65014,
+  "exit_code": 0,
+  "first_run_passed": true,
+  "files_sha256": {
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/RestrictedCriticalG1.body.lean": "be36ad6817db31270a9ea436505688e2d2e65f00a8c839449bdcfdd268b2df60",
+    "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+    "work/checks/IntegerCriticalGaps.body.lean": "0ad1c8c46a927d04c736b49f06a092028463264675fd2a2a0d85420f638cba05",
+    "work/checks/FlatIntegerFactors.body.lean": "b441262771ca2212a4200a18b0dc3f8334cde9180f3085769ccccbeabdbf696d",
+    "work/checks/FlatIntegerFactors.prototype.lean": "1deb25bfc89a54b636fe35391b8e85f19039e979d400ac1187103ebef1804ecd",
+    "work/checks/FlatIntegerFactors-first-kernel.log": "329a3d8e1810693ff162fa312265787b40e75f209b14280b30564c539a9cb871"
+  },
+  "printed_declarations": [
+    "SM.boundaryUnitArray_nonleaf_zero",
+    "SM.integer_wall_factor_two_leaves",
+    "SM.integer_wall_factor_left_leaf",
+    "SM.integer_wall_factor_right_leaf"
+  ],
+  "declaration_axioms": {
+    "SM.boundaryUnitArray_nonleaf_zero": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.integer_wall_factor_two_leaves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.integer_wall_factor_left_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.integer_wall_factor_right_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Four exact integer gap-factor candidates passed; frozen. Two leaves yield multiplier one; the two leaf/nonleaf full-span cases have unbarred product zero and barred product the actual nonleaf B output. Stronger fidelity approval pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

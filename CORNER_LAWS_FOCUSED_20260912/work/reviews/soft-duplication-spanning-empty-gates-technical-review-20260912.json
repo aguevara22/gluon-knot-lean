@@ -1,0 +1,183 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-spanning-empty-gates-technical-review-20260912",
+  "sealed_utc": "2026-09-12T03:32:52.953987+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "reviewer_contributed_proof_only_suggestion": true,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The reviewer authored embedded SoftDuplicationIndices, SoftDuplicationArrays and OrderedBoundaryTransport. Root authored the reviewed mathematical construction. During draft inspection the reviewer suggested making endpoint arguments explicit in emptySpanningInteriorMap; root applied that local elaboration suggestion before the first draft freeze. This narrow proof-only participation is disclosed, so the report must not be read as a wholly nonparticipating proof review. No other reviewed-body contribution or file edit was made."
+  },
+  "scope": {
+    "group": "SoftDuplicationSpanningEmptyGates",
+    "declarations": [
+      "SM.SoftDuplication.emptySpanning_old_endpoints",
+      "SM.SoftDuplication.emptySpanning_interior",
+      "SM.SoftDuplication.emptySpanningInteriorMap",
+      "SM.SoftDuplication.emptySpanningInteriorEquiv",
+      "SM.SoftDuplication.emptySpanningInteriorEquiv_val",
+      "SM.SoftDuplication.emptySpanning_nearTriple",
+      "SM.SoftDuplication.emptySpanning_farTriple",
+      "SM.SoftDuplication.emptySpanning_gate_values",
+      "SM.SoftDuplication.emptySpanning_gate_product"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1332–1341: strictly spanning interval, no cut at the distinguished core occurrence, unique parent presentation and unchanged complete top gates.",
+    "ambient_context": "{n : ℕ} [NeZero n], actual s : Fin n, parent I with I.left<A s and B s<I.right, its nonduplicate collapse hI, actual core cut set C and hs : s∉C.cuts. Array consumers use arbitrary rational D0,H0,tD,tH. hs excludes only the distinguished cut, not all interior cuts."
+  },
+  "assessment": "No mathematical or source-domain defect found within the complete no-distinguished-cut gate scope; the preliminary elaboration concern was addressed before the first passing run.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 33539,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings, not extracted declaration headers.",
+    "receipt_path": "work/checks/SoftDuplicationSpanningEmptyGates-prototype-result.json",
+    "receipt_sha256": "f581e05194029c9af501f68d8cc7366b37ea3c80e2046314aa446ed883bd4252",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+      "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+      "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c",
+      "work/checks/CutSetNearFar.body.lean": "acafef61406c9f460db333b9614da2ec644bc848f4827b0ed256c26c048417c2",
+      "work/checks/CutSetNearFarNeighbors.body.lean": "37fa18e71ce48f08a0073c12847ceb00232b26523ff883327750f0d5918cbbed",
+      "work/checks/SoftDuplicationStartingGatePositions.body.lean": "0165790103d0c21260c50aec6e880a6afce9f7a80f0e5cf61b713a5ff10ba004",
+      "work/checks/SoftDuplicationSectionTriples.body.lean": "1df5f0f4648a76504970a6eb8fd490b69ed834e4405f7a61e1708ce9bc502b1a",
+      "work/checks/SoftDuplicationStartingGateProducts.body.lean": "bdfdbc6af7c00a4fcdacd7ab64de167ca835965fa09f79511f254c778eb3cb95",
+      "work/checks/SoftDuplicationSpanningEmptyGates.body.lean": "09ded81c74138edda5f7f325c06f305869b64ebc9731c1b9dd6a431031684fd3",
+      "work/checks/SoftDuplicationSpanningEmptyGates.prototype.lean": "2acc18fc050faf5d60a6a13a0649e87c69040e0d08a183b56f1764d17a135233",
+      "work/checks/SoftDuplicationSpanningEmptyGates-first-kernel.log": "1abc643967116ded58539c501bc785cab4098dea2d6a6f4309e57fce83a73725"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/SoftDuplicationIndices.body.lean",
+      "work/checks/SoftDuplicationCutFibers.body.lean",
+      "work/checks/SoftDuplicationPresentations.body.lean",
+      "work/checks/OrderedBoundaryTransport.body.lean",
+      "work/checks/SoftDuplicationStartingChildren.body.lean",
+      "work/checks/SoftDuplicationArrays.body.lean",
+      "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean",
+      "work/checks/CutSetNearFar.body.lean",
+      "work/checks/CutSetNearFarNeighbors.body.lean",
+      "work/checks/SoftDuplicationStartingGatePositions.body.lean",
+      "work/checks/SoftDuplicationSectionTriples.body.lean",
+      "work/checks/SoftDuplicationStartingGateProducts.body.lean",
+      "work/checks/SoftDuplicationSpanningEmptyGates.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationIndices.body.lean": 1,
+      "work/checks/SoftDuplicationCutFibers.body.lean": 1,
+      "work/checks/SoftDuplicationPresentations.body.lean": 1,
+      "work/checks/OrderedBoundaryTransport.body.lean": 1,
+      "work/checks/SoftDuplicationStartingChildren.body.lean": 1,
+      "work/checks/SoftDuplicationArrays.body.lean": 1,
+      "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": 1,
+      "work/checks/CutSetNearFar.body.lean": 1,
+      "work/checks/CutSetNearFarNeighbors.body.lean": 1,
+      "work/checks/SoftDuplicationStartingGatePositions.body.lean": 1,
+      "work/checks/SoftDuplicationSectionTriples.body.lean": 1,
+      "work/checks/SoftDuplicationStartingGateProducts.body.lean": 1,
+      "work/checks/SoftDuplicationSpanningEmptyGates.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 9,
+    "declaration_axioms": {
+      "SM.SoftDuplication.emptySpanning_old_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanning_interior": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanningInteriorMap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanningInteriorEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanningInteriorEquiv_val": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanning_nearTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanning_farTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanning_gate_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.emptySpanning_gate_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationSpanningEmptyGates-first-draft.body.lean": "09ded81c74138edda5f7f325c06f305869b64ebc9731c1b9dd6a431031684fd3",
+      "work/checks/SoftDuplicationSpanningEmptyGates-first-draft.prototype.lean": "2acc18fc050faf5d60a6a13a0649e87c69040e0d08a183b56f1764d17a135233",
+      "work/checks/SoftDuplicationSpanningEmptyGates-body-dependencies.json": "0351e14dd1507037c3dbbdd586835400e9c9dd2b77f2ff7f8143c4f5afe83b80",
+      "work/checks/SoftDuplicationSpanningEmptyGates-draft-dependency-bindings.json": "a5f1f78763b9771ef9cbc0318f992647cafe41cb89b49dc319cf8bbbe58426fc"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_files_sha256": {},
+    "failure_scope": "No failed Gates run. The upstream EmptyChildren first-run obsolete-lemma failure remains separate and is not successful proof evidence. Its second87301 passing receipt is bound.",
+    "dependency_receipts_sha256": {
+      "work/checks/SoftDuplicationSpanningEmptyChildren-prototype-result.json": "446d8e1b9bad9456bcf3f9be4c9b44a062fee788722a785eaa7275624ac99932",
+      "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+      "work/checks/SoftDuplicationSectionTriples-prototype-result.json": "c2accf610b4dc944cc317026a04731b80c340a460b4ed906239ebb6521cec2c6",
+      "work/checks/SoftDuplicationStartingGatePositions-prototype-result.json": "c936202a022ddf5465dcbe193177351fceddf299e0b9571ba2752c56484cb7a0",
+      "work/checks/SoftDuplicationStartingGateProducts-prototype-result.json": "a4805ffbef402f614398975a74a3af1f77f5c0513ccdda57e6a02e9e8d1c6500",
+      "work/checks/CutSetNearFarNeighbors-prototype-result.json": "2ee10a035b79ab41a75e5c98515de63b7b77bb425a55e206361547d0943935ab"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+      "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60"
+    },
+    "upstream_review_status": "Passing dependency receipts are bound; separate upstream reviews and stronger fidelity remain outside this seal."
+  },
+  "findings": [
+    "The exact emptySpanningCutSet is expandCuts at the proved empty local fiber. Mandatory endpoint membership plus hs excludes collapse of either endpoint to s. EmptyChildren therefore proves its entire cut set is the old image of C, rather than postulating a correspondence or removing all other core cuts.",
+    "The strict spanning endpoint bounds show neither parent endpoint is B, so old(collapse endpoint) recovers each actual endpoint. Combining these equalities, strict old-section order and exact endpoint removal proves the complete interior-cut image identity.",
+    "The map sends each actual core interior cut to old(x). Its injectivity is inherited from old; its surjectivity transports a fixed p.val membership proposition through the exact image equality. Thus every gate appears once and an empty core interior set is permitted. The explicit hL,hR rewrite arguments are supplied in the frozen map proof.",
+    "Both actual near and far triples are whole old-image triples. The near proof uses actual mapped consecutive neighbors for lower and upper entries and the actual cut for the middle; the far proof uses the recovered full interval endpoints and actual middle. It does not infer a triple identity from endpoint equality alone.",
+    "SectionTriples evaluates both old-image arrays at the exact core triples. This omits the exceptional A/B pair and does not require tD=tH, nonzero signs, geometry or an oracle that top gates agree. The result holds for arbitrary rational arrays and exceptional values.",
+    "The final product theorem reindexes the entire rational gate product by the actual interior equivalence, preserving all zero gates and the empty product for a unary core composition. It assumes neither a nonunary composition nor any child recurrence. Mark’s actual spanning child is constructed from the canonical half-open-part existence theorem; no supplied containing-child witness enters the packet."
+  ],
+  "limits": "This group proves the complete gate correspondence for the no-distinguished-cut branch only. It does not itself prove the unique child multiplier, the weighted singleton-fiber sum, reversal of far data, the three presentations when s is a cut, or the full spanning transform/A-soft law. The reviewer’s limited pre-freeze proof suggestion and upstream authorship are explicitly disclosed; no source acceptance, stronger-model approval or canonical integration is granted."
+}

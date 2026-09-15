@@ -1,0 +1,97 @@
+## §0. Frozen inputs, coordinates, and scope
+
+The three input frames are SM11, CV and RA. The three campaign outputs remain separate: SM11; the R statement/proof (CV/RA); and this bridge. These are the actual `shasum -a 256` outputs, copied without alteration:
+
+```text
+fa24398e5a0e992b273a4a7ba86c4f78977909f3c650ea0f9b02f7732a9f8cf4  phase25/frames/SM11/FRAMED_MANIFEST_SM11.sha256
+```
+
+```text
+8c02692c9a52ffe5a7c549715e00bfbc29f997af62a074b36af1c2f4a4cf3706  phase199/manuscript/frames/CV/FRAMED_MANIFEST_CV.sha256
+```
+
+```text
+0ba16c58ea07fdde5b3083b89a59cbd23f2152f6821b9f902100fb2817f678fa  phase1999/evidence/codex/w8_ra_frame_v1/RA/FRAMED_MANIFEST_RA.sha256
+```
+
+The corresponding checks returned 20/20, 13/13 and 20/20 payloads OK. Their complete outputs are `FRAME_1_CHECK.txt`, `FRAME_2_CHECK.txt` and `FRAME_3_CHECK.txt`. Here **SM11**, **CV** and **RA** in a locator mean, respectively:
+
+- `phase25/frames/SM11/`
+- `phase199/manuscript/frames/CV/`
+- `phase1999/evidence/codex/w8_ra_frame_v1/RA/`
+
+Every source quotation below is an exact UTF-8 line slice, including its line breaks; the surrounding locator and quote ID are not part of the quoted bytes. TeX source is quoted as source, without substituting notation or converting status tags into a fresh verdict. `QUOTATIONS.json` records the source-file and excerpt hashes. All displayed equations outside quotation fences are this bridge's deductions and have numbered references.
+
+The imported antecedent is the already-frozen R result **in the precise CV `ax:R` form quoted in §1**, supplied as such by `BRIDGE_PACKET.md` §1–2. This bridge does not reconstruct its proof. RA's `R_ATTACHMENT_WARRANTS.md` supplies localization and the other warrants used by its four core proofs: `R_GENERIC_COMMON_TRANSPORT_PROOF.md`, `R_GENERIC_SELECTED_COUPLE_PROOF.md`, `R_EXTREME_SINGLETON_TRANSPORT_PROOF.md`, and `R_EXTREME_SELECTED_COUPLE_PROOF.md`. R-LOC-2 itself is a localization theorem, not the final scalar equality. Nor are the core proofs' full-availability row statements silently imposed as an extra restriction on the wall germ. The source theorem, including its accepted underlying inputs, is the antecedent of this implication; no new proof or acceptance of R is claimed here.
+
+We work on the continuous labelled representative supplied by an SM wall germ. Set $p_i=\mu_i$, $d_i=p_{i+1}-p_i=\mu_{i+1}-\mu_i$, and identify CV's edge $e_i$ with SM's $E_i$. Each residue is represented in $\{1,\ldots,n\}$; when naming the central triple, choose $e<f<g$ in those representatives. This is the printed coordinate convention:
+
+<!-- BEGIN QUOTE SM_MAP -->
+**SM_MAP — SM11 `sm-1-polygons.tex:13–17`**
+
+````tex
+(Lemma~\ref{lem:gates-nonzero}). For $n\geq3$ indices of vertices and edges
+are elements of $\ZZ/n$; $i+1$, $i-1$ are read modulo $n$. The main text
+writes $[u,v]=u_2v_1-u_1v_2=-\det(u,v)$; this document uses $\det$ only.
+The frozen source CV uses one-based tail labels: its edge $e_i$ runs
+from $p_i$ to $p_{i+1}$, so $p_i=\mu_i$ requires no index shift.
+````
+<!-- END QUOTE SM_MAP -->
+
+The object conventions on both sides are:
+
+<!-- BEGIN QUOTE SM_OBJECT -->
+**SM_OBJECT — SM11 `sm-1-polygons.tex:27–51`**
+
+````tex
+\begin{definition}[labelled tuples and polygons]\label{def:polygon}
+Let $n\geq3$. A \emph{labelled tuple} is an element
+$P=(\mu_1,\ldots,\mu_n)\in(\RR^2)^n$, indices in $\ZZ/n$ with $\mu_{n+1}=\mu_1$. The
+\emph{cyclic shift} is $(\sigma P)_i=\mu_{i+1}$. A \emph{polygon} on $n$
+vertices is an orbit $[P]=\{\sigma^kP:k\in\ZZ/n\}$ of labelled tuples; a
+labelled tuple in the orbit is a \emph{representative}, and the space of
+polygons is the quotient $(\RR^2)^n/(\ZZ/n)$. Every notion below is
+introduced on a representative and is invariant under $\sigma$ (up to the
+induced relabelling of indices, which is recorded where it matters); it
+therefore defines a notion on polygons. A polygon has no distinguished vertex
+and no distinguished edge; when a construction needs one (a root, a base
+vertex), that choice is part of the construction's data.
+
+For a representative, the \emph{edge vectors} are
+\[
+\lt_i=\mu_{i+1}-\mu_i\qquad(i\in\ZZ/n),
+\]
+so that $\sum_i\lt_i=0$, and the \emph{edge segments} are
+$E_i=[\mu_i,\mu_{i+1}]=\{\mu_i+t\lt_i:0\leq t\leq1\}$. Vertex $i$ is
+\emph{incident} to $E_{i-1}$ and $E_i$. Two edges $E_i,E_j$ are
+\emph{adjacent} if $j-i\in\{-1,0,1\}$ and \emph{remote} otherwise; an edge
+$E_j$ is \emph{remote to the vertex} $i$ if $j\notin\{i-1,i\}$, and
+\emph{remote to the vertex and its two edges} if $j\notin\{i-2,i-1,i,i+1\}$.
+No condition is imposed on the tuple by this definition; in particular
+coincident vertices and zero edges are allowed at this level.
+````
+<!-- END QUOTE SM_OBJECT -->
+
+<!-- BEGIN QUOTE CV_OBJECT -->
+**CV_OBJECT — CV `d1_setup.tex:8–19`**
+
+````tex
+\begin{definition}[polygon]\label{def:polygon}
+Let $n\geq3$. A \emph{polygon} on $n$ vertices is a tuple
+$P=(p_1,\dots,p_n)\in(\mathbb{R}^2)^n$ with $p_{i+1}\neq p_i$ for every $i$,
+indices read cyclically modulo $n$ throughout. Its \emph{edges} are the closed
+segments $e_i=[p_i,p_{i+1}]$ and its \emph{edge directions} are
+$d_i=p_{i+1}-p_i\in\mathbb{R}^2\setminus\{0\}$. Two edges are \emph{consecutive}
+if their index sets meet, and \emph{remote} otherwise. An edge is \emph{remote
+to a vertex} $p_M$ when it is remote to both edges incident to $M$ --- the
+stronger of the two possible readings, and the one every consumer of the phrase
+uses: it excludes an edge that merely avoids $p_M$ while sharing a vertex with
+one of its edges. We write
+$\det(u,v)=u_1v_2-u_2v_1$.
+````
+<!-- END QUOTE CV_OBJECT -->
+
+In particular, SM permits degenerate tuples at the definition level whereas CV's polygon definition requires nonzero edges. B1 verifies the nonzero-edge requirement along the entire triple germ. The meanings of *remote edges* agree on distinct edge indices: their two endpoint index sets are disjoint. No remote-to-a-vertex convention is imported.
+
+Write $\mathcal U_n^{\rm SM}$ and $\mathcal U_n^{\rm CV}$ for the two labelled generic loci. We prove only the relation needed here. B1 transfers **simple triple germs**, B2 identifies their zero set, B3 proves transversality, and B4 identifies scalar side values through the containing CV chambers. Neither equality of the generic loci nor equality of the chamber sets is assumed. The requested class inclusion is only from SM11 simple triple walls to the CV events on which the imported R theorem is stated.
+

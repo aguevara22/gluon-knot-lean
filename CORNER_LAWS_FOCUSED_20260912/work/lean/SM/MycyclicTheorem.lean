@@ -1,0 +1,72 @@
+import SM.MyCyclicB
+
+/-! Source thm:mycyclic (reference/SM/sm-5-transport.tex:150, frame SM15): connectivity of the
+fibres. Main declaration: `SM.mycyclic`.
+
+Notation. `(n, r)` admissible is `Admissible (n : ℤ) r` (def:admissible); `ℛ_n` is the regular
+locus `Regular` (def:regular) on labelled tuples `LabelledTuple n`; `rot = rotationNumber`
+(def:regular / lem:rot); the fibre `ℛ_n ∩ rot⁻¹(r)` is the set
+`{Q : LabelledTuple n | Regular Q ∧ rotationNumber Q = r}`; "a continuous path in the fibre joins
+`P` to `P'`" is `JoinedIn (fibre) P P'` (Mathlib: a path `[0, 1] → LabelledTuple n` from `P` to
+`P'` with values in the set; `LabelledTuple n = ZMod n → ℝ × ℝ` carries the product topology);
+`σ^k P'` is `shift k P'` (def:shift); `K_0` is `bowTie` (def:star); the turn word of a
+four-tuple `Q` is `i ↦ turn Q i` (def:chirotope). The cyclic polygon orbits form the polygon
+space `Polygon n hn = Quotient (cyclicSetoid n)` (def:polygon) with the quotient topology
+`instTopologicalSpaceQuotient`; the fibre of orbits over `r` is the set of orbits `⟦P⟧` of regular
+labelled tuples `P` with `rot P = r`. -/
+
+namespace SM
+
+/-- thm:mycyclic as printed on SM15, for an admissible pair `(n, r)`. -/
+structure MycyclicData (n : ℕ) [NeZero n] (r : ℤ) : Prop where
+  /-- If `(n, r) ≠ (4, 0)`, a continuous path in `ℛ_n ∩ rot⁻¹(r)` joins `P` to `P'` for all
+  `P, P' ∈ ℛ_n` with `rot P = rot P' = r`. -/
+  joined : ∀ P P' : LabelledTuple n, Regular P → Regular P' →
+    rotationNumber P = r → rotationNumber P' = r → ((n : ℤ), r) ≠ (4, 0) →
+    JoinedIn {Q : LabelledTuple n | Regular Q ∧ rotationNumber Q = r} P P'
+  /-- If `(n, r) = (4, 0)`, there is `k ∈ ℤ/4` and such a path from `P` to `σ^k P'`. -/
+  joined_shift : ∀ P P' : LabelledTuple n, Regular P → Regular P' →
+    rotationNumber P = r → rotationNumber P' = r → ((n : ℤ), r) = (4, 0) →
+    ∃ k : ZMod n, JoinedIn {Q : LabelledTuple n | Regular Q ∧ rotationNumber Q = r} P (shift k P')
+  /-- The four shifts of `K_0` lie in the fibre `ℛ_4 ∩ rot⁻¹(0)`. -/
+  bowTie_mem : ∀ k : ZMod 4, Regular (shift k bowTie) ∧ rotationNumber (shift k bowTie) = 0
+  /-- The four shifts of `K_0` lie in four distinct labelled components: two of them are joined
+  by a path in the fibre exactly when they coincide. -/
+  bowTie_components : ∀ k k' : ZMod 4,
+    JoinedIn {Q : LabelledTuple 4 | Regular Q ∧ rotationNumber Q = 0}
+      (shift k bowTie) (shift k' bowTie) ↔ k = k'
+  /-- The components are distinguished by their turn words: the turn word is constant along
+  paths in the fibre `ℛ_4 ∩ rot⁻¹(0)`. -/
+  turn_word_constant : ∀ Q Q' : LabelledTuple 4,
+    JoinedIn {Q : LabelledTuple 4 | Regular Q ∧ rotationNumber Q = 0} Q Q' →
+    ∀ i, turn Q i = turn Q' i
+  /-- The turn words of the four shifts of `K_0` are pairwise distinct. -/
+  bowTie_turn_words : ∀ k k' : ZMod 4,
+    (∀ i, turn (shift k bowTie) i = turn (shift k' bowTie) i) → k = k'
+  /-- Every fibre of cyclic polygon orbits is path connected: in the polygon space
+  `Polygon n hn` (quotient topology), the set of orbits of regular tuples of rotation `r`. -/
+  orbit_fibre_pathConnected : ∀ hn : 3 ≤ n,
+    @IsPathConnected (Polygon n hn) instTopologicalSpaceQuotient
+      {Q : Polygon n hn | ∃ P : LabelledTuple n,
+        Regular P ∧ rotationNumber P = r ∧ Q = Quotient.mk (cyclicSetoid n) P}
+
+variable {n : ℕ}
+
+theorem mycyclic [NeZero n] {r : ℤ} (ha : Admissible (n : ℤ) r) : MycyclicData n r := by
+  have hfib : mcB_fibre 4 0 = {Q : LabelledTuple 4 | Regular Q ∧ rotationNumber Q = 0} := by
+    ext Q; simp [mcB_fibre]
+  have hfour := mcB_four_components
+  rw [hfib] at hfour
+  exact
+    { joined := fun _ _ hP hP' hrP hrP' hne => mcB_joined_fibre ha hP hP' hrP hrP' hne
+      joined_shift := fun _ _ hP hP' hrP hrP' _ => mcB_joined_fibre_shift ha hP hP' hrP hrP'
+      bowTie_mem := fun k => by
+        have h := mcB_shift_bowTie_mem_fibre k
+        rw [hfib] at h
+        exact h
+      bowTie_components := hfour.2.1
+      turn_word_constant := hfour.2.2.1
+      bowTie_turn_words := hfour.2.2.2.1
+      orbit_fibre_pathConnected := fun hn => mycyclic_B_orbit_polygon hn ha }
+
+end SM

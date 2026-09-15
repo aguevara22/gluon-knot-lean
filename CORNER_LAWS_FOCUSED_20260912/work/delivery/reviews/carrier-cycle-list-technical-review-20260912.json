@@ -1,0 +1,122 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-cycle-list-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:10:55.982254+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_children",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_children authored the four new declarations and frozen draft. Root alone ran the kernel and generated its evidence. This reviewer authored no proof body or dependency proof, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent comparison of the constructed full traversal list, rotation/splitting representation, actual permutation equality and source scope, with exact complete-file/embedding/trace/receipt checks."
+  },
+  "scope": {
+    "group": "CarrierCycleList",
+    "declarations": [
+      "SM.Carrier.markSuccessor_eq_formPerm",
+      "SM.Carrier.markList_rotate_start",
+      "SM.Carrier.markList_rotate_split",
+      "SM.Carrier.markSuccessor_splitList"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "97–101 actual complete marked list and original successor; 115–126 original-cycle splitting presentation(a,A...,b,B...). This packet supplies the actual original circle, not an arbitrary later reconnected component.",
+    "ambient_context": "{n : ℕ} [NeZero n], hn:3≤n, actual Generic P and arbitrary distinct actual marks a,b. The complete markList and markSuccessor are constructed from vertices and actual visits. No full-list representation, permutation equality, current-orbit statement or nonempty crossing hypothesis is supplied."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the actual original-successor full split-list representation.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 90210,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierCycleList-prototype-result.json",
+    "receipt_sha256": "b0a615c4afff34320b48377220e5eea8448c0b446c74f5235ada45b0f07a3880",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierSuccessor.body.lean": "495e8f70d355ab180c182d6529925ca89279ee1ff2749a022509fca759e0ba90",
+      "work/checks/CarrierCycleList.body.lean": "23e80115f91a912c489a98a8b8f1632e1c92544bf146e602131076600531af10",
+      "work/checks/CarrierCycleList.prototype.lean": "8609a330bdbbd98287a0d4f892e1a3489fc3d031b17d0bf138dc8cd6fc6c4f40",
+      "work/checks/CarrierCycleList-first-kernel.log": "ba9bec7b5c4c7c7ab32d2515e9aa690721395838c7af0e5b51a9981003651f3c"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean",
+      "work/checks/CarrierSuccessor.body.lean",
+      "work/checks/CarrierCycleList.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1,
+      "work/checks/CarrierSuccessor.body.lean": 1,
+      "work/checks/CarrierCycleList.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 4,
+    "declaration_axioms": {
+      "SM.Carrier.markSuccessor_eq_formPerm": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_rotate_start": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_rotate_split": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markSuccessor_splitList": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierCycleList-first-draft.body.lean": "23e80115f91a912c489a98a8b8f1632e1c92544bf146e602131076600531af10",
+      "work/checks/CarrierCycleList-first-draft.prototype.lean": "8609a330bdbbd98287a0d4f892e1a3489fc3d031b17d0bf138dc8cd6fc6c4f40",
+      "work/checks/CarrierCycleList-body-dependencies.json": "af3d39c066bb75f4b0975028631d6375749257f186ec6a476af912e73063f560",
+      "work/checks/CarrierCycleList-draft-dependency-bindings.json": "34b11ce36fe22c8826b1c636bbd9f303b46d32cd1540ebda8b1b473780890386"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_files_sha256": {},
+    "failure_scope": "No failed CarrierCycleList run; root first90210 passed with unchanged first-draft body and prototype. Upstream failed evidence is not used as successful evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierSuccessor-prototype-result.json": "7811e0b37ad0f1bd99a68c70a214d107ea85941daf0137cb3bc8cc9075bc9fa4"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/List.lean": "422fdb4d6ae97421283aeb85c9b9bb05d87dc78d400fdd75ead265d0a6882db6",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/List/Cycle.lean": "b211c4e0f5f89e8679d641fbef7674ae0e5787962294cc6cd2758f0669a75112",
+      "work/reviews/carrier-marks-technical-review-20260912.json": "5d10777ec8da18b257f6c9e0eca534f4735550bb8e2b1a73461357f805f75504",
+      "work/reviews/carrier-successor-technical-review-20260912.json": "82b60dffb9d5f2e7579fd705e59e785703895e33ca3197763c216e6bd0d2a282",
+      "work/checks/carrier-split-baseline-20260912.json": "bd192d1bb1dbecf27bf30d23ff22728d1c92ec43d1a3371230a1ea7388d8ec06",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "markSuccessor_eq_formPerm identifies the constructed actual successor permutation with formPerm of the complete sorted markList by evaluating at every actual mark. Canonical formPerm_apply_mem_eq_next applies because the list is duplicate-free and every actual mark is proved a member.",
+    "markList_rotate_start finds the actual occurrence of a in the complete list as L++a::R and rotates by the concrete length of L. The resulting tail R++L retains all other marks in their inherited cyclic order; no chosen arbitrary root or externally supplied rotation equality is assumed.",
+    "markList_rotate_split starts at a and uses the complete membership of distinct b to locate b in the rotated tail. Splitting that actual tail gives A and B with the literal expression a::(A++b::B). The premise a≠b is precisely what excludes b being the head.",
+    "markSuccessor_splitList transports duplicate-freeness through rotation, uses canonical formPerm rotation invariance to obtain exact equality with the actual markSuccessor and transports membership to prove every actual mark occurs in the displayed split list.",
+    "The full-membership conclusion matters: generic list permutations fix elements outside their list, but this actual representation has no omitted original vertex or crossing visit. It therefore supports application of the generic split theorem to the entire original traversal domain.",
+    "Neither intervening list is required nonempty. The construction works for arbitrary distinct actual marks, including adjacent marks across the last/first cut. Vertices remain in the list, so the foundation still covers crossing-free polygons; later specialization to a selected crossing requires an actual visit witness.",
+    "This is a representation of the original unswitched markSuccessor only. No theorem here identifies a reconnected smoothingSuccessor component with an inherited sublist or maintains such a representation through the full independence induction."
+  ],
+  "limits": "Actual original-cycle list representation only. Application to selected singleton support, exact two-component count, current-component inherited-list representation for later switches, independence induction, noncrossing ownership and carrier geometry remain separate. Source acceptance increment0; stronger-model fidelity and canonical integration remain false."
+}

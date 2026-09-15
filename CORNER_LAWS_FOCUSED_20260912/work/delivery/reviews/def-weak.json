@@ -1,0 +1,81 @@
+{
+  "id": "def:weak",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "4a671f8e6b532ccd5e391cc5823be78d1f8c057edbc5ea65ee984c02afb26365",
+  "verdict": "faithful",
+  "reason": "Compared the complete source def:weak with the full aggregate SM.weak_definition and each concrete definition in its semantic dependencies. WeakGeneric requires every actual edge vector nonzero and every actual chirotope turn nonzero. The vertex condition excludes P k from the nonincident closed affine segment, using the previously reviewed tail-index incidence convention. It does not exclude collinearity with a supporting line outside that segment, which the source permits. For every remote pair, determinant nonzeroness is required only after supplying an actual common point of its two closed segments, and a second clause says any two such common points coincide. This is precisely 'meet in at most one point and there transversally': disjoint remote segments may be parallel or collinear, because neither clause imposes a condition without an intersection. The implementation does not inadvertently replace weak genericity by G1 or by pairwise nonparallel directions. The final condition is the original G2, excluding a point in the relative interiors of three distinct indexed edges. Generic implies WeakGeneric is proved under the inherited n>=3 domain using the already verified G1 geometry and G2, rather than being assumed. weakLocus is the actual set of labelled tuples with that property, and silentLocus is exactly weakLocus minus the actual Generic locus, as both its definition and the aggregate equality state. The source's identification with the main text's word 'generic' is terminology for this condition and does not require a separate unprovided abstract predicate. WeakTuple carries the actual real-coordinate subspace topology. visibleChamber is connectedComponent of WeakPolygon, the genuine cyclic quotient of WeakTuple with the canonical coinduced quotient topology. labelledVisibleChamber is connectedComponent in WeakTuple itself, supplying the explicit representative reading used immediately in the next source lemma. Neither chamber notion is replaced by a sign class or a selected subset. weak_shift proves the weak condition in both directions for every cyclic translate, transporting real segments, turns, incidence, remoteness and G2. Together with the already proved generic_shift and the set-difference definition, this also makes the silent locus invariant under relabelling. The representative convention is therefore respected. The raw definitions extend outside n>=3 without dropping any source case, while the only premise of the complete aggregate is that source size restriction. The audited hash binds WeakGeneric, weakLocus, silentLocus, both actual chamber definitions, WeakTuple, WeakPolygon, the cyclic setoid and all geometric predicates used in them. The source's mathematical inclusion is proved and every definitional clause is covered. This review does not certify openness, polygonal connectedness, an open-ball neighborhood, or lem:weak-open; those are distinct pending obligations. Only standard Lean axioms occur in the development audit, and no supporting helper is counted as another original source claim.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.generic_implies_weak",
+    "SM.genericLocus_subset_weakLocus",
+    "SM.mem_silentLocus",
+    "SM.weak_shift_forward",
+    "SM.weak_shift",
+    "SM.generic_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 267,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 279,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "4a32b881be51dc5efcdcda2b8cfa76d363f70ffaf6b3a1e4ad6423d95421c18c",
+    "to_excerpt_sha256": "4a32b881be51dc5efcdcda2b8cfa76d363f70ffaf6b3a1e4ad6423d95421c18c",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Independent clause-by-clause comparison of def:weak (reference/SM/sm-1-polygons.tex:279-288; SM15 excerpt byte-identical to SM12, sm15_reworded=false, no mention in CHANGES_SINCE_20260909.md) against the definitions in work/lean/SM/WeakGeneric.lean and their semantic dependencies (Polygon.lean, Chirotope.lean, Generic.lean, Chambers.lean). SM.WeakGeneric (WeakGeneric.lean:11-19) has exactly the five printed clauses: (1) every edge vector nonzero, edge P i = P(i+1) - P i (Polygon.lean:49) matching l_i = mu_{i+1} - mu_i (source line 37); (2) every turn nonzero, turn P i = chi P (i-1) i (i+1) = sign det(mu_i - mu_{i-1}, mu_{i+1} - mu_{i-1}) (Chirotope.lean:10-14) matching def:chirotope tau_i = chi_{i-1,i,i+1}; (3) no vertex on a non-incident closed edge segment, with incident k i := i = k-1 or i = k (Polygon.lean:60-61) matching 'vertex i is incident to E_{i-1} and E_i' (source line 42) and edgeSegment the closed segment 0<=t<=1 (Polygon.lean:54-55); (4) for every remote pair (remote = not adjacent, adjacent iff j-i in {-1,0,1}, Polygon.lean:63-66, source lines 43-44), det(l_i,l_j) != 0 whenever a common point of the two closed segments exists, and any two common points coincide - precisely 'meet in at most one point and there transversally', imposing nothing on disjoint pairs, so parallel/collinear disjoint remote segments are allowed as the source's lem:weak-open proof requires (source lines 320-321); (5) G2 P, the original (G2) of def:generic (Generic.lean:14-17), no point in the relative interiors of three distinct indexed edges. weakLocus n = {P | WeakGeneric P} is W_n; silentLocus n = weakLocus n \\ {P | Generic P} is S_n = W_n \\ U_n verbatim (WeakGeneric.lean:21-23). 'Every generic polygon is weakly generic' is proved as generic_implies_weak / genericLocus_subset_weakLocus under the source's standing n>=3 (WeakGeneric.lean:30-58), not assumed. Visible chambers are genuine connected components: labelledVisibleChamber P = connectedComponent P in the subtype WeakTuple n (Mathlib subspace topology of the Pi topology on ZMod n -> R x R; no custom TopologicalSpace instance exists anywhere in work/lean/SM), and visibleChamber P = connectedComponent P in WeakPolygon n = Quotient of WeakTuple n by the cyclic-shift setoid (weakCyclicSetoid = (cyclicSetoid n).comap Subtype.val, i.e. P ~ Q iff Q = shift k P) with the coinduced quotient topology; the two readings match the labelled reading used by lem:weak-open (source line 291) and the U_n/(Z/n) reading of def:chamber, and def:polygon's remark (source lines 55-60) says both readings agree. The aggregate SM.weak_definition (WeakGeneric.lean:103-109) binds all of these plus the sigma-invariance weak_shift (source line 33 asserts every notion is invariant under sigma); its two rfl clauses are definitional and serve only as binders, so the content is the definitions themselves, which denote the printed objects. Nothing is vacuous, no hypothesis is missing or added beyond n>=3, and the accepted Lean statement matches the SM15 text. The only sentence not formalized is the terminological remark 'This is the main text's generic', which carries no mathematical content.",
+    "notes_listed_as_discrepancies": [
+      "Domain generality (benign): WeakGeneric, weakLocus, silentLocus, WeakTuple and WeakPolygon (WeakGeneric.lean:11-25, 92-95) are defined for every n, whereas the source works under the standing n>=3 of def:polygon (sm-1-polygons.tex:24); only the inclusion clause of weak_definition carries hn : 3 <= n. For n=1 (edge P 0 = 0) and n=2 (turn P i = 0) weakLocus is empty, and n=0 is the degenerate ZMod 0 = Z case. This is the same convention already accepted for Generic/GenericPolygon in Generic.lean and Chambers.lean and drops no source case.",
+      "G2 (Generic.lean:14-17) reads 'three distinct edge segments' as three pairwise distinct indices i,j,k. Under WeakGeneric with n>=3 vertices are distinct (a coincident vertex would lie on a non-incident closed edge or force a zero edge), so distinct indices give distinct segments and the readings coincide; inherited unchanged from the accepted def:generic row.",
+      "The source's single phrase 'a visible chamber is a connected component of W_n' (sm-1-polygons.tex:286-287) is rendered twice: visibleChamber on the cyclic quotient WeakPolygon n (WeakGeneric.lean:98) and labelledVisibleChamber on the labelled subtype WeakTuple n (WeakGeneric.lean:28). Since U_n and hence W_n are subsets of (R^2)^n (sm-1-polygons.tex:118) but def:chamber quotients by Z/n, providing both readings is the correct hedge and matches def:polygon's remark that both readings agree.",
+      "Clauses 2-4 of weak_definition (WeakGeneric.lean:105-107) are proved by rfl and are definitional tautologies; they carry no mathematical content beyond binding the definitions silentLocus, visibleChamber and labelledVisibleChamber to the row. For a DEFINE row this is acceptable: the content lies in the definition bodies, which were read and match the print.",
+      "The sentence 'This is the main text's generic' (sm-1-polygons.tex:283) is terminology and is not formalized; it has no mathematical content to formalize."
+    ],
+    "stronger_than_source": [
+      "Sigma-invariance of weak genericity is proved in both directions for every cyclic shift (weak_shift, WeakGeneric.lean:85-90, exposed as clause 5 of weak_definition), whereas def:polygon only asserts invariance under sigma as a convention (sm-1-polygons.tex:33-35).",
+      "The inclusion U_n subseteq W_n ('every generic polygon is weakly generic', sm-1-polygons.tex:283-284) is proved (generic_implies_weak, genericLocus_subset_weakLocus, WeakGeneric.lean:30-58) rather than merely asserted."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/WeakGeneric.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GenericTopology.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-weak.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

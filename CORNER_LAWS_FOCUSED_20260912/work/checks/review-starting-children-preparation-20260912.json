@@ -1,0 +1,150 @@
+{
+  "state": "Unsealed review preparation; wait for authoritative root successful receipt before final review.",
+  "utc": "2026-09-12T02:43:21.459286+00:00",
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "reviewer_identity": {
+    "agent": "/root/review_relgp_full",
+    "implementer": "/root/review_mark_transport",
+    "authored_reviewed_body": false,
+    "reviewer_is_ai": true,
+    "model_relationship": "Same-model technical review only, not stronger-model statement-fidelity approval.",
+    "contribution_disclosure": "Reviewer authored none of the StartingChildren body or its four embedded dependencies. Earlier source/API inventory was planning input only. Reviewer-authored FarSignFamily, RootBoundary and Neighbors helpers are outside this dependency closure."
+  },
+  "scope": {
+    "group": "SoftDuplicationStartingChildren",
+    "declarations": [
+      "SM.SoftDuplication.cut_mem_ordered_image",
+      "SM.SoftDuplication.consecutive_ordered_image_iff",
+      "SM.SoftDuplication.consecutive_ordered_image_exhaust",
+      "SM.SoftDuplication.consecutiveOrderedImageEquiv",
+      "SM.SoftDuplication.startingOldEmbedding",
+      "SM.SoftDuplication.startingTailEmbedding",
+      "SM.SoftDuplication.startingTail_self",
+      "SM.SoftDuplication.collapse_startingTail",
+      "SM.SoftDuplication.startingTail_eq_old",
+      "SM.SoftDuplication.starting_B_lt_old",
+      "SM.SoftDuplication.startingCutSet",
+      "SM.SoftDuplication.starting_core_left",
+      "SM.SoftDuplication.starting_core_cut",
+      "SM.SoftDuplication.starting_old_cut_bounds",
+      "SM.SoftDuplication.startingCutSet_zero_cuts",
+      "SM.SoftDuplication.startingCutSet_one_insert_B",
+      "SM.SoftDuplication.starting_sections_cut_image",
+      "SM.SoftDuplication.startingCutSet_one_cuts",
+      "SM.SoftDuplication.startingFirstChild",
+      "SM.SoftDuplication.startingFirstChild_consecutive",
+      "SM.SoftDuplication.startingFirstChild_left",
+      "SM.SoftDuplication.startingFirstChild_right",
+      "SM.SoftDuplication.startingFirstChild_unique",
+      "SM.SoftDuplication.startingFirstChild_right_le",
+      "SM.SoftDuplication.startingChildrenZeroEquiv",
+      "SM.SoftDuplication.starting_tail_cut_gt_A",
+      "SM.SoftDuplication.starting_one_mapped_consecutive",
+      "SM.SoftDuplication.starting_one_duplicate_consecutive",
+      "SM.SoftDuplication.starting_one_consecutive_iff",
+      "SM.SoftDuplication.startingChildOneMap",
+      "SM.SoftDuplication.startingChildrenOneEquiv",
+      "SM.SoftDuplication.starting_first_zero_endpoints",
+      "SM.SoftDuplication.starting_first_one_endpoints",
+      "SM.SoftDuplication.starting_otherChild_left_gt",
+      "SM.SoftDuplication.starting_otherChild_map_eq"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1279-1290 actual starting presentations/children; 1291-1306 considered only to distinguish pending weighted cancellation and unit conclusions.",
+    "source_acceptance_increment": 0
+  },
+  "findings": [
+    {
+      "declarations": [
+        "SM.SoftDuplication.cut_mem_ordered_image",
+        "SM.SoftDuplication.consecutive_ordered_image_iff",
+        "SM.SoftDuplication.consecutive_ordered_image_exhaust",
+        "SM.SoftDuplication.consecutiveOrderedImageEquiv"
+      ],
+      "finding": "The generic cut-image API uses an actual strictly increasing embedding and equality of complete cut sets. Membership reflects through injectivity; both implications of consecutiveness preserve and reflect the absence of intermediate cuts. Exhaustion obtains both endpoint preimages from actual membership and reflects their strict order, so it constructs the precise core interval. The equivalence is the explicit endpoint map, with injectivity and onto proved; it does not assume an arbitrary child correspondence. The generic hcuts premise is derived for the specific presentations below."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingOldEmbedding",
+        "SM.SoftDuplication.startingTailEmbedding",
+        "SM.SoftDuplication.startingTail_self",
+        "SM.SoftDuplication.collapse_startingTail",
+        "SM.SoftDuplication.startingTail_eq_old",
+        "SM.SoftDuplication.starting_B_lt_old"
+      ],
+      "finding": "The old embedding skips B; the tail embedding skips A. Fin.succAbove_castSucc_self places s at B, and predAbove_succAbove proves that this tail section collapses exactly to its input. The unique non-distinguished collapse fiber then proves tail equals old away from s. Strict monotonicity gives B<old(k) for every core k>s, with no implicit geometric labels or skipped numerical boundary cases."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingCutSet",
+        "SM.SoftDuplication.starting_core_left",
+        "SM.SoftDuplication.starting_core_cut",
+        "SM.SoftDuplication.starting_old_cut_bounds"
+      ],
+      "finding": "startingCutSet uses the frozen exact expandCuts formula with the actual two startingRows selections. The left core endpoint is s, so mandatory endpoint inclusion forces s to be a core cut. Every retained old image lies in the original child interval: monotonicity proves the lower bound, and the exact old_collapse_of_ne_B at the strict right endpoint proves the upper bound. This is the necessary physical bounded-image justification, rather than a global embedding image presumed to lie inside I."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingCutSet_zero_cuts",
+        "SM.SoftDuplication.startingCutSet_one_insert_B",
+        "SM.SoftDuplication.starting_sections_cut_image",
+        "SM.SoftDuplication.startingCutSet_one_cuts"
+      ],
+      "finding": "Row zero selects only A above s and is exactly the entire old image of C. In row one, the optional cut B is inserted; since C contains s and the sections differ only there, the same cut set is insert A of the entire tail image. Both finite-set equalities include all endpoints and all selected interior cuts. The old image excludes B, so the two presentations are distinct; the already proved startingRowsEquiv and cutFiberEquiv establish that they exhaust the original raw composition presentations."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingFirstChild",
+        "SM.SoftDuplication.startingFirstChild_consecutive",
+        "SM.SoftDuplication.startingFirstChild_left",
+        "SM.SoftDuplication.startingFirstChild_right",
+        "SM.SoftDuplication.startingFirstChild_unique",
+        "SM.SoftDuplication.startingFirstChild_right_le"
+      ],
+      "finding": "The first child is the actual part at Fin index zero of C.toComposition, whose existence follows from parts_pos, including a unary composition. part_consecutive and toComposition_cutSet identify it in C itself. Its left endpoint is s; its right endpoint is a member cut strictly larger than s. Uniqueness follows from the proved uniqueness of consecutive intervals sharing a left endpoint, and right_le excludes any smaller positive cut by consecutiveness. Thus this endpoint is the source first boundary X, not a freely supplied next-cut choice."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingChildrenZeroEquiv",
+        "SM.SoftDuplication.starting_tail_cut_gt_A"
+      ],
+      "finding": "The row-zero child equivalence specializes the ordered-image API using the derived zero-row cuts identity. Every core cut is at least s; therefore its tail image is at least B and strictly larger than A. This strict bound is essential for adjoining the leading A without creating an unaccounted intermediate cut within a mapped core child."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.starting_one_mapped_consecutive",
+        "SM.SoftDuplication.starting_one_duplicate_consecutive",
+        "SM.SoftDuplication.starting_one_consecutive_iff"
+      ],
+      "finding": "All tail-mapped core children remain consecutive after inserting A because A lies strictly before every tail cut. The literal interval [A,B] is consecutive because there is no integer position between these adjacent occurrences. Conversely, any row-one child starting at A must equal this duplicate child by same-left consecutiveness uniqueness; if it does not start at A, both endpoints lie in the tail image and its no-intermediate-cut property descends to that image. Ordered-image exhaustion therefore recovers every remaining core child. This proves exact classification of actual children, not merely equality of their count."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.startingChildOneMap",
+        "SM.SoftDuplication.startingChildrenOneEquiv"
+      ],
+      "finding": "The actual forward map sends Unit to [A,B] and each core child to its tail interval. Mixed injectivity cases use the strict separation A<tail(left); right-right injectivity reflects both endpoints through the order embedding. Surjectivity is precisely the preceding complete child classification. Thus the additional singleton appears exactly once and every core child appears exactly once. This permits later product reindexing without deleting unary or zero factors, but the packet itself states no product identity."
+    },
+    {
+      "declarations": [
+        "SM.SoftDuplication.starting_first_zero_endpoints",
+        "SM.SoftDuplication.starting_first_one_endpoints",
+        "SM.SoftDuplication.starting_otherChild_left_gt",
+        "SM.SoftDuplication.starting_otherChild_map_eq"
+      ],
+      "finding": "The first old-mapped child is exactly [A,old(X)] and contains B strictly inside. After the inserted singleton, the first tail-mapped child is exactly [B,old(X)]. Any other core child has left endpoint strictly after s, since equality would force it to be the first child. Both of its endpoints are therefore away from s, where the two embeddings agree; equality of both actual endpoints proves that every other child interval is literally identical in the two presentations."
+    }
+  ],
+  "boundary_scope": [
+    "Core cut sets retain every raw strictly increasing composition through cutSetEquiv. In particular a core unary list still has its first child: row zero then has exactly one child [A,Y], while row one has [A,B] followed by [B,Y]. There are no other children in that case.",
+    "For starting placement s=0 the same old/tail endpoint arguments apply without any prior-position hypothesis. For the largest possible starting placement s=n-2 and Y=n, the core interval has one leaf and the unary example is included. At s=n-1 there is no right endpoint strictly after B, so the starting case is correctly empty; this packet makes no claim about the separate return-last/ending case.",
+    "The generic order-image result does not need a separately assumed equality of ambient intervals: actual endpoint membership in equal full cut sets supplies the necessary bounded endpoint correspondence. The specialized row results do not leave that equality as an unproved record field.",
+    "The explicit hI exclusion is redundant within the requested starting domain because B<I.right excludes I=[A,B]. It is used only to form the already defined collapseInterval and does not silently narrow valid starting intervals.",
+    "Both the first-boundary and all-other-child statements concern literal interval endpoints. No near/far sign, geometric pullback, ordinary-array multiplier, source recurrence, inverse solution or sum cancellation is supplied or concluded. Those are separate obligations."
+  ],
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false
+}

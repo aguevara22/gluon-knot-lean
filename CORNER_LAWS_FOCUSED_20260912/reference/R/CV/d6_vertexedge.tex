@@ -1,0 +1,3226 @@
+% Section 6: the vertex-on-edge law.
+\section{The vertex-on-edge law}\label{sec:s7}
+
+\begin{convention}[the standing hypotheses of this section]
+\label{conv:s7standing}
+Every statement of this section that speaks of a half, of a half's carriers,
+rows or selectors, or of the jump those are compared against, is made under the
+following three hypotheses, which are named here once and cited by name rather
+than repeated or inherited silently:
+\begin{enumerate}
+\item[(H1)] the event is a \emph{simple vertex-on-edge event} in the sense of
+Convention~\ref{conv:events}, with moving vertex $M$ and remote edge $(a,b)$,
+occurring on a path inside $\mathcal R_n$ whose polygons have $n$ vertices;
+\item[(H2)] the polygon $P_\bullet$ of whichever chamber is under discussion is
+\emph{generic} (Definition~\ref{def:generic}(A));
+\item[(H3)] both halves $\lambda_1,\lambda_2$ of Definition~\ref{def:halves},
+taken at the event, are \emph{generic polygons}, each with at least three
+vertices.
+\end{enumerate}
+When the event is of bigon type, on the side of the event where both edges
+incident to $M$ cross the remote edge $(a,b)$, the two crossings so created are
+the \emph{newborn} crossings: $x$, where the edge $M-1\to M$ meets $(a,b)$,
+and $y$, where $M\to M+1$ meets it.
+These hypotheses are in force for the whole section \emph{by this declaration},
+not by each statement repeating them: a statement of this section is to be read
+with (H1)--(H3) available whether or not it names them, in the way
+Convention~\ref{conv:lawful} binds the letter $A$ everywhere below without
+being cited at each use. Several statements do name the convention --- those
+where a reader would otherwise wonder which polygons are meant --- and that is
+a courtesy, not the mechanism. What the declaration is \emph{not} is an
+inheritance from a neighbouring proof: the hypotheses are written out here, in
+one numbered place, and a formalizer reading any statement of the section has
+one address to look at.
+
+The convention exists because the objects of this section do not exist without
+it. The half quantities --- a half's carriers, its grouped rows $Q_i$, its
+selectors $W_i$, its sector decomposition, and the products
+$X_1(\lambda_1)X_1(\lambda_2)$ that the jump is compared against --- are read
+off polygons through $X_1$, and $X_1$ is defined on \emph{generic} polygons
+only (Definition~\ref{def:X1}). An earlier arrangement stated the hypothesis at
+the two endpoint theorems and, in the middle of the section, said that "every
+consumer below inherits" it, which is not a quantifier: a reader of the sector
+definition or of the sliding restart could not see from the page what was
+assumed. (H3) is discharged, at every event the induction meets, by the
+certificate proved with the main theorem; nothing in this section proves it.
+\end{convention}
+
+\subsection{Grouped carriers are connected sums}
+
+The factor $\Omega_1(S,L)$ of Definition~\ref{def:X1} reads one coefficient of
+the \emph{product} $P_{S,L}=\prod_H P_H$ over the pieces carried by $L$. The
+carrier floor of Theorem~\ref{thm:carrierfloor}(C), on the other hand, is a
+statement about one knot diagram. The bridge is that the product is the
+polynomial of a single knot.
+
+\begin{lemma}[carrier restriction is the intrinsic piece diagram]
+\label{lem:pieceintrinsic}
+Let $P$ be generic, $S\in\Ind(G_P)$, and let $H$ be a residual piece of $S$,
+carried by the carrier $L$ (Lemma~\ref{lem:carriers}(iv)). Let $D_L(H)$ be the
+diagram obtained from $L$ by retaining exactly the crossings of $H$, each
+resolved by the divide convention of Definition~\ref{def:piecediagram}, and
+erasing all others; and let $D_P(H)$ be the intrinsic piece diagram of that
+definition, obtained from the parent polygon $P$ by retaining exactly the same
+crossings under the same convention. Throughout, that a crossing \emph{lies on}
+a carrier means that both of its traversal preimages belong to that carrier,
+which is the condition Lemma~\ref{lem:carriers}(iv) supplies.
+Then the identity map on the visits of $H$ is a record isomorphism
+(Definition~\ref{def:record}) from the record of $D_L(H)$ to the record of
+$D_P(H)$. Consequently they present the same oriented link
+(Axiom~\ref{ax:gausscode}), so
+\[
+   P_{D_L(H)}=P_H,\qquad w\bigl(D_L(H)\bigr)=|H| .
+\]
+\end{lemma}
+\begin{proof}
+\emph{Same double points.} Smoothing at a point $c\in S$ replaces the two
+transversally crossing branches by two disjoint arcs inside a disc containing no
+other double point, so it destroys the double point $c$ and creates none. Hence
+the double points of $L$ are exactly the double points of $P$ that lie on $L$
+and are not in $S$. Every label of $H$ has both of its visits on $L$ and
+$H\cap S=\varnothing$, so each is a double point of $L$; and both diagrams
+retain exactly those and no others.
+
+\emph{Same over/under and signs.} The divide convention
+(Definition~\ref{def:piecediagram}) reads the over/under at a double point from
+the two branch directions there, and the sign of a crossing is read from the
+same two directions with the orientation. Neither is changed by a smoothing
+performed at a different point, which alters the curve only inside a disc
+containing no other double point. Every crossing is positive in both diagrams,
+so both writhes equal $|H|$.
+
+\emph{Same cyclic order.} The traversal of $D_P(H)$ is the traversal circle
+$\Gamma$ itself, so the cyclic order of the $2|H|$ visits is their order on
+$\Gamma$. By Lemma~\ref{lem:carrierword} the marked points lying on $L$ are
+traversed by $L$ in the order induced from $\Gamma$, and the visits of $H$ are
+among them; restricting to those gives the same cyclic word.
+
+\emph{The isomorphism.} The two records are not equal: their traversal circles
+are different circles, one running around $P$ and one around $L$. What the three
+paragraphs give is the map. Let $\varphi$ send each visit of $H$ on the
+traversal circle of $D_L(H)$ to the same visit on the traversal circle of
+$D_P(H)$ --- the same point of the plane, reached by the same branch --- which
+is a bijection of marked-point sets by the first paragraph. It preserves the
+cyclic order by the third, carries double points to double points because the
+pairing is by label in both, and preserves the over/under designation and the
+sign by the second. Those are conditions (a) to (d) of
+Definition~\ref{def:record}, so $\varphi$ is a record isomorphism, and
+Axiom~\ref{ax:gausscode} identifies the links.
+
+An earlier revision of this lemma said the two records were \emph{equal}. They
+are not: equality of records presupposes
+one traversal circle, which is exactly what these two diagrams do not share.
+Nothing in the three paragraphs changes; what changes is that the map they
+produce is now named, and the definition it satisfies is printed.
+\end{proof}
+
+\begin{lemma}[HOMFLY products and the two-component $z^{-1}$ row]
+\label{lem:homflyrows}
+Put $R=\mathbb Z[a^{\pm1},z^{\pm1}]$ and
+$\delta=(a-a^{-1})/z\in R$.
+\begin{enumerate}
+\item[(i)] For oriented knots $K,J$,
+\[
+ P_{K\# J}=P_KP_J;
+\]
+and for an oriented knot $K$ and an oriented link $J$,
+\[
+ P_{K\sqcup J}=\delta P_KP_J.
+\]
+\item[(ii)] Let $D$ be an oriented link diagram with ordered components
+$D_1,D_2$ and linking number $\lambda$. Then
+\[
+ [z^{-1}]P_D=(a-a^{-1})a^{-2\lambda}
+       [z^0]\bigl(P_{D_1}P_{D_2}\bigr).
+\]
+\item[(iii)] Consequently, for oriented knots $K_1,\dots,K_n$ ($n\geq1$),
+\[
+ P_{K_1\sqcup\dots\sqcup K_n}=\delta^{\,n-1}P_{K_1}\cdots P_{K_n}.
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+A \emph{based oriented link} is an oriented link with one distinguished
+nonsingular point $p$ on one distinguished component; isotopies carry $p$ and
+that component. Fix an oriented knot $K$. For a based link $(J,p)$ define
+\[
+   F_K(J,p)=P_{K\#_pJ},\qquad G_K(J,p)=P_KP_J.
+\]
+Here $K\#_pJ$ is made in a ball at $p$, disjoint from the rest of $J$, by
+deleting a short oriented arc through $p$, cutting a copy of $K$ at a short
+oriented arc, and using the orientation-compatible cross-pairing of incoming
+and outgoing endpoints. Two sufficiently small choices of ball and arc are
+related by an isotopy supported near $p$, and a based ambient isotopy carries
+the ball and insertion with it. Thus $F_K$ is well defined on based isotopy
+classes. Both $F_K$ and $G_K$ satisfy the HOMFLY--PT skein relation in every
+disc disjoint from $p$ (Axiom~\ref{ax:homfly}): the insertion at $p$ is outside
+the disc and therefore commutes with the local switch and oriented smoothing.
+
+We use the following relative uniqueness argument, printed because unbased
+uniqueness alone does not apply to a marked operation. Suppose two $R$-valued
+invariants of based oriented links satisfy that skein relation away from the
+mark and agree on every based unlink. Draw a based link diagram. Using $p$ as
+the first traversal basepoint, choose auxiliary basepoints on the other
+components and order those components after the marked one. Traverse the
+oriented components in that order. Call a crossing \emph{bad} when its first
+visit is on the underpassing branch. We prove equality by lexicographic
+induction on
+\[
+   (\text{number of crossings},\ \text{number of bad crossings}).
+\]
+If a bad crossing is present, switch it. Its first visit becomes over, so the
+crossing count is unchanged and the bad count drops by one; no other crossing
+or first-visit order changes. The oriented smoothing has one fewer crossing.
+Its disc misses $p$, so the marked point survives and the unique resulting
+component containing it is distinguished; give all remaining components fresh
+auxiliary basepoints and an order. For either invariant $Q$, if the original
+crossing is $L_+$, solve the skein relation as
+\[
+   Q(L_+)=a^{-2}Q(L_-)+a^{-1}zQ(L_0);
+\]
+if it is $L_-$, solve it as
+\[
+   Q(L_-)=a^2Q(L_+)-azQ(L_0).
+\]
+Only the units $a^{\pm1}$ are used. The induction hypotheses for the switched
+and smoothed diagrams give equality at the original diagram.
+
+If there is no bad crossing, the ordered based diagram is descending. Keep a
+small arc at the current component's basepoint fixed. Starting just after it
+and following the orientation, pull each successive already-traversed arc
+upward and across the still-untraversed diagram. At every crossing that moving
+arc is the overpassing branch, so the pull crosses no strand. Successively
+remove all self-crossings of that component; because its visits precede those
+of every later component, it also passes over every later component and can be
+slid into a disjoint ball as a round circle. For the first component the fixed
+arc contains $p$, so this is rel the mark. Repeat in the chosen component
+order. The result is the based unlink with the same number of components.
+Thus agreement on based unlinks closes the induction.
+
+Apply relative uniqueness first to $F_K,G_K$. On the based $r$-component
+unlink $U_r$, with $U_0$ denoting no extra split component,
+Definition~\ref{def:homfly} gives
+\[
+ F_K(U_r,p)=P_{K\sqcup U_{r-1}}=\delta^{r-1}P_K
+ =P_KP_{U_r}=G_K(U_r,p).
+\]
+Hence $P_{K\#_pJ}=P_KP_J$. For the split operation put $K$ in a ball
+disjoint from $J$ and define
+\[
+ F_K^{\sqcup}(J,p)=P_{K\sqcup J},\qquad
+ G_K^{\sqcup}(J,p)=\delta P_KP_J.
+\]
+These again satisfy the skein relation away from $p$, and repeated use of the
+split-circle identity in Definition~\ref{def:homfly} gives, on $U_r$,
+\[
+ F_K^{\sqcup}(U_r,p)=P_{K\sqcup U_r}=\delta^rP_K
+ =\delta P_KP_{U_r}=G_K^{\sqcup}(U_r,p).
+\]
+Relative uniqueness proves $P_{K\sqcup J}=\delta P_KP_J$ for every based
+oriented link $J$; this is the split identity of~(i). Clause~(iii) follows by
+induction on $n$: the case $n=1$ is trivial, and
+$K_1\sqcup(K_2\sqcup\dots\sqcup K_n)$ applies~(i)'s split identity with knot
+$K_1$ and link $K_2\sqcup\dots\sqcup K_n$.
+
+For~(ii), put $h(E)=[z^{-1}]P_E$. At a mixed crossing of a two-component
+diagram, the oriented smoothing $E_0$ is a knot. Extracting the $z^{-1}$
+coefficient from the skein relation gives
+\[
+ a h(E_+)-a^{-1}h(E_-)=[z^{-2}]P_{E_0}=0.
+\]
+The last equality uses the full retained clause
+$P_{E_0}\in\mathbb Z[a^{\pm1},z^2]$: this is a polynomial ring in $z^2$, so
+its $z$-powers are nonnegative as well as even. Thus
+$h(E_+)=a^{-2}h(E_-)$. With the convention
+$\lambda_+=\lambda_-+1$ at a positive versus negative mixed crossing,
+$a^{2\lambda(E)}h(E)$ is invariant under every mixed crossing switch.
+No self-crossing is switched: its oriented smoothing has three components,
+not a knot, so the displayed vanishing is unavailable.
+
+Switch precisely the mixed crossings at which component $D_1$ passes under
+$D_2$. In the resulting diagram $D^\uparrow$, $D_1$ passes over $D_2$ at every
+mixed projected intersection. Realize its self-crossings by strict local height
+differences. Translate the whole first component upward and the whole second
+component downward. Every mixed height gap strictly increases, the
+self-crossing gaps are unchanged, and no other projected pair can collide.
+This is an isotopy through embeddings; for a large translation a horizontal
+plane separates the two components. Their knot types are still $D_1,D_2$ and
+the endpoint is split, so its linking number is zero. Mixed-switch invariance
+and~(i) now give
+\[
+\begin{aligned}
+ h(D)
+ &=a^{-2\lambda}h(D^\uparrow)
+  =a^{-2\lambda}[z^{-1}]
+       \bigl(\delta P_{D_1}P_{D_2}\bigr)\\
+ &=a^{-2\lambda}(a-a^{-1})
+       [z^0]\bigl(P_{D_1}P_{D_2}\bigr),
+\end{aligned}
+\]
+which is~(ii).
+\end{proof}
+
+\begin{corollary}[interlacement connected sums and the grouped carrier]\label{cor:groupedknot}
+\begin{enumerate}
+\item[(A)] Let $S\in\Ind(G_P)$, let $L$ be a carrier of $S$ bearing at least one residual
+piece, and let
+\[
+   W=\bigcup\{\,H: H\text{ a residual piece of }S\text{ carried by }L\,\}
+\]
+be the \emph{union of their label sets} --- a set of crossing labels, not a set
+of pieces. By Lemma~\ref{lem:piececurve} Step 2, $W$ is exactly the set of
+self-crossings of $L$, so the diagram $D(W)$ obtained from $L$ by retaining
+exactly the labels of $W$, each resolved by the divide convention, and erasing
+all others, is $L$ itself carrying all of its own crossings; no realization
+argument is needed. Let $W=W_1\sqcup\dots\sqcup W_k$, $k\geq1$, be the partition
+of $W$ into the connected components of the interlacement graph induced on $W$;
+these are the label sets of the residual pieces. The components can be indexed
+and equipped with a fixed ordered binary parenthesization $\mathcal T$ such that
+\[
+D(W)\;\cong\;\#_{\mathcal T}
+   \bigl(D(W_1),\dots,D(W_k)\bigr),
+\qquad
+P_{D(W)}=\prod_{i=1}^{k}P_{D(W_i)} .
+\]
+Here $\#_{\mathcal T}$ is evaluated recursively: a leaf has value $D(W_i)$
+and an internal node has the connected sum of its two ordered child values
+with the displayed parenthesization. In particular, when $k=1$,
+$\#_{\mathcal T}(D(W_1))=D(W_1)$.
+\item[(B)] Let $S\in\Ind(G_P)$ and let $L$ be a carrier of $S$ bearing the residual pieces
+$H_1,\dots,H_k$ with $k\geq1$. (If $L$ bears no piece the assertion is
+Theorem~\ref{thm:carrierfloor}(D): $P_{S,L}=1$, $w_{S,L}=0$, and there is nothing to
+decompose. Clause~(A) is stated for a nonempty label set and
+is not applied in that case.) Then the diagram obtained from $L$ by retaining exactly the
+crossings of $H_1\cup\dots\cup H_k$ is a knot diagram whose HOMFLY polynomial is
+$P_{S,L}=\prod_iP_{H_i}$, whose writhe is $w_{S,L}=\sum_i|H_i|$, and whose
+underlying plane curve is $L$, which has no triple points.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+\emph{Clause (A).}
+Read the carrier as a cyclic word in the labels of $W$, each label occurring
+twice. Call a \emph{gap} a position between two consecutive visits.
+
+\emph{Gap lemma.} Fix a connected component $W_i$. A gap has no intrinsic pair
+of sides, so the coordinate is taken per chord: for a gap $g$ and a chord
+$x\in W_i$, record which of the two components of the traversal circle minus the
+two visits of $x$ contains $g$. Ranging over $x\in W_i$ this is a binary vector
+indexed by the chords of $W_i$, the \emph{side vector} of $g$. Distinct gaps of $W_i$ have
+distinct side vectors. Suppose two distinct gaps had the same vector. The
+oriented interval between the two cuts then contains either both or neither
+endpoint of every chord of $W_i$; since the gaps are distinct, both the
+interval and its complement contain visits of $W_i$. So the labels of $W_i$
+split into two nonempty sets, one with both endpoints inside and one with both
+endpoints outside, and no chord of one set interlaces a chord of the other.
+That disconnects $W_i$, contrary to hypothesis.
+
+\emph{Every other component sits inside one gap of $W_i$.} A chord outside
+$W_i$ fails to interlace every chord of $W_i$ exactly when its two endpoint
+gaps have the same side vector, hence, by the gap lemma, exactly when both its
+endpoints lie in one and the same gap of $W_i$. If some component $W_j$,
+$j\neq i$, occupied two different gaps of $W_i$, its chords in the two gaps
+could not interlace each other, contradicting connectedness of $W_j$.
+
+\emph{Closed-block tree.} Apply the preceding two paragraphs inside any
+cyclic node word containing at least two of the components. They give a
+nonempty proper label-closed linear block $\alpha$; its complementary linear
+word $\beta$ is label-closed as well. Record the two closed cyclic child words
+in the order $(\alpha,\beta)$. In each child, identifying its two cut ends
+creates one distinguished \emph{join gap}. Both children have fewer labels,
+so iteration gives a finite ordered binary tree $\mathcal T$ whose leaves are
+exactly the $W_i$. Index the leaves in its order. Every non-root node also
+remembers the one gap in its cyclic record prescribed when its parent was cut;
+that output gap is distinct data from the two child join gaps used when the
+node itself is assembled.
+
+We induct upward with the following invariant. A node $V$ has a connected
+generic oriented one-circle diagram $C_V$ and an orientation-preserving record
+isomorphism from its record to the cyclic record of $V$; if $V$ is not the
+root, it also has a clean open subarc in the exact output gap prescribed by its
+parent.
+
+For a leaf $V=W_i$, take the actual curve $C_{W_i}$ constructed by
+Lemma~\ref{lem:piececurve}, with the inherited divide crossing data. It has
+exactly the distinct inherited transverse double points of $W_i$, its
+restricted cyclic word, and no triple point: the construction only smooths in
+pairwise disjoint crossing discs and creates no intersection.
+Lemma~\ref{lem:pieceintrinsic} supplies the record comparison with the carrier
+factor $D(W_i)$. If the leaf is not the root, the extension clause in
+Definition~\ref{def:record} carries its parent-prescribed output gap to a
+complementary arc of its traversal circle. Choose an interior regular point
+there and a sufficiently small subarc about it; a small disc meets the curve
+in that arc alone, so it is clean. If the leaf is the root, the invariant
+requires no output gap.
+
+For an internal node with ordered children $A,B$, use their clean join arcs.
+Take $C_A$ as the based host $J$, with $p$ in its join arc, and take $C_B$ as
+$K$. At an interior point of $K$'s join arc choose an
+orientation-preserving smooth chart of the sphere sending that point to
+infinity. A sufficiently small spherical cap about infinity meets $K$ in one
+embedded arc, so its complement is a compact long $K$-tangle with two oriented
+ends. Shrink that tangle into the clean host disc, delete the short host arc
+through $p$, place the tangle ends next to their prescribed host ends, and
+cross-pair outgoing $A$ to incoming $B$ and outgoing $B$ to incoming $A$ by
+two disjoint short arcs. Round the two joins inside disjoint smaller discs.
+This is literally the orientation-compatible local insertion $K\#_pJ$ of
+Lemma~\ref{lem:homflyrows}(i), not an unnamed planar splice.
+
+The insertion disc contains no other point of $J$ and the inserted tangle and
+connectors lie inside it. Thus it creates no crossing. The sphere chart is
+orientation preserving, so all child crossing signs are preserved, and the
+over/under designations are transported. Starting immediately before $A$, the
+one traversal circle reads the linear word $\alpha$ and then $\beta$.
+Pairings stay within a child. These are precisely conditions (a)--(d) of
+Definition~\ref{def:record}. The child crossings remain transverse and
+distinct, the connectors are disjoint, and the local rounding creates no
+intersection, so the result is a generic one-circle diagram with no triple
+point.
+
+It remains to mark the node's output gap when the node is not the root. If that
+gap is not one of the two split boundaries, it survives in the appropriate
+child and is carried across by the record map. If it is a split boundary, use
+the corresponding new connector subarc. In either case a smaller disc meeting
+only that arc makes it clean. This proves the invariant.
+
+Finally the actual diagram $D(W)$ has underlying curve $L$. The diagrammatic
+parent has isolated transverse double points with no two sharing an image, so
+the smoothing sites admit pairwise disjoint discs, each meeting the curve in
+the two crossing arcs alone. Each local smoothing replaces them by two
+noncrossing arcs and outside those discs the curve is unchanged. Hence $L$ is
+a connected generic one-circle curve with no triple point. The constructed
+root has the same properties by the invariant, and its record is isomorphic to
+the record of $D(W)$: the traversal order is the tree's ordered concatenation,
+labels and pairings never cross between children, and every over/under role and
+sign is inherited. Axiom~\ref{ax:gausscode} identifies the two oriented links.
+At the leaves Lemma~\ref{lem:pieceintrinsic} identifies $C_{W_i}$ with
+$D(W_i)$. Thus the root is exactly the displayed
+$\mathcal T$-parenthesized connected sum, without an associativity assumption.
+
+The polynomial identity follows by applying
+Lemma~\ref{lem:homflyrows}(i) at each internal node of the fixed tree
+$\mathcal T$; every leaf is a knot diagram. Thus
+$P_{D(W)}=\prod_iP_{D(W_i)}$.
+
+\emph{Clause (B).}
+Each $H_i$ has both visits of each of its labels on $L$ by
+Lemma~\ref{lem:carriers}(iv), and the $H_i$ are exactly the connected
+components of the interlacement graph induced on $H_1\cup\dots\cup H_k$, since
+they are components of $G_P[U(S)]$ and interlacement is read from the same
+word. Clause~(A) applies. The diagram has one component
+because $L$ is one closed curve, the writhe is the crossing count because every
+crossing is positive (Definition~\ref{def:piecediagram}), and the underlying
+plane curve is $L$ because erasing a double point omits it from the record and
+performs no operation on the curve (Definition~\ref{def:piecediagram}).
+
+The generic parent polygon is diagrammatic by
+Definition~\ref{def:diagrammatic}, so it has no triple points.  The parent's
+self-intersections are isolated and no two share an image
+(Definition~\ref{def:diagrammatic}), so they admit pairwise disjoint discs,
+each meeting the curve in the two crossing arcs alone.  Inside each disc the
+oriented smoothing of Definition~\ref{def:smoothing} replaces those two arcs
+by two arcs that do not cross, and outside the discs the curve is unchanged;
+so no intersection is created and $L$ has no triple points either.
+
+The identification of the factors is Lemma~\ref{lem:pieceintrinsic}: the factor
+$D(H_i)$ produced by clause~(A) is the diagram of $L$ with
+only the crossings of $H_i$ retained, and the identity on the visits of $H_i$ is
+a record \emph{isomorphism} from that diagram's record to the record of the
+intrinsic piece diagram of $H_i$ on the parent polygon --- not an equality, the
+two traversal circles being different --- so by Axiom~\ref{ax:gausscode} the two
+present the same oriented link, whose polynomial is $P_{H_i}$ and whose writhe
+is $|H_i|$. So the product in the display is a
+product of the $P_{H_i}$ and not of some other family. An earlier revision
+asserted this identification in one sentence, on the ground that both
+constructions ``retain the crossings of $H_i$''; the peer refuted that ground
+--- smoothing the support changes the traversal successor, so containment of
+both visits does not identify the cyclic records --- and
+Lemma~\ref{lem:pieceintrinsic} now supplies the three components of the record
+separately.
+\end{proof}
+
+\begin{remark}[why clause (A) is not stated for an arbitrary label set]
+\label{rem:connectedsumscope}
+An earlier revision quantified clause~(A) over any set $W$ of labels with both
+visits on the carrier. That is not well posed. Restricting a realizable Gauss
+word to an arbitrary label set can produce a word no plane curve realizes: the
+peer's witness restricts $123123$ to two of its three crossings and obtains
+$2323$, in which each chord interlaces exactly one other, while every chord of a
+realizable word interlaces an even number. For such a $W$ the diagram $D(W)$
+does not exist and neither side of the display means anything.
+
+For the full self-crossing set $W$ of a carrier --- the hypothesis of clause~(A) ---
+no realization theorem is needed at all: by Lemma~\ref{lem:piececurve} Step 2 the
+undominated crossings carried by $L$ are exactly the self-crossings of $L$, so
+$D(W)$ is the carrier itself. An intermediate revision instead allowed $W$ to be
+any nonempty \emph{union} of residual pieces and cited
+Lemma~\ref{lem:piececurve} to realize it; the peer refused that citation and was
+right --- that lemma realizes one \emph{connected} piece, its Step~5 requiring
+connectedness, and a disconnected union is outside it. The citation is
+withdrawn; what replaces it is the observation that the set
+$W=H_1\cup\dots\cup H_k$ supplied by clause~(B) is the whole self-crossing
+set of an actual curve.
+
+The witness is excluded for a separate and still valid reason: two interlacing
+crossings that interlace nothing else cannot be a residual piece, since by
+Corollary~\ref{cor:evendominated} an undominated crossing meets an even number
+of dominated crossings, so its degree inside its own piece is even, and in a
+two-element piece it would be one.
+\end{remark}
+
+\begin{remark}[a generalization that was tried and withdrawn]\label{rem:groupedgeneral}
+An intermediate revision quantified clause~(B) over an arbitrary closed
+curve rather than a carrier, so that it could be applied to a sub-loop cut out
+of a carrier at one of its crossings, and discharged the resulting comparison
+of diagrams by asserting that the complementary excursion, carrying only erased
+crossings, could be contracted. The peer rejected that twice and was right
+both times: the general statement does not bind the parent curve or the map to
+the intrinsic piece diagrams of Definition~\ref{def:piecediagram}, and an
+embedded arc whose interior is disjoint from a diagram need not be
+boundary-parallel, so ``separated in space'' does not produce the disc the
+contraction needs. Clause~(B) is therefore back in its carrier form, and
+Theorem~\ref{thm:s7universal}(D)(i), which wanted the general form,
+is reproved below by passing to a larger support --- whose carriers \emph{are}
+the two loops --- so that only carrier instances of clause~(B) are used.
+\end{remark}
+
+\begin{remark}[why this is needed]\label{rem:whygrouped}
+Theorem~\ref{thm:carrierfloor}(C) bounds $\min\deg_a$ of one knot diagram in terms
+of \emph{its} writhe and rotation. Corollary~\ref{cor:groupedknot}(B) says the
+grouped object $P_{S,L}$, with its grouped writhe $w_{S,L}$ and the carrier's
+own rotation $R(L)$, is exactly such a diagram. Without it the floor would have
+to be proved for each piece separately and then convolved, which is false in
+general: the sum of the pieces' floors is not the floor of the product.
+\end{remark}
+
+\subsection{The contact-turn geometry}
+
+\begin{lemma}[the contact turns, both branches]\label{lem:contactturnboth}
+Under Convention~\ref{conv:s7standing}, let a simple vertex-on-edge event of
+bigon type have moving vertex $M$, remote edge $(a,b)$, and neighbours
+$p=p_{M-1}$ and $q=p_{M+1}$.
+Let $\epsilon=1$ if the two newborn crossings
+(Convention~\ref{conv:s7standing}) interlace, and $\epsilon=0$
+otherwise. Let $s_{\mathrm{low}}$ denote the sign \eqref{eq:S6} evaluated in the low
+(zero-newborn) chamber. First take an orientation-preserving affine
+chart sending the contact to the origin and the direction of $a\to b$ to
+$+x$, and write $p=(u,h)$ and $q=(v,k)$. Then $hk>0$. If $h,k<0$,
+compose with reflection in the $x$-axis; thereafter work in the resulting
+upper picture, where $h,k>0$ and $0<\arg p,\arg q<\pi$. This reflection
+reverses all three turns below and $s_{\mathrm{low}}$, so the sign comparisons are
+independent of which side was reflected. In the upper picture:
+\begin{enumerate}
+\item[(i)] $\epsilon=0$ exactly when $\arg p<\arg q$, and $\epsilon=1$
+exactly when $\arg q<\arg p$.
+\item[(ii)] The two incident directions $-p,q$ are nonzero and transverse to
+the remote direction. The contact turns of $\lambda_1,\lambda_2$ are,
+respectively, $\arg q$ and $\pi-\arg p$; both lie in $(0,\pi)$ and
+have the sign of $s_{\mathrm{low}}$.
+\item[(iii)] The full turn at $M$ is the principal representative of
+$\arg q-\arg p+\pi$. It is
+$\arg q-\arg p-\pi\in(-\pi,0)$ when $\epsilon=0$, with sign
+$-s_{\mathrm{low}}$, and $\arg q-\arg p+\pi\in(0,\pi)$ when
+$\epsilon=1$, with sign $s_{\mathrm{low}}$.
+\item[(iv)] Each half polygon inherits exactly one of these contact turns:
+$\lambda_1$ closes along the remote direction and leaves along $q$, while
+$\lambda_2$ enters along $-p$ and leaves along the remote direction.
+Consequently, when $\epsilon=0$, any half contact carrier whose remaining
+turns are inherited from a uniformly turning full contact carrier has exactly
+one turn opposite to the full turn, and that dissenting turn has magnitude
+strictly below $\pi$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For a sufficiently small displacement into the two-newborn chamber, normalize the
+remote line to $y=0$ and write
+$M_t=(m_t,-c_t)$ with $c_t>0$, and the two neighbours as
+$p_t=(u_t,h_t)$ and $q_t=(v_t,k_t)$, tending to $p=(u,h)$ and $q=(v,k)$,
+respectively. The incident-edge intersections with the remote line have abscissae
+$x_p=m_t+c_t(u_t-m_t)/(h_t+c_t)$ and
+$x_q=m_t+c_t(v_t-m_t)/(k_t+c_t)$, so
+$(x_p-x_q)/c_t\longrightarrow u/h-v/k=(uk-hv)/(hk)$.
+The vertex turn is nonzero, hence $uk-hv\neq0$, so this sign is fixed for small
+$t$. Along the polygon the incoming crossing precedes the outgoing crossing;
+along the oriented remote edge their order is increasing abscissa. They are
+therefore noninterlaced exactly when $x_p>x_q$, and interlaced when $x_p<x_q$.
+In the upper half-plane $x_p>x_q$ is exactly $\arg p<\arg q$. This proves (i).
+
+The turn at $M$ is from incoming direction $-p$ to outgoing direction $q$,
+hence is represented by $\arg q-\arg p+\pi$. If $\epsilon=0$, clause (i)
+gives $\arg p<\arg q$, so its principal value is
+$\arg q-\arg p-\pi\in(-\pi,0)$. If $\epsilon=1$, clause (i) gives
+$\arg q<\arg p$, so the displayed representative lies in $(0,\pi)$.
+In the upper low chamber $M$ is on the neighbours' side of the remote line,
+so $s_{\mathrm{low}}=+1$ by \eqref{eq:S6}; this proves (iii),
+and reflection negates both sides of every claimed sign comparison.
+
+By Definition~\ref{def:halves}, $\lambda_1$ closes in direction $+x$ and
+then leaves along $q$, while $\lambda_2$ arrives along $-p$ and then leaves
+in direction $+x$. Their turns are $\arg q$ and $\pi-\arg p$, proving (ii)
+and the inheritance assertion in (iv). In the noninterlacing case (iii)
+makes the full contact turn opposite to both half contact turns. If the full
+carrier is uniform (Definition~\ref{def:wind}), every remaining turn inherited by
+either half has the full turn's sign; its one contact turn has the opposite
+sign and magnitude in $(0,\pi)$. This proves (iv).
+\end{proof}
+
+\subsection{The two sectors of the bigon jump}\label{sec:sectors}
+
+Fix a simple vertex-on-edge event of bigon type: the two neighbours of the
+moving vertex $M$ lie strictly on the same side of the line of the remote edge
+$(a,b)$, so that crossing the wall changes the crossing number by two. Orient
+the parameter from the chamber with no newborn crossing to the chamber with
+two; write $P_0$ for the first and $P_2$ for the second, and let
+$\delta=+1$ in that direction and $-1$ in the reverse. By
+Remark~\ref{rem:s7wellposed} nothing depends on the choice.
+
+\begin{definition}[newborns, sectors, and the interlacement bit]\label{def:sectors}
+Under Convention~\ref{conv:s7standing} --- in particular with both halves
+generic, without which the products $X_1(\lambda_1)X_1(\lambda_2)$ compared
+below are not defined --- the newborn crossings $x,y$ of
+Convention~\ref{conv:s7standing} are realized in $P_2$. The directed jump is
+$F=\delta\bigl(X_1(P_2)-X_1(P_0)\bigr)$. Split the supports of $P_2$ by how
+many newborns they contain and write
+\[
+   F=R+\mathcal B,
+\]
+where $\mathcal B$ is $\delta$ times the total contribution of the supports of
+$P_2$ containing \emph{both} newborns and $R$ is everything else, the
+\emph{returned} sector. Let $\epsilon=1$ if $x$ and $y$ interlace in $P_2$ and
+$\epsilon=0$ otherwise, and let $J=s\,X_1(\lambda_1)X_1(\lambda_2)$ be the
+required jump, with $s$ the sign \eqref{eq:S6} taken in the initial chamber.
+\end{definition}
+
+\begin{lemma}[the contact word]\label{lem:contactword}
+The cyclic Gauss word of $P_2$, rotated to begin at the first visit of the
+newborn $x$ --- the rotation is named here because consumers speak of the visit
+that \emph{opens} the word, which a cyclic word does not have until one is
+fixed --- reads
+\begin{equation}
+   W_2=\begin{cases}
+     x_0\,y_0\,A\,y_1\,x_1\,B,&\epsilon=0,\\
+     x_0\,y_0\,A\,x_1\,y_1\,B,&\epsilon=1,
+   \end{cases}
+   \qquad\text{and in both cases}\qquad
+   W_0=A\,B
+   \label{eq:contactword}
+\end{equation}
+where $x_0,x_1$ are the two visits of $x$, $y_0,y_1$ those of $y$, $A$ is the
+subword of old labels traversed from $M+1$ to $a$ together with the part of the
+remote edge from $a$ to \emph{the first newborn visit on that edge} --- which is
+$y$ when $\epsilon=0$ and $x$ when $\epsilon=1$, as the two displayed words show
+--- and $B$ is the subword traversed from $b$ to $M-1$. An earlier revision said
+``to $y$'' in both branches, which is false in the interlacing one; the proof
+always used the order-neutral phrase. Moreover an old label $q$ has
+\begin{enumerate}
+\item[(i)] both visits in $A$, or both in $B$, or exactly one in each;
+\item[(ii)] and it is adjacent in $G_{P_2}$ to $x$, or to $y$, exactly when it
+has one visit in each --- so the labels adjacent to $x$ and those adjacent to
+$y$ coincide, and form the \emph{common neighbourhood} $\mathcal N$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+In $P_2$ the two edges incident to $M$ each meet the remote edge once, at $x$
+and at $y$ respectively; the contact disc contains no other vertex or crossing,
+because a further incidence at the event would be a vanishing guarded predicate
+outside the zero set that Convention~\ref{conv:events} allows, which is exactly
+$\{\mathrm{G2}_{(a,b),M},\ \mathrm{G4}\langle (a,b);e_{M-1},e_M\rangle\}$ ---
+the member-valued accessor, a zero set holding members
+(Definition~\ref{def:guarded}) --- and contains no other incidence. Traversing from just before $M$: the
+edge $M-1\to M$ carries the visit $x_0$, then comes the vertex $M$, then the
+edge $M\to M+1$ carries $y_0$; no crossing lies between them. Continuing, the
+traversal runs $M+1,\dots,a$ and then along the remote edge, where it meets the
+two newborns again, in one of the two orders, before continuing $b,\dots,M-1$.
+Writing $A$ for the stretch from just after $y_0$ to just before the first
+remote-edge newborn visit and $B$ for the stretch from just after the second to
+just before $x_0$, the word is $x_0y_0Ay_1x_1B$ or $x_0y_0Ax_1y_1B$ according
+to that order. In the first case the interval from $x_0$ to $x_1$ is
+$y_0Ay_1$, which contains both visits of $y$, so $x$ and $y$ do not interlace;
+in the second it is $y_0A$, which contains exactly one, so they do. The two
+cases are therefore $\epsilon=0$ and $\epsilon=1$, which is
+\eqref{eq:contactword}. Deleting
+the four newborn visits leaves $AB$, and $P_0$ has exactly the old crossings of
+$P_2$ with the same order, since the two chambers' crossing sets differ by
+exactly the newborn pair (the argument of Lemma~\ref{lem:cuspcases}(iv), with the
+vertex-on-edge zero in place of the cusp one). That is $W_0=AB$.
+
+For (i) and (ii), take $\epsilon=0$ first: the interval from $x_0$ to $x_1$ is
+$y_0Ay_1$ and the interval from $y_0$ to $y_1$ is $A$. An old label with both
+visits in $A$ has two visits in each interval, so it interlaces neither
+newborn; with both visits in $B$ it has none in either, so again neither; with
+one in $A$ and one in $B$ it has exactly one in $y_0Ay_1$ and exactly one in
+$A$, so it interlaces both. For $\epsilon=1$ the two intervals are $y_0A$ and
+$Ax_1$, and the same three cases give two, zero and one visits respectively, so
+the conclusion is identical.
+\end{proof}
+
+\begin{definition}[eligible]\label{def:eligible}
+An old support $T\in\Ind(G_{P_0})$ is \emph{eligible} when $T\cap\mathcal
+N=\varnothing$, i.e.\ when no element of $T$ is adjacent to a newborn.
+\end{definition}
+
+\begin{remark}[why eligibility is stated this way and not the other]
+\label{rem:eligibility}
+The tempting definition, and the one an earlier revision of this section used,
+is "$T\cup\{x,y\}$ is independent". In the branch $\epsilon=0$ the two agree:
+$x$ and $y$ are then non-adjacent to each other, and $T$ is independent, so
+$T\cup\{x,y\}$ is independent exactly when $T$ misses the neighbours of both.
+In the branch $\epsilon=1$ they do not agree at all --- there $x\sim y$, so
+$T\cup\{x,y\}$ is \emph{never} independent and that definition has empty
+domain. Every statement below about the returned sector would then be
+vacuous at $\epsilon=1$ and would prove nothing about the interlacing bigon.
+Definition~\ref{def:eligible} is the condition the arguments actually use: it
+is what makes the old labels split between the two intervals, and it is
+non-vacuous in both branches.
+\end{remark}
+
+\begin{lemma}[the eligible old supports are an ordered product]\label{lem:orderedproduct}
+Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible. Then, writing $V_A$ and $V_B$ for the old labels with both
+visits in $A$ and in $B$,
+\[
+   G_{P_2}\bigl[V_A\sqcup V_B\bigr]=G_A\sqcup G_B
+\]
+is a disjoint union with no edge between the parts, and
+$T\mapsto(T\cap V_A,\;T\cap V_B)$ is a bijection from the eligible supports
+onto $\Ind(G_A)\times\Ind(G_B)$.
+\end{lemma}
+\begin{proof}
+An eligible $T$ contains no element of $\mathcal N$ by
+Definition~\ref{def:eligible}, and by Lemma~\ref{lem:contactword}(ii)
+$\mathcal N$ is exactly the set of old labels with one visit in each interval,
+so by Lemma~\ref{lem:contactword}(i) every element of $T$ lies in $V_A$ or in
+$V_B$. A chord of $V_A$ has both endpoints in the cyclic interval $A$ and a
+chord of $V_B$ both endpoints in the disjoint interval $B$, so their endpoints
+cannot alternate: there is no edge between the parts. Independent sets of a
+disjoint union are exactly pairs of independent sets of the parts, and the map
+displayed is the inverse of $(T_A,T_B)\mapsto T_A\sqcup T_B$. The order of the
+pair is the order of the halves of Definition~\ref{def:halves}, not a quotient:
+$A$ is the word of $\lambda_1$ and $B$ that of $\lambda_2$, because $\lambda_1$
+runs $M\to M+1\to\dots\to a$ and closes along the remote edge, which is the
+stretch $A$, and $\lambda_2$ opens along the remote edge and runs
+$b\to\dots\to M-1$, which is $B$.
+\end{proof}
+
+\subsection{The noninterlacing both-newborn support calculation}\label{sec:niboth}
+
+\begin{proposition}[the noninterlacing carrier factorization and sector target]\label{prop:sectortarget}
+For clauses~(A)--(C), let $\epsilon=0$, let $T$ be an eligible old support
+with ordered parts $T_A,T_B$ as in Lemma~\ref{lem:orderedproduct}, and put
+$S=T\cup\{x,y\}$. Write $\mathcal N$ for the common neighbourhood of
+Lemma~\ref{lem:contactword}, and for a word $W$ write
+$\mathrm{Del}_{\mathcal N}(W)$ for $W$ with every visit of a label of
+$\mathcal N$ deleted; put $A^{\circ}=\mathrm{Del}_{\mathcal N}(A)$ and
+$B^{\circ}=\mathrm{Del}_{\mathcal N}(B)$. Let $s_{\mathrm{low}}$ be the sign
+\eqref{eq:S6} computed in the low chamber $P_0$. For clauses~(D)--(F), let
+$F,R,\mathcal B,\epsilon,J$ be as in Definition~\ref{def:sectors}. Then:
+\begin{enumerate}
+\item[(A)] The carriers of $S$ in $P_2$ are, canonically and without repetition, the
+carriers of $T_A$ in $\lambda_1$, the carriers of $T_B$ in $\lambda_2$, and one
+further carrier $U_{\mathrm{loc}}$ lying in the contact disc.
+\item[(B)] Under the correspondence of clause~(A), each carrier of $S$
+other than $U_{\mathrm{loc}}$ has the same residual pieces, the same signed piece words,
+the same piece polynomials, the same grouped polynomial $P_{S,L}$ and the same
+grouped writhe $w_{S,L}$ as its mate in the half. The local carrier bears no
+piece: $P_{S,U_{\mathrm{loc}}}=1$ and $w_{S,U_{\mathrm{loc}}}=0$.
+\item[(C)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Under the correspondence of clause~(A), each carrier of $S$ other than $U_{\mathrm{loc}}$ has the same cyclic
+corner list with the same turn signs, hence the same weight, signed rotation,
+$R$, and turn-uniformity as its half mate. The local carrier has
+\[
+   P_{S,U_{\mathrm{loc}}}=1,\quad w_{S,U_{\mathrm{loc}}}=0,\quad \rot(U_{\mathrm{loc}})=-s_{\mathrm{low}},\quad R(U_{\mathrm{loc}})=1,\quad
+   \Omega_1(S,U_{\mathrm{loc}})=1,\quad \mathrm{wt}(U_{\mathrm{loc}})=s_{\mathrm{low}} .
+\]
+\item[(D)] if $\epsilon=1$, then $\mathcal B=0$;
+\item[(E)] if $\epsilon=0$, then $\mathcal B=J$;
+\item[(F)] in both cases $\mathcal B=(1-\epsilon)J$, and therefore
+\[
+   F=J\quad\Longleftrightarrow\quad R=\epsilon J .
+\]
+\end{enumerate}
+In particular the bigon branch of (S7) holds if and only if the returned sector
+is $J$ when the newborns interlace and $0$ when they do not.
+\end{proposition}
+\begin{proof}
+\emph{Clause (A).}
+Smoothing reconnects the traversal by the successor rule: at a smoothed
+crossing with visits $c_0,c_1$, the arc arriving at $c_0$ continues with the
+arc leaving $c_1$, and conversely. Applied to \eqref{eq:contactword} at the two
+newborns this gives
+\[
+   \sigma(x_0)=B_0,\qquad
+   \sigma(x_1)=y_0,\qquad
+   \sigma(y_0)=x_1,\qquad
+   \sigma(y_1)=A_0,
+\]
+where $A_0$ and $B_0$ are the first positions of $A$ and of $B$ --- and, when
+one of those words is empty, the adjacent marker, namely $y_1$ for an empty
+$A$ and $x_0$ for an empty $B$. The middle two are a $2$-cycle
+$\{y_0,x_1\}$: that is the local carrier $U_{\mathrm{loc}}$, the closed curve made of the
+two smoothing arcs at $x$ and $y$ together with the stretch of the remote edge
+between them and the two incident stretches through $M$. The other two
+successors leave $x_0$ into $B$ and $y_1$ into $A$, and by
+Lemma~\ref{lem:orderedproduct} the selected old labels of $A$ and of $B$ are
+$T_A$ and $T_B$, whose own smoothing is internal to their intervals. So the
+remaining cycles are one family confined to $A$ and one confined to $B$.
+
+To match them with the halves, delete from each the designated newborn boundary
+marker and every visit of a label of $\mathcal N$. Such a label crosses between
+the two halves, so it appears in neither half's self-crossing word; and it is
+not smoothed, since an eligible support misses $\mathcal N$, so its visits are
+through-points and not corners --- deleting them removes no corner. A step that
+lands on the deleted boundary marker becomes the cyclic wraparound of the
+cleaned word. The projected cycles are therefore exactly the smoothing cycles
+of $T_A$ on $A^{\circ}$ and of $T_B$ on $B^{\circ}$, which are the carrier
+books of $\lambda_1$ and $\lambda_2$ by Lemma~\ref{lem:carriers} applied inside
+each half. If a cleaned word is empty its single boundary cycle projects to the
+one crossing-free carrier of that half, which is that half itself.
+
+
+\emph{Clause (B).}
+A label of $\mathcal N$ is adjacent to both newborns
+(Lemma~\ref{lem:contactword}(ii)), so in $P_2$ it lies in
+$N_{G_{P_2}}(S)$ and is absent from $U(S)$; geometrically it is a crossing between
+the two halves and appears in neither half's diagram. Every old label outside
+$\mathcal N$ has both visits in one interval, so its interlacements with other
+such labels and its cyclic visit order are those of that half. The over/under
+role of each persistent old crossing is the sign of its $\mathrm{G5}$
+determinant, which is unchanged across the event: the crossing persists, so that
+member is \emph{active} and hence relevant, and a relevant member outside the
+zero set keeps its sign by Lemma~\ref{lem:guardconst}. An earlier revision
+called $\mathrm{G5}$ unconditional, which it is not. By Lemma~\ref{lem:carriers}(iv) each
+residual component sits on the unique carrier holding all its visits, and
+clause~(A) identifies that carrier with its half mate. Hence the signed residual words agree; equal records give equal links by
+Axiom~\ref{ax:gausscode}, and hence equal polynomials, and the writhes agree
+because they are crossing counts. An earlier revision cited
+Axiom~\ref{ax:homfly} for the passage from equal records to equal polynomials,
+which is the axiom that computes a polynomial, not the one that identifies the
+link a record presents. The cycle
+$\{y_0,x_1\}$ contains only newborn visits, so it carries no residual label,
+giving the last sentence.
+
+
+\emph{Clause (C).}
+Choose a contact disc containing no old vertex, no old crossing and no
+smoothing site, which exists because the contact is isolated. Inside it, deform
+each smoothed arc of $P_2$ to the corresponding closure of the half, keeping
+the disc boundary fixed. Along the deformation every corner of the carrier is a
+polygon vertex or a smoothing site of a crossing of $S$, and no corner
+determinant vanishes: the vertex turns are guarded by (G1), the smoothing-site
+turns by the active (G5) of their crossings, and the two directions incident to
+the contact are nonzero and transverse to the remote direction by
+Lemma~\ref{lem:contactturnboth}(ii). Ordinary crossing visits are not corners, so
+nothing inside the disc passes through a degenerate turn. The cyclic corner list is fixed along the deformation. Every incident
+edge is nonzero and no consecutive pair is a negative multiple, because the
+corresponding corner determinant was just shown nonzero. Thus the carrier is a
+path in its fixed $\mathcal R_c$, and Lemma~\ref{lem:turnlift}(ii) keeps its
+signed rotation constant; the corner signs outside the disc and the matched contact turn keep their signs;
+their products, hence the weights of Definition~\ref{def:wind}, agree. This gives the first sentence.
+
+The local carrier is the closed triangle with corners at $x$, at $M$ and at
+$y$. If $M$ lies to the left of the oriented remote edge in the low chamber,
+i.e.\ $s_{\mathrm{low}}=+1$, then in the high chamber the triangle is traversed clockwise,
+with three right turns; Lemma~\ref{lem:turnlift}(ii) gives signed rotation
+$-1$. If $s_{\mathrm{low}}=-1$ it is traversed counterclockwise with three left turns, and
+the same lemma gives signed rotation $+1$. In
+both cases $\rot(U_{\mathrm{loc}})=-s_{\mathrm{low}}$ and $R(U_{\mathrm{loc}})=1$. Its weight is $+1$ in the first case
+and $(-1)^3=-1$ in the second (Definition~\ref{def:wind}), i.e.\
+$\mathrm{wt}(U_{\mathrm{loc}})=s_{\mathrm{low}}$. It bears no piece by clause~(B), so
+$P_{S,U_{\mathrm{loc}}}=1$, $w_{S,U_{\mathrm{loc}}}=0$, its slot is $1-0-1=0$ and
+$\Omega_1(S,U_{\mathrm{loc}})=[a^0z^0]1=1$.
+
+
+
+\emph{Clause (D).} If $\epsilon=1$, then $x$ and $y$ interlace and hence are adjacent in
+$G_{P_2}$ (Definition~\ref{def:interlace}). No independent set contains both
+(Definition~\ref{def:smoothing}), so the both-newborn sector has no supports
+and its empty sum is $\mathcal B=0$.
+
+\emph{Clause (E).} Assume $\epsilon=0$. Fix an arbitrary eligible old support $T$, let
+$(T_A,T_B)$ be its ordered parts from Lemma~\ref{lem:orderedproduct}, and put
+$S=T\cup\{x,y\}$. Let $s_{\mathrm{low}}$ be the sign \eqref{eq:S6} in $P_0$.
+By clauses~(A)--(C), the term of $S$ factors as
+\[
+\wind(S)\prod_{L}\Omega_1(S,L)
+=\Bigl(\mathrm{wt}(U_{\mathrm{loc}})\!\!\prod_{L\neq U_{\mathrm{loc}}}\!\!\mathrm{wt}(L)\Bigr)
+ \Bigl(\Omega_1(S,U_{\mathrm{loc}})\!\!\prod_{L\neq U_{\mathrm{loc}}}\!\!\Omega_1(S,L)\Bigr)
+=s_{\mathrm{low}}\,t_{\lambda_1}(T_A)t_{\lambda_2}(T_B),
+\]
+where $t_{\lambda_i}$ denotes the corresponding term of the half state sum,
+because every factor other than the local one matches a factor of exactly one
+half. The both-newborn supports are exactly the $T\cup\{x,y\}$ with $T$
+eligible: independence follows from eligibility and $x\not\sim y$, while the
+old part of any both-newborn support misses the common neighbourhood.
+Lemma~\ref{lem:orderedproduct} indexes these supports by
+$\Ind(G_A)\times\Ind(G_B)$, so finite distributivity gives
+\[
+ \sum_T s_{\mathrm{low}}t_{\lambda_1}(T_A)t_{\lambda_2}(T_B)
+ =s_{\mathrm{low}}\Bigl(\sum_{T_A}t_{\lambda_1}(T_A)\Bigr)
+  \Bigl(\sum_{T_B}t_{\lambda_2}(T_B)\Bigr)
+ =s_{\mathrm{low}}X_1(\lambda_1)X_1(\lambda_2),
+\]
+including the empty supports in both complete half state sums. Let
+$s_{\mathrm{init}}$ be the sign in the initial chamber used by
+Definition~\ref{def:sectors}. The two chambers have opposite side signs; the
+initial chamber is $P_0$ for $\delta=+1$ and $P_2$ for $\delta=-1$. Hence
+$s_{\mathrm{init}}=\delta s_{\mathrm{low}}$, and the directed sector is
+\[
+ \mathcal B=\delta s_{\mathrm{low}}X_1(\lambda_1)X_1(\lambda_2)
+ =s_{\mathrm{init}}X_1(\lambda_1)X_1(\lambda_2)=J.
+\]
+
+\emph{Clause (F).} Clauses (D) and (E), with $\epsilon\in\{0,1\}$, give
+$\mathcal B=(1-\epsilon)J$. By Definition~\ref{def:sectors},
+$F-J=R+\mathcal B-J=R-\epsilon J$, proving the equivalence.
+\end{proof}
+
+\subsection{The returned sector: framing and the spanning recurrence}
+\label{sec:spanning}
+
+By Proposition~\ref{prop:sectortarget}(F) the bigon branch of (S7) is exactly the
+statement $R=\epsilon J$. This subsection puts the returned sector in a form in
+which the interactions between the two contact intervals drop out.
+
+\begin{definition}[the four returned branches]\label{def:branches}
+Old labels have the same interlacements in $P_0$ and in $P_2$, since those
+depend only on the cyclic order of their four visits, which the newborn visits
+do not disturb. So $\Ind(G_{P_0})$ is exactly the set of newborn-free supports
+of $P_2$. For $T\in\Ind(G_{P_0})$ write $L(T)$ for its term in $X_1(P_0)$,
+$N(T)$ for its term in $X_1(P_2)$, and $X(T)$, $Y(T)$ for the terms of
+$T\cup\{x\}$ and $T\cup\{y\}$ in $X_1(P_2)$, each read as $0$ when the set is
+not independent. Then
+\[
+   R=\delta\sum_{T\in\Ind(G_{P_0})}\bigl(N(T)-L(T)+X(T)+Y(T)\bigr).
+\]
+\end{definition}
+
+\subsection{The selector identities}\label{sec:selectors}
+
+
+
+\begin{lemma}[the contact carrier splits]\label{lem:contactsplit}
+Here eligibility is as in Definition~\ref{def:eligible}.
+Under Convention~\ref{conv:s7standing}, let $T$ be eligible, with parts
+$T_A,T_B$. The genericity of the halves is stated here,
+where the half objects are first formed, and not only at the endpoint theorems
+that consume them: the conclusion speaks of the carriers of $T_A$ in
+$\lambda_1$ and of $T_B$ in $\lambda_2$, and a carrier of a support is read off
+a polygon's Gauss word and its smoothing sites, which a nongeneric half need
+not possess. The hypothesis is (H3) of Convention~\ref{conv:s7standing}, in force for this
+section by that convention's declaration; it is named here because this is
+where the half objects are first formed, not because naming is the mechanism. In the high-neither state the
+carriers of $T$ in $P_2$ are: one distinguished carrier $L^{*}$ containing the
+corner $M$ and the remote-edge stretch through the contact, and a family of
+others, each of which lies entirely in $A$ or entirely in $B$. Cutting at the
+contact carries $L^{*}$ to one carrier $L_1$ of $T_A$ in $\lambda_1$ and one
+carrier $L_2$ of $T_B$ in $\lambda_2$, each containing that half's contact
+corner, and carries the others bijectively to the remaining carriers of the two
+halves.
+
+Five further data are part of the conclusion, because they are used later
+and a statement's consumers must find their inputs in its clauses
+rather than in a picture:
+\begin{enumerate}
+\item[(a)] \emph{Corner partition.} Every corner of every carrier of $T$ in
+$P_2$ other than the contact corner $M$ of $L^{*}$ --- each being a vertex of
+the polygon or a smoothing site, lying strictly inside $A$ or strictly inside
+$B$ --- is a corner of exactly one carrier of exactly one half, namely the
+half of its interval, under the correspondence above.
+\item[(b)] \emph{Ordered direction pairs.} At each such corner the ordered
+pair (incoming direction, outgoing direction) read in the half equals the pair
+read in $P_2$: the cut alters the curve only at the two contact stretches, and
+a corner strictly inside an interval keeps both its incident arcs.
+\item[(c)] \emph{Turn signs.} Consequently the principal turn at each such
+corner, a function of that ordered pair, is equal in the half and in $P_2$ ---
+in magnitude and in sign.
+\item[(d)] \emph{The contact corner.} The single corner $M$ of $L^{*}$ is
+replaced by exactly two corners: the contact corner of $L_1$ in $\lambda_1$
+and the contact corner of $L_2$ in $\lambda_2$, the ones
+Lemma~\ref{lem:contactturnboth} computes. In particular
+$c(L_1)+c(L_2)=c(L^{*})+1$.
+\item[(e)] \emph{Compatibility.} The bijection of carriers matches each
+non-distinguished carrier with a half carrier having the \emph{same} corners
+with the same ordered direction pairs and turn signs --- (a)--(c) restricted to
+it --- so matched carriers have equal corner counts, equal turn-sign lists, and
+equal uniformity status; and $L^{*}$ corresponds to the pair $(L_1,L_2)$ with
+(a)--(d).
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+$T$ is eligible, so $T\subseteq V_A\sqcup V_B$
+(Lemma~\ref{lem:orderedproduct}) and every smoothing site lies strictly inside
+$A$ or strictly inside $B$. The newborns are not smoothed, so the traversal
+runs uninterrupted through $x_0y_0$ --- the stretch carrying the corner $M$ ---
+and through the two remote-edge visits. Write the word as in \eqref{eq:contactword}. Because no newborn is smoothed, the
+successor map moves through the four newborn visits without reconnecting: from
+$x_0$ it continues to $y_0$ and from $y_0$ into $A$; along the remote stretch it
+passes the two remote-edge newborn visits and continues into $B$; and from the
+end of $B$ it returns to $x_0$. So the arcs $x_0y_0$ and the remote stretch lie
+on one and the same successor cycle, together with whichever arcs of $A$ and of
+$B$ the smoothing of $T_A$ and $T_B$ leaves attached to them. \emph{Interval subclaim.} Let an open interval of a cyclic traversal carry finitely many chords,
+each with both visits inside it and with no two visit pairs interlacing. Smoothing all of them
+leaves exactly one open successor strand joining the two boundary half-edges; every other
+successor cycle is internal, with all its arcs strictly inside the interval.
+
+Induct on the number of chords. With none, the interval itself is the one boundary strand and
+there is no internal cycle. For the step, order the chords by first visit and choose an
+\emph{innermost} one, with no other chord having both visits between its two; one exists because
+finiteness and noncrossing leave only nesting. Smoothing it first replaces the sub-arc between
+its visits by a closed internal cycle --- the sub-arc contains no other chord visit --- and leaves
+the ambient strand entering and leaving where it did, with the two visits spliced out. The
+remaining chords lie on that strand or in internal cycles. Those on the ambient strand form a
+smaller noncrossing family on an interval with the same boundary half-edges, so induction
+applies; a chord in an internal cycle splits it into two internal cycles and does not touch the
+boundary strand. Thus exactly one boundary strand remains and every new cycle is internal.
+Nested chords give the innermost-first recursion; the empty interval is the base case.
+Reconnections at distinct chord pairs act on disjoint visit half-edges and therefore commute,
+so simultaneous smoothing may be evaluated in this innermost-first order.
+
+Apply the subclaim first to $A$. The chords of $T_A$ lie wholly inside $A$ and are pairwise
+noncrossing there: eligibility makes the support independent, and interlacement of two chords
+whose four visits lie in one interval is exactly their crossing there. Hence smoothing $T_A$
+leaves one open strand joining the two boundary half-edges of $A$ and otherwise only internal
+cycles. The same argument for $B$ and $T_B$ gives its unique boundary strand and internal
+cycles. These two boundary strands are exactly the arcs attached to the $x_0y_0$ stretch and
+the remote stretch, so they belong to the distinguished cycle, while every remaining cycle is
+internal to its interval. Hence the cycles are exactly those inside $A$, those inside $B$, and
+the single cycle carrying both stretches, namely $L^{*}$. An earlier revision asserted the
+internal-cycle claim in one sentence; the induction above carries it.
+
+Cutting the polygon at the contact replaces the two stretches by the two
+closing sub-segments of Definition~\ref{def:halves}: the arcs of $L^{*}$ lying
+in $A$ close up into a carrier $L_1$ of $\lambda_1$, and those in $B$ into a
+carrier $L_2$ of $\lambda_2$, because the cut separates exactly the two
+stretches and the smoothing of $T_A$, $T_B$ is unchanged. The other cycles are
+untouched and become carriers of the half they lie in.
+
+For the five exported clauses. (a): every non-contact corner is a vertex or a
+smoothing site strictly inside one interval, the newborns being unsmoothed and
+$M$ the only corner on the contact stretches; the cut leaves the interior of
+each interval pointwise fixed, so the corner lies on the one half carrier that
+its cycle becomes. (b): both arcs incident to such a corner lie strictly
+inside its interval --- a corner is not a boundary half-edge --- and the cut
+alters the curve only at the two contact stretches, so the incoming and
+outgoing directions are unchanged as an ordered pair. (c): the principal turn
+is a function of that ordered pair, so it is unchanged in magnitude and sign.
+(d): the corner $M$ of $L^{*}$ lies on the cut itself; the two closing
+sub-segments of Definition~\ref{def:halves} give $L_1$ and $L_2$ one new
+corner each at the contact, the ones Lemma~\ref{lem:contactturnboth} computes,
+and no other corner is created, the closing sub-segments being straight. Hence
+$c(L_1)+c(L_2)=(c(L^{*})-1)+2$. (e): a non-distinguished carrier is untouched
+by the cut --- its cycle lies inside one interval --- so its matched half
+carrier has literally the same corner set with the same pairs and turns, by
+(a)--(c); equal turn-sign lists give equal uniformity status
+(Definition~\ref{def:wind}); and $L^{*}$'s data pass to $(L_1,L_2)$ by
+(a)--(d).
+\end{proof}
+
+\begin{lemma}[minimum carrier corners and selector identities]\label{lem:selectorid}
+\begin{enumerate}
+\item[(A)] Under the guards of Definition~\ref{def:generic}(A), every carrier of every
+support has at least three corners.
+\item[(B)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible, with parts $T_A,T_B$. Write $P_{\mathrm L}$ and
+$P_{\mathrm H}$ for the low and high chambers of the event --- upright
+subscripts, since the italic $P_H$ already names the polynomial of a residual
+piece $H$ (Corollary~\ref{cor:groupedknot}(B)), and an earlier revision wrote
+$\wind_{P_H}$ with the two collided. Write $W_T=\wind_{P_{\mathrm H}}(T)$,
+$W_1=\wind_{\lambda_1}(T_A)$ and $W_2=\wind_{\lambda_2}(T_B)$, each with its
+argument and its ambient polygon. Let $s_{\mathrm{low}}$ be the sign \eqref{eq:S6} evaluated with $P_-$ taken to
+be the \emph{low} chamber of the event --- the sign of
+$\det(p_b-p_a,\,p_M-p_a)$ there --- which is a datum of the event and of the
+chamber, bound here and not borrowed from a lemma printed nine hundred lines
+later. Then
+\[
+\epsilon=1\ \Longrightarrow\ W_T=-s_{\mathrm{low}}\,W_1W_2,
+\qquad
+\epsilon=0\ \Longrightarrow\ W_T\,W_1W_2=0 .
+\]
+Moreover, at $\epsilon=1$, the contact carrier $L^{*}$ is uniform if and only if
+both half contact carriers $L_1,L_2$ are, and then all three are uniform with
+the same turn sign. That clause is proved below with the identities and is
+stated here because a consumer reads it as a statement --- an earlier revision
+left it inside this proof and cited the lemma for it.
+
+The sign here is $s_{\mathrm{low}}$, fixed by the chamber, and not the
+\eqref{eq:S6} sign $s$, which depends on which chamber the parametrisation calls
+$P_-$; an earlier revision wrote a bare $s$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).} A carrier is a closed curve made of straight segments joined at corners of
+nonzero turn. With two corners it would consist of two straight segments
+joining the same two points, so the two segments would overlap, which puts an
+endpoint of one on the other and vanishes a $\mathrm{G2}$. With one corner it
+would contain a straight return of zero length, which is not a segment of a
+generic polygon. With no corner at all it would be a closed curve made of a
+single straight segment, whose two endpoints coincide, so that segment has zero
+length --- excluded for the same reason, and by
+Definition~\ref{def:regular}(B)'s requirement that every edge be nonzero. An
+earlier revision omitted this case. So there are at least three. In particular a zero selector
+means mixed turns, and no one- or two-corner convention is needed.
+
+\emph{Clause (B).} By Lemma~\ref{lem:contactsplit} the carriers other than $L^{*},L_1,L_2$ match
+one for one and lie in one half each, with the same corners and hence the same
+weights. Write $Q$ for the product of those weights, so that
+\[
+   W_T=Q\cdot\mathrm{wt}(L^{*}),
+   \qquad
+   W_1W_2=Q\cdot\mathrm{wt}(L_1)\mathrm{wt}(L_2).
+\]
+$Q$ is \emph{not} cancelled --- it may be zero, and an earlier revision
+cancelled it --- so what is proved below is the local identity between
+$\mathrm{wt}(L^{*})$ and $\mathrm{wt}(L_1)\mathrm{wt}(L_2)$, and both displayed
+identities follow by multiplying it by $Q$, which is legitimate whatever $Q$ is.
+It remains to compare $\mathrm{wt}(L^{*})$ with
+$\mathrm{wt}(L_1)\mathrm{wt}(L_2)$. Each of $L_1,L_2$ has at least three
+corners (clause~(A), now stated above rather than quoted from
+inside another lemma's proof), hence at least two besides its
+contact corner.
+
+\emph{Case $\epsilon=1$.} By Lemma~\ref{lem:contactturnboth} all three contact
+turns --- the full one and the two half ones --- have the sign of
+$s_{\mathrm{low}}$. The non-contact corners of $L^{*}$ partition between $L_1$
+and $L_2$ with their signs. So $L^{*}$ is uniform if and only if all its
+non-contact corners have the sign of $s_{\mathrm{low}}$, if and only if $L_1$
+and $L_2$ are both uniform, and then all
+three are uniform of the same sign. If they are mixed, both sides of the
+local identity are $0$. If the common sign is right, then $s_{\mathrm{low}}=-1$
+and all three weights are $+1$, so
+$\mathrm{wt}(L^{*})=1=-s_{\mathrm{low}}\mathrm{wt}(L_1)\mathrm{wt}(L_2)$. If it
+is left, then $s_{\mathrm{low}}=+1$, $\mathrm{wt}(L^{*})=(-1)^{c(L^{*})}$ and
+$\mathrm{wt}(L_1)\mathrm{wt}(L_2)=(-1)^{c(L_1)+c(L_2)}=(-1)^{c(L^{*})+1}$, so
+$\mathrm{wt}(L^{*})=-\mathrm{wt}(L_1)\mathrm{wt}(L_2)
+=-s_{\mathrm{low}}\mathrm{wt}(L_1)\mathrm{wt}(L_2)$. Multiplying by $Q$ gives
+$W_T=-s_{\mathrm{low}}W_1W_2$.
+
+\emph{Case $\epsilon=0$.} Now the two half contact turns have the sign of
+$s_{\mathrm{low}}$ and the full contact turn the sign of $-s_{\mathrm{low}}$.
+Suppose $\mathrm{wt}(L^{*})\neq0$; then $L^{*}$ is uniform, necessarily of the
+sign of its contact turn, i.e.\ of $-s_{\mathrm{low}}$, so all its non-contact
+corners have that sign. Each half carrier inherits at least one such corner and
+also carries its own contact corner, of sign $s_{\mathrm{low}}$; so each is
+mixed and $\mathrm{wt}(L_1)\mathrm{wt}(L_2)=0$. Symmetrically, if that product
+is nonzero then both halves are uniform of sign $s_{\mathrm{low}}$, so every
+non-contact corner has that sign, and $L^{*}$ carries those together with its
+contact corner of sign $-s_{\mathrm{low}}$, hence is mixed and
+$\mathrm{wt}(L^{*})=0$. Either way the local product vanishes, and multiplying
+by $Q^2$ gives $W_TW_1W_2=0$.
+\end{proof}
+
+\begin{remark}[what the noninterlacing identity replaces]\label{rem:noscalarfact}
+Lemma~\ref{lem:selectorid}, clause~(B) does \emph{not} say that in the noninterlacing
+branch the full selector factors through the half selectors with a sign. It
+says the opposite: a live full selector and a live product of half selectors
+are mutually exclusive. Any argument that replaces the full selector by the
+half-selector product in that branch is refuted by that clause, not supported by
+it.
+\end{remark}
+
+\subsection{The interlacing endpoint}\label{sec:sr12}
+
+\begin{lemma}[what the two chambers of a bigon event share]\label{lem:chambercommon}
+Here eligibility is as in Definition~\ref{def:eligible} and $\rot$ is as in
+Definition~\ref{def:rot}.
+Let $T$ be eligible at a simple bigon event. Write $C_{\mathrm L}$ for its
+contact carrier in the low chamber and $C_{\mathrm H}$ for the same carrier in
+the two-crossing chamber. Then, with no hypothesis on any selector:
+\begin{enumerate}
+\item[(i)] every carrier of $T$ other than the contact carrier is the same
+closed curve, with the same corners, the same turn signs and the same residual
+pieces, in the two chambers; write $U_T$ for the product of the reads
+$\Omega_1$ over those carriers, one number for both chambers;
+\item[(ii)] $C_{\mathrm L}$ and $C_{\mathrm H}$ have the same corners and the
+same turn signs, hence $\wind(T)$ takes one value $W_T$ in both chambers, and
+$\rot(C_{\mathrm L})=\rot(C_{\mathrm H})$, hence
+$R(C_{\mathrm L})=R(C_{\mathrm H})$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) The two chambers differ by moving the single vertex $M$ across the remote
+edge, and the newborn crossings lie in the bigon disc that move sweeps. A
+carrier not through the contact contains neither $M$ nor either newborn, so
+neither its corner list nor its crossing list changes; the reads over them
+therefore agree, and their product is one number $U_T$.
+
+(ii) The two copies of the contact carrier differ by a Reidemeister-II finger.
+Neither newborn is a polygon vertex and neither lies in $T$, so neither is a
+corner; the corner list is therefore the same list of polygon vertices and
+smoothing sites, and each corner's turn is a determinant of two edge directions
+whose sign is guarded by (G1) or (G5) and constant on the event's interval
+(Lemma~\ref{lem:guardconst}). Hence the weights, and $\wind(T)$, agree. During a standard finger
+deformation this fixed cyclic corner list has nonzero edges and no consecutive
+negative-multiple pair: at every corner its two directions have the guarded
+nonzero determinant just identified. It is therefore a path in the corresponding
+$\mathcal R_c$, so Lemma~\ref{lem:turnlift}(ii) keeps $\rot$ unchanged.
+\end{proof}
+
+\begin{definition}[the marked data of an eligible support]\label{def:markeddata}
+Under Convention~\ref{conv:s7standing}, let $T$ be eligible with parts
+$T_A,T_B$, and let
+$L_1,L_2$ be the contact carriers of $T_A$ in $\lambda_1$ and of $T_B$ in
+$\lambda_2$ (Lemma~\ref{lem:contactsplit}). Write
+\[
+   f_i(a)=\bigl[z^0\bigr]Q_{i}(a,z),\qquad
+   d_i=1-w_i-R_i,\qquad
+   \omega_i=\bigl[a^{d_i}\bigr]f_i,\qquad
+   D=d_1+d_2,
+\]
+where $Q_i$ and $w_i$ are the grouped polynomial and grouped writhe of $L_i$,
+$\rot_i=\rot(L_i)$ its signed rotation and $R_i=|\rot_i|$, so that $\Omega_1$ on
+$L_i$ is $\omega_i$. The signed rotation carries one name in this document,
+$\rot$ with a subscript --- numerals for halves, upright $\mathrm L,\mathrm H$
+for chambers; earlier revisions also wrote $\rho_i$ and $r_i$ for the same
+quantity, which is three names for one thing. The chambers and the half selectors are bound here as
+well, since both are used outside the lemma that first introduced them:
+$P_{\mathrm L}$ and $P_{\mathrm H}$ are the low and the high chamber of the
+event --- upright subscripts, the italic $P_H$ being the polynomial of a
+residual piece $H$ --- and
+\[
+   W_1=\wind_{\lambda_1}(T_A),\qquad W_2=\wind_{\lambda_2}(T_B)
+\]
+are the two half selectors, each with its argument and its ambient half. An
+earlier revision left them bound only inside Lemma~\ref{lem:selectorid}, clause~(B) and used
+them in several statements after it. The letter $Q$ is used for a half's grouped polynomial and
+$F_\nu$ for a chamber's, $\nu\in\{\mathrm L,\mathrm H,\mathrm A\}$. For the
+symbols bound in this definition --- $f_i$, $d_i$, $\omega_i$, $Q_i$, $w_i$,
+$\rot_i$, $R_i$, $W_i$, $L_i$ --- a numerical subscript means a half and an
+upright $\mathrm L$ or $\mathrm H$ means a chamber. The rule is stated for those
+symbols and not as a general convention, because chambers elsewhere do carry
+numerical names: $P_0$ and $P_2$ are the no-crossing and two-crossing chambers
+of a vertex-on-edge event, and $d_0,d_1$ are the incident wall tangents of the
+sliding branch. An earlier revision wrote "numerical subscripts mean halves and
+never chambers", which those three names contradict.
+
+\emph{The chamber data.} For $\nu\in\{\mathrm L,\mathrm H\}$ write $C_\nu$ for
+the contact carrier of $T$ in that chamber and $D_\nu$ for the grouped diagram
+that carrier bears (Corollary~\ref{cor:groupedknot}(B)), and put
+\[
+   w_\nu=w(D_\nu),\quad R_\nu=R(C_\nu),\quad \rot_\nu=\rot(C_\nu),\quad
+   d_\nu=1-w_\nu-R_\nu,\quad F_\nu=P_{D_\nu},\quad
+   \Omega_\nu=\bigl[a^{d_\nu}z^0\bigr]F_\nu,
+\]
+the writhe of that diagram, the absolute and signed rotations of its curve, the
+slot, the diagram's polynomial and its read. The quantities are defined
+\emph{from the diagrams} $D_{\mathrm L},D_{\mathrm H}$, which is what the
+full-twist lemma quantifies over; an earlier revision defined them from the
+chambers and left the diagrams to be inferred. These six symbols are used throughout the sections
+below and were bound only in running prose, which is not a binder.
+
+Two factors are bound \emph{separately}, an earlier revision having named only
+their product:
+\[
+   W_T=\wind_{P_{\mathrm H}}(T)=\wind_{P_{\mathrm L}}(T)
+   \quad\text{(the two agree by Lemma~\ref{lem:chambercommon}(ii))},
+\]
+and $U_T$ the product of the reads $\Omega_1$ over the carriers of $T$ other
+than the contact carrier --- the untouched ones, common to the two chambers by
+Lemma~\ref{lem:chambercommon}(i), which is the clause about those carriers;
+clause (ii) is about the contact carrier and the selector, and an earlier
+revision cited it here. The term of $T$ is then $W_TU_T$ times the read on the contact
+carrier.
+\end{definition}
+
+\begin{remark}[why the hypothesis is the selector alone]\label{rem:sr12hyp}
+The hypothesis of Lemma~\ref{lem:triplebridge}(vii) is $W_T\neq0$ and not $W_TU_T\neq0$. The proof below uses only
+that the full carrier through the contact is live, which is what $W_T\neq0$
+gives; the spectator product $U_T$ appears nowhere in it. The recorded defect was actual: an earlier revision's statement asked for
+$W_TU_T\neq0$, while its consumer had only $W_T\neq0$; the invocation therefore
+exceeded the stated hypothesis --- the peer's point. The repair weakens that
+statement to $W_T\neq0$, which its proof consumes, and the live full-twist
+calculation below consumes exactly that repaired interface.
+
+\end{remark}
+
+\subsection{The sliding branch}\label{sec:sliding}
+
+Now let the event be of sliding type: the two neighbours $p=p_{M-1}$ and
+$q=p_{M+1}$ lie strictly on \emph{opposite} sides of the line of the remote
+edge. Convention~\ref{conv:s7standing} is in force throughout this subsection: the
+restart changes the branch, not the standing hypotheses, and (H3) is what makes
+the halves of this branch polygons that $X_1$ is defined on. Write $r=p_b-p_a$,
+$d_0=p_M-p$, $d_1=q-p_M$ for the three directed wall tangents at the event.
+
+\begin{lemma}[signed-word transport, the containing-sector Cartesian product, and the chamber-to-half carrier map]
+\label{lem:slidingcartesian}
+\begin{enumerate}
+\item[(A)] For this statement, the \emph{signed cyclic Gauss word} of a generic polygon
+means its Gauss word (Section~\ref{sec:setup}) together with, at each double
+point, the record of which visit is the overpass under the divide convention of
+Definition~\ref{def:piecediagram}. Every divide crossing is positive, so this
+is the whole decoration; there is no separate crossing-sign decoration.
+
+Let $x_-$ be the crossing present in $P_-$ and $x_+$ the one present in $P_+$,
+and let $\phi$ relabel $x_-$ as $x_+$ and fix every other label. Then $\phi$ is
+an isomorphism of those signed cyclic Gauss words
+$W(P_-)\to W(P_+)$. Consequently it
+is an isomorphism of interlacement graphs, a bijection of supports, and it
+matches smoothing cycles, undominated sets, residual components, their signed
+piece diagrams, their polynomials, their writhes, and the carrier owning each
+component.
+\item[(B)] Let the event be a simple sliding vertex-on-edge event, let
+$P_\bullet\in\{P_-,P_+\}$ be either chamber, let $x_\bullet$ be the relocated
+crossing in it --- $x_-$ in $P_-$ and its image $x_+$ in $P_+$ --- and write
+$G=G_{P_\bullet}$ and $G_{\lambda_1},G_{\lambda_2}$ for the interlacement graphs
+of that chamber and of the two halves at the wall. Nothing below distinguishes
+the two chambers: the statement is proved once for either, and an earlier
+revision stated it for $P_-$ alone while its consumers quantified over both.
+Cutting the traversal circle of $P_\bullet$ at the two visits of $x_\bullet$
+separates the old labels into two intervals;
+the induced subgraph of $G$ on the labels of one interval \emph{is} the
+interlacement graph of the corresponding half, since interlacement of two chords
+with all four visits inside one interval is read from their order inside it,
+which the half inherits. With that identification,
+\[
+   \{\,S\in\Ind(G):x_\bullet\in S\,\}
+   \;\longleftrightarrow\;
+   \Ind(G_{\lambda_1})\times\Ind(G_{\lambda_2}),
+   \qquad
+   S\longmapsto\bigl(S_1,S_2\bigr),
+\]
+is a bijection, where $S_i=(S\setminus\{x_\bullet\})\cap V(G_{\lambda_i})$.
+\item[(C)] Fix a simple sliding event, a chamber $P_\bullet\in\{P_-,P_+\}$, and a support
+$S\in\Ind(G_{P_\bullet})$ containing the relocated crossing. Let $S_1,S_2$ be its
+halves (Lemma~\ref{lem:slidingcartesian}(B)). Let $\chi_\bullet$ send a carrier $C$
+of $S$ in $P_\bullet$ to the successor cycle of the half $\lambda_i$ carrying
+the same retained visits, $i$ being the interval $C$ meets. Then $\chi_\bullet$
+is a well-defined map from the carriers of $S$ in $P_\bullet$ to the carriers of
+$S_1$ in $\lambda_1$ and of $S_2$ in $\lambda_2$, and it has the following
+properties.
+\begin{enumerate}
+\item[(i)] \emph{Correspondence.} Every carrier of $S$ in $P_\bullet$ meets
+exactly one of the two intervals, and $\chi_\bullet$ is a bijection onto the
+union of the two halves' carrier sets. Exactly two carriers pass through the
+contact, one in each interval, and they are sent to the two halves' contact
+carriers, one each. Only one of the two carries the short collapsing edge, and
+it is the one in the interval containing that edge.
+\item[(ii)] \emph{Records.} For each carrier $C$, the retained-visit map from
+$C$'s marked points to those of $\chi_\bullet(C)$ is an orientation-preserving
+record isomorphism (Definition~\ref{def:record}).
+\item[(iii)] \emph{Owners and grouped data.} The residual pieces of $S$ carried
+by $C$ are exactly the residual pieces of the corresponding half support carried
+by $\chi_\bullet(C)$; each has the same label set, hence the same piece diagram,
+polynomial and writhe. Thus the matched carriers have the same grouped polynomial
+and grouped writhe.
+\item[(iv)] \emph{Corners.} Away from the contact, $C$ and $\chi_\bullet(C)$
+have the same corner list with the same signs. Of the two carriers through the
+contact, the one \emph{not} carrying the short collapsing edge also has the same
+corner list as its image; the one carrying it has, at the contact, one direction
+more in its local direction list than its image has, and nothing is claimed here
+about the two lists beyond that --- the refinement is computed where it is
+consumed.
+\item[(v)] \emph{Compatibility with the chamber map.} If $S$ contains the
+relocated crossing of $P_-$ and $\phi$ is the chamber-to-chamber relabelling,
+then $\chi_+\circ\phi=\chi_-$ as maps from the carriers of $S$ in $P_-$ to the
+halves' carriers.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).}
+\emph{Source.} This proof is a transcription of the peer's pack \texttt{evidence/codex/phase15-sliding-universal-attack/REPORT.md}, SHA-256 \texttt{4f6da162\dots9318}, §``Signed word and support transport'',
+lines 118--150. The argument is the peer's and not this author's; the display
+numbering $\mathrm{U}$ is that document's.
+
+The two visits of the relocated crossing occupy two local intervals of the
+cyclic traversal word, and event isolation keeps every old visit out of those
+intervals. Sliding replaces the visit on one incident edge by the visit on the
+other, so deleting the relocated label leaves the same old cyclic word.
+
+The opposite-side condition supplies the signed refinement: both directed
+incident tangents point into the same open half-plane bounded by the directed
+remote tangent, which is
+\begin{equation}
+   \sgn\det(r,d_0)=\sgn\det(r,d_1)\neq0 .
+   \tag{U8}
+\end{equation}
+So the determinants against the remote tangent have the same sign, and under
+the positive-crossing convention the over/under role and the oriented sign of
+the gained visit are those of the lost visit. Hence $\phi$ is an isomorphism of
+the \emph{signed} cyclic word and not only of its unsigned chord diagram; it
+induces an isomorphism of interlacement graphs and a bijection of all
+independent supports.
+
+The smoothing successor permutation is determined by the signed traversal word
+together with the selected labels, so corresponding supports have corresponding
+successor cycles. The undominated residual graph is preserved with them, hence
+so are its connected components. For the piece data the map is restricted
+rather than waved at: for a residual piece $H$, $\phi$ carries the visits of $H$
+bijectively to those of $\phi H$, preserving their cyclic order --- $\phi$ being
+an isomorphism of the cyclic word --- and preserving the over/under designation
+and the sign at each, by the positive-divide clause above. Those are the four
+conditions of Definition~\ref{def:record}, so $\phi|_H$ is a record isomorphism
+between the two piece diagrams' records, and Axiom~\ref{ax:gausscode}
+identifies the links: $P_H=P_{\phi H}$ and $|H|=|\phi H|$. A residual component
+is owned by the successor cycle containing its visits, so carrier ownership is
+preserved as well. Every combinatorial and polynomial assertion of the statement follows. Rotation
+is not among them: this lemma claims nothing about it, and the carrier rotations
+are the subject of a separate lemma below.
+
+\emph{Clause (B).}
+\emph{Source.} A transcription of the peer's pack \texttt{evidence/codex/phase15-sliding-universal-attack/REPORT.md}, SHA-256 \texttt{4f6da162\dots9318}, §``Carrier rotation'', lines 165--170, where it is
+Display~U6.
+
+A support chord is independent from the relocated chord $x_\bullet$ exactly when
+both of its ends lie in one half interval, since a chord with one end in each
+interval interlaces $x_\bullet$. Two chords whose ends lie in \emph{different}
+half intervals cannot interlace each other, their visits being in disjoint arcs.
+Hence, \emph{for a set of old labels each of which is nonadjacent to
+$x_\bullet$}, independence in the old graph is independence of its two halves in
+the respective half graphs.
+
+That hypothesis is not decoration and the statement is false without it: in the
+word $123123$ the chords $1,2,3$ pairwise interlace, so a set may fail to be
+independent while its two halves --- one of them empty --- are independent in
+their own graphs. The bijection of this lemma is unaffected, because the sets it
+maps are supports \emph{containing} $x_\bullet$, and independence of such a
+support already forces every other member to be nonadjacent to $x_\bullet$,
+which is the hypothesis. An earlier revision stated the equivalence for every
+set of old labels. Conversely any pair of independent supports, one from
+each half, combines with the relocated crossing to an independent support
+containing it. The two assignments are mutually inverse.
+
+\emph{Clause (C).}
+Cut the traversal circle of $P_\bullet$ at the two visits of the relocated
+crossing $x_\bullet$. By Lemma~\ref{lem:slidingcartesian}(B) the old labels split
+into the two half intervals and the induced subgraphs are the half interlacement
+graphs, so $S_i$ is a support of $\lambda_i$.
+
+\emph{The two intervals close separately.} $S$ contains $x_\bullet$, so
+$x_\bullet$ \emph{is} smoothed. An oriented smoothing at a self-crossing of one
+closed curve joins each outgoing branch to the incoming branch that continues
+the orientation, and so cuts the traversal circle into exactly two cycles, one
+carrying the labels of each interval. Every other element of $S$ is independent
+from $x_\bullet$ and therefore has both visits inside one interval
+(Lemma~\ref{lem:slidingcartesian}(B)), so no later smoothing joins the two
+families. Hence every carrier meets exactly one interval, and smoothing $S$
+inside an interval performs exactly the reconnections that smoothing $S_i$
+performs in $\lambda_i$; the successor cycles correspond one for one, which is
+the bijection of (i). Two of them run through the contact, one per interval,
+and the short collapsing edge lies in exactly one interval, hence on exactly one
+of those two.
+
+An earlier revision said instead that the contact carrier was ``the one cycle
+that meets both intervals''. That is the picture of a \emph{bigon} event, where
+the newborns are not smoothed and one cycle does meet both; here the relocated
+crossing is smoothed and it is never true. The minimal support $S=\{x_\bullet\}$
+is the sharpest case: nothing else is smoothed, and the two intervals close into
+two carriers, each mapping to the contact carrier of its half. Those carriers
+need not be pieceless --- a minimal support forbids further \emph{smoothings},
+not residual pieces, and the half may carry pieces of its own --- and an earlier
+revision called them pieceless. The
+selector identity below already reads the two-carrier picture --- it multiplies
+one factor $c$ for the chamber's short-edge carrier by one factor $h$ for the
+other --- so the correction removes an inconsistency rather than creating one.
+
+For (ii): the correspondence is the identity on the retained visits, it
+preserves their cyclic order by Lemma~\ref{lem:carrierword} applied inside each
+interval, and it preserves the over/under designation and the sign at each,
+those being read from the two branch directions, which the cut does not move.
+For (iii) the label sets must first be shown to agree, and an earlier revision
+assumed it here and proved it later from this very clause. The argument is
+three lines and belongs here. Remove the relocated crossing from $S$ and
+intersect what remains with the two half label sets, which is the definition of
+$S_1,S_2$; every label interlacing the relocated crossing is dominated and so
+absent from $U(S)$; every remaining label has both visits in one interval, and
+there is no interlacement edge between the two intervals, a chord with ends in
+different intervals interlacing the relocated chord and so not being present. So
+\[
+   G_{P_\bullet}\bigl[U(S)\bigr]=G_{\lambda_1}\bigl[U(S_1)\bigr]\sqcup
+                     G_{\lambda_2}\bigl[U(S_2)\bigr],
+\]
+and the residual components on the two sides are the same sets of labels. Then
+Lemma~\ref{lem:carriers}(iv), applied in $\lambda_i$, puts each component on
+one carrier, and Definition~\ref{def:piecediagram} gives it the same piece
+diagram, the label set and its signs being unchanged; the passage from the equal
+records to equal polynomials is Axiom~\ref{ax:gausscode}, which is what licenses
+reading a polynomial off a record at all. For (iv): a corner of a carrier is a polygon vertex or a smoothing site
+(Definition~\ref{def:wind}), and away from the contact each is present in
+$C$ and in $\chi_\bullet(C)$ with the same incoming and outgoing directions,
+since the wall moves only the sliding vertex; so the corner lists and their
+signs agree there. The carrier through the contact that does not carry the short
+edge meets the contact in a single corner, present in both with the same
+directions, so its whole list agrees too. The remaining carrier traverses the
+short edge, which the wall contracts to a point: its local direction list at the
+contact has the two directions of the collapsing corner where the image has
+one, which is the one extra direction claimed, and no more is asserted here.
+
+For (v): $\phi$ is the identity on the old labels and carries $x_-$ to $x_+$, so
+the two chambers' traversal circles have the same cyclic word on the labels of
+$S$ and $\phi S$, the same cut, and the same reconnections. The successor cycles
+therefore correspond under $\phi$, and each pair is sent to the same half
+carrier, since the half data are read from the same interval word in both. That
+is $\chi_+\circ\phi=\chi_-$.
+\end{proof}
+
+\begin{remark}[what this map replaces]\label{rem:chamberhalfwhy}
+Three arguments below --- rotation transport, coefficient-product transport and
+selector transport --- previously each reached for the halves in its own way: by
+``restricting'' the chamber-to-chamber relabelling $\phi$, which is a map
+between the two \emph{chambers} and not between a chamber and a half, or by
+citing Proposition~\ref{prop:sectortarget}(A), which is stated for the both-newborn support
+of a \emph{bigon} event and not for a sliding one. The missing object is one and the
+same map, and it is printed here.
+\end{remark}
+
+\begin{lemma}[rotation transport, sliding incidence, the collapsing half, coefficient products, selector transport and the sliding jump]\label{lem:slidingcoeff}
+\begin{enumerate}
+\item[(A)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Under $\phi$, corresponding carriers have the same signed rotation and the same
+$R$. More precisely:
+\begin{enumerate}
+\item[(i)] for a support \emph{avoiding} the relocated crossing, every carrier
+of one chamber is a regular homotopy of its mate, and they have the same signed
+rotation, the same $R$, \emph{and the same corner-sign list};
+\item[(ii)] for a support \emph{containing} it, every carrier $C$ of either
+chamber has the signed rotation and $R$ of its wall-half mate
+$\chi_\bullet(C)$; hence $\chi_+\circ\phi=\chi_-$ gives the two chambers the same
+signed and absolute rotations, carrier by carrier. No claim is made about
+corner-sign lists in this sector: the carrier carrying the short collapsing edge
+has one corner more than its wall-half mate, so the lists have different lengths.
+\end{enumerate}
+\item[(B)] Under Convention~\ref{conv:s7standing}, let the event be of sliding type, write
+$r=p_b-p_a$ for the direction of the remote edge and $d_0=p_M-p_{M-1}$,
+$d_1=p_{M+1}-p_M$ for the two incident edge directions at the moving vertex. These are the three directed wall tangents, restated
+here rather than imported by citation.
+\begin{enumerate}
+\item[(i)] At a simple sliding event, $\sgn\det(r,d_0)=\sgn\det(r,d_1)\neq0$. Moreover
+there is an interval of the event path around the wall on which both statements
+below hold, and they are about different objects. First, each incident
+\emph{line} meets the \emph{line} of the remote edge at a point whose parameter
+along the remote \emph{segment} lies strictly inside $(0,1)$ --- that is a
+condition on the remote segment, and it holds for both incident lines. Second,
+exactly one incident \emph{edge} meets the remote edge in the relative interiors
+of both, in each of the two chambers, and the two chambers exchange which
+incident edge that is; the other incident edge has its line meeting the remote
+segment at a point beyond its own far endpoint. No other crossing changes on the
+interval. An earlier revision compressed the two into one sentence that read
+"each incident line meets the remote line at a parameter strictly inside $(0,1)$
+along both segments", which asks the intersection to lie inside the incident
+segment as well and so contradicts the "exactly one" it was supporting.
+
+The interval restriction is not a formality. Opposite sides of the remote
+\emph{line} do not by themselves put the intersection inside the remote
+\emph{segment}: the segments $(0,0)$--$(1,0)$ and $(2,1)$--$(2,-1)$ have
+endpoints strictly on opposite sides of the first one's line and meet that line
+at $(2,0)$, outside the first segment. The peer's example is that one. Since the
+incidence parameter is continuous and equals the contact point's at the wall,
+which lies strictly inside the remote segment by
+Convention~\ref{conv:events}, shrinking the interval puts it inside for every
+parameter of the interval. The statement is phrased symmetrically in the two
+chambers rather than assigning a direction, which the event's parametrisation
+does not fix.
+\item[(ii)] Let $s$ be the sign
+\eqref{eq:S6} taken in the initial chamber. Put
+\[
+   \eta_1=\sgn\det(r,d_1),\qquad \eta_2=\sgn\det(d_0,r).
+\]
+Then $\eta_2=-\eta_1$; in each chamber exactly one half carries the short
+collapsing edge; and that half has contact-corner sign $s$ in the initial
+chamber and $-s$ in the other.
+
+The last clause is \emph{true} and is proved below from the smoothing successor.
+What an earlier revision got wrong was the \emph{reason}, not the conclusion: it
+inferred the owner from which side of the remote line the incident edge lies on,
+and the peer's chart refutes that inference --- with the remote edge
+$(-\tfrac12,0)\to(\tfrac12,0)$, $M=(0,0)$, $p=(0,-1)$, $q=(1,1)$ and
+$M_\mp=(0,\pm\tfrac1{10})$, the half with $\eta_1=s$ is $q$'s while $q$ lies on
+the \emph{same} side as $M_-$. A later revision then over-corrected and printed
+that the conclusion itself is false, which it is not. Ownership is read from the
+smoothing successor. Smoothing the relocated crossing splits the traversal at its two
+visits into two cyclic words, and the short edge --- the stretch of the incident
+edge between the moving vertex and the contact --- lies in exactly one of them,
+namely the one whose arc contains the moving vertex; that arc is the half whose
+contact corner is the turn at the contact on that side. There are exactly two
+cases, according to which incident edge carries the crossing in the chamber
+under consideration, and clause~(B)(i) says the two chambers
+exchange them. The caveat recorded there applies here too: opposite sides of the
+remote \emph{line} do not place an intersection inside the remote
+\emph{segment}, so the event interval is shrunk as clause~(B)(i) prescribes before
+any of this is read off.
+\end{enumerate}
+\item[(C)] Let $S\in\Ind(G_{P_-})$ be arbitrary, and let $\phi S$ be its image under the
+relabelling of Lemma~\ref{lem:slidingcartesian}(A). Write $A_-(S)$ for the product
+of the coefficient factors $\Omega_1$ over the carriers of $S$ in the initial
+chamber and $A_+(\phi S)$ for the same product over the carriers of $\phi S$ in
+the other chamber.
+\begin{enumerate}
+\item[(i)] One always has $A_-(S)=A_+(\phi S)$. If $x_-\in S$, put
+$S_i=(S\setminus\{x_-\})\cap V(G_{\lambda_i})$ and write $A_i(S_i)$ for the
+product of the coefficient factors over the carriers of $S_i$ in $\lambda_i$.
+Every argument is bound: an earlier revision wrote $A_i$ with none. Under that condition,
+Lemmas~\ref{lem:slidingcartesian}(C)(i)--(iii) and~\ref{lem:slidingcoeff}(A)(ii) identify the two
+chamber products carrier by carrier with the two half products, and
+\[
+   A_-(S)=A_+(\phi S)=A_1(S_1)A_2(S_2).
+\]
+\item[(ii)] If $x_-\in S$, then, under Convention~\ref{conv:s7standing}, put
+$S_i=(S\setminus\{x_-\})\cap V(G_{\lambda_i})$, the two halves of
+Lemma~\ref{lem:slidingcartesian}(B), and write
+$W_-=\wind(S)$, $W_+=\wind(\phi S)$ and $W_i=\wind(S_i)$, each with its
+argument. With $r,d_0,d_1$ the three directed wall tangents as above, put
+\[
+ \eta_1=\sgn\det(r,d_1),\qquad \eta_2=\sgn\det(d_0,r),\qquad
+ \tau=\sgn\det(d_0,d_1).
+\]
+Here $\eta_2=-\eta_1$, and the collapsing half has contact-corner sign $s$ in
+the initial chamber and $-s$ in the other, where $s$ is the sign~\eqref{eq:S6}
+in the initial chamber. For $\eta\in\{\pm1\}$, write $h_\eta$ for the weight of
+the distinguished carrier of the half with contact-corner sign $\eta$, and
+$c_\eta$ for the weight of the corresponding chamber carrier carrying the short
+edge, whose contact-corner sign there is $\eta$. Write $Q$ for the product of
+the weights of all carriers not distinguished at the contact. It is the same
+number in both chambers and both half terms: Lemma~\ref{lem:slidingcartesian}(C)(i)
+matches those carriers bijectively, and clauses (iv) and (v) give the matched
+corner-sign lists. An earlier revision wrote $W_-,W_+,W_1,W_2$ and $Q$ with no
+arguments and no bijection. Then
+\[
+   W_1W_2=Q\,h_s h_{-s},\qquad
+   W_-=Q\,c_s h_{-s},\qquad
+   W_+=Q\,h_s c_{-s},\qquad
+   c_\eta=\begin{cases}-\eta\,h_\eta,&\tau=\eta,\\ 0,&\tau=-\eta,\end{cases}
+\]
+and consequently $W_+-W_-=s\,W_1W_2$.
+\end{enumerate}
+
+\item[(D)] At every simple sliding vertex-on-edge event, in the sense of
+Convention~\ref{conv:events}, whose two halves are generic polygons,
+\[
+   X_1(P_+)-X_1(P_-)=s\,X_1(\lambda_1)X_1(\lambda_2),
+\]
+with $s$ the sign \eqref{eq:S6} in the initial chamber and $\lambda_1,\lambda_2$
+the halves of Definition~\ref{def:halves}.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).}
+\emph{Source.} This proof is a transcription of the peer's pack \texttt{evidence/codex/phase15-sliding-universal-attack/REPORT.md}, SHA-256 \texttt{4f6da162\dots9318}, §``Carrier rotation'', lines 152--218.
+
+\emph{(i), the avoiding sector.} Every carrier corner is either a polygon
+vertex or the smoothing site of a persistent transverse crossing. Its point and
+its incoming and outgoing directions vary continuously through the wall, and all
+corner determinants remain nonzero by the guards: the vertex turn by (G1), the
+smoothing-site turn by the active (G5) of the crossing, which persists. The
+contact itself is only a transverse coincidence of parameter values, the
+relocated crossing not being smoothed here. Thus each successor cycle has a fixed cyclic corner list. The nonzero
+corner determinants make every incident edge nonzero and exclude consecutive
+negative multiples, so it is a path in the corresponding $\mathcal R_c$.
+Lemma~\ref{lem:turnlift}(ii) keeps its signed rotation constant; taking
+magnitudes gives $R$. The same nonzero
+determinants preserve the entire corner-sign list, which is also the selector
+statement in this sector.
+
+\emph{Three corners.} Every smoothed carrier has at least three corners under
+the generic straight-edge guards: a carrier with two corners would consist of
+two straight segments joining the same two points, which would overlap, and one
+with a single corner would contain a zero-length straight return. This matters
+because a zero selector then means mixed turns rather than a special one- or
+two-corner convention.
+
+\emph{(ii), the containing sector.} The correspondence with the halves is
+Lemma~\ref{lem:slidingcartesian}(C)(i), and clause~(iv) of that lemma says the corner
+lists agree away from the contact. There are \emph{two} carriers through the
+contact, one in each interval, and clause (iv) gives the one not carrying the
+short collapsing edge the same corner list as its mate as well; so every carrier
+except the single one carrying that edge is a regular homotopy of its mate, by
+the argument of (i). An earlier revision spoke of ``the one through the
+contact'', which is the picture Lemma~\ref{lem:slidingcartesian}(C)(i) withdraws. The
+distinguished carrier has one short edge that contracts
+at the wall, and its local direction list is one of the two refinements
+\begin{equation}
+   (r,d_0,d_1)\longrightarrow(r,d_1),
+   \qquad
+   (d_0,d_1,r)\longrightarrow(d_0,r),
+   \tag{U9}
+\end{equation}
+the two-direction lists on the right being the corresponding wall-half corners.
+Let $\theta$ denote the principal oriented turn between two nonparallel
+directions. Display~(U8) places both incident directions in one open angular
+interval of length $\pi$ bounded by the remote direction, so no branch cut is
+crossed and the two local angle additions
+\begin{equation}
+   \theta(r,d_0)+\theta(d_0,d_1)=\theta(r,d_1),
+   \qquad
+   \theta(d_0,d_1)+\theta(d_1,r)=\theta(d_0,r)
+   \tag{U10}
+\end{equation}
+are exact, with no hidden full turn. All other turns agree by the polygon
+path of (i). Lemma~\ref{lem:turnlift}(ii) therefore gives every chamber
+carrier the same signed rotation and,
+after taking absolute values, the same $R$ as its wall-half mate; clause~(v)
+then makes the two chambers agree in both values carrier by carrier.
+
+The pack also gives an equivalent form that avoids the angle bookkeeping, and it
+is worth printing because it is the one a formalizer would prefer: choose one
+reference ray avoiding the finite set of wall carrier directions and shrink the
+chamber interval until that same ray avoids all corresponding directions, then
+compute every rotation with that common ray. On either refinement in~(U9) a ray
+in a backtracked subarc is crossed once with each sign and cancels, and every
+other ray gets the direct-corner count.
+
+\emph{Clause (B).} (i) Both incident tangents are transverse to $r$: a parallel one would put its far
+endpoint on the remote line, an incidence outside the zero set
+Convention~\ref{conv:events} allows, which contains no incidence but the
+contact one. The neighbours lie on opposite sides of
+the line, so the traversal $p\to M\to q$ crosses the line at $M$ and the two
+incident directions point into the same open half-plane bounded by $r$, i.e.\
+the two determinants have one sign. The statement is invariant: for each of the two incident edges, that edge meets
+the remote edge exactly when its two endpoints lie strictly on opposite sides of
+the remote line, and $p$, $q$ lie on opposite sides of it while $M$ passes from
+one side to the other. So in each chamber exactly one incident edge meets the
+remote edge, and the two chambers exchange which one it is --- no direction of
+travel is named. No other crossing changes: any other change would vanish a
+member of $\mathcal G$ outside the zero set, and by
+Lemma~\ref{lem:guardconst} every relevant member outside $Z$ is nonzero of
+constant sign on a possibly smaller interval, on which the whole argument is
+read.
+
+(ii) By clause~(B)(i) the two incident directions satisfy
+$\sgn\det(r,d_0)=\sgn\det(r,d_1)$, and $\det(d_0,r)=-\det(r,d_0)$, so
+$\eta_2=-\eta_1$: the two wall-half contact turns are opposite.
+
+For the assignment the reason is the \emph{cross-pairing} of the oriented
+smoothing, and not a side of a line. An earlier revision of this proof concluded
+by the far-side inference that the statement above already withdraws --- the
+statement was corrected and the proof under it was not, which is a way of
+leaving a refuted argument in print.
+
+At a slide exactly one incident edge meets the remote segment
+(clause~(B)(i)), so in the chamber under consideration the
+relocated crossing sits on one of them; write $X$ for the crossing point. Take
+first the incoming edge $pM$. The traversal visits $X$ twice, once running
+$p\to M$ and once running along the remote edge $a\to b$. The oriented smoothing
+joins the branch arriving along $pM$ to the branch leaving along $X\to b$, and
+the branch arriving along $a\to X$ to the branch leaving along $X\to M$. So the
+short stretch $X\to M$ continues into $M\to q$: it lies on the successor cycle
+carrying $q$'s arc, which is the half $\lambda_1$, whose contact corner is
+$\eta_1$.
+
+Take instead the outgoing edge $Mq$, which is the case in the other chamber by
+clause~(B)(i). Now the two visits of the crossing $Y$ run $M\to q$
+and $a\to b$, the smoothing joins the branch arriving along $M\to Y$ to
+$Y\to b$ and the branch arriving along $a\to Y$ to $Y\to q$, and the short
+stretch $M\to Y$ is entered from $p$: it lies on the cycle carrying $p$'s arc,
+the half $\lambda_2$, whose contact corner is $\eta_2=-\eta_1$.
+
+Both orientations occur and both are printed, an earlier revision of this proof
+having treated only the first. In the initial chamber the crossing sits on the
+incoming edge exactly when the moving vertex has passed to the side where $pM$
+meets the remote segment; then the short stretch lands on $\lambda_1$, whose
+contact corner is $\eta_1$, and $\eta_1=s$ there. In the reversed configuration
+--- the peer's chart, with $M_-=(0,-\tfrac1{10})$ and $s=-1$, where $M_-q$
+crosses the remote edge at $(\tfrac1{11},0)$ --- the crossing sits on the
+outgoing edge instead, the short stretch lands on $\lambda_2$, and $\eta_2=s$.
+The two cases are exchanged by the chamber, by clause~(B)(i), so
+in either configuration the collapsing half has contact-corner sign $s$ in the
+initial chamber and $-s$ in the other, which is the assignment the consumers
+read.
+
+What carries the argument in both cases is which branch the smoothing attaches
+the short stretch to. That is a statement about the successor, and not about
+which side of the remote line anything lies on.
+
+\emph{Clause (C).} (i) Lemma~\ref{lem:slidingcartesian}(A) preserves the grouped polynomials and the
+grouped writhes carrier by carrier, and Lemma~\ref{lem:slidingcoeff}(A) preserves
+the absolute rotations, so each factor
+$\Omega_1=[a^{1-w-R}z^0]P$ is selected at the same index from the same
+polynomial: the first identity follows factor by factor. When $x_-\in S$, the
+Lemmas~\ref{lem:slidingcartesian}(C)(i)--(iii) and~\ref{lem:slidingcoeff}(A)(ii) identify
+the carriers with the disjoint union of the two sets of half carriers and
+preserve each owner, grouped polynomial, grouped writhe and $R$, so the product
+over the mapped carriers splits into the two half products. No coefficient
+extraction is distributed over a polynomial product: each carrier lies in one
+half.
+
+(ii) By clause~(B)(ii) the collapsing half is the one of
+contact-corner sign $s$ in the initial chamber and the one of sign $-s$ in the
+other; that is what makes the three displayed products the $\pm$ pair they are.
+In the chamber in which a given half carries the collapsing short edge, its
+single wall corner of sign $\eta$ is refined into two corners, of signs $\eta$
+and $\tau$. If the wall carrier is mixed, both $h_\eta$ and $c_\eta$ are $0$,
+since adding a corner cannot remove an existing opposite turn. If it turns
+right only and $\tau$ agrees, the refined carrier still turns right only and
+its weight is $1=-\eta h_\eta$ with $\eta=-1$ and $h_\eta=1$. If it turns left
+only and $\tau$ agrees, the refined carrier has one more corner, so its weight
+is negated: $c_\eta=-h_\eta=-\eta h_\eta$ with $\eta=+1$. If $\tau$ disagrees
+the refined carrier is mixed and $c_\eta=0$. Those are all cases, proving the
+displayed rule. The three product formulas are the definition of $\wind$ with
+the distinguished factor named. The single $Q$ is legitimate because
+Lemma~\ref{lem:slidingcartesian}(C)(i), (iv) and (v) identifies the other carriers and
+their corner-sign lists in both chambers and both half terms. Finally, if
+$\tau=s$ then $c_s=-s\,h_s$ and $c_{-s}=0$, so
+$W_+-W_-=Q(0+s\,h_sh_{-s})=s\,W_1W_2$; if $\tau=-s$ then $c_s=0$ and
+$c_{-s}=s\,h_{-s}$, so $W_+-W_-=Q(s\,h_sh_{-s}-0)=s\,W_1W_2$.
+
+\emph{Clause (D).} Split the supports of each chamber into those avoiding the relocated crossing
+and those containing it. On the avoiding sector the coefficient products agree by
+clause~(C)(i), and the selectors agree by
+Lemma~\ref{lem:slidingcoeff}(A)(i), whose corner-sign list is exactly the selector
+datum: no carrier acquires or loses a corner there. So that sector cancels term
+by term. Clause~(C)(ii) is \emph{not} invoked here; it is
+stated for a support containing the relocated crossing and an earlier revision
+of this proof cited it in the avoiding sector, outside its own quantifier. On the containing sector, write the difference as the sum over the supports
+themselves before any reindexing:
+\[
+   \sum_{\substack{S\in\Ind(G_{P_-})\\ x_-\in S}}
+   \bigl(W_+(\phi S)-W_-(S)\bigr)\,A_-(S),
+\]
+which is legitimate because $\phi$ is a bijection of the containing supports of
+the two chambers (Lemma~\ref{lem:slidingcartesian}(A)) and $A_-(S)=A_+(\phi S)$
+(clause~(C)(i)), so the two chambers' containing sectors are
+summed over one index set. An earlier revision passed straight from the jump to
+the Cartesian sum, omitting this line, which is the first equality of the
+source's final display. Now
+clause~(C)(i) makes the non-selector part of the term the product
+$A_1(S_1)A_2(S_2)$ of the two half terms' non-selector parts. The reindexing of
+the sum by $(S_1,S_2)\in\Ind(G_{\lambda_1})\times\Ind(G_{\lambda_2})$ is
+Lemma~\ref{lem:slidingcartesian}(B); the carrier, owner and piece-data
+identification at a fixed $S$ is Lemma~\ref{lem:slidingcartesian}(C)(i)--(iii), and
+Lemma~\ref{lem:slidingcoeff}(A)(ii) supplies its rotation data. Finally
+clause~(C)(ii) makes the selector difference $s\,W_1W_2$.
+Hence
+\[
+X_1(P_+)-X_1(P_-)
+=\sum_{S_1,S_2}s\,W_1(S_1)A_1(S_1)\,W_2(S_2)A_2(S_2)
+=s\,X_1(\lambda_1)X_1(\lambda_2),
+\]
+where $A_i$ denotes the coefficient product of the half term.
+\end{proof}
+
+\begin{remark}[printed from the source, and what it replaces]\label{rem:slidingsource}
+This is the rotation argument of the counterpart's sliding pack, printed in its
+own terms: regular homotopy for the avoiding sector, and exact angle addition
+under the opposite-side condition for the contracting edge. An earlier revision
+of this document argued it instead by an axiom about embedded arcs in a disc,
+which the peer broke --- for the empty support the carrier meets a contact disc
+in two arcs, not one, and they cross. That axiom is not used here, and the
+displayed additions are what make the absence of a hidden full turn a
+computation rather than an assurance.
+\end{remark}
+
+\subsection{Universal (S7)}\label{sec:s7universal}
+
+
+\begin{remark}[the two sectors of the noninterlacing case]\label{rem:nistatus}
+Four structural points of Section~\ref{sec:nijoin} are recorded here so that
+no reader has to reconstruct them. The orientation factor:
+Lemma~\ref{lem:nitransport}, clause~(A) names $s$
+and says that the $s=-1$ configuration is the reflection of the $s=+1$ one,
+with every determinant negating together, instead of printing $+1$ globally and
+consuming $s$ later. The $U_T=0$ branch: the assembly multiplies by $U_T$
+whatever its value, so a vanishing spectator product vanishes the term. The
+same-piece hypothesis of the transport lemma: it is the source's own and it is
+a hypothesis of that lemma. The
+\emph{different-piece sector}: its common-neighbourhood input is
+Lemma~\ref{lem:contactword}(ii); its discharge is printed in
+Lemma~\ref{lem:chambertransport}, clauses~(A) and~(B),
+Theorem~\ref{thm:s7universal}(D)(i), Theorem~\ref{thm:s7universal}(D)(iii) and
+Theorem~\ref{thm:s7universal}(D)(v); Theorem~\ref{thm:s7universal}, clause~(E) does not exclude it.
+
+\emph{The two sectors, named.} For an eligible $T$ at a bigon event, the
+undominated set $U(T)$ carries the induced interlacement graph
+$G_{P_2}[U(T)]$, and the two newborns $x,y$ lie in it. The \emph{same-piece}
+sector is the set of eligible $T$ for which $x$ and $y$ lie in one connected
+component of that graph, and the \emph{different-piece} sector is the set for
+which they lie in two; the names are the residual pieces those components
+become, and every eligible $T$ is in exactly one sector. An earlier revision of
+this remark used the two names without defining them.
+
+\emph{The different-piece discharge.} All four of its branches are proved outright, and
+the branch statements are read at $\epsilon=0$ --- the noninterlacing branch,
+which is where the different-piece sector arises, the interlacement bit of
+Definition~\ref{def:sectors} being $0$ exactly when the two newborn chords do
+not interlace. With $\epsilon=0$ fixed: the two newborns are singleton positive
+kinks (Lemma~\ref{lem:chambertransport}, clause~(A), whose hypothesis that is); the row
+$f_\nu=[z^0]F_\nu$ of the contact carrier in chamber $\nu$, and its prefactor,
+transport between the chambers with no selector hypothesis
+(Lemma~\ref{lem:chambercommon} and Lemma~\ref{lem:chambertransport}, clause~(B)); the
+one-newborn terms vanish by cutting the affected carrier at its surviving
+singleton (Theorem~\ref{thm:s7universal}(D)(i) and Theorem~\ref{thm:s7universal}(D)(iii)); and the
+high-neither and low terms read the degrees $D-4$ and $D-2$, in the writhes
+$w_{\mathrm L},w_{\mathrm H}$ of Definition~\ref{def:markeddata}, which the
+floor on the two halves kills --- the same two degrees, and the same floor, as
+Theorem~\ref{thm:s7universal}, clause~(C) uses in the same-piece sector
+(Theorem~\ref{thm:s7universal}(D)(v)).
+\end{remark}
+
+\subsection{The returned aggregate in bracket form}\label{sec:bracket}
+
+This subsection derives, for the interlacing branch, the bracket-form
+identification of the returned aggregate. It closes two of its three terms;
+what remains after it is one displayed identity, stated at the end.
+
+\begin{lemma}[rotation across the contact, both branches]\label{lem:rotshift}
+Here eligibility is as in Definition~\ref{def:eligible} and $\rot$ is as in
+Definition~\ref{def:rot}.
+Let $L^{*}$ be the contact carrier of an eligible $T$, let $L_1,L_2$ be its two
+halves, and let
+\[
+   s_{\mathrm{low}}=\sgn\det\bigl(p_b-p_a,\;p_M-p_a\bigr)\ \text{ in the
+   \emph{low} chamber }P_0
+\]
+be the side of the remote line on which the moving vertex sits before the
+crossing is born. Then
+\[
+   \rot(L_1)+\rot(L_2)=\rot(L^{*})+\begin{cases}0,&\epsilon=1,\\
+   s_{\mathrm{low}},&\epsilon=0.\end{cases}
+\]
+The sign here is $s_{\mathrm{low}}$ and not the sign $s$ of \eqref{eq:S6},
+which is read in whichever chamber the parametrisation calls $P_-$. The two are
+related by the orientation of the path: $s=\delta\,s_{\mathrm{low}}$, where
+$\delta=+1$ if the parametrisation calls the low chamber $P_-$ and $\delta=-1$
+if it calls the high chamber $P_-$ --- a definition, not a claim, since $s$ and
+$s_{\mathrm{low}}$ are the same determinant read in the two chambers and that
+determinant changes sign across the wall. The statement above is invariant
+under
+reparametrisation because $s_{\mathrm{low}}$ is defined by the chamber and not
+by the direction of travel.
+\end{lemma}
+\begin{proof}
+The three carriers have the same non-contact corners with the same turns
+(Lemma~\ref{lem:contactsplit}), so by Lemma~\ref{lem:turnlift}(ii)
+\[
+   2\pi\bigl(\rot(L_1)+\rot(L_2)-\rot(L^{*})\bigr)=\eta_1+\eta_2-\tau,
+\]
+where $\eta_1,\eta_2$ are the two half contact turns and $\tau$ the full one.
+The chart of Lemma~\ref{lem:contactturnboth} is fixed by placing the moving
+vertex on a chosen side of the remote line, which is the choice
+$s_{\mathrm{low}}=+1$; in that chart $\eta_1=\arg q$ and $\eta_2=\pi-\arg p$, while $\tau$ is the principal
+value of $\arg q-\arg p+\pi$. At $\epsilon=1$ that value lies in $(0,\pi)$ and
+equals $\arg q-\arg p+\pi$, so $\eta_1+\eta_2-\tau=0$. At $\epsilon=0$ it lies
+in $(-\pi,0)$ and equals $\arg q-\arg p-\pi$, so $\eta_1+\eta_2-\tau=2\pi$ and
+the shift is $+1$.
+
+The configuration with $s_{\mathrm{low}}=-1$ is the image of the one with
+$s_{\mathrm{low}}=+1$ under a reflection of the plane, which reverses every signed rotation and every turning
+angle. So at $\epsilon=1$ the shift $0$ is unchanged, while at $\epsilon=0$ the
+shift $+1$ becomes $-1$. Writing the two cases as the single symbol
+$s_{\mathrm{low}}$ gives the display.
+\end{proof}
+
+\begin{remark}[the shift carries the side sign]\label{rem:rotshiftsign}
+An earlier revision printed the constant $+1$ at $\epsilon=0$. That is the
+$s=+1$ half of the statement, and the peer refuted the constant form on the
+exact guarded $24$-gon of Remark~\ref{rem:diffcensus}, whose low-chamber side
+sign is $s_{\mathrm{low}}=-1$
+and whose signed rotations are $\rot(L_1)=\rot(L_2)=1$ and $\rot(L^{*})=3$, so
+that $\rot(L_1)+\rot(L_2)-\rot(L^{*})=-1$. A second revision bound the shift to the
+\eqref{eq:S6} sign $s$, which is read in whichever chamber is called $P_-$ and
+therefore flips with the parametrisation while the geometry does not; the
+binder is now the chamber-defined
+$s_{\mathrm{low}}$. Lemma~\ref{lem:nitransport}, clause~(B) consumes the corrected form; no
+conclusion drawn from it changes.
+\end{remark}
+
+\begin{remark}[this is the missing full turn]\label{rem:missingturn}
+Lemma~\ref{lem:rotshift} is the reason naive addition of principal angles
+across the contact is wrong in the noninterlacing branch, which the phase-1.5
+record warns of without displaying the discrepancy: there the two halves carry
+one full turn more than the carrier they came from, and at $\epsilon=1$ they
+carry exactly as much.
+\end{remark}
+
+\begin{remark}[a withdrawn route]\label{rem:withdrawnbracket}
+An earlier revision of this document printed here a lemma asserting that after
+polarization the contact carrier is, in the low chamber, the connected sum of
+the two half groupings, with framed row $\Gamma_L=\Gamma_1\Gamma_2$; a
+proposition deriving the high-neither minus low difference from it by the
+framed self-skein; and a corollary reducing the interlacing branch to an
+aggregate over selector-dead supports. \textbf{All three are withdrawn.} The first
+is false, and its falsity is visible inside this document: the writhe ledger
+$w(D_-)=w_1+w_2+2\ell-1$ of Lemma~\ref{lem:triplebridge}(v) at $\epsilon=1$,
+for a diagram whose
+two parts are joined by $\ell$ between-interval crossings, so
+$\Gamma_L=\Gamma_1\Gamma_2$ would force $2\ell=1$. The error was to think that
+polarizing the between-interval crossings into a descending order lets
+Reidemeister~II separate the two parts. It does not: in a divide every crossing
+is positive, so between-interval crossings all have one sign and form a twist
+region, which no Reidemeister~II move removes. The correct identity carries the
+framing factor, $\Gamma_L=a^{2\ell-1}\Gamma_1\Gamma_2$, and the surviving
+source factors the two parts only \emph{after} a contact crossing is smoothed,
+retaining the single carrier's framing datum before that.
+
+What this costs is the whole of my route to the interlacing endpoint. What
+remains from it is stated where it belongs: Lemma~\ref{lem:rotshift}, the
+rotation shift, which is independent of the framing question; and
+Theorem~\ref{thm:s7universal}, clause~(B)(i) below, which is a determinant argument in
+the contact chart and uses none of the withdrawn material.
+\end{remark}
+
+\begin{remark}[two lemmas retired, and one debt discharged]
+\label{rem:excretired}
+This subsection printed, in earlier revisions, two lemmas about the one-newborn
+branches at $\epsilon=1$ --- that at most one of them is live, and that a
+uniform contact carrier kills both --- and a remark calling the surviving
+branch's coefficient read ``the remaining debt of the whole bigon branch''. All
+three are withdrawn, and none is replaced by a weaker claim.
+
+The peer refuted the two lemmas as printed: both treated liveness as one sign on
+every raw corner of $A$ and one sign on every raw corner of $B$, whereas after a
+smoothing the corners belong to \emph{carriers} and uniformity is carrierwise.
+The statement that makes them unnecessary is the peer's.
+Theorem~\ref{thm:s7universal}, clause~(B)(i) kills \emph{both} one-newborn branches for
+\emph{every} eligible support, uniform contact carrier or not, by an exact
+determinant argument in the printed chart. With both branches always dead,
+``at most one is live'' is vacuous, and the debt is discharged rather than
+outstanding: there is no surviving branch whose coefficient read anyone must
+compute.
+
+The consumers are rewired to Theorem~\ref{thm:s7universal}, clause~(B)(i).
+\end{remark}
+
+\subsection{The full-twist calculation}\label{sec:fulltwist}
+
+This subsection prints the interlacing join as one live-support calculation.
+The statement below carries its own $\epsilon=1$ and eligible-support binder and
+imports all chamber and half data from Definition~\ref{def:markeddata}. Its
+proof chooses $q=x$ and binds $D_{\mathrm A},F_{\mathrm A}$ before invoking
+Lemma~\ref{lem:triplebridge}(ii); it binds $\ell$ only after that clause supplies
+the ordered two components. No rotation, target or $\Omega$ is attached to the
+two-component auxiliary link. Lemma~\ref{lem:fulltwist} remains branch-neutral.
+
+\begin{lemma}[the abstract full-twist triple]\label{lem:fulltwist}
+Let $D_{\mathrm L},D_{\mathrm H},D_{\mathrm A}$ be oriented diagrams and let $q$
+be a positive crossing of $D_{\mathrm H}$ such that
+\begin{enumerate}
+\item[(T1)] the oriented smoothing of $D_{\mathrm H}$ at $q$ is
+$D_{\mathrm A}$;
+\item[(T2)] switching $q$ in $D_{\mathrm H}$ gives a diagram carried to
+$D_{\mathrm L}$ by oriented Reidemeister-II moves.
+\end{enumerate}
+The symbols this lemma reads off a diagram are bound here, from the diagrams it
+quantifies over, and are not imported from any definition attached to a polygon
+or a chamber. They are bound in two groups, because they have two domains. For
+\emph{any} oriented diagram $D$ --- any number of components --- put
+\[
+   F_D=P_D ,
+\]
+the HOMFLY--PT polynomial of the link it presents (Axiom~\ref{ax:homfly}). For
+a diagram $D$ carried by a \emph{single} closed plane curve $\Gamma_D$, and
+only for such a diagram, put
+\[
+   d(D)=1-w(D)-R(\Gamma_D),\qquad
+   \Omega(D)=\bigl[a^{d(D)}z^0\bigr]F_D ,
+\]
+with $w(D)$ the writhe and $R(\Gamma_D)=|\rot(\Gamma_D)|$ the absolute
+rotation of that curve. An earlier revision bound all three on one domain,
+which typed $d$ and $\Omega$ at a two-component diagram, where the rotation
+number of Definition~\ref{def:rot} is not defined. Abbreviate $F_\nu=F_{D_\nu}$ for $\nu\in\{\mathrm L,\mathrm H,\mathrm A\}$,
+and $d_\nu=d(D_\nu)$, $\Omega_\nu=\Omega(D_\nu)$ for
+$\nu\in\{\mathrm L,\mathrm H\}$ \emph{only}. The restriction is not tidiness:
+$D_{\mathrm A}$ is the oriented smoothing of $D_{\mathrm H}$ and is carried by a
+\emph{two-component} link in the application, while $R(\Gamma_D)$ is the
+absolute rotation of one closed curve (Definition~\ref{def:rot}), so $d$ and
+$\Omega$ are not defined at $\mathrm A$ at all. Nothing below asks for them:
+$D_{\mathrm A}$ enters only through $F_{\mathrm A}$ and through the coefficient
+$[a^{d_{\mathrm L}-1}z^{-1}]F_{\mathrm A}$, which is a coefficient of that
+polynomial and not a read at a slot of its own. An
+earlier revision used $d_\nu$ and $\Omega_\nu$ in this statement while binding
+them only in Definition~\ref{def:markeddata}, which is about the contact
+carriers of an eligible support; the abstract triple has no support, and the
+lemma was not readable on its own hypotheses. The two bindings agree wherever
+both apply, that definition computing $d_\nu$ and $\Omega_\nu$ from these same
+grouped diagrams. Then
+\[
+   F_{\mathrm H}=a^{-2}F_{\mathrm L}+a^{-1}zF_{\mathrm A}.
+\]
+If moreover $d_{\mathrm H}=d_{\mathrm L}-2$, then
+\[
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}
+   =\bigl[a^{d_{\mathrm L}-1}z^{-1}\bigr]F_{\mathrm A}.
+\]
+\end{lemma}
+\begin{proof}
+Apply the skein of Axiom~\ref{ax:homfly} at $q$: its $L_+$ is $D_{\mathrm H}$,
+its $L_-$ is the switched diagram, whose polynomial is $F_{\mathrm L}$ by (T2)
+and the Reidemeister-II invariance of the polynomial, and its $L_0$ is
+$D_{\mathrm A}$ by (T1). So $aF_{\mathrm H}-a^{-1}F_{\mathrm L}=zF_{\mathrm A}$,
+which is the first display.
+
+For the second, $\Omega_{\mathrm H}=[a^{d_{\mathrm H}}z^0]F_{\mathrm H}
+=[a^{d_{\mathrm L}-2}z^0]F_{\mathrm H}$. Taking $[a^{d_{\mathrm L}-2}z^0]$ of
+the first display, the first term contributes
+$[a^{d_{\mathrm L}-2}z^0](a^{-2}F_{\mathrm L})
+=[a^{d_{\mathrm L}}z^0]F_{\mathrm L}=\Omega_{\mathrm L}$ and the second
+contributes $[a^{d_{\mathrm L}-1}z^{-1}]F_{\mathrm A}$.
+\end{proof}
+
+\begin{remark}[why this lemma is branch-neutral]\label{rem:branchneutral}
+Nothing in the statement mentions $\epsilon$, a contact, or a polygon: it is an
+identity about three oriented diagrams related by one crossing. That is
+deliberate. An earlier revision proved the $\epsilon=1$ case and then had the
+$\epsilon=0$ section import it ``verbatim'', which is not an argument --- the
+two branches have different contact words and different auxiliary components.
+Here each branch proves (T1) and (T2) for itself, in
+Lemma~\ref{lem:triplebridge}, and the algebra is quoted once. The peer's
+blueprint is the source of this arrangement.
+\end{remark}
+
+\begin{lemma}[the residual sets split, and who owns them]\label{lem:ownermap}
+Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible with parts $T_A,T_B$, let $A$ and $B$ be the two intervals
+of the contact word of Lemma~\ref{lem:contactword}, let $V_A,V_B$ be the old
+labels with both visits in $A$ and in $B$ respectively, and let $\mathcal N$ be
+the old labels with one visit in each. Write $U(T)$ for the undominated set of $T$ in the high-neither
+chamber and $U_{\lambda_i}(T_i)$ for the undominated set of $T_i$ in the half
+$\lambda_i$. Then
+\[
+   U(T)\cap V_A=U_{\lambda_1}(T_A),\qquad
+   U(T)\cap V_B=U_{\lambda_2}(T_B),\qquad
+   U(T)\cap\mathcal N=\mathcal N\setminus N_{G_{P_2}}(T),
+\]
+and every label of the third set has one visit in each interval.
+
+\end{lemma}
+\begin{proof}
+A chord with both visits in one interval and a chord with both visits in the
+other cannot interlace, their visits lying in disjoint arcs
+(Lemma~\ref{lem:orderedproduct}); and by Lemma~\ref{lem:contactword}(i) every
+old label lies in $V_A$, in $V_B$ or in $\mathcal N$. Let $c\in V_A$. Then $c$
+interlaces no element of $T_B$, so $c\in U(T)$ if and only if $c\notin T_A$ and
+$c$ interlaces no element of $T_A$; interlacement of two chords with all four
+visits inside $A$ is read from their order inside $A$, which the half inherits,
+so that is exactly $c\in U_{\lambda_1}(T_A)$. For $c\in V_B$ interchange the
+two intervals throughout the previous three sentences: $c$ interlaces no element
+of $T_A$, so $c\in U(T)$ if and only if $c\notin T_B$ and $c$ interlaces no
+element of $T_B$, which is $c\in U_{\lambda_2}(T_B)$. For $c\in\mathcal N$ the condition $c\in U(T)$ is $c\notin T$ and
+$c\notin N_{G_{P_2}}(T)$; the first holds for every eligible $T$ by
+Definition~\ref{def:eligible}, so it reduces to $c\notin N_{G_{P_2}}(T)$, which
+is the third identity. The subscript is not decoration: $N(T)$ without one is
+bound in Definition~\ref{def:branches} as the \emph{scalar} high-neither term of
+$T$, and an earlier revision wrote the graph neighbourhood with the same
+symbol. The last clause is the definition of $\mathcal N$.
+
+The third identity is the one that must be read carefully, and an earlier
+revision did not: a mixed label that is \emph{not selected} may still be
+\emph{dominated}, and a dominated label is erased from the diagram rather than
+retained. Membership of $U(T)$, not failure of membership of $T$, is what
+retention means (Definition~\ref{def:pieces}).
+\end{proof}
+
+\begin{remark}[the newborn-free statement against the both-newborn one]\label{rem:ownervssliding}
+Lemma~\ref{lem:ownermap} concerns the newborn-free support, not
+Proposition~\ref{prop:sectortarget}(B), which concerns $S=T\cup\{x,y\}$ at a noninterlacing bigon. There the support
+contains both newborns, every label of $\mathcal N$ is adjacent to them and is
+dominated outright, and the residual sets carry no mixed label at all. Here the
+support contains no newborn, so a mixed label survives unless an old selection
+dominates it, and which ones survive is the content of the third identity.
+\end{remark}
+
+\begin{lemma}[different-piece singleton kinks and chamber transport of an eligible row]\label{lem:chambertransport}
+\begin{enumerate}
+\item[(A)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $\epsilon=0$ and let $T$ be eligible. If the two newborns lie in different
+residual pieces of $T$, then those pieces are the singletons $\{x\}$ and
+$\{y\}$; each singleton's piece diagram is an unknot, so $P_{\{x\}}=P_{\{y\}}=1$
+and $w(\{x\})=w(\{y\})=1$.
+\item[(B)] Here eligibility is as in Definition~\ref{def:eligible}.
+Under Convention~\ref{conv:s7standing}, let $T$ be eligible at a simple bigon
+event, let $C_{\mathrm L}$ and $C_{\mathrm H}$ be its contact carriers in the
+low and the high chamber, let $W_T$ be its chamber selector and $U_T$ the
+product of the reads over its untouched carriers --- all four as bound in
+Definition~\ref{def:markeddata}, which is where they are defined, rather than
+imported from the lemma that first computed with them. Then, with no hypothesis on
+any selector:
+\begin{enumerate}
+\item[(iii)] if $T$ is different-piece, the residual pieces of $C_{\mathrm H}$ are those
+of $C_{\mathrm L}$ together with the two singletons $\{x\}$ and $\{y\}$, so the grouped
+rows agree, $f_{C_{\mathrm H}}=f_{C_{\mathrm L}}$, while the writhes differ by two,
+$w_{T,C_{\mathrm H}}=w_{T,C_{\mathrm L}}+2$.
+\end{enumerate}
+Consequently --- and this conclusion is stated only under the
+different-piece hypothesis of subclause~(iii), since its rows are derived from it ---
+writing $U_T$ for the product of the reads on the carriers of
+Lemma~\ref{lem:chambercommon}(i) --- clause (B) has no subclause (i) since the
+split, and an earlier revision still pointed at one --- and
+$d_0=1-w_{T,C_{\mathrm L}}-R(C_{\mathrm L})$,
+\[
+   L(T)=W_TU_T\bigl[a^{d_0}\bigr]f_{C_{\mathrm L}},
+   \qquad
+   N(T)=W_TU_T\bigl[a^{d_0-2}\bigr]f_{C_{\mathrm L}},
+\]
+both expressions being valid whether or not $W_TU_T$ vanishes.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).} At $\epsilon=0$ the newborns do not interlace, so they are not adjacent. Suppose
+$x$ had an undominated old neighbour $c$. By Lemma~\ref{lem:contactword}(ii) $c$ is a
+neighbour of $y$ as well, so $x,c,y$ is a path in the residual graph
+$G_{P_2}[U(T)]$ and the two newborns share a piece, contrary to hypothesis.
+Hence $x$ has no residual neighbour at all and $\{x\}$ is a component of the
+residual graph. Every hypothesis used --- eligibility of $T$, $\epsilon=0$, and
+Lemma~\ref{lem:contactword}(ii), whose conclusion is an equivalence between the two
+newborns --- is invariant under interchanging the names $x$ and $y$, and so is
+the conclusion that the two lie in different pieces. Interchanging them
+therefore yields the identical derivation with $y$ in place of $x$, and
+$\{y\}$ is a component as well.
+
+For the diagram: by Definition~\ref{def:piecediagram} the diagram of the piece
+$\{x\}$ is the parent curve with \emph{every} double point other than $x$
+erased and $x$ resolved by the divide convention. A closed curve with exactly
+one crossing is an unknot diagram, so its normalized polynomial is $1$
+(Definition~\ref{def:homfly}), and its writhe is $w(\{x\})=|\{x\}|=1$ because
+the divide convention makes every crossing positive.
+
+\emph{Clause (B).} (iii) By clause~(A) the two newborns are singleton
+residual pieces of $T$ in the high chamber; every other residual piece consists
+of old crossings, and its diagram erases $x$ and $y$, so the two strands there
+pass without interaction and the finger is undone by a planar isotopy, leaving
+the same diagram as in the low chamber. Each singleton contributes the factor
+$1$ to the grouped polynomial and the summand $1$ to the grouped writhe
+(clause~(A)), which is the displayed statement.
+
+The two displays are then Definition~\ref{def:X1} read in each chamber, the
+slot in the high chamber being
+$1-w_{T,C_{\mathrm H}}-R(C_{\mathrm H})=1-(w_{T,C_{\mathrm L}}+2)-R(C_{\mathrm L})=d_0-2$. Nothing above divides by a
+selector or a spectator read, so both displays hold as identities of integers
+whatever those factors are.
+\end{proof}
+
+\begin{lemma}[the vertex-on-edge triple, endpoint bracket, auxiliary components and live full-twist jump]
+\label{lem:triplebridge}
+Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible at a simple bigon event with interlacement bit $\epsilon\in\{0,1\}$.
+Clauses (i)--(v) also require $\epsilon=1$, or $\epsilon=0$ with $T$ same-piece. This statement
+carries its own data and inherits none: let $D_{\mathrm L}$ and $D_{\mathrm H}$
+be the grouped diagrams of the contact carrier in the two chambers
+(Corollary~\ref{cor:groupedknot}(B)); let $q:=x$ be the newborn crossing whose
+first visit opens the contact word of Lemma~\ref{lem:contactword}; let
+$D_{\mathrm A}$ be the oriented smoothing of $D_{\mathrm H}$ at $q$; and let
+$F_\nu=P_{D_\nu}$ for $\nu\in\{\mathrm L,\mathrm H,\mathrm A\}$. The symbol
+$\ell$ is \emph{not} bound here: its binding needs the two components that
+clause~(ii) below establishes, and a conclusion cannot retroactively type a
+prior let --- an earlier revision bound "the linking number of the two
+components, when it has two", a partial let discharged only by its own lemma.
+An earlier revision also took $F_{\mathrm A}$ and $\ell$ from a preamble that
+fixes $\epsilon=1$, while the statement covers both branches. The choice of newborn is a \emph{binding} and not a
+convenience: the assignment of writhes to components in (iii) is not equivariant
+under exchanging the two newborns, and an earlier revision quantified $q$ over
+both while proving the statement for this one. Then
+\begin{enumerate}
+\item[(i)] $q$ is a positive crossing of $D_{\mathrm H}$; the oriented smoothing
+of $D_{\mathrm H}$ at $q$ is $D_{\mathrm A}$; and switching $q$ in
+$D_{\mathrm H}$ gives a diagram carried to $D_{\mathrm L}$ by oriented
+Reidemeister-II moves. These are the three hypotheses that
+Lemma~\ref{lem:fulltwist} asks of an abstract triple, restated here rather than
+named, so that this clause can be read without opening that lemma;
+\item[(ii)] $D_{\mathrm A}$ has exactly two components, ordered by the
+half-label convention --- the first is the one containing the first half's
+labels, the second the other; their grouped polynomials are $Q_1$ and $Q_2$,
+the two half polynomials of Definition~\ref{def:markeddata}.
+
+\emph{With the two components of (ii) so ordered, let $\ell$ be their linking
+number; clauses (iii)--(v) read it.}
+
+\item[(iii)] the second component has writhe $w_2$, and the first has writhe
+$w_1+(1-\epsilon)$;
+\item[(iv)] $[z^{-1}]F_{\mathrm A}=a^{-2\ell}(a-a^{-1})f_1f_2$;
+\item[(v)] $w_{\mathrm L}=w_1+w_2+2\ell-\epsilon$.
+\item[(vi)] without the extra hypothesis imposed on clauses (i)--(v),
+\[
+   w_{\mathrm H}=w_{\mathrm L}+2,\qquad R_{\mathrm H}=R_{\mathrm L},\qquad
+   d_{\mathrm H}=d_{\mathrm L}-2.
+\]
+
+\item[(vii)] With the marked-data symbols as in Definition~\ref{def:markeddata},
+if $\epsilon=1$ and $W_T\neq0$, then
+\[
+   \bigl[a^{D-2}\bigr]f_1f_2-\bigl[a^{D}\bigr]f_1f_2+\omega_1\omega_2=0 .
+\]
+A summand with $W_T=0$ contributes zero to the weighted aggregate whatever its
+bracket, so the weighted SR.12 aggregate vanishes.
+
+\item[(viii)] Under Convention~\ref{conv:s7standing}, if $\epsilon=1$, bind the parts $T_A,T_B$ and the following chamber and
+half data exactly as in Definition~\ref{def:markeddata}:
+$C_\nu,D_\nu,F_\nu,w_\nu,\rot_\nu,R_\nu,d_\nu,\Omega_\nu$ for
+$\nu\in\{\mathrm L,\mathrm H\}$; $L_i,Q_i,f_i,w_i,\rot_i,R_i,d_i,\omega_i$
+for $i\in\{1,2\}$; and $D,W_T$. If $W_T\neq0$, then
+\[
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}=-\omega_1\omega_2.
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{(i).} (T1) holds by the definition of $D_{\mathrm A}$. For (T2), switch
+$q$: the two newborns then carry opposite signs and, the contact disc being
+empty (Convention~\ref{conv:events}), they bound an empty bigon face, so an
+oriented Reidemeister-II move deletes both and leaves the low grouped diagram
+$D_{\mathrm L}$ --- the old pieces and their crossings being untouched by the
+move, which is supported in that disc.
+
+\emph{(ii) and (iii).} Read the contact word of Lemma~\ref{lem:contactword}. At
+$\epsilon=1$ it is $x_0y_0Ax_1y_1B$; smoothing $q=x$ cuts the traversal at
+$x_0,x_1$ and reconnects, so the two visits of $y$ land on \emph{different}
+components. Then $y$ is a \emph{mixed} crossing of the two-component link
+$D_{\mathrm A}$, and the disposition of a mixed crossing is not that of a
+self-crossing: it is not deleted, and Axiom~\ref{ax:homfly} is not what applies
+to it. An earlier revision wrote that it was deleted with no change of
+polynomial by that axiom, which types it as a self-crossing of one component.
+What is true, and what is used below, is that a mixed crossing belongs to
+neither component's own diagram, so it enters neither $f_1$ nor $f_2$; it
+belongs to the linking data, and enters through the exponent $-2\ell$ that
+Lemma~\ref{lem:homflyrows}(ii) consumes in~(iv). At $\epsilon=0$ the word is
+$x_0y_0Ay_1x_1B$; smoothing $x$ puts both visits of $y$ on one component, where
+it is a positive self Reidemeister-I curl --- there the crossing \emph{is} a
+self-crossing, its deletion is a Reidemeister-I move, and the polynomial is
+unchanged. In both branches the two components carry, respectively, the
+labels of $A$ together with the half $\lambda_1$'s and those of $B$ together
+with $\lambda_2$'s.
+
+That the two components' grouped polynomials are $Q_1,Q_2$ is the record
+argument and not a picture. The residual-owner identities are
+Lemma~\ref{lem:ownermap}'s --- Lemma~\ref{lem:orderedproduct} is only a support
+bijection and Lemma~\ref{lem:contactsplit} only a carrier split, and neither
+supplies the owner map, which an earlier sentence here attributed to them.
+The identities must be read at the level of \emph{labels}, not of pieces. It is \emph{false} that each
+old residual piece of $T$ on the contact carrier lies wholly in $A$ or wholly in
+$B$, and an earlier revision asserted it; the peer refuted it on the label set
+\texttt{contact-0001}, where the piece
+$\{(0,2),(0,3),(1,3),(2,7),(3,6)\}$ has one crossing among the first half's
+labels, none among the second's, and four whose two visits fall in different
+intervals. A piece is a connected component of an interlacement graph and
+nothing makes it respect the cut.
+
+What the record isomorphism needs, and what those two lemmas give, is a
+statement about crossings. Call a crossing of $D_{\mathrm H}$ \emph{mixed} when
+its two visits lie in different intervals of the contact word; by
+Lemma~\ref{lem:contactword}(ii) the mixed old labels are exactly $\mathcal N$.
+Of those, the ones \emph{retained} in the diagram are
+$\mathcal N\setminus N_{G_{P_2}}(T)$
+and not all of $\mathcal N$: a mixed label dominated by a selected old crossing
+is erased --- dominated meaning adjacent in $G_{P_2}$ to a selected label ---
+and Lemma~\ref{lem:ownermap} is what says which survive. An
+earlier revision wrote that an eligible $T$ contains no mixed label and
+concluded that every mixed crossing is retained, which confuses not-selected
+with undominated.
+
+The retained mixed crossings belong to neither component's own diagram of
+$D_{\mathrm A}$, each having one visit in each interval: they are the crossings
+whose signed count is $2\ell$. Delete them from the two component records and
+every remaining crossing has both visits in one interval, hence lies on one
+component; by Lemma~\ref{lem:ownermap} the remaining labels of the
+component through $A$ are exactly $U_{\lambda_1}(T_A)$, the residual labels of
+the first half, and those of the other component exactly
+$U_{\lambda_2}(T_B)$. That is the owner map, and it is a statement about
+residual \emph{sets}: Lemma~\ref{lem:orderedproduct} is a bijection of supports
+and Lemma~\ref{lem:contactsplit} a splitting of carriers, and neither of them
+says this. Restricting the traversal
+of the smoothed diagram to the retained visits of one component gives a
+bijection onto the visits of the corresponding half carrier, and by
+Lemma~\ref{lem:carrierword} it preserves their cyclic order; the over/under
+designation and the sign at each are those of the parent, by
+Definition~\ref{def:piecediagram}, since a smoothing elsewhere alters neither.
+So the retained-visit map is an orientation-preserving record isomorphism in the
+sense of Definition~\ref{def:record}, and Axiom~\ref{ax:gausscode}, invoked
+through Corollary~\ref{cor:groupedknot}(B) on each component, identifies the two
+grouped diagrams with the half grouped knots. Their polynomials are $Q_1,Q_2$.
+A half carrier bearing no piece is outside the $k\geq1$ scope of
+Corollary~\ref{cor:groupedknot}(B) and takes one line of its own: the component has
+no retained crossing at all, so its diagram is an embedded circle, its link type
+is the unknot, and its grouped polynomial is $1$ with writhe $0$, which is
+Theorem~\ref{thm:carrierfloor}(D) and is the value $Q_i$ takes there.
+
+The writhes follow by counting positive crossings: the second component carries
+exactly the half $\lambda_2$'s residual crossings, so $w_2$; the first carries
+$\lambda_1$'s together with the surviving newborn when $\epsilon=0$, and none
+when $\epsilon=1$, so $w_1+(1-\epsilon)$.
+
+\emph{(iv).} $D_{\mathrm A}$ is a two-component link, and it is \emph{not}
+claimed to be a split union --- its two components link, and the factor
+$a^{-2\ell}$ records that. Lemma~\ref{lem:homflyrows}(ii) applied to it, with the two
+component rows $f_1,f_2$ from (ii), gives
+$[z^{-1}]F_{\mathrm A}=a^{-2\ell}(a-a^{-1})f_1f_2$.
+
+\emph{(v).} Count writhes, branch by branch, and count them in
+$D_{\mathrm H}$, whose crossings are the residual crossings of the two halves,
+the mixed ones, and the two newborns $x$ and $y$; all are positive
+(Definition~\ref{def:piecediagram}). That $w_{\mathrm L}=w_{\mathrm H}-2$ is
+part~(i) read for writhes and not a forward citation: switching $q$ makes its
+sign $-1$ and lowers the writhe by two, and the oriented Reidemeister-II move
+that follows removes $q$ and $y$, whose signs $-1$ and $+1$ cancel; what is
+left is $D_{\mathrm L}$. At $\epsilon=0$ the crossing $y$ is a self-crossing
+of the first component, so the mixed crossings of $D_{\mathrm A}$ are the old
+mixed ones and their signed count is $2\ell$; then
+$w_{\mathrm H}=w_1+w_2+2\ell+2$ and $w_{\mathrm L}=w_1+w_2+2\ell$. At
+$\epsilon=1$ the crossing $y$ is itself mixed, so the old mixed crossings count
+$2\ell-1$; then $w_{\mathrm H}=w_1+w_2+(2\ell-1)+2$ and
+$w_{\mathrm L}=w_1+w_2+2\ell-1$. Both branches are
+$w_{\mathrm L}=w_1+w_2+2\ell-\epsilon$. No crossing is \emph{deleted} in this
+count, and an earlier revision said the mixed ones were; they are retained in
+$D_{\mathrm A}$ and enter through $\ell$.
+
+
+\emph{(vi).} First suppose $\epsilon=1$, or $\epsilon=0$ with $T$ same-piece.
+By~(i), switching the positive $q$ lowers the writhe by two; the subsequent
+oriented Reidemeister-II deletion removes crossings of signs $-1$ and $+1$,
+so its net writhe change is zero. Thus $w_{\mathrm H}=w_{\mathrm L}+2$.
+If $\epsilon=0$ and $T$ is different-piece, Lemma~\ref{lem:chambertransport}, clause~(B)(iii)
+gives the same identity. Corollary~\ref{cor:groupedknot}(B), including its stated
+empty-carrier case, identifies each grouped carrier writhe $w_{T,C_\nu}$ with
+the writhe $w(D_\nu)$ of its grouped diagram, while
+Definition~\ref{def:markeddata} binds $w_\nu=w(D_\nu)$. Thus
+$w_{T,C_{\mathrm H}}=w_{\mathrm H}$ and $w_{T,C_{\mathrm L}}=w_{\mathrm L}$.
+In every case Lemma~\ref{lem:chambercommon}(ii) gives $\rot_{\mathrm H}=\rot_{\mathrm L}$, hence $R_{\mathrm H}=R_{\mathrm L}$. Finally,
+\begin{align*}
+ d_{\mathrm H}&=1-w_{\mathrm H}-R_{\mathrm H}\\
+ &=1-(w_{\mathrm L}+2)-R_{\mathrm L}\\
+ &=(1-w_{\mathrm L}-R_{\mathrm L})-2\\
+ &=d_{\mathrm L}-2.
+\end{align*}
+
+\emph{(vii).} $W_T\neq0$ and Lemma~\ref{lem:selectorid}, clause~(B) at $\epsilon=1$ give
+$W_T=-s_{\mathrm{low}}W_1W_2$, with $s_{\mathrm{low}}$ as bound in
+Lemma~\ref{lem:selectorid}, clause~(B), so both half selectors are nonzero and both half
+carriers $L_1,L_2$ are uniform (Definition~\ref{def:wind}). That is the route
+the hypothesis actually supports: it is a statement about the full selector, and
+the halves' uniformity is deduced from it. The spectator product $U_T$ is not
+used anywhere in this proof, which is why the statement asks only for
+$W_T\neq0$. Each is a closed polygon whose principal turns are all
+nonzero and, being turns of a generic polygon, of magnitude below $\pi$; by
+Corollary~\ref{cor:groupedknot}(B) the grouped object on $L_i$ is a single knot
+diagram with all crossings positive, writhe $w_i$, underlying plane curve
+$L_i$ and HOMFLY polynomial $Q_i$. Theorem~\ref{thm:carrierfloor}(C) applies to it
+in its uniform case --- or Theorem~\ref{thm:carrierfloor}(D), if the half bears no
+residual piece at all --- and gives
+\[
+   \min\deg_a Q_i\;\geq\;1-w_i-R_i=d_i,
+\]
+hence $\min\deg_af_i\geq d_i$ as well, $f_i$ being a coefficient row of $Q_i$.
+
+Therefore $f_1f_2$ has no support below $D=d_1+d_2$, so
+$[a^{D-2}]f_1f_2=0$; and at degree $D$ the only way to write $D$ as a sum of an
+exponent of $f_1$ at least $d_1$ and one of $f_2$ at least $d_2$ is
+$(d_1,d_2)$, so $[a^{D}]f_1f_2=\omega_1\omega_2$. The bracket is
+$0-\omega_1\omega_2+\omega_1\omega_2=0$. If one of the rows is zero then $f_1f_2=0$ and $\omega_1\omega_2=0$, so all
+three terms of the bracket are zero.
+
+The restriction to $W_T\neq0$ is not cosmetic. A summand with $W_T=0$ carries no
+uniform halves for Theorem~\ref{thm:carrierfloor}(C) to be applied to, and nothing
+is asserted about its bracket; it contributes zero to the weighted sum because
+its weight is zero. An earlier revision wrote $W_TU_T\neq0$ here and in the
+opening line while stating the proposition for $W_T\neq0$; the two stale
+occurrences are corrected, and the hypothesis is the weaker one throughout.
+
+\emph{(viii).} Put $L^*=C_{\mathrm H}$ and $q:=x$. Let $D_{\mathrm A}$ be the oriented
+smoothing of $D_{\mathrm H}$ at $q$ and put $F_{\mathrm A}=P_{D_{\mathrm A}}$.
+By clause~(ii), $D_{\mathrm A}$ has exactly two ordered
+components with rows $f_1,f_2$; let $\ell$ be their linking number.
+
+Clause~(i) makes $q$ positive and supplies (T1) and (T2);
+clause (vi) gives $d_{\mathrm H}=d_{\mathrm L}-2$ for
+Lemma~\ref{lem:fulltwist}, and clause (iv) supplies the auxiliary row.
+Corollary~\ref{cor:groupedknot}(B), including its stated empty-carrier case,
+identifies the grouped chamber diagrams' underlying curves as
+$C_{\mathrm L},C_{\mathrm H}$, so their marked and abstract $d_\nu,F_\nu,\Omega_\nu$ bindings agree. Therefore
+\begin{align}
+ \Omega_{\mathrm H}-\Omega_{\mathrm L}
+ &=\bigl[a^{d_{\mathrm L}-1}z^{-1}\bigr]F_{\mathrm A}\notag\\
+ &=\bigl[a^{d_{\mathrm L}+2\ell-2}\bigr]f_1f_2
+   -\bigl[a^{d_{\mathrm L}+2\ell}\bigr]f_1f_2. \tag{FT1}
+\end{align}
+At $\epsilon=1$, Lemmas~\ref{lem:rotshift} and~\ref{lem:chambercommon}(ii),
+together with clause~(v), give
+\begin{align}
+ \rot_{\mathrm L}&=\rot(C_{\mathrm L})=\rot(C_{\mathrm H})
+ =\rot(L^*)=\rot_1+\rot_2,\notag\\
+ 2\ell&=w_{\mathrm L}+1-w_1-w_2. \tag{FT2}
+\end{align}
+Put $\Delta_R=R_1+R_2-R_{\mathrm L}$. The first line of (FT2) and the triangle
+inequality give $\Delta_R\geq0$, while the definitions and its second line give
+\begin{align}
+ D&=2-w_1-w_2-R_1-R_2\notag\\
+  &=2-(w_{\mathrm L}+1-2\ell)-(R_{\mathrm L}+\Delta_R)\notag\\
+  &=d_{\mathrm L}+2\ell-\Delta_R. \tag{FT3}
+\end{align}
+Thus (FT1) becomes
+\begin{equation}
+ \Omega_{\mathrm H}-\Omega_{\mathrm L}
+ =\bigl[a^{D+\Delta_R-2}\bigr]f_1f_2
+  -\bigl[a^{D+\Delta_R}\bigr]f_1f_2. \tag{FT4}
+\end{equation}
+
+Since $W_T\neq0$, Definition~\ref{def:wind} makes the contact carrier
+$L^*=C_{\mathrm H}$ uniform. The uniformity clause of
+Lemma~\ref{lem:selectorid}, clause~(B) at $\epsilon=1$ then makes both half carriers
+uniform with the same turn sign. Lemma~\ref{lem:uniformrot}(i) gives
+$\rot_1,\rot_2$ that same sign, so
+$|\rot_1|+|\rot_2|=|\rot_1+\rot_2|$. By (FT2) this says
+\begin{equation}
+   \Delta_R=R_1+R_2-R_{\mathrm L}=0. \tag{FT5}
+\end{equation}
+With (FT5), the right side of (FT4) is exactly the first two terms of
+clause~(vii)'s displayed bracket. That exported bracket gives
+$(\Omega_{\mathrm H}-\Omega_{\mathrm L})+\omega_1\omega_2=0$, which proves
+the claim.
+\end{proof}
+
+\begin{remark}[attribution]\label{rem:fulltwistsource}
+The counterpart's full-twist calculation is retained in the proof of the live
+jump: (FT1) is the abstract skein and auxiliary two-component row; (FT2) is the
+signed-rotation and writhe ledger; (FT3)--(FT4) are the rotation-defect shift;
+and (FT5) is the live-support collapse. The final sentence uses the exported
+combined bracket of Lemma~\ref{lem:triplebridge}(vii). The writhe identity
+$2\ell=w_{\mathrm L}+1-w_1-w_2$ is also the ledger that refutes the withdrawn
+route of Remark~\ref{rem:withdrawnbracket}.
+\end{remark}
+
+\subsection{The noninterlacing join}\label{sec:nijoin}
+
+The calculation of §\ref{sec:fulltwist} does transfer to $\epsilon=0$, but not
+by copying: one step changes and it changes two of the bookkeeping identities
+with it. Throughout, $F_{\mathrm H}$ is the grouped polynomial of the contact
+carrier in the two-crossing chamber and $F_{\mathrm L}$ in the zero-crossing
+chamber. The symbols $F_{\mathrm A}$ and $\ell$ are \emph{not} bound here:
+"the link obtained by smoothing one newborn" does not choose the newborn, and
+Lemma~\ref{lem:triplebridge}'s clause~(iii) is not equivariant under exchanging
+the two, so the choice is a binding and it is made inside the lemma that reads
+it. The chamber data are
+$w_{\mathrm L}$, $R_{\mathrm L}$ and $d_{\mathrm L}=1-w_{\mathrm L}-R_{\mathrm
+L}$ for the low chamber and likewise with $\mathrm H$; the half data are
+$w_i,R_i,d_i=1-w_i-R_i$ and $D=d_1+d_2$, as in
+Definition~\ref{def:markeddata}. An earlier revision wrote
+$d_{\mathrm L}=1-w_{\mathrm F}-R_{\mathrm L}$, mixing a symbol from a naming
+scheme this section no longer uses.
+
+\begin{lemma}[the noninterlacing twist, its ledgers and live rotation defect]\label{lem:nitransport}
+\begin{enumerate}
+\item[(A)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $\epsilon=0$ and let $T$ be eligible \emph{and same-piece}: after smoothing
+$T$ the two newborns lie in one residual piece and on one carrier. Bind here, not by reference: let $q:=x$ be the newborn whose first visit opens
+the contact word of Lemma~\ref{lem:contactword} --- the smoothed crossing is
+this one and not the other newborn --- let $D_{\mathrm A}$ be the oriented
+smoothing of $D_{\mathrm H}$ at $q$ and $F_{\mathrm A}=P_{D_{\mathrm A}}$; by
+Lemma~\ref{lem:triplebridge}(ii) at $\epsilon=0$, $D_{\mathrm A}$ has exactly
+two components, ordered by the half-label convention, and $\ell$ is their
+linking number. The ledgers below are the ones clauses (ii)--(iv) of that
+lemma supply. Let $s\in\{\pm1\}$ be the sign
+\eqref{eq:S6} in the initial chamber; the
+configuration with $s=-1$ is the reflection of the one with $s=+1$, and every
+determinant below negates with it, so the statement is written for $s=+1$ and
+read for $s=-1$ through that reflection. Then:
+\[
+   F_{\mathrm H}=a^{-2}F_{\mathrm L}+a^{-1}zF_{\mathrm A},
+   \qquad
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}=\bigl[a^{d_{\mathrm L}-1}z^{-1}\bigr]F_{\mathrm A},
+\]
+and, with $f_i,d_i,D$ as in Definition~\ref{def:markeddata} and
+$\Delta_R=R_1+R_2-R_{\mathrm L}$,
+\[
+   2\ell=w_{\mathrm L}-w_1-w_2,
+   \qquad
+   D=d_{\mathrm L}+2\ell+1-\Delta_R,
+   \qquad
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}
+   =\bigl[a^{D+\Delta_R-3}\bigr]f_1f_2
+    -\bigl[a^{D+\Delta_R-1}\bigr]f_1f_2 .
+\]
+The display is the $\epsilon=0$ specialization, this lemma's own hypothesis ---
+an earlier revision printed the unified two-branch exponents
+$D+\Delta_R+\epsilon-3$, $D+\Delta_R+\epsilon-1$ over the ledger
+$D=d_{\mathrm L}+2\ell+1-\epsilon-\Delta_R$ and called them "valid at both
+branches" inside a statement that fixes $\epsilon=0$; the unified form is the
+peer's blueprint's and lives in the withdrawn-obstruction remark at the end of
+this section, where both branches are in scope. The value of
+$\Delta_R$ on a live noninterlacing support is supplied separately, and this
+statement carries the exponents in $\Delta_R$ alone rather than the numbers
+they become.
+\item[(B)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible at a simple bigon event with $\epsilon=0$, and suppose
+$W_T\neq0$ --- the selector of Definition~\ref{def:markeddata}, one number for
+both chambers; an earlier revision wrote "the contact carrier's selector",
+which names no bound quantity, and left $T$ unbound. Write
+\[
+   \Delta_R=R_1+R_2-R_{\mathrm L}
+\]
+for the rotation defect, in the absolute rotations $R_1,R_2$ of the two half
+contact carriers and $R_{\mathrm L}$ of the contact carrier in the low chamber, all bound in
+Definition~\ref{def:markeddata}. Put $D=d_1+d_2$, with the half slots $d_i$
+bound there. Then $\Delta_R=-1$; substituted into the two exponents of clause~(A),
+that gives $D-4$ and $D-2$. The symbol $\Delta_R$ is rebound here: clause~(B)
+has its own hypotheses and does not inherit clause~(A)'s local binding.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).} The first two displays are the two clauses of Lemma~\ref{lem:fulltwist}. Its
+hypotheses (T1) and (T2) hold here by Lemma~\ref{lem:triplebridge}(i) --- that
+lemma proves them at \emph{both} branches, so nothing is imported from
+$\epsilon=1$ and the word ``verbatim'', which an earlier revision used here, is
+gone. The \emph{second} clause carries a third antecedent,
+$d_{\mathrm H}=d_{\mathrm L}-2$, which an earlier revision of this proof did not
+name: it is Lemma~\ref{lem:triplebridge}(vi), stated for an eligible $T$ at a simple
+bigon event and so available at this branch as well. Without it the coefficient
+display is not licensed, the first display being unconditional and the second
+not.
+
+The step that differs between the branches is the identification of the two
+components of the auxiliary link, and it too is
+Lemma~\ref{lem:triplebridge}(ii)--(iii). At $\epsilon=1$ the chords interlace,
+smoothing $x$ puts the two visits of $y$ on different components, and $y$ is a
+mixed crossing --- \emph{retained}, in neither component's own diagram, and
+counted in the linking exponent, which is the typing of
+Lemma~\ref{lem:triplebridge}(ii); an earlier revision here said it was to be
+deleted. At $\epsilon=0$ the chords are nested: smoothing
+$x$ cuts the
+traversal into $y_0Ay_1$ and $B$, so both visits of $y$ land on the first
+component and $y$ survives there --- as a \emph{positive self Reidemeister-I
+curl}. Deleting that curl changes no polynomial (Axiom~\ref{ax:homfly}) and
+leaves exactly the two half groupings, so Lemma~\ref{lem:homflyrows}(ii) applies with rows
+$f_1,f_2$ and gives $[z^{-1}]F_{\mathrm A}=a^{-2\ell}(a-a^{-1})f_1f_2$.
+
+That deletion is also what changes the writhe ledger. Smoothing one positive
+newborn removes one crossing from the two-crossing diagram and deleting the
+curl removes one more, so $2\ell=w_{\mathrm L}-w_1-w_2$ --- without the $+1$
+that Lemma~\ref{lem:triplebridge}(v) carries at $\epsilon=1$. Then
+\[
+   D=2-w_1-w_2-R_1-R_2
+    =2-(w_{\mathrm L}-2\ell)-(R_{\mathrm L}+\Delta_R)
+    =d_{\mathrm L}+2\ell+1-\Delta_R,
+\]
+and substituting into
+$\bigl[a^{d_{\mathrm L}-1}\bigr]\bigl(a^{-2\ell}(a-a^{-1})f_1f_2\bigr)
+=[a^{d_{\mathrm L}+2\ell-2}]f_1f_2-[a^{d_{\mathrm L}+2\ell}]f_1f_2$
+with $d_{\mathrm L}+2\ell=D+\Delta_R-1$ gives the last display.
+
+\emph{Clause (B).} The signed rotations $\rot_1=\rot(L_1)$ and $\rot_2=\rot(L_2)$ of the two half
+contact carriers are bound in Definition~\ref{def:markeddata}, together with
+$R_i=|\rot_i|$; write $\rot_{\mathrm L}$ for the signed rotation of the contact
+carrier in the low chamber, so that $R_{\mathrm L}=|\rot_{\mathrm L}|$. An
+earlier revision rebound these as $r_1,r_2$ here and as $\rho_i$ in the
+definition, three names for one quantity. Let $s_{\mathrm{low}}$ be
+the low-chamber side sign of Lemma~\ref{lem:rotshift} and $\tau$ the sign of the
+turn at $M$ on the contact carrier. In the chart of Lemma~\ref{lem:contactturnboth}, normalised by
+$s_{\mathrm{low}}=+1$, the two half contact turns are $\arg q$ and
+$\pi-\arg p$, both in $(0,\pi)$; so the common sign of the two half contact
+turns is $s_{\mathrm{low}}$, both sides negating together under the reflection
+that sends $s_{\mathrm{low}}$ to $-1$. By Lemma~\ref{lem:contactturnboth} at
+$\epsilon=0$ that sign and $\tau$ are opposite, $\tau=-s_{\mathrm{low}}$. All
+noncontact corners partition between the halves, and
+Lemma~\ref{lem:rotshift} at $\epsilon=0$ says the two halves carry one full
+turn more than the carrier, of sign $s_{\mathrm{low}}$:
+$\rot_1+\rot_2-\rot_{\mathrm L}=s_{\mathrm{low}}=-\tau$.
+
+Suppose the selector is nonzero. Then the contact carrier is uniform
+(Definition~\ref{def:wind}), so Lemma~\ref{lem:uniformrot}(i) gives
+$\tau\rot_{\mathrm L}\geq1$. Each half inherits only noncontact turns of sign
+$\tau$, together with exactly one contact turn of the opposite sign and of
+magnitude strictly below $\pi$ (Lemma~\ref{lem:contactturnboth}(iv)). Apply
+Lemma~\ref{lem:uniformrot}(ii) directly when $\tau=+1$ and after orientation
+reversal when $\tau=-1$; it gives
+$\tau\rot_1\geq1$ and $\tau\rot_2\geq1$. The absolute values may therefore all be
+removed with the common sign $\tau$:
+\[
+   \Delta_R=|\rot_1|+|\rot_2|-|\rot_{\mathrm L}|
+   =\tau\bigl(\rot_1+\rot_2-\rot_{\mathrm L}\bigr)=\tau(-\tau)=-1 .
+\]
+\end{proof}
+
+\begin{theorem}[target factorization, dominated and newborn rows, both bigon branches and universal (S7)]\label{thm:s7universal}
+If $T\in\Ind(G_{P_0})$ meets $\mathcal N$ then
+$N(T)-L(T)+X(T)+Y(T)=0$.
+\begin{enumerate}
+\item[(A)] Here eligibility is as in Definition~\ref{def:eligible}.
+Let $T$ be eligible with parts $T_A,T_B$, and let $W_1,W_2,U_T,\omega_1,\omega_2$
+be as in Definition~\ref{def:markeddata}. Then
+\[
+   W_1W_2\,U_T\,\omega_1\omega_2
+   \;=\;
+   \Bigl(\wind_{\lambda_1}(T_A)\prod_{L}\Omega_1(T_A,L)\Bigr)
+   \Bigl(\wind_{\lambda_2}(T_B)\prod_{L'}\Omega_1(T_B,L')\Bigr),
+\]
+the first product running over the carriers of $T_A$ in $\lambda_1$ and the
+second over the carriers of $T_B$ in $\lambda_2$, as in
+Definition~\ref{def:X1};
+so that the two factors on the right are the terms of $T_A$ in
+$X_1(\lambda_1)$ and of $T_B$ in $X_1(\lambda_2)$.
+\item[(B)] Here eligibility is as in Definition~\ref{def:eligible}, and all
+marked-data symbols are as in Definition~\ref{def:markeddata}.
+Let the event be a simple vertex-on-edge event of bigon type, in the sense of
+Convention~\ref{conv:events}, whose two newborn crossings interlace; hence
+$\epsilon=1$. Then:
+\begin{enumerate}
+\item[(i)] For every eligible $T$, write
+\[
+   W_x=\wind_{P_2}\bigl(T\cup\{x\}\bigr),\qquad
+   W_y=\wind_{P_2}\bigl(T\cup\{y\}\bigr)
+\]
+for the two one-newborn selectors. Then $W_x=W_y=0$, so
+$X(T)=Y(T)=0$, whether or not the contact carrier of $T$ is uniform.
+\item[(ii)] For every eligible $T$, define its returned contribution and
+target share by
+\[
+   R_T=\delta\bigl(N(T)-L(T)+X(T)+Y(T)\bigr),\qquad
+   J_T=s_{\mathrm{init}}\,W_1W_2\,U_T\,\omega_1\omega_2,
+\]
+where $\delta=\pm1$ is the wall orientation of Definition~\ref{def:branches},
+$J$ is the sector target of Definition~\ref{def:sectors} --- an earlier revision
+attributed it to Definition~\ref{def:branches} --- and
+$s_{\mathrm{init}}=\delta\,s_{\mathrm{low}}$ is the \eqref{eq:S6} sign in the
+initial chamber. Then $R_T=J_T$ when $W_T\neq0$; when
+$W_T=0$, one has $J_T=0$ and $R_T=\delta(X(T)+Y(T))$; and
+\[
+   F=J\ \text{ at the interlacing bigon}
+   \quad\Longleftrightarrow\quad
+   \sum_{\substack{T\text{ eligible}\\ W_T=0}}
+   \bigl(X(T)+Y(T)\bigr)=0 .
+\]
+\item[(iii)] If the two halves are generic polygons --- the hypothesis (S7)
+carried in Definition~\ref{def:laws}, discharged at every such event on a
+path in $\mathcal R_n$ by the certificate of the induction --- then $X_1$
+satisfies (S7) there, with the sign \eqref{eq:S6} and the halves of
+Definition~\ref{def:halves}.
+\end{enumerate}
+\item[(C)] Here eligibility is as in Definition~\ref{def:eligible} and the marked-data symbols are
+as in Definition~\ref{def:markeddata}.
+Let $\epsilon=0$. For every eligible $T$ with $W_T\neq0$ --- the selector alone,
+the spectator product $U_T$ playing no part ---
+\[
+   \bigl[a^{D-4}\bigr]f_1f_2=\bigl[a^{D-2}\bigr]f_1f_2=0 .
+\]
+\item[(D)] The following local statements hold. In clauses~(ii)--(v),
+eligibility is as in Definition~\ref{def:eligible}; let $\epsilon=0$ and let
+$T$ be eligible.
+\begin{enumerate}
+\item[(i)] Let $S\in\Ind(G_P)$, let $A$ be a uniform carrier of $S$, and let $\{c\}$ be a
+singleton residual piece of $S$ carried by $A$. Then
+\[
+   \min\deg_af_A\;\geq\;\bigl(1-w_{S,A}-R(A)\bigr)+2,
+\]
+so the factor $\Omega_1(S,A)$ of Definition~\ref{def:X1} is zero.
+\item[(ii)] The set $T\cup\{x\}$ is independent and $\{y\}$ is a singleton
+residual piece of it; symmetrically, $T\cup\{y\}$ is independent and $\{x\}$
+is a singleton residual piece of it. No hypothesis on the pieces of $T$ is
+used.
+\item[(iii)] $X(T)=Y(T)=0$.
+\item[(iv)] If $T$ is different-piece, put $S=T\cup\{x,y\}$. Then:
+\begin{enumerate}
+\item[(a)] $S$ is independent and $U(S)=U(T)\setminus\{x,y\}$;
+\item[(b)] the residual pieces of $S$ are exactly the residual pieces of $T$
+other than the two singletons $\{x\}$ and $\{y\}$ --- the same label sets, hence
+the same piece diagrams, polynomials and writhes;
+\item[(c)] with $L_1,L_2$ the two half contact carriers of
+Lemma~\ref{lem:contactsplit}, rows $f_1,f_2$ and grouped writhes $w_1,w_2$, the
+high-neither contact carrier satisfies $f_{C_{\mathrm H}}=f_1f_2$ and
+$w_{T,C_{\mathrm H}}=w_1+w_2+2$, where $C_{\mathrm H}$ denotes that carrier;
+\item[(d)] consequently $f_{C_{\mathrm L}}=f_1f_2$ and $w_{T,C_{\mathrm L}}=w_1+w_2$ in the low
+chamber.
+\end{enumerate}
+\item[(v)] If $T$ is different-piece, the entire row vanishes:
+\[
+   N(T)=L(T)=X(T)=Y(T)=0 .
+\]
+\end{enumerate}
+\item[(E)] Let the event be a simple vertex-on-edge event of bigon type, in the sense of
+Convention~\ref{conv:events}, whose two newborn crossings do not interlace, and
+whose two halves are generic polygons. Then $X_1$ satisfies (S7) there, with the
+sign \eqref{eq:S6} and the halves of Definition~\ref{def:halves}.
+\item[(F)] Let $W$ be a simple vertex-on-edge event in the sense of
+Convention~\ref{conv:events}, of either the bigon or the sliding type, with any
+number of exterior strands threading the region of the event, and suppose the
+two halves of Definition~\ref{def:halves} are generic polygons with fewer
+vertices than the parent. Then $X_1$ satisfies (S7) at $W$ with the sign (S6)
+and the halves (S1) of Definition~\ref{def:halves}.
+
+The hypothesis on the halves is not a restriction: it holds at every simple
+vertex-on-edge event on a path inside $\mathcal R_n$, which is the certificate
+proved in the induction's section. The genericity and vertex-count hypotheses are stated here for different reasons, and an earlier
+revision gave one reason for both. The genericity is \emph{consumed} by this
+proof, which evaluates $X_1$ on each half and cannot do so otherwise. The
+vertex count is \emph{exported}: no step below reads it --- this theorem is not
+an induction and applies no inductive hypothesis --- and it is carried because
+the consumer is, the induction of the last section applying its hypothesis to
+the halves and needing them smaller than the parent.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\emph{The opening assertion.} Let $q\in T\cap\mathcal N$. Then $q$ is adjacent to both newborns
+(Lemma~\ref{lem:contactword}(ii)), so neither $T\cup\{x\}$ nor $T\cup\{y\}$ is
+independent and $X(T)=Y(T)=0$. Also $x,y\in N_{G_{P_2}}(T)$, so neither is in
+$U(T)$: the newborns are dominated and are not residual crossings. Hence the
+residual sets, the pieces, and their diagrams are computed from the old labels
+alone and coincide in the two chambers, the crossing data being constant across
+the event (Lemma~\ref{lem:guardconst}); the carriers are the cycles of the same
+smoothing of the same word, with the same corner signs; and the rotations agree
+because the two chambers are joined by a path along which no carrier turn
+vanishes. So every factor of the term agrees and $N(T)=L(T)$.
+
+\emph{Clause (A).} By Definition~\ref{def:X1} the term of $T_A$ is its selector times the product
+of the reads over all of its carriers, and $\wind_{\lambda_1}(T_A)=W_1$ by
+Definition~\ref{def:markeddata}; likewise for $T_B$. So the right-hand side is
+$W_1W_2$ times the product of the reads over all carriers of $T_A$ in
+$\lambda_1$ and of $T_B$ in $\lambda_2$. It remains to identify that product
+with $U_T\omega_1\omega_2$, carrier by carrier.
+
+\emph{The contact carriers.} $L_1$ and $L_2$ are the two halves' contact
+carriers, and $\Omega_1(T_A,L_1)=\omega_1$, $\Omega_1(T_B,L_2)=\omega_2$ by
+Definition~\ref{def:markeddata}, which binds $\omega_i$ as exactly that read.
+
+\emph{The others.} Lemma~\ref{lem:contactsplit} carries the carriers of $T$ in
+the two-crossing chamber other than $L^{*}$ bijectively to the carriers of
+$T_A$ and $T_B$ other than $L_1$ and $L_2$. A carrier in that correspondence
+bears the same residual pieces on both sides: no retained \emph{mixed} label
+lies on it, since a mixed label has one visit in each interval and so its
+carrier meets both intervals, which by Lemma~\ref{lem:contactsplit} is $L^{*}$
+alone; and for the unmixed labels Lemma~\ref{lem:ownermap} identifies the
+residual sets, $U(T)\cap V_A=U_{\lambda_1}(T_A)$ and
+$U(T)\cap V_B=U_{\lambda_2}(T_B)$, while the induced interlacement graph on the
+labels of one interval is the half's own. Equal label sets give equal piece \emph{records}: the map is the identity on the
+retained visits, it preserves their cyclic order because the two carriers are
+the same closed curve traversed the same way, and it preserves the over/under
+designation and the sign at each visit, those being read from the two branch
+directions (Definition~\ref{def:piecediagram}). That is a record isomorphism in
+the sense of Definition~\ref{def:record}, so Axiom~\ref{ax:gausscode} gives
+equal links and hence equal polynomials, and the writhes agree as crossing
+counts. An earlier revision passed from equal label sets to equal polynomials
+with no isomorphism and no axiom. The carrier being the same closed curve with
+the same corners, the rotation agrees too; so the two reads agree, and
+their product over the matched carriers is $U_T$, again by
+Definition~\ref{def:markeddata}.
+
+Multiplying the three displays gives the identity. An earlier revision asserted
+it as part of the ordered-product bijection, which matches \emph{supports} and
+says nothing about owners, rows, writhes or rotations.
+
+\emph{Clause (B).} \emph{Clause (i).}
+\emph{The collar invariant.} By eligibility and Lemma~\ref{lem:contactword},
+both visits of every selected old label lie wholly in $A$ or wholly in $B$. So
+no smoothing of $T$ cuts the boundary collar between a newborn smoothing corner
+and $M$: in the $x$-branch the smoothing corner at the remote visit $x_1$
+reconnects to the position immediately after the incident visit $x_0$, and that
+uninterrupted arc reaches $M$ before any selected visit; in the $y$-branch the
+uninterrupted incident arc from $M$ reaches $y_0$ before any selected visit and
+then closes at the remote visit $y_1$. Hence, for every eligible $T$ including
+nonempty ones, the relevant newborn smoothing corner and the turn at $M$ lie on
+one and the same daughter carrier.
+
+\emph{The signs, computed in the high chamber.} Work where the two newborns
+actually exist. Put $M=(0,0)$, let the remote direction be $r=(1,0)$ on the line
+$y=c$ with $c>0$, and write $p-M=(u,h)$ and $q-M=(v,k)$ with $h,k>c$, so that
+both neighbours lie beyond the remote line. Interlacing is $u/h<v/k$, i.e.\
+$hv-uk>0$. The three determinants that matter are then
+\[
+   \det\bigl((-u,-h),(v,k)\bigr)=hv-uk>0,
+   \qquad
+   \det\bigl(r,(-u,-h)\bigr)=-h<0,
+   \qquad
+   \det\bigl((v,k),r\bigr)=-k<0 .
+\]
+The first is the turn at $M$, from the incoming direction $-(u,h)$ to the
+outgoing direction $(v,k)$: a \emph{left} turn. The second is the corner of the
+daughter carrier produced by smoothing $x$, which arrives along $r$ and leaves
+along $-(u,h)$: a \emph{right} turn. The third is the corner of the daughter
+produced by smoothing $y$, which arrives along $(v,k)$ and leaves along $r$:
+again a right turn. By the collar invariant each of those corners shares its
+carrier with the turn at $M$, so each of those carriers is mixed, its weight is
+$0$ by Definition~\ref{def:wind}, and $W_x=W_y=0$. Reflecting the configuration
+negates all three determinants together and leaves every carrier mixed.
+
+
+\emph{Clause (ii).}
+$J_T$ has a second form, used throughout below:
+$W_T=-s_{\mathrm{low}}W_1W_2$ by Lemma~\ref{lem:selectorid}, clause~(B), so
+$J_T=-\delta\,W_TU_T\,\omega_1\omega_2$. The statement carries the first form
+only, that being the one built from the two half terms; an earlier revision put
+the derivation inside the statement.
+
+Both quantities are directed: each carries the wall orientation $\delta$, so the
+equivalence compares like with like. An earlier revision wrote an undirected row
+$N-L-J(T)$ with $J(T)$ never defined, against Definition~\ref{def:branches}'s
+directed $R=\delta\sum(N-L+X+Y)$; the display above is the typed replacement.
+
+\emph{If $W_T\neq0$.} By clause~(B)(i) both one-newborn
+branches are dead, so $X(T)=Y(T)=0$ and $R_T=\delta(N(T)-L(T))$. Every carrier
+other than the contact carrier is common to the two chambers with the same data,
+and the selector is the same in both, by
+Lemma~\ref{lem:chambercommon}, clauses (i) and (ii); with $W_T$ and $U_T$ bound separately as in
+Definition~\ref{def:markeddata},
+\[
+   N(T)-L(T)=W_TU_T\bigl(\Omega_{\mathrm H}-\Omega_{\mathrm L}\bigr)
+   =-W_TU_T\,\omega_1\omega_2
+\]
+by Lemma~\ref{lem:triplebridge}(viii). So
+$R_T=-\delta W_TU_T\omega_1\omega_2=J_T$.
+
+\emph{If $W_T=0$.} Then $J_T=0$ by its own display, and the high-neither and low
+terms vanish with their common prefactor
+(Lemma~\ref{lem:chambercommon}, clauses (i) and (ii), which are what the
+prefactor is made of), leaving $R_T=\delta(X(T)+Y(T))$.
+
+\emph{Summation.} By the opening assertion, supports meeting $\mathcal N$
+contribute nothing. That $\sum_TJ_T$ is the global target $J$ needs two
+statements and an earlier revision cited only the first.
+Lemma~\ref{lem:orderedproduct} matches the eligible supports bijectively with
+the pairs $(T_A,T_B)$; clause~(A) matches each product
+$W_1W_2U_T\omega_1\omega_2$ with the product of the two half terms. Summing the
+second over the bijection of the first gives
+$\sum_TW_1W_2U_T\omega_1\omega_2=X_1(\lambda_1)X_1(\lambda_2)$, and
+$J=s_{\mathrm{init}}X_1(\lambda_1)X_1(\lambda_2)$ by
+Definition~\ref{def:sectors}, which is where the sector target is defined --- the
+statement above says so and this proof said otherwise, the statement having been
+repaired in an earlier revision and the proof left alone. Only after that identification is the common
+nonzero $\delta$ cancelled from $\sum R_T-\sum J_T$, which gives the
+equivalence.
+
+
+\emph{Clause (iii).}
+By Proposition~\ref{prop:sectortarget}(F) it suffices that $R=\epsilon J=J$, and by clause~(B)(ii) that is
+$\sum_{T\ \mathrm{eligible},\,W_T=0}\bigl(X(T)+Y(T)\bigr)=0$. By clause~(B)(i) every term of that sum is zero.
+
+\emph{Clause (C).} \emph{The two forbidden degrees.} $W_T\neq0$ means the full carrier through
+the contact is live, so by Definition~\ref{def:wind} it turns uniformly. By
+Lemma~\ref{lem:contactturnboth} in the branch $\epsilon=0$ its contact turn has
+the sign of $-s_{\mathrm{low}}$ while each half's contact turn has the sign of
+$s_{\mathrm{low}}$ --- the low-chamber sign of Lemma~\ref{lem:selectorid}, clause~(B), which
+is what Lemma~\ref{lem:contactturnboth} states and what an earlier revision here
+wrote as a bare $s$; and by
+Lemma~\ref{lem:contactsplit} each half carrier carries the full carrier's
+non-contact corners together with its own contact turn. So each half carrier
+has all its turns of one sign except exactly one, of the opposite sign and of
+magnitude strictly below $\pi$ (Lemma~\ref{lem:contactturnboth}(iv)). That is the
+one-dissent hypothesis of Theorem~\ref{thm:carrierfloor}(C), which applies by
+Corollary~\ref{cor:groupedknot}(B) to the grouped knot on each half, or
+Theorem~\ref{thm:carrierfloor}(D) if that half bears no piece, and gives
+$\min\deg_af_i\geq d_i$. Hence $f_1f_2$ has no support below $D$, and in
+particular none at $D-4$ or $D-2$.
+
+
+\emph{Clause (D).} \emph{Clause (i).} \emph{Pass to the larger support.} Put $S'=S\cup\{c\}$. It is independent: $c$
+is residual, so it is adjacent to no member of $S$. Its undominated set is
+\[
+   U(S')=U(S)\setminus\bigl(\{c\}\cup N_{G_P}(c)\bigr)=U(S)\setminus\{c\},
+\]
+because $\{c\}$ is a component of $G_P[U(S)]$, so $c$ has no neighbour inside
+$U(S)$. Deleting an isolated vertex leaves every other component of a graph
+unchanged, so the residual pieces of $S'$ are exactly the residual pieces of $S$
+other than $\{c\}$ --- the same label sets, hence by
+Definition~\ref{def:piecediagram} the same piece diagrams, the same $P_H$ and
+the same $|H|$. Nothing is being compared across a change of diagram here: the
+pieces are literally the same objects.
+
+\emph{The two loops are carriers.} Smoothing $c$ cuts the traversal of $A$ at
+the two visits of $c$ and reconnects, so the carriers of $S'$ are those of $S$
+with $A$ replaced by the two closed curves $\Lambda_1,\Lambda_2$ carrying the
+two arcs of $A$ between the visits of $c$; every other carrier of $S$ is
+untouched, $c$ lying on $A$. Each residual piece of $S'$ formerly on $A$
+therefore lies on $\Lambda_1$ or on $\Lambda_2$, by
+Lemma~\ref{lem:carriers}(iv) applied to $S'$; no separate no-straddle
+argument is needed and no sub-loop is compared with its parent. Hence
+\[
+   P_{S,A}=P_{S',\Lambda_1}\,P_{S',\Lambda_2}\cdot P_{\{c\}}
+   =P_{S',\Lambda_1}\,P_{S',\Lambda_2},
+   \qquad
+   w_{S,A}=w_{S',\Lambda_1}+w_{S',\Lambda_2}+1,
+\]
+the singleton contributing $P_{\{c\}}=1$ and one unit of writhe
+(Definition~\ref{def:piecediagram}: a closed curve with one crossing is an
+unknot diagram). Each factor is a knot polynomial, hence lies in
+$\mathbb Z[a^{\pm1},z^2]$ and has no negative power of $z$ ---
+Axiom~\ref{ax:homfly}, whose knot-parity consequence this step reads and which
+an earlier revision used without naming --- so the zeroth rows multiply:
+$f_A=f_{\Lambda_1}f_{\Lambda_2}$.
+
+\emph{Turns and rotations.} $A$ has no corner at $c$, which is neither a
+polygon vertex nor a member of $S$; the two smoothing corners of $\Lambda_1$ and
+$\Lambda_2$ at the site of $c$ receive turning angles that are negatives of
+each other, so by Lemma~\ref{lem:turnlift}(ii)
+$\rot(A)=\rot(\Lambda_1)+\rot(\Lambda_2)$. Their determinants are $\det(u,v)$
+and $\det(v,u)$ for the two branch directions at $c$, hence opposite and
+nonzero by (G5). Let $\sigma$ be the common sign of $A$'s turns; every corner of
+either loop other than the two new ones is a corner of $A$ and has sign
+$\sigma$. So one loop is uniform and the other has exactly one dissenting
+corner, of magnitude below $\pi$. Lemma~\ref{lem:uniformrot}(i) applies to the
+uniform loop. Apply Lemma~\ref{lem:uniformrot}(ii) to the dissenting loop
+directly when $\sigma=+1$ and after orientation reversal when $\sigma=-1$.
+Thus $\sigma\rot(\Lambda_i)\geq1$ for both $i$, so the two rotations carry the
+sign $\sigma$ and $R(A)=R(\Lambda_1)+R(\Lambda_2)$.
+
+\emph{The bound.} Theorem~\ref{thm:carrierfloor}(C) applies to each loop as a
+carrier of $S'$ --- through Corollary~\ref{cor:groupedknot}(B) if it bears a piece
+and Theorem~\ref{thm:carrierfloor}(D) if it does not, one loop uniform and the other
+one-dissent --- so
+$\min\deg_af_{\Lambda_i}\geq1-w_{S',\Lambda_i}-R(\Lambda_i)$ when the row is
+nonzero, and if either row vanishes then $f_A=0$ and the claim is trivial.
+Adding the two bounds and substituting the two displays above,
+\[
+   \min\deg_af_A\;\geq\;2-\bigl(w_{S,A}-1\bigr)-R(A)
+   =\bigl(1-w_{S,A}-R(A)\bigr)+2 .
+\]
+The factor $\Omega_1(S,A)$ reads the coefficient at $1-w_{S,A}-R(A)$, two
+degrees below the row's lowest nonvanishing degree, so it is zero.
+
+\emph{Clause (ii).} $x$ is nonadjacent to $y$ because $\epsilon=0$, and nonadjacent to every element
+of $T$ because $T$ is eligible; so $T\cup\{x\}$ is independent. For the same two
+reasons $y$ is dominated by no element of $T\cup\{x\}$, so it is undominated and
+lies in some residual piece. Let $c$ be an old crossing adjacent to $y$. By
+Lemma~\ref{lem:contactword}(ii) $c$ is adjacent to $x$ as well, and $x$ now lies in
+the support, so $c$ is dominated and is not residual. Hence $y$ has no residual
+neighbour and $\{y\}$ is a component of the residual graph. The statement and
+every step of this proof are invariant under interchanging the names $x$ and
+$y$, which gives the symmetric assertion.
+
+\emph{Clause (iii).} Take the branch that smooths $x$; the statement and the argument are invariant
+under interchanging the two names, which gives the other branch. If
+$\wind(T\cup\{x\})=0$ the term is zero by Definition~\ref{def:X1}. Otherwise
+every carrier of $T\cup\{x\}$ is uniform. By clause~(D)(ii) $\{y\}$ is a singleton residual piece of
+$T\cup\{x\}$; let $A$ be the carrier bearing it
+(Lemma~\ref{lem:carriers}(iv)). Then $A$ is uniform and carries a singleton,
+so $\Omega_1(T\cup\{x\},A)=0$ by clause~(D)(i), and the term, a
+product with that factor, is zero.
+
+\emph{Clause (iv).}
+For clause~(D)(iv)(a), at $\epsilon=0$ the newborns do not interlace, so they are nonadjacent, and
+each is nonadjacent to every member of $T$ because $T$ is eligible; hence $S$ is
+independent. For the undominated set, let $c$ be an old crossing lying in
+$U(T)$, and suppose $c\in N_{G_{P_2}}(x)$. By Lemma~\ref{lem:contactword}(ii) $c$ is
+then a neighbour of $y$ as well, so $x,c,y$ is a path inside $G_{P_2}[U(T)]$
+and the two newborns lie in one residual component of $T$, contradicting the
+different-piece hypothesis. So $U(T)$ meets neither $N_{G_{P_2}}(x)$ nor $N_{G_{P_2}}(y)$, and
+removing $x,y$ from $U(T)$ removes nothing else:
+$U(S)=U(T)\setminus\{x,y\}$.
+
+For clause~(D)(iv)(b), by Lemma~\ref{lem:chambertransport}, clause~(A) $\{x\}$ and $\{y\}$ are components of
+$G_{P_2}[U(T)]$, that is, isolated vertices. Deleting isolated vertices leaves
+every other component of a graph unchanged, so by clause~(D)(iv)(a) the components of
+$G_{P_2}[U(S)]$ are exactly the components of $G_{P_2}[U(T)]$ other than those
+two. A residual piece is a label set, and
+Definition~\ref{def:piecediagram} builds its diagram from that label set and the
+parent polygon alone, so the diagrams, the $P_H$ and the $|H|$ are the same
+objects, not corresponding ones.
+
+For clause~(D)(iv)(c), let $(T_A,T_B)$ be the ordered parts of $T$ from
+Lemma~\ref{lem:orderedproduct}. Smoothing $x$ and $y$ affects only the carrier
+of $T$ that contains them,
+which is $C_{\mathrm H}$; every other carrier of $T$ is a carrier of $S$
+unchanged, with unchanged pieces. By Proposition~\ref{prop:sectortarget}(A) the carriers of
+$S$ in $P_2$ are the carriers of $T_A$ in $\lambda_1$, those of $T_B$ in
+$\lambda_2$, and one local carrier $U_{\mathrm{loc}}$ in the contact disc; combining with
+Lemma~\ref{lem:contactsplit}, the three of these into which $C_{\mathrm H}$
+splits are the two half contact carriers $L_1,L_2$ and $U_{\mathrm{loc}}$. By
+Proposition~\ref{prop:sectortarget}(B) $U_{\mathrm{loc}}$ bears no piece, and each of $L_1,L_2$ has
+the same pieces, polynomials and grouped writhe as its mate in the half.
+
+Now every residual piece of $T$ carried by $C_{\mathrm H}$ other than $\{x\}$
+and $\{y\}$ is, by clause~(D)(iv)(b), a residual piece of $S$, and by
+Lemma~\ref{lem:carriers}(iv) applied to $S$ it lies on exactly one carrier of
+$S$; that carrier is one of the three just named, and not $U_{\mathrm{loc}}$. So those pieces
+distribute between $L_1$ and $L_2$, and
+\[
+   P_{T,C_{\mathrm H}}
+   =P_{\{x\}}\,P_{\{y\}}\prod_{H\text{ on }L_1}P_H\prod_{H\text{ on }L_2}P_H
+   =P_{S,L_1}P_{S,L_2},
+   \qquad
+   w_{T,C_{\mathrm H}}=1+1+w_1+w_2,
+\]
+using $P_{\{x\}}=P_{\{y\}}=1$ and $|\{x\}|=|\{y\}|=1$ from
+Lemma~\ref{lem:chambertransport}, clause~(A). Each factor is a knot polynomial, hence in
+$\mathbb Z[a^{\pm1},z^2]$ with no negative power of $z$ by
+Axiom~\ref{ax:homfly}, so the zeroth rows multiply.
+
+Clause~(D)(iv)(d) follows from clause~(D)(iv)(c) together with Lemma~\ref{lem:chambertransport}, clause~(B)(iii), which gives
+$f_{C_{\mathrm L}}=f_{C_{\mathrm H}}$ and $w_{T,C_{\mathrm L}}=w_{T,C_{\mathrm H}}-2$.
+
+
+\emph{Clause (v).}
+The one-newborn terms are clause~(D)(iii). For the other two,
+Lemma~\ref{lem:chambertransport}, clause~(B) gives
+$L(T)=W_TU_T[a^{d_0}]f_{C_{\mathrm L}}$ and $N(T)=W_TU_T[a^{d_0-2}]f_{C_{\mathrm L}}$ with no
+hypothesis attached, so it suffices to treat the two cases of the common
+prefactor.
+
+If $W_TU_T=0$ both terms are zero as products with a zero factor.
+
+So suppose $W_TU_T\neq0$. Then $W_T\neq0$, so every carrier of $T$ is uniform,
+in particular the contact carrier. Let $L_1,L_2$ be the two half contact carriers of
+Lemma~\ref{lem:contactsplit} --- the names that lemma and
+Definition~\ref{def:markeddata} use; an earlier revision wrote
+$L_2^{\mathrm h}$ here and then never used the symbol --- with rows $f_1,f_2$, writhes
+$w_1,w_2$, rotations $R_1,R_2$, slots $d_i=1-w_i-R_i$ and $D=d_1+d_2$ as in
+Definition~\ref{def:markeddata}. Three facts about them are already proved and
+are used unchanged:
+\begin{itemize}
+\item $f_{C_{\mathrm L}}=f_1f_2$ and $w_{T,C_{\mathrm L}}=w_1+w_2$, by
+clause~(D)(iv)(d), which is where the passage from the support
+$T$ to the support $T\cup\{x,y\}$ --- the support that
+clauses~(A) and~(B) of Proposition~\ref{prop:sectortarget} are about --- is
+carried out and the old residual set is shown to survive it intact;
+\item $R_1+R_2-R(C_{\mathrm L})=-1$, by Proposition~\ref{prop:sectortarget}(C) and
+Lemma~\ref{lem:rotshift} at $\epsilon=0$, whose shift is the low-chamber side
+sign $s_{\mathrm{low}}$ and whose absolute values may be taken with the common
+sign because the contact carrier is live (the computation is that of
+Lemma~\ref{lem:nitransport}, clause~(B));
+\item $\min\deg_af_i\geq d_i$ for $i=1,2$: each half carrier keeps the uniform
+non-contact turns of the live full carrier and acquires exactly one contact
+turn of the opposite sign and of magnitude below $\pi$
+(Lemma~\ref{lem:contactturnboth}(iv)), which is
+the one-dissent hypothesis of Theorem~\ref{thm:carrierfloor}(C), applied through
+Corollary~\ref{cor:groupedknot}(B) to the grouped knot on each half or through
+Theorem~\ref{thm:carrierfloor}(D) if a half bears no piece.
+\end{itemize}
+Hence $f_{C_{\mathrm L}}=f_1f_2$ has no support below $D$, while
+\[
+   d_0=1-w_{T,C_{\mathrm L}}-R(C_{\mathrm L})=1-(w_1+w_2)-(R_1+R_2+1)=d_1+d_2-2=D-2 ,
+\]
+so $[a^{d_0}]f_{C_{\mathrm L}}=0$ and, two degrees lower still,
+$[a^{d_0-2}]f_{C_{\mathrm L}}=[a^{D-4}]f_{C_{\mathrm L}}=0$. Both terms vanish.
+
+\emph{Clause (E).} By Proposition~\ref{prop:sectortarget}(F) it suffices that $R=\epsilon J=0$, i.e.\
+that $\sum_T\bigl(N(T)-L(T)+X(T)+Y(T)\bigr)=0$ in the notation of
+Definition~\ref{def:branches}, the sum running over eligible $T$ by the
+opening assertion. Fix such a $T$ and let $W$ be the
+common selector of its high-neither and low supports, common by
+Lemma~\ref{lem:chambercommon}(ii).
+
+Split the eligible supports into the two sectors of
+Lemma~\ref{lem:chambertransport}, clause~(A).
+
+\emph{Different-piece supports.} Every one of the four terms of such a row is
+zero by clause~(D)(v), with no hypothesis on the selector.
+
+\emph{Same-piece supports.} These are the remaining ones, and the rest of this
+proof treats them.
+
+The one-newborn terms vanish in either case, by
+clause~(D)(iii), which needs no hypothesis on any selector; so
+only $N(T)-L(T)$ is at issue, and the split is on the prefactor.
+
+\emph{If $U_T=0$.} Both $N(T)$ and $L(T)$ carry $W_TU_T$ as a factor, so both
+vanish and the row is zero. The factorization is read off
+Definition~\ref{def:X1} and clauses (i) and (ii) of
+Lemma~\ref{lem:chambercommon} --- an earlier revision attributed those two
+clauses to Lemma~\ref{lem:chambertransport}, clause~(B), which kept only (iii) when the two
+were split --- and not off the latter's closing display: by
+Definition~\ref{def:X1} the term of $T$ in either chamber is its selector times
+the product of the reads over all of its carriers; by (i) the carriers other
+than the contact carrier are the same closed curves with the same pieces in both
+chambers, so their reads multiply to the same $U_T$ in both; and by (ii) the
+selector is the same $W_T$ in both. What is left in each chamber is the read on
+its own contact carrier. The closing display of
+Lemma~\ref{lem:chambertransport}, clause~(B) is \emph{not} available here: it is stated
+under the different-piece hypothesis of clause (iii), and this sector is the
+same-piece one. An earlier revision of this proof cited it anyway, in both
+same-piece branches. The case
+is written out because the result invoked below is a statement about
+coefficients, and multiplying a coefficient conclusion by a vanishing spectator
+product is not the same as deducing one.
+
+\emph{If $U_T\neq0$ and $W\neq0$}, by
+Lemma~\ref{lem:nitransport}, clauses~(A) and~(B)
+\[
+   N(T)-L(T)=WU_T\Bigl([a^{D-4}]f_1f_2-[a^{D-2}]f_1f_2\Bigr),
+\]
+both of whose coefficients are zero by clause~(C), whose
+hypothesis is $W\neq0$ and which is therefore invoked inside its own quantifier.
+
+\emph{If $W=0$}, the high-neither and low terms both vanish with their common
+prefactor, by the same reading of Definition~\ref{def:X1} with
+Lemma~\ref{lem:chambercommon}(ii): the selector is one number $W=W_T$ in both
+chambers and multiplies the whole term in each.
+
+Every term is zero, so $R=0$ and $F=J$.
+
+\emph{Clause (F).} The sliding type is Lemma~\ref{lem:slidingcoeff}, clause~(D). The bigon type splits by the
+interlacement bit of Definition~\ref{def:sectors}: the interlacing case is
+clause~(B)(iii), and the noninterlacing case is
+clause~(E). Those three cases are exhaustive and mutually
+exclusive: a simple vertex-on-edge event is of exactly one of the two types by
+Lemma~\ref{lem:dictionary}, and a bigon event has $\epsilon\in\{0,1\}$.
+
+No bound on the number of crossings, supports or residual pieces occurs in any
+of the three arguments, and none of them inspects the region away from the
+isolated contact, so arbitrary exterior crossings and arbitrary threading are
+included.
+\end{proof}
+
+\begin{remark}[the superseded deletion argument]\label{rem:kinkdeletion}
+Two earlier revisions --- the one-newborn half of
+Theorem~\ref{thm:s7universal}, clause~(C) as first printed, and the different-piece argument
+now in Theorem~\ref{thm:s7universal}(D)(v) --- argued by deleting the
+surviving positive Reidemeister-I singleton from the affected carrier $A$ and
+asserting that the cleaned carrier $C$ satisfies $R_A=R_C+1$, one unit less
+absolute rotation; the second said explicitly that the argument did not use the
+selector. Both halves of that are wrong. A crossing's sign does not determine
+the sign of the change in Whitney index.
+
+Theorem~\ref{thm:s7universal}(D)(i) replaces the deletion. It does not delete
+anything: it cuts the carrier at the singleton and applies the floor to each of
+the two loops, and it uses the selector, which is what supplies the uniform
+turning that makes the two rotations add with one sign. Because
+Theorem~\ref{thm:s7universal}(D)(ii) holds in both sectors --- the surviving
+newborn is always isolated once the other is in the support, its old
+neighbourhood being the other's --- the repair covers the same-piece sector as well, and
+Theorem~\ref{thm:s7universal}, clause~(C) no longer carries a one-newborn half at all: it
+states the two vanishing degrees, and the one-newborn terms are
+Theorem~\ref{thm:s7universal}(D)(iii) wherever they are needed.
+\end{remark}
+
+\begin{remark}[what the different-piece sector cost, and what it did not]
+\label{rem:diffcensus}
+The proof of clause~(D)(v) above establishes vanishing in exactly the degrees $D-2$ and $D-4$
+that Theorem~\ref{thm:s7universal}, clause~(C) kills in the same-piece sector, and by
+the same floor on the same two halves. The different-piece sector is therefore
+not a separate mechanism: what it needed was the typing --- that the two
+newborns are singleton kinks (Lemma~\ref{lem:chambertransport}, clause~(A)), that the
+chamber transport of the row and the prefactor holds with no selector
+hypothesis (Lemma~\ref{lem:chambertransport}, clause~(B)), and that the one-newborn branch
+dies by cutting at its surviving singleton rather than by deleting it
+(Theorem~\ref{thm:s7universal}(D)(i)).
+
+Two withdrawn attempts are recorded, each failing on an explicit
+configuration printed here. The first asserted, as an axiom, that a
+different-piece eligible support is selector-dead;
+the peer refuted it with a guarded $24$-gon whose contact carrier is live,
+with its data --- low word $[0,0,1,1]$, high word
+$[0,2,1,1,3,3,2,0]$, edgeless interlacement, $\rot=3$ in both chambers, low slot
+$-4$, high slot $-6$. The second proved the low read to vanish by
+a three-loop decomposition of the contact carrier; that route is correct but it
+needed a diagram identification between a proper sub-loop and its parent that
+was not printed formally, and the half split above needs no such bridge, so the
+route was withdrawn in favour of machinery already in the document.
+\end{remark}
+
+\begin{remark}[what this proof replaces, and whose the repair is]\label{rem:d61bridge}
+An earlier revision argued these signs in the chart \emph{at the wall}, where
+the two newborns coincide at $M$, and then applied the conclusion to the high
+chamber where they do not. The limiting signs were right and the argument was
+in the wrong chamber; and it assumed rather than printed the collar invariant
+above. Both repairs --- the eligible-$T$ collar invariant and the exact
+high-chamber determinants --- are the counterpart's.
+\end{remark}
+
+\begin{remark}[why the aggregate turned out to be termwise]\label{rem:aggregateclosed}
+An earlier revision recorded this sum as an \emph{aggregate} identity over
+selector-dead supports. It is not an aggregate identity: every term vanishes separately, because at an
+interlacing bigon the turn at the moving vertex and the smoothing corner of
+either newborn have \emph{opposite} signs, so whichever newborn is smoothed,
+the carrier that inherits the moving vertex is mixed. The computation is three
+lines in the chart of Lemma~\ref{lem:contactturnboth} and it needs neither a
+pairing on supports nor a coefficient argument.
+
+The same computation explains why the noninterlacing branch is different and
+harder. There $\tau_M=\arg q-\arg p-\pi$ is a \emph{right} turn, of the same
+sign as both smoothing corners, so the carriers can be uniform and the
+one-newborn branches can be live --- which is exactly why they must be killed by
+Theorem~\ref{thm:s7universal}(D)(iii), cutting the affected carrier at the newborn that
+survives in the support, and not by any degree argument.
+\end{remark}
+
+\begin{remark}[a withdrawn obstruction]\label{rem:whynotni}
+An earlier revision of this document printed a remark asserting that the
+full-twist calculation \emph{cannot} transfer to $\epsilon=0$, on the ground
+that smoothing one newborn leaves the other as a self-crossing so that the two
+components are not the half groupings. The observation is right and the
+conclusion drawn from it was wrong: the surviving crossing is a positive
+Reidemeister-I curl, deleting it changes no polynomial, and what is left is
+exactly the two half groupings. What the difference actually costs is one unit
+in the writhe ledger --- $2\ell=w_{\mathrm L}-w_1-w_2$ here against
+$2\ell=w_0+1-w_1-w_2$ there --- and, with the rotation defect, that is the
+whole of why the two branches read the diagonals $D-4,D-2$ and $D-2,D$. In one
+formula, over both branches: the ledger is
+$D=d_{\mathrm L}+2\ell+1-\epsilon-\Delta_R$ and the jump reads
+\[
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}
+   =\bigl[a^{D+\Delta_R+\epsilon-3}\bigr]f_1f_2
+    -\bigl[a^{D+\Delta_R+\epsilon-1}\bigr]f_1f_2 ,
+\]
+the peer's blueprint's unified form. It is printed here, where both branches
+are in scope, and not inside either endpoint lemma, each of which fixes its own
+$\epsilon$ and displays its own specialization.
+\end{remark}

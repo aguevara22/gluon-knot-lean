@@ -1,0 +1,138 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "reviewer_identity": {
+    "agent": "/root/review_relgp_full",
+    "implementer": "/root/review_mark_transport",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same-model technical review only; not stronger-model fidelity approval.",
+    "contribution_disclosure": "Reviewer authored none of the sixteen declarations or seven embedded bodies and made no implementation edits. The reviewer earlier supplied source/API inventory and independently reviewed the frozen StartingChildren dependency. Separate reviewer-authored EndingChildren and SpanningCutNeighbors are not in this closure. This reports independent inspection of the submitted body and its actual dependencies; no stronger-model or wholly unrelated-method provenance is claimed."
+  },
+  "scope": {
+    "group": "SoftDuplicationSpanningEmptyChildren",
+    "declarations": [
+      "SM.SoftDuplication.emptySpanningCutSet",
+      "SM.SoftDuplication.emptySpanningCutSet_cuts",
+      "SM.SoftDuplication.emptySpanningCutSet_old_mem",
+      "SM.SoftDuplication.emptySpanningChildrenEquiv",
+      "SM.SoftDuplication.emptySpanningChildrenEquiv_val",
+      "SM.SoftDuplication.exists_spanning_part",
+      "SM.SoftDuplication.spanningChild",
+      "SM.SoftDuplication.spanningChild_consecutive",
+      "SM.SoftDuplication.spanningChild_bounds",
+      "SM.SoftDuplication.spanningChild_unique",
+      "SM.SoftDuplication.spanningChild_other",
+      "SM.SoftDuplication.emptySpanning_spanningChild_bounds",
+      "SM.SoftDuplication.emptySpanning_otherChild_bounds",
+      "SM.SoftDuplication.emptySpanning_spanningChild_consecutive",
+      "SM.SoftDuplication.emptySpanning_child_trichotomy",
+      "SM.SoftDuplication.emptySpanning_spanningChild_unique"
+    ],
+    "new_declaration_count": 16,
+    "embedded_body_count": 7,
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1332-1341: strict-spanning branch whose collapsed core composition omits the distinguished cut.",
+    "source_id_context": "thm:A-soft structural prerequisite only",
+    "ambient_context": "namespace SM.SoftDuplication; noncomputable; local Classical.propDecidable; {n : Nat} [NeZero n]. All complete BoundaryCutSet core domains; strict exterior endpoints only for the spanning-child clauses; no arrays or scalars."
+  },
+  "findings": [
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet",
+      "finding": "The definition expands the actual emptyCutFiber for hs:s not in C.cuts. The frozen emptyCutFiberEquiv makes this the unique allowed local selection, and cutFiberEquiv proves expansion/collapse are inverse for complete cut sets. Thus neither A nor B is selected. The body does not assume a freely chosen parent presentation."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet_cuts",
+      "finding": "Mandatory endpoint membership and hs imply both collapsed endpoints differ from s. Therefore the actual child endpoints avoid B, and old_collapse_of_ne_B identifies them. Monotonicity transports every core cut bound to the supplied interval. Expanding the literal bounded filter and empty union then proves equality with the full old image. Every core cut avoids s, so no retained point is omitted. The theorem validly needs no strict-spanning assumptions: hs itself discharges its endpoint exclusions."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet_old_mem",
+      "finding": "This is the membership equivalence for the actual old image and injective old embedding. It covers every k, including the absent distinguished s; it is not limited to internal cuts or a supplied finite sublist."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningChildrenEquiv",
+      "finding": "The complete consecutive-child domains are related by the actual increasing old endpoint map. The full image hypothesis required by consecutiveOrderedImageEquiv is discharged by emptySpanningCutSet_cuts. Its inverse exhausts all expanded children; no child, including the sole unary child, is filtered out."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningChildrenEquiv_val",
+      "finding": "Definitional equality identifies the equivalence image with the actual ordered endpoint interval. This preserves the whole interval, rather than merely its size or abstract child index."
+    },
+    {
+      "declaration": "SM.SoftDuplication.exists_spanning_part",
+      "finding": "Strict outer bounds imply the collapsed interval strictly contains s. The canonical exists_halfOpen_part supplies an actual raw composition part with left<=s<right. Its left endpoint belongs to C.cuts; hs excludes equality with s, giving the two strict inequalities. Existence is derived from the complete raw composition and strict monotonicity; no containing child is a premise."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild",
+      "finding": "Classical.choose selects an index witnessing the preceding proved existence, then returns C.toComposition.part at that index. Subsequent properties and uniqueness constrain this to the actual unique child. This use of classical choice is not an oracle assumption or a new axiom."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_consecutive",
+      "finding": "The chosen part is consecutive in the actual core cut set by canonical part_consecutive and the exact toComposition_cutSet identity. It is not merely a bounded interval."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_bounds",
+      "finding": "The two strict inequalities are extracted directly from the existence witness. In particular, the child is not allowed to terminate at s or begin at s; such endpoints would contradict hs."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_unique",
+      "finding": "Any actual consecutive K is converted to an actual raw part using exists_part_of_consecutive. The canonical part_interior_unique then equates its index with the chosen index, since both contain s strictly. The proof returns equality of whole intervals, with no extra coverage or adjacency premise."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_other",
+      "finding": "Both endpoints of any actual core child avoid s because they are cuts. A child that is neither strictly left nor strictly right would therefore contain s strictly and equal the distinguished child by the preceding uniqueness theorem. This proves the exhaustive strict-side alternative for every other child."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_bounds",
+      "finding": "The old embedding sends a left endpoint below s to below A=old(s), and an endpoint above s to strictly above B via starting_B_lt_old. Thus the distinguished expanded child physically contains both consecutive duplicate positions, with the exact strict source orientation."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_otherChild_bounds",
+      "finding": "The derived strict core-side alternative is transported through the same increasing old map. Every other expanded child ends before A or begins after B. No ordinaryLift value or equality of array coordinates is presumed in this geometric interval statement."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_consecutive",
+      "finding": "The actual image-cut identity and consecutive_ordered_image_iff establish that the mapped distinguished child belongs to the actual expanded composition, rather than merely giving its endpoint bounds."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_child_trichotomy",
+      "finding": "Generic ordered-image exhaustion supplies a core child for every actual expanded child. Equality with the selected core child gives the distinguished image; otherwise the proved side alternative gives the two exterior cases. The quantifier ranges over the entire actual expanded consecutive-child subtype."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_unique",
+      "finding": "Applying the exhaustive trichotomy to an expanded child strictly spanning A,B eliminates both side alternatives by A<B. The remaining equality identifies exactly the same mapped actual core child. This is full uniqueness on the expanded domain, not only injectivity among previously mapped spanning intervals."
+    }
+  ],
+  "transparent_dependency_review": [
+    "BoundaryCutSet.toComposition ranges over the unchanged raw finite strictly increasing endpoint-complete composition domain. CompositionCutSet and FiniteCompositions prove its equivalence/finiteness, rather than replacing it by a chosen class of cut lists.",
+    "Canonical exists_halfOpen_part derives coverage using the maximum indexed cut <=s; part_interior_unique derives uniqueness from strict cut ordering. exists_part_of_consecutive proves all actual consecutive intervals are raw parts. These exact definitions and proofs were inspected, including the endpoint assumptions and index domains.",
+    "The embedded emptyCutFiberEquiv and cutFiberEquiv supply the omitted-cut presentation uniqueness. The new sixteen declarations do not themselves restate a whole fiber equivalence; their complete cut-image and child identities use that exact frozen presentation.",
+    "The inherited order-image child equivalence requires a cut-set equality, which this body proves explicitly. No final theorem premise asks the caller to supply an abstract correspondence."
+  ],
+  "boundary_scope": [
+    "Unary core is retained. Its sole full-interval part strictly contains s, expands to the full actual child interval, and is the distinguished child. No parts>=2 condition occurs. The source leading b1 coordinate is therefore still present for later verification, not treated as satisfying a recurrence.",
+    "The source n=3 case is possible: core[0,2],s=1,C={0,2} expands to child[0,3] with cuts{0,3}. There is exactly one spanning child. The generic helper domain needs only NeZero n; no n>=4 or new genericity condition is introduced.",
+    "The exact both-cut core case s in C is excluded only because it is a different stated source branch. Within hs:s not in C.cuts, all cut selections and every part are covered; arbitrary exterior and internal cuts are allowed.",
+    "Strict-spanning endpoint cases s=0 and s=n-1 have no admissible strict exterior interval. Endpoint roots remain in the separately proved endpoint branches; this packet does not drop a valid strict-spanning case.",
+    "No scalars, ordinaryLift values, gates, child products, multiplier k, finite sum factorization, or recurrence are established here. Consequently no zero-valued factors are divided out or excluded, but their algebraic response remains for the subsequent packet."
+  ],
+  "failed_attempt_review": {
+    "failed_session": 54430,
+    "passing_session": 87301,
+    "repair": "Exact one-token replacement Finset.not_mem_empty -> Finset.notMem_empty in the empty-membership simplification. The failed log records the unknown identifier and cascading uneliminated empty-set disjunction; all sixteen public headers and all other proof text are unchanged.",
+    "no_premise_or_domain_change": true
+  },
+  "supplementary_checks": {
+    "script": "work/checks/review-spanning-empty-children-finite-20260912.py",
+    "result": "work/checks/review-spanning-empty-children-finite-20260912.json",
+    "general_no_cut_configurations": 3812,
+    "strict_spanning_configurations": 2116,
+    "unary_strict_spanning_configurations": 210,
+    "other_child_checks": 4446,
+    "all_passed": true,
+    "limits": "Arithmetic exhaustive finite samples n=3..9, not a Lean kernel or proof for arbitrary n."
+  },
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false
+}

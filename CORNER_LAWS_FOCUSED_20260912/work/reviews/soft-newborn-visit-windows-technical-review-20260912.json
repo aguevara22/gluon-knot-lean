@@ -1,0 +1,115 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-newborn-visit-windows-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:04:22.608670+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "Reviewer authored the embedded SoftLocalDeterminants, SoftFamilyLocalCrossing and SoftNewbornParameters bodies. This independently reviews the root-authored window statements and their use of those interfaces, not those authored constructions themselves. Separate root technical reviews are bound below."
+  },
+  "scope": {
+    "group": "SoftNewbornVisitWindows",
+    "declarations": [
+      "SM.soft_newborn_after_incoming_visits",
+      "SM.soft_newborn_before_return_visits",
+      "SM.soft_newborn_small_visit_windows"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150, especially the final proof paragraph of lem:soft-generic at 1138–1149",
+    "source_comparison": "The strict parameter windows placing inherited incoming visits before the newborn incoming parameter and the newborn return parameter before inherited return visits."
+  },
+  "assessment": "No technical mathematical defect found within this bounded parameter-inequality scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 38871,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and complete body embeddings; no extracted-header hashes.",
+    "receipt_path": "work/checks/SoftNewbornVisitWindows-prototype-result.json",
+    "receipt_sha256": "05b298db834fbf4294b12f6d3ed37beacd53a5bdaf7513534ed47cf72523f2b1",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftInheritedParameters.body.lean": "d885e062bf2d6045a74d94d4cb2a6b7c880a93a70479574373172e311ad005f5",
+      "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+      "work/checks/SoftFamilyLocalCrossing.body.lean": "07230f4aad3bd90f97166a7dcb432230d15fe0ac262650f80558e463721ea50b",
+      "work/checks/SoftFamilyG1.body.lean": "f38072ce5dd3115bf51680818786b67d6572c82467f6b407fc6a2b6a2e1efa07",
+      "work/checks/SoftNewbornParameters.body.lean": "d24aafd8af39919089746000b466920963317b78f9588a13fa1f59e7f5a7db29",
+      "work/checks/SoftNewbornVisitWindows.body.lean": "05c6415df30c350cddc7e41e2ccd6d4b6eeb94d3dfaa4381ed44757430342d9b",
+      "work/checks/SoftNewbornVisitWindows.prototype.lean": "1a0a04064cf544eee1e1638f9f6e6fdfcaa6d6dc180a741f703d4cbe8024868b",
+      "work/checks/SoftNewbornVisitWindows-first-kernel.log": "713c81defd7e9210ac5db300008591eed5cce1a8fad3493d3f4e6e707fdbccbd"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftInheritedParameters.body.lean": 1,
+      "work/checks/SoftLocalDeterminants.body.lean": 1,
+      "work/checks/SoftFamilyLocalCrossing.body.lean": 1,
+      "work/checks/SoftFamilyG1.body.lean": 1,
+      "work/checks/SoftNewbornParameters.body.lean": 1,
+      "work/checks/SoftNewbornVisitWindows.body.lean": 1
+    },
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.soft_newborn_after_incoming_visits": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_newborn_before_return_visits": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_newborn_small_visit_windows": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+      "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+      "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+      "work/checks/SoftInheritedParameters-prototype-result.json": "6484611983352dafe462ff9bd3b918ef600e062525dc854ee01eb45b87d19568",
+      "work/checks/SoftNewbornParameters-prototype-result.json": "aed16807e012ac0d79129320d4f389a531b08f5f301bf641a57e7b21b0458a02",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502",
+      "work/reviews/soft-local-determinants-technical-review-20260912.json": "cee90155bd58c3607edbb71261a4d10ffb6e4e7b508b054f234d6406dfe17daa",
+      "work/reviews/soft-family-local-crossing-technical-review-20260912.json": "4e28b135d665df481051e617991c0469bf0ede73976be8033bff1c12c032db60",
+      "work/reviews/soft-newborn-parameters-technical-review-20260912.json": "f0895511cdf38793106392515f32d1bf2e58bd52d5b699d63086a0393cc1c489"
+    }
+  },
+  "findings": [
+    "The incoming inequality is oriented correctly along the actual mapped parent incoming edge: every parent crossing parameter on that edge is strictly below one by G1, while the newborn incoming parameter has zero-parameter value one. Continuity of both actual Cramer functions preserves that strict inequality.",
+    "The return inequality is oriented from the inserted vertex toward the old successor: the newborn return parameter has zero-parameter value zero, while every parent crossing parameter on parent edge j is strictly positive. The corresponding parent label is exactly the actual return label. Continuity preserves newborn-before-inherited order.",
+    "The parent crossing hypotheses derive nonzero direction determinants and strict interior parent parameters. The parent-parameter continuity theorem uses exact zero-parameter parent bases and directions, without child Generic at zero. The strict order step needs no quantified separation oracle or chosen perturbation direction.",
+    "The first two results hold on full neighborhoods of zero. The third intersects both conditional families over every old label and then obtains one positive radius, selected before epsilon and the label. A nonexistent parent crossing makes only its associated implication vacuous; no actual parent crossing is dropped.",
+    "The statements assume n>=3, arbitrary j and q, and parent G1. They retain n=3 and all cyclic seams, and are broader than the source generic/admissible loop setting. They assert inequalities between actual geometric Cramer parameters, not existence of a newborn crossing in every sector.",
+    "In the admissible loop sector, the frozen newborn crossing-data theorem identifies the constructed values with actual crossingParameter and crossingPoint. The inherited persistence/identification interfaces likewise supply actual inherited visits on a suitably common interval. These identifications justify the source use of the inequalities after intersecting the needed radii; this body does not perform that full assembly."
+  ],
+  "wording_note": "The last docstring mentions the intervening soft edge having no crossings. That is context from the separate soft-edge avoidance theorem under its hypotheses, not a conclusion of this body, whose q is arbitrary. The frozen proof/type is unchanged; no extra contact or Gauss assertion is attributed to it.",
+  "limits": "No Cycle or Gauss-word object, global crossing enumeration, deletion identity or cyclic adjacency theorem is proved by these three inequalities alone. Stronger fidelity and canonical integration remain pending."
+}

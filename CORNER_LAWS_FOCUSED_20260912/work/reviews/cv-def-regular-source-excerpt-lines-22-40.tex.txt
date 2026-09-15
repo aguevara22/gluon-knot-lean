@@ -1,0 +1,19 @@
+\begin{definition}[principal turns and the regular locus]\label{def:regular}
+\begin{enumerate}
+\item[(A)] Let $L$ be a closed polygon with corners $q_0,\dots,q_{c-1}$ and edge directions
+$\delta_i=q_{i+1}-q_i$. The \emph{principal turn} at $q_i$ is the unique
+$\tau_i\in(-\pi,\pi)$ with
+$\cos\tau_i=\frac{\langle\delta_{i-1},\delta_i\rangle}{|\delta_{i-1}||\delta_i|}$
+and $\sgn\tau_i=\sgn\det(\delta_{i-1},\delta_i)$. It exists precisely when
+$\delta_i$ is not a negative multiple of $\delta_{i-1}$: if
+$\det(\delta_{i-1},\delta_i)\neq0$ it is nonzero, and if $\delta_i$ is a
+positive multiple of $\delta_{i-1}$ it is $0$. The excluded case
+$\delta_i\in\mathbb R_{<0}\delta_{i-1}$ is the \emph{kink}, where the two
+candidate values $\pm\pi$ are both excluded from the open interval.
+\item[(B)] The \emph{regular locus} $\mathcal R_n\subseteq(\mathbb R^2)^n$ is the set of
+$P=(p_1,\dots,p_n)$ with $d_i\neq0$ for all $i$ and $d_{i+1}\neq-\lambda d_i$
+for all $i$ and all $\lambda>0$: nonzero edges and no consecutive pair that
+doubles back. Equivalently, every principal turn of
+clause~(A) exists.
+\end{enumerate}
+\end{definition}

@@ -1,0 +1,79 @@
+{
+  "id": "lem:wall-segment-stability",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "98e879c982df48475959df0444b5e791cc9552fa46193ad44facca610859c8bb",
+  "verdict": "faithful",
+  "reason": "Compared all source clauses of lem:wall-segment-stability and its proof with the compiled aggregate SM.wall_segment_stability and its concrete local definitions. The finite type of segment labels implements a genuinely finite family, including the harmless empty-family case. Each segment is represented by an initial point a i and oriented nonzero direction u i, with points a i+s*u i for 0<=s<=1. Continuity of these two functions is equivalent to continuity of the oriented endpoints. The only local-domain assumptions are continuity on an open neighborhood V of the centre t0 and nonzero central directions. This represents arbitrary continuous local segment families without requiring global continuity or assuming any persistence conclusion. All source families satisfy the hypotheses; asking nonzero directions only at the centre weakens the input and nonzeroness throughout the resulting U is proved. U is open, contains t0, and lies in V, so the conclusion is a genuine common neighborhood, not an empty or unrelated domain. SegmentPairPersists has the two exact central alternatives as conditional branches for every ordered pair: central disjointness implies nearby disjointness, and central transverse interior meeting implies TransverseIntersection nearby. It imposes no new restriction on singular pairs outside the source alternatives. segmentsMeet is actual closed affine segment intersection, equivalent to a common real-plane point by segmentsMeet_iff. Its stability is proved by a closed equality locus over the compact parameter square [0,1]^2 and closedness of the projection; no separation or stability property is assumed as an oracle. TransverseInterior means nonzero determinant and equality of the two actual affine points at strict interior parameters. TransverseIntersection includes nonzero determinant, both strict Cramer parameter bounds, the equality of their geometric points, and existence of exactly one common point of the closed segments. The Cramer formulas use det(b-a,v)/det(u,v) and det(b-a,u)/det(u,v), exactly the source signs and parameter assignments, and denominators are proved nonzero before continuity or cancellation is used. SegmentPairStableOn supplies ContinuousOn U for both parameter functions for every centrally transverse pair, not merely continuity at t0. Uniqueness and strict bounds hold on the same U as those continuities. CrossingOrderPersists compares the first parameters of two crossings on the same oriented first segment and assumes inequality only at the centre, exactly the source proviso. The aggregate quantifies every ordered triple, including exchange of the two crossing partners, so its less-than equivalences preserve strict order in both directions and exclude an equality appearing nearby when central parameters differ. Finite intersections of the nonzero, pair-persistence and all-triple order neighborhoods produce one U for all requirements. Specializing the arbitrary parameter space to the real line, openness at t0 gives a smaller common real interval; restricting the already-common-U conclusions supplies the final interval assertion of the source proof. No global regularity, smoothness, preselected persistent intersection, local transversality hypothesis or desired order law has been added. The formal proof is an alternative to the source distance estimate with the same geometry and conclusions. The audited semantic dependency inventory binds every predicate in the aggregate to its actual geometric definition. Only standard Lean axioms occur in the development audit. This independent review establishes full source fidelity separately from kernel checking; its supporting helpers are not additional original source claims.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.segmentsMeet_iff",
+    "SM.isClosed_segmentsMeet",
+    "SM.disjoint_segments_persist",
+    "SM.continuousAt_cramerFirst",
+    "SM.continuousAt_cramerSecond",
+    "SM.transverse_intersection_persists",
+    "SM.transverseIntersection_of_interior",
+    "SM.segmentPair_persists",
+    "SM.crossingOrder_persists",
+    "SM.intersection_parameters_unique"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 166,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 178,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "4181a8f2ba5b907241d409a1b7c395194ccbd4ff95076ff62c094acd52e206b3",
+    "to_excerpt_sha256": "4181a8f2ba5b907241d409a1b7c395194ccbd4ff95076ff62c094acd52e206b3",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:178-188; sm15_reworded=false, and CHANGES_SINCE_20260909.md does not mention the label, confirmed) states, for finitely many continuously varying nonzero oriented segments: (1) a pair disjoint at the centre stays disjoint nearby; (2) a pair meeting transversely in both relative interiors at the centre keeps a unique intersection that remains transverse and interior, with both parameters varying continuously; (3) for persistent crossings on one segment, any two with distinct central parameters keep their parameter order nearby. Lean SM.wall_segment_stability (work/lean/SM/WallSegmentStability.lean:118-125): family a u : ι → α → Plane with [Finite ι], α any topological space, ContinuousOn on an open V ∋ t₀, u i t₀ ≠ 0; conclusion is one open U with t₀ ∈ U ⊆ V such that (i) u i t ≠ 0 on U, (ii) ∀ i j, SegmentPairStableOn (109-113): ∀ t ∈ U, SegmentPairPersists (42-46) = [¬segmentsMeet at t₀ → ¬segmentsMeet at t] ∧ [TransverseInterior at t₀ → TransverseIntersection at t], plus [TransverseInterior at t₀ → ContinuousOn of cramerFirst and cramerSecond on U]; (iii) ∀ t ∈ U ∀ i j k, CrossingOrderPersists (82-90). Definitions checked: segmentsMeet (SegmentStability.lean:19-20) is closed-segment intersection {a+s u, 0≤s≤1} ∩ {b+r v, 0≤r≤1} ≠ ∅, matching E_i = {μ_i + tℓ_i : 0≤t≤1} (tex 44-45) and 'disjoint'; TransverseInterior (12-14) = det u v ≠ 0 ∧ common point at parameters in (0,1) = 'meet transversely in both relative interiors'; TransverseIntersection (17-22) = det ≠ 0, both Cramer parameters in (0,1), a + s•u = b + r•v at those parameters, and ∃! common point on the closed segments = 'unique intersection persists, remains transverse and interior'; cramerFirst/cramerSecond (ContinuousGeometry.lean:18-19) are det(b-a,v)/det(u,v) and det(b-a,u)/det(u,v), exactly the source's (wallgeo:parameters) u,v with A=a,D=u,B=b,H=v, and det (Polygon.lean:16) is u₁v₂-u₂v₁ as in tex line 5; since TransverseIntersection holds on U, these are the intersection parameters, so their ContinuousOn U is 'the two parameters vary continuously'. CrossingOrderPersists: for crossings (i,j),(i,k) both TransverseInterior at t₀ with distinct central first parameters (the parameter on segment i, in its orientation), (param_ij t < param_ik t ↔ param_ij t₀ < param_ik t₀); quantified over all ordered triples, the swapped triple supplies the reverse strict inequality, so strict order is preserved and no equality appears nearby. Same domain and hypotheses (or weaker ones), same quantifiers (every pair, every triple on a common neighbourhood), same conclusions. Nothing vacuous: U is open and contains t₀; the i=j pair and j=k triple instances are trivially vacuous and harmless. File hashes of WallSegmentStability, SegmentStability, ContinuousGeometry and Polygon match those recorded in the accepted review, and the accepted review's conclusion agrees with this independent one.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Nonzero directions are assumed only at the centre (hnz, Lean line 121) while the source's 'nonzero oriented segments' (tex line 180) is a standing hypothesis on the family; Lean in addition concludes u i t ≠ 0 for all t in U (line 123).",
+      "Parameter space is an arbitrary topological space α (line 39), not the real interval the source proof has in mind ('one common interval', tex line 203), and continuity is required only on an open neighbourhood V of the centre (lines 119-120) rather than everywhere.",
+      "A single common open neighbourhood U ⊆ V carries every conclusion for the whole finite family (line 122); the source says 'nearby' clause by clause and only its proof remarks that one common interval works.",
+      "TransverseIntersection (lines 17-22) records explicitly that the Cramer parameters realise the common point and that the closed segments have exactly one common point (∃!), sharpening 'their unique intersection persists'.",
+      "The order clause is stated for all ordered triples (i,j,k) (line 125), so together with the swapped triple it yields strict order in both directions, excluding a nearby equality; the source's 'keeps its parameter order' is thereby realised in its strongest reading.",
+      "The empty family (ι empty) is allowed."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/WallSegmentStability.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/SegmentStability.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/ContinuousGeometry.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lakefile.toml",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-wall-segment-stability.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

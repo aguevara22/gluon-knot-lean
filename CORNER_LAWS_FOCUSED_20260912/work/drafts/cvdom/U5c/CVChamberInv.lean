@@ -1,0 +1,88 @@
+import CV.PieceHomflyTransport
+
+/-! # CV lane, row 147 — CV:prop:chamberinv, both clauses (reference/R/CV/d1_setup.tex:932–961)
+
+Written 2026-09-14 by a Claude Code prover subagent of the pod executor (CV-DOM unit U5c). Intended
+home `work/lean/CV/ChamberInvRow.lean` (the existing `work/lean/CV/ChamberInv.lean` holds clause (i)).
+
+## Printed statement (d1_setup.tex:932–939)
+
+"**Proposition (chambers and chamber invariance).** Fix `n ≥ 3`.
+(i) The generic locus `𝓤_n` is open in `(ℝ²)^n`, and every chamber — every connected component of
+it — is open and path connected.
+(ii) `X_1` is constant on each chamber."
+
+## Notation map
+
+* `𝓤_n` — `CV.genericLocus n = {P : LabelledTuple n | Generic P}` (CV:def:generic (A), the guarded
+  genericity of CV/Setup.lean on labelled tuples `(ℝ²)^n = ZMod n → ℝ × ℝ`);
+* "chamber", "connected component of `𝓤_n`" — `CV.chamber P = connectedComponentIn (genericLocus n) P`
+  (CV:def:generic (B), d1_setup.tex:229–231); `Q ∈ chamber P` says `P`, `Q` lie in one chamber;
+* `X_1` — `CV.X1 hn P hG` (CV:def:X1, row 146, CV/X1.lean), the state sum
+  `Σ_{S ∈ Ind(G_P)} wind(S) ∏_L Ω₁(S,L)` on the printed binder `hG : Generic P`;
+* "constant on each chamber" — `X1 hn Q hQ = X1 hn P hP` for all `P`, `Q` of one chamber, with the
+  genericity proofs `hP`, `hQ` that the binder of `X_1` requires (`Q ∈ chamber P` implies `Generic Q`,
+  `generic_of_mem_chamber`, so the proof `hQ` is no restriction).
+
+## Reading list for the reviewer
+
+1. **Placement of `hn : 3 ≤ n`.** The printed "Fix `n ≥ 3`" is a standing convention of the section.
+   Clause (i) does not use it (accepted `CV.chamberinv_i`, stated for every `n` with `[NeZero n]`, the
+   hypothesis under which `Member n` is defined; `chamberinv_i_of_three_le` restates it on `3 ≤ n`);
+   the (i) fields below follow that accepted shape, quantified over `n` with `[NeZero n]`. Clause (ii)
+   needs `hn` because `X_1` does (CV:def:X1 reads the positive lifts and the corner polygons through
+   the U2b/U4 geometry, which needs `3 ≤ n`, DECISION_FINAL §2 reading (iii)); the field quantifies
+   `hn` inside, as the accepted CV pattern does (CV/Carriers.lean, CV/X1.lean bundles), with `[NeZero n]`
+   carried alongside as in `CV.X1`'s own signature.
+2. **Chambers.** Constancy is asserted on CV chambers `CV.chamber` (connected components of the CV
+   generic locus, which contain the SM pure-cut walls) — no SM-chamber fallback (DECISION_FINAL §4).
+3. **`X_1`.** `CV.X1` is the accepted rendering of CV:def:X1 (row 146): `Ind(G_P)` = `CV.Ind`,
+   `wind` = CV:def:wind's, `Ω₁(S,L) = [a^{1−w_{S,L}−R(L)} z⁰] P_{S,L}`, `P_H = homfly (pieceDiagram H)`
+   (CV:def:piecediagram), `R(L) = |rot|` of the carrier's corner polygon (CV:def:rot).
+4. **Proof of (ii)** (CV/ChamberInvII.lean + CV/PieceHomflyTransport.lean): along the path of generic
+   polygons joining `P` to `Q` inside the chamber (clause (i), `chamber_joinedIn`) the crossing supports,
+   records, interlacement, independent sets, pieces, `wind`, the carriers' rotations and the HOMFLY
+   polynomials of the carriers' positive lifts are carried (`GeoMarkTransport`, `GeoPathTransport`, U5a);
+   the piece polynomials are carried because the positive lift of any carrier with the same retained
+   crossings has the same record (CV:def:record (a)–(d)) and hence the same polynomial (the accepted
+   CV:ax:gausscode replacement `gausscode_polynomial`) — `pieceHomflyTransported`; the reindexed sum
+   is then equal term by term (`X1_eq_of_mem_chamber_of_pieceHomfly`).
+
+Review note (DECISION_FINAL §4): stated on the printed binder (`hP hQ : CV.Generic`, CV chambers); no
+domain change. Axioms: standard plus `SM.lit_homfly` (through `homfly`, the polynomial `X_1` reads). -/
+
+namespace CV
+
+open SM
+
+/-- CV prop:chamberinv (d1_setup.tex:932–939), one field per printed clause. Clauses of (i) exactly as
+in the accepted `ChamberInvIData` (quantified over `n` with `[NeZero n]`, the accepted shape); clause
+(ii) on the printed binder of `X_1` (`hn : 3 ≤ n`, `hG : Generic`), chambers `CV.chamber`
+(CV:def:generic (B)). -/
+structure ChamberInvData : Prop where
+  /-- "(i) The generic locus `𝓤_n` is open in `(ℝ²)^n`" (d1_setup.tex:935). -/
+  open_locus : ∀ (n : ℕ) [NeZero n], IsOpen (genericLocus n)
+  /-- "and every chamber — every connected component of it — is open" (d1_setup.tex:936). -/
+  chamber_open : ∀ (n : ℕ) [NeZero n] (P : LabelledTuple n), IsOpen (chamber P)
+  /-- "and path connected" (d1_setup.tex:936): the chambers of the generic polygons (the components of
+  `𝓤_n`; `chamber P` is empty at a non-generic `P`). -/
+  chamber_pathConnected : ∀ (n : ℕ) [NeZero n] (P : LabelledTuple n), Generic P → IsPathConnected (chamber P)
+  /-- "(ii) `X_1` is constant on each chamber" (d1_setup.tex:937): two generic polygons of one chamber
+  have the same `X_1`. -/
+  x1_constant : ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (P Q : LabelledTuple n) (hP : Generic P) (hQ : Generic Q),
+    Q ∈ chamber P → X1 hn Q hQ = X1 hn P hP
+
+/-- **CV prop:chamberinv (ii)** (d1_setup.tex:937): `X_1` is constant on each chamber. -/
+theorem chamberinv_ii {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P Q : LabelledTuple n} (hP : Generic P)
+    (hQ : Generic Q) (h : Q ∈ chamber P) : X1 hn Q hQ = X1 hn P hP :=
+  X1_eq_of_mem_chamber_of_pieceHomfly hn hP hQ h (pieceHomflyTransported hn hP hQ h)
+
+/-- **Row 147, CV:prop:chamberinv** (d1_setup.tex:932–939): clause (i) from the accepted
+`chamberinv_i`, clause (ii) from `chamberinv_ii`. -/
+theorem chamberinv : ChamberInvData where
+  open_locus := fun _ _ => chamberinv_i.open_locus
+  chamber_open := fun _ _ P => chamberinv_i.chamber_open P
+  chamber_pathConnected := fun _ _ P hP => chamberinv_i.chamber_pathConnected P hP
+  x1_constant := fun _ _ hn _ _ hP hQ h => chamberinv_ii hn hP hQ h
+
+end CV

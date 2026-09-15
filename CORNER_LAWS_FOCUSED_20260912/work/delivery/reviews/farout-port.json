@@ -1,0 +1,1542 @@
+{
+  "review_schema": "independent-full-source-port-review-v1",
+  "id": "farout-port",
+  "source_ids": [
+    "lem:farout"
+  ],
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "source_claim_accepted": false,
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "in_theorem_library": true,
+  "statement_hashes": {
+    "lem:farout": "079a085d5f248db40018ec89c9840d4d3b40300c923e82f5eb13eae7ec56a3d8"
+  },
+  "reason": "All twelve installed namespace bodies equal their exact independently reviewed frozen prototypes. Only canonical import headers replace embedded predecessors. All 307 earlier SM modules and all 38 earlier source semantic hashes remain unchanged. Supplemental adds exactly SM.Farout; the only source-map change is the pending lem:farout candidate. Canonical-only independent first kernel 94940 passes 127 declaration types and 48 consumers with 175 standard-or-empty traces. Every canonical type matches its independently checked prototype type. Source fidelity is established by the substantive complete-source review and consumer meanings, while exact-port hashes and immutable audit067 bind that review to the installed implementation. The 80-entry statement/definition semantic hash is independently recomputed. Shared marking-fragment provenance and its fresh independent review remain explicitly bound.",
+  "ports": {
+    "work/lean/SM/ConsecutiveCuts.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/ConsecutiveCuts.lean",
+      "candidate_sha256": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+      "source_fragments": [
+        {
+          "source": "work/checks/ConsecutiveCuts.body.lean",
+          "source_sha256": "c7887dc7d921a89a4bc993e3afeae4cecfa16a9e900c1d69e77b1a3dc891b29f"
+        }
+      ],
+      "root_receipt": "work/checks/ConsecutiveCuts-prototype-result.json",
+      "root_receipt_sha256": "b23679deda42d77bce1268010a5fb8c14d58ce0dcb7bbc7302201736d054171d",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NestedCutSets"
+      ],
+      "installed_module_sha256": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/ConsecutiveTriples.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/ConsecutiveTriples.lean",
+      "candidate_sha256": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+      "source_fragments": [
+        {
+          "source": "work/checks/ConsecutiveTriples.body.lean",
+          "source_sha256": "4d3ef3e74037439b35eb804605766ce8dc1d1675af3dd9826b5366fe054faec2"
+        }
+      ],
+      "root_receipt": "work/checks/ConsecutiveTriples-prototype-result.json",
+      "root_receipt_sha256": "177c5f02350aa7a7be33545e1c35309024026b1c0e9ee0335ab14b8aae701e34",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.ConsecutiveCuts",
+        "SM.InteriorCutIndex",
+        "SM.NearFar"
+      ],
+      "installed_module_sha256": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/RefinedChildren.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/RefinedChildren.lean",
+      "candidate_sha256": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+      "source_fragments": [
+        {
+          "source": "work/checks/RefinedChildren.body.lean",
+          "source_sha256": "3019454092fbf6d22f419d94a1cc69f7057021f65dc1e9cde2046525a61e2abc"
+        }
+      ],
+      "root_receipt": "work/checks/RefinedChildren-prototype-result.json",
+      "root_receipt_sha256": "43cd971997f47feb44813004c1d7d4c872595322d2b331e0a762c3e13dadebc8",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.ConsecutiveCuts"
+      ],
+      "installed_module_sha256": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/MarkedCutIndex.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/MarkedCutIndex.lean",
+      "candidate_sha256": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+      "source_fragments": [
+        {
+          "source": "work/checks/MarkedCutIndex.body.lean",
+          "source_sha256": "58fdc443e7532f4e5dab5dbd237ffa0ca23d873c3277b8fc179f9a28b9306819"
+        }
+      ],
+      "root_receipt": "work/checks/MarkedCutIndex-prototype-result.json",
+      "root_receipt_sha256": "7fe30ec2051dfdb1036a4118c690280ec5b246e38ed253097d54d634e7a9d3d9",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.MarkedRefinement",
+        "SM.InteriorCutIndex"
+      ],
+      "installed_module_sha256": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/RefinedInterior.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/RefinedInterior.lean",
+      "candidate_sha256": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+      "source_fragments": [
+        {
+          "source": "work/checks/RefinedInterior.body.lean",
+          "source_sha256": "a2417b6bf048a5beca1f5e339c05696d347bdabb5b1f9c59ed6b3bf28f9bd616"
+        }
+      ],
+      "root_receipt": "work/checks/RefinedInterior-prototype-result.json",
+      "root_receipt_sha256": "1181273cfa2aad2ad85ded991ff66df9a019250d0b76d899076ce73657d6d99a",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.RefinedChildren",
+        "SM.ConsecutiveTriples"
+      ],
+      "installed_module_sha256": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/RefinedOuter.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/RefinedOuter.lean",
+      "candidate_sha256": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+      "source_fragments": [
+        {
+          "source": "work/checks/RefinedOuter.body.lean",
+          "source_sha256": "53919c2699ac8d1dfc54099485cfbab337cbdd8e75384823c0501fbff8431f2f"
+        }
+      ],
+      "root_receipt": "work/checks/RefinedOuter-prototype-result.json",
+      "root_receipt_sha256": "bdf61b7f3e9283941bd5d1504bec4ce63d479a5900fe43e7ec6cc13b451a15ed",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.RefinedInterior",
+        "SM.MarkedRefinement"
+      ],
+      "installed_module_sha256": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/RefinedWeights.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/RefinedWeights.lean",
+      "candidate_sha256": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+      "source_fragments": [
+        {
+          "source": "work/checks/RefinedWeights.body.lean",
+          "source_sha256": "54e60abb89a51103e8d3b0074eadb1c441c531f3c4a82e178a67c8b463fd8e34"
+        }
+      ],
+      "root_receipt": "work/checks/RefinedWeights-prototype-result.json",
+      "root_receipt_sha256": "65bfcda43a2b73a9f8916eacf5bf4d7e0821c7069e82571786e6ffb75a53d214",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.RefinedOuter",
+        "SM.MarkedCutIndex"
+      ],
+      "installed_module_sha256": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/NearFarFactorization.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/NearFarFactorization.lean",
+      "candidate_sha256": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+      "source_fragments": [
+        {
+          "source": "work/checks/NearFarFactorization.body.lean",
+          "source_sha256": "35c2ef4e8fea67fc7b2dd25ecd3adb4c201f98ae54229d19a6e84fa55c50e21b"
+        }
+      ],
+      "root_receipt": "work/checks/NearFarFactorization-prototype-result.json",
+      "root_receipt_sha256": "eb3142c2d6998710afbe1c0c5a4bd7ed1ba12436c7a29aeda868bec5dde82f24",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.RefinedWeights",
+        "SM.NearFarCutExpansion"
+      ],
+      "installed_module_sha256": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/FarOnlyOutput.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/FarOnlyOutput.lean",
+      "candidate_sha256": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "source_fragments": [
+        {
+          "source": "work/checks/FarOnlyOutput.body.lean",
+          "source_sha256": "9a49cf4d81ef8861128867f14ebfcf7c3aae6a2a2f948b967b1aa6a2fba3c77a"
+        }
+      ],
+      "root_receipt": "work/checks/FarOnlyOutput-prototype-result.json",
+      "root_receipt_sha256": "d9f1fe1a6b9db3121a94bbb55ca89ea4f0189e55512db73990cb41375aebfe5b",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NearFarFactorization",
+        "SM.GeometricNearFar"
+      ],
+      "installed_module_sha256": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/IntervalRestriction.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/IntervalRestriction.lean",
+      "candidate_sha256": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+      "source_fragments": [
+        {
+          "source": "work/checks/IntervalRestriction.body.lean",
+          "source_sha256": "715978c8d1381d20b2d31bdec4d0272e3683e52814fe2c4540eb64335056e2b6"
+        }
+      ],
+      "root_receipt": "work/checks/IntervalRestriction-prototype-result.json",
+      "root_receipt_sha256": "3dac03736a6243eef4480d6450e8cb4c0947215fc048d33f0b1a990033f3801a",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FarOnlyOutput"
+      ],
+      "installed_module_sha256": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/RestrictedWordRoot.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/RestrictedWordRoot.lean",
+      "candidate_sha256": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+      "source_fragments": [
+        {
+          "source": "work/checks/RestrictedWordRoot.body.lean",
+          "source_sha256": "ead2d4a9f170331206f259358f564a613fae4973f86b8f0516424ed26a23e563"
+        }
+      ],
+      "root_receipt": "work/checks/RestrictedWordRoot-prototype-result.json",
+      "root_receipt_sha256": "04eb19ede0b5acea1d99ee882d1c45d65bdb676a57d267b497eb8ffcaafc51d5",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.IntervalRestriction"
+      ],
+      "installed_module_sha256": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/Farout.lean": {
+      "candidate": "work/checks/farout-port-candidate/SM/Farout.lean",
+      "candidate_sha256": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+      "source_fragments": [
+        {
+          "source": "work/checks/Farout.body.lean",
+          "source_sha256": "cda445fe026d2509edad5f96a3c80419627b87c68d9c382ba055f049e62119b8"
+        }
+      ],
+      "root_receipt": "work/checks/Farout-prototype-result.json",
+      "root_receipt_sha256": "3c5f5dfe3c2577251692ee630c0e8aae3b21a5fbe0bcf4e16d75d5ab3a01205d",
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.RestrictedWordRoot",
+        "SM.TriangularPolynomial"
+      ],
+      "installed_module_sha256": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+      "installed_equals_candidate": true
+    }
+  },
+  "main_declarations": [
+    "SM.BoundaryCutSet.Consecutive",
+    "SM.BoundaryInterval.eq_of_endpoints",
+    "SM.BoundaryCutSet.consecutive_restrict_iff",
+    "SM.IntervalComposition.part_consecutive",
+    "SM.IntervalComposition.part_injective",
+    "SM.IntervalComposition.exists_part_of_consecutive",
+    "SM.IntervalComposition.partConsecutiveEquiv",
+    "SM.IntervalComposition.consecutive_contained_in_part",
+    "SM.IntervalComposition.containing_part_unique",
+    "SM.IncreasingBoundaryTriple.leftInterval",
+    "SM.IncreasingBoundaryTriple.rightInterval",
+    "SM.BoundaryCutSet.consecutive_eq_of_left",
+    "SM.BoundaryCutSet.consecutive_eq_of_right",
+    "SM.IncreasingBoundaryTriple.eq_of_entries",
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+    "SM.IntervalComposition.nearTriple_leftInterval",
+    "SM.IntervalComposition.nearTriple_rightInterval",
+    "SM.IntervalComposition.nearTriple_consecutive",
+    "SM.IntervalComposition.nearTriple_middle_position",
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+    "SM.IntervalComposition.refinementInner",
+    "SM.IntervalComposition.refinedChildIndex",
+    "SM.IntervalComposition.inner_child_consecutive",
+    "SM.IntervalComposition.exists_refined_child",
+    "SM.IntervalComposition.refinedChildIndex_part",
+    "SM.IntervalComposition.refinedChildIndex_injective",
+    "SM.IntervalComposition.refinedChildIndex_surjective",
+    "SM.IntervalComposition.refinedChildrenEquiv",
+    "SM.IntervalComposition.prod_refined_children",
+    "SM.IntervalComposition.refinementInner_flatten",
+    "SM.IntervalComposition.prod_nested_children",
+    "SM.IntervalComposition.indexMarks",
+    "SM.IntervalComposition.markIndices",
+    "SM.IntervalComposition.markIndices_indexMarks",
+    "SM.IntervalComposition.indexMarks_markIndices",
+    "SM.IntervalComposition.marksIndexEquiv",
+    "SM.IntervalComposition.position_mem_indexMarks",
+    "SM.IntervalComposition.indexMarks_compl",
+    "SM.IntervalComposition.prod_indexMarks",
+    "SM.IntervalComposition.prod_markIndices",
+    "SM.IntervalComposition.sum_all_indexMarks",
+    "SM.IntervalComposition.RefinementUnmarked",
+    "SM.IntervalComposition.refinedInteriorIndex",
+    "SM.IntervalComposition.refinedUnmarkedIndex",
+    "SM.BoundaryCutSet.mem_interior_iff",
+    "SM.IntervalComposition.innerPosition_in_refinement",
+    "SM.IntervalComposition.refinedInteriorIndex_position",
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective",
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective",
+    "SM.IntervalComposition.refinedUnmarkedEquiv",
+    "SM.IntervalComposition.inner_nearTriple_transport",
+    "SM.IntervalComposition.prod_inner_nearTriples",
+    "SM.IntervalComposition.RefinementMarked",
+    "SM.IntervalComposition.refinedOuterIndex",
+    "SM.IntervalComposition.refinedMarkedIndex",
+    "SM.IntervalComposition.outerPosition_in_refinement",
+    "SM.IntervalComposition.refinedOuterIndex_position",
+    "SM.IntervalComposition.refinedMarkedIndex_injective",
+    "SM.IntervalComposition.refinedMarkedIndex_surjective",
+    "SM.IntervalComposition.refinedMarkedEquiv",
+    "SM.IntervalComposition.outer_farTriple_transport",
+    "SM.IntervalComposition.prod_outer_farTriples",
+    "SM.IntervalComposition.refinementMarks",
+    "SM.IntervalComposition.refinementMarkIndices",
+    "SM.IntervalComposition.mem_refinementMarkIndices",
+    "SM.IntervalComposition.prod_refinementMarked",
+    "SM.IntervalComposition.prod_refinementUnmarked",
+    "SM.IntervalComposition.nearFarWeight_near_only",
+    "SM.IntervalComposition.nearFarWeight_far_only",
+    "SM.IntervalComposition.prod_inner_near_weights",
+    "SM.IntervalComposition.outer_far_weight",
+    "SM.IntervalComposition.nested_summand_transport",
+    "SM.IntervalComposition.nestedSummand",
+    "SM.IntervalComposition.markedSummand",
+    "SM.BoundaryCutSet.marked_transport_val",
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand",
+    "SM.IntervalComposition.sum_markedSummand",
+    "SM.nearFar_factorization_coordinate",
+    "SM.nearFar_factorization",
+    "SM.farOnlyCoordinates",
+    "SM.farOnlyOutput",
+    "SM.nearTransform_of_nearFar_solution",
+    "SM.reversedFar_output_of_solution",
+    "SM.complete_output_near_independent",
+    "SM.farOnlyCoordinates_equation",
+    "SM.geometric_farOnly_output",
+    "SM.treeCoefficient_farOnly",
+    "SM.nearFarTransform_leaf",
+    "SM.boundaryUnitArray_leaf",
+    "SM.farOnlyCoordinates_leaf",
+    "SM.farOnly_leaf_values",
+    "SM.farOnly_nonleaf_E",
+    "SM.BoundaryInterval.globalPosition",
+    "SM.BoundaryInterval.localPosition",
+    "SM.BoundaryInterval.liftInterval",
+    "SM.BoundaryInterval.liftTriple",
+    "SM.IntervalComposition.liftComposition",
+    "SM.IntervalComposition.lowerComposition",
+    "SM.restrictTripleArray",
+    "SM.restrictIntervalArray",
+    "SM.BoundaryInterval.globalPosition_strict",
+    "SM.BoundaryInterval.globalPosition_bounds",
+    "SM.BoundaryInterval.global_localPosition",
+    "SM.BoundaryInterval.local_globalPosition",
+    "SM.IntervalComposition.eq_of_parts_cut",
+    "SM.IntervalComposition.cut_bounds",
+    "SM.IntervalComposition.lower_liftComposition",
+    "SM.IntervalComposition.lift_lowerComposition",
+    "SM.IntervalComposition.restrictionEquiv",
+    "SM.IntervalComposition.liftComposition_part",
+    "SM.IntervalComposition.liftComposition_nearTriple",
+    "SM.IntervalComposition.liftComposition_farTriple",
+    "SM.nearFarTransform_restrict",
+    "SM.nearFarInverse_restrict",
+    "SM.boundaryUnitArray_restrict",
+    "SM.farOnlyCoordinates_restrict",
+    "SM.farOnlyOutput_restrict",
+    "SM.restrictedWordTuple",
+    "SM.restrictedWord_boundary",
+    "SM.restrictedWord_first_vertex",
+    "SM.restrictedWord_last_vertex",
+    "SM.restrictedWord_closing_edge",
+    "SM.BoundaryInterval.lift_fullInterval",
+    "SM.geometricBoundaryArray_restrictedWord",
+    "SM.farOnlyOutput_restricted_tree",
+    "SM.farout"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d"
+  },
+  "import_closure_roots": [
+    "SM.Farout"
+  ],
+  "import_closure_file_count": 32,
+  "prior307_unchanged": true,
+  "current_SM_count": 319,
+  "all_38_prior_semantic_hashes_unchanged": true,
+  "prototype_review_binding": {
+    "work/reviews/nearfar-helper-port.json": "827cd20235e2e5c6c5b0faa8cc48fd20d21d9289d90ae25020ac4615e442f1e3",
+    "work/reviews/nearfar-refinement-canonical-partial.json": "93537539849574269dd1609dcb76e125a9e56002498a04d29db1bd96edd2549f",
+    "work/reviews/composition-cut-set-canonical-partial.json": "37bd41b7708dce3be1dfaf5fd3a0cf4b84b382f7495627eef7acdb6352021121",
+    "work/reviews/def-nearfar.json": "933022e776a0440ac35e0f9fbfa193c9e3fc32d6e8c0f67e3560c61361dd314a",
+    "work/reviews/refinement-transport-prototype.json": "5e5e665a5f60f46318ef55d13b28c6cd1d27738d8085b0e3ae273242db713013",
+    "work/checks/refinement-transport-reviewed-types.json": "cd681b4b4f54b62004381d9921a259625e4cff67efe8b865e2fbc3362ce93e00",
+    "work/checks/refinement-transport-review-examples.lean": "db798398254f3b34cdd409e6f618732685c4d2159a29a8220fd0def81a8db834",
+    "work/reviews/nearfar-factorization-far-only-prototype.json": "6a680e4851f116f42e77593f75ce1fbbe9683f5ec8b519cdcc3cef11dd6fe881",
+    "work/checks/refined-weights-reviewed-types.json": "b9f20774b3e240285df9ba3ea7b0015f651ac9f32fefd907e58a6fe89bb6d3e3",
+    "work/reviews/marked-transport-independent.json": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "work/reviews/triangular-polynomial-inverse-canonical-partial.json": "bf3e5d8fbcea2b3b9bc1d2a2257dbf20eba813efb9f7d47f140905fecfeb8a4e",
+    "work/checks/refined-weights-review-examples.lean": "001a29fa016d488dd8b330165f49f50a054a666c2b58fc7207533850b98e5c51",
+    "work/checks/nearfar-factorization-review-examples.lean": "0d90ab5e4c6ee269a9e0ea6b31d854cee04d030c9046b49eb5565690e712a672",
+    "work/checks/farout-review-examples.lean": "0090a2c6ecd5fe310a7946a321c8e1a2d145b73aa95b9113ddd47c967b19428f",
+    "work/reviews/farout-prototype.json": "7f0e403763fbc0564ea4634d88cfdc62c70ed3f1a1688bd84d3016c80ae784ab",
+    "work/checks/farout-reviewed-types.json": "ef24f25e7a80c26105d5b4dd6c17bbc9d8325b5a8c25a04604726d1fe3aa949e",
+    "work/checks/farout-review-closure.json": "9a7263fe9467eb2dd487ffee07839fd5d2db9b9c4c5dddaf36d4c260ef740190"
+  },
+  "provenance_disclosure": {
+    "reviewer_derived_fragments": [
+      "SM.BoundaryCutSet.marked_transport_val",
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks"
+    ],
+    "origin_consumer": "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts",
+    "origin_file": "work/checks/nearfar-refinement-review-examples.lean",
+    "origin_file_sha256": "a26a21c579e6ad78bb80d814a4f9ab87950b027161597efbb4f95cb92b300578",
+    "fresh_noncontributing_reviewer": "/root/review_mark_transport",
+    "fresh_fragment_review": "work/reviews/marked-transport-independent.json",
+    "fresh_fragment_review_sha256": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "fresh_review_is_read_only_without_its_own_kernel": true,
+    "current_independent_kernel_checks_fragments": true,
+    "scope_resolved_by_combined_reviews": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/farout-canonical-review-types.lean",
+    "independent_trace_source_sha256": "c6d26d8498761a92178c83e8cef5f2577a57860e41f04e15b3bf5203af5f6240",
+    "independent_trace_log": "work/checks/farout-canonical-review-types.log",
+    "independent_trace_log_sha256": "4ac6e49179eed59300e3157e1c1b856c3f0b76cd12e7319d7b11400de8f976a9",
+    "independent_kernel_command": "lake env lean ../checks/farout-canonical-review-types.lean",
+    "independent_kernel_session": 94940,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.BoundaryInterval.eq_of_endpoints",
+      "SM.BoundaryCutSet.consecutive_restrict_iff",
+      "SM.IntervalComposition.part_consecutive",
+      "SM.IntervalComposition.part_injective",
+      "SM.IntervalComposition.exists_part_of_consecutive",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.consecutive_contained_in_part",
+      "SM.IntervalComposition.containing_part_unique",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.BoundaryCutSet.consecutive_eq_of_left",
+      "SM.BoundaryCutSet.consecutive_eq_of_right",
+      "SM.IncreasingBoundaryTriple.eq_of_entries",
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+      "SM.IntervalComposition.nearTriple_leftInterval",
+      "SM.IntervalComposition.nearTriple_rightInterval",
+      "SM.IntervalComposition.nearTriple_consecutive",
+      "SM.IntervalComposition.nearTriple_middle_position",
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.inner_child_consecutive",
+      "SM.IntervalComposition.exists_refined_child",
+      "SM.IntervalComposition.refinedChildIndex_part",
+      "SM.IntervalComposition.refinedChildIndex_injective",
+      "SM.IntervalComposition.refinedChildIndex_surjective",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.prod_refined_children",
+      "SM.IntervalComposition.refinementInner_flatten",
+      "SM.IntervalComposition.prod_nested_children",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.markIndices_indexMarks",
+      "SM.IntervalComposition.indexMarks_markIndices",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.position_mem_indexMarks",
+      "SM.IntervalComposition.indexMarks_compl",
+      "SM.IntervalComposition.prod_indexMarks",
+      "SM.IntervalComposition.prod_markIndices",
+      "SM.IntervalComposition.sum_all_indexMarks",
+      "SM.IntervalComposition.RefinementUnmarked",
+      "SM.IntervalComposition.refinedInteriorIndex",
+      "SM.IntervalComposition.refinedUnmarkedIndex",
+      "SM.BoundaryCutSet.mem_interior_iff",
+      "SM.IntervalComposition.innerPosition_in_refinement",
+      "SM.IntervalComposition.refinedInteriorIndex_position",
+      "SM.IntervalComposition.refinedUnmarkedIndex_injective",
+      "SM.IntervalComposition.refinedUnmarkedIndex_surjective",
+      "SM.IntervalComposition.refinedUnmarkedEquiv",
+      "SM.IntervalComposition.inner_nearTriple_transport",
+      "SM.IntervalComposition.prod_inner_nearTriples",
+      "SM.IntervalComposition.RefinementMarked",
+      "SM.IntervalComposition.refinedOuterIndex",
+      "SM.IntervalComposition.refinedMarkedIndex",
+      "SM.IntervalComposition.outerPosition_in_refinement",
+      "SM.IntervalComposition.refinedOuterIndex_position",
+      "SM.IntervalComposition.refinedMarkedIndex_injective",
+      "SM.IntervalComposition.refinedMarkedIndex_surjective",
+      "SM.IntervalComposition.refinedMarkedEquiv",
+      "SM.IntervalComposition.outer_farTriple_transport",
+      "SM.IntervalComposition.prod_outer_farTriples",
+      "SM.IntervalComposition.refinementMarks",
+      "SM.IntervalComposition.refinementMarkIndices",
+      "SM.IntervalComposition.mem_refinementMarkIndices",
+      "SM.IntervalComposition.prod_refinementMarked",
+      "SM.IntervalComposition.prod_refinementUnmarked",
+      "SM.IntervalComposition.nearFarWeight_near_only",
+      "SM.IntervalComposition.nearFarWeight_far_only",
+      "SM.IntervalComposition.prod_inner_near_weights",
+      "SM.IntervalComposition.outer_far_weight",
+      "SM.IntervalComposition.nested_summand_transport",
+      "SM.IntervalComposition.nestedSummand",
+      "SM.IntervalComposition.markedSummand",
+      "SM.BoundaryCutSet.marked_transport_val",
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+      "SM.IntervalComposition.nestedSummand_eq_markedSummand",
+      "SM.IntervalComposition.sum_markedSummand",
+      "SM.nearFar_factorization_coordinate",
+      "SM.nearFar_factorization",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.nearTransform_of_nearFar_solution",
+      "SM.reversedFar_output_of_solution",
+      "SM.complete_output_near_independent",
+      "SM.farOnlyCoordinates_equation",
+      "SM.geometric_farOnly_output",
+      "SM.treeCoefficient_farOnly",
+      "SM.nearFarTransform_leaf",
+      "SM.boundaryUnitArray_leaf",
+      "SM.farOnlyCoordinates_leaf",
+      "SM.farOnly_leaf_values",
+      "SM.farOnly_nonleaf_E",
+      "SM.BoundaryInterval.globalPosition",
+      "SM.BoundaryInterval.localPosition",
+      "SM.BoundaryInterval.liftInterval",
+      "SM.BoundaryInterval.liftTriple",
+      "SM.IntervalComposition.liftComposition",
+      "SM.IntervalComposition.lowerComposition",
+      "SM.restrictTripleArray",
+      "SM.restrictIntervalArray",
+      "SM.BoundaryInterval.globalPosition_strict",
+      "SM.BoundaryInterval.globalPosition_bounds",
+      "SM.BoundaryInterval.global_localPosition",
+      "SM.BoundaryInterval.local_globalPosition",
+      "SM.IntervalComposition.eq_of_parts_cut",
+      "SM.IntervalComposition.cut_bounds",
+      "SM.IntervalComposition.lower_liftComposition",
+      "SM.IntervalComposition.lift_lowerComposition",
+      "SM.IntervalComposition.restrictionEquiv",
+      "SM.IntervalComposition.liftComposition_part",
+      "SM.IntervalComposition.liftComposition_nearTriple",
+      "SM.IntervalComposition.liftComposition_farTriple",
+      "SM.nearFarTransform_restrict",
+      "SM.nearFarInverse_restrict",
+      "SM.boundaryUnitArray_restrict",
+      "SM.farOnlyCoordinates_restrict",
+      "SM.farOnlyOutput_restrict",
+      "SM.restrictedWordTuple",
+      "SM.restrictedWord_boundary",
+      "SM.restrictedWord_first_vertex",
+      "SM.restrictedWord_last_vertex",
+      "SM.restrictedWord_closing_edge",
+      "SM.BoundaryInterval.lift_fullInterval",
+      "SM.geometricBoundaryArray_restrictedWord",
+      "SM.farOnlyOutput_restricted_tree",
+      "SM.farout"
+    ],
+    "declaration_count": 127,
+    "declaration_axioms": {
+      "SM.BoundaryCutSet.Consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.eq_of_endpoints": [
+        "propext"
+      ],
+      "SM.BoundaryCutSet.consecutive_restrict_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_injective": [
+        "propext"
+      ],
+      "SM.IntervalComposition.exists_part_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.partConsecutiveEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.consecutive_contained_in_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.containing_part_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.leftInterval": [],
+      "SM.IncreasingBoundaryTriple.rightInterval": [],
+      "SM.BoundaryCutSet.consecutive_eq_of_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.consecutive_eq_of_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_entries": [
+        "propext"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_leftInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_rightInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_middle_position": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.inner_child_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.exists_refined_child": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildrenEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refined_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner_flatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_nested_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.marksIndexEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.position_mem_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_compl": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.sum_all_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.RefinementUnmarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedInteriorIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.mem_interior_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.innerPosition_in_refinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedInteriorIndex_position": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.inner_nearTriple_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_inner_nearTriples": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.RefinementMarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedOuterIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outerPosition_in_refinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedOuterIndex_position": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outer_farTriple_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_outer_farTriples": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementMarkIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.mem_refinementMarkIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refinementMarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refinementUnmarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_near_only": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_far_only": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_inner_near_weights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outer_far_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nested_summand_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.marked_transport_val": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedSummand_eq_markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.sum_markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_factorization_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_factorization": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearTransform_of_nearFar_solution": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.reversedFar_output_of_solution": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.complete_output_near_independent": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_equation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_farOnly_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_farOnly": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray_leaf": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnly_leaf_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnly_nonleaf_E": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.localPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.liftInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.liftTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lowerComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictTripleArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.restrictIntervalArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition_strict": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.global_localPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.local_globalPosition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.eq_of_parts_cut": [
+        "propext"
+      ],
+      "SM.IntervalComposition.cut_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lower_liftComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lift_lowerComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.restrictionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_part": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_nearTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_farTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarInverse_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWordTuple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_boundary": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_first_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_last_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_closing_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.lift_fullInterval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_restrictedWord": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_restricted_tree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farout": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs",
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer",
+      "RefinementTransportIndependentReview.actual_near_sample_unique",
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors",
+      "RefinementTransportIndependentReview.refined_index_keeps_interval",
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts",
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data",
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product",
+      "RefinementTransportIndependentReview.all_inner_unary_product",
+      "RefinementTransportIndependentReview.empty_and_full_index_marks",
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative",
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport",
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality",
+      "RefinementTransportIndependentReview.unary_marking_sum",
+      "RefinedWeightsIndependentReview.complete_factor_count",
+      "RefinedWeightsIndependentReview.inner_near_entries_are_exact",
+      "RefinedWeightsIndependentReview.outer_far_entries_are_global",
+      "RefinedWeightsIndependentReview.unary_outer_has_empty_marks",
+      "RefinedWeightsIndependentReview.identical_outer_and_fine_marks_all",
+      "RefinedWeightsIndependentReview.raw_family_near_weight_transport",
+      "RefinedWeightsIndependentReview.raw_full_nested_summand",
+      "RefinedWeightsIndependentReview.all_unary_inner_coefficients_one",
+      "RefinedWeightsIndependentReview.raw_marks_match_actual_bijection",
+      "NearFarFactorizationIndependentReview.inverse_factorization_order",
+      "NearFarFactorizationIndependentReview.output_independent_with_actual_inverse",
+      "NearFarFactorizationIndependentReview.inverse_target_E_has_far_only_output",
+      "NearFarFactorizationIndependentReview.actual_root_all_near_arrays",
+      "NearFarFactorizationIndependentReview.far_only_output_physical_root_shift",
+      "NearFarFactorizationIndependentReview.all_interval_E_and_leaf_B_values",
+      "NearFarFactorizationIndependentReview.unary_marked_sum_retains_coordinate",
+      "FaroutIndependentReview.all_physical_positions_once",
+      "FaroutIndependentReview.translated_leaf_count",
+      "FaroutIndependentReview.all_physical_subintervals",
+      "FaroutIndependentReview.all_raw_parts_and_cuts",
+      "FaroutIndependentReview.unary_is_preserved",
+      "FaroutIndependentReview.complete_composition_cardinality",
+      "FaroutIndependentReview.actual_child_product",
+      "FaroutIndependentReview.all_actual_samples",
+      "FaroutIndependentReview.local_inverse_solves_actual_restriction",
+      "FaroutIndependentReview.restricted_c_is_actual_local_inverse",
+      "FaroutIndependentReview.full_contiguous_word_and_directed_root",
+      "FaroutIndependentReview.nonleaf_has_three_vertices",
+      "FaroutIndependentReview.local_root_without_global_G1",
+      "FaroutIndependentReview.aggregate_polynomials_both_directions",
+      "FaroutIndependentReview.aggregate_factorization_on_every_array",
+      "FaroutIndependentReview.aggregate_geometry_and_actual_full_root",
+      "FaroutIndependentReview.aggregate_near_freedom_has_real_solutions",
+      "FaroutIndependentReview.aggregate_open_leaf_and_nonleaf"
+    ],
+    "additional_example_count": 48,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_near_sample_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.refined_index_keeps_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_inner_unary_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.empty_and_full_index_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unary_marking_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.complete_factor_count": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.inner_near_entries_are_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.outer_far_entries_are_global": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.unary_outer_has_empty_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.identical_outer_and_fine_marks_all": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_family_near_weight_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_full_nested_summand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.all_unary_inner_coefficients_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_marks_match_actual_bijection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.inverse_factorization_order": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.output_independent_with_actual_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.inverse_target_E_has_far_only_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.actual_root_all_near_arrays": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.far_only_output_physical_root_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.all_interval_E_and_leaf_B_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.unary_marked_sum_retains_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_physical_positions_once": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.translated_leaf_count": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_physical_subintervals": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_raw_parts_and_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.unary_is_preserved": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.complete_composition_cardinality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.actual_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_actual_samples": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.local_inverse_solves_actual_restriction": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.restricted_c_is_actual_local_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.full_contiguous_word_and_directed_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.nonleaf_has_three_vertices": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.local_root_without_global_G1": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_polynomials_both_directions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_factorization_on_every_array": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_geometry_and_actual_full_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_near_freedom_has_real_solutions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_open_leaf_and_nonleaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_127_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.RefinementUnmarked",
+      "SM.IntervalComposition.refinedInteriorIndex",
+      "SM.IntervalComposition.refinedUnmarkedIndex",
+      "SM.IntervalComposition.RefinementMarked",
+      "SM.IntervalComposition.refinedOuterIndex",
+      "SM.IntervalComposition.refinedMarkedIndex",
+      "SM.IntervalComposition.refinementMarks",
+      "SM.IntervalComposition.refinementMarkIndices",
+      "SM.IntervalComposition.nestedSummand",
+      "SM.IntervalComposition.markedSummand",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.IntervalComposition.refinedUnmarkedEquiv",
+      "SM.IntervalComposition.refinedMarkedEquiv",
+      "SM.BoundaryInterval.globalPosition",
+      "SM.BoundaryInterval.localPosition",
+      "SM.BoundaryInterval.liftInterval",
+      "SM.BoundaryInterval.liftTriple",
+      "SM.IntervalComposition.liftComposition",
+      "SM.IntervalComposition.lowerComposition",
+      "SM.restrictTripleArray",
+      "SM.restrictIntervalArray",
+      "SM.restrictedWordTuple",
+      "SM.IntervalComposition.restrictionEquiv"
+    ],
+    "independent_closure_evidence": "work/checks/farout-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "ca88e6de3d6489056b9760a4ec0a699472bacbd3d6416efff83ed5af25aa9fc7",
+    "canonical_semantic_evidence": "work/checks/farout-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "b5839af660689012f27db39d20a3c9e5ead7393bbbf1cc01e014fe645f3c3c4d",
+    "root_result_file": "work/checks/farout-port-audit-result.json",
+    "root_result_sha256": "ce657df8ea39648de6cfaa87054b4a23565cfcbfec62ac94421051dc15d337f6",
+    "successful_build_session": 62779,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-067-lean-check.log",
+    "successful_build_log_sha256": "f640bf498d16c32367571e367ddec92509c7643cce75c3d0e89e6d75c69a98db",
+    "audit_receipt": "work/checks/checkpoint-067-output.json",
+    "audit_receipt_sha256": "081b77dd7adb43ce96576f6525e083d4a966f646d3ca9a0b71ff406ef00e5b9e",
+    "declaration_audit": "work/checks/checkpoint-067-declaration-audit.json",
+    "declaration_audit_sha256": "bf2defda3c4c3e6fd45a973b8c2d02b869870e02dc610f83e38a9ea639444511",
+    "fresh_fragment_statement_review": "work/reviews/marked-transport-independent.json",
+    "fresh_fragment_statement_review_sha256": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "scope_note": "Canonical imports only; no implementation definitions embedded. All 48 substantive external consumers rerun unchanged, including every physical subinterval/composition, actual near/far samples, polynomial inverses, complete output independence, and local-G1 physical closing-root coefficient."
+  },
+  "not_certified": [
+    "No source-map edit or claim of a subsequent accepted-map audit.",
+    "No extra original claims for helpers.",
+    "No wall law, soft theorem, R theorem or stage completion."
+  ]
+}

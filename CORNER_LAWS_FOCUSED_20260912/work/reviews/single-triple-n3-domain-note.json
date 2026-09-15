@@ -1,0 +1,33 @@
+{
+  "id": "single-triple-n3-domain-note",
+  "reviewer": "review_relgp_full-independent-20260911",
+  "utc": "2026-09-11T07:30:04.194993+00:00",
+  "status": "Source interpretation limit; no implementation or acceptance decision",
+  "source_files_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/lean/SM/SinglePointTriple.lean": "5930e77bd3eb05d371b5226c226d9caa464f99d0be48038b1154d02c623dc2c8",
+    "work/lean/SM/WallGerm.lean": "fca24dab7111c6b6f404b075ab4e1b8c20d2fb48083565b6ba89758ebf684f9b"
+  },
+  "source_reading": [
+    "sm1:27-53 permits arbitrary labelled tuples, including coincident vertices and zero edges. Ambient n>=3 is explicit.",
+    "sm1:653-664 imposes genericity on punctured sides only; Zpt uses pairwise distinct vertex indices, and Zc uses pairwise remote edge indices.",
+    "sm2:231 says a triple of pairwise distinct vertices; sm2:239-240 explicitly writes the central points on a line with nonzero direction and distinct scalar coordinates. The latter is geometric distinctness, stronger than merely distinct labels.",
+    "sm1:109-127 uses all vertices are distinct in its geometric sense when deriving it from G1. Hence reading the extra phrase in sm2:231 as geometric distinctness is plausible, but it must not be silently identified with the distinct-index condition already built into Zpt."
+  ],
+  "counterexample_to_an_inference": {
+    "claim_refuted": "Singleton Zpt, empty Zc, generic punctured sides and a critical sign change imply injective center vertices for all n>=3.",
+    "example": "For n=3 set mu0(t)=(0,0), mu1(t)=(t,0), mu2(t)=(0,1), with -1<t<1.",
+    "reasoning": [
+      "All coordinates are continuous. The ordered determinant det(mu1-mu0,mu2-mu0)=t, so for every t!=0 all distinct-triple determinants are nonzero and their critical sign changes.",
+      "For t!=0 the three edges form a nondegenerate triangle. Any two adjacent edge interiors are disjoint because their supporting lines meet only at the shared endpoint; hence G2 holds.",
+      "At t=0, mu0=mu1. The unique unordered triple of three distinct labels has determinant zero, so Zpt is the singleton consisting of all three labels.",
+      "Every edge pair of a 3-cycle is adjacent, so no triple of pairwise remote edges exists and Zc is empty.",
+      "Two central geometric points coincide, making a representation with all three xi distinct and a nonzero common direction impossible."
+    ],
+    "evidence_level": "Explicit mathematical calculation and source-definition inspection; no separate Lean counterexample theorem is claimed."
+  },
+  "scope_limit": "This is not a counterexample to the theorem when its printed pairwise-geometrically-distinct/distinct-xi data are included. It refutes only the inference from singleton Zpt alone. Existing canonical singlePointTriple_vertices_injective correctly requires n>=4.",
+  "next_formalization_constraint": "Keep the printed geometric distinctness/line-coordinate data explicit or establish a source-faithful interpretation before whole geometric theorem acceptance. Do not replace the original theorem by an n>=4-only target or silently add a new premise. The present arbitrary-array algebraic response results do not depend on this geometric issue.",
+  "original_acceptance_increment": 0
+}

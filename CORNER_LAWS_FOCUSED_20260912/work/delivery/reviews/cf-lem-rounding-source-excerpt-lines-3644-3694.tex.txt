@@ -1,0 +1,51 @@
+\begin{lemma}[rounding]\label{cf:lem-rounding}
+Here $\rot$ is as in Lemma~\ref{lem:rot} for polygons and
+Definition~\ref{cf:def-turning} for closed $C^1$ regular curves.
+Let $L$ be a closed polygon with corners $q_1,\dots,q_c$, and let $D$ be an
+oriented diagram whose underlying plane curve is $L$ --- $L$ together with an
+over/under assignment at each of its double points. Assume the principal turns
+of $L$ all exist and are \emph{nonzero}; that $L$ has finitely many double
+points, all transversal, none of them a corner; and that no corner of $L$ lies
+on an edge of $L$ other than the two incident to it. Then there is a \emph{clearance} $\varepsilon_0(L)>0$ such that for every
+$\varepsilon\in\bigl(0,\varepsilon_0(L)\bigr)$ there is a $C^\infty$ regular
+closed plane curve $L_\varepsilon$, and a diagram $D_\varepsilon$ carried by it, with
+these properties.
+\begin{enumerate}
+\item[(a)] $L_\varepsilon$ coincides with $L$ outside the union of the discs of
+radius $\varepsilon$ about the corners.
+\item[(b)] Inside the disc about $q_i$ the unit tangent moves \emph{strictly}
+monotonically, in the sense of $\sgn\vartheta_i$, from $\delta_{i-1}/|\delta_{i-1}|$
+to $\delta_i/|\delta_i|$, sweeping an arc of length exactly $|\vartheta_i|$ and no
+more, and attaining each direction of that arc at exactly one parameter.
+Moreover the unit-tangent map is an \emph{immersion} on the open junction arc:
+parametrized by arclength, its angular derivative is nonzero at every interior
+parameter, while at the two ends it and all its derivatives vanish, the
+junction meeting the straight edges flat to infinite order.
+
+Both clauses are exported because both are read downstream, and the second does
+not follow from the first: a strictly monotone angle may still have a vanishing
+derivative at a parameter, and the direct count below needs the derivative
+itself to be nonzero, not merely the monotonicity. "Moves monotonically" alone
+is weaker still --- it is
+satisfied by a junction that pauses on one direction for a whole sub-arc, and
+then a count of the parameters carrying a prescribed direction is infinite. Both
+hold because the profile fixed in the proof below is strictly increasing on
+$(0,1)$ with $\varphi'>0$ there, and flat to infinite order at $0$ and $1$: the
+tangent angle at arclength $\sigma$ along the junction of length $\ell$ is
+$\theta_u+\vartheta_i\varphi(\sigma/\ell)$, whose derivative is
+$\vartheta_i\varphi'(\sigma/\ell)/\ell\neq0$ for $0<\sigma<\ell$.
+\item[(c)] $L_\varepsilon$ has the same double points as $L$, with the same
+strands, the same over/under assignment and hence the same crossing signs and
+the same writhe.
+\item[(d)] $\rot(L_\varepsilon)=\rot(L)$.
+\item[(e)] \emph{The disc package is returned.} There are pairwise disjoint
+closed discs $D_1,\dots,D_c$, one about each corner $q_i$, such that each $D_i$
+meets no edge of $L$ that is not incident to $q_i$, contains no double point of
+$L$, meets the two incident edges exactly in the two sub-segments of length
+$\varepsilon$ at $q_i$, and contains the whole of the modification made at
+$q_i$. This clause is a conclusion of the lemma, not a package handed over by a
+paragraph of its proof; its consumer asks for a disc meeting the diagram in one
+embedded arc and reads it here.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z and 2026-09-06T00:12:27Z; transcribed from CV lem:rounding (C032))}
+\end{lemma}

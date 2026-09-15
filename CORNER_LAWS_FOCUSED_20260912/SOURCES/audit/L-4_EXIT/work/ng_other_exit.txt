@@ -1,0 +1,743 @@
+
+===== PDFPAGE 1 =====
+arXiv:0709.2141v1  [math.GT]  13 Sep 2007
+A SKEIN APPROACH TO BENNEQUIN TYPE
+INEQUALITIES
+LENHARD NG
+Abstract. We give a simple uniﬁed proof for several disparate bounds
+on Thurston–Bennequin number for Legendrian knots and self-linking
+number for transverse knots in R3, and provide a template for possible
+future bounds. As an application, we give suﬃcient conditions for some
+of these bounds to be sharp.
+1. Introduction
+1.1. Main results. The problem of ﬁnding upper bounds for the Thurston–
+Bennequin and self-linking numbers of knots has garnered a fair bit of recent
+attention. Although this originated as a problem in contact geometry, it now
+lies more in the realm of knot theory and braid theory, with upper bounds
+given by the Seifert and slice genus, the Kauﬀman and HOMFLY-PT poly-
+nomials, and, more recently, Khovanov homology, Khovanov–Rozansky ho-
+mology, and knot Floer homology. These bounds are sometimes collectively
+called “Bennequin type inequalities”.
+The original proofs of many Bennequin type inequalities were remark-
+ably diverse and sometimes somewhat ad hoc. In this paper, we provide a
+template which simultaneously proves a number of the signiﬁcant Bennequin
+type inequalities, thus providing a uniﬁed approach to many of these bounds.
+The proof of the template itself is a fairly easy induction argument based
+on the remarkable work of Rutherford [23]. Our template gives a means
+to prove future, yet to be discovered Bennequin type bounds, for example
+using Khovanov and Rozansky’s proposed categoriﬁcation of the Kauﬀman
+polynomial [12]. It also sheds some light on why particular bounds may be
+sharp for a certain Legendrian knot while others are not; see Section 3.
+We brieﬂy recall the relevant deﬁnitions; see also [5] or any number of
+other references. A Legendrian knot or link in R3 with the standard contact
+structure is a smooth, oriented knot or link along which y = dz/dx every-
+where. It is convenient to represent Legendrians by their front projections
+to the xz plane, which are (a collection of) oriented closed curves with no
+vertical tangencies, whose only singularities are transverse double points and
+semicubical cusps. Given a front, one obtains a link diagram by smoothing
+out cusps and resolving each double point to a crossing where the strand
+with larger slope lies below the strand with smaller slope; this link diagram,
+The author is supported by NSF grant DMS-0706777.
+1
+
+===== PDFPAGE 2 =====
+2
+LENHARD NG
+which we will call the smoothed front, is the topological type of the original
+Legendrian link. Any topological link has a Legendrian representative.
+Given a front F, let c(F) denote half of the number of cusps of F, and
+let c↓(F) denote the number of cusps of F which are oriented downwards.
+Also let w(F) denote the writhe of the corresponding smoothed front, the
+number of crossings counted with the standard signs (+1 for
+, −1 for
+). Deﬁne the Thurston–Bennequin number and self-linking number of
+F, respectively, by
+tb(F) = w(F) −c(F)
+sl(F) = w(F) −c↓(F).
+The Thurston–Bennequin and self-linking numbers are invariants of Legen-
+drian links and comprise the “classical invariants” for Legendrians in R3.
+(In the literature, the role of the self-linking number for Legendrian links
+is usually played by the rotation number r(F) = tb(F) −sl(F), and the
+self-linking number is reserved for transverse links; our self-linking number
+for a Legendrian is the usual self-linking number of its positive transverse
+pushoﬀ.)
+Within a topological type, tb and sl for Legendrian representatives is
+always unbounded below; one can decrease tb and sl by adding zigzags to
+a front. However, in the early 1980’s, Bennequin [2] proved the remarkable
+fact that tb and sl are bounded above for any link type L, by negative the
+minimal Euler characteristic for a Seifert surface bounding L; for knots K,
+tb(F), sl(F) ≤2g(K) −1
+for any front F representing K, where g(K) is the Seifert genus.
+Bennequin’s inequality has subsequently been improved to a menagerie
+of diﬀerent bounds on tb and sl. For a topological link L, deﬁne the max-
+imal Thurston–Bennequin number tb(L) (respectively maximal self-linking
+number sl(L)) to be the maximum tb (respectively sl) over all Legendrian
+realizations of L. Then we have the following Bennequin type inequalities
+for knots K:
+sl(K) ≤2g(K) −1
+(Bennequin bound [2])
+sl(K) ≤2g4(K) −1
+(slice-Bennequin bound [22])
+sl(K) ≤2τ(K) −1
+(τ bound [17])
+sl(K) ≤s(K) −1
+(s bound [18, 24])
+sl(K) ≤−max-dega P(K)(a, z) −1
+(HOMFLY-PT bound [7, 13])
+sl(K) ≤−max-suppa Pa,q,t(K) −1
+(HOMFLY-PT homology bound [27])
+tb(K) ≤−max-dega F(K)(a, z) −1
+(Kauﬀman bound [21])
+tb(K) ≤−min-suppq−t HKhq,t(K)
+(Khovanov bound [14])
+
+===== PDFPAGE 3 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+3
+For notation and conventions, see Section 1.2.
+Several remarks are in
+order.
+• Most of these inequalities have obvious generalizations to links; in
+particular, the last four translate unchanged to bounds for links.
+• tb(L) ≤sl(L) always: rotating any front F 180◦produces another
+front F ′ of the same topological type with 2 tb(F) = 2 tb(F ′) =
+sl(F)+sl(F ′). It follows that any upper bound for sl is also an upper
+bound for tb.
+However, the Kauﬀman and Khovanov tb bounds
+above do not extend to bounds on sl.
+• Some Bennequin type inequalities imply others. The τ and s bounds
+(and presumably the HOMFLY-PT homology bound) imply slice-
+Bennequin, which in turn implies Bennequin; the HOMFLY-PT ho-
+mology bound also implies the HOMFLY-PT (polynomial) bound.
+On the other hand, many pairs of the inequalities are incommen-
+surable, notably the Kauﬀman and Khovanov bounds [14] (see also
+[6]).
+• The above inequalities (in particular, the Kauﬀman, Khovanov, and
+HOMFLY-PT bounds) suﬃce to calculate tb and sl for all but a
+handful of knots with 11 or fewer crossings [15].
+• The Kauﬀman and HOMFLY-PT bounds have been given many
+proofs in the literature, involving state models, plane curves, the
+Jaeger formula, etc. See [3, 6, 8, 25, 26] for additional proofs of the
+Kauﬀman bound, and [4, 8, 25] for HOMFLY-PT.
+• This is not a complete list of known Bennequin type inequalities. In
+particular, Wu [27, 29] has derived bounds on sl from Khovanov–
+Rozansky sln homology.
+Our main results give general criteria for a link invariant to provide an
+upper bound for tb or sl. These criteria are satisﬁed for many of the known
+bounds.
+Theorem 1. Suppose that i(L) is a Z-valued invariant of oriented links
+such that:
+(a) i(
+n
+z
+}|
+{
+⃝⃝· · · ⃝) ≤n;
+(b) we have
+i(
+) + 1 ≤max
+
+i(
+) −1, i(
+)
+
+and
+i(
+) −1 ≤max
+
+i(
+) + 1, i(
+)
+
+.
+Then
+sl(L) ≤−i(L).
+Corollary 1. The HOMFLY-PT and HOMFLY-PT homology bounds on sl
+hold for oriented links.
+
+===== PDFPAGE 4 =====
+4
+LENHARD NG
+Theorem 2. Suppose that ˜i(D) is a Z-valued invariant of unoriented link
+diagrams such that:
+(a) ˜i(D) is invariant under Reidemeister moves II and III;
+(b) ˜i(
+) = ˜i(
+) + 1;
+(c) ˜i(
+n
+z
+}|
+{
+⃝⃝· · · ⃝) ≤n;
+(d) we have
+˜i(
+) ≤max
+
+˜i(
+),˜i(
+),˜i(
+)
+
+.
+Then
+tb(L) ≤−i(L),
+where i(L) is the link invariant deﬁned by i(D) = ˜i(D) −w(D).
+Corollary 2. The Kauﬀman and Khovanov bounds on tb hold for oriented
+links.
+We speculate that when τ and s are extended to oriented links, i = 1−2τ
+and i = 1 −s should each satisfy the conditions of Theorem 1. This would
+demonstrate that the τ and s bounds can be proven using our template as
+well.
+It also seems likely that Khovanov–Rozansky’s proposed categoriﬁcation
+of the Kauﬀman polynomial [12] would satisfy a skein relation which would
+allow one to apply Theorem 2. This would give an upper bound on tb from
+Kauﬀman homology strengthening the Kauﬀman (polynomial) bound, just
+as the HOMFLY-PT homology bound on sl strengthens the HOMFLY-PT
+(polynomial) bound.
+As mentioned earlier, one beneﬁt of our results is a better understanding
+of when particular Bennequin type inequalities are sharp. Rutherford [23]
+has demonstrated a necessary and suﬃcient condition for the Kauﬀman
+bound to be sharp, in terms of certain decompositions of fronts known as
+rulings. It would be nice to have similar characterizations for sharpness for,
+say, the HOMFLY-PT bound and the Khovanov bound. It seems that such
+characterizations should now be within reach, but for now we present some
+suﬃcient conditions for these bounds to be sharp; see Section 3.
+Here is a rundown of the rest of the paper. In Section 1.2, we summarize
+the notation used in our presentation of the Bennequin type inequalities.
+The proofs of Theorems 1 and 2 and their rather easy consequences, Corol-
+laries 1 and 2, are given in Section 2. In Section 3, we use the inductive
+proofs of our main results to construct trees which decompose any Legen-
+drian link into simpler links, and use these trees to study sharpness of some
+Bennequin type inequalities.
+1.2. Notation. Here we collect the deﬁnitions used in the Bennequin type
+inequalities mentioned above, including the particular conventions we use.
+
+===== PDFPAGE 5 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+5
+(These conventions coincide with those from KnotTheory [1] wherever ap-
+plicable.)
+• max-dega is the maximum degree in a; max-suppa is the maximum
+a degree in which the homology is supported; min-suppq−t is the
+minimum value for q−t over all bidegrees (q, t) in which the homology
+is supported.
+• g4(K) is the slice genus of K.
+• τ(K) is the concordance invariant from knot Floer homology [16],
+normalized so that τ = 1 for right-handed trefoil.
+• s(K) is Rasmussen’s concordance invariant from Khovanov homology
+[19].
+• P(K)(a, z) is the HOMFLY-PT polynomial of K, normalized so that
+P = 1 for the unknot and
+aP(
+) −a−1P(
+) = zP(
+).
+• Pa,q,t(K) is the (reduced) Khovanov–Rozansky HOMFLY-PT ho-
+mology [11] categorifying P(K), normalized so that
+X
+i,j,k
+(−1)(k−i)/2aiqj dim Pi,j,k(K) = P(K)(a, q −q−1).
+Note that our Pa,q,t(K) is Rasmussen’s H
+q,−a,t(K) from [20]. (For
+links, we need to use the “totally reduced” version H of HOMFLY-
+PT homology in place of reduced HOMFLY-PT homology H; see
+[20].)
+• F(K)(a, z) is the Kauﬀman polynomial of K, normalized so that for a
+diagram D representing K, F(K)(a, z) = a−w(D) ˜F(D)(a, z), where ˜F
+is the framed Kauﬀman polynomial, the regular-isotopy invariant of
+unoriented link diagrams deﬁned by ˜F(⃝) = 1, ˜F(
+) = a ˜F(
+),
+and
+˜F(
+) + ˜F(
+) = z
+
+˜F(
+) + ˜F(
+)
+
+.
+• HKhq,t(K) is (sl2) Khovanov homology, normalized so that
+X
+i,j
+(−1)jqi dim HKhi,j(K) = (q + q−1)VK(q2),
+where VK is the Jones polynomial.
+2. Proofs
+Theorems 1 and 2 have essentially the same proof. We establish Theo-
+rem 2 ﬁrst, and then prove Theorem 1 and Corollaries 1 and 2.
+Proof of Theorem 2. View˜i as a map on fronts by applying˜i to the smoothed
+version of any front. Let L be an oriented link and let F be a Legendrian
+front of type L. We wish to show that tb(F) ≤−i(L), or equivalently, that
+
+===== PDFPAGE 6 =====
+6
+LENHARD NG
+c(F) −˜i(F) ≥0. Note that c(F) −˜i(F) = −tb(F) −i(F) is invariant under
+Legendrian isotopy.
+The idea, which is essentially due to Rutherford [23], is to use skein moves
+to replace F by simpler fronts in such a way that c −˜i does not decrease,
+and then to induct. The four fronts
+,
+,
+, and
+are
+topologically
+,
+,
+, and
+, respectively, and are thus
+related by the four-term unoriented skein relation.
+Suppose that F contains a Legendrian tangle
+. Successively replace
+(1)
+−→
+,
+,
+in F, to obtain three new fronts, and suppose that c −˜i ≥0 for each of
+those fronts. Since c is the same for all four fronts, assumption (d) in the
+statement of Theorem 2 then implies that c −˜i ≥0 for F as well. Similarly,
+if F contains
+, and the three fronts obtained from F by
+(2)
+−→
+,
+,
+all satisfy c −˜i ≥0, then c −˜i ≥0 for F as well.
+To prove that c(F) −˜i(F) ≥0 for all F, we induct on the singularity
+number s(F) of F, deﬁned as the total number of singularities (crossings
+and cusps) of F. If s(F) = 2, then F is the standard Legendrian unknot
+and c(F) = 1, ˜i(F) ≤1. Now consider a general front F. Suppose that
+F contains a tangle of the form
+or
+. If we replace this tangle
+successively by three tangles according to (1) or (2), then the last two of
+the resulting fronts have lower s than F and are covered by the induction
+assumption, while the ﬁrst has the same s as F.
+The strategy is now to apply “skein crossing changes”
+↔
+to
+obtain a simpler front. To do this, we perform a second induction, this time
+on a modiﬁed singularity number s′(F), deﬁned as the number of singular-
+ities to the right of the rightmost left cusp of F. Since Legendrian isotopy,
+Legendrian destabilization (the removal of a zigzag), and the removal of
+trivial unknots do not increase c−˜i, the Theorem follows by induction from
+the following result.
+Lemma 1 (Rutherford [23], Lemma 3.3). Via skein crossing changes, Leg-
+endrian isotopy, Legendrian destabilization, and the removal of trivial un-
+knots, we can turn F into a front which either has lower s, or the same s
+and lower s′.
+For completeness, we sketch here the proof of the lemma. Consider the
+portion of F immediately to the right of the rightmost left cusp of F. By
+using Legendrian Reidemeister moves II and III if necessary, we can assume
+that this portion of F has one of the forms shown on the left hand side of
+
+===== PDFPAGE 7 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+7
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+=
+=
+=
+...
+...
+...
+...
+=
+Figure 1.
+Inductively simplifying fronts. Solid arrows de-
+note skein crossing changes; dashed arrows denote destabi-
+lizations or deletions of trivial unknots; equalities denote Leg-
+endrian isotopies. For each of the initial fronts (left column),
+the rightmost left cusp in the front is the unique left cusp
+depicted.
+
+===== PDFPAGE 8 =====
+8
+LENHARD NG
+Figure 1. In each case, the use of skein crossing changes, Legendrian isotopy,
+Legendrian destabilization, and/or the removal of trivial unknots yields a
+simpler front (one with lower s, or the same s and lower s′). The lemma,
+and Theorem 2, follows.
+□
+Proof of Theorem 1. This is a minor modiﬁcation of the proof of Theorem 2.
+Deﬁne an invariant ˜i of oriented link diagrams by ˜i(D) = i(D)+w(D); then
+˜i(
+) ≤max
+
+˜i(
+),˜i(
+)
+
+and
+˜i(
+) ≤max
+
+˜i(
+),˜i(
+)
+
+.
+For (oriented) Legendrian fronts F, we wish to show that sl(F) ≤−i(F), or
+equivalently, that c↓(F) −˜i(F) ≥0.
+As before, we use skein moves to induct on the singularity number of
+F. Note that c↓(F) −˜i(F) is invariant under Legendrian isotopy and non-
+increasing under Legendrian destabilization. If F contains a tangle
+(respectively
+), then we can successively replace it by
+(respec-
+tively
+) and whichever of
+and
+inherits an orientation from
+F, to obtain two new fronts. If c↓−˜i ≥0 for these two fronts, then c↓−˜i ≥0
+for F as well. We now apply Lemma 1 as before.
+□
+Proof of Corollary 1. Deﬁne i(L) = max-dega P(L)(a, z) + 1. By the skein
+relation and normalization for the HOMFLY-PT polynomial, the conditions
+in Theorem 1 hold, and Theorem 1 then gives the HOMFLY-PT bound.
+For the HOMFLY-PT homology bound, deﬁne i(L) = max-suppa Pa,q,t(L)+
+1. The skein relation for the HOMFLY-PT polynomial (see [20]) categori-
+ﬁes to an exact triangle relating P(
+), P(
+), and P(
+), and this
+exact triangle yields condition (b) in the statement of Theorem 1. The nor-
+malization condition (a) is easy to check, and thus Theorem 1 yields the
+HOMFLY-PT homology bound.
+□
+Proof of Corollary 2. For the Kauﬀman bound, deﬁne˜i(D) = max-dega ˜F(D)+
+1 for unoriented link diagrams D; by the skein relation for ˜F, the conditions
+for Theorem 2 are satisﬁed, and the Kauﬀman bound follows.
+For the Khovanov bound, collapse the q, t-bigrading on Khovanov ho-
+mology to a single grading ∗= q −t. One can deﬁne framed Khovanov
+homology ]
+HKh
+∗(D) for unoriented link diagrams D such that HKh∗(L) =
+]
+HKh
+∗−w(D)(D) if D is of link type L; indeed, the complex for Khovanov ho-
+mology is ﬁrst deﬁned this way. The exact triangle in Khovanov homology
+(in this context, see, e.g., [14]) is given by
+· · · −→]
+HKh
+∗(
+) −→]
+HKh
+∗(
+) −→]
+HKh
+∗(
+) −→]
+HKh
+∗−1(
+) −→· · · .
+
+===== PDFPAGE 9 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+9
+If we now deﬁne ˜i(D) = −min-supp∗]
+HKh
+∗(D), then the exact triangle
+implies that
+˜i(
+) ≤max
+
+˜i(
+),˜i(
+)
+
+.
+In particular, condition (d) in Theorem 2 holds, and the Khovanov bound
+follows.
+□
+3. Skein trees
+The nature of the proofs of Theorems 1 and 2 allows us to give necessary
+conditions and suﬃcient conditions for various Bennequin type inequalities
+to be sharp, and to compare these inequalities with each other. We can
+decompose any Legendrian knot via a skein tree, much as one would do to
+calculate knot polynomials using skein relations, and the skein tree can often
+tell us whether one bound or another is sharp.
+Starting with an unoriented Legendrian front, construct the unoriented
+skein tree by following Rutherford’s strategy described in the proof of The-
+orem 2:
+• at each step, do a tangle replacement
+−→
+,
+,
+or
+−→
+,
+,
+to obtain three new fronts;
+• simplify the results by Legendrian isotopy, and repeat;
+• stop when the result is either a stabilization (isotopic to a front with
+a zigzag) or a standard Legendrian unlink (the disjoint union of tb =
+−1 Legendrian unknots).
+An example is given in Figure 2.
+One can easily use an unoriented skein tree for F to calculate the coeﬃ-
+cient of a−tb(F )−1 in the Kauﬀman polynomial for F with any orientation
+(this coeﬃcient is nonzero if and only the Kauﬀman bound is sharp): for ter-
+minal leaves in the tree, the coeﬃcient is 1 at a standard Legendrian unlink
+and 0 at a stabilized front; use the skein relation for the framed Kauﬀman
+polynomial to backwards-construct the coeﬃcient along the tree:
++
+= z
+
++
+
+.
+This is simply a restatement of a result of Rutherford [23].
+We now see a heuristic reason for why the Kauﬀman bound sometimes
+fails even for Legendrian knots which maximize tb. Consider for example
+the Legendrian (3, −4) torus knot F shown in Figure 2. Two of the terminal
+leaves of the unoriented skein tree are standard Legendrian unlinks. Either
+leaf by itself gives a contribution to the Kauﬀman polynomial of T(3, −4)
+which would imply that the Kauﬀman bound on F is sharp; but the two
+
+===== PDFPAGE 10 =====
+10
+LENHARD NG
+=
+=
+=
+=
+Figure 2.
+Unoriented skein tree for a Legendrian (3, −4)
+torus knot.
+The Jones skein tree is the subtree given by
+the bold arrows. The circled tangles are where the tangle
+replacements are made.
+
+===== PDFPAGE 11 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+11
+contributions cancel, and the maximum framing degree of the Kauﬀman
+polynomial of T(3, −4) is one less than necessary for sharpness.
+Next we examine the sharpness of the Khovanov bound on tb. For a front
+F, deﬁne
+KhB(F) = −tb(F) + min-suppq−t HKhq,t(F)
+(this is c −˜i from the proof of Theorem 2); then KhB(F) ≥0 with equality
+if and only if the Khovanov bound is sharp for F.
+Deﬁne the Jones skein tree to be the subtree of the unoriented skein tree
+consisting only of tangle replacements
+−→
+,
+and
+−→
+,
+.
+(In each case, the two replacements are the 0- and 1-resolution, respectively.)
+Since this only counts 0- and 1-resolutions and not crossing changes, this is
+the same tree used to calculate the Jones polynomial for a knot.
+At each stage in the Jones skein tree, a front F is connected to its 0-
+resolution F0 and its 1-resolution F1. The skein exact sequence for Khovanov
+homology implies the following.
+Lemma 2. If KhB(F0) = 0, or KhB(F1) = 0 and KhB(F0) ≥2, then
+KhB(F) = 0.
+We now have the following suﬃcient condition for the Khovanov bound
+to be sharp.
+Theorem 3. Let F be a front. Circle particular fronts in the Jones skein
+tree for F as follows: circle all terminal leaves which are standard Legendrian
+unknots; then work backwards, circling a front F ′ if either
+• (F ′)0 is circled or
+• (F ′)1 is circled and (F ′)0 is isotopic to a front stabilized at least twice
+(i.e., with two zigzags).
+If F is circled by this process, then the Khovanov bound is sharp for F.
+Proof. Since KhB ≥2 for a front stabilized at least twice, Lemma 2 implies
+that all circled fronts satisfy KhB = 0.
+□
+As an illustration of Theorem 3, the Khovanov bound is sharp for the
+Legendrian (3, −4) torus knot shown in Figure 2; see Figure 3. Comparing
+with Figure 2 gives some indication of why the Khovanov bound is sharp
+here but the Kauﬀman bound is not: two terminal leaves of the unoriented
+skein tree are standard unlinks and their contributions to the Kauﬀman
+polynomial cancel, while only one of these terminal leaves is counted in
+the Jones skein tree and it makes a nonvanishing contribution to Khovanov
+homology.
+
+===== PDFPAGE 12 =====
+12
+LENHARD NG
+=
+=
+0
+1
+0
+1
+Figure 3. The Jones skein tree for the (3, −4) torus knot.
+The numbers refer to 0- or 1-resolutions; the circled fronts
+are Khovanov sharp.
+We remark that Theorem 3 implies, but is generally much stronger than,
+the suﬃcient condition for Khovanov sharpness given in [14]. Recall from
+[14] that the 0-resolution of a front, obtained by replacing each double point
+by its 0-resolution, is admissible if each component of the 0-resolution is a
+standard Legendrian unknot, and no component contains both pieces of any
+resolved double point.
+Corollary 3 ([14, Proposition 7]). The Khovanov bound is sharp for any
+front with admissible 0-resolution.
+Proof. Suppose that F is a front with admissible 0-resolution; apply the
+procedure from Theorem 3. It is easy to check that in the Jones skein tree
+for F, F and all of its iterated 0-resolutions are circled.
+□
+We do not know how the condition of Theorem 3 compares to the suﬃcient
+condition for Khovanov sharpness given by Wu [28].
+One can similarly construct an oriented skein tree for any oriented front,
+at each step replacing a front by the two fronts related to it by the oriented
+skein relation. Rather than stopping at all stabilized fronts, as for the unori-
+ented skein tree, we stop only at fronts which are positive stabilizations (i.e.,
+isotopic to a front with a downward zigzag
+). If we encounter a nega-
+tive stabilization (i.e., a front isotopic to one with an upward zigzag
+),
+we eliminate the upward zigzag (this does not change sl) and proceed. All
+terminal leaves of the oriented skein tree are either positive stabilizations or
+standard Legendrian unlinks. See Figure 4.
+As for unoriented skein trees and the Kauﬀman polynomial, we can use
+an oriented skein tree for a front F to calculate the coeﬃcient of a−sl(F )−1
+
+===== PDFPAGE 13 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+13
+=
+=
+=
+Figure 4. Oriented skein tree for a Legendrian trefoil. Solid
+arrows represent the skein relation; the dashed arrow is a
+negative destabilization.
+in the HOMFLY-PT polynomial for F (this coeﬃcient is nonzero if and
+only if the HOMFLY-PT bound is sharp).
+Standard Legendrian unlinks
+have coeﬃcient 1; positive stabilizations have coeﬃcient 0; the coeﬃcient
+is preserved under negative stabilizations; we can backwards construct the
+coeﬃcient along the tree using the skein relation, e.g.,
+−
+= z
+and
+−
+= z
+.
+This again is very similar to a result of Rutherford [23].
+It is sometimes easy to tell by inspection of an oriented skein tree whether
+the HOMFLY-PT bound is sharp. For example:
+Theorem 4. If an odd number of terminal leaves of the oriented skein tree
+of F are standard Legendrian unlinks, then the HOMFLY-PT polynomial
+bound on sl is sharp for F.
+Obviously this suﬃcient condition is rather weak, but it does for instance
+imply that the Legendrian trefoil in Figure 4 maximizes sl.
+Skein trees can also show the limitations of Theorems 1 and 2. Consider
+the unoriented skein tree for the m(10132) knot F shown in Figure 5. Each
+of the terminal leaves of the tree is a stabilization. Now suppose that ˜i(D) is
+any invariant satisfying the conditions of Theorem 2. Then by Theorem 2,
+c −˜i ≥0 for all fronts; since each of the fronts on the right hand side of
+Figure 5 is a stabilization, c−˜i ≥1 for these. Condition (d) from Theorem 2
+implies that c(F) −˜i(F) ≥1 as well, and so i(m(10132)) ≤−tb(F) −1 = 0.
+It follows that the best possible bound given by Theorem 2 is tb(m(10132)) ≤
+0. We however know from [15] that tb(m(10132)) = −1; hence the template
+of Theorem 2 can never give a sharp bound for tb(m(10132)). A similar ar-
+gument shows that the template of Theorem 1 can never give a sharp bound
+for sl(m(10132)) (= −1 by [15]).
+
+===== PDFPAGE 14 =====
+14
+LENHARD NG
+=
+=
+=
+Figure 5.
+Unoriented skein tree for a Legendrian m(10132) knot.
+Acknowledgments
+I would like to thank Matt Hedden and Jake Rasmussen for helpful con-
+versations, and Princeton University for its hospitality during the course of
+this work.
+References
+[1] D. Bar-Natan, The Mathematica package KnotTheory` , available at The Knot Atlas,
+http://katlas.math.toronto.edu/wiki/.
+[2] D. Bennequin, Entrelacements et ´equations de Pfaﬀ, Ast´erisque 107–108 (1983),
+87–161.
+[3] S. Chmutov and V. Goryunov, Polynomial invariants of Legendrian links and their
+fronts, KNOTS ’96 (Tokyo), 239–256, World Sci. Publ., River Edge, NJ, 1997.
+[4] S. Chmutov, V. Goryunov, and M. Murakami, Regular Legendrian knots and the
+HOMFLY polynomial of immersed plane curves, Math. Ann. 317 (2000), no. 3, 389–
+413.
+[5] J. B. Etnyre, Legendrian and transversal knots, in The Handbook of Knot Theory
+(Elsevier, Amsterdam, 2005), 105–185; math/0306256.
+[6] E. Ferrand, On Legendrian knots and polynomial invariants, Proc. Amer. Math. Soc.
+130 (2002), no. 4, 1169–1176; math/0002250.
+[7] J. Franks and R. F. Williams, Braids and the Jones polynomial, Trans. Amer. Math.
+Soc. 303 (1987), no. 1, 97–108.
+[8] D. Fuchs and S. Tabachnikov, Invariants of Legendrian and transverse knots in the
+standard contact space, Topology 36 (1997), no. 5, 1025–1053.
+[9] M. Khovanov, A categoriﬁcation of the Jones polynomial, Duke Math. J. 101 (2000),
+359–426; math/9908171.
+[10] M. Khovanov and L. Rozansky,
+Matrix factorizations and link homology I,
+math/0401268.
+
+===== PDFPAGE 15 =====
+A SKEIN APPROACH TO BENNEQUIN TYPE INEQUALITIES
+15
+[11] M. Khovanov and L. Rozansky, Matrix factorizations and link homology II, Geom.
+Topol., to appear; math/0505056.
+[12] M. Khovanov and L. Rozansky, Virtual crossings, convolutions and a categoriﬁcation
+of the SO(2N) Kauﬀman polynomial, math/0701333.
+[13] H. R. Morton, Seifert circles and knot polynomials, Math. Proc. Cambridge Philos.
+Soc. 99 (1986), no. 1, 107–109.
+[14] L. Ng, A Legendrian Thurston–Bennequin bound from Khovanov homology, Algebr.
+Geom. Topol. 5 (2005), 1637–1653; math/0508649.
+[15] L. Ng, On arc index and maximal Thurston–Bennequin number, math/0612356.
+[16] P. Ozsv´ath and Z. Szab´o, Knot Floer homology and the four-ball genus, Geom. Topol.
+1 (2001), 427–434; math/0301149.
+[17] O. Plamenevskaya, Bounds for the Thurston–Bennequin number from Floer homol-
+ogy, Algebr. Geom. Topol. 4 (2004), 399–406; math/0311090.
+[18] O. Plamenevskaya, Transverse knots and Khovanov homology, Math. Res. Lett. 13
+(2006), no. 4, 571–586; math/0412184.
+[19] J. Rasmussen, Khovanov homology and the slice genus, math/0402131.
+[20] J. Rasmussen, Some diﬀerentials on Khovanov–Rozansky homology, math/0607544.
+[21] L. Rudolph, A congruence between link polynomials, Math. Proc. Cambridge Philos.
+Soc. 107 (1990), 319–327.
+[22] L. Rudolph, Quasipositivity as an obstruction to sliceness, Bull. Amer. Math. Soc.
+(N.S.) 29 (1993), 51–59.
+[23] D. Rutherford, Thurston–Bennequin number, Kauﬀman polynomial, and ruling in-
+variants of a Legendrian link: the Fuchs conjecture and beyond, Int. Math. Res. Not.
+2006, Art. ID 78591; math/0511097.
+[24] A. Shumakovitch, Rasmussen invariant, slice-Bennequin inequality, and sliceness of
+knots, math/0411643.
+[25] S. Tabachnikov, Estimates for the Bennequin number of Legendrian links from state
+models for knot polynomials, Math. Res. Lett. 4 (1997), no. 1, 143–156.
+[26] T. Tanaka, Maximal Bennequin numbers and Kauﬀman polynomials of positive links,
+Proc. Amer. Math. Soc. 127 (1999), no. 11, 3427–3432.
+[27] H.
+Wu,
+Braids,
+transversal
+links
+and
+the
+Khovanov–Rozansky
+homology,
+math/0508064.
+[28] H. Wu, Legendrian links and the spanning tree model for Khovanov homology, Algebr.
+Geom. Topol. 6 (2006), 1745–1757; math/0605630.
+[29] H.
+Wu,
+The
+Khovanov–Rozansky
+cohomology
+and
+Bennequin
+inequalities,
+math/0703210.
+Mathematics Department, Duke University, Durham, NC 27708
+E-mail address: ng@math.duke.edu
+URL: http://www.math.duke.edu/~ng/

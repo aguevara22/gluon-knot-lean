@@ -1,0 +1,24 @@
+
+\subsection{Marked products and mixed rows}
+
+We use the solved recurrences and nonempty smoothing domain of
+Theorem~\ref{lp:core}, and the named-record and presentation equalities
+of Lemmas~\ref{rp:record-polynomial} and~\ref{lc:presentations}.
+The marked operations below do not assert a relative tangle classification.
+
+\paragraph{Marked joining operation and its actual realizations.}
+A marked diagram is a nonempty actual diagram with a specified closed
+nonsingular oriented interval $I$ on one component; $I$ contains no
+crossing and is contained in a clean disc. All crossing discs used in a
+recursion are chosen disjoint from $I$. A marked join of $(A,I_A)$ and
+$(B,I_B)$ cuts a smaller open interval inside each mark and joins the
+oriented ends crosswise, preserving the surviving collars. There are no
+additional crossings in the joining arcs. Its finite data are precise:
+concatenate the marked component cycles at their marked gaps, retain
+every other component, and keep exactly all old crossing pairings, bits
+and signs. The component number is $c(A)+c(B)-1$. The two old marks in
+the separate factors remain distinguished during recursion; a smoothing
+selects the unique resulting component containing the relevant interval.
+The operation is not defined as an unspecified ambient isotopy class.
+
+These actual clean joins exist, including at an interior-face mark.

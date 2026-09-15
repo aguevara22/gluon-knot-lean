@@ -1,0 +1,356 @@
+{
+  "state": "candidate source comparison and canonical trace prepared; installation/audit/independent kernel pending",
+  "port_manifest": "work/checks/nearfar-helper-port-preparation.json",
+  "port_manifest_sha256": "6204e35e41676ec75ec075d820f328599ef1505439b0b2af08babccad4505391",
+  "ports": {
+    "work/lean/SM/CompositionCutSet.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/CompositionCutSet.lean",
+      "candidate_sha256": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "source_fragments": [
+        {
+          "source": "work/checks/CompositionCutSet.body.lean",
+          "source_sha256": "8c5adedcca981b1b44faa750ad5c95738e06560be89041eed31908aa264a0123"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions",
+        "Mathlib.Data.Finset.Sort"
+      ]
+    },
+    "work/lean/SM/InteriorCutSet.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/InteriorCutSet.lean",
+      "candidate_sha256": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+      "source_fragments": [
+        {
+          "source": "work/checks/InteriorCutSet.body.lean",
+          "source_sha256": "49310ab6314127f8c84e5839b188954aba5507fb0d577f35b1e62fc7253f22c2"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.CompositionCutSet"
+      ]
+    },
+    "work/lean/SM/CompositionSegments.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/CompositionSegments.lean",
+      "candidate_sha256": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+      "source_fragments": [
+        {
+          "source": "work/checks/CompositionSegments.body.lean",
+          "source_sha256": "2cea3d21b1602d9fc81390d100d9ba457b0ba337d5b39f3fa16783f8fe1aa03f"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions"
+      ]
+    },
+    "work/lean/SM/GeometricNearFar.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/GeometricNearFar.lean",
+      "candidate_sha256": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+      "source_fragments": [
+        {
+          "source": "work/checks/GeometricNearFar.body.lean",
+          "source_sha256": "d944c6743dde3d7b1c9a2eb38288035636833695b0aecd83e51655a44b2b4f9d"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.TreeCoefficient",
+        "SM.NearFarTriangular"
+      ]
+    },
+    "work/lean/SM/NearFarCutExpansion.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/NearFarCutExpansion.lean",
+      "candidate_sha256": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+      "source_fragments": [
+        {
+          "source": "work/checks/NearFarCutExpansion.body.lean",
+          "source_sha256": "e9dab21ed3d583c9fba821ba18d5fcab33b2cbef9f090c1b15c836b6b1edfcd8"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NearFar",
+        "Mathlib.Algebra.BigOperators.Ring.Finset"
+      ]
+    },
+    "work/lean/SM/NestedCutSets.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/NestedCutSets.lean",
+      "candidate_sha256": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+      "source_fragments": [
+        {
+          "source": "work/checks/NestedCutSets.body.lean",
+          "source_sha256": "150592887db0c3ca7831c28fc8c2649276184902f41927e01a2150346baf0639"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.InteriorCutSet",
+        "SM.CompositionSegments"
+      ]
+    },
+    "work/lean/SM/MarkedRefinement.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/MarkedRefinement.lean",
+      "candidate_sha256": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+      "source_fragments": [
+        {
+          "source": "work/checks/MarkedRefinement.body.lean",
+          "source_sha256": "5536ddc3444f28db6f572a290fb2d18b5b987a3e03257afd0497fefab236c42a"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.NestedCutSets"
+      ]
+    },
+    "work/lean/SM/InteriorCutIndex.lean": {
+      "candidate": "work/checks/nearfar-helper-port-candidate/SM/InteriorCutIndex.lean",
+      "candidate_sha256": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+      "source_fragments": [
+        {
+          "source": "work/checks/InteriorCutIndex.body.lean",
+          "source_sha256": "f1a9aba5f203469b215b252524a66fc816ae24a6fd8701eea588df6daed50068"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.InteriorCutSet"
+      ]
+    }
+  },
+  "prior_SM_count": 299,
+  "all_299_prior_SM_unchanged": true,
+  "checked_declarations": [
+    "SM.IntervalComposition.eq_single_of_parts_eq_one",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single",
+    "SM.IntervalComposition.single_part",
+    "SM.IntervalComposition.single_product",
+    "SM.IntervalComposition.nonSingleEquiv",
+    "SM.BoundaryCutSet",
+    "SM.BoundaryCutSet.ext",
+    "SM.BoundaryCutSet.card_ge_two",
+    "SM.BoundaryCutSet.toComposition",
+    "SM.IntervalComposition.cutSet",
+    "SM.IntervalComposition.cutSet_card",
+    "SM.IntervalComposition.cutSet_injective",
+    "SM.BoundaryCutSet.toComposition_cutSet",
+    "SM.IntervalComposition.cutSet_toComposition",
+    "SM.IntervalComposition.cutSetEquiv",
+    "SM.InteriorCutSet",
+    "SM.BoundaryCutSet.interior",
+    "SM.BoundaryCutSet.ofInterior",
+    "SM.BoundaryCutSet.interior_ofInterior",
+    "SM.BoundaryCutSet.ofInterior_interior",
+    "SM.BoundaryCutSet.interiorEquiv",
+    "SM.BoundaryCutSet.restrict",
+    "SM.BoundaryCutSet.mem_restrict",
+    "SM.BoundaryCutSet.restrict_self",
+    "SM.BoundaryCutSet.restrict_restrict",
+    "SM.IntervalComposition.interiorCutSetEquiv",
+    "SM.IntervalComposition.part_bounds",
+    "SM.IntervalComposition.part_order",
+    "SM.IntervalComposition.exists_halfOpen_part",
+    "SM.IntervalComposition.exists_closed_part",
+    "SM.IntervalComposition.part_interior_unique",
+    "SM.RefiningCutSet",
+    "SM.IntervalComposition.halfOpen_part_unique",
+    "SM.IntervalComposition.flattenCutSets",
+    "SM.IntervalComposition.mem_flattenCutSets",
+    "SM.IntervalComposition.outer_cuts_subset_flatten",
+    "SM.IntervalComposition.flattenRefinement",
+    "SM.IntervalComposition.unflattenCutSets",
+    "SM.IntervalComposition.unflatten_flatten",
+    "SM.IntervalComposition.flatten_unflatten",
+    "SM.IntervalComposition.nestedCutSetEquiv",
+    "SM.IntervalComposition.nestedCompositionEquiv",
+    "SM.MarkedCuts",
+    "SM.BoundaryCutSet.cuts_subset_iff_interior_subset",
+    "SM.BoundaryCutSet.outerFromMarks",
+    "SM.BoundaryCutSet.outerFromMarks_subset",
+    "SM.BoundaryCutSet.outerMarkedEquiv",
+    "SM.swapSigmaSubtype",
+    "SM.IntervalComposition.outerCompositionMarkedEquiv",
+    "SM.IntervalComposition.nestedMarkedCutEquiv",
+    "SM.IntervalComposition.interiorPosition",
+    "SM.IntervalComposition.interiorPosition_injective",
+    "SM.IntervalComposition.interiorPosition_mem",
+    "SM.IntervalComposition.mem_interior_iff_exists_index",
+    "SM.IntervalComposition.interiorPositionEquiv",
+    "SM.IntervalComposition.nearFarWeight_marked_expansion",
+    "SM.gate_pair_cast",
+    "SM.IntervalComposition.ordinaryWeight_cast",
+    "SM.IntervalComposition.rootWeight_cast",
+    "SM.IntervalComposition.parts_eq_one_of_leaves_eq_one",
+    "SM.geometric_nearFar_open",
+    "SM.geometric_nearFar_root"
+  ],
+  "additional_examples": [
+    "CompositionCutSetIndependentReview.every_raw_cut_set_admitted",
+    "CompositionCutSetIndependentReview.unary_cut_set_is_exactly_endpoints",
+    "CompositionCutSetIndependentReview.full_cut_coverage",
+    "CompositionCutSetIndependentReview.exact_cut_membership",
+    "CompositionCutSetIndependentReview.complete_raw_roundtrip",
+    "CompositionCutSetIndependentReview.same_cut_set_iff_same_composition",
+    "NearFarRefinementIndependentReview.geometric_open_is_actual_inverse",
+    "NearFarRefinementIndependentReview.geometric_root_retains_full_transform",
+    "NearFarRefinementIndependentReview.arbitrary_interior_subset_realized",
+    "NearFarRefinementIndependentReview.actual_half_open_partition",
+    "NearFarRefinementIndependentReview.nested_forward_cut_union",
+    "NearFarRefinementIndependentReview.nested_inner_raw_roundtrip",
+    "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts",
+    "NearFarRefinementIndependentReview.every_marked_refinement_recovered",
+    "NearFarRefinementIndependentReview.empty_and_full_markings_allowed",
+    "NearFarRefinementIndependentReview.empty_marks_give_unary_outer",
+    "NearFarRefinementIndependentReview.full_marks_recover_refined_outer",
+    "NearFarRefinementIndependentReview.full_nested_and_marked_domains_finite",
+    "NearFarRefinementIndependentReview.interior_indices_have_exact_coverage",
+    "NearFarRefinementIndependentReview.unary_has_no_interior_positions",
+    "NearFarRefinementIndependentReview.unary_marked_expansion_equals_one",
+    "NearFarRefinementIndependentReview.extreme_array_weights"
+  ],
+  "transparent_definitions_printed": [
+    "SM.BoundaryCutSet",
+    "SM.BoundaryCutSet.toComposition",
+    "SM.IntervalComposition.cutSet",
+    "SM.IntervalComposition.cutSetEquiv",
+    "SM.InteriorCutSet",
+    "SM.BoundaryCutSet.interior",
+    "SM.BoundaryCutSet.ofInterior",
+    "SM.BoundaryCutSet.restrict",
+    "SM.RefiningCutSet",
+    "SM.IntervalComposition.flattenCutSets",
+    "SM.IntervalComposition.flattenRefinement",
+    "SM.IntervalComposition.unflattenCutSets",
+    "SM.IntervalComposition.nestedCompositionEquiv",
+    "SM.MarkedCuts",
+    "SM.BoundaryCutSet.outerFromMarks",
+    "SM.BoundaryCutSet.outerMarkedEquiv",
+    "SM.IntervalComposition.nestedMarkedCutEquiv",
+    "SM.IntervalComposition.interiorPosition",
+    "SM.IntervalComposition.interiorPositionEquiv"
+  ],
+  "trace": "work/checks/nearfar-helper-canonical-review-types.lean",
+  "trace_sha256": "3e99a7ba94d1630f7846ee877392046541caca4f6b4b09723cb1d96cbe0b1054",
+  "SM_import_roots": [
+    "SM.GeometricNearFar",
+    "SM.MarkedRefinement",
+    "SM.InteriorCutIndex",
+    "SM.NearFarCutExpansion",
+    "SM.TriangularPolynomial"
+  ],
+  "predicted_import_closure": {
+    "SM.GeometricNearFar": {
+      "canonical": "work/lean/SM/GeometricNearFar.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/GeometricNearFar.lean",
+      "sha256": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b"
+    },
+    "SM.TreeCoefficient": {
+      "canonical": "work/lean/SM/TreeCoefficient.lean",
+      "read_from": "work/lean/SM/TreeCoefficient.lean",
+      "sha256": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06"
+    },
+    "SM.Gates": {
+      "canonical": "work/lean/SM/Gates.lean",
+      "read_from": "work/lean/SM/Gates.lean",
+      "sha256": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83"
+    },
+    "SM.RootBoundary": {
+      "canonical": "work/lean/SM/RootBoundary.lean",
+      "read_from": "work/lean/SM/RootBoundary.lean",
+      "sha256": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a"
+    },
+    "SM.Generic": {
+      "canonical": "work/lean/SM/Generic.lean",
+      "read_from": "work/lean/SM/Generic.lean",
+      "sha256": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417"
+    },
+    "SM.Chirotope": {
+      "canonical": "work/lean/SM/Chirotope.lean",
+      "read_from": "work/lean/SM/Chirotope.lean",
+      "sha256": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575"
+    },
+    "SM.Polygon": {
+      "canonical": "work/lean/SM/Polygon.lean",
+      "read_from": "work/lean/SM/Polygon.lean",
+      "sha256": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d"
+    },
+    "SM.FiniteCompositions": {
+      "canonical": "work/lean/SM/FiniteCompositions.lean",
+      "read_from": "work/lean/SM/FiniteCompositions.lean",
+      "sha256": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009"
+    },
+    "SM.NearFarTriangular": {
+      "canonical": "work/lean/SM/NearFarTriangular.lean",
+      "read_from": "work/lean/SM/NearFarTriangular.lean",
+      "sha256": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2"
+    },
+    "SM.NearFar": {
+      "canonical": "work/lean/SM/NearFar.lean",
+      "read_from": "work/lean/SM/NearFar.lean",
+      "sha256": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60"
+    },
+    "SM.UnaryComposition": {
+      "canonical": "work/lean/SM/UnaryComposition.lean",
+      "read_from": "work/lean/SM/UnaryComposition.lean",
+      "sha256": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d"
+    },
+    "SM.TriangularInverse": {
+      "canonical": "work/lean/SM/TriangularInverse.lean",
+      "read_from": "work/lean/SM/TriangularInverse.lean",
+      "sha256": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2"
+    },
+    "SM.MarkedRefinement": {
+      "canonical": "work/lean/SM/MarkedRefinement.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/MarkedRefinement.lean",
+      "sha256": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144"
+    },
+    "SM.NestedCutSets": {
+      "canonical": "work/lean/SM/NestedCutSets.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/NestedCutSets.lean",
+      "sha256": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945"
+    },
+    "SM.InteriorCutSet": {
+      "canonical": "work/lean/SM/InteriorCutSet.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/InteriorCutSet.lean",
+      "sha256": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326"
+    },
+    "SM.CompositionCutSet": {
+      "canonical": "work/lean/SM/CompositionCutSet.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/CompositionCutSet.lean",
+      "sha256": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84"
+    },
+    "SM.CompositionSegments": {
+      "canonical": "work/lean/SM/CompositionSegments.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/CompositionSegments.lean",
+      "sha256": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144"
+    },
+    "SM.InteriorCutIndex": {
+      "canonical": "work/lean/SM/InteriorCutIndex.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/InteriorCutIndex.lean",
+      "sha256": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938"
+    },
+    "SM.NearFarCutExpansion": {
+      "canonical": "work/lean/SM/NearFarCutExpansion.lean",
+      "read_from": "work/checks/nearfar-helper-port-candidate/SM/NearFarCutExpansion.lean",
+      "sha256": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366"
+    },
+    "SM.TriangularPolynomial": {
+      "canonical": "work/lean/SM/TriangularPolynomial.lean",
+      "read_from": "work/lean/SM/TriangularPolynomial.lean",
+      "sha256": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67"
+    }
+  },
+  "predicted_import_closure_count": 20,
+  "external_review_binding": {
+    "work/reviews/geometric-nearfar-prototype.json": "0d3c088977d1f97c3c263cc12891242442e2d5c1ec2e1ec0ce074ce27bf4d848",
+    "work/reviews/nearfar-refinement-prototype.json": "8ba574e9f6558c018dacb8c2269310cbfd690ceaf0c5e7d26fd3fc3e67caec28",
+    "work/reviews/composition-cut-set-prototype.json": "714cde56be2117d47c1fc8301f216e029f3142ab46b47dd254e35be9bbcbc246",
+    "work/checks/nearfar-refinement-reviewed-types.json": "0bd2a753009eaa0578004ab55651681c309b6548ed9907e5119551a717d7cc0e",
+    "work/checks/composition-cut-set-reviewed-types.json": "bd8314397366a0a979932fc3bebd373c5f479a4e64209cbd18daf1f107670562",
+    "work/checks/nearfar-refinement-review-examples.lean": "a26a21c579e6ad78bb80d814a4f9ab87950b027161597efbb4f95cb92b300578",
+    "work/checks/composition-cut-set-review-examples.lean": "bddad0d13ca00128c31b10ee811811d304305edcabc813fdfa1a4801576429bd"
+  },
+  "scope": "Eight canonical helper modules only. No new mapped source claims or full factorization/farout acceptance. ConsecutiveCuts is outside this batch."
+}

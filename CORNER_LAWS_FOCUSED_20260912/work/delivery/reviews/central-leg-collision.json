@@ -1,0 +1,192 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "central-leg-collision",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "Central coordinate-leg construction at 1418–1427 and collision argument at 1472–1475; scalar-coordinate topology supports the joint choice at 1429–1458",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "main_declarations": [
+    "SM.scalarCoordinateHomeomorph",
+    "SM.continuous_central_tuple_leg",
+    "SM.central_leg_collision_free"
+  ],
+  "review_flags_scope": "Actual scalar-coordinate homeomorphism and actual continuous affine central legs with exact labelled endpoints and vertex injectivity at every real parameter under the proved joint conditions. No full thm:relgp acceptance.",
+  "reason": "The two modules faithfully prove the bounded topological and central-leg collision claims. scalarCoordinateHomeomorph uses the existing actual tuple/scalar inverse equivalence and proves continuity in both directions in the actual product topologies. The scalar leg is proved equal to the genuine affine line between its two hybrid assignments, and composition with the actual tuple reconstruction is continuous. The inherited endpoint equalities give exactly the two labelled tuple endpoints, independently checked in the kernel trace. For collision freedom, the component of Fin 2 other than the one being moved is unchanged at every vertex for every real parameter. Equality of two actual tuple vertices would equate that component at the initial hybrid, contradicting the corresponding nonzero vertex difference in JointLegConditions. No Regular hypothesis, nonzero-root assumption or parameter restriction is added. The joint conditions used here have already been constructed simultaneously in the preceding reviewed source unit; the collision proof itself uses only their vertex-difference field. The full path, collars, regular cubes, uniform approximation and wall classification remain unproved by this bounded implementation.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual scalar-coordinate homeomorphism",
+      "assessment": "continuous_scalarCoordinates checks each scalar coordinate: it is the first or second coordinate projection of the actual vertex at that label. continuous_tupleOfScalarCoordinates pairs the two corresponding scalar projections at every label. The homeomorphism’s underlying equivalence is the already proved scalarCoordinateEquiv, whose forward and inverse functions are the real tuple/scalar transformations, so both inverse identities are inherited proved facts. No synthetic topology or generic-subtype restriction is introduced. A homeomorphism proves the relevant topological equivalence only; it does not equate the product maximum norm to the Euclidean metric or supply a numerical uniform-error bound."
+    },
+    {
+      "clause": "Actual affine line, unchanged scalars and continuity",
+      "assessment": "The proof of assignment_eq_line splits a scalar coordinate into the moving coordinate and its complement. At the moving coordinate, extendCoordinateAssignment gives exactly before+t*(after−before). At every other coordinate, the two hybrid endpoint values are proved equal and the actual assignment is fixed, so the affine-line formula reduces to that unchanged value. Function equality then transports the already-proved continuity of scalarAssignmentLine. Composing with continuous_tupleOfScalarCoordinates proves continuity of the actual labelled tuple leg, not merely a numerical proxy."
+    },
+    {
+      "clause": "Both exact labelled endpoints",
+      "assessment": "The inherited CoordinateWaypointLeg.assignment_zero and assignment_one are actual equalities of all scalar assignments. Applying tupleOfScalarCoordinates gives the exact labelled initial and final hybrid tuples; the independent check proves both identities directly using these equalities. No permutation, quotient representative, endpoint approximation or reindexing is used. These are local central-leg endpoints; preservation of the original fixed global path endpoints through collars and concatenation remains outside this result."
+    },
+    {
+      "clause": "Every real parameter is collision-free without Regular",
+      "assessment": "otherPlaneCoordinate chooses the other element of Fin 2 and is proved different from the moving component by exhaustive kernel-checked finite cases. Consequently (i,c) and (j,c) are both outside the moving scalar for any two vertex labels i,j, even when one of those labels is the moved vertex. assignment_other therefore keeps both component values equal to their initial-hybrid values for every t : ℝ. If the reconstructed tuple vertices coincide, applying the actual component projection equates these unchanged scalar values. For i≠j, JointLegConditions.vertex_differences at the initial endpoint says their difference is nonzero, a contradiction. Thus the compiled theorem gives Function.Injective of the actual tuple for every real t, a valid strengthening of the source’s segment interval. No central Regular, Generic, edge-transversality or root hypothesis is assumed. The larger JointLegConditions structure is already established by the source’s joint choice; no new geometric condition is silently added."
+    },
+    {
+      "clause": "Precise inherited and incomplete scope",
+      "assessment": "The import closure is exactly 45 SM files: the two new modules and 43 unchanged files covered by the joint-waypoint-choice review. WaypointOpenDomain itself is not imported by CentralLegCollision; its existence result is separate source context. The current modules prove individual actual central-leg topology and vertex injectivity. They do not construct a subdivision, cubes, collars or concatenated path, prove that a leg stays regular, supply the Euclidean uniform bound, classify nongeneric parameters, or establish the complete source theorem. All remaining original-source obligations retain their separate pending status."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance or original proof/checklist increment.",
+    "No regular cube containment, endpoint collars, actual finite path concatenation, global endpoint preservation or uniform Euclidean approximation.",
+    "No finite simple-root/sign-change assembly, inactive-factor treatment, F/V/T/E/C wall classification, cusp exclusion or full occurrence-label tracking.",
+    "No equality of a product norm and the source Euclidean norm is asserted by the homeomorphism."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9"
+  },
+  "import_closure_root": "SM.CentralLegCollision",
+  "import_closure_file_count": 45,
+  "inherited_review_binding": {
+    "joint_choice_review": "work/reviews/joint-waypoint-choice.json",
+    "joint_choice_review_sha256": "8609999cf4db4b00f221df4ac7ba0a4140eb7c81df2bdd78baa739c610d495f5",
+    "inherited_file_count": 43,
+    "all_inherited_hashes_match": true,
+    "joint_review_file_not_in_current_collision_closure": "work/lean/SM/WaypointOpenDomain.lean"
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/central-leg-collision-review-types.lean",
+    "independent_trace_source_sha256": "a765f9139dbab125600976d4822b4e565e5c8940fed55b96054baf8450aa42e9",
+    "independent_trace_log": "work/checks/central-leg-collision-review-types.log",
+    "independent_trace_log_sha256": "4d292041430bcafb24010bdea78e4952a0242e8eefb28e2ff7c227746a1d29e4",
+    "independent_kernel_command": "lake env lean ../checks/central-leg-collision-review-types.lean",
+    "independent_kernel_session": 12873,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 9,
+    "declaration_axioms": {
+      "SM.continuous_scalarCoordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_tupleOfScalarCoordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarCoordinateHomeomorph": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.assignment_eq_line": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.continuous_assignment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.otherPlaneCoordinate_ne": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleOfScalarCoordinates_eq_component": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_leg_collision_free": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_central_tuple_leg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "both_labelled_tuple_endpoint_examples_passed": true,
+    "successful_build_log": "work/checks/central-leg-collision-build.log",
+    "successful_build_log_sha256": "024f64c4ecb4f2fca76d0634678a9e3580fd356425a9de97ab944a6fa888e781",
+    "successful_build_session": 28953,
+    "successful_build_exit_code": 0
+  },
+  "audit_context": {
+    "last_completed_prior_receipt": "work/checks/checkpoint-052-output.json",
+    "last_completed_prior_receipt_sha256": "b9cd9804c4c3f4176819cc3ec511bb6e4392ea4c67b52483bfa64cf1ff3b8f7d",
+    "all_251_prior_SM_files_unchanged": true,
+    "scope": "Receipt 052 predates the new waypoint/collision modules and is not represented as their whole-project audit. This partial review is bound directly to the successful scoped build, independent kernel trace and exact 45-file import closure. The forthcoming whole-project audit can bind it additionally."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no theorem-library implementation; only independent type/axiom and endpoint check evidence plus this partial report were written.",
+  "edits": "No Lean theorem-library, frozen-source, declaration-map or progress edits."
+}

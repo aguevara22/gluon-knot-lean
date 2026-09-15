@@ -1,0 +1,3787 @@
+-- Ported 15:45Z 2026-09-14 from work/drafts/frontrows/FrontRows_W2S_Delta.lean (front certificate rows lane, sweep delta: the U8R sweep block, the leaf represent and row 76 ng:commutation; imports SM.FrontRowsW2; the two false unused leaves dirBit_of_cont_before/after removed, decision D-FR2) by the pod executor; body verbatim.
+import SM.FrontRowsW2
+
+/-! # Front certificate rows — sweep delta: the leaf `represent` and row 76 ng:commutation
+
+Certificate rows lane, sweep delta (decision D-FR1: the lane is ported incrementally as fully proved modules).
+This module imports `SM.FrontRowsW2` (the wave-2 clean subset: rows 81 ng:circle and 82 ng:cusp-skein with the
+shared infrastructure U1-U4, U7, U8D and the U8R record layer) and adds, in this order:
+* **the U8R sweep block** (`SM.FrontRows.U8R`, sections `SweepDefs`, `SweepLeaves`, `SlotMap`, `Traversal`,
+  `Assembly`): the vertical sweep of the printed proof (sm-3:1938-1947) — the fibre lists and the cuts (S1), the
+  cusp and crossing local models (S2, S3), the event word and its run through the hybrid cuts (S4), the slot map
+  `Φ` (S5), the traversal `slotAt` and the circle bijection (S6), the record isomorphism `recordIso` and the
+  theorem `sweep_proof : SweepStatement F`.  Taken verbatim from the sweep-lane merge
+  `work/drafts/frontrows/W3S_Merged.lean` (W3S_MERGE_REPORT.md), minus the two leaves `dirBit_of_cont_before` /
+  `dirBit_of_cont_after`, which are false as stated and consumed by nothing (their corrected forms
+  `s1b_dirBit_of_cont_before` / `s1b_dirBit_of_cont_after`, with the extra hypothesis `¬ F.IsCusp q`, are proved here).
+* **the leaf `SM.FrontRows.represent`** (the representation theorem of row 76), proved from `U8R.sweep_proof`
+  through the reduction `U8R.represent_of_sweepStatement` of `SM.FrontRowsW2`.
+* **row 76**: the statement `SM.NgCommutationClauses` (verbatim from `Skeleton_W2.lean` / `Statements_FINAL.lean`)
+  and `SM.ng_commutation : NgCommutationClauses`, assembled from `comm_counts`, `P_comm`, `deform_downCount`,
+  `deform_writhe`, `deform_P` (all in `SM.FrontRowsW2`) and `represent`.
+
+Every declaration in this module is fully proved: the axioms of `SM.ng_commutation` are
+`[propext, Classical.choice, Quot.sound, SM.lp_lm]` (`lp_lm` is the accepted literature interface reached through
+`P`); those of `SM.FrontRows.represent`, `SM.FrontRows.U8R.sweep_proof` and `SM.FrontRows.U8R.recordIso` are
+`[propext, Classical.choice, Quot.sound]`.  Provenance and line map: `work/drafts/frontrows/W2S_DELTA_REPORT.md`.
+
+Not in this module (the final delta module imports this one and adds exactly these): the row statements
+`NgFrontIClauses`, `NgFrontIIClauses`, `NgFrontIIIClauses`, `NgDeletionsClauses`, `NgLocalFrontBoundClauses`; the
+L-geo leaves `typeIII_site`, `typeII_move`, `typeI_move`, `crossedCusp_move` and their consumers `P_typeIII`,
+`P_typeII`, `P_typeI`, `P_crossedCusp`; the rows `ng_front_I`, `ng_front_II`, `ng_front_III`, `ng_deletions`
+(77-80), `certificate_laws`, `word_bound`, `ng_local_front_bound` (83).
+
+Checked with `cd work/lean && lake env lean`. -/
+
+namespace SM
+
+open SM.FrontWord SM.Link
+open scoped ContDiff
+
+namespace FrontRows
+
+section Leaves
+
+/-! ### U8R sweep — the leaf skeleton for `U8R.SweepStatement` (wave 3; plan `W3_U8R_PLAN.md`)
+
+The vertical sweep of the printed proof (sm-3:1938-1947), organised in six units of leaves:
+* **S1 the cut.** Over `x₀` the fibre is finite (`totalFibre_finite`); sorted by height (top to bottom) it is the
+  list `fibreListBefore`/`fibreListAfter` (at a double point the over branch, of smaller slope, is above BEFORE the
+  crossing and below AFTER it: the two sort keys `beforeLE`/`afterLE`).  Each fibre point carries the bits of its
+  strands just before / just after its x-value (`beforeBits`/`afterBits`: none/two for a cusp, one otherwise), so
+  `cutBefore x₀`/`cutAfter x₀` are the cuts just left/right of `x₀`, and `hybridCut x₀ z₀` (strands at height
+  `≥ z₀` read "before", strands below read "after") is the cut between two events of one x-value.  The analytic
+  leaves: the local graph structure at a regular point, compactness (no strands appear from nowhere), the two
+  one-sided limits at the level of strand ENTRIES (`Cont`: an entry's continuation along the front), and the
+  constancy of the cut between consecutive singular x-values.
+* **S2 the cusp**, **S3 the crossing**: the local models (Taylor sign law `cusp_arm_sign`; `x` a strict local
+  extremum at a cusp; the over branch above before / below after).
+* **S4 the word.** The events (cusps and over-first crossing pairs) sorted by `(x, z)`, bottom first at equal `x`
+  (`events`); the letter of an event at position `posOf` = 1 + the number of strands strictly above it in the
+  hybrid cut; the run of the word through the hybrid cuts (`run_take_eq_hybrid`), closedness, the counts.
+* **S5 the slot map** `Φ` (an occurrence ↦ `σSlotA`/`σSlotB` of its crossing's column) and the local record
+  clauses `pair`, `isOver`, `sgn`.
+* **S6 the traversal.** `slotAt i t` = the slot of the strand through `(i, t)` at the cut line of its x-value;
+  its constancy along regular arcs and its `next`-jumps across singular x-values (through a regular point, a cusp
+  vertex, a crossing); hence `succ ↔ firstReturn`, `comp`, and the circle bijection `e`.
+The theorem `sweep_proof : SweepStatement F` and the leaf `represent` are PROVED from the leaves. -/
+namespace U8R
+
+open SM.FrontWord SM.FrontWord.Letter SM.FrontRealize Equiv
+
+noncomputable section
+
+section SweepDefs
+
+variable (F : SmoothFront)
+
+/-! #### S1. Coordinates, fibres, the sorted fibre lists and the cuts -/
+
+/-- the x-coordinate of circle `i` at parameter `t` -/
+def xOf (i : Fin F.c) (t : ℝ) : ℝ := ((F.comp i).γ t).1
+/-- the z-coordinate (height) of circle `i` at parameter `t` -/
+def zOf (i : Fin F.c) (t : ℝ) : ℝ := ((F.comp i).γ t).2
+/-- the height of a parameter -/
+def ht (p : Param F.c) : ℝ := (F.eval p).2
+/-- the direction bit of a parameter: `true` iff the traversal moves rightward there -/
+def dirBit (p : Param F.c) : Bool := decide (0 < xvel F p.1 p.2)
+
+theorem xOf_def (i : Fin F.c) (t : ℝ) : xOf F i t = (F.eval (i, t)).1 := by
+  sorry
+
+theorem zOf_def (i : Fin F.c) (t : ℝ) : zOf F i t = ht F (i, t) := by
+  sorry
+
+
+/-- a default parameter (used only as the `getD` default of lists) -/
+def dfltP : Param F.c := (⟨0, F.hc⟩, 0)
+
+instance decIsCusp (p : Param F.c) : Decidable (F.IsCusp p) := by
+  unfold SmoothFront.IsCusp; infer_instance
+instance decIsLeftCusp (p : Param F.c) : Decidable (F.IsLeftCusp p) := by
+  unfold SmoothFront.IsLeftCusp; infer_instance
+instance decIsRightCusp (p : Param F.c) : Decidable (F.IsRightCusp p) := by
+  unfold SmoothFront.IsRightCusp; infer_instance
+
+/-- the finite fibre over `x₀` as a `Finset` (all circles, fundamental period) -/
+def fibreFinset (x₀ : ℝ) : Finset (Param F.c) := (totalFibre_finite F x₀).toFinset
+
+theorem mem_fibreFinset (x₀ : ℝ) (p : Param F.c) : p ∈ fibreFinset F x₀ ↔ p ∈ totalFibre F x₀ := by
+  sorry
+
+
+/-- the "before" order on fibre points: height descending, at equal height the smaller slope (the over branch)
+first — the order of the strands just LEFT of a double point -/
+def beforeLE (p q : Param F.c) : Bool :=
+  decide (toLex (-(ht F p), F.slope p) ≤ toLex (-(ht F q), F.slope q))
+/-- the "after" order: height descending, at equal height the larger slope (the under branch) first — the order
+of the strands just RIGHT of a double point -/
+def afterLE (p q : Param F.c) : Bool :=
+  decide (toLex (-(ht F p), -(F.slope p)) ≤ toLex (-(ht F q), -(F.slope q)))
+
+/-- the fibre over `x₀` sorted top to bottom in the "before" order -/
+def fibreListBefore (x₀ : ℝ) : List (Param F.c) := (fibreFinset F x₀).toList.mergeSort (beforeLE F)
+/-- the fibre over `x₀` sorted top to bottom in the "after" order -/
+def fibreListAfter (x₀ : ℝ) : List (Param F.c) := (fibreFinset F x₀).toList.mergeSort (afterLE F)
+
+theorem fibreListBefore_perm (x₀ : ℝ) : List.Perm (fibreListBefore F x₀) (fibreFinset F x₀).toList := by
+  sorry
+
+theorem fibreListAfter_perm (x₀ : ℝ) : List.Perm (fibreListAfter F x₀) (fibreFinset F x₀).toList := by
+  sorry
+
+theorem mem_fibreListBefore (x₀ : ℝ) (p : Param F.c) : p ∈ fibreListBefore F x₀ ↔ p ∈ totalFibre F x₀ := by
+  sorry
+
+theorem mem_fibreListAfter (x₀ : ℝ) (p : Param F.c) : p ∈ fibreListAfter F x₀ ↔ p ∈ totalFibre F x₀ := by
+  sorry
+
+theorem fibreListBefore_nodup (x₀ : ℝ) : (fibreListBefore F x₀).Nodup := by
+  sorry
+
+theorem fibreListAfter_nodup (x₀ : ℝ) : (fibreListAfter F x₀).Nodup := by
+  sorry
+
+
+theorem beforeLE_trans (p q r : Param F.c) (h1 : beforeLE F p q = true) (h2 : beforeLE F q r = true) :
+    beforeLE F p r = true := by
+  sorry
+
+theorem beforeLE_total (p q : Param F.c) : (beforeLE F p q || beforeLE F q p) = true := by
+  sorry
+
+theorem afterLE_trans (p q r : Param F.c) (h1 : afterLE F p q = true) (h2 : afterLE F q r = true) :
+    afterLE F p r = true := by
+  sorry
+
+theorem afterLE_total (p q : Param F.c) : (afterLE F p q || afterLE F q p) = true := by
+  sorry
+
+
+theorem fibreListBefore_pairwise (x₀ : ℝ) : (fibreListBefore F x₀).Pairwise (fun p q => beforeLE F p q = true) := by
+  sorry
+
+theorem fibreListAfter_pairwise (x₀ : ℝ) : (fibreListAfter F x₀).Pairwise (fun p q => afterLE F p q = true) := by
+  sorry
+
+
+/-- The strands of a fibre point just BEFORE its x-value, top to bottom: none for a left cusp (both arms lie to
+the right); two for a right cusp — the arriving arm travels rightward (`true`) and is the upper one iff the later
+arm is the lower one, i.e. iff `cuspDisc < 0` (FR-2); one strand, with its direction bit, for any other point. -/
+def beforeBits (p : Param F.c) : Cuts :=
+  if F.IsLeftCusp p then []
+  else if F.IsRightCusp p then (if F.cuspDisc p < 0 then [true, false] else [false, true])
+  else [dirBit F p]
+
+/-- The strands of a fibre point just AFTER its x-value, top to bottom: none for a right cusp; two for a left
+cusp — the leaving arm travels rightward (`true`) and is the upper one iff `0 < cuspDisc` (FR-2); one otherwise. -/
+def afterBits (p : Param F.c) : Cuts :=
+  if F.IsRightCusp p then []
+  else if F.IsLeftCusp p then (if 0 < F.cuspDisc p then [true, false] else [false, true])
+  else [dirBit F p]
+
+/-- the strand entries of a list of fibre points: `(p, j)`, `j` indexing the strands of `p` -/
+def entriesOf (bits : Param F.c → Cuts) (L : List (Param F.c)) : List (Param F.c × ℕ) :=
+  L.flatMap (fun p => (List.range (bits p).length).map (fun j => (p, j)))
+
+/-- the bit of a strand entry -/
+def entryBit (bits : Param F.c → Cuts) (a : Param F.c × ℕ) : Bool := (bits a.1).getD a.2 false
+
+theorem map_entryBit_entriesOf (bits : Param F.c → Cuts) (L : List (Param F.c)) :
+    (entriesOf F bits L).map (entryBit F bits) = L.flatMap bits := by
+  sorry
+
+
+/-- The cut with the fibre points satisfying `P` read "before" and the others "after" (the `P`-points are the
+still unprocessed events and everything above them; `P := fun _ => true` gives `cutBefore`, `P := fun _ => false`
+gives `cutAfter`). -/
+def hybridCutP (x₀ : ℝ) (P : Param F.c → Bool) : Cuts :=
+  ((fibreListBefore F x₀).filter P).flatMap (beforeBits F) ++
+    ((fibreListAfter F x₀).filter (fun p => !P p)).flatMap (afterBits F)
+
+/-- the strand entries of the hybrid cut, in the order of its bits -/
+def hybridEntriesP (x₀ : ℝ) (P : Param F.c → Bool) : List (Param F.c × ℕ) :=
+  entriesOf F (beforeBits F) ((fibreListBefore F x₀).filter P) ++
+    entriesOf F (afterBits F) ((fibreListAfter F x₀).filter (fun p => !P p))
+
+/-- the cut just left of `x₀` -/
+def cutBefore (x₀ : ℝ) : Cuts := (fibreListBefore F x₀).flatMap (beforeBits F)
+/-- the cut just right of `x₀` -/
+def cutAfter (x₀ : ℝ) : Cuts := (fibreListAfter F x₀).flatMap (afterBits F)
+/-- the strand entries just left of `x₀` -/
+def entriesBefore (x₀ : ℝ) : List (Param F.c × ℕ) := entriesOf F (beforeBits F) (fibreListBefore F x₀)
+/-- the strand entries just right of `x₀` -/
+def entriesAfter (x₀ : ℝ) : List (Param F.c × ℕ) := entriesOf F (afterBits F) (fibreListAfter F x₀)
+/-- the cut between two events of one x-value `x₀`: the strands at height `≥ z₀` read "before", the strands below
+read "after" — the cut just BEFORE the event at height `z₀` is processed -/
+def hybridCut (x₀ z₀ : ℝ) : Cuts := hybridCutP F x₀ (fun p => decide (z₀ ≤ ht F p))
+/-- the cut just AFTER the event at height `z₀` is processed -/
+def hybridCutStrict (x₀ z₀ : ℝ) : Cuts := hybridCutP F x₀ (fun p => decide (z₀ < ht F p))
+/-- the strand entries of `hybridCut` -/
+def hybridEntries (x₀ z₀ : ℝ) : List (Param F.c × ℕ) := hybridEntriesP F x₀ (fun p => decide (z₀ ≤ ht F p))
+
+theorem cutBefore_eq_hybridCutP (x₀ : ℝ) : cutBefore F x₀ = hybridCutP F x₀ (fun _ => true) := by
+  sorry
+
+theorem cutAfter_eq_hybridCutP (x₀ : ℝ) : cutAfter F x₀ = hybridCutP F x₀ (fun _ => false) := by
+  sorry
+
+
+/-- `Cont q a`: the parameter `q` lies on the strand of the entry `a = (p, j)`, on the cusp-free arc adjacent to
+`p` (no cusp strictly between the lifted parameter `s` of `q` and `p.2`); for a cusp `p` the arm is fixed by `j`:
+the upper arm (`j = 0`) is the EARLIER arm (`s < p.2`) iff `cuspDisc p < 0` (FR-2; the same formula for the two
+arms before a right cusp and the two arms after a left cusp). -/
+def Cont (q : Param F.c) (a : Param F.c × ℕ) : Prop :=
+  q.1 = a.1.1 ∧ ∃ s : ℝ, SameParam q (a.1.1, s) ∧ s ≠ a.1.2 ∧
+    (∀ u, min s a.1.2 < u → u < max s a.1.2 → ¬ F.IsCusp (a.1.1, u)) ∧
+    (F.IsCusp a.1 → ((s < a.1.2) ↔ (a.2 = 0 ↔ F.cuspDisc a.1 < 0)))
+
+/-- the position (1-based, from the top) of a fibre point `q` over `x₀` among the fibre points: one plus the
+number of fibre points strictly above it (the position of its strand at a non-singular `x₀`) -/
+def posAt (x₀ : ℝ) (q : Param F.c) : ℕ := ((fibreFinset F x₀).filter (fun p => ht F q < ht F p)).card + 1
+
+/-! #### S4. Events, letters, the word -/
+
+/-- the crossings: the over-first pairs -/
+abbrev Cross : Type := {q : Param F.c × Param F.c // q ∈ F.crossingPairs}
+/-- the singular events of the sweep: cusps and crossings -/
+abbrev Event : Type := F.Cusp ⊕ Cross F
+
+/-- a parameter of the event's point (the over branch for a crossing) -/
+def evPt : Event F → Param F.c
+  | Sum.inl c => c.1
+  | Sum.inr q => q.1.1
+/-- the x-value of an event -/
+def evX (e : Event F) : ℝ := (F.eval (evPt F e)).1
+/-- the height of an event -/
+def evZ (e : Event F) : ℝ := ht F (evPt F e)
+/-- the sweep order of events: by x-value, ties broken bottom to top -/
+def evLE (e e' : Event F) : Bool := decide (toLex (evX F e, evZ F e) ≤ toLex (evX F e', evZ F e'))
+
+theorem evLE_trans (e e' e'' : Event F) (h1 : evLE F e e' = true) (h2 : evLE F e' e'' = true) :
+    evLE F e e'' = true := by
+  sorry
+
+theorem evLE_total (e e' : Event F) : (evLE F e e' || evLE F e' e) = true := by
+  sorry
+
+
+/-- the events in sweep order -/
+def events : List (Event F) := (Finset.univ : Finset (Event F)).toList.mergeSort (evLE F)
+
+theorem mem_events (e : Event F) : e ∈ events F := by
+  sorry
+
+theorem events_nodup : (events F).Nodup := by
+  sorry
+
+theorem events_pairwise_le : (events F).Pairwise (fun e e' => evLE F e e' = true) := by
+  sorry
+
+
+/-- a lawful `BEq` on events (the `Sum` instance is not lawful), for `List.idxOf` -/
+instance (priority := high) instBEqEvent : BEq (Event F) := ⟨fun a b => decide (a = b)⟩
+instance instLawfulBEqEvent : LawfulBEq (Event F) where
+  eq_of_beq {a b} h := of_decide_eq_true h
+  rfl {a} := decide_eq_true rfl
+
+/-- some cusp (every front has one) -/
+def someCusp : F.Cusp := (exists_two_cusps F ⟨0, F.hc⟩).choose
+/-- the event of column `k` (junk beyond the last column) -/
+def eventAt (k : ℕ) : Event F := (events F).getD k (Sum.inl (someCusp F))
+/-- the column of an event -/
+def evIdx (e : Event F) : ℕ := (events F).idxOf e
+/-- the x-value of column `k` -/
+def colX (k : ℕ) : ℝ := evX F (eventAt F k)
+/-- the height of the event of column `k` -/
+def colZ (k : ℕ) : ℝ := evZ F (eventAt F k)
+
+theorem evIdx_lt_length (e : Event F) : evIdx F e < (events F).length := by
+  sorry
+
+theorem eventAt_evIdx (e : Event F) : eventAt F (evIdx F e) = e := by
+  sorry
+
+theorem evIdx_eventAt {k : ℕ} (hk : k < (events F).length) : evIdx F (eventAt F k) = k := by
+  sorry
+
+
+/-- the position of an event: one plus the number of strands strictly above it in the cut just before it -/
+def posOf (e : Event F) : ℕ :=
+  (((fibreListBefore F (evX F e)).filter (fun p => decide (evZ F e < ht F p))).flatMap (beforeBits F)).length + 1
+
+/-- The letter read at an event: a left cusp is `l m d` with `d` = "the upper new arm travels rightward" = "the
+later arm is the upper one" = `0 < cuspDisc`; a right cusp is `r m`; a crossing is `σ m` (the over branch, of
+smaller slope, is the upper strand before the crossing and descends: `σSlotA`). -/
+def letterOf (e : Event F) : Letter :=
+  match e with
+  | Sum.inl c => if F.IsLeftCusp c.1 then Letter.l (posOf F (Sum.inl c)) (decide (0 < F.cuspDisc c.1))
+      else Letter.r (posOf F (Sum.inl c))
+  | Sum.inr q => Letter.σ (posOf F (Sum.inr q))
+
+/-- THE WORD OF THE SWEEP -/
+def word : Word := (events F).map (letterOf F)
+
+theorem length_word : (word F).length = (events F).length := by
+  sorry
+
+
+theorem letterAt_word {k : ℕ} (hk : k < (events F).length) : letterAt (word F) k = letterOf F (eventAt F k) := by
+  sorry
+
+
+theorem letterAt_word_evIdx (e : Event F) : letterAt (word F) (evIdx F e) = letterOf F e := by
+  sorry
+
+
+theorem evIdx_lt_length_word (e : Event F) : evIdx F e < (word F).length := by
+  sorry
+
+
+theorem letterAt_word_cross (q : Cross F) : letterAt (word F) (evIdx F (Sum.inr q)) = .σ (posOf F (Sum.inr q)) := by
+  sorry
+
+
+/-- the column of an x-value: the number of events strictly to its left (for `x ∉ singX` the cut line of `x`) -/
+def colAt (x : ℝ) : ℕ := ((events F).filter (fun e => decide (evX F e < x))).length
+
+
+end SweepDefs
+
+section SweepLeaves
+
+variable (F : SmoothFront)
+
+/-! #### S1 leaves: the cut at a non-singular x-value and its one-sided limits -/
+
+/-! ### S1a helpers -/
+section S1aHelpers
+
+/-- two fibre points over `x₀` with equal height and slope coincide: they would be a double point with equal
+slopes, against `slope_ne_of_isDouble` -/
+theorem s1a_eq_of_ht_slope_eq {x₀ : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hq : q ∈ totalFibre F x₀) (hz : ht F p = ht F q) (hs : F.slope p = F.slope q) : p = q := by
+  sorry
+
+
+/-- `beforeLE` is antisymmetric on the fibre over `x₀` -/
+theorem s1a_beforeLE_antisymm {x₀ : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hq : q ∈ totalFibre F x₀) (h1 : beforeLE F p q = true) (h2 : beforeLE F q p = true) : p = q := by
+  sorry
+
+
+/-- `afterLE` is antisymmetric on the fibre over `x₀` -/
+theorem s1a_afterLE_antisymm {x₀ : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hq : q ∈ totalFibre F x₀) (h1 : afterLE F p q = true) (h2 : afterLE F q p = true) : p = q := by
+  sorry
+
+
+/-- a `flatMap` of singletons is a `map` -/
+theorem s1a_flatMap_eq_map {α β : Type*} (L : List α) (f : α → List β) (g : α → β)
+    (h : ∀ p ∈ L, f p = [g p]) : L.flatMap f = L.map g := by
+  sorry
+
+
+/-- over a non-singular `x₀` no fibre point is a cusp -/
+theorem s1a_not_isCusp_of_mem_totalFibre {x₀ : ℝ} (hx : x₀ ∉ singX F) {p : Param F.c}
+    (hp : p ∈ totalFibre F x₀) : ¬ F.IsCusp p := by
+  sorry
+
+
+/-- over a non-singular `x₀` every fibre point has one "before" strand, with its direction bit -/
+theorem s1a_beforeBits_eq {x₀ : ℝ} (hx : x₀ ∉ singX F) {p : Param F.c} (hp : p ∈ totalFibre F x₀) :
+    beforeBits F p = [dirBit F p] := by
+  sorry
+
+
+/-- over a non-singular `x₀` every fibre point has one "after" strand, with its direction bit -/
+theorem s1a_afterBits_eq {x₀ : ℝ} (hx : x₀ ∉ singX F) {p : Param F.c} (hp : p ∈ totalFibre F x₀) :
+    afterBits F p = [dirBit F p] := by
+  sorry
+
+
+/-- `F.eval` is continuous on `Fin c × ℝ` (the circle index is discrete) -/
+theorem s1a_continuous_eval : Continuous (fun q : Param F.c => F.eval q) := by
+  sorry
+
+
+end S1aHelpers
+
+/-- LEAF (S1): the sorted fibre list is determined by its specification: a nodup list of exactly the fibre points,
+sorted in the "before" order, is `fibreListBefore` (`List.Perm.eq_of_pairwise`; two fibre points with equal
+height and slope would be a double point with equal slopes, against `slope_ne_of_isDouble`). -/
+theorem fibreListBefore_eq_of (x₀ : ℝ) (L : List (Param F.c)) (hnd : L.Nodup)
+    (hmem : ∀ p, p ∈ L ↔ p ∈ totalFibre F x₀) (hsort : L.Pairwise (fun p q => beforeLE F p q = true)) :
+    fibreListBefore F x₀ = L := by
+  sorry
+
+
+/-- LEAF (S1): the same for the "after" order. -/
+theorem fibreListAfter_eq_of (x₀ : ℝ) (L : List (Param F.c)) (hnd : L.Nodup)
+    (hmem : ∀ p, p ∈ L ↔ p ∈ totalFibre F x₀) (hsort : L.Pairwise (fun p q => afterLE F p q = true)) :
+    fibreListAfter F x₀ = L := by
+  sorry
+
+
+/-- LEAF (S1): over a non-singular `x₀` every fibre point is regular (`regular_of_notMem_singX`), so both orders
+agree (distinct heights, `snd_injOn_totalFibre`), every point has one strand, and the cut is the list of direction
+bits of the fibre sorted by height. -/
+theorem fibreListAfter_eq_fibreListBefore {x₀ : ℝ} (hx : x₀ ∉ singX F) :
+    fibreListAfter F x₀ = fibreListBefore F x₀ := by
+  sorry
+
+
+theorem cutBefore_eq_map_dirBit {x₀ : ℝ} (hx : x₀ ∉ singX F) :
+    cutBefore F x₀ = (fibreListBefore F x₀).map (dirBit F) := by
+  sorry
+
+
+theorem cutAfter_eq_cutBefore {x₀ : ℝ} (hx : x₀ ∉ singX F) : cutAfter F x₀ = cutBefore F x₀ := by
+  sorry
+
+
+theorem entriesBefore_eq_of_notMem_singX {x₀ : ℝ} (hx : x₀ ∉ singX F) :
+    entriesBefore F x₀ = (fibreListBefore F x₀).map (fun p => (p, 0)) := by
+  sorry
+
+
+/-- LEAF (S1): the local graph structure at a regular parameter: no cusp nearby, `x` injective near `t₀`, and
+every `x` near `x(t₀)` has a preimage as close to `t₀` as required (continuity of the inverse; IVT on the
+strictly monotone `x`, `strictMonoOn_x_of_isLeftCusp` / `strictAntiOn_x_of_isRightCusp` on the arc through `t₀`,
+`exists_arc_mem`). -/
+theorem regular_local_graph {i : Fin F.c} {t₀ : ℝ} (h : ¬ F.IsCusp (i, t₀)) :
+    ∃ δ > 0, (∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), ¬ F.IsCusp (i, t)) ∧
+      (∀ t₁ ∈ Set.Ioo (t₀ - δ) (t₀ + δ), ∀ t₂ ∈ Set.Ioo (t₀ - δ) (t₀ + δ), xOf F i t₁ = xOf F i t₂ → t₁ = t₂) ∧
+      ∀ δ' ∈ Set.Ioc (0 : ℝ) δ, ∃ η > 0, ∀ x, |x - xOf F i t₀| < η →
+        ∃ t ∈ Set.Ioo (t₀ - δ') (t₀ + δ'), xOf F i t = x := by
+  sorry
+
+
+/-- LEAF (S1, compactness): all fibre points over `x` near `x₀` lie (modulo the period) within `δ` of a fibre point
+over `x₀` on the same circle — no strand appears from nowhere (`IsCompact.exists_isMinOn` of `|x − x₀|` on the
+compact set of parameters of `Fin c × [0,1]` at distance `≥ δ` from the fibre). -/
+theorem exists_eta_fibre_near (x₀ : ℝ) {δ : ℝ} (hδ : 0 < δ) :
+    ∃ η > 0, ∀ x, |x - x₀| < η → ∀ q ∈ totalFibre F x, ∃ p ∈ totalFibre F x₀, q.1 = p.1 ∧
+      ∃ n : ℤ, |q.2 + n - p.2| < δ := by
+  sorry
+
+
+/-! MERGER (W3S_Merged, 2026-09-14): the S2 and S3 leaves (skeleton L14952-14994) are placed here, BEFORE the S1b helpers, because the S1 one-sided limits use their statements (PLAN §4: S1 depends on S2, S3). Text verbatim. -/
+
+/-! #### S2 leaves: the cusp local model -/
+
+/-! ### S2 helpers -/
+section S2Helpers
+
+open Filter Topology
+
+/-- a function differentiable everywhere with positive derivative on `Ioo a b` is strictly increasing on
+`Icc a b` (`strictMonoOn_of_deriv_pos`) -/
+theorem s2_strictMonoOn_Icc {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {a b : ℝ}
+    (hpos : ∀ t ∈ Set.Ioo a b, 0 < f' t) : StrictMonoOn f (Set.Icc a b) := by
+  sorry
+
+
+/-- mirror: negative derivative on `Ioo a b` gives strictly decreasing on `Icc a b` -/
+theorem s2_strictAntiOn_Icc {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {a b : ℝ}
+    (hneg : ∀ t ∈ Set.Ioo a b, f' t < 0) : StrictAntiOn f (Set.Icc a b) := by
+  sorry
+
+
+/-- a function vanishing at `t₀` with positive derivative near `t₀` is negative just before and positive
+just after -/
+theorem s2_neg_pos_of_deriv_pos {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {t₀ δ : ℝ}
+    (h0 : f t₀ = 0) (hpos : ∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), 0 < f' t) :
+    ∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), (t < t₀ → f t < 0) ∧ (t₀ < t → 0 < f t) := by
+  sorry
+
+
+/-- a function vanishing at `t₀` whose derivative is negative just before and positive just after is
+positive on both sides -/
+theorem s2_pos_of_deriv_neg_pos {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {t₀ δ : ℝ}
+    (h0 : f t₀ = 0)
+    (hsgn : ∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), (t < t₀ → f' t < 0) ∧ (t₀ < t → 0 < f' t)) :
+    ∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), t ≠ t₀ → 0 < f t := by
+  sorry
+
+
+/-- a function whose derivative is positive near `t₀` except possibly at `t₀` itself is smaller before `t₀`
+than after -/
+theorem s2_lt_of_deriv_pos_off {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {t₀ δ : ℝ}
+    (hpos : ∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), t ≠ t₀ → 0 < f' t) {t₁ t₂ : ℝ}
+    (h1 : t₀ - δ < t₁) (h2 : t₁ < t₀) (h3 : t₀ < t₂) (h4 : t₂ < t₀ + δ) : f t₁ < f t₂ := by
+  sorry
+
+
+/-- the cubic sign law: `φ' (t₀) = φ'' (t₀) = 0`, `φ''' (t₀) > 0`, `φ'''` continuous ⇒ near `t₀`, `φ` is
+smaller before `t₀` than after (`φ'''` positive ⇒ `φ''` negative/positive ⇒ `φ'` positive off `t₀`) -/
+theorem s2_cubic_lt {φ φ1 φ2 φ3 : ℝ → ℝ} {t₀ : ℝ} (h0 : ∀ t, HasDerivAt φ (φ1 t) t)
+    (h1 : ∀ t, HasDerivAt φ1 (φ2 t) t) (h2 : ∀ t, HasDerivAt φ2 (φ3 t) t) (h3 : Continuous φ3)
+    (hφ1 : φ1 t₀ = 0) (hφ2 : φ2 t₀ = 0) (hK : 0 < φ3 t₀) :
+    ∃ δ > 0, ∀ t₁ t₂, t₀ - δ < t₁ → t₁ < t₀ → t₀ < t₂ → t₂ < t₀ + δ → φ t₁ < φ t₂ := by
+  sorry
+
+
+/-- the cubic sign law, both signs: `φ (t₁) < φ (t₂)` iff `φ''' (t₀) > 0` -/
+theorem s2_cubic_iff {φ φ1 φ2 φ3 : ℝ → ℝ} {t₀ : ℝ} (h0 : ∀ t, HasDerivAt φ (φ1 t) t)
+    (h1 : ∀ t, HasDerivAt φ1 (φ2 t) t) (h2 : ∀ t, HasDerivAt φ2 (φ3 t) t) (h3 : Continuous φ3)
+    (hφ1 : φ1 t₀ = 0) (hφ2 : φ2 t₀ = 0) (hK : φ3 t₀ ≠ 0) :
+    ∃ δ > 0, ∀ t₁ t₂, t₀ - δ < t₁ → t₁ < t₀ → t₀ < t₂ → t₂ < t₀ + δ → (φ t₁ < φ t₂ ↔ 0 < φ3 t₀) := by
+  sorry
+
+
+/-- the first component of a plane-valued derivative -/
+theorem s2_hasDerivAt_fst {f : ℝ → Plane} {f' : Plane} {t : ℝ} (h : HasDerivAt f f' t) :
+    HasDerivAt (fun s => (f s).1) f'.1 t := by
+  sorry
+
+
+/-- the second component of a plane-valued derivative -/
+theorem s2_hasDerivAt_snd {f : ℝ → Plane} {f' : Plane} {t : ℝ} (h : HasDerivAt f f' t) :
+    HasDerivAt (fun s => (f s).2) f'.2 t := by
+  sorry
+
+
+/-- `γ'` has derivative `γ''` -/
+theorem s2_hasDerivAt_deriv (L : SmoothLoop) (t : ℝ) :
+    HasDerivAt (deriv L.γ) (iteratedDeriv 2 L.γ t) t := by
+  sorry
+
+
+/-- `γ''` has derivative `γ'''` -/
+theorem s2_hasDerivAt_iteratedDeriv_two (L : SmoothLoop) (t : ℝ) :
+    HasDerivAt (iteratedDeriv 2 L.γ) (iteratedDeriv 3 L.γ t) t := by
+  sorry
+
+
+/-- the combination `z − k·x` of a plane-valued function has derivative `z' − k·x'` -/
+theorem s2_hasDerivAt_comb {f : ℝ → Plane} {f' : Plane} {t : ℝ} (h : HasDerivAt f f' t) (k : ℝ) :
+    HasDerivAt (fun s => (f s).2 - k * (f s).1) (f'.2 - k * f'.1) t := by
+  sorry
+
+
+/-- the cusp sign law for one smooth loop: at a zero `t₀` of `γ'` with `x'' ≠ 0` and `det(γ'', γ''') ≠ 0`, two
+parameters `t₁ < t₀ < t₂` near `t₀` with equal `x` have `z (t₁) < z (t₂)` iff `x'' · det(γ'', γ''') > 0`.
+Proof: with `(a, c) = γ''(t₀)`, the function `φ = z − (c/a) x` has `φ' (t₀) = φ'' (t₀) = 0` and
+`φ''' (t₀) = det(γ'', γ''')/a`, and `z (t₂) − z (t₁) = φ (t₂) − φ (t₁)` when `x (t₁) = x (t₂)`. -/
+theorem s2_loop_cusp_sign (L : SmoothLoop) {t₀ : ℝ} (h : deriv L.γ t₀ = 0)
+    (ha : (iteratedDeriv 2 L.γ t₀).1 ≠ 0)
+    (hdet : det (iteratedDeriv 2 L.γ t₀) (iteratedDeriv 3 L.γ t₀) ≠ 0) :
+    ∃ δ > 0, ∀ t₁ t₂, t₀ - δ < t₁ → t₁ < t₀ → t₀ < t₂ → t₂ < t₀ + δ → (L.γ t₁).1 = (L.γ t₂).1 →
+      ((L.γ t₁).2 < (L.γ t₂).2 ↔
+        0 < (iteratedDeriv 2 L.γ t₀).1 * det (iteratedDeriv 2 L.γ t₀) (iteratedDeriv 3 L.γ t₀)) := by
+  sorry
+
+
+/-- a point of the open `δ`-interval around `t₀` is at distance `< δ` -/
+theorem s2_dist_lt_of_mem_Ioo {t₀ δ t : ℝ} (ht : t ∈ Set.Ioo (t₀ - δ) (t₀ + δ)) : dist t t₀ < δ := by
+  sorry
+
+
+/-- a strict local minimum from the sign of the derivative: negative before `t₀`, positive after
+(within distance `δ`) gives strictly decreasing on `Ioc (t₀ − δ) t₀` and strictly increasing on
+`Ico t₀ (t₀ + δ)` -/
+theorem s2_local_min_of_sign {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {t₀ δ : ℝ}
+    (hsgn : ∀ t, dist t t₀ < δ → (t < t₀ → f' t < 0) ∧ (t₀ < t → 0 < f' t)) :
+    StrictAntiOn f (Set.Ioc (t₀ - δ) t₀) ∧ StrictMonoOn f (Set.Ico t₀ (t₀ + δ)) := by
+  sorry
+
+
+/-- mirror: a strict local maximum from the sign of the derivative -/
+theorem s2_local_max_of_sign {f f' : ℝ → ℝ} (hf : ∀ t, HasDerivAt f (f' t) t) {t₀ δ : ℝ}
+    (hsgn : ∀ t, dist t t₀ < δ → (t < t₀ → 0 < f' t) ∧ (t₀ < t → f' t < 0)) :
+    StrictMonoOn f (Set.Ioc (t₀ - δ) t₀) ∧ StrictAntiOn f (Set.Ico t₀ (t₀ + δ)) := by
+  sorry
+
+
+/-- at a strict local minimum of a continuous function (decreasing on `Ioc (t₀ − δ) t₀`, increasing on
+`Ico t₀ (t₀ + δ)`) every value slightly above `f t₀` is taken on both sides, as close to `t₀` as required
+(IVT on each side) -/
+theorem s2_arms_of_local_min {f : ℝ → ℝ} (hf : Continuous f) {t₀ δ : ℝ} (hδ : 0 < δ)
+    (hanti : StrictAntiOn f (Set.Ioc (t₀ - δ) t₀)) (hmono : StrictMonoOn f (Set.Ico t₀ (t₀ + δ)))
+    {δ' : ℝ} (hδ' : 0 < δ') :
+    ∃ η > 0, ∀ x ∈ Set.Ioo (f t₀) (f t₀ + η),
+      (∃ t₁ ∈ Set.Ioo (t₀ - δ') t₀, f t₁ = x) ∧ ∃ t₂ ∈ Set.Ioo t₀ (t₀ + δ'), f t₂ = x := by
+  sorry
+
+
+/-- mirror: at a strict local maximum every value slightly below `f t₀` is taken on both sides -/
+theorem s2_arms_of_local_max {f : ℝ → ℝ} (hf : Continuous f) {t₀ δ : ℝ} (hδ : 0 < δ)
+    (hmono : StrictMonoOn f (Set.Ioc (t₀ - δ) t₀)) (hanti : StrictAntiOn f (Set.Ico t₀ (t₀ + δ)))
+    {δ' : ℝ} (hδ' : 0 < δ') :
+    ∃ η > 0, ∀ x ∈ Set.Ioo (f t₀ - η) (f t₀),
+      (∃ t₁ ∈ Set.Ioo (t₀ - δ') t₀, f t₁ = x) ∧ ∃ t₂ ∈ Set.Ioo t₀ (t₀ + δ'), f t₂ = x := by
+  sorry
+
+
+end S2Helpers
+
+/-- LEAF (S2, Taylor): the two arms of a cusp at equal `x` — the later arm is the higher one iff `0 < cuspDisc`
+(FR-2).  Truth: with `γ'' = (a, c)`, `γ''' = (b, d)`, matched arms `t₁ < t₀ < t₂` satisfy
+`z(t₂) − z(t₁) = u³ (ad − bc)/(3a) + o(u³)`, whose sign is that of `a·det(γ'', γ''') = cuspDisc`
+(checked numerically, W3_U8R_PLAN.md §2). -/
+theorem cusp_arm_sign {i : Fin F.c} {t₀ : ℝ} (h : F.IsCusp (i, t₀)) :
+    ∃ δ > 0, ∀ t₁ t₂, t₀ - δ < t₁ → t₁ < t₀ → t₀ < t₂ → t₂ < t₀ + δ → xOf F i t₁ = xOf F i t₂ →
+      (zOf F i t₁ < zOf F i t₂ ↔ 0 < F.cuspDisc (i, t₀)) := by
+  sorry
+
+
+/-- LEAF (S2): at a left cusp `x` has a strict local minimum — strictly decreasing before, increasing after — and no
+other cusp lies nearby (`exists_no_cusp_near`, the arc monotonicity of §G on the two arcs meeting at the cusp). -/
+theorem leftCusp_x_local {i : Fin F.c} {t₀ : ℝ} (h : F.IsLeftCusp (i, t₀)) :
+    ∃ δ > 0, (∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), t ≠ t₀ → ¬ F.IsCusp (i, t)) ∧
+      StrictAntiOn (xOf F i) (Set.Ioc (t₀ - δ) t₀) ∧ StrictMonoOn (xOf F i) (Set.Ico t₀ (t₀ + δ)) := by
+  sorry
+
+
+/-- LEAF (S2): at a right cusp `x` has a strict local maximum. -/
+theorem rightCusp_x_local {i : Fin F.c} {t₀ : ℝ} (h : F.IsRightCusp (i, t₀)) :
+    ∃ δ > 0, (∀ t ∈ Set.Ioo (t₀ - δ) (t₀ + δ), t ≠ t₀ → ¬ F.IsCusp (i, t)) ∧
+      StrictMonoOn (xOf F i) (Set.Ioc (t₀ - δ) t₀) ∧ StrictAntiOn (xOf F i) (Set.Ico t₀ (t₀ + δ)) := by
+  sorry
+
+
+/-- LEAF (S2): just right of a left cusp's x-value both arms are present, as close to the cusp parameter as
+required (IVT on each monotone arm). -/
+theorem leftCusp_arms {i : Fin F.c} {t₀ : ℝ} (h : F.IsLeftCusp (i, t₀)) {δ' : ℝ} (hδ' : 0 < δ') :
+    ∃ η > 0, ∀ x ∈ Set.Ioo (xOf F i t₀) (xOf F i t₀ + η),
+      (∃ t₁ ∈ Set.Ioo (t₀ - δ') t₀, xOf F i t₁ = x) ∧ ∃ t₂ ∈ Set.Ioo t₀ (t₀ + δ'), xOf F i t₂ = x := by
+  sorry
+
+
+/-- LEAF (S2): just left of a right cusp's x-value both arms are present. -/
+theorem rightCusp_arms {i : Fin F.c} {t₀ : ℝ} (h : F.IsRightCusp (i, t₀)) {δ' : ℝ} (hδ' : 0 < δ') :
+    ∃ η > 0, ∀ x ∈ Set.Ioo (xOf F i t₀ - η) (xOf F i t₀),
+      (∃ t₁ ∈ Set.Ioo (t₀ - δ') t₀, xOf F i t₁ = x) ∧ ∃ t₂ ∈ Set.Ioo t₀ (t₀ + δ'), xOf F i t₂ = x := by
+  sorry
+
+
+/-! ### S3S5 helpers -/
+section S3S5Helpers
+
+/-- S3S5: the local graph bound at a regular parameter `r`: along the branch through `r`, `z − s·x` (with
+`s = slope r`) is `o(x − x₀)` — for every `ε > 0`, within `δ` of `r.2` its variation is at most
+`ε |x − x₀|` (both `hasDerivAt_iff_isLittleO` bounds, and `|x − x₀| ≥ |x'|/2 · |t − t₀|`). -/
+theorem s3s5_graph_bound (r : Param F.c) (ha : xvel F r.1 r.2 ≠ 0) {ε : ℝ} (hε : 0 < ε) :
+    ∃ δ > 0, ∀ t, |t - r.2| < δ →
+      |(zOf F r.1 t - F.slope r * xOf F r.1 t) - (zOf F r.1 r.2 - F.slope r * xOf F r.1 r.2)| ≤
+        ε * |xOf F r.1 t - xOf F r.1 r.2| := by
+  sorry
+
+
+/-- S3S5: a list whose real key is nonincreasing splits its `z ≤ ·` filter as the `z < ·` filter followed by
+the `· = z` filter. -/
+theorem s3s5_filter_split {α : Type*} (f : α → ℝ) (z : ℝ) (L : List α)
+    (hL : L.Pairwise (fun p q => f q ≤ f p)) :
+    L.filter (fun p => decide (z ≤ f p)) =
+      L.filter (fun p => decide (z < f p)) ++ L.filter (fun p => decide (f p = z)) := by
+  sorry
+
+
+/-- S3S5: a nodup list with exactly the two members `a ≠ b`, sorted by `R` with `¬ R b a`, is `[a, b]`. -/
+theorem s3s5_eq_pair {α : Type*} {R : α → α → Prop} {a b : α} (hab : a ≠ b) (hR : ¬ R b a) (L : List α)
+    (hnd : L.Nodup) (hmem : ∀ x, x ∈ L ↔ x = a ∨ x = b) (hpw : L.Pairwise R) : L = [a, b] := by
+  sorry
+
+
+/-- S3S5: over the x-value of a crossing `q`, the fibre points at the crossing's height are exactly its two
+branches (`no_triple`). -/
+theorem s3s5_mem_fibre_at_height (q : Cross F) (p : Param F.c) :
+    (p ∈ totalFibre F (evX F (Sum.inr q)) ∧ ht F p = evZ F (Sum.inr q)) ↔ p = q.1.1 ∨ p = q.1.2 := by
+  sorry
+
+
+/-- S3S5: the fibre points at the height of a crossing, in the "before" order, are `[over, under]`. -/
+theorem s3s5_filter_height_eq (q : Cross F) :
+    (fibreListBefore F (evX F (Sum.inr q))).filter (fun p => decide (ht F p = evZ F (Sum.inr q))) =
+      [q.1.1, q.1.2] := by
+  sorry
+
+
+/-- S3S5: a regular fibre point carries one strand before its x-value, with its direction bit. -/
+theorem s3s5_beforeBits_of_not_isCusp {p : Param F.c} (hp : ¬ F.IsCusp p) : beforeBits F p = [dirBit F p] := by
+  sorry
+
+
+/-- S3S5: the hybrid cut before a crossing event is `A ++ [dirBit over, dirBit under] ++ B` with
+`A.length + 1 = posOf` (the fibre sorted by height splits at the crossing's height, `s3s5_filter_split`, and
+the two points there are the two regular branches, over first). -/
+theorem s3s5_hybridCut_cross (q : Cross F) :
+    ∃ A B : Cuts, hybridCut F (evX F (Sum.inr q)) (evZ F (Sum.inr q)) =
+      A ++ dirBit F q.1.1 :: dirBit F q.1.2 :: B ∧ A.length + 1 = posOf F (Sum.inr q) := by
+  sorry
+
+
+/-- S3S5: two regular parameters have the same direction bit iff their x-velocities have the same sign. -/
+theorem s3s5_dirBit_eq_iff {o u : Param F.c} (ho : (F.vel o).1 ≠ 0) (hu : (F.vel u).1 ≠ 0) :
+    dirBit F o = dirBit F u ↔ 0 < (F.vel o).1 * (F.vel u).1 := by
+  sorry
+
+
+/-- S3S5: the column determines the event. -/
+theorem s3s5_evIdx_injective {e e' : Event F} (h : evIdx F e = evIdx F e') : e = e' := by
+  sorry
+
+
+/-- S3S5: a column whose letter is `σ` is the column of a crossing event. -/
+theorem s3s5_eventAt_eq_inr {k m : ℕ} (hk : k < (events F).length) (hℓ : letterAt (word F) k = .σ m) :
+    ∃ q : Cross F, eventAt F k = Sum.inr q := by
+  sorry
+
+
+end S3S5Helpers
+
+/-! #### S3 leaf: the crossing local model -/
+
+/-- LEAF (S3): near a double point the over branch (smaller slope, `IsOverUnder`) is ABOVE the under branch to the
+left of the crossing and BELOW it to the right (`z_over − z_under ≈ (s_over − s_under)(x − x₀)`; both branches
+regular, `vel_ne_zero_of_isDouble`; derivatives of the two graphs from `hasDerivAt_x` and the chain rule, or the
+mean value theorem). -/
+theorem cross_height_order {p q : Param F.c} (h : F.IsOverUnder p q) :
+    ∃ δ > 0, ∀ t₁ t₂, |t₁ - p.2| < δ → |t₂ - q.2| < δ → xOf F p.1 t₁ = xOf F q.1 t₂ →
+      (xOf F p.1 t₁ < (F.eval p).1 → zOf F q.1 t₂ < zOf F p.1 t₁) ∧
+      ((F.eval p).1 < xOf F p.1 t₁ → zOf F p.1 t₁ < zOf F q.1 t₂) := by
+  sorry
+
+
+/-! MERGER (W3S_Merged, 2026-09-14): S1b helpers and the 8 S1b leaves (skeleton L14910-14950) follow the S2/S3 leaves they cite. -/
+
+/-! ### S1b helpers -/
+section S1bHelpers
+
+/-! generic: uniformising radii over a finite list, local constancy, `Forall₂` over `flatMap` -/
+
+theorem s1b_uniform {α : Type*} (L : List α) (R : ℝ → α → Prop)
+    (hanti : ∀ ⦃δ δ' : ℝ⦄, 0 < δ → δ ≤ δ' → ∀ a, R δ' a → R δ a)
+    (h : ∀ a ∈ L, ∃ δ > 0, R δ a) : ∃ δ > 0, ∀ a ∈ L, R δ a := by
+  sorry
+
+
+theorem s1b_uniform_pairwise {α : Type*} (L : List α) (R : ℝ → α → α → Prop)
+    (hanti : ∀ ⦃δ δ' : ℝ⦄, 0 < δ → δ ≤ δ' → ∀ a b, R δ' a b → R δ a b)
+    (h : L.Pairwise (fun a b => ∃ δ > 0, R δ a b)) : ∃ δ > 0, L.Pairwise (R δ) := by
+  sorry
+
+
+/-- a function locally constant on a preconnected subset of `ℝ` is constant on it -/
+theorem s1b_const_of_locally_const_on {α : Type*} {s : Set ℝ} (hs : IsPreconnected s) {f : ℝ → α}
+    (hloc : ∀ x ∈ s, ∃ ε > 0, ∀ y ∈ s, |y - x| < ε → f y = f x) {x y : ℝ} (hx : x ∈ s) (hy : y ∈ s) :
+    f x = f y := by
+  sorry
+
+
+theorem s1b_forall₂_flatMap {α β γ : Type*} (R : β → γ → Prop) (P : List α) (f : α → List β)
+    (g : α → List γ) (h : ∀ p ∈ P, List.Forall₂ R (f p) (g p)) :
+    List.Forall₂ R (P.flatMap f) (P.flatMap g) := by
+  sorry
+
+
+theorem s1b_decide_pos_eq {u v : ℝ} (h : 0 < u * v) : decide (0 < u) = decide (0 < v) := by
+  sorry
+
+
+theorem s1b_entriesOf_eq_map (bits : Param F.c → Cuts) (P : List (Param F.c))
+    (h : ∀ p ∈ P, (bits p).length = 1) : entriesOf F bits P = P.map (fun p => (p, 0)) := by
+  sorry
+
+
+/-! periodicity of the coordinates and invariance under `SameParam` -/
+
+theorem s1b_xOf_add_int (i : Fin F.c) (t : ℝ) (n : ℤ) : xOf F i (t + n) = xOf F i t := by
+  sorry
+
+
+theorem s1b_zOf_add_int (i : Fin F.c) (t : ℝ) (n : ℤ) : zOf F i (t + n) = zOf F i t := by
+  sorry
+
+
+theorem s1b_xOf_of_sameParam {p q : Param F.c} (h : SameParam p q) : xOf F q.1 q.2 = xOf F p.1 p.2 := by
+  sorry
+
+
+theorem s1b_ht_of_sameParam {p q : Param F.c} (h : SameParam p q) : ht F q = ht F p := by
+  sorry
+
+
+theorem s1b_dirBit_of_sameParam {p q : Param F.c} (h : SameParam p q) : dirBit F q = dirBit F p := by
+  sorry
+
+
+theorem s1b_sameParam_fract (i : Fin F.c) (s : ℝ) : SameParam (i, Int.fract s) (i, s) := by
+  sorry
+
+
+theorem s1b_cont_of_sameParam {q q' : Param F.c} {a : Param F.c × ℕ} (h : Cont F q a)
+    (hqq : SameParam q q') : Cont F q' a := by
+  sorry
+
+
+theorem s1b_ht_eq_zOf (i : Fin F.c) (t : ℝ) : ht F (i, t) = zOf F i t := by
+  sorry
+
+
+theorem s1b_xOf_eq_of_mem_totalFibre {x : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x) :
+    xOf F p.1 p.2 = x := by
+  sorry
+
+
+theorem s1b_mem_totalFibre_fract {i : Fin F.c} {s x : ℝ} (hx : xOf F i s = x) :
+    (i, Int.fract s) ∈ totalFibre F x := by
+  sorry
+
+
+/-! the singular values are avoided just left / right of any `a`; the x-value of an event is singular -/
+
+theorem s1b_exists_eta_left (a : ℝ) : ∃ η > 0, ∀ x ∈ Set.Ioo (a - η) a, x ∉ singX F := by
+  sorry
+
+
+theorem s1b_exists_eta_right (a : ℝ) : ∃ η > 0, ∀ x ∈ Set.Ioo a (a + η), x ∉ singX F := by
+  sorry
+
+
+theorem s1b_evX_mem_singX (e : Event F) : evX F e ∈ singX F := by
+  sorry
+
+
+/-! strict height order: consequences -/
+
+theorem s1b_nodup_of_pairwise_lt {L : List (Param F.c)} (h : L.Pairwise (fun q q' => ht F q' < ht F q)) :
+    L.Nodup := by
+  sorry
+
+
+theorem s1b_beforeLE_of_lt {p q : Param F.c} (h : ht F q < ht F p) : beforeLE F p q = true := by
+  sorry
+
+
+theorem s1b_afterLE_of_lt {p q : Param F.c} (h : ht F q < ht F p) : afterLE F p q = true := by
+  sorry
+
+
+/-- over a non-singular `a` the "before" list is strictly descending in height -/
+theorem s1b_fibreListBefore_pairwise_lt {a : ℝ} (ha : a ∉ singX F) :
+    (fibreListBefore F a).Pairwise (fun q q' => ht F q' < ht F q) := by
+  sorry
+
+
+/-- `fibreListBefore x = L` identifies the fibre `Finset` with `L.toFinset` -/
+theorem s1b_fibreFinset_eq {x : ℝ} {L : List (Param F.c)} (hL : fibreListBefore F x = L) :
+    fibreFinset F x = L.toFinset := by
+  sorry
+
+
+/-- the position of the `j`-th element of the strictly descending fibre list is `j + 1` -/
+theorem s1b_posAt_eq_index {x : ℝ} {L : List (Param F.c)} (hL : fibreListBefore F x = L)
+    (hpair : L.Pairwise (fun q q' => ht F q' < ht F q)) {j : ℕ} (hj : j < L.length) :
+    posAt F x L[j] = j + 1 := by
+  sorry
+
+
+/-! the local model of one fibre point and its instances -/
+
+/-- The local model of a fibre point `p` over `a` at a nearby `x`: the list `l` of the parameters (within `δ` of
+`p.2`, top to bottom) of the strands of `p` over `x`; complete; each strand a `Cont`-continuation of the entry
+`(p, j)` carrying the entry's bit. -/
+def s1b_Local (p : Param F.c) (bits : Param F.c → Cuts) (δ x : ℝ) (l : List ℝ) : Prop :=
+  l.length = (bits p).length ∧
+  (∀ s ∈ l, |s - p.2| < δ ∧ xOf F p.1 s = x) ∧
+  (∀ t, |t - p.2| < δ → xOf F p.1 t = x → t ∈ l) ∧
+  l.Pairwise (fun s s' => zOf F p.1 s' < zOf F p.1 s) ∧
+  ∀ j (hj : j < l.length), Cont F (p.1, l[j]) (p, j) ∧ dirBit F (p.1, l[j]) = (bits p).getD j false
+
+/-- a continuation within `δ` (in the parameter) of its entry -/
+def s1b_ContNear (δ : ℝ) (q : Param F.c) (e : Param F.c × ℕ) : Prop :=
+  Cont F q e ∧ ∃ s, SameParam q (e.1.1, s) ∧ |s - e.1.2| < δ
+
+theorem s1b_bits_regular_before {p : Param F.c} (h : ¬ F.IsCusp p) : beforeBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s1b_bits_regular_after {p : Param F.c} (h : ¬ F.IsCusp p) : afterBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s1b_mem_Ioo_of_abs {t₀ δ u : ℝ} (h : |u - t₀| < δ) : u ∈ Set.Ioo (t₀ - δ) (t₀ + δ) := by
+  sorry
+
+
+theorem s1b_abs_of_mem_Ioo {t₀ δ u : ℝ} (h : u ∈ Set.Ioo (t₀ - δ) (t₀ + δ)) : |u - t₀| < δ := by
+  sorry
+
+
+/-- a strictly-between parameter of two parameters within `δ` of `t₀` is within `δ` of `t₀` and is not `t₀`
+when one of them is `t₀` -/
+theorem s1b_between_abs {t₀ δ s u : ℝ} (hs : |s - t₀| < δ) (hu1 : min s t₀ < u) (hu2 : u < max s t₀) :
+    |u - t₀| < δ ∧ u ≠ t₀ := by
+  sorry
+
+
+/-- the regular case: one strand, from `regular_local_graph` -/
+theorem s1b_local_regular (a : ℝ) (bits : Param F.c → Cuts)
+    {p : Param F.c} (hp : p ∈ totalFibre F a) (hreg : ¬ F.IsCusp p) (hbits : bits p = [dirBit F p]) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x ≠ a →
+      ∃ l, s1b_Local F p bits δ x l := by
+  sorry
+
+
+/-- a cusp with no strand on the given side -/
+theorem s1b_local_empty {i : Fin F.c} {t₀ δ x : ℝ} (bits : Param F.c → Cuts) (hbits : bits (i, t₀) = [])
+    (hno : ∀ t, |t - t₀| < δ → xOf F i t ≠ x) : s1b_Local F (i, t₀) bits δ x [] := by
+  sorry
+
+
+/-- a cusp with its two arms: the earlier arm `t₁ < t₀` carries the bit `b₁`, the later arm `t₂` the bit `!b₁`; the
+upper arm (`j = 0`) is the earlier one iff `cuspDisc < 0` (`cusp_arm_sign`). -/
+theorem s1b_local_two_arms {i : Fin F.c} {t₀ δ x : ℝ}
+    (hnc : ∀ t, |t - t₀| < δ → t ≠ t₀ → ¬ F.IsCusp (i, t))
+    (bits : Param F.c → Cuts) (b₁ : Bool)
+    (hbits : bits (i, t₀) = if F.cuspDisc (i, t₀) < 0 then [b₁, !b₁] else [!b₁, b₁])
+    {t₁ t₂ : ℝ} (h1 : t₀ - δ < t₁) (h1' : t₁ < t₀) (h2 : t₀ < t₂) (h2' : t₂ < t₀ + δ)
+    (hx1 : xOf F i t₁ = x) (hx2 : xOf F i t₂ = x)
+    (hsign : zOf F i t₁ < zOf F i t₂ ↔ 0 < F.cuspDisc (i, t₀))
+    (hdisc : F.cuspDisc (i, t₀) ≠ 0)
+    (hne : zOf F i t₁ ≠ zOf F i t₂)
+    (hv1 : dirBit F (i, t₁) = b₁) (hv2 : dirBit F (i, t₂) = !b₁)
+    (hcompl : ∀ t, |t - t₀| < δ → xOf F i t = x → t = t₁ ∨ t = t₂) :
+    ∃ l, s1b_Local F (i, t₀) bits δ x l := by
+  sorry
+
+
+/-- two arms of one cusp at equal height over a non-singular `x` would be a double point -/
+theorem s1b_arms_ne {i : Fin F.c} {t₁ t₂ x : ℝ} (hlt : t₁ < t₂) (hsep : t₂ - t₁ < 1)
+    (hx1 : xOf F i t₁ = x) (hx2 : xOf F i t₂ = x) (hxs : x ∉ singX F) : zOf F i t₁ ≠ zOf F i t₂ := by
+  sorry
+
+
+/-- a right cusp just LEFT of its x-value: two arms, the arriving (earlier) one rightward -/
+theorem s1b_local_rightCusp_before {a : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F a) (hr : F.IsRightCusp p) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x < a → x ∉ singX F →
+      ∃ l, s1b_Local F p (beforeBits F) δ x l := by
+  sorry
+
+
+/-- a left cusp just RIGHT of its x-value: two arms, the leaving (later) one rightward -/
+theorem s1b_local_leftCusp_after {a : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F a) (hl : F.IsLeftCusp p) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → a < x → x ∉ singX F →
+      ∃ l, s1b_Local F p (afterBits F) δ x l := by
+  sorry
+
+
+/-- a left cusp just LEFT of its x-value: no strand (`x` has a strict local minimum there) -/
+theorem s1b_local_leftCusp_before {a : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F a) (hl : F.IsLeftCusp p) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x < a → x ∉ singX F →
+      ∃ l, s1b_Local F p (beforeBits F) δ x l := by
+  sorry
+
+
+/-- a right cusp just RIGHT of its x-value: no strand (`x` has a strict local maximum there) -/
+theorem s1b_local_rightCusp_after {a : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F a) (hr : F.IsRightCusp p) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → a < x → x ∉ singX F →
+      ∃ l, s1b_Local F p (afterBits F) δ x l := by
+  sorry
+
+
+/-- two fibre points of different heights stay ordered nearby (continuity of `z`) -/
+theorem s1b_ord_of_lt {p p' : Param F.c} (h : ht F p' < ht F p) :
+    ∃ δ > 0, ∀ s s', |s - p.2| < δ → |s' - p'.2| < δ → zOf F p'.1 s' < zOf F p.1 s := by
+  sorry
+
+
+/-! the combination over the fibre: the list of continuations -/
+
+theorem s1b_combine (a : ℝ) (I : Set ℝ) (bits : Param F.c → Cuts) (P : List (Param F.c))
+    (hP : ∀ p, p ∈ P ↔ p ∈ totalFibre F a)
+    (hloc : ∀ p ∈ P, ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x ∈ I → x ∉ singX F →
+      ∃ l, s1b_Local F p bits δ x l)
+    (hord : P.Pairwise (fun p p' => ∃ δ > 0, ∀ s s', |s - p.2| < δ → |s' - p'.2| < δ →
+      xOf F p.1 s = xOf F p'.1 s' → xOf F p.1 s ∈ I → zOf F p'.1 s' < zOf F p.1 s)) :
+    ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x ∈ I → x ∉ singX F →
+      ∃ L : List (Param F.c), (∀ q, q ∈ L ↔ q ∈ totalFibre F x) ∧
+        L.Pairwise (fun q q' => ht F q' < ht F q) ∧
+        List.Forall₂ (s1b_ContNear F δ) L (entriesOf F bits P) ∧ L.map (dirBit F) = P.flatMap bits := by
+  sorry
+
+
+/-! the two sides -/
+
+/-- just LEFT of `a`: the fibre over `x` is the list of continuations of `entriesBefore a` -/
+theorem s1b_before (a : ℝ) : ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → x < a → x ∉ singX F →
+    ∃ L : List (Param F.c), (∀ q, q ∈ L ↔ q ∈ totalFibre F x) ∧ L.Pairwise (fun q q' => ht F q' < ht F q) ∧
+      List.Forall₂ (s1b_ContNear F δ) L (entriesBefore F a) ∧ L.map (dirBit F) = cutBefore F a := by
+  sorry
+
+
+/-- just RIGHT of `a`: the fibre over `x` is the list of continuations of `entriesAfter a` -/
+theorem s1b_after (a : ℝ) : ∃ δ₀ > 0, ∀ δ, 0 < δ → δ ≤ δ₀ → ∃ η > 0, ∀ x, |x - a| < η → a < x → x ∉ singX F →
+    ∃ L : List (Param F.c), (∀ q, q ∈ L ↔ q ∈ totalFibre F x) ∧ L.Pairwise (fun q q' => ht F q' < ht F q) ∧
+      List.Forall₂ (s1b_ContNear F δ) L (entriesAfter F a) ∧ L.map (dirBit F) = cutAfter F a := by
+  sorry
+
+
+/-! `posAt` and `colAt` along a regular arc -/
+
+/-- the column is constant along an arc whose x-values avoid the singular set (IVT) -/
+theorem s1b_colAt_const {i : Fin F.c} {t₀ t₁ : ℝ} (hreg : ∀ t ∈ Set.Icc t₀ t₁, xOf F i t ∉ singX F)
+    {s s' : ℝ} (hs : s ∈ Set.Icc t₀ t₁) (hs' : s' ∈ Set.Icc t₀ t₁) :
+    colAt F (xOf F i s) = colAt F (xOf F i s') := by
+  sorry
+
+
+/-- the strand through `(i, t')` over a nearby non-singular `x` continues the entry of `(i, fract t)`: the two
+positions agree (identification of the list indices through the continuation data) -/
+theorem s1b_posAt_side {i : Fin F.c} {t t' a δ : ℝ} (ha : xOf F i t = a) (has : a ∉ singX F)
+    (hkey : ∀ (p : Param F.c) (s : ℝ), p ∈ totalFibre F a → SameParam (i, Int.fract t') (p.1, s) →
+      |s - p.2| < δ → p = (i, Int.fract t))
+    {L : List (Param F.c)} (hmem : ∀ q, q ∈ L ↔ q ∈ totalFibre F (xOf F i t'))
+    (hpair : L.Pairwise (fun q q' => ht F q' < ht F q))
+    (hF : List.Forall₂ (s1b_ContNear F δ) L ((fibreListBefore F a).map (fun p => (p, 0)))) :
+    posAt F (xOf F i t') (i, Int.fract t') = posAt F a (i, Int.fract t) := by
+  sorry
+
+
+/-- along a regular arc off the singular values the position is locally constant in the parameter -/
+theorem s1b_posAt_locally_const {i : Fin F.c} {t₀ t₁ : ℝ} (hreg : ∀ t ∈ Set.Icc t₀ t₁, xOf F i t ∉ singX F) :
+    ∀ t ∈ Set.Icc t₀ t₁, ∃ ε > 0, ∀ t' ∈ Set.Icc t₀ t₁, |t' - t| < ε →
+      posAt F (xOf F i t') (i, Int.fract t') = posAt F (xOf F i t) (i, Int.fract t) := by
+  sorry
+
+
+/-! the corrected `dirBit_of_cont` statements (the leaves as stated are FALSE when `q` is a cusp; see the report) -/
+
+/-- the two bits of a right cusp before its x-value, in the shape of `s1b_local_two_arms` -/
+theorem s1b_beforeBits_rightCusp {p : Param F.c} (hr : F.IsRightCusp p) :
+    beforeBits F p = if F.cuspDisc p < 0 then [true, !true] else [!true, true] := by
+  sorry
+
+
+/-- the two bits of a left cusp after its x-value, in the shape of `s1b_local_two_arms` -/
+theorem s1b_afterBits_leftCusp {p : Param F.c} (hl : F.IsLeftCusp p) :
+    afterBits F p = if F.cuspDisc p < 0 then [false, !false] else [!false, false] := by
+  sorry
+
+
+/-- on the cusp-free arc from `s` towards the cusp `t₀`, `x'` keeps its sign up to a point as close to `t₀` as
+required (on the side of `s`) -/
+theorem s1b_xvel_side {i : Fin F.c} {s t₀ δ : ℝ} (hδ : 0 < δ) (hne : s ≠ t₀)
+    (hnc : ∀ u, min s t₀ < u → u < max s t₀ → ¬ F.IsCusp (i, u)) (hsc : ¬ F.IsCusp (i, s)) :
+    ∃ u, dist u t₀ < δ ∧ (s < t₀ → u < t₀) ∧ (t₀ < s → t₀ < u) ∧ 0 < xvel F i s * xvel F i u := by
+  sorry
+
+
+/-- the bit bookkeeping at a cusp entry: the arm on the side of `s` carries the bit determined by the side, and
+`Cont` fixes the index `j` -/
+theorem s1b_dirBit_of_cont_cusp_aux {i : Fin F.c} {t₀ s : ℝ} {j : ℕ} (bits : Param F.c → Cuts) (b₁ : Bool)
+    (hbits : bits (i, t₀) = if F.cuspDisc (i, t₀) < 0 then [b₁, !b₁] else [!b₁, b₁])
+    (hj : j < 2) (hcusp : s < t₀ ↔ (j = 0 ↔ F.cuspDisc (i, t₀) < 0))
+    (hsgn : dirBit F (i, s) = if s < t₀ then b₁ else !b₁) :
+    dirBit F (i, s) = (bits (i, t₀)).getD j false := by
+  sorry
+
+
+/-- the closed parameter interval between a regular `s` and a regular `t₀` with no cusp strictly between is
+cusp-free, so the direction bits agree -/
+theorem s1b_dirBit_eq_of_cuspFree {i : Fin F.c} {s t₀ : ℝ}
+    (hnc : ∀ u, min s t₀ < u → u < max s t₀ → ¬ F.IsCusp (i, u)) (hsc : ¬ F.IsCusp (i, s))
+    (htc : ¬ F.IsCusp (i, t₀)) : dirBit F (i, s) = dirBit F (i, t₀) := by
+  sorry
+
+
+/-- CORRECTED `dirBit_of_cont_before`: with the extra hypothesis `¬ F.IsCusp q` (automatic for a fibre point over
+a non-singular `x`) a continuation carries the bit of its entry.  Without it the leaf is false: `Cont F q a`
+allows `q` to be the cusp bounding the cusp-free arc adjacent to `a.1`, where `dirBit q = false`. -/
+theorem s1b_dirBit_of_cont_before {q : Param F.c} {a : Param F.c × ℕ} (hq : ¬ F.IsCusp q)
+    (hj : a.2 < (beforeBits F a.1).length) (h : Cont F q a) : dirBit F q = entryBit F (beforeBits F) a := by
+  sorry
+
+
+/-- CORRECTED `dirBit_of_cont_after` (same extra hypothesis). -/
+theorem s1b_dirBit_of_cont_after {q : Param F.c} {a : Param F.c × ℕ} (hq : ¬ F.IsCusp q)
+    (hj : a.2 < (afterBits F a.1).length) (h : Cont F q a) : dirBit F q = entryBit F (afterBits F) a := by
+  sorry
+
+
+end S1bHelpers
+
+/-- LEAF (S1, the left limit at the level of strand entries): just left of any `a`, the entries of the cut are, in
+order, continuations (`Cont`) of the entries of `entriesBefore a` (local models S2/S3 at the singular fibre points,
+`regular_local_graph` at the regular ones, `exists_eta_fibre_near`, order preserved by continuity of heights, the
+list identified through `fibreListBefore_eq_of`). -/
+theorem entriesBefore_left_limit (a : ℝ) :
+    ∃ η > 0, ∀ x ∈ Set.Ioo (a - η) a, (entriesBefore F x).length = (entriesBefore F a).length ∧
+      ∀ j < (entriesBefore F a).length,
+        Cont F ((entriesBefore F x).getD j (dfltP F, 0)).1 ((entriesBefore F a).getD j (dfltP F, 0)) := by
+  sorry
+
+
+/-- LEAF (S1, the right limit): just right of any `a`, the entries of the cut are continuations of `entriesAfter a`. -/
+theorem entriesAfter_right_limit (a : ℝ) :
+    ∃ η > 0, ∀ x ∈ Set.Ioo a (a + η), (entriesBefore F x).length = (entriesAfter F a).length ∧
+      ∀ j < (entriesAfter F a).length,
+        Cont F ((entriesBefore F x).getD j (dfltP F, 0)).1 ((entriesAfter F a).getD j (dfltP F, 0)) := by
+  sorry
+
+
+/-! `dirBit_of_cont_before` / `dirBit_of_cont_after` removed: false as stated (W3S_MERGE_REPORT.md §4; consumed by
+nothing), replaced by the proved `s1b_dirBit_of_cont_before` / `s1b_dirBit_of_cont_after` (extra hypothesis `¬ F.IsCusp q`). -/
+
+/-- LEAF (S1): the one-sided limits of the cut itself (bits), from the entry-level limits. -/
+theorem cutBefore_left_limit (a : ℝ) : ∃ η > 0, ∀ x ∈ Set.Ioo (a - η) a, cutBefore F x = cutBefore F a := by
+  sorry
+
+
+theorem cutAfter_right_limit (a : ℝ) : ∃ η > 0, ∀ x ∈ Set.Ioo a (a + η), cutBefore F x = cutAfter F a := by
+  sorry
+
+
+/-- LEAF (S1): between consecutive singular x-values the cut is constant (`IsLocallyConstant` on the preconnected
+gap, from the two limits and `cutAfter_eq_cutBefore`): the cut just right of `a` is the cut just left of `b`. -/
+theorem cutAfter_eq_cutBefore_of_gap {a b : ℝ} (hab : a < b) (hgap : ∀ x ∈ Set.Ioo a b, x ∉ singX F) :
+    cutAfter F a = cutBefore F b := by
+  sorry
+
+
+/-- LEAF (S1): along a regular arc whose x-values avoid the singular set, the position of the strand in the fibre
+and the column of its x-value are constant (the entry-level limits at each non-singular `x` give local constancy). -/
+theorem posAt_const_of_arc {i : Fin F.c} {t₀ t₁ : ℝ} (h01 : t₀ ≤ t₁)
+    (hreg : ∀ t ∈ Set.Icc t₀ t₁, xOf F i t ∉ singX F) :
+    posAt F (xOf F i t₀) (i, Int.fract t₀) = posAt F (xOf F i t₁) (i, Int.fract t₁) ∧
+      colAt F (xOf F i t₀) = colAt F (xOf F i t₁) := by
+  sorry
+
+
+/-! #### S4 leaves: events and the word -/
+
+/-! ### S4a helpers -/
+section S4aHelpers
+
+/-! Pure list combinatorics: splitting a filter of a sorted list, and identifying short lists by their members. -/
+
+/-- Splitting the filter of a `Pairwise R` list: if no `Q`-element precedes a `P`-element and `P`, `Q` are
+disjoint, the `P ∨ Q`-elements are the `P`-elements followed by the `Q`-elements. -/
+theorem s4a_filter_or_split {α : Type*} {R : α → α → Prop} {L : List α} (hL : L.Pairwise R)
+    (P Q : α → Bool) (hdisj : ∀ a, P a = true → Q a = false)
+    (hord : ∀ a b, R a b → Q a = true → P b = false) :
+    L.filter (fun a => P a || Q a) = L.filter P ++ L.filter Q := by
+  sorry
+
+
+/-- a nodup list whose members are exactly `{p}` is `[p]` -/
+theorem s4a_eq_singleton_of {α : Type*} {L : List α} (hnd : L.Nodup) {p : α}
+    (hmem : ∀ x, x ∈ L ↔ x = p) : L = [p] := by
+  sorry
+
+
+/-- a nodup list, `Pairwise R`, whose members are exactly `{o, u}` with `¬ R u o`, is `[o, u]` -/
+theorem s4a_eq_pair_of {α : Type*} {R : α → α → Prop} {L : List α} (hnd : L.Nodup) (hR : L.Pairwise R)
+    {o u : α} (hne : o ≠ u) (hmem : ∀ x, x ∈ L ↔ x = o ∨ x = u) (hnR : ¬ R u o) :
+    L = [o, u] := by
+  sorry
+
+
+/-! The sort keys and the bits. -/
+
+theorem s4a_ht_le_of_beforeLE {p q : Param F.c} (h : beforeLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s4a_ht_le_of_afterLE {p q : Param F.c} (h : afterLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s4a_beforeBits_of_regular {p : Param F.c} (h : ¬ F.IsCusp p) : beforeBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s4a_afterBits_of_regular {p : Param F.c} (h : ¬ F.IsCusp p) : afterBits F p = [dirBit F p] := by
+  sorry
+
+
+/-- over `x₀`, if every `P`-point of the fibre is regular, the "before" and "after" sublists of `P`-points agree
+(both are the `P`-points sorted by strictly descending height) -/
+theorem s4a_filter_before_eq_after (x₀ : ℝ) (P : Param F.c → Bool)
+    (hreg : ∀ p ∈ totalFibre F x₀, P p = true → ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q) :
+    (fibreListBefore F x₀).filter P = (fibreListAfter F x₀).filter P := by
+  sorry
+
+
+theorem s4a_flatMap_congr {α β : Type*} {f g : α → List β} :
+    ∀ {L : List α}, (∀ a ∈ L, f a = g a) → L.flatMap f = L.flatMap g
+  | [], _ => rfl
+  | a :: L, h => by
+    rw [List.flatMap_cons, List.flatMap_cons, h a (List.mem_cons_self ..),
+      s4a_flatMap_congr (fun b hb => h b (List.mem_cons_of_mem _ hb))]
+
+/-- the bits of the regular `P`-points: "before" = "after" -/
+theorem s4a_flatMap_before_eq_after (x₀ : ℝ) (P : Param F.c → Bool)
+    (hreg : ∀ p ∈ totalFibre F x₀, P p = true → ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q) :
+    ((fibreListBefore F x₀).filter P).flatMap (beforeBits F) =
+      ((fibreListAfter F x₀).filter P).flatMap (afterBits F) := by
+  sorry
+
+
+/-! Events: their points, the singular points, the strict order. -/
+
+theorem s4a_evPt_mem_totalFibre (e : Event F) : evPt F e ∈ totalFibre F (evX F e) := by
+  sorry
+
+
+theorem s4a_exists_event_of_singular {x₀ : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hs : F.IsCusp p ∨ ∃ q, F.IsDouble p q) : ∃ e : Event F, evX F e = x₀ ∧ evZ F e = ht F p := by
+  sorry
+
+
+/-- a fibre point over `x₀` at whose height no event of `x₀` sits is regular -/
+theorem s4a_regular_of_no_event {x₀ : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hno : ∀ e : Event F, evX F e = x₀ → evZ F e = ht F p → False) :
+    ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s4a_evKey_injective : Function.Injective (fun e : Event F => (evX F e, evZ F e)) := by
+  sorry
+
+
+theorem s4a_events_pairwise_lt :
+    (events F).Pairwise (fun e e' => toLex (evX F e, evZ F e) < toLex (evX F e', evZ F e')) := by
+  sorry
+
+
+theorem s4a_eventAt_eq {k : ℕ} (hk : k < (events F).length) : eventAt F k = (events F)[k] := by
+  sorry
+
+
+/-- the keys of the columns are strictly increasing -/
+theorem s4a_key_lt {k k' : ℕ} (hk : k < k') (hk' : k' < (events F).length) :
+    toLex (colX F k, colZ F k) < toLex (colX F k', colZ F k') := by
+  sorry
+
+
+/-- no event has its key strictly between the keys of two consecutive columns -/
+theorem s4a_no_event_between {k : ℕ} (hk : k + 1 < (events F).length) (e : Event F)
+    (h1 : toLex (colX F k, colZ F k) < toLex (evX F e, evZ F e))
+    (h2 : toLex (evX F e, evZ F e) < toLex (colX F (k + 1), colZ F (k + 1))) : False := by
+  sorry
+
+
+/-! The letter of an event and the points at the event's height. -/
+
+theorem s4a_letterOf_inl_left (c : F.Cusp) (hl : F.IsLeftCusp c.1) :
+    letterOf F (Sum.inl c) = Letter.l (posOf F (Sum.inl c)) (decide (0 < F.cuspDisc c.1)) := by
+  sorry
+
+
+theorem s4a_letterOf_inl_right (c : F.Cusp) (hl : ¬ F.IsLeftCusp c.1) :
+    letterOf F (Sum.inl c) = Letter.r (posOf F (Sum.inl c)) := by
+  sorry
+
+
+theorem s4a_idx_letterOf (e : Event F) : (letterOf F e).idx = posOf F e := by
+  sorry
+
+
+theorem s4a_letterOf_inr (q : Cross F) : letterOf F (Sum.inr q) = Letter.σ (posOf F (Sum.inr q)) := by
+  sorry
+
+
+/-- membership in the filter "height `= z₀`" of a list of the fibre points over `x₀` -/
+theorem s4a_mem_filter_eq_iff (x₀ z₀ : ℝ) (L : List (Param F.c)) (hL : ∀ p, p ∈ L ↔ p ∈ totalFibre F x₀)
+    (x : Param F.c) :
+    x ∈ L.filter (fun p => decide (ht F p = z₀)) ↔ x.2 ∈ Set.Ico (0:ℝ) 1 ∧ F.eval x = (x₀, z₀) := by
+  sorry
+
+
+/-- at a cusp event the only fibre point at the event's height is the cusp (`cusp_alone`) -/
+theorem s4a_filter_eq_cusp (c : F.Cusp) (L : List (Param F.c)) (hnd : L.Nodup)
+    (hL : ∀ p, p ∈ L ↔ p ∈ totalFibre F (evX F (Sum.inl c))) :
+    L.filter (fun p => decide (ht F p = evZ F (Sum.inl c))) = [c.1] := by
+  sorry
+
+
+/-- at a crossing event the fibre points at the event's height are the two branches (`no_triple`) -/
+theorem s4a_mem_filter_cross (q : Cross F) (L : List (Param F.c))
+    (hL : ∀ p, p ∈ L ↔ p ∈ totalFibre F (evX F (Sum.inr q))) (x : Param F.c) :
+    x ∈ L.filter (fun p => decide (ht F p = evZ F (Sum.inr q))) ↔ x = q.1.1 ∨ x = q.1.2 := by
+  sorry
+
+
+theorem s4a_before_filter_cross (q : Cross F) :
+    (fibreListBefore F (evX F (Sum.inr q))).filter (fun p => decide (ht F p = evZ F (Sum.inr q))) =
+      [q.1.1, q.1.2] := by
+  sorry
+
+
+theorem s4a_after_filter_cross (q : Cross F) :
+    (fibreListAfter F (evX F (Sum.inr q))).filter (fun p => decide (ht F p = evZ F (Sum.inr q))) =
+      [q.1.2, q.1.1] := by
+  sorry
+
+
+/-- the local action of an event's letter on the bits of the points at its height -/
+theorem s4a_core (e : Event F) :
+    (((fibreListBefore F (evX F e)).filter (fun p => decide (ht F p = evZ F e))).flatMap
+        (beforeBits F)).length = (letterOf F e).arity ∧
+    (letterOf F e).act (((fibreListBefore F (evX F e)).filter (fun p => decide (ht F p = evZ F e))).flatMap
+        (beforeBits F)) =
+      some (((fibreListAfter F (evX F e)).filter (fun p => decide (ht F p = evZ F e))).flatMap (afterBits F)) := by
+  sorry
+
+
+/-! Splitting the hybrid cuts at a height. -/
+
+/-- `filter (z₀ ≤ ht)` of the "before" list = `filter (z₀ < ht) ++ filter (ht = z₀)` -/
+theorem s4a_before_split_le (x₀ z₀ : ℝ) :
+    (fibreListBefore F x₀).filter (fun p => decide (z₀ ≤ ht F p)) =
+      (fibreListBefore F x₀).filter (fun p => decide (z₀ < ht F p)) ++
+        (fibreListBefore F x₀).filter (fun p => decide (ht F p = z₀)) := by
+  sorry
+
+
+/-- `filter (¬ z₀ < ht)` of the "after" list = `filter (ht = z₀) ++ filter (¬ z₀ ≤ ht)` -/
+theorem s4a_after_split_not_lt (x₀ z₀ : ℝ) :
+    (fibreListAfter F x₀).filter (fun p => !decide (z₀ < ht F p)) =
+      (fibreListAfter F x₀).filter (fun p => decide (ht F p = z₀)) ++
+        (fibreListAfter F x₀).filter (fun p => !decide (z₀ ≤ ht F p)) := by
+  sorry
+
+
+/-- a list equals its `P`-part followed by its `¬P`-part when the `P`-part precedes (for a `Pairwise R` list) -/
+theorem s4a_split_self {α : Type*} {R : α → α → Prop} {L : List α} (hL : L.Pairwise R) (P : α → Bool)
+    (hord : ∀ a b, R a b → (!P a) = true → P b = false) :
+    L = L.filter P ++ L.filter (fun a => !P a) := by
+  sorry
+
+
+end S4aHelpers
+
+/-- LEAF (S4): distinct events have distinct points (`cusp_alone` for a cusp against anything, `no_triple` and
+`not_swap_mem_crossingPairs` for two crossings). -/
+theorem evKey_injective : Function.Injective (fun e : Event F => (evX F e, evZ F e)) := by
+  sorry
+
+
+/-- LEAF (S4): the events are strictly sorted by `(x, z)` (`events_pairwise_le`, `events_nodup`, `evKey_injective`). -/
+theorem events_pairwise_lt :
+    (events F).Pairwise (fun e e' => toLex (evX F e, evZ F e) < toLex (evX F e', evZ F e')) := by
+  sorry
+
+
+/-- LEAF (S4): columns are ordered by x-value. -/
+theorem colX_mono {k k' : ℕ} (hk : k < k') (hk' : k' < (events F).length) : colX F k ≤ colX F k' := by
+  sorry
+
+
+/-- LEAF (S4): the point of an event lies in the fibre over its x-value. -/
+theorem evPt_mem_totalFibre (e : Event F) : evPt F e ∈ totalFibre F (evX F e) := by
+  sorry
+
+
+/-- LEAF (S4): every singular fibre point is the point of an event at that x-value (a cusp is `Sum.inl` of its
+representative; a double point lies in an over-first pair, `mem_crossingPairs_or_swap`). -/
+theorem exists_event_of_singular {x₀ : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (hs : F.IsCusp p ∨ ∃ q, F.IsDouble p q) : ∃ e : Event F, evX F e = x₀ ∧ evZ F e = ht F p := by
+  sorry
+
+
+/-- LEAF (S4, the local step): the letter of an event is typed at the hybrid cut before it and produces the
+hybrid cut after it (`step_prefix` with the prefix of length `posOf e − 1`; the points at height `evZ e` are
+exactly the event's point(s), over branch first in the "before" order and under branch first in the "after" order;
+`act` on `beforeBits`/`afterBits` of the event: `l` pushes `[d, !d] = afterBits`, `r` removes `beforeBits`
+(two distinct bits), `σ` swaps the two branches). -/
+theorem step_hybrid (e : Event F) :
+    (letterOf F e).step (hybridCut F (evX F e) (evZ F e)) = some (hybridCutStrict F (evX F e) (evZ F e)) := by
+  sorry
+
+
+/-- LEAF (S4): between two consecutive events of one x-value there are only regular strands (`before` = `after`
+bits and orders), so the cut after the lower event is the cut before the upper one. -/
+theorem hybridCutStrict_eq_hybridCut {k : ℕ} (hk : k + 1 < (events F).length) (hx : colX F k = colX F (k + 1)) :
+    hybridCutStrict F (colX F k) (colZ F k) = hybridCut F (colX F (k + 1)) (colZ F (k + 1)) := by
+  sorry
+
+
+/-- LEAF (S4): after the topmost event of an x-value the cut is `cutAfter`. -/
+theorem hybridCutStrict_eq_cutAfter {k : ℕ} (hk : k < (events F).length)
+    (htop : ∀ e : Event F, evX F e = colX F k → evZ F e ≤ colZ F k) :
+    hybridCutStrict F (colX F k) (colZ F k) = cutAfter F (colX F k) := by
+  sorry
+
+
+/-- LEAF (S4): before the lowest event of an x-value the cut is `cutBefore`. -/
+theorem hybridCut_eq_cutBefore {k : ℕ} (hk : k < (events F).length)
+    (hbot : ∀ e : Event F, evX F e = colX F k → colZ F k ≤ evZ F e) :
+    hybridCut F (colX F k) (colZ F k) = cutBefore F (colX F k) := by
+  sorry
+
+
+/-! ### S4b helpers -/
+section S4bHelpers
+
+/-! generic list lemmas: splitting a sorted list's filter, the filter of a sorted list is a prefix, singletons -/
+
+theorem s4b_filter_split {α : Type*} {R : α → α → Prop} {P Q S : α → Bool} (hS : ∀ a, S a = (P a || Q a))
+    (hPQ : ∀ a, P a = true → Q a = false) (hQP : ∀ a b, R a b → Q a = true → P b = true → False) :
+    ∀ L : List α, L.Pairwise R → L.filter S = L.filter P ++ L.filter Q := by
+  sorry
+
+
+theorem s4b_filter_length_iff {α : Type*} {R : α → α → Prop} {P : α → Bool}
+    (hdown : ∀ a b, R a b → P b = true → P a = true) :
+    ∀ (L : List α), L.Pairwise R → ∀ j (hj : j < L.length), (j < (L.filter P).length ↔ P L[j] = true) := by
+  sorry
+
+
+theorem s4b_eq_singleton_of_nodup {α : Type*} {l : List α} {a : α} (hnd : l.Nodup) (ha : a ∈ l)
+    (hall : ∀ b ∈ l, b = a) : l = [a] := by
+  sorry
+
+
+/-! events: columns, sortedness by index -/
+
+theorem s4b_colX_def (k : ℕ) : evX F (eventAt F k) = colX F k := by
+  sorry
+
+theorem s4b_colZ_def (k : ℕ) : evZ F (eventAt F k) = colZ F k := by
+  sorry
+
+
+theorem s4b_eventAt_eq {k : ℕ} (hk : k < (events F).length) : eventAt F k = (events F)[k] := by
+  sorry
+
+
+theorem s4b_evX_eq_colX (e : Event F) : evX F e = colX F (evIdx F e) := by
+  sorry
+
+theorem s4b_evZ_eq_colZ (e : Event F) : evZ F e = colZ F (evIdx F e) := by
+  sorry
+
+
+theorem s4b_events_length_pos : 0 < (events F).length := by
+  sorry
+
+
+theorem s4b_lex_lt {k k' : ℕ} (hkk : k < k') (hk' : k' < (events F).length) :
+    toLex (colX F k, colZ F k) < toLex (colX F k', colZ F k') := by
+  sorry
+
+
+theorem s4b_colX_le {k k' : ℕ} (hkk : k ≤ k') (hk' : k' < (events F).length) : colX F k ≤ colX F k' := by
+  sorry
+
+
+theorem s4b_colZ_lt {k k' : ℕ} (hkk : k < k') (hk' : k' < (events F).length) (hx : colX F k = colX F k') :
+    colZ F k < colZ F k' := by
+  sorry
+
+
+/-! every event's x-value is singular; every singular x-value is an event's -/
+
+theorem s4b_evX_mem_singX (e : Event F) : evX F e ∈ singX F := by
+  sorry
+
+
+theorem s4b_exists_event_of_mem_singX {x : ℝ} (hx : x ∈ singX F) : ∃ e : Event F, evX F e = x := by
+  sorry
+
+
+theorem s4b_notMem_singX_of_no_event {a b : ℝ} (h : ∀ e : Event F, ¬ (a < evX F e ∧ evX F e < b)) :
+    ∀ x ∈ Set.Ioo a b, x ∉ singX F := by
+  sorry
+
+
+theorem s4b_no_sing_between {k : ℕ} (hk : k + 1 < (events F).length) :
+    ∀ x ∈ Set.Ioo (colX F k) (colX F (k + 1)), x ∉ singX F := by
+  sorry
+
+
+/-! the "lowest / topmost event of its x-value" hypotheses of `hybridCut_eq_cutBefore` /
+`hybridCutStrict_eq_cutAfter`, and the cut between consecutive columns -/
+
+theorem s4b_hbot {k : ℕ} (hprev : ∀ j < k, colX F j ≠ colX F k) :
+    ∀ e : Event F, evX F e = colX F k → colZ F k ≤ evZ F e := by
+  sorry
+
+
+theorem s4b_htop {k : ℕ} (hk : k < (events F).length)
+    (hnext : ∀ j, k < j → j < (events F).length → colX F j ≠ colX F k) :
+    ∀ e : Event F, evX F e = colX F k → evZ F e ≤ colZ F k := by
+  sorry
+
+
+theorem s4b_hybridCutStrict_eq_next {k : ℕ} (hk : k + 1 < (events F).length) :
+    hybridCutStrict F (colX F k) (colZ F k) = hybridCut F (colX F (k + 1)) (colZ F (k + 1)) := by
+  sorry
+
+
+/-! compactness: the extreme x-values of the front are attained, at cusps (`x' = 0`), at left (min) / right (max)
+cusps (`rightCusp_x_local` / `leftCusp_x_local` would otherwise continue beyond the extremum) -/
+
+theorem s4b_eval_fract (i : Fin F.c) (t : ℝ) : F.eval (i, Int.fract t) = F.eval (i, t) := by
+  sorry
+
+
+theorem s4b_exists_xmin :
+    ∃ p : Param F.c, p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ ∀ q : Param F.c, (F.eval p).1 ≤ (F.eval q).1 := by
+  sorry
+
+
+theorem s4b_exists_xmax :
+    ∃ p : Param F.c, p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ ∀ q : Param F.c, (F.eval q).1 ≤ (F.eval p).1 := by
+  sorry
+
+
+theorem s4b_isCusp_of_min {i : Fin F.c} {t : ℝ} (hmin : ∀ q : Param F.c, (F.eval (i, t)).1 ≤ (F.eval q).1) :
+    F.IsCusp (i, t) := by
+  sorry
+
+
+theorem s4b_isCusp_of_max {i : Fin F.c} {t : ℝ} (hmax : ∀ q : Param F.c, (F.eval q).1 ≤ (F.eval (i, t)).1) :
+    F.IsCusp (i, t) := by
+  sorry
+
+
+theorem s4b_isLeftCusp_of_min {i : Fin F.c} {t : ℝ} (hmin : ∀ q : Param F.c, (F.eval (i, t)).1 ≤ (F.eval q).1) :
+    F.IsLeftCusp (i, t) := by
+  sorry
+
+
+theorem s4b_isRightCusp_of_max {i : Fin F.c} {t : ℝ} (hmax : ∀ q : Param F.c, (F.eval q).1 ≤ (F.eval (i, t)).1) :
+    F.IsRightCusp (i, t) := by
+  sorry
+
+
+/-! the letters of cusp events are cusp letters -/
+
+theorem s4b_isCrossing_letterOf_inl (c : F.Cusp) : (letterOf F (Sum.inl c)).isCrossing = false := by
+  sorry
+
+
+theorem s4b_isCrossing_letterOf_inr (q : Cross F) : (letterOf F (Sum.inr q)).isCrossing = true := by
+  sorry
+
+
+/-! the hybrid cut at a cusp event, split at the event: the strands strictly above, then `beforeBits c` -/
+
+theorem s4b_ht_le_of_beforeLE {p q : Param F.c} (h : beforeLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s4b_filter_le_split (x₀ z₀ : ℝ) :
+    (fibreListBefore F x₀).filter (fun p => decide (z₀ ≤ ht F p)) =
+      (fibreListBefore F x₀).filter (fun p => decide (z₀ < ht F p)) ++
+        (fibreListBefore F x₀).filter (fun p => decide (ht F p = z₀)) := by
+  sorry
+
+
+theorem s4b_filter_eq_cusp (c : F.Cusp) :
+    (fibreListBefore F (evX F (Sum.inl c))).filter (fun p => decide (ht F p = evZ F (Sum.inl c))) = [c.1] := by
+  sorry
+
+
+theorem s4b_hybridCut_drop_cusp (c : F.Cusp) :
+    ∃ R : Cuts, (hybridCut F (evX F (Sum.inl c)) (evZ F (Sum.inl c))).drop (posOf F (Sum.inl c) - 1) =
+      beforeBits F c.1 ++ R := by
+  sorry
+
+
+/-! the down count along the run: one contribution per event -/
+
+/-- the down-bit contribution of an event, read at the hybrid cut before it -/
+def s4b_dcont (e : Event F) : ℕ := (letterOf F e).downBit (hybridCut F (evX F e) (evZ F e))
+
+theorem s4b_downCountFrom_cons_of_step {a : Letter} {W : Word} {c c' : Cuts} (h : a.step c = some c') :
+    Word.downCountFrom (a :: W) c = a.downBit c + Word.downCountFrom W c' := by
+  sorry
+
+
+theorem s4b_downCountFrom_drop : ∀ m k : ℕ, k + m = (events F).length →
+    Word.downCountFrom ((word F).drop k) (hybridCut F (colX F k) (colZ F k)) =
+      (((events F).drop k).map (s4b_dcont F)).sum := by
+  sorry
+
+
+theorem s4b_dcont_inr (q : Cross F) : s4b_dcont F (Sum.inr q) = 0 := by
+  sorry
+
+
+theorem s4b_dcont_inl (c : F.Cusp) : s4b_dcont F (Sum.inl c) = if F.cuspDisc c.1 < 0 then 1 else 0 := by
+  sorry
+
+
+theorem s4b_sum_univ_toList (f : Event F → ℕ) : ((Finset.univ : Finset (Event F)).toList.map f).sum = ∑ e, f e := by
+  sorry
+
+
+theorem s4b_sum_cusp (g : Param F.c → ℕ) : ∑ c : F.Cusp, g c.1 = ∑ p ∈ F.cuspSet, g p := by
+  sorry
+
+
+theorem s4b_sum_dcont : ((events F).map (s4b_dcont F)).sum = F.downCount := by
+  sorry
+
+
+end S4bHelpers
+
+/-- LEAF (S4): nothing lies left of the first event: the minimum of `x` on the compact front is a cusp (`x' = 0`
+there, `no_vertical`), a left cusp, and every fibre point over that x-value is a left cusp (a regular point or a
+right cusp would continue to smaller `x`). -/
+theorem cutBefore_first : cutBefore F (colX F 0) = [] := by
+  sorry
+
+
+/-- LEAF (S4): nothing lies right of the last event. -/
+theorem cutAfter_last : cutAfter F (colX F ((events F).length - 1)) = [] := by
+  sorry
+
+
+/-- LEAF (S4, THE INVARIANT): the run of the word up to column `k` is the hybrid cut before the event of column
+`k` (induction on `k`: `cutBefore_first`, `step_hybrid`, then `hybridCutStrict_eq_hybridCut` at a tie or
+`hybridCutStrict_eq_cutAfter`, `cutAfter_eq_cutBefore_of_gap`, `hybridCut_eq_cutBefore` at a new x-value). -/
+theorem run_take_eq_hybrid {k : ℕ} (hk : k < (events F).length) :
+    Word.run ((word F).take k) [] = some (hybridCut F (colX F k) (colZ F k)) := by
+  sorry
+
+
+/-! MERGER (W3S_Merged, 2026-09-14): `word_closed`, `oword`, `oword_letters` (skeleton L14849-14857, section SweepDefs) are declared here, after `run_take_eq_hybrid`, because the proof of `word_closed` needs it (S4b). Text verbatim; same `F`. -/
+
+/-! #### S4 leaves: the word is closed; its counts -/
+
+/-- LEAF (S4): the word of the sweep is closed. -/
+theorem word_closed : (word F).Closed := by
+  sorry
+
+
+/-- the closed word of the sweep -/
+def oword : OWord := ⟨word F, word_closed F⟩
+
+@[simp] theorem oword_letters : (oword F).letters = word F := by
+  sorry
+
+
+/-- LEAF (S4): the word is nonempty (every circle has a cusp, `exists_two_cusps`). -/
+theorem word_ne_nil : (oword F).letters ≠ [] := by
+  sorry
+
+
+/-- LEAF (S4): one cusp letter per cusp (`List.countP_map`, `Fintype.card` of the `Sum`, `card_cusp`). -/
+theorem cuspCount_eq : (word F).cuspCount = F.cuspSet.card := by
+  sorry
+
+
+/-- LEAF (S4): the letter-traced down count is `D(F)`: at a left cusp `downBit (l m d) = 1 ↔ d = false ↔ cuspDisc < 0`;
+at a right cusp the bit at position `m` of the hybrid cut (`run_take_eq_hybrid`, `step_hybrid`) is the upper
+`beforeBit`, `true ↔ cuspDisc < 0`; crossings contribute `0` (`downCountFrom` unfolded along the run). -/
+theorem downCountSyn_eq : (oword F).downCountSyn = F.downCount := by
+  sorry
+
+
+/-- LEAF (S4/S6): for a non-singular `x` the cut of the word at the column of `x` is `cutBefore x`
+(`run_take_eq_hybrid`, `hybridCut_eq_cutBefore` / `hybridCutStrict_eq_cutAfter`, `cutAfter_eq_cutBefore_of_gap`;
+`[]` on both sides beyond the front). -/
+theorem cut_word_colAt {x : ℝ} (hx : x ∉ singX F) : cut (word F) (colAt F x) = cutBefore F x := by
+  sorry
+
+
+end SweepLeaves
+
+/-! #### S5. The slot map `Φ` and the local record clauses -/
+
+section SlotMap
+
+variable (F : SmoothFront)
+
+theorem frontOver_partner_eq_true_of {p : F.Occ} (h : ¬ frontOver F p = true) : frontOver F (partner F p) = true := by
+  sorry
+
+
+/-- the crossing (over-first pair) of an occurrence -/
+def crossOf (p : F.Occ) : Cross F :=
+  if h : frontOver F p = true then ⟨(p.1, (partner F p).1), over_pair_mem_crossingPairs F p h⟩
+  else ⟨((partner F p).1, p.1), by
+    have := over_pair_mem_crossingPairs F (partner F p) (frontOver_partner_eq_true_of F h)
+    rwa [partner_partner] at this⟩
+
+/-- THE SLOT OF AN OCCURRENCE: the descending strand `σSlotA` of its crossing's column if it is the over branch
+(smaller slope: above before, below after), the ascending strand `σSlotB` otherwise. -/
+def ΦFun (p : F.Occ) : Slot (word F) :=
+  if frontOver F p = true then
+    σSlotA (word_closed F) (evIdx_lt_length_word F (Sum.inr (crossOf F p))) (letterAt_word_cross F (crossOf F p))
+  else σSlotB (word_closed F) (evIdx_lt_length_word F (Sum.inr (crossOf F p))) (letterAt_word_cross F (crossOf F p))
+
+theorem isσSlot_ΦFun (p : F.Occ) : U2.IsσSlot (ΦFun F p) := by
+  sorry
+
+
+/-- the slot map into the `σ` slots -/
+def ΦSub (p : F.Occ) : {u : Slot (word F) // U2.IsσSlot u} := ⟨ΦFun F p, isσSlot_ΦFun F p⟩
+
+/-- LEAF (S5): `Φ` is a bijection onto the `σ` slots (injective: the column determines the crossing and the bit
+the branch; surjective: `U2.isσSlot_iff` — every `σ` slot is `σSlotA`/`σSlotB` of a crossing column, whose event is
+`Sum.inr q`, the image of `q`'s over/under branch). -/
+theorem ΦSub_bijective : Function.Bijective (ΦSub F) := by
+  sorry
+
+
+/-- the occurrence bijection of the record isomorphism -/
+def occEquiv : F.Occ ≃ {u : Slot (word F) // U2.IsσSlot u} := Equiv.ofBijective _ (ΦSub_bijective F)
+
+/-- LEAF (S5): the partner goes to the twin slot (`crossOf (partner p) = crossOf p`, `frontOver_partner`,
+`U2.σtwin_σSlotA/B`). -/
+theorem ΦFun_partner (p : F.Occ) : ΦFun F (partner F p) = U2.σtwin (word_closed F) (ΦFun F p) := by
+  sorry
+
+
+/-- LEAF (S5): over = descending (`U2.isDesc_σSlotA/B`). -/
+theorem isDesc_ΦFun (p : F.Occ) : U2.isDesc (ΦFun F p) = frontOver F p := by
+  sorry
+
+
+/-- LEAF (S5): the signs agree: `σsgn` is `+1` iff the two bits of the column agree (`U2.coe_σsgnCol`); by
+`run_take_eq_hybrid`/`step_hybrid` those bits are the direction bits of the over and under branches, and
+`frontSgn = +1` iff their x-velocities have the same sign (`crossSign_eq_one_iff_of_isOverUnder`,
+`crossSign_eq_sign`). -/
+theorem σsgn_ΦFun (p : F.Occ) : U2.σsgn (ΦFun F p) = frontSgn F p := by
+  sorry
+
+
+end SlotMap
+
+/-! #### S6. The traversal: cusp vertices, the slot of a strand at its cut line, jumps, `succ ↔ firstReturn` -/
+
+section Traversal
+
+variable (F : SmoothFront)
+
+theorem isSlot_cuspVertex (c : F.Cusp) : IsSlot (word F) (evIdx F (Sum.inl c), 0) := by
+  sorry
+
+
+/-- the cusp vertex slot of a cusp -/
+def cuspVertex (c : F.Cusp) : Slot (word F) := ⟨(evIdx F (Sum.inl c), 0), isSlot_cuspVertex F c⟩
+
+/-- a cusp on each circle -/
+def someCuspOn (i : Fin F.c) : F.Cusp := (circleCusps_nonempty F i).choose
+
+theorem someCuspOn_fst (i : Fin F.c) : (someCuspOn F i).1.1 = i := by
+  sorry
+
+
+/-- the component of a circle: the `next`-cycle of the cusp vertex of one of its cusps -/
+def circleComp (i : Fin F.c) : Fin (numComp (word_closed F)) :=
+  U2.slotComp (word_closed F) (cuspVertex F (someCuspOn F i))
+
+/-! ### S6a helpers -/
+section S6aHelpers
+
+/-! #### Generic list lemmas -/
+
+section S6aLists
+
+variable {α : Type*}
+
+/-- An upward-closed filter (along the sorting relation) is a prefix of the filter. -/
+theorem s6a_filter_split {R : α → α → Prop} {L : List α} (hL : L.Pairwise R) {P Q : α → Bool}
+    (hQP : ∀ a ∈ L, Q a = true → P a = true)
+    (hup : ∀ a ∈ L, ∀ b ∈ L, R a b → Q b = true → Q a = true) :
+    L.filter P = L.filter Q ++ L.filter (fun a => P a && !Q a) := by
+  sorry
+
+
+/-- A downward-closed filter is a suffix of the filter. -/
+theorem s6a_filter_split' {R : α → α → Prop} {L : List α} (hL : L.Pairwise R) {P Q : α → Bool}
+    (hQP : ∀ a ∈ L, Q a = true → P a = true)
+    (hdown : ∀ a ∈ L, ∀ b ∈ L, R a b → Q a = true → Q b = true) :
+    L.filter P = L.filter (fun a => P a && !Q a) ++ L.filter Q := by
+  sorry
+
+
+/-- In a sorted list, an upward-closed predicate holds exactly at the indices below the filter's length. -/
+theorem s6a_filter_getElem_iff {R : α → α → Prop} {L : List α} (hL : L.Pairwise R) {Q : α → Bool}
+    (hup : ∀ a ∈ L, ∀ b ∈ L, R a b → Q b = true → Q a = true) (j : ℕ) (hj : j < L.length) :
+    Q L[j] = true ↔ j < (L.filter Q).length := by
+  sorry
+
+
+/-- A sorted nodup list splits around an element of unique key: the elements of larger key, the element,
+the elements of smaller key. -/
+theorem s6a_sorted_split {R : α → α → Prop} {key : α → ℝ} (hkey : ∀ a b, R a b → key b ≤ key a)
+    {L : List α} (hL : L.Pairwise R) (hnd : L.Nodup) {q : α} (hq : q ∈ L)
+    (huniq : ∀ p ∈ L, key p = key q → p = q) :
+    L = L.filter (fun p => decide (key q < key p)) ++ q :: L.filter (fun p => decide (key p < key q)) := by
+  sorry
+
+
+/-- A filter of a nodup list with exactly one satisfying element is that singleton. -/
+theorem s6a_filter_eq_singleton {L : List α} (hnd : L.Nodup) {P : α → Bool} {q : α} (hq : q ∈ L)
+    (hPq : P q = true) (huniq : ∀ p ∈ L, P p = true → p = q) : L.filter P = [q] := by
+  sorry
+
+
+/-- A filter of a sorted nodup list with exactly two satisfying elements `o ≠ u`, `u` not before `o`, is `[o, u]`. -/
+theorem s6a_filter_eq_pair {R : α → α → Prop} {L : List α} (hL : L.Pairwise R) (hnd : L.Nodup) {P : α → Bool}
+    {o u : α} (hou : o ≠ u) (ho : o ∈ L) (hu : u ∈ L) (hPo : P o = true) (hPu : P u = true)
+    (huniq : ∀ p ∈ L, P p = true → p = o ∨ p = u) (hR : ¬ R u o) : L.filter P = [o, u] := by
+  sorry
+
+
+/-- `getElem` on a three-part concatenation. -/
+theorem s6a_getElem_A {β : Type*} (A E R : List β) (j : ℕ) (hj : j < A.length) :
+    (A ++ E ++ R)[j]'(by simp; omega) = A[j] := by
+  sorry
+
+
+theorem s6a_getElem_E {β : Type*} (A E R : List β) (j : ℕ) (hj : j < E.length) :
+    (A ++ E ++ R)[A.length + j]'(by simp; omega) = E[j] := by
+  sorry
+
+
+theorem s6a_getElem_R {β : Type*} (A E R : List β) (j : ℕ) (hj : j < R.length) :
+    (A ++ E ++ R)[A.length + E.length + j]'(by simp; omega) = R[j] := by
+  sorry
+
+
+theorem s6a_getElem_three {β : Type*} (A E R : List β) (J : ℕ) (hJ : J < (A ++ E ++ R).length) :
+    (∃ h : J < A.length, (A ++ E ++ R)[J] = A[J]'h) ∨
+    (∃ h : A.length ≤ J ∧ J < A.length + E.length, (A ++ E ++ R)[J] = E[J - A.length]'(by omega)) ∨
+    (∃ h : A.length + E.length ≤ J, (A ++ E ++ R)[J] = R[J - (A.length + E.length)]'(by simp at hJ; omega)) := by
+  sorry
+
+
+end S6aLists
+
+/-! #### Height order, events at one x-value, the window of an event -/
+
+section S6aFront
+
+variable (F : SmoothFront)
+
+theorem s6a_ht_of_beforeLE {p q : Param F.c} (h : beforeLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s6a_ht_of_afterLE {p q : Param F.c} (h : afterLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s6a_Lb_pairwise (x₀ : ℝ) : (fibreListBefore F x₀).Pairwise (fun p q => ht F q ≤ ht F p) := by
+  sorry
+
+
+theorem s6a_La_pairwise (x₀ : ℝ) : (fibreListAfter F x₀).Pairwise (fun p q => ht F q ≤ ht F p) := by
+  sorry
+
+
+theorem s6a_eval_eq_of_mem {x₀ : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x₀) (hq : q ∈ totalFibre F x₀)
+    (hz : ht F p = ht F q) : F.eval p = F.eval q := by
+  sorry
+
+
+theorem s6a_isDouble_of_mem {x₀ : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x₀) (hq : q ∈ totalFibre F x₀)
+    (hne : p ≠ q) (hz : ht F p = ht F q) : F.IsDouble p q := by
+  sorry
+
+
+theorem s6a_evX_mem_singX (e : Event F) : evX F e ∈ singX F := by
+  sorry
+
+
+theorem s6a_regular_of_no_event {x₀ : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (h : ∀ e : Event F, evX F e = x₀ → evZ F e ≠ ht F p) : ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s6a_bits_of_not_cusp {p : Param F.c} (h : ¬ F.IsCusp p) :
+    beforeBits F p = [dirBit F p] ∧ afterBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s6a_under_mem_totalFibre (q : Cross F) : q.1.2 ∈ totalFibre F (evX F (Sum.inr q)) := by
+  sorry
+
+
+theorem s6a_ht_under (q : Cross F) : ht F q.1.2 = evZ F (Sum.inr q) := by
+  sorry
+
+
+/-- The fibre points at the height of an event over its x-value are exactly the event's point(s). -/
+theorem s6a_ht_eq_evZ_iff {x₀ : ℝ} (e : Event F) (he : evX F e = x₀) {p : Param F.c} (hp : p ∈ totalFibre F x₀) :
+    ht F p = evZ F e ↔ p = evPt F e ∨ ∃ q : Cross F, e = Sum.inr q ∧ p = q.1.2 := by
+  sorry
+
+
+theorem s6a_filter_ht_cusp {x₀ : ℝ} (c : F.Cusp) (he : evX F (Sum.inl c) = x₀) :
+    (fibreListBefore F x₀).filter (fun p => decide (ht F p = evZ F (Sum.inl c))) = [c.1] ∧
+    (fibreListAfter F x₀).filter (fun p => decide (ht F p = evZ F (Sum.inl c))) = [c.1] := by
+  sorry
+
+
+theorem s6a_filter_ht_cross {x₀ : ℝ} (q : Cross F) (he : evX F (Sum.inr q) = x₀) :
+    (fibreListBefore F x₀).filter (fun p => decide (ht F p = evZ F (Sum.inr q))) = [q.1.1, q.1.2] ∧
+    (fibreListAfter F x₀).filter (fun p => decide (ht F p = evZ F (Sum.inr q))) = [q.1.2, q.1.1] := by
+  sorry
+
+
+/-- `entriesOf` facts -/
+theorem s6a_entriesOf_append (bits : Param F.c → Cuts) (L₁ L₂ : List (Param F.c)) :
+    entriesOf F bits (L₁ ++ L₂) = entriesOf F bits L₁ ++ entriesOf F bits L₂ := by
+  sorry
+
+
+theorem s6a_entriesOf_cons (bits : Param F.c → Cuts) (p : Param F.c) (L : List (Param F.c)) :
+    entriesOf F bits (p :: L) = (List.range (bits p).length).map (fun j => (p, j)) ++ entriesOf F bits L := by
+  sorry
+
+
+theorem s6a_entriesOf_nil (bits : Param F.c → Cuts) : entriesOf F bits [] = [] := by
+  sorry
+
+
+theorem s6a_length_entriesOf (bits : Param F.c → Cuts) (L : List (Param F.c)) :
+    (entriesOf F bits L).length = (L.flatMap bits).length := by
+  sorry
+
+
+theorem s6a_mem_entriesOf {bits : Param F.c → Cuts} {L : List (Param F.c)} {a : Param F.c × ℕ} :
+    a ∈ entriesOf F bits L ↔ a.1 ∈ L ∧ a.2 < (bits a.1).length := by
+  sorry
+
+
+theorem s6a_entriesOf_congr {bits bits' : Param F.c → Cuts} {L : List (Param F.c)}
+    (h : ∀ p ∈ L, (bits p).length = (bits' p).length) : entriesOf F bits L = entriesOf F bits' L := by
+  sorry
+
+
+theorem s6a_entriesOf_nodup (bits : Param F.c → Cuts) {L : List (Param F.c)} (hL : L.Nodup) :
+    (entriesOf F bits L).Nodup := by
+  sorry
+
+
+/-- The hybrid entries are nodup. -/
+theorem s6a_hybridEntriesP_nodup (x₀ : ℝ) (P : Param F.c → Bool) : (hybridEntriesP F x₀ P).Nodup := by
+  sorry
+
+
+/-- the "before" list at threshold `z ≤ ht`: the points strictly above, then the points at height `z` -/
+theorem s6a_Lb_filter_le (x₀ z : ℝ) :
+    (fibreListBefore F x₀).filter (fun p => decide (z ≤ ht F p)) =
+      (fibreListBefore F x₀).filter (fun p => decide (z < ht F p)) ++
+        (fibreListBefore F x₀).filter (fun p => decide (ht F p = z)) := by
+  sorry
+
+
+/-- the "after" list at threshold `¬ (z < ht)`: the points at height `z`, then the points strictly below -/
+theorem s6a_La_filter_not_lt (x₀ z : ℝ) :
+    (fibreListAfter F x₀).filter (fun p => !decide (z < ht F p)) =
+      (fibreListAfter F x₀).filter (fun p => decide (ht F p = z)) ++
+        (fibreListAfter F x₀).filter (fun p => decide (ht F p < z)) := by
+  sorry
+
+
+theorem s6a_La_filter_not_le (x₀ z : ℝ) :
+    (fibreListAfter F x₀).filter (fun p => !decide (z ≤ ht F p)) =
+      (fibreListAfter F x₀).filter (fun p => decide (ht F p < z)) := by
+  sorry
+
+
+/-- The hybrid entries are insensitive to moving the threshold across regular points only. -/
+theorem s6a_hybridEntriesP_eq (x₀ : ℝ) (P P' : Param F.c → Bool)
+    (hP : ∀ p q, ht F q ≤ ht F p → P q = true → P p = true)
+    (hP' : ∀ p q, ht F q ≤ ht F p → P' q = true → P' p = true)
+    (hPP' : ∀ p, P' p = true → P p = true)
+    (hreg : ∀ p ∈ totalFibre F x₀, P p = true → P' p = false → ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q) :
+    hybridEntriesP F x₀ P = hybridEntriesP F x₀ P' := by
+  sorry
+
+
+end S6aFront
+
+/-! #### The columns of one x-value -/
+
+section S6aColumns
+
+variable (F : SmoothFront) (x₀ : ℝ)
+
+/-- the first column at `x₀`: the number of events strictly left of `x₀` -/
+def s6a_k0 : ℕ := colAt F x₀
+/-- one past the last column at `x₀`: the number of events left of or at `x₀` -/
+def s6a_K : ℕ := ((events F).filter (fun e => decide (evX F e ≤ x₀))).length
+
+theorem s6a_eventAt_eq {k : ℕ} (hk : k < (events F).length) : eventAt F k = (events F)[k] := by
+  sorry
+
+
+theorem s6a_evX_lt_iff {k : ℕ} (hk : k < (events F).length) : evX F (eventAt F k) < x₀ ↔ k < s6a_k0 F x₀ := by
+  sorry
+
+
+theorem s6a_evX_le_iff {k : ℕ} (hk : k < (events F).length) : evX F (eventAt F k) ≤ x₀ ↔ k < s6a_K F x₀ := by
+  sorry
+
+
+theorem s6a_K_le : s6a_K F x₀ ≤ (events F).length := by
+  sorry
+
+theorem s6a_k0_le : s6a_k0 F x₀ ≤ (events F).length := by
+  sorry
+
+
+theorem s6a_k0_le_K : s6a_k0 F x₀ ≤ s6a_K F x₀ := by
+  sorry
+
+
+theorem s6a_colX_eq {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) : colX F k = x₀ := by
+  sorry
+
+
+theorem s6a_colZ_lt {k k' : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkk' : k < k') (hk'K : k' < s6a_K F x₀) :
+    colZ F k < colZ F k' := by
+  sorry
+
+
+theorem s6a_colZ_le {k k' : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkk' : k ≤ k') (hk'K : k' < s6a_K F x₀) :
+    colZ F k ≤ colZ F k' := by
+  sorry
+
+
+theorem s6a_evIdx_mem {e : Event F} (he : evX F e = x₀) : s6a_k0 F x₀ ≤ evIdx F e ∧ evIdx F e < s6a_K F x₀ := by
+  sorry
+
+
+theorem s6a_evZ_eq_colZ (e : Event F) : evZ F e = colZ F (evIdx F e) := by
+  sorry
+
+
+theorem s6a_colAt_eq_k0 {x : ℝ} (hx : x < x₀) (hgap : ∀ e : Event F, evX F e < x₀ → evX F e < x) :
+    colAt F x = s6a_k0 F x₀ := by
+  sorry
+
+
+theorem s6a_colAt_eq_K {x : ℝ} (hx : x₀ < x) (hgap : ∀ e : Event F, x₀ < evX F e → x < evX F e) :
+    colAt F x = s6a_K F x₀ := by
+  sorry
+
+
+theorem s6a_singX_gap : ∃ η > 0, ∀ y ∈ singX F, y ≠ x₀ → η ≤ |y - x₀| := by
+  sorry
+
+
+/-- a singular x-value carries an event -/
+theorem s6a_exists_event_of_mem_singX (hx : x₀ ∈ singX F) : ∃ e : Event F, evX F e = x₀ := by
+  sorry
+
+
+theorem s6a_k0_lt_K (hx : x₀ ∈ singX F) : s6a_k0 F x₀ < s6a_K F x₀ := by
+  sorry
+
+
+/-- the cut at a column of `x₀` -/
+theorem s6a_cut_eq {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) :
+    cut (word F) k = hybridCutP F x₀ (fun p => decide (colZ F k ≤ ht F p)) := by
+  sorry
+
+
+/-- the cut after a column of `x₀` -/
+theorem s6a_cut_succ_eq {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) :
+    cut (word F) (k + 1) = hybridCutP F x₀ (fun p => decide (colZ F k < ht F p)) := by
+  sorry
+
+
+end S6aColumns
+
+/-! #### The window of an event, the bit of an entry, the transport of an entry through a column -/
+
+section S6aWindow
+
+variable (F : SmoothFront) (x₀ : ℝ)
+
+/-- the entries strictly above an event (read "before") -/
+def s6a_A (e : Event F) : List (Param F.c × ℕ) :=
+  entriesOf F (beforeBits F) ((fibreListBefore F x₀).filter (fun p => decide (evZ F e < ht F p)))
+/-- the entries at the event's height, read "before" (the window the letter consumes) -/
+def s6a_Eb (e : Event F) : List (Param F.c × ℕ) :=
+  entriesOf F (beforeBits F) ((fibreListBefore F x₀).filter (fun p => decide (ht F p = evZ F e)))
+/-- the entries at the event's height, read "after" (the window the letter produces) -/
+def s6a_Ea (e : Event F) : List (Param F.c × ℕ) :=
+  entriesOf F (afterBits F) ((fibreListAfter F x₀).filter (fun p => decide (ht F p = evZ F e)))
+/-- the entries strictly below an event (read "after") -/
+def s6a_R (e : Event F) : List (Param F.c × ℕ) :=
+  entriesOf F (afterBits F) ((fibreListAfter F x₀).filter (fun p => decide (ht F p < evZ F e)))
+
+theorem s6a_hE_le (e : Event F) :
+    hybridEntriesP F x₀ (fun p => decide (evZ F e ≤ ht F p)) = s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e := by
+  sorry
+
+
+theorem s6a_hE_lt (e : Event F) :
+    hybridEntriesP F x₀ (fun p => decide (evZ F e < ht F p)) = s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e := by
+  sorry
+
+
+theorem s6a_idx_letterOf (e : Event F) : (letterOf F e).idx = posOf F e := by
+  sorry
+
+
+theorem s6a_idx_pos (e : Event F) : 1 ≤ (letterOf F e).idx := by
+  sorry
+
+
+theorem s6a_length_A (e : Event F) (he : evX F e = x₀) : (s6a_A F x₀ e).length = (letterOf F e).idx - 1 := by
+  sorry
+
+
+theorem s6a_length_Eb (e : Event F) (he : evX F e = x₀) : (s6a_Eb F x₀ e).length = (letterOf F e).arity := by
+  sorry
+
+
+theorem s6a_length_Ea (e : Event F) (he : evX F e = x₀) : (s6a_Ea F x₀ e).length = (letterOf F e).coarity := by
+  sorry
+
+
+theorem s6a_Eb_cusp (c : F.Cusp) (he : evX F (Sum.inl c) = x₀) :
+    s6a_Eb F x₀ (Sum.inl c) = (List.range (beforeBits F c.1).length).map (fun j => (c.1, j)) := by
+  sorry
+
+
+theorem s6a_Ea_cusp (c : F.Cusp) (he : evX F (Sum.inl c) = x₀) :
+    s6a_Ea F x₀ (Sum.inl c) = (List.range (afterBits F c.1).length).map (fun j => (c.1, j)) := by
+  sorry
+
+
+theorem s6a_Eb_cross (q : Cross F) (he : evX F (Sum.inr q) = x₀) :
+    s6a_Eb F x₀ (Sum.inr q) = [(q.1.1, 0), (q.1.2, 0)] := by
+  sorry
+
+
+theorem s6a_Ea_cross (q : Cross F) (he : evX F (Sum.inr q) = x₀) :
+    s6a_Ea F x₀ (Sum.inr q) = [(q.1.2, 0), (q.1.1, 0)] := by
+  sorry
+
+
+theorem s6a_ht_of_mem_Eb {e : Event F} {a : Param F.c × ℕ} (ha : a ∈ s6a_Eb F x₀ e) : ht F a.1 = evZ F e := by
+  sorry
+
+
+theorem s6a_ht_of_mem_Ea {e : Event F} {a : Param F.c × ℕ} (ha : a ∈ s6a_Ea F x₀ e) : ht F a.1 = evZ F e := by
+  sorry
+
+
+/-- the bits of a hybrid cut are the entry bits of its entries -/
+theorem s6a_hybridCutP_eq_map (P : Param F.c → Bool) :
+    hybridCutP F x₀ P =
+      (entriesOf F (beforeBits F) ((fibreListBefore F x₀).filter P)).map (entryBit F (beforeBits F)) ++
+      (entriesOf F (afterBits F) ((fibreListAfter F x₀).filter (fun p => !P p))).map (entryBit F (afterBits F)) := by
+  sorry
+
+
+theorem s6a_length_hybridCutP (P : Param F.c → Bool) :
+    (hybridCutP F x₀ P).length = (hybridEntriesP F x₀ P).length := by
+  sorry
+
+
+theorem s6a_bit_of_entry (P : Param F.c → Bool) {J : ℕ} (hJ : J < (hybridEntriesP F x₀ P).length) :
+    (hybridCutP F x₀ P).getD J false =
+      (if P (hybridEntriesP F x₀ P)[J].1 = true then entryBit F (beforeBits F) (hybridEntriesP F x₀ P)[J]
+       else entryBit F (afterBits F) (hybridEntriesP F x₀ P)[J]) := by
+  sorry
+
+
+/-- transport of an entry (not in the window) rightward through the column of `e` -/
+theorem s6a_step_right (e : Event F) (he : evX F e = x₀) {J : ℕ}
+    (hJ : J < (s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e).length)
+    (hne : ht F ((s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e)[J]).1 ≠ evZ F e) :
+    ∃ J', ∃ hJ' : J' < (s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e).length,
+      (s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e)[J'] = (s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e)[J] ∧
+      (letterOf F e).posR (J + 1) = some (J' + 1) ∧
+      (J + 1 < (letterOf F e).idx ∨ (letterOf F e).idx + (letterOf F e).arity ≤ J + 1) := by
+  sorry
+
+
+/-- transport of an entry (not in the window) leftward through the column of `e` -/
+theorem s6a_step_left (e : Event F) (he : evX F e = x₀) {J : ℕ}
+    (hJ : J < (s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e).length)
+    (hne : ht F ((s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e)[J]).1 ≠ evZ F e) :
+    ∃ J', ∃ hJ' : J' < (s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e).length,
+      (s6a_A F x₀ e ++ s6a_Eb F x₀ e ++ s6a_R F x₀ e)[J'] = (s6a_A F x₀ e ++ s6a_Ea F x₀ e ++ s6a_R F x₀ e)[J] ∧
+      (letterOf F e).posL (J + 1) = some (J' + 1) ∧
+      (J + 1 < (letterOf F e).idx ∨ (letterOf F e).idx + (letterOf F e).coarity ≤ J + 1) := by
+  sorry
+
+
+end S6aWindow
+
+/-! #### Slots that are not `σ` slots -/
+
+section S6aNotSigma
+
+variable (F : SmoothFront)
+
+theorem s6a_σSlotA_val {k m : ℕ} (hk : k < (word F).length) (hℓ : letterAt (word F) k = .σ m) :
+    (σSlotA (word_closed F) hk hℓ).1 = if bit (word F) k m then (k, m) else (k + 1, m + 1) := by
+  sorry
+
+
+theorem s6a_σSlotB_val {k m : ℕ} (hk : k < (word F).length) (hℓ : letterAt (word F) k = .σ m) :
+    (σSlotB (word_closed F) hk hℓ).1 = if bit (word F) k (m + 1) then (k, m + 1) else (k + 1, m) := by
+  sorry
+
+
+/-- a rightward cut slot outside the window of a crossing letter is not a `σ` slot -/
+theorem s6a_not_σ_right {u : Slot (word F)} {k p : ℕ} (hu : u.1 = (k, p)) (hp : p ≠ 0)
+    (hb : bit (word F) k p = true)
+    (h : p < (letterAt (word F) k).idx ∨ (letterAt (word F) k).idx + (letterAt (word F) k).arity ≤ p) :
+    ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- a leftward cut slot outside the window of a crossing letter is not a `σ` slot -/
+theorem s6a_not_σ_left {u : Slot (word F)} {k p : ℕ} (hu : u.1 = (k + 1, p)) (hp : p ≠ 0)
+    (hb : bit (word F) (k + 1) p = false)
+    (h : p < (letterAt (word F) k).idx ∨ (letterAt (word F) k).idx + (letterAt (word F) k).coarity ≤ p) :
+    ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- a cusp vertex is not a `σ` slot -/
+theorem s6a_not_σ_vertex {u : Slot (word F)} {k : ℕ} (hu : u.1 = (k, 0)) : ¬ U2.IsσSlot u := by
+  sorry
+
+
+end S6aNotSigma
+
+/-! #### The entries at each column of one x-value and the walk through its columns -/
+
+section S6aWalk
+
+variable (F : SmoothFront) (x₀ : ℝ)
+
+/-- the strand entries at the cut line `k` of `x₀`, for `k0 ≤ k ≤ K` -/
+def s6a_entCol (k : ℕ) : List (Param F.c × ℕ) :=
+  if k < s6a_K F x₀ then hybridEntriesP F x₀ (fun p => decide (colZ F k ≤ ht F p))
+  else hybridEntriesP F x₀ (fun p => decide (colZ F (s6a_K F x₀ - 1) < ht F p))
+
+theorem s6a_entCol_of_lt {k : ℕ} (hk : k < s6a_K F x₀) :
+    s6a_entCol F x₀ k = hybridEntriesP F x₀ (fun p => decide (colZ F k ≤ ht F p)) := by
+  sorry
+
+
+theorem s6a_entCol_K :
+    s6a_entCol F x₀ (s6a_K F x₀) = hybridEntriesP F x₀ (fun p => decide (colZ F (s6a_K F x₀ - 1) < ht F p)) := by
+  sorry
+
+
+theorem s6a_regular_between {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k + 1 < s6a_K F x₀) {p : Param F.c}
+    (hp : p ∈ totalFibre F x₀) (h1 : colZ F k < ht F p) (h2 : ht F p < colZ F (k + 1)) :
+    ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s6a_regular_below {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (h : ht F p < colZ F (s6a_k0 F x₀)) : ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s6a_regular_above (hx : x₀ ∈ singX F) {p : Param F.c} (hp : p ∈ totalFibre F x₀)
+    (h : colZ F (s6a_K F x₀ - 1) < ht F p) : ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s6a_entCol_succ {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) :
+    s6a_entCol F x₀ (k + 1) = hybridEntriesP F x₀ (fun p => decide (colZ F k < ht F p)) := by
+  sorry
+
+
+theorem s6a_entCol_k0 (hx : x₀ ∈ singX F) : s6a_entCol F x₀ (s6a_k0 F x₀) = entriesBefore F x₀ := by
+  sorry
+
+
+theorem s6a_entCol_K_eq (hx : x₀ ∈ singX F) : s6a_entCol F x₀ (s6a_K F x₀) = entriesAfter F x₀ := by
+  sorry
+
+
+/-- one `next` step rightward through column `k` for an entry outside the window -/
+theorem s6a_next_right_step {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) {J : ℕ} {a : Param F.c × ℕ}
+    (hJ : J < (s6a_entCol F x₀ k).length) (ha : (s6a_entCol F x₀ k)[J] = a)
+    (hne : ht F a.1 ≠ colZ F k)
+    (hbit : (if colZ F k ≤ ht F a.1 then entryBit F (beforeBits F) a else entryBit F (afterBits F) a) = true)
+    (u : Slot (word F)) (hu : u.1 = (k, J + 1)) :
+    ∃ J', ∃ hJ' : J' < (s6a_entCol F x₀ (k + 1)).length, (s6a_entCol F x₀ (k + 1))[J'] = a ∧
+      (next (word_closed F) u).1 = (k + 1, J' + 1) ∧ ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- one `next` step leftward through column `k` (from cut `k+1` to cut `k`) for an entry outside the window -/
+theorem s6a_next_left_step {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) {J : ℕ} {a : Param F.c × ℕ}
+    (hJ : J < (s6a_entCol F x₀ (k + 1)).length) (ha : (s6a_entCol F x₀ (k + 1))[J] = a)
+    (hne : ht F a.1 ≠ colZ F k)
+    (hbit : (if colZ F k < ht F a.1 then entryBit F (beforeBits F) a else entryBit F (afterBits F) a) = false)
+    (u : Slot (word F)) (hu : u.1 = (k + 1, J + 1)) :
+    ∃ J', ∃ hJ' : J' < (s6a_entCol F x₀ k).length, (s6a_entCol F x₀ k)[J'] = a ∧
+      (next (word_closed F) u).1 = (k, J' + 1) ∧ ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- the rightward walk through the columns `k, …, k + d - 1` of `x₀` -/
+theorem s6a_walk_right (a : Param F.c × ℕ) :
+    ∀ d k, s6a_k0 F x₀ ≤ k → k + d ≤ s6a_K F x₀ →
+      (∀ k', k ≤ k' → k' < k + d → ht F a.1 ≠ colZ F k') →
+      (∀ k', k ≤ k' → k' < k + d →
+        (if colZ F k' ≤ ht F a.1 then entryBit F (beforeBits F) a else entryBit F (afterBits F) a) = true) →
+      ∀ J (hJ : J < (s6a_entCol F x₀ k).length), (s6a_entCol F x₀ k)[J] = a →
+      ∀ u : Slot (word F), u.1 = (k, J + 1) →
+      ∃ J', ∃ hJ' : J' < (s6a_entCol F x₀ (k + d)).length, (s6a_entCol F x₀ (k + d))[J'] = a ∧
+        ((next (word_closed F))^[d] u).1 = (k + d, J' + 1) ∧
+        ∀ j < d, ¬ U2.IsσSlot ((next (word_closed F))^[j] u) := by
+  sorry
+
+
+/-- the leftward walk through the columns `k + d - 1, …, k` of `x₀` (from cut `k + d` to cut `k`) -/
+theorem s6a_walk_left (a : Param F.c × ℕ) :
+    ∀ d k, s6a_k0 F x₀ ≤ k → k + d ≤ s6a_K F x₀ →
+      (∀ k', k ≤ k' → k' < k + d → ht F a.1 ≠ colZ F k') →
+      (∀ k', k ≤ k' → k' < k + d →
+        (if colZ F k' < ht F a.1 then entryBit F (beforeBits F) a else entryBit F (afterBits F) a) = false) →
+      ∀ J (hJ : J < (s6a_entCol F x₀ (k + d)).length), (s6a_entCol F x₀ (k + d))[J] = a →
+      ∀ u : Slot (word F), u.1 = (k + d, J + 1) →
+      ∃ J', ∃ hJ' : J' < (s6a_entCol F x₀ k).length, (s6a_entCol F x₀ k)[J'] = a ∧
+        ((next (word_closed F))^[d] u).1 = (k, J' + 1) ∧
+        ∀ j < d, ¬ U2.IsσSlot ((next (word_closed F))^[j] u) := by
+  sorry
+
+
+end S6aWalk
+
+/-! #### Cusp-free intervals, injectivity of `x`, and the identification of a continued entry -/
+
+section S6aAnalytic
+
+variable (F : SmoothFront)
+
+/-- no cusp strictly between `s` and `t` -/
+def s6a_Free (i : Fin F.c) (s t : ℝ) : Prop :=
+  ∀ u, (s < u ∧ u < t) ∨ (t < u ∧ u < s) → ¬ F.IsCusp (i, u)
+
+theorem s6a_between_iff {s t u : ℝ} : (min s t < u ∧ u < max s t) ↔ (s < u ∧ u < t) ∨ (t < u ∧ u < s) := by
+  sorry
+
+
+theorem s6a_Free_of_minmax {i : Fin F.c} {s t : ℝ}
+    (h : ∀ u, min s t < u → u < max s t → ¬ F.IsCusp (i, u)) : s6a_Free F i s t := by
+  sorry
+
+
+theorem s6a_Free_symm {i : Fin F.c} {s t : ℝ} (h : s6a_Free F i s t) : s6a_Free F i t s := by
+  sorry
+
+
+/-- cusp-free intervals join across a non-cusp point (for any position of the point) -/
+theorem s6a_Free_join {i : Fin F.c} {s m t : ℝ} (h1 : s6a_Free F i s m) (h2 : s6a_Free F i m t)
+    (hm : ¬ F.IsCusp (i, m)) : s6a_Free F i s t := by
+  sorry
+
+
+/-- cusp-free intervals join across a point when both ends lie on the same side of it -/
+theorem s6a_Free_same_side {i : Fin F.c} {β τ σ : ℝ} (h1 : s6a_Free F i β τ) (h2 : s6a_Free F i τ σ)
+    (hside : β < τ ↔ σ < τ) : s6a_Free F i β σ := by
+  sorry
+
+
+theorem s6a_injOn_x {i : Fin F.c} {a b : ℝ} (hab : a ≤ b) (hfree : ∀ u, a < u → u < b → ¬ F.IsCusp (i, u)) :
+    Set.InjOn (xOf F i) (Set.Icc a b) := by
+  sorry
+
+
+theorem s6a_x_inj_of_Free {i : Fin F.c} {s t : ℝ} (hfree : s6a_Free F i s t) (h : xOf F i s = xOf F i t) :
+    s = t := by
+  sorry
+
+
+theorem s6a_xOf_add_int (i : Fin F.c) (t : ℝ) (n : ℤ) : xOf F i (t + n) = xOf F i t := by
+  sorry
+
+
+theorem s6a_isCusp_add_int (i : Fin F.c) (t : ℝ) (n : ℤ) : F.IsCusp (i, t + n) ↔ F.IsCusp (i, t) := by
+  sorry
+
+
+theorem s6a_Free_add_int {i : Fin F.c} {s t : ℝ} (h : s6a_Free F i s t) (n : ℤ) :
+    s6a_Free F i (s + n) (t + n) := by
+  sorry
+
+
+/-- START core: the continuation of an entry `α` over `x(t)` by the strand at the lifted parameter
+`s = t' + n` (no cusp between `s` and `α`, `t'` regular, no cusp between `t` and `t'`) forces `α = t + n`. -/
+theorem s6a_cont_start_core {i : Fin F.c} {t t' s α : ℝ} (hfree : s6a_Free F i t t') (ht' : ¬ F.IsCusp (i, t'))
+    (hα : xOf F i α = xOf F i t) {n : ℤ} (hs : s = t' + n) (hfree' : s6a_Free F i s α) : α = t + n := by
+  sorry
+
+
+/-- END core: the lifted parameter `s` of a strand over `x(t')` continuing the entry at `t + n` is `t' + n`
+(when `t` is regular, or when `s` and `t'` lie on the same side of the cusp `t`). -/
+theorem s6a_cont_end_core {i : Fin F.c} {t t' s : ℝ} {n : ℤ} (hfree : s6a_Free F i t t')
+    (hx : xOf F i s = xOf F i t') (hfree' : s6a_Free F i s (t + n))
+    (hside : ¬ F.IsCusp (i, t) ∨ (s < t + n ↔ t' < t)) : s = t' + n := by
+  sorry
+
+
+/-- START: the entry of the cut at `x(t)` continued (`Cont`) by the strand `(i, fract t')` is an entry of
+`(i, fract t)`; for a cusp its arm index is read off the side of `t'`. -/
+theorem s6a_cont_start {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') (ht' : ¬ F.IsCusp (i, t'))
+    {a : Param F.c × ℕ} (ha : a.1 ∈ totalFibre F (xOf F i t)) (hc : Cont F (i, Int.fract t') a) :
+    a.1 = (i, Int.fract t) ∧ (F.IsCusp a.1 → (t' < t ↔ (a.2 = 0 ↔ F.cuspDisc a.1 < 0))) := by
+  sorry
+
+
+/-- END: the strand of the cut at `x(t')` continuing (`Cont`) an entry of `(i, fract t)` is `(i, fract t')`. -/
+theorem s6a_cont_end {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') {a : Param F.c × ℕ}
+    (ha : a.1 = (i, Int.fract t)) {q : Param F.c} (hq : q ∈ totalFibre F (xOf F i t')) (hc : Cont F q a)
+    (hside : ¬ F.IsCusp (i, t) ∨ ((a.2 = 0 ↔ F.cuspDisc a.1 < 0) ↔ t' < t)) :
+    q = (i, Int.fract t') := by
+  sorry
+
+
+/-- just left of a regular rightward point `x` is smaller, just right it is larger -/
+theorem s6a_side_pos {i : Fin F.c} {t : ℝ} (h : 0 < xvel F i t) :
+    ∃ δ > 0, ∀ s, dist s t < δ → (s < t → xOf F i s < xOf F i t) ∧ (t < s → xOf F i t < xOf F i s) := by
+  sorry
+
+
+theorem s6a_side_neg {i : Fin F.c} {t : ℝ} (h : xvel F i t < 0) :
+    ∃ δ > 0, ∀ s, dist s t < δ → (s < t → xOf F i t < xOf F i s) ∧ (t < s → xOf F i s < xOf F i t) := by
+  sorry
+
+
+theorem s6a_x_cont {i : Fin F.c} (t : ℝ) {η : ℝ} (hη : 0 < η) :
+    ∃ δ > 0, ∀ s, dist s t < δ → |xOf F i s - xOf F i t| < η := by
+  sorry
+
+
+theorem s6a_no_cusp_near {i : Fin F.c} {t : ℝ} (h : ¬ F.IsCusp (i, t)) :
+    ∃ δ > 0, ∀ s, dist s t < δ → ¬ F.IsCusp (i, s) := by
+  sorry
+
+
+theorem s6a_eval_rep (i : Fin F.c) (t : ℝ) : F.eval (i, Int.fract t) = F.eval (i, t) := by
+  sorry
+
+
+theorem s6a_rep_mem_totalFibre (i : Fin F.c) (t : ℝ) : (i, Int.fract t) ∈ totalFibre F (xOf F i t) := by
+  sorry
+
+
+theorem s6a_regular_rep {i : Fin F.c} {t : ℝ} (hc : ¬ F.IsCusp (i, t)) (hd : ∀ q, ¬ F.IsDouble (i, t) q) :
+    ¬ F.IsCusp (i, Int.fract t) ∧ ∀ q, ¬ F.IsDouble (i, Int.fract t) q := by
+  sorry
+
+
+theorem s6a_xvel_rep (i : Fin F.c) (t : ℝ) : xvel F i (Int.fract t) = xvel F i t := by
+  sorry
+
+
+theorem s6a_dirBit_rep (i : Fin F.c) (t : ℝ) : dirBit F (i, Int.fract t) = decide (0 < xvel F i t) := by
+  sorry
+
+
+theorem s6a_card_filter_eq (x : ℝ) (P : Param F.c → Prop) [DecidablePred P] :
+    ((fibreFinset F x).filter P).card = ((fibreListBefore F x).filter (fun p => decide (P p))).length := by
+  sorry
+
+
+/-- the position of a fibre point at a non-singular `x` is one plus its index in the sorted fibre list -/
+theorem s6a_posAt_eq {x : ℝ} (hx : x ∉ singX F) {J : ℕ} (hJ : J < (fibreListBefore F x).length) :
+    posAt F x (fibreListBefore F x)[J] = J + 1 := by
+  sorry
+
+
+theorem s6a_entriesBefore_length {x : ℝ} (hx : x ∉ singX F) :
+    (entriesBefore F x).length = (fibreListBefore F x).length := by
+  sorry
+
+
+theorem s6a_entriesBefore_getD {x : ℝ} (hx : x ∉ singX F) {J : ℕ} (hJ : J < (fibreListBefore F x).length) :
+    (entriesBefore F x).getD J (dfltP F, 0) = ((fibreListBefore F x)[J], 0) := by
+  sorry
+
+
+/-- a regular fibre point is at no event's height -/
+theorem s6a_ht_ne_colZ_of_regular {x₀ : ℝ} {q : Param F.c} (hq : q ∈ totalFibre F x₀) (hc : ¬ F.IsCusp q)
+    (hd : ∀ r, ¬ F.IsDouble q r) {k : ℕ} (hk0 : s6a_k0 F x₀ ≤ k) (hkK : k < s6a_K F x₀) :
+    ht F q ≠ colZ F k := by
+  sorry
+
+
+end S6aAnalytic
+
+/-! #### From the one-sided entry limits to positions: the START and END of a jump -/
+
+section S6aStartEnd
+
+variable (F : SmoothFront)
+
+theorem s6a_Free_of_near {i : Fin F.c} {t t' δ : ℝ} (hnc : ∀ s, dist s t < δ → ¬ F.IsCusp (i, s))
+    (hε : |t' - t| < δ) : s6a_Free F i t t' := by
+  sorry
+
+
+theorem s6a_Free_of_local {i : Fin F.c} {t t' δ : ℝ}
+    (hnc : ∀ s ∈ Set.Ioo (t - δ) (t + δ), s ≠ t → ¬ F.IsCusp (i, s)) (hε : |t' - t| < δ) :
+    s6a_Free F i t t' := by
+  sorry
+
+
+theorem s6a_dist_sub (t ε' : ℝ) (h : 0 < ε') : dist (t - ε') t = ε' := by
+  sorry
+
+
+theorem s6a_dist_add (t ε' : ℝ) (h : 0 < ε') : dist (t + ε') t = ε' := by
+  sorry
+
+
+theorem s6a_entryBit_regular {q : Param F.c} (hq : ¬ F.IsCusp q) :
+    entryBit F (beforeBits F) (q, 0) = dirBit F q ∧ entryBit F (afterBits F) (q, 0) = dirBit F q := by
+  sorry
+
+
+/-- the columns of nearby non-singular x-values -/
+theorem s6a_colAt_near (x₀ : ℝ) {η : ℝ} (hgap : ∀ y ∈ singX F, y ≠ x₀ → η ≤ |y - x₀|) {x : ℝ}
+    (hx : |x - x₀| < η) :
+    x ≠ x₀ → x ∉ singX F ∧ (x < x₀ → colAt F x = s6a_k0 F x₀) ∧ (x₀ < x → colAt F x = s6a_K F x₀) := by
+  sorry
+
+
+/-- START from the left of `x₀ = x(t)`: the strand `(i, fract t')` at `x' = x(t') < x₀` sits at the position
+`J + 1` where `J` is the index of an entry of `(i, fract t)` in `entriesBefore x₀`. -/
+theorem s6a_start_before {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') (ht' : ¬ F.IsCusp (i, t'))
+    (hx' : xOf F i t' ∉ singX F)
+    (hlim : (entriesBefore F (xOf F i t')).length = (entriesBefore F (xOf F i t)).length ∧
+      ∀ j < (entriesBefore F (xOf F i t)).length,
+        Cont F ((entriesBefore F (xOf F i t')).getD j (dfltP F, 0)).1
+          ((entriesBefore F (xOf F i t)).getD j (dfltP F, 0))) :
+    ∃ J, ∃ hJ : J < (entriesBefore F (xOf F i t)).length,
+      ((entriesBefore F (xOf F i t))[J]).1 = (i, Int.fract t) ∧
+      (F.IsCusp (i, Int.fract t) →
+        (t' < t ↔ (((entriesBefore F (xOf F i t))[J]).2 = 0 ↔ F.cuspDisc (i, Int.fract t) < 0))) ∧
+      posAt F (xOf F i t') (i, Int.fract t') = J + 1 := by
+  sorry
+
+
+/-- START from the right of `x₀ = x(t)`: the strand `(i, fract t')` at `x' = x(t') > x₀`. -/
+theorem s6a_start_after {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') (ht' : ¬ F.IsCusp (i, t'))
+    (hx' : xOf F i t' ∉ singX F)
+    (hlim : (entriesBefore F (xOf F i t')).length = (entriesAfter F (xOf F i t)).length ∧
+      ∀ j < (entriesAfter F (xOf F i t)).length,
+        Cont F ((entriesBefore F (xOf F i t')).getD j (dfltP F, 0)).1
+          ((entriesAfter F (xOf F i t)).getD j (dfltP F, 0))) :
+    ∃ J, ∃ hJ : J < (entriesAfter F (xOf F i t)).length,
+      ((entriesAfter F (xOf F i t))[J]).1 = (i, Int.fract t) ∧
+      (F.IsCusp (i, Int.fract t) →
+        (t' < t ↔ (((entriesAfter F (xOf F i t))[J]).2 = 0 ↔ F.cuspDisc (i, Int.fract t) < 0))) ∧
+      posAt F (xOf F i t') (i, Int.fract t') = J + 1 := by
+  sorry
+
+
+/-- END to the left of `x₀ = x(t)`: the entry `a` of `(i, fract t)` at index `J` of `entriesBefore x₀` is
+continued at `x' = x(t') < x₀` by the strand `(i, fract t')`, at position `J + 1`. -/
+theorem s6a_end_before {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') (hx' : xOf F i t' ∉ singX F)
+    (hlim : (entriesBefore F (xOf F i t')).length = (entriesBefore F (xOf F i t)).length ∧
+      ∀ j < (entriesBefore F (xOf F i t)).length,
+        Cont F ((entriesBefore F (xOf F i t')).getD j (dfltP F, 0)).1
+          ((entriesBefore F (xOf F i t)).getD j (dfltP F, 0)))
+    {J : ℕ} (hJ : J < (entriesBefore F (xOf F i t)).length)
+    (ha : ((entriesBefore F (xOf F i t))[J]).1 = (i, Int.fract t))
+    (hside : ¬ F.IsCusp (i, t) ∨
+      ((((entriesBefore F (xOf F i t))[J]).2 = 0 ↔ F.cuspDisc ((entriesBefore F (xOf F i t))[J]).1 < 0) ↔ t' < t)) :
+    posAt F (xOf F i t') (i, Int.fract t') = J + 1 := by
+  sorry
+
+
+/-- END to the right of `x₀ = x(t)`: the entry `a` of `(i, fract t)` at index `J` of `entriesAfter x₀`. -/
+theorem s6a_end_after {i : Fin F.c} {t t' : ℝ} (hfree : s6a_Free F i t t') (hx' : xOf F i t' ∉ singX F)
+    (hlim : (entriesBefore F (xOf F i t')).length = (entriesAfter F (xOf F i t)).length ∧
+      ∀ j < (entriesAfter F (xOf F i t)).length,
+        Cont F ((entriesBefore F (xOf F i t')).getD j (dfltP F, 0)).1
+          ((entriesAfter F (xOf F i t)).getD j (dfltP F, 0)))
+    {J : ℕ} (hJ : J < (entriesAfter F (xOf F i t)).length)
+    (ha : ((entriesAfter F (xOf F i t))[J]).1 = (i, Int.fract t))
+    (hside : ¬ F.IsCusp (i, t) ∨
+      ((((entriesAfter F (xOf F i t))[J]).2 = 0 ↔ F.cuspDisc ((entriesAfter F (xOf F i t))[J]).1 < 0) ↔ t' < t)) :
+    posAt F (xOf F i t') (i, Int.fract t') = J + 1 := by
+  sorry
+
+
+end S6aStartEnd
+
+/-! #### Passing a cusp vertex -/
+
+section S6aCusp
+
+variable (F : SmoothFront)
+
+theorem s6a_afterBits_left {p : Param F.c} (hl : F.IsLeftCusp p) :
+    afterBits F p = if 0 < F.cuspDisc p then [true, false] else [false, true] := by
+  sorry
+
+
+theorem s6a_beforeBits_right {p : Param F.c} (hr : F.IsRightCusp p) :
+    beforeBits F p = if F.cuspDisc p < 0 then [true, false] else [false, true] := by
+  sorry
+
+
+theorem s6a_afterBits_left_getD {p : Param F.c} (hl : F.IsLeftCusp p) (j : ℕ) (hj : j < 2) :
+    (afterBits F p).getD j false = decide (j = 0 ↔ 0 < F.cuspDisc p) := by
+  sorry
+
+
+theorem s6a_beforeBits_right_getD {p : Param F.c} (hr : F.IsRightCusp p) (j : ℕ) (hj : j < 2) :
+    (beforeBits F p).getD j false = decide (j = 0 ↔ F.cuspDisc p < 0) := by
+  sorry
+
+
+theorem s6a_afterBits_left_length {p : Param F.c} (hl : F.IsLeftCusp p) : (afterBits F p).length = 2 := by
+  sorry
+
+
+theorem s6a_beforeBits_right_length {p : Param F.c} (hr : F.IsRightCusp p) : (beforeBits F p).length = 2 := by
+  sorry
+
+
+/-- a rightward cut slot whose column letter is not a crossing is not a `σ` slot -/
+theorem s6a_not_σ_letter_right {u : Slot (word F)} {k p : ℕ} (hu : u.1 = (k, p)) (hp : p ≠ 0)
+    (hb : bit (word F) k p = true) (hℓ : (letterAt (word F) k).isCrossing = false) : ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- a leftward cut slot whose column letter is not a crossing is not a `σ` slot -/
+theorem s6a_not_σ_letter_left {u : Slot (word F)} {k p : ℕ} (hu : u.1 = (k + 1, p)) (hp : p ≠ 0)
+    (hb : bit (word F) (k + 1) p = false) (hℓ : (letterAt (word F) k).isCrossing = false) : ¬ U2.IsσSlot u := by
+  sorry
+
+
+theorem s6a_cuspVertex_val (c : F.Cusp) : (cuspVertex F c).1 = (evIdx F (Sum.inl c), 0) := by
+  sorry
+
+
+/-- Through a LEFT cusp `c`: arriving leftward at cut `k_c + 1` on the arm `(c.1, j₁)` (`j₁ = 0 ↔ cuspDisc < 0`),
+`next` reaches the cusp vertex and then the other arm `(c.1, j₂)` at cut `k_c + 1`. -/
+theorem s6a_leftCusp_pass (c : F.Cusp) (hl : F.IsLeftCusp c.1) {j₁ : ℕ} (hj₁ : j₁ = 0 ↔ F.cuspDisc c.1 < 0)
+    {J₂ : ℕ} (hJ₂ : J₂ < (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c) + 1)).length)
+    (ha : (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c) + 1))[J₂] = (c.1, j₁))
+    (u : Slot (word F)) (hu : u.1 = (evIdx F (Sum.inl c) + 1, J₂ + 1)) :
+    ∃ J₃, ∃ hJ₃ : J₃ < (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c) + 1)).length,
+      (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c) + 1))[J₃] =
+        (c.1, if 0 < F.cuspDisc c.1 then 0 else 1) ∧
+      next (word_closed F) u = cuspVertex F c ∧
+      (next (word_closed F) (cuspVertex F c)).1 = (evIdx F (Sum.inl c) + 1, J₃ + 1) ∧
+      ¬ U2.IsσSlot u := by
+  sorry
+
+
+/-- Through a RIGHT cusp `c`: arriving rightward at cut `k_c` on the arm `(c.1, j₁)` (`j₁ = 0 ↔ cuspDisc < 0`),
+`next` reaches the cusp vertex and then the other arm `(c.1, j₂)` at cut `k_c`. -/
+theorem s6a_rightCusp_pass (c : F.Cusp) (hr : F.IsRightCusp c.1) {j₁ : ℕ} (hj₁ : j₁ = 0 ↔ F.cuspDisc c.1 < 0)
+    {J₂ : ℕ} (hJ₂ : J₂ < (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c))).length)
+    (ha : (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c)))[J₂] = (c.1, j₁))
+    (u : Slot (word F)) (hu : u.1 = (evIdx F (Sum.inl c), J₂ + 1)) :
+    ∃ J₃, ∃ hJ₃ : J₃ < (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c))).length,
+      (s6a_entCol F (evX F (Sum.inl c)) (evIdx F (Sum.inl c)))[J₃] =
+        (c.1, if F.cuspDisc c.1 < 0 then 1 else 0) ∧
+      next (word_closed F) u = cuspVertex F c ∧
+      (next (word_closed F) (cuspVertex F c)).1 = (evIdx F (Sum.inl c), J₃ + 1) ∧
+      ¬ U2.IsσSlot u := by
+  sorry
+
+
+end S6aCusp
+
+/-! #### Passing a crossing -/
+
+section S6aCross
+
+variable (F : SmoothFront)
+
+theorem s6a_crossOf_over {p : F.Occ} (h : frontOver F p = true) :
+    (crossOf F p).1 = (p.1, (partner F p).1) := by
+  sorry
+
+
+theorem s6a_crossOf_under {p : F.Occ} (h : frontOver F p = false) :
+    (crossOf F p).1 = ((partner F p).1, p.1) := by
+  sorry
+
+
+theorem s6a_evX_crossOf (p : F.Occ) : evX F (Sum.inr (crossOf F p)) = xOf F p.1.1 p.1.2 := by
+  sorry
+
+
+theorem s6a_evZ_crossOf (p : F.Occ) : evZ F (Sum.inr (crossOf F p)) = ht F p.1 := by
+  sorry
+
+
+theorem s6a_ΦFun_val_over {p : F.Occ} (h : frontOver F p = true) :
+    (ΦFun F p).1 = if bit (word F) (evIdx F (Sum.inr (crossOf F p))) (posOf F (Sum.inr (crossOf F p))) then
+        (evIdx F (Sum.inr (crossOf F p)), posOf F (Sum.inr (crossOf F p)))
+      else (evIdx F (Sum.inr (crossOf F p)) + 1, posOf F (Sum.inr (crossOf F p)) + 1) := by
+  sorry
+
+
+theorem s6a_ΦFun_val_under {p : F.Occ} (h : frontOver F p = false) :
+    (ΦFun F p).1 = if bit (word F) (evIdx F (Sum.inr (crossOf F p))) (posOf F (Sum.inr (crossOf F p)) + 1) then
+        (evIdx F (Sum.inr (crossOf F p)), posOf F (Sum.inr (crossOf F p)) + 1)
+      else (evIdx F (Sum.inr (crossOf F p)) + 1, posOf F (Sum.inr (crossOf F p))) := by
+  sorry
+
+
+theorem s6a_over_not_cusp (q : Cross F) : ¬ F.IsCusp q.1.1 := by
+  sorry
+
+
+theorem s6a_under_not_cusp (q : Cross F) : ¬ F.IsCusp q.1.2 := by
+  sorry
+
+
+/-- the window of a crossing column: the entries at cut `k_x` and cut `k_x + 1` -/
+theorem s6a_cw_col (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) :
+    s6a_entCol F x₀ (evIdx F (Sum.inr q)) =
+      s6a_A F x₀ (Sum.inr q) ++ [(q.1.1, 0), (q.1.2, 0)] ++ s6a_R F x₀ (Sum.inr q) := by
+  sorry
+
+
+theorem s6a_cw_col' (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) :
+    s6a_entCol F x₀ (evIdx F (Sum.inr q) + 1) =
+      s6a_A F x₀ (Sum.inr q) ++ [(q.1.2, 0), (q.1.1, 0)] ++ s6a_R F x₀ (Sum.inr q) := by
+  sorry
+
+
+theorem s6a_cw_A (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) :
+    (s6a_A F x₀ (Sum.inr q)).length = posOf F (Sum.inr q) - 1 := by
+  sorry
+
+
+theorem s6a_cw_pos (q : Cross F) : 1 ≤ posOf F (Sum.inr q) := by
+  sorry
+
+
+theorem s6a_cw_len (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) (j : ℕ) (hj : j < 2) :
+    (s6a_A F x₀ (Sum.inr q)).length + j < (s6a_entCol F x₀ (evIdx F (Sum.inr q))).length ∧
+    (s6a_A F x₀ (Sum.inr q)).length + j < (s6a_entCol F x₀ (evIdx F (Sum.inr q) + 1)).length := by
+  sorry
+
+
+theorem s6a_cw_get (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) (j : ℕ) (hj : j < 2) :
+    (s6a_entCol F x₀ (evIdx F (Sum.inr q)))[(s6a_A F x₀ (Sum.inr q)).length + j]'((s6a_cw_len F x₀ q hex j hj).1) =
+      [(q.1.1, 0), (q.1.2, 0)][j]'(by simpa using hj) ∧
+    (s6a_entCol F x₀ (evIdx F (Sum.inr q) + 1))[(s6a_A F x₀ (Sum.inr q)).length + j]'((s6a_cw_len F x₀ q hex j hj).2) =
+      [(q.1.2, 0), (q.1.1, 0)][j]'(by simpa using hj) := by
+  sorry
+
+
+/-- the bits of the two crossing strands at cut `k_x` (before the crossing) and cut `k_x + 1` (after) -/
+theorem s6a_cw_bit (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) (j : ℕ) (hj : j < 2) :
+    bit (word F) (evIdx F (Sum.inr q)) ((s6a_A F x₀ (Sum.inr q)).length + j + 1) =
+      dirBit F ([q.1.1, q.1.2][j]'(by simpa using hj)) ∧
+    bit (word F) (evIdx F (Sum.inr q) + 1) ((s6a_A F x₀ (Sum.inr q)).length + j + 1) =
+      dirBit F ([q.1.2, q.1.1][j]'(by simpa using hj)) := by
+  sorry
+
+
+/-- the index of a crossing strand's entry at cut `k_x` / `k_x + 1` is one of the two window indices -/
+theorem s6a_cw_index (x₀ : ℝ) (q : Cross F) (hex : evX F (Sum.inr q) = x₀) {a : Param F.c × ℕ}
+    (ha : a = (q.1.1, 0) ∨ a = (q.1.2, 0)) :
+    (∀ J (hJ : J < (s6a_entCol F x₀ (evIdx F (Sum.inr q))).length), (s6a_entCol F x₀ (evIdx F (Sum.inr q)))[J] = a →
+      J = (s6a_A F x₀ (Sum.inr q)).length + (if a = (q.1.1, 0) then 0 else 1)) ∧
+    (∀ J (hJ : J < (s6a_entCol F x₀ (evIdx F (Sum.inr q) + 1)).length), (s6a_entCol F x₀ (evIdx F (Sum.inr q) + 1))[J] = a →
+      J = (s6a_A F x₀ (Sum.inr q)).length + (if a = (q.1.1, 0) then 1 else 0)) := by
+  sorry
+
+
+theorem s6a_occ_mem_totalFibre (p : F.Occ) : p.1 ∈ totalFibre F (xOf F p.1.1 p.1.2) := by
+  sorry
+
+
+theorem s6a_occ_not_cusp (p : F.Occ) : ¬ F.IsCusp p.1 := by
+  sorry
+
+
+theorem s6a_occ_eq_over_or_under (p : F.Occ) :
+    ((p.1, 0) : Param F.c × ℕ) = ((crossOf F p).1.1, 0) ∨ ((p.1, 0) : Param F.c × ℕ) = ((crossOf F p).1.2, 0) := by
+  sorry
+
+
+/-- Through a crossing, rightward: the strand of `p` at cut `k_x` IS `Φ p`, and `next` moves it to cut `k_x + 1`. -/
+theorem s6a_cross_pass_right (p : F.Occ) (hdir : 0 < xvel F p.1.1 p.1.2) {J : ℕ}
+    (hJ : J < (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)))).length)
+    (ha : (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p))))[J] = (p.1, 0))
+    (u : Slot (word F)) (hu : u.1 = (evIdx F (Sum.inr (crossOf F p)), J + 1)) :
+    u = ΦFun F p ∧ ∃ J', ∃ hJ' : J' < (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)) + 1)).length,
+      (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)) + 1))[J'] = (p.1, 0) ∧
+      (next (word_closed F) u).1 = (evIdx F (Sum.inr (crossOf F p)) + 1, J' + 1) := by
+  sorry
+
+
+/-- Through a crossing, leftward: the strand of `p` at cut `k_x + 1` IS `Φ p`, and `next` moves it to cut `k_x`. -/
+theorem s6a_cross_pass_left (p : F.Occ) (hdir : xvel F p.1.1 p.1.2 < 0) {J : ℕ}
+    (hJ : J < (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)) + 1)).length)
+    (ha : (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)) + 1))[J] = (p.1, 0))
+    (u : Slot (word F)) (hu : u.1 = (evIdx F (Sum.inr (crossOf F p)) + 1, J + 1)) :
+    u = ΦFun F p ∧ ∃ J', ∃ hJ' : J' < (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p)))).length,
+      (s6a_entCol F (xOf F p.1.1 p.1.2) (evIdx F (Sum.inr (crossOf F p))))[J'] = (p.1, 0) ∧
+      (next (word_closed F) u).1 = (evIdx F (Sum.inr (crossOf F p)), J' + 1) := by
+  sorry
+
+
+end S6aCross
+
+/-! #### The singular parameters of an interval -/
+
+section S6aPath
+
+variable (F : SmoothFront)
+
+/-- the parameters of an interval over one singular value are finitely many -/
+theorem s6a_params_over_finite (i : Fin F.c) (t₀ t₁ y : ℝ) :
+    {s : ℝ | s ∈ Set.Icc t₀ t₁ ∧ xOf F i s = y}.Finite := by
+  sorry
+
+
+/-- the singular parameters of a closed interval are finitely many -/
+theorem s6a_sing_params_finite (i : Fin F.c) (t₀ t₁ : ℝ) :
+    {s : ℝ | s ∈ Set.Icc t₀ t₁ ∧ xOf F i s ∈ singX F}.Finite := by
+  sorry
+
+
+/-- a double point of a circle gives an occurrence at the same parameter -/
+theorem s6a_occ_of_isDouble {i : Fin F.c} {s : ℝ} {r : Param F.c} (h : F.IsDouble (i, s) r) :
+    ∃ p : F.Occ, p.1.1 = i ∧ SameParam p.1 (i, s) := by
+  sorry
+
+
+end S6aPath
+
+
+
+
+
+
+
+
+end S6aHelpers
+
+/-- LEAF (S6): the slot of a strand at its cut line is a slot (`cut_word_colAt`; `posAt ≤` the fibre size). -/
+theorem isSlot_slotAt {i : Fin F.c} {t : ℝ} (h : xOf F i t ∉ singX F) :
+    IsSlot (word F) (colAt F (xOf F i t), posAt F (xOf F i t) (i, Int.fract t)) := by
+  sorry
+
+
+/-- THE SLOT OF A STRAND at a non-singular x-value: the cut line of that x-value and the strand's position. -/
+def slotAt (i : Fin F.c) (t : ℝ) (h : xOf F i t ∉ singX F) : Slot (word F) := ⟨_, isSlot_slotAt F h⟩
+
+/-- LEAF (S6): the slot is constant along a regular arc avoiding the singular x-values (`posAt_const_of_arc`). -/
+theorem slotAt_const {i : Fin F.c} {t₀ t₁ : ℝ} (h01 : t₀ ≤ t₁)
+    (hreg : ∀ t ∈ Set.Icc t₀ t₁, xOf F i t ∉ singX F) :
+    slotAt F i t₀ (hreg t₀ ⟨le_rfl, h01⟩) = slotAt F i t₁ (hreg t₁ ⟨h01, le_rfl⟩) := by
+  sorry
+
+
+/-- LEAF (S6, jump through a regular point over a singular x-value): the slot advances by `next` steps through the
+tie columns (`posR`/`posL` on positions not touched by the letters, `next_cases`, `run_take_eq_hybrid`), meeting no
+`σ` slot. -/
+theorem jump_regular {i : Fin F.c} {t : ℝ} (hx : xOf F i t ∈ singX F) (hc : ¬ F.IsCusp (i, t))
+    (hd : ∀ q, ¬ F.IsDouble (i, t) q) :
+    ∃ ε > 0, ∀ ε' ∈ Set.Ioo (0 : ℝ) ε, ∃ (h₁ : xOf F i (t - ε') ∉ singX F) (h₂ : xOf F i (t + ε') ∉ singX F) (m : ℕ),
+      0 < m ∧ (next (word_closed F))^[m] (slotAt F i (t - ε') h₁) = slotAt F i (t + ε') h₂ ∧
+      ∀ j < m, ¬ U2.IsσSlot ((next (word_closed F))^[j] (slotAt F i (t - ε') h₁)) := by
+  sorry
+
+
+/-- LEAF (S6, jump through a cusp): the slot path passes the cusp vertex (`nextPair_cusp_l/r`, `posR_r_idx`,
+`posL_l_idx`) and meets no `σ` slot. -/
+theorem jump_cusp (c : F.Cusp) :
+    ∃ ε > 0, ∀ ε' ∈ Set.Ioo (0 : ℝ) ε, ∃ (h₁ : xOf F c.1.1 (c.1.2 - ε') ∉ singX F)
+      (h₂ : xOf F c.1.1 (c.1.2 + ε') ∉ singX F) (m : ℕ),
+      0 < m ∧ (next (word_closed F))^[m] (slotAt F c.1.1 (c.1.2 - ε') h₁) = slotAt F c.1.1 (c.1.2 + ε') h₂ ∧
+      (∀ j < m, ¬ U2.IsσSlot ((next (word_closed F))^[j] (slotAt F c.1.1 (c.1.2 - ε') h₁))) ∧
+      ∃ a < m, (next (word_closed F))^[a] (slotAt F c.1.1 (c.1.2 - ε') h₁) = cuspVertex F c := by
+  sorry
+
+
+/-- LEAF (S6, jump through a crossing): the slot path passes exactly one `σ` slot, `Φ p` — reached when the strand
+enters the crossing's column `k = evIdx (Sum.inr (crossOf p))` at position `m` (over) or `m+1` (under) from the
+left, or at cut `k+1` from the right (`σSlotA`/`σSlotB` unfolded; `posR_σ_idx`, `posL_σ_idx`); NOTE the strand
+may first pass tie columns of the same x-value below the crossing, so `Φ p` is in general NOT `slotAt (t_p − ε)`. -/
+theorem jump_cross (p : F.Occ) :
+    ∃ ε > 0, ∀ ε' ∈ Set.Ioo (0 : ℝ) ε, ∃ (h₁ : xOf F p.1.1 (p.1.2 - ε') ∉ singX F)
+      (h₂ : xOf F p.1.1 (p.1.2 + ε') ∉ singX F) (m : ℕ),
+      0 < m ∧ (next (word_closed F))^[m] (slotAt F p.1.1 (p.1.2 - ε') h₁) = slotAt F p.1.1 (p.1.2 + ε') h₂ ∧
+      ∃ a < m, (next (word_closed F))^[a] (slotAt F p.1.1 (p.1.2 - ε') h₁) = ΦFun F p ∧
+        ∀ j < m, j ≠ a → ¬ U2.IsσSlot ((next (word_closed F))^[j] (slotAt F p.1.1 (p.1.2 - ε') h₁)) := by
+  sorry
+
+
+/-- LEAF (S6, the path): along a parameter interval containing no occurrence of the circle, the slot path
+(finitely many singular parameters in `[t₀, t₁]`; `slotAt_const` between them, `jump_regular`/`jump_cusp` at them)
+meets no `σ` slot. -/
+theorem path_no_occ {i : Fin F.c} {t₀ t₁ : ℝ} (h01 : t₀ < t₁) (h₀ : xOf F i t₀ ∉ singX F)
+    (h₁ : xOf F i t₁ ∉ singX F) (hno : ∀ p : F.Occ, p.1.1 = i → ∀ s ∈ Set.Ioo t₀ t₁, ¬ SameParam p.1 (i, s)) :
+    ∃ m, (next (word_closed F))^[m] (slotAt F i t₀ h₀) = slotAt F i t₁ h₁ ∧
+      ∀ j < m, ¬ U2.IsσSlot ((next (word_closed F))^[j] (slotAt F i t₀ h₀)) := by
+  sorry
+
+
+/-! ### S6b helpers -/
+section S6bHelpers
+
+/-! #### periodicity of `xOf` and `slotAt` in the parameter -/
+
+theorem s6b_xOf_add_int (i : Fin F.c) (t : ℝ) (n : ℤ) : xOf F i (t + n) = xOf F i t := by
+  sorry
+
+
+theorem s6b_fract_add_int (t : ℝ) (n : ℤ) : Int.fract (t + n) = Int.fract t := by
+  sorry
+
+
+theorem s6b_slotAt_add_int {i : Fin F.c} {t : ℝ} (n : ℤ) (h : xOf F i t ∉ singX F)
+    (h' : xOf F i (t + n) ∉ singX F) : slotAt F i (t + n) h' = slotAt F i t h := by
+  sorry
+
+
+theorem s6b_notMem_singX_add_int {i : Fin F.c} {t : ℝ} (n : ℤ) (h : xOf F i t ∉ singX F) :
+    xOf F i (t + n) ∉ singX F := by
+  sorry
+
+
+/-! #### the singular parameters of a circle in a bounded interval form a finite set -/
+
+theorem s6b_singParams_finite (i : Fin F.c) (a b : ℝ) :
+    {s : ℝ | s ∈ Set.Ioo a b ∧ xOf F i s ∈ singX F}.Finite := by
+  sorry
+
+
+/-- the finite set of singular parameters strictly between `a` and `b` -/
+
+def s6b_singParams (i : Fin F.c) (a b : ℝ) : Finset ℝ := (s6b_singParams_finite F i a b).toFinset
+
+theorem s6b_mem_singParams (i : Fin F.c) (a b s : ℝ) :
+    s ∈ s6b_singParams F i a b ↔ s ∈ Set.Ioo a b ∧ xOf F i s ∈ singX F := by
+  sorry
+
+
+/-! #### occurrences and cusps at lifted parameters -/
+
+theorem s6b_isCusp_of_cusp_sameParam {i : Fin F.c} {s : ℝ} (c : F.Cusp) (h : SameParam c.1 (i, s)) :
+    F.IsCusp (i, s) := by
+  sorry
+
+
+theorem s6b_not_isCusp_occ (p : F.Occ) : ¬ F.IsCusp p.1 := by
+  sorry
+
+
+theorem s6b_isDouble_of_occ_sameParam {i : Fin F.c} {s : ℝ} (p : F.Occ) (h : SameParam p.1 (i, s)) :
+    F.IsDouble (i, s) (partner F p).1 := by
+  sorry
+
+
+theorem s6b_not_isCusp_of_occ_sameParam {i : Fin F.c} {s : ℝ} (p : F.Occ) (h : SameParam p.1 (i, s)) :
+    ¬ F.IsCusp (i, s) := by
+  sorry
+
+
+/-- two occurrences at the same lifted parameter coincide -/
+
+theorem s6b_occ_eq_of_sameParam {i : Fin F.c} {s : ℝ} (p p' : F.Occ) (h : SameParam p.1 (i, s))
+    (h' : SameParam p'.1 (i, s)) : p = p' := by
+  sorry
+
+
+theorem s6b_cusp_eq_of_sameParam {i : Fin F.c} {s : ℝ} (c c' : F.Cusp) (h : SameParam c.1 (i, s))
+    (h' : SameParam c'.1 (i, s)) : c = c' := by
+  sorry
+
+
+theorem s6b_sameParam_rep (i : Fin F.c) (s : ℝ) : SameParam (i, Int.fract s) (i, s) := by
+  sorry
+
+
+theorem s6b_eq_fract_add_floor (s : ℝ) : s = Int.fract s + (⌊s⌋ : ℤ) := by
+  sorry
+
+
+theorem s6b_slotAt_eq_of_eq_add {i : Fin F.c} {t t' : ℝ} {n : ℤ} (e : t' = t + n) (h : xOf F i t ∉ singX F)
+    (h' : xOf F i t' ∉ singX F) : slotAt F i t' h' = slotAt F i t h := by
+  sorry
+
+
+theorem s6b_notMem_singX_of_eq_add {i : Fin F.c} {t t' : ℝ} {n : ℤ} (e : t' = t + n) (h : xOf F i t ∉ singX F) :
+    xOf F i t' ∉ singX F := by
+  sorry
+
+
+/-- the occurrence of a double point at an arbitrary (lifted) parameter -/
+
+theorem s6b_occ_of_isDouble {i : Fin F.c} {s : ℝ} {q : Param F.c} (hd : F.IsDouble (i, s) q) :
+    (i, Int.fract s) ∈ F.occSet := by
+  sorry
+
+
+/-- THE JUMP AT ANY SINGULAR PARAMETER (lifted from the three jump leaves by periodicity): the slot path across a
+singular parameter `s` of circle `i`; every `σ` slot on it is `Φ` of an occurrence at `s`, and the cusp vertex of
+every cusp at `s` is on it. -/
+
+theorem s6b_jump {i : Fin F.c} {s : ℝ} (hs : xOf F i s ∈ singX F) :
+    ∃ ε > 0, ∀ ε' ∈ Set.Ioo (0 : ℝ) ε, ∃ (h₁ : xOf F i (s - ε') ∉ singX F) (h₂ : xOf F i (s + ε') ∉ singX F) (m : ℕ),
+      0 < m ∧ (next (word_closed F))^[m] (slotAt F i (s - ε') h₁) = slotAt F i (s + ε') h₂ ∧
+      (∀ j < m, U2.IsσSlot ((next (word_closed F))^[j] (slotAt F i (s - ε') h₁)) →
+        ∃ p : F.Occ, SameParam p.1 (i, s) ∧ (next (word_closed F))^[j] (slotAt F i (s - ε') h₁) = ΦFun F p) ∧
+      (∀ c : F.Cusp, SameParam c.1 (i, s) →
+        ∃ a < m, (next (word_closed F))^[a] (slotAt F i (s - ε') h₁) = cuspVertex F c) := by
+  sorry
+
+
+/-! #### THE PATH along a parameter interval: induction on the singular parameters inside it -/
+
+/-- `slotAt t₀` reaches `slotAt t₁` by `next` steps; every `σ` slot on the way is `Φ` of an occurrence of the
+circle at a parameter strictly inside `(t₀, t₁)`; the cusp vertex of every cusp of the circle strictly inside is
+on the way.  (Strong induction on the number of singular parameters inside; `slotAt_const` up to the first one,
+`s6b_jump` across it.) -/
+
+theorem s6b_path_aux {i : Fin F.c} {t₁ : ℝ} (h₁ : xOf F i t₁ ∉ singX F) (N : ℕ) :
+    ∀ (t₀ : ℝ) (_h01 : t₀ < t₁) (h₀ : xOf F i t₀ ∉ singX F), (s6b_singParams F i t₀ t₁).card = N →
+    ∃ m, (next (word_closed F))^[m] (slotAt F i t₀ h₀) = slotAt F i t₁ h₁ ∧
+      (∀ j < m, U2.IsσSlot ((next (word_closed F))^[j] (slotAt F i t₀ h₀)) →
+        ∃ p : F.Occ, (∃ s ∈ Set.Ioo t₀ t₁, SameParam p.1 (i, s)) ∧
+          (next (word_closed F))^[j] (slotAt F i t₀ h₀) = ΦFun F p) ∧
+      (∀ c : F.Cusp, ∀ s ∈ Set.Ioo t₀ t₁, SameParam c.1 (i, s) →
+        ∃ a < m, (next (word_closed F))^[a] (slotAt F i t₀ h₀) = cuspVertex F c) := by
+  sorry
+
+
+/-- the path lemma in its direct form -/
+
+theorem s6b_path {i : Fin F.c} {t₀ t₁ : ℝ} (h01 : t₀ < t₁) (h₀ : xOf F i t₀ ∉ singX F)
+    (h₁ : xOf F i t₁ ∉ singX F) :
+    ∃ m, (next (word_closed F))^[m] (slotAt F i t₀ h₀) = slotAt F i t₁ h₁ ∧
+      (∀ j < m, U2.IsσSlot ((next (word_closed F))^[j] (slotAt F i t₀ h₀)) →
+        ∃ p : F.Occ, (∃ s ∈ Set.Ioo t₀ t₁, SameParam p.1 (i, s)) ∧
+          (next (word_closed F))^[j] (slotAt F i t₀ h₀) = ΦFun F p) ∧
+      (∀ c : F.Cusp, ∀ s ∈ Set.Ioo t₀ t₁, SameParam c.1 (i, s) →
+        ∃ a < m, (next (word_closed F))^[a] (slotAt F i t₀ h₀) = cuspVertex F c) := by
+  sorry
+
+
+/-! #### cycles: slots of one circle lie on one cycle; a slot with position `0` is a cusp vertex -/
+
+theorem s6b_sameCycle_slotAt {i : Fin F.c} {t t' : ℝ} (h : xOf F i t ∉ singX F) (h' : xOf F i t' ∉ singX F) :
+    (nextPerm (word_closed F)).SameCycle (slotAt F i t h) (slotAt F i t' h') := by
+  sorry
+
+
+theorem s6b_slotAt_fst_eq {i j : Fin F.c} (hij : j = i) {t : ℝ} (h : xOf F j t ∉ singX F)
+    (h' : xOf F i t ∉ singX F) : slotAt F j t h = slotAt F i t h' := by
+  sorry
+
+
+/-- the cusp vertex of a cusp lies on the cycle of its circle -/
+
+theorem s6b_sameCycle_cuspVertex (c : F.Cusp) {t : ℝ} (h : xOf F c.1.1 t ∉ singX F) :
+    (nextPerm (word_closed F)).SameCycle (slotAt F c.1.1 t h) (cuspVertex F c) := by
+  sorry
+
+
+/-- the slot of an occurrence lies on the cycle of its circle -/
+
+theorem s6b_sameCycle_ΦFun (p : F.Occ) {t : ℝ} (h : xOf F p.1.1 t ∉ singX F) :
+    (nextPerm (word_closed F)).SameCycle (slotAt F p.1.1 t h) (ΦFun F p) := by
+  sorry
+
+
+/-- every circle has a non-singular parameter -/
+
+theorem s6b_exists_regular (i : Fin F.c) : ∃ t : ℝ, xOf F i t ∉ singX F := by
+  sorry
+
+
+/-- the cycle of a cusp vertex is the component of its circle -/
+
+theorem s6b_slotComp_cuspVertex (c : F.Cusp) :
+    U2.slotComp (word_closed F) (cuspVertex F c) = circleComp F c.1.1 := by
+  sorry
+
+
+/-- a slot at position `0` is the cusp vertex of the cusp of its column -/
+
+theorem s6b_cuspVertex_of_snd_eq_zero (u : Slot (word F)) (h : u.1.2 = 0) : ∃ c : F.Cusp, u = cuspVertex F c := by
+  sorry
+
+
+/-! #### the cyclic successor of an occurrence: no occurrence strictly between, and the shifted crossing jump -/
+
+/-- `jump_cross` at the parameter `p.1.2 + n` (periodicity) -/
+
+theorem s6b_jump_cross_shift (p : F.Occ) (n : ℤ) :
+    ∃ ε > 0, ∀ ε' ∈ Set.Ioo (0 : ℝ) ε, ∃ (h₁ : xOf F p.1.1 (p.1.2 + n - ε') ∉ singX F)
+      (h₂ : xOf F p.1.1 (p.1.2 + n + ε') ∉ singX F) (m : ℕ),
+      0 < m ∧ (next (word_closed F))^[m] (slotAt F p.1.1 (p.1.2 + n - ε') h₁) = slotAt F p.1.1 (p.1.2 + n + ε') h₂ ∧
+      ∃ a < m, (next (word_closed F))^[a] (slotAt F p.1.1 (p.1.2 + n - ε') h₁) = ΦFun F p ∧
+        ∀ j < m, j ≠ a → ¬ U2.IsσSlot ((next (word_closed F))^[j] (slotAt F p.1.1 (p.1.2 + n - ε') h₁)) := by
+  sorry
+
+
+/-- no occurrence of the circle lies strictly between `p` and its cyclic successor (lifted to the real line:
+the successor's parameter is read in `(p.1.2, p.1.2 + 1]`) -/
+
+theorem s6b_no_occ_between (p q : F.Occ) {n : ℤ}
+    (hn : n = if p.1.2 < (cycNext (occComp F) (occKey F) (occKey_inj F) p).1.2 then 0 else 1) {s : ℝ}
+    (hs : s ∈ Set.Ioo p.1.2 ((cycNext (occComp F) (occKey F) (occKey_inj F) p).1.2 + n))
+    (hq : SameParam q.1 (p.1.1, s)) : False := by
+  sorry
+
+
+/-! #### CORE: the circle of a slot is preserved by `next`.  Stage 1: list lemmas -/
+
+/-- splitting a filter of a list antitone in `f`: `P = Q ∨ R` with every `R`-value strictly below every `Q`-value -/
+
+theorem s6b_filter_split {α : Type*} (f : α → ℝ) (P Q R : α → Bool) (hPQR : ∀ p, P p = (Q p || R p))
+    (hRQ : ∀ p q, R p = true → Q q = true → f p < f q) :
+    ∀ L : List α, L.Pairwise (fun p q => f q ≤ f p) → L.filter P = L.filter Q ++ L.filter R := by
+  sorry
+
+
+theorem s6b_entriesOf_append (bits : Param F.c → Cuts) (L L' : List (Param F.c)) :
+    entriesOf F bits (L ++ L') = entriesOf F bits L ++ entriesOf F bits L' := by
+  sorry
+
+
+/-- the entries depend only on the number of bits of each point -/
+
+theorem s6b_entriesOf_congr (bits bits' : Param F.c → Cuts) (L : List (Param F.c))
+    (h : ∀ p ∈ L, (bits p).length = (bits' p).length) : entriesOf F bits L = entriesOf F bits' L := by
+  sorry
+
+
+theorem s6b_entriesOf_singleton (bits : Param F.c → Cuts) (p : Param F.c) :
+    entriesOf F bits [p] = (List.range (bits p).length).map (fun j => (p, j)) := by
+  sorry
+
+
+theorem s6b_entriesOf_eq_map (bits : Param F.c → Cuts) (L : List (Param F.c)) (h : ∀ p ∈ L, (bits p).length = 1) :
+    entriesOf F bits L = L.map (fun p => (p, 0)) := by
+  sorry
+
+
+theorem s6b_length_entriesOf (bits : Param F.c → Cuts) (L : List (Param F.c)) :
+    (entriesOf F bits L).length = (L.flatMap bits).length := by
+  sorry
+
+
+theorem s6b_eq_singleton_of_nodup {α : Type*} {L : List α} {a : α} (hnd : L.Nodup) (ha : a ∈ L)
+    (h : ∀ b ∈ L, b = a) : L = [a] := by
+  sorry
+
+
+theorem s6b_eq_pair_of_nodup_sorted {α : Type*} {L : List α} {o u : α} (R : α → α → Prop) (hnd : L.Nodup)
+    (hmem : ∀ p, p ∈ L ↔ p = o ∨ p = u) (hne : o ≠ u) (hsort : L.Pairwise R) (hR : ¬ R u o) : L = [o, u] := by
+  sorry
+
+
+/-- two strictly `f`-sorted lists with the same members are equal -/
+
+theorem s6b_sorted_eq {α : Type*} (f : α → ℝ) {L L' : List α} (hL : L.Pairwise (fun p q => f q < f p))
+    (hL' : L'.Pairwise (fun p q => f q < f p)) (hmem : ∀ p, p ∈ L ↔ p ∈ L') : L = L' := by
+  sorry
+
+
+/-! #### Stage 2: the sorted events and regular fibre points -/
+
+theorem s6b_colX_evIdx (e : Event F) : colX F (evIdx F e) = evX F e := by
+  sorry
+
+
+theorem s6b_colZ_evIdx (e : Event F) : colZ F (evIdx F e) = evZ F e := by
+  sorry
+
+
+theorem s6b_fst_le_of_lex_lt {a b : ℝ × ℝ} (h : toLex a < toLex b) : a.1 ≤ b.1 := by
+  sorry
+
+
+theorem s6b_key_lt_of_idx_lt {j j' : ℕ} (hj' : j' < (events F).length) (hjj' : j < j') :
+    toLex (colX F j, colZ F j) < toLex (colX F j', colZ F j') := by
+  sorry
+
+
+theorem s6b_idx_lt_of_key_lt (e e' : Event F) (h : toLex (evX F e, evZ F e) < toLex (evX F e', evZ F e')) :
+    evIdx F e < evIdx F e' := by
+  sorry
+
+
+/-- no event lies strictly between two consecutive columns in the `(x, z)` order -/
+
+theorem s6b_no_event_between {k : ℕ} (hk : k + 1 < (events F).length) (e : Event F)
+    (h₀ : toLex (colX F k, colZ F k) < toLex (evX F e, evZ F e))
+    (h₁ : toLex (evX F e, evZ F e) < toLex (colX F (k + 1), colZ F (k + 1))) : False := by
+  sorry
+
+
+/-- the top event of an x-value: when the next column has a larger `x` (or there is none), no event at this `x`
+is higher -/
+
+theorem s6b_top {k : ℕ} (hk : k < (events F).length)
+    (hnext : k + 1 = (events F).length ∨ colX F k < colX F (k + 1)) (e : Event F) (hx : evX F e = colX F k) :
+    evZ F e ≤ colZ F k := by
+  sorry
+
+
+/-- the bottom event of an x-value: when the previous column has a smaller `x` (or there is none), no event at
+this `x` is lower -/
+
+theorem s6b_bot {k : ℕ} (hk : k < (events F).length) (hprev : k = 0 ∨ colX F (k - 1) < colX F k) (e : Event F)
+    (hx : evX F e = colX F k) : colZ F k ≤ evZ F e := by
+  sorry
+
+
+/-- a fibre point whose height is not the height of any event at its x-value is regular -/
+
+theorem s6b_regular_of_no_event {x : ℝ} {p : Param F.c} (hp : p ∈ totalFibre F x)
+    (hno : ∀ e : Event F, evX F e = x → evZ F e ≠ ht F p) : ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q := by
+  sorry
+
+
+theorem s6b_beforeBits_regular {p : Param F.c} (hc : ¬ F.IsCusp p) : beforeBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s6b_afterBits_regular {p : Param F.c} (hc : ¬ F.IsCusp p) : afterBits F p = [dirBit F p] := by
+  sorry
+
+
+theorem s6b_ht_le_of_beforeLE {p q : Param F.c} (h : beforeLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s6b_ht_le_of_afterLE {p q : Param F.c} (h : afterLE F p q = true) : ht F q ≤ ht F p := by
+  sorry
+
+
+theorem s6b_fibreListBefore_antitone (x : ℝ) : (fibreListBefore F x).Pairwise (fun p q => ht F q ≤ ht F p) := by
+  sorry
+
+
+theorem s6b_fibreListAfter_antitone (x : ℝ) : (fibreListAfter F x).Pairwise (fun p q => ht F q ≤ ht F p) := by
+  sorry
+
+
+/-- two fibre points over one `x` at the same height coincide when one of them is not a double point -/
+
+theorem s6b_ht_inj_of_regular {x : ℝ} {p q : Param F.c} (hp : p ∈ totalFibre F x) (hq : q ∈ totalFibre F x)
+    (hreg : ∀ q', ¬ F.IsDouble p q') (h : ht F p = ht F q) : p = q := by
+  sorry
+
+
+theorem s6b_pairwise_lt_of_regular (x : ℝ) (L : List (Param F.c)) (hnd : L.Nodup)
+    (hmemL : ∀ p ∈ L, p ∈ totalFibre F x) (hL : L.Pairwise (fun p q => ht F q ≤ ht F p))
+    (hreg : ∀ p ∈ L, ∀ q, ¬ F.IsDouble p q) : L.Pairwise (fun p q => ht F q < ht F p) := by
+  sorry
+
+
+/-- over one `x`, the "before" and "after" orders agree on a set of regular points, and so do their entries -/
+
+theorem s6b_filter_eq_of_regular (x : ℝ) (P : Param F.c → Bool)
+    (hreg : ∀ p ∈ totalFibre F x, P p = true → ∀ q, ¬ F.IsDouble p q) :
+    (fibreListBefore F x).filter P = (fibreListAfter F x).filter P := by
+  sorry
+
+
+theorem s6b_entries_regular_eq (x : ℝ) (P : Param F.c → Bool)
+    (hreg : ∀ p ∈ totalFibre F x, P p = true → ¬ F.IsCusp p ∧ ∀ q, ¬ F.IsDouble p q) :
+    entriesOf F (beforeBits F) ((fibreListBefore F x).filter P) =
+      entriesOf F (afterBits F) ((fibreListAfter F x).filter P) := by
+  sorry
+
+
+/-! #### Stage 3: the entry structure of a column: `A ++ E_b ++ B` before its event, `A ++ E_a ++ B` after it -/
+
+/-- the entry list of column `k` (the hybrid cut before its event) -/
+
+def s6b_entries (k : ℕ) : List (Param F.c × ℕ) := hybridEntries F (colX F k) (colZ F k)
+
+/-- the entry list just after the event of column `k` -/
+
+def s6b_entriesAfter (k : ℕ) : List (Param F.c × ℕ) :=
+  hybridEntriesP F (colX F k) (fun p => decide (colZ F k < ht F p))
+
+/-- the entries strictly above the event of column `k` -/
+
+def s6b_A (k : ℕ) : List (Param F.c × ℕ) :=
+  entriesOf F (beforeBits F) ((fibreListBefore F (colX F k)).filter (fun p => decide (colZ F k < ht F p)))
+
+/-- the entries of the event's point(s) before the event -/
+
+def s6b_Eb (k : ℕ) : List (Param F.c × ℕ) :=
+  entriesOf F (beforeBits F) ((fibreListBefore F (colX F k)).filter (fun p => decide (ht F p = colZ F k)))
+
+/-- the entries of the event's point(s) after the event -/
+
+def s6b_Ea (k : ℕ) : List (Param F.c × ℕ) :=
+  entriesOf F (afterBits F) ((fibreListAfter F (colX F k)).filter (fun p => decide (ht F p = colZ F k)))
+
+/-- the entries strictly below the event of column `k` -/
+
+def s6b_B (k : ℕ) : List (Param F.c × ℕ) :=
+  entriesOf F (afterBits F) ((fibreListAfter F (colX F k)).filter (fun p => decide (ht F p < colZ F k)))
+
+theorem s6b_not_decide_le (z : ℝ) (p : Param F.c) : (!decide (z ≤ ht F p)) = decide (ht F p < z) := by
+  sorry
+
+
+theorem s6b_not_decide_lt (z : ℝ) (p : Param F.c) : (!decide (z < ht F p)) = decide (ht F p ≤ z) := by
+  sorry
+
+
+/-- `filter (z ≤ ht) = filter (z < ht) ++ filter (ht = z)` on an antitone list -/
+
+theorem s6b_split_le (z : ℝ) (L : List (Param F.c)) (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L.filter (fun p => decide (z ≤ ht F p)) =
+      L.filter (fun p => decide (z < ht F p)) ++ L.filter (fun p => decide (ht F p = z)) := by
+  sorry
+
+
+/-- `filter (ht ≤ z) = filter (ht = z) ++ filter (ht < z)` on an antitone list -/
+
+theorem s6b_split_ge (z : ℝ) (L : List (Param F.c)) (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L.filter (fun p => decide (ht F p ≤ z)) =
+      L.filter (fun p => decide (ht F p = z)) ++ L.filter (fun p => decide (ht F p < z)) := by
+  sorry
+
+
+/-- `L = filter (z < ht) ++ filter (ht ≤ z)` on an antitone list -/
+
+theorem s6b_split_all_lt (z : ℝ) (L : List (Param F.c)) (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L = L.filter (fun p => decide (z < ht F p)) ++ L.filter (fun p => decide (ht F p ≤ z)) := by
+  sorry
+
+
+/-- `L = filter (z ≤ ht) ++ filter (ht < z)` on an antitone list -/
+
+theorem s6b_split_all_le (z : ℝ) (L : List (Param F.c)) (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L = L.filter (fun p => decide (z ≤ ht F p)) ++ L.filter (fun p => decide (ht F p < z)) := by
+  sorry
+
+
+/-- `filter (z₀ < ht) = filter (z₁ ≤ ht) ++ filter (z₀ < ht < z₁)` on an antitone list -/
+
+theorem s6b_split_between_upper {z₀ z₁ : ℝ} (h : z₀ < z₁) (L : List (Param F.c))
+    (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L.filter (fun p => decide (z₀ < ht F p)) =
+      L.filter (fun p => decide (z₁ ≤ ht F p)) ++ L.filter (fun p => decide (z₀ < ht F p ∧ ht F p < z₁)) := by
+  sorry
+
+
+/-- `filter (ht < z₁) = filter (z₀ < ht < z₁) ++ filter (ht ≤ z₀)` on an antitone list -/
+
+theorem s6b_split_between_lower {z₀ z₁ : ℝ} (h : z₀ < z₁) (L : List (Param F.c))
+    (hL : L.Pairwise (fun p q => ht F q ≤ ht F p)) :
+    L.filter (fun p => decide (ht F p < z₁)) =
+      L.filter (fun p => decide (z₀ < ht F p ∧ ht F p < z₁)) ++ L.filter (fun p => decide (ht F p ≤ z₀)) := by
+  sorry
+
+
+/-- T1: the entries of a column are `A ++ E_b ++ B` -/
+
+theorem s6b_entries_eq (k : ℕ) : s6b_entries F k = s6b_A F k ++ s6b_Eb F k ++ s6b_B F k := by
+  sorry
+
+
+/-- T2: the entries just after the event of a column are `A ++ E_a ++ B` -/
+
+theorem s6b_entriesAfter_eq (k : ℕ) : s6b_entriesAfter F k = s6b_A F k ++ s6b_Ea F k ++ s6b_B F k := by
+  sorry
+
+
+theorem s6b_idx_letterOf (e : Event F) : (letterOf F e).idx = posOf F e := by
+  sorry
+
+
+/-- T3: the letter's index is one more than the number of entries above its event -/
+
+theorem s6b_length_A {k : ℕ} (hk : k < (events F).length) : (s6b_A F k).length + 1 = (letterAt (word F) k).idx := by
+  sorry
+
+
+/-! the points at the event's height -/
+
+theorem s6b_mem_totalFibre_iff' (x : ℝ) (p : Param F.c) :
+    p ∈ totalFibre F x ↔ p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ (F.eval p).1 = x := by
+  sorry
+
+
+theorem s6b_mem_midB_iff (k : ℕ) (p : Param F.c) :
+    p ∈ (fibreListBefore F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) ↔
+      p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ F.eval p = F.eval (evPt F (eventAt F k)) := by
+  sorry
+
+
+theorem s6b_mem_midA_iff (k : ℕ) (p : Param F.c) :
+    p ∈ (fibreListAfter F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) ↔
+      p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ F.eval p = F.eval (evPt F (eventAt F k)) := by
+  sorry
+
+
+/-- at a cusp event the only point at the event's height is the cusp (`cusp_alone`) -/
+
+theorem s6b_mid_cusp {k : ℕ} {c : F.Cusp} (he : eventAt F k = Sum.inl c) :
+    (fibreListBefore F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) = [c.1] ∧
+    (fibreListAfter F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) = [c.1] := by
+  sorry
+
+
+/-- at a crossing event the points at the event's height are the over and the under branch, over first in the
+"before" order and under first in the "after" order (`no_triple`) -/
+
+theorem s6b_mid_cross {k : ℕ} {q : Cross F} (he : eventAt F k = Sum.inr q) :
+    (fibreListBefore F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) = [q.1.1, q.1.2] ∧
+    (fibreListAfter F (colX F k)).filter (fun p => decide (ht F p = colZ F k)) = [q.1.2, q.1.1] := by
+  sorry
+
+
+theorem s6b_length_afterBits_left {c : F.Cusp} (hl : F.IsLeftCusp c.1) : (afterBits F c.1).length = 2 := by
+  sorry
+
+
+theorem s6b_length_beforeBits_right {c : F.Cusp} (hr : F.IsRightCusp c.1) : (beforeBits F c.1).length = 2 := by
+  sorry
+
+
+/-- the event entries at a left cusp -/
+
+theorem s6b_Eb_Ea_left {k : ℕ} {c : F.Cusp} (he : eventAt F k = Sum.inl c) (hl : F.IsLeftCusp c.1) :
+    s6b_Eb F k = [] ∧ s6b_Ea F k = [(c.1, 0), (c.1, 1)] := by
+  sorry
+
+
+/-- the event entries at a right cusp -/
+
+theorem s6b_Eb_Ea_right {k : ℕ} {c : F.Cusp} (he : eventAt F k = Sum.inl c) (hl : ¬ F.IsLeftCusp c.1) :
+    s6b_Eb F k = [(c.1, 0), (c.1, 1)] ∧ s6b_Ea F k = [] := by
+  sorry
+
+
+/-- the event entries at a crossing -/
+
+theorem s6b_Eb_Ea_cross {k : ℕ} {q : Cross F} (he : eventAt F k = Sum.inr q) :
+    s6b_Eb F k = [(q.1.1, 0), (q.1.2, 0)] ∧ s6b_Ea F k = [(q.1.2, 0), (q.1.1, 0)] := by
+  sorry
+
+
+/-! the letter of a column determines the kind of its event -/
+
+theorem s6b_event_of_letter_l {k m : ℕ} {d : Bool} (hk : k < (events F).length) (h : letterAt (word F) k = .l m d) :
+    ∃ c : F.Cusp, eventAt F k = Sum.inl c ∧ F.IsLeftCusp c.1 ∧ m = posOf F (Sum.inl c) := by
+  sorry
+
+
+theorem s6b_event_of_letter_r {k m : ℕ} (hk : k < (events F).length) (h : letterAt (word F) k = .r m) :
+    ∃ c : F.Cusp, eventAt F k = Sum.inl c ∧ ¬ F.IsLeftCusp c.1 ∧ m = posOf F (Sum.inl c) := by
+  sorry
+
+
+theorem s6b_event_of_letter_σ {k m : ℕ} (hk : k < (events F).length) (h : letterAt (word F) k = .σ m) :
+    ∃ q : Cross F, eventAt F k = Sum.inr q ∧ m = posOf F (Sum.inr q) := by
+  sorry
+
+
+/-! #### Stage 4: the transition from a column to the next one (tie: list surgery; gap: the S1 limits) -/
+
+/-- after the top event of an x-value the entries are `entriesAfter` -/
+
+theorem s6b_entriesAfter_top {k : ℕ} (hk : k < (events F).length)
+    (hnext : k + 1 = (events F).length ∨ colX F k < colX F (k + 1)) :
+    s6b_entriesAfter F k = entriesAfter F (colX F k) := by
+  sorry
+
+
+/-- before the bottom event of an x-value the entries are `entriesBefore` -/
+
+theorem s6b_entries_bot {k : ℕ} (hk : k < (events F).length) (hprev : k = 0 ∨ colX F (k - 1) < colX F k) :
+    s6b_entries F k = entriesBefore F (colX F k) := by
+  sorry
+
+
+theorem s6b_colZ_lt_of_tie {k : ℕ} (hk : k + 1 < (events F).length) (hx : colX F k = colX F (k + 1)) :
+    colZ F k < colZ F (k + 1) := by
+  sorry
+
+
+/-- two consecutive events of one x-value: the entries after the lower one are the entries before the upper one -/
+
+theorem s6b_entries_tie {k : ℕ} (hk : k + 1 < (events F).length) (hx : colX F k = colX F (k + 1)) :
+    s6b_entries F (k + 1) = s6b_entriesAfter F k := by
+  sorry
+
+
+/-- the circle of a strand entry -/
+
+def s6b_circOf (a : Param F.c × ℕ) : Fin F.c := a.1.1
+
+theorem s6b_entriesAfter_eq_entriesBefore {x : ℝ} (hx : x ∉ singX F) : entriesAfter F x = entriesBefore F x := by
+  sorry
+
+
+/-- continuations preserve the circles of an entry list -/
+
+theorem s6b_map_circ_eq_of_cont (L L' : List (Param F.c × ℕ)) (hlen : L.length = L'.length)
+    (hc : ∀ j < L'.length, Cont F ((L.getD j (dfltP F, 0)).1) (L'.getD j (dfltP F, 0))) :
+    L.map (s6b_circOf F) = L'.map (s6b_circOf F) := by
+  sorry
+
+
+/-- the circle list of the cut is locally constant at a non-singular `x` (the S1 limits) -/
+
+theorem s6b_circ_eventually {x : ℝ} (hx : x ∉ singX F) :
+    ∀ᶠ y in nhds x, (entriesBefore F y).map (s6b_circOf F) = (entriesBefore F x).map (s6b_circOf F) := by
+  sorry
+
+
+/-- across a gap between singular x-values the circle list of the cut is constant: the circles just right of
+`a` are the circles just left of `b` -/
+
+theorem s6b_circ_gap {a b : ℝ} (hab : a < b) (hgap : ∀ x ∈ Set.Ioo a b, x ∉ singX F) :
+    (entriesAfter F a).map (s6b_circOf F) = (entriesBefore F b).map (s6b_circOf F) := by
+  sorry
+
+
+/-- every singular x-value is the x-value of an event -/
+
+theorem s6b_exists_event_of_mem_singX {x : ℝ} (hx : x ∈ singX F) : ∃ e : Event F, evX F e = x := by
+  sorry
+
+
+/-- THE TRANSITION: the circles of the entries of column `k + 1` are the circles of the entries just after the
+event of column `k` -/
+
+theorem s6b_circ_trans {k : ℕ} (hk : k + 1 < (events F).length) :
+    (s6b_entries F (k + 1)).map (s6b_circOf F) = (s6b_entriesAfter F k).map (s6b_circOf F) := by
+  sorry
+
+
+/-! #### Stage 5: the per-step invariance of the circle -/
+
+/-- the circle at position `p` (1-based) of an entry list -/
+
+def s6b_circAt (L : List (Param F.c × ℕ)) (p : ℕ) : Fin F.c := (L.getD (p - 1) (dfltP F, 0)).1.1
+
+theorem s6b_circAt_eq_of_map_eq {L L' : List (Param F.c × ℕ)}
+    (h : L.map (s6b_circOf F) = L'.map (s6b_circOf F)) (p : ℕ) : s6b_circAt F L p = s6b_circAt F L' p := by
+  sorry
+
+
+theorem s6b_getD_three (A E B : List (Param F.c × ℕ)) (n : ℕ) (d : Param F.c × ℕ) :
+    (A ++ E ++ B).getD n d = if n < A.length then A.getD n d
+      else if n < A.length + E.length then E.getD (n - A.length) d else B.getD (n - A.length - E.length) d := by
+  sorry
+
+
+theorem s6b_length_Eb_Ea {k : ℕ} (hk : k < (events F).length) :
+    (s6b_Eb F k).length = (letterAt (word F) k).arity ∧ (s6b_Ea F k).length = (letterAt (word F) k).coarity := by
+  sorry
+
+
+/-- THE STEP: a strand passing a column rightward keeps its circle (`posR`) -/
+
+theorem s6b_circAt_step {k : ℕ} (hk : k < (events F).length) {p q : ℕ} (hp : 1 ≤ p)
+    (hq : (letterAt (word F) k).posR p = some q) :
+    s6b_circAt F (s6b_entriesAfter F k) q = s6b_circAt F (s6b_entries F k) p := by
+  sorry
+
+
+/-- the circle of a slot given as a pair: the cusp's circle at a cusp vertex, the entry's circle at a cut slot -/
+
+def s6b_circPair (s : ℕ × ℕ) : Fin F.c :=
+  if s.2 = 0 then (evPt F (eventAt F s.1)).1 else s6b_circAt F (s6b_entries F s.1) s.2
+
+/-- THE CIRCLE OF A SLOT -/
+
+def s6b_circ (u : Slot (word F)) : Fin F.c := s6b_circPair F u.1
+
+theorem s6b_circPair_cusp (k : ℕ) : s6b_circPair F (k, 0) = (evPt F (eventAt F k)).1 := by
+  sorry
+
+
+theorem s6b_circPair_cut (k p : ℕ) (hp : p ≠ 0) : s6b_circPair F (k, p) = s6b_circAt F (s6b_entries F k) p := by
+  sorry
+
+
+/-- at a right cusp the two arm positions before the event carry the cusp's circle -/
+
+theorem s6b_circAt_arms_r {k m p : ℕ} (hk : k < (events F).length) (hℓ : letterAt (word F) k = .r m)
+    (hpm : p = m ∨ p = m + 1) : s6b_circAt F (s6b_entries F k) p = (evPt F (eventAt F k)).1 := by
+  sorry
+
+
+/-- at a left cusp the two arm positions after the event carry the cusp's circle -/
+
+theorem s6b_circAt_arms_l {k m p : ℕ} {d : Bool} (hk : k < (events F).length) (hℓ : letterAt (word F) k = .l m d)
+    (hpm : p = m ∨ p = m + 1) : s6b_circAt F (s6b_entriesAfter F k) p = (evPt F (eventAt F k)).1 := by
+  sorry
+
+
+/-- `posL` is inverse to `posR` -/
+
+theorem s6b_posR_of_posL {ℓ : Letter} {p q : ℕ} (h : ℓ.posL p = some q) : ℓ.posR q = some p := by
+  sorry
+
+
+theorem s6b_cut_col_lt {k p : ℕ} (hp : 1 ≤ p) (hpk : p ≤ (cut (word F) k).length) : k < (events F).length := by
+  sorry
+
+
+/-- a slot with a positive position is a cut slot of a real column -/
+
+theorem s6b_col_lt_of_slot {k p : ℕ} (h : IsSlot (word F) (k, p)) (hp : p ≠ 0) : k < (events F).length := by
+  sorry
+
+
+/-- THE INVARIANT: `next` preserves the circle of a slot -/
+
+theorem s6b_circ_next (u : Slot (word F)) : s6b_circ F (next (word_closed F) u) = s6b_circ F u := by
+  sorry
+
+
+theorem s6b_circ_iterate (u : Slot (word F)) (j : ℕ) :
+    s6b_circ F ((next (word_closed F))^[j] u) = s6b_circ F u := by
+  sorry
+
+
+theorem s6b_circ_of_sameCycle {u v : Slot (word F)} (h : (nextPerm (word_closed F)).SameCycle u v) :
+    s6b_circ F u = s6b_circ F v := by
+  sorry
+
+
+theorem s6b_circ_cuspVertex (c : F.Cusp) : s6b_circ F (cuspVertex F c) = c.1.1 := by
+  sorry
+
+
+/-- the slot of a strand of circle `i` has circle `i` -/
+
+theorem s6b_circ_slotAt {i : Fin F.c} {t : ℝ} (h : xOf F i t ∉ singX F) : s6b_circ F (slotAt F i t h) = i := by
+  sorry
+
+
+end S6bHelpers
+
+/-- LEAF (S6, the path and the cusps): the slot path along a parameter interval passes the cusp vertex of every
+cusp of the circle inside it, and every cusp vertex it passes belongs to a cusp of the circle. -/
+theorem path_cusps {i : Fin F.c} {t₀ t₁ : ℝ} (h01 : t₀ < t₁) (h₀ : xOf F i t₀ ∉ singX F)
+    (h₁ : xOf F i t₁ ∉ singX F) :
+    ∃ m, (next (word_closed F))^[m] (slotAt F i t₀ h₀) = slotAt F i t₁ h₁ ∧
+      (∀ c : F.Cusp, c.1.1 = i → ∀ s ∈ Set.Ioo t₀ t₁, SameParam c.1 (i, s) →
+        ∃ j < m, (next (word_closed F))^[j] (slotAt F i t₀ h₀) = cuspVertex F c) ∧
+      ∀ j < m, ∀ c : F.Cusp, (next (word_closed F))^[j] (slotAt F i t₀ h₀) = cuspVertex F c → c.1.1 = i := by
+  sorry
+
+
+/-- LEAF (S6): every cycle of `next` carries a cusp vertex (a cycle of cut slots only would keep its x-direction,
+`xsign_next_iff`, and strictly increase `xcoord2`, `xcoord2_next` — impossible on a finite cycle). -/
+theorem exists_cuspVertex_sameCycle (u : Slot (word F)) :
+    ∃ c : F.Cusp, (nextPerm (word_closed F)).SameCycle u (cuspVertex F c) := by
+  sorry
+
+
+/-- LEAF (S6, `comp`): the slot of an occurrence lies on the cycle of its circle (`jump_cross` puts `Φ p` on the
+path from `slotAt (t_p − ε)`, then `path_cusps` over one period reaches the cusp vertex of `someCuspOn`). -/
+theorem slotComp_ΦFun (p : F.Occ) : U2.slotComp (word_closed F) (ΦFun F p) = circleComp F p.1.1 := by
+  sorry
+
+
+/-- LEAF (S6, `succ`, THE HEART): the first `σ` slot after `Φ p` along `next` is `Φ` of the next occurrence on the
+circle (`jump_cross` at `p` puts `Φ p` at index `a` of the path from `slotAt (t_p − ε)`, `path_no_occ` up to the
+successor — no occurrence strictly between, `cycNext_no_between` on `occComp`/`occKey`; `slotAt` is 1-periodic in
+`t` for the wrap-around when `p` is alone — and `jump_cross` at the successor; then `firstReturn_eq_of_path`). -/
+theorem ΦFun_cycNext (p : F.Occ) :
+    ΦFun F (cycNext (occComp F) (occKey F) (occKey_inj F) p) =
+      (firstReturn (nextPerm (word_closed F)) U2.IsσSlot (ΦSub F p)).1 := by
+  sorry
+
+
+/-! MERGER (W3S_Merged, 2026-09-14): `circleComp_bijective` and `circleEquiv` (skeleton L15151-15158) are declared here, after `ΦFun_cycNext`, because the proof needs `slotAt`, the jump leaves, `path_cusps`, `exists_cuspVertex_sameCycle` (S6b). Text verbatim. -/
+
+/-- LEAF (S6): the circles of `F` correspond bijectively to the cycles of `next` (injective: every cusp vertex on the
+cycle of a circle's traversal is a cusp of that circle, `path_cusps`; surjective: every cycle carries a cusp
+vertex, `exists_cuspVertex_sameCycle`). -/
+theorem circleComp_bijective : Function.Bijective (circleComp F) := by
+  sorry
+
+
+/-- the circle bijection of the record isomorphism -/
+def circleEquiv : Fin F.c ≃ Fin (numComp (word_closed F)) := Equiv.ofBijective _ (circleComp_bijective F)
+
+end Traversal
+
+/-! #### The assembly: the record isomorphism, the sweep statement, the leaf -/
+
+section Assembly
+
+variable (F : SmoothFront)
+
+/-- THE RECORD ISOMORPHISM of the sweep, from the leaves. -/
+def recordIso : RecordIso (frontRecord F) (U2.slotRecord (word_closed F) U2.IsσSlot (U2.allActive (word_closed F))) where
+  e := circleEquiv F
+  Φ := occEquiv F
+  comp_eq p := slotComp_ΦFun F p
+  succ_eq p := Subtype.ext (ΦFun_cycNext F p)
+  pair_eq p := Subtype.ext (ΦFun_partner F p)
+  bit_eq p := isDesc_ΦFun F p
+  sgn_eq p := σsgn_ΦFun F p
+
+/-- THE SWEEP STATEMENT, proved from the leaves. -/
+theorem sweep_proof : SweepStatement F := by
+  sorry
+
+
+end Assembly
+
+end
+
+end U8R
+
+/-- LEAF = THE REPRESENTATION THEOREM (ng:commutation sm-3:1924-1925, proof 1938-1947 "separate them by small
+local x translations ... Reading successive vertical cuts then gives the finite elementary word"): the
+block's analytic bridge (FINAL §8 risk 1; 7.5-11k lines; attacked last; rows 76 and 83 wait for it). -/
+theorem represent (F : SmoothFront) : ∃ W : OWord,
+    F.downCount = (realize W).downCount ∧ F.writhe = (realize W).writhe ∧ F.sCount = (realize W).sCount ∧
+    ∀ S : Diagram, F.IsRounding S → Nonempty (RecordIso S.record (realize W).diagram.record) := by
+  sorry
+
+
+end Leaves
+
+end FrontRows
+
+/-! ## Statement of row 76 (verbatim from `Skeleton_W2.lean` L57-73 = `Statements_FINAL.lean`) -/
+
+structure NgCommutationClauses : Prop where
+  comm_D : ∀ W W' : OWord, IsComm W.letters W'.letters →
+    (realize W).downCount = (realize W').downCount
+  comm_w : ∀ W W' : OWord, IsComm W.letters W'.letters → (realize W).writhe = (realize W').writhe
+  comm_d : ∀ W W' : OWord, IsComm W.letters W'.letters →
+    degAZ (P (realize W).diagram) = degAZ (P (realize W').diagram)
+  comm_B : ∀ W W' : OWord, IsComm W.letters W'.letters → (realize W).defect = (realize W').defect
+  deform_D : ∀ F F' : SmoothFront, Nonempty (F.NonsingularDeformation F') → F.downCount = F'.downCount
+  deform_w : ∀ F F' : SmoothFront, Nonempty (F.NonsingularDeformation F') → F.writhe = F'.writhe
+  deform_d : ∀ F F' : SmoothFront, Nonempty (F.NonsingularDeformation F') →
+    ∀ S S' : Diagram, F.IsRounding S → F'.IsRounding S' → degAZ (P S) = degAZ (P S')
+  deform_B : ∀ F F' : SmoothFront, Nonempty (F.NonsingularDeformation F') →
+    ∀ S S' : Diagram, F.IsRounding S → F'.IsRounding S' → F.defect S = F'.defect S'
+  represent : ∀ F : SmoothFront, ∃ W : OWord,
+    F.downCount = (realize W).downCount ∧ F.writhe = (realize W).writhe ∧ F.sCount = (realize W).sCount ∧
+    ∀ S : Diagram, F.IsRounding S → Nonempty (RecordIso S.record (realize W).diagram.record)
+
+open FrontRows
+
+/-! ## Assembly of row 76 -/
+
+/-- **ng:commutation** (row 76), assembled. -/
+theorem ng_commutation : NgCommutationClauses := by
+  sorry
+
+
+end SM

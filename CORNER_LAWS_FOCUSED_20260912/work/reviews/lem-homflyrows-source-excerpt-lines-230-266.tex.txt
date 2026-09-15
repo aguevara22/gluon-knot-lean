@@ -1,0 +1,37 @@
+\begin{lemma}[products and the two-component row]\label{lem:homflyrows}
+For oriented knots $K,J$, $H_{K\#J}=H_KH_J$ and
+$H_{K\sqcup J}=\frac{a-a^{-1}}zH_KH_J$. For a two-component oriented link
+diagram $D=D_1\cup D_2$ with linking number $\lk$,
+$[z^{-1}]H_D=(a-a^{-1})a^{-2\lk}[z^0](H_{D_1}H_{D_2})$.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from CV lem:homflyrows via Theorems~\ref{mp:join}, \ref{mp:stack}, \ref{mp:lowest} (C028); its second sentence (the two-component row) consumes the knot clause of registry L-1 (F-25-48))}
+\end{lemma}
+\begin{proof}
+Choose actual knot diagrams for $K,J$ with clean marked intervals. The
+clean joining construction preceding Theorem~\ref{mp:join} gives a diagram
+of their ordinary oriented connected sum. That theorem gives
+$P_{K\#J}=P_KP_J$ on these actual representatives, and
+Theorem~\ref{lp:core} identifies each $P$ with $H$. For split union, choose
+representatives with disjoint page images. Theorem~\ref{mp:stack}, with
+two one-component blocks and no mixed crossings, gives
+$P_{K\sqcup J}=\delta P_KP_J$; the same identification gives the asserted
+$H$ formula. Passing from these chosen representatives to the knot-class
+notation uses the full global source premise explicitly retained in
+Literature input~\ref{lit:homfly}; it is not a conclusion of the local
+construction alone.
+
+For the actual two-component diagram $D$, apply Theorem~\ref{mp:lowest}
+with $c=2$. Its linking half-sum is computed from the original common
+presentation, with the crossing signs of
+Definition~\ref{def:positive-lift}, exactly the $\lk$ in the statement.
+Its two intrinsic restrictions are the actual diagrams $D_1,D_2$.
+Theorem~\ref{lp:core} identifies the result with
+\[
+[z^{-1}]H_D=(a-a^{-1})a^{-2\lk}[z^0]H_{D_1}\,[z^0]H_{D_2}.
+\]
+Both knot polynomials have only nonnegative even $z$ exponents by that
+same theorem. Thus a product monomial has $z$ exponent zero precisely
+when each factor does. It follows that the last two factors equal
+$[z^0](H_{D_1}H_{D_2})$, which is the required expression. No division
+by either knot polynomial or by a corner coefficient has been used.
+\end{proof}
+

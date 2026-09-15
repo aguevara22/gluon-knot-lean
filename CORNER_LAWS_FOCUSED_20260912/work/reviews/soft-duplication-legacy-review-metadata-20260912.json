@@ -1,0 +1,157 @@
+{
+  "review_schema": "bound-legacy-review-metadata-addendum-v1",
+  "sealed_utc": "2026-09-12T02:26:43.745614+00:00",
+  "purpose": "Metadata attestation for three existing substantive reviews only. Original review bytes and mathematical verdicts are unchanged; no new mathematical review, proof edit, or kernel execution.",
+  "records": [
+    {
+      "base_review_path": "work/reviews/cut-set-near-far-technical-review-20260912.json",
+      "base_review_sha256": "398b0fe38499ba1061fa18e746ec885f8dcccee471af2d11313ba409ea0d64b7",
+      "group": "CutSetNearFar",
+      "declarations": [
+        "SM.BoundaryCutSet.fintype",
+        "SM.BoundaryCutSet.interiorIndexEquiv",
+        "SM.BoundaryCutSet.partIndexEquiv",
+        "SM.BoundaryCutSet.consecutiveFintype",
+        "SM.BoundaryCutSet.nearAtCut",
+        "SM.BoundaryCutSet.farAtCut",
+        "SM.BoundaryCutSet.nearAtCut_middle",
+        "SM.BoundaryCutSet.farAtCut_middle",
+        "SM.BoundaryCutSet.farAtCut_lower",
+        "SM.BoundaryCutSet.farAtCut_upper",
+        "SM.BoundaryCutSet.nearFarSummand",
+        "SM.BoundaryCutSet.nearFarSummand_toComposition",
+        "SM.BoundaryCutSet.nearFarSummand_cutSet",
+        "SM.nearFarTransform_eq_cutSet_sum"
+      ],
+      "scope": {
+        "group": "CutSetNearFar",
+        "declarations": [
+          "SM.BoundaryCutSet.fintype",
+          "SM.BoundaryCutSet.interiorIndexEquiv",
+          "SM.BoundaryCutSet.partIndexEquiv",
+          "SM.BoundaryCutSet.consecutiveFintype",
+          "SM.BoundaryCutSet.nearAtCut",
+          "SM.BoundaryCutSet.farAtCut",
+          "SM.BoundaryCutSet.nearAtCut_middle",
+          "SM.BoundaryCutSet.farAtCut_middle",
+          "SM.BoundaryCutSet.farAtCut_lower",
+          "SM.BoundaryCutSet.farAtCut_upper",
+          "SM.BoundaryCutSet.nearFarSummand",
+          "SM.BoundaryCutSet.nearFarSummand_toComposition",
+          "SM.BoundaryCutSet.nearFarSummand_cutSet",
+          "SM.nearFarTransform_eq_cutSet_sum"
+        ]
+      },
+      "reviewer_identity": {
+        "agent": "/root/review_relgp_full",
+        "implementer": "/root",
+        "reviewer_is_ai": true,
+        "authored_reviewed_body": false,
+        "model_relationship": "Same-model technical review; not stronger-model statement-fidelity approval.",
+        "contribution_disclosure": "Reviewer authored none of these fourteen declarations and made no implementation changes. Reviewer previously supplied a source/API inventory suggesting reuse of canonical cut-set machinery; that planning input did not supply the present statement/proof text. This review independently inspected the source transform, exact new definitions/proofs and canonical domain/neighbor/product equivalences. Reviewer authored separate soft-geometry helpers, which are not dependencies here."
+      },
+      "stronger_model_statement_fidelity_approval": false,
+      "source_claim_accepted": false,
+      "source_claim_acceptance_increment": 0,
+      "canonical_integration_approved": false
+    },
+    {
+      "base_review_path": "work/reviews/cut-set-near-far-neighbors-technical-review-20260912.json",
+      "base_review_sha256": "05319b486dec3485383ff258da75888189e2f939804246c493cf1b3abae03490",
+      "group": "CutSetNearFarNeighbors",
+      "declarations": [
+        "SM.BoundaryCutSet.consecutive_left_unique",
+        "SM.BoundaryCutSet.consecutive_right_unique",
+        "SM.BoundaryCutSet.nearLeftInterval",
+        "SM.BoundaryCutSet.nearRightInterval",
+        "SM.BoundaryCutSet.nearLeftInterval_consecutive",
+        "SM.BoundaryCutSet.nearRightInterval_consecutive",
+        "SM.BoundaryCutSet.nearAtCut_lower_eq_of_consecutive",
+        "SM.BoundaryCutSet.nearAtCut_upper_eq_of_consecutive"
+      ],
+      "scope": {
+        "group": "CutSetNearFarNeighbors",
+        "declarations": [
+          "SM.BoundaryCutSet.consecutive_left_unique",
+          "SM.BoundaryCutSet.consecutive_right_unique",
+          "SM.BoundaryCutSet.nearLeftInterval",
+          "SM.BoundaryCutSet.nearRightInterval",
+          "SM.BoundaryCutSet.nearLeftInterval_consecutive",
+          "SM.BoundaryCutSet.nearRightInterval_consecutive",
+          "SM.BoundaryCutSet.nearAtCut_lower_eq_of_consecutive",
+          "SM.BoundaryCutSet.nearAtCut_upper_eq_of_consecutive"
+        ]
+      },
+      "reviewer_identity": {
+        "agent": "/root/review_relgp_full",
+        "implementer": "/root",
+        "reviewer_is_ai": true,
+        "authored_reviewed_body": false,
+        "model_relationship": "Same-model technical review; not stronger-model statement-fidelity approval.",
+        "contribution_disclosure": "Reviewer contributed no statement or proof text to these eight declarations or their CutSetNearFar dependency. The earlier source/API inventory and technical review identified the existing transparent neighbor closure; the present author supplied the explicit new APIs. This reviewer inspected each new proof and directly reviewed the unchanged fourteen-declaration dependency in the immediately preceding review. Separate reviewer-authored soft geometry does not enter this dependency graph."
+      },
+      "stronger_model_statement_fidelity_approval": false,
+      "source_claim_accepted": false,
+      "source_claim_acceptance_increment": 0,
+      "canonical_integration_approved": false
+    },
+    {
+      "base_review_path": "work/reviews/soft-duplication-avoiding-technical-review-20260912.json",
+      "base_review_sha256": "7df36c42e83631fb58c273663ae8b731ecc8e989fc6e3b2a66f90343e8943549",
+      "group": "SoftDuplicationAvoiding",
+      "declarations": [
+        "SM.SoftDuplication.avoiding_not_duplicate",
+        "SM.SoftDuplication.collapse_injective_on_avoiding",
+        "SM.SoftDuplication.avoidingExpandCuts",
+        "SM.SoftDuplication.mem_avoidingExpandCuts",
+        "SM.SoftDuplication.collapse_avoidingExpandCuts",
+        "SM.SoftDuplication.avoidingExpandCuts_collapse",
+        "SM.SoftDuplication.avoidingCutSetEquiv",
+        "SM.SoftDuplication.avoidingCompositionEquiv",
+        "SM.SoftDuplication.avoidingLocalCuts",
+        "SM.SoftDuplication.expandCuts_eq_avoiding",
+        "SM.SoftDuplication.avoidingCutFiber_unique",
+        "SM.SoftDuplication.avoidingCutFiberEquiv",
+        "SM.SoftDuplication.sum_avoidingCutFiber",
+        "SM.SoftDuplication.avoidingCutSetFintype",
+        "SM.SoftDuplication.sum_avoidingCuts"
+      ],
+      "scope": {
+        "group": "SoftDuplicationAvoiding",
+        "declarations": [
+          "SM.SoftDuplication.avoiding_not_duplicate",
+          "SM.SoftDuplication.collapse_injective_on_avoiding",
+          "SM.SoftDuplication.avoidingExpandCuts",
+          "SM.SoftDuplication.mem_avoidingExpandCuts",
+          "SM.SoftDuplication.collapse_avoidingExpandCuts",
+          "SM.SoftDuplication.avoidingExpandCuts_collapse",
+          "SM.SoftDuplication.avoidingCutSetEquiv",
+          "SM.SoftDuplication.avoidingCompositionEquiv",
+          "SM.SoftDuplication.avoidingLocalCuts",
+          "SM.SoftDuplication.expandCuts_eq_avoiding",
+          "SM.SoftDuplication.avoidingCutFiber_unique",
+          "SM.SoftDuplication.avoidingCutFiberEquiv",
+          "SM.SoftDuplication.sum_avoidingCutFiber",
+          "SM.SoftDuplication.avoidingCutSetFintype",
+          "SM.SoftDuplication.sum_avoidingCuts"
+        ]
+      },
+      "reviewer_identity": {
+        "agent": "/root/review_relgp_full",
+        "implementer": "/root/review_mark_transport",
+        "reviewer_is_ai": true,
+        "authored_reviewed_body": false,
+        "model_relationship": "Same-model technical review; not stronger-model statement-fidelity approval.",
+        "contribution_disclosure": "Reviewer authored none of SoftDuplicationAvoiding, SoftDuplicationCutFibers, or SoftDuplicationIndices. Implementers are respectively /root/review_mark_transport, /root/review_mark_transport, and /root/review_contraction_candidates, as confirmed by root and dependency review records. Reviewer supplied a general source/API inventory and authored separate SoftFarSignFamily and SoftRootBoundary candidates; neither is a dependency of this review. The present review independently read all three exact bodies and the authoritative source paragraph; it does not inherit a verdict from hashes or compilation."
+      },
+      "stronger_model_statement_fidelity_approval": false,
+      "source_claim_accepted": false,
+      "source_claim_acceptance_increment": 0,
+      "canonical_integration_approved": false
+    }
+  ],
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false
+}

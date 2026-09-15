@@ -1,0 +1,41 @@
+-- Reviewer input for row def:decomposition, 2026-09-13. work/lean/SM/DecompositionDefinition.lean with the proof replaced by sorry.
+import SM.InterlaceDefinition
+
+/-! Source def:decomposition (reference/SM/sm-3-statesum.tex:9, frame SM15): a decomposition of the
+generic polygon `P` is an independent set `S ∈ Ind(G_P)` of crossings, i.e. no two crossings of `S`
+interlace (def:interlace, `SM.interlacement_definition`). Main declaration:
+`SM.decomposition_definition`. `interlacementGraph hn hP = G_P`, `Interlaces hn hP x y` is
+"x and y interlace", `independentSupports hn hP = Ind(G_P)` (all accepted). -/
+
+namespace SM
+
+variable {n : ℕ}
+
+/-- `S` is a decomposition of `P` (def:decomposition): an independent set of the interlacement
+graph. -/
+def IsDecomposition (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (S : Finset (Crossing P)) : Prop :=
+  S ∈ independentSupports hn hP
+
+/-- The set `Ind(G_P)` of all decompositions of `P`. -/
+noncomputable def decompositions (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) :
+    Finset (Finset (Crossing P)) :=
+  independentSupports hn hP
+
+/-- def:decomposition, as printed on SM15: `S` is a decomposition of `P` iff `S ∈ Ind(G_P)`, iff
+`S` is an independent set of the interlacement graph `G_P`, iff no two distinct crossings of `S`
+interlace; `∅` is a decomposition; the notion descends along the cyclic relabelling of `P`. -/
+theorem decomposition_definition (hn : 3 ≤ n) (P : LabelledTuple n) (hP : Generic P) :
+    (∀ S : Finset (Crossing P), IsDecomposition hn hP S ↔ S ∈ decompositions hn hP) ∧
+    (∀ S : Finset (Crossing P), IsDecomposition hn hP S ↔ S ∈ independentSupports hn hP) ∧
+    (∀ S : Finset (Crossing P),
+      IsDecomposition hn hP S ↔ (interlacementGraph hn hP).IsIndepSet (S : Set (Crossing P))) ∧
+    (∀ S : Finset (Crossing P),
+      IsDecomposition hn hP S ↔ ∀ x ∈ S, ∀ y ∈ S, x ≠ y → ¬ Interlaces hn hP x y) ∧
+    IsDecomposition hn hP ∅ ∧
+    (∀ a : ZMod n, ∀ S : Finset (Crossing P),
+      IsDecomposition hn ((generic_shift a P).mpr hP) (crossingSupportShift a S) ↔
+        IsDecomposition hn hP S) := by
+  sorry -- proof withheld from the reviewer
+
+end SM

@@ -1,0 +1,44 @@
+## ng:finite-word — AXIOM
+
+reference/SM/sm-3-statesum.tex:2170–2206
+
+```tex
+\begin{literature}[Finite front-word reduction]\label{ng:finite-word}
+For an actual finite front word on the domain of
+Definition~\ref{ng:front-domain}, the procedure of Ng
+\cite[pp.~6--8 and Figure~1]{Ng} and the elementary-word proof of
+Rutherford \cite[Lemma~3.2, pp.~8--12 of the arXiv version]{Rutherford}
+supplies a finite principal chain using:
+\begin{enumerate}
+\item typed disjoint-gadget commutations and the three local front moves
+  in Lemmas~\ref{ng:front-I}, \ref{ng:front-II} and~\ref{ng:front-III};
+\item the cusp-skein crossing interchange~\eqref{ng:cusp-words}, or its
+  reflected pattern;
+\item zigzag deletion, the crossed-cusp shortcut of
+  Lemma~\ref{ng:deletions}, or deletion of a separated standard front
+  circle.
+\end{enumerate}
+Stop at the first strict decrease of $s$ or at the standard-circle base.
+Before that decrease the selected procedure does not increase $s$.
+Secondary progress is measured at the boundaries of complete finite
+blocks of the word procedure: a completed nonterminal block moves a
+singularity to the left of the selected rightmost left cusp, and hence
+decreases the number on its right. This is not a strict decrease at
+every individual elementary move. Arm-string extension within a block
+is bounded by the active strand count. Thus every nonbase front has a
+finite principal chain to a front of smaller $s$. At each cusp-skein
+interchange, the compatible smoothing branch has smaller $s$ than the
+front at that stage.
+
+This is the constructive word procedure, not a quantification over
+arbitrary Legendrian isotopies. The imported content is the source's finite
+descent, not its printed sentence: Ng's Lemma~1 gives one step, iterated
+here until $s$ decreases; Rutherford's two ruling-polynomial terminal
+branches are replaced here by the geometric shortcuts of
+Lemma~\ref{ng:deletions}; and the finiteness of arm-string extension, which
+Rutherford asserts, is given its reason here (seat L-3/L-4 on SM2, R6;
+F-25-83).
+\status{lit: finite Ng--Rutherford word procedure; Registry~\ref{reg:slbound}; round~3: the scope of the import stated, F-25-83}
+\end{literature}
+```
+

@@ -1,0 +1,401 @@
+-- FIRST COMPILATION UNIT: /tmp/frontA/FrontSketch.lean (checked with `lake env lean` against the built
+-- library on 2026-09-13; only the word-pattern placeholders and `realize` carry `sorry`).
+import SM.LinkMoves
+import SM.LinkDiagramRecord
+import SM.LocalPolynomial
+
+/-! Design sketch (TAG A, 2026-09-13): piecewise-linear fronts on top of the accepted polygonal layer.
+Only placeholder bodies marked `sorry` are unproved; every declaration below elaborates. -/
+
+namespace SM.Link
+
+noncomputable section
+
+/-! ## Row 73, ng:front-domain — the PL front class -/
+
+/-- A *PL front*: a generic polygonal shadow (the accepted `Shadow.Generic`: regular components,
+no vertex on a non-incident edge, transverse double points, no triple point) all of whose edges are
+nonvertical.  Cusps are *derived*: the vertices at which the x-direction of the traversal reverses. -/
+structure Front where
+  Γ : Shadow
+  generic : Γ.Generic
+  /-- "no vertical tangencies on regular arcs" + "nonvertical limiting tangent at every cusp":
+  every edge has a nonzero x-component -/
+  nonvertical : ∀ s : Γ.Strand, (Γ.dir s).1 ≠ 0
+
+namespace Front
+
+variable (F : Front)
+
+/-- The strand arriving at the tail vertex of `s`. -/
+def prev (s : F.Γ.Strand) : F.Γ.Strand := ⟨s.1, s.2 - 1⟩
+
+/-- The incoming edge vector at the tail vertex of `s`. -/
+def eIn (s : F.Γ.Strand) : Plane := F.Γ.dir (F.prev s)
+
+/-- The outgoing edge vector at the tail vertex of `s`. -/
+def eOut (s : F.Γ.Strand) : Plane := F.Γ.dir s
+
+/-- The tail vertex of `s` is a *cusp*: the x-direction reverses there ("semicubical cusp" read in
+the PL class: both arms leave the vertex to the same x-side). -/
+def IsCusp (s : F.Γ.Strand) : Prop := (F.eIn s).1 * (F.eOut s).1 < 0
+
+/-- A left cusp: both arms extend to the right (`x` increases away from the vertex). -/
+def IsLeftCusp (s : F.Γ.Strand) : Prop := (F.eIn s).1 < 0 ∧ 0 < (F.eOut s).1
+
+/-- A right cusp: both arms extend to the left. -/
+def IsRightCusp (s : F.Γ.Strand) : Prop := 0 < (F.eIn s).1 ∧ (F.eOut s).1 < 0
+
+/-- "A downward cusp is traversed from its locally upper arm to its locally lower arm": with arms
+`rIn = -eIn`, `rOut = eOut` as rays from the vertex on a common x-side, the upper arm is the one of
+larger slope, and `rIn` above `rOut` ⇔ `det rOut rIn > 0` ⇔ `det eIn eOut > 0`. -/
+def IsDownCusp (s : F.Γ.Strand) : Prop := F.IsCusp s ∧ 0 < det (F.eIn s) (F.eOut s)
+
+def IsUpCusp (s : F.Γ.Strand) : Prop := F.IsCusp s ∧ det (F.eIn s) (F.eOut s) < 0
+
+/-- The slope `dz/dx` of a strand (well defined: every edge is nonvertical). -/
+def slope (s : F.Γ.Strand) : ℝ := (F.Γ.dir s).2 / (F.Γ.dir s).1
+
+/-- One strand of a crossing (a choice). -/
+def strandA (x : F.Γ.Crossing) : F.Γ.Strand := Classical.choose x.2
+
+theorem strandA_mem (x : F.Γ.Crossing) : F.strandA x ∈ x.val := by
+  obtain ⟨t, hx, -, -⟩ := Classical.choose_spec x.2
+  rw [hx]; simp [strandA]
+
+/-- The other strand of a crossing. -/
+def strandB (x : F.Γ.Crossing) : F.Γ.Strand := F.Γ.other x (F.strandA_mem x)
+
+/-- "At a crossing the branch with smaller dz/dx is over." -/
+def overStrand (x : F.Γ.Crossing) : F.Γ.Strand :=
+  if F.slope (F.strandA x) < F.slope (F.strandB x) then F.strandA x else F.strandB x
+
+theorem overStrand_mem (x : F.Γ.Crossing) : F.overStrand x ∈ x.val := by
+  unfold overStrand
+  split_ifs
+  · exact F.strandA_mem x
+  · exact F.Γ.other_mem x (F.strandA_mem x)
+
+/-- The front read as an ordinary polygonal diagram: same shadow, over strand = smaller slope.  In
+the PL class the cusp vertices are legal (non-antiparallel) corners, so this is a `Diagram`; it is
+the ε = 0 member of the rounding class below. -/
+def diagram : Diagram := ⟨F.Γ, F.generic, F.overStrand, F.overStrand_mem⟩
+
+/-- `D(F)`: the number of downward cusps. -/
+def downCount : ℕ := Nat.card {s : F.Γ.Strand // F.IsDownCusp s}
+
+/-- the number of cusps -/
+def cuspCount : ℕ := Nat.card {s : F.Γ.Strand // F.IsCusp s}
+
+/-- `w(F)`: "the sum of the over-first tangent-determinant crossing signs" (the accepted writhe of
+the front's diagram). -/
+def writhe : ℤ := F.diagram.writhe
+
+/-- `s(F)`: crossings plus cusps. -/
+def sCount : ℕ := Fintype.card F.Γ.Crossing + F.cuspCount
+
+/-! ### The rounding S(F), relational (sm-3:1838-1841) -/
+
+/-- A *clean cusp disc* for the cusp at the tail of `s`: a disc containing that vertex in its
+interior, no other cusp vertex, no crossing, in which the front consists of exactly one arc. -/
+structure CuspDisc (U : Set Plane) (s : F.Γ.Strand) : Prop where
+  disc : IsDisc U
+  cusp : F.IsCusp s
+  clean : Clean U F.diagram
+  center : F.Γ.tail s ∈ interior U
+  other_cusps : ∀ s', F.IsCusp s' → s' ≠ s → F.Γ.tail s' ∉ U
+  one_arc : ∃ a : F.Γ.Arc, F.Γ.ArcCover U {a}
+  no_inner : ∀ x : F.Γ.Crossing, F.Γ.crossingPoint x ∉ interior U
+
+/-- The data of a rounding `S` of `F`: disjoint clean cusp discs, one per cusp; outside their
+union `S` agrees with the front (`OutsideMatch`, the accepted primitive of the moves); inside each
+disc `S` has exactly one crossing-free arc "with the same oriented attachments". -/
+structure RoundingData (S : Diagram) where
+  U : {s : F.Γ.Strand // F.IsCusp s} → Set Plane
+  discs : ∀ c, F.CuspDisc (U c) c.1
+  disjoint : ∀ c c', c ≠ c' → Disjoint (U c) (U c')
+  out : OutsideMatch (⋃ c, U c) F.diagram S
+  clean : ∀ c, Clean (U c) S
+  arcs : ∀ c, ∃ (a : S.Γ.Arc) (a₀ : F.Γ.Arc), S.Γ.ArcCover (U c) {a} ∧ F.Γ.ArcCover (U c) {a₀} ∧
+    S.Γ.eval a.startPt = F.Γ.eval a₀.startPt ∧ S.Γ.eval a.stopPt = F.Γ.eval a₀.stopPt
+  no_inner : ∀ c, ∀ y : S.Γ.Crossing, S.Γ.crossingPoint y ∉ interior (U c)
+
+/-- `S` is an ordinary diagram `S(F)` obtained by the cusp replacement of ng:front-domain. -/
+def IsRounding (S : Diagram) : Prop := Nonempty (F.RoundingData S)
+
+/-- `d(F) = deg_a P_{S(F)}` on a rounding `S` (def:adeg's `degAZ`, the integer degree for `P S ≠ 0`),
+and `B(F) = D(F) − w(F) − d(F) − 1` (display ng:defect). -/
+def defectOn (S : Diagram) : ℤ := (F.downCount : ℤ) - F.writhe - degAZ (SM.P S) - 1
+
+/-! ### Sanity: the front crossing sign is the product of the two x-directions -/
+
+/-- For two nonvertical directions with `slope o < slope u`, `det o u > 0 ↔ o.1 * u.1 > 0`
+(the printed "With both arrows pointing right ... this crossing is positive"). -/
+theorem det_pos_iff_of_slope_lt {o u : Plane} (ho : o.1 ≠ 0) (hu : u.1 ≠ 0)
+    (h : o.2 / o.1 < u.2 / u.1) : 0 < det o u ↔ 0 < o.1 * u.1 := by
+  have key : det o u = o.1 * u.1 * (u.2 / u.1 - o.2 / o.1) := by
+    unfold det; field_simp
+  rw [key]
+  have hpos : 0 < u.2 / u.1 - o.2 / o.1 := by linarith
+  constructor
+  · intro hd
+    rcases le_or_gt (o.1 * u.1) 0 with hle | hlt
+    · have : o.1 * u.1 * (u.2 / u.1 - o.2 / o.1) ≤ 0 :=
+        mul_nonpos_of_nonpos_of_nonneg hle hpos.le
+      linarith
+    · exact hlt
+  · intro hp
+    exact mul_pos hp hpos
+
+/-- `B(F)` with the ε = 0 rounding `F.diagram` (any rounding gives the same value by
+ng:smoothing-record + rp:record-polynomial). -/
+def defect : ℤ := F.defectOn F.diagram
+
+/-- At a cusp the two arms are not collinear: the accepted `Regular` forbids antiparallel consecutive
+edges, and two parallel edges with opposite x-signs are antiparallel.  Hence every cusp is downward
+or upward. -/
+theorem cusp_det_ne_zero {s : F.Γ.Strand} (h : F.IsCusp s) : det (F.eIn s) (F.eOut s) ≠ 0 := by
+  intro hdet
+  have hreg : RegularPair (edge (F.Γ.comp s.1).P (s.2 - 1)) (edge (F.Γ.comp s.1).P s.2) :=
+    F.generic.regular s.1 s.2
+  obtain ⟨hu, hv, hnot⟩ := hreg
+  have hu1 : (F.eIn s).1 ≠ 0 := F.nonvertical (F.prev s)
+  apply hnot
+  refine ⟨(F.eOut s).1 / (F.eIn s).1, ?_, ?_⟩
+  · -- opposite x-signs give a negative ratio
+    have hc : (F.eIn s).1 * (F.eOut s).1 < 0 := h
+    rcases lt_or_gt_of_ne hu1 with hneg | hpos
+    · exact div_neg_of_pos_of_neg (by nlinarith) hneg
+    · exact div_neg_of_neg_of_pos (by nlinarith) hpos
+  · -- parallel: `det = 0` gives the second coordinates in the same ratio
+    have hd : (F.eIn s).1 * (F.eOut s).2 = (F.eIn s).2 * (F.eOut s).1 := by
+      unfold det at hdet; linarith
+    ext
+    · show (F.eOut s).1 = (F.eOut s).1 / (F.eIn s).1 * (F.eIn s).1
+      field_simp
+    · show (F.eOut s).2 = (F.eOut s).1 / (F.eIn s).1 * (F.eIn s).2
+      field_simp
+      linarith
+
+theorem isDownCusp_or_isUpCusp {s : F.Γ.Strand} (h : F.IsCusp s) : F.IsDownCusp s ∨ F.IsUpCusp s := by
+  rcases lt_or_gt_of_ne (F.cusp_det_ne_zero h) with hneg | hpos
+  · exact Or.inr ⟨h, hneg⟩
+  · exact Or.inl ⟨h, hpos⟩
+
+end Front
+
+/-! ## Deformation through fronts without a singular event (ng:commutation, first sentence) -/
+
+/-- A generic deformation (accepted `DeformData`) of the front's diagram all of whose intermediate
+shadows are fronts (every edge nonvertical throughout).  Cusps are then automatically constant
+(continuous nonvanishing x-components keep their signs), and crossing pairs are constant by
+`DeformData.crossings`: "deformations through fronts without a singular event". -/
+structure FrontDeformData (F F' : Front) extends DeformData F.diagram F'.diagram where
+  nonvertical : ∀ t ∈ Set.Icc (0 : ℝ) 1, ∀ s : F.Γ.Strand,
+    ((F.Γ.withVertices (γ t)).dir s).1 ≠ 0
+
+def FrontDeform (F F' : Front) : Prop := Nonempty (FrontDeformData F F')
+
+/-- Front equivalence: generated by deformations through fronts and reparametrizations of the
+diagrams (subdivision, relabelling). -/
+def FrontEquiv : Front → Front → Prop :=
+  Relation.EqvGen fun F F' => FrontDeform F F' ∨ Reparam F.diagram F'.diagram
+
+/-! ## Row statements on PL fronts -/
+
+/-- ng:commutation, first sentence (deformation part): `D`, `w`, `d` and hence `B` are preserved. -/
+def ng_commutation_deform_statement : Prop :=
+  ∀ F F' : Front, FrontEquiv F F' →
+    F.downCount = F'.downCount ∧ F.writhe = F'.writhe ∧ SM.P F.diagram = SM.P F'.diagram
+
+/-- ng:smoothing-record, record clause: any two roundings have the same full named record. -/
+def ng_smoothing_record_statement : Prop :=
+  ∀ (F : Front) (S S' : Diagram), F.IsRounding S → F.IsRounding S' →
+    Nonempty (RecordIso S.record S'.record)
+
+/-- ng:smoothing-record, polynomial clause (consumes rp:record-polynomial). -/
+def ng_smoothing_record_poly_statement : Prop :=
+  ∀ (F : Front) (S S' : Diagram), F.IsRounding S → F.IsRounding S' → SM.P S = SM.P S'
+
+/-- ng:local-front-bound (display ng:front-inequality): `w(F) − D(F) ≤ −deg_a P_{S(F)} − 1`. -/
+def ng_local_front_bound_statement : Prop :=
+  ∀ (F : Front) (S : Diagram), F.IsRounding S →
+    F.writhe - (F.downCount : ℤ) ≤ -degAZ (SM.P S) - 1
+
+/-- fd:ng-bound, the same inequality in Ng's self-linking form `sl_Ng(F) := w(F) − c↓(F)`. -/
+def fd_ng_bound_statement : Prop :=
+  ∀ (F : Front) (S : Diagram), F.IsRounding S →
+    F.writhe - (F.downCount : ℤ) ≤ -degAZ (SM.P S) - 1
+
+/-! ## Rutherford's elementary front words (sm-3:1906-1918) -/
+
+/-- The three elementary letters: `l m` inserts a left cusp at positions `m, m+1`, `r m` joins
+those positions at a right cusp, `σ m` crosses them.  Positions are numbered from the top. -/
+inductive Letter
+  | l (m : ℕ)
+  | r (m : ℕ)
+  | σ (m : ℕ)
+  deriving DecidableEq, Repr
+
+/-- Strand count after a letter, or `none` if the letter is not typed at this count. -/
+def Letter.step (n : ℕ) : Letter → Option ℕ
+  | .l m => if m ≤ n then some (n + 2) else none
+  | .r m => if m + 1 < n then some (n - 2) else none
+  | .σ m => if m + 1 < n then some n else none
+
+/-- A front word with its typing: strand counts before every letter, starting and ending at `0`
+(closed fronts). -/
+structure FrontWord where
+  letters : List Letter
+  typed : letters.foldlM (fun n ℓ => ℓ.step n) 0 = some 0
+
+namespace FrontWord
+
+/-- the number of crossings of a word -/
+def crossingCount (W : FrontWord) : ℕ := (W.letters.filter (fun ℓ => match ℓ with | .σ _ => true | _ => false)).length
+
+/-- the number of cusps of a word -/
+def cuspCount (W : FrontWord) : ℕ := (W.letters.filter (fun ℓ => match ℓ with | .σ _ => false | _ => true)).length
+
+def sCount (W : FrontWord) : ℕ := W.crossingCount + W.cuspCount
+
+/-- Realization of a typed word as a PL front on the integer grid (letter `k` occupies the column
+`[k, k+1]`, strands at integer heights): the shadow's components are the closed strand cycles. -/
+def realize (W : FrontWord) : Front := sorry
+
+/-- The printed letter patterns of the word-level moves, each "a rewriting of a factor at an index"
+(placeholders to be filled with the explicit factor equations, e.g. type I:
+`W = X ++ Y`, `W' = X ++ [l m, σ (m-1), r m] ++ Y` or with `σ (m+1)`, with the typing shifts). -/
+def IsCommStep (W W' : FrontWord) : Prop := sorry
+def IsTypeIStep (W W' : FrontWord) : Prop := sorry
+def IsTypeIIStep (W W' : FrontWord) : Prop := sorry
+def IsTypeIIIStep (W W' : FrontWord) : Prop := sorry
+/-- The cusp-skein interchange (ng:cusp-words): `A = l₂σ₁ ↔ A' = l₁σ₂` at a factor, or the
+reflected pattern, with `C` the compatible smoothing word (`l₁` or `l₂`, per the (t,u) table). -/
+def IsCuspSkeinStep (W W' C : FrontWord) : Prop := sorry
+def IsZigzagStep (W W' : FrontWord) : Prop := sorry
+def IsCrossedCuspStep (W W' : FrontWord) : Prop := sorry
+def IsCircleStep (W W' : FrontWord) : Prop := sorry
+
+/-- The word-level moves of the finite reduction (ng:finite-word items 1-3). -/
+inductive Step : FrontWord → FrontWord → Prop
+  | comm (W W' : FrontWord) (h : IsCommStep W W') : Step W W'
+  | typeI (W W' : FrontWord) (h : IsTypeIStep W W') : Step W W'
+  | typeII (W W' : FrontWord) (h : IsTypeIIStep W W') : Step W W'
+  | typeIII (W W' : FrontWord) (h : IsTypeIIIStep W W') : Step W W'
+  | cuspSkein (W W' C : FrontWord) (h : IsCuspSkeinStep W W' C) : Step W W'
+  | zigzag (W W' : FrontWord) (h : IsZigzagStep W W') : Step W W'
+  | crossedCusp (W W' : FrontWord) (h : IsCrossedCuspStep W W') : Step W W'
+  | circle (W W' : FrontWord) (h : IsCircleStep W W') : Step W W'
+
+/-- A union of standard front circles: every component has exactly one left and one right cusp and
+no crossing (word form: no `σ`, letters pair as `l m` … `r m`). -/
+def IsStandardCircles (W : FrontWord) : Prop := sorry
+
+end FrontWord
+
+/-- ng:commutation, second sentence: every PL front is front-equivalent to the realization of a
+finite elementary word (the vertical-sweep reading after separating the x-coordinates of the
+singularities). -/
+def ng_commutation_word_statement : Prop :=
+  ∀ F : Front, ∃ W : FrontWord, FrontEquiv F (FrontWord.realize W)
+
+/-- ng:front-I on words: the type-I insertions `l_m σ_{m∓1} r_m` preserve `B` of the realization. -/
+def ng_front_I_statement : Prop :=
+  ∀ W W' : FrontWord, FrontWord.IsTypeIStep W W' → (FrontWord.realize W).defect = (FrontWord.realize W').defect
+
+/-- ng:cusp-skein on words (display ng:skein-defect), for the earlier branch `W` with other
+principal branch `W'` and compatible smoothing `C`. -/
+def ng_cusp_skein_statement : Prop :=
+  ∀ W W' C : FrontWord, FrontWord.IsCuspSkeinStep W W' C →
+    min (FrontWord.realize W').defect (FrontWord.realize C).defect ≤ (FrontWord.realize W).defect ∧
+    C.sCount + 1 = W.sCount ∧ W'.sCount = W.sCount
+
+/-- The shape of the literature input ng:finite-word (policy name `SM.ng_finite_word`): every
+nonbase typed word has a finite principal chain of `Step`s, with `s` not increasing before its end,
+ending at a word of smaller `s` or at the standard-circle base, and every cusp-skein step's
+compatible smoothing has smaller `s` than the start. -/
+def ng_finite_word_statement : Prop :=
+  ∀ W : FrontWord, ¬ W.IsStandardCircles →
+    ∃ chain : List FrontWord, chain.head? = some W ∧ List.IsChain FrontWord.Step chain ∧
+      (∀ V ∈ chain, V.sCount ≤ W.sCount) ∧
+      (∃ V, chain.getLast? = some V ∧ (V.sCount < W.sCount ∨ V.IsStandardCircles)) ∧
+      (∀ V V' C, FrontWord.IsCuspSkeinStep V V' C → V ∈ chain → C.sCount < W.sCount)
+
+end
+
+end SM.Link
+
+#check @SM.Link.Front
+#check @SM.Link.Front.IsRounding
+#check @SM.Link.ng_local_front_bound_statement
+#check @SM.Link.ng_finite_word_statement
+#print axioms SM.Link.Front.det_pos_iff_of_slope_lt
+
+#print axioms SM.Link.Front.cusp_det_ne_zero
+#print axioms SM.Link.Front.isDownCusp_or_isUpCusp
+#check @SM.Link.FrontDeformData
+#check @SM.Link.ng_cusp_skein_statement
+
+-- ===================================================================================
+-- SECOND, SEPARATE COMPILATION UNIT: /tmp/frontA/SmoothSketch.lean (smooth vocabulary test for
+-- rows 84-92; checked independently with `lake env lean`, sorry-free).
+-- ===================================================================================
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.InnerProductSpace.PiL2
+
+/-! Minimal smooth vocabulary test for rows 84-92 (statement feasibility only). -/
+
+open scoped ContDiff
+
+namespace SM.Contact
+
+/-- Standard contact space: points `(x, y, z)`; `α = dz − y dx` evaluated on a velocity. -/
+abbrev Pt3 := ℝ × ℝ × ℝ
+
+def alpha (p v : Pt3) : ℝ := v.2.2 - p.2.1 * v.1
+
+/-- A smooth `2π`-periodic parametrized closed curve, embedded (injective on a period). -/
+structure SmoothLoop where
+  γ : ℝ → Pt3
+  smooth : ContDiff ℝ ∞ γ
+  periodic : Function.Periodic γ (2 * Real.pi)
+  regular : ∀ t, deriv γ t ≠ 0
+  injOn : Set.InjOn γ (Set.Ico 0 (2 * Real.pi))
+
+/-- positive transverse: `z' − y x' > 0` -/
+def SmoothLoop.PositiveTransverse (T : SmoothLoop) : Prop := ∀ t, 0 < alpha (T.γ t) (deriv T.γ t)
+
+/-- Legendrian: `z' = y x'` -/
+def SmoothLoop.Legendrian (L : SmoothLoop) : Prop := ∀ t, alpha (L.γ t) (deriv L.γ t) = 0
+
+/-- the xz projection -/
+def SmoothLoop.front (T : SmoothLoop) (t : ℝ) : ℝ × ℝ := ((T.γ t).1, (T.γ t).2.2)
+
+/-- def:transverse-front, first clause: the front is an immersion with finitely many transverse
+double points and no triple point (the double-point set on a period is finite; at a double point
+the projected velocities are independent). -/
+structure SmoothLoop.GenericFront (T : SmoothLoop) : Prop where
+  immersion : ∀ t, deriv T.front t ≠ 0
+  finite_double : Set.Finite {p : ℝ × ℝ | p.1 ∈ Set.Ico 0 (2 * Real.pi) ∧ p.2 ∈ Set.Ico 0 (2 * Real.pi) ∧
+    p.1 ≠ p.2 ∧ T.front p.1 = T.front p.2}
+  transverse : ∀ s t, s ∈ Set.Ico 0 (2 * Real.pi) → t ∈ Set.Ico 0 (2 * Real.pi) → s ≠ t →
+    T.front s = T.front t →
+      (deriv T.front s).1 * (deriv T.front t).2 - (deriv T.front s).2 * (deriv T.front t).1 ≠ 0
+  no_triple : ∀ r s t, r ∈ Set.Ico 0 (2 * Real.pi) → s ∈ Set.Ico 0 (2 * Real.pi) →
+    t ∈ Set.Ico 0 (2 * Real.pi) → r ≠ s → s ≠ t → r ≠ t → T.front r = T.front s → ¬ T.front s = T.front t
+
+/-- Every vertical tangent of a generic positive transverse front points upward (the printed
+consequence `x' = 0 → z' > 0`). -/
+theorem vertical_tangent_up (T : SmoothLoop) (hT : T.PositiveTransverse) (t : ℝ)
+    (hx : (deriv T.γ t).1 = 0) : 0 < (deriv T.γ t).2.2 := by
+  have := hT t
+  unfold alpha at this
+  rw [hx] at this
+  simpa using this
+
+end SM.Contact
+
+#check @SM.Contact.SmoothLoop.GenericFront
+#print axioms SM.Contact.vertical_tangent_up

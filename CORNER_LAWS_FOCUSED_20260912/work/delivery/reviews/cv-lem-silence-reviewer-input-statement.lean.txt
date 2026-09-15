@@ -1,0 +1,522 @@
+import CV.PathX1Transport
+import CV.ChamberInvRow
+
+
+/-! Ported 2026-09-14 07:16Z from work/drafts/cvdom/U5b/CVSilence.lean (CV-DOM unit U5b, report work/drafts/cvdom/U5b/REPORT.md): row CV:lem:silence (151): bundle `SilenceData` (sides, chambers), theorem `CV.silence`; silent_center_weakGeneric / silent_curve_weakGeneric. Only this header added. -/
+/-! # CV lane, row 151 — CV:lem:silence (reference/R/CV/d1_setup.tex:1300–1418)
+(CV-DOM unit U5b, part 2)
+
+Written 2026-09-14 by a Claude Code prover subagent of the pod executor (CV-DOM decision,
+work/drafts/cvdom/DECISION_FINAL.md §0, §3 rulings R1–R5, §4 review-note template, §5 row U5b, §6 item 7).
+Draft home work/drafts/cvdom/U5b/; intended home `work/lean/CV/Silence.lean`. Nothing under work/lean was written.
+
+## Printed statement (d1_setup.tex:1300–1302)
+
+"**Lemma (`X_1` is unchanged across a silent event).** Let `t ↦ P(t)` be a silent event. Then
+`X_1(P_+) = X_1(P_-)`."
+
+## Notation map
+
+* "a silent event `t ↦ P(t)`" — `E : CV.Event n` (accepted CV:def:event, CV/Events.lean) with `hE : E.Silent`
+  (accepted CV:def:silent, CV/Events.lean:1125: every member of the zero set `Z` is a `G2_{e,i}` whose
+  vanishing at `t = 0` puts `p_i` on the line of `e` but not on the segment);
+* `P_+`, `P_-` — the two punctured sides `P((0, ε))`, `P((−ε, 0))` of the event, i.e. `E.curve tp` for
+  `0 < tp.val` and `E.curve tm` for `tm.val < 0`; equivalently (def:event, d1:1080–1083, and rem:eventvalues,
+  d1:1097–1104: "`X_1` takes one value on each of the two chambers of an event, by prop:chamberinv (ii), which
+  is what makes the jump across the event a well-defined number") any polygon of the positive / negative
+  chamber of the event, `E.sideChamber true` / `E.sideChamber false` (accepted def:event);
+* `X_1` — `CV.X1 hn P hG` (accepted CV:def:X1, row 146, CV/X1.lean), read at the punctured parameters through
+  `E.generic_punctured` (def:event: `P(t)` is generic for every `t ≠ 0`).
+
+## Fields (one per reading of the single printed conclusion)
+
+* `sides` — "`X_1(P_+) = X_1(P_-)`" at the parameters: for every `tp > 0` and `tm < 0` of the event interval,
+  `X1 hn (E.curve tp) _ = X1 hn (E.curve tm) _` (the form ruling R6 / the R lane use for the wall laws);
+* `chambers` — the same read on the two chambers of the event (rem:eventvalues): for `Q_+ ∈ E.sideChamber true`
+  and `Q_- ∈ E.sideChamber false`, `X1 hn Q_+ _ = X1 hn Q_- _` (from `sides` and the accepted prop:chamberinv (ii)).
+
+## Route (the printed proof, d1:1303–1418, re-bound to the geo layer)
+
+The printed proof lists the inputs of `X_1` — the set of double points indexed by edge pairs, their order along
+each edge, the turn signs at vertices and smoothing sites, the absolute rotation `R(L)` of each carrier, the
+polynomial `P_H` of each piece — and shows each is constant "on the whole interval, `t = 0` included", by
+`lem:guardconst` and def:silent predicate by predicate, then runs "the path argument of Proposition
+prop:chamberinv (ii) … through the wall" (d1:1394–1397). In Lean:
+
+1. **The centre is weakly generic** (`CV.silent_center_weakGeneric`, the CV analogue of the accepted
+   `SM.WallGerm.silent_center_weak`, SM/SilentCenter.lean:40–46): edges nonzero (`center_polygon`); every turn
+   `G1_i ≠ 0` at `t = 0` (`G1_i` unconditional hence relevant, not in `Z` by def:silent, so nonzero by
+   lem:guardconst — d1:1373–1376); every vertex off every non-incident **segment** (`G2_{e,k}` either not in `Z`,
+   hence nonzero at `t = 0` by lem:guardconst, so `p_k` off the line; or in `Z`, and then def:silent says `p_k` is
+   off the segment — d1:1313–1318); remote segments meeting at the centre are transverse (two parallel closed
+   segments with a common point have an endpoint of one on the other, `parallel_segments_meet_endpoint`,
+   excluded by the previous clause — the content of rem:silentclauses, d1:1275–1292); no three pairwise remote
+   segments concur (`SM.G2`): their pairwise meetings are transverse interior crossings, so the (G3) member is
+   *active* at the centre, hence — activation being an open condition and the curve continuous — active and
+   relevant at some `t ≠ 0`; it vanishes at the centre (`G3_eq_zero_of_common_point`), so it would lie in `Z`,
+   which def:silent forbids (d1:1320–1328, "an active member is relevant, hence lies in `Z` if it vanishes at
+   `t = 0` — which Definition def:silent forbids, its zero sets containing no (G3)").
+2. **Every polygon of the event is weakly generic** (`silent_curve_weakGeneric`): generic off the centre
+   (`generic_punctured`, `Generic.weakGeneric`), weakly generic at it (step 1). No radius shrinking is needed:
+   the whole interval `(−ε, ε)` is in the weak locus.
+3. **The path through the wall**: `E.curvePath tm tp : Path (E.curve tm) (E.curve tp)`, the affine parameter path
+   `u ↦ tm + u (tp − tm)` through `t = 0`; every point is weakly generic by step 2. U5a's
+   `GeoWeakPathData.of_path` (SM/GeoPathTransport.lean) gives the tier-2 path datum: crossing supports constant
+   (the "set of double points", d1:1308–1319), same-edge parameter order constant ("the order along each edge",
+   d1:1330–1371), crossing signs and vertex turns constant ("the turn sign at a vertex … at a smoothing site",
+   d1:1373–1381), the rotation of every carrier's corner polygon constant along the continuous regular corner
+   family (`rotationNumber_family_constant`; "the absolute rotation `R(L)` … a continuous integer-valued function
+   on the connected event interval, hence constant", d1:1383–1397), and the HOMFLY polynomial of every carrier's
+   positive lift constant (lit:homfly's planar clause along the family; the piece polynomials by the record
+   route of CV/PieceHomflyTransport, "the common Gauss word identifies every residual piece … Axiom ax:gausscode
+   says that the piece diagrams present the same oriented link", d1:1399–1416).
+4. **`X_1` equal** (`CV.X1_eq_of_weakGeneric_path`, CV/PathX1Transport.lean): the chain of CV/ChamberInvII on
+   the path datum — every input to `X_1` is carried ("Every input to `X_1` is therefore constant on
+   `(−ε, ε)`, and `X_1(P_+) = X_1(P_-)`", d1:1417–1418).
+
+## Reading list for the reviewer
+
+1. **No transversality is assumed.** The lemma is stated for any silent event (def:silent); the requirement
+   "every named event of the convention that lists them is required to be transversal" (def:event) is not a
+   hypothesis here and is not used.
+2. **Placement of `hn : 3 ≤ n`.** Only `X_1` needs it (CV:def:X1 reads the corner polygons and positive lifts
+   through the U2b/U4 geometry; reading (iii), DECISION_FINAL §2); the centre lemmas (`silent_center_weakGeneric`,
+   `silent_curve_weakGeneric`) are stated without it, as ruling R5 asks.
+3. **What "the centre is weakly generic" replaces.** The printed proof excludes births, collisions and order
+   changes predicate by predicate (G2 with the vertex on the segment; G3; G4 — with the peer's parallel
+   example, d1:1347–1356; G1·G2 at a shared vertex; G5). The Lean route proves one fact — the centre lies in the
+   accepted weak locus `SM.WeakGeneric` — and then uses the accepted local constancy of the geometric records on
+   the crossing-geometry locus (`geometric_records_persist`, `crossing_support_persists_of_geometry`, SM) along
+   the path, which is what those exclusions amount to; the (G4) discussion of the printed proof is the
+   same-edge order clause of the records, and the (G5) discussion is `CrossingGeometry` clause 2 at every point
+   of the path.
+4. **The centre lemma has no printed clause.** The statement asserts nothing about `P(0)`; the centre facts are
+   auxiliary theorems, not bundle fields.
+5. **Chambers.** Field `chambers` reads `P_±` as the two chambers of the event (`E.sideChamber`, the accepted
+   def:event rendering), using the accepted `CV.chamberinv_ii` for constancy inside each; no SM-chamber
+   fallback.
+
+Review note (DECISION_FINAL §4): stated on the printed binder (`E : CV.Event n`, `E.Silent`); no domain change
+(CV-DOM decision, AUTHOR_NOTES 2026-09-14). The carriers, their marks, corners, corner polygons, turns and
+retained crossings are the accepted `SM.GeoCarrier` objects (def:flat-carriers, SM/FlatCarriersDefs.lean) read
+through `hG.crossingGeometry` at each generic parameter; `Ind(G_P)` is the accepted `CV.Ind` (CV:def:interlace).
+On SM-generic polygons these are the accepted def:smoothing / lem:carriers objects by
+`geoSmoothingSuccessor_eq_generic`, `geoComponentEquivGeneric`, `geoComponentCornerList_eq_generic`
+(FlatCarriersDefs.lean:638–724). The ownership of the two visits of a selected crossing follows SM
+conv:selected-visits (the same `selectedMarkPerm`), a disambiguation the CV text leaves implicit. The reviewer
+checks: same binder as printed, same quantifiers, each printed sentence = one bundle field, and that the `geo*`
+object named in each field is the one the sentence describes.
+
+Axioms: standard plus `SM.lit_homfly` (through `homfly`, the polynomial `X_1` reads); the centre lemmas are
+standard. -/
+
+namespace CV
+
+open SM Filter Topology
+
+variable {n : ℕ}
+
+/-! ## 1. Plane geometry: two parallel closed segments with a common point -/
+
+section Parallel
+
+/-- `det u v = 0` with `u ≠ 0`: `v` is a multiple of `u`. -/
+theorem exists_smul_of_det_eq_zero {u v : Plane} (hu : u ≠ 0) (h : det u v = 0) : ∃ c : ℝ, v = c • u := by
+  unfold det at h
+  by_cases h1 : u.1 = 0
+  · have h2 : u.2 ≠ 0 := fun h2 => hu (Prod.ext h1 h2)
+    refine ⟨v.2 / u.2, Prod.ext ?_ ?_⟩
+    · have hv : u.2 * v.1 = 0 := by rw [h1] at h; linarith
+      simp only [Prod.smul_fst, smul_eq_mul, h1, mul_zero]
+      exact (mul_eq_zero.mp hv).resolve_left h2
+    · simp only [Prod.smul_snd, smul_eq_mul]
+      rw [div_mul_cancel₀ _ h2]
+  · refine ⟨v.1 / u.1, Prod.ext ?_ ?_⟩
+    · simp only [Prod.smul_fst, smul_eq_mul]
+      rw [div_mul_cancel₀ _ h1]
+    · simp only [Prod.smul_snd, smul_eq_mul]
+      field_simp
+      linarith
+
+/-- **Two parallel closed edge segments with a common point have an endpoint of one on the other**
+(the geometric content of rem:silentclauses, d1_setup.tex:1275–1292: "since they are parallel … they meet at a
+point that is an endpoint of at least one of them"). -/
+theorem parallel_segments_meet_endpoint {P : LabelledTuple n} {e f : ZMod n}
+    (he : edge P e ≠ 0) (hf : edge P f ≠ 0) (hdet : det (edge P e) (edge P f) = 0)
+    {x : Plane} (hxe : x ∈ edgeSegment P e) (hxf : x ∈ edgeSegment P f) :
+    P f ∈ edgeSegment P e ∨ P (f + 1) ∈ edgeSegment P e ∨
+      P e ∈ edgeSegment P f ∨ P (e + 1) ∈ edgeSegment P f := by
+  obtain ⟨c, hc⟩ := exists_smul_of_det_eq_zero he hdet
+  have hc0 : c ≠ 0 := by
+    rintro rfl
+    rw [zero_smul] at hc
+    exact hf hc
+  obtain ⟨s, hs0, hs1, hsx⟩ := hxe
+  obtain ⟨t, ht0, ht1, htx⟩ := hxf
+  -- the four endpoints, each in the other segment's parametrization
+  have hPf : P f = edgePoint P e (s - t * c) := by
+    have h1 : P e + s • edge P e = P f + (t * c) • edge P e := by
+      rw [← smul_smul, ← hc]
+      exact hsx.symm.trans htx
+    unfold edgePoint
+    rw [sub_smul, ← add_sub_assoc, h1]
+    abel
+  have hPf1 : P (f + 1) = edgePoint P e (s - t * c + c) := by
+    have h1 : P (f + 1) = P f + edge P f := by simp [edge]
+    rw [h1, hPf, hc]
+    unfold edgePoint
+    rw [add_smul, add_assoc]
+  have hPe : P e = edgePoint P f (-(s - t * c) / c) := by
+    unfold edgePoint
+    rw [hc, smul_smul, div_mul_cancel₀ _ hc0, hPf]
+    unfold edgePoint
+    rw [neg_smul, add_neg_cancel_right]
+  have hPe1 : P (e + 1) = edgePoint P f ((1 - (s - t * c)) / c) := by
+    have h1 : P (e + 1) = P e + edge P e := by simp [edge]
+    unfold edgePoint
+    rw [hc, smul_smul, div_mul_cancel₀ _ hc0, hPf, h1]
+    unfold edgePoint
+    rw [sub_smul (1 : ℝ), one_smul]
+    abel
+  set β := s - t * c with hβ
+  have hs : s = (1 - t) * β + t * (β + c) := by rw [hβ]; ring
+  by_cases hβin : 0 ≤ β ∧ β ≤ 1
+  · exact Or.inl ⟨β, hβin.1, hβin.2, hPf⟩
+  by_cases hβcin : 0 ≤ β + c ∧ β + c ≤ 1
+  · exact Or.inr (Or.inl ⟨β + c, hβcin.1, hβcin.2, hPf1⟩)
+  -- both endpoints of `f` are off `[0,1]`: since `s ∈ [0,1]` is a convex combination of them, they lie on
+  -- opposite sides, and then `0` (the point `P e`) lies between them
+  have hkey : (β < 0 ∧ 1 < β + c) ∨ (1 < β ∧ β + c < 0) := by
+    rcases lt_or_ge β 0 with hβneg | hβnn
+    · rcases lt_or_ge 1 (β + c) with hbig | hsmall
+      · exact Or.inl ⟨hβneg, hbig⟩
+      · exfalso
+        have hβc : β + c < 0 := by
+          rcases lt_or_ge (β + c) 0 with h | h
+          · exact h
+          · exact absurd ⟨h, hsmall⟩ hβcin
+        have h2 : t * (β + c) ≤ 0 := mul_nonpos_of_nonneg_of_nonpos ht0 hβc.le
+        rcases lt_or_eq_of_le ht1 with htlt | hteq
+        · have h1 : (1 - t) * β < 0 := mul_neg_of_pos_of_neg (by linarith) hβneg
+          linarith
+        · rw [hteq] at hs
+          linarith
+    · have hβbig : 1 < β := by
+        rcases lt_or_ge 1 β with h | h
+        · exact h
+        · exact absurd ⟨hβnn, h⟩ hβin
+      rcases lt_or_ge (β + c) 0 with hneg | hnn
+      · exact Or.inr ⟨hβbig, hneg⟩
+      · exfalso
+        have hβc : 1 < β + c := by
+          rcases lt_or_ge 1 (β + c) with h | h
+          · exact h
+          · exact absurd ⟨hnn, h⟩ hβcin
+        have h2 : t * 1 ≤ t * (β + c) := mul_le_mul_of_nonneg_left hβc.le ht0
+        rcases lt_or_eq_of_le ht1 with htlt | hteq
+        · have h1 : (1 - t) * 1 < (1 - t) * β := mul_lt_mul_of_pos_left hβbig (by linarith)
+          linarith
+        · rw [hteq] at hs
+          linarith
+  rcases hkey with ⟨hβneg, hbig⟩ | ⟨hβbig, hneg⟩
+  · have hcpos : 0 < c := by linarith
+    refine Or.inr (Or.inr (Or.inl ⟨-β / c, div_nonneg (by linarith) hcpos.le, ?_, hPe⟩))
+    rw [div_le_one hcpos]
+    linarith
+  · have hcneg : c < 0 := by linarith
+    refine Or.inr (Or.inr (Or.inl ⟨-β / c, div_nonneg_of_nonpos (by linarith) hcneg.le, ?_, hPe⟩))
+    rw [div_le_one_of_neg hcneg]
+    linarith
+
+/-! ## 2. Activation is an open condition -/
+
+/-- The activation relation `Crosses` (CV:def:guarded, the strict four-sign test) is open in the polygon. -/
+theorem Crosses.eventually {P : LabelledTuple n} {e f : ZMod n} (h : Crosses P e f) :
+    ∀ᶠ Q in 𝓝 P, Crosses Q e f := by
+  obtain ⟨hr, h1, h2⟩ := h
+  have c1 : Continuous fun Q : LabelledTuple n => G2 Q e f * G2 Q e (f + 1) :=
+    (continuous_G2 e f).mul (continuous_G2 e (f + 1))
+  have c2 : Continuous fun Q : LabelledTuple n => G2 Q f e * G2 Q f (e + 1) :=
+    (continuous_G2 f e).mul (continuous_G2 f (e + 1))
+  filter_upwards [c1.continuousAt.eventually (isOpen_Iio.mem_nhds h1),
+    c2.continuousAt.eventually (isOpen_Iio.mem_nhds h2)] with Q hQ1 hQ2
+  exact ⟨hr, hQ1, hQ2⟩
+
+end Parallel
+
+variable [NeZero n]
+
+/-- Activation of a conditional member (CV:def:guarded) is open in the polygon. -/
+theorem Member.Active.eventually {P : LabelledTuple n} {m : Member n} (h : m.Active P) :
+    ∀ᶠ Q in 𝓝 P, m.Active Q := by
+  cases m with
+  | g1 i => simp only [Member.Active] at h
+  | g2 e i _ => simp only [Member.Active] at h
+  | g5 e f _ => exact Crosses.eventually h
+  | g3 e f g _ =>
+    obtain ⟨h1, h2, h3⟩ := h
+    filter_upwards [Crosses.eventually h1, Crosses.eventually h2, Crosses.eventually h3] with Q hQ1 hQ2 hQ3
+    exact ⟨hQ1, hQ2, hQ3⟩
+  | g4 e f g _ =>
+    obtain ⟨h1, h2⟩ := h
+    filter_upwards [Crosses.eventually h1, Crosses.eventually h2] with Q hQ1 hQ2
+    exact ⟨hQ1, hQ2⟩
+
+/-! ## 3. The silent centre (d1_setup.tex:1303–1381 read at `t = 0`) -/
+
+namespace Event
+
+variable (E : Event n)
+
+/-- The event has a nonzero parameter (`ε > 0`). -/
+theorem exists_punctured : ∃ t : E.Parameter, t.val ≠ 0 :=
+  ⟨E.sideTime true E.sideBase, E.sideTime_ne_zero true E.sideBase⟩
+
+/-- **A member active at the centre is relevant at some `t ≠ 0`** (activation is open and the curve is
+continuous): the step "an active member is relevant, hence lies in `Z` if it vanishes at `t = 0`"
+(d1_setup.tex:1323–1325), on the zero set's quantifier "relevant at `P(t)` for some `t ≠ 0`" (def:event). -/
+theorem exists_punctured_relevant_of_active (m : Member n) (h : m.Active E.center) :
+    ∃ t : E.Parameter, t.val ≠ 0 ∧ m.Relevant (E.curve t) := by
+  have hev : ∀ᶠ t in 𝓝 E.zeroParameter, m.Active (E.curve t) :=
+    E.continuous_curve.continuousAt.eventually h.eventually
+  obtain ⟨δ, hδ, hδr, hall⟩ := (E.eventually_center_iff_radius _).mp hev
+  refine ⟨⟨δ / 2, by constructor <;> linarith⟩, (half_pos hδ).ne', Or.inr (hall _ ?_)⟩
+  show |δ / 2| < δ
+  rw [abs_of_pos (half_pos hδ)]
+  exact half_lt_self hδ
+
+variable {E}
+
+namespace Silent
+
+variable (hE : E.Silent)
+include hE
+
+/-- "The turn sign at a vertex is `sgn G1_i`, which is unconditional, hence relevant, and lies in no `Z` of a
+silent event, so it is nonzero" (d1_setup.tex:1373–1376), at `t = 0` (lem:guardconst). -/
+theorem g1_ne_zero (i : ZMod n) : G1 E.center i ≠ 0 := by
+  obtain ⟨t, ht⟩ := E.exists_punctured
+  have h := (guardconst E (Member.g1 i) ⟨t, ht, Member.relevant_g1 _ i⟩
+    (fun hZ => hE.no_g1 _ hZ i rfl)).1
+  simpa using h
+
+/-- The turns of the centre are nonzero. -/
+theorem turn_ne_zero (i : ZMod n) : turn E.center i ≠ 0 := by
+  rw [turn_det]
+  exact sign_ne_zero.mpr (hE.g1_ne_zero i)
+
+/-- **No vertex of the centre lies on a non-incident closed edge**: "a member of `Z` may put `p_i` on the line of
+`e` but never on the segment — and every other relevant `G2` is nonzero throughout by Lemma lem:guardconst"
+(d1_setup.tex:1316–1318). -/
+theorem vertex_not_mem_edge {k e : ZMod n} (hk : ¬ incident k e) :
+    E.center k ∉ edgeSegment E.center e := by
+  obtain ⟨h0, h1⟩ := (nonincident_iff k e).mp hk
+  intro hmem
+  by_cases hZ : Member.g2 e k ⟨h0, h1⟩ ∈ E.zeroSet
+  · obtain ⟨e', i', h', heq, -, hseg⟩ := hE _ hZ
+    cases heq
+    exact hseg hmem
+  · obtain ⟨t, ht⟩ := E.exists_punctured
+    have h := (guardconst E _ ⟨t, ht, Member.relevant_g2 _ e k ⟨h0, h1⟩⟩ hZ).1
+    apply h
+    rw [Member.eval_g2]
+    exact lineForm_eq_zero_of_mem E.center e hmem
+
+theorem vertex_not_mem_edge' : ∀ k e : ZMod n, ¬ incident k e → E.center k ∉ edgeSegment E.center e :=
+  fun _ _ hk => hE.vertex_not_mem_edge hk
+
+/-- **Remote segments of the centre meeting at a point are transverse**: parallel closed segments with a
+common point would put an endpoint of one on the other (`parallel_segments_meet_endpoint`), which the previous
+clause excludes (rem:silentclauses, d1_setup.tex:1283–1292). -/
+theorem remote_transverse {e f : ZMod n} (hr : remote e f) {x : Plane}
+    (hxe : x ∈ edgeSegment E.center e) (hxf : x ∈ edgeSegment E.center f) :
+    det (edge E.center e) (edge E.center f) ≠ 0 := by
+  intro hdet
+  obtain ⟨h0, h1, h2, h3⟩ := remote_endpoints e f hr
+  rcases parallel_segments_meet_endpoint (E.center_isPolygon e) (E.center_isPolygon f) hdet hxe hxf
+    with h | h | h | h
+  · exact hE.vertex_not_mem_edge ((nonincident_iff f e).mpr ⟨h0, h1⟩) h
+  · exact hE.vertex_not_mem_edge ((nonincident_iff (f + 1) e).mpr ⟨h2, h3⟩) h
+  · exact hE.vertex_not_mem_edge ((nonincident_iff e f).mpr ⟨h0.symm, h2.symm⟩) h
+  · exact hE.vertex_not_mem_edge ((nonincident_iff (e + 1) f).mpr ⟨h1.symm, h3.symm⟩) h
+
+/-- Remote segments of the centre that meet are an active pair (`Crosses`, the strict four-sign test): the
+meeting point is interior to both (`remote_closed_point_interior`) and transverse. -/
+theorem crosses_of_segments_meet {e f : ZMod n} (hr : remote e f) {x : Plane}
+    (hxe : x ∈ edgeSegment E.center e) (hxf : x ∈ edgeSegment E.center f) : Crosses E.center e f := by
+  rw [crosses_iff]
+  obtain ⟨s, hs0, hs1, hsx⟩ := remote_closed_point_interior hE.vertex_not_mem_edge' hr hxe hxf
+  obtain ⟨t, ht0, ht1, htx⟩ :=
+    remote_closed_point_interior hE.vertex_not_mem_edge' (remote_symm hr) hxf hxe
+  exact ⟨hr, s, t, hs0, hs1, ht0, ht1, hsx.symm.trans htx, hE.remote_transverse hr hxe hxf⟩
+
+/-- **No sorted triple of pairwise remote edges of the centre is concurrent** (d1_setup.tex:1320–1326): the
+three pairwise meetings are active, so the (G3) member is active at the centre, hence relevant at some `t ≠ 0`;
+it vanishes at the centre (`G3_eq_zero_of_common_point`), so it would be a member of `Z`, "which Definition
+def:silent forbids, its zero sets containing no (G3)". -/
+theorem no_sorted_triple {e f g : ZMod n}
+    (h : remote e f ∧ remote f g ∧ remote e g ∧ rep e < rep f ∧ rep f < rep g)
+    {x : Plane} (he : x ∈ edgeSegment E.center e) (hf : x ∈ edgeSegment E.center f)
+    (hg : x ∈ edgeSegment E.center g) : False := by
+  have hact : (Member.g3 e f g h).Active E.center := by
+    simp only [Member.Active]
+    exact ⟨hE.crosses_of_segments_meet h.1 he hf, hE.crosses_of_segments_meet h.2.1 hf hg,
+      hE.crosses_of_segments_meet h.2.2.1 he hg⟩
+  obtain ⟨t, ht, hrel⟩ := E.exists_punctured_relevant_of_active _ hact
+  have hZ : Member.g3 e f g h ∈ E.zeroSet := by
+    refine ⟨?_, t, ht, hrel⟩
+    rw [Member.eval_g3]
+    exact G3_eq_zero_of_common_point E.center e f g (lineForm_eq_zero_of_mem _ _ he)
+      (lineForm_eq_zero_of_mem _ _ hf) (lineForm_eq_zero_of_mem _ _ hg)
+  exact hE.no_g3 _ hZ e f g h rfl
+
+/-- No three pairwise remote closed edge segments of the centre share a point (the sorted case, in each of the
+six orders of the representatives). -/
+theorem no_remote_triple {i j k : ZMod n} (hij : remote i j) (hjk : remote j k) (hik : remote i k) :
+    ¬ ClosedTripleMeet E.center i j k := by
+  rintro ⟨x, hi, hj, hk⟩
+  have hij' : i ≠ j := (remote_endpoints i j hij).1.symm
+  have hjk' : j ≠ k := (remote_endpoints j k hjk).1.symm
+  have hik' : i ≠ k := (remote_endpoints i k hik).1.symm
+  rcases rep_lt_or_lt hij' with h1 | h1 <;> rcases rep_lt_or_lt hjk' with h2 | h2 <;>
+    rcases rep_lt_or_lt hik' with h3 | h3
+  · exact hE.no_sorted_triple ⟨hij, hjk, hik, h1, h2⟩ hi hj hk
+  · exact absurd (h1.trans h2) (lt_asymm h3)
+  · exact hE.no_sorted_triple ⟨hik, remote_symm hjk, hij, h3, h2⟩ hi hk hj
+  · exact hE.no_sorted_triple ⟨remote_symm hik, hij, remote_symm hjk, h3, h1⟩ hk hi hj
+  · exact hE.no_sorted_triple ⟨remote_symm hij, hik, hjk, h1, h3⟩ hj hi hk
+  · exact hE.no_sorted_triple ⟨hjk, remote_symm hik, remote_symm hij, h2, h3⟩ hj hk hi
+  · exact absurd (h2.trans h1) (lt_asymm h3)
+  · exact hE.no_sorted_triple ⟨remote_symm hjk, remote_symm hij, remote_symm hik, h2, h1⟩ hk hj hi
+
+/-- SM's (G2) at the centre: no three edge interiors concur (`weak_base_g2_iff_no_remote_closed_triples`). -/
+theorem g2_sm : SM.G2 E.center :=
+  (weak_base_g2_iff_no_remote_closed_triples E.center_isPolygon hE.turn_ne_zero
+    hE.vertex_not_mem_edge').mpr fun _ _ _ hij hjk hik => hE.no_remote_triple hij hjk hik
+
+end Silent
+
+end Event
+
+/-- **The centre of a silent event is weakly generic** (`SM.WeakGeneric`, the accepted tier 2): the CV analogue
+of the accepted `SM.WallGerm.silent_center_weak` (SM/SilentCenter.lean:40–46). Edges nonzero
+(`center_polygon`), turns nonzero (G1 off `Z`), vertices off non-incident segments (G2 off `Z`, or in `Z` with the
+vertex off the segment by def:silent), remote meetings transverse and unique, no three interiors concurrent. -/
+theorem silent_center_weakGeneric (E : Event n) (hE : E.Silent) : WeakGeneric E.center :=
+  ⟨E.center_isPolygon, hE.turn_ne_zero, hE.vertex_not_mem_edge',
+    fun _ _ hr => ⟨fun _ hi hj => hE.remote_transverse hr hi hj,
+      fun _ _ hxi hxj hyi hyj =>
+        transverse_segments_unique (hE.remote_transverse hr hxi hxj) hxi hxj hyi hyj⟩,
+    hE.g2_sm⟩
+
+/-- The centre of a silent event has crossing geometry (tier 0). -/
+theorem silent_center_crossingGeometry (E : Event n) (hE : E.Silent) : CrossingGeometry E.center :=
+  weak_crossingGeometry (silent_center_weakGeneric E hE)
+
+/-- The centre of a silent event is diagrammatic (CV:def:diagrammatic) for `n ≥ 3`. -/
+theorem silent_center_diagrammatic (hn : 3 ≤ n) (E : Event n) (hE : E.Silent) : Diagrammatic E.center :=
+  diagrammatic_of_weak hn (silent_center_weakGeneric E hE)
+
+/-- **Every polygon of a silent event is weakly generic**: generic off the centre (def:event), weakly generic
+at it. The whole interval `(−ε, ε)` lies in the weak locus — no radius is shrunk (the decision's
+`silent_curve_weakGeneric` with `δ = ε`). -/
+theorem silent_curve_weakGeneric (E : Event n) (hE : E.Silent) (t : E.Parameter) :
+    WeakGeneric (E.curve t) := by
+  by_cases ht : t.val = 0
+  · have h0 : t = E.zeroParameter := Subtype.ext ht
+    rw [h0]
+    exact silent_center_weakGeneric E hE
+  · exact (E.generic_punctured t ht).weakGeneric
+
+/-! ## 4. The path through the wall -/
+
+namespace Event
+
+variable (E : Event n)
+
+theorem paramSegment_mem (tm tp : E.Parameter) (u : unitInterval) :
+    tm.val + u.val * (tp.val - tm.val) ∈ Set.Ioo (-E.radius) E.radius := by
+  obtain ⟨hm0, hm1⟩ := tm.property
+  obtain ⟨hp0, hp1⟩ := tp.property
+  have hu0 := unitInterval.nonneg u
+  have hu1 := unitInterval.le_one u
+  rcases le_total tm.val tp.val with h | h
+  · have h1 := mul_nonneg hu0 (sub_nonneg.mpr h)
+    have h2 := mul_nonneg (sub_nonneg.mpr hu1) (sub_nonneg.mpr h)
+    constructor <;> nlinarith
+  · have h1 := mul_nonpos_of_nonneg_of_nonpos hu0 (sub_nonpos.mpr h)
+    have h2 := mul_nonpos_of_nonneg_of_nonpos (sub_nonneg.mpr hu1) (sub_nonpos.mpr h)
+    constructor <;> nlinarith
+
+/-- The affine parameter path `u ↦ t_- + u (t_+ − t_-)` inside the event interval. -/
+def paramSegment (tm tp : E.Parameter) (u : unitInterval) : E.Parameter :=
+  ⟨tm.val + u.val * (tp.val - tm.val), E.paramSegment_mem tm tp u⟩
+
+theorem paramSegment_zero (tm tp : E.Parameter) : E.paramSegment tm tp 0 = tm := by
+  apply Subtype.ext
+  simp [paramSegment]
+
+theorem paramSegment_one (tm tp : E.Parameter) : E.paramSegment tm tp 1 = tp := by
+  apply Subtype.ext
+  simp [paramSegment]
+
+theorem continuous_paramSegment (tm tp : E.Parameter) : Continuous (E.paramSegment tm tp) :=
+  (continuous_const.add (continuous_subtype_val.mul continuous_const)).subtype_mk _
+
+/-- **The path `P(t_-) → P(t_+)` through the wall**, along the event: `u ↦ P(t_- + u (t_+ − t_-))`. -/
+noncomputable def curvePath (tm tp : E.Parameter) : Path (E.curve tm) (E.curve tp) where
+  toFun u := E.curve (E.paramSegment tm tp u)
+  continuous_toFun := E.continuous_curve.comp (E.continuous_paramSegment tm tp)
+  source' := by rw [paramSegment_zero]
+  target' := by rw [paramSegment_one]
+
+theorem curvePath_apply (tm tp : E.Parameter) (u : unitInterval) :
+    E.curvePath tm tp u = E.curve (E.paramSegment tm tp u) := rfl
+
+end Event
+
+/-! ## 5. Row 151 — CV:lem:silence -/
+
+/-- **`X_1(P_+) = X_1(P_-)` at the parameters**: the path `P(t_-) → P(t_+)` through the wall consists of weakly
+generic polygons (`silent_curve_weakGeneric`), so `X_1` is carried along it (`X1_eq_of_weakGeneric_path`, the
+path argument of prop:chamberinv (ii) "run through the wall", d1_setup.tex:1394–1397). -/
+theorem silence_sides (hn : 3 ≤ n) (E : Event n) (hE : E.Silent) (tp tm : E.Parameter)
+    (hp : 0 < tp.val) (hm : tm.val < 0) :
+    X1 hn (E.curve tp) (E.generic_punctured tp hp.ne') = X1 hn (E.curve tm) (E.generic_punctured tm hm.ne) :=
+  X1_eq_of_weakGeneric_path hn (E.generic_punctured tm hm.ne) (E.generic_punctured tp hp.ne')
+    (E.curvePath tm tp) fun u => silent_curve_weakGeneric E hE (E.paramSegment tm tp u)
+
+/-- CV lem:silence (d1_setup.tex:1300–1302): "Let `t ↦ P(t)` be a silent event. Then `X_1(P_+) = X_1(P_-)`."
+The one printed conclusion, in its two readings (the punctured sides at their parameters; the two chambers of
+the event, def:event / rem:eventvalues). Binder: `hn : 3 ≤ n` (reading (iii): `X_1` carries it) and the event `E`;
+the hypothesis `E.Silent` is the theorem's. -/
+structure SilenceData (hn : 3 ≤ n) (E : Event n) : Prop where
+  /-- "Then `X_1(P_+) = X_1(P_-)`" (d1_setup.tex:1302): `P_+ = P(t)` for `t ∈ (0, ε)`, `P_- = P(t)` for
+  `t ∈ (−ε, 0)` (def:event, the two punctured sides), `X_1` read through `generic_punctured`. -/
+  sides : ∀ (tp tm : E.Parameter) (hp : 0 < tp.val) (hm : tm.val < 0),
+    X1 hn (E.curve tp) (E.generic_punctured tp hp.ne') = X1 hn (E.curve tm) (E.generic_punctured tm hm.ne)
+  /-- The same on "the two chambers of the event" (def:event, d1_setup.tex:1080–1083; rem:eventvalues,
+  1097–1104: `X_1` takes one value on each): every polygon of the positive chamber and every polygon of the
+  negative chamber have the same `X_1`. -/
+  chambers : ∀ (Qp Qm : LabelledTuple n) (hQp : Generic Qp) (hQm : Generic Qm),
+    Qp ∈ E.sideChamber true → Qm ∈ E.sideChamber false → X1 hn Qp hQp = X1 hn Qm hQm
+
+/-- **Row 151, CV:lem:silence** (d1_setup.tex:1300–1418): `X_1` is unchanged across a silent event. -/
+theorem silence (hn : 3 ≤ n) (E : Event n) (hE : E.Silent) : SilenceData hn E := by
+  sorry
+/-- The δ-form of DECISION_FINAL §5 row U5b (`δ = ε`, the event's own radius): `X_1` agrees at every pair of
+parameters of opposite signs within `δ`. -/
+theorem silence_near (hn : 3 ≤ n) (E : Event n) (hE : E.Silent) :
+    ∃ δ : ℝ, 0 < δ ∧ ∀ (tp tm : E.Parameter) (hp : 0 < tp.val) (hm : tm.val < 0),
+      tp.val < δ → -δ < tm.val →
+      X1 hn (E.curve tp) (E.generic_punctured tp hp.ne') = X1 hn (E.curve tm) (E.generic_punctured tm hm.ne) :=
+  ⟨E.radius, E.radius_pos, fun tp tm hp hm _ _ => silence_sides hn E hE tp tm hp hm⟩
+
+/-- The two chamber values of a silent event coincide (rem:silencenew, d1_setup.tex:1420–1428: the jump of
+`X_1` across a silent wall is zero). -/
+theorem silence_sideChamber (hn : 3 ≤ n) (E : Event n) (hE : E.Silent) {Qp Qm : LabelledTuple n}
+    (hQp : Generic Qp) (hQm : Generic Qm) (hp : Qp ∈ E.sideChamber true) (hm : Qm ∈ E.sideChamber false) :
+    X1 hn Qp hQp = X1 hn Qm hQm :=
+  (silence hn E hE).chambers Qp Qm hQp hQm hp hm
+
+end CV

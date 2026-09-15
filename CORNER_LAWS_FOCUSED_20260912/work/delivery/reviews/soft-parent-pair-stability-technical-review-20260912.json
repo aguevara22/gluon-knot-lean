@@ -1,0 +1,126 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-parent-pair-stability-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:06:49.769328+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_mark_transport",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "authorship_disclosure": "Reviewer did not author this body, its embedded predecessors or repairs. Earlier technical reviews supplied no implementation."
+  },
+  "scope": {
+    "group": "SoftParentPairStability",
+    "declarations": [
+      "SM.soft_parent_pair_intersection_persists",
+      "SM.soft_parent_crossing_pair_persists",
+      "SM.soft_all_remote_pairs_persist",
+      "SM.soft_small_remote_pairs",
+      "SM.soft_inherited_parameter_order",
+      "SM.soft_all_inherited_orders_persist"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "Parent remote-pair status and finite simultaneous inherited visit order in lem:soft-generic(iii), including disjoint pairs with parallel directions."
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 81328,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and complete body embeddings; full reviewed body retained below. No extracted-header hashes.",
+    "receipt_path": "work/checks/SoftParentPairStability-prototype-result.json",
+    "receipt_sha256": "5779b66bcf47d392f461104eeeb192df20114f080113d30f820ba18bc74708aa",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftInheritedParameters.body.lean": "d885e062bf2d6045a74d94d4cb2a6b7c880a93a70479574373172e311ad005f5",
+      "work/checks/SoftParentPairStability.body.lean": "eaabc7f1f8eba5f41e9f1c4e42290e27040d06450ff05c3b8804afaefbe2d0d5",
+      "work/checks/SoftParentPairStability.prototype.lean": "a64c00abadd4c5e2afa70bc39cd6149046e58783a13427872b4b85c9a62af974",
+      "work/checks/SoftParentPairStability-first-kernel.log": "b4b0c367c6eb666782543b7c122c97d09514212e9e0dd3d44918595348d022d5"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftInheritedParameters.body.lean": 1,
+      "work/checks/SoftParentPairStability.body.lean": 1
+    },
+    "printed_trace_count": 6,
+    "declaration_axioms": {
+      "SM.soft_parent_pair_intersection_persists": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_parent_crossing_pair_persists": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_all_remote_pairs_persist": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_small_remote_pairs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_inherited_parameter_order": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_all_inherited_orders_persist": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+      "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+      "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2",
+      "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+      "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+      "work/checks/SoftParentPairStability-first-draft.prototype.lean": "6c4519aef32f4503593329a50a025b7216d2aea37eadc7b4936b05d9c8bcdf1b",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502",
+      "work/reviews/soft-inherited-parameters-technical-review-20260912.json": "8032d4b036a464e47f0d5bee749372926e14dcf365eaa76f9bf23d53e67c4a26"
+    },
+    "full_reviewed_body_text": "namespace SM\n\nnoncomputable section\nopen Filter Topology\nvariable {n : ℕ} [NeZero n]\n\n/-- Every remote parent pair keeps its closed-segment intersection status.\nThe disjoint branch permits parallel directions and needs only compactness. -/\ntheorem soft_parent_pair_intersection_persists (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j k l : ZMod n) (q : Plane) (hr : remote k l) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ),\n      (edgeSegment (softInsertion P j q ε) (softParentEdge j k) ∩\n        edgeSegment (softInsertion P j q ε) (softParentEdge j l)).Nonempty ↔\n      (edgeSegment P k ∩ edgeSegment P l).Nonempty := by\n  by_cases hc : IsCrossing P {k, l}\n  · have he := softParent_crossing_parameters_persist hn hP j k l q hc\n    filter_upwards [he] with ε hε\n    exact iff_of_true ((isCrossing_pair _ _ _ (softParentEdge_remote j k l hr)).mp hε.2.2.2.2)\n      ((isCrossing_pair P k l hr).mp hc)\n  · have hd : ¬ segmentsMeet (P k) (P l) (edge P k) (edge P l) := by\n      intro hm\n      exact hc ((isCrossing_pair P k l hr).mpr ((segmentsMeet_edges_iff P k l).mp hm))\n    have hd0 : ¬ segmentsMeet (softInsertion P j q 0 (softParentEdge j k))\n        (softInsertion P j q 0 (softParentEdge j l))\n        (edge (softInsertion P j q 0) (softParentEdge j k))\n        (edge (softInsertion P j q 0) (softParentEdge j l)) := by\n      simpa only [softInsertion_parent_zero, edge_softInsertion_parent_zero] using hd\n    have he := disjoint_segments_persist\n      (continuous_softParent_vertex P j k q).continuousAt\n      (continuous_softParent_vertex P j l q).continuousAt\n      (continuous_softParent_edge P j k q).continuousAt\n      (continuous_softParent_edge P j l q).continuousAt hd0\n    filter_upwards [he] with ε hε\n    exact iff_of_false\n      (fun hm => hε ((segmentsMeet_edges_iff _ _ _).mpr hm))\n      (fun hm => hd ((segmentsMeet_edges_iff P k l).mpr hm))\n\ntheorem soft_parent_crossing_pair_persists (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j k l : ZMod n) (q : Plane) (hr : remote k l) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ),\n      IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l} ↔\n        IsCrossing P {k, l} := by\n  filter_upwards [soft_parent_pair_intersection_persists hn hP j k l q hr] with ε hε\n  rw [isCrossing_pair _ _ _ (softParentEdge_remote j k l hr), isCrossing_pair P k l hr]\n  exact hε\n\ntheorem soft_all_remote_pairs_persist (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j : ZMod n) (q : Plane) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ), ∀ k l : ZMod n, remote k l →\n      (IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l} ↔\n        IsCrossing P {k, l}) := by\n  apply eventually_all.mpr\n  intro k\n  apply eventually_all.mpr\n  intro l\n  by_cases hr : remote k l\n  · exact (soft_parent_crossing_pair_persists hn hP j k l q hr).mono (fun _ h _ => h)\n  · exact Eventually.of_forall (fun _ h => (hr h).elim)\n\ntheorem soft_small_remote_pairs (hn : 3 ≤ n) {P : LabelledTuple n} (hP : G1 P)\n    (j : ZMod n) (q : Plane) :\n    ∃ δ > 0, ∀ ε : ℝ, |ε| < δ → ∀ k l : ZMod n, remote k l →\n      (IsCrossing (softInsertion P j q ε) {softParentEdge j k, softParentEdge j l} ↔\n        IsCrossing P {k, l}) := by\n  obtain ⟨δ, hδ, hmem⟩ := Metric.eventually_nhds_iff.mp\n    (soft_all_remote_pairs_persist hn hP j q)\n  exact ⟨δ, hδ, fun ε hε => hmem (by simpa only [Real.dist_eq, sub_zero] using hε)⟩\n\n/-- Parent G2 supplies strict separation of distinct crossing visits on\none edge. Their actual transported parameters therefore retain their order. -/\ntheorem soft_inherited_parameter_order (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)\n    (j k l m : ZMod n) (q : Plane) (hlm : l ≠ m)\n    (hkl : IsCrossing P {k, l}) (hkm : IsCrossing P {k, m}) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ),\n      (edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l) <\n        edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j m) ↔\n      edgeParameter P k l < edgeParameter P k m) := by\n  have hl := continuousAt_softParentParameter P j k l q\n    (crossing_edgeParameter_det_ne_zero hn hP.1 hkl)\n  have hm := continuousAt_softParentParameter P j k m q\n    (crossing_edgeParameter_det_ne_zero hn hP.1 hkm)\n  have hne := generic_edgeParameters_ne hn hP hlm hkl hkm\n  have he := continuousAt_preserves_parameter_order hl hm\n    (by simpa only [softParentParameter_zero] using hne)\n  simpa only [softParentParameter_zero] using he\n\n/-- A single neighborhood preserves every inherited comparison, including\nthe identical-visit case. Child Generic is not assumed. -/\ntheorem soft_all_inherited_orders_persist (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)\n    (j : ZMod n) (q : Plane) :\n    ∀ᶠ ε : ℝ in 𝓝 (0 : ℝ), ∀ k l m : ZMod n,\n      IsCrossing P {k, l} → IsCrossing P {k, m} →\n      (edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j l) <\n        edgeParameter (softInsertion P j q ε) (softParentEdge j k) (softParentEdge j m) ↔\n      edgeParameter P k l < edgeParameter P k m) := by\n  apply eventually_all.mpr\n  intro k\n  apply eventually_all.mpr\n  intro l\n  apply eventually_all.mpr\n  intro m\n  by_cases hkl : IsCrossing P {k, l}\n  · by_cases hkm : IsCrossing P {k, m}\n    · by_cases hlm : l = m\n      · subst m\n        exact Eventually.of_forall (fun _ _ _ => by simp only [lt_self_iff_false])\n      · exact (soft_inherited_parameter_order hn hP j k l m q hlm hkl hkm).mono\n          (fun _ h _ _ => h)\n    · exact Eventually.of_forall (fun _ _ h => (hkm h).elim)\n  · exact Eventually.of_forall (fun _ h _ => (hkl h).elim)\n\nend\nend SM\n",
+    "root_log_limit": "The root log prints six axiom traces, not full elaborated types for this group. Exact full source statements and proofs are bound by the frozen body/prototype. No reviewer elaboration was run."
+  },
+  "findings": [
+    "The first theorem preserves the exact nonemptiness of the two actual closed edge segments for every remote parent pair. In the crossing branch, parent G1 yields transverse interior persistence through SoftInheritedParameters; the same remoteness maps to the child. In the disjoint branch, the parent and mapped zero configuration agree exactly, so the open complement of the closed set of intersecting segment configurations gives persistence.",
+    "The disjoint branch has no determinant-nonzero premise. The canonical segmentsMeet predicate quantifies both parameters over the compact closed unit interval; its closedness is proved by compact projection of the closed incidence equation. Thus disjoint parallel pairs are included, and continuity of starts and directions suffices. The proof does not incorrectly infer independence from parent G1 for a disjoint pair.",
+    "The crossing-predicate equivalence follows from the exact closed-intersection equivalence and preserved remoteness. Finite eventually_all over ZMod n gives one neighborhood for all ordered parent pairs, with the nonremote cases discharged only under their impossible remote antecedent. Metric.eventually_nhds_iff produces an actual delta>0 and the full symmetric interval |epsilon|<delta.",
+    "For distinct inherited visits sharing directed edge k, parent Generic is used exactly to prove distinct parent edge parameters through G2 and crossing-point injectivity. Continuity of both actual mapped parameters and strict-order stability preserves the biconditional comparison. The same first-edge orientation is used for both comparisons, including when k=j is the moving return edge.",
+    "The final theorem takes finite intersections over all k,l,m. It includes the identical-visit case l=m explicitly, where both strict comparisons are false, and handles absent crossing antecedents without creating visits. No parent crossings or edge labels are omitted. Child Generic is never assumed.",
+    "All six statements cover arbitrary attachment j and vector q, parent n>=3, and all parent remote pairs; only the order results require Generic rather than G1. This matches the bounded geometric arguments under weaker assumptions than source admissibility. A common positive interval for these properties follows by restricting their neighborhoods, but no combined soft-family theorem is claimed.",
+    "The preserved first-draft prototype contains this exact six-declaration body. Replacing only its embedded failed Parameters body by the current frozen passing Parameters body exactly produces the tested prototype. This group has no failed own kernel: root81328 is its first run and has six standard foundational traces."
+  ],
+  "limits": "These helpers establish remote-parent crossing equivalence and finite inherited parameter order. They do not classify enlarged pairs that were adjacent in the parent, exclude soft-edge crossings by themselves, prove newborn geometry, child G2, a chamber, full crossing/visit bijections or cyclic Gauss-word identities. Order is stated for actual affine edgeParameter values; their identification with canonical child visit parameters uses the separate G1 interface. No fresh kernel was run. Stronger source-fidelity approval and canonical integration remain pending."
+}

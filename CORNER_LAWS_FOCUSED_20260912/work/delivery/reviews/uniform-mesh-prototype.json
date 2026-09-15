@@ -1,0 +1,191 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "uniform-mesh-prototype",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1408–1415: strict finite subdivision subordinate to an open cover, with prescribed first and last covering members and at least three cells",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The exact uniform real unit-interval mesh and its open-cover subordination with prescribed endpoint members, together with the independently checked continuous-curve preimage specialization. No full thm:relgp, actual regular cube-cover construction or global path acceptance.",
+  "prototype_file": "work/checks/UniformMesh.prototype.lean",
+  "prototype_sha256": "aa11f56fdb9fdfcea3aec07c0803cca03b51902f4fc38b1f50730735aa4ad691",
+  "in_theorem_library": false,
+  "main_declarations": [
+    "SM.uniformMeshPoint",
+    "SM.uniformMeshPoint_strictMono",
+    "SM.uniformMeshPoint_step",
+    "SM.exists_fine_uniformMesh",
+    "SM.exists_uniformMesh_subordinate_with_endpoints"
+  ],
+  "reason": "The prototype faithfully proves the bounded strict-mesh source step. Mesh points are the actual real numbers j/N as elements of the genuine closed unit interval. For positive N they start at 0, end at 1, are strictly increasing and have exact adjacent real width 1/N. The Archimedean construction gives an arbitrarily fine such mesh with N≥3. For any open cover of the actual unit interval and any prescribed cover members containing its endpoints, compactness supplies a uniform Lebesgue radius, while openness of those two selected members supplies endpoint radii. A mesh finer than all three radii has every closed cell in one covering set; the first cell is placed in the prescribed first member and the last cell in the prescribed last member. N≥3 excludes any conflict between these two branches. No finiteness assumption on the cover, target-space metric, supplied subdivision, distinct endpoint covering indices or abstract subordination oracle is added. The independent example pulls an arbitrary actual open image cover back along a continuous curve and derives closed-cell image containment with both endpoint constraints. The prototype remains outside the theorem library and does not yet instantiate actual Regular/Generic cubes, choose their overlap domains, prove a global glued path or certify the original theorem.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual unit interval and mesh point domain",
+      "assessment": "Pinned Mathlib unitInterval is the subtype Set.Icc(0:ℝ)1, with the inherited real order and metric. uniformMeshPoint N hN j has real value (j.val:ℝ)/(N:ℝ), with j:Fin(N+1). Its lower bound follows from nonnegative numerator and denominator; its upper bound follows from j.val≤N and the strictly positive denominator supplied by hN. Thus all N+1 actual mesh points lie in the closed source interval. There is no cyclic identification, clamping, synthetic mesh order or quotient parameter."
+    },
+    {
+      "clause": "Exact endpoints and strictness",
+      "assessment": "At index 0 the value is 0/N=0. At index N, positivity gives a nonzero denominator and N/N=1. Both are equalities in the actual unit-interval subtype, proved by Subtype.ext. For two strictly ordered Fin indices, their natural values and real casts are strictly ordered. Division by the positive real N preserves the strict inequality. Consequently the mesh has no repeated parameter values; strict monotonicity is established for every positive N, independent of any cover."
+    },
+    {
+      "clause": "Actual width and arbitrarily fine mesh with N≥3",
+      "assessment": "For each j:Fin N, j.castSucc has natural value j and j.succ has value j+1. The explicit real subtraction of their mesh values simplifies to ((j+1)/N)−(j/N)=1/N by field/ring identities. This statement uses real subtraction, not any interval operation. Given epsilon>0, the Archimedean property supplies natural m with 1/epsilon<m. Choosing N=m+3 ensures N≥3 and 1<N*epsilon. Division by positive N then yields 1/N<epsilon. The proof checks both positive denominators; no mesh fineness is assumed without construction."
+    },
+    {
+      "clause": "Every closed cell fits in balls at either endpoint",
+      "assessment": "If t is in the closed cell [a,b], then t−a≥0 and t−a≤b−a=1/N. Therefore the actual real distance to the left endpoint is at most 1/N and is strictly less than a supplied radius larger than 1/N. At the right endpoint t−b≤0, so the absolute value becomes b−t and the same upper bound applies. These are balls in the actual unit-interval subtype metric; all endpoint cases t=a or t=b are included. The explicit upper/lower real bounds avoid any ambiguity from arithmetic on unitInterval."
+    },
+    {
+      "clause": "Uniform subordination from genuine compactness",
+      "assessment": "lebesgue_number_lemma_of_metric applies to isCompact_univ of the actual unit interval and the supplied arbitrary open cover. It returns positive delta such that the full relative metric ball centered at each unit-interval point is contained in some cover member. Its pinned proof was inspected: compactness provides a finite neighborhood subcover, a finite intersection of entourages gives one uniform neighborhood, and the metric basis supplies delta. The prototype uses this proved theorem with its hypotheses discharged, not an assumed per-cell cover assignment. No finite index-type assumption or extra uniform-continuity hypothesis occurs."
+    },
+    {
+      "clause": "Prescribed first and last cover members on nondegenerate cells",
+      "assessment": "Openness of the selected first member at 0 and last member at 1 gives positive relative ball radii epsilon0 and epsilon1. The constructed uniform mesh has width below min(delta,epsilon0,epsilon1). If j.val=0, the left endpoint is exactly 0 and the entire closed first cell belongs to the prescribed first set by the left-ball bound. If j.val+1=N, the right endpoint is exactly 1 and the last cell belongs to the prescribed last set by the right-ball bound. For other cells, the Lebesgue ball at their left endpoint supplies a covering member. Because N≥3, a cell cannot be both first and last, so the endpoint equalities are compatible without requiring first=last or first≠last. A common cover member at both endpoints is also permitted. These cells have positive width, so the endpoint constraints describe genuine source-time intervals rather than singleton endpoints."
+    },
+    {
+      "clause": "Independent arbitrary continuous-curve specialization",
+      "assessment": "The first independent kernel example takes gamma:unitInterval→X for an arbitrary topological space X, its continuity, a family of actual open sets covering range gamma, and two members containing gamma(0) and gamma(1). Their inverse images are open in the real unit interval and cover its entire universe. The prototype gives the mesh and closed-cell preimage containment. For any point in the image of a closed cell, its actual parameter witness transports that containment to the corresponding set in X. The example retains strict monotonicity, both exact endpoints, N≥3 and both prescribed index equalities. No metric, compactness assumption on X, supplied time cover or extra condition on gamma is required. A second independent example verifies a strict internal step at N=3 using the actual point definition and theorem."
+    },
+    {
+      "clause": "Source scope and remaining formal interfaces",
+      "assessment": "This proves the pure time-subdivision mechanism needed after an actual open cube cover and its two endpoint members have been supplied. The implementation does not itself construct Regular/Generic cubes, instantiate them for the source gamma, choose a cover index function for all cells or prove the eventual overlap-domain construction. The uniform nodes mathematically form the expected finite subdivision; a separate all-parameters-belong-to-some-cell lemma is not present in this prototype and must be supplied if required by the later global gluing proof. No global path, piecewise-affine concatenation, uniform Euclidean error bound, wall classification or occurrence-label conclusion follows merely from this prototype review."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance and no original proof/checklist increment.",
+    "No actual regular/generic cube-cover selection or source-path cube instantiation in the theorem library.",
+    "No separately formalized exhaustive cell coverage interface, global cell-index selection, overlap waypoint-domain construction or assignment of the simultaneous algebraic choice to those domains.",
+    "No global timed coordinate-polyline gluing, endpoint preservation/collars as a complete path theorem, uniform Euclidean approximation or wall dictionary.",
+    "The prototype is outside the audited Lean project. Receipt055 verifies the unchanged surrounding project only; the prototype is independently kernel-checked here."
+  ],
+  "reviewed_files_sha256": {},
+  "import_closure_roots": [],
+  "import_closure_file_count": 0,
+  "pure_mathlib_prototype": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "direct_imports_sha256": {
+      "Mathlib/Topology/UnitInterval.lean": "22543099046d02450f892de0730f6cee132e634150ac340dfd104981337685e1",
+      "Mathlib/Algebra/Order/Archimedean/Basic.lean": "ce4a56473adc889f0f890d56ed4a1c39bcecbe07ef0193eca388c84986bdadf7",
+      "Mathlib/Tactic.lean": "434829fecfa75b2adfe40364f2d58336bb25a469a83bb8214523657e746d43c9"
+    },
+    "supporting_pinned_library_files_read_sha256": {
+      "Mathlib/Topology/UnitInterval.lean": "22543099046d02450f892de0730f6cee132e634150ac340dfd104981337685e1",
+      "Mathlib/Algebra/Order/Archimedean/Basic.lean": "ce4a56473adc889f0f890d56ed4a1c39bcecbe07ef0193eca388c84986bdadf7",
+      "Mathlib/Algebra/Order/Archimedean/Defs.lean": "792d8e81ef492132ffe4cbd31ad9cfa0cf4d2a215b47acb86f1240bba0a6525c",
+      "Mathlib/Topology/MetricSpace/Pseudo/Lemmas.lean": "6a0cf742b00efa9cbd7f386a61c33a84710797bc1fb1cb82d8d92e1951b4df6a",
+      "Mathlib/Topology/UniformSpace/Compact.lean": "7f920c830d9dae5c5f484094d3003d3e134bd5cb96f96ced188b125ac404544f"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/uniform-mesh-review-types.lean",
+    "independent_trace_source_sha256": "333165b2f56fbee6734213b807f639d1aaa7d82e0a54a19e66cc8b3d36042c72",
+    "independent_trace_log": "work/checks/uniform-mesh-review-types.log",
+    "independent_trace_log_sha256": "bcdaff18dd1888a1388ceab4a1b0816e08e099dcea467a5e668e3423d76808a3",
+    "independent_kernel_command": "lake env lean ../checks/uniform-mesh-review-types.lean",
+    "independent_kernel_session": 35329,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 9,
+    "checked_theorems": 8,
+    "checked_definitions": 1,
+    "declaration_axioms": {
+      "SM.uniformMeshPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_first": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_strictMono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_step": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_fine_uniformMesh": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_cell_subset_ball": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.uniformMeshPoint_cell_subset_right_ball": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_uniformMesh_subordinate_with_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "additional_examples": [
+      "Arbitrary continuous curve and actual open image cover give exact closed-cell image containment with prescribed first/last members, strict mesh and exact 0/1 endpoints.",
+      "The actual N=3 mesh has a strict internal step."
+    ],
+    "additional_examples_passed": true,
+    "successful_build_log": "work/checks/uniform-mesh-prototype.log",
+    "successful_build_log_sha256": "c4d50a0f08380d40e15f456fe583aafe969474827170d780f8ed402e0c81c298",
+    "successful_build_session": 73550,
+    "successful_build_exit_code": 0,
+    "prototype_result": "work/checks/uniform-mesh-prototype-result.json",
+    "prototype_result_sha256": "1ea4c821db86a1f780cd8c8ae2494f7f471da10cffb87e885b6fb2936d23ed31",
+    "independent_setup_note": "One read/trace-file-preparation command had an incorrect working-directory path and failed before process creation. The corrected command succeeded; the first independent Lean process then passed without proof repairs."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-055-output.json",
+    "receipt_sha256": "9de9ab745386a7e7e47282a567a1a87b9aafb97613eb811e105cd9897325f598",
+    "parent_reported_terminal_session": 52700,
+    "parent_reported_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "receipt_equals_stage_development_at_verification": true,
+    "project_files": 274,
+    "frozen_files": 38,
+    "SM_modules": 268,
+    "exact_Lean_files": 270,
+    "audited_local_declarations": 3028,
+    "mapped_claims": 30,
+    "all_project_and_frozen_hashes_independently_verified": true,
+    "all_263_prior_SM_modules_unchanged": true,
+    "prototype_excluded_from_project_inventory": true,
+    "scope": "The current pure-Mathlib prototype is not covered by the project receipt. Its current exact bytes are covered by the independent kernel/source review above."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "source_row_status_unchanged": true
+  },
+  "independence": "Reviewer did not author or edit the prototype, theorem-library files or declaration map. All eight theorem bodies and the actual point definition were independently read; the exact prototype prefix was copied to independent check evidence, with expanded types/axioms and two reviewer-written semantic examples.",
+  "edits": "Only the independent work/checks trace and this work/reviews report were created. No implementation, source, prototype, map, progress or root-import edits."
+}

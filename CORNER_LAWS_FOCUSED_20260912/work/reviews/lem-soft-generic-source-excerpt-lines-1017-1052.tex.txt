@@ -1,0 +1,36 @@
+\begin{lemma}[the soft family is generic]\label{lem:soft-generic}
+Let $P$ be generic, $j$ a vertex, and $q$ admissible in
+Definition~\ref{def:soft}. Put $M=\mu_j$, $A=\mu_{j-1}$,
+$B=\mu_{j+1}$, $u=M-A$, $v=B-M$, and $\tau=\tau_j(P)$.
+Write $M_\varepsilon=M+\varepsilon q$ and
+$D_\varepsilon=v-\varepsilon q$. There is $\varepsilon_0>0$
+such that, for every $0<\varepsilon<\varepsilon_0$:
+\begin{enumerate}
+\item[(i)] $P_\varepsilon=P^{(j,q)}_\varepsilon$ is generic,
+and all these polygons lie in one chamber. The soft edge meets
+other edges only at its incident endpoints.
+\item[(ii)] Every original vertex other than $M$ retains its
+original turn sign. The turns at $M$ and $M_\varepsilon$ are
+$-\chi_-$ and $-\chi_+$, respectively. The unchanged edge
+ directions are fixed, $D_\varepsilon\to v$, and
+$\sgn\det(u,D_\varepsilon)=\tau$, while
+$\sgn\det(D_\varepsilon,u)=-\tau$.
+\item[(iii)] Identify each unchanged edge with its parent edge
+and the return edge with the parent edge $E_j$. Every parent
+crossing persists. Its point and its parameters on the corresponding
+edges converge to the parent values. Inherited visits retain their
+order along each directed edge, and the determinant sign of the
+ordered edge directions at each inherited crossing is unchanged.
+\item[(iv)] If $\chi_-=\chi_+=-\tau$ (same-sign sector), or
+$\chi_-\ne\chi_+$ (mixed sector), these are all the crossings
+and the Gauss word is the parent's Gauss word. If
+$\chi_-=\chi_+=\tau$ (loop sector), there is exactly one
+additional crossing $y$, between the return edge and $E_{j-1}$.
+It tends to $M$. Its incoming-edge visit $a$ and return-edge
+visit $b$ bound the oriented traversal arc from $a$ through
+$M,M_\varepsilon$ to $b$, containing no other crossing visit.
+Thus the two newborn visits are cyclically adjacent; deleting
+ them gives the parent's Gauss word.
+\end{enumerate}
+\status{new (round~4: the geometric facts consumed by Theorem~\ref{thm:C-soft} exported as clauses (i)--(iv) --- turn signs, soft-edge contacts, inherited crossings with their parameters, order and direction-determinant signs, the unique newborn crossing and its short arc; adopted from the Codex proposal sm4\_round4\_exports\_v1, P-25-24, F120-GEOMETRY, re-read by the author; F-25-120; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{lemma}

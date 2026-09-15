@@ -1,0 +1,152 @@
+{
+  "status": "candidate body comparison complete; canonical installed files, audit and kernel check pending",
+  "ports": {
+    "work/lean/SM/RootBoundary.lean": {
+      "candidate": "work/checks/root-gates-port-candidate/SM/RootBoundary.lean",
+      "candidate_sha256": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "source_fragments": [
+        {
+          "source": "work/checks/RootBoundary.prototype.lean",
+          "source_sha256": "c577dacdb59697e477152b1d9edc49cec64b0c8385fb86f450f810bfc2b6b0bf",
+          "body_sha256": "21004d2d3ff44ef2fdc415780b5c6bac106b003071baae2f43a2d9401c2c8df4"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "only_between_fragment_separator": "one newline",
+      "imports": [
+        "SM.Generic",
+        "Mathlib.Tactic"
+      ]
+    },
+    "work/lean/SM/FiniteCompositions.lean": {
+      "candidate": "work/checks/root-gates-port-candidate/SM/FiniteCompositions.lean",
+      "candidate_sha256": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+      "source_fragments": [
+        {
+          "source": "work/checks/FiniteCompositions.body.lean",
+          "source_sha256": "736512b45c60efcc257173fc3dc199550b8ed6f66fd1330b75e1126911b6016a",
+          "body_sha256": "736512b45c60efcc257173fc3dc199550b8ed6f66fd1330b75e1126911b6016a"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "only_between_fragment_separator": "one newline",
+      "imports": [
+        "SM.RootBoundary"
+      ]
+    },
+    "work/lean/SM/Gates.lean": {
+      "candidate": "work/checks/root-gates-port-candidate/SM/Gates.lean",
+      "candidate_sha256": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+      "source_fragments": [
+        {
+          "source": "work/checks/Gates.body.lean",
+          "source_sha256": "a6cd45a25b0f41490fccf15cf277192c68a55cf3c845c9215ff736e3a0bf25ae",
+          "body_sha256": "a6cd45a25b0f41490fccf15cf277192c68a55cf3c845c9215ff736e3a0bf25ae"
+        },
+        {
+          "source": "work/checks/GatesEquivariance.body.lean",
+          "source_sha256": "5320de1916d594a17cacf2b3de873b691a2d8dfacddb7efe7171c2c352d48257",
+          "body_sha256": "5320de1916d594a17cacf2b3de873b691a2d8dfacddb7efe7171c2c352d48257"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "only_between_fragment_separator": "one newline",
+      "imports": [
+        "SM.RootBoundary",
+        "Mathlib.Data.Sign.Basic"
+      ]
+    }
+  },
+  "prior_SM_count": 285,
+  "all_285_old_SM_unchanged": true,
+  "checked_declarations": [
+    "SM.boundaryIndex",
+    "SM.boundaryWord",
+    "SM.boundaryIndex_injective",
+    "SM.boundaryWord_shift",
+    "SM.boundaryWord_first",
+    "SM.boundaryWord_last",
+    "SM.boundaryWord_leaf_edge",
+    "SM.BoundaryInterval",
+    "SM.BoundaryInterval.leaves",
+    "SM.BoundaryInterval.leaves_pos",
+    "SM.IntervalComposition",
+    "SM.IntervalComposition.parts_lt",
+    "SM.IntervalComposition.part",
+    "SM.IntervalComposition.single",
+    "SM.rootData",
+    "SM.IntervalComposition.finiteCode",
+    "SM.IntervalComposition.finiteCode_injective",
+    "SM.IntervalComposition.finite",
+    "SM.IntervalComposition.fintype",
+    "SM.IntervalComposition.part_leaves_lt",
+    "SM.signTheta",
+    "SM.sign_product_nonzero",
+    "SM.ordinaryGate",
+    "SM.rootGate",
+    "SM.gate_pair_identities",
+    "SM.IntervalComposition.nearSign",
+    "SM.IntervalComposition.farSign",
+    "SM.IntervalComposition.nearSign_ne_zero",
+    "SM.IntervalComposition.farSign_ne_zero",
+    "SM.IntervalComposition.ordinaryWeight",
+    "SM.IntervalComposition.rootWeight",
+    "SM.IntervalComposition.one_part_weights",
+    "SM.IntervalComposition.binary_near_eq_far",
+    "SM.IntervalComposition.binary_ordinaryWeight_zero",
+    "SM.gatesData",
+    "SM.nonzero_sign_cases",
+    "SM.gates_nonzero",
+    "SM.ordinaryGate_congr",
+    "SM.rootGate_congr",
+    "SM.IntervalComposition.nearSign_shift",
+    "SM.IntervalComposition.farSign_shift",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_signs",
+    "SM.IntervalComposition.rootWeight_eq_of_signs",
+    "SM.IntervalComposition.ordinaryWeight_shift",
+    "SM.IntervalComposition.rootWeight_shift",
+    "SM.gatesData_shift"
+  ],
+  "examples": [
+    "RootBoundaryIndependentReview.simultaneous_root_shift",
+    "RootBoundaryIndependentReview.leaf_index_exhaustion",
+    "RootBoundaryIndependentReview.boundary_vertices_distinct",
+    "RootBoundaryIndependentReview.cut_containment",
+    "RootBoundaryIndependentReview.raw_composition_admitted",
+    "RootBoundaryIndependentReview.all_compositions_finite",
+    "RootBoundaryIndependentReview.one_part_exists",
+    "RootBoundaryIndependentReview.root_segment_and_endpoints_shift",
+    "FiniteAndGatesIndependentReview.every_composition_enumerated",
+    "FiniteAndGatesIndependentReview.all_source_children_decrease",
+    "FiniteAndGatesIndependentReview.source_child_relation_wellFounded",
+    "FiniteAndGatesIndependentReview.singleton_measure_equal",
+    "FiniteAndGatesIndependentReview.interior_cut_exhaustion",
+    "FiniteAndGatesIndependentReview.real_step_interpretation",
+    "FiniteAndGatesIndependentReview.real_gate_identities",
+    "FiniteAndGatesIndependentReview.real_weight_identities",
+    "FiniteAndGatesIndependentReview.source_small_part_cases",
+    "FiniteAndGatesIndependentReview.gate_signs_shift",
+    "FiniteAndGatesIndependentReview.gate_weights_shift",
+    "GatesEquivarianceIndependentReview.source_generator",
+    "GatesEquivarianceIndependentReview.rooted_representative_descent",
+    "GatesEquivarianceIndependentReview.G1_proof_independence"
+  ],
+  "transparent_predicates_printed": [
+    "SM.rootData",
+    "SM.BoundaryInterval",
+    "SM.IntervalComposition",
+    "SM.signTheta",
+    "SM.IntervalComposition.nearSign",
+    "SM.IntervalComposition.farSign",
+    "SM.IntervalComposition.ordinaryWeight",
+    "SM.IntervalComposition.rootWeight",
+    "SM.gatesData"
+  ],
+  "canonical_trace": "work/checks/root-gates-canonical-review-types.lean",
+  "canonical_trace_sha256": "42d1cb1088b570b4811a1b39b671116d4df04983a3f1798cc7c9990dc82034ee",
+  "prototype_reviews_sha256": {
+    "work/reviews/root-boundary-prototype.json": "1fd4cd5b83f4288a9bb0fa1513d972f6f43fdf96cd6ca163e6b197584eb59239",
+    "work/reviews/finite-compositions-prototype.json": "96dadb424621ed63b30e2dd8e6edc3c59258a5af7183d647683aa2f3811c99c6",
+    "work/reviews/gates-prototype.json": "9938bde6b9e74150a5ef4b8f9d33f334963c675ea539ed3d06c8bbc1755a38d2"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-local-determinants-technical-review-20260912",
+  "sealed_utc": "2026-09-12T00:43:10.784964+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root suggested explicit singleton-to-equality conversion after first kernel error; agent repaired that proof line. Root did not author the statements or construction."
+  },
+  "scope": {
+    "group": "SoftLocalDeterminants",
+    "declarations": [
+      "SM.softLocalPoint",
+      "SM.softLocalReturn",
+      "SM.softLocalPoint_add_return",
+      "SM.softLocal_new_old_area",
+      "SM.softLocal_attachment_determinants",
+      "SM.softLocal_turn_determinants",
+      "SM.softLocal_incoming_heights",
+      "SM.softLocal_return_heights",
+      "SM.softLocal_return_determinants",
+      "SM.softLocal_attachment_signs",
+      "SM.softLocal_turn_signs",
+      "SM.softLocal_sign_product_iff",
+      "SM.softLocal_linear_sign_persistence",
+      "SM.softLocal_small_signs",
+      "SM.softLocal_first_straddle_iff",
+      "SM.softLocal_second_straddle_iff",
+      "SM.softLocal_interior_crossing_iff",
+      "SM.softLocal_closed_iff_strict",
+      "SM.softLocal_small_crossing_sector"
+    ],
+    "source_id": "lem:soft-generic local determinant and loop-sector geometry",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150; local-pair geometry only"
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/SoftLocalDeterminants-prototype-result.json",
+    "receipt_sha256": "9e6397d8431989a359e648202ab25035a331400b922402fb99a6387010b2909c",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+      "work/checks/SoftLocalDeterminants.prototype.lean": "3e39004d1060c3a91c4d116f55f3739875d24661d3f93df57a4b20290d0ed647",
+      "work/checks/SoftLocalDeterminants-second-kernel.log": "564eac3ef31c424ac9c9f4d59c2ba6ebb88a06f07efd7f609f93fa8cb33ae959"
+    },
+    "declaration_axioms": {
+      "SM.softLocalPoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocalReturn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocalPoint_add_return": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_new_old_area": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_attachment_determinants": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_turn_determinants": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_incoming_heights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_return_heights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_return_determinants": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_attachment_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_turn_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_sign_product_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_linear_sign_persistence": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_small_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_first_straddle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_second_straddle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_interior_crossing_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_closed_iff_strict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softLocal_small_crossing_sector": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+      "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+      "work/checks/SoftLocalDeterminants-first-failed.body.lean": "74e92cba16088e18f22dfbf273892025bd108bd1296d08d5f19bf60c69169a43",
+      "work/checks/SoftLocalDeterminants-first-failed.prototype.lean": "977bdf765d9716c5e4d10c9bede814ba9a9545c48ebb31aae475ab3b1e6a64b1",
+      "work/checks/SoftLocalDeterminants-first-kernel.log": "e5cfb5f26737ce2f59823e0a3fb209267cf9559c4a1df78b375fcf519219cd64",
+      "work/checks/SoftLocalDeterminants-first-draft.body.lean": "74e92cba16088e18f22dfbf273892025bd108bd1296d08d5f19bf60c69169a43",
+      "work/checks/SoftLocalDeterminants-first-draft.prototype.lean": "977bdf765d9716c5e4d10c9bede814ba9a9545c48ebb31aae475ab3b1e6a64b1"
+    }
+  },
+  "findings": [
+    "The inserted point is exactly M+epsilon*q, and the return vector is B-M-epsilon*q. Expanding the determinant explicitly proves each area and height identity. The incoming height of B and the constant return height of A are both det(M-A,B-M), with the correct ordered signs.",
+    "The attachment signs hold for every positive epsilon, including possible zero determinants. The small crossing theorem adds exactly the three nonzero local determinants: parent turn, incoming/q and q/outgoing. It does not assume an already generic inserted polygon.",
+    "Continuity of the sign at two nonzero constant terms gives a common positive radius via min. The repaired singleton conversion changes no theorem statement or mathematical argument.",
+    "The first and second strict-straddle tests are both retained. Their conjunction is exactly both attachment signs equal to the parent turn. The source segment-crossing criterion identifies intersection in both open segments and transversality with these tests.",
+    "All four endpoint heights are independently shown nonzero. Therefore every closed-segment solution has both parameters strictly between zero and one. This excludes endpoint-only contacts in non-loop sectors, rather than conflating closed and open intersections.",
+    "The final theorem also exports both direction-determinant signs on that same interval. No division by a possibly zero sign, geometric oracle, root independence or sector exclusion is introduced."
+  ],
+  "limits": "Local incoming/return pair only. Cyclic indexing, global inherited crossings, G2, one chamber and Gauss-word claims are not established here. Stronger fidelity and canonical integration remain pending."
+}

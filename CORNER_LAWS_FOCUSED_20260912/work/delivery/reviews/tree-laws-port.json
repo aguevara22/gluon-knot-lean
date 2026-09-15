@@ -1,0 +1,753 @@
+{
+  "review_schema": "independent-full-source-port-review-v1",
+  "id": "tree-laws-port",
+  "source_ids": [
+    "def:treesum",
+    "lem:treesum-trees",
+    "prop:A-chamber"
+  ],
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "source_claim_accepted": false,
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "in_theorem_library": true,
+  "statement_hashes": {
+    "def:treesum": "a76894e86314e1439b4c07bf4ef5d60c96a74294bb7603c66414bd7825ac37ae",
+    "lem:treesum-trees": "6ebebea98b61e1a9b0b77d87402da3ff79c2ce2ea9f7d80a4ae00106af05f6cd",
+    "prop:A-chamber": "633969d333f0363e799aaadc09efe5459c2dbc40db21d008a4ddb3a93d67c59a"
+  },
+  "reason": "All six installed canonical namespace bodies equal the exact concatenations of the eight independently reviewed frozen body fragments. Import headers alone replace embedded predecessor bodies. All288 prior SM modules remain byte-for-byte unchanged, Supplemental adds exactly the two expected root imports, and all34 previous source semantic hashes are unchanged. The independent canonical-only kernel3756 passes58 declaration checks and20 substantive consumer theorems with78 standard-only axiom traces. Every canonical printed implementation type exactly matches its independent prototype trace. The source statements, actual definitions and proofs were independently read and their current transparent dependency closures were checked against immutable audit062; their semantic hashes were independently recomputed. The source-specific reports certify the three original rows. This exact-port report does not edit the source map.",
+  "ports": {
+    "work/lean/SM/TreeCoefficient.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/TreeCoefficient.lean",
+      "candidate_sha256": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "source_fragments": [
+        {
+          "source": "work/checks/TreeCoefficient.body.lean",
+          "source_sha256": "d4e251f9b331f12bb5a9625c661928639d3606c3f253a94ef21144ea8b73f8c6"
+        },
+        {
+          "source": "work/checks/TreeCoefficientTransport.body.lean",
+          "source_sha256": "922287e0a90987f2d5f0206e5198512c4d62beb8a7e4aa48f620a149af580c7f"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.Gates",
+        "SM.FiniteCompositions"
+      ],
+      "installed_module_sha256": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/TreeChamber.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/TreeChamber.lean",
+      "candidate_sha256": "a9a657675002c2f2ca28cbcc790de3f235e3561a28c44209b6341df8baa88961",
+      "source_fragments": [
+        {
+          "source": "work/checks/TreeChamber.body.lean",
+          "source_sha256": "ffd49c183bf6509f56bd10cbd7e87a775d6caa4e86080f814fbbb0ddce6cc52b"
+        },
+        {
+          "source": "work/checks/TreeChamberClaim.body.lean",
+          "source_sha256": "bb181ce0d8265180429fb6fe6b6b6c9d59f6fb1e8f7d8bc60459e1e3d4c1c904"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.TreeCoefficient",
+        "SM.CyclicChambers"
+      ],
+      "installed_module_sha256": "a9a657675002c2f2ca28cbcc790de3f235e3561a28c44209b6341df8baa88961",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/PlaneTreeShape.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeShape.lean",
+      "candidate_sha256": "749fc1127dc506251ea5c081636580ab02797425f4092d6d15ef39541d4d753b",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeShape.body.lean",
+          "source_sha256": "73a8c3488fef9e80ce7e5b654698ac6fa24c405a5f7eaa8620b676de2aadab6e"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions",
+        "Mathlib.Tactic"
+      ],
+      "installed_module_sha256": "749fc1127dc506251ea5c081636580ab02797425f4092d6d15ef39541d4d753b",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/PlaneTreeWeights.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeWeights.lean",
+      "candidate_sha256": "bc0e6a06e62193b96fba3a7327ce035422ca0b8be6da2f87c22b0d1e1035eda0",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeWeights.body.lean",
+          "source_sha256": "99c8f8c1d0bcbed0b713a70d392e49a4ea8e3eb0a920f44846c176fbde2343c3"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.PlaneTreeShape"
+      ],
+      "installed_module_sha256": "bc0e6a06e62193b96fba3a7327ce035422ca0b8be6da2f87c22b0d1e1035eda0",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/PlaneTreeExpansion.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeExpansion.lean",
+      "candidate_sha256": "c8730af354e242689181de79683ad35e5ab1e052637aa17ee50e95de475c3877",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeExpansion.body.lean",
+          "source_sha256": "7097e3e53ca86b3407969f958cba9dec68d5f6f508117e0648914780b24ed2ad"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.TreeCoefficient",
+        "SM.PlaneTreeWeights"
+      ],
+      "installed_module_sha256": "c8730af354e242689181de79683ad35e5ab1e052637aa17ee50e95de475c3877",
+      "installed_equals_candidate": true
+    },
+    "work/lean/SM/PlaneTreeFormal.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeFormal.lean",
+      "candidate_sha256": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeFormal.body.lean",
+          "source_sha256": "1d91dac2558d1b76cd0624e0fb94e393f394f6cf6235990d98bf1f3156dddecf"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.PlaneTreeExpansion",
+        "Mathlib.Algebra.MvPolynomial.Eval"
+      ],
+      "installed_module_sha256": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+      "installed_equals_candidate": true
+    }
+  },
+  "main_declarations": [
+    "SM.openTreeRec",
+    "SM.rootedTreeRec",
+    "SM.openTreeRec_one",
+    "SM.openTreeRec_many",
+    "SM.fullBoundaryInterval",
+    "SM.openTreeSum",
+    "SM.treeCoefficient",
+    "SM.mainTreeCoefficient",
+    "SM.openTreeSum_one",
+    "SM.openTreeSum_many",
+    "SM.treeCoefficient_eq",
+    "SM.treesumData",
+    "SM.IntervalComposition.nearSign_eq_of_chi",
+    "SM.IntervalComposition.farSign_eq_of_chi",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_chi",
+    "SM.IntervalComposition.rootWeight_eq_of_chi",
+    "SM.openTreeSum_eq_of_chi",
+    "SM.treeCoefficient_eq_of_chi",
+    "SM.openTreeSum_shift",
+    "SM.treeCoefficient_shift",
+    "SM.mainTreeCoefficient_shift",
+    "SM.treesumData_shift",
+    "SM.tree_data_eq_of_chi",
+    "SM.labelled_chamber_chi_constant",
+    "SM.tree_data_labelled_chamber_constant",
+    "SM.tree_data_G1_path_constant",
+    "SM.treeCoefficient_quotient_chamber_transport",
+    "SM.OpenPlaneTree",
+    "SM.openPlaneTreeUngraft",
+    "SM.openPlaneTree_finite",
+    "SM.RootedPlaneTree",
+    "SM.OpenPlaneTree.weight",
+    "SM.OpenPlaneTree.ordinaryCount",
+    "SM.OpenPlaneTree.ordinaryProduct",
+    "SM.OpenPlaneTree.weight_eq_signed_product",
+    "SM.RootedPlaneTree.weight",
+    "SM.RootedPlaneTree.ordinaryCount",
+    "SM.RootedPlaneTree.ordinaryProduct",
+    "SM.RootedPlaneTree.weight_eq_signed_product",
+    "SM.openPlaneTreeSum",
+    "SM.OpenPlaneTree.eq_leaf",
+    "SM.openPlaneTreeSum_one",
+    "SM.openPlaneTreeSum_many",
+    "SM.openTreeRec_eq_planeTreeSum",
+    "SM.rootedTreeRec_eq_planeTreeSum",
+    "SM.rootedTreeRec_eq_signed_planeTreeSum",
+    "SM.OpenPlaneTree.map_weight",
+    "SM.RootedPlaneTree.map_weight",
+    "SM.map_rootedTreeRec",
+    "SM.TreeWeightIndex",
+    "SM.formalOrdinaryWeight",
+    "SM.formalRootWeight",
+    "SM.planeTree_formal_identity",
+    "SM.planeTree_formal_evaluation",
+    "SM.treeCoefficient_eq_signed_planeTreeSum",
+    "SM.treesum_trees",
+    "SM.TreeDataEqual",
+    "SM.A_chamber"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/PlaneTreeExpansion.lean": "c8730af354e242689181de79683ad35e5ab1e052637aa17ee50e95de475c3877",
+    "work/lean/SM/PlaneTreeFormal.lean": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+    "work/lean/SM/PlaneTreeShape.lean": "749fc1127dc506251ea5c081636580ab02797425f4092d6d15ef39541d4d753b",
+    "work/lean/SM/PlaneTreeWeights.lean": "bc0e6a06e62193b96fba3a7327ce035422ca0b8be6da2f87c22b0d1e1035eda0",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/TreeChamber.lean": "a9a657675002c2f2ca28cbcc790de3f235e3561a28c44209b6341df8baa88961",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "import_closure_roots": [
+    "SM.PlaneTreeFormal",
+    "SM.TreeChamber"
+  ],
+  "import_closure_file_count": 23,
+  "prior288_unchanged": true,
+  "current_SM_count": 294,
+  "all_34_prior_semantic_hashes_unchanged": true,
+  "prototype_review_binding": {
+    "work/reviews/tree-coefficient-prototype.json": "e92f0569ef1f8579dc854567897c1d7a80942f9fa8018a2192973aeaf37a78e4",
+    "work/reviews/plane-tree-prototype.json": "0e8eaadf0f16e7f4fdd2d6c21c19ccf5bb3100983b6dac80d07e3aca8f94a161",
+    "work/reviews/tree-chamber-claim-prototype.json": "03a87ec9196be4520ce48f28bd0ef3b0dd80f5f3274c8a9fe24c56b15e377372",
+    "work/reviews/tree-chamber-prototype.json": "4906e62046037bfd443d53f2c545548af2e994db32094c368c16fd7bec6bafd9",
+    "work/checks/tree-laws-reviewed-types.json": "f5dbdcc1beee7f4b269f6c0030a9ac8be34744c091b967951a0abb3cdca1617c",
+    "work/checks/tree-chamber-claim-reviewed-types.json": "b78f1d7865a319f72a23ff7ac5db656acfcca5990847eac60689ea838e1f7bbc",
+    "work/checks/tree-definition-and-shape-review-examples.lean": "3ffcf5549f51ead6d97e1bc9e0e321bb994f2b1e5c91066a07e60b514df0a95f",
+    "work/checks/tree-chamber-claim-review-examples.lean": "c3811acb2acdf96a192005346c91b46fc08c556bd00db1c575bec45bc4cc108c"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/tree-laws-canonical-review-types.lean",
+    "independent_trace_source_sha256": "ea0ad33a2ff86f45dff7fda95d30c83396fc5c2842b02bd958f1bb89459712b5",
+    "independent_trace_log": "work/checks/tree-laws-canonical-review-types.log",
+    "independent_trace_log_sha256": "fb2ed0308e43bca1ef71e0ca91e3a36f8906a51b1ac8e4be770ecf9740c1cca6",
+    "independent_kernel_command": "lake env lean ../checks/tree-laws-canonical-review-types.lean",
+    "independent_kernel_session": 3756,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.openTreeRec",
+      "SM.rootedTreeRec",
+      "SM.openTreeRec_one",
+      "SM.openTreeRec_many",
+      "SM.fullBoundaryInterval",
+      "SM.openTreeSum",
+      "SM.treeCoefficient",
+      "SM.mainTreeCoefficient",
+      "SM.openTreeSum_one",
+      "SM.openTreeSum_many",
+      "SM.treeCoefficient_eq",
+      "SM.treesumData",
+      "SM.IntervalComposition.nearSign_eq_of_chi",
+      "SM.IntervalComposition.farSign_eq_of_chi",
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi",
+      "SM.IntervalComposition.rootWeight_eq_of_chi",
+      "SM.openTreeSum_eq_of_chi",
+      "SM.treeCoefficient_eq_of_chi",
+      "SM.openTreeSum_shift",
+      "SM.treeCoefficient_shift",
+      "SM.mainTreeCoefficient_shift",
+      "SM.treesumData_shift",
+      "SM.tree_data_eq_of_chi",
+      "SM.labelled_chamber_chi_constant",
+      "SM.tree_data_labelled_chamber_constant",
+      "SM.tree_data_G1_path_constant",
+      "SM.treeCoefficient_quotient_chamber_transport",
+      "SM.OpenPlaneTree",
+      "SM.openPlaneTreeUngraft",
+      "SM.openPlaneTree_finite",
+      "SM.RootedPlaneTree",
+      "SM.OpenPlaneTree.weight",
+      "SM.OpenPlaneTree.ordinaryCount",
+      "SM.OpenPlaneTree.ordinaryProduct",
+      "SM.OpenPlaneTree.weight_eq_signed_product",
+      "SM.RootedPlaneTree.weight",
+      "SM.RootedPlaneTree.ordinaryCount",
+      "SM.RootedPlaneTree.ordinaryProduct",
+      "SM.RootedPlaneTree.weight_eq_signed_product",
+      "SM.openPlaneTreeSum",
+      "SM.OpenPlaneTree.eq_leaf",
+      "SM.openPlaneTreeSum_one",
+      "SM.openPlaneTreeSum_many",
+      "SM.openTreeRec_eq_planeTreeSum",
+      "SM.rootedTreeRec_eq_planeTreeSum",
+      "SM.rootedTreeRec_eq_signed_planeTreeSum",
+      "SM.OpenPlaneTree.map_weight",
+      "SM.RootedPlaneTree.map_weight",
+      "SM.map_rootedTreeRec",
+      "SM.TreeWeightIndex",
+      "SM.formalOrdinaryWeight",
+      "SM.formalRootWeight",
+      "SM.planeTree_formal_identity",
+      "SM.planeTree_formal_evaluation",
+      "SM.treeCoefficient_eq_signed_planeTreeSum",
+      "SM.treesum_trees",
+      "SM.TreeDataEqual",
+      "SM.A_chamber"
+    ],
+    "declaration_axioms": {
+      "SM.openTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.fullBoundaryInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.labelled_chamber_chi_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_labelled_chamber_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_G1_path_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_quotient_chamber_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree": [],
+      "SM.openPlaneTreeUngraft": [
+        "propext"
+      ],
+      "SM.openPlaneTree_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree": [
+        "propext"
+      ],
+      "SM.OpenPlaneTree.weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.ordinaryCount": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.ordinaryProduct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.weight_eq_signed_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.ordinaryCount": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.ordinaryProduct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.weight_eq_signed_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.eq_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_eq_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec_eq_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec_eq_signed_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.map_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.map_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.map_rootedTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.TreeWeightIndex": [
+        "propext"
+      ],
+      "SM.formalOrdinaryWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.formalRootWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.planeTree_formal_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.planeTree_formal_evaluation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq_signed_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesum_trees": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.TreeDataEqual": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.A_chamber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "TreeDefinitionIndependentReview.interval_recursion_cases",
+      "TreeDefinitionIndependentReview.part_leaf_sum",
+      "TreeDefinitionIndependentReview.source_arity_bound",
+      "TreeDefinitionIndependentReview.one_part_root_term",
+      "TreeDefinitionIndependentReview.source_recursion_unique",
+      "TreeDefinitionIndependentReview.full_interval_and_last_root",
+      "TreeDefinitionIndependentReview.exact_root_transport",
+      "TreeDefinitionIndependentReview.actual_tree_leaf_count",
+      "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval",
+      "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft",
+      "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated",
+      "TreeDefinitionIndependentReview.arbitrary_root_weight_formula",
+      "TreeDefinitionIndependentReview.binary_tree_formal_weight",
+      "TreeDefinitionIndependentReview.ordinary_root_variables_distinct",
+      "TreeDefinitionIndependentReview.arbitrary_separate_assignments",
+      "TreeDefinitionIndependentReview.actual_source_identity",
+      "TreeChamberClaimIndependentReview.complete_G1_quantities",
+      "TreeChamberClaimIndependentReview.actual_connected_component",
+      "TreeChamberClaimIndependentReview.actual_G1_path",
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport"
+    ],
+    "additional_example_count": 20,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "TreeDefinitionIndependentReview.interval_recursion_cases": [
+        "propext",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.part_leaf_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.source_arity_bound": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.one_part_root_term": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.source_recursion_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.full_interval_and_last_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.exact_root_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.actual_tree_leaf_count": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft": [
+        "propext",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_root_weight_formula": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.binary_tree_formal_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.ordinary_root_variables_distinct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_separate_assignments": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.actual_source_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.complete_G1_quantities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_connected_component": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_G1_path": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_58_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.openTreeRec",
+      "SM.rootedTreeRec",
+      "SM.fullBoundaryInterval",
+      "SM.openTreeSum",
+      "SM.treeCoefficient",
+      "SM.mainTreeCoefficient",
+      "SM.treesumData",
+      "SM.OpenPlaneTree",
+      "SM.openPlaneTreeUngraft",
+      "SM.RootedPlaneTree",
+      "SM.OpenPlaneTree.weight",
+      "SM.OpenPlaneTree.ordinaryCount",
+      "SM.OpenPlaneTree.ordinaryProduct",
+      "SM.RootedPlaneTree.weight",
+      "SM.RootedPlaneTree.ordinaryCount",
+      "SM.RootedPlaneTree.ordinaryProduct",
+      "SM.TreeWeightIndex",
+      "SM.formalOrdinaryWeight",
+      "SM.formalRootWeight",
+      "SM.TreeDataEqual"
+    ],
+    "independent_closure_evidence": "work/checks/tree-laws-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "dc038c37c005e589a881417c072decaccc0f1e4121608c0ae91f43c26d4a0279",
+    "canonical_semantic_evidence": "work/checks/tree-laws-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "42651c32fe6a13f9b48c7a32731fd366c3c0fd49584ed812268c2071f161f7e1",
+    "root_result_file": "work/checks/tree-laws-port-audit-result.json",
+    "root_result_sha256": "4cb286471dd57d63c9a1e5855feafed7010d76c188b695dd66277de1003db0aa",
+    "successful_build_session": 14456,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-062-lean-check.log",
+    "successful_build_log_sha256": "af870546b87dd42173ca06a30f86ec87c52c2bff0e4caa19968a81e3f6daed58",
+    "audit_receipt": "work/checks/checkpoint-062-output.json",
+    "audit_receipt_sha256": "9740a13b18d1331769c6b529138d8bff2d6269fa00e9346a6ef9532754f4eca9",
+    "declaration_audit": "work/checks/checkpoint-062-declaration-audit.json",
+    "declaration_audit_sha256": "1d422ec842720f3b00ef4ee6bdb5cdd2a25e4133ce333c7174e2b56e8604c800",
+    "scope_note": "The same20 substantive external consumers were rerun using canonical imports only, including recurrence uniqueness, one-part term, exact leaf counts, binary formal weight, arbitrary polynomial assignments, actual connected components and all-quantity quotient root transport."
+  },
+  "not_certified": [
+    "No extra original claims for helpers.",
+    "No wall law, soft theorem, R theorem or overall stage completion."
+  ]
+}

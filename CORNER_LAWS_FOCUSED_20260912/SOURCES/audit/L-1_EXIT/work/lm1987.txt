@@ -1,0 +1,4702 @@
+NPAGES 35
+
+
+===== PDFPAGE 1 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+W. B. R. LICKORISH and KENNETH C. MILLET-I 
+(Receiced 
+15 February 
+1985: recked 
+21 July 1985) 
+$0. ISTRODUCTION 
+THE THEORY 
+of classical knots and links of simple closed curves in the 3-dimensional 
+sphere 
+has, for very many years, occupied 
+a pre-eminent 
+position 
+in the theory of low dimensional 
+manifolds. 
+It has been a motivation, 
+an inspiration 
+and a basis for copious examples. 
+Knots 
+have, in theory, 
+been classified 
+by Haken 
+[lo] 
+but the classification 
+is by means 
+of an 
+algorithm 
+that is too complex to use in practice. Thus one is led to seek simple invariants 
+for 
+knots which will distinguish 
+large classes of specific examples. 
+A knot (or link) invariant 
+is a 
+function 
+from the isotopy 
+classes of knots 
+to some algebraic 
+structure. 
+Perhaps 
+the most 
+famous invariant 
+of a knot K is the Alexander 
+polynomial, 
+AK(t), a Laurent 
+polynomial 
+in the 
+variable 
+t. This 
+was introduced 
+by .Alexander 
+[l] 
+who explained 
+how to calculate 
+the 
+polynomial 
+by taking the determinant 
+of a matrix associated 
+with a presentation 
+(or picture) 
+of the knot 
+given by a suitably 
+chosen 
+projection 
+of its spatial 
+position 
+to a plane. The 
+Alexander 
+polynomial 
+is still remarkably 
+efficacious 
+in distinguishing 
+specific knots 
+and, 
+being readily calculable 
+by computer, 
+is employed 
+by modern 
+compilers 
+of prime knot tables 
+as the fundamental 
+invariant 
+to distinguish 
+between 
+examples 
+(see Thistlethwaite 
+[20]). Of 
+course other invariants, 
+notably signatures 
+and the sophisticated 
+Casson-Gordon 
+‘invariants’ 
+are now available 
+as well. Nevertheless, 
+AK(t) is still a most useful invariant. 
+Much has been 
+written 
+on this polynomial 
+during 
+the last sixty years; and a modern 
+definition 
+might be as 
+follows. 
+If X is S3 - K, where K is now an oriented 
+link, let X, 
+be the covering 
+of X 
+corresponding 
+to the kernel of the homomorphism 
+xi(X) + H,(X) + i2 that sends meridians 
+(with prefered orientation) 
+to 1. Thus X, is acted upon by the infinitecyclicgroup, 
+which is to 
+be considered 
+as a multiplicative 
+group 
+with generator 
+denoted 
+by t, acting as the deck 
+transformations 
+of the covering 
+space. Then H,(X,) 
+is a finitely generated 
+module 
+over the 
+ring Z[t, t- ‘1, its order ideal is principal 
+and AK(f) is a generator 
+of that ideal. This defines 
+AK(t) uniquely 
+up to multiplication 
+by an element 
+of the form + tin, elements 
+of this form 
+being the units of the ring. 
+The Alexander 
+polynomial 
+of a knot can be defined as a unique element of Z[t, t-i] 
+if it is 
+normalized 
+so that A(r) = A(t-‘) 
+and A(1) = 1, and an analogous 
+normalization 
+can be made 
+for links. This normalization 
+was employed 
+by Conway 
+[6] in his famous 
+paper on the 
+enumeration 
+of knots and links and the computation 
+of link invariants 
+where he developed 
+the following 
+idea (conceived, 
+in an unnormalized 
+form, by Alexander, 
+[l] p. 301). Suppose 
+that K,, 
+K_, and K, are presentations, 
+i.e. planar pictures, 
+of three oriented 
+links that are 
+exactly the same except near one point where they are as in Fig. 1. 
+The normalized 
+Alexander 
+polynomial 
+then satisfies the formula 
+b+(t)- 
+k(r)+ 
+Cl I/2 _t- 1/2)AK, (r) = 0. 
+Here rli2 is just a formal 
+square 
+root of r; if one writes z = (rli2 - r-1’2) then A, can be 
+107 
+
+
+===== PDFPAGE 2 =====
+108 
+W. B. R. Lickorish and Kenneth C. Millett 
+K* 
+L 
+&I 
+Fig. I. 
+expressed 
+as an element 
+of Z![c] called the Conway 
+potential 
+function 
+V,(z). As presented 
+in 
+Conway 
+[6], if one adds the information 
+that the Alexander 
+polynomial 
+of the unknot. 
+denoted 
+‘71, is 1 (and deduces 
+that the polynomial 
+for the trivial link, or ‘unlink’, of two or 
+more unknots 
+is zero) then the above formula allows the calculation 
+of the polynomial 
+for any 
+oriented 
+link. By a sequence 
+of crossing changes any link can be changed 
+to a trivial link for 
+which the polynomial 
+is known: 
+assuming 
+inductively 
+that the polynomial 
+is known 
+for 
+projections 
+with fewer crossings. 
+one applies 
+the formula 
+to the sequence 
+of changes 
+and 
+calculates 
+the required 
+polynomial. 
+Specific examples 
+of this will be given here later. This 
+method 
+of calculation 
+involves many arbitrary 
+choices and appears 
+to refer, in fundamental 
+ways, to the specific presentation 
+of links rather than to isotopy classes of S’s in S3. It was not 
+until 1981 that it was shown, by Ball and Mehta [Z], that this method 
+ofcalculation 
+could be 
+made 
+canonical 
+with respect 
+to a specific 
+presentation 
+of a knot 
+or link and that the 
+polynomial 
+it produces 
+is invariant 
+under the Reidemeister 
+moves (their proof capitalizes 
+on 
+the fact that the Conway 
+potential 
+contains 
+no negative powers of z). Thus the above formula 
+and the fact that A(r) = 1 can be taken as axioms for the Alexander 
+polynomial 
+that imply 
+existence, 
+uniqueness 
+and a ready method 
+of calculation. 
+Recently a completely 
+new Laurent 
+polynomial 
+invariant 
+VK(t) for an oriented 
+link K has 
+been defined 
+by Jones [12]. It has many properties 
+that are rather similar 
+to those of the 
+Alexander 
+polynomial 
+and yet is by no means the same. Jones begins with K expressed as a 
+closed braid so that it corresponds 
+to an element 
+r of the braid group on n strands, 
+B,, for 
+some n. He then defines a representation, 
+rr, of B, to the group of units of a certain 
+(Hecke) 
+algebra over the field of fractions 
+of iZ[t”2] on which is defined a trace function. 
+He defines 
+VK(t) = p”-i 
+trace(na) 
+where p = - (tli2 + t- 112). By studying 
+the structure 
+of the braid 
+group, conjugacy 
+therein, and the Markov moves (see Birman 
+[3]), Jones shows that VK(t) is 
+indeed 
+a link invariant. 
+If one changes 
+a crossing 
+in the closed braid K some generator 
+changes to its inverse, or vice versa, in the expression 
+of K as a braid group word r, and if the 
+crossing is removed, e.g. 
+,y 
+-+ 
+) ( , then the generator, 
+or its inverse, is eliminated 
+from 
+the word z altogether. 
+Thus 
+in the context 
+of closed 
+braids 
+it is easy to calculate 
+any 
+relationship 
+that may exist between 
+VK+(t), VK_(t) and vK,(t) where K,, 
+K-, 
+and K, are 
+closed braids related as in the previous 
+paragraph. 
+The relationship 
+is 
+It is also true that V*(t) = 1 where % denotes 
+the unknot. 
+Thus, granting 
+that k’,(f) is well 
+defined, this formula 
+could be employed 
+to calculate 
+VK(t) for any link, just as in the case of 
+the Alexander 
+polynomial 
+above. 
+The similarity 
+between 
+the formulae 
+for AK(t) and VK(t) is, of course, too great to be a 
+unique coincidence; 
+they are particular 
+instances 
+of a more general polynomial 
+invariant 
+for 
+isotopy 
+classes of oriented 
+links which is a polynomial 
+in two variables. 
+This two-variable 
+polynomial 
+is the subject 
+of this paper. 
+Of course, 
+in the very few months 
+since Jones’ 
+surprising 
+discovery, 
+others have also considered 
+how to generalize 
+Vk(t), and the following 
+
+
+===== PDFPAGE 3 =====
+A POLYNOMIAL 
+ISVARIAST 
+OF ORIENTED 
+LINKS 
+109 
+existence 
+and uniqueness 
+theorem 
+was independently 
+and simultaneously 
+(August 
+1981) 
+announced 
+by Freyd and Yetter; Ocneanu; 
+and Hoste; and also, independently 
+(January 
+1985). 
+by Przytycki 
+and Traczyk 
+[7]. This main theorem 
+is as follows. 
+THEOREM. To each 
+oriented 
+classical 
+link K a unique 
+element 
+.9(K) 
+= K(1, m)EZ[l=l, 
+rn* ‘1 can be associated 
+so that K(1, m) depends 
+only on the isotopl, 
+class ofK; 
+if % is the unk~lot, 
+then ~%(l, m) = 1; and, 
+where K +, K _, and K, are oriented 
+links that are identical 
+e.ucept near one point \c,here the), are 
+‘% 
+x 
+)i, 
+respectively. 
+Moreover, 
+there 
+is only one such association 
+having ‘these proberties. 
+[Note that the formula 
+is the general linear expression 
+between polynomials 
+for K T, K _, 
+and K,. The theory could equally be developed 
+with a different 
+taste in notation; 
+for example 
+x K + (x, y, z) + .YK _ (x, J’, z) + zK,(x, 
+y, -_) = 0 
+will do just as well, but might erroneously 
+suggest, at first glance, that there are three variables 
+of interest.] 
+From 
+the theorem 
+it follows immediately 
+that 
+AK(t) = K(i, i(t”* - t-l”)) 
+and 
+VK(t) = K(it-‘, 
+i(r-“* 
+- t”‘)) 
+where i is a formal square root of - 1. The proof of the theorem 
+given here is a completely 
+“elementary” 
+combinatorial 
+proof assuming 
+nothing 
+but knowledge 
+of the Reidemeister 
+moves [17], so that, inter alia, this paper independently 
+defines as invariants 
+the polynomials 
+of both Alexander 
+and Jones (though 
+it is very much indebted 
+to them both). It defines the 
+grander 
+two-variable 
+polynomial, 
+K(1, m), as an invariant 
+of the oriented 
+link, K, though 
+it 
+fails to shed much light on the conceptual 
+questions 
+of interpretation 
+of the polynomial 
+within the context 
+of standard 
+algebraic 
+topology. 
+A fundamental 
+and, as yet, unanswered 
+question 
+asks if there exist nontrivial 
+knots 
+having 
+trivial 
+two-variable 
+(or even Jones) 
+polynomial. 
+The resolution 
+of this question 
+could lead to significant 
+conceptual 
+progress. 
+Before 
+reading 
+the proof 
+of the theorem 
+any 
+reader 
+unfamiliar 
+with 
+Conway’s 
+computation 
+procedure 
+should use the theorem 
+(with faith in its correctness) 
+to make a few 
+exploratory 
+calculations. 
+First consider 
+the triple of Fig. 2. Both K r and K _ are copies of the 
+unknot 
+and so have 1 as their polynomial. 
+Thus, 1. 1 + I- ’ ‘1 -t mK, (1, m) = 0. Hence K0 (/. m) 
+= ,a, where we define p = - (I+ I-‘)m- 
+‘. Similarly, 
+kinking 
+one component 
+and inducting 
+on the number 
+of components, 
+one observes that the polynomial 
+of the c-component 
+unlink, 
+which we shall denote by W, is ,u’- ‘. The next example to consider 
+is the simple left-handed 
+link L of two components. 
+The triple of Fig. 3 determines 
+that 
+so that 
+l-‘L(I,m)+I~c+m.l 
+= 0 
+L(I, n1) = (l+ 13)m- ’ - lm. 
+The left-handed 
+trefoil 
+T features 
+in the triple of Fig. 4 so that 
+I-‘T(1, 
+m) + I’ 1 + mL(1, m) = 0; and hence 
+T(1, m) = - 21* - i4 + 1* m’. 
+
+
+===== PDFPAGE 4 =====
+110 
+W. B. R. Lickorish 
+and Kenneth 
+C. Millett 
+K- 
+K+ 
+Fig. 2. 
+Fig. 3. 
+Fig. 4. 
+[Note that the left-handed 
+natures of L and Tare reflected in the positive powers of I in their 
+polynomials.] 
+In this way, by changing 
+crossings 
+in order to obtain 
+a link of less complexity 
+whose polynomial 
+is already known, the polynomial 
+of any link can be calculated. 
+In practice 
+the manipulation 
+of symbols 
+that this involves is arduous 
+and easily gives rise to error, so that 
+it is best to employ a computer 
+in creating a list of polynomials. 
+Such a list is given at the end 
+of this paper. 
+The simple calculation 
+given above for the trefoil knot, T, exemplifies 
+the proof of the 
+theorem. Crossings 
+(one in this case) of a link K are changed 
+to obtain a picture of the unlink 
+of c components 
+(c = 1 here) that is ascending when regarded 
+as starting 
+from selected base 
+points 
+(indicated 
+by the dots in L and 7) on each component. 
+The polynomial 
+of such an 
+ascending 
+link is defined to be $- ‘. Assuming 
+inductively 
+that the polynomial 
+is defined on 
+link projections 
+with fewer crossings, 
+it can be calculated 
+for the given K using the formula of 
+the theorem. 
+Copious 
+checks have to be made: independence 
+of the polynomial 
+on choice of 
+base points and of choice of crossing 
+changes is fairly easy; but, to obtain an ascending 
+link 
+one has to have the components 
+ordered (from the bottom 
+upwards) and a delicate induction 
+is needed to establish 
+independence 
+of that order. Along the way one has to check that the 
+polynomial 
+is unchanged 
+by those Reidemeister 
+moves that do not increase 
+the number 
+of 
+crossings 
+beyond 
+the number 
+of crossings 
+under consideration. 
+Once the polynomial 
+is known to be a well-defined 
+isotopy invariant, 
+it is characterized 
+by 
+the theorem 
+and so can be explored 
+therefrom. 
+Two useful 
+checks on calculations 
+are 
+(i) substituting 
+1 = i gives p = 0, and one retrieves 
+the Conway 
+potential 
+with m = iz, and 
+(ii) substituting 
+m = - (i + I- ’ ) gives ,u = 1 and always reduces 
+the polynomial 
+to 1. 
+The following 
+properties 
+of the two-variable 
+polynomial 
+will be deduced. 
+(1) The lowest 
+power 
+of m in K(I,m) 
+is equal 
+to 1 -c, 
+where 
+c is the number 
+of 
+components 
+of K and the powers 
+of 1 and m are either all even or odd depending 
+upon 
+whether 
+the number 
+of components 
+of K is odd or even, respectively. 
+
+
+===== PDFPAGE 5 =====
+A POLYNOMIAL 
+IXVARIAST 
+OF ORIENTED 
+LINKS 
+111 
+(2) Reversing 
+the orientation 
+of every component 
+of K leaves the polynomial 
+unchanged. 
+(3) If R is the obverse 
+(mirror 
+image) 
+of K. then 
+X(1, m) = K(l-‘, 
+m). Thus 
+to be 
+amphicheirial 
+a link must have a polynomial 
+which is symmetric 
+in 1 and 1-i. 
+(4) The polynomial 
+of the separated 
+(or distant) union of K, and K, is $X1(/, m)K,(I, m). 
+(5) If K, and K, are oriented 
+links in S3 let K, # K, be the link formed by removing 
+from 
+(S3, Ki) an unknotted 
+ball pair, to obtain 
+a pair (B3, K;), 
+and identifying 
+together 
+the 
+boundaries 
+of these pairs in a manner 
+consistent 
+with all the orientations. 
+In general 
+this 
+‘connected 
+union’ (or sum) is neither connected 
+nor well defined. Nevertheless 
+its polynomial 
+is independent 
+of how the (oriented) 
+union 
+is defined 
+and is equal to the product 
+of the 
+polynomials 
+associated 
+to K, and K,. 
+(6) K(I, m) can be viewed as the most general “linear” skein invariant 
+for links in the sense 
+of Conway (see Giller [9]). This will be explained 
+in detail later, but it implies that mutation 
+of 
+a link does not change the polynomial. 
+Roughly, 
+mutation 
+consists 
+of removing 
+a 2-string 
+tangle 
+from 
+K, rotating 
+it through 
+angle 
+rc, and 
+replacing 
+it. This 
+accounts 
+for the 
+(disappointing) 
+fact that the two 11-crossing 
+knots 
+with AK(r) = 1 have the same K(/. m). 
+However, 
+the fact that K(I, m) is highly nontrivial, 
+namely 
+(21-’ + 7 + 61’ + 2j4) + (- 31-l - 11 - 1 I/* - 31’)m2 + (Ie2 + 6 + 6i2 + j4)m4 + (- 1 - j2)m6, 
+shows that K(I, m) is stronger 
+than AK(t), and that it depends 
+on more than the infinite cyclic 
+cover of a link complement. 
+As the right and left trefoils have distinct 
+polynomials, 
+K(I, m) 
+depends 
+on more than the fundamental 
+group of the link complement. 
+(7) If A and Bare 2-string tangles, let A + B, ii’; and AD denote, respectively, 
+the Conway 
+sum, and 
+the numerator 
+and 
+denominator 
+of A. In Proposition 
+12 it is shown 
+that 
+(l-p’)(A+B)“= 
+(A.“BD+ADB”)-~(ANB”+ADBD). 
+(8) Using 
+the formula 
+of (7), or arguing 
+directly, 
+formulae 
+will be deduced 
+for the 
+polynomials 
+of rational 
+(2-bridge) 
+knots 
+and links, and also for pretzel 
+knots 
+and links. 
+Similar 
+treatment 
+can be given to the general 
+arborescent 
+link. 
+(9) There exist pairs of knots with the same polynomial 
+but different 
+genus, others with 
+the same polynomial 
+have different 
+unknotting 
+number, 
+also there exist pairs with the same 
+polynomial 
+but different 
+signature. 
+Because 
+skein equivalence 
+knots (l-component 
+links) 
+have equal signatures, 
+K(1, m) does not capture 
+skein equivalence 
+completely. 
+(10) Thereisa 
+knot, ll,,, 
+of Perko [16], which is not distinguishable 
+from its obverse by 
+either the Alexander 
+or Jones polynomials 
+but which is distinguished 
+by the new polynomial. 
+An appendix 
+to this paper lists the polynomials 
+oforiented 
+knots and links oflow crossing 
+number. 
+A much more comprehensive 
+listing 
+will be published 
+by M. B. Thistlethwaite 
+in 
+[213, where other link invariants 
+will also be tabulated. 
+41. THE EXISTENCE OF INVARIANT 
+POLYNOMIALS 
+The goal of this section is to provide a completely 
+elementary 
+proof that there exists a two 
+variable polynomial 
+invariant 
+for oriented 
+links in ?Z3, that is a proof which is based upon the 
+“first principles” 
+of a geometric analysis of oriented links by the study of generic projections 
+to 
+a plane. For the purposes 
+of the definition 
+of the polynomial 
+we propose 
+the following. 
+(1) A link is ordered if an order is given to its components. 
+(2) A link is based if a basepoint 
+is specified on each component. 
+(3) A link is oriented if an orientation 
+of each component 
+is specified. 
+(4) A projection 
+of a based link is generic if the projection 
+defines an immersion 
+of the link 
+into the plane having no triple points and only transverse 
+(and therefore finitely many) 
+
+
+===== PDFPAGE 6 =====
+112 
+W. B. R. Lickorish and Kenneth C. Millett 
+double points such that the basepoints are distinct from the double points. Following 
+normal procedure we preserve the under/over crossing information 
+in the planar 
+picture of a generic projection. Two projections are considered equivalent if they 
+differ by an isotopy of the plane. 
+(5) The set of generic based ordered oriented link projections with at most n double 
+points (or crossings) is denoted by Y,. Let 9 = u Y, . 
+n 
+(6) An element L of _!Y is said to be ascending if, when traversing the components of L in 
+their given order and from their base points in the direction specified by their 
+orientation, every crossing is first encountered as an under-crossing. Note that every 
+ascending element is isotopic to the appropriate unlink. The exploitation of this fact 
+provides one of the conceptual keystones of the method employed here. 
+(7) We employ the notation K,, K_, K, to identify generic oriented link projections 
+which are identical outside a disk, inside which one has ‘A 
+): 
+Jr 
+respectively. These are normally described as right (or positive), left (or negative), and’ 
+vacuous (or null) crossings respectively. 
+(8) We let H[lf ‘, m* ‘1 denote the ring of finite Laurent polynomials 
+with integer 
+coefficients in two variables I and M. 
+(9) The Reidemeister moves of types (i), (ii), and (iii) which do not increase the number of 
+crossings are shown in Figs S(i)-(iii). 
+The theorem to which this section is devoted is given next. 
+THEOREM. There is a unique function 
+9 which associates 
+to each KEY 
+an element 
+P’(K) = K(1, m) E Z[l* ‘, m* ‘1 which depends only on the isotopy class of the oriented 
+link 
+Fig. 5(i). 
+Fig. 5 (ii). 
+Fig. 5 (iii). 
+
+
+===== PDFPAGE 7 =====
+A POLYXOMIAL 
+INVARIANT 
+OF ORIEh-TED 
+LINKS 
+113 
+and such that: 
+if K,, 
+K- , K, 
+are identical 
+except for 
+a single right, left and Cacuous crossing, 
+respectively, 
+then 
+(I) lK+(i,m)+l-‘K_(1,m)+mK,(I,m)=O: 
+and if 92 denotes the unknot (of one component), 
+then 
+(II) %(I, m) = 1. 
+The proof of the theorem 
+will be by induction 
+on the number 
+of crossings 
+of a projection, 
+will require a carefully chosen inductive 
+assumption, 
+and will concern 
+the independence 
+of the 
+definition 
+of the polynomial 
+on the recursive 
+method 
+of its definition. 
+It is well known 
+that a presentation 
+of a knot can be changed 
+to a presentation 
+of the 
+unknot 
+by altering 
+some 
+of its crossings 
+from 
+overpasses 
+to underpasses. 
+A mild 
+generalization 
+of that idea associates 
+to a generic projection, 
+K, ofan oriented, 
+ordered, based 
+link a standard 
+ascending 
+projection 
+of the unlink 
+of the same number 
+of components, 
+denoted 
+r(K). This is obtained 
+by starting 
+at the basepoint 
+of the first component 
+and 
+proceeding 
+along that component 
+changing 
+(where necessary) overpasses 
+to underpasses 
+(and 
+vice versa) so that every crossing 
+is first encountered 
+as an underpass. 
+Continue 
+from the 
+basepoints 
+of the second and all subsequent 
+components 
+in the same way changing 
+crossings 
+so that every crossing 
+is first encountered 
+as an undercrossing. 
+This process geometrically 
+separates 
+and unknots 
+the components 
+thereby 
+creating 
+an unlink. 
+Inductive 
+Hypothesis 
+(n - 1). Assume 
+that to each K E Tip,_ 1, there is associated 
+an 
+element 
+B(K) 
+in Z[l*‘, m”] 
+which is independent 
+of the choices 
+of basepoints 
+and the 
+ordering 
+of the components, 
+is invariant 
+under 
+those Reidemeister 
+moves which do not 
+increase 
+the number 
+of crossings 
+beyond 
+n - 1, and which satisfies formulae 
+I and 
+(II’) if 
+@“E _Y,_ 1 denotes 
+any 
+ascending 
+projection 
+of 
+c 
+components 
+and 
+p = - (I+/-‘)/m 
+then, 
+V(/, m) = ,a- ‘. 
+The induction 
+starts with zero crossing 
+projections 
+for which there is nothing 
+to prove. 
+The Recursice 
+Definition 
+(n). If K l 
+2” 
+is any 
+standard 
+(oriented, 
+ordered, 
+based) 
+ascending projection 
+define P(K)(I, m) to be pc- ’ where c is the number 
+of components 
+of K. 
+Otherwise, 
+beginning 
+at the basepoint 
+of the first component 
+of K E 2, and proceeding 
+in the 
+direction 
+specified by the orientation, 
+change those crossings 
+necessary 
+so that each crossing 
+is first encountered 
+as an under-crossing. 
+Continue 
+the procedure 
+with the remaining 
+components 
+in the sequence 
+determined 
+by the ordering, 
+proceeding 
+from the basepoint 
+in 
+the direction 
+determined 
+by the orientation, 
+changing 
+crossings 
+so that ultimately 
+every 
+crossing 
+is first encountered 
+as an under-crossing. 
+This results 
+in the standard 
+ascending 
+projection 
+r(K) associated 
+to K. Employing 
+formula 
+I at each crossing change specified by the 
+above 
+unknotting 
+algorithm 
+(in the specified 
+sequence), 
+the Inductive 
+Hypothesis 
+(n- 1) 
+applied to each K, (with arbitrary 
+choices of basepoints 
+and orders of components, 
+which by 
+the hypotheses 
+are irrelevant 
+to the value of each 9(K,)), 
+and the definition @-l 
+for the 
+terminal 
+situation 
+a(K), calculate 
+an integral 
+polynomial 
+in H ([ i: ‘, m ?‘I. 
+A priori, for elements 
+of _2’“, this polynomial 
+depends 
+upon 
+the specific sequence 
+of 
+crossing 
+changes 
+specified 
+by the algorithm 
+and hence the choice of basepoints, 
+and the 
+ordering 
+of the components. 
+Furthermore 
+it might be changed 
+under 
+Reidemeister 
+moves 
+which do not increase 
+the number 
+of crossings, 
+and it might not satisfy formula 
+I. We shall 
+prove a series of propositions 
+to show that this is not the case and, thereby, 
+prove the 
+inductive 
+hypothesis 
+(n). 
+
+
+===== PDFPAGE 8 =====
+114 
+W. B. R. Lickorish and Kenneth C. Millett 
+As indicated 
+previously 
+we shall employ the same symbol, K, for an element of ._Yipn 
+and for 
+.~(K)E Z[P’, 
+mf ‘1, i.e. 3(K)(I, m) E K(I, m). We shall order the components 
+of K by listing 
+them sequentially 
+ci, . . . c, and shall label the crossings 
+by a natural 
+number 
+{ 1. . . , II). By a 
+segment of the given projection 
+we shall mean a component 
+of the complement 
+of the double 
+points. 
+PROPOSITION 1 (n). Suppose K E 9,. 
+If rhe crossings of K thar differfrom those ofr(K) 
+are 
+changed in any sequence 
+to achieve r(K), then the corresponding calculation (using formulae I 
+and II’) yields P(K). 
+Proof. Inducting 
+on the number 
+of crossing 
+differences 
+between 
+K and r(K), it is only 
+necessary 
+to consider 
+altering 
+the sequence 
+by interchanging 
+the first two crossing switches 
+which the algorithm 
+requires at, say, the crossing labelled i and then at the crossing labelled j. 
+Let a,K and qiK be the same as K except that the ith crossing 
+is switched in a,K and nullified 
+in qiK. Basepoints 
+and component 
+order of ryiK are chosen arbitrarily, 
+the choices having no 
+effect on P(q,K) by the induction. 
+Let si be the sign of the ith crossing 
+in K. 
+First consider 
+the given sequence, 
+ui before crj. To compute 
+the polynomial 
+we employ 
+formula 
+I, 
+K(I, m) = - l-‘&i (a,K) - rnl-&~(qiK) 
+= - I-‘Ei( -~I-2E~(ajaiK) - ml-&j(qjoiK)) - ml-Eg(r\iK) 
+= /-2’El+&,)(~jaiK) + ml- 2E~-Ej(qjaiK) - mlwEi(qiK). 
+Computing 
+with the reverse order we find that we would have the quantity 
+I-‘(‘i+‘j)(Oi~jK) 
++ ml-2Ej-Ei(~irrjK) 
+- m[-%(qjK). 
+Since crjai = oioj we see that the first two terms are equal. By the inductive 
+hypothesis 
+we may 
+invoke 
+formula 
+I for qiK and qjK to find 
+(q,K) = - l-‘&j (ojqiK) - ml-&i(qjqiK) 
+and 
+(qjK) = - l-2ci (oiqjK) - ml-Ei(qir]jK). 
+Substituting 
+these expressions 
+above and noting 
+that ojqi = qioj, oiqj = ~jai, and 9i~j = qjqi 
+we see that the two expressions 
+are equal. 
+In the next proposition 
+we wish to show that the polynomial 
+is independent 
+of the choice 
+of basepoints. 
+It is at this point that we must make use of the specific value of p to ensure this 
+independence. 
+PROPOSITION 2(n). 9(K) 
+is independent of the choice of basepoints. 
+Proof 
+We need only show that if a basepoint 
+of a component 
+lies on a segment 
+of the 
+projection 
+it can be moved to an adjacent 
+segment 
+of the component 
+without 
+changing 
+the 
+polynomial. 
+Suppose 
+the basepoint 
+on component 
+ci is to be moved 
+from position 
+b, to 
+position 
+b2, past a crossing 
+of ci with cj (see Figs 6 and 7). Let K L and K, denote the relevant 
+elements 
+of 9, 
+that have basepoints 
+on ci at b, and b,, respectively, 
+and are otherwise 
+the 
+same. 
+Case(a) i #j. 
+In this case r(K,) 
+= a(K2) so P(K,) 
+= 9’(K2) as, by Proposition 
+l(n) the 
+choice of sequence 
+of crossing 
+changes 
+is irrelevant. 
+
+
+===== PDFPAGE 9 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+115 
+b: 
+/ 
+5 J 
+-7 
+b: 
+Cl 
+Cl /iii 
+J 
+b, 
+Fig. 6. 
+Fig. 7. 
+Case(b) i = j. In this case r(K,) and r(KJ 
+differ only at the crossing 
+under consideration, 
+labelled 
+r. By Proposition 
+1 (n), g(K,) 
+can be calculated 
+by changing 
+all the other relevant 
+crossings first, giving 9’(K,) =f(Pa,r(K,)) 
+where f is some 
+(linear) 
+function. 
+Similarly 
+g(K2) 
+=f(p(r(K2))), 
+the same function 
+f occurring 
+because 
+the calculation 
+involves 
+only 
+projections 
+of fewer crossings 
+for which (inductively) 
+the position 
+of basepoints 
+is irrelevant. 
+But, by definition 
+~3’(r(K&) = ,u- l (where K has c components) 
+and further 
+PY(a,r(K,)) 
++ I-‘Y(sr(K,)) 
++ mL+/,r(K,)) 
+= 0. 
+As g(r(K,)) 
+= pcel 
+and 
+~Y~+Y(K,)) = $, 
+(because 
+q,r(K,)~Y,,_i 
+and 
+UP 
+is an 
+ascending 
+configuration 
+since, if one modifies the given order of components 
+by inserting 
+the 
+two new components 
+in the place of ci with that containing 
+b,(b,) 
+first in Fig. 6 (Fig. 7), each 
+crossing 
+is first encountered 
+as an under-crossing) 
+we deduce 
+$5J(a,rx(K,)) = $-I. 
+Thus, 
+substituting 
+in 1; Y(Ki) 
+= p(KJ. 
+PROPOSITION 3 (n). 9 I _!Y” satisfies formula 
+I. 
+Proof. 
+Suppose 
+K,, 
+K_, 
+and 
+K, 
+are 
+in 2’“. 
+The 
+formula 
+IL~‘(K+)+I-‘B(K_) 
++ mg(K,) 
+= 0 is the first step in a calculation 
+(permitted 
+by Proposition 
+l(n)) of B(K +) from 
+Y((crK + ) or it is the first step in a calculation 
+of B (K _ ) from 9 (aK + ) depending 
+upon which 
+of K + and K _ differs from aK* 
+at the crossing 
+in question. 
+PROPOSITION 4(n). 
+9(K) 
+is invariant under Reidemeister 
+moues which do not increase the 
+number of crossings beyond n. 
+Proof: 
+Type (i). We place the basepoint 
+immediately 
+before the crossing to be removed by one of 
+the moves shown in Fig. 5(i), and a basepoint 
+on the corresponding 
+arc with that crossing 
+removed 
+(see Fig. 8 for an example). Note that the algorithm 
+defines the same polynomial 
+in 
+each case. 
+Type (ii). In the case i 5 j we may place, in Fig. 9, the basepoint 
+so that no crossing switch 
+occurs in the initial configuration 
+and, as a consequence, 
+the polynomials 
+which are computed 
+by the algorithm 
+are identical 
+(using inductively 
+this Reidemeister 
+move on each relevant 
+K,). 
+Suppose 
+now that j < i so that we are obliged to change crossings 
+labelled 
+1 and 2. We 
+note that, independent 
+of orientation, 
+they are opposite crossings, 
+E being the sign ofcrossing 
+1, and compute 
+that 
+K = - I-“( - 12’(a,cr, K) - mP(q2a, K)) - ml-‘(q, 
+K) 
+= (~2 cl K) + ml-“((v2clK) 
+- (q,K)). 
+There are two cases to consider 
+according 
+as E = f 1. 
+
+
+===== PDFPAGE 10 =====
+116 
+W. B. R. Lickorish and Kenneth C. Millett 
+Fig. 8. 
+Fig. 9. 
+Case E = + 1. Here we find the situations 
+in Fig. 10 which give identical 
+polynomials. 
+Case E = - 1. By two applications 
+of the invariance 
+under Reidemeister 
+moves (type (i)) 
+we see that the projections 
+of Fig. 11 give identical 
+polynomials. 
+Thus we find that 
+K(L m) = (cr,a,K) 
+(1, m) 
+and for a,o,K 
+we have the “i sj” 
+situation. 
+Type (iii). We shall first observe that, by virtue of Proposition 
+3 (n) and the previous cases 
+we may change the crossings 
+between any pair of segments 
+of the pictures that are at adjacent 
+levels, in the vertical order of their appearance 
+as presented 
+in Fig. 12 (where the segment of ck 
+is shown above that of Cj which is above that of ci), preserving 
+the relationship 
+between 
+the 
+polynomials 
+before and after r. Suppose, 
+for example, that we wish to change the crossing of 
+sign E between 
+components 
+ci and cj in Fig. 12. We compute, 
+using Proposition 
+3(n), that 
+K = - I-‘“(aK) 
+- mIeC(qK) and 
+(TK) = -I-‘“(orK)-ml-“(rltK). 
+The observation 
+follows by showing that Y(qK) 
+and B(~TK) are identical. 
+As in case (ii) there 
+are two cases depending 
+upon E. Fig. 13 shows the case when E = 1, Fig. 14 shows the case 
+&= - 1. In each case the two pairs of projections 
+have the same polynomial; 
+either they are 
+the “same” projections 
+(i.e. up to an isotopy of projections 
+respecting 
+the double points), or 
+two applications 
+of invariance 
+under 
+Reidemeister 
+moves of type (ii) prove equality. 
+Thus, 
+by changing 
+the heights 
+of segments 
+in both 
+K and sK to define 
+K’ and TK’, 
+(without changing 
+the relationship 
+between the respective polynomials 
+before and after T), we 
+can reduce the problem 
+to an analysis of the case i 5 j s k and such that, if we have equality, 
+the segments 
+in the support 
+of T are placed in ascending 
+position. 
+Under these conditions, 
+the 
+crossing 
+changes 
+that are required 
+to evaluate 
+B(K’) 
+and B(sK’) 
+are identical, 
+hence their 
+polynomials 
+are identical 
+(inductively 
+using this Reidemeister 
+move on each relevant 
+K,). 
+Hence the polynomials 
+for K and TK are identical. 
+In the next two propositions 
+moves more general 
+than those of Reidemeister 
+will be 
+discussed. 
+The moves will be on a non-standard 
+ascending 
+element 
+K of Y”, that being a 
+projection 
+that is a standard 
+ascending 
+projection 
+with respect 
+to some ordering 
+of the 
+Fig. 10. 
+Fig. 11. 
+
+
+===== PDFPAGE 11 =====
+A POLYSOMIAL 
+INVARIAPjT 
+OF ORIEXTED 
+LINKS 
+117 
+Fig. 12. 
+oh: 
+r)sK 
+Fig. 13. 
+rlK 
+7)TK 
+Fig. 14. 
+components 
+other than the given ordering 
+(and with some choice of basepoints 
+and the given 
+orientations). 
+At this stage the polynomial 
+of such an element 
+is not apparent. 
+PROPOSITION .5(n) (moving arcs). Suppose that K is a non-standard 
+ascending element of 9”. 
+Let D be a disk in the projection plane such that D n K is the union of an arc a in ZD and ajinite 
+number of arcs (to be called transversals) 
+properly embedded in D, an example of which is shown 
+in Fig. 15. Suppose that no basepoint is in D, that each transversal crosses a in one point and that 
+no pair of transversals cross in more than one point. Let b be the closure of i-D - a, and let R be 
+the result of substituting 
+b for a in K, nith b crossing over or under each transversal with the 
+same choice as a. Then 3(K) 
+= P(R). (Note that R is also ascending.) 
+Proof. 
+(Induction 
+on the number, 
+v, of transversals). 
+The case u = 0 is trivial so we 
+suppose that the proposition 
+is true for (v - 1) transversals. 
+Let N and S denote the endpoints 
+of a. Choose 
+a transversal 
+arc, t, that is northernmost 
+in the sense that there is no other 
+
+
+===== PDFPAGE 12 =====
+118 
+W. B. R. Lickorish and Kenneth C. Millett 
+transversal 
+arc which meets both a and b nearer to N than does t. The part of the disk D lying 
+north off, less a very small neighbourhood 
+of a, can be regarded 
+as a disk as in the statement 
+of the Proposition 
+(with t now playing the role of a) with fewer than c transversal 
+arcs. Thus 
+we may use induction 
+on t’ to more r, as shown in Fig. 16, without 
+changing 
+the polynomial. 
+Now use Proposition 
+4(n) to show that we may change the projection 
+by Reidemeister 
+moves 
+of the third 
+type along 
+the shaded 
+triangle 
+(starting 
+at t’n a) so as to leave the 
+polynomial 
+unchanged 
+and to eliminate 
+the intersection 
+of t and D. The fact that K is 
+ascending 
+ensures 
+that at each usage of such a move the three arcs with which the move is 
+concerned 
+are indeed stacked one “above” the other as required 
+for the move. The resulting 
+situation 
+is still ascending. 
+This resulting 
+configuration, 
+as shown 
+in Fig. 17, has fewer 
+transversals 
+and thus, by induction 
+on U, we may replace 
+(I with b without 
+changing 
+the 
+polynomial. 
+The reverse of the above process leaves the polynomial 
+unchanged 
+and restores 
+t to its 
+original 
+position. 
+Fig. 15. 
+Fig. 16. 
+Fig. 17. 
+COROLLARY 
+5.1 (n). Suppose that K and D are as in Proposition 
+5 (n). Suppose, furthermore, 
+that the transversals 
+now have the properties 
+that no two cross at more than one point, one 
+transversal, denoted t, crosses a at two points, and each other transversal crosses each of a, t and 
+b at one point. IL as before, K is the result of replacing a with b, then 9(K) 
+= 9’(K). 
+Proof. We first apply Proposition 
+5(n) to the case of D’ c D, as shown in Fig. 19. Then 
+apply Proposition 
+4(n) as shown in Fig. 20. 
+
+
+===== PDFPAGE 13 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+119 
+Fig. 18. 
+Fig. 19. 
+Fig. 20. 
+A loop in a link projection 
+is a simple closed curve that is the projection 
+of some sub-arc of 
+the link (the loop then starts and ends at a double point of the projection) 
+or the projection 
+of 
+an entire component 
+(which thus has no self-crossing). 
+Note that a loop in a link projection 
+may contain 
+many double 
+points 
+of the projection. 
+PROPOSITION 6 (n). The polynomial for 
+components. 
+K E 2’” is independent 
+of the choice of order of the 
+Proof. 
+Let K have c components 
+and n crossings, 
+11 2 1. Without 
+loss of generality 
+the 
+image in R2 of the projection 
+of K is connected. 
+This is because if K = U; K, where the images 
+in R2 of the Ki are disjoint, 
+then 
+b(K) 
+= ,LL’-’ II;(9(Ki)); 
+the ordering 
+on the Ki being 
+induced 
+by that of K. 
+By definition the polynomial 
+of a(K), the standard 
+ascending 
+link associated 
+to K with the 
+given ordering 
+and any choice of basepoints, 
+is $- 
+‘. Let a(K’) be the standard 
+ascending 
+projection 
+associated 
+to K’, the same geometric 
+link 
+with some other 
+ordering 
+of its 
+components. 
+Then 
+give the components 
+of cx(K’) the original 
+order to give p(K), a non- 
+standard 
+ascending 
+projection. 
+We calculate 
+9(/l(K)) 
+referring 
+it, as we must 
+by the 
+algorithm, 
+to a(K). 
+Choose an innermost 
+loop of the projection 
+of P(K). If this loop contains 
+no crossing of 
+the projection 
+(other than where the loop “starts” and “stops”) it can be removed 
+by a type (i) 
+Reidemeister 
+move without 
+changing 
+the polynomial 
+(Proposition 
+4(n)). Thus b(K) has the 
+same polynomial 
+as some other ascending 
+element of YLpn 
+_ i, and for that element the ordering 
+of components 
+is, inductively, 
+irrelevant. 
+Hence 
+3(@(K)) 
+= $-l. 
+Otherwise 
+there are 
+transversals 
+across the loop and, using Proposition 
+2(n) if necessary, 
+it may be assumed 
+that 
+no basepoint 
+lies inside 
+the loop (nor on it unless 
+the loop is the projection 
+of a whole 
+component). 
+Thus within the loop there is an innermost occurrence 
+of arcs a and t and disk D 
+as in Corollary 
+5.1(n). Hence, using that corollary, 
+a pair of crossings 
+(of arcs a and t) can be 
+removed, changing 
+P(K) to another 
+ascending 
+projection 
+with the same polynomial 
+and only 
+(n - 2) crossings. 
+As before the induction 
+hypothesis 
+implies 
+that 9(/3(K)) 
+= $-l. 
+
+
+===== PDFPAGE 14 =====
+120 
+W. B. R. Lickorish and Kenneth C. Millett 
+The calculation 
+of the polynomial 
+for the ordered 
+oriented 
+link K may be achieved 
+by 
+starting 
+with the definition 
+3(x(K)) 
+= $-I, 
+successively 
+changing 
+crossings 
+in any sequence 
+to change 
+from r(K) to K, and invoking 
+formula 
+I and the inductive 
+definition 
+for (n - 1) 
+crossings. One can, if one so wishes, choose a sequence of crossings that takes r(K) to P(K) and 
+then P(K) to K. As explained 
+above one would thus calculate 
+g(p(K)) 
+and find it to be @-l, 
+and then proceed to calculate 
+3(K) from that information. 
+This final calculation 
+is simply the 
+calculation 
+of g(K) 
+from 9(%(K)). Thus g(K) 
+= p(K) 
+proving 
+that g(K) is independent 
+of 
+the choice of order of components. 
+Proof (of the Theorem). 
+As a consequence 
+of the propositions 
+and their corollaries 
+we 
+have proved 
+Inductive 
+Hypothesis 
+(n). Thus, by induction 
+is defined and is an invariant 
+of the isotopy class of the oriented 
+link since every oriented 
+link 
+has a projection 
+in some Yk c Y and any two projections 
+of isotopic 
+links are in some pip, 
+and are equivalent 
+by a finite sequence of Reidemeister 
+moves that do not increase the number 
+of crossings 
+beyond 
+n crossings. 
+By Proposition 
+3(n), now true for all n, B(K) 
+satisfies 
+formula 
+I. 
+Suppose 
+that @ were another 
+such function 
+from Y to z[I* t, mf ‘1 which is different 
+from 9. Then there is an element 
+K E _cZ~, for the smallest 
+such k, with L?(K) # g(K). 
+Since 
+B = @:Y,_, 
++ a[/* ‘, mf ‘1 one may employ formula 
+I to imply inequality 
+in the case ofan 
+unlink. 
+But by induction 
+on the number 
+of components, 
+B and 9 must be equal on unlinks 
+in dp,. 
+$2. GENERAL 
+THEORY 
+OF THE NEW POLYNOMIAL 
+The elementary 
+properties 
+of the new polynomial 
+mentioned 
+in the introduction 
+will now 
+be proved. Some of them are almost obvious, 
+some are a little more obscure. The aim of this 
+section is to introduce 
+them, when they naturally 
+occur, as part of the geometric 
+exploitation 
+of the basic formula 
+that defines the polynomial 
+in the main theorem. 
+The relevant 
+geometric 
+idea is that of Conway’s skein theory, implicit in his paper [6] and expounded 
+and expanded 
+in his lectures 
+of 1978. In [9] Giller gives a discussion 
+of the theory 
+tuned, 
+as was then 
+necessary, 
+to the Conway 
+potential 
+functions 
+(or normalized 
+Alexander 
+polynomial). 
+That 
+theory 
+can now be restructured 
+for the two-variable 
+polynomial 
+produced 
+here, it is a 
+remarkably 
+natural 
+theory. Be warned 
+that skein theory begins with frightening 
+generality, 
+but here, at least, it will quickly 
+be particularized. 
+Definition. 
+A room R is a compact 
+3-dimensional 
+submanifold 
+of S3 on the boundary 
+of 
+which a finite set of points is given, each marked 
+either “in” or “out”. An inhabitant of R is a 
+properly 
+embedded 
+smooth, 
+compact, 
+oriented 
+l-manifold 
+in R, which meets the boundary 
+precisely 
+in the given 
+set of points 
+where 
+its orientation 
+agrees 
+with the in and 
+out 
+designations. 
+The preskein of R is the set of isotopy classes, keeping the boundaryfixed 
+during 
+isotopies, 
+of all inhabitants 
+of R. 
+Two useful examples 
+of rooms are P (prison), 
+the 3-ball with the empty subset on its 
+boundary, 
+and Q (quad), the 3-ball with two in and two out points as shown, together 
+with a 
+specimen 
+inhabitant, 
+in Fig. 21. The inhabitants 
+of P have no communication 
+at all through 
+the boundary 
+of their room, and so the theory of the preskein 
+P is that for usual oriented 
+links 
+up to isotopy. 
+
+
+===== PDFPAGE 15 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LIiVKS 
+121 
+For a room R, let M(R) be the free module over Z[I= l, m= ‘1 generated 
+by (elements in one 
+to one correspondence 
+with) the preskein of R. Let L(R), the linearization 
+of R, be the quotient 
+of&f(R) by thesubmodule 
+generated 
+by all elements 
+ofthe form /s, + I-‘s_ 
++ ms,, wheres,, 
+s_, and s0 are elements 
+of the preskein 
+that have representative 
+inhabitants 
+identical 
+except 
+near a point where they are 
+‘A 
+s 
+)c 
+. Thus L(R) is formal linear sums, 
+of elements 
+of the preskein 
+of R, with the now familiar’form 
+of equalities 
+imposed 
+on the 
+structure. 
+The first example to consider 
+is the prison room P. As any link can be reduced to an unlink 
+by changing 
+crossings, 
+L(P) is clearly generated 
+by such unlinks. 
+But, in L(P), such a link of c 
+components 
+is pc- 1 times the unknot. 
+Hence L(P) is generated 
+by the unknot. 
+Further, 
+the 
+main theorem 
+of the last section has proved that ,5(P) isfreely 
+generated 
+by the (class of the) 
+unknot 
++Y; any generator 
+K is uniqnell expressible 
+as ~(K)J%. 
+Any inhabitant 
+of the room Q that consists 
+of just two properly 
+embedded 
+arcs can be 
+changed either 0 or 00 as shown in Fig. 22. Thus L(Q) is generated 
+by 0 and co and those two 
+preskeins 
+with extra unlinked, 
+unknotted 
+simple closed curves. However, ifs is an inhabitant 
+of Q and s, together 
+with the “distant 
+union” 
+of the unlink 
+of c components, 
+is denoted 
+by 
+su 
+JV”. then if1 L(Q), 
+The argument 
+is the now familiar 
+‘kinking’ argument 
+given for unlinks 
+in the introduction. 
+Hence L(Q) is generated 
+by 0 and co. 
+A house is now to be thought 
+of as some edifice that contains 
+rooms. The intuitive 
+idea is 
+that a house has wiring within its walls that permits communication 
+between one room and 
+another, 
+and between 
+rooms and the outside 
+world. 
+Definition. 
+A house H is a connected 
+room together 
+with a specific inhabitant 
+(the \c?ring) 
+and specified components 
+R,, R,, . . . , R, of S3 -H 
+(called tile rooms ofH), where the input 
+and output 
+points 
+on ?Ri are the points 
+of ?Ri n (wiring), 
+with in and out designations 
+determined 
+by the orientation 
+of the wiring. Let fl be the room which contains 
+the set H. and 
+has boundary 
+SH - 
+L SR, on which the in and out points agree with those ofH (thus l? is H 
+i=l 
+with its rooms 
+“filled in”). 
+PROPOSITION 7. A house H with rooms R,, R,, 
+, R, defnes 
+c1 multilinear map (in the 
+category 
+of modules) 
+L(R,) x L(R,) x . . . x L(R,) + L(A). 
+Proof. 
+Insertion 
+of an inhabitant 
+into each room 
+produces 
+an inhabitant 
+of fi. This 
+function 
+on generators 
+extends 
+by multilinearity 
+to a multilinear 
+function 
+M(R,) x M(RJ 
+x . 
+x M(R,) + M(G) which passes to quotients 
+to give immediately 
+the required 
+function. 
+This proposition 
+is important 
+for its applicability 
+rather than its erudition. 
+The next result 
+is a simple consequence. 
+c3 
+0 
+Dl 
+03 
+Fig. 21. 
+Fig. 22. 
+
+
+===== PDFPAGE 16 =====
+122 
+W. B. R. Lickorish and Kenneth C. Millett 
+PROPOSITION S. If 
+K, and KL are t>j’o links in S3, separated 
+b,v a l-sphere, 
+then 
+Y(K, 
+U K,) = @‘(Kl)9’(K2). 
+Note: 
+It is common to write K, l_j K, for this distant 
+union 
+of K, and K,. 
+Proofi Let H be the house consisting 
+of a ball with two sub-balls 
+removed 
+from its 
+interior, 
+and with empty wiring. Those two sub-balls 
+are to be the two rooms of H. Into each 
+of those rooms the preskein 
+of P is inserted 
+so that the previous 
+proposition 
+gives a bilinear 
+map L(P) x L(P) -+ L(P). But L(P) is freely generated 
+by a’, the class of the unknot, 
+and, the 
+above map sends (‘2, &) to p%Y since the image of (%, a) is the unlink of two components. 
+Hence (B(K,)42,3(K,)42) 
+-, ~9(K,)9(K,)~ 
+by bilinearity, however, the right hand side is 
+%K, u K,)“@. 
+If K, and K, are oriented links in S3 let K, # K, be a link formed by removing from 
+(S’, Ki) an unknotted ball pair, to obtain a pair (B3, K;), 
+and identifying the boundaries of 
+these pairs in a manner consistent with all orientations. 
+In general 
+this “connected 
+sum” 
+K, # K, is neither connected (as a subset of S3) nor well defined. However, its polynomial is 
+well defined. 
+PROPOSITION 9. If K, #K, 
+is any connected 
+sum of oriented links K, and K, in S3, then 
+g(K, 
+#K,) 
+= ~(K@‘(KA. 
+Proofi Let H be the house with two rooms of Fig. 24. 
+Each room is a copy of +*> 
+with generator gi = .--@- 
+for L(R,). The bilinear map 
+L(R,) x L(R,) -+ t(P) defined in Proposition 
+7 sends (gi, g2) to %. It maps (K;, 
+g2) to 
+9’(K,)@ 
+so K; 
+= B(K,)g,, 
+and similarly for K;. 
+Thus (K;, 
+K;)w 
+B(K,)9’(K,)‘&; 
+but 
+inserting 
+K; 
+into R, and K; 
+into 
+R, produces the link K, #K,, 
+so that 
+(K;, 
+K;) 
+-+ .9(K, 
+#K,)%. 
+This result provides an elementary method of obtaining distinct links with the same 
+polynomial. For example, if K,, 
+K, and K, are distinct 
+knots, then (K, # K,)l_j 
+K, and 
+K, U (K, # K3) both have polynomial 
+p9(K1)9(K2)9’(K3). 
+Definition. 
+Let K be an oriented link in (oriented) S3. The reverse of K is the same link but 
+with the orientation of each component of the sub-l-manifold 
+of S3 changed. The obverse of 
+K is the same link as K but with the orientation 
+of S3 changed. 
+Thus in a given presentation 
+of K as a diagram 
+with arrows on the components 
+and over- 
+crossings 
+marked, 
+the reverse of K, rev K, is obtained 
+by changing 
+all the arrows, the obverse 
+of K, R, is obtained by changing all over-crossings to under-crossings (since the orientation of 
+S3 = R3 u cc can be reversed by taking the reflection of S3 in the plane of projection of the 
+link, thereby reversing all the crossings of the given projection). The next result states how the 
+polynomial is influenced by these two operations on links. It is easy to deduce this result 
+Fig. 23. 
+Fig. 24. 
+
+
+===== PDFPAGE 17 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIEXTED 
+LINKS 
+123 
+directly 
+from the main theorem; 
+here a proof using linear skein theory is given. 
+PROPOSITION 10. Let K be an oriented link in (oriented) S3. 
+(i) p(rev 
+K) = Y(K) 
+(ii) p(R) 
+(I, m) = Y(K)(I-‘, 
+m). 
+Proof. (i) Consider 
+the trivial 
+room 
+P. The operation 
+‘rev’ maps inhabitants 
+of P to 
+inhabitants 
+of P and induces 
+a linear map L(P) -+ L(P) because ‘rev’ does not change the 
+concepts 
+of positive 
+and negative 
+crossing 
+in a presentation. 
+However, 
+rev % = %, so this 
+linear map is the identity. 
+(ii) The map K --) K, treated in the same way, induces a map L(P) + L(P) that is fixed on 
+%!‘. However it exchanges 
+the ideas of positive and negative crossing, so that this map is semi- 
+linear with respect to the involution 
+on Z[I* l, m”] 
+that is fixed on m and interchanges 
+I and 
+1-l. 
+It follows that, in determining 
+the basic symmetries 
+of knots, the two-variable 
+polynomial 
+is useless on the question 
+of reversibility. 
+In fact if K is one of the knots of Trotter 
+[22] that 
+are non-reversible 
+(Trotter 
+uses ‘non-invertible’) 
+then K and rev (K) form a pair of distinct 
+knots with the same polynomial. 
+A link is called amphicheiral if K = R, and for this to occur 
+Proposition 
+10 requires 
+that Y(K)(I, 
+m) = ??(K)(I-‘, 
+m). A glance at the tables at the end of 
+this paper shows that this provides a good test for amphicheirality; 
+it is not infallible 
+since the 
+knot 9,2 has self-conjugate 
+polynomial 
+(- 2iw2 - 3 - 21’) + (I-’ + 4 + 12)m2 - rn’ but, having 
+non-zero 
+signature, 
+it cannot 
+be amphicheiral. 
+Linear skein theory and the ideas of rooms and houses would hardly be justified 
+by the 
+preceding 
+discussion. 
+Consideration 
+of room Q is more significant. 
+In fact it is convenient 
+to 
+generalize 
+Q a little and let 0 denote any one of the rooms associated 
+to the diagram of Fig. 25 
+with two inputs 
+and two outputs 
+allocated 
+in any of the six possible 
+ways. 
+Definition. 
+Let K, and K, be oriented 
+links in S3, then K2 is a mutation of K, (and vice 
+versa), if K, can be obtained 
+from K, by the following 
+process: 
+(i) remove 
+from K, an inhabitant 
+T of a copy of Q; 
+(ii) rotate 
+T through 
+angle 7~ about 
+the central 
+axis (perpendicular 
+to the plane of the 
+diagram) 
+or about the E-W or the N-S axis and if necessary change all the arrows to achieve 
+another 
+inhabitant 
+of Q; 
+(iii) place this new inhabitant 
+in 0 to obtain 
+K,. 
+PROPOSITION 
+11. If K, and K, are oriented links in S3 and K, is a mutation of K,, 
+then 
+y(K,) 
+= 9YK2). 
+Example 
+11.1 The Kinoshita-Terasaka 
+knot and the Conway knot (see Fig. 26) have the 
+same polynomial. 
+Note that by the work of Gabai 
+[8] these are knots of different 
+genus. 
+Fig. 25. 
+Fig. 26 
+
+
+===== PDFPAGE 18 =====
+124 
+W. B. R. Lickorish and Kenneth C. Millett 
+Proof. 
+(of Proposition 
+11) Let p be one of the three involutions 
+on the set of inhabitants 
+of Q described 
+in the above definition, 
+p being a rotation 
+through 
+TC possibly 
+followed 
+by 
+arrow reversal. Clearly p induces a linear map p : L(Q) -+ L(Q). But, L(Q), with Q denoting 
+any 
+one of the six possible 
+rooms 
+according 
+to the specific choice of inputs 
+and outputs, 
+is 
+generated 
+by two of twelve tangles, 
+(the choice of which of these depends 
+upon the specific 
+choice of inputs and outputs 
+defining 
+Q), namely those shown in Fig. 27, where each diagram 
+has four choices of arrows. This has already 
+been discussed 
+in detail for the particular 
+case 
+Q = Q. However each of these is invariant 
+under p so that p is the identity map on L(Q). From 
+the definition 
+of mutation 
+there is a house H, a ball with one interior 
+ball removed 
+to give a 
+room Q, such that insertion 
+of T into Q produces 
+K 1, insertion 
+of pT produces 
+K,. But H 
+induces, 
+by Proposition 
+7, a linear map L(Q) + L(P) which sends T to g(K,), 
+and pT to 
+p(KJ. 
+This proves the result since p is the identity 
+on L(Q). 
+Fig. 27. 
+Fig. 28. 
+Example 
+11.2 In 
+Fig. 
+28 is shown 
+a pretzel 
+link 
+that 
+will 
+be denoted 
+L[ay”, 
+E(2) 
+a2 ,...,a, 
+‘(“)I. The ith “vertical” 
+strip has a, half twists, these being in a right-hand 
+sense if a, 
+is positive, and in a left-hand 
+sense if ai is negative. The superscript 
+I 
+is 1 if all the crossings 
+on the ith strip are positive, and - 1 if they are negative. 
+Note that e(i) depends on the choice 
+of orientation 
+of the various components; 
+for a given (aI, a2, . . a,) an arbitrary 
+choice of E 
+may not be possible. 
+Now, Proposition 
+11 implies 
+that for any permutation 
+GE S,, 
+Y(L[aC:“, 
+a;(‘), . . . af”‘]) = P(L[a~p”, 
+acb(z2), . . . @Jr’]). 
+Thus, taking care concerning 
+orientation, 
+the polynomial 
+is unchanged 
+by permutation 
+of the 
+a,. This follows from the proposition 
+since, by mutation, 
+the ith and (i+ 1)th strips can be 
+interchanged 
+leaving the polynomial 
+fixed. Note that if all the a, are odd, one can choose e(i) to 
+be the opposite 
+sign to that 
+of a,, and, 
+in that 
+limited 
+way simplify 
+the notation 
+to 
+Ua,, 
+. . , a,]. 
+Next, the room Q is used to determine 
+the polynomial 
+of the total sum of two tangles 
+discussed 
+in [14]. This is the two-variable 
+analogue 
+of the numerator-denominator 
+formula 
+of Conway 
+to which the next proposition 
+reduces 
+on substitution 
+of p = 0. 
+PROPOSITION 1’. Let A and B be inhabitants of Q (in [14] these are essentially two-string 
+tangles with extra closed loops), let A + 
+the inhabitant of Fig. 29 and let AN and AD 
+denote the two-variable 
+polynomials 
+of 
+and 0 
+respectively. 
+Then (p* - 1) (A + B)N 
+= /J(A.‘B” + ADBD) - (ANBD + ADB”). 
+Proof. 
+By Proposition 
+7 a bilinear 
+map L(Q) x L(Q) + L(P) is defined by the house with 
+rooms R, and R, of Fig. 30. With respect to bases, 0, co for L(Q) and J?/ for L(P) this is clearly 
+represented 
+by the matrix 
+
+
+===== PDFPAGE 19 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIEKTED 
+LINKS 
+13 
+Fig. 30. 
+so, letting 
+(lo, r,) 
+and (P,, 8,) 
+be coordinates 
+for A and B in L(Q), (il + B).’ is 
+Taking 
+values (1, 0) and then (0, 1) for (PO, fi,) gives 
+(A”, AD) = (%J, %I 
+P 
+1 
+( ) 
+1 P 
+and similarly 
+for B. Hence 
+or 
+(A+B)“= (A*,A$i; 
+;)-‘(;) 
+t$-l)(A+BY= 
+(a”,AD)o 
+y)(;1) 
+which is the required 
+answer. 
+Note: 
+For ease of manipulation 
+in the proof a temporary 
+step was taken into the field of 
+fractions 
+of Z[I-f t, m&t]. One can, in the same way, establish 
+the formula 
+(A + BID = ADBD 
+but that is simply a restatement 
+of Proposition 
+9. In the above proof it transpires 
+that 
+(P2 - 1) (% 2,) = (AN, A?( 
+-“1 ,‘). 
+Thus AN and AD determine 
+a0 and IY, uniquely, 
+so 0 and co form a free 
+base for L(Q). The 
+polynomial 
+of an arborescent 
+knot or link (algebraic 
+in the sense of [6]) can be regarded 
+as 
+(A + B)” where B is a rational 
+tangle and AN and AD are the polynomials 
+of arborescent 
+links 
+of a lower complexity. 
+Thus 
+Proposition 
+12 provides 
+recursive 
+formulae 
+for finding 
+the 
+polynomial 
+of such arborescent 
+links; often however they seem unattractive 
+in practice. The 
+next proposition 
+is a worked example for pretzel links with odd coefficients. 
+Pretzel links are, 
+of course, special Montesinos 
+links, and hence arborescent. 
+In this next proposition 
+a value for the polynomial 
+of the r-crossing 
+link of Fig. 31 will be 
+needed. Let 9pCr-J be this polynomial, 
+g[O] 
+= p, g[l] 
+= 1. Changing 
+one of the crossings 
+produces 
+the formula 
+P[r] 
++ ImP[r 
+- l] + PP[r 
+- 21 = 0 
+so that 
+Hence 
+%rl = (1, 0~(~~~‘11) 
+=(l,O)(_; 
+-;J-‘(;). 
+
+
+===== PDFPAGE 20 =====
+126 
+W. B. R. Lickorish and Kenneth C. Millett 
+Fig. 31. 
+PROPOSITIOS 13. Let K be the pretzel link L[a,, 
+al, . . . , a,], where the a, are odd integers 
+and orientations 
+are as described above (Example 
+11.2). Let P[O] = p and P[r] 
+be 
+where the summation 
+is ouer the 2” functions 
+6: (I, 2, . . . , n} + (0, l}, and 
+0-l 
+xi = (-1)2[@-1), 
+x,” = p-l (1 -x1 ) 
+(1 
+’ 
+Proof. Let Q be the room depicted with inhabitants 
+x0, x1 and T,in Fig. 32 where T, has a 
+crossings. 
+L(Q) is generated 
+by x0 and x1. In L(Q), I-‘T, 
++ IT,_ 2 + mxO = 0, and the solution 
+for this is 
+T, = ,x; x0 +x; xl. 
+The house with n rooms of Fig. 33 defines an n-linear 
+map C#I : (L(Q))” + L(P). Then 
+g(K) = Ua,, 
+Ta,, . . . , To,) 
+= 44~:*Xg+~:,Xy,. 
+. .) x:“x,+x;“x,). 
+Now $(zl, 
+z2, 
+. . . z,) where r of the zi are x1 and the remaining 
+(n - r) are x,, isP[r] 
+@.The 
+result now follows using the muftilinearity 
+of #J. 
+Fig. 32. 
+Fig. 33. 
+One notes that the expression 
+for B(K) depends 
+only on the set {a,, u2, . . . , a,> of odd 
+numbers 
+and not upon their ordering 
+as was expected from Example 
+11.2. The same general 
+idea can be used when some of the ai are even. 
+Seifert’s famous 
+pretzel knot with unit Alexander 
+polynomial 
+is L[ - 3, 5, 71 though 
+in 
+fact L[a,, al, aJ with the a, odd has such an Alexander 
+polynomial 
+if ala2 + u2u3 + a3al = 
+- 1. Substituting 
+x0_ - 
+3 -/f-1(1-P) 
+x’_, = 1-4 
+xi = ,U-l(l- 
+?) 
+x: = l4 
+xy = /?(l 
++P) 
+x1 = -16 
+7 
+
+
+===== PDFPAGE 21 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+127 
+one obtains 
+P(L[-3,5,7])= 
+(-12+14-18+110+112)+(12-14+P-Po)m2. 
+Note this reduces 
+to 1 if the substitution 
+I = i is made. 
+The next result uses the preceding 
+general 
+ideas in a slightly 
+different 
+way to find the 
+polynomial 
+of a rational 
+(or 2-bridge) 
+link. 
+PROPOSITION 
+14. Let K be the rational knot or link c1c2c3 . . . c, in the notation of [6], 
+where the ci are even integers. For any integer r, let M(2) 
+E GL,(Z[l* 
+l, mf ‘1) be the matrix 
+( 
+(I_(_ 
+1)‘1-‘y’ 
+(- 1)‘1_2’ 
+1 
+1 
+0 
+:. 
+Then P(K) 
+= (l,O)M(c,). 
+. fi(c,_,)M(c,-,)fi(c,) 
+1 
+0 P’ 
+where the bar denotes conjugation 
+bc,ith respect to interchanging 
+1 and I-‘; the conjugate 
+of M(c,) occurs in the formula 
+when 
+rEnmod2. 
+Proof: First 
+a word 
+about 
+notation 
+is in order. 
+The 
+link 
+K in question 
+is that 
+corresponding 
+to the rational 
+number 
+p/q where p/q is given by the continued 
+fraction 
+1 
+c, + c,_i +. 
+Here the unique expression 
+with the ci all even is required. 
+Then K is the unique link [I l] with 
+the lens space L,,, as its double 
+branched 
+cover. In the notation 
+of Proposition 
+12, B(K) is 
+W,, 
+c2, . . . 1 cJN where, depending 
+upon 
+the parity 
+of n, T(c,, c2, . . , c,) is one of the 
+inhabitants 
+of Q shown in Fig. 34, where each ci denotes 
+the number 
+of crossings 
+depicted in 
+the sense shown (and ZQ is omitted 
+for simplicity). 
+As already remarked, 
+the module 
+L(Q) is 
+generated 
+by the preskeins 
+0 and co, so it must be possible in L(Q) to express T(c, , . . c,) in 
+terms of these generators. 
+A simple recurrence 
+formula, analogous 
+to that used in Proposition 
+12 shows that, in L(Q), the preskeins 
+X,, and Y,, of Fig. 35 are given by 
+where 
+X2, = az10 + B2,a 
+y2, 
+= 
+B2ro 
++ 
+52ra 
+a2, = (1 - (- 1)‘1-2’)~-1 
+P2, = (- 1)‘1_2’. 
+Consider, 
+in the case when n is even, the house with one room shown in Fig. 36. Let 4 : L(Q) 
++ L(Q) be the associated 
+linear map. Then 
+T(c,, c2,. . . c,) = &Xc,) = ac,(4W + Pc,4(a 1. 
+Thus 
+T(ci, 
+c2, 
+. . c,) = ac,T(c2, cj, . . . c,)+ /&,T(c,, cd, . . , c,), which 
+produces 
+the 
+
+
+===== PDFPAGE 22 =====
+128 
+W. B. R. Lickorish and Kenneth C. Millett 
+” 
+even 
+n odd 
+Fig. 33. 
+matrix 
+equation 
+Fig. 35. 
+Fig. 36. 
+T(c,, c2, . . . c,) 
+T(c,, C3r . . . c,) 
+)=~(c~,(~~~::::::::r:i). 
+For n odd the same equation 
+with A(c,) 
+in place of M(c,) comes from an exactly similar 
+method. 
+Giving 
+a proper 
+interpretation 
+to the symbols 
+when n = 1 or 2, and iterating, 
+one 
+obtains 
+qc,, Cl, 
+. . c,) = (1,O) ( 
+w,, c2, . . . C”) 
+w,, 
+c37 . . . 4 1 
+= (1, 0)&r) . . . R(c,_,)M(c,_ 
+l)M(c”) 
+y 
+. 
+( 
+) 
+Here the dots over M(c,) indicate 
+that conjugation 
+takes place when n is odd. Now, as in 
+Proposition 
+12, if T is an inhabitant 
+of Q, and T = r0 + fico in L(Q), then T” = prf 
+j3, 
+so the required 
+formula 
+for T (c,, c2, . . . c,) follows at once. 
+If the substitution 
+1 = i, iz = m is made one obtains 
+P(K)(i, 
+iz) = V,(t) 
+where V,(z) is the Conway 
+potential 
+of K (where z = {r-j in the notation 
+of [6]). With this 
+substitution 
+p = 0, and M(2r) and its conjugate 
+become 
+-rTz 
+1 
+( > 
+1 
+0 
+
+
+===== PDFPAGE 23 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+129 
+and V,(Z) = (1, 0)1M(c,).W(c,) . . M(c,) 
+i 
+, 
+0 
+regaining 
+the potential 
+formula 
+for rational 
+links (see [9] for example). 
+In the proof of Proposition 
+14 a formula 
+evolved expressing, 
+in L(Q), T(c,. c2, 
+c,) in 
+terms of 0 and co when all the ci are even. In principle 
+this formula 
+can be utilized, 
+in 
+conjunction 
+with the technique 
+of Proposition 
+13 to obtain 
+formulae 
+for the polynomials 
+of 
+arborescent 
+links, or to express the tangle, that is the characteristic 
+arborescent 
+part of a link 
+[5] in terms of generators 
+of the linearization 
+of its associated 
+room. That is of theoretical 
+importance, 
+but the anticipated 
+complication 
+of a general 
+formula 
+is unattractive. 
+Most of the preceding 
+discussion 
+of this section has been based on lineari:ed skein theory 
+applied to the preskeins 
+of inhabitants 
+of various 
+rather simple rooms, the main useful idea 
+being Proposition 
+7. A routine 
+extension 
+can be made to a room R with n inputs and n outputs 
+as in [9], then L(R) has a set of n! generators, 
+but details become complicated. 
+It is now in 
+order to mention 
+skein rheorg proper, at least when applied to (the preskein 
+of) oriented 
+links 
+in S3. Skein theory germinated 
+in [6] and was explained 
+in [9]. The definitions 
+of the theory 
+tend to evolve, and the present situation 
+is given below; it may be that the technique 
+of proof 
+of the main theorem 
+in $1 will eventually 
+induce change in those definitions. 
+Skein theory is 
+simply the study ofequivalence 
+classes of oriented 
+links in S3 under skein equivalence; 
+a skein 
+invariant 
+is simply a function 
+well defined 
+on these equivalence 
+classes. 
+Definition. 
+Skein equicalence 
+is the smallest 
+equivalence 
+relation 
+“-” 
+on the set of all 
+oriented 
+links in S3 such that 
+(i) if K and L are ambient 
+isotopic 
+then K - L; 
+(ii) if K +, K_ and K, are three oriented 
+links identical 
+except near one point where they 
+are 
+‘A 
+=\’ 
+> ( 
+respectively, 
+and L,, 
+L_ and L, is another 
+such (skein) 
+triple then 
+(a) K+ - L, 
+and K,- 
+L, implies K_ - L_, and 
+(b) K- 
+- L_ and K, - L, implies K+- 
+L,. 
+Thus skein equivalence 
+is, in a sense, the minimal 
+equivalence 
+relation 
+for which the proof of 
+$1 will give a well defined skein invariant. 
+The new two-variable 
+polynomial 
+can be regarded 
+as the most general 
+linear skein invariant. 
+PROPOSITION 
+15. p(K) 
+is a skein invariant (hence so are the polynomials 
+of Alexander 
+[9] 
+and Jones [ 121). 
+Proof. This follows 
+from the Theorem. 
+(Signatures 
+of knots are skein invariants 
+and 
+folklore 
+asserts that Minkowski 
+units are also.) 
+It is a pleasing 
+exercise to check that any oriented 
+link is skein equivalent 
+to its reverse. 
+Simply induct on the number 
+ofcrossings 
+and on the number 
+ofcrossing 
+changes necessary to 
+create 
+an ascending 
+presentation. 
+Similarly 
+any 
+two mutants 
+are skein 
+equivalent, 
+the 
+induction 
+being on the number 
+of crossings 
+in the tangle to be ‘rotated’. In fact this gives 
+another 
+way of viewing 
+the proofs of Proposition 
+10(i) and of Proposition 
+11. 
+Amongst 
+knots, 
+skein equivalence 
+seems to be a rare phenomenon 
+except for iterated 
+mutations. 
+Of course. 
+mutations 
+of significance 
+do not occur 
+in knots 
+of less than 
+11 
+crossings, 
+but even for higher numbers 
+of crossings 
+it seems that a pair of knots is ‘usually’ 
+distinguished 
+by the two-variable 
+polynomials 
+and hence they are not skein equivalent. 
+
+
+===== PDFPAGE 24 =====
+130 
+W. B. R. Lickorish and Kenneth C. Millett 
+Conversely 
+one may search for skein equivalence 
+by inspecting 
+the polynomials. 
+Using a computer, 
+Thistlethwaite 
+has shown that amongst 
+the 12,965 knots with at most 
+thirteen 
+crossings 
+there are thirty 
+with A(c) = 9 - 6(t + t- ‘) + 2(t2 + I-‘). 
+Examination 
+of 
+these failed to find a pair of knots 
+distinguished 
+by $P(K(I, m)) but not by VK(t) (but see 
+Example 
+19). However, 
+an outcome 
+of that search produced 
+the following 
+extraordinary 
+example. 
+Lample 
+16. Figure 
+37 depicts three knots. These are all slice knots and so have zero 
+signatures. 
+That 
+they are distinct 
+is proved 
+by Thistlethwaite’s 
+enumeration 
+of represen- 
+tations of their knot groups into permutation 
+groups. Now changing 
+the encircled crossing of 
+13671a produces 
+tOI,,, 
+and nullifying 
+that crossing 
+produces 
+q2, the trivial 
+link of two 
+components. 
+Similarly, changing 
+the encircled crossing in 10 1 29 gives 8, and nullifying 
+it gives 
+a’. Hence we have triples (136714, 10,29, @‘)and 
+(Sa, lo,,,, 
+e2) both ofthe form (K,, 
+K-, 
+K,). Thus 8, and 136714 are skein equivalent; 
+they both have polynomial 
+(-1-4-11-2+2+/2)+(1-4+21-2-2-12)m2+(-12+l)m’. 
+Now 8, is a rational 
+knot with double 
+branched 
+cover the lens space Lz5,11, Mutation 
+of 
+knots leaves double 
+branched 
+covers unchanged, 
+and by [ll] 
+8, is the only knot with L,,,, 
+1 
+as its double 
+branched 
+cover. Thus 8s has no mutants, 
+and the above skein equivalence 
+is 
+distinct 
+from the mutant 
+idea. This example also shows that skein equivalent 
+knots can have 
+distinct 
+double 
+branched 
+covers. 
+Incredibly, 
+because of the almost-symmetry 
+of &P(8a), P(lO,,,) 
+= 8(8,), 
+where the bar 
+denotes 
+exchanging 
+1 and I- i. Then 
+indeed 
+X = LP (8,) satisfies 
+IX + I- ’ x + m,u = 0, an 
+equation 
+also satisfied 
+by X = l! Are 8s and the obverse 
+of lo,,, 
+skein equivalent? 
+Before leaving this example consider 
+unknotting 
+numbers. 
+The knot lo,,, 
+obviously 
+has 
+unknotting 
+number 
+1, hence so does its obverse. 
+However 
+8, has unknotting 
+number 
+2. 
+Clearly two crossing 
+changes 
+suffice to unknot 
+8,. That two changes 
+are necessary 
+follows 
+from consideration 
+of the linking 
+form E, on the first homology 
+of the double branched 
+cover 
+(see CW. fW,, 
+d = z,, with generator 
+g such that E.(g, g) = 1 l/25 in Q/Z. If 8, had 
+unknotting 
+number 
+1 there would be another 
+generator 
+tg such that E.(tg, tg) = & 2125. Then 
+2t2/25 = + 1 l/25 in Q/Z or 2t2 5 f 11 modulo 
+25. However 
+no such integer t exists. Thus 8e 
+and the obverse of 10 I 29 have the same polynomial 
+but distinct unknotting 
+numbers. 
+Because 
+the determination 
+of the two-variable 
+polynomial 
+is concerned 
+with crossing 
+changes 
+it is 
+reasonable 
+to hope that it might give some information 
+on unknotting 
+numbers. 
+This, not 
+unexpected, 
+example 
+shows 
+that 
+complete 
+unknotting 
+number 
+information 
+cannot 
+be 
+obtained. 
+The next example, 
+due essentially 
+to Birman 
+[4] shows that links may have the same 
+polynomial 
+but different 
+signatures. 
+8, 
+10,:9 
+13m 
+Fig. 37. 
+
+
+===== PDFPAGE 25 =====
+A POLYNO,MIAL 
+INVARIANT 
+OF ORIEXTED 
+LINKS 
+Example 
+17. The two knots depicted 
+in Fig. 38 have the same polynomial. 
+polynomial 
+is 
+( - 4P - 3P) + (IOP + 4P)m2 + (- 616 - P)m’ + 16m6. 
+131 
+The common 
+However 
+according 
+to [4] these knots 
+have distinct 
+signatures. 
+Thus the value of the 
+signature 
+of a knot is not carried 
+by the polynomial. 
+Birman 
+[4] gives a collection 
+of pairs 
+analogous 
+to this example. 
+Since mutation 
+is a prime example 
+of skein equivalence. 
+and mutants 
+have the same 
+double branched 
+cover, it is well to record the following 
+example instigated 
+by Montesinos. 
+Example 
+18. The knots K, and K, of Fig. 39 have the same double 
+branched 
+cover, bur 
+distinct 
+polynomials. 
+The double 
+branched 
+cover of each of these knots is homeomorphic, 
+preserving 
+orientations 
+induced 
+by that of S3, to the 3-manifold 
+obtained 
+by +- 1 surgery on 
+the four-crossing 
+knot [ 181. Except for two of the uppermost 
+crossings 
+of K,, K, and K, are 
+mutually 
+obverse. 
+Focussing 
+on one of those crossings, 
+and using Proposition 
+10, 
+I-‘P(K,) 
++ I P(K2) 
+= - m9’(L). 
+where L is the link obtained 
+by nullifying 
+that crossing. 
+Now, it is easy to calculate 
+that in 
+.9(L) the term in m-I 
+is 
+,U18(216 + 314) 
+and as this is not self-conjugate 
+with respect to interchanging 
+1 and I-‘, 
+we cannot 
+have 
+Y(K,) 
+= Y(K2). 
+As mentioned 
+in the introduction 
+it is classical (see [I] pp. 277 and 302) that the Alexander 
+polynomial 
+AK(t) is p(K) 
+(i, i(t1j2 - t-‘!2 )). Jones verifies that the polynomial 
+VK(f) satisfies 
+V*(t) = 1 and 
+t-‘V~,(t)--t~_(t)+(t-“2-ffl’2)V~,(t) 
+= 0 
+where K + , K _ and K, are a skein triple of closed braids [ 123. Since any oriented 
+link can be 
+expressed 
+as a closed braid, 
+VK(t) can be calculated 
+entirely 
+within the closed braid context 
+using the above formula 
+and, of course, the calculation 
+must produce 
+VK(t) = g(K)(ir- 
+I, i(t- 1!2 - t”‘)). 
+One would expect that the two variable polynomial 
+P(K)(I, m) would be a stronger 
+invariant 
+than the combination 
+of its two specializations 
+AK(t) and 
+VK(t). This is confirmed 
+by the 
+Fig. 38. 
+Fig. 39. 
+
+
+===== PDFPAGE 26 =====
+132 
+W. B. R. Lickorish 
+and Kenneth 
+C. Millstt 
+following 
+example which comes from the Thistlethwaite 
+tabulations. 
+(Those tabulations 
+also 
+show 
+that there are several 
+pairs of twelve-crossing 
+non-alternating 
+knots 
+that can be 
+distinguished 
+by AK(t) but not by VK(l).) 
+Example 
+19. Let K be the arborescent 
+knot shown in Fig. 40, and let R be its obverse. 
+Then b(K) 
+# P(K), 
+but VK(t) = VK(t), AK(t) = AR(~). 
+Proof. 
+y(K) 
+= (3 + 51’ + 415 + 16) + (- 4 - 101’ - 5i4)m2 + (1 + 61’ + /4)m4 - I’&. 
+This is (very) asymmetric 
+in 1 and I- ‘, so B(K) # Y(R). 
+However 
+substituting 
+I= if-‘, 
+M = i(t-“* 
+-r’/*) 
+gives 
+VK(r) = t-*-ft-‘+1-r+?, 
+which is symmetric 
+in r and r-l. 
+(Th e f our crossing 
+knot has the same Jones polynomial.) 
+Thus 
+VK(r) = VK(r). Further 
+AK(r) = AR(r) whatever 
+the knot K might be. 
+One final electronic 
+calculation 
+is as follows: 
+Example 20. The untwisted 
+double of the left-hand 
+trefoil with positive clasp, depicted in 
+Fig. 41, has polynomial 
+(- I-* + 41’ + 814 + 516 + l*) + (1 - 51* - 1414- 1016 - l* + P”)m2 
++ (1’ + 714 -I- 616)m4 + ( - l4 - 16)m6. 
+Taking 
+the untwisted 
+double 
+of a knot is a well known 
+way of constructing 
+a knot with 
+AK(r) = 1. One way of proving 
+that is by remarking 
+that such a double 
+has a Seifert matrix 
+that is also a Seifert matrix 
+for the unknot. 
+The reason 
+for quoting 
+the above appalling 
+polynomial 
+is that it may serve as a cautionary 
+tale in any quest for an understanding 
+of the 
+two-variable 
+polynomial 
+by means of Seifert matrices. 
+$3. ALGEBRAIC 
+PROPERTIES 
+OF THE NEW POLYNOMIAL 
+In this section 
+we shall describe 
+some of the elementary 
+algebraic 
+properties 
+of the 
+polynomial 
+and further calculations 
+some of which were inspired 
+by Jones’ calculations 
+[ 121 
+for his one-variable 
+polynomial. 
+For example 
+we note that 
+P(W)(/, 
+- (I+ I- ‘)) = 1, 
+so that the recursive 
+calculation 
+of the polynomial 
+from standard 
+ascenders 
+shows the 
+following. 
+PROPOSITION 21. 
+9(K)(I, 
+- (I + I- ‘)) = 1. 
+In the same spirit, but less easy, we have the following 
+description 
+of the basic terms of the 
+polynomial. 
+Let L denote an oriented 
+link (or knot) of c = c(L) components 
+each of which, 
+Fig. 40. 
+Fig. 41. 
+
+
+===== PDFPAGE 27 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+133 
+separately, 
+is a knot Kj. j = 1, . . . , c. Let i(K,, K,), j # k, denote the linking number 
+of the 
+two components 
+Kj and K,. Define the total linking of L by 
+i. = i.(L) = 1 i.(K,, K,). 
+j<k 
+If we collect powers of m we may express the polynomials 
+by 
+and 
+y(L) = &Ql)mk 
+9(Kj) = Cpj,(/)mk. 
+PROPOSITION 22. For an oriented link L, the pobcers of 1 and m bchich appear 
+in P(L) are 
+either all even or all odd, depending 
+upon ,tAether the number of components 
+of K is odd or ecen, 
+respectively. 
+The exponent of the lobj,est power of m M*hich appears is precisely 1 -c. 
+It has 
+coefficient 
+pl_,(I) 
+= (-12)-i(-(l+l-1))c-l 
+r’r $0(I). 
+j=l 
+For a knot, p,,(i) = 1. 
+Proof. The proof 
+is by induction 
+on (n, s) where II is the number 
+of crossings 
+in a 
+projection 
+and s is the number 
+ofcrossing 
+switches necessary to achieve a standard 
+ascending 
+configuration 
+(for some choice of basepoint 
+and ordering 
+ofcomponents). 
+The pairs (n, s) are 
+ordered lexicographically. 
+Thus, given a projection 
+of L with n crossings 
+the result is assumed 
+true for all projections 
+of fewer crossings, 
+and those of u crossings 
+but smaller s. 
+We first note that the statements 
+are true for any unlink 
+because 
+9(4Y) = (- (I+ I-‘)m-I)‘-’ 
+Suppose that proposition 
+is true for the pair L- and L,, (thecase L, and L, being analogous) 
+and that we wish to verify the statements 
+for L,. Consider 
+the fundamental 
+identity 
+P(L_) 
+= (-l-‘)B(L_)-ml-‘P(L,). 
+L, has either one more or one less component 
+than L, and L_. It is convenient 
+first to 
+employ crossing changes between distinct components 
+needed to achieve a separated 
+union of 
+the components 
+(which may themselves 
+still be knotted). 
+For such a change the lowest power 
+of m which occurs in L, is, by induction 
+on n, 2 - c(L+) as L, has one fewer component. 
+Thus 
+the contribution 
+of the term - ml- ’ J 
+9(L,) will preserve the required 
+parity of powers of 1 and 
+m and will not contribute 
+to the term in m1 -c . Since E.(L_) = j.(L+) - 1 we see, by induction 
+on s, that the term 
+-1-’ 
+9(L_) 
+gives p1 _,(I) as required. 
+In the remaining 
+case when 
+L, 
+is a separated 
+union 
+of components 
+we have, by 
+Proposition 
+8, S(L+) = ,acel n 
+B(K,). 
+Th us, if the 
+proposition 
+is true 
+for single 
+j=l 
+components, 
+the lowest power ofm is precisely 1 - c, the parity of the powers of 1 and m satisfy 
+the requirements, 
+and the coefficient 
+of rnldC IS given by the formula 
+(since i. = 0). 
+Hence, 
+consider 
+the 
+case 
+when 
+L, 
+is a single 
+component. 
+We 
+observe 
+that, 
+L0 = {K,,,, 
+K,,,}, 
+is a link of two components 
+whose lowest term is, by induction 
+on n, 
+(- 12)-i(LJ( 
+- (I + I- 1))p~*‘(l)p~~2(l)m- 
+’ . Thus, the zeroth power of m in 9(L+) is the sum of 
+- l-‘(- 
+12)-i.(Lo)(- (I+ l-1))p~~‘(l)p~~2(/) 
+with the zeroth 
+term of- 
+I-‘(P(L_)). 
+Since the 
+
+
+===== PDFPAGE 28 =====
+134 
+W. B. R. Lickorish and Kenneth C. Millett 
+former term gives zero when I = i we have, by induction 
+on s, that PO(i) = 1 as required. 
+Thus 
+we have the correct lowest order term and, as above, the correct parity for the powers of 1 and 
+m for a knot. This, in turn, provides 
+the correct lowest term for a separated 
+link as we have 
+shown 
+that the lowest nonzero 
+term for the polynomial 
+associated 
+to each component 
+is 
+precisely 
+the 0th power of m. 
+Remark. 
+That pO(i) = 1 for a knot is just the statement 
+of the familiar 
+AK(l) = 1. 
+We employ 
+this proposition 
+to show the existence 
+and isotopy 
+invariance 
+of the torn1 
+twisting, s(K), of a knot K defined 
+as follows. Given a sequence 
+of crossing 
+changes 
+(of a 
+projection 
+of K) aj, j = 1, . . , n, from crossings 
+of sign cj,j = 1, . . . , n, which unknot 
+K 
+(such as in the definition 
+of 9(K)) 
+there is an associated 
+sequence 
+of two component 
+links 
+Lj= 
+qjn 
+Ok 
+( 
+) 
+(K)= 
+{q, 
+Lfj,j= 
+1,. ..,?I, 
+kcj 
+from which we may define 
+r(K) = xEjj.(Lg, 
+Lj’). 
+Recall that 9j is the operation 
+of nullifying 
+the jth crossing. 
+We show that 
+s(K) can be 
+calculated 
+from Y(K) 
+and is therefore 
+well defined 
+and an isotopy 
+invariant 
+of K. 
+PROPOSITION 
+23. Suppose 
+that K is a knot and ?(K)(I, 
+m) = 1 
+pj(l)mj, then 
+(i) p;(i) = 0 
+(ii) pi (i) = IT. 
+Proof. 
+(i) Suppose that K has a projection 
+with n crossings 
+that require s crossing switches 
+to achieve a standard 
+ascending 
+projection. 
+Again we induct on (n, s). Suppose switching 
+the 
+first of these crossings, 
+of sign E, changes 
+K to R, and nullifying 
+it gives the link L with 
+components 
+K, and K,. Then B(K) 
+= - IZB9(R) - ml-“9(L). 
+Thus, using Proposition 
+22, 
+PO(c) = - r-yJ)+ 
+I-“( - F)-“(r + I-‘)p#p$). 
+By induction 
+the result is true for to, p: and pi, so, differentiating 
+with respect to I and 
+substituting 
+1 = i gives 
+p;(i) = 2&(i)-2&-l &(i)+ 
+i-‘(1 - i-2)pA(i)p$(i). 
+(ii) The method 
+of evaluating 
+s(K) described 
+above depends 
+on a sequence 
+of r crossing 
+switches 
+that 
+change 
+K to the unknot. 
+Suppose 
+inductively 
+the result 
+is true 
+for all 
+calculations 
+of T by all sequences 
+of (r - 1) crossing switches that reduce knots to unknots. 
+As 
+above suppose 
+the first switch of such a sequence 
+of r switcheschanges 
+K to R, that the 
+relevant 
+crossing 
+has sign E, and that nullifying 
+the crossing 
+gives the link L. As before 
+PO(r) = - r-2y(Jf) 
++ r-E(-12)-i(1+ 
+l-‘)p;(l)p;(l). 
+Differentiating 
+twice, substituting 
+I = i, using the last clause of Proposition 
+22, and using (i) 
+above, one obtains 
+p:(i) = &(i) + B&j.. However, 
+by the induction 
+j:(i) 
+= ST(R), and so p;(i) 
+= 85(K) where s(K) is calculated 
+via the given sequence 
+of r switches. This completes 
+the 
+induction 
+and the proof. 
+
+
+===== PDFPAGE 29 =====
+A POLYNOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+135 
+COROLLARY. s(K) is well defined, i.e. is independent 
+of the calculation 
+sequence. 
+We note that if K is a r-twisted 
+double 
+of a knot, then r(K) = T. 
+PROPOSITION 24. (i) If 
+L is a link of c 2 2 components 
+then 
+[( -(I+I-‘))*-cp3_,(1)]1 
+=i = i.(L)i. 
+(ii) If K is a knot then 
+p*(i) = -r(K). 
+Proof. 
+(i) The proof is by induction 
+on the number 
+of crossing changes required 
+to change 
+L to a separated 
+union of, possibly knotted, 
+components. 
+The case of no changes follows from 
+the fact that, in that case, 
+so that 
+9(L) 
+= (-(/+/-‘))‘-‘m’-‘~~(Kj) 
+j 
+C(-(~+~-‘))*-‘P,-,([)l 
+= (-(I+I-‘)) 
+where pj(l) denotes 
+the coefficient 
+of m’ in the polynomial 
+for Kj. By virtue of the first term, 
+evaluation 
+at i gives zero. 
+In general 
+we compute 
+(from Proposition 
+22) that 
+p,_,(f)= 
+-I-*‘~~_E(I)-[-E(-l*)--i.(L)(-(I+I-l))c-*,,(l, 
+where t is the link formed 
+by switching 
+one of the crossings 
+of sign E between 
+distinct 
+components, 
+E the result of nullifying 
+it and (Rj} d enotes 
+the components 
+of L. Hence 
+[-(I+!_y’p,_,(I)] 
+= [-~-*‘(-(I+I-l))*-C~)_C([)]-I-&(_I*)-j.(i)n~(l), 
+which, upon evaluation 
+(using the induction) 
+at I = i, gives 
+j.(t)i + izi = i.(L)i. 
+(ii) If K is a knot we calculate 
+inductively 
+on the number 
+of crossing 
+changes needed to 
+achieve the unknot 
+and employ 
+the previous 
+formula 
+for the two component 
+link, L, that 
+results from nullifying 
+a crossing 
+of sign E as follows: 
+p*([) = - I*‘&(r) - /-‘P:(l) 
+so that 
+p*(i) = Ej2(i) - C.(L) 
+= -r(K). 
+Remark. 
+For a knot we note that -p*(i) 
+is the second coefficient 
+in the Conway potential 
+function. 
+The reduction 
+modulo 
+2 of -p*(i) 
+gives the Arf or Kervaire 
+invariant. 
+A proof 
+appears 
+in [13]. 
+54. QUESTIONS AND TABLES 
+The axiomatic 
+description 
+of the polynomial 
+given in the theorem 
+of this paper is natural 
+enough if one concentrates 
+on the idea of changing 
+crossings 
+in link projections, 
+however the 
+
+
+===== PDFPAGE 30 =====
+136 
+W. B. R. Lickorish and Kenneth C. Millett 
+proof of existence of the polynomial consists entirely of combinatorics. It may be that the 
+polynomial, though an isotopy invariant, must rest on combinatorics 
+and that there is no 
+other truth at its foundations. That however seems contrary to the spirit and traditions of 
+algebraic topology, hence the first question: 
+Quesrion 1. Can the two-variable polynomial be defined in terms of fundamental groups, 
+homology groups and covering spaces? For a knot, how is it related to the knot group and its 
+peripheral subgroup? If, as seems unlikely. there be two distinct knots (not mutually reverse) 
+with homeomorphic 
+oriented complements do they have the same two-variable polynomials? 
+Quesrion 2. Can the polynomial be defined for links in a homology 3-sphere? 
+The algebraic form of the knot discussed in 93 gives very little information concerning the 
+general style of the polynomial, and the tables of evaluations for low crossing number simply 
+suggest that the polynomial becomes more unpleasant as the number of crossings increases. 
+Question 3. Is there a simple precise algebraic characterization 
+of the elements of a[/* *! 
+M* ‘1 that occur as polynomials of oriented links? 
+Question 4. Is there a non-trivial knot K for which P(K) = l? Is there a non-trivial link L 
+of c components 
+for which P(L) = pc- ‘? 
+The Alexander polynomial can be defined fairly easily for knots and links of high 
+dimension, and it gives information about cobordism. 
+Question 5. Is there an analogous definition of a 2-variable polynomial for links of 2- 
+spheres in the 4-sphere? 
+Question 6. Does the two-variable polynomial give any new information about classical 
+link cobordism? Is there a two-variable analogue of the condition of Fox and Milnor that a 
+slice knot has Alexander polynomial of the formf(t)f(t-i)? 
+Ofcourse, the Alexander polynomial vanishes for a boundary link, namely a link of two or 
+more components whose components bound disjoinr Seifert surfaces (see, for example [ 193). 
+Question 7. Does the two-variable polynomial of a boundary link have any special form? 
+As the definition of the polynomial concerns crossing switches the next question seems 
+natural. 
+Quesrion 
+8. Does the new polynomial 
+give new information 
+about the unknotting 
+number of any knots (e.g. torus knots)? 
+When some of these questions have been resolved it may be fruitful to consider the 
+question of what is the best notation for the two-variable polynomial. 
+The nature of the new polynomial renews interest in the idea of skein-equivalence. The 
+following questions are thought to be unanswered. 
+Question 9. Is there a non-trivial knot or link that is skein equivalent to the trivial knot or 
+link? 
+
+
+===== PDFPAGE 31 =====
+A POLYNOMIAL 
+IXVARIAXT 
+OF ORIENTED 
+LIXKS 
+137 
+Quesrion 10. Can two knots with distinct 
+unknotting 
+numbers 
+be skein-equivalent? 
+Can 
+one be a mutant 
+of the other? 
+It seems desirable 
+to record a tabulation 
+of the two-variable 
+polynomial 
+for knots and 
+links of low crossing 
+number, 
+if only to gain a little experimental 
+insight into the form of the 
+polynomial 
+and to provide 
+a basis for individual 
+calculations 
+for links of some specific 
+interest. 
+Much 
+of the information 
+in the tables given below has been obtained 
+with, or 
+confirmed 
+by, computers 
+(including 
+that of Thistlethwaite 
+who will publish 
+much more 
+grandiose 
+tabulations 
+on microfiche 
+[21]). Interpretation 
+of the tables is as follows: Knots are 
+listed with the classical Alexander-Briggs 
+notation 
+3,) 4,) 5,) 5,) . . . , 9,, ,9,, , and a “coded” 
+form of the polynomial 
+is given. The polynomial 
+ofa knot is of the form 
+C pi([)& where pi([) 
+i>O 
+= 0 if i is odd. The numbers 
+in the ith rounded 
+bracket give the coefficients 
+in pzci- i,(f), the 
+number 
+in square brackets being the coefficient of/O, and as p,(l) contains 
+only even powers of 
+I, no entry occurs for the coefficient 
+of an odd power. 
+Example 
+P(9,,) 
+= (-2[-3]-2)(1[6]5 
+2)X-2-J-4 
+- l)([O]l) 
+= (- 21W2 - 3 - 212) + (rm2 + 6 + 512 + 214)m2 + (- 2 - 412 - 14)m4 + j2m6. 
+For a knot (of one component) 
+the polynomial 
+is unchanged 
+by reversing 
+the orientation 
+so 
+there is no need to specify a direction 
+on the knot. One does however 
+need to distinguish 
+between a knot and its obverse, the conventions 
+used here are those of the pictures 
+of knots 
+given at the end of Rolfsen’s 
+book [18]. Recall that the obverse 
+of a knot has polynomial 
+conjugate 
+to that of the knot. For example, 
+P(9,;) 
+= (-2[-3]-2)(2 
+5 
+3, 
+UYI -2 - 1) (PI 1) 
+4, 
+(- I c- 11 - 1) (Cll) 
+5, 
+([O] 0 3 2) (CO] 0 -4 
+- 1) x01 0 1) 
+5, 
+(CO1 - 1 1 1) (PI 1 - 1) 
+6, (-- 1 L-01 1 1) (Cl1 - 1) 
+6, (PI 2 1) (C- 13 -3 
+- 1) KOI 1) 
+63 (1 C31 1) (- 1 C- 31 - 1) (Cll) 
+C61 1)(--l -4 C-21)(1 PI). 
+71 ([0] 0 0 -4 
+- 3) ([O] 0 0 10 4) ([0] 0 0 - 6 - 1) ([0] 0 0 1) 
+72 
+([O] - 10 - 1 - 1) ([O] 1 - 1 1) 
+73 
+(-2-210[0])(13-30[0])(-llO[O]) 
+74 
+(- 1 0 2 0 [O]) (1 - 2 1 [O]) 
+75 
+([O] 0 2 0 - 1) ([O] 0 - 3 2 1) ([O] 0 1 - 1) 
+76 
+(rJ1 1 1 1) (C- 11 -2 -2) (CO1 1) 
+7, 
+(1 2 PI) (-2 
+L-21 -1) (Cl]) 
+8, 
+(- 1 [O] 0 - 1 - 1) ([l] 
+- 1 1) 
+82 
+(CO] - 3 - 3 - 1) (CO] 4 7 3) ([O] - 1 - 5 - 1) ([O] 0 1) 
+8, 
+(1 0 c-11 
+0 1) (-- 1 [Z] - 1) 
+84 
+(-2 
+c-21 
+0 1) (1 [3] -2 
+-1) 
+(C-11 
+1) 
+85 
+(-2 
+-5 
+-4 
+[0]) (3 8 4 [0]) (-1 
+-5 
+-1 
+[0]) (1 0 [0]) 
+8, 
+([Z] 1 - 1 - 1) ([- 
+I] -2 
+2 1) (CO] 1 - 1) 
+8, 
+(-2 
+-4 
+C-11) 
+(3 8 [3]) (-1 
+-5 
+C-11) 
+(1 [0]) 
+
+
+===== PDFPAGE 32 =====
+138 
+W. B. R. Lickorish 
+and Kenneth 
+C. Millett 
+8, 
+(-1 
+-1 
+[Z] 1) (1 2 C-21 
+-1) 
+(- 1 [l], 
+8, 
+(-2 
+[-3] 
+-2) 
+(3 [S] 3) (- 1 C-51 
+- 1) (Cl]) 
+8,, 
+(-3 
+-6 
+c-21) 
+(3 9 [3]) (- 1 -5 
+[- 
+11) (1 [0]) 
+8,1 ([l] 
+-1 
+-2 
+-1) 
+(C-l] 
+-1 
+2 1) ([0] 1 -1) 
+81, (1 1 Cl1 1 1) t-2 C- 11 -2) (Cl11 
+813 X01 -2 
+- 1) (- 1 C- 11 2 1) X11- 1) 
+81, (C11) (II-- 11 - 1 1 1) (CO1 1 - 1) 
+81, (CO1 0 1 -3 
+-4 
+-l)([O]O 
+-253)([0]01 
+-2) 
+816 (CO1 - 2 - 1) (PI 5 2) CC- 11 -4 
+- 1) (CO1 1) 
+817 (- 1 C- 11 - 1) (2 II51 2) (- 1 II-41 - 1) X11) 
+81, (1 C31 1) (1 Cl1 1) (-- 1 C-31 - 1) Kll) 
+8,9 (-1 
+-5 
+-500[0])(5 
+lOOO[O])(-1 
+-6OO[O])(lOO[O]) 
+82, (C- 11 -4 
+- 2) (Cl1 4 1) (CO1 - 1) 
+8,, ([O] -3 
+-3 
+- 1) ([0] 2 3 1) ([0] 0 - 1) 
+9, 
+([0] 0 0 0 5 4) ([0] 0 0 0 -20 
+- 10) ([0] 0 0 0 21 6) ([0] 0 0 0 -8 
+- 1) ([0] 0 0 0 1) 
+9, 
+([O] - 1 0 0 1 1) ([O] l- 
+1 1 - 1) 
+9, 
+(3 3 - 10 0 [0]) (-4 
+-7 
+6 0 0 [O-J) (1 5 -5 
+0 0 CO]) (- 1 10 0 [0]) 
+9, 
+([O] 0 1 0 2 2) ([O] 0 - 3 2 - 3 - 1) ([O] 0 1 - 1 1) 
+9, 
+(1 0 - 1 1 0 CO]) (- 1 2 - 2 1 [O]) 
+9, 
+([O] 0 0 -3 
+- 1 1) ([O] 0 0 7 -3 
+-3) 
+([O] 0 0 -5 
+4 1) (CO] 0 0 1 - 1) 
+9, 
+([O] 0 2 1 1 1) ([O] 0 - 3 1 - 2 - 1) (CO] 0 1 - 1 1) 
+9, 
+(-1 
+C-1) 
+0 2 1) (1 [2] -1 
+-2) 
+([-13 
+1) 
+9, 
+(COIOO-212)([0]007-4-3)([0]00-541)([0]001-1) 
+91, (2 1 -2 
+0 0 [O)) (-1 
+-2 
+5 -2 
+0 CO]) (1 -2 
+10 CO]) 
+9,, 
+(-2 
+-3 
+-1 
+-1 
+[O-J (1 64 3 [O-J) (-2 
+-4 
+-1 
+[0]) (1 0 [0]) 
+9,, 
+([l] 0 -1 
+-2 
+- 1) (r-11 
+-1 
+12) ([O] 1 - 1) 
+9,, 
+(1 -1 
+-3OO[O])(-1 
+-15 
+-2O[O])(l 
+-210[0]) 
+91, (- 1 -2 
+- 1 [1]) (2 1 C-l] 
+- 1) (- 1 [l]) 
+9,, 
+(- 1 - 1 1 1 Cl]) (2 0 - 1 [ - 1)) (- 1 1 CO]) 
+9,, 
+(-3 
+-4OO[O])(-20800[0])(13 
+-5OO[O])(-1 
+lOO[O]) 
+;,, 
+9:; 
+b-f;;31 
+-lOl)([O]O 
+-2) (1 C61 5 -24 
+2) K-21 
+-1 
+-4 
+-l)([O]Ol 
+-1) (CO1 -21) 
+1) 
+(1 1 [O] - 1) (-2 
+[O] 1 1) ([l] 
+- 1) 
+9,, 
+(CO] -2 
+-2 
+-2 
+- 1) ([0] 3 5 5 1) ([0] - 1 -4 
+-2) 
+([O] 0 1) 
+9,, 
+(-1 
+-lO-1[0])(200[-l])(-1 
+l[O]) 
+9,, 
+(-1 
+-4 
+C-43 
+-2) 
+(2 6 [6] 1) (-1 
+-4 
+C-21) (1 [0]) 
+9,, 
+([O] 0 1 -2 
+-2) 
+((01 0 -2 
+4 0 - 1) ([O] 0 1 -2 
+1) 
+gz4 (-1 
+C-3-J -5 
+-2) 
+(2 [6] 6 1) (-1 
+C-43 
+-2) 
+([I]) 
+9,, 
+([l] 
+- 1 - 3 - 3 - 1) ([- 
+l] 0 4 3) ([O-j 1 - 2) 
+9,, 
+(-1 
+-3 
+-3 
+[0]) (1 5 6 [23) (-2 
+-4 
+[-11) 
+(1 [0]) 
+9,, 
+(-1 
+C-23 
+-3 
+-1) 
+(2 [6] 5 1) (-1 
+[-43 
+-2) 
+(Cl]) 
+9,, 
+(C-l] 
+-5 
+-4 
+-1) 
+([2] 7 5 1) (r-11 
+-4 
+-2) 
+([0] 1) 
+9,, 
+(-1 
+c-33 
+-5 
+-2) 
+(1 [S] 7 2) (C-23 
+-4 
+-1) 
+([O] 1) 
+9,, 
+(-2 
+c-41 
+-4 
+-1) 
+(2 [7] 5 1) (-1 
+c-43 
+-2) 
+(Cl]) 
+93, (C- 11 -4 
+-2) 
+u21 7 4 1) K- 11 -4 
+-2) NO1 1) 
+
+
+===== PDFPAGE 33 =====
+A POLYSOMIAL 
+IXVXRIANT 
+OF ORIEXTED 
+LINKS 
+139 
+9,? (-1 
+-2 
+-1 
+[1])(143[1])(-2 
+-3[-l])(l 
+CO]) 
+933 (CO1 -:! - 1) (1 c31 4 1) (- 1 c-31 -2) (Cll, 
+9&+ (-1 
+[-I] 
+-1) 
+(1 [4] 3 1) (-1 
+c-31 
+-2) 
+(Cl]) 
+93, (CO1 0 0 -3 -1 
+1) ([O] 1 -2 
+3 -1) 
+9,, 
+(-2 
+-4 
+-3 
+-2 
+[O], (1 6 5 3 [O]) (-2 
+-4 
+-1 
+[O]) (1 0 CO]) 
+9,, 
+(1 0 c-23 
+-2) 
+(-2 
+[l] 
+1 1) ([I] 
+-1) 
+9,, 
+([O] 0 0 -1 
+- 3) ([O] 0 - I 7 1 - 1) ([O] 0 1 - 3 1) 
+9,, 
+(- 
+1 -2 
+-2 
+-2 
+[O]) (3 3 1 C-11) 
+(-2 
+I CO]) 
+9,o ([2] 2 1) (CO] 0 2 1) ([- 
+11 -2 
+-2) 
+(CO] 1) 
+9,, 
+([O] -3 
+-3 
+- 1) (- 1 [O] 4 3) (Cl] -2) 
+942 (-2 
+c-31 -2) (1 c41 1) (C- 11) 
+9,x (- 1 - 3 - 4 - 3 CO]) (4 7 4 CO]) ( - 1 - 5 - 1 CO]) (1 0 CO]) 
+9,, 
+(- 
+1 [ -21 
+- 3 - 1) ([2] 3 1) ([O] - 1) 
+9,, 
+([O] - 2 -2 
+-2 
+- 1) ([O] 2 2 2) ([O] 0 - 1) 
+946 ([2] 1 - 1 - 1) ([O] - 1 1) 
+947 (-1 
+-2 
+-1 
+Cl]) (3 4 [2]) (-1 
+-4 
+C-11) 
+(1 EOI) 
+948 (2 3 0 Km (- 3 - 1 c- 11) (1 PI) 
+9,9 (- 3 - 4 0 0 [0]) (2 6 - 2 0 [O-J (- 2 1 0 CO]). 
+The question 
+of orientations 
+of links is more confusing. 
+There does not seem to be a set of 
+diagrams 
+of links in the literature 
+with orientations 
+marked. In what follows the tables refer to 
+Rolfsen’s diagrams 
+in [IS], and to his nf nomenclature; 
+Conway’s notation 
+is also recorded. In 
+one of Rolfsen’s diagrams 
+of two-component 
+links there are four ways of inserting 
+arrows on 
+the components. 
+However, changing 
+all arrows leaves the polynomial 
+unchanged, 
+so there are 
+at most two polynomials 
+corresponding 
+to each diagram. 
+They are both given in the tables if 
+they are distinct, 
+otherwise 
+the unique 
+polynomial 
+is recorded. 
+Recall 
+that, for a two- 
+component 
+oriented 
+link, the coefficient 
+of m -i is - (- I*)-*(I-’ 
++ I)pA(l)pi(l) where i. is the 
+linking number 
+of the two components, 
+ph([) and pi(l) being the first terms (coefficients of m”) 
+in the polynomials 
+of those components. 
+In most of the early examples these components 
+are 
+unknotted 
+so that p;(l) = 1 = pi(f). Then, 
+for a given choice of arrows, 
+the first term is 
+- (- 12)-“(1-1 + C)m-‘. Since i. can be found 
+by adding 
+the signs of the cross-overs 
+where 
+component 
+1 passes under component 
+2. it is easy to determine 
+which of the two choices is the 
+appropriate 
+polynomial. 
+If L = 0 that method 
+fails but in the table given below there is then 
+only one choice of polynomial 
+anyway! 
+This leaves links 7: and 7:. Here similar reasoning 
+works, the first terms being (- 1*)-“(II+ 
+313 + 15)m-’ and (- 12)-i(21-1 + Jim3 + l-5)m-1 
+respectively. 
+For a link of two components, 
+only odd powers of 1 and m appear in the polynomial, 
+and 
+the first term is in m- i. In the coding given for these polynomials, 
+the numbers 
+in a pair of 
+round 
+brackets 
+are the coefficients 
+of powers of 1 that form the polynomial 
+coefficient 
+of a 
+power of m. The asterisks 
+separate 
+negative 
+and positive 
+powers of 1. 
+Example 
+(1 1 *)(-I 
+-2* 
+1 1)(1 * -l)= 
+(1-3+~-‘)m-‘+(-l~3-21-1+l+13)m+(l-1-l)m3. 
+2: 
+2 (* 1 1) (* - 1) 
+(1 1 *) (- 1 *) 
+4: 
+4 (* 0 - 1 - 1) (* 0 3 1) (’ 0 - 1) 
+(-1 
+-10*)(1 
+-l*) 
+
+
+===== PDFPAGE 34 =====
+140 
+-2 
+‘1 
+6: 
+6; 
+6: 
+7: 
+7: 
+7: 
+7: 
+7: 
+7: 
+7: 
+W. B. R. Lickorish 
+and Kenneth 
+C. Millett 
+212 (- 1 * - 1) (1 * 2 1) (* - 1) 
+6 (* 
+1) (* 
+3) (* 0 0 5 1) (* 0 0 
+1) 
+0 0 1 
+0 0 -6 
+- 
+- 
+(1 100*)(-l 
+l-l 
+*) 
+33 (1 
+*) (-1 
+0 *) (1 
+10 *) 
+10 0 
+-2 2 
+- 
+(* 0 0 1 1) (* 0 2 -2 
+- 1) (* 0 - 1 1) 
+222 (* 
+1) (* 
+1) (* 
+1 1) 
+0 - 1 - 
+0 2 - 1 - 
+0 - 
+(-1 
+-10*)(2 
+1* 1)(-l 
+*) 
+412 (* 
+1) (* 
+-2) (* 1 
+1) (* 0 
+1) 
+1 
+-3 
+-4 
+4 
+- 
+(1 1 *) (-1 
+-2 * 1 1) (1 * -1) 
+3112 (1 
+*) (-2 
+-5 
+-2) (1 
+1) (-1 
+*) 
+1 
+* 
+4 * 
+(* 1 1) (1 * 0 - 1 - 1) (* - 1 1) 
+232 (-1 
+* -1) (1 * 1 -1 
+-1) (* -1 
+1) 
+3, 2, 2 (1 3 2 *) (-2 
+-5 
+-3 *) (1 4 1 *) (-1 
+0 *) 
+21 1 2 > 2 (* 
+1) (* 
+-3) (* 0 
+1 2) 
+0 0 2 3 
+0 1 -4 
+- 
+(2 3 * 1) (-2 
+-6 * -2) (14 * 1) (-1 
+*) 
+.2 (-1* 
+-1)(-l 
+* -2 
+-1)(1*3 
+l)(* 
+-1) 
+3 2 2_ 
+(13200*)(-4-600*)(1500*)(-lOO*) 
+7 3 
+(1 
+3 2) (- 1 
+-4 
+1) 
+1) 
+* 
+* 
+- 
+(* 
+7; 
+21, 2, 2- 
+(* 2 3 1) (* -2 
+-3 
+- 1) (* 0 1). 
+The situation for three component links is analogous to the previous cases in that the 
+powers of 1 and m are even and the lowest power of m is m -* having coefficient - ((-l)*)-‘. 
+(I-’ + l)2ph(I)pi$(l)pz(I) 
+where A is the total linking number of 93. In the lowest crossing 
+number cases the various components are all unknotted so that p;(l) = pi(f) = pi(l) = 1. In 
+this range, there are at most two polynomials 
+associated with the various choices of 
+orientations. The linking number will determine which is appropriate except in the case where 
+it is zero. In this case, however, there is only one choice of polynomial. The table employs the 
+notation 
+for knots 
+since all powers 
+are even, except 
+that the first term determines 
+the 
+coefficient 
+of m-*. 
+Example 
+(-1 
+-2[-1])(13[2])(-1 
+-3[-1])(1[O])=(-I-4-21-2-l)m-2+(1-4+31-2+2) 
++(-~1-4-331-2-l)m2+I-2m4 
+6: 
+2, 29 2 (- 1 -2 
+c- 11) (1 3 PI) (- 1 -3 
+c- 11) (1 COI) 
+([O] 0 - 1 -2 
+- 1) ([O] 0 3 3) ([O] 1 - 2) 
+6: 
+(.l (i I21 1) KOI) C-1 c-21 -1) (iIll)) 
+K- 11 -2 
+1) (PI 
+1) (CO1 1) 
+- 
+3 
+- 
+6: 
+2, 2, 2_ 
+(- 1 - 2 - 1 0 [O]) (3 3 0 [O]) (- 1 - 4 0 [O]) (1 0 [O]) 
+7: 
+2 >> 2 2+ 
+K-11 -2 -1) (I21 3 1) (-1 
+c-21 
+-2) 
+(Cl]) 
+(-1 
+-2 
+-10[0])(330[0])(1 
+1 -3O[O])(-1 
+lo[o]): 
+
+
+===== PDFPAGE 35 =====
+A POLYXOMIAL 
+INVARIANT 
+OF ORIENTED 
+LINKS 
+111 
+Acknowledgements-As 
+already mentioned, 
+the work of this paper sprang from a consideration 
+of 
+the polynomial 
+of V. F. R. Jones and the publicity 
+given to it by J. S. Birman. We record here our 
+gratitude 
+to them both. We would also like to thank 
+specifically 
+Jones, 
+Ocneanu, 
+and Thistlethwaite 
+for 
+their 
+collaborative 
+assistance 
+in the calculation 
+and 
+verification 
+of the tables 
+of polynomials. 
+REFERENCES 
+1. J. W. ALEXANDER: Topological 
+invariants 
+of knots and links. Trans. Am. Marh. Sot. 30 (1918). 275-306. 
+1. R. BALL and M. L. MEHTA: Sequence 
+of invariants 
+for knots and links. J. Physique 42 (1981) 1193-l 199. 
+3. J. S. BIRMAN: Braids. links and mapping 
+class groups. 
+Ann. Math. Sfud., 82 (1974). 
+4. J. S. BIRMAN: On the Jones polynomial 
+of closed 3-braids. 
+Incenriones 
+Xfathemaricae 
+81 (1985). 187-29-1. 
+5. F. BONAHON and L. C. SEBENMANN: Geometric 
+splitting 
+of classical knots, and the algebraic 
+knots of Conway. 
+L.M.S. 
+Lecture Notes (to appear). 
+6. J. H. CONWAY: An enumeration 
+of knots and links. In Computational 
+Problems in Abstracr Algebra (Edited by 
+J. Leech), pp. 329-355. 
+Pergamon 
+Press (1969). 
+7. P. FREYD, D. YET~ER, J. HOSTE, W. B. R. LICKORISH, K. MILLER, and A. Ocneanu: 
+A new polynomial 
+inkariant 
+of knots and links. Bull. A.M.S. 
+12 (1985). 239-246. 
+8. D. GABAI: Foliations 
+and genera of links. Topology 23 (1984). 381-394. 
+9. C. GILLER: A family of links and the Conway 
+calculus. 
+Trans. Am. Math. Sot. 270 (1982), 75-109. 
+10. W. HAKEN, uber 
+das Hom’domorphieproblem 
+der 3-Mannigfaltigkeiten 
+I. Marh. Zeif, 80 (1962), 82-120. 
+11. C. HODGSON and H. RUBINSTEIS: Involutions 
+and isotopies 
+of lens spaces, In Knot Theory and Manifblds 
+(Edited by D. Rolfsen) Lecture 
+Notes in Math. 
+1144, Springer-Verlag 
+(1985) 6&96. 
+12. V. F. R. JONES: A polynomial 
+invariant 
+for knots via von Neumann 
+algebras. 
+Bull. A.M.S. 12 (198% 10’1 I I. 
+13. L. H. KAUFFMAN: The Conway 
+polynomial. 
+Topology 20 (1981), 101-108. 
+14. W. B. R. LICKORISH: Prime knots and tangles. 
+Trans. Am. Mach. Sot. 271 (1981). 321-332. 
+15. W. B. R. LICKORISH: The unknotting 
+number ofa classical knot. “Contemporary 
+Marhemarics” 
+A.M.S. 44 I 19S5) 
+117-119. 
+16. K. A. PERKO: Invariants 
+of 1 l-crossing 
+knots, Publications 
+Math. d’orsay, 
+1980. 
+17. K. REIDEMEISTER: Knorentheorie 
+(reprint). 
+Chelsea, New York (1948). 
+18. D. ROLFSEN: Knots and Links. Publish 
+or Perish Wilmington, 
+Delware 
+(1976). 
+19. N. F. SMYTHE: Boundary 
+links, (Topolo_q 
+Seminar, 
+Wisconsin 
+1965) Ann. Math. 
+Studies 
+60, Princeton 
+University 
+Press, Princeton, 
+NJ (1966). 69-72. 
+20. M. B. THISTLETHWAITE: Knot tabulations 
+and related topics. In Aspecrs ojTopology 
+(Edited by I. M. James and 
+E. H. Kronheimer) 
+L.M.S. Lecture 
+Notes 93, (1985). l-76. 
+21. M. B. THISTLETHWAITE: Knots 
+to 13crossings. 
+Math. Comp. (to appear). 
+22. H. F. TROTTER: Non-invertible 
+knots exist. Topology 2 (1964). 275-280. 
+Department 
+of Pure Mathematics 
+16, Mill Lane 
+Cambridge, 
+CB2 ISB, 
+England 
+Department 
+of Mathematics 
+University of California 
+Santa Barbara 
+CA 93106, U.S.A. 
+and 
+Mathematical 
+Sciences Research 
+Insrirute 
+Berkeley 
+CA 94720, U.S.A. 

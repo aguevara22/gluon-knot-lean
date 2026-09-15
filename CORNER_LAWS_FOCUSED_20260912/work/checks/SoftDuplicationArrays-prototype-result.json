@@ -1,0 +1,235 @@
+{
+  "utc": "2026-09-12T02:06:59.653891+00:00",
+  "kernel_session": 79873,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "preserved_failed_sessions": [
+    84103
+  ],
+  "files_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+    "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8"
+  },
+  "printed_declarations": [
+    "SM.SoftDuplication.collapse_lt_distinguished",
+    "SM.SoftDuplication.distinguished_lt_collapse",
+    "SM.SoftDuplication.tripleContainsBoth",
+    "SM.SoftDuplication.triple_exception_disjoint",
+    "SM.SoftDuplication.triple_contains_both_iff",
+    "SM.SoftDuplication.collapseTriple",
+    "SM.SoftDuplication.collapseTriple_positions",
+    "SM.SoftDuplication.oldTriple",
+    "SM.SoftDuplication.oldTriple_plain",
+    "SM.SoftDuplication.triple_ext",
+    "SM.SoftDuplication.collapseTriple_oldTriple",
+    "SM.SoftDuplication.tripleLift",
+    "SM.SoftDuplication.tripleLift_upper",
+    "SM.SoftDuplication.tripleLift_lower",
+    "SM.SoftDuplication.tripleLift_plain",
+    "SM.SoftDuplication.tripleLift_oldTriple",
+    "SM.SoftDuplication.upper_exception_argument_lt",
+    "SM.SoftDuplication.lower_exception_argument_gt",
+    "SM.SoftDuplication.coreNear",
+    "SM.SoftDuplication.coreNear_at_middle",
+    "SM.SoftDuplication.coreNear_off_middle",
+    "SM.SoftDuplication.coreNear_argument_lt",
+    "SM.SoftDuplication.parentNear",
+    "SM.SoftDuplication.parentNear_oldTriple",
+    "SM.SoftDuplication.intervalContainsBoth",
+    "SM.SoftDuplication.intervalContainsBoth_iff",
+    "SM.SoftDuplication.interval_eq_duplicate",
+    "SM.SoftDuplication.interval_five_cases",
+    "SM.SoftDuplication.not_duplicate_of_not_contains",
+    "SM.SoftDuplication.not_duplicate_of_right_gt",
+    "SM.SoftDuplication.not_duplicate_of_left_lt",
+    "SM.SoftDuplication.start_collapsed_bounds",
+    "SM.SoftDuplication.end_collapsed_bounds",
+    "SM.SoftDuplication.span_collapsed_bounds",
+    "SM.SoftDuplication.ordinaryLift",
+    "SM.SoftDuplication.ordinaryLift_duplicate",
+    "SM.SoftDuplication.ordinaryLift_plain",
+    "SM.SoftDuplication.ordinaryLift_start",
+    "SM.SoftDuplication.ordinaryLift_end",
+    "SM.SoftDuplication.ordinaryLift_span"
+  ],
+  "declaration_axioms": {
+    "SM.SoftDuplication.collapse_lt_distinguished": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.distinguished_lt_collapse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleContainsBoth": [],
+    "SM.SoftDuplication.triple_exception_disjoint": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.triple_contains_both_iff": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.collapseTriple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.collapseTriple_positions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.oldTriple": [
+      "propext"
+    ],
+    "SM.SoftDuplication.oldTriple_plain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.triple_ext": [],
+    "SM.SoftDuplication.collapseTriple_oldTriple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleLift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleLift_upper": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleLift_lower": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleLift_plain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.tripleLift_oldTriple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.upper_exception_argument_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.lower_exception_argument_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.coreNear": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.coreNear_at_middle": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.coreNear_off_middle": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.coreNear_argument_lt": [],
+    "SM.SoftDuplication.parentNear": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.parentNear_oldTriple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.intervalContainsBoth": [],
+    "SM.SoftDuplication.intervalContainsBoth_iff": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.interval_eq_duplicate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.interval_five_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.not_duplicate_of_not_contains": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.not_duplicate_of_right_gt": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.not_duplicate_of_left_lt": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.start_collapsed_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.end_collapsed_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.span_collapsed_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift_duplicate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift_plain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift_start": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift_end": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.ordinaryLift_span": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Kernel-checked candidate; frozen; stronger fidelity and controlled canonical integration pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

@@ -1,0 +1,64 @@
+### B4. Pointwise dictionary and side values
+
+**Lemma B4.** On every SM-generic labelled representative, the two state sums have equal values. On either punctured side of a triple germ, this equality identifies the SM side value with the value on its containing CV chamber.
+
+The printed legend establishes the source/coordinate conventions:
+
+<!-- BEGIN QUOTE SM_LEGEND -->
+**SM_LEGEND — SM11 `sm-0-legend.tex:56–65`**
+
+````tex
+{\raggedright
+\paragraph{Frozen sources.} The transcription sources are CV,
+\path{phase199/manuscript/frames/CV/}; RC,
+\path{phase198/manuscript/RC_v4/}; and RA,
+\path{phase1999/evidence/codex/w8_ra_frame_v1/RA/}.
+The appendix source is the curator-posted read-only copy of appendix v7.
+Locators name labels in those documents. CV uses the same one-based tail
+labels as this document. RC uses zero-based head labels and
+$[u,v]_*=-\det(u,v)$; its physical endpoint map is stated in
+Section~\ref{sec:conventions}. No starred bracket is used here.\par}
+````
+<!-- END QUOTE SM_LEGEND -->
+
+It does not itself print a $C=X_1$ theorem. Moreover SM explicitly warns against using the selector identity as that theorem:
+
+<!-- BEGIN QUOTE SM_WARNING -->
+**SM_WARNING — SM11 `sm-3-statesum.tex:1812–1820`**
+
+````tex
+\begin{remark}[well-definedness]
+The positive lift of a subpolygon is an honest knot diagram on an actual
+closed plane curve (Lemma~\ref{lem:carriers}); no realization of an abstract
+Gauss word is involved, and Literature input~\ref{lit:homfly} is consumed
+only on such diagrams. The selector lemma is an identity for this
+definition. It asserts no equivalence with a residual-piece polynomial
+construction in a frozen source; any use of such an equivalence would
+require a separate printed factorization proof.
+\end{remark}
+````
+<!-- END QUOTE SM_WARNING -->
+
+The actual definitions being compared are:
+
+<!-- BEGIN QUOTE SM_C -->
+**SM_C — SM11 `sm-3-statesum.tex:1688–1700`**
+
+````tex
+\begin{definition}[corner coefficient and the state sum]\label{def:C}
+For a subpolygon $Q$ of a decomposition of the generic polygon $P$, let
+$H^+_Q$ be the HOMFLY--PT polynomial of its positive lift and put
+\[
+d_Q=1-m_Q-|r_Q|,\qquad c(Q)=\bigl[a^{d_Q}z^0\bigr]H^+_Q(a,z)\in\ZZ,
+\]
+the coefficient of $a^{d_Q}z^0$ (zero if that monomial is absent). The
+\emph{corner state sum} of $P$ is
+\[
+C(P)=(-1)^{\ell(P)}\sum_{\substack{S\in\Ind(G_P)\\ S\text{ uniform}}}
+(-1)^{|S|}\prod_{Q\text{ subpolygon of }S}c(Q).
+\]
+\end{definition}
+````
+<!-- END QUOTE SM_C -->
+
+<!-- BEGIN QUOTE SM_SELECTOR -->

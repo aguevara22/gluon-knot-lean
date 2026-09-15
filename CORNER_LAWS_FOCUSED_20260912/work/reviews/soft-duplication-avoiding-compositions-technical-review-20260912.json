@@ -1,0 +1,159 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-avoiding-compositions-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:34:58.368725+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root assigned the direct restricted-collapse composition strategy and the requested transport APIs; the agent authored all16 declarations and proofs. Root is implementing the independent leaf/unit and weighted-transform consumers. Planning contributions are disclosed; this is technical review only."
+  },
+  "scope": {
+    "group": "SoftDuplicationAvoidingCompositions",
+    "declarations": [
+      "SM.SoftDuplication.collapseComposition",
+      "SM.SoftDuplication.collapseComposition_parts",
+      "SM.SoftDuplication.collapseComposition_cut",
+      "SM.SoftDuplication.collapseComposition_endpoints",
+      "SM.SoftDuplication.collapseComposition_cutSet",
+      "SM.SoftDuplication.collapseComposition_eq_avoidingCompositionEquiv",
+      "SM.SoftDuplication.collapseComposition_part_endpoints",
+      "SM.SoftDuplication.composition_part_avoiding",
+      "SM.SoftDuplication.collapseComposition_part",
+      "SM.SoftDuplication.collapseComposition_nearTriple_positions",
+      "SM.SoftDuplication.collapseComposition_farTriple_positions",
+      "SM.SoftDuplication.triple_plain_of_avoiding_interval",
+      "SM.SoftDuplication.nearTriple_plain_of_avoiding",
+      "SM.SoftDuplication.farTriple_plain_of_avoiding",
+      "SM.SoftDuplication.collapseComposition_nearTriple",
+      "SM.SoftDuplication.collapseComposition_farTriple"
+    ],
+    "source_id": "thm:A-soft avoiding intervals: actual compositions, gates and children",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1268\u20131278"
+  },
+  "assessment": "No technical defect found in the bounded direct composition and position-transport scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/SoftDuplicationAvoidingCompositions-prototype-result.json",
+    "receipt_sha256": "9817903d3bc57d18465b15d305852123f62ff937463bce13fc23fcc78722cc7d",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationAvoiding.body.lean": "56633f8a83dac836b61e00e369f1916188333fe509807dcae44c95e8cd1aa118",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationAvoidingCompositions.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806",
+      "work/checks/SoftDuplicationAvoidingCompositions.prototype.lean": "e46888ecd0a5929f6d051ecf3f19e37cb219bf0841cc033202cf4ac563dfeb52",
+      "work/checks/SoftDuplicationAvoidingCompositions-first-kernel.log": "4c3d8d0d7fb9e223dc22e6e2c242949851050925a71c9d8dad52020a4112be1b"
+    },
+    "declaration_axioms": {
+      "SM.SoftDuplication.collapseComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_parts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_cut": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_cutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_eq_avoidingCompositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_part_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.composition_part_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_nearTriple_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_farTriple_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.triple_plain_of_avoiding_interval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.nearTriple_plain_of_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.farTriple_plain_of_avoiding": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_nearTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseComposition_farTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/SoftDuplicationAvoidingCompositions-prototype-result.json": "9817903d3bc57d18465b15d305852123f62ff937463bce13fc23fcc78722cc7d",
+      "work/checks/SoftDuplicationAvoidingCompositions-body-dependencies.json": "4b1c77e28f9a9a2060569a50416d27f7f8ee2ec293388a3002afacdebf537bae",
+      "work/checks/SoftDuplicationAvoidingCompositions-draft-dependency-bindings.json": "c6ac3a8609293273c84a70faf7e27fb12e366a7038ff84c56670054347ac3a9f",
+      "work/checks/SoftDuplicationAvoidingCompositions-first-draft.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806",
+      "work/checks/SoftDuplicationAvoidingCompositions-first-kernel.log": "4c3d8d0d7fb9e223dc22e6e2c242949851050925a71c9d8dad52020a4112be1b",
+      "work/checks/SoftDuplicationAvoidingCompositions.prototype.lean": "e46888ecd0a5929f6d051ecf3f19e37cb219bf0841cc033202cf4ac563dfeb52",
+      "work/checks/SoftDuplicationAvoidingCompositions.body.lean": "9277a501ee4d3a61242f5e51a725200254280862c34defc257cc9d4346809806",
+      "work/checks/SoftDuplicationAvoidingCompositions-first-draft.prototype.lean": "e46888ecd0a5929f6d051ecf3f19e37cb219bf0841cc033202cf4ac563dfeb52",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+      "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+      "work/decisions/soft-duplication-avoiding-compositions-20260912.md": "3ba18da58f0e40ee01b5f8c9e7a2a3cb0677709ace0b212f3caee1affaf01b3f"
+    }
+  },
+  "findings": [
+    "collapseComposition retains the exact source part count and maps every actual cut by collapse. Each cut lies in the closed source interval by strict monotonicity and both endpoint equations. On an avoiding interval collapse is injective there; monotonicity plus that injectivity proves strictness. No global inverse section or caller-supplied strictness is assumed.",
+    "The complete mapped cut set is exactly the finite image collapseCuts. Applying canonical cut-set injectivity identifies the direct map with the earlier actual avoidingCompositionEquiv, including unary compositions and intervals ending at A or starting at B. Thus factor indexing is tied to a proved bijection, not merely shared endpoints or cardinality.",
+    "Every actual child lies inside the outer interval by canonical part_bounds, so its avoidance and nondegenerate collapsed endpoints are derived. Its mapped child interval is definitionally the exact collapseInterval at the same part index. Near and far triple positions likewise collapse exactly, retaining all finite gate indices.",
+    "If a bounded increasing triple contained both consecutive A/B occurrences, its endpoint bounds would force the outer interval to contain both. This proves plainness for every actual near and far triple. The exported collapseTriple equalities accept any proof of that same derived plainness by proof irrelevance; they do not narrow the domain.",
+    "No weighted equality, leaf-count preservation or unit equation is claimed here. The complete weighted consumers must still use the exact arrays and child identities; no correspondence or zero-factor cancellation is built into these helpers. All source n>=3 cases, including both endpoint cases, are included.",
+    "Root first27911 exited0 and printed16 standard-only traces. The receipt binds five exact ordered bodies and the full prototype/log; first drafts are unchanged and no repair was needed."
+  ],
+  "limits": "Exact avoiding composition/child/triple transport only. Complete weighted sums and ordinary unit equations are separate root consumers. No containing-duplicate endpoint/spanning identities, full root output or final amplitude/corner soft law is accepted."
+}

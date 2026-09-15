@@ -1,0 +1,1579 @@
+\section{The tree coefficient \texorpdfstring{$A_g$}{A(g)}}\label{sec:amplitude}
+
+Throughout this section $P$ is a polygon satisfying (G1); (G2) is not used.
+The object is the finite sum of the main text (\mt{eq:amplitudevertex}--\mt{eq:amplitude}), written
+here as a recursion over interval compositions, which is the form in which
+every law is proved.
+
+\subsection{Roots, boundary words, gates}
+
+\begin{definition}[root and boundary word]\label{def:root}
+A \emph{root} of a polygon is one of its edges; on a representative it is an
+edge index $g\in\ZZ/n$, the root edge being $E_g$ from $\mu_g$ to
+$\mu_{g+1}$, and the shift carries the root $g$ of $P$ to the root $g-1$ of
+$\sigma P$. Everything in this section is a function of the pair (polygon,
+root). The \emph{boundary word} of $(P,g)$ is the sequence of
+vertices
+\[
+a_0=\mu_{g+1},\ a_1=\mu_{g+2},\ \ldots,\ a_{N}=\mu_{g+n}=\mu_g,\qquad N=n-1,
+\]
+so that consecutive boundary vertices $a_{k-1},a_k$ are joined by the
+\emph{leaf} edge $E_{g+k}$, $1\leq k\leq N$; the leaves are the $n-1$ edges
+other than the root, in traversal order. An \emph{interval} is a pair
+$[i,j]$ of integers $0\leq i<j\leq N$; it has $j-i$ leaves. A
+\emph{composition} of $[i,j]$ is a sequence $\pi=(r_0<r_1<\cdots<r_s)$ with
+$r_0=i$, $r_s=j$, $s\geq1$; its \emph{parts} are the intervals
+$[r_{k-1},r_k]$, and $|\pi|=s$.
+\end{definition}
+
+\begin{definition}[gates]\label{def:gates}
+Let $\pi=(r_0<\cdots<r_s)$ be a composition of $[i,j]$. At each interior cut
+$r_k$, $1\leq k\leq s-1$, put
+\[
+d_k(\pi)=\chi\bigl(a_{r_{k+1}},a_{r_k},a_{r_{k-1}}\bigr),\qquad
+h_k(\pi)=\chi\bigl(a_j,a_{r_k},a_i\bigr),
+\]
+where $\chi(x,y,z)=\sgn\det(y-x,z-x)$ for points $x,y,z$; $d_k$ is the
+\emph{near sign} and $h_k$ the \emph{far sign}. The \emph{ordinary weight}
+and the \emph{root weight} of $\pi$ are
+\[
+V^+(\pi)=\prod_{k=1}^{s-1}d_k\,\Theta\bigl(-h_kd_k\bigr),\qquad
+V^-(\pi)=\prod_{k=1}^{s-1}d_k\,\Theta\bigl(h_kd_k\bigr),
+\]
+with empty products equal to $1$ (so $V^\pm(\pi)=1$ when $s=1$).
+\end{definition}
+
+\begin{lemma}[gates are defined on (G1)]\label{lem:gates-nonzero}
+If $P$ satisfies (G1) then every near and far sign is $\pm1$ and every
+$\Theta$ in Definition~\ref{def:gates} is evaluated at $\pm1$. On that
+domain
+\[
+d\,\Theta(-hd)=\frac{d-h}{2},\qquad d\,\Theta(hd)=\frac{d+h}{2}\qquad(d,h\in\{\pm1\}),
+\]
+and $V^+(\pi)=0$ for every composition with exactly two parts.
+\status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, no text change, re-read on SM13)}
+\end{lemma}
+\begin{proof}
+The three boundary vertices entering a gate are pairwise distinct vertices of
+$P$ (the cut positions are distinct and $a_0\neq a_N$ by (G1)), so the signs
+are nonzero. The two identities are checked on the four sign pairs. For
+$s=2$ the only cut is $r_1$ and $d_1=\chi(a_j,a_{r_1},a_i)=h_1$, so
+$\Theta(-h_1d_1)=\Theta(-1)=0$.
+\end{proof}
+
+\subsection{The coefficient}
+
+\begin{definition}[open sums and the tree coefficient]\label{def:treesum}
+Let $P$ satisfy (G1) and fix a root $g$. Define $b_{[i,j]}\in\ZZ$ for every
+interval by recursion on the number of leaves:
+\[
+b_{[i,i+1]}=1,\qquad
+b_{[i,j]}=-\sum_{\substack{\pi\text{ composition of }[i,j]\\|\pi|\geq2}}
+V^+(\pi)\prod_{[r_{k-1},r_k]\in\pi}b_{[r_{k-1},r_k]}\quad(j-i\geq2).
+\]
+The \emph{tree coefficient} of $P$ at the root $g$ is
+\[
+A_g(P)=\sum_{\pi\text{ composition of }[0,N]}
+V^-(\pi)\prod_{[r_{k-1},r_k]\in\pi}b_{[r_{k-1},r_k]},
+\]
+the sum including the one-part composition, whose term is $b_{[0,N]}$. The main
+text's $A(P)$ is $A_n(P)$, rooted at the last edge $E_n$ from $\mu_n$ to
+$\mu_1$.
+\end{definition}
+
+\begin{lemma}[equivalence with the plane-tree sum]\label{lem:treesum-trees}
+Let $\mathfrak T_g(P)$ be the set of rooted plane trees whose leaves are the
+$n-1$ leaf edges in traversal order, whose root vertex has one or more
+children, and whose other internal vertices (the \emph{ordinary} vertices)
+have at least two children each; every internal vertex is labelled by the
+composition of its leaf interval into the leaf intervals of its children.
+Then
+\[
+A_g(P)=\sum_{T\in\mathfrak T_g(P)}(-1)^{N_+(T)}\,
+V^-(\pi_{\rm root})\prod_{v\text{ ordinary}}V^+(\pi_v),
+\]
+where $N_+(T)$ is the number of ordinary vertices. The identity is formal:
+the bijection of the proof matches the terms of the recursion of
+Definition~\ref{def:treesum} with the trees term by term, so it holds with
+the gate values $V^\pm(\pi)$ replaced by independent formal variables, as an
+identity in the polynomial ring over $\ZZ$ in those variables, and
+specializes to every evaluation of them. This is \mt{eq:amplitude},
+whose vertex weights are Definition~\ref{def:gates} with
+$m=s$, $a_k$ the boundary vertices of the cuts, and whose sign
+$(-1)^{N_+}$ is the one minus per ordinary vertex. \status{new (round~5: the formal-variable clause exported --- the grafting bijection of the proof uses nothing about the gate values, so the identity holds in the polynomial ring in those values and specializes to every evaluation, F-25-150; the remainder is the SM1 proof, audited there)}
+\end{lemma}
+\begin{proof}
+Removing the top vertex of an ordinary tree on $[i,j]$ leaves one subtree per
+part of its composition; grafting is the inverse. The minus sign of the top
+vertex is the minus sign in the recursion for $b$. The root vertex carries
+$V^-$, no sign, and may have one child, which is the one-part composition.
+\end{proof}
+
+\begin{remark}
+Ordinary binary vertices contribute $0$ (Lemma~\ref{lem:gates-nonzero}),
+which is why the main text's Berends--Giele form, \mt{eq:BGG}, sums over $m\geq3$.
+The main text's ``$V^+$ propagators are discarded'' is the requirement that
+ordinary vertices have at least two children.
+\end{remark}
+
+\subsection{Chamber constancy and the resummation}
+
+\begin{proposition}[chirotope chambers]\label{prop:A-chamber}
+If two polygons satisfying (G1) have the same chirotope, then for every root
+$g$ every composition weight, every $b_{[i,j]}$ and $A_g$ agree. In
+particular $A_g$ is constant on every labelled chamber (the root fixed), and
+constant along any path of (G1)-polygons with constant chirotope. \status{proved (refereed: bench A 2026-09-12T06:44:52Z, bench B 2026-09-12T06:57:24Z; SM1-carried, read on SM12, repaired in round 12 (F-25-191), re-read on SM13)}
+\end{proposition}
+\begin{proof}
+Every quantity in Definitions~\ref{def:gates} and~\ref{def:treesum} is a
+function of the signs $\chi(a_x,a_y,a_z)$, which are chirotope entries. A
+labelled chamber is a component of $\mathcal U_n$, an open set
+(Proposition~\ref{prop:chambers}), hence path connected, and the chirotope
+is constant along every path in $\mathcal U_n$
+(Proposition~\ref{prop:chambers}); so $A_g$ is constant on each labelled
+chamber.
+\end{proof}
+
+\begin{definition}[the near--far arrays]\label{def:nearfar}
+Over a commutative ring in which $2$ is invertible, let $D(x,y,z)$ and
+$H(x,y,z)$ be arbitrary scalars indexed by increasing triples
+$0\leq x<y<z\leq N$. For an array $X=(X_{ij})_{0\leq i<j\leq N}$ put
+\[
+\Phi_{D,H}(X)_{ij}=\sum_{\pi=(i=r_0<\cdots<r_s=j)}
+\Bigl(\prod_{k=1}^{s-1}\frac{D(r_{k-1},r_k,r_{k+1})-H(i,r_k,j)}2\Bigr)
+\prod_{k=1}^sX_{r_{k-1}r_k},
+\]
+$F_H=\Phi_{0,H}$, $G_D=\Phi_{D,0}$, and $E_{ij}=1$ if $j=i+1$ and $0$
+otherwise. The \emph{geometric arrays} are $D(x,y,z)=\chi(a_z,a_y,a_x)$ and
+$H(x,y,z)=\chi(a_z,a_y,a_x)$ with the boundary vertices of $(P,g)$.
+\end{definition}
+
+\begin{lemma}[factorization and far-only output]\label{lem:farout}
+\begin{enumerate}
+\item[(i)] Over any commutative ring in which $2$ is invertible,
+$\Phi_{D,H}$ has a two-sided polynomial inverse and
+\begin{equation}\label{afr:factor}
+\Phi_{D,H}=F_H\circ G_D.
+\end{equation}
+\item[(ii)] With the geometric arrays, $\Phi_{D,H}(b)=E$ and
+$A_g(P)=\Phi_{D,-H}(b)_{0N}$. Consequently, with $c=F_H^{-1}(E)$,
+\begin{equation}\label{afr:far-output}
+A_g(P)=F_{-H}(c)_{0N}.
+\end{equation}
+The complete output is independent of $D$ when $H$ is held fixed.
+\item[(iii)] For an interval $J=[i,j]$ put
+$\mathcal E_J=F_H(c)_J$ and $\mathcal B_J=F_{-H}(c)_J$.
+Then $\mathcal E_J=0$ if $j-i\geq2$, and
+$\mathcal E_J=\mathcal B_J=1$ if $j-i=1$.
+For $j-i\geq2$, if $(a_i,\ldots,a_j)$ satisfies (G1),
+$\mathcal B_J$ is its tree coefficient rooted at its closing edge
+from $a_j$ to $a_i$.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:factorization, mt:far-only (C022))}
+\end{lemma}
+\begin{proof}
+For (i), the one-part composition in coordinate $[i,j]$ contributes
+$X_{ij}$ with coefficient one. Every other composition has at least two
+parts, all of shorter interval length. Given any target $Y$, first put
+$X_{i,i+1}=Y_{i,i+1}$ and then, in increasing interval length, subtract
+the already determined nonunary sum from $Y_{ij}$. This uniquely solves
+$\Phi_{D,H}(X)=Y$, by polynomial operations in the finite arrays.
+Writing the solution map as $\Psi$, construction gives
+$\Phi_{D,H}\circ\Psi=\mathrm{id}$. Applying uniqueness to the target
+$\Phi_{D,H}(X)$ gives $\Psi\circ\Phi_{D,H}(X)=X$, the other inverse.
+
+Expand $F_H(G_D(X))_{ij}$. Its terms are indexed by an outer
+composition of $[i,j]$ and an inner composition of each outer part.
+Their ordered union is a refined composition
+$\rho=(r_0<\cdots<r_s)$, with the subset of its interior cuts marked
+as outer cuts. Conversely, cut $\rho$ at the marked cuts to recover
+the outer parts and restrict $\rho$ to each part to recover its inner
+composition. This is a bijection, including empty and full marked
+subsets and unary inner or outer compositions.
+
+At a marked cut $r_k$ the coefficient is $-H(i,r_k,j)/2$.
+At an unmarked cut its immediate neighbors in $\rho$ are precisely
+its neighbors inside the same inner part, since that part's endpoints
+are also in $\rho$. Its coefficient is
+$D(r_{k-1},r_k,r_{k+1})/2$. Each interior cut supplies one factor,
+and the product of child coordinates is exactly the refined product.
+Summing over every subset of marked cuts independently chooses the
+near or negative far summand at each cut. Distributivity yields the
+product of their sums, precisely the coefficient of $\rho$ in
+Definition~\ref{def:nearfar}. This proves \eqref{afr:factor}, with all
+neighboring near gates accounted for.
+
+For (ii), the identities $d\Theta(-hd)=(d-h)/2$ and
+$d\Theta(hd)=(d+h)/2$, for $d,h\in\{\pm1\}$, turn the open-sum
+recursion into $\Phi_{D,H}(b)=E$ and the full root sum into
+$\Phi_{D,-H}(b)_{0N}$. In particular its unary root term is retained.
+By \eqref{afr:factor}, $F_H(G_D(b))=E$; uniqueness of the inverse
+gives $G_D(b)=c$. Applying the factorization with $-H$ gives
+\begin{equation}\label{afr:near-freedom}
+\Phi_{D,-H}(b)=F_{-H}(G_D(b))=F_{-H}(c).
+\end{equation}
+This proves the assertion about the complete output. It asserts no
+near-array independence for individual trees or open sums.
+
+For (iii), restriction to $J$ commutes with all coordinate equations:
+each equation on a subinterval of $J$ reads only its own subintervals
+and triples. Triangular uniqueness therefore identifies the restriction
+of $c$ with the inverse constructed directly on that restricted word.
+The equation $F_H(c)=E$ gives the claimed $\mathcal E$ values.
+On a one-leaf interval the only composition is unary, its inverse
+coordinate is one, and both transforms equal one. This is a formal
+open-word convention, not a two-gon amplitude.
+On an interval with at least two leaves, the closed endpoint polygon
+has at least three vertices. Cutting its closing edge from $a_j$ to
+$a_i$ gives exactly the word $a_i,\ldots,a_j$. If it satisfies (G1),
+part (ii) on that word identifies $\mathcal B_J$ with its amplitude
+at that specified physical root. The auxiliary coordinates $c$ may be
+rational and their binary coordinates need not vanish.
+\end{proof}
+
+\begin{theorem}[single-triple wall response]\label{thm:single-triple}
+Let $t\mapsto P(t)$ be a wall germ with $Z_{\rm c}=\varnothing$,
+$Z_{\rm pt}=\{K\}$ a single triple of pairwise distinct vertices,
+and $\chi_K$ changing sign at zero. This includes types (F), (K),
+(V), (E), and (C). Cut at a fixed physical root $g$ and let
+$x<y<z$ be the critical boundary positions. Put
+$I_*=[x,z]$, $L=[x,y]$, $R=[y,z]$, $F=[0,N]$, and
+\begin{equation}\label{afr:wall-data}
+\delta=\frac{H^+(x,y,z)-H^-(x,y,z)}2\in\{-1,1\}.
+\end{equation}
+Write the three wall points as $a_v=p_*+\xi_v\omega$ with
+$\omega\ne0$ and distinct $\xi_v$. Set
+\begin{equation}\label{afr:wall-epsilons}
+\epsilon_L=\sgn\frac{\xi_y-\xi_x}{\xi_z-\xi_x},\qquad
+\epsilon_R=\sgn\frac{\xi_z-\xi_y}{\xi_z-\xi_x}.
+\end{equation}
+For $J=L,R$ use the unchanged interval values of
+Lemma~\ref{lem:farout}, and put
+\begin{equation}\label{afr:wall-uv}
+\mathcal U_J=\begin{cases}\mathcal E_J,&\epsilon_J=1,\\
+\mathcal B_J,&\epsilon_J=-1,\end{cases}\qquad
+\mathcal V_J=\begin{cases}\mathcal B_J,&\epsilon_J=1,\\
+\mathcal E_J,&\epsilon_J=-1.\end{cases}
+\end{equation}
+If $I_*\ne F$, let $Q$ be the polygon obtained at $t=0$ by
+replacing the boundary arc $a_x,\ldots,a_z$ with the single edge
+from $a_x$ to $a_z$. Then $Q$ satisfies (G1), has at least three
+vertices, retains the physical root $g$, and
+\begin{equation}\label{afr:wall-proper}
+A_g(P_+)-A_g(P_-)=\delta\mathcal U_L\mathcal U_R A_g(Q).
+\end{equation}
+If $I_*=F$, instead
+\begin{equation}\label{afr:wall-full}
+A_g(P_+)-A_g(P_-)
+=\delta(\mathcal U_L\mathcal U_R+\mathcal V_L\mathcal V_R).
+\end{equation}
+Here $P_\pm$ are on sufficiently close punctured sides of the germ;
+all gap and contracted coefficients are evaluated at their nondegenerate
+wall data, equivalently at the same signs on either sufficiently close side.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z and 2026-09-05T19:42:49Z; transcribed from RC mt:wall-response (C022))}
+\end{theorem}
+\begin{proof}
+The wall hypothesis makes every distinct-triple determinant except the
+critical one nonzero at zero; after a common shrink its sign is the
+same on both punctured sides. Neither gap contains the entire critical
+triple, so both gap arrays and every nontrivial closed gap polygon are
+nondegenerate and unchanged. Singleton gap values have only their formal
+open-word meaning. At least one epsilon is positive: otherwise both
+summands in $\xi_z-\xi_x=(\xi_y-\xi_x)+(\xi_z-\xi_y)$ would have
+sign opposite to their nonzero sum.
+
+Use the far-only representation of Lemma~\ref{lem:farout} on each side.
+The changing triple appears as far data in exactly one coordinate formula
+of $F_H$, namely $[x,z]$.  Induction in interval length therefore shows
+that $c$ is unchanged on every interval not containing $I_*$.
+
+In the $[x,z]$ equation every proper child is unchanged.  A composition
+has a changing coefficient exactly when it cuts at $y$.  Splitting its
+cut list at $y$ is a bijection with a pair of arbitrary compositions of
+$L$ and $R$; concatenating the two lists is its inverse.  Its one
+changing far gate $-H(x,y,z)/2$ has difference $-\delta$.
+For every other cut in these compositions, the wall geometry gives
+\begin{align}
+ H(x,r,z)&=\epsilon_L H(x,r,y) &&(x<r<y),\label{afr:wall-left-sign}\\
+ H(x,r,z)&=\epsilon_R H(y,r,z) &&(y<r<z).\label{afr:wall-right-sign}
+\end{align}
+For the first identity, the vectors from $a_x$ to $a_z$ and to $a_y$
+differ by the scalar $(\xi_z-\xi_x)/(\xi_y-\xi_x)$.
+Taking their determinants with $a_r-a_x$ gives the indicated sign ratio.
+For the second use the vectors from $a_z$ to $a_x$ and to $a_y$;
+their scalar ratio has sign $\epsilon_R$.  All these determinants are
+nonzero at the wall.  Their signs on both sufficiently close sides are
+therefore the wall signs, proving both displayed identities on those
+sides without evaluating a zero gate.
+
+Consequently the composition sum on a gap is $F_H(c)_J=\mathcal E_J$ if
+$\epsilon_J=1$, and $F_{-H}(c)_J=\mathcal B_J$ if $\epsilon_J=-1$.
+The changed nonunary sum in $F_H(c)_{xz}=E_{xz}=0$ is thus
+$-\delta \mathcal U_L\mathcal U_R$.  Since the unary coefficient is $1$, moving this
+sum to the other side gives
+\begin{equation}\label{afr:wall-source}
+ c^+_{xz}-c^-_{xz}=s_*,
+ \qquad s_*=\delta \mathcal U_L\mathcal U_R.
+\end{equation}
+The nonunary part of $F_{-H}(c)_{xz}$ must be calculated separately.
+Its changing gate is $+H(x,y,z)/2$, with difference $+\delta$;
+all proper children are still unchanged.  Reversing the remaining far
+signs exchanges $\mathcal E_J$ with $\mathcal B_J$ in each of the two gap sums.
+Its direct coefficient change is therefore $+\delta \mathcal V_L\mathcal V_R$.
+
+It remains to propagate \eqref{afr:wall-source} through larger intervals.
+Contract $I_*$ in the boundary word to the formal leaf $e_*$, and let
+$c^Q$ be the inverse $F_{H^Q}^{-1}(E)$ on that contracted word.
+This inverse is defined even when the contracted word has only one
+leaf; that is an open-word convention, not a two-gon amplitude.
+For an interval containing $I_*$ write $I/e_*$ for its contraction.
+We prove by interval length that
+\begin{equation}\label{afr:wall-propagation}
+ c^+_I-c^-_I=s_*c^Q_{I/e_*}\quad(I\supseteq I_*),
+ \qquad c^+_I-c^-_I=0\quad(I\not\supseteq I_*).
+\end{equation}
+The smallest containing interval is $I_*$ itself.  Its contracted
+coordinate is the leaf value $1$, so this is \eqref{afr:wall-source}.
+For a strictly larger $I$, its far coefficient formula is unchanged.
+In a top composition at most one child can contain the positive-length
+interval $I_*$, because distinct children have disjoint interiors.
+If no child contains it, every child coordinate is unchanged.  Otherwise
+the product difference is exactly the difference of that unique child
+times all other, unchanged child coordinates.  There is no product of
+two changing factors or choice of side for the others.
+
+The compositions having such a child are in bijection with compositions
+of $I/e_*$.  Forward, erase the interior vertices of $I_*$ inside that
+one child; no top cut lies there.  Backward, the distinguished leaf
+$e_*$ belongs to one unique contracted child, and expanding it
+recovers the original child and top cut list.  The operations are
+inverse.  All top endpoints and cut vertices survive, so every far
+gate has the same indices and signs.  Every other child is disjoint
+from the interior of $I_*$, and its $c$ coordinate agrees with $c^Q$
+by restriction and uniqueness of the unchanged triangular equations.
+Insert the induction hypothesis on the changing child.  The difference
+of the equation $F_H(c)_I=0$ becomes $s_*$ times the equation
+$F_{H^Q}(c^Q)_{I/e_*}=0$.  The contracted interval has at least two
+leaves when $I$ strictly contains $I_*$, so this latter right-hand
+side is indeed zero.  Equivalently, its unary term is the negative
+of its full nonunary sum, giving precisely
+$c^+_I-c^-_I=s_*c^Q_{I/e_*}$.  This proves the induction with its sign.
+
+When $I_*\ne F$, the same composition bijection, now including the
+unary term, applies to the barred transform $F_{-H}$ on $F$.
+Its coefficients are unchanged because its endpoints are not both $x,z$.
+Substitution of \eqref{afr:wall-propagation} gives
+$s_*F_{-H^Q}(c^Q)_{F/e_*}$.  At least one further leaf survives outside
+$I_*$, so $Q$ has at least three vertices.  Its vertices have no zero
+triple, since the only critical triple lost its middle occurrence.
+Its endpoints and hence physical root survive.  Lemma~\ref{lem:farout}
+identifies the last output with $s_*A_g(Q)$, proving
+\eqref{afr:wall-proper}.
+
+When $I_*=F$, all proper children are unchanged and the unary
+contribution is \eqref{afr:wall-source}.  Add the separately computed
+direct barred coefficient change $+\delta \mathcal V_L\mathcal V_R$ to obtain
+\eqref{afr:wall-full}.  In this case there is no closed contracted
+amplitude of arity at least three.
+\end{proof}
+
+
+
+
+\subsection{The laws}
+
+\begin{definition}[induced roots]\label{def:induced-roots}
+At a simple flat or cusp wall at $j$, the \emph{deletion map} on roots is
+\[
+D_j(g)=\begin{cases}\text{the fused edge }[\mu_{j-1},\mu_{j+1}]\text{ of }P\setminus j,& g\in\{j-1,j\},\\
+\text{the edge of }P\setminus j\text{ with the same endpoints as }E_g,&\text{otherwise.}\end{cases}
+\]
+At a simple vertex--edge wall at $(M;a)$, with $d_1=[\mu_a,\mu_M]$ the
+closing edge of $\lambda_1$ and $d_2=[\mu_M,\mu_{a+1}]$ the opening edge of
+$\lambda_2$, the \emph{half map} on roots is
+\[
+H(g)=\begin{cases}(d_1,d_2),&g=a,\\
+(E_g\text{ in }\lambda_1,\ d_2),&g\in\{M,M+1,\ldots,a-1\},\\
+(d_1,\ E_g\text{ in }\lambda_2),&g\in\{a+1,\ldots,M-1\}.\end{cases}
+\]
+\end{definition}
+
+\begin{theorem}[flat law for $A_g$]\label{thm:A-S3}
+At a simple flat wall at $j$ with $n\geq4$, for every root $g$,
+\begin{equation}\label{afr:S3}
+A_g(P_{\rm right})-A_g(P_{\rm left})
+=A_{D_j(g)}(P(0)\setminus j),
+\end{equation}
+where $P_{\rm right}$ is the side with $\tau_j=-1$, and
+$D_j$ is the physical deletion map of Definition~\ref{def:induced-roots}.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:s3 (C022))}
+\end{theorem}
+\begin{proof}
+Put $Q=P(0)\setminus j$. Its vertices are a subset of the wall
+vertices missing the middle occurrence of the sole zero triple. Hence
+all its distinct-triple determinants are nonzero, so it satisfies (G1),
+and $n-1\geq3$. The flat hypothesis puts the deleted vertex strictly
+between its neighbors. Let $P^\pm$ denote the sides on which
+$\chi(\mu_{j-1},\mu_j,\mu_{j+1})=\pm1$, and write
+$u=(\mu_{j-1},\mu_j)$, $v=(\mu_j,\mu_{j+1})$,
+$w=(\mu_{j-1},\mu_{j+1})$. The determinant defining this chirotope
+is $\det(\widetilde\lambda_{j-1},\widetilde\lambda_j)$, since
+$\mu_{j+1}-\mu_{j-1}=\widetilde\lambda_{j-1}+\widetilde\lambda_j$.
+Thus it is $\tau_j$, and $P^-=P_{\rm right}$,
+$P^+=P_{\rm left}$.
+
+Write $A=\mu_{j-1}$, $M=\mu_j$, $B=\mu_{j+1}$.  In any root cut the
+three critical occurrences have a cyclic permutation of the order
+$A,M,B$.  A cyclic permutation is even, so their reverse-ordered far
+sign is always $-\chi(A,M,B)$.  Thus the $\delta$ of
+\eqref{afr:wall-data}, for $P^+$ minus $P^-$, is $-1$.
+
+If $g$ is neither $u$ nor $v$, the cut order is $A,M,B$, with no
+root seam between these consecutive edges.  Both gaps are singleton
+leaves, and strict betweenness gives
+$(\epsilon_L,\epsilon_R)=(1,1)$.  Hence $\mathcal U_L\mathcal U_R=1$.
+Their span is proper: if both extreme vertices were the root endpoints,
+the remaining root edge would close a three-vertex polygon, contrary
+to $n\geq4$.  Contracting the two-edge span deletes exactly $M$
+and retains $g$.  Formula~\eqref{afr:wall-proper} gives
+$A_g(P^+)-A_g(P^-)=-A_g(Q)$.
+
+If $g=u$, the cut order is $M,B,\ldots,A$, so the critical span is
+full.  The gap $L=(M,B)$ is singleton and
+$(\epsilon_L,\epsilon_R)=(-1,1)$: with $A=0$, $B=1$,
+$M=t\in(0,1)$, the first ratio has numerator $1-t>0$ and
+denominator $-t<0$, and the second has numerator $-1<0$.
+The other gap $R$ has $n-2\geq2$ leaves; its closing root is
+$w=(A,B)$ and its closed polygon is $Q$.  Therefore
+$\mathcal U_L\mathcal U_R=0$ and $\mathcal V_L\mathcal V_R=A_w(Q)$.
+Formula~\eqref{afr:wall-full} gives the desired negative of $A_w(Q)$.
+
+If $g=v$, the cut order is $B,\ldots,A,M$.  Now $L$ is the
+nontrivial deletion word with closing root $w$, $R=(A,M)$ is
+singleton, and $(\epsilon_L,\epsilon_R)=(1,-1)$.
+Indeed their numerators are $-1$ and $t$ with common denominator
+$t-1<0$.  Again $\mathcal U_L\mathcal U_R=0$ and $\mathcal V_L\mathcal V_R=A_w(Q)$.
+These three cases exhaust the physical roots and prove
+\eqref{afr:S3} with precisely Definition~\ref{def:induced-roots}.
+\end{proof}
+
+\begin{theorem}[cusp law for $A_g$]\label{thm:A-S4}
+At a simple cusp wall at $j$ with $n\geq4$ whose deletion
+$Q=P(0)\setminus j$ satisfies (G1), for every root $g$,
+\begin{equation}\label{afr:S4}
+A_g(P_{\rm loop})-A_g(P_{\rm no})
+=-\kappa A_{D_j(g)}(Q),\qquad
+\kappa=\rot(P_{\rm loop})-\rot(P_{\rm no})\in\{-1,1\}.
+\end{equation}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:s4 (C022))}
+\end{theorem}
+\begin{proof}
+Let $u=(\mu_{j-1},\mu_j)$, $v=(\mu_j,\mu_{j+1})$ and
+$w=(\mu_{j-1},\mu_{j+1})$. These are physical edges; they are not
+renumbered root slots. The cusp hypothesis places the deleted vertex
+outside its neighbors' closed segment. As in the preceding theorem,
+$\chi(\mu_{j-1},\mu_j,\mu_{j+1})=\tau_j$ by bilinearity.
+
+First prove the signed consecutive identity directly, without assuming
+the betweenness calculation from S3.  Write $A=\mu_{j-1}$, $M=\mu_j$,
+$B=\mu_{j+1}$, and take line coordinates $A=0$, $B=1$, $M=t$,
+where $t<0$ or $t>1$.  Name sides by $\chi(A,M,B)=-1,+1$ as in
+S3.  The reverse-ordered far sign again gives $\delta=-1$ for
+$P^+$ minus $P^-$.  For a nonincident root the two gaps are
+singletons, regardless of their epsilon signs; hence $\mathcal U_L\mathcal U_R=1$.
+The proper-span formula gives the signed deletion identity.
+
+For the incident roots the following full-span table computes all four
+cases from \eqref{afr:wall-epsilons}:
+\begin{equation}\label{afr:s4-table}
+\begin{array}{c|c|c|cc|c}
+ \text{root}&\text{critical cut order}&t&
+ \epsilon_L&\epsilon_R&
+ \text{possibly nonzero summand}\\\hline
+ u&M,B,A&t>1&1&1&\mathcal V_L\mathcal V_R=\mathcal B_R\\
+ u&M,B,A&t<0&1&-1&\mathcal U_L\mathcal U_R=\mathcal B_R\\
+ v&B,A,M&t>1&-1&1&\mathcal U_L\mathcal U_R=\mathcal B_L\\
+ v&B,A,M&t<0&1&1&\mathcal V_L\mathcal V_R=\mathcal B_L
+\end{array}
+\end{equation}
+For $u$, $L$ is singleton and $R$ is the deletion word closed by
+$w=(A,B)$; the epsilon ratios are $(1-t)/(-t)$ and $(-1)/(-t)$.
+For $v$, $R$ is singleton and $L$ is that deletion word; the
+ratios are $(-1)/(t-1)$ and $t/(t-1)$.  These four ratio tests give
+the table.  The other summand contains the nontrivial deletion
+word's $E=0$.  Formula~\eqref{afr:wall-full} therefore gives
+$A_g(P^+)-A_g(P^-)=-A_{D_j(g)}(Q)$ in each incident case also.
+
+For the rotation sign, the principal local turn at $M$ tends to
+$+\pi$ on the positive-chirotope side and to $-\pi$ on the
+negative side, since its determinant is $\det(M-A,B-M)$ and
+has sign $\chi(A,M,B)$.  Every other local turn is continuous at
+this sole consecutive degeneration: its consecutive triple is distinct
+from the critical triple because $n\geq4$, and is nonzero at the wall.
+The edges are nonzero and the two incident directions at $M$ tend to
+opposites. Thus the sum of all principal turns on the positive side
+minus that on the negative side tends to $2\pi$. By
+Lemma~\ref{lem:rot}, each punctured-side rotation is an integer constant
+on its sufficiently small connected regular side. Their difference is
+therefore its limit, namely $1$.  If the loop side is $P^+$, then
+$\kappa=1$ and the just-proved signed formula is
+\eqref{afr:S4}.  If it is $P^-$, then $\kappa=-1$ and
+reversing the same formula gives \eqref{afr:S4}.
+No root-independence or transport theorem is used.
+\end{proof}
+
+\begin{theorem}[vertex--edge law for $A_g$]\label{thm:A-S7}
+At a simple vertex--edge wall at $(M;a)$, of bigon or sliding type,
+let $s=\chi_{a,a+1,M}(P_-)$ and let $\lambda_1,\lambda_2$ be the
+halves in Definition~\ref{def:deletion-halves}. For every physical root
+$g$ with $H(g)=(h_1,h_2)$ as in Definition~\ref{def:induced-roots},
+\begin{equation}\label{as7:law}
+A_g(P_+)-A_g(P_-)=s A_{h_1}(\lambda_1)A_{h_2}(\lambda_2).
+\end{equation}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:s7 (C024))}
+\end{theorem}
+\begin{proof}
+Write $A=\mu_a(0)$, $B=\mu_{a+1}(0)$, $X=\mu_M(0)$,
+$d=(A,B)$, $d_1=(A,X)$ and $d_2=(X,B)$. The original cyclic order
+of the three critical vertices is $A,B,X$. Both original arc words,
+from $X$ to $A$ and from $B$ to $X$, have at least two leaves:
+their closing halves are generic and have at least three vertices by
+Lemma~\ref{lem:children}(ii). Each nontrivial closed word below has
+only nonzero point-triple determinants. Its amplitude at the indicated
+closing edge is therefore the interval value of Lemma~\ref{lem:farout}(iii).
+
+In any root cut, the critical order is a cyclic permutation of $A,B,X$.
+Such a permutation is even, whereas the reverse ordering in the far
+sign is odd. The critical far sign is consequently
+$-\chi(A,B,X)$. It equals $-s$ on $P_-$ and $s$ on $P_+$.
+The quantity $\delta$ in \eqref{afr:wall-data} is therefore $s$.
+Choose affine line coordinates $A=0$, $B=1$, $X=t$ with $0<t<1$.
+
+For $g=d$, the boundary word begins at $B$, passes through $X$,
+and ends at $A$. The critical span is full. The two ratios in
+\eqref{afr:wall-epsilons} are $(t-1)/(-1)>0$ and $(-t)/(-1)>0$.
+Both gaps are nontrivial, so both $\mathcal U$ factors are zero
+$\mathcal E$ factors. The $\mathcal V$ factors are respectively
+$A_{d_2}(\lambda_2)$ and $A_{d_1}(\lambda_1)$.
+The full-span formula \eqref{afr:wall-full} gives the desired product.
+Writing it in the prescribed half order uses commutativity of scalar
+multiplication; it does not interchange the named halves.
+
+If $g$ lies on the original arc from $X$ to $A$, the critical cut
+order is $A,B,X$. The first gap is the singleton edge $d$, and the
+second is the nontrivial arc from $B$ to $X$. Its epsilon ratios are
+$1/t>0$ and $(t-1)/t<0$, so
+$\mathcal U_L\mathcal U_R=A_{d_2}(\lambda_2)$.
+The critical span is proper. Otherwise the physical root would be an
+edge from $X$ to $A$, making that original arc a singleton and its
+closing half a two-gon, contrary to the arity just established.
+Contracting the span replaces the arc $A,B,\ldots,X$ by $d_1$.
+The surviving polygon is exactly $\lambda_1$ with the same physical
+root $g$. Formula~\eqref{afr:wall-proper} gives
+$sA_g(\lambda_1)A_{d_2}(\lambda_2)$.
+
+If $g$ lies on the original arc from $B$ to $X$, the critical cut
+order is $X,A,B$. The first gap is the nontrivial arc from $X$ to
+$A$, and the second is the singleton $d$. The ratios are
+$-t/(1-t)<0$ and $1/(1-t)>0$. Thus
+$\mathcal U_L\mathcal U_R=A_{d_1}(\lambda_1)$.
+The span is proper, since a full span would make the original
+$B$-to-$X$ arc a singleton. Contraction replaces $X,\ldots,A,B$
+by $d_2$, leaving exactly $\lambda_2$ at the same physical root.
+The proper-span formula gives $sA_{d_1}(\lambda_1)A_g(\lambda_2)$.
+
+Every original root belongs to exactly one of these three cases.
+The inherited-arc cases include the edges incident to the named
+endpoints, so no additional root-seam case remains. No step restricts
+the side of the contact line occupied by either neighbour of $X$.
+Both bigon and sliding branches are therefore covered. The three
+products are precisely the three rows of the stated half-root map.
+\end{proof}
+
+\begin{theorem}[triple law and silence for $A_g$]\label{thm:A-R3E}
+\begin{enumerate}
+\item[(i)] At a simple triple wall every composition weight, every
+$b_{[i,j]}$ and $A_g$ are identical on the two sides, for every root $g$.
+\item[(ii)] At a simple exterior-extension wall or a simple pure cut,
+$A_g(P_+)=A_g(P_-)$ for every root $g$.
+\end{enumerate}
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from (ii) RC mt:extension, mt:pure; (i) as in SM1 (C024))}
+\end{theorem}
+\begin{proof}
+For (i), every point-triple determinant has a nonzero central value,
+so finitely many continuity conditions give a common interval on
+which all signs read by Definition~\ref{def:gates} agree across the
+wall. Every gate and composition weight agrees. Starting with the
+one-leaf value and inducting on interval length in the open recursion
+then gives equality of all $b$'s. Substituting them in the finite root
+sum gives equality of $A_g$. Crossing-visit order is not an input to
+any of these formulas.
+
+For an exterior-extension wall, use $A,B,X,d$ as in the preceding
+proof, but now $t<0$ or $t>1$. By the remoteness condition in
+Definition~\ref{def:walls}(E), both full original arcs from $X$ to
+$A$ and from $B$ to $X$ have at least two leaves. A singleton in
+either would give a second adjacent pair in the critical triple and
+would be a consecutive-triple wall instead. Closed nontrivial gap
+and contracted words have (G1), since they omit at least one member
+of the sole zero triple.
+
+If $g=d$, the critical order is $B,X,A$, the span is full and both
+gaps are nontrivial. Their epsilon ratios are $1-t$ and $t$.
+Exactly one is negative. Hence $\mathcal U_L\mathcal U_R$ and
+$\mathcal V_L\mathcal V_R$ each contain a nontrivial $\mathcal E$
+factor, which is zero by Lemma~\ref{lem:farout}(iii).
+The full-span formula gives zero jump.
+If $g$ lies on the original $X$-to-$A$ arc, the cut order is $A,B,X$;
+$L$ is singleton, $R$ is nontrivial, and
+$\epsilon_R=\operatorname{sgn}((t-1)/t)=1$ for both allowed ranges
+of $t$. Thus $\mathcal U_R=\mathcal E_R=0$. The span is proper,
+since a full span would make the original $X$-to-$A$ arc a singleton.
+Formula~\eqref{afr:wall-proper} gives zero jump.
+For a root on the other arc, the cut order is $X,A,B$; $L$ is
+nontrivial and $\epsilon_L=\operatorname{sgn}(-t/(1-t))=1$.
+The span is proper for the analogous endpoint reason, and
+$\mathcal U_L=\mathcal E_L=0$. This exhausts all exterior roots.
+No assertion here applies to a consecutive cusp or flat wall.
+
+Finally consider a pure cut. In the fixed root word write its critical
+positions as $x<y<z$, with $N=n-1$. Pairwise nonadjacency gives
+\begin{equation}\label{as7:pure-gaps}
+y-x\geq2,\qquad z-y\geq2,\qquad N+1+x-z\geq2.
+\end{equation}
+The first two inequalities make both gaps nontrivial. The third shows
+that the span cannot be full: full-span extremes would be the two
+adjacent endpoints of the physical root. At least one epsilon is
+positive, since the two nonzero line displacements from $x$ to $y$
+and from $y$ to $z$ cannot both have sign opposite to their sum from
+$x$ to $z$. Therefore the source product
+$\mathcal U_L\mathcal U_R$ contains a zero $\mathcal E_L$ or
+$\mathcal E_R$. Formula~\eqref{afr:wall-proper} again gives zero.
+The argument allows $x=0$ or $z=N$ separately, so it includes roots
+incident to a critical vertex and all six possible line orders.
+The conclusion concerns the complete root output; no constancy of
+the original open sums at a silent point-triple wall is asserted.
+\end{proof}
+
+\subsection{Continuation through silent configurations}
+
+\begin{theorem}[continuation across silent walls]\label{thm:A-continuation}
+For every root $g$ there is a unique function $\widetilde A_g$ on the weakly
+generic locus $\mathcal W_n$ that is constant on visible chambers and agrees
+with $A_g$ on $\mathcal U_n$.
+\status{new (round~5: the inline openness and polygonal-connectedness arguments of the proof replaced by citations of Lemma~\ref{lem:weak-open}, F-25-147, and its density paragraph cites Lemma~\ref{lem:silentlocus} in place of a proof interior of Theorem~\ref{thm:relgp}, F-25-165; round~3: statement restricted to the continuation clause, F-25-68, F-25-71, F-25-89; the proof is otherwise the round-1 transcription of RC guard:unique, guard:covariance with the density and path argument as printed (C025), read in full by bench~A on SM2)}
+\end{theorem}
+\begin{proof}
+First, the weakly generic locus $\mathcal W_n$ is open in the labelled
+coordinate space, by Lemma~\ref{lem:weak-open}; in particular no new
+crossing or triple concurrence appears in a small neighbourhood of a weakly
+generic tuple, including at exterior collinearities.
+
+The generic locus $\mathcal U_n$ is dense in the open set $\mathcal W_n$
+(Lemma~\ref{lem:silentlocus}), so generic points occur in every open ball
+contained in $\mathcal W_n$.
+
+Every visible chamber, a connected component of the open set
+$\mathcal W_n$, is polygonally connected, by Lemma~\ref{lem:weak-open}.
+
+Take two generic points in one visible chamber $V$. Join them by a path
+$\gamma$ in $V$. The compact image has a positive distance from the closed
+complement of $\mathcal W_n$; choose a smaller positive error tolerance.
+Since nonzero turns imply regularity, Theorem~\ref{thm:relgp} applies and
+gives an endpoint-fixed path within that tolerance, hence still in
+$\mathcal W_n$. Its possible actual wall events are F,V,T,E,C.
+A flat event would have a zero turn, a vertex--edge event a vertex on a
+nonincident closed segment, and a triple event a forbidden interior
+concurrence. All three are excluded by membership in $\mathcal W_n$.
+Only E and C remain. Along each generic segment $A_g$ is constant by
+Proposition~\ref{prop:A-chamber}; at each of the finitely many remaining
+events its jump is zero by Theorem~\ref{thm:A-R3E}(ii). Thus the two
+generic endpoint values agree.
+
+Density ensures that every visible chamber meets the generic locus.
+Define $\widetilde A_g$ on that chamber to be the common generic value
+just proved. This is a well-defined function, constant on visible chambers
+and equal to $A_g$ on $\mathcal U_n$. Any other such function must have
+the same value on each chamber because that chamber contains a generic
+point. This proves uniqueness. The original finite tree formula on
+$\mathcal U_n$ is the defining one; no evaluation of a gate at zero or
+polynomial-form assertion at simultaneous silent zeros is used.
+\end{proof}
+
+\begin{remark}[the main text's amplitude on the silent locus]\label{rem:silent-amplitude}
+On the silent locus $\mathcal S_n=\mathcal W_n\setminus\mathcal U_n$ the
+tree sum of Definition~\ref{def:treesum} is not evaluated: its gates are
+step functions of chirotope entries that vanish there, and no value
+assigned to a gate at zero makes the literal sum independent of the root.
+An exact six-gon with one exterior collinearity has literal root values
+$(-1,-2t,-t,-t,-1,-1)$ when every gate at zero is given the value $t$,
+while the continuation of Theorem~\ref{thm:A-continuation} takes the value
+$-1$ at every root (phase ledger F-25-89: the Codex certificate, bench~A's
+independent referee and the curator's replay). The main text's $A$ on its
+generic locus, which is $\mathcal W_n$, is therefore \emph{defined} on
+$\mathcal S_n$ as that continuation, in Section~\ref{sec:comparison}, once
+root independence of the continuation is available; nothing in this
+section assigns a value to a gate at zero.
+\end{remark}
+
+
+\begin{lemma}[multi-affine form]\label{lem:multiaffine}
+Fix $n$ and a root index $g$ on labelled representatives. Replace
+each cut factor in the finite tree sum by $(d-h)/2$ at an ordinary
+vertex and $(d+h)/2$ at the root, interpreting each ordered
+chirotope as the signed canonical variable $X_{ijk}$,
+$1\leq i<j<k\leq n$. The resulting polynomial
+$\mathsf A_g\in\mathbb Q[X_{ijk}:i<j<k]$ is affine in each variable
+and satisfies $\mathsf A_g(\chi(P))=A_g(P)$ on (G1)-polygons.
+
+Within a tree, each unordered vertex triple occurs in at most
+one cut factor. At a binary vertex its near and far entries
+coincide: the ordinary factor is zero, whereas the root factor
+is that single entry. Distinct internal vertices can have the
+same leaf interval only when they are the unary root and its
+sole child; the unary root contributes an empty product.
+\status{new (round~4: the binary-vertex case $d_1=h_1$ and the shared-interval case printed and the polynomial taken in the unrestricted ring $\mathbb Q[X_{ijk}]$; adopted from the Codex proposal sm4\_round4\_core\_v1, P-25-23, F115-POLY, re-read by the author; F-25-115; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{lemma}
+\begin{proof}
+The boundary word contains every vertex label exactly once.
+Consequently unordered triples of boundary positions correspond
+bijectively to unordered triples of vertex labels; alternating
+the order changes only the sign of the canonical variable.
+
+Consider a vertex with composition $r_0<\cdots<r_s$.
+There are no cut factors when $s=1$. When $s=2$, the ordered
+triples defining $d_1$ and $h_1$ are both
+$(a_{r_2},a_{r_1},a_{r_0})$. Thus $d_1=h_1$ as formal
+variables, and the ordinary and root factors are respectively
+zero and $d_1$.
+
+For $s\geq3$, the unordered near triple at cut $k$ is
+$\{r_{k-1},r_k,r_{k+1}\}$ and the far triple is
+$\{r_0,r_k,r_s\}$. Two near triples are equal only if their
+smallest positions agree, which forces their cut indices to
+agree. Two far triples are equal only if their interior
+positions agree, again forcing the same cut. Equality of a
+near triple and a far triple would require
+$r_{k-1}=r_0$ and $r_{k+1}=r_s$ by comparison of their smallest
+and largest positions. These equalities force $k=1$ and $s=2$,
+contrary to $s\geq3$. Hence distinct cut factors at one vertex
+use disjoint sets of canonical variables.
+
+Now consider distinct vertices that both carry cut factors.
+If neither is an ancestor of the other, their intervals lie
+in different child intervals of their least common ancestor.
+Those child intervals have disjoint interiors and at most one
+common boundary position. Thus the two vertices cannot share
+a triple of boundary positions.
+
+If $v$ is an ancestor of $w$, the interval of $w$ lies in one
+child interval of $v$. Each child interval of $v$ contains
+exactly two cut positions of $v$, namely its endpoints.
+Every near or far triple at $v$ contains three distinct cut
+positions of $v$, so it cannot lie in that child interval
+and cannot occur at $w$.
+
+For completeness, a vertex with at least two children has
+every child interval strictly smaller than its own.
+All ordinary internal vertices have at least two children
+by Lemma~\ref{lem:treesum-trees}. Therefore equality of the
+intervals of distinct internal vertices is possible only
+for the unary root and its sole child. The root then has no
+cut factor, so this equality creates no repeated variable.
+
+A tree with an ordinary binary vertex has zero formal weight.
+In every other tree, the cut factors are linear and distinct
+factors use disjoint sets of canonical variables. Every
+monomial in their product therefore has degree at most one
+in each variable. The sign $(-1)^{N_+(T)}$ does not change
+this property, and neither does summing over the finite set
+of trees. This proves multi-affinity in the polynomial ring,
+without imposing any relations on its variables.
+
+Finally, on (G1)-polygons Lemma~\ref{lem:gates-nonzero}
+identifies every linear cut factor with the original gate.
+Applying this identity term by term in
+Lemma~\ref{lem:treesum-trees} proves
+$\mathsf A_g(\chi(P))=A_g(P)$.
+\end{proof}
+
+\begin{lemma}[A nontrivial gap on a silent line]\label{pf:line-gap}
+Let $a_0,\ldots,a_N$ be the boundary word of a weakly generic
+polygon. Suppose $r_0<\cdots<r_k$, $k\geq2$, index collinear
+vertices. Write their distinct line coordinates as $t_0,\ldots,t_k$
+and put
+\begin{equation}\label{pf:gap-directions}
+ \epsilon_j=\sgn\frac{t_j-t_{j-1}}{t_k-t_0},\qquad 1\leq j\leq k.
+\end{equation}
+At least one gap has $\epsilon_j=1$ and $r_j-r_{j-1}\geq2$.
+If $r_0=0$ and $r_k=N$, at least one gap also has
+$\epsilon_j=-1$ and $r_j-r_{j-1}\geq2$.
+\status{new (Codex candidate\_polyform\_dependent\_v1, C074; F-25-25 closed on SM2 by bench~A's referee of the two lemmas, R-25-21)}
+\end{lemma}
+\begin{proof}
+The vertices of a weakly generic polygon are distinct. Coincident
+adjacent vertices would give a zero edge; coincident nonadjacent
+vertices would put a vertex on a nonincident closed edge.
+An original edge whose endpoints are among the selected line points
+cannot contain any other selected point in its interior. Also two
+successive gaps of one leaf cannot both join selected line points:
+they would be consecutive collinear original edges, with zero turn.
+These are consequences of Definition~\ref{def:weak}.
+
+Choose the line coordinate so $t_0=0$ and $t_k=1$. Suppose every
+increasing gap had one leaf. Let $t_\ell$ be the largest selected
+coordinate; it is not $t_0$, so $\ell\geq1$. Its incoming gap is
+increasing, hence is an original edge. Since that edge contains no
+other selected point, $t_{\ell-1}$ is the second largest selected
+coordinate. We cannot have $\ell=1$: then this second largest
+coordinate would be $t_0=0$, whereas the distinct final point has
+coordinate $1$ below the maximum. The maximum cannot itself be
+that final point when $\ell=1$, since $k\geq2$.
+Thus $\ell\geq2$. The preceding coordinate $t_{\ell-2}$ is smaller
+than $t_{\ell-1}$, because only $t_\ell$ is larger and the selected
+points are distinct. That preceding gap is therefore also an
+increasing original edge. The two successive one-leaf gaps give
+the forbidden zero turn. This proves the first assertion.
+
+For the second assertion close the selected list by the physical
+root edge from $a_N$ to $a_0$. Its line direction is negative.
+If every negative gap in the open list had one leaf, every negative
+step in this cyclic list would be an original edge. Start at its
+largest coordinate. The following point is lower, and the edge to
+it cannot contain another selected point, so it is the second largest
+coordinate. There are at least three selected points. The next point
+in cyclic order is therefore still lower: it is neither of those two
+points. The next step is another negative original edge, again
+giving two successive collinear original edges and a zero turn.
+This contradiction proves that one negative open gap is nontrivial.
+\end{proof}
+
+\begin{lemma}[Formal cancellation of all silent entries]
+\label{pf:formal-cancellation}
+For the boundary word of any $P\in\mathcal W_n$, let $H^0$ be its
+geometric far array, with its zero entries equal to zero. Form $H$
+by replacing every zero entry of $H^0$ by its own indeterminate,
+keeping all nonzero entries fixed. Over the polynomial ring in those
+indeterminates, put $c=F_H^{-1}(E)$ and $c^0=F_{H^0}^{-1}(E)$.
+Then each coordinate $c_{ij}$ equals the corresponding constant $c^0_{ij}$, and
+\begin{equation}\label{pf:formal-output}
+ F_{-H}(c)_{0N}=F_{-H^0}(c^0)_{0N}.
+\end{equation}
+No independence of the zero-determinant differentials is assumed.
+\status{new (Codex candidate\_polyform\_dependent\_v1, C074; F-25-25 closed on SM2 by bench~A's referee of the two lemmas, R-25-21)}
+\end{lemma}
+\begin{proof}
+The polynomial inverses exist by Lemma~\ref{lem:farout}(i).
+We first establish a coefficient identity with the child coordinates
+fixed to $c^0$. Fix $I=[i,j]$ and let
+$Z_I=\{r:i<r<j,\ H^0(i,r,j)=0\}$. Only the entries indexed by
+$r\in Z_I$ vary in this top-coordinate formula. Write those entries
+as $u_r$. For a nonempty subset
+$S=\{r_1<\cdots<r_{k-1}\}\subseteq Z_I$, set $r_0=i$, $r_k=j$
+and $J_\ell=[r_{\ell-1},r_\ell]$. All these endpoints lie on the
+line through $a_i,a_j$; define $\epsilon_\ell$ as
+in~\eqref{pf:gap-directions}. For $\eta\in\{1,-1\}$ the coefficient
+of $\prod_{r\in S}u_r$ in the top formula is
+\begin{equation}\label{pf:coefficient-factor}
+ \left[\prod_{r\in S}u_r\right]F_{\eta H}(c^0)_{ij}
+ =\left(-\frac{\eta}{2}\right)^{|S|}
+   \prod_{\ell=1}^{k}
+      F_{\eta\epsilon_\ell H^0}(c^0)_{J_\ell}.
+\end{equation}
+Here the bracket denotes coefficient extraction only in the top
+variables $u_r$; every child coordinate is the fixed number $c^0$.
+
+To prove the identity, each top cut occurs at most once in a
+composition. A contribution to this coefficient must include every
+cut in $S$ and exclude all other cuts in $Z_I$. Split its ordered
+cut list at the members of $S$. This is a bijection with independent
+compositions of the gaps $J_\ell$, excluding their other collinear
+cuts; concatenation reverses it. Each selected cut supplies
+$-\eta/2$. At a further cut $r$ in gap $J_\ell$, collinearity of
+the gap endpoints gives
+\begin{equation}\label{pf:gap-sign-identity}
+ H^0(i,r,j)=\epsilon_\ell
+ H^0(r_{\ell-1},r,r_\ell).
+\end{equation}
+Indeed write the endpoints on the common line as $p+t\omega$.
+In the determinant defining $H^0$, changing the endpoint difference
+from $(t_k-t_0)\omega$ to
+$(t_\ell-t_{\ell-1})\omega$ multiplies its sign by
+$\epsilon_\ell$; translating the line endpoint changes no
+determinant with $\omega$. This calculation also holds when $a_r$
+lies on that line: both signs are then zero. Such a cut has zero
+weight in the gap transform, so including it there changes no sum.
+The remaining cuts and child factors are exactly those of the gap
+transforms in~\eqref{pf:coefficient-factor}. Finite distributivity
+now proves that identity, including gaps with only one leaf.
+
+For $\eta=1$, Lemma~\ref{pf:line-gap} supplies a nontrivial gap
+with $\epsilon_\ell=1$. Its factor is
+\begin{equation}\label{pf:zero-gap-factor}
+ F_{H^0}(c^0)_{J_\ell}=E_{J_\ell}=0.
+\end{equation}
+The first equality is the defining inverse equation, and the second
+uses the gap's length of at least two. Thus every nonempty top
+coefficient vanishes. The constant coefficient is the value with
+all $u_r=0$, namely $F_{H^0}(c^0)_{ij}=E_{ij}$.
+
+Induct on interval length to prove $c=c^0$ for the entire formal
+array $H$. Leaf coordinates are one in both arrays. If all shorter
+coordinates agree, the equation for $[i,j]$ has its unknown unary
+term $c_{ij}$ with coefficient one; every nonunary child is already
+$c^0$. The preceding coefficient calculation says that substituting
+also $c^0_{ij}$ makes this equation equal $E_{ij}$ for every value
+of the top variables. Uniqueness of its unary solution therefore
+gives $c_{ij}=c^0_{ij}$. This proves the induction. In particular it
+does not require the formal sign assignments to be realizable.
+
+Finally apply~\eqref{pf:coefficient-factor} to $I=[0,N]$ and
+$\eta=-1$. For every nonempty $S$, the second assertion of
+Lemma~\ref{pf:line-gap} supplies a nontrivial gap with
+$\epsilon_\ell=-1$. Its factor is again $F_{H^0}(c^0)_{J_\ell}=0$.
+All nonconstant top coefficients vanish, and the constant term is
+$F_{-H^0}(c^0)_{0N}$. Substituting $c=c^0$ proves
+\eqref{pf:formal-output}. The physical root edge is used here;
+an arbitrary open interval would not justify this last negative-gap
+step.
+\end{proof}
+
+\begin{corollary}[The continuation is the polynomial form]
+\label{cor:polyform}
+On all of $\mathcal W_n$, for every root $g$,
+\begin{equation}\label{pf:polynomial-value}
+ \widetilde A_g(P)=\mathsf A_g(\chi(P)).
+\end{equation}
+After the nonzero chirotope entries are fixed at their values at $P$,
+the polynomial is constant in all remaining entries. Thus its
+nonconstant terms in these silent variables cancel, and no value
+of $\Theta(0)$ has to be chosen.
+\status{new (round~6: the specialization stated at the cut-factor granularity of Definition~\ref{def:gates} --- each gate variable is sent to the product over the interior cuts of its composition of the linear forms of Lemma~\ref{lem:multiaffine}, F-25-166; round~5: the recursion-built formal output identified with the tree-sum polynomial $\mathsf A_g$ in $\mathbb Q[X_{ijk}]$ through the formal clause of Lemma~\ref{lem:treesum-trees}, F-25-150; round~4: the openness and density citations of the ball step repaired, Lemma~\ref{lem:weak-open} and Lemma~\ref{lem:silentlocus}, F-25-116; Codex candidate\_polyform\_dependent\_v1, C074; unrestricted argument; F-25-25 closed on SM2, R-25-21; assembly: Lemmas~\ref{pf:line-gap} and~\ref{pf:formal-cancellation} refereed (R-25-21), Lemma~\ref{lem:treesum-trees} new (round~5, its formal clause), Lemma~\ref{lem:multiaffine} and Lemma~\ref{lem:weak-open} new (round~4), Theorem~\ref{thm:A-continuation} new (read in full by bench~A on SM2), Lemmas~\ref{lem:silentlocus} and~\ref{lem:farout} proved; the evaluation of the continuation is in Section~\ref{sec:comparison})}
+\end{corollary}
+\begin{proof}
+Replace each cut factor of every gate in the finite tree recursion by
+the linear form $(d_k-h_k)/2$ or $(d_k+h_k)/2$ of
+Lemma~\ref{lem:multiaffine}, and regard the entries as formal
+variables. The same recursion is
+$\Phi_{D,H}(b)=E$, with root output $\Phi_{D,-H}(b)_{0N}$.
+By the formal clause of Lemma~\ref{lem:treesum-trees}, the recursion and the
+tree sum agree as polynomials in the gate variables; sending each gate
+variable $V^\pm(\pi)$, for a composition $\pi=(r_0<\cdots<r_s)$, to the
+product over the interior cuts $r_k$, $1\leq k\leq s-1$, of the linear forms
+of Lemma~\ref{lem:multiaffine} --- $(d_k-h_k)/2$ for $V^+$ at an ordinary
+vertex and $(d_k+h_k)/2$ for $V^-$ at the root, the empty product being $1$
+--- defines a ring homomorphism from $\ZZ[V^\pm(\pi)]$ to
+$\ZZ[\tfrac12][X_{ijk}]\subset\mathbb Q[X_{ijk}]$ (Definition~\ref{def:gates}
+makes each gate that product of its cut factors), so this root output is the
+polynomial $\mathsf A_g$ of that lemma, as an identity in
+$\mathbb Q[X_{ijk}]$ and not only at realizable chirotopes.
+The ring identity of Lemma~\ref{lem:farout}(i), followed by its
+two-sided inverse, makes this formal output
+$F_{-H}(F_H^{-1}(E))_{0N}$. This is a polynomial identity, so it
+also applies when the geometric signs have zeros; it does not
+evaluate the original step-function gates at zero.
+The geometric near and far entries are the reverse-ordered
+chirotope entries of the root word. This changes only fixed signs
+and names of the canonical variables. Lemma~\ref{pf:formal-cancellation}
+therefore makes $\mathsf A_g$ constant in every entry that vanishes
+at $P$, with the other entries fixed.
+
+Fix the labelled representative $P$ and root $g$. By
+Lemma~\ref{lem:weak-open}, choose a ball about $P$ contained in its
+visible chamber, small enough that every initially nonzero
+area determinant keeps its sign. By Lemma~\ref{lem:silentlocus},
+this ball contains a generic tuple $Q$. On $Q$ the polynomial equals $A_g(Q)$
+by Lemma~\ref{lem:multiaffine}, and this equals
+$\widetilde A_g(P)$ by Theorem~\ref{thm:A-continuation}.
+Formal constancy gives the same value after all silent entries are
+set to zero, which is $\mathsf A_g(\chi(P))$. This proves the
+identity and the cancellation assertion throughout the weak locus.
+\end{proof}
+
+
+\subsection{The soft theorem}
+
+\begin{definition}[soft insertion]\label{def:soft}
+Let $P$ satisfy (G1), fix a vertex index $j$ and a vector $q\neq0$. The
+\emph{soft insertion} of $q$ at $j$ is the family of $(n+1)$-gons
+\[
+P^{(j,q)}_\varepsilon=(\mu_1,\ldots,\mu_j,\ \mu_j+\varepsilon q,\ \mu_{j+1},\ldots,\mu_n),
+\qquad\varepsilon>0,
+\]
+with the new vertex $\mu_*=\mu_j+\varepsilon q$ inserted immediately after
+$\mu_j$; its edges are $\lt_{j-1}$, the \emph{soft edge} $\varepsilon q$, and
+the \emph{return edge} $\lt_j-\varepsilon q$, the others unchanged. The
+\emph{attachment signs} are
+\[
+\chi_-=\chi_{*,j,j-1}\bigl(P_\varepsilon\bigr)=-\sgn\det(\lt_{j-1},q),\qquad
+\chi_+=\chi_{*,j,j+1}\bigl(P_\varepsilon\bigr)=-\sgn\det(q,\lt_j),
+\]
+the two equalities holding for every $\varepsilon>0$ (they are the turns at
+the two ends of the soft edge, with the sign reversed). The vector $q$ is
+\emph{admissible} if $\det(\lt_{j-1},q)\neq0$, $\det(q,\lt_j)\neq0$, and
+$\det(q,\mu_k-\mu_j)\neq0$ for all $k\neq j$.
+\end{definition}
+
+\begin{lemma}[the soft family is generic]\label{lem:soft-generic}
+Let $P$ be generic, $j$ a vertex, and $q$ admissible in
+Definition~\ref{def:soft}. Put $M=\mu_j$, $A=\mu_{j-1}$,
+$B=\mu_{j+1}$, $u=M-A$, $v=B-M$, and $\tau=\tau_j(P)$.
+Write $M_\varepsilon=M+\varepsilon q$ and
+$D_\varepsilon=v-\varepsilon q$. There is $\varepsilon_0>0$
+such that, for every $0<\varepsilon<\varepsilon_0$:
+\begin{enumerate}
+\item[(i)] $P_\varepsilon=P^{(j,q)}_\varepsilon$ is generic,
+and all these polygons lie in one chamber. The soft edge meets
+other edges only at its incident endpoints.
+\item[(ii)] Every original vertex other than $M$ retains its
+original turn sign. The turns at $M$ and $M_\varepsilon$ are
+$-\chi_-$ and $-\chi_+$, respectively. The unchanged edge
+ directions are fixed, $D_\varepsilon\to v$, and
+$\sgn\det(u,D_\varepsilon)=\tau$, while
+$\sgn\det(D_\varepsilon,u)=-\tau$.
+\item[(iii)] Identify each unchanged edge with its parent edge
+and the return edge with the parent edge $E_j$. Every parent
+crossing persists. Its point and its parameters on the corresponding
+edges converge to the parent values. Inherited visits retain their
+order along each directed edge, and the determinant sign of the
+ordered edge directions at each inherited crossing is unchanged.
+\item[(iv)] If $\chi_-=\chi_+=-\tau$ (same-sign sector), or
+$\chi_-\ne\chi_+$ (mixed sector), these are all the crossings
+and the Gauss word is the parent's Gauss word. If
+$\chi_-=\chi_+=\tau$ (loop sector), there is exactly one
+additional crossing $y$, between the return edge and $E_{j-1}$.
+It tends to $M$. Its incoming-edge visit $a$ and return-edge
+visit $b$ bound the oriented traversal arc from $a$ through
+$M,M_\varepsilon$ to $b$, containing no other crossing visit.
+Thus the two newborn visits are cyclically adjacent; deleting
+ them gives the parent's Gauss word.
+\end{enumerate}
+\status{new (round~4: the geometric facts consumed by Theorem~\ref{thm:C-soft} exported as clauses (i)--(iv) --- turn signs, soft-edge contacts, inherited crossings with their parameters, order and direction-determinant signs, the unique newborn crossing and its short arc; adopted from the Codex proposal sm4\_round4\_exports\_v1, P-25-24, F120-GEOMETRY, re-read by the author; F-25-120; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{lemma}
+\begin{proof}
+Retain the original names of vertices and edges, replacing only
+$E_j$ by the soft and return edges. The positive parameter interval
+may be shortened finitely many times in the argument.
+
+First establish (G1). Original vertex triples are unchanged.
+For distinct original indices $k,l\ne j$, the area determinant for
+$(M_\varepsilon,\mu_k,\mu_l)$ tends to the nonzero determinant
+for $(M,\mu_k,\mu_l)$. For $k\ne j$, the determinant for
+$(M_\varepsilon,M,\mu_k)$ is
+$-\varepsilon\det(q,\mu_k-M)$, nonzero by admissibility.
+These exhaust the new triples. Finiteness gives one interval
+on which (G1) holds and all signs are constant.
+
+The soft edge lies within $\varepsilon|q|$ of $M$.
+Every parent segment not incident to $M$ has positive distance
+from $M$, by compactness and (G1) of $P$. Hence the soft edge
+misses all such segments for small $\varepsilon$. It meets the
+incoming edge only at $M$, since $\det(u,q)\ne0$, and the return
+edge only at $M_\varepsilon$, since
+$\det(q,D_\varepsilon)=\det(q,v)\ne0$. The return edge and the
+unchanged edge following $B$ meet only at $B$: their directions
+tend to the independent directions at the parent corner $B$.
+All pairs of unchanged edges retain their parent intersections.
+
+For each parent edge remote to $E_j$, compare it with the return
+edge. A disjoint parent pair has positive compact distance;
+the return segment converges uniformly at each affine parameter
+to $E_j$, so that distance remains positive. No independence
+of the directions is required for a disjoint pair. For a crossing
+parent pair, the directions have nonzero determinant and both
+intersection parameters lie in $(0,1)$. The intersection equations
+form an invertible two-by-two linear system. Its coefficients
+converge to the parent coefficients and its determinant remains
+nonzero, so its inverse varies continuously. The two parameters
+converge to the parent values and stay in $(0,1)$; the point
+converges as well, and the ordered direction determinant keeps
+its sign.
+
+These are all return-edge pairs except the incoming edge
+$E_{j-1}$. Put $T=\det(u,v)$, of sign $\tau$. The return
+edge meets $E_{j-1}$ precisely when each supporting line
+strictly separates the endpoints of the other segment; the
+directions are independent since $\det(u,D_\varepsilon)\to T\ne0$.
+For the incoming line the signed heights are
+\begin{equation}\label{eq:soft-first-straddle}
+\det(u,M_\varepsilon-A)=\varepsilon\det(u,q),\qquad
+\det(u,B-A)=T.
+\end{equation}
+They are opposite exactly when $\chi_-=\tau$. For the return
+line based at $M_\varepsilon$, the height of $M$ is
+\begin{equation}\label{eq:soft-second-straddle}
+\det(D_\varepsilon,M-M_\varepsilon)
+=\varepsilon\det(q,v).
+\end{equation}
+The height of $A$ tends to $\det(v,-u)=T\ne0$, so has sign
+$\tau$ throughout a sufficiently small interval. This pair of
+heights is opposite exactly when $\chi_+=\tau$. Both tests
+are required: their conjunction is exactly the loop sector.
+There is no intersection of this pair in the other two sectors.
+In the loop sector its supporting-line equations remain
+invertible as $\varepsilon\to0$. At zero the unique intersection
+is $M$, with incoming parameter one and return parameter zero.
+Thus $y\to M$, and these two parameters tend to one and zero.
+
+All parent crossing points are away from $M$, since (G1)
+excludes a vertex on a nonincident edge, and they are pairwise
+distinct by (G2). The finitely many inherited points therefore
+remain pairwise distinct and away from $M$. The newborn, when
+present, stays distinct from them after another shrink.
+Every possible crossing has been enumerated. A concurrence of
+three distinct edge interiors would involve pairwise remote
+edges, since (G1) makes distinct adjacent interiors disjoint.
+It would identify the points of two distinct unordered crossing
+pairs, which was excluded. Hence (G2) holds. The connected
+parameter interval now maps continuously into the labelled
+generic locus, so its image lies in one labelled chamber and
+hence one polygon chamber. This proves (i).
+
+The turn determinants at $M$ and $M_\varepsilon$ are
+$\varepsilon\det(u,q)$ and
+$\varepsilon\det(q,D_\varepsilon)=\varepsilon\det(q,v)$;
+Definition~\ref{def:soft} gives their signs $-\chi_-$ and
+$-\chi_+$. At $B$, the incoming direction tends to $v$ and
+the outgoing one is unchanged, so the old nonzero turn sign
+persists. Every other old vertex except $M$ has unchanged
+incident directions. Finally $\det(u,D_\varepsilon)\to T$
+gives sign $\tau$, and antisymmetry gives $-\tau$ for the
+opposite ordered pair. This proves (ii).
+
+Distinct parent crossing parameters on each edge have positive
+pairwise separations and positive distances from zero and one.
+Their convergence preserves their order on the corresponding
+edges, including every edge whose crossing points move.
+This proves (iii). Without a newborn, concatenating these
+edgewise visit lists recovers the parent's cyclic Gauss word.
+With a newborn, its incoming visit is after all inherited visits
+on the incoming edge, and its return visit is before all inherited
+visits on the return edge. The intervening soft edge has no crossing.
+Thus the arc from $a$ through $M,M_\varepsilon$ to $b$ has no
+other crossing visit. Deleting $a,b$ leaves exactly the inherited
+lists, proving (iv).
+\end{proof}
+
+\begin{theorem}[soft theorem for $A_g$]\label{thm:A-soft}
+Let $P$ be generic, $q$ admissible, and $\varepsilon_0$ as in
+Lemma~\ref{lem:soft-generic}. For every root $g$ of $P_\varepsilon$ other than
+the soft edge, with $g'$ the corresponding root of $P$ (the return edge
+corresponds to $E_j$), there is $\varepsilon_1\in(0,\varepsilon_0]$ with
+\begin{equation}\label{aspr:soft-law}
+A_g(P_\varepsilon)=\frac{\chi_-+\chi_+}{2}A_{g'}(P)
+\qquad(0<\varepsilon<\varepsilon_1).
+\end{equation}
+Equivalently, in the same-sign, mixed and loop sectors the multipliers are
+$-\tau_j(P)$, $0$ and $\tau_j(P)$, respectively.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:pruning, mt:soft-duplication (C017))}
+\end{theorem}
+\begin{proof}
+We prove the finite duplication identity used below, including its two
+boundary cases. This proof uses the definitions of the boundary word,
+gates, open sums and soft insertion. It does not use a wall law or root
+independence. All formal arrays in the next two paragraphs are over
+$\mathbb Q$; their near entries need not be geometric signs.
+
+\emph{Finite transforms and freedom to choose a near array.}
+For a linearly ordered list with boundary positions $0,\ldots,L$, define
+\begin{equation}\label{aspr:Phi}
+\Phi_{D,H}(X)_{ij}=
+\sum_{\pi=(i=r_0<\cdots<r_s=j)}
+\prod_{k=1}^{s-1}
+\frac{D(r_{k-1},r_k,r_{k+1})-H(i,r_k,j)}2
+\prod_{k=1}^sX_{r_{k-1},r_k}.
+\end{equation}
+Put $F_H=\Phi_{0,H}$, $G_D=\Phi_{D,0}$, and let $E_{ij}$ be $1$ when
+$j=i+1$ and $0$ otherwise. The one-part composition contributes $X_{ij}$;
+every other term uses only shorter intervals. Thus one solves
+$\Phi_{D,H}(X)=Y$ uniquely in increasing interval length, by subtracting
+the already determined nonunary terms from $Y_{ij}$. This gives a
+polynomial inverse on the finite array space. The constructed solution
+map is a right inverse; uniqueness applied to the target
+$\Phi_{D,H}(X)$ makes it a left inverse too.
+
+The following factorization holds for arbitrary near and far arrays:
+\begin{equation}\label{aspr:factorization}
+\Phi_{D,H}=F_H\circ G_D.
+\end{equation}
+Indeed, expand the right side using an outer composition of $[i,j]$ and
+an inner composition of each outer part. Their ordered union is a refined
+composition $\rho$, together with a subset of its interior cuts marked as
+outer cuts. Conversely, that subset recovers the outer composition, and
+restricting $\rho$ to each part recovers the inner compositions. These
+operations are inverse, including empty or full outer-cut subsets and
+one-part inner or outer compositions. At an outer cut $r_k$ the factor is
+$-H(i,r_k,j)/2$. At a nonouter cut its immediate neighbors in $\rho$
+are exactly its neighbors inside its inner part, so the factor is
+$D(r_{k-1},r_k,r_{k+1})/2$. Each interior cut supplies one factor, and the
+child-interval product is the refined product. Summing independently over
+the outer-cut subset gives the product of their sums, which is
+\eqref{aspr:Phi}.
+
+Write $b=\Phi_{D,H}^{-1}(E)$ and $c=F_H^{-1}(E)$. Applying
+\eqref{aspr:factorization} to the equation for $b$ gives
+$F_H(G_D(b))=E$; uniqueness gives $G_D(b)=c$. Applying the same
+factorization with $-H$ then gives
+\begin{equation}\label{aspr:near-free}
+\Phi_{D,-H}(b)=F_{-H}(c).
+\end{equation}
+Thus the complete root transform is independent of $D$ with $H$ fixed.
+For geometric arrays
+$D(x,y,z)=H(x,y,z)=\chi(a_z,a_y,a_x)$, the elementary gate identities
+$d\Theta(-hd)=(d-h)/2$ and $d\Theta(hd)=(d+h)/2$ show that
+$\Phi_{D,H}(b)=E$ is exactly the open-sum recursion, and its full
+$\Phi_{D,-H}(b)$ coordinate is $A_g$, including the one-part root term.
+The freedom in \eqref{aspr:near-free} concerns the complete transform;
+it asserts no equality of individual auxiliary and geometric open sums.
+
+\emph{The formal duplication problem.}
+Take a core ordered list $z_0,\ldots,z_M$, $M\geq2$, and distinguish
+$A=z_s$, where $0\leq s\leq M$. Insert a new occurrence $B$ immediately
+after $A$. The collapse $r$ sends $B$ to $A$ and fixes the other
+occurrences. Let $H^0$ be any core far array of signs, and let
+$t(X)\in\{-1,1\}$ be arbitrary for each core occurrence $X\ne A$.
+Assume the parent far array $H^1$ has the following entries, where order
+relations refer to positions in the linear lists:
+\begin{equation}\label{aspr:far-data}
+\begin{array}{ll}
+H^1\text{ on a triple not containing both }A,B
+   &\text{is the pullback of }H^0,\\
+H^1(X,A,B)=t(X)&(X<A),\\
+H^1(A,B,Y)=t(Y)&(B<Y).
+\end{array}
+\end{equation}
+Only the neighbors in the next display are read cyclically in the core:
+\begin{equation}\label{aspr:neighbor-data}
+\eta_-=t(z_{s-1\bmod(M+1)}),\qquad
+\eta_+=t(z_{s+1\bmod(M+1)}),\qquad
+k=\frac{\eta_-+\eta_+}{2}.
+\end{equation}
+We will prove that the full parent root output is $k$ times the core one.
+
+Choose auxiliary near arrays as follows. On core triples with middle
+occurrence $A$, set $D^0(X,A,Y)=t(X)$; on other core triples set $D^0=0$.
+On parent triples not containing both $A,B$, pull back $D^0$, and set
+\begin{equation}\label{aspr:near-data}
+D^1(X,A,B)=t(X)\ (X<A),\qquad
+D^1(A,B,Y)=t(Y)\ (B<Y).
+\end{equation}
+These are formal arrays, not a claimed chirotope. Keep the far arrays
+fixed. Let $b^0=\Phi_{D^0,H^0}^{-1}(E^0)$, and propose the following
+parent ordinary array:
+\begin{equation}\label{aspr:ordinary-table}
+\begin{array}{c|c}
+\text{parent interval }I&b^1_I\\\hline
+I\text{ not containing both }A,B&b^0_{r(I)}\\
+{[A,B]}&1\\
+{[A,Y]},\ B<Y&\dfrac{\eta_+-t(Y)}2\,b^0_{[A,Y]}\\
+{[X,B]},\ X<A&\dfrac{\eta_--t(X)}2\,b^0_{[X,A]}\\
+{[X,Y]},\ X<A<B<Y&k\,b^0_{[X,Y]}
+\end{array}
+\end{equation}
+Consecutiveness of $A,B$ makes these cases exhaustive. Apart from the
+explicit singleton $[A,B]$, the collapsed endpoints are distinct. We
+verify $\Phi_{D^1,H^1}(b^1)=E^1$ on every interval before identifying
+$b^1$ with the actual auxiliary ordinary solution.
+
+\emph{Intervals without the duplicate and the singleton.}
+On an interval not containing both occurrences, collapse is an
+order-preserving bijection on vertices, compositions, gates and child
+intervals. Thus its transform is the corresponding core $E^0$ entry,
+which equals its parent $E^1$ entry. On $[A,B]$ the sole composition has
+one part and value $1$, as required.
+
+\emph{Intervals starting at $A$.}
+Fix $[A,Y]$ with $B<Y$. For a core composition of $[A,Y]$, write $X$
+for its first boundary after $A$. There are exactly two parent
+presentations. Without a cut at $B$, its first child contains $A,B$ and
+has multiplier $(\eta_+-t(X))/2$. With a cut at $B$, the first child is
+the singleton $[A,B]$, and the rest is the core composition with its
+first endpoint renamed $B$. Its new gate at $B$ has near entry $t(X)$
+and far entry $t(Y)$. Removing the cut at $B$, when present, recovers
+the core composition; its presence distinguishes the two inverse
+expansions. All other children agree, the neighboring near gate pulls
+$B$ back to $A$, and all other far entries are the stipulated pullbacks.
+The sum of the two local multipliers is, for an ordinary top vertex,
+\begin{equation}\label{aspr:first-ordinary}
+\frac{\eta_+-t(X)}2+\frac{t(X)-t(Y)}2
+=\frac{\eta_+-t(Y)}2,
+\end{equation}
+and for a root top vertex it is
+\begin{equation}\label{aspr:first-root}
+\frac{\eta_+-t(X)}2+\frac{t(X)+t(Y)}2
+=\frac{\eta_++t(Y)}2.
+\end{equation}
+In each case $t(X)$ cancels, leaving a composition-independent multiplier
+of the corresponding core transform. The ordinary transform vanishes
+when the core has at least two leaves, since its $E^0$ entry is zero.
+When the core has one leaf, $Y$ is the actual successor of $A$, so
+$t(Y)=\eta_+$ and the ordinary multiplier itself vanishes. Thus every
+such parent ordinary coordinate has its required zero value, including
+the two-leaf parent interval.
+
+\emph{Intervals ending at $B$.}
+Fix $[X,B]$ with $X<A$. In a core composition of $[X,A]$, let $Y$
+be the last boundary before $A$. Without a cut at $A$ the last child
+contains the soft edge and has multiplier $(\eta_--t(Y))/2$.
+With that cut it ends in the singleton $[A,B]$; the new gate has near
+entry $t(Y)$ and far entry $t(X)$. Remove the cut $A$ when present
+and rename the endpoint $B$ as $A$ to recover the core list. The cut's
+presence distinguishes the two expansions. The neighboring near gate
+pulls $B$ back to $A$ and all other factors agree. Consequently the
+ordinary and root multipliers are, respectively,
+\begin{equation}\label{aspr:last-ordinary}
+\frac{\eta_--t(Y)}2+\frac{t(Y)-t(X)}2
+=\frac{\eta_--t(X)}2,
+\end{equation}
+\begin{equation}\label{aspr:last-root}
+\frac{\eta_--t(Y)}2+\frac{t(Y)+t(X)}2
+=\frac{\eta_-+t(X)}2.
+\end{equation}
+For a core interval with at least two leaves its ordinary transform is
+zero. For one leaf, $X$ is the actual predecessor of $A$, so
+$t(X)=\eta_-$ and the multiplier is zero. This checks the other
+two-leaf parent boundary as well.
+
+\emph{Intervals strictly spanning $A,B$.}
+Fix $[X,Y]$ with $X<A<B<Y$. Collapse every parent cut list, retaining
+only one copy when both $A,B$ are cuts. If the resulting core
+composition does not cut at $A$, it has exactly one child spanning $A$.
+It has exactly one parent presentation, with neither $A$ nor $B$ a cut;
+that child strictly spans the duplicate and has multiplier $k$.
+All top gates pull back unchanged. This includes the one-part
+composition: the proposed leading $b^1$ coordinate is being checked,
+not assumed to satisfy a recurrence.
+
+If the core composition cuts at $A$, let $L,R$ be its neighboring cuts
+and put $a=t(L)$, $b=t(R)$ and $h=H^0(X,A,Y)$. Its core near entry at
+$A$ is $a$. There are precisely three parent presentations:
+\begin{equation}\label{aspr:three-presentations}
+\begin{array}{c|c}
+\text{cuts among }A,B&\text{exceptional child multiplier}\\\hline
+B\text{ only}&(\eta_--a)/2\\
+A\text{ only}&(\eta_+-b)/2\\
+A\text{ and }B&1\quad([A,B]\text{ is a singleton})
+\end{array}
+\end{equation}
+Collapse recovers the core composition, while its subset of cuts among
+$A,B$ recovers the row; expanding according to each row is the inverse.
+The fourth subset, neither cut, gives the preceding no-core-cut case
+and cannot occur here. The neighboring gate at $L$ has right neighbor
+$A$ or $B$, both pulling back to $A$; the neighboring gate at $R$
+has the analogous left neighbor. Their near entries are unchanged.
+The far entries at $A$ and $B$ both pull back to $h$, and all exterior
+gates and remaining child factors agree with the core.
+
+For an ordinary top, either one-cut row has the core gate $(a-h)/2$;
+the two-cut row replaces it by $(a-h)(b-h)/4$. The two one-cut child
+multipliers sum to $k-(a+b)/2$. After subtracting $k$ times the core
+gate, the residual is therefore
+\begin{equation}\label{aspr:ordinary-residual}
+R_{\rm o}=-\frac{a+b}{2}\frac{a-h}{2}
+               +\frac{(a-h)(b-h)}4.
+\end{equation}
+Factoring $(a-h)/4$ leaves $-(a+b)+(b-h)=-a-h$, so
+\begin{equation}\label{aspr:ordinary-factor}
+R_{\rm o}=\frac{(a-h)(-a-h)}4=\frac{h^2-a^2}{4}=0.
+\end{equation}
+The last equality uses exactly $a,h\in\{-1,1\}$.
+For a root top the corresponding residual is
+\begin{equation}\label{aspr:root-residual}
+R_{\rm r}=-\frac{a+b}{2}\frac{a+h}{2}
+               +\frac{(a+h)(b+h)}4.
+\end{equation}
+Factoring $(a+h)/4$ leaves $-(a+b)+(b+h)=-a+h$, so
+\begin{equation}\label{aspr:root-factor}
+R_{\rm r}=\frac{(a+h)(-a+h)}4=\frac{h^2-a^2}{4}=0.
+\end{equation}
+Thus both transforms equal $k$ times their respective core transforms
+on every strictly spanning interval. Such a core interval has at least
+two leaves, so its ordinary $E^0$ entry is zero. No relation among
+different remote values of $t$ was used.
+
+All interval cases have now verified
+$\Phi_{D^1,H^1}(b^1)=E^1$. Finite triangular uniqueness proved above
+identifies \eqref{aspr:ordinary-table} with the actual auxiliary
+ordinary solution. The root transforms already checked therefore
+compute the actual auxiliary root outputs. We did not assume that any
+auxiliary binary open sum vanishes.
+
+For the full interval, if $0<s<M$ the strictly spanning multiplier is
+$k$. If $s=0$, the final endpoint $Y=z_M$ is the cyclic predecessor of
+$A$, so $t(Y)=\eta_-$ and \eqref{aspr:first-root} gives $k$. If $s=M$,
+the initial endpoint $X=z_0$ is the cyclic successor of $A$, so
+$t(X)=\eta_+$ and \eqref{aspr:last-root} gives $k$. These are all
+positions. Finally \eqref{aspr:near-free}, applied separately to the
+parent and core, restores their geometric near arrays without changing
+their complete root outputs. This proves the formal duplication identity.
+
+\emph{Specialization to the soft polygon.}
+Write $A=\mu_j$ and $B=A+\varepsilon q$, and let the parent have
+$n+1$ vertices, so the fixed core $P$ has $n\geq3$ vertices. Every
+parent determinant not containing both $A,B$ either is a core
+determinant or replaces $A$ by $A+\varepsilon q$ in one. For example,
+bilinearity gives
+\begin{equation}\label{aspr:det-clearance}
+\det(X-A-\varepsilon q,Y-A-\varepsilon q)
+=\det(X-A,Y-A)-\varepsilon\det(q,Y-X).
+\end{equation}
+The potential quadratic term vanishes because $\det(q,q)=0$;
+alternation gives the same bound when $A$ is in another position.
+The core has finitely many nonzero distinct-triple determinants, so
+their absolute values have a positive minimum $\delta$. The finitely
+many coefficients $\det(q,Y-X)$ have a finite maximum absolute value
+$K$. Choose a common positive tail with $\varepsilon K<\delta$ when
+$K>0$; if $K=0$, no restriction is needed. On this tail every such
+parent sign equals its pulled-back core sign. All core edges have a
+positive minimum length; shrinking further if necessary also keeps
+the return edge $\widetilde\lambda_j-\varepsilon q$ nonzero. Take this
+tail inside $(0,\varepsilon_0)$.
+
+For every other core vertex $X$, set
+\begin{equation}\label{aspr:geometric-t}
+t(X)=\chi(B,A,X)=-\operatorname{sgn}\det(q,X-A).
+\end{equation}
+Indeed $A-B=-\varepsilon q$ and $X-B=X-A-\varepsilon q$, so their
+determinant is $-\varepsilon\det(q,X-A)$. Admissibility makes it
+nonzero. For a boundary triple $(X,A,B)$ the far entry is $t(X)$;
+for $(A,B,Y)$ it is $\chi(Y,B,A)=\chi(B,A,Y)=t(Y)$ by a cyclic
+permutation. Together with the common-tail calculation, these are
+exactly \eqref{aspr:far-data}.
+
+The two cyclic neighboring values are the stated attachments. Writing
+$u=\mu_j-\mu_{j-1}$ and $v=\mu_{j+1}-\mu_j$, the predecessor gives
+\begin{equation}\label{aspr:attachment-minus}
+t(\mu_{j-1})=-\operatorname{sgn}\det(q,-u)
+             =-\operatorname{sgn}\det(u,q)=\chi_-;
+\end{equation}
+the equality follows from bilinearity and antisymmetry. The successor
+gives directly
+\begin{equation}\label{aspr:attachment-plus}
+t(\mu_{j+1})=-\operatorname{sgn}\det(q,v)=\chi_+.
+\end{equation}
+
+Cut the boundary word immediately after the specified nonsoft root.
+The occurrences $A,B$ are consecutive in this linear word. If the root
+is the incoming edge ending at $A$, the word is soft-first ($s=0$).
+If it is the return edge starting at $B$, the word is soft-last
+($s=M$). Every other nonsoft root gives the strictly spanning case.
+Here the core word has $M=n-1\geq2$, so the formal result applies even
+to a triangle core; no two-gon amplitude is invoked. Collapse of $B$
+to $A$ retains each other root's physical endpoints, except that the
+return edge becomes the core edge $E_j=[\mu_j,\mu_{j+1}]$. Thus the
+collapsed word is exactly the boundary word of $(P,g')$, including
+cyclic wraparound. The soft root itself would put $A,B$ at opposite
+ends of the cut word and has been excluded throughout.
+
+The duplication identity now gives \eqref{aspr:soft-law} with
+$k=(\chi_-+\chi_+)/2$. Evaluating this expression on the three
+attachment-sign patterns gives the sector multipliers in the
+statement. Neither the crossing classification of the soft family
+nor a rotation formula for it was needed in this calculation.
+\end{proof}
+
+\begin{lemma}[the local vertex identity]\label{lem:softvertex}
+Let $P$ be generic, $q$ admissible and $0<\varepsilon<\varepsilon_0$ as in
+Lemma~\ref{lem:soft-generic}; in the soft insertion, let $\pi$ be a
+composition of an interval of the boundary word of $(P_\varepsilon,g)$ whose
+first part is the single soft leaf, $\pi=(\mu_j,\mu_*,a_2,\ldots,a_m)$ in the
+main text's notation $(1,2,a_2,\ldots,n)$. Then, for every such $\varepsilon$,
+\[
+V^\pm(\mu_j,\mu_*,a_2,\ldots,a_m)=
+\frac{\chi(\mu_*,\mu_j,a_2)\mp\chi(\mu_*,\mu_j,a_m)}{2}\,
+V^\pm(\mu_j,a_2,\ldots,a_m),
+\]
+the unlabelled local vertex identity following the main text's
+\mt{eq:softinsertionlaw}. \status{proved (refereed: bench A 2026-09-12T07:48:52Z, bench B 2026-09-12T07:39:15Z; SM1-carried, read on SM12 by both benches, repaired in round 12 (F-25-192) and round 13 (F-25-198), re-read on SM13 and SM14 by both benches)}
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:soft-generic}(i) $P_\varepsilon$ satisfies (G1), so
+Lemma~\ref{lem:gates-nonzero} applies to it: the gate at the cut $\mu_*$ has
+near sign $d=\chi(a_2,\mu_*,\mu_j)=\chi(\mu_*,\mu_j,a_2)$ and far sign
+$h=\chi(a_m,\mu_*,\mu_j)=\chi(\mu_*,\mu_j,a_m)$ (cyclic permutations), and its
+ordinary and root values are $(d\mp h)/2$. The right side is read in the
+boundary word of $(P,g)$, identified with that of $(P_\varepsilon,g)$ with
+$\mu_*$ deleted through the identification of the edges of $P_\varepsilon$
+with those of $P$ in Lemma~\ref{lem:soft-generic}(iii). Every other gate of
+$\pi$ reads a triple in which $\mu_*$ occurs only as the neighbour $a_1$ of
+the cut $a_2$, and for $0<\varepsilon<\varepsilon_0$ the determinant of the
+triple $(a_3,a_2,\mu_*)$ is continuous in $\varepsilon$ and nonzero by (G1)
+of $P_\varepsilon$ (Lemma~\ref{lem:soft-generic}(i)), hence of constant sign
+on that connected interval, equal to its nonzero limit $\chi(a_3,a_2,\mu_j)$
+as $\varepsilon\to0$; the far signs of $\pi$ do not involve $\mu_*$.
+\end{proof}
+
+\subsection{Reversal and shift}
+
+\begin{proposition}[reversal and cyclic shift]\label{prop:A-reversal}
+For every polygon satisfying (G1) and every root $g$:
+\begin{enumerate}
+\item[(i)] $A_g(\sigma P)=A_{g+1}(P)$.
+\item[(ii)] With $\overline P_i=\mu_{2-i}$ and $g^\vee=1-g$,
+\begin{equation}\label{arpr:reversal}
+A_{g^\vee}(\overline P)=(-1)^nA_g(P).
+\end{equation}
+\end{enumerate}
+All vertex and edge indices in this statement are read modulo $n$.
+\status{proved (refereed: bench A, 2026-09-05T15:51:04Z; transcribed from RC mt:covariance; appendix\_v7 eq:treecuts (C017; F-25-20))}
+\end{proposition}
+\begin{proof}
+The relabellings preserve (G1), because they permute distinct vertex
+triples. Put $N=n-1$. For the shift, the boundary vertex at position
+$k$ of $(\sigma P,g)$ is $\mu_{g+2+k}$, which is precisely position
+$k$ of $(P,g+1)$. Every interval composition, near sign and far sign
+is therefore identical. Induction on interval length in the open-sum
+recursion gives equality of all open sums, and the complete root sums
+agree, proving (i).
+
+For reversal, edge $g^\vee$ runs from
+$\mu_{2-g^\vee}=\mu_{g+1}$ to
+$\mu_{1-g^\vee}=\mu_g$, the reverse of the original physical root.
+If $a_k=\mu_{g+1+k}$ is the original boundary word and $a'_k$ the
+word at this reversed root, then
+\begin{equation}\label{arpr:boundary}
+a'_k=\overline\mu_{g^\vee+1+k}
+     =\mu_{1-g^\vee-k}=\mu_{g-k}=a_{N-k}
+\qquad(0\leq k\leq N).
+\end{equation}
+In the last equality the indices differ by $n$.
+
+Use the tree expression of Lemma~\ref{lem:treesum-trees}.
+Reflect the order of the children at every internal vertex of a
+rooted plane tree, and relabel boundary positions by $k\mapsto N-k$.
+This is an involution on the tree set: the root is still allowed one
+or more children, ordinary vertices still have at least two, and leaf
+order is exactly the reversed boundary order. A composition
+$(r_0<\cdots<r_s)$ becomes
+$(N-r_s<\cdots<N-r_0)$ on the reflected interval. At corresponding
+cuts its ordered near triple reverses its first and last entries;
+the same is true of its ordered far triple. Thus $d'=-d$ and $h'=-h$.
+The product $h'd'=hd$, so either gate retains its step-function
+argument and acquires precisely one minus sign:
+\begin{equation}\label{arpr:gate}
+d'\Theta(\mp h'd')=-d\Theta(\mp hd).
+\end{equation}
+This holds for both ordinary and root gates, including zero factors.
+The separate factor $(-1)$ for each ordinary internal vertex is
+unchanged by the involution.
+
+If the tree has $I$ internal vertices and $N$ leaves, its number of
+child edges is $I+N-1$. The sum of the arities over internal vertices
+counts each child edge once. A vertex of arity $s$ contributes $s-1$
+gates, so the total number of gates is
+\begin{equation}\label{arpr:gate-count}
+\sum_{v\text{ internal}}(s_v-1)
+=(I+N-1)-I=N-1=n-2.
+\end{equation}
+A unary root contributes zero to this count, so its allowed presence
+creates no exception. Every corresponding tree term therefore differs
+by $(-1)^{n-2}=(-1)^n$. Summing over the involution gives
+\eqref{arpr:reversal}. For $n=3$ the same count is one; no exceptional
+base convention is required. Neither part proves or assumes root
+independence on a fixed polygon.
+\end{proof}
+
+\begin{remark}[rooted scope]\label{thm:root-independence}
+The construction and the local laws in this section retain the specified
+root. None of their proofs assumes root independence on a fixed polygon.
+\end{remark}

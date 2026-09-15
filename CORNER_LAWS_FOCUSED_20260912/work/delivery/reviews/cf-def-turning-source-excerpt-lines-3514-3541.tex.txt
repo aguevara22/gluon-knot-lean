@@ -1,0 +1,28 @@
+\begin{definition}[direction loops and smooth rotation]\label{cf:def-turning}
+A \emph{direction loop} is a continuous map $T\colon\RR/\ZZ\to S^1$ into
+the unit circle of the oriented plane. A \emph{tangent-angle lift} of $T$
+at a seam is a continuous $\theta\colon[0,1]\to\RR$ with
+$T(s)=(\cos\theta(s),\sin\theta(s))$ for $0\leq s\leq1$; put
+\[
+   \operatorname{tw}(T)=\frac{\theta(1)-\theta(0)}{2\pi}.
+\]
+For a closed $C^1$ regular oriented curve $\gamma\colon\RR/\ZZ\to\RR^2$,
+that is, with $\gamma'\neq0$ everywhere, put
+\[
+   T_\gamma=\frac{\gamma'}{|\gamma'|},\qquad
+   \rot(\gamma)=\operatorname{tw}(T_\gamma).
+\]
+For a polygon in the regular locus, $\rot$ remains that of
+Lemma~\ref{lem:rot}. For either a polygon or a $C^1$ regular closed curve
+put $R(L)=|\rot(L)|$. The lemma that follows constructs the lift and
+proves that these values do not depend on its choice, on the seam, or on
+an orientation-preserving regular reparametrisation. (Transcribed from CV
+def:rot, paragraph ``Direction loops and smooth curves'', d1\_setup;
+F-25-88.)
+\end{definition}
+
+The geometric constructions are transcribed from the pinned CV floor
+proof. Its recorded counterpart attribution for the rational curl,
+affine insertion and dual-vector argument is retained; printing these
+proofs claims responsibility for the translation, not their authorship.
+

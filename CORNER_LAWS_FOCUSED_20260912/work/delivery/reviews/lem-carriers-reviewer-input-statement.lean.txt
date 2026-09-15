@@ -1,0 +1,131 @@
+-- Reviewer input for row lem:carriers, 2026-09-13. work/lean/SM/CarriersLemma.lean with the proof replaced by sorry.
+import SM.CarrierNoncrossing
+import SM.CarrierCornerPolygon
+import SM.CarrierSelfIntersections
+import SM.SmoothingDefinition
+
+/-! Source lem:carriers (reference/SM/sm-3-statesum.tex:54, frame SM15): subpolygons and their
+visit assignment, clauses (i)–(iv). Main declaration: `SM.carriers_lemma`.
+
+Notation (finite successor model of the source proof, sm-3:96-116; def:smoothing
+`SM.smoothing_definition`, conv:selected-visits `SM.selected_visits_convention`): the marked
+traversal circle is `Carrier.Mark P`, `ρ = markSuccessor`, `ρ_S = smoothingSuccessor hn hP S`, the
+carriers are `Carrier.Component hn hP S` (cycles of `ρ_S`; `ρ_S` is defined from `S` alone, so it does
+not depend on any order of reconnections), `owner hn hP S a` is the carrier of the mark `a`
+(incoming-visit convention), `componentCycle hn hP S q` is the cycle of `q` in the cyclic order
+inherited from the marked circle, `InheritsMarkOrder` says each carrier traverses its marks in that
+inherited order (`componentCycle.next = ρ_S`); the corner polygon of `q` is
+`ccpCornerPolygon hn hP S q : LabelledTuple (ccpCornerCount hn hP S q)` (its corners
+`ccpCornerMark`: the original vertices `Sum.inl i` and the selected visits `Sum.inr v`, `v.1 ∈ S`,
+owned by `q`, in inherited order), its edges being the compressed straight pieces between
+consecutive corners (`smoothingSegment` traces), `edge P e = d_e` the original directions,
+`turn = τ`, `crossingSign P i j = sgn det(d_i, d_j)`, `Regular` the regular locus (nonzero edges, no
+antiparallel consecutive directions); the traced curve of `q` at the parameter `(a, u)`
+(`IsCarrierParameter`) is `carrierTrace hn hP S (a, u) = smoothingSegment hn hP S a u`,
+`IsSelfIntersection` / `IsTriplePoint` are points traced at two / three distinct parameters;
+`carrierCrossings hn hP S q` are the unselected crossings both of whose visits are owned by `q`
+(def:smoothing); `supportNeighbors hn hP S = N(S)`, `supportUnselected hn hP S = U(S)`
+(def:interlace); `traversalBetween` is the strict oriented cyclic order on the traversal circle and
+`visitPosition` the position of a visit. Proofs: the previous executor's Carrier lane (clause (i))
+and the prover-subagent modules CarrierCornerPolygon (ii), CarrierCrossings /
+CarrierNeighborSeparation / CarrierSelfIntersections (iii), CarrierNoncrossing (iv), all ported
+verbatim. -/
+
+namespace SM
+
+open Carrier
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n]
+
+/-- The four printed clauses of lem:carriers at one independent support `S`. -/
+structure CarriersLemmaData (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (S : Finset (Crossing P)) : Prop where
+  /-- (i) exactly `|S| + 1` carriers -/
+  count : Fintype.card (Component hn hP S) = S.card + 1
+  /-- (i) each carrier traverses the visits assigned to it in the cyclic order inherited from the
+  original traversal circle -/
+  component_cycle : ∀ q : Component hn hP S,
+    componentCycle hn hP S q = (markCycle hn hP).filter (fun m => decide (owner hn hP S m = q))
+  inherited_order : InheritsMarkOrder hn hP S
+  /-- (i) the two visits of a selected crossing belong to different carriers -/
+  selected_visits_separated : ∀ v : Visit P, v.1 ∈ S →
+    owner hn hP S (Sum.inr v) ≠ owner hn hP S (Sum.inr (visitTwin v))
+  /-- (ii) every carrier (as its corner polygon) has nonzero edges, at least three corners, no
+  antiparallel consecutive directions, all corner turns nonzero; at an original vertex `i` the turn
+  sign is `τ_i`; at a selected crossing of `E_i, E_j` the two smoothing corners have signs
+  `sgn det(d_i, d_j)` and `sgn det(d_j, d_i)`, one left and one right -/
+  corner_polygons :
+    (∀ q : Component hn hP S,
+    (⋃ a ∈ {a : Mark P | owner hn hP S a = q}, smoothingSegment hn hP S a '' Set.Icc 0 1) =
+    ⋃ j : ZMod (ccpCornerCount hn hP S q), edgeSegment (ccpCornerPolygon hn hP S q) j) ∧
+    (∀ (q : Component hn hP S) (j : ZMod (ccpCornerCount hn hP S q)),
+    edge (ccpCornerPolygon hn hP S q) j ≠ 0 ∧
+    ∃ (c : ℝ) (e : ZMod n), 0 < c ∧ edge (ccpCornerPolygon hn hP S q) j = c • edge P e) ∧
+    (∀ q : Component hn hP S, 3 ≤ ccpCornerCount hn hP S q) ∧
+    (∀ (q : Component hn hP S) (j : ZMod (ccpCornerCount hn hP S q)),
+    ¬ ∃ r : ℝ, r < 0 ∧
+    edge (ccpCornerPolygon hn hP S q) j = r • edge (ccpCornerPolygon hn hP S q) (j - 1)) ∧
+    (∀ q : Component hn hP S, Regular (ccpCornerPolygon hn hP S q)) ∧
+    (∀ (q : Component hn hP S) (j : ZMod (ccpCornerCount hn hP S q)),
+    turn (ccpCornerPolygon hn hP S q) j ≠ 0) ∧
+    (∀ (q : Component hn hP S) (j : ZMod (ccpCornerCount hn hP S q)) (i : ZMod n),
+    ccpCornerMark hn hP S q j = Sum.inl i → turn (ccpCornerPolygon hn hP S q) j = turn P i) ∧
+    (∀ (v : Visit P), v.1 ∈ S →
+    owner hn hP S (Sum.inr v) ≠ owner hn hP S (Sum.inr (visitTwin v)) ∧
+    ∃ (j : ZMod (ccpCornerCount hn hP S (owner hn hP S (Sum.inr v))))
+    (j' : ZMod (ccpCornerCount hn hP S (owner hn hP S (Sum.inr (visitTwin v))))),
+    ccpCornerMark hn hP S _ j = Sum.inr v ∧
+    ccpCornerMark hn hP S _ j' = Sum.inr (visitTwin v) ∧
+    turn (ccpCornerPolygon hn hP S _) j = crossingSign P v.2.val (visitTwin v).2.val ∧
+    turn (ccpCornerPolygon hn hP S _) j' = crossingSign P (visitTwin v).2.val v.2.val ∧
+    turn (ccpCornerPolygon hn hP S _) j' = - turn (ccpCornerPolygon hn hP S _) j ∧
+    ((turn (ccpCornerPolygon hn hP S _) j = 1 ∧ turn (ccpCornerPolygon hn hP S _) j' = -1) ∨
+    (turn (ccpCornerPolygon hn hP S _) j = -1 ∧ turn (ccpCornerPolygon hn hP S _) j' = 1)))
+  /-- (iii) a carrier's self-intersections are exactly the unselected crossings both of whose
+  visits are assigned to it; they are transverse, none is a corner, no carrier has a triple point -/
+  self_intersections : ∀ q : Component hn hP S,
+    (∀ x : Plane, IsSelfIntersection hn hP S q x ↔
+    ∃ c ∈ carrierCrossings hn hP S q, x = crossingPoint c) ∧
+    (∀ c ∈ carrierCrossings hn hP S q, ∀ w : Visit P, w.1 = c →
+    det (edge P w.2.val) (edge P (visitTwin w).2.val) ≠ 0 ∧
+    (∃ c₁ : ℝ, 0 < c₁ ∧ smoothingSegment hn hP S (Sum.inr w) 1 -
+    smoothingSegment hn hP S (Sum.inr w) 0 = c₁ • edge P w.2.val) ∧
+    (∃ c₂ : ℝ, 0 < c₂ ∧ smoothingSegment hn hP S (Sum.inr (visitTwin w)) 1 -
+    smoothingSegment hn hP S (Sum.inr (visitTwin w)) 0 = c₂ • edge P (visitTwin w).2.val) ∧
+    det (smoothingSegment hn hP S (Sum.inr w) 1 - smoothingSegment hn hP S (Sum.inr w) 0)
+    (smoothingSegment hn hP S (Sum.inr (visitTwin w)) 1 -
+    smoothingSegment hn hP S (Sum.inr (visitTwin w)) 0) ≠ 0) ∧
+    (∀ c ∈ carrierCrossings hn hP S q,
+    (∀ k : ZMod n, crossingPoint c ≠ P k) ∧
+    (∀ c' ∈ S, crossingPoint c ≠ crossingPoint c') ∧
+    (∀ w : Visit P, w.1 = c → ¬ IsTrueCorner S (Sum.inr w)) ∧
+    ∀ m : Mark P, IsTrueCorner S m →
+    traversalEvaluation P (markPosition hn hP.1 m) ≠ crossingPoint c) ∧
+    (∀ x : Plane, ¬ IsTriplePoint hn hP S q x)
+  /-- (iii) an unselected crossing interlacing some element of `S` has its visits on different
+  carriers; one interlacing no element of `S` has both visits on one carrier -/
+  neighbor_visits_separated : ∀ x ∈ supportNeighbors hn hP S, ∀ v : Visit P, v.1 = x →
+    owner hn hP S (Sum.inr v) ≠ owner hn hP S (Sum.inr (visitTwin v))
+  nonneighbor_visits_together : ∀ x ∈ supportUnselected hn hP S, ∀ v w : Visit P,
+    v.1 = x → w.1 = x → owner hn hP S (Sum.inr v) = owner hn hP S (Sum.inr w)
+  /-- (iv) the assignment of all crossing visits (selected visits included) is noncrossing -/
+  noncrossing :
+    ¬ ∃ u₁ u₂ u₃ u₄ : Visit P,
+    (u₁ ≠ u₂ ∧ u₁ ≠ u₃ ∧ u₁ ≠ u₄ ∧ u₂ ≠ u₃ ∧ u₂ ≠ u₄ ∧ u₃ ≠ u₄) ∧
+    traversalBetween (visitPosition hn hP.1 u₁) (visitPosition hn hP.1 u₂)
+    (visitPosition hn hP.1 u₃) ∧
+    traversalBetween (visitPosition hn hP.1 u₃) (visitPosition hn hP.1 u₄)
+    (visitPosition hn hP.1 u₁) ∧
+    owner hn hP S (Sum.inr u₁) = owner hn hP S (Sum.inr u₃) ∧
+    owner hn hP S (Sum.inr u₂) = owner hn hP S (Sum.inr u₄) ∧
+    owner hn hP S (Sum.inr u₁) ≠ owner hn hP S (Sum.inr u₂)
+
+/-- lem:carriers (i)–(iv), as printed on SM15, for every generic `P` with `n ≥ 3` and every
+independent set `S` of crossings (every decomposition). -/
+theorem carriers_lemma (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    {S : Finset (Crossing P)} (hS : IsDecomposition hn hP S) : CarriersLemmaData hn hP S := by
+  sorry -- proof withheld from the reviewer
+
+end SM

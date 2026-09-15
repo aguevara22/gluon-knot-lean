@@ -1,0 +1,217 @@
+{
+  "state": "exact candidate body comparison and canonical trace preparation complete; installation, audit and independent canonical kernel pending",
+  "port_manifest": "work/checks/tree-laws-port-preparation-with-chamber.json",
+  "port_manifest_sha256": "b6ad23b23431b8c96812b650e76ca099dd4c1cafcad156aed9f7d3cdaa5fbd43",
+  "ports": {
+    "work/lean/SM/TreeCoefficient.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/TreeCoefficient.lean",
+      "candidate_sha256": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "source_fragments": [
+        {
+          "source": "work/checks/TreeCoefficient.body.lean",
+          "source_sha256": "d4e251f9b331f12bb5a9625c661928639d3606c3f253a94ef21144ea8b73f8c6"
+        },
+        {
+          "source": "work/checks/TreeCoefficientTransport.body.lean",
+          "source_sha256": "922287e0a90987f2d5f0206e5198512c4d62beb8a7e4aa48f620a149af580c7f"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.Gates",
+        "SM.FiniteCompositions"
+      ]
+    },
+    "work/lean/SM/TreeChamber.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/TreeChamber.lean",
+      "candidate_sha256": "a9a657675002c2f2ca28cbcc790de3f235e3561a28c44209b6341df8baa88961",
+      "source_fragments": [
+        {
+          "source": "work/checks/TreeChamber.body.lean",
+          "source_sha256": "ffd49c183bf6509f56bd10cbd7e87a775d6caa4e86080f814fbbb0ddce6cc52b"
+        },
+        {
+          "source": "work/checks/TreeChamberClaim.body.lean",
+          "source_sha256": "bb181ce0d8265180429fb6fe6b6b6c9d59f6fb1e8f7d8bc60459e1e3d4c1c904"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.TreeCoefficient",
+        "SM.CyclicChambers"
+      ]
+    },
+    "work/lean/SM/PlaneTreeShape.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeShape.lean",
+      "candidate_sha256": "749fc1127dc506251ea5c081636580ab02797425f4092d6d15ef39541d4d753b",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeShape.body.lean",
+          "source_sha256": "73a8c3488fef9e80ce7e5b654698ac6fa24c405a5f7eaa8620b676de2aadab6e"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.FiniteCompositions",
+        "Mathlib.Tactic"
+      ]
+    },
+    "work/lean/SM/PlaneTreeWeights.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeWeights.lean",
+      "candidate_sha256": "bc0e6a06e62193b96fba3a7327ce035422ca0b8be6da2f87c22b0d1e1035eda0",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeWeights.body.lean",
+          "source_sha256": "99c8f8c1d0bcbed0b713a70d392e49a4ea8e3eb0a920f44846c176fbde2343c3"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.PlaneTreeShape"
+      ]
+    },
+    "work/lean/SM/PlaneTreeExpansion.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeExpansion.lean",
+      "candidate_sha256": "c8730af354e242689181de79683ad35e5ab1e052637aa17ee50e95de475c3877",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeExpansion.body.lean",
+          "source_sha256": "7097e3e53ca86b3407969f958cba9dec68d5f6f508117e0648914780b24ed2ad"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.TreeCoefficient",
+        "SM.PlaneTreeWeights"
+      ]
+    },
+    "work/lean/SM/PlaneTreeFormal.lean": {
+      "candidate": "work/checks/tree-laws-port-candidate-with-chamber/SM/PlaneTreeFormal.lean",
+      "candidate_sha256": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+      "source_fragments": [
+        {
+          "source": "work/checks/PlaneTreeFormal.body.lean",
+          "source_sha256": "1d91dac2558d1b76cd0624e0fb94e393f394f6cf6235990d98bf1f3156dddecf"
+        }
+      ],
+      "fragment_bodies_byte_for_byte_equal": true,
+      "imports": [
+        "SM.PlaneTreeExpansion",
+        "Mathlib.Algebra.MvPolynomial.Eval"
+      ]
+    }
+  },
+  "prior_SM_count": 288,
+  "all_288_prior_SM_unchanged": true,
+  "checked_declarations": [
+    "SM.openTreeRec",
+    "SM.rootedTreeRec",
+    "SM.openTreeRec_one",
+    "SM.openTreeRec_many",
+    "SM.fullBoundaryInterval",
+    "SM.openTreeSum",
+    "SM.treeCoefficient",
+    "SM.mainTreeCoefficient",
+    "SM.openTreeSum_one",
+    "SM.openTreeSum_many",
+    "SM.treeCoefficient_eq",
+    "SM.treesumData",
+    "SM.IntervalComposition.nearSign_eq_of_chi",
+    "SM.IntervalComposition.farSign_eq_of_chi",
+    "SM.IntervalComposition.ordinaryWeight_eq_of_chi",
+    "SM.IntervalComposition.rootWeight_eq_of_chi",
+    "SM.openTreeSum_eq_of_chi",
+    "SM.treeCoefficient_eq_of_chi",
+    "SM.openTreeSum_shift",
+    "SM.treeCoefficient_shift",
+    "SM.mainTreeCoefficient_shift",
+    "SM.treesumData_shift",
+    "SM.tree_data_eq_of_chi",
+    "SM.labelled_chamber_chi_constant",
+    "SM.tree_data_labelled_chamber_constant",
+    "SM.tree_data_G1_path_constant",
+    "SM.treeCoefficient_quotient_chamber_transport",
+    "SM.OpenPlaneTree",
+    "SM.openPlaneTreeUngraft",
+    "SM.openPlaneTree_finite",
+    "SM.RootedPlaneTree",
+    "SM.OpenPlaneTree.weight",
+    "SM.OpenPlaneTree.ordinaryCount",
+    "SM.OpenPlaneTree.ordinaryProduct",
+    "SM.OpenPlaneTree.weight_eq_signed_product",
+    "SM.RootedPlaneTree.weight",
+    "SM.RootedPlaneTree.ordinaryCount",
+    "SM.RootedPlaneTree.ordinaryProduct",
+    "SM.RootedPlaneTree.weight_eq_signed_product",
+    "SM.openPlaneTreeSum",
+    "SM.OpenPlaneTree.eq_leaf",
+    "SM.openPlaneTreeSum_one",
+    "SM.openPlaneTreeSum_many",
+    "SM.openTreeRec_eq_planeTreeSum",
+    "SM.rootedTreeRec_eq_planeTreeSum",
+    "SM.rootedTreeRec_eq_signed_planeTreeSum",
+    "SM.OpenPlaneTree.map_weight",
+    "SM.RootedPlaneTree.map_weight",
+    "SM.map_rootedTreeRec",
+    "SM.TreeWeightIndex",
+    "SM.formalOrdinaryWeight",
+    "SM.formalRootWeight",
+    "SM.planeTree_formal_identity",
+    "SM.planeTree_formal_evaluation",
+    "SM.treeCoefficient_eq_signed_planeTreeSum",
+    "SM.treesum_trees",
+    "SM.TreeDataEqual",
+    "SM.A_chamber"
+  ],
+  "additional_examples": [
+    "TreeDefinitionIndependentReview.interval_recursion_cases",
+    "TreeDefinitionIndependentReview.part_leaf_sum",
+    "TreeDefinitionIndependentReview.source_arity_bound",
+    "TreeDefinitionIndependentReview.one_part_root_term",
+    "TreeDefinitionIndependentReview.source_recursion_unique",
+    "TreeDefinitionIndependentReview.full_interval_and_last_root",
+    "TreeDefinitionIndependentReview.exact_root_transport",
+    "TreeDefinitionIndependentReview.actual_tree_leaf_count",
+    "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval",
+    "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft",
+    "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated",
+    "TreeDefinitionIndependentReview.arbitrary_root_weight_formula",
+    "TreeDefinitionIndependentReview.binary_tree_formal_weight",
+    "TreeDefinitionIndependentReview.ordinary_root_variables_distinct",
+    "TreeDefinitionIndependentReview.arbitrary_separate_assignments",
+    "TreeDefinitionIndependentReview.actual_source_identity",
+    "TreeChamberClaimIndependentReview.complete_G1_quantities",
+    "TreeChamberClaimIndependentReview.actual_connected_component",
+    "TreeChamberClaimIndependentReview.actual_G1_path",
+    "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport"
+  ],
+  "transparent_definitions_printed": [
+    "SM.openTreeRec",
+    "SM.rootedTreeRec",
+    "SM.fullBoundaryInterval",
+    "SM.openTreeSum",
+    "SM.treeCoefficient",
+    "SM.mainTreeCoefficient",
+    "SM.treesumData",
+    "SM.OpenPlaneTree",
+    "SM.openPlaneTreeUngraft",
+    "SM.RootedPlaneTree",
+    "SM.OpenPlaneTree.weight",
+    "SM.OpenPlaneTree.ordinaryCount",
+    "SM.OpenPlaneTree.ordinaryProduct",
+    "SM.RootedPlaneTree.weight",
+    "SM.RootedPlaneTree.ordinaryCount",
+    "SM.RootedPlaneTree.ordinaryProduct",
+    "SM.TreeWeightIndex",
+    "SM.formalOrdinaryWeight",
+    "SM.formalRootWeight",
+    "SM.TreeDataEqual"
+  ],
+  "trace": "work/checks/tree-laws-canonical-review-types.lean",
+  "trace_sha256": "ea0ad33a2ff86f45dff7fda95d30c83396fc5c2842b02bd958f1bb89459712b5",
+  "prototype_reviews_sha256": {
+    "work/reviews/tree-coefficient-prototype.json": "e92f0569ef1f8579dc854567897c1d7a80942f9fa8018a2192973aeaf37a78e4",
+    "work/reviews/plane-tree-prototype.json": "0e8eaadf0f16e7f4fdd2d6c21c19ccf5bb3100983b6dac80d07e3aca8f94a161",
+    "work/reviews/tree-chamber-claim-prototype.json": "03a87ec9196be4520ce48f28bd0ef3b0dd80f5f3274c8a9fe24c56b15e377372"
+  }
+}

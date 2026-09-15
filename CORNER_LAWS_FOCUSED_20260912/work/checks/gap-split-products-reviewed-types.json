@@ -1,0 +1,284 @@
+{
+  "types": {
+    "SM.IncreasingBoundaryTriple.MiddleCutSet": "SM.IncreasingBoundaryTriple.MiddleCutSet {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : Type",
+    "SM.IncreasingBoundaryTriple.MiddleComposition": "SM.IncreasingBoundaryTriple.MiddleComposition {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : Type",
+    "SM.IncreasingBoundaryTriple.spanInterval": "SM.IncreasingBoundaryTriple.spanInterval {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : SM.BoundaryInterval n",
+    "SM.IncreasingBoundaryTriple.joinGapCuts": "SM.IncreasingBoundaryTriple.joinGapCuts {n : \u2115} (t : SM.IncreasingBoundaryTriple n)\n  (L : SM.BoundaryCutSet t.leftInterval) (R : SM.BoundaryCutSet t.rightInterval) : t.MiddleCutSet",
+    "SM.IncreasingBoundaryTriple.splitGapCuts": "SM.IncreasingBoundaryTriple.splitGapCuts {n : \u2115} (t : SM.IncreasingBoundaryTriple n) (S : t.MiddleCutSet) :\n  SM.BoundaryCutSet t.leftInterval \u00d7 SM.BoundaryCutSet t.rightInterval",
+    "SM.IncreasingBoundaryTriple.split_joinGapCuts": "SM.IncreasingBoundaryTriple.split_joinGapCuts {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (L : SM.BoundaryCutSet t.leftInterval) (R : SM.BoundaryCutSet t.rightInterval) :\n  t.splitGapCuts (t.joinGapCuts L R) = (L, R)",
+    "SM.IncreasingBoundaryTriple.join_splitGapCuts": "SM.IncreasingBoundaryTriple.join_splitGapCuts {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (S : t.MiddleCutSet) : t.joinGapCuts (t.splitGapCuts S).1 (t.splitGapCuts S).2 = S",
+    "SM.IncreasingBoundaryTriple.gapCutEquiv": "SM.IncreasingBoundaryTriple.gapCutEquiv {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n) :\n  t.MiddleCutSet \u2243 SM.BoundaryCutSet t.leftInterval \u00d7 SM.BoundaryCutSet t.rightInterval",
+    "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv": "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n) :\n  t.MiddleComposition \u2243 t.MiddleCutSet",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv": "SM.IncreasingBoundaryTriple.gapCompositionEquiv {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n) :\n  t.MiddleComposition \u2243 SM.IntervalComposition t.leftInterval \u00d7 SM.IntervalComposition t.rightInterval",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts": "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (\u03c0 : t.MiddleComposition) :\n  (t.gapCompositionEquiv \u03c0).1.cutSet.cuts = {x \u2208 (\u2191\u03c0).cutSet.cuts | t.lower \u2264 x \u2227 x \u2264 t.middle}",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts": "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (\u03c0 : t.MiddleComposition) :\n  (t.gapCompositionEquiv \u03c0).2.cutSet.cuts = {x \u2208 (\u2191\u03c0).cutSet.cuts | t.middle \u2264 x \u2227 x \u2264 t.upper}",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts": "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (L : SM.IntervalComposition t.leftInterval) (R : SM.IntervalComposition t.rightInterval) :\n  (\u2191(t.gapCompositionEquiv.symm (L, R))).cutSet.cuts = L.cutSet.cuts \u222a R.cutSet.cuts",
+    "SM.IncreasingBoundaryTriple.sum_middle_compositions": "SM.IncreasingBoundaryTriple.sum_middle_compositions.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [AddCommMonoid R]\n  (t : SM.IncreasingBoundaryTriple n) (f : t.MiddleComposition \u2192 R) :\n  \u2211 \u03c0, f \u03c0 = \u2211 L, \u2211 R, f (t.gapCompositionEquiv.symm (L, R))",
+    "SM.IntervalComposition.prod_interiorPositions": "SM.IntervalComposition.prod_interiorPositions.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (f : Fin n \u2192 R) :\n  \u220f k, f (\u03c0.interiorPosition k) = \u220f x \u2208 \u2191\u03c0.cutSet.interior, f x",
+    "SM.IntervalComposition.prod_interiorPositions_erase": "SM.IntervalComposition.prod_interiorPositions_erase.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) (f : Fin n \u2192 R) :\n  \u220f j \u2208 Finset.univ.erase k, f (\u03c0.interiorPosition j) = \u220f x \u2208 (\u2191\u03c0.cutSet.interior).erase (\u03c0.interiorPosition k), f x",
+    "SM.IncreasingBoundaryTriple.gapBaseComposition": "SM.IncreasingBoundaryTriple.gapBaseComposition {n : \u2115} (t : SM.IncreasingBoundaryTriple n) :\n  SM.IntervalComposition t.spanInterval",
+    "SM.IncreasingBoundaryTriple.gapRefinement": "SM.IncreasingBoundaryTriple.gapRefinement {n : \u2115} (t : SM.IncreasingBoundaryTriple n) (\u03c0 : t.MiddleComposition) :\n  SM.RefiningCutSet t.gapBaseComposition",
+    "SM.IncreasingBoundaryTriple.gapComposition_child_product": "SM.IncreasingBoundaryTriple.gapComposition_child_product.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  (t : SM.IncreasingBoundaryTriple n) (\u03c0 : t.MiddleComposition) (X : SM.BoundaryInterval n \u2192 R) :\n  \u220f j, X ((\u2191\u03c0).part j) = (\u220f j, X ((t.gapCompositionEquiv \u03c0).1.part j)) * \u220f j, X ((t.gapCompositionEquiv \u03c0).2.part j)",
+    "SM.IncreasingBoundaryTriple.gapComposition_interior_union": "SM.IncreasingBoundaryTriple.gapComposition_interior_union {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (\u03c0 : t.MiddleComposition) :\n  \u2191(\u2191\u03c0).cutSet.interior =\n    insert t.middle (\u2191(t.gapCompositionEquiv \u03c0).1.cutSet.interior \u222a \u2191(t.gapCompositionEquiv \u03c0).2.cutSet.interior)",
+    "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint": "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (\u03c0 : t.MiddleComposition) :\n  Disjoint \u2191(t.gapCompositionEquiv \u03c0).1.cutSet.interior \u2191(t.gapCompositionEquiv \u03c0).2.cutSet.interior",
+    "SM.IncreasingBoundaryTriple.middle_not_gap_interiors": "SM.IncreasingBoundaryTriple.middle_not_gap_interiors {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n)\n  (\u03c0 : t.MiddleComposition) :\n  t.middle \u2209 \u2191(t.gapCompositionEquiv \u03c0).1.cutSet.interior \u222a \u2191(t.gapCompositionEquiv \u03c0).2.cutSet.interior",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product": "SM.IncreasingBoundaryTriple.gapComposition_cut_product.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommMonoid R]\n  (t : SM.IncreasingBoundaryTriple n) (\u03c0 : t.MiddleComposition) (f : Fin n \u2192 R) :\n  \u220f k, f ((\u2191\u03c0).interiorPosition k) =\n    f t.middle *\n      ((\u220f k, f ((t.gapCompositionEquiv \u03c0).1.interiorPosition k)) *\n        \u220f k, f ((t.gapCompositionEquiv \u03c0).2.interiorPosition k))",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle": "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle.{u_1} {n : \u2115} [NeZero n] {R : Type u_1}\n  [CommMonoid R] (t : SM.IncreasingBoundaryTriple n) (\u03c0 : t.MiddleComposition) (k : Fin ((\u2191\u03c0).parts - 1))\n  (hk : (\u2191\u03c0).interiorPosition k = t.middle) (f : Fin n \u2192 R) :\n  \u220f j \u2208 Finset.univ.erase k, f ((\u2191\u03c0).interiorPosition j) =\n    (\u220f j, f ((t.gapCompositionEquiv \u03c0).1.interiorPosition j)) * \u220f j, f ((t.gapCompositionEquiv \u03c0).2.interiorPosition j)",
+    "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum": "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommSemiring R]\n  (t : SM.IncreasingBoundaryTriple n) (f : Fin n \u2192 R) (X : SM.BoundaryInterval n \u2192 R) :\n  \u2211 \u03c0, (\u220f k, f ((\u2191\u03c0).interiorPosition k)) * \u220f k, X ((\u2191\u03c0).part k) =\n    f t.middle *\n      ((\u2211 L, (\u220f k, f (L.interiorPosition k)) * \u220f k, X (L.part k)) *\n        \u2211 R_1, (\u220f k, f (R_1.interiorPosition k)) * \u220f k, X (R_1.part k))",
+    "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum": "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum.{u_1} {n : \u2115} [NeZero n] {R : Type u_1}\n  [CommSemiring R] (t : SM.IncreasingBoundaryTriple n) (f : Fin n \u2192 R) (X : SM.BoundaryInterval n \u2192 R) :\n  \u2211 \u03c0, (\u220f x \u2208 (\u2191(\u2191\u03c0).cutSet.interior).erase t.middle, f x) * \u220f k, X ((\u2191\u03c0).part k) =\n    (\u2211 L, (\u220f k, f (L.interiorPosition k)) * \u220f k, X (L.part k)) *\n      \u2211 R_1, (\u220f k, f (R_1.interiorPosition k)) * \u220f k, X (R_1.part k)"
+  },
+  "type_sha256": {
+    "SM.IncreasingBoundaryTriple.MiddleCutSet": "f8016e3e63fc05ea3046265575233ac6e293d3869f92100b847c0aa056b3626d",
+    "SM.IncreasingBoundaryTriple.MiddleComposition": "a3d0302b9339f1b06fccf0b8be1953ef6fbacbddfff233e0a7ff991a2c273e8d",
+    "SM.IncreasingBoundaryTriple.spanInterval": "b14f676c3cc69de96f56350f33a5b892f96150905988100b4518ab96a4dc6b52",
+    "SM.IncreasingBoundaryTriple.joinGapCuts": "b0872322a7aff7661f0d45f5c5d3a6ffae4c2356617b133e17ef2cdc1d1822b1",
+    "SM.IncreasingBoundaryTriple.splitGapCuts": "1ecfc25914d6fd339d2a0e7f5a18bb72690f600678e82a6755af3d60bcc90778",
+    "SM.IncreasingBoundaryTriple.split_joinGapCuts": "45963cb5bc81fa3a79b3b73b29552f0247e2e1b48f3f02f175ea71465c184e4c",
+    "SM.IncreasingBoundaryTriple.join_splitGapCuts": "43fe348c6522079e264bb53beed209ad3841b83c4c95caa76ce73f43bb0e09f5",
+    "SM.IncreasingBoundaryTriple.gapCutEquiv": "2e2279fcbefbc1039f461759124fd2fd2535a2a57a3305d3585be2c457910f96",
+    "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv": "ed181033bc94514205923d814d8dfb635518f7f56a9c7b79d65033f79cc1e849",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv": "caaf54985d11b30d7a7ca94f5ccd3254225079e6d9060ea61c7338c1581f3e58",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts": "a12758aa7d29f4d2c6cfb66acb30abee1f432c5bd1816024fb054efd8fa04029",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts": "5a537ec5ff9c188dc7b838accdc8d62272cd62bee8639f9f7c989f0f0d3386c3",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts": "cdbb5dce3253025889d072f44cee7d4d65a3e2fad3c8a50dd3384f07cbbb70ff",
+    "SM.IncreasingBoundaryTriple.sum_middle_compositions": "1f980821485510105470e4e5edb78b5b36e83fb3674089ed7f5ef4440243ac0d",
+    "SM.IntervalComposition.prod_interiorPositions": "8c044086100e38f065db435bc4bc245e7937ac4f604bc2f649a360b84a42de8e",
+    "SM.IntervalComposition.prod_interiorPositions_erase": "00185ec2c35e76eef5d6c045f6c3f0b84da2173ded3fed7a02932b3c0efcfc0a",
+    "SM.IncreasingBoundaryTriple.gapBaseComposition": "323d3e223716ef8442553633c872a33737ddbdd78ec8e15924bdc510d8dda463",
+    "SM.IncreasingBoundaryTriple.gapRefinement": "a4df82aacba3a4ff1aa000f88aa5c0595111825ea82e769f779ed5ce58c3333d",
+    "SM.IncreasingBoundaryTriple.gapComposition_child_product": "2a78ca03f7b9ff90d06959dacf2d918314e1b4b42699865741de94be70b17bb7",
+    "SM.IncreasingBoundaryTriple.gapComposition_interior_union": "8a2c8037686d6c78d2661e6b53d08fe865a2df5804dfc5a6f04589f9e4136a8a",
+    "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint": "1c470c4900fd8aba64d816393c8ab4c4571bb84e0a4751b19aae0b983e4f94e1",
+    "SM.IncreasingBoundaryTriple.middle_not_gap_interiors": "ff0981166c75949d469a1dfc00e0691dc58305f894c754a6bcb6973ec89f5f29",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product": "81e6ea092b83a15711eb2c40f4fa95985b015763f1c371459885f5aeb0b3a6f8",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle": "418d26837fa11270ba29627543ea24533e573bc404a8c7f82fbac1b791e95496",
+    "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum": "62962d7f6e6796a67d0eb7b4e93e512a56df885dbf6e819338d970ee762e962f",
+    "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum": "4a3bc991b6ca57aa1b902780d32b38fbe4d09e7571c040882f1008e60448c916"
+  },
+  "axioms": {
+    "SM.IncreasingBoundaryTriple.MiddleCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.MiddleComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.spanInterval": [
+      "propext"
+    ],
+    "SM.IncreasingBoundaryTriple.joinGapCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.splitGapCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.split_joinGapCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.join_splitGapCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapCutEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.sum_middle_compositions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_interiorPositions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_interiorPositions_erase": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapBaseComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapRefinement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapComposition_child_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapComposition_interior_union": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.middle_not_gap_interiors": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.every_raw_left_child_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.every_raw_right_child_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.arbitrary_raw_pair_child_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.unary_left_keeps_actual_gap_coordinate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.unary_right_keeps_actual_gap_coordinate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.erased_product_ignores_omitted_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.two_unary_gaps_leave_empty_gate_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.zero_middle_annuls_full_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.erased_sum_keeps_gap_products_when_middle_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GapSplitProductsIndependentReview.erased_sum_ignores_any_middle_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.IncreasingBoundaryTriple.MiddleCutSet",
+    "SM.IncreasingBoundaryTriple.MiddleComposition",
+    "SM.IncreasingBoundaryTriple.spanInterval",
+    "SM.IncreasingBoundaryTriple.joinGapCuts",
+    "SM.IncreasingBoundaryTriple.splitGapCuts",
+    "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+    "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+    "SM.IncreasingBoundaryTriple.gapCutEquiv",
+    "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+    "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+    "SM.IncreasingBoundaryTriple.sum_middle_compositions",
+    "SM.IntervalComposition.prod_interiorPositions",
+    "SM.IntervalComposition.prod_interiorPositions_erase",
+    "SM.IncreasingBoundaryTriple.gapBaseComposition",
+    "SM.IncreasingBoundaryTriple.gapRefinement",
+    "SM.IncreasingBoundaryTriple.gapComposition_child_product",
+    "SM.IncreasingBoundaryTriple.gapComposition_interior_union",
+    "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint",
+    "SM.IncreasingBoundaryTriple.middle_not_gap_interiors",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle",
+    "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum",
+    "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum"
+  ],
+  "additional_examples": [
+    "GapSplitProductsIndependentReview.every_raw_left_child_preserved",
+    "GapSplitProductsIndependentReview.every_raw_right_child_preserved",
+    "GapSplitProductsIndependentReview.arbitrary_raw_pair_child_product",
+    "GapSplitProductsIndependentReview.unary_left_keeps_actual_gap_coordinate",
+    "GapSplitProductsIndependentReview.unary_right_keeps_actual_gap_coordinate",
+    "GapSplitProductsIndependentReview.erased_product_ignores_omitted_value",
+    "GapSplitProductsIndependentReview.two_unary_gaps_leave_empty_gate_product",
+    "GapSplitProductsIndependentReview.zero_middle_annuls_full_sum",
+    "GapSplitProductsIndependentReview.erased_sum_keeps_gap_products_when_middle_zero",
+    "GapSplitProductsIndependentReview.erased_sum_ignores_any_middle_change"
+  ],
+  "consumer_count": 10,
+  "all_14_predecessor_types_unchanged": true,
+  "trace_log": "work/checks/gap-split-products-review-types.log",
+  "trace_log_sha256": "6fb9548fdcbce30666b2698de570b64df320a63e761004d3f90229d5d969b37e",
+  "independent_kernel_session": 32490,
+  "exit_code": 0
+}

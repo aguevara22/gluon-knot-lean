@@ -1,0 +1,59 @@
+{
+  "id": "def:generic",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "db3f8bb35c42bcd318f3ec78faeefc8d423d230cb0a46cd75c8e0a77d19838b0",
+  "verdict": "faithful",
+  "reason": "Compared the complete source definition def:generic with SM.Generic and its transitive concrete definitions. G1 quantifies every triple of pairwise distinct modular indices and requires the actual coordinate chirotope to be nonzero. G2 excludes the existence of one point of the real plane lying in the relative interiors of three pairwise-distinct indexed edge segments. edgeInterior is the image P i + t*(P(i+1)-P i) for 0<t<1, exactly the relative interior of a nondegenerate affine segment; for a degenerate segment it is its singleton, also its relative interior. On the source domain n>=3, G1 already prevents coincident vertices and duplicated geometric edges, so treating the source's distinct edge segments by their distinct indices changes no generic polygon. Generic is exactly the conjunction G1 and G2, and as a predicate on labelled tuples is the set U_n in the source; a separately named Set is unnecessary. The implementation is also defined at smaller n, which adds cases outside the source domain rather than removing source cases. It introduces no free genericity witness, extra premise or substitute abstract configuration. The global representative convention is honored by generic_shift, proved in both directions using translated indices and edgeInterior_shift; the source expressly permits this labelled-equivariance treatment instead of defining every predicate on the cyclic quotient. The reviewed semantic dependency inventory includes G1, G2, chi, det, edgeInterior, edgePoint and edge, so all geometric content is included in the statement hash. This approval is for the definition alone and does not count its supporting helpers as additional source claims.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.generic_shift",
+    "SM.edgeInterior_shift",
+    "SM.g1_vertices_injective"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 99,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 100,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "e7914782f2a3a2320dcbd1a1b5d53354f5ce750caf4692fc23e84715c8d68d6c",
+    "to_excerpt_sha256": "e7914782f2a3a2320dcbd1a1b5d53354f5ce750caf4692fc23e84715c8d68d6c",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:100-108, SM15; sm15_reworded=false and the blueprint extract at blueprint/STATEMENTS_AND_PROOFS.md:90-108 is byte-identical to the SM12 text): P is generic iff (G1) chi_ijk(P) != 0 for all pairwise distinct i,j,k in Z/n, and (G2) no point of R^2 lies in the relative interiors of three distinct edge segments; U_n is the set of such P in (R^2)^n. Lean (work/lean/SM/Generic.lean:11-19): `G1 P := ∀ i j k, i ≠ j → j ≠ k → i ≠ k → chi P i j k ≠ 0` with `chi P i j k = SignType.sign (det (P j - P i) (P k - P i))` (Chirotope.lean:10-11) and `det u v = u.1*v.2 - u.2*v.1` (Polygon.lean:16), exactly sgn det(mu_j - mu_i, mu_k - mu_i) over ZMod n indices with the three pairwise-distinctness hypotheses. `G2 P := ¬ ∃ i j k x, i ≠ j ∧ j ≠ k ∧ i ≠ k ∧ x ∈ edgeInterior P i ∧ x ∈ edgeInterior P j ∧ x ∈ edgeInterior P k` with `edgeInterior P i = {x | ∃ t, 0 < t ∧ t < 1 ∧ x = P i + t • (P (i+1) - P i)}` (Polygon.lean:56-62), which is the relative interior of E_i = [mu_i, mu_{i+1}] both when the edge is nondegenerate (open segment) and when it is a point (the singleton). `Generic P := G1 P ∧ G2 P` is the printed conjunction; as a predicate on `LabelledTuple n = ZMod n → ℝ × ℝ` it denotes U_n ⊆ (R^2)^n. Quantifiers, domain (labelled representatives, which the source's formalization remark explicitly permits) and both clauses match; nothing is vacuous. The only interpretive point is that \"three distinct edge segments\" is read as three distinct indices; for n ≥ 3 under G1 distinct indices give distinct segments (coincident segments would force coincident vertices), so on the generic locus the readings coincide, and on its own the index reading is the stronger of the two. My independent judgement agrees with the accepted review (work/reviews/def-generic.json); the reviewed file hashes match the current files.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "G2 reads 'three distinct edge segments' as three pairwise distinct indices (Generic.lean:14-17); if two differently indexed edges coincided as point sets this would exclude more configurations than a set-theoretic reading, but under G1 with n >= 3 this cannot happen, so Generic itself is unaffected.",
+      "The predicates G1, G2, Generic are defined for every n (no n >= 3 hypothesis in the definition), extending the source's domain (n >= 3, def:polygon line 27) to smaller n; this adds cases outside the printed domain and removes none."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/lean-declarations.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-generic.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

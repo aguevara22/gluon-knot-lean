@@ -1,0 +1,534 @@
+{
+  "types": {
+    "SM.pointFarSign": "SM.pointFarSign (a r c : SM.Plane) : SignType",
+    "SM.sign_rescale_nonzero": "SM.sign_rescale_nonzero (s a : \u211d) (hs : s \u2260 0) : SignType.sign a = SignType.sign s * SignType.sign (s * a)",
+    "SM.wallLeftEpsilon": "SM.wallLeftEpsilon (x y z : \u211d) : SignType",
+    "SM.wallRightEpsilon": "SM.wallRightEpsilon (x y z : \u211d) : SignType",
+    "SM.wall_epsilons_nonzero": "SM.wall_epsilons_nonzero (x y z : \u211d) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  SM.wallLeftEpsilon x y z \u2260 0 \u2227 SM.wallRightEpsilon x y z \u2260 0",
+    "SM.wall_epsilons_one_or_neg_one": "SM.wall_epsilons_one_or_neg_one (x y z : \u211d) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  (SM.wallLeftEpsilon x y z = 1 \u2228 SM.wallLeftEpsilon x y z = -1) \u2227\n    (SM.wallRightEpsilon x y z = 1 \u2228 SM.wallRightEpsilon x y z = -1)",
+    "SM.wall_epsilon_positive": "SM.wall_epsilon_positive (x y z : \u211d) (hzx : z \u2260 x) : SM.wallLeftEpsilon x y z = 1 \u2228 SM.wallRightEpsilon x y z = 1",
+    "SM.affine_line_difference": "SM.affine_line_difference (p \u03c9 : SM.Plane) (x y : \u211d) : p + y \u2022 \u03c9 - (p + x \u2022 \u03c9) = (y - x) \u2022 \u03c9",
+    "SM.collinear_left_gate_sign": "SM.collinear_left_gate_sign (a b c r : SM.Plane) (s : \u211d) (hs : s \u2260 0) (h : b - a = s \u2022 (c - a)) :\n  SM.pointFarSign a r c = SignType.sign s * SM.pointFarSign a r b",
+    "SM.collinear_right_gate_sign": "SM.collinear_right_gate_sign (a b c r : SM.Plane) (s : \u211d) (hs : s \u2260 0) (h : b - c = s \u2022 (a - c)) :\n  SM.pointFarSign a r c = SignType.sign s * SM.pointFarSign b r c",
+    "SM.affine_collinear_left_gate": "SM.affine_collinear_left_gate (p \u03c9 r : SM.Plane) (x y z : \u211d) (hyx : y \u2260 x) (hzx : z \u2260 x) :\n  SM.pointFarSign (p + x \u2022 \u03c9) r (p + z \u2022 \u03c9) = SM.wallLeftEpsilon x y z * SM.pointFarSign (p + x \u2022 \u03c9) r (p + y \u2022 \u03c9)",
+    "SM.affine_collinear_right_gate": "SM.affine_collinear_right_gate (p \u03c9 r : SM.Plane) (x y z : \u211d) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  SM.pointFarSign (p + x \u2022 \u03c9) r (p + z \u2022 \u03c9) = SM.wallRightEpsilon x y z * SM.pointFarSign (p + y \u2022 \u03c9) r (p + z \u2022 \u03c9)",
+    "SM.geometricBoundaryArray_pointFarSign": "SM.geometricBoundaryArray_pointFarSign.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) :\n  SM.geometricBoundaryArray P g t =\n    \u2191\u2191(SM.pointFarSign (SM.boundaryWord P g t.lower) (SM.boundaryWord P g t.middle) (SM.boundaryWord P g t.upper))",
+    "SM.boundary_collinear_left_sign": "SM.boundary_collinear_left_sign.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (p \u03c9 : SM.Plane) (x y z : \u211d)\n  (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzx : z \u2260 x) (r : Fin n) (hl : t.lower < r)\n  (hr : r < t.middle) :\n  SM.geometricBoundaryArray P g\n      { lower := t.lower, middle := r, upper := t.upper, lower_middle := hl, middle_upper := \u22ef } =\n    \u2191\u2191(SM.wallLeftEpsilon x y z) *\n      SM.geometricBoundaryArray P g\n        { lower := t.lower, middle := r, upper := t.middle, lower_middle := hl, middle_upper := hr }",
+    "SM.boundary_collinear_right_sign": "SM.boundary_collinear_right_sign.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (p \u03c9 : SM.Plane) (x y z : \u211d)\n  (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hzy : z \u2260 y) (hzx : z \u2260 x) (r : Fin n) (hl : t.middle < r)\n  (hr : r < t.upper) :\n  SM.geometricBoundaryArray P g\n      { lower := t.lower, middle := r, upper := t.upper, lower_middle := \u22ef, middle_upper := hr } =\n    \u2191\u2191(SM.wallRightEpsilon x y z) *\n      SM.geometricBoundaryArray P g\n        { lower := t.middle, middle := r, upper := t.upper, lower_middle := hl, middle_upper := hr }",
+    "SM.IncreasingBoundaryTriple.positionSet": "SM.IncreasingBoundaryTriple.positionSet {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : Finset (Fin n)",
+    "SM.IncreasingBoundaryTriple.positionSet_bounds": "SM.IncreasingBoundaryTriple.positionSet_bounds {n : \u2115} [NeZero n] (t : SM.IncreasingBoundaryTriple n) (x : Fin n)\n  (hx : x \u2208 t.positionSet) : t.lower \u2264 x \u2227 x \u2264 t.upper",
+    "SM.IncreasingBoundaryTriple.positionSet_injective": "SM.IncreasingBoundaryTriple.positionSet_injective {n : \u2115} [NeZero n] :\n  Function.Injective SM.IncreasingBoundaryTriple.positionSet",
+    "SM.IncreasingBoundaryTriple.vertexSet": "SM.IncreasingBoundaryTriple.vertexSet {n : \u2115} (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) : Finset (ZMod n)",
+    "SM.IncreasingBoundaryTriple.vertexSet_injective": "SM.IncreasingBoundaryTriple.vertexSet_injective {n : \u2115} [NeZero n] (g : ZMod n) :\n  Function.Injective (SM.IncreasingBoundaryTriple.vertexSet g)",
+    "SM.IncreasingBoundaryTriple.vertexSet_reversed": "SM.IncreasingBoundaryTriple.vertexSet_reversed {n : \u2115} [NeZero n] (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) :\n  SM.IncreasingBoundaryTriple.vertexSet g t =\n    {SM.boundaryIndex g t.upper, SM.boundaryIndex g t.middle, SM.boundaryIndex g t.lower}",
+    "SM.boundary_chi_nonzero_off_critical": "SM.boundary_chi_nonzero_off_critical {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n)\n  (t : SM.IncreasingBoundaryTriple n) (hP : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t})\n  (u : SM.IncreasingBoundaryTriple n) (hu : u \u2260 t) :\n  SM.chi P (SM.boundaryIndex g u.upper) (SM.boundaryIndex g u.middle) (SM.boundaryIndex g u.lower) \u2260 0",
+    "SM.farOnlyOutput_local": "SM.farOnlyOutput_local.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (J : SM.BoundaryInterval n)\n  (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h : \u2200 (u : SM.IncreasingBoundaryTriple n), J.left \u2264 u.lower \u2192 u.upper \u2264 J.right \u2192 H\u2081 u = H\u2082 u) :\n  SM.farOnlyOutput H\u2081 J = SM.farOnlyOutput H\u2082 J",
+    "SM.farOnlyOutput_unchanged_off_critical": "SM.farOnlyOutput_unchanged_off_critical.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (H\u2081 H\u2082 : SM.TripleArray n R) (t : SM.IncreasingBoundaryTriple n)\n  (h : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = H\u2082 u) (J : SM.BoundaryInterval n)\n  (hJ : \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right)) : SM.farOnlyOutput H\u2081 J = SM.farOnlyOutput H\u2082 J",
+    "SM.geometric_array_persists_off_critical": "SM.geometric_array_persists_off_critical.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n)\n  (hP : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t}) :\n  \u2200\u1da0 (Q : SM.LabelledTuple n) in nhds P,\n    \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 SM.geometricBoundaryArray Q g u = SM.geometricBoundaryArray P g u",
+    "SM.geometric_inverse_persists_off_span": "SM.geometric_inverse_persists_off_span.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n)\n  (hP : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t}) :\n  \u2200\u1da0 (Q : SM.LabelledTuple n) in nhds P,\n    \u2200 (J : SM.BoundaryInterval n),\n      \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right) \u2192\n        SM.farOnlyCoordinates (SM.geometricBoundaryArray Q g) J =\n          SM.farOnlyCoordinates (SM.geometricBoundaryArray P g) J",
+    "SM.geometric_output_persists_off_span": "SM.geometric_output_persists_off_span.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n)\n  (hP : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t}) :\n  \u2200\u1da0 (Q : SM.LabelledTuple n) in nhds P,\n    \u2200 (J : SM.BoundaryInterval n),\n      \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right) \u2192\n        SM.farOnlyOutput (SM.geometricBoundaryArray Q g) J = SM.farOnlyOutput (SM.geometricBoundaryArray P g) J",
+    "SM.WallGerm.boundary_values_stable_near_center": "SM.WallGerm.boundary_values_stable_near_center.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (w : SM.WallGerm n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n)\n  (hZ : SM.pointZeroTriples w.center = {SM.IncreasingBoundaryTriple.vertexSet g t}) :\n  \u2203 \u03b4,\n    0 < \u03b4 \u2227\n      \u03b4 \u2264 w.radius \u2227\n        \u2200 (s : \u2191w.Parameter),\n          |\u2191s| < \u03b4 \u2192\n            (\u2200 (u : SM.IncreasingBoundaryTriple n),\n                u \u2260 t \u2192 SM.geometricBoundaryArray (w.curve s) g u = SM.geometricBoundaryArray w.center g u) \u2227\n              (\u2200 (J : SM.BoundaryInterval n),\n                  \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right) \u2192\n                    SM.farOnlyCoordinates (SM.geometricBoundaryArray (w.curve s) g) J =\n                      SM.farOnlyCoordinates (SM.geometricBoundaryArray w.center g) J) \u2227\n                \u2200 (J : SM.BoundaryInterval n),\n                  \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right) \u2192\n                    SM.farOnlyOutput (SM.geometricBoundaryArray (w.curve s) g) J =\n                      SM.farOnlyOutput (SM.geometricBoundaryArray w.center g) J",
+    "SM.wallGapU": "SM.wallGapU.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R)\n  (I : SM.BoundaryInterval n) (\u03b5 : SignType) : R",
+    "SM.wallGapV": "SM.wallGapV.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R)\n  (I : SM.BoundaryInterval n) (\u03b5 : SignType) : R",
+    "SM.cutWeightedSum_signed_inverse": "SM.cutWeightedSum_signed_inverse.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (f : Fin n \u2192 R)\n  (H : SM.TripleArray n R) (I : SM.BoundaryInterval n) (\u03b5 : SignType) (h\u03b5 : \u03b5 = 1 \u2228 \u03b5 = -1)\n  (h :\n    \u2200 (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)),\n      f (\u03c0.interiorPosition k) = -(\u2191\u2191\u03b5 * H (\u03c0.farTriple k)) * \u215f2) :\n  SM.cutWeightedSum f (SM.farOnlyCoordinates H) I = SM.wallGapU H I \u03b5",
+    "SM.cutWeightedSum_neg_signed_inverse": "SM.cutWeightedSum_neg_signed_inverse.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (f : Fin n \u2192 R)\n  (H : SM.TripleArray n R) (I : SM.BoundaryInterval n) (\u03b5 : SignType) (h\u03b5 : \u03b5 = 1 \u2228 \u03b5 = -1)\n  (h :\n    \u2200 (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)),\n      f (\u03c0.interiorPosition k) = -(\u2191\u2191\u03b5 * H (\u03c0.farTriple k)) * \u215f2) :\n  SM.cutWeightedSum (-f) (SM.farOnlyCoordinates H) I = SM.wallGapV H I \u03b5",
+    "SM.boundary_left_gap_gate": "SM.boundary_left_gap_gate.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R)\n  (hH : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H u = SM.geometricBoundaryArray P g u) (p \u03c9 : SM.Plane)\n  (x y z : \u211d) (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzx : z \u2260 x) (\u03c0 : SM.IntervalComposition t.leftInterval)\n  (k : Fin (\u03c0.parts - 1)) :\n  t.fixedFarGate H (\u03c0.interiorPosition k) = -(\u2191\u2191(SM.wallLeftEpsilon x y z) * H (\u03c0.farTriple k)) * \u215f2",
+    "SM.boundary_right_gap_gate": "SM.boundary_right_gap_gate.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R)\n  (hH : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H u = SM.geometricBoundaryArray P g u) (p \u03c9 : SM.Plane)\n  (x y z : \u211d) (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hzy : z \u2260 y) (hzx : z \u2260 x)\n  (\u03c0 : SM.IntervalComposition t.rightInterval) (k : Fin (\u03c0.parts - 1)) :\n  t.fixedFarGate H (\u03c0.interiorPosition k) = -(\u2191\u2191(SM.wallRightEpsilon x y z) * H (\u03c0.farTriple k)) * \u215f2",
+    "SM.geometric_gap_sums": "SM.geometric_gap_sums.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (H : SM.TripleArray n R)\n  (hH : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H u = SM.geometricBoundaryArray P g u) (p \u03c9 : SM.Plane)\n  (x y z : \u211d) (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  SM.cutWeightedSum (t.fixedFarGate H) (SM.farOnlyCoordinates H) t.leftInterval =\n      SM.wallGapU H t.leftInterval (SM.wallLeftEpsilon x y z) \u2227\n    SM.cutWeightedSum (t.fixedFarGate H) (SM.farOnlyCoordinates H) t.rightInterval =\n        SM.wallGapU H t.rightInterval (SM.wallRightEpsilon x y z) \u2227\n      SM.cutWeightedSum (t.fixedFarGate (-H)) (SM.farOnlyCoordinates H) t.leftInterval =\n          SM.wallGapV H t.leftInterval (SM.wallLeftEpsilon x y z) \u2227\n        SM.cutWeightedSum (t.fixedFarGate (-H)) (SM.farOnlyCoordinates H) t.rightInterval =\n          SM.wallGapV H t.rightInterval (SM.wallRightEpsilon x y z)",
+    "SM.geometric_critical_inverse_response": "SM.geometric_critical_inverse_response.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h\u2081 : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = SM.geometricBoundaryArray P g u)\n  (h\u2082 : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2082 u = SM.geometricBoundaryArray P g u) (p \u03c9 : SM.Plane)\n  (x y z : \u211d) (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  SM.farOnlyCoordinates H\u2082 t.spanInterval - SM.farOnlyCoordinates H\u2081 t.spanInterval =\n    (H\u2082 t - H\u2081 t) * \u215f2 *\n      (SM.wallGapU H\u2081 t.leftInterval (SM.wallLeftEpsilon x y z) *\n        SM.wallGapU H\u2081 t.rightInterval (SM.wallRightEpsilon x y z))",
+    "SM.geometric_critical_output_response": "SM.geometric_critical_output_response.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h\u2081 : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2081 u = SM.geometricBoundaryArray P g u)\n  (h\u2082 : \u2200 (u : SM.IncreasingBoundaryTriple n), u \u2260 t \u2192 H\u2082 u = SM.geometricBoundaryArray P g u) (p \u03c9 : SM.Plane)\n  (x y z : \u211d) (hx : SM.boundaryWord P g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord P g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord P g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  SM.farOnlyOutput H\u2082 t.spanInterval - SM.farOnlyOutput H\u2081 t.spanInterval =\n    (H\u2082 t - H\u2081 t) * \u215f2 *\n      (SM.wallGapU H\u2081 t.leftInterval (SM.wallLeftEpsilon x y z) *\n          SM.wallGapU H\u2081 t.rightInterval (SM.wallRightEpsilon x y z) +\n        SM.wallGapV H\u2081 t.leftInterval (SM.wallLeftEpsilon x y z) *\n          SM.wallGapV H\u2081 t.rightInterval (SM.wallRightEpsilon x y z))",
+    "SM.WallGerm.full_span_tree_response": "SM.WallGerm.full_span_tree_response.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (w : SM.WallGerm n) (g : ZMod n) (hn : 3 \u2264 n) (t : SM.IncreasingBoundaryTriple n)\n  (hZ : SM.pointZeroTriples w.center = {SM.IncreasingBoundaryTriple.vertexSet g t})\n  (hspan : t.spanInterval = SM.fullBoundaryInterval hn) (p \u03c9 : SM.Plane) (x y z : \u211d)\n  (hx : SM.boundaryWord w.center g t.lower = p + x \u2022 \u03c9) (hy : SM.boundaryWord w.center g t.middle = p + y \u2022 \u03c9)\n  (hz : SM.boundaryWord w.center g t.upper = p + z \u2022 \u03c9) (hyx : y \u2260 x) (hzy : z \u2260 y) (hzx : z \u2260 x) :\n  \u2203 \u03b4,\n    0 < \u03b4 \u2227\n      \u03b4 \u2264 w.radius \u2227\n        \u2200 (sMinus sPlus : \u2191w.Parameter) (hMinus : \u2191sMinus < 0) (hPlus : 0 < \u2191sPlus),\n          |\u2191sMinus| < \u03b4 \u2192\n            |\u2191sPlus| < \u03b4 \u2192\n              \u2191(SM.treeCoefficient (w.curve sPlus) \u22ef g hn) - \u2191(SM.treeCoefficient (w.curve sMinus) \u22ef g hn) =\n                (SM.geometricBoundaryArray (w.curve sPlus) g t - SM.geometricBoundaryArray (w.curve sMinus) g t) * \u215f2 *\n                  (SM.wallGapU (SM.geometricBoundaryArray w.center g) t.leftInterval (SM.wallLeftEpsilon x y z) *\n                      SM.wallGapU (SM.geometricBoundaryArray w.center g) t.rightInterval (SM.wallRightEpsilon x y z) +\n                    SM.wallGapV (SM.geometricBoundaryArray w.center g) t.leftInterval (SM.wallLeftEpsilon x y z) *\n                      SM.wallGapV (SM.geometricBoundaryArray w.center g) t.rightInterval (SM.wallRightEpsilon x y z))",
+    "SM.restrictedVertexIndex": "SM.restrictedVertexIndex {n : \u2115} (g : ZMod n) (J : SM.BoundaryInterval n) (j : ZMod (J.leaves + 1)) : ZMod n",
+    "SM.restrictedVertexIndex_injective": "SM.restrictedVertexIndex_injective {n : \u2115} [NeZero n] (g : ZMod n) (J : SM.BoundaryInterval n) :\n  Function.Injective (SM.restrictedVertexIndex g J)",
+    "SM.restrictedWord_G1_off_critical": "SM.restrictedWord_G1_off_critical {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n)\n  (t : SM.IncreasingBoundaryTriple n) (hZ : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t})\n  (J : SM.BoundaryInterval n) (hJ : \u00ac(J.left \u2264 t.lower \u2227 t.upper \u2264 J.right)) : SM.G1 (SM.restrictedWordTuple P g J)",
+    "SM.critical_closed_gaps_G1": "SM.critical_closed_gaps_G1 {n : \u2115} [NeZero n] (P : SM.LabelledTuple n) (g : ZMod n) (t : SM.IncreasingBoundaryTriple n)\n  (hZ : SM.pointZeroTriples P = {SM.IncreasingBoundaryTriple.vertexSet g t}) :\n  (2 \u2264 t.leftInterval.leaves \u2192 SM.G1 (SM.restrictedWordTuple P g t.leftInterval)) \u2227\n    (2 \u2264 t.rightInterval.leaves \u2192 SM.G1 (SM.restrictedWordTuple P g t.rightInterval))"
+  },
+  "type_sha256": {
+    "SM.pointFarSign": "b8771baf44df54d1fbee1a2ebc430002a685752052a8b494ec1ea25107e293c0",
+    "SM.sign_rescale_nonzero": "b1e13720836196c02bfda7a3d3cfe1d036f913fddbf473302d25764bb4b50b28",
+    "SM.wallLeftEpsilon": "d0322e0de396d807f9e18be1a7233e5a52fcac31237820b17c835b871ee6b0d8",
+    "SM.wallRightEpsilon": "b2e22b17b6631aeaed6102d3eb938d4668e5b97f3d8e8e29a4bb456ca47acecc",
+    "SM.wall_epsilons_nonzero": "1edf18f8ea288fe2900b79dfda3a09f1ad1a58ceae05aefd61fce035a9bb22bb",
+    "SM.wall_epsilons_one_or_neg_one": "d9ea2f46f24dcd30c881547d322a857725aaf1e6d7128fc084c73c1f804026b5",
+    "SM.wall_epsilon_positive": "5a926b38a5dde0bc3fe3e92b51ebc11f467f825c7fdbc3c3a3617b35e95a4acd",
+    "SM.affine_line_difference": "03b3829eb301fdc62197d91aae053d7f0bbb50b195c594ae677c6cd5a66d7f3a",
+    "SM.collinear_left_gate_sign": "fc900d90b01402888822f4e8f2604ef86acfb76889664fff016598d37d1bdc3d",
+    "SM.collinear_right_gate_sign": "5dee2a854a8368f1a4c951a17f2446e958900dbe02c9114545a69ff7d8f71454",
+    "SM.affine_collinear_left_gate": "3d8a97ab4600ea7a6817d08f89afb9a7d2c9cb2ee109b79623efa7f79ac3c287",
+    "SM.affine_collinear_right_gate": "746ec3791ea154181c6227f085e954754e31d6fb587bade4d2a022e24785e872",
+    "SM.geometricBoundaryArray_pointFarSign": "bfce8f8737a528ff9a03f54c0d60ae5752b4c1196cd0fb260015a355b01f1a80",
+    "SM.boundary_collinear_left_sign": "c3be7660b403a480999f37b1297240c0f20a95281cf1077b42a6ae7131332eee",
+    "SM.boundary_collinear_right_sign": "ce3f88b43dc6033e605674a4123eed55e8803b335cce8bfe1c703ebc8cbc1b44",
+    "SM.IncreasingBoundaryTriple.positionSet": "770cc8aa8eeebc35a07f3e5658afc65505f23cf005047f1ba639bca5328e23de",
+    "SM.IncreasingBoundaryTriple.positionSet_bounds": "dd98d6139cb1f9ce60c4a72586390df611221217fc0940e5bb2f01248655b207",
+    "SM.IncreasingBoundaryTriple.positionSet_injective": "8481ef4e965eec4af19b44afc1278a4d189a6f53fedc64b2a6fcfbcf431a542d",
+    "SM.IncreasingBoundaryTriple.vertexSet": "f24fb3413cc8c21c460497861c987fcea1d4454f07f31191a37371ad850d0414",
+    "SM.IncreasingBoundaryTriple.vertexSet_injective": "4a4fdd12e8986c5a8889b24a4d6d951b22e1d4bc5fd47c9bdbcd29131be4bc28",
+    "SM.IncreasingBoundaryTriple.vertexSet_reversed": "85372ae6a7bf563944404c0a3421572162e2e0a0d5900449d27e11bd77a3208b",
+    "SM.boundary_chi_nonzero_off_critical": "89155413aed4806bd8b110f929f86d2ab52e48d65185b8778828ff4f05b02228",
+    "SM.farOnlyOutput_local": "e9681989375fd036f80f8daf8a0c6d848adcedaddf33ffc1c302524448ac25b9",
+    "SM.farOnlyOutput_unchanged_off_critical": "5cb31be11f0761df07af4c4f1001c41251aaf2fe444043e9e4bba432b832c6f1",
+    "SM.geometric_array_persists_off_critical": "b5c49a44afce7b5fde9ece37131b6443d822087343b6578dae08dc32d1cad98a",
+    "SM.geometric_inverse_persists_off_span": "a4a013bd00dd8db6049338cb136a77f0282c5f4fe2c66a0c97b954c42a55eab3",
+    "SM.geometric_output_persists_off_span": "704fe625c2c6fed97f07bfca740731d1a29b2283bf0178411edb83555f1b9db7",
+    "SM.WallGerm.boundary_values_stable_near_center": "d8c88dccf3d972a45b172b90c912ae68e5e24a2142b5b022b717d67e337edea7",
+    "SM.wallGapU": "36732a56f582277feb2456a58978e7b5e7f2252428c40ac40b8ba93a7a4344a0",
+    "SM.wallGapV": "cbc9f1a3aff227e2edb4e35687f1c4ab2a5ec25f67a178987a35168ba1738ecb",
+    "SM.cutWeightedSum_signed_inverse": "2ad7b328c4449e229d9d9e349ed5d918a2ff379440107e8259951598b10a6298",
+    "SM.cutWeightedSum_neg_signed_inverse": "caed2d8040d62f16b41ba87fa93b910e7d7da46a9c0299f83cfb9bbf10b1c861",
+    "SM.boundary_left_gap_gate": "9db9271bfb2ca5691134b673ff554143f629501bb15a1be0024f36516a526418",
+    "SM.boundary_right_gap_gate": "b29e25733eaacd75d3efea7cb99b6d2652ffb80e8b20b76a97b453a64f547b8d",
+    "SM.geometric_gap_sums": "cdb316444d35c7e4622c4843b5cd8ff989283baa90c40b0aad0a168aafcbfc1f",
+    "SM.geometric_critical_inverse_response": "aba362c4b79865fb8449a303f3521ac98bdc7d06d1a680628309d2ed8c0b6688",
+    "SM.geometric_critical_output_response": "f6ef565d8cceab94995a1ac135312352820b6c2f6280e592cbce98c9b54255f6",
+    "SM.WallGerm.full_span_tree_response": "5ae39479a5156db1b4da77c4caa500f4be8703c26a181f8a6d613c1b51aa7853",
+    "SM.restrictedVertexIndex": "371590ff1f11e9254039337533aca627fc87c9cfdc565e52ac949a26adbac188",
+    "SM.restrictedVertexIndex_injective": "0ed00d63907ba2c7de21d6bcb23bcc6c14ae4e003a39f67e2ce594e116361fb8",
+    "SM.restrictedWord_G1_off_critical": "67fc380e04ca3abf2bd7efb73a8fa1f6c331458abacc78d6a96f8317149295d5",
+    "SM.critical_closed_gaps_G1": "033dc69f4dc23db5e09f35c6549b409325f5aabd971e098fbc7c80d2a3f80da5"
+  },
+  "axioms": {
+    "SM.pointFarSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.sign_rescale_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wallLeftEpsilon": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wallRightEpsilon": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wall_epsilons_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wall_epsilons_one_or_neg_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wall_epsilon_positive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.affine_line_difference": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.collinear_left_gate_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.collinear_right_gate_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.affine_collinear_left_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.affine_collinear_right_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometricBoundaryArray_pointFarSign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_collinear_left_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_collinear_right_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.positionSet": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.positionSet_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.positionSet_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.vertexSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.vertexSet_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.vertexSet_reversed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_chi_nonzero_off_critical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyOutput_local": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyOutput_unchanged_off_critical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_array_persists_off_critical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_inverse_persists_off_span": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_output_persists_off_span": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.boundary_values_stable_near_center": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wallGapU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.wallGapV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.cutWeightedSum_signed_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.cutWeightedSum_neg_signed_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_left_gap_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_right_gap_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_gap_sums": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_critical_inverse_response": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_critical_output_response": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.full_span_tree_response": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.restrictedVertexIndex": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.restrictedVertexIndex_injective": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.restrictedWord_G1_off_critical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.critical_closed_gaps_G1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.support_has_three_positions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.support_has_three_labels": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_between": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_before": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_after": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple": [
+      "propext",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.gap_values_have_exact_four_cases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.leaf_gap_values_are_both_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.reversing_nonzero_epsilon_exchanges_gap_values": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.nonleaf_positive_U_and_negative_V_vanish": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.critical_entry_changes_no_excluded_gap_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.restricted_labels_read_the_actual_original_tuple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.restricted_label_equality_is_exact": [
+      "propext",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.off_span_word_has_G1_and_physical_closing_edge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.off_span_nonleaf_output_is_actual_closed_tree": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.common_radius_covers_both_actual_side_maps": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.arbitrary_critical_value_retains_geometric_gap_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricGapResponseIndependentReview.full_tree_response_at_equal_positive_side_distances": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.pointFarSign",
+    "SM.sign_rescale_nonzero",
+    "SM.wallLeftEpsilon",
+    "SM.wallRightEpsilon",
+    "SM.wall_epsilons_nonzero",
+    "SM.wall_epsilons_one_or_neg_one",
+    "SM.wall_epsilon_positive",
+    "SM.affine_line_difference",
+    "SM.collinear_left_gate_sign",
+    "SM.collinear_right_gate_sign",
+    "SM.affine_collinear_left_gate",
+    "SM.affine_collinear_right_gate",
+    "SM.geometricBoundaryArray_pointFarSign",
+    "SM.boundary_collinear_left_sign",
+    "SM.boundary_collinear_right_sign",
+    "SM.IncreasingBoundaryTriple.positionSet",
+    "SM.IncreasingBoundaryTriple.positionSet_bounds",
+    "SM.IncreasingBoundaryTriple.positionSet_injective",
+    "SM.IncreasingBoundaryTriple.vertexSet",
+    "SM.IncreasingBoundaryTriple.vertexSet_injective",
+    "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+    "SM.boundary_chi_nonzero_off_critical",
+    "SM.farOnlyOutput_local",
+    "SM.farOnlyOutput_unchanged_off_critical",
+    "SM.geometric_array_persists_off_critical",
+    "SM.geometric_inverse_persists_off_span",
+    "SM.geometric_output_persists_off_span",
+    "SM.WallGerm.boundary_values_stable_near_center",
+    "SM.wallGapU",
+    "SM.wallGapV",
+    "SM.cutWeightedSum_signed_inverse",
+    "SM.cutWeightedSum_neg_signed_inverse",
+    "SM.boundary_left_gap_gate",
+    "SM.boundary_right_gap_gate",
+    "SM.geometric_gap_sums",
+    "SM.geometric_critical_inverse_response",
+    "SM.geometric_critical_output_response",
+    "SM.WallGerm.full_span_tree_response",
+    "SM.restrictedVertexIndex",
+    "SM.restrictedVertexIndex_injective",
+    "SM.restrictedWord_G1_off_critical",
+    "SM.critical_closed_gaps_G1"
+  ],
+  "additional_examples": [
+    "BoundaryGateStabilityIndependentReview.support_has_three_positions",
+    "BoundaryGateStabilityIndependentReview.support_has_three_labels",
+    "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality",
+    "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign",
+    "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero",
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_between",
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_before",
+    "BoundaryGateStabilityIndependentReview.epsilon_middle_after",
+    "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible",
+    "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate",
+    "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio",
+    "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio",
+    "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple",
+    "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged",
+    "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged",
+    "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement",
+    "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output",
+    "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates",
+    "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs",
+    "GeometricGapResponseIndependentReview.gap_values_have_exact_four_cases",
+    "GeometricGapResponseIndependentReview.leaf_gap_values_are_both_one",
+    "GeometricGapResponseIndependentReview.reversing_nonzero_epsilon_exchanges_gap_values",
+    "GeometricGapResponseIndependentReview.nonleaf_positive_U_and_negative_V_vanish",
+    "GeometricGapResponseIndependentReview.critical_entry_changes_no_excluded_gap_value",
+    "GeometricGapResponseIndependentReview.restricted_labels_read_the_actual_original_tuple",
+    "GeometricGapResponseIndependentReview.restricted_label_equality_is_exact",
+    "GeometricGapResponseIndependentReview.off_span_word_has_G1_and_physical_closing_edge",
+    "GeometricGapResponseIndependentReview.off_span_nonleaf_output_is_actual_closed_tree",
+    "GeometricGapResponseIndependentReview.common_radius_covers_both_actual_side_maps",
+    "GeometricGapResponseIndependentReview.arbitrary_critical_value_retains_geometric_gap_sum",
+    "GeometricGapResponseIndependentReview.full_tree_response_at_equal_positive_side_distances"
+  ],
+  "trace_log": "work/checks/geometric-gap-response-review-types.log",
+  "trace_log_sha256": "14d6f889de5d0c8beb7c4d12280f88d1986d2631fb90619b92991f36ba818da4",
+  "independent_kernel_session": 76983,
+  "exit_code": 0,
+  "all_27_predecessor_types_unchanged": true
+}

@@ -1,0 +1,106 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-avoiding-unit-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:33:38.800603+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The reviewer authored the frozen SoftDuplicationIndices dependency, which is embedded here. This is not an independent reapproval of that authored dependency. The reviewer did not contribute to the three AvoidingUnit statements or proofs; its separate AvoidingCompositions candidate is not embedded or assumed."
+  },
+  "scope": {
+    "group": "SoftDuplicationAvoidingUnit",
+    "declarations": [
+      "SM.SoftDuplication.avoiding_interval_side_iff",
+      "SM.SoftDuplication.collapseInterval_leaves_avoiding",
+      "SM.SoftDuplication.collapseInterval_unit_avoiding"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1270–1277, avoiding-interval equality of the core and parent E entries",
+    "ambient_context": "namespace SM.SoftDuplication; {n : ℕ}, arbitrary s : Fin n and BoundaryInterval (n+1), no NeZero or lower-size caller premise. The leaf/unit statements take hI : I ≠ duplicateInterval s and the exact avoiding condition. The unit theorem permits any CommRing R and does not require invertible 2.",
+    "source_comparison": "The numerical boundary-length and unit-coordinate portion of the avoiding-interval source argument, not its composition or weighted-transform portion."
+  },
+  "assessment": "No technical mathematical or domain defect found in these three numerical/unit statements.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 49516,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and complete body embeddings; no extracted-header hashes.",
+    "receipt_path": "work/checks/SoftDuplicationAvoidingUnit-prototype-result.json",
+    "receipt_sha256": "059e04ddcea3fd9cbafc2578957684e2b6cdc44b53d488969c44a73e157324d1",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean": "082d9137dc95a833fb67c724f726ae8a5248947f19a0dd206025a9f5c2894453",
+      "work/checks/SoftDuplicationAvoidingUnit.prototype.lean": "324568ec24c84fd9b020cb71693addf33665b378fe92723a8b40c49b05f013a9",
+      "work/checks/SoftDuplicationAvoidingUnit-first-kernel.log": "5551e76a94dfd9527640822fb5beb0140aaa151d0ea10df8e10d59c39e0f9973"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationIndices.body.lean": 1,
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean": 1
+    },
+    "ordered_body_dependencies": [
+      "work/checks/SoftDuplicationIndices.body.lean",
+      "work/checks/SoftDuplicationAvoidingUnit.body.lean"
+    ],
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 3,
+    "declaration_axioms": {
+      "SM.SoftDuplication.avoiding_interval_side_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseInterval_leaves_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseInterval_unit_avoiding": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationAvoidingUnit-first-draft.body.lean": "082d9137dc95a833fb67c724f726ae8a5248947f19a0dd206025a9f5c2894453",
+      "work/checks/SoftDuplicationAvoidingUnit-first-draft.prototype.lean": "324568ec24c84fd9b020cb71693addf33665b378fe92723a8b40c49b05f013a9",
+      "work/checks/SoftDuplicationAvoidingUnit-body-dependencies.json": "255173fc1ce5c3eab37b4ef8ac243cb9c48148b4b3a5382626a5923af7a6de07",
+      "work/checks/SoftDuplicationAvoidingUnit-draft-dependency-bindings.json": "e50d6c580b8a7a1c6fe2105248057530a0fa2077ce8f46824d7c594f90f74d62"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_evidence": "None for this body: first root run 49516 passed.",
+    "dependency_receipts_sha256": {
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "findings": [
+    "avoiding_interval_side_iff uses the actual consecutive positions A.val=s.val and B.val=s.val+1 and I.left<I.right. It proves that avoiding both is equivalent to the entire interval ending at or before A, or starting at or after B. Non-strict outer inequalities deliberately retain intervals ending exactly at A or starting exactly at B. There is no omitted discrete interval crossing the gap between those consecutive positions.",
+    "On the first side, both endpoint representatives are at most s.val and collapse_val leaves both unchanged. On the second side, both are greater than s.val and collapse subtracts one from each. The proof has I.left.val>=s.val+1>=1, so natural-number subtraction does not introduce a truncation artifact. The same endpoint difference is therefore the actual BoundaryInterval.leaves on each side; this is a numeric proof, not a general claim that arbitrary order embeddings preserve leaf counts.",
+    "collapseInterval_unit_avoiding obtains equality of endpoint differences, uses strictness of both actual intervals, and proves equivalence of the two successor-endpoint tests. Unfolding boundaryUnitArray then identifies the corresponding if-then-one-else-zero entries over any CommRing. Neither inverse-of-two assumptions, nonzero scalar factors nor an assumed transform equation enter the argument.",
+    "The avoidance premise implies the stated hI by the existing duplicate-interval definition; carrying that proof for the dependent collapseInterval does not narrow the source domain. Arbitrary distinguished positions include s=0 and s=n-1, all avoiding A/B endpoint cases, and source n=3. The body does not evaluate a degenerate collapsed interval or invoke an amplitude at a smaller arity."
+  ],
+  "limits": "These results provide the E-entry equality required after a separately proved avoiding-transform correspondence. They do not prove the weighted transform transport, ordinary-array solution, singleton [A,B] transform, nonavoiding cases or the full A-soft amplitude law. Dependency authorship is disclosed. No source acceptance, canonical integration or stronger-model statement-fidelity approval is granted."
+}

@@ -1,0 +1,288 @@
+### B1. Generic-locus inclusion and transfer of a triple germ
+
+**Lemma B1.** With the labelled coordinate identification of §0,
+
+$$
+\mathcal U_n^{\rm SM}\subseteq\mathcal U_n^{\rm CV}.
+$$
+
+(1)
+
+Every SM11 wall germ satisfying the central conditions of type $T$ is a CV event. This assertion is restricted to that central type; it does not assert that every type of SM wall is a CV event.
+
+The relevant SM definitions and elementary geometry are:
+
+<!-- BEGIN QUOTE SM_GENERIC -->
+**SM_GENERIC — SM11 `sm-1-polygons.tex:99–108`**
+
+````tex
+\begin{definition}[generic polygon]\label{def:generic}
+A polygon $P$ is \emph{generic} if
+\begin{enumerate}
+\item[(G1)] $\chi_{ijk}(P)\neq0$ for all pairwise distinct $i,j,k\in\ZZ/n$;
+\item[(G2)] there is no point of $\RR^2$ lying in the relative interiors of
+three distinct edge segments.
+\end{enumerate}
+The set of generic polygons on $n$ vertices is $\mathcal U_n\subseteq(\RR^2)^n$.
+\end{definition}
+
+````
+<!-- END QUOTE SM_GENERIC -->
+
+<!-- BEGIN QUOTE SM_G1 -->
+**SM_G1 — SM11 `sm-1-polygons.tex:110–123`**
+
+````tex
+Let $P$ satisfy (G1). Then:
+\begin{enumerate}
+\item[(i)] all vertices are distinct and every edge vector is nonzero;
+\item[(ii)] every turn $\tau_i$ is $\pm1$; consecutive edge vectors are
+linearly independent, so no vertex is a positive or negative multiple
+(``flat'' or ``kink'') of its neighbours;
+\item[(iii)] no vertex lies on the line spanned by an edge not incident to it;
+in particular no vertex lies on a non-incident closed edge segment;
+\item[(iv)] two adjacent edges meet exactly in their common vertex;
+\item[(v)] two remote edges are either disjoint or meet in exactly one point,
+which lies in the relative interior of both and at which the two edge
+directions are linearly independent.
+\end{enumerate}
+\status{proved}
+````
+<!-- END QUOTE SM_G1 -->
+
+<!-- BEGIN QUOTE SM_GERM -->
+**SM_GERM — SM11 `sm-1-polygons.tex:653–668`**
+
+````tex
+\begin{definition}[wall germ; sides]\label{def:germ}
+A \emph{wall germ} is a continuous map $P\colon(-\varepsilon,\varepsilon)\to
+(\RR^2)^n$ such that $P(t)\in\mathcal U_n$ for $t\neq0$ and $P(0)\notin
+\mathcal U_n$. Its \emph{sides} $P_-$ and $P_+$ are the chambers containing
+$P((-\varepsilon,0))$ and $P((0,\varepsilon))$; each of these two sets is
+connected and generic, hence lies in one chamber. For a function $F$ that is
+constant on chambers, $F(P_\pm)$ denotes its value on the respective side.
+At the centre $P(0)$ put
+\begin{align*}
+Z_{\rm pt}&=\bigl\{\{i,j,k\}\text{ pairwise distinct}:\chi_{ijk}(P(0))=0\bigr\},\\
+Z_{\rm c}&=\bigl\{\{e,f,g\}\text{ pairwise remote}:
+\operatorname{relint}E_e\cap\operatorname{relint}E_f\cap\operatorname{relint}E_g\neq\varnothing\text{ at }t=0\bigr\}.
+\end{align*}
+A real function $\phi$ of the germ \emph{changes sign at $0$} if there is
+$\delta>0$ with $\phi(P(t))\phi(P(-t))<0$ for $0<t<\delta$.
+\end{definition}
+````
+<!-- END QUOTE SM_GERM -->
+
+<!-- BEGIN QUOTE SM_TRIPLE -->
+**SM_TRIPLE — SM11 `sm-1-polygons.tex:735–738`**
+
+````tex
+\item[(T)] \emph{Triple at $\{e,f,g\}$}: $Z_{\rm pt}=\varnothing$,
+$Z_{\rm c}=\{\{e,f,g\}\}$, and on each of the three edges the two crossing
+parameters of the other two edges (which exist on both sides by
+Lemma~\ref{lem:triple-sides}) have a difference that changes sign at $0$.
+````
+<!-- END QUOTE SM_TRIPLE -->
+
+<!-- BEGIN QUOTE SM_TRIPLE_SIDES -->
+**SM_TRIPLE_SIDES — SM11 `sm-1-polygons.tex:670–675`**
+
+````tex
+\begin{lemma}[sides of a triple wall]\label{lem:triple-sides}
+Let a wall germ have $Z_{\rm pt}=\varnothing$ and
+$Z_{\rm c}=\{\{e,f,g\}\}$. Then for small $t\neq0$ the three pairs
+$\{e,f\},\{e,g\},\{f,g\}$ are crossings, their three crossing points
+are distinct, and on each of $E_e,E_f,E_g$ its two crossings occupy adjacent
+positions among the crossing visits on that edge.
+````
+<!-- END QUOTE SM_TRIPLE_SIDES -->
+
+CV's guard polynomials, activation rule and genericity are:
+
+<!-- BEGIN QUOTE CV_UNCONDITIONAL -->
+**CV_UNCONDITIONAL — CV `d1_setup.tex:42–55`**
+
+````tex
+\begin{definition}[the guarded list $\mathcal G$]\label{def:guarded}
+Fix $n$. The \emph{guarded list} is a finite family of real polynomial functions
+on $(\mathbb R^2)^n$, indexed once and for all by combinatorial data that does
+not depend on the configuration. Write $d_i=p_{i+1}-p_i$ and, for an edge index
+$e$, write $\ell_e(x)=\det(d_e,\,x-p_e)$ for the affine form vanishing on the
+line of $e$, with coefficient row
+$\bigl(A_e,B_e,C_e\bigr)=\bigl(-d_{e,2},\;d_{e,1},\;d_{e,2}p_{e,1}-d_{e,1}p_{e,2}\bigr)$,
+so that $\ell_e(x)=A_ex_1+B_ex_2+C_e$.
+
+\emph{Unconditional members.}
+\begin{enumerate}
+\item[(G1)] $\mathrm{G1}_i=\det(d_{i-1},d_i)$, for every $i\in\{1,\dots,n\}$.
+\item[(G2)] $\mathrm{G2}_{e,i}=\ell_e(p_i)=\det(d_e,\,p_i-p_e)$, for every edge
+index $e$ and every $i\notin\{e,e+1\}$.
+````
+<!-- END QUOTE CV_UNCONDITIONAL -->
+
+<!-- BEGIN QUOTE CV_ACTIVATION -->
+**CV_ACTIVATION — CV `d1_setup.tex:58–64`**
+
+````tex
+\emph{Activation.} Two remote edges $e,f$ are \emph{defined} to cross when
+\[
+   \mathrm{G2}_{e,f}\,\mathrm{G2}_{e,f+1}<0
+   \quad\text{and}\quad
+   \mathrm{G2}_{f,e}\,\mathrm{G2}_{f,e+1}<0 ,
+\]
+a condition on unconditional members alone. The products are \emph{strict}, and
+````
+<!-- END QUOTE CV_ACTIVATION -->
+
+<!-- BEGIN QUOTE CV_G5 -->
+**CV_G5 — CV `d1_setup.tex:99–114`**
+
+````tex
+\emph{Conditional members.}
+\begin{enumerate}
+\item[(G5)] $\mathrm{G5}_{e,f}=\det(d_e,d_f)$, for every pair of remote edge
+indices with $1\leq e<f\leq n$ as integers --- the comparison is between the
+integer representatives $1,\dots,n$ of the edge indices and not a cyclic
+comparison, there being no such thing; adjacency and remoteness continue to be
+read modulo $n$. This fixes one \emph{ordered representative} per pair, and an
+unordered pair will not do, because
+$\det(d_f,d_e)=-\det(d_e,d_f)$ and the family is used where signs are read, in
+the sign-change condition that defines a transversal event below; \emph{active} when $e$
+and $f$ cross. Making it
+conditional rather than unconditional is a fidelity point: the specification
+guards the turn at a smoothing site, and a smoothing site exists only where two
+edges cross. Demanding $\det(d_e,d_f)\neq0$ for a pair that does not cross
+would shrink the generic locus below the specification's and exclude polygons
+the laws are stated about.
+````
+<!-- END QUOTE CV_G5 -->
+
+<!-- BEGIN QUOTE CV_G3 -->
+**CV_G3 — CV `d1_setup.tex:115–127`**
+
+````tex
+\item[(G3)] $\mathrm{G3}_{e,f,g}=\det\begin{pmatrix}A_e&B_e&C_e\\
+A_f&B_f&C_f\\ A_g&B_g&C_g\end{pmatrix}$, the rows being the line-coefficient
+rows bound at the head of this definition, one for each of $e$, $f$ and $g$;
+for every triple of pairwise remote edges $1\leq e<f<g\leq n$, ordered by their
+integer representatives; \emph{active} when $e,f,g$ pairwise cross. It vanishes exactly when the
+three lines share a point of the projective plane: either they are concurrent in
+the plane, or all three are parallel. A parallel \emph{pair} with a transverse
+third does \emph{not} make it vanish --- an earlier revision said it did, and the
+configuration $p_0=(0,0)$, $p_1=(1,0)$, $p_2=(0,1)$, $p_3=(1,1)$, $p_4=(2,-1)$,
+$p_5=(2,2)$ refutes it, the rows of $e_0,e_2,e_4$ being $(0,1,0)$, $(0,1,-1)$
+and $(-3,0,6)$ with determinant $3$. On the active domain the three edges
+pairwise cross, so no two of the lines are parallel and the vanishing is exactly
+a concurrence at a finite point, which is what every consumer reads.
+````
+<!-- END QUOTE CV_G3 -->
+
+<!-- BEGIN QUOTE CV_G4 -->
+**CV_G4 — CV `d1_setup.tex:128–134`**
+
+````tex
+\item[(G4)] $\mathrm{G4}_{e;f,g}
+=\det(d_f,\,p_f-p_e)\,\det(d_g,d_e)-\det(d_g,\,p_g-p_e)\,\det(d_f,d_e)$,
+for every edge $e$ and every pair of edges remote to $e$ with
+$1\leq f<g\leq n$ as integers --- again the comparison is between integer
+representatives, and again one ordered representative per pair, since
+$\mathrm{G4}_{e;g,f}=-\mathrm{G4}_{e;f,g}$; \emph{active} when $f$ and $g$ both
+cross $e$.
+````
+<!-- END QUOTE CV_G4 -->
+
+<!-- BEGIN QUOTE CV_GENERIC -->
+**CV_GENERIC — CV `d1_setup.tex:220–237`**
+
+````tex
+\begin{definition}[relevant members, generic polygons and chambers]\label{def:generic}
+\begin{enumerate}
+\item[(A)] A member of $\mathcal G$ is \emph{relevant} at a polygon $P$ if it is
+unconditional, or if it is conditional and active at $P$
+(Definition~\ref{def:guarded}). A polygon $P$
+(Definition~\ref{def:polygon}) is \emph{generic} if every member relevant at
+$P$ is nonzero at $P$; equivalently, if every unconditional member of
+$\mathcal G$ is nonzero at $P$ and every conditional member that is active at
+$P$ is nonzero at $P$. We write $\mathcal U_n$ for the set of generic polygons
+on $n$ vertices.
+
+\item[(B)] A \emph{chamber} is a connected component of the set $\mathcal U_n$ of generic
+polygons on $n$ vertices (clause~(A)). It is \emph{not} in
+general a component of the set where every member of $\mathcal G$ is nonzero:
+a conditional member that is inactive may vanish, or vanish identically, at a
+perfectly generic polygon, and nothing in this document asks it not to.
+\end{enumerate}
+\end{definition}
+````
+<!-- END QUOTE CV_GENERIC -->
+
+<!-- BEGIN QUOTE CV_EVENT -->
+**CV_EVENT — CV `d1_setup.tex:1072–1086`**
+
+````tex
+\begin{definition}[event, and its zero set]\label{def:event}
+An \emph{event} is a continuous path $t\mapsto P(t)$ of polygons on $n$
+vertices, $t\in(-\varepsilon,\varepsilon)$, such that $P(t)$ is generic for
+every $t\neq0$ and $P(0)$ is not. Its \emph{zero set} is
+\[
+   Z=\bigl\{g\in\mathcal G:\ g(P(0))=0\ \text{ and }\ g\ \text{is relevant at }
+   P(t)\ \text{for some }t\neq0\bigr\}.
+\]
+The \emph{two chambers of the event} are the chambers containing
+$P\bigl((-\varepsilon,0)\bigr)$ and $P\bigl((0,\varepsilon)\bigr)$; each of
+those two sets is connected and consists of generic polygons, so each does lie
+in one chamber. We say the event is \emph{guarded relative
+to $Z$}, and every appeal to simplicity below names its $Z$.
+
+The event is \emph{transversal} if every member of $Z$ changes sign at $t=0$.
+````
+<!-- END QUOTE CV_EVENT -->
+
+**Proof.** First take an SM-generic labelled tuple. All of its distinct vertex-triple determinants are nonzero. Thus its vertices are distinct and its edges are nonzero by SM `lem:g1(i)`, so it is a polygon in CV's definition.
+
+For CV's unconditional turn guard, write $d_{i-1}=p_i-p_{i-1}$ and $d_i=p_{i+1}-p_i$. Bilinearity gives
+
+$$
+\det(p_i-p_{i-1},p_{i+1}-p_{i-1})
+=\det(d_{i-1},d_{i-1})+\det(d_{i-1},d_i).
+$$
+
+(2)
+
+The first summand is zero by alternation, so the left side equals $\mathrm{G1}_i$. It is a determinant of three distinct consecutive vertices and is therefore nonzero. CV's $\mathrm{G2}_{a,i}$ is directly the determinant of the distinct vertices (a,a+1,i), so it too is nonzero. These arguments cover every unconditional member, not merely those near the nominated triple.
+
+For two remote edges, the nonzero endpoint determinants and CV's two strict products express that each segment's endpoints lie strictly on opposite sides of the other's line. Such segments have a unique transverse intersection interior to both. Conversely an interior transverse intersection has those endpoint separations. This is also SM's printed crossing test:
+
+<!-- BEGIN QUOTE SM_CROSSINGS -->
+**SM_CROSSINGS — SM11 `sm-1-polygons.tex:137–155`**
+
+````tex
+\begin{definition}[crossings]\label{def:crossings}
+Let $P$ satisfy (G1). The \emph{crossing set} $X(P)$ is the set of unordered
+pairs $\{i,j\}$ of remote edge indices with $E_i\cap E_j\neq\varnothing$. For
+$\{i,j\}\in X(P)$ the \emph{crossing point} $x_{ij}$ is the unique point of
+$E_i\cap E_j$, and its \emph{parameters} $t_{ij}\in(0,1)$ on $E_i$ and
+$t_{ji}\in(0,1)$ on $E_j$ are defined by $x_{ij}=\mu_i+t_{ij}\lt_i
+=\mu_j+t_{ji}\lt_j$. The \emph{crossing sign} of $\{i,j\}$ read from $E_i$ is
+$\sgn\det(\lt_i,\lt_j)$.
+\end{definition}
+
+\begin{lemma}[crossings through the chirotope]\label{lem:crossing-test}
+Let $P$ satisfy (G1) and let $E_i,E_j$ be remote. Then $\{i,j\}\in X(P)$ if
+and only if
+\[
+\chi_{i,i+1,j}\,\chi_{i,i+1,j+1}=-1\quad\text{and}\quad
+\chi_{j,j+1,i}\,\chi_{j,j+1,i+1}=-1.
+\]
+If $P$ is generic, distinct crossings have distinct crossing points, and
+$X(P)$ is finite. \status{proved}
+````
+<!-- END QUOTE SM_CROSSINGS -->
+
+Hence CV activation and SM crossing agree on this tuple. An active G5 is nonzero because an interior crossing has linearly independent edge directions.
+
+If an active G3 vanished, its three pairwise crossing lines would have a common projective point. Any crossing pair has independent directions, so their unique intersection is a finite point. That point must be the pairwise intersection on each of the three segments, hence interior to all three. SM (G2) excludes it.
+
+If an active $\mathrm{G4}_{a;b,c}$ vanished, the two interior crossings on edge $a$ would have equal parameters. For completeness, this follows by solving the two line-intersection equations: the denominators $\det(d_b,d_a)$ and $\det(d_c,d_a)$ are nonzero, and clearing them makes equality of the two parameters exactly the defining G4 numerator. B3 below writes these algebraic steps explicitly, without any generic-locus premise beyond nonzero denominators. The resulting point lies in the interiors of three distinct segments $a,b,c$, again excluded by SM (G2). This also covers CV G4 members for which $b,c$ are adjacent; their adjacency does not evade SM's three-interior exclusion. Every relevant CV member is therefore nonzero. This proves (1).
+
+Now take the SM triple germ. Its punctured values are CV-generic by (1). At the centre, $Z_{\rm pt}=\varnothing$ says that the SM point-triple condition still holds, so the centre has nonzero edges and is also a CV polygon. The sole member $\{e,f,g\}$ of $Z_{\rm c}$ specifies pairwise remote edges and a point $q$ interior to all three. No pair of their supporting lines can coincide: an endpoint of one remote edge would then lie on the other's line, contradicting the nonzero point-triple determinant. Their directions are therefore pairwise independent. The three pairs satisfy CV's strict crossing activation at the centre. Their coefficient matrix annihilates $(q_1,q_2,1)^T$, so its determinant G3 is zero. This is an active, hence relevant, zero guard; the centre is not CV-generic. Continuity is the same coordinate continuity in both definitions. We have verified every clause of CV `def:event`. ∎

@@ -1,0 +1,408 @@
+{
+  "id": "lem:transport-polynomials",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "5b75978bcaf47e7ac032c146b24a1f55726d665776ac5311b239f6a44fabedef",
+  "verdict": "faithful",
+  "reason": "The complete original source lemma at sm-1-polygons.tex:1292–1383 is faithfully represented by SM.transport_polynomials and the transparent PolynomialControlsStatement. The finite family consists exactly of one chosen ordered representative for each unordered distinct vertex triple and each unordered pairwise-remote edge triple. Its polynomials are the actual area determinant and source-directed three-line determinant over the full real scalar-coordinate ring; every raw ordering is represented up to its proved sign. Nonzero, irreducible and pairwise nonassociate are proved for this concrete family, including different edge matchings on the same six vertices. Affinity holds for every scalar, coefficients live in the exact ring of all other coordinates, actual dependence implies nonzero slope, and the concrete irreducibility/nonassociation theorems discharge every conditional input of the nonzero resultant proof. Every real specialization with nonzero evaluated slope has the actual unique root of multiplicity one; nonzero evaluated resultant excludes common roots without adding slope conditions. The only source-size premise is n≥3; NeZero n is a redundant instance, independently supplied from that premise in the kernel trace. No Generic, geometric noncollision, assumed support classification, extra algebraic certificate, literature axiom, or family nonassociation premise remains in the full theorem. This conclusion follows from independent review of the source, new proof bodies, inherited definitions and compiled type, in addition to the exact current audit bindings.",
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1292–1383; polygon size/scalar-label conventions inherited from 27–61",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "module": "SM.TransportPolynomials",
+  "declaration": "SM.transport_polynomials",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_clause_review": [
+    {
+      "clause": "Full scalar-coordinate domain and source determinants",
+      "assessment": "ScalarCoordinate n = ZMod n × Fin 2 indexes the full 2n real scalar variables. scalarCoordinateEquiv has proved inverse maps between all labelled tuples and all scalar assignments. areaPolynomial is det(P j−P i, P k−P i), with the exact source sign. The actual line row is (−d_y,d_x,det(P e,d)); concurrencePolynomial is the determinant of those three rows, and eval_concurrencePolynomial equals the existing concurrenceDet. Both evaluation fields quantify arbitrary labelled tuples, so coincident points and nongeneric polynomial specializations are not excluded. This is the source’s explicitly labelled coordinate calculation, consistent with the admitted labelled formalization convention."
+    },
+    {
+      "clause": "Finite family, one representative per unordered source name, and complete coverage",
+      "assessment": "VertexControlName is exactly the subtype of vertex Finsets of cardinality three. EdgeControlName is exactly the cardinality-three subtype whose underlying set is pairwise remote. Their sum is finite for n≥3. selectThree chooses actual distinct indices and proves their unordered support equals the name; it is ordinary Classical.choice of an existing enumeration, not an assumed representative or arbitrary polynomial. namedControlPolynomial evaluates the appropriate actual determinant on that choice. polynomialControlFamily is the image of the whole finite name universe; family_exact proves its exact membership and namedControlPolynomial_injective prevents names from being silently collapsed. The separately checked cardinality theorem confirms one polynomial per name. Actual cyclic permutations preserve both determinants and a last-two swap negates them. All six orderings are covered by triple_value_eq_or_neg, and the two coverage fields cover every raw admissible vertex/edge triple, including arbitrary choices of ordered representative. The source family does not retain all sign associates as distinct names."
+    },
+    {
+      "clause": "Nonzero and irreducible Δ/H/T in the full coordinate ring",
+      "assessment": "The inherited independently reviewed determinant core proves irreducibility in an arbitrary ambient variable type, retaining unused variables. Explicit algebra automorphisms give the actual vertex-difference coordinates for Δ and the tail/direction coordinates for H and T; inverse addition maps and exact determinant images are proved. For T the first-two-line coefficients A,B,C satisfy C=H and C is irreducible. An unrestricted formal tail/direction evaluation gives C=0 and A=−1, ruling out C dividing A and proving the required relative primality. The primitive-linear argument uses the actual distinct third-edge scalar variables, whose absence from A,B,C follows from six disjoint endpoint labels. Degree one in the selected variable rules out divisibility of the other coefficient; a second primitive-linear step gives the full free T. The proved shear image is exactly the actual three-line determinant. All variable-freshness and nonzero-product obligations are proved, and the public T theorem needs only n≥3 and three pairwise-remoteness conditions. The family branches apply these actual irreducibility theorems, obtaining nonzeroness rather than assuming it. Formal nonzeroness is not misstated as nonvanishing at every tuple."
+    },
+    {
+      "clause": "Exact support and different-support nonassociation",
+      "assessment": "polynomialVertexSupport is the image of the actual multivariate vars under the vertex projection. A divisor can involve only variables of its nonzero dividend; the nonzero condition is explicit and is supplied by irreducibility before using associated-polynomial support equality. For Δ, unrestricted witnesses change only the middle vertex x-coordinate and evaluate to that coordinate; cyclic identities give all three vertices. Avoidance proves no outside scalar occurs. For T, sixEndpointMap is proved injective from pairwise remote endpoints and n≥3. Function.extend realizes every six-slot witness as a full tuple and fixes the default outside that image. Six explicit witnesses independently vary each endpoint’s x-coordinate while preserving every other scalar and change the actual determinant value. The determinant expansion excludes every outside coordinate. Thus vertex supports are exactly the three point labels or six edge endpoints. Different area supports and the cross-family cardinality mismatch 3≠6 exclude association without any geometric regularity hypothesis."
+    },
+    {
+      "clause": "All concurrence nonassociation cases, including the same-six-vertex case",
+      "assessment": "If two nonzero concurrence polynomials were associated, their exact endpoint supports would agree. The endpoints e,e+1 of any first-triple edge can therefore be located in the second triple’s six distinct slots. If they lie in different second-triple edge pairs, endpointCollapseWitness assigns both selected endpoints (0,0), their respective partners (1,0) and (0,1), and the remaining pair those two nonzero points. Finite kernel-checked cases give a nonzero second determinant for every row and endpoint orientation, whereas the collapsed first edge makes its first line row zero. Polynomial evaluation preserves divisibility, so association is impossible. If the selected slots lie in the same pair, e is its actual tail unless the cycle edge is reversed; reversal would imply n divides 2, contradicting n≥3. Consequently association forces every first tail into the second tail set. Cyclic determinant equality supplies all three tails, and the symmetric argument makes the tail sets equal. Distinct unordered edge names are therefore nonassociate. This valid alternative proof includes the source’s n=6 alternating matchings without leaving a matching-classification exception or using the printed witness as an axiom. Repeated geometric point values in these witnesses are valid unrestricted polynomial evaluations."
+    },
+    {
+      "clause": "Affinity in every scalar coordinate",
+      "assessment": "The area determinant is expanded to its mixed x*y terms, with the self terms cancelling; a scalar cannot be both an x and a y variable, so each term has degree at most one. The line-row constant is exactly the tail/head cross determinant after cancellation. Pairwise remote edge endpoints are disjoint, so for any fixed scalar at most one of the three line rows can have nonzero degree. Each of the six determinant terms therefore has degree at most one. The family affine field quantifies every name and every scalar and uses those proved bounds, rather than taking affinity as input."
+    },
+    {
+      "clause": "Remaining-variable coefficients and nonzero slope for genuine dependence",
+      "assessment": "RemainingPolynomial z is exactly MvPolynomial {w // w≠z} ℝ. isolateCoordinate is a proved algebra equivalence to Polynomial over that coefficient ring, with the selected scalar mapping to X and all other variables mapping to constants of their subtype variables. embedRemaining is injective and its image avoids z. Coefficients 1 and 0 define the slope and intercept; isolation preserves the chosen coordinate degree. Affinity gives the exact decomposition in the full ring after embedding the coefficients. Membership z∈vars is actual formal dependence; a zero slope would make the isolated polynomial constant and contradict the nonzero coordinate degree. The aggregate supplies the family affinity proof and leaves only this source dependency premise in slope_nonzero."
+    },
+    {
+      "clause": "Concrete nonzero ad−bc",
+      "assessment": "coordinateResultant is slope(F)*intercept(G)−intercept(F)*slope(G) in the actual remaining-variable ring. The conditional algebraic theorem is fully proved: ad−bc=0 implies cF=aG, hence F divides aG; irreducible F is prime in the actual polynomial unique factorization domain. Since F has coordinate degree one and nonzero a has degree zero, F cannot divide a. It must divide G, and irreducibility of both would force association. The aggregate now supplies concrete family irreducibility and the newly proved distinct-name nonassociation, so these are no longer open inputs. It retains the source condition that both names depend on the chosen scalar; the stronger helper needs only the first dependence, which does not weaken the source conclusion."
+    },
+    {
+      "clause": "Actual specialized simple roots and absence of common roots",
+      "assessment": "specializeCoordinate maps the exact remaining-variable coefficients to their real values while preserving the selected scalar as the ordinary polynomial variable. The specialization_evaluation field proves equality with full multivariate evaluation at extendCoordinateAssignment; the inherited geometric wrapper also proves this changes exactly one scalar coordinate of a genuine tuple. At evaluated slope a≠0, the root is r=−b/a; every real IsRoot t is equivalent to t=r, and rootMultiplicity r=1 follows from the exact nonzero factorization C a*(X−C r) and proved multiplicity laws. At evaluated ad−bc≠0, two root equations would force determinant zero by their linear combination, so no common real root exists. The final field imposes no extra nonzero-slope, irreducibility or distinct-name premise at this specialization step. Formal nonzero coefficients/resultants are distinguished from nonzero values at a particular specialization."
+    },
+    {
+      "clause": "Full theorem domain, mathematical depth and completion scope",
+      "assessment": "The compiled main theorem quantifies n with the source’s inherited n≥3 condition and proves the whole transparent structure. The additional NeZero n instance is a technical finiteness instance derivable from n≥3, as checked by an independent example importing the finished theorem. All source fields and actual determinant meanings are bound into the theorem’s semantic dependency hash. There are no custom or literature axioms, sorryAx, native_decide certificates, extra Generic/regularity conditions or unproved family obligations. The proof uses checked Mathlib algebra and standard logical axioms; it certifies this complete original lemma only, not the following transport/general-position theorem, main wall laws, soft theorem or a completed stage."
+    }
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "import_closure_root": "SM.TransportPolynomials",
+  "import_closure_file_count": 39,
+  "inherited_review_binding": {
+    "new_modules_reviewed": 9,
+    "inherited_modules": 30,
+    "all_inherited_file_hashes_match_prior_independent_reviews": true,
+    "prior_partial_reports_sha256": {
+      "work/reviews/transport-area-direction-partial.json": "1d7a694418f01787171bd5b0b491c8082dda1e4732f309edd82140d0b42395df",
+      "work/reviews/transport-concurrence-partial.json": "9f6974f7c31d7c3749b8f320dbc0bac02081e40216bf36297c4518e55cce99c8",
+      "work/reviews/transport-affinity-partial.json": "6f3818388626549a2e5b64ed88b4682ba6fb991a4ea18fe20838e515cd42d9a0",
+      "work/reviews/transport-coefficients-partial.json": "4c540c53be0374760517b3048b0d13751566866105f5fa536c34469f115e73a9"
+    },
+    "note": "The earlier reports remain historical partial checkpoints. This full review independently checks their unchanged supporting meanings together with the completed concrete family and full source aggregate."
+  },
+  "supporting_theorems_inspected": [
+    "SM.polynomial_vars_subset_of_dvd",
+    "SM.polynomial_variable_of_eval_ne",
+    "SM.areaPolynomial_vertexSupport",
+    "SM.sixEndpointMap_injective",
+    "SM.concurrenceDet_extendSixEndpointTuple",
+    "SM.concurrencePolynomial_X_endpoint",
+    "SM.concurrencePolynomial_vertexSupport",
+    "SM.endpointCollapseWitness_ne_zero",
+    "SM.concurrence_not_associated_of_crossed_slots",
+    "SM.cycle_no_reversed_edge",
+    "SM.concurrence_associated_first_mem",
+    "SM.concurrence_not_associated_of_tail_sets_ne",
+    "SM.area_concurrence_not_associated",
+    "SM.namedControlPolynomial_irreducible",
+    "SM.namedControlPolynomial_ne_zero",
+    "SM.namedControlPolynomial_not_associated",
+    "SM.namedControlPolynomial_affine",
+    "SM.namedControlPolynomial_injective",
+    "SM.polynomialControlFamily_card",
+    "SM.vertexControlNameOf_coverage",
+    "SM.edgeControlNameOf_coverage",
+    "SM.coordinate_affine_decomposition",
+    "SM.coordinateSlope_ne_zero",
+    "SM.coordinateResultant_ne_zero",
+    "SM.specializeCoordinate_eval",
+    "SM.specializeCoordinate_simple_root",
+    "SM.specializeCoordinate_no_common_root",
+    "SM.transport_polynomials"
+  ],
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "inherited_reviewed_library_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean": "fab026fd520913a5ae196a911a719a612b3cb692222f757c7fdca9e5c4f5ac59",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Equiv.lean": "3e2ef0b3cfa3713e0e56b21ad0eb753d4b178c8c5752b81b8d854591a6159d54",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/NoZeroDivisors.lean": "d9e5beb100d4840329ac1d8f2ec5e961a9f2ccd1aa32b193ded0cf8c63e3669d",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean": "11fd527aebb2082f5e8770a295883d327cc3ea24b94b8823ed4e2bf1b5030f3f",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/Degree/SmallDegree.lean": "46ade3e5c8c6334c08cc2e6a1ffa22f5325f1758be9ce268b4de423b512596f7",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean": "0d8d1e338df392f891387c11880f9ce75af5dd87425aad581460fc9d82d5fdfe",
+      "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/Polynomial/UniqueFactorization.lean": "e7b6599d144797c866f33aeec3454d88913e4de349a440d8309a80a2c5182f66"
+    },
+    "library_scope": "Pinned source definitions and algebraic results were inspected in the independently bound algebra/affinity/coefficient reviews; their current file hashes match. This full source-row review does not claim to reprove the whole standard library."
+  },
+  "receipt_binding": {
+    "receipt": "work/checks/checkpoint-051-output.json",
+    "receipt_sha256": "c0b224868e17345a4cd7520f9da0d2b13460ebd49444966e61b92fcbda621a05",
+    "stage_development": "work/checks/stage-development.json",
+    "stage_development_sha256": "c0b224868e17345a4cd7520f9da0d2b13460ebd49444966e61b92fcbda621a05",
+    "passed": true,
+    "stage_accepted": false,
+    "SM_modules": 251,
+    "audited_local_declarations": 2749,
+    "mapped_rows": 30,
+    "project_files": 257,
+    "frozen_files": 38,
+    "exact_Lean_inventory_count": 253,
+    "all_project_and_frozen_hashes_independently_recomputed": true,
+    "exact_inventory_independently_verified": true,
+    "all_prior_242_SM_files_unchanged": true,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "e4bf115972f9fb50e708844e8a1f93ce82ef299429cc07911bca4c9ae26c332e",
+    "semantic_dependency_entries": 60,
+    "main_semantic_sha256": "5b75978bcaf47e7ac032c146b24a1f55726d665776ac5311b239f6a44fabedef",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_check_evidence": {
+    "type_definition_axiom_trace_source": "work/checks/transport-polynomials-review-types.lean",
+    "type_definition_axiom_trace_source_sha256": "a8808e76093d5e5068c218818474b29583d4c593d45e33bd8155a1ff5c54f953",
+    "type_definition_axiom_trace_log": "work/checks/transport-polynomials-review-types.log",
+    "type_definition_axiom_trace_log_sha256": "30db3d2c076d9cc48d3ea70acaa2cbc326c9ab578aed1766eff8e34f743c82fa",
+    "kernel_command": "lake env lean ../checks/transport-polynomials-review-types.lean",
+    "successful_kernel_session": 63937,
+    "successful_kernel_exit_code": 0,
+    "checked_axiom_sets": 28,
+    "declaration_axioms": {
+      "SM.polynomial_vars_subset_of_dvd": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomial_variable_of_eval_ne": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.areaPolynomial_vertexSupport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.sixEndpointMap_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrenceDet_extendSixEndpointTuple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrencePolynomial_X_endpoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrencePolynomial_vertexSupport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.endpointCollapseWitness_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrence_not_associated_of_crossed_slots": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.cycle_no_reversed_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrence_associated_first_mem": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.concurrence_not_associated_of_tail_sets_ne": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.area_concurrence_not_associated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.namedControlPolynomial_irreducible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.namedControlPolynomial_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.namedControlPolynomial_not_associated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.namedControlPolynomial_affine": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.namedControlPolynomial_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomialControlFamily_card": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.vertexControlNameOf_coverage": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.edgeControlNameOf_coverage": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_affine_decomposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateSlope_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateResultant_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_simple_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_no_common_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.transport_polynomials": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "NeZero_from_source_size_checked": true,
+    "successful_implementation_build_log": "work/checks/transport-polynomials-assembly-build.log",
+    "successful_implementation_build_log_sha256": "ddf7b0b3947d4d195a47cb82b2b98ddd3350ddfe4c885364ab83f5be70abf61a",
+    "successful_implementation_build_session": 54664,
+    "successful_implementation_build_exit_code": 0,
+    "trace_setup_note": "The first independent trace attempt failed only on an unsupported pretty-printer option. That option was removed from the independent check file, and the complete trace plus size-instance example then passed. No theorem-library source was changed."
+  },
+  "scope_note": "Only this complete original source row is certified. Helpers are not additional original claims. Acceptance of the declaration map and progress accounting remains the executor’s separate step; the reviewer made no Lean theorem-library, frozen-source, declaration-map or progress edits.",
+  "independence": "Reviewer identity is independent of root-implementation-20260910 and authored no theorem-library implementation; only the independent type/axiom evidence and this review were written.",
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 1292,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 1319,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "52e66782f8c13d153416b589b5086acad4c07b1026234f2eb400641a359a4984",
+    "to_excerpt_sha256": "52e66782f8c13d153416b589b5086acad4c07b1026234f2eb400641a359a4984",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "The printed lemma (sm-1-polygons.tex:1319-1343; SM15 excerpt is byte-identical to the earlier frame, sm15_reworded=false, and CHANGES_SINCE_20260909.md does not mention this label) is matched clause by clause by SM.transport_polynomials : PolynomialControlsStatement n under the single premise 3 ≤ n (the source's standing n ≥ 3 from def:polygon, line 28; the [NeZero n] instance is redundant with it). Domain: ScalarCoordinate n = ZMod n × Fin 2 gives exactly the 2n scalar vertex coordinates x_1..x_{2n}; CoordinatePolynomial n = MvPolynomial over ℝ. Objects: areaPolynomial i j k = (x_j−x_i)(y_k−y_i) − (y_j−y_i)(x_k−x_i) = Δ_{ijk} = det(μ_j−μ_i, μ_k−μ_i) with det u v = u.1 v.2 − u.2 v.1 (Polygon.lean:16); linePolynomialRow e = (−(y_{e+1}−y_e), x_{e+1}−x_e, x_e(y_{e+1}−y_e) − y_e(x_{e+1}−x_e)) = (−d_{e,y}, d_{e,x}, det(μ_e,d_e)) = ℓ_e, and concurrencePolynomial e f g is the 3×3 determinant of the rows ℓ_e, ℓ_f, ℓ_g = T_{efg} (LinePolynomials.lean:15-24, DirectionPolynomials.lean:16-20). Family: VertexControlName = 3-element Finsets of ZMod n (unordered distinct vertex triples), EdgeControlName = 3-element Finsets pairwise `remote`, where remote i j := ¬(j−i ∈ {−1,0,1}) (Polygon.lean:63-66) is exactly the source definition at line 47; namedControlPolynomial applies the determinant to one chosen ordering (selectThree via Classical.choice), i.e. 'one ordered representative' per unordered name, and polynomialControlFamily is the image of all names (family_exact). Conclusions: nonzero, Irreducible (over ℝ, MvPolynomial), ¬Associated for distinct names (including Δ-vs-T pairs via the Sum type) = 'nonzero, irreducible over ℝ, distinct named members nonassociate'; affine = degreeOf z ≤ 1 for every scalar coordinate; coefficient_decomposition gives F = a·X_z + b with a,b in MvPolynomial on {w // w ≠ z} (the other coordinates) and slope_nonzero gives a ≠ 0 when z ∈ F.vars ('depends on x_j'); resultant_nonzero: distinct names both depending on z give coordinateResultant = a·d − b·c ≠ 0 (AffineResultant.lean:34-35); specializeCoordinate z p η = univariate real polynomial after fixing the other coordinates to η (CoefficientSpecialization.lean:37-38), tied to full evaluation by specialization_evaluation; simple_root: eval η a ≠ 0 ⇒ r = −b(η)/a(η) is a root, the unique root, with rootMultiplicity 1 ('the root of F in x_j is simple'); no_common_root: eval η (ad−bc) ≠ 0 ⇒ no common real root. No hypotheses beyond n ≥ 3, nothing vacuous (for n ≥ 3 the name type is nonempty; for n < 6 the edge class is empty exactly as in the source). After forming this judgement I compared with work/reviews/lem-transport-polynomials.json, which reaches the same verdict on the same grounds.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "family_exact and one_per_name (TransportPolynomials.lean:17-20): the family is exactly the image of the name type and the naming map is injective; the source only implies this via nonassociation.",
+      "vertex_coverage / edge_coverage (lines 21-28): every ordering of a vertex triple or pairwise-remote edge triple gives ± the named representative; the source merely says 'use one ordered representative'.",
+      "area_evaluation / concurrence_evaluation (lines 29-32): explicit identification of the polynomials with the geometric determinants det(P j − P i, P k − P i) and concurrenceDet on arbitrary labelled tuples; the source states this only through the defining formulas.",
+      "specialization_evaluation (lines 48-51): explicit compatibility of the univariate specialization with full evaluation.",
+      "simple_root (lines 52-59): gives the explicit root −b(η)/a(η), its uniqueness, and rootMultiplicity = 1, where the source only says the root is simple.",
+      "no_common_root (lines 60-64) is stated for arbitrary names u v (not requiring distinctness or dependence on z) under the evaluated-resultant hypothesis; the source states it for the distinct dependent pair."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TransportPolynomials.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PolynomialControlRepresentatives.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PolynomialControlFamily.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GeometricCoordinateSpecialization.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CoordinatePolynomials.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/LinePolynomials.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/LineConcurrence.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/DirectionPolynomials.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CoordinateIsolation.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/AffineResultant.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/CoefficientSpecialization.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Segment.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-transport-polynomials.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

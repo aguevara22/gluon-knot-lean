@@ -1,0 +1,939 @@
+import CV.X1
+import CV.PieceIntrinsic
+import CV.HomflyRows
+
+/-! # CV lane, row 158 — CV:cor:groupedknot, "interlacement connected sums and the grouped carrier"
+
+Source: reference/R/CV/d6_vertexedge.tex, `cor:groupedknot` (statement lines 263–298: clause (A)
+264–288, clause (B) 289–297; printed proof 299–439). Written 2026-09-14 by a Claude Code prover
+subagent of the pod executor; checked with `cd work/lean && lake env lean ../drafts/cvdom/CVGroupedKnot.lean`.
+Nothing under work/lean was written. Report: work/drafts/cvdom/CVGROUPEDKNOT_REPORT.md.
+
+Row declaration: `CV.groupedknot (hn) (hG : Generic P) (S) (hS) (q) : CV.GroupedKnotData hn hG hS q`,
+one field per printed clause, on the binder of def:X1 (`P_{S,L}`, `w_{S,L}` are def:X1's objects, d1:909
+"Let `P` be generic"; the `S ∈ Ind(G_P)` and the carrier `L` of the statement are `hS`, `q`). The working
+theorems are on `hD : Diagrammatic P` (clause (A) needs nothing more), the record-level lemmas on tier 1
+`hG : CarrierGeometry P`.
+
+## Readings (DECISION_FINAL.md §2 reading (ii) throughout; recorded in the report)
+
+* "the diagram `D(W)` obtained from `L` by retaining exactly the labels of `W`, each resolved by the divide
+  convention, and erasing all others, is `L` itself carrying all of its own crossings" (d6:272–275), and
+  clause (B)'s "the diagram obtained from `L` by retaining exactly the crossings of `H₁ ∪ ⋯ ∪ H_k`"
+  (d6:293–294): the positive lift `geoPositiveLift` (U4, def:positive-lift's divide convention
+  `Diagram.IsPositive`) of the carrier `q = L` of `S` — `CV.carrierDiagram`. No erasing is performed: by
+  lem:piececurve Step 2 (`biUnion_pieceLabels_piecesOn`, CV/X1.lean) `W` is already the whole set of
+  self-crossings of `L` (`geoCarrierCrossings`).
+* "the interlacement graph induced on `W`" (d6:275–277): `G_P` (`geometricInterlacementGraph`, CV:def:interlace)
+  induced on `↑W`; its connected components are read both on this graph (field `partition`) and on the
+  record interlacement graph of `D(W)` (`Record.interlacementGraph`, the graph mp:blocks reads), which is
+  the same graph through the labels (`adj_iff_geometricInterlaces`).
+* "`D(W) ≅ #_𝓣(D(W₁), …, D(W_k))`" (d6:280–281; the product 283) with `#_𝓣` "evaluated recursively: a leaf has value `D(W_i)`
+  and an internal node has the connected sum of its two ordered child values": mp:blocks' "finite succession
+  of clean marked joins" — a `JoinForest` (SM/MarkedProducts.lean) over the leaves, each internal node a
+  clean marked join `IsCleanMarkedJoin` (lem:homflyrows (i)'s `K # J`, design decision D9: any clean marked
+  join of marked representatives, well-definedness of `#` on classes not claimed); "≅" is a record
+  isomorphism `RecordIso J.record (D(W)).record`, the hypothesis of CV:ax:gausscode (row 163, F4: only the
+  polynomial consequence `gausscode_polynomial` is claimed). The tree `𝓣` and the indexing of the leaves are
+  those produced by mp:blocks' `realizes` (existential, as printed: "can be indexed and equipped with a fixed
+  ordered binary parenthesization").
+* "`D(W_i)`", the diagram of `L` with only the crossings of `W_i` retained: the leaf family. The fields are
+  stated for EVERY family of leaf diagrams whose records are isomorphic to the intrinsic piece diagrams
+  `pieceDiagram H_i` (row 142) — `IsPieceLeafFamily` — which by lem:pieceintrinsic (row 156,
+  `carrierRestriction_recordIso`) includes every `D_L(H_i)` (`carrierRestriction`) and `D_P(H_i)` itself;
+  the canonical instance `C K = pieceDiagram (blockPiece K)` gives the printed product `∏ P_{H_i}`.
+* "is a knot diagram" (d6:293–294): `componentCount = 1`. "whose underlying plane curve is `L`" (d6:295–296): the
+  one component of the lift is the corner polygon `geoCornerPolygon` of the carrier (CV:def:smoothing's
+  carrier read as a closed polygon, def:flat-carriers). "which has no triple points": `¬ GeoIsTriplePoint`
+  for every point of the plane (lem:carriers (iii), `geo_carrier_no_triple_point`).
+* The parenthetical of (B) "(If `L` bears no piece the assertion is Theorem thm:carrierfloor (D):
+  `P_{S,L} = 1`, `w_{S,L} = 0`, and there is nothing to decompose.)" is rendered as the field `no_piece`
+  and proved from def:X1's empty conventions (row 146) and the crossing-free lift, not from
+  thm:carrierfloor (row pending); it is a remark, not an assertion of the corollary.
+* `hn : 3 ≤ n` is reading (iii) (carried by `pieceDiagram hn`, `geoPositiveLift hn`).
+
+## Proof route
+
+mp:blocks (`SM.blocks`, accepted) on the record `ρ` of `D(W) = geoPositiveLift L`:
+§1 on a one-component diagram the record's arc order (`Record.ArcBetween`, counted in `succ`-steps) is the
+traversal order (`Diagram.VisitBetween`); §2 for two carriers `q'` (of `T'`) and `q` (of `T`) with the
+crossings of `q'` among those of `q`, the record of the lift of `q'` is isomorphic to the record of the lift
+of `q` restricted (`Record.restrictCrossings`) to the chords labelled by the crossings of `q'` — the four
+clauses of def:record read on the parent through lem:pieceintrinsic's `liftVisit`, `visitBetween_iff_key`,
+`liftVisit_twin`, `overBit_eq_true_iff_parent`, the first-return successor characterised by
+`cycNext_unique_on`; §3 record interlacement of two chords of the lift is the geometric interlacement of
+their labels; §4 the blocks of `ρ`'s interlacement graph are the pieces carried by `L`; §5 `BlockSupply`
+with the leaves `pieceDiagram H_i` (via §2 at `T' = S ∪ K_{H_i}`, `q' = q_{H_i}`, lem:piececurve), then
+`SM.blocks.realizes` / `.product` / `.writhe_additive`, lp:core `P = homfly`; §6 the row. -/
+
+namespace CV
+
+open SM SM.Carrier SM.GeoCarrier SM.Link
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n}
+
+/-! ## 1. On a one-component diagram the record's arc order is the traversal order -/
+
+section ArcBetween
+
+variable (D : Diagram) (hD : D.componentCount = 1)
+
+include hD in
+theorem record_componentCount_one : D.record.componentCount = 1 := by
+  rw [D.record_componentCount]; exact hD
+
+include hD in
+/-- The sorted component list of the one component lists every occurrence. -/
+theorem compList_length_of_one (i : Fin D.Γ.c) :
+    (D.compList i).length = Fintype.card D.record.M := by
+  have : Subsingleton (Fin D.Γ.c) := Fin.subsingleton_iff_le_one.mpr (le_of_eq hD)
+  rw [D.compList_length]
+  have h : D.compVisits i = Finset.univ := by
+    ext v
+    simp only [Diagram.mem_compVisits, Finset.mem_univ, iff_true]
+    exact Subsingleton.elim _ _
+  rw [h, Finset.card_univ]
+
+include hD in
+/-- **The record's arc order is the traversal order** on a one-component diagram: `w` lies strictly inside
+the forward `succ`-arc from `v` to `u` (`Record.ArcBetween`, counted in steps) exactly when the three
+occurrences occur in that cyclic order on the traversal circle (`Diagram.VisitBetween`, def:record (a)). -/
+theorem arcBetween_iff_visitBetween (v w u : D.Γ.Visit) :
+    D.record.ArcBetween v w u ↔ D.VisitBetween v w u := by
+  have : Subsingleton (Fin D.Γ.c) := Fin.subsingleton_iff_le_one.mpr (le_of_eq hD)
+  have h1 : D.record.componentCount = 1 := record_componentCount_one D hD
+  obtain ⟨i, hvi⟩ : ∃ i, D.compOf v = i := ⟨_, rfl⟩
+  have hi : 0 < (D.compList i).length :=
+    List.length_pos_of_mem ((D.mem_compList i v).mpr hvi)
+  have hN : (D.compList i).length = Fintype.card D.record.M := compList_length_of_one D hD i
+  obtain ⟨a, ha, hva⟩ := D.exists_ent i hi v hvi
+  obtain ⟨b, hb, hwb⟩ := D.exists_ent i hi w (Subsingleton.elim _ _)
+  obtain ⟨c, hc, huc⟩ := D.exists_ent i hi u (Subsingleton.elim _ _)
+  -- the step count from `v = ent a` to `ent (a + j)` is `j` for `j` below the count
+  have hsteps : ∀ j, j < (D.compList i).length → D.record.steps v (D.ent i hi (a + j)) = j := by
+    intro j hj
+    have hpow : (D.record.succ ^ j) v = D.ent i hi (a + j) := by
+      rw [← hva]; exact D.visitSucc_pow_ent i hi j a
+    rw [D.record.steps_eq_mod h1 hpow, ← hN, Nat.mod_eq_of_lt hj]
+  have hw' : w = D.ent i hi (a + (b + (D.compList i).length - a) % (D.compList i).length) := by
+    rw [← hwb]; exact (D.ent_add_sub i hi a b ha hb).symm
+  have hu' : u = D.ent i hi (a + (c + (D.compList i).length - a) % (D.compList i).length) := by
+    rw [← huc]; exact (D.ent_add_sub i hi a c ha hc).symm
+  have hj : (b + (D.compList i).length - a) % (D.compList i).length < (D.compList i).length :=
+    Nat.mod_lt _ hi
+  have hj' : (c + (D.compList i).length - a) % (D.compList i).length < (D.compList i).length :=
+    Nat.mod_lt _ hi
+  rw [hw', hu']
+  unfold Record.ArcBetween
+  rw [hsteps _ hj, hsteps _ hj']
+  rcases Nat.eq_zero_or_pos ((b + (D.compList i).length - a) % (D.compList i).length) with hj0 | hj0
+  · rw [hj0]
+    refine iff_of_false (fun h => lt_irrefl _ h.1) ?_
+    rw [Nat.add_zero, hva]
+    exact D.not_visitBetween_left _ _
+  rcases Nat.eq_zero_or_pos ((c + (D.compList i).length - a) % (D.compList i).length) with hj'0 | hj'0
+  · rw [hj'0]
+    refine iff_of_false (fun h => Nat.not_lt_zero _ h.2) ?_
+    rw [Nat.add_zero, hva]
+    exact D.not_visitBetween_right _ _
+  · conv_rhs => rw [← hva]
+    rw [D.visitBetween_ent_iff i hi a _ _ hj0 hj'0 hj hj']
+    exact ⟨fun h => h.2, fun h => ⟨hj0, h⟩⟩
+
+end ArcBetween
+
+/-! ## 2. The record of the lift of a smaller carrier is the restricted record of the lift of a larger one
+(tier 1)
+
+For a carrier `q` of an independent `T`, an occurrence of the positive lift `geoPositiveLift q` is a visit of
+a retained crossing of `q` (`liftVisit`, lem:pieceintrinsic §4). The chords (record crossings) of the lift are
+labelled by the retained crossings (`liftLabel`); restricting the record to the chords labelled in a set `W'`
+(`liftBlock`) is `Record.restrictCrossings` (mp:blocks' "restricted named cyclic record"). -/
+
+section LiftLabel
+
+variable (hn : 3 ≤ n) (hG : CarrierGeometry P) {T : Finset (Crossing P)} (hT : GeoIndependent hG.cg T)
+  (q : GeoComponent hG.cg T)
+
+/-- The parent crossing labelling a chord of the record of the lift (through either of its two
+occurrences, `liftLabel_eq_of_mem`). -/
+noncomputable def liftLabel (p : (geoPositiveLift hn hG hT q).record.Crossing) : Crossing P :=
+  (liftVisit hn hG hT q p.rep).1
+
+/-- Both occurrences of a chord name the same parent crossing. -/
+theorem liftLabel_eq_of_mem {p : (geoPositiveLift hn hG hT q).record.Crossing}
+    {v : (geoPositiveLift hn hG hT q).Γ.Visit} (hv : v ∈ p.1) :
+    (liftVisit hn hG hT q v).1 = liftLabel hn hG hT q p := by
+  unfold liftLabel
+  rcases ((geoPositiveLift hn hG hT q).record.mem_val_iff p.rep_mem v).mp hv with h | h
+  · rw [h]
+  · rw [h]
+    change (liftVisit hn hG hT q ((geoPositiveLift hn hG hT q).twin p.rep)).1 = _
+    rw [liftVisit_twin]
+    rfl
+
+theorem liftLabel_crossingOf (v : (geoPositiveLift hn hG hT q).Γ.Visit) :
+    liftLabel hn hG hT q ((geoPositiveLift hn hG hT q).record.crossingOf v) = (liftVisit hn hG hT q v).1 :=
+  (liftLabel_eq_of_mem hn hG hT q
+    (((geoPositiveLift hn hG hT q).record.crossingOf_eq_iff v _).mp rfl)).symm
+
+theorem liftLabel_mem (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    liftLabel hn hG hT q p ∈ geoCarrierCrossings hG.cg T q :=
+  liftVisit_mem hn hG hT q _
+
+/-- Distinct chords of the lift have distinct labels (a crossing has exactly the two visits `w`,
+`visitTwin w`, which are the two occurrences of one chord). -/
+theorem liftLabel_injective {p p' : (geoPositiveLift hn hG hT q).record.Crossing}
+    (h : liftLabel hn hG hT q p = liftLabel hn hG hT q p') : p = p' := by
+  unfold liftLabel at h
+  rcases visit_eq_or_twin (liftVisit hn hG hT q p.rep) (liftVisit hn hG hT q p'.rep) h.symm with he | he
+  · have hr : p'.rep = p.rep := liftVisit_injective hn hG hT q he
+    rw [← (geoPositiveLift hn hG hT q).record.crossingOf_rep p,
+      ← (geoPositiveLift hn hG hT q).record.crossingOf_rep p', hr]
+  · have hr : p'.rep = (geoPositiveLift hn hG hT q).twin p.rep := by
+      apply liftVisit_injective hn hG hT q
+      rw [liftVisit_twin]; exact he
+    rw [← (geoPositiveLift hn hG hT q).record.crossingOf_rep p,
+      ← (geoPositiveLift hn hG hT q).record.crossingOf_rep p', hr]
+    exact ((geoPositiveLift hn hG hT q).record.crossingOf_pair p.rep).symm
+
+/-- Every retained crossing of `q` labels a chord. -/
+theorem exists_liftLabel_eq {c : Crossing P} (hc : c ∈ geoCarrierCrossings hG.cg T q) :
+    ∃ p : (geoPositiveLift hn hG hT q).record.Crossing, liftLabel hn hG hT q p = c := by
+  obtain ⟨i, -, -⟩ := crossing_visits_exist c
+  obtain ⟨v, hv⟩ := liftVisit_surjective hn hG hT q (w := ⟨c, i⟩) hc
+  exact ⟨(geoPositiveLift hn hG hT q).record.crossingOf v, by rw [liftLabel_crossingOf, hv]⟩
+
+/-- The chords of the lift labelled in `W'` (mp:blocks' crossing subset). -/
+def liftBlock (W' : Finset (Crossing P)) : Set (geoPositiveLift hn hG hT q).record.Crossing :=
+  {p | liftLabel hn hG hT q p ∈ W'}
+
+theorem crossKeep_liftBlock_iff (W' : Finset (Crossing P)) (v : (geoPositiveLift hn hG hT q).Γ.Visit) :
+    (geoPositiveLift hn hG hT q).record.CrossKeep (liftBlock hn hG hT q W') v ↔
+      (liftVisit hn hG hT q v).1 ∈ W' := by
+  change liftLabel hn hG hT q ((geoPositiveLift hn hG hT q).record.crossingOf v) ∈ W' ↔ _
+  rw [liftLabel_crossingOf]
+
+/-- The record's arc order on the lift, read on the parent: three occurrences occur in a cyclic order along
+`succ` exactly when their parent visits occur in that cyclic order on `Γ` (§1 and lem:pieceintrinsic's
+`visitBetween_iff_key`). -/
+theorem arcBetween_iff_key (v w u : (geoPositiveLift hn hG hT q).Γ.Visit) :
+    (geoPositiveLift hn hG hT q).record.ArcBetween v w u ↔
+      cycBetween (geometricVisitKey hG.cg (liftVisit hn hG hT q v))
+        (geometricVisitKey hG.cg (liftVisit hn hG hT q w))
+        (geometricVisitKey hG.cg (liftVisit hn hG hT q u)) :=
+  (arcBetween_iff_visitBetween _ (geoPositiveLift_componentCount hn hG hT q) v w u).trans
+    (visitBetween_iff_key hn hG hT q v w u)
+
+end LiftLabel
+
+section RestrictedLift
+
+variable (hn : 3 ≤ n) (hG : CarrierGeometry P) {T T' : Finset (Crossing P)}
+  (hT : GeoIndependent hG.cg T) (hT' : GeoIndependent hG.cg T') (q : GeoComponent hG.cg T)
+  (q' : GeoComponent hG.cg T')
+  (hsub : geoCarrierCrossings hG.cg T' q' ⊆ geoCarrierCrossings hG.cg T q)
+
+/-- "the identity map on the visits" between the lift of `q'` and the chords of the lift of `q` labelled by
+the crossings of `q'`. -/
+noncomputable def restrictTransfer :
+    (geoPositiveLift hn hG hT' q').Γ.Visit ≃
+      {v : (geoPositiveLift hn hG hT q).Γ.Visit //
+        (geoPositiveLift hn hG hT q).record.CrossKeep
+          (liftBlock hn hG hT q (geoCarrierCrossings hG.cg T' q')) v} where
+  toFun v' :=
+    ⟨(liftVisitEquiv hn hG hT q).symm ⟨liftVisit hn hG hT' q' v', hsub (liftVisit_mem hn hG hT' q' v')⟩,
+      by rw [crossKeep_liftBlock_iff, liftVisit_symm]; exact liftVisit_mem hn hG hT' q' v'⟩
+  invFun v :=
+    (liftVisitEquiv hn hG hT' q').symm
+      ⟨liftVisit hn hG hT q v.1, (crossKeep_liftBlock_iff hn hG hT q _ v.1).mp v.2⟩
+  left_inv v' := by
+    apply liftVisit_injective hn hG hT' q'
+    rw [liftVisit_symm]
+    simp only [liftVisit_symm]
+  right_inv v := by
+    apply Subtype.ext
+    apply liftVisit_injective hn hG hT q
+    rw [liftVisit_symm]
+    simp only [liftVisit_symm]
+
+theorem liftVisit_restrictTransfer (v' : (geoPositiveLift hn hG hT' q').Γ.Visit) :
+    liftVisit hn hG hT q (restrictTransfer hn hG hT hT' q q' hsub v').1 = liftVisit hn hG hT' q' v' := by
+  show liftVisit hn hG hT q ((liftVisitEquiv hn hG hT q).symm _) = _
+  rw [liftVisit_symm]
+
+/-- The successor clause: the transfer carries the successor of the lift of `q'` to the first-return
+successor of the restricted record (both are the cyclic successor in the parent's order among the visits
+of the crossings of `q'`; `cycNext_unique_on`). -/
+theorem restrictTransfer_succ (v' : (geoPositiveLift hn hG hT' q').Γ.Visit) :
+    (restrictTransfer hn hG hT hT' q q' hsub ((geoPositiveLift hn hG hT' q').nextVisit v')).1 =
+      (((geoPositiveLift hn hG hT q).record.restrictCrossings
+        (liftBlock hn hG hT q (geoCarrierCrossings hG.cg T' q'))).succ
+          (restrictTransfer hn hG hT hT' q q' hsub v')).1 := by
+  set Φ := restrictTransfer hn hG hT hT' q q' hsub with hΦdef
+  have hΦ : ∀ x, liftVisit hn hG hT q (Φ x).1 = liftVisit hn hG hT' q' x :=
+    liftVisit_restrictTransfer hn hG hT hT' q q' hsub
+  have h1 : (geoPositiveLift hn hG hT q).record.componentCount = 1 :=
+    record_componentCount_one _ (geoPositiveLift_componentCount hn hG hT q)
+  have hD' : (geoPositiveLift hn hG hT' q').componentCount = 1 := geoPositiveLift_componentCount hn hG hT' q'
+  refine cycNext_unique_on
+    (p := fun u : (geoPositiveLift hn hG hT q).Γ.Visit =>
+      (geoPositiveLift hn hG hT q).record.CrossKeep (liftBlock hn hG hT q (geoCarrierCrossings hG.cg T' q')) u)
+    (k := fun u => geometricVisitKey hG.cg (liftVisit hn hG hT q u))
+    (fun a b _ _ hab => liftVisit_injective hn hG hT q (geometricVisitKey_injective hG.cg hab))
+    (Φ v').2 (Φ ((geoPositiveLift hn hG hT' q').nextVisit v')).2
+    (((geoPositiveLift hn hG hT q).record.restrictCrossings
+      (liftBlock hn hG hT q (geoCarrierCrossings hG.cg T' q'))).succ (Φ v')).2 ?_ ?_ ?_ ?_
+  · intro h
+    have h' := Φ.injective (Subtype.ext h)
+    exact (geoPositiveLift hn hG hT' q').nextVisit_ne_self v' ((geoPositiveLift hn hG hT' q').twin v')
+      (compOf_eq_of_single hD' _ _) ((geoPositiveLift hn hG hT' q').twin_ne v') h'
+  · exact (((geoPositiveLift hn hG hT q).record.restrictCrossings_succ_val_eq_iff h1 _ (Φ v').2 _).mp
+      rfl).2.1
+  · intro u hu hb
+    obtain ⟨u', hu'⟩ := Φ.surjective ⟨u, hu⟩
+    have hu'' : u = (Φ u').1 := by rw [hu']
+    rw [hu'', hΦ, hΦ, hΦ] at hb
+    exact (geoPositiveLift hn hG hT' q').not_visitBetween_nextVisit v' u' (compOf_eq_of_single hD' _ _)
+      ((visitBetween_iff_key hn hG hT' q' v' u' _).mpr hb)
+  · intro u hu hb
+    have harc := (arcBetween_iff_key hn hG hT q (Φ v').1 u _).mpr hb
+    exact (geoPositiveLift hn hG hT q).record.not_arcBetween_firstReturn _ h1 (Φ v') hu harc
+
+/-- **The record of the lift of `q'` is the restricted record of the lift of `q`** (tier 1): for carriers
+`q'` of `T'` and `q` of `T` with the crossings of `q'` among those of `q`, the identity on parent visits is a
+named record isomorphism from the record of `geoPositiveLift q'` to the record of `geoPositiveLift q`
+restricted to the chords labelled by the crossings of `q'`. Clauses: successor (`restrictTransfer_succ`),
+pairing (`liftVisit_twin`), over/under (`overBit_eq_true_iff_parent`), signs (all `+1`). -/
+noncomputable def liftRestrictRecordIso :
+    RecordIso (geoPositiveLift hn hG hT' q').record
+      ((geoPositiveLift hn hG hT q).record.restrictCrossings
+        (liftBlock hn hG hT q (geoCarrierCrossings hG.cg T' q'))) where
+  e := finCongr (show (geoPositiveLift hn hG hT' q').Γ.c = (geoPositiveLift hn hG hT q).Γ.c from
+    (geoPositiveLift_componentCount hn hG hT' q').trans (geoPositiveLift_componentCount hn hG hT q).symm)
+  Φ := restrictTransfer hn hG hT hT' q q' hsub
+  comp_eq _ :=
+    have : Subsingleton (Fin (geoPositiveLift hn hG hT q).Γ.c) :=
+      Fin.subsingleton_iff_le_one.mpr (le_of_eq (geoPositiveLift_componentCount hn hG hT q))
+    @Subsingleton.elim (Fin (geoPositiveLift hn hG hT q).Γ.c) this _ _
+  succ_eq v' := Subtype.ext (restrictTransfer_succ hn hG hT hT' q q' hsub v')
+  pair_eq v' := by
+    apply Subtype.ext
+    apply liftVisit_injective hn hG hT q
+    change liftVisit hn hG hT q (restrictTransfer hn hG hT hT' q q' hsub
+        ((geoPositiveLift hn hG hT' q').twin v')).1 =
+      liftVisit hn hG hT q ((geoPositiveLift hn hG hT q).twin
+        (restrictTransfer hn hG hT hT' q q' hsub v').1)
+    rw [liftVisit_restrictTransfer, liftVisit_twin, liftVisit_twin, liftVisit_restrictTransfer]
+  bit_eq v' := by
+    change (geoPositiveLift hn hG hT q).overBit (restrictTransfer hn hG hT hT' q q' hsub v').1 =
+      (geoPositiveLift hn hG hT' q').overBit v'
+    rw [Bool.eq_iff_iff, overBit_eq_true_iff_parent, overBit_eq_true_iff_parent, liftVisit_restrictTransfer]
+  sgn_eq v' := by
+    change (geoPositiveLift hn hG hT q).sign (restrictTransfer hn hG hT hT' q q' hsub v').1.1 =
+      (geoPositiveLift hn hG hT' q').sign v'.1
+    rw [geoPositiveLift_sign, geoPositiveLift_sign]
+
+end RestrictedLift
+
+/-! ## 3. Record interlacement of the lift is the geometric interlacement of the labels (tier 1) -/
+
+section RecordInterlacement
+
+omit [NeZero n] in
+/-- Uniqueness over the two visits of a crossing is `Xor` at the two visits. -/
+theorem crossing_existsUnique_iff_xor (c : Crossing P) (Q : {k // k ∈ c.val} → Prop)
+    (i j : {k // k ∈ c.val}) (hij : i ≠ j) : (∃! k, Q k) ↔ Xor (Q i) (Q j) := by
+  rw [crossing_unique_visit_iff]
+  unfold Xor
+  constructor
+  · rintro ⟨a, b, hab, ha, hb⟩
+    rcases crossing_visits_exhaust c i j hij a with ha' | ha' <;>
+      rcases crossing_visits_exhaust c i j hij b with hb' | hb'
+    · exact absurd (ha'.trans hb'.symm) hab
+    · exact Or.inl ⟨ha' ▸ ha, hb' ▸ hb⟩
+    · exact Or.inr ⟨ha' ▸ ha, hb' ▸ hb⟩
+    · exact absurd (ha'.trans hb'.symm) hab
+  · rintro (⟨hi, hj⟩ | ⟨hj, hi⟩)
+    · exact ⟨i, j, hij, hi, hj⟩
+    · exact ⟨j, i, hij.symm, hj, hi⟩
+
+variable (hn : 3 ≤ n) (hG : CarrierGeometry P) {T : Finset (Crossing P)} (hT : GeoIndependent hG.cg T)
+  (q : GeoComponent hG.cg T)
+
+/-- Alternation of two occurrences of the lift with distinct labels is the geometric interlacement of the
+labels: both say that exactly one visit of the second crossing lies on the parent arc between the two
+visits of the first (`Record.Alternates` through §1–§2's `arcBetween_iff_key`;
+`CV.geometricInterlaces_iff_unique`). -/
+theorem alternates_iff_geometricInterlaces (v w : (geoPositiveLift hn hG hT q).Γ.Visit)
+    (hne : (liftVisit hn hG hT q v).1 ≠ (liftVisit hn hG hT q w).1) :
+    (geoPositiveLift hn hG hT q).record.Alternates v w ↔
+      GeometricInterlaces hG.cg (liftVisit hn hG hT q v).1 (liftVisit hn hG hT q w).1 := by
+  unfold Record.Alternates
+  change Xor ((geoPositiveLift hn hG hT q).record.ArcBetween v w ((geoPositiveLift hn hG hT q).twin v))
+    ((geoPositiveLift hn hG hT q).record.ArcBetween v ((geoPositiveLift hn hG hT q).twin w)
+      ((geoPositiveLift hn hG hT q).twin v)) ↔ _
+  rw [arcBetween_iff_key, arcBetween_iff_key, liftVisit_twin, liftVisit_twin]
+  rw [geometricInterlaces_iff_unique hG.cg _ _ (liftVisit hn hG hT q v).2
+    (visitTwin (liftVisit hn hG hT q v)).2 (visitTwin_snd_ne _).symm]
+  rw [crossing_existsUnique_iff_xor _ _ (liftVisit hn hG hT q w).2 (visitTwin (liftVisit hn hG hT q w)).2
+    (visitTwin_snd_ne _).symm]
+  exact ⟨fun h => ⟨hne, h⟩, fun h => h.2⟩
+
+/-- **Record interlacement is geometric interlacement of the labels**: two chords of the record of the lift
+are adjacent in mp:blocks' interlacement graph exactly when their parent crossings interlace in `G_P`. -/
+theorem adj_iff_geometricInterlaces (p p' : (geoPositiveLift hn hG hT q).record.Crossing) :
+    (geoPositiveLift hn hG hT q).record.interlacementGraph.Adj p p' ↔
+      GeometricInterlaces hG.cg (liftLabel hn hG hT q p) (liftLabel hn hG hT q p') := by
+  have h1 : (geoPositiveLift hn hG hT q).record.componentCount = 1 :=
+    record_componentCount_one _ (geoPositiveLift_componentCount hn hG hT q)
+  by_cases hpp : p = p'
+  · subst hpp
+    exact iff_of_false (SimpleGraph.irrefl _) (geometricInterlaces_irrefl hG.cg _)
+  · have hne : liftLabel hn hG hT q p ≠ liftLabel hn hG hT q p' :=
+      fun h => hpp (liftLabel_injective hn hG hT q h)
+    rw [(geoPositiveLift hn hG hT q).record.adj_iff_alternates h1 hpp p.rep_mem p'.rep_mem]
+    exact alternates_iff_geometricInterlaces hn hG hT q p.rep p'.rep hne
+
+end RecordInterlacement
+
+/-! ## 4. The blocks of the record of the carrier diagram are the pieces carried by the carrier (tier 1)
+
+mp:blocks partitions the chords of the record `ρ` of `geoPositiveLift q` into the connected components
+("blocks") of `Record.interlacementGraph`. Through the labels (§3) this is `G_P` induced on the crossings
+of `q`; its components are the residual pieces carried by `q` (lem:carriers (iv), CV:def:pieces): a piece
+carried by `q` has all its labels among the crossings of `q`, and a walk of `G_P[U(S)]` from a crossing of
+`q` stays among the crossings of `q`. -/
+
+section Blocks
+
+variable (hn : 3 ≤ n) (hG : CarrierGeometry P) {S : Finset (Crossing P)} (hS : S ∈ Ind hG.cg)
+  (hT : GeoIndependent hG.cg S) (q : GeoComponent hG.cg S)
+
+omit hn in
+/-- The labels of a piece carried by `q` are crossings of `q` (lem:carriers (iv) + lem:piececurve Step 2). -/
+theorem pieceLabels_subset_geoCarrierCrossings {H : Piece hG.cg S} (hH : H ∈ piecesOn hG.cg S q) :
+    pieceLabels hG.cg S H ⊆ geoCarrierCrossings hG.cg S q := by
+  intro c hc
+  rw [mem_geoCarrierCrossings]
+  exact ⟨((mem_U_iff hG.cg S c).mp (pieceLabels_subset hG.cg S H hc)).1,
+    (mem_piecesOn hG.cg S q H).mp hH c hc⟩
+
+include hT in
+theorem liftLabel_mem_U (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    liftLabel hn hG hT q p ∈ U hG.cg S :=
+  (mem_U_iff hG.cg S _).mpr ((mem_geoSupportUnselected_iff hG.cg S _).mp
+    (geoCarrierCrossings_subset_U hG.cg hT q (liftLabel_mem hn hG hT q p)))
+
+/-- The piece of the label of a chord. -/
+noncomputable def blockPieceMk (p : (geoPositiveLift hn hG hT q).record.Crossing) : Piece hG.cg S :=
+  pieceOf hG.cg S (liftLabel hn hG hT q p) (liftLabel_mem_U hn hG hT q p)
+
+theorem liftLabel_mem_pieceLabels_blockPieceMk (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    liftLabel hn hG hT q p ∈ pieceLabels hG.cg S (blockPieceMk hn hG hT q p) :=
+  pieceOf_mem_pieceLabels hG.cg S _ _
+
+/-- Adjacent chords (record interlacement) have interlacing labels, hence lie in one piece. -/
+theorem blockPieceMk_eq_of_adj {p p' : (geoPositiveLift hn hG hT q).record.Crossing}
+    (h : (geoPositiveLift hn hG hT q).record.interlacementGraph.Adj p p') :
+    blockPieceMk hn hG hT q p = blockPieceMk hn hG hT q p' := by
+  have hI : GeometricInterlaces hG.cg (liftLabel hn hG hT q p) (liftLabel hn hG hT q p') :=
+    (adj_iff_geometricInterlaces hn hG hT q p p').mp h
+  have hadj : (residualGraph hG.cg S).Adj ⟨_, liftLabel_mem_U hn hG hT q p⟩
+      ⟨_, liftLabel_mem_U hn hG hT q p'⟩ := hI
+  exact SimpleGraph.ConnectedComponent.connectedComponentMk_eq_of_adj hadj
+
+theorem blockPieceMk_eq_of_walk {p p' : (geoPositiveLift hn hG hT q).record.Crossing}
+    (w : (geoPositiveLift hn hG hT q).record.interlacementGraph.Walk p p') :
+    blockPieceMk hn hG hT q p = blockPieceMk hn hG hT q p' := by
+  induction w with
+  | nil => rfl
+  | cons h _ ih => exact (blockPieceMk_eq_of_adj hn hG hT q h).trans ih
+
+/-- **The piece of a block**: the residual piece containing the labels of a block of `ρ`'s interlacement
+graph (well defined by `blockPieceMk_eq_of_walk`). -/
+noncomputable def blockPiece :
+    (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent → Piece hG.cg S :=
+  SimpleGraph.ConnectedComponent.lift (blockPieceMk hn hG hT q)
+    fun _ _ w _ => blockPieceMk_eq_of_walk hn hG hT q w
+
+theorem blockPiece_mk (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    blockPiece hn hG hT q ((geoPositiveLift hn hG hT q).record.interlacementGraph.connectedComponentMk p) =
+      blockPieceMk hn hG hT q p := rfl
+
+include hS in
+theorem blockPieceMk_mem (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    blockPieceMk hn hG hT q p ∈ piecesOn hG.cg S q := by
+  rw [mem_piecesOn_iff hG.cg hS]
+  obtain ⟨i, -, -⟩ := crossing_visits_exist (liftLabel hn hG hT q p)
+  rw [blockPieceMk, pieceOwner_pieceOf hG.cg hS (liftLabel_mem_U hn hG hT q p) ⟨_, i⟩ rfl]
+  exact ((mem_geoCarrierCrossings hG.cg S q _).mp (liftLabel_mem hn hG hT q p)).2 ⟨_, i⟩ rfl
+
+include hS in
+/-- Every block's piece is carried by `q`. -/
+theorem blockPiece_mem (K : (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent) :
+    blockPiece hn hG hT q K ∈ piecesOn hG.cg S q := by
+  induction K using SimpleGraph.ConnectedComponent.ind with
+  | h p => exact blockPieceMk_mem hn hG hS hT q p
+
+include hS in
+/-- A walk of `G_P[U(S)]` between the labels of two chords lifts to the record interlacement graph: every
+vertex of the walk lies in the piece of the first label, whose labels are crossings of `q`. -/
+theorem reachable_of_walk {x y : (↑(U hG.cg S) : Set (Crossing P))} (w : (residualGraph hG.cg S).Walk x y) :
+    ∀ p p' : (geoPositiveLift hn hG hT q).record.Crossing, liftLabel hn hG hT q p = x.1 →
+      liftLabel hn hG hT q p' = y.1 →
+      (geoPositiveLift hn hG hT q).record.interlacementGraph.Reachable p p' := by
+  induction w with
+  | nil =>
+    intro p p' hp hp'
+    obtain rfl := liftLabel_injective hn hG hT q (hp.trans hp'.symm)
+    exact SimpleGraph.Reachable.refl p
+  | @cons a b _ hab _ ih =>
+    intro p p' hp hp'
+    have haH : a.1 ∈ pieceLabels hG.cg S (blockPieceMk hn hG hT q p) :=
+      hp ▸ liftLabel_mem_pieceLabels_blockPieceMk hn hG hT q p
+    have hbH : b.1 ∈ pieceLabels hG.cg S (blockPieceMk hn hG hT q p) :=
+      mem_pieceLabels_of_interlaces hG.cg _ haH b.2 hab
+    have hbX : b.1 ∈ geoCarrierCrossings hG.cg S q :=
+      pieceLabels_subset_geoCarrierCrossings hG q (blockPieceMk_mem hn hG hS hT q p) hbH
+    obtain ⟨p₁, hp₁⟩ := exists_liftLabel_eq hn hG hT q hbX
+    have hadj : (geoPositiveLift hn hG hT q).record.interlacementGraph.Adj p p₁ := by
+      rw [adj_iff_geometricInterlaces, hp, hp₁]
+      exact hab
+    exact hadj.reachable.trans (ih p₁ p' hp₁ hp')
+
+include hS in
+theorem blockPiece_injective : Function.Injective (blockPiece hn hG hT q) := by
+  intro K K'
+  refine SimpleGraph.ConnectedComponent.ind₂ (fun p p' => ?_) K K'
+  intro h
+  have hr : (residualGraph hG.cg S).Reachable ⟨_, liftLabel_mem_U hn hG hT q p⟩
+      ⟨_, liftLabel_mem_U hn hG hT q p'⟩ :=
+    SimpleGraph.ConnectedComponent.exact h
+  exact SimpleGraph.ConnectedComponent.sound
+    (hr.elim fun w => reachable_of_walk hn hG hS hT q w p p' rfl rfl)
+
+theorem blockPiece_surj (H : Piece hG.cg S) (hH : H ∈ piecesOn hG.cg S q) :
+    ∃ K, blockPiece hn hG hT q K = H := by
+  obtain ⟨c, hcH⟩ := pieceLabels_nonempty hG.cg S H
+  obtain ⟨p, hp⟩ := exists_liftLabel_eq hn hG hT q (pieceLabels_subset_geoCarrierCrossings hG q hH hcH)
+  refine ⟨(geoPositiveLift hn hG hT q).record.interlacementGraph.connectedComponentMk p, ?_⟩
+  obtain ⟨hc, hpc⟩ := (mem_pieceLabels hG.cg S H c).mp hcH
+  subst hp
+  exact hpc
+
+include hS in
+/-- **The blocks of `ρ` are the pieces carried by `q`.** -/
+noncomputable def blockEquiv :
+    (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent ≃
+      {H : Piece hG.cg S // H ∈ piecesOn hG.cg S q} :=
+  Equiv.ofBijective (fun K => ⟨blockPiece hn hG hT q K, blockPiece_mem hn hG hS hT q K⟩)
+    ⟨fun _ _ h => blockPiece_injective hn hG hS hT q (congrArg Subtype.val h),
+      fun H => by
+        obtain ⟨K, hK⟩ := blockPiece_surj hn hG hT q H.1 H.2
+        exact ⟨K, Subtype.ext hK⟩⟩
+
+theorem blockEquiv_val (K : (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent) :
+    (blockEquiv hn hG hS hT q K).1 = blockPiece hn hG hT q K := rfl
+
+include hS in
+/-- The support of a block is the set of chords labelled in its piece. -/
+theorem mem_supp_iff_liftLabel (K : (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent)
+    (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    p ∈ K.supp ↔ liftLabel hn hG hT q p ∈ pieceLabels hG.cg S (blockPiece hn hG hT q K) := by
+  rw [SimpleGraph.ConnectedComponent.mem_supp_iff]
+  constructor
+  · rintro rfl
+    exact liftLabel_mem_pieceLabels_blockPieceMk hn hG hT q p
+  · intro h
+    obtain ⟨hc, hpc⟩ := (mem_pieceLabels hG.cg S _ _).mp h
+    exact blockPiece_injective hn hG hS hT q hpc
+
+include hS in
+theorem supp_eq_liftBlock (K : (geoPositiveLift hn hG hT q).record.interlacementGraph.ConnectedComponent) :
+    K.supp = liftBlock hn hG hT q (pieceLabels hG.cg S (blockPiece hn hG hT q K)) :=
+  Set.ext fun p => mem_supp_iff_liftLabel hn hG hS hT q K p
+
+/-! ### The graph-level statement: the components of `G_P` induced on the crossings of `q` -/
+
+/-- The labels identify `ρ`'s interlacement graph with `G_P` induced on the crossings of `q` (§3). -/
+noncomputable def labelGraphIso :
+    (geoPositiveLift hn hG hT q).record.interlacementGraph ≃g
+      (geometricInterlacementGraph hG.cg).induce (↑(geoCarrierCrossings hG.cg S q) : Set (Crossing P)) where
+  toEquiv := Equiv.ofBijective (fun p => ⟨liftLabel hn hG hT q p, liftLabel_mem hn hG hT q p⟩)
+    ⟨fun _ _ h => liftLabel_injective hn hG hT q (congrArg Subtype.val h),
+      fun c => by
+        obtain ⟨p, hp⟩ := exists_liftLabel_eq hn hG hT q c.2
+        exact ⟨p, Subtype.ext hp⟩⟩
+  map_rel_iff' := by
+    intro p p'
+    exact (adj_iff_geometricInterlaces hn hG hT q p p').symm
+
+theorem labelGraphIso_apply_val (p : (geoPositiveLift hn hG hT q).record.Crossing) :
+    (labelGraphIso hn hG hT q p).1 = liftLabel hn hG hT q p := rfl
+
+include hn hS hT in
+/-- **The connected components of the interlacement graph induced on the crossings of `q` are the pieces
+carried by `q`**, the support of each component being the labels of its piece (d6:275–277). -/
+theorem exists_inducedComponentEquiv :
+    ∃ β : ((geometricInterlacementGraph hG.cg).induce
+        (↑(geoCarrierCrossings hG.cg S q) : Set (Crossing P))).ConnectedComponent ≃
+        {H : Piece hG.cg S // H ∈ piecesOn hG.cg S q},
+      ∀ K (c : (↑(geoCarrierCrossings hG.cg S q) : Set (Crossing P))),
+        c ∈ K.supp ↔ c.1 ∈ pieceLabels hG.cg S (β K).1 := by
+  set φ := labelGraphIso hn hG hT q with hφ
+  refine ⟨φ.connectedComponentEquiv.symm.trans (blockEquiv hn hG hS hT q), ?_⟩
+  intro K c
+  obtain ⟨p, rfl⟩ := φ.surjective c
+  obtain ⟨K₀, rfl⟩ := φ.connectedComponentEquiv.surjective K
+  rw [Equiv.trans_apply, Equiv.symm_apply_apply, blockEquiv_val, labelGraphIso_apply_val,
+    ← mem_supp_iff_liftLabel hn hG hS hT q K₀ p]
+  induction K₀ using SimpleGraph.ConnectedComponent.ind with
+  | h p₀ =>
+    rw [SimpleGraph.ConnectedComponent.mem_supp_iff, SimpleGraph.ConnectedComponent.mem_supp_iff,
+      SimpleGraph.Iso.connectedComponentEquiv_apply, SimpleGraph.ConnectedComponent.map_mk,
+      SimpleGraph.ConnectedComponent.eq, SimpleGraph.ConnectedComponent.eq]
+    exact SimpleGraph.Iso.reachable_iff
+
+end Blocks
+
+/-! ## 5. Block supply, the parenthesized connected sum and the product (on `hD : Diagrammatic P`)
+
+The leaves are the intrinsic piece diagrams `pieceDiagram H` (row 142) of the pieces carried by `q`, or any
+family of diagrams record-isomorphic to them (by lem:pieceintrinsic every `D_L(H)` is one). -/
+
+section Supply
+
+variable (hn : 3 ≤ n) (hD : Diagrammatic P) {S : Finset (Crossing P)} (hS : S ∈ Ind hD.crossingGeometry)
+  (q : GeoComponent hD.crossingGeometry S)
+
+/-- The block of a piece carried by `q`, supplied with the intrinsic piece diagram: its record is the
+restricted record of `ρ` (§2 at `T' = S ∪ K_H`, `q' = q_H`; lem:piececurve's `pieceCarrier_geoCarrierCrossings`). -/
+theorem pieceDiagram_recordIso_restrict
+    (K : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent) :
+    Nonempty (RecordIso
+      (pieceDiagram hn hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+        (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K)).record
+      ((geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+        (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.restrictCrossings K.supp)) := by
+  have hH_mem : blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K ∈ piecesOn hD.crossingGeometry S q :=
+    blockPiece_mem hn (CarrierGeometry.ofDiagrammatic hD) hS (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K
+  have hsub : geoCarrierCrossings hD.crossingGeometry
+      (S ∪ pieceSupport hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+        (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K))
+      (pieceCarrier hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+        (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K)) ⊆
+      geoCarrierCrossings hD.crossingGeometry S q := by
+    rw [pieceCarrier_geoCarrierCrossings]
+    exact pieceLabels_subset_geoCarrierCrossings (CarrierGeometry.ofDiagrammatic hD) q hH_mem
+  have e : K.supp = liftBlock hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q
+      (geoCarrierCrossings hD.crossingGeometry
+        (S ∪ pieceSupport hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+          (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K))
+        (pieceCarrier hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+          (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K))) := by
+    rw [supp_eq_liftBlock hn (CarrierGeometry.ofDiagrammatic hD) hS
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K, pieceCarrier_geoCarrierCrossings]
+  rw [e]
+  exact ⟨liftRestrictRecordIso hn (CarrierGeometry.ofDiagrammatic hD)
+    (geoIndependent_of_mem_Ind hD.crossingGeometry hS) (pieceSupport_geoIndependent hD hS _) q
+    (pieceCarrier hD hS _) hsub⟩
+
+/-- A family of leaf diagrams indexed by the blocks of `ρ`, each record-isomorphic to the intrinsic piece
+diagram of its block's piece ("`D(W_i)`": by lem:pieceintrinsic every `D_L(H_i)` qualifies, and so does
+`D_P(H_i) = pieceDiagram H_i` itself). -/
+def IsPieceLeafFamily
+    (C : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent →
+      Diagram) : Prop :=
+  ∀ K, Nonempty (RecordIso (C K).record
+    (pieceDiagram hn hD hS (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K)).record)
+
+theorem isPieceLeafFamily_pieceDiagram :
+    IsPieceLeafFamily hn hD hS q (fun K => pieceDiagram hn hD hS
+      (blockPiece hn (CarrierGeometry.ofDiagrammatic hD) (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K)) :=
+  fun _ => ⟨RecordIso.refl _⟩
+
+/-- **The hypotheses of mp:blocks** for the record of the carrier diagram of a carrier bearing at least one
+piece, with any piece leaf family. -/
+theorem blockSupply (hne : (piecesOn hD.crossingGeometry S q).Nonempty)
+    (C : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent →
+      Diagram) (hC : IsPieceLeafFamily hn hD hS q C) :
+    BlockSupply (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record C where
+  actual := isRealizable_record _
+  one_circle := record_componentCount_one _ (geoPositiveLift_componentCount _ _ _ _)
+  nonempty := by
+    obtain ⟨H, hH⟩ := hne
+    obtain ⟨c, hc⟩ := pieceLabels_nonempty hD.crossingGeometry S H
+    have hcX := pieceLabels_subset_geoCarrierCrossings (CarrierGeometry.ofDiagrammatic hD) q hH hc
+    obtain ⟨i, -, -⟩ := crossing_visits_exist c
+    obtain ⟨v, -⟩ := liftVisit_surjective hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q (w := ⟨c, i⟩) hcX
+    exact ⟨v⟩
+  supplied K := by
+    obtain ⟨ι⟩ := hC K
+    obtain ⟨κ⟩ := pieceDiagram_recordIso_restrict hn hD hS q K
+    exact ⟨ι.trans κ⟩
+
+/-- "a finite succession of clean marked joins of these actual diagrams realizes the full record":
+`D(W) ≅ #_𝓣(D(W₁), …, D(W_k))` for the tree `𝓣` produced by mp:blocks. -/
+theorem exists_joinForest (hne : (piecesOn hD.crossingGeometry S q).Nonempty)
+    (C : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent →
+      Diagram) (hC : IsPieceLeafFamily hn hD hS q C) :
+    ∃ J : Diagram, JoinForest C Set.univ J ∧
+      Nonempty (RecordIso J.record (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+        (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record) :=
+  SM.blocks.realizes _ C (blockSupply hn hD hS q hne C hC)
+
+/-- `P_{D(W)} = ∏_K P_{C_K}` for every piece leaf family. -/
+theorem homfly_eq_prod_leaves (hne : (piecesOn hD.crossingGeometry S q).Nonempty)
+    (C : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent →
+      Diagram) (hC : IsPieceLeafFamily hn hD hS q C) :
+    homfly (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q) = ∏ K, homfly (C K) := by
+  rw [← P_eq_homfly, SM.blocks.product _ C (blockSupply hn hD hS q hne C hC) _ ⟨RecordIso.refl _⟩]
+  exact Finset.prod_congr rfl fun K _ => P_eq_homfly _
+
+/-- **`P_{D(W)} = ∏_{i} P_{D(W_i)}`** with the intrinsic piece diagrams: the product of the `P_H` over the
+pieces carried by `q`. -/
+theorem homfly_eq_prod_pieceHomfly (hne : (piecesOn hD.crossingGeometry S q).Nonempty) :
+    homfly (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q) =
+      ∏ H ∈ piecesOn hD.crossingGeometry S q, pieceHomfly hn hD hS H := by
+  rw [homfly_eq_prod_leaves hn hD hS q hne _ (isPieceLeafFamily_pieceDiagram hn hD hS q)]
+  refine Finset.prod_nbij (blockPiece hn (CarrierGeometry.ofDiagrammatic hD)
+    (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q) ?_ ?_ ?_ ?_
+  · intro K _
+    exact blockPiece_mem hn (CarrierGeometry.ofDiagrammatic hD) hS
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q K
+  · intro K _ K' _ h
+    exact blockPiece_injective hn (CarrierGeometry.ofDiagrammatic hD) hS
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q h
+  · intro H hH
+    obtain ⟨K, hK⟩ := blockPiece_surj hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q H hH
+    exact ⟨K, Finset.mem_univ _, hK⟩
+  · intro K _
+    rfl
+
+/-- "the writhe is the sum of the writhes of `C_H`" (mp:blocks) for every piece leaf family. -/
+theorem writhe_eq_sum_leaves (hne : (piecesOn hD.crossingGeometry S q).Nonempty)
+    (C : (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record.interlacementGraph.ConnectedComponent →
+      Diagram) (hC : IsPieceLeafFamily hn hD hS q C) :
+    (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).writhe = ∑ K, (C K).writhe :=
+  SM.blocks.writhe_additive _ C (blockSupply hn hD hS q hne C hC) _ ⟨RecordIso.refl _⟩
+
+/-- "In particular, when `k = 1`, `#_𝓣(D(W₁)) = D(W₁)`": a carrier bearing exactly one piece `H` has the
+record of the intrinsic piece diagram of `H` (lem:pieceintrinsic's general theorem: same retained
+crossings). -/
+theorem recordIso_pieceDiagram_of_single (H : Piece hD.crossingGeometry S)
+    (hH : piecesOn hD.crossingGeometry S q = {H}) :
+    Nonempty (RecordIso (geoPositiveLift hn (CarrierGeometry.ofDiagrammatic hD)
+      (geoIndependent_of_mem_Ind hD.crossingGeometry hS) q).record (pieceDiagram hn hD hS H).record) := by
+  have hX : geoCarrierCrossings hD.crossingGeometry S q =
+      geoCarrierCrossings hD.crossingGeometry (S ∪ pieceSupport hD hS H) (pieceCarrier hD hS H) := by
+    rw [pieceCarrier_geoCarrierCrossings, ← biUnion_pieceLabels_piecesOn hD.crossingGeometry hS q, hH,
+      Finset.singleton_biUnion]
+  obtain ⟨ι, -⟩ := exists_recordIso_of_geoCarrierCrossings_eq hn (CarrierGeometry.ofDiagrammatic hD)
+    (geoIndependent_of_mem_Ind hD.crossingGeometry hS) (pieceSupport_geoIndependent hD hS H) q
+    (pieceCarrier hD hS H) hX
+  exact ⟨ι⟩
+
+end Supply
+
+/-! ## 6. Row 158 — CV:cor:groupedknot (d6_vertexedge.tex:263–298) -/
+
+section Row
+
+variable (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry)
+  (q : GeoComponent hG.crossingGeometry S)
+
+/-- **`W`**, "the union of their label sets — a set of crossing labels, not a set of pieces" (d6:267–271). -/
+noncomputable abbrev groupedLabels : Finset (Crossing P) :=
+  (piecesOn hG.crossingGeometry S q).biUnion (pieceLabels hG.crossingGeometry S)
+
+include hS in
+/-- lem:piececurve Step 2: `W` is exactly the set of self-crossings of `L` (`biUnion_pieceLabels_piecesOn`). -/
+theorem groupedLabels_eq : groupedLabels hG q = geoCarrierCrossings hG.crossingGeometry S q :=
+  biUnion_pieceLabels_piecesOn hG.crossingGeometry hS q
+
+/-- **`D(W)`**, "the diagram obtained from `L` by retaining exactly the labels of `W`, each resolved by the
+divide convention, and erasing all others, is `L` itself carrying all of its own crossings" (d6:272–275) —
+the positive lift of the carrier `L = q` (reading (ii), through `hG.diagrammatic hn`). It is also the diagram
+of clause (B), "obtained from `L` by retaining exactly the crossings of `H₁ ∪ ⋯ ∪ H_k`" (d6:293–294). -/
+noncomputable abbrev carrierDiagram : Diagram :=
+  geoPositiveLift hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+    (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q
+
+/-- CV:cor:groupedknot (d6_vertexedge.tex:263–298) as printed, one field per printed clause, on the binder
+of def:X1 (`hG : Generic P`, `S ∈ Ind(G_P)`, the carrier `L = q`). `W = groupedLabels`,
+`D(W) = carrierDiagram`, `ρ = (carrierDiagram).record`, the leaves `D(W_i)` any `IsPieceLeafFamily`. -/
+structure GroupedKnotData : Prop where
+  /-- (A) "Let `S ∈ Ind(G_P)`, let `L` be a carrier of `S` bearing at least one residual piece, and let
+  `W = ⋃{H : H a residual piece of S carried by L}` be the union of their label sets … By Lemma
+  lem:piececurve Step 2, `W` is exactly the set of self-crossings of `L`" (d6:265–272): `W` is the set of
+  retained crossings of the carrier `L` (`geoCarrierCrossings`), and the self-intersection points of `L`
+  are exactly the crossing points of `W` -/
+  label_union :
+    groupedLabels hG q = geoCarrierCrossings hG.crossingGeometry S q ∧
+    ∀ x : Plane, GeoIsSelfIntersection hG.crossingGeometry S q x ↔
+      ∃ c ∈ groupedLabels hG q, x = crossingPoint c
+  /-- (A) "so the diagram `D(W)` obtained from `L` by retaining exactly the labels of `W`, each resolved by
+  the divide convention, and erasing all others, is `L` itself carrying all of its own crossings; no
+  realization argument is needed" (d6:272–275): `D(W)` is a one-component diagram whose crossings are
+  exactly `W`, every one resolved by the divide convention (`Diagram.IsPositive`), on the curve `L` -/
+  retain_all :
+    (carrierDiagram hn hG hS q).componentCount = 1 ∧
+    Nonempty ((carrierDiagram hn hG hS q).Γ.Crossing ≃ {c : Crossing P // c ∈ groupedLabels hG q}) ∧
+    (∀ x, (carrierDiagram hn hG hS q).IsPositive x) ∧
+    ∀ i : Fin 1, ((carrierDiagram hn hG hS q).Γ.comp i).P = geoCornerPolygon hG.crossingGeometry S q
+  /-- (A) "Let `W = W₁ ⊔ ⋯ ⊔ W_k`, `k ≥ 1`, be the partition of `W` into the connected components of the
+  interlacement graph induced on `W`; these are the label sets of the residual pieces" (d6:275–277): the
+  label sets of the pieces carried by `L` are nonempty, pairwise disjoint, with union `W`, and the connected
+  components of `G_P` induced on `W` correspond bijectively to those pieces, each component's vertex set
+  being the label set of its piece -/
+  partition :
+    (∀ H ∈ piecesOn hG.crossingGeometry S q, (pieceLabels hG.crossingGeometry S H).Nonempty) ∧
+    ((piecesOn hG.crossingGeometry S q : Set (Piece hG.crossingGeometry S)).PairwiseDisjoint
+      (pieceLabels hG.crossingGeometry S)) ∧
+    (piecesOn hG.crossingGeometry S q).biUnion (pieceLabels hG.crossingGeometry S) = groupedLabels hG q ∧
+    ∃ β : ((geometricInterlacementGraph hG.crossingGeometry).induce
+        (↑(groupedLabels hG q) : Set (Crossing P))).ConnectedComponent ≃
+        {H : Piece hG.crossingGeometry S // H ∈ piecesOn hG.crossingGeometry S q},
+      ∀ K (c : (↑(groupedLabels hG q) : Set (Crossing P))),
+        c ∈ K.supp ↔ c.1 ∈ pieceLabels hG.crossingGeometry S (β K).1
+  /-- (A) "The components can be indexed and equipped with a fixed ordered binary parenthesization `𝓣`
+  such that `D(W) ≅ #_𝓣(D(W₁), …, D(W_k))` … Here `#_𝓣` is evaluated recursively: a leaf has value `D(W_i)`
+  and an internal node has the connected sum of its two ordered child values with the displayed
+  parenthesization" (d6:277–282, 285–287): the components are indexed by the blocks of the record interlacement
+  graph of `D(W)` (`blockEquiv`, each block's support the chords labelled in its piece), and for every
+  family of leaf diagrams `D(W_i)` (record-isomorphic to the intrinsic piece diagrams; every `D_L(H_i)` by
+  lem:pieceintrinsic) some diagram `J` built from the leaves by a finite succession of clean marked joins
+  (`JoinForest`, each node a connected sum `IsCleanMarkedJoin` of its two ordered children) has the record
+  of `D(W)` — `D(W) ≅ J` in the sense of def:record / ax:gausscode -/
+  tree :
+    (∀ K, K.supp = liftBlock hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+      (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q
+      (pieceLabels hG.crossingGeometry S
+        (blockEquiv hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn)) hS
+          (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q K).1)) ∧
+    ∀ C, IsPieceLeafFamily hn (hG.diagrammatic hn) hS q C → (piecesOn hG.crossingGeometry S q).Nonempty →
+      ∃ J : Diagram, JoinForest C Set.univ J ∧
+        Nonempty (RecordIso J.record (carrierDiagram hn hG hS q).record)
+  /-- (A) "`P_{D(W)} = ∏_{i=1}^{k} P_{D(W_i)}`" (d6:283): for every family of leaf diagrams `D(W_i)`, and
+  in particular with the intrinsic piece diagrams (`P_{D(W_i)} = P_{H_i}` by lem:pieceintrinsic) -/
+  product :
+    (∀ C, IsPieceLeafFamily hn (hG.diagrammatic hn) hS q C → (piecesOn hG.crossingGeometry S q).Nonempty →
+      homfly (carrierDiagram hn hG hS q) = ∏ K, homfly (C K)) ∧
+    ((piecesOn hG.crossingGeometry S q).Nonempty →
+      homfly (carrierDiagram hn hG hS q) =
+        ∏ H ∈ piecesOn hG.crossingGeometry S q, pieceHomfly hn (hG.diagrammatic hn) hS H)
+  /-- (A) "In particular, when `k = 1`, `#_𝓣(D(W₁)) = D(W₁)`" (d6:287–288): a carrier bearing exactly one
+  piece `H` has the record, hence the polynomial, of `D(W₁) = D_P(H)` -/
+  single : ∀ H : Piece hG.crossingGeometry S, piecesOn hG.crossingGeometry S q = {H} →
+    Nonempty (RecordIso (carrierDiagram hn hG hS q).record (pieceDiagram hn (hG.diagrammatic hn) hS H).record) ∧
+    homfly (carrierDiagram hn hG hS q) = pieceHomfly hn (hG.diagrammatic hn) hS H
+  /-- (B) "Let `S ∈ Ind(G_P)` and let `L` be a carrier of `S` bearing the residual pieces `H₁, …, H_k` with
+  `k ≥ 1` … Then the diagram obtained from `L` by retaining exactly the crossings of `H₁ ∪ ⋯ ∪ H_k` is a knot
+  diagram" (d6:289–294): one component, with crossings exactly `H₁ ∪ ⋯ ∪ H_k = W` -/
+  knot_diagram : (piecesOn hG.crossingGeometry S q).Nonempty →
+    (carrierDiagram hn hG hS q).componentCount = 1 ∧
+    Nonempty ((carrierDiagram hn hG hS q).Γ.Crossing ≃ {c : Crossing P // c ∈ groupedLabels hG q})
+  /-- (B) "whose HOMFLY polynomial is `P_{S,L} = ∏_i P_{H_i}`" (d6:294–295): `P_{S,L} = groupedPoly` (def:X1) -/
+  grouped_polynomial : (piecesOn hG.crossingGeometry S q).Nonempty →
+    homfly (carrierDiagram hn hG hS q) = groupedPoly hn hG hS q ∧
+    groupedPoly hn hG hS q = ∏ H ∈ piecesOn hG.crossingGeometry S q, pieceHomfly hn (hG.diagrammatic hn) hS H
+  /-- (B) "whose writhe is `w_{S,L} = Σ_i |H_i|`" (d6:295): `w_{S,L} = groupedWrithe` (def:X1) -/
+  grouped_writhe : (piecesOn hG.crossingGeometry S q).Nonempty →
+    (carrierDiagram hn hG hS q).writhe = groupedWrithe hG q ∧
+    groupedWrithe hG q = ∑ H ∈ piecesOn hG.crossingGeometry S q, ((pieceLabels hG.crossingGeometry S H).card : ℤ)
+  /-- (B) "and whose underlying plane curve is `L`" (d6:295–296): the one component of the diagram is the
+  carrier `L` (its corner polygon, def:flat-carriers) -/
+  underlying_curve : ∀ i : Fin 1,
+    ((carrierDiagram hn hG hS q).Γ.comp i).P = geoCornerPolygon hG.crossingGeometry S q
+  /-- (B) "which has no triple points" (d6:296): no point of the plane is a triple point of `L`
+  (lem:carriers (iii)), and the shadow of the diagram has no triple point -/
+  no_triple_points :
+    (∀ x : Plane, ¬ GeoIsTriplePoint hG.crossingGeometry S q x) ∧
+    ¬ ∃ s t u : (carrierDiagram hn hG hS q).Γ.Strand, s ≠ t ∧ t ≠ u ∧ s ≠ u ∧
+      ((carrierDiagram hn hG hS q).Γ.interior s ∩ (carrierDiagram hn hG hS q).Γ.interior t ∩
+        (carrierDiagram hn hG hS q).Γ.interior u).Nonempty
+  /-- (B) "(If `L` bears no piece the assertion is Theorem thm:carrierfloor (D): `P_{S,L} = 1`, `w_{S,L} = 0`,
+  and there is nothing to decompose.)" (d6:290–293): with no piece, def:X1's empty conventions hold and
+  `D(W)` is a crossing-free circle (its polynomial is `1` by ax:homfly) -/
+  no_piece : piecesOn hG.crossingGeometry S q = ∅ →
+    groupedPoly hn hG hS q = 1 ∧ groupedWrithe hG q = 0 ∧
+    (carrierDiagram hn hG hS q).IsCrossingFreeCircle ∧ homfly (carrierDiagram hn hG hS q) = 1
+
+/-- **Row 158, CV:cor:groupedknot** (d6_vertexedge.tex:263–298), on the binder of def:X1. -/
+theorem groupedknot : GroupedKnotData hn hG hS q where
+  label_union :=
+    ⟨groupedLabels_eq hG hS q, fun x => by
+      rw [groupedLabels_eq hG hS q]
+      exact (geo_self_intersections hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+        (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q).1 x⟩
+  retain_all :=
+    ⟨rfl,
+     ⟨(geoCarrierCrossingEquiv hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+        (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q).trans
+        (Equiv.subtypeEquivRight fun c => by
+          rw [groupedLabels_eq hG hS q])⟩,
+     geoPositiveLift_isPositive hn _ _ q, fun _ => rfl⟩
+  partition :=
+    ⟨fun H _ => pieceLabels_nonempty hG.crossingGeometry S H,
+     piecesOn_pairwiseDisjoint hG.crossingGeometry q, rfl, by
+      rw [groupedLabels_eq hG hS q]
+      exact exists_inducedComponentEquiv hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn)) hS
+        (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q⟩
+  tree :=
+    ⟨fun K => supp_eq_liftBlock hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn)) hS
+      (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q K,
+     fun C hC hne => exists_joinForest hn (hG.diagrammatic hn) hS q hne C hC⟩
+  product :=
+    ⟨fun C hC hne => homfly_eq_prod_leaves hn (hG.diagrammatic hn) hS q hne C hC,
+     fun hne => homfly_eq_prod_pieceHomfly hn (hG.diagrammatic hn) hS q hne⟩
+  single := fun H hH =>
+    ⟨recordIso_pieceDiagram_of_single hn (hG.diagrammatic hn) hS q H hH, by
+      obtain ⟨ι⟩ := recordIso_pieceDiagram_of_single hn (hG.diagrammatic hn) hS q H hH
+      exact gausscode_polynomial _ _ rfl rfl ι⟩
+  knot_diagram := fun _ =>
+    ⟨rfl,
+     ⟨(geoCarrierCrossingEquiv hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+        (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q).trans
+        (Equiv.subtypeEquivRight fun c => by
+          rw [groupedLabels_eq hG hS q])⟩⟩
+  grouped_polynomial := fun hne =>
+    ⟨homfly_eq_prod_pieceHomfly hn (hG.diagrammatic hn) hS q hne, rfl⟩
+  grouped_writhe := fun _ =>
+    ⟨by
+      rw [groupedWrithe_eq_card_geoCarrierCrossings hG hS q]
+      exact geoPositiveLift_writhe hn _ _ q,
+     rfl⟩
+  underlying_curve := fun _ => rfl
+  no_triple_points :=
+    ⟨geo_carrier_no_triple_point hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn)) S q,
+     (geoCarrierShadow_generic hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+        (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q).no_triple⟩
+  no_piece := fun h => by
+    have hX : geoCarrierCrossings hG.crossingGeometry S q = ∅ := by
+      rw [← biUnion_pieceLabels_piecesOn hG.crossingGeometry hS q, h, Finset.biUnion_empty]
+    have hcirc : (carrierDiagram hn hG hS q).IsCrossingFreeCircle :=
+      geoPositiveLift_isCrossingFreeCircle hn _ _ q hX
+    exact ⟨groupedPoly_of_piecesOn_eq_empty hn hG hS q h, groupedWrithe_of_piecesOn_eq_empty hG q h,
+      hcirc, homfly_circle hcirc⟩
+
+end Row
+
+end CV

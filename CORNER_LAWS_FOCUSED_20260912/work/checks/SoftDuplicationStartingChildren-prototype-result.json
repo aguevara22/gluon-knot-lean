@@ -1,0 +1,224 @@
+{
+  "utc": "2026-09-12T02:46:15.301051+00:00",
+  "kernel_session": 35266,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "preserved_failed_sessions": [
+    86294
+  ],
+  "files_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationStartingChildren.prototype.lean": "036b236c072c2ce7e0cdb62ca31d4268335e96349968dd8c1bde83d85994a7ec",
+    "work/checks/SoftDuplicationStartingChildren-second-kernel.log": "da8263c7943dd883c4e1a55ba01c66c2279d3aa40ec58b0c4cea3ad11b4fd075"
+  },
+  "printed_declarations": [
+    "SM.SoftDuplication.cut_mem_ordered_image",
+    "SM.SoftDuplication.consecutive_ordered_image_iff",
+    "SM.SoftDuplication.consecutive_ordered_image_exhaust",
+    "SM.SoftDuplication.consecutiveOrderedImageEquiv",
+    "SM.SoftDuplication.startingOldEmbedding",
+    "SM.SoftDuplication.startingTailEmbedding",
+    "SM.SoftDuplication.startingTail_self",
+    "SM.SoftDuplication.collapse_startingTail",
+    "SM.SoftDuplication.startingTail_eq_old",
+    "SM.SoftDuplication.starting_B_lt_old",
+    "SM.SoftDuplication.startingCutSet",
+    "SM.SoftDuplication.starting_core_left",
+    "SM.SoftDuplication.starting_core_cut",
+    "SM.SoftDuplication.starting_old_cut_bounds",
+    "SM.SoftDuplication.startingCutSet_zero_cuts",
+    "SM.SoftDuplication.startingCutSet_one_insert_B",
+    "SM.SoftDuplication.starting_sections_cut_image",
+    "SM.SoftDuplication.startingCutSet_one_cuts",
+    "SM.SoftDuplication.startingFirstChild",
+    "SM.SoftDuplication.startingFirstChild_consecutive",
+    "SM.SoftDuplication.startingFirstChild_left",
+    "SM.SoftDuplication.startingFirstChild_right",
+    "SM.SoftDuplication.startingFirstChild_unique",
+    "SM.SoftDuplication.startingFirstChild_right_le",
+    "SM.SoftDuplication.startingChildrenZeroEquiv",
+    "SM.SoftDuplication.starting_tail_cut_gt_A",
+    "SM.SoftDuplication.starting_one_mapped_consecutive",
+    "SM.SoftDuplication.starting_one_duplicate_consecutive",
+    "SM.SoftDuplication.starting_one_consecutive_iff",
+    "SM.SoftDuplication.startingChildOneMap",
+    "SM.SoftDuplication.startingChildrenOneEquiv",
+    "SM.SoftDuplication.starting_first_zero_endpoints",
+    "SM.SoftDuplication.starting_first_one_endpoints",
+    "SM.SoftDuplication.starting_otherChild_left_gt",
+    "SM.SoftDuplication.starting_otherChild_map_eq"
+  ],
+  "declaration_axioms": {
+    "SM.SoftDuplication.cut_mem_ordered_image": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.consecutive_ordered_image_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.consecutive_ordered_image_exhaust": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.consecutiveOrderedImageEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingOldEmbedding": [
+      "propext"
+    ],
+    "SM.SoftDuplication.startingTailEmbedding": [
+      "propext"
+    ],
+    "SM.SoftDuplication.startingTail_self": [
+      "propext"
+    ],
+    "SM.SoftDuplication.collapse_startingTail": [
+      "propext"
+    ],
+    "SM.SoftDuplication.startingTail_eq_old": [
+      "propext"
+    ],
+    "SM.SoftDuplication.starting_B_lt_old": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_core_left": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_core_cut": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_old_cut_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingCutSet_zero_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingCutSet_one_insert_B": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_sections_cut_image": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingCutSet_one_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild_left": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild_right": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingFirstChild_right_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingChildrenZeroEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_tail_cut_gt_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_one_mapped_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_one_duplicate_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_one_consecutive_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingChildOneMap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.startingChildrenOneEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_first_zero_endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_first_one_endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_otherChild_left_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.starting_otherChild_map_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Kernel-checked candidate; frozen; stronger fidelity and controlled canonical integration pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

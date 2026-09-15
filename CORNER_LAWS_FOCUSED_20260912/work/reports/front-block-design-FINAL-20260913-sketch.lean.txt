@@ -1,0 +1,695 @@
+import SM.PolynomialBlock
+import SM.Smoothing
+import SM.AdegDefinition
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
+import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Calculus.Deriv.Add
+import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.Deriv.Prod
+
+/-! Front block, FINAL design sketch (judge, 2026-09-14).  Winner: TAG B (the printed smooth class)
+with grafts from TAG A.  Layers:
+  §1-4  SmoothFront (row 73, printed class, B verbatim) and the named-record `Marking`;
+  §5    NEW: the geometric rounding `GeomRounding` (the printed clean-disc cusp replacement) and
+        `IsRounding F S := ∃ cusp-free G, GeomRounding F G ∧ Marking G S` (polygonal reading of
+        "the resulting ordinary diagram", sm-3:337-343 / lem:gauss-pl-model);
+  §6    PLFront (A's class, renamed): the realization class of the word layer; a PL front IS a
+        `Diagram` (A's identity-rounding fact) so word-level B needs no rounding relation;
+  §7    oriented Rutherford letters (direction bits at the cuts; B's 1-based typing);
+  §8    the descent engine, split into `Moves` (definitions only, so `SM.ng_finite_word` can be
+        stated before any row is proved) and `Laws` (the seven B/s clauses of rows 76-82);
+  §9    word moves, `wordMoves`, and the block statements;
+  §10   contact vocabulary (rows 84-92, 94; B verbatim).
+`sorry` appears ONLY in `realize` (the grid realization, to build) and `IsCuspSkein`'s bit table
+placeholder is documented.  Checked with `lake env lean`. -/
+
+namespace SM.Front
+
+open SM SM.Link
+open scoped ContDiff
+
+noncomputable section
+open Classical
+
+/-! ## 1. One parameter circle -/
+
+structure SmoothLoop where
+  γ : ℝ → Plane
+  smooth : ContDiff ℝ ∞ γ
+  periodic : Function.Periodic γ 1
+
+abbrev Param (c : ℕ) := Fin c × ℝ
+
+def SameParam {c : ℕ} (p q : Param c) : Prop := p.1 = q.1 ∧ ∃ n : ℤ, q.2 = p.2 + n
+
+/-! ## 2. The front class (ng:front-domain, sm-3:1825-1841), one field per printed clause -/
+
+structure SmoothFront where
+  c : ℕ
+  hc : 0 < c
+  comp : Fin c → SmoothLoop
+  cusps_finite :
+    {p : Param c | p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ deriv (comp p.1).γ p.2 = 0}.Finite
+  cusp_semicubical : ∀ (i : Fin c) (t : ℝ), deriv (comp i).γ t = 0 →
+    det (iteratedDeriv 2 (comp i).γ t) (iteratedDeriv 3 (comp i).γ t) ≠ 0
+  cusp_nonvertical : ∀ (i : Fin c) (t : ℝ), deriv (comp i).γ t = 0 →
+    (iteratedDeriv 2 (comp i).γ t).1 ≠ 0
+  no_vertical : ∀ (i : Fin c) (t : ℝ), deriv (comp i).γ t ≠ 0 → (deriv (comp i).γ t).1 ≠ 0
+  doubles_finite :
+    {q : Param c × Param c | q.1.2 ∈ Set.Ico (0 : ℝ) 1 ∧ q.2.2 ∈ Set.Ico (0 : ℝ) 1 ∧ q.1 ≠ q.2 ∧
+      (comp q.1.1).γ q.1.2 = (comp q.2.1).γ q.2.2}.Finite
+  transverse : ∀ p q : Param c, ¬ SameParam p q → (comp p.1).γ p.2 = (comp q.1).γ q.2 →
+    det (deriv (comp p.1).γ p.2) (deriv (comp q.1).γ q.2) ≠ 0
+  no_triple : ∀ p q r : Param c, ¬ SameParam p q → ¬ SameParam q r → ¬ SameParam p r →
+    (comp p.1).γ p.2 = (comp q.1).γ q.2 → (comp q.1).γ q.2 = (comp r.1).γ r.2 → False
+  cusp_alone : ∀ p q : Param c, ¬ SameParam p q → deriv (comp p.1).γ p.2 = 0 →
+    (comp p.1).γ p.2 ≠ (comp q.1).γ q.2
+
+namespace SmoothFront
+
+variable (F : SmoothFront)
+
+def eval (p : Param F.c) : Plane := (F.comp p.1).γ p.2
+def vel (p : Param F.c) : Plane := deriv (F.comp p.1).γ p.2
+def acc (p : Param F.c) : Plane := iteratedDeriv 2 (F.comp p.1).γ p.2
+def jerk (p : Param F.c) : Plane := iteratedDeriv 3 (F.comp p.1).γ p.2
+
+def IsCusp (p : Param F.c) : Prop := F.vel p = 0
+
+/-- cusp discriminant `x''·det(γ'',γ''')`: the first arm is the upper one iff it is negative -/
+def cuspDisc (p : Param F.c) : ℝ := (F.acc p).1 * det (F.acc p) (F.jerk p)
+
+/-- "A downward cusp is traversed from its locally upper arm to its locally lower arm." -/
+def IsDownCusp (p : Param F.c) : Prop := F.IsCusp p ∧ F.cuspDisc p < 0
+def IsUpCusp (p : Param F.c) : Prop := F.IsCusp p ∧ 0 < F.cuspDisc p
+def IsLeftCusp (p : Param F.c) : Prop := F.IsCusp p ∧ 0 < (F.acc p).1
+def IsRightCusp (p : Param F.c) : Prop := F.IsCusp p ∧ (F.acc p).1 < 0
+
+theorem isDownCusp_xor_isUpCusp {p : Param F.c} (hp : F.IsCusp p) :
+    Xor (F.IsDownCusp p) (F.IsUpCusp p) := by
+  have hne : F.cuspDisc p ≠ 0 :=
+    mul_ne_zero (F.cusp_nonvertical p.1 p.2 hp) (F.cusp_semicubical p.1 p.2 hp)
+  rcases lt_or_gt_of_ne hne with h | h
+  · exact Or.inl ⟨⟨hp, h⟩, fun h' => lt_asymm h h'.2⟩
+  · exact Or.inr ⟨⟨hp, h⟩, fun h' => lt_asymm h h'.2⟩
+
+theorem isLeftCusp_xor_isRightCusp {p : Param F.c} (hp : F.IsCusp p) :
+    Xor (F.IsLeftCusp p) (F.IsRightCusp p) := by
+  rcases lt_or_gt_of_ne (F.cusp_nonvertical p.1 p.2 hp) with h | h
+  · exact Or.inr ⟨⟨hp, h⟩, fun h' => lt_asymm h h'.2⟩
+  · exact Or.inl ⟨⟨hp, h⟩, fun h' => lt_asymm h h'.2⟩
+
+/-- `dz/dx` at a regular parameter -/
+def slope (p : Param F.c) : ℝ := (F.vel p).2 / (F.vel p).1
+def IsDouble (p q : Param F.c) : Prop := ¬ SameParam p q ∧ F.eval p = F.eval q
+/-- "At a crossing the branch with smaller dz/dx is over": `p` is the over branch -/
+def IsOverUnder (p q : Param F.c) : Prop := F.IsDouble p q ∧ F.slope p < F.slope q
+/-- the over-first tangent-determinant sign -/
+def crossSign (p q : Param F.c) : ℤ := if 0 < det (F.vel p) (F.vel q) then 1 else -1
+
+def cuspSet : Finset (Param F.c) := F.cusps_finite.toFinset
+def crossingPairs : Finset (Param F.c × Param F.c) :=
+  F.doubles_finite.toFinset.filter fun q => F.slope q.1 < F.slope q.2
+
+def downCount : ℕ := (F.cuspSet.filter fun p => F.IsDownCusp p).card
+def upCount : ℕ := (F.cuspSet.filter fun p => F.IsUpCusp p).card
+def writhe : ℤ := ∑ q ∈ F.crossingPairs, F.crossSign q.1 q.2
+def sCount : ℕ := F.crossingPairs.card + F.cuspSet.card
+def slNg : ℤ := F.writhe - F.downCount
+
+/-- a cusp-free front (an "ordinary diagram" in the smooth sense) -/
+def CuspFree : Prop := ∀ (i : Fin F.c) (t : ℝ), deriv (F.comp i).γ t ≠ 0
+
+end SmoothFront
+
+/-- sanity for the over rule: with over = smaller slope the crossing is positive iff the two
+x-velocities agree in sign (sm-3:1908-1912) -/
+theorem det_pos_iff_of_slope_lt {u v : Plane} (hu : u.1 ≠ 0) (hv : v.1 ≠ 0)
+    (h : u.2 / u.1 < v.2 / v.1) : 0 < det u v ↔ 0 < u.1 * v.1 := by
+  have key : det u v = u.1 * v.1 * (v.2 / v.1 - u.2 / u.1) := by
+    unfold det; field_simp
+  rw [key]
+  have hpos : 0 < v.2 / v.1 - u.2 / u.1 := sub_pos.mpr h
+  exact mul_pos_iff_of_pos_right hpos
+
+/-! ## 3. The printed exact germ passes the derivative-form cusp criterion (B, sorry-free) -/
+
+noncomputable def germFront (A y₀ : ℝ) : ℝ → Plane :=
+  fun u => (A * u ^ 2, A * y₀ * u ^ 2 + 2 * A / 3 * u ^ 3)
+
+theorem hasDerivAt_germFront (A y₀ u : ℝ) :
+    HasDerivAt (germFront A y₀) (2 * A * u, 2 * A * y₀ * u + 2 * A * u ^ 2) u := by
+  have h1 : HasDerivAt (fun u : ℝ => A * u ^ 2) (2 * A * u) u := by
+    refine ((hasDerivAt_pow 2 u).const_mul A).congr_deriv ?_
+    push_cast; ring
+  have h2 : HasDerivAt (fun u : ℝ => A * y₀ * u ^ 2 + 2 * A / 3 * u ^ 3)
+      (2 * A * y₀ * u + 2 * A * u ^ 2) u := by
+    have a := (hasDerivAt_pow 2 u).const_mul (A * y₀)
+    have b := (hasDerivAt_pow 3 u).const_mul (2 * A / 3)
+    refine (a.add b).congr_deriv ?_
+    push_cast; ring
+  exact h1.prodMk h2
+
+theorem deriv_germFront (A y₀ : ℝ) :
+    deriv (germFront A y₀) = fun u => (2 * A * u, 2 * A * y₀ * u + 2 * A * u ^ 2) :=
+  funext fun u => (hasDerivAt_germFront A y₀ u).deriv
+
+theorem hasDerivAt_germFront' (A y₀ u : ℝ) :
+    HasDerivAt (fun u : ℝ => ((2 * A * u, 2 * A * y₀ * u + 2 * A * u ^ 2) : Plane))
+      (2 * A, 2 * A * y₀ + 4 * A * u) u := by
+  have h1 : HasDerivAt (fun u : ℝ => 2 * A * u) (2 * A) u := by
+    refine ((hasDerivAt_id u).const_mul (2 * A)).congr_deriv ?_
+    simp
+  have h2 : HasDerivAt (fun u : ℝ => 2 * A * y₀ * u + 2 * A * u ^ 2) (2 * A * y₀ + 4 * A * u) u := by
+    have a := (hasDerivAt_id u).const_mul (2 * A * y₀)
+    have b := (hasDerivAt_pow 2 u).const_mul (2 * A)
+    refine (a.add b).congr_deriv ?_
+    push_cast; simp; ring
+  exact h1.prodMk h2
+
+theorem hasDerivAt_germFront'' (A y₀ u : ℝ) :
+    HasDerivAt (fun u : ℝ => ((2 * A, 2 * A * y₀ + 4 * A * u) : Plane)) (0, 4 * A) u := by
+  have h1 : HasDerivAt (fun _ : ℝ => 2 * A) 0 u := hasDerivAt_const u _
+  have h2 : HasDerivAt (fun u : ℝ => 2 * A * y₀ + 4 * A * u) (4 * A) u := by
+    have b := (hasDerivAt_id u).const_mul (4 * A)
+    refine ((hasDerivAt_const u (2 * A * y₀)).add b).congr_deriv ?_
+    simp
+  exact h1.prodMk h2
+
+theorem iteratedDeriv_two_germFront (A y₀ : ℝ) :
+    iteratedDeriv 2 (germFront A y₀) = fun u => (2 * A, 2 * A * y₀ + 4 * A * u) := by
+  rw [iteratedDeriv_succ, iteratedDeriv_one, deriv_germFront]
+  exact funext fun u => (hasDerivAt_germFront' A y₀ u).deriv
+
+theorem iteratedDeriv_three_germFront (A y₀ : ℝ) :
+    iteratedDeriv 3 (germFront A y₀) = fun _ => (0, 4 * A) := by
+  rw [iteratedDeriv_succ, iteratedDeriv_two_germFront]
+  exact funext fun u => (hasDerivAt_germFront'' A y₀ u).deriv
+
+theorem germFront_semicubical (A y₀ : ℝ) (hA : A ≠ 0) :
+    deriv (germFront A y₀) 0 = 0 ∧
+    det (iteratedDeriv 2 (germFront A y₀) 0) (iteratedDeriv 3 (germFront A y₀) 0) = 8 * A ^ 2 ∧
+    (iteratedDeriv 2 (germFront A y₀) 0).1 = 2 * A ∧ 8 * A ^ 2 ≠ 0 := by
+  rw [deriv_germFront, iteratedDeriv_two_germFront, iteratedDeriv_three_germFront]
+  refine ⟨by simp, ?_, by simp, by positivity⟩
+  simp [det]; ring
+
+theorem germFront_cuspDisc (A y₀ : ℝ) :
+    (iteratedDeriv 2 (germFront A y₀) 0).1 *
+      det (iteratedDeriv 2 (germFront A y₀) 0) (iteratedDeriv 3 (germFront A y₀) 0) = 16 * A ^ 3 := by
+  rw [iteratedDeriv_two_germFront, iteratedDeriv_three_germFront]
+  simp [det]; ring
+
+/-! ## 4. The named record of a front and its marking on a polygonal diagram (B) -/
+
+namespace SmoothFront
+
+variable (F : SmoothFront)
+
+def occSet : Set (Param F.c) :=
+  {p | p.2 ∈ Set.Ico (0 : ℝ) 1 ∧ ∃ q : Param F.c, q.2 ∈ Set.Ico (0 : ℝ) 1 ∧ p ≠ q ∧ F.eval p = F.eval q}
+
+theorem occSet_finite : F.occSet.Finite :=
+  (F.doubles_finite.image Prod.fst).subset fun p ⟨hp, q, hq, hne, he⟩ => ⟨(p, q), ⟨hp, hq, hne, he⟩, rfl⟩
+
+abbrev Occ : Type := F.occSet
+instance : Fintype F.Occ := F.occSet_finite.fintype
+
+/-- The polygonal reading of a smooth ordinary diagram (sm-3:337-343, lem:gauss-pl-model: "the
+crossing names, the four-ray orders, the traversal direction and the over/under designations are
+retained"): `S` carries the front's full named record — component circles (crossing-free ones
+included), crossing occurrences, cyclic orders, pairing, over/under bits, signs. -/
+structure Marking (S : Diagram) where
+  e : Fin F.c ≃ Fin S.Γ.c
+  Φ : F.Occ ≃ S.Γ.Visit
+  comp_eq : ∀ p : F.Occ, S.compOf (Φ p) = e p.1.1
+  between_iff : ∀ p q r : F.Occ, p.1.1 = q.1.1 → q.1.1 = r.1.1 →
+    (cycBetween p.1.2 q.1.2 r.1.2 ↔
+      cycBetween (S.visitCoord (Φ p)) (S.visitCoord (Φ q)) (S.visitCoord (Φ r)))
+  pair_eq : ∀ p q : F.Occ, p ≠ q → F.eval p = F.eval q → Φ q = S.twin (Φ p)
+  over_iff : ∀ p q : F.Occ, p ≠ q → F.eval p = F.eval q →
+    (S.overBit (Φ p) = true ↔ F.slope p.1 < F.slope q.1)
+  sgn_eq : ∀ p q : F.Occ, p ≠ q → F.eval p = F.eval q → F.slope p.1 < F.slope q.1 →
+    ((S.sign (Φ p).1 : ℤ)) = F.crossSign p.1 q.1
+
+/-! ## 5. NEW (judge's graft): the printed rounding, then the polygonal reading -/
+
+/-- the cusps of `F`, one representative parameter each -/
+abbrev Cusp : Type := {p : Param F.c // p ∈ F.cuspSet}
+
+/-- "In disjoint clean cusp discs replace each cusp by a simple regular arc with the same oriented
+attachments and no crossing" (sm-3:1838-1840), for `G : Fin F.c → SmoothLoop` on the SAME
+parameter circles as `F`:
+* `U c` a disc (`disc`) about the cusp point (`center`), the discs pairwise `disjoint`, each
+  *clean*: `F` meets `U c` only along the cusp's own arc, the parameter interval `I c` (`clean`);
+* `G = F` outside the intervals (`agree`) — hence the same oriented attachments: the parameter
+  circles, their orientation and the end points of each arc are literally shared;
+* on `I c` the new arc lies in the disc (`inside`), is regular (`regular`), simple (`simple`) and
+  creates no crossing (`no_crossing`). -/
+structure GeomRounding (G : Fin F.c → SmoothLoop) where
+  U : F.Cusp → Set Plane
+  I : F.Cusp → Set ℝ
+  disc : ∀ c, IsDisc (U c)
+  center : ∀ c, F.eval c.1 ∈ interior (U c)
+  interval : ∀ c, ∃ a b : ℝ, a < c.1.2 ∧ c.1.2 < b ∧ b - a < 1 ∧ I c = Set.Ioo a b
+  disjoint : ∀ c c', c ≠ c' → Disjoint (U c) (U c')
+  clean : ∀ c (q : Param F.c), F.eval q ∈ U c → q.1 = c.1.1 ∧ ∃ n : ℤ, q.2 + n ∈ I c
+  agree : ∀ (i : Fin F.c) (t : ℝ), (∀ c : F.Cusp, c.1.1 = i → ∀ n : ℤ, t + n ∉ I c) →
+    (G i).γ t = (F.comp i).γ t
+  inside : ∀ c, ∀ t ∈ I c, (G c.1.1).γ t ∈ U c
+  regular : ∀ c, ∀ t ∈ I c, deriv (G c.1.1).γ t ≠ 0
+  simple : ∀ c, Set.InjOn (G c.1.1).γ (I c)
+  no_crossing : ∀ c, ∀ t ∈ I c, ∀ q : Param F.c, ¬ SameParam (c.1.1, t) q →
+    (G q.1).γ q.2 ≠ (G c.1.1).γ t
+
+theorem GeomRounding.cusp_mem_I {G : Fin F.c → SmoothLoop} (r : F.GeomRounding G) (c : F.Cusp) :
+    c.1.2 ∈ r.I c := by
+  obtain ⟨a, b, ha, hb, -, hI⟩ := r.interval c
+  rw [hI]; exact ⟨ha, hb⟩
+
+/-- `S` is a rounding `S(F)`: a cusp-free smooth front `G` obtained from `F` by the printed
+cusp replacement, read polygonally (`Marking G S`).  ("The resulting ordinary diagram is denoted
+S(F)", sm-3:1840-1841; the polygonal reading is the accepted layer's, sm-3:337-343.) -/
+structure Rounding (S : Diagram) where
+  G : SmoothFront
+  hc : G.c = F.c
+  cuspFree : G.CuspFree
+  geom : F.GeomRounding (fun i => G.comp (Fin.cast hc.symm i))
+  mark : G.Marking S
+
+def IsRounding (S : Diagram) : Prop := Nonempty (F.Rounding S)
+
+/-- `d(F) = deg_a P_{S(F)}` on a rounding `S`, and `B(F) = D − w − d − 1` (display ng:defect) -/
+def dOf (_F : SmoothFront) (S : Diagram) : ℤ := degAZ (P S)
+def defect (S : Diagram) : ℤ := (F.downCount : ℤ) - F.writhe - F.dOf S - 1
+
+end SmoothFront
+
+theorem P_eq_of_recordIso {S S' : Diagram} (h : Nonempty (RecordIso S.record S'.record)) :
+    P S = P S' :=
+  P_congr (lmF_eq_of_recordIso S S' h)
+
+/-- ng:smoothing-record (sm-3:1843-1855): two roundings of one front have isomorphic named
+records, hence equal `P`.  Proof plan: (i) `GeomRounding F G` ⇒ `G.Marking S ≃ F.Marking S`
+(the occurrences lie outside the intervals, where `G = F` on an open set, so `occSet`, `slope`,
+`crossSign` and the cyclic order agree — the printed "changes no successor ... germs outside the
+cusp discs are unchanged ... identity on the parameter circles"); (ii) two markings of `F` compose
+to a `RecordIso` (successor from the cyclic order via `cycNext_unique`); (iii) `P_eq_of_recordIso`. -/
+def ng_smoothing_record_statement : Prop :=
+  ∀ (F : SmoothFront) (S S' : Diagram), F.IsRounding S → F.IsRounding S' →
+    Nonempty (RecordIso S.record S'.record) ∧ P S = P S'
+
+/-- ng:local-front-bound (sm-3:2305-2312) = fd:ng-bound (sm-3:3379-3388) on the printed class,
+for every actual rounding: `w(F) − D(F) ≤ −deg_a P_{S(F)} − 1`. -/
+def LocalFrontBoundStatement : Prop :=
+  ∀ (F : SmoothFront) (S : Diagram), F.IsRounding S →
+    F.writhe - (F.downCount : ℤ) ≤ -degAZ (P S) - 1
+
+theorem ng_bound_form (F : SmoothFront) (S : Diagram) :
+    (F.writhe - (F.downCount : ℤ) ≤ -degAZ (P S) - 1) ↔ (F.slNg ≤ -degAZ (P S) - 1) := Iff.rfl
+
+/-! ## 6. PL fronts (A's class, renamed): the realization class of the word layer -/
+
+/-- A *PL front*: a generic polygonal shadow all of whose edges are nonvertical; cusps are the
+vertices where the x-direction reverses (A).  Not the printed class: the device on which the
+certificates of rows 76-82 are checked (grid realizations of words); every PL front is already a
+`Diagram` (wedge cusps are legal corners of `Shadow.Generic`). -/
+structure PLFront where
+  Γ : Shadow
+  generic : Γ.Generic
+  nonvertical : ∀ s : Γ.Strand, (Γ.dir s).1 ≠ 0
+
+namespace PLFront
+
+variable (F : PLFront)
+
+def prev (s : F.Γ.Strand) : F.Γ.Strand := ⟨s.1, s.2 - 1⟩
+def eIn (s : F.Γ.Strand) : Plane := F.Γ.dir (F.prev s)
+def eOut (s : F.Γ.Strand) : Plane := F.Γ.dir s
+def IsCusp (s : F.Γ.Strand) : Prop := (F.eIn s).1 * (F.eOut s).1 < 0
+def IsLeftCusp (s : F.Γ.Strand) : Prop := (F.eIn s).1 < 0 ∧ 0 < (F.eOut s).1
+def IsRightCusp (s : F.Γ.Strand) : Prop := 0 < (F.eIn s).1 ∧ (F.eOut s).1 < 0
+def IsDownCusp (s : F.Γ.Strand) : Prop := F.IsCusp s ∧ 0 < det (F.eIn s) (F.eOut s)
+def IsUpCusp (s : F.Γ.Strand) : Prop := F.IsCusp s ∧ det (F.eIn s) (F.eOut s) < 0
+def slope (s : F.Γ.Strand) : ℝ := (F.Γ.dir s).2 / (F.Γ.dir s).1
+
+def strandA (x : F.Γ.Crossing) : F.Γ.Strand := Classical.choose x.2
+
+theorem strandA_mem (x : F.Γ.Crossing) : F.strandA x ∈ x.val := by
+  obtain ⟨t, hx, -, -⟩ := Classical.choose_spec x.2
+  rw [hx]; simp [strandA]
+
+def strandB (x : F.Γ.Crossing) : F.Γ.Strand := F.Γ.other x (F.strandA_mem x)
+
+def overStrand (x : F.Γ.Crossing) : F.Γ.Strand :=
+  if F.slope (F.strandA x) < F.slope (F.strandB x) then F.strandA x else F.strandB x
+
+theorem overStrand_mem (x : F.Γ.Crossing) : F.overStrand x ∈ x.val := by
+  unfold overStrand
+  split_ifs
+  · exact F.strandA_mem x
+  · exact F.Γ.other_mem x (F.strandA_mem x)
+
+/-- the PL front read as an ordinary polygonal diagram (over = smaller slope) -/
+def diagram : Diagram := ⟨F.Γ, F.generic, F.overStrand, F.overStrand_mem⟩
+
+def downCount : ℕ := Nat.card {s : F.Γ.Strand // F.IsDownCusp s}
+def cuspCount : ℕ := Nat.card {s : F.Γ.Strand // F.IsCusp s}
+def writhe : ℤ := F.diagram.writhe
+def sCount : ℕ := Fintype.card F.Γ.Crossing + F.cuspCount
+/-- `B` of a PL front, with the identity rounding `F.diagram` -/
+def defect : ℤ := (F.downCount : ℤ) - F.writhe - degAZ (P F.diagram) - 1
+
+/-- a union of standard front circles: no crossing, every component with exactly one left and one
+right cusp (ng:circle, the base of ng:finite-word) -/
+def IsStandardCircles : Prop :=
+  IsEmpty F.Γ.Crossing ∧
+  ∀ i : Fin F.Γ.c, Nat.card {s : F.Γ.Strand // s.1 = i ∧ F.IsLeftCusp s} = 1 ∧
+    Nat.card {s : F.Γ.Strand // s.1 = i ∧ F.IsRightCusp s} = 1
+
+theorem cusp_det_ne_zero {s : F.Γ.Strand} (h : F.IsCusp s) : det (F.eIn s) (F.eOut s) ≠ 0 := by
+  intro hdet
+  have hreg : RegularPair (edge (F.Γ.comp s.1).P (s.2 - 1)) (edge (F.Γ.comp s.1).P s.2) :=
+    F.generic.regular s.1 s.2
+  obtain ⟨hu, hv, hnot⟩ := hreg
+  have hu1 : (F.eIn s).1 ≠ 0 := F.nonvertical (F.prev s)
+  apply hnot
+  refine ⟨(F.eOut s).1 / (F.eIn s).1, ?_, ?_⟩
+  · have hc : (F.eIn s).1 * (F.eOut s).1 < 0 := h
+    rcases lt_or_gt_of_ne hu1 with hneg | hpos
+    · exact div_neg_of_pos_of_neg (by nlinarith) hneg
+    · exact div_neg_of_neg_of_pos (by nlinarith) hpos
+  · have hd : (F.eIn s).1 * (F.eOut s).2 = (F.eIn s).2 * (F.eOut s).1 := by
+      unfold det at hdet; linarith
+    ext
+    · show (F.eOut s).1 = (F.eOut s).1 / (F.eIn s).1 * (F.eIn s).1
+      field_simp
+    · show (F.eOut s).2 = (F.eOut s).1 / (F.eIn s).1 * (F.eIn s).2
+      field_simp
+      linarith
+
+theorem isDownCusp_or_isUpCusp {s : F.Γ.Strand} (h : F.IsCusp s) : F.IsDownCusp s ∨ F.IsUpCusp s := by
+  rcases lt_or_gt_of_ne (F.cusp_det_ne_zero h) with hneg | hpos
+  · exact Or.inr ⟨h, hneg⟩
+  · exact Or.inl ⟨h, hpos⟩
+
+end PLFront
+
+/-! ## 7. Oriented Rutherford words (sm-3:1893-1919), direction bits at the cuts -/
+
+/-- `l m d` inserts a left cusp in positions `m, m+1` (1-based, from the top), the upper new arm
+travelling rightward iff `d`; `r m` joins positions `m, m+1` at a right cusp (they must travel in
+opposite x-directions); `σ m` crosses them (the incoming upper strand goes to the lower output). -/
+inductive Letter
+  | l (m : ℕ) (d : Bool)
+  | r (m : ℕ)
+  | σ (m : ℕ)
+  deriving DecidableEq
+
+/-- the directions (`true` = rightward) of the strands at a cut, top to bottom -/
+abbrev Cuts := List Bool
+
+def Letter.step : Letter → Cuts → Option Cuts
+  | .l m d, c => if 1 ≤ m ∧ m ≤ c.length + 1 then some (c.take (m - 1) ++ [d, !d] ++ c.drop (m - 1)) else none
+  | .r m, c =>
+    match getElem? c (m - 1), getElem? c m with
+    | some d, some d' => if 1 ≤ m ∧ d ≠ d' then some (c.take (m - 1) ++ c.drop (m + 1)) else none
+    | _, _ => none
+  | .σ m, c =>
+    match getElem? c (m - 1), getElem? c m with
+    | some d, some d' => if 1 ≤ m then some (c.take (m - 1) ++ [d', d] ++ c.drop (m + 1)) else none
+    | _, _ => none
+
+abbrev Word := List Letter
+
+def Word.run : Word → Cuts → Option Cuts
+  | [], c => some c
+  | a :: W, c =>
+    match a.step c with
+    | none => none
+    | some c' => Word.run W c'
+
+/-- a closed oriented front word: typed from no strands back to no strands -/
+def Word.Closed (W : Word) : Prop := Word.run W [] = some []
+
+def Word.crossingCount (W : Word) : ℕ :=
+  (W.filter fun ℓ => match ℓ with | .σ _ => true | _ => false).length
+def Word.cuspCount (W : Word) : ℕ :=
+  (W.filter fun ℓ => match ℓ with | .σ _ => false | _ => true).length
+def Word.sCount (W : Word) : ℕ := W.crossingCount + W.cuspCount
+
+structure OWord where
+  letters : Word
+  closed : letters.Closed
+
+/-- sanity: the printed standard crossing template and a standard circle are well typed -/
+example : Word.run [.l 1 true, .r 1] [] = some [] := by decide
+example : Word.run [.l 1 true, .σ 1, .r 1] [] = some [] := by decide
+example : Word.run [.l 2 true, .σ 1, .r 2] [true] = some [true] := by decide
+example : Word.run [.l 2 false, .σ 1, .r 2] [false] = some [false] := by decide
+/-- the typing FORCES the cusp bit from the through-strand direction ("Both crossing arrows are
+therefore rightward, or both are leftward when the entire strand is reversed", sm-3:1958-1960) -/
+example : Word.run [.l 2 true, .σ 1, .r 2] [false] = none := by decide
+
+/-- Grid realization of a closed oriented word as a PL front: letter `k` occupies the column
+`[k, k+1]`, strands at integer heights, cusps as wedge corners; components are the closed strand
+cycles, oriented by the direction bits.  TO BUILD (2.5-3.5k lines: `Shadow.Generic`, nonvertical,
+letters ↔ singularities). -/
+def realize (W : OWord) : PLFront := sorry
+
+/-- the word-level quantities are read GEOMETRICALLY from the realization (graft from A) -/
+def OWord.sCount (W : OWord) : ℕ := (realize W).sCount
+def OWord.defect (W : OWord) : ℤ := (realize W).defect
+
+/-! ### The printed letter patterns (rows 77-82, ng:finite-word items 1-3), as list rewrites -/
+
+/-- ng:front-I: `l_m σ_{m−1} r_m` or `l_m σ_{m+1} r_m` replaces one through-strand (deletion
+direction: `W ↦ W'`) -/
+def IsTypeI (W W' : Word) : Prop := ∃ (X Y : Word) (m : ℕ) (d : Bool), 2 ≤ m ∧
+  (W = X ++ [.l m d, .σ (m - 1), .r m] ++ Y ∨ W = X ++ [.l m d, .σ (m + 1), .r m] ++ Y) ∧ W' = X ++ Y
+/-- ng:front-II: `l_{m−1} σ_m σ_{m−1}` or `l_{m+1} σ_m σ_{m+1}` replaces `l_m` (the bit is carried
+by the cusp arms through both crossings) -/
+def IsTypeII (W W' : Word) : Prop := ∃ (X Y : Word) (m : ℕ) (d : Bool), 2 ≤ m ∧
+  (W = X ++ [.l (m - 1) d, .σ m, .σ (m - 1)] ++ Y ∨ W = X ++ [.l (m + 1) d, .σ m, .σ (m + 1)] ++ Y) ∧
+  W' = X ++ [.l m d] ++ Y
+/-- ng:front-III: `σ_{m+1} σ_m σ_{m+1} ↔ σ_m σ_{m+1} σ_m` -/
+def IsTypeIII (W W' : Word) : Prop := ∃ (X Y : Word) (m : ℕ),
+  W = X ++ [.σ (m + 1), .σ m, .σ (m + 1)] ++ Y ∧ W' = X ++ [.σ m, .σ (m + 1), .σ m] ++ Y
+/-- disjoint-gadget commutation: two letters on disjoint position pairs exchanged (ng:commutation
+first sentence); PLACEHOLDER for the index bookkeeping (sm-3:1929-1931) -/
+def IsComm (W W' : Word) : Prop := ∃ (X Y : Word) (a b : Letter),
+  W = X ++ [a, b] ++ Y ∧ W' = X ++ [b, a] ++ Y ∧ True
+/-- ng:deletions, empty zigzag: two consecutive cusps on one strand with no crossing -/
+def IsZigzagDeletion (W W' : Word) : Prop := ∃ (X Y : Word) (m : ℕ) (d : Bool),
+  (W = X ++ [.l m d, .r (m + 1)] ++ Y ∨ W = X ++ [.l (m + 1) d, .r m] ++ Y) ∧ W' = X ++ Y
+/-- ng:deletions, crossed-cusp shortcut `l_i σ_i ↦ l_i` (the cusp direction flips: the arms
+exchange places), `σ_i r_i ↦ r_i` -/
+def IsCrossedCuspShortcut (W W' : Word) : Prop := ∃ (X Y : Word) (i : ℕ),
+  (∃ d : Bool, W = X ++ [.l i d, .σ i] ++ Y ∧ W' = X ++ [.l i (!d)] ++ Y) ∨
+  (W = X ++ [.σ i, .r i] ++ Y ∧ W' = X ++ [.r i] ++ Y)
+/-- ng:circle: deletion of a separated standard front circle `l_m r_m` with nonempty remainder -/
+def IsCircleDeletion (W W' : Word) : Prop := ∃ (X Y : Word) (m : ℕ) (d : Bool),
+  W = X ++ [.l m d, .r m] ++ Y ∧ W' = X ++ Y ∧ (X ++ Y) ≠ []
+/-- ng:cusp-skein (eq. ng:cusp-words with spectator offset `m`): `A = l_{m+1} σ_m`,
+`A' = l_m σ_{m+1}`, `C ∈ {C_top = l_m, C_bottom = l_{m+1}}`.  The direction bits of `A'` and `C`
+are FUNCTIONS of `(t, u)` (the printed table, sm-3:2107-2118); left existential here and to be
+fixed letter by letter before the axiom is stated (review-sensitive). -/
+def IsCuspSkein (A A' C : Word) : Prop := ∃ (X Y : Word) (m : ℕ) (d d' d'' : Bool), 1 ≤ m ∧
+  A = X ++ [.l (m + 1) d, .σ m] ++ Y ∧ A' = X ++ [.l m d', .σ (m + 1)] ++ Y ∧
+  (C = X ++ [.l m d''] ++ Y ∨ C = X ++ [.l (m + 1) d''] ++ Y)
+
+/-! ## 8. The descent engine (B, split so that the axiom needs only the move DEFINITIONS) -/
+
+/-- The moves of the finite reduction on a type `α` of fronts: `s`, `B`, the `B`-preserving steps
+`Pres` (commutations, type III, and types I/II in the deletion direction), the deletions `Del`
+(zigzag, crossed cusp, standard circle), the cusp-skein interchange `Skein F F' C` and the
+standard-circle `Base`. -/
+structure Moves where
+  α : Type
+  s : α → ℕ
+  B : α → ℤ
+  Pres : α → α → Prop
+  Del : α → α → Prop
+  Skein : α → α → α → Prop
+  Base : α → Prop
+
+namespace Moves
+
+variable (K : Moves)
+
+/-- A principal chain from `F` (ng:finite-word): `Pres`/`Skein` steps, stopped at the first strict
+decrease of `s` (a `Del` step) or at the standard-circle base. -/
+inductive Chain : K.α → Prop
+  | base {F} : K.Base F → Chain F
+  | del {F F'} : K.Del F F' → Chain F
+  | pres {F F'} : K.Pres F F' → Chain F' → Chain F
+  | skein {F F' C} : K.Skein F F' C → Chain F' → Chain F
+
+/-- The seven B/s clauses of rows 76-82 (theorems about the moves, NOT part of the axiom). -/
+structure Laws : Prop where
+  pres_B : ∀ F F', K.Pres F F' → K.B F = K.B F'
+  pres_s : ∀ F F', K.Pres F F' → K.s F' ≤ K.s F
+  del_B : ∀ F F', K.Del F F' → K.B F' ≤ K.B F
+  del_s : ∀ F F', K.Del F F' → K.s F' < K.s F
+  skein_B : ∀ F F' C, K.Skein F F' C → min (K.B F') (K.B C) ≤ K.B F
+  skein_s : ∀ F F' C, K.Skein F F' C → K.s F' = K.s F ∧ K.s C < K.s F
+  base_B : ∀ F, K.Base F → 0 ≤ K.B F
+
+theorem nonneg_of_chain (L : K.Laws) (n : ℕ) (ih : ∀ G, K.s G < n → 0 ≤ K.B G) :
+    ∀ F, K.s F ≤ n → K.Chain F → 0 ≤ K.B F := by
+  intro F hF hc
+  induction hc with
+  | base h => exact L.base_B _ h
+  | del h => exact le_trans (ih _ (lt_of_lt_of_le (L.del_s _ _ h) hF)) (L.del_B _ _ h)
+  | pres h _ ihc => rw [L.pres_B _ _ h]; exact ihc (le_trans (L.pres_s _ _ h) hF)
+  | skein h _ ihc =>
+    obtain ⟨hs, hC⟩ := L.skein_s _ _ _ h
+    have h1 := ihc (hs ▸ hF)
+    have h2 := ih _ (lt_of_lt_of_le hC hF)
+    exact le_trans (le_min h1 h2) (L.skein_B _ _ _ h)
+
+/-- The degree induction of ng:local-front-bound (sm-3:2316-2348): `B ≥ 0` everywhere, by strong
+induction on `s` along principal chains. -/
+theorem defect_nonneg (L : K.Laws) (hfw : ∀ F, K.Chain F) : ∀ F, 0 ≤ K.B F := by
+  suffices h : ∀ n, ∀ F, K.s F ≤ n → 0 ≤ K.B F from fun F => h _ F le_rfl
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro F hF
+    exact K.nonneg_of_chain L n (fun G hG => ih _ hG G le_rfl) F hF (hfw F)
+
+end Moves
+
+/-! ## 9. The word calculus and the block statements -/
+
+/-- the moves of ng:finite-word on closed oriented words -/
+def wordMoves : Moves where
+  α := OWord
+  s := OWord.sCount
+  B := OWord.defect
+  Pres := fun W W' => IsComm W.letters W'.letters ∨ IsTypeI W.letters W'.letters ∨
+    IsTypeII W.letters W'.letters ∨ IsTypeIII W.letters W'.letters
+  Del := fun W W' => IsZigzagDeletion W.letters W'.letters ∨
+    IsCrossedCuspShortcut W.letters W'.letters ∨ IsCircleDeletion W.letters W'.letters
+  Skein := fun A A' C => IsCuspSkein A.letters A'.letters C.letters
+  Base := fun W => (realize W).IsStandardCircles
+
+/-- the literature input ng:finite-word (policy name `SM.ng_finite_word`): every closed oriented
+word has a finite principal chain -/
+def ng_finite_word_statement : Prop := ∀ W : OWord, wordMoves.Chain W
+
+/-- rows 76a-82 collected: the laws hold for the word moves (each field is one printed row) -/
+def certificate_laws_statement : Prop := wordMoves.Laws
+
+/-- ng:local-front-bound on words (proved from the two previous statements by `defect_nonneg`) -/
+def word_bound_statement : Prop := ∀ W : OWord, 0 ≤ wordMoves.B W
+
+theorem word_bound_of (hL : certificate_laws_statement) (hfw : ng_finite_word_statement) :
+    word_bound_statement :=
+  wordMoves.defect_nonneg hL hfw
+
+/-- ng:commutation, second sentence, on the printed class (THE ROCK, 76b): every smooth front is
+represented by a closed oriented word whose grid realization has the same `D`, `w` and whose
+diagram carries the record of every rounding of `F`. -/
+def ng_commutation_word_statement : Prop :=
+  ∀ F : SmoothFront, ∃ W : OWord,
+    F.downCount = (realize W).downCount ∧ F.writhe = (realize W).writhe ∧
+    ∀ S : Diagram, F.IsRounding S → Nonempty (RecordIso S.record (realize W).diagram.record)
+
+/-- 83 on the printed class follows from the word bound and the representation theorem -/
+theorem localFrontBound_of (hw : word_bound_statement) (hrep : ng_commutation_word_statement) :
+    LocalFrontBoundStatement := by
+  intro F S hS
+  obtain ⟨W, hD, hwr, hrec⟩ := hrep F
+  have h0 := hw W
+  have hP : P S = P (realize W).diagram := P_eq_of_recordIso (hrec S hS)
+  simp only [wordMoves, OWord.defect, PLFront.defect] at h0
+  rw [hP, hD, hwr]
+  omega
+
+/-! ## 10. Contact vocabulary (def:transverse-front, fd:linking-calculus, fd:contact; B) -/
+
+abbrev Space := ℝ × ℝ × ℝ
+
+def alpha (p v : Space) : ℝ := v.2.2 - p.2.1 * v.1
+
+structure SmoothKnot where
+  T : ℝ → Space
+  smooth : ContDiff ℝ ∞ T
+  periodic : Function.Periodic T 1
+  immersed : ∀ θ, deriv T θ ≠ 0
+  injective : ∀ θ θ', T θ = T θ' → ∃ n : ℤ, θ' = θ + n
+
+namespace SmoothKnot
+
+variable (K : SmoothKnot)
+
+def IsPositiveTransverse : Prop := ∀ θ, 0 < alpha (K.T θ) (deriv K.T θ)
+def IsLegendrian : Prop := ∀ θ, alpha (K.T θ) (deriv K.T θ) = 0
+def front (θ : ℝ) : Plane := ((K.T θ).1, (K.T θ).2.2)
+def frontVel (θ : ℝ) : Plane := ((deriv K.T θ).1, (deriv K.T θ).2.2)
+def height (θ : ℝ) : ℝ := (K.T θ).2.1
+
+/-- def:transverse-front (sm-3:3328-3339) -/
+structure GenericTransverseFront : Prop where
+  transverse : K.IsPositiveTransverse
+  immersion : ∀ θ, K.frontVel θ ≠ 0
+  doubles_finite : {q : ℝ × ℝ | q.1 ∈ Set.Ico (0 : ℝ) 1 ∧ q.2 ∈ Set.Ico (0 : ℝ) 1 ∧ q.1 ≠ q.2 ∧
+    K.front q.1 = K.front q.2}.Finite
+  transverse_doubles : ∀ θ θ', (¬ ∃ n : ℤ, θ' = θ + n) → K.front θ = K.front θ' →
+    det (K.frontVel θ) (K.frontVel θ') ≠ 0
+  no_triple : ∀ θ θ' θ'', (¬ ∃ n : ℤ, θ' = θ + n) → (¬ ∃ n : ℤ, θ'' = θ' + n) →
+    (¬ ∃ n : ℤ, θ'' = θ + n) → K.front θ = K.front θ' → K.front θ' = K.front θ'' → False
+
+theorem vertical_tangent_up (h : K.IsPositiveTransverse) (θ : ℝ) (hx : (deriv K.T θ).1 = 0) :
+    0 < (deriv K.T θ).2.2 := by
+  have := h θ
+  unfold alpha at this
+  rw [hx, mul_zero, sub_zero] at this
+  exact this
+
+def frontWrithe (hK : K.GenericTransverseFront) : ℤ :=
+  ∑ q ∈ hK.doubles_finite.toFinset.filter (fun q => K.height q.1 < K.height q.2),
+    (if 0 < det (K.frontVel q.1) (K.frontVel q.2) then (1 : ℤ) else -1)
+
+end SmoothKnot
+
+def dot3 (u v : Space) : ℝ := u.1 * v.1 + u.2.1 * v.2.1 + u.2.2 * v.2.2
+def cross3 (u v : Space) : Space :=
+  (u.2.1 * v.2.2 - u.2.2 * v.2.1, u.2.2 * v.1 - u.1 * v.2.2, u.1 * v.2.1 - u.2.1 * v.1)
+def norm3 (u : Space) : ℝ := Real.sqrt (dot3 u u)
+
+def gaussLinking (C₁ C₂ : ℝ → Space) : ℝ :=
+  (1 / (4 * Real.pi)) * ∫ u in (0 : ℝ)..1, ∫ v in (0 : ℝ)..1,
+    dot3 (C₁ u - C₂ v) (cross3 (deriv C₁ u) (deriv C₂ v)) / norm3 (C₁ u - C₂ v) ^ 3
+
+namespace SmoothKnot
+def pushY (K : SmoothKnot) (ε : ℝ) : ℝ → Space := fun θ => K.T θ + (0, ε, 0)
+def HasSl (K : SmoothKnot) (s : ℝ) : Prop :=
+  ∃ ε₀ > 0, ∀ ε, 0 < ε → ε ≤ ε₀ → gaussLinking K.T (K.pushY ε) = s
+end SmoothKnot
+
+def ContactBoundStatement (IsFrontDiagram : SmoothKnot → Diagram → Prop) : Prop :=
+  ∀ (K : SmoothKnot), K.GenericTransverseFront → ∀ (S : Diagram), IsFrontDiagram K S →
+    ∀ s : ℝ, K.HasSl s → s ≤ -(degAZ (P S) : ℝ) - 1
+
+end
+
+end SM.Front
+
+#check @SM.Front.SmoothFront
+#check @SM.Front.SmoothFront.GeomRounding
+#check @SM.Front.SmoothFront.IsRounding
+#check @SM.Front.LocalFrontBoundStatement
+#check @SM.Front.PLFront.defect
+#check @SM.Front.wordMoves
+#check @SM.Front.ng_finite_word_statement
+#print axioms SM.Front.Moves.defect_nonneg
+#print axioms SM.Front.localFrontBound_of
+#print axioms SM.Front.word_bound_of
+#print axioms SM.Front.germFront_semicubical
+#print axioms SM.Front.PLFront.isDownCusp_or_isUpCusp
+#print axioms SM.Front.SmoothFront.GeomRounding.cusp_mem_I

@@ -1,0 +1,432 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "reviewer_identity": {
+    "agent": "/root/review_relgp_full",
+    "implementer": "/root/review_mark_transport",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same-model technical review only; not stronger-model fidelity approval.",
+    "contribution_disclosure": "Reviewer authored none of the sixteen declarations or seven embedded bodies and made no implementation edits. The reviewer earlier supplied source/API inventory and independently reviewed the frozen StartingChildren dependency. Separate reviewer-authored EndingChildren and SpanningCutNeighbors are not in this closure. This reports independent inspection of the submitted body and its actual dependencies; no stronger-model or wholly unrelated-method provenance is claimed."
+  },
+  "scope": {
+    "group": "SoftDuplicationSpanningEmptyChildren",
+    "declarations": [
+      "SM.SoftDuplication.emptySpanningCutSet",
+      "SM.SoftDuplication.emptySpanningCutSet_cuts",
+      "SM.SoftDuplication.emptySpanningCutSet_old_mem",
+      "SM.SoftDuplication.emptySpanningChildrenEquiv",
+      "SM.SoftDuplication.emptySpanningChildrenEquiv_val",
+      "SM.SoftDuplication.exists_spanning_part",
+      "SM.SoftDuplication.spanningChild",
+      "SM.SoftDuplication.spanningChild_consecutive",
+      "SM.SoftDuplication.spanningChild_bounds",
+      "SM.SoftDuplication.spanningChild_unique",
+      "SM.SoftDuplication.spanningChild_other",
+      "SM.SoftDuplication.emptySpanning_spanningChild_bounds",
+      "SM.SoftDuplication.emptySpanning_otherChild_bounds",
+      "SM.SoftDuplication.emptySpanning_spanningChild_consecutive",
+      "SM.SoftDuplication.emptySpanning_child_trichotomy",
+      "SM.SoftDuplication.emptySpanning_spanningChild_unique"
+    ],
+    "new_declaration_count": 16,
+    "embedded_body_count": 7,
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1332-1341: strict-spanning branch whose collapsed core composition omits the distinguished cut.",
+    "source_id_context": "thm:A-soft structural prerequisite only",
+    "ambient_context": "namespace SM.SoftDuplication; noncomputable; local Classical.propDecidable; {n : Nat} [NeZero n]. All complete BoundaryCutSet core domains; strict exterior endpoints only for the spanning-child clauses; no arrays or scalars."
+  },
+  "findings": [
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet",
+      "finding": "The definition expands the actual emptyCutFiber for hs:s not in C.cuts. The frozen emptyCutFiberEquiv makes this the unique allowed local selection, and cutFiberEquiv proves expansion/collapse are inverse for complete cut sets. Thus neither A nor B is selected. The body does not assume a freely chosen parent presentation."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet_cuts",
+      "finding": "Mandatory endpoint membership and hs imply both collapsed endpoints differ from s. Therefore the actual child endpoints avoid B, and old_collapse_of_ne_B identifies them. Monotonicity transports every core cut bound to the supplied interval. Expanding the literal bounded filter and empty union then proves equality with the full old image. Every core cut avoids s, so no retained point is omitted. The theorem validly needs no strict-spanning assumptions: hs itself discharges its endpoint exclusions."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningCutSet_old_mem",
+      "finding": "This is the membership equivalence for the actual old image and injective old embedding. It covers every k, including the absent distinguished s; it is not limited to internal cuts or a supplied finite sublist."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningChildrenEquiv",
+      "finding": "The complete consecutive-child domains are related by the actual increasing old endpoint map. The full image hypothesis required by consecutiveOrderedImageEquiv is discharged by emptySpanningCutSet_cuts. Its inverse exhausts all expanded children; no child, including the sole unary child, is filtered out."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanningChildrenEquiv_val",
+      "finding": "Definitional equality identifies the equivalence image with the actual ordered endpoint interval. This preserves the whole interval, rather than merely its size or abstract child index."
+    },
+    {
+      "declaration": "SM.SoftDuplication.exists_spanning_part",
+      "finding": "Strict outer bounds imply the collapsed interval strictly contains s. The canonical exists_halfOpen_part supplies an actual raw composition part with left<=s<right. Its left endpoint belongs to C.cuts; hs excludes equality with s, giving the two strict inequalities. Existence is derived from the complete raw composition and strict monotonicity; no containing child is a premise."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild",
+      "finding": "Classical.choose selects an index witnessing the preceding proved existence, then returns C.toComposition.part at that index. Subsequent properties and uniqueness constrain this to the actual unique child. This use of classical choice is not an oracle assumption or a new axiom."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_consecutive",
+      "finding": "The chosen part is consecutive in the actual core cut set by canonical part_consecutive and the exact toComposition_cutSet identity. It is not merely a bounded interval."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_bounds",
+      "finding": "The two strict inequalities are extracted directly from the existence witness. In particular, the child is not allowed to terminate at s or begin at s; such endpoints would contradict hs."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_unique",
+      "finding": "Any actual consecutive K is converted to an actual raw part using exists_part_of_consecutive. The canonical part_interior_unique then equates its index with the chosen index, since both contain s strictly. The proof returns equality of whole intervals, with no extra coverage or adjacency premise."
+    },
+    {
+      "declaration": "SM.SoftDuplication.spanningChild_other",
+      "finding": "Both endpoints of any actual core child avoid s because they are cuts. A child that is neither strictly left nor strictly right would therefore contain s strictly and equal the distinguished child by the preceding uniqueness theorem. This proves the exhaustive strict-side alternative for every other child."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_bounds",
+      "finding": "The old embedding sends a left endpoint below s to below A=old(s), and an endpoint above s to strictly above B via starting_B_lt_old. Thus the distinguished expanded child physically contains both consecutive duplicate positions, with the exact strict source orientation."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_otherChild_bounds",
+      "finding": "The derived strict core-side alternative is transported through the same increasing old map. Every other expanded child ends before A or begins after B. No ordinaryLift value or equality of array coordinates is presumed in this geometric interval statement."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_consecutive",
+      "finding": "The actual image-cut identity and consecutive_ordered_image_iff establish that the mapped distinguished child belongs to the actual expanded composition, rather than merely giving its endpoint bounds."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_child_trichotomy",
+      "finding": "Generic ordered-image exhaustion supplies a core child for every actual expanded child. Equality with the selected core child gives the distinguished image; otherwise the proved side alternative gives the two exterior cases. The quantifier ranges over the entire actual expanded consecutive-child subtype."
+    },
+    {
+      "declaration": "SM.SoftDuplication.emptySpanning_spanningChild_unique",
+      "finding": "Applying the exhaustive trichotomy to an expanded child strictly spanning A,B eliminates both side alternatives by A<B. The remaining equality identifies exactly the same mapped actual core child. This is full uniqueness on the expanded domain, not only injectivity among previously mapped spanning intervals."
+    }
+  ],
+  "transparent_dependency_review": [
+    "BoundaryCutSet.toComposition ranges over the unchanged raw finite strictly increasing endpoint-complete composition domain. CompositionCutSet and FiniteCompositions prove its equivalence/finiteness, rather than replacing it by a chosen class of cut lists.",
+    "Canonical exists_halfOpen_part derives coverage using the maximum indexed cut <=s; part_interior_unique derives uniqueness from strict cut ordering. exists_part_of_consecutive proves all actual consecutive intervals are raw parts. These exact definitions and proofs were inspected, including the endpoint assumptions and index domains.",
+    "The embedded emptyCutFiberEquiv and cutFiberEquiv supply the omitted-cut presentation uniqueness. The new sixteen declarations do not themselves restate a whole fiber equivalence; their complete cut-image and child identities use that exact frozen presentation.",
+    "The inherited order-image child equivalence requires a cut-set equality, which this body proves explicitly. No final theorem premise asks the caller to supply an abstract correspondence."
+  ],
+  "boundary_scope": [
+    "Unary core is retained. Its sole full-interval part strictly contains s, expands to the full actual child interval, and is the distinguished child. No parts>=2 condition occurs. The source leading b1 coordinate is therefore still present for later verification, not treated as satisfying a recurrence.",
+    "The source n=3 case is possible: core[0,2],s=1,C={0,2} expands to child[0,3] with cuts{0,3}. There is exactly one spanning child. The generic helper domain needs only NeZero n; no n>=4 or new genericity condition is introduced.",
+    "The exact both-cut core case s in C is excluded only because it is a different stated source branch. Within hs:s not in C.cuts, all cut selections and every part are covered; arbitrary exterior and internal cuts are allowed.",
+    "Strict-spanning endpoint cases s=0 and s=n-1 have no admissible strict exterior interval. Endpoint roots remain in the separately proved endpoint branches; this packet does not drop a valid strict-spanning case.",
+    "No scalars, ordinaryLift values, gates, child products, multiplier k, finite sum factorization, or recurrence are established here. Consequently no zero-valued factors are divided out or excluded, but their algebraic response remains for the subsequent packet."
+  ],
+  "failed_attempt_review": {
+    "failed_session": 54430,
+    "passing_session": 87301,
+    "repair": "Exact one-token replacement Finset.not_mem_empty -> Finset.notMem_empty in the empty-membership simplification. The failed log records the unknown identifier and cascading uneliminated empty-set disjunction; all sixteen public headers and all other proof text are unchanged.",
+    "no_premise_or_domain_change": true
+  },
+  "supplementary_checks": {
+    "script": "work/checks/review-spanning-empty-children-finite-20260912.py",
+    "result": "work/checks/review-spanning-empty-children-finite-20260912.json",
+    "general_no_cut_configurations": 3812,
+    "strict_spanning_configurations": 2116,
+    "unary_strict_spanning_configurations": 210,
+    "other_child_checks": 4446,
+    "all_passed": true,
+    "limits": "Arithmetic exhaustive finite samples n=3..9, not a Lean kernel or proof for arbitrary n."
+  },
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false,
+  "review_id": "soft-duplication-spanning-empty-children-technical-review-20260912",
+  "sealed_utc": "2026-09-12T03:36:12.728700+00:00",
+  "state": "Sealed bounded same-model technical review; no original-source acceptance or stronger fidelity approval.",
+  "assessment": "No defect found in the stated bounded source scope. All universal claims are supported by reviewed proofs and the bound root kernel evidence; finite checks are supplementary only.",
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_body_or_frozen_evidence": false,
+    "root_kernel_session": 87301,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      54430
+    ]
+  },
+  "declaration_headers": {
+    "SM.SoftDuplication.emptySpanningCutSet": "def emptySpanningCutSet (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hs : s ∉ C.cuts) : BoundaryCutSet I",
+    "SM.SoftDuplication.emptySpanningCutSet_cuts": "theorem emptySpanningCutSet_cuts (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hs : s ∉ C.cuts) : (emptySpanningCutSet s I hI C hs).cuts = C.cuts.image (old s)",
+    "SM.SoftDuplication.emptySpanningCutSet_old_mem": "theorem emptySpanningCutSet_old_mem (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hs : s ∉ C.cuts) (k : Fin n) :\n    old s k ∈ (emptySpanningCutSet s I hI C hs).cuts ↔ k ∈ C.cuts",
+    "SM.SoftDuplication.emptySpanningChildrenEquiv": "def emptySpanningChildrenEquiv (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hs : s ∉ C.cuts) :\n    {K : BoundaryInterval n // C.Consecutive K} ≃\n      {J : BoundaryInterval (n + 1) // (emptySpanningCutSet s I hI C hs).Consecutive J}",
+    "SM.SoftDuplication.emptySpanningChildrenEquiv_val": "theorem emptySpanningChildrenEquiv_val (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hs : s ∉ C.cuts) (K : {K : BoundaryInterval n // C.Consecutive K}) :\n    ((emptySpanningChildrenEquiv s I hI C hs) K).val =\n      OrderedBoundaryTransport.interval (startingOldEmbedding s) K.val",
+    "SM.SoftDuplication.exists_spanning_part": "theorem exists_spanning_part (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) :\n    ∃ k : Fin C.toComposition.parts,\n      (C.toComposition.part k).left < s ∧ s < (C.toComposition.part k).right",
+    "SM.SoftDuplication.spanningChild": "def spanningChild (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) : BoundaryInterval n",
+    "SM.SoftDuplication.spanningChild_consecutive": "theorem spanningChild_consecutive (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) :\n    C.Consecutive (spanningChild s I hI C hL hR hs)",
+    "SM.SoftDuplication.spanningChild_bounds": "theorem spanningChild_bounds (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) :\n    (spanningChild s I hI C hL hR hs).left < s ∧\n      s < (spanningChild s I hI C hL hR hs).right",
+    "SM.SoftDuplication.spanningChild_unique": "theorem spanningChild_unique (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts)\n    (K : BoundaryInterval n) (hK : C.Consecutive K) (hk : K.left < s ∧ s < K.right) :\n    K = spanningChild s I hI C hL hR hs",
+    "SM.SoftDuplication.spanningChild_other": "theorem spanningChild_other (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts)\n    (K : BoundaryInterval n) (hK : C.Consecutive K)\n    (hne : K ≠ spanningChild s I hI C hL hR hs) : K.right < s ∨ s < K.left",
+    "SM.SoftDuplication.emptySpanning_spanningChild_bounds": "theorem emptySpanning_spanningChild_bounds (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) :\n    (OrderedBoundaryTransport.interval (startingOldEmbedding s)\n      (spanningChild s I hI C hL hR hs)).left < A s ∧\n    B s < (OrderedBoundaryTransport.interval (startingOldEmbedding s)\n      (spanningChild s I hI C hL hR hs)).right",
+    "SM.SoftDuplication.emptySpanning_otherChild_bounds": "theorem emptySpanning_otherChild_bounds (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts)\n    (K : BoundaryInterval n) (hK : C.Consecutive K)\n    (hne : K ≠ spanningChild s I hI C hL hR hs) :\n    (OrderedBoundaryTransport.interval (startingOldEmbedding s) K).right < A s ∨\n      B s < (OrderedBoundaryTransport.interval (startingOldEmbedding s) K).left",
+    "SM.SoftDuplication.emptySpanning_spanningChild_consecutive": "theorem emptySpanning_spanningChild_consecutive (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts) :\n    (emptySpanningCutSet s I hI C hs).Consecutive\n      (OrderedBoundaryTransport.interval (startingOldEmbedding s)\n        (spanningChild s I hI C hL hR hs))",
+    "SM.SoftDuplication.emptySpanning_child_trichotomy": "theorem emptySpanning_child_trichotomy (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts)\n    (J : BoundaryInterval (n + 1)) (hJ : (emptySpanningCutSet s I hI C hs).Consecutive J) :\n    J = OrderedBoundaryTransport.interval (startingOldEmbedding s)\n        (spanningChild s I hI C hL hR hs) ∨ J.right < A s ∨ B s < J.left",
+    "SM.SoftDuplication.emptySpanning_spanningChild_unique": "theorem emptySpanning_spanningChild_unique (s : Fin n) (I : BoundaryInterval (n + 1))\n    (hI : I ≠ duplicateInterval s) (C : BoundaryCutSet (collapseInterval s I hI))\n    (hL : I.left < A s) (hR : B s < I.right) (hs : s ∉ C.cuts)\n    (J : BoundaryInterval (n + 1)) (hJ : (emptySpanningCutSet s I hI C hs).Consecutive J)\n    (hj : J.left < A s ∧ B s < J.right) :\n    J = OrderedBoundaryTransport.interval (startingOldEmbedding s)\n      (spanningChild s I hI C hL hR hs)"
+  },
+  "declaration_header_context": "Exact source headers reviewed with complete namespace/implicit context; no independently run kernel or printed-type check is claimed.",
+  "declaration_axioms": {
+    "SM.SoftDuplication.emptySpanningCutSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanningCutSet_cuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanningCutSet_old_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanningChildrenEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanningChildrenEquiv_val": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.exists_spanning_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChild": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChild_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChild_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChild_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.spanningChild_other": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanning_spanningChild_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanning_otherChild_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanning_spanningChild_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanning_child_trichotomy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.SoftDuplication.emptySpanning_spanningChild_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "proof_repair_exact_diff": "--- first-failed\n+++ passing-body\n@@ -42,7 +42,7 @@\n   change p ∈ (emptySpanningCutSet s I hI C hs).cuts ↔\n     ((I.left ≤ p ∧ p ≤ I.right) ∧ collapse s p ∈ C.cuts ∧ collapse s p ≠ s) ∨\n       p ∈ (emptyCutFiber s I hI C hs).val at hm\n-  simp only [emptyCutFiber, Finset.not_mem_empty, or_false] at hm\n+  simp only [emptyCutFiber, Finset.notMem_empty, or_false] at hm\n   rw [hm]\n   constructor\n   · intro hp\n",
+  "public_headers_unchanged_from_failed_attempt": true,
+  "ordered_embedded_bodies_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c"
+  },
+  "body_embeddings_verified_once_and_in_order": true,
+  "direct_imports": [
+    "SM.RootBoundary",
+    "Mathlib.Order.Fin.Basic",
+    "Mathlib.Data.Fin.SuccPred",
+    "SM.InteriorCutSet",
+    "Mathlib.Data.Subtype",
+    "Mathlib.Data.Fintype.Powerset",
+    "Mathlib.Algebra.BigOperators.Group.Finset.Sigma",
+    "Mathlib.Tactic",
+    "Mathlib.Algebra.BigOperators.Fin",
+    "SM.NearFar",
+    "SM.CompositionCutSet",
+    "SM.ConsecutiveTriples",
+    "SM.CompositionSegments"
+  ],
+  "canonical_dependency_closure_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a"
+  },
+  "canonical_dependency_closure_count": 14,
+  "canonical_baseline_integrity": {
+    "preserved_module_count": 327,
+    "all_preserved": true,
+    "note": "Byte integrity of all327 is distinct from substantive review of the actual dependency closure."
+  },
+  "checkpoint094_frozen_file_integrity": {
+    "count": 1693,
+    "all_preserved": true
+  },
+  "files_sha256": {
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+    "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+    "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+    "work/checks/SoftDuplicationCutFibers-first-kernel.log": "b30ea6c98913d1e2653c31bf84691c72914f9fe35eab4661836c8a5147a5bca7",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationCutFibers.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationIndices-second-kernel.log": "603465c598208976950bc46d68d96118188745b7b03ba7029ac99e8cb7efa615",
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationIndices.prototype.lean": "331f6b9e1aa4ab9984dd0509d6b3857b4ac678a42a3a2b755469455007ea721b",
+    "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "work/checks/SoftDuplicationPresentations-second-kernel.log": "4994df21a7517052259c35efd39e69edd81b290b3bbc566b159cb8b7c584d135",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/SoftDuplicationPresentations.prototype.lean": "fb625b3aa88da121872d66ca0f6f53d2f0de6b6c2f98e7386309e92566d2cb8c",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-body-dependencies.json": "18fae04d3997c86936a367117c4fafc0033fb96ba3bc40c39f9f1ee6c150d3dc",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-draft-dependency-bindings.json": "768393aff0c887add32464fdb7199c05a936c94bd9b9c742f689f8945c3766f7",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failure-bindings.json": "1df5b0425a1d3752e6eba0c585442eb044d75733db07e2f765a5b4ea11c33a09",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-kernel.log": "4056084bbac87c27ea8e7638d56f901888d5b5df35ac529af4cd5a6a7ea10652",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-prototype-result.json": "446d8e1b9bad9456bcf3f9be4c9b44a062fee788722a785eaa7275624ac99932",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-second-kernel.log": "6881baa136328ae61717667921189f46f69555eb4ea2f109c092668ff7ad34e2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-second-repair-bindings.json": "b4d9f279d1638442bb644407a6573594fdb575ddde0432ae060f291339fee37d",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.prototype.lean": "2a7933ec25ad4beb268d625a3c92094527452405e61f87b6b6c1c75e8c16b3a6",
+    "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+    "work/checks/SoftDuplicationStartingChildren-second-kernel.log": "da8263c7943dd883c4e1a55ba01c66c2279d3aa40ec58b0c4cea3ad11b4fd075",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationStartingChildren.prototype.lean": "036b236c072c2ce7e0cdb62ca31d4268335e96349968dd8c1bde83d85994a7ec",
+    "work/checks/SoftRootBoundary-draft-dependency-bindings.json": "f0e12c0b80269ddcb6c91c8f3263f551ca59ea0fca03072f8f925e90c96e48ae",
+    "work/checks/review-spanning-empty-children-finite-20260912.json": "98f7462bdd0d7da46c839154adc21cb0e78d21d0565e0c98a41f26ab8038c1f2",
+    "work/checks/review-spanning-empty-children-finite-20260912.py": "b294556d745c75423d77230285eb17da39c90e12ca0a92b3d6603322ceaf1564",
+    "work/checks/review-spanning-empty-children-preparation-20260912.json": "9f4233a740ae0446a79bc8b65a1e60e7d3c94e5601fd24d7c0619c2114eea2b5",
+    "work/checks/seal-spanning-reviews-20260912.py": "d52cf69bd85bbd69a2f93895fba15bca535837826c1d2d9197aead1f0bafa780",
+    "work/checks/soft-duplication-spanning-complete-baseline-20260912.json": "2687758b7be032129268e9a9830a7616d3f0e81707ea5a41f9ce4d4b752b22d0",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/reviews/soft-duplication-starting-children-technical-review-20260912.json": "9d6783973bfe2d70a9d04c2319ceb9ad9c5c24c2f6c0a2f50fc18075aafc2235"
+  },
+  "reviewed_files_sha256": {
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+    "work/checks/OrderedBoundaryTransport-third-kernel.log": "38131ca757309c28e21d91eb3216fb6bd1ae8b7f318a1df07c8d4df8cd683a28",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/OrderedBoundaryTransport.prototype.lean": "6e107f0fb20bbb34356a6b000046d31c7e5fc5248d8497029858cd16e2da0428",
+    "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+    "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8",
+    "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+    "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+    "work/checks/SoftDuplicationCutFibers-first-kernel.log": "b30ea6c98913d1e2653c31bf84691c72914f9fe35eab4661836c8a5147a5bca7",
+    "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationCutFibers.prototype.lean": "f6cd6b47cdc163f45bacb8f887873b4cd53c42f79f816cd530b5f2650161b617",
+    "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "work/checks/SoftDuplicationIndices-second-kernel.log": "603465c598208976950bc46d68d96118188745b7b03ba7029ac99e8cb7efa615",
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationIndices.prototype.lean": "331f6b9e1aa4ab9984dd0509d6b3857b4ac678a42a3a2b755469455007ea721b",
+    "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+    "work/checks/SoftDuplicationPresentations-second-kernel.log": "4994df21a7517052259c35efd39e69edd81b290b3bbc566b159cb8b7c584d135",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/SoftDuplicationPresentations.prototype.lean": "fb625b3aa88da121872d66ca0f6f53d2f0de6b6c2f98e7386309e92566d2cb8c",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-body-dependencies.json": "18fae04d3997c86936a367117c4fafc0033fb96ba3bc40c39f9f1ee6c150d3dc",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-draft-dependency-bindings.json": "768393aff0c887add32464fdb7199c05a936c94bd9b9c742f689f8945c3766f7",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-draft.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.body.lean": "7c349a6aeebdac9cdb3c1bcfcf05f1141da4354f4b75480e2593210053e4a5df",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failed.prototype.lean": "78bad202e2faf71787e3bb58b8cb73fd58ae062c3b0412b2f0dc402d8639e0d2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-failure-bindings.json": "1df5b0425a1d3752e6eba0c585442eb044d75733db07e2f765a5b4ea11c33a09",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-first-kernel.log": "4056084bbac87c27ea8e7638d56f901888d5b5df35ac529af4cd5a6a7ea10652",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-prototype-result.json": "446d8e1b9bad9456bcf3f9be4c9b44a062fee788722a785eaa7275624ac99932",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-second-kernel.log": "6881baa136328ae61717667921189f46f69555eb4ea2f109c092668ff7ad34e2",
+    "work/checks/SoftDuplicationSpanningEmptyChildren-second-repair-bindings.json": "b4d9f279d1638442bb644407a6573594fdb575ddde0432ae060f291339fee37d",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.body.lean": "c52bdea0acdab680a2d3089f9268e08a1d886603abbd915e36947b753678419c",
+    "work/checks/SoftDuplicationSpanningEmptyChildren.prototype.lean": "2a7933ec25ad4beb268d625a3c92094527452405e61f87b6b6c1c75e8c16b3a6",
+    "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+    "work/checks/SoftDuplicationStartingChildren-second-kernel.log": "da8263c7943dd883c4e1a55ba01c66c2279d3aa40ec58b0c4cea3ad11b4fd075",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/SoftDuplicationStartingChildren.prototype.lean": "036b236c072c2ce7e0cdb62ca31d4268335e96349968dd8c1bde83d85994a7ec",
+    "work/checks/SoftRootBoundary-draft-dependency-bindings.json": "f0e12c0b80269ddcb6c91c8f3263f551ca59ea0fca03072f8f925e90c96e48ae",
+    "work/checks/review-spanning-empty-children-finite-20260912.json": "98f7462bdd0d7da46c839154adc21cb0e78d21d0565e0c98a41f26ab8038c1f2",
+    "work/checks/review-spanning-empty-children-finite-20260912.py": "b294556d745c75423d77230285eb17da39c90e12ca0a92b3d6603322ceaf1564",
+    "work/checks/review-spanning-empty-children-preparation-20260912.json": "9f4233a740ae0446a79bc8b65a1e60e7d3c94e5601fd24d7c0619c2114eea2b5",
+    "work/checks/seal-spanning-reviews-20260912.py": "d52cf69bd85bbd69a2f93895fba15bca535837826c1d2d9197aead1f0bafa780",
+    "work/checks/soft-duplication-spanning-complete-baseline-20260912.json": "2687758b7be032129268e9a9830a7616d3f0e81707ea5a41f9ce4d4b752b22d0",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+    "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "work/reviews/soft-duplication-starting-children-technical-review-20260912.json": "9d6783973bfe2d70a9d04c2319ceb9ad9c5c24c2f6c0a2f50fc18075aafc2235"
+  }
+}

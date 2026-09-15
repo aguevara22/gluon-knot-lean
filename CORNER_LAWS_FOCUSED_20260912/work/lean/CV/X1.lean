@@ -1,0 +1,263 @@
+import CV.PieceCurve
+import CV.Rotation
+
+
+/-! Ported 2026-09-14 04:34Z from work/drafts/cvdom/U7c/CVX1.lean (CV-DOM unit U7c, report work/drafts/cvdom/U7c/REPORT.md; DECISION_FINAL.md §5/§7): row CV:def:X1 (146, `CV.X1_definition`, bundle X1DefinitionData). Only this header added. -/
+/-! # CV:def:X1 (row 146) on the accepted geo carrier layer
+
+CV-DOM unit **U7c** (work/drafts/cvdom/DECISION_FINAL.md §0 option (C), §2 fidelity and the three
+documented readings, §3 rulings R1–R6, §4 review-note template, §5 row U7c). Intended home:
+`work/lean/CV/X1.lean`; rows 142–143 are the companion module `CV/PieceCurve.lean` (imported).
+
+## Review note (DECISION_FINAL §4, filled in)
+
+Stated on the printed binder `hG : CV.Generic P` (d1_setup.tex:909 "Let `P` be generic and
+`S ∈ Ind(G_P)`"); no domain change (CV-DOM decision, AUTHOR_NOTES 2026-09-14). The carriers, their
+marks, corners, corner polygons, turns and retained crossings are the accepted `SM.GeoCarrier` objects
+(def:flat-carriers, SM/FlatCarriersDefs.lean) read through `hG.crossingGeometry`; `Ind(G_P)` is the
+accepted `CV.Ind` (CV:def:interlace). On SM-generic polygons these are the accepted def:smoothing /
+lem:carriers objects by `geoSmoothingSuccessor_eq_generic`, `geoComponentEquivGeneric`,
+`geoComponentCornerList_eq_generic` (FlatCarriersDefs.lean:638–724). The ownership of the two visits
+of a selected crossing follows SM conv:selected-visits (the same `selectedMarkPerm`), a disambiguation
+the CV text leaves implicit. The reviewer checks: same binder as printed, same quantifiers, each printed
+sentence = one bundle field, and that the `geo*` object named in each field is the one the sentence
+describes.
+
+**def:X1 (additional sentence, §4):** "`R(L)` is the accepted `CV.rotAbs` (CV:def:rot) of the
+carrier's corner polygon (regular by `geoCornerPolygon_regular`); `P_H` is `homfly (pieceDiagram H)`
+(CV:def:homfly); wind is CV:def:wind's."
+
+**Reading (iii) (DECISION_FINAL §2, verbatim):** "(iii) `hn : 3 ≤ n` is carried where the geo lemmas
+need it (CV fixes `n ≥ 3` globally, d1:932)": `hn` enters through `pieceDiagram hn` (row 142, the
+positive lift) and `geoCornerPolygon_regular hn` (the regularity of the carrier polygon that CV:def:rot
+reads), as §5's shape `CV.X1` "as in the prototype" (`X1 (hn) (P) (hG)`) and ruling R6's
+`X1 hn (E.curve tp) …` prescribe.
+
+## The ingredients (d1_setup.tex:908–930) and where each lives
+
+* "a carrier `L` of `S`": `q : GeoComponent hG.crossingGeometry S` (CV:def:smoothing, row 135).
+* "the residual pieces assigned to `L` by Lemma lem:carriers (iv)": `piecesOn hP S q` (CV:def:pieces,
+  row 139) = the pieces `H` with `pieceOwner hP hS H = q` (`mem_piecesOn_iff`, row 136 (iv)).
+* "`P_H`, the HOMFLY–PT polynomial of the link that the piece `H` presents, in the normalization of
+  Definition def:homfly": `pieceHomfly hn hD hS H = homfly (pieceDiagram hn hD hS H)` (row 142), read at
+  `hD := hG.diagrammatic hn` (the accepted `CV.Generic.diagrammatic`; the two `CrossingGeometry P`
+  proofs `hG.crossingGeometry`, `(hG.diagrammatic hn).crossingGeometry` are identified by proof
+  irrelevance, so `hS`, `H`, `q` need no transport).
+* "`w(H)`": `pieceWrithe hP S H = |H|` (row 142: "its writhe is `w(H) = |H|`").
+* "`R(L)`": CV:def:rot's `R(L) = |rot(L)|` (`CV.rotAbs`, accepted row 144) of the carrier's corner
+  polygon `geoCornerPolygon hP S q`, a regular closed polygon (U2b `geoCornerPolygon_regular` at tier 1
+  through `CarrierGeometry.ofCV hG`, transported to CV's `Regular` by `regular_iff_sm`).
+* "`[a^{d} z^{0}] f`": the accepted `coeffAt d 0 f` (SM/LinkLaurentRing.lean:286, "zero if that
+  monomial is absent" — "the coefficient itself, taken as a value, with no sign gate and no zero-gate").
+* "`wind(S)`": `CV.wind hP S` (CV:def:wind, row 138).
+* "`Σ_{S ∈ Ind(G_P)}` … the inner product running over the `|S|+1` carriers of `S`": the sum over the
+  attached index set `(Ind hP).attach` so that each summand receives the membership proof `S ∈ Ind(G_P)`
+  under which the per-carrier objects are defined — the shape of the accepted SM def:C
+  (`SM.cornerStateSum`, SM/CornerStateSum.lean:166–170: "The sum runs over the attached index set so
+  that each summand receives the membership proof") — and the product over the `Fintype`
+  `GeoComponent hP S`, of cardinality `|S|+1` by lem:carriers (i) (`carriers_count`).
+
+Checked with `cd work/lean && lake env lean` on this file against a compiled `CV.PieceCurve`
+(see work/drafts/cvdom/U7c/REPORT.md for the exact command used before the module is ported). -/
+
+namespace CV
+
+open SM SM.Carrier SM.GeoCarrier SM.Link
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n}
+
+/-! ## 1. The per-carrier objects: `P_{S,L}`, `w_{S,L}`, `R(L)`, the slot, the factor `Ω₁(S,L)` -/
+
+section X1Defs
+
+variable (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry)
+
+/-- `P_{S,L} = ∏_{H carried by L} P_H`, "the products … taken over the residual pieces assigned to `L`
+by Lemma lem:carriers (iv), with the empty product `P_{S,L} = 1` … when no piece is carried by `L`". -/
+noncomputable def groupedPoly (q : GeoComponent hG.crossingGeometry S) : R :=
+  ∏ H ∈ piecesOn hG.crossingGeometry S q, pieceHomfly hn (hG.diagrammatic hn) hS H
+
+/-- `w_{S,L} = Σ_{H carried by L} w(H)`, "the … sums taken over the residual pieces assigned to `L` by
+Lemma lem:carriers (iv), with … the empty sum `w_{S,L} = 0` when no piece is carried by `L`". -/
+noncomputable def groupedWrithe (q : GeoComponent hG.crossingGeometry S) : ℤ :=
+  ∑ H ∈ piecesOn hG.crossingGeometry S q, pieceWrithe hG.crossingGeometry S H
+
+include hn hS in
+/-- The corner polygon of a carrier of a CV-generic polygon is a regular closed polygon in CV's sense
+(CV:def:regular): U2b's `geoCornerPolygon_regular` (tier 1, through `CarrierGeometry.ofCV hG`) and
+`regular_iff_sm`. -/
+theorem carrierPolygon_cvRegular (q : GeoComponent hG.crossingGeometry S) :
+    CV.Regular (geoCornerPolygon hG.crossingGeometry S q) :=
+  (regular_iff_sm _).mpr
+    (geoCornerPolygon_regular hn (CarrierGeometry.ofCV hG)
+      (geoIndependent_of_mem_Ind hG.crossingGeometry hS) q)
+
+/-- `R(L) = |rot(L)|` (CV:def:rot, the accepted `CV.rotAbs`) of the carrier `L`, read on its corner
+polygon. -/
+noncomputable def carrierR (q : GeoComponent hG.crossingGeometry S) : ℕ :=
+  rotAbs (geoCornerPolygon hG.crossingGeometry S q) (carrierPolygon_cvRegular hn hG hS q)
+
+/-- "The *slot* of `L` is the integer `1 − w_{S,L} − R(L)`". -/
+noncomputable def slot (q : GeoComponent hG.crossingGeometry S) : ℤ :=
+  1 - groupedWrithe hG q - (carrierR hn hG hS q : ℤ)
+
+/-- "the *factor* is `Ω₁(S,L) = [a^{1−w_{S,L}−R(L)} z^{0}] P_{S,L}(a,z)` — the coefficient itself, taken
+as a value, with no sign gate and no zero-gate applied". -/
+noncomputable def Omega1 (q : GeoComponent hG.crossingGeometry S) : ℤ :=
+  coeffAt (slot hn hG hS q) 0 (groupedPoly hn hG hS q)
+
+theorem groupedPoly_of_piecesOn_eq_empty (q : GeoComponent hG.crossingGeometry S)
+    (h : piecesOn hG.crossingGeometry S q = ∅) : groupedPoly hn hG hS q = 1 := by
+  simp [groupedPoly, h]
+
+theorem groupedWrithe_of_piecesOn_eq_empty (q : GeoComponent hG.crossingGeometry S)
+    (h : piecesOn hG.crossingGeometry S q = ∅) : groupedWrithe hG q = 0 := by
+  simp [groupedWrithe, h]
+
+/-- `R(L)` as an integer is `|rot(L)|` (`rotAbs_cast`). -/
+theorem carrierR_cast (q : GeoComponent hG.crossingGeometry S) :
+    (carrierR hn hG hS q : ℤ) =
+      |rot (geoCornerPolygon hG.crossingGeometry S q) (carrierPolygon_cvRegular hn hG hS q)| :=
+  rotAbs_cast _ _
+
+end X1Defs
+
+/-! ## 2. `w_{S,L}` is the number of crossings of the carrier (§5 U7c: `groupedWrithe_eq_card_geoCarrierCrossings`)
+
+lem:carriers (iv) + lem:piececurve Step 2 (d1:625–628, "the double points of a carrier are exactly the
+undominated crossings it carries"): the labels of the pieces assigned to `L` are exactly the crossings
+of `L` (`geoCarrierCrossings`), so `w_{S,L} = Σ_{H on L} |H| = |{crossings of L}|`. Consumed by
+Bridge:B4 and cor:groupedknot (B). -/
+
+section GroupedWrithe
+
+variable (hP : CrossingGeometry P) {S : Finset (Crossing P)} (hS : S ∈ Ind hP)
+
+include hS in
+/-- The labels of the pieces carried by `q` are exactly the crossings of `q`. -/
+theorem biUnion_pieceLabels_piecesOn (q : GeoComponent hP S) :
+    (piecesOn hP S q).biUnion (pieceLabels hP S) = geoCarrierCrossings hP S q := by
+  ext c
+  rw [Finset.mem_biUnion, mem_geoCarrierCrossings]
+  constructor
+  · rintro ⟨H, hH, hc⟩
+    rw [mem_piecesOn] at hH
+    exact ⟨((mem_U_iff hP S c).mp (pieceLabels_subset hP S H hc)).1, hH c hc⟩
+  · rintro ⟨hcS, hown⟩
+    have hc : c ∈ geoCarrierCrossings hP S q := (mem_geoCarrierCrossings hP S q c).mpr ⟨hcS, hown⟩
+    have hcU : c ∈ U hP S :=
+      (mem_U_iff hP S c).mpr ((mem_geoSupportUnselected_iff hP S c).mp
+        (geoCarrierCrossings_subset_U hP (geoIndependent_of_mem_Ind hP hS) q hc))
+    refine ⟨pieceOf hP S c hcU, ?_, pieceOf_mem_pieceLabels hP S c hcU⟩
+    obtain ⟨i, -, -⟩ := crossing_visits_exist c
+    rw [mem_piecesOn_iff hP hS, pieceOwner_pieceOf hP hS hcU ⟨c, i⟩ rfl]
+    exact hown ⟨c, i⟩ rfl
+
+/-- The pieces carried by `q` have pairwise disjoint label sets (they are distinct components). -/
+theorem piecesOn_pairwiseDisjoint (q : GeoComponent hP S) :
+    ((piecesOn hP S q : Finset (Piece hP S)) : Set (Piece hP S)).PairwiseDisjoint (pieceLabels hP S) :=
+  fun H _ H' _ hne => pieceLabels_disjoint hP S H H' hne
+
+/-- **`w_{S,L}` = the number of crossings of the carrier `L`** (§5 U7c). -/
+theorem groupedWrithe_eq_card_geoCarrierCrossings (hG : Generic P) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S) :
+    groupedWrithe hG q = ((geoCarrierCrossings hG.crossingGeometry S q).card : ℤ) := by
+  unfold groupedWrithe pieceWrithe
+  rw [← Nat.cast_sum, ← Finset.card_biUnion (piecesOn_pairwiseDisjoint hG.crossingGeometry q),
+    biUnion_pieceLabels_piecesOn hG.crossingGeometry hS q]
+
+/-- The same with U2a's `geoCarrierCrossingCount`. -/
+theorem groupedWrithe_eq_geoCarrierCrossingCount (hG : Generic P) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S) :
+    groupedWrithe hG q = (geoCarrierCrossingCount hG.crossingGeometry S q : ℤ) :=
+  groupedWrithe_eq_card_geoCarrierCrossings hG hS q
+
+end GroupedWrithe
+
+/-! ## 3. `X₁(P)` -/
+
+/-- **`X₁(P) = Σ_{S ∈ Ind(G_P)} wind(S) ∏_L Ω₁(S,L)`**, "the inner product running over the `|S|+1`
+carriers of `S`" — the sum over the attached index set of `Ind(G_P)` (each summand receives the
+membership proof under which `Ω₁(S,L)` is defined; the accepted SM def:C shape), the product over the
+`Fintype` `GeoComponent` of the carriers. Binder: `hG : CV.Generic P`, the printed "Let `P` be generic";
+`hn : 3 ≤ n` by reading (iii). -/
+noncomputable def X1 (hn : 3 ≤ n) (P : LabelledTuple n) (hG : Generic P) : ℤ :=
+  ∑ S ∈ (Ind hG.crossingGeometry).attach,
+    wind hG.crossingGeometry S.1 * ∏ q : GeoComponent hG.crossingGeometry S.1, Omega1 hn hG S.2 q
+
+/-! ## 4. Row 146 — CV:def:X1 (d1_setup.tex:908–930), the bundle -/
+
+section X1Row
+
+variable (hn : 3 ≤ n) (hG : Generic P)
+
+/-- CV:def:X1 (d1_setup.tex:908–930) as printed, one field per printed clause, on the printed binder
+`hG : Generic P` ("Let `P` be generic"); `S ∈ Ind(G_P)` and the carrier `L` are quantified inside the
+per-carrier fields as the text binds them ("and `S ∈ Ind(G_P)`. For a carrier `L` of `S` set …"). -/
+structure X1DefinitionData : Prop where
+  /-- "For a carrier `L` of `S` set `P_{S,L} = ∏_{H carried by L} P_H`" -/
+  grouped_poly : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S),
+    groupedPoly hn hG hS q = ∏ H ∈ piecesOn hG.crossingGeometry S q, pieceHomfly hn (hG.diagrammatic hn) hS H
+  /-- "`w_{S,L} = Σ_{H carried by L} w(H)`" -/
+  grouped_writhe : ∀ (S : Finset (Crossing P)) (q : GeoComponent hG.crossingGeometry S),
+    groupedWrithe hG q = ∑ H ∈ piecesOn hG.crossingGeometry S q, pieceWrithe hG.crossingGeometry S H
+  /-- "the products and sums taken over the residual pieces assigned to `L` by Lemma lem:carriers (iv)":
+  `H` is carried by `L` iff `L` is the carrier of `H` given by lem:carriers (iv) (`pieceOwner`) -/
+  assigned_by_carriers_iv : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S) (H : Piece hG.crossingGeometry S),
+    H ∈ piecesOn hG.crossingGeometry S q ↔ pieceOwner hG.crossingGeometry hS H = q
+  /-- "with the empty product `P_{S,L} = 1` and the empty sum `w_{S,L} = 0` when no piece is carried by
+  `L`" -/
+  empty_conventions : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S),
+    piecesOn hG.crossingGeometry S q = ∅ → groupedPoly hn hG hS q = 1 ∧ groupedWrithe hG q = 0
+  /-- "Here `P_H` is the HOMFLY–PT polynomial of the link that the piece `H` presents, in the
+  normalization of Definition def:homfly": `P_H = homfly (pieceDiagram H)` (row 142), `homfly` the
+  polynomial of CV:def:homfly -/
+  piece_polynomial : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (H : Piece hG.crossingGeometry S),
+    pieceHomfly hn (hG.diagrammatic hn) hS H = homfly (pieceDiagram hn (hG.diagrammatic hn) hS H)
+  /-- "that such a polynomial exists at all is Axiom ax:homfly, and this definition is where it is first
+  read": the accepted CV:ax:homfly bundle (`ax_homfly`) -/
+  homfly_exists : AxHomflyData
+  /-- "The *slot* of `L` is the integer `1 − w_{S,L} − R(L)`", `R(L) = |rot(L)|` (CV:def:rot) of the
+  carrier's corner polygon -/
+  slot_def : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S),
+    slot hn hG hS q = 1 - groupedWrithe hG q - (carrierR hn hG hS q : ℤ) ∧
+    (carrierR hn hG hS q : ℤ) =
+      |rot (geoCornerPolygon hG.crossingGeometry S q) (carrierPolygon_cvRegular hn hG hS q)|
+  /-- "the *factor* is `Ω₁(S,L) = [a^{1−w_{S,L}−R(L)} z^{0}] P_{S,L}(a,z)` — the coefficient itself, taken
+  as a value, with no sign gate and no zero-gate applied" -/
+  factor : ∀ (S : Finset (Crossing P)) (hS : S ∈ Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S),
+    Omega1 hn hG hS q =
+      coeffAt (1 - groupedWrithe hG q - (carrierR hn hG hS q : ℤ)) 0 (groupedPoly hn hG hS q)
+  /-- "and `X₁(P) = Σ_{S ∈ Ind(G_P)} wind(S) ∏_L Ω₁(S,L)`" (the sum over `Ind(G_P)` of CV:def:interlace,
+  `wind` of CV:def:wind) -/
+  state_sum : X1 hn P hG = ∑ S ∈ (Ind hG.crossingGeometry).attach,
+    wind hG.crossingGeometry S.1 * ∏ q : GeoComponent hG.crossingGeometry S.1, Omega1 hn hG S.2 q
+  /-- "the inner product running over the `|S|+1` carriers of `S`" (lem:carriers (i)) -/
+  carriers_count : ∀ S ∈ Ind hG.crossingGeometry,
+    Fintype.card (GeoComponent hG.crossingGeometry S) = S.card + 1
+
+/-- **Row 146, CV:def:X1** (d1_setup.tex:908–930), on the printed binder. -/
+theorem X1_definition : X1DefinitionData hn hG where
+  grouped_poly := fun _ _ _ => rfl
+  grouped_writhe := fun _ _ => rfl
+  assigned_by_carriers_iv := fun _ hS q H => mem_piecesOn_iff hG.crossingGeometry hS q H
+  empty_conventions := fun _ hS q h =>
+    ⟨groupedPoly_of_piecesOn_eq_empty hn hG hS q h, groupedWrithe_of_piecesOn_eq_empty hG q h⟩
+  piece_polynomial := fun _ _ _ => rfl
+  homfly_exists := ax_homfly
+  slot_def := fun _ hS q => ⟨rfl, carrierR_cast hn hG hS q⟩
+  factor := fun _ _ _ => rfl
+  state_sum := rfl
+  carriers_count := fun S hS => (carriers (hG.diagrammatic hn) S hS).count
+
+end X1Row
+
+end CV

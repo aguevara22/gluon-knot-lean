@@ -1,0 +1,848 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "local-germs-boxes-ordered",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1408–1487: actual local cubes, ordered coordinate-leg construction, joint central-leg context, finite simple roots and collision-free local germs; not the full global theorem",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "main_declarations": [
+    "SM.central_root_neighborhood",
+    "SM.central_nongeneric_has_wallGerm",
+    "SM.exists_regular_tupleScalarBox",
+    "SM.exists_generic_tupleScalarBox",
+    "SM.scalarCoordinateOrder",
+    "SM.orderedWaypointLeg_assignment"
+  ],
+  "review_flags_scope": "The five modules and their transparent actual geometry: local cube existence/containment, exhaustive ordered coordinate legs, simultaneous local other-control sign preservation and actual centered WallGerm construction at nongeneric interior parameters. No acceptance of full thm:relgp or named simple-wall classification.",
+  "reason": "The frozen modules faithfully implement this bounded source unit. A single positive radius at a central control root preserves every other actual named control sign, excludes all other roots, and remains inside the original leg. For an actual nongeneric interior parameter the main aggregate derives a vanishing name from the previously proved one-way nonzero-controls-implies-Generic theorem; it does not take a root equation, named control, nonzero slope or transversality certificate as an extra input. It constructs the actual centered curve by time translation, proves punctured Generic behavior, all-parameter collision freedom, source SignChanges of the selected control, fixed signs for the others and a nonzero actual time derivative. Inactive concurrence roots remain allowed and are not automatically called wall events. The scalar-box prototype is ported with an identical namespace body, and its actual Euclidean bounds are specialized to the full open Regular locus, including zero turns, and to the intersection of Regular and Generic at generic endpoints. The ordered-leg model uses a fixed actual 2n-coordinate equivalence, exact endpoint hybrids and contiguous scalar affine legs, with proved equality to the joint waypoint assignments. It supports arbitrary fixed endpoint vectors without central nonvanishing assumptions. All imported meanings are bound to unchanged earlier independent reviews. This is not yet the finite subdivision, global timed path, uniform approximation or named wall dictionary required by the original theorem.",
+  "mathematical_justification": [
+    {
+      "clause": "One simultaneous neighborhood for all other actual controls",
+      "assessment": "For a selected actual vanishing name at r, a second name vanishing there would be a common root of the two genuine parameter polynomials, contradicting the previously proved resultant consequence of JointLegConditions. Each other control value at r is therefore nonzero. The product of that value with its nearby value is continuous and is strictly positive at r because it is a nonzero square. Finite Filter.eventually_all supplies one neighborhood for every other name simultaneously, rather than unrelated per-control radii. The family is the exact finite named Δ/T family already reviewed in transport-polynomials, including the required representatives and all-order coverage. If a finite quantified family is empty, the simultaneous condition is valid without an artificial witness."
+    },
+    {
+      "clause": "Radius, isolation and punctured Generic behavior",
+      "assessment": "central_root_neighborhood takes n≥3, the actual leg and assignment, their JointLegConditions, an interior r and one actual root. It extracts a positive sign-preservation radius and a positive radius isolating r in the actual union of all named-control root sets. Taking their minimum with r and 1−r produces one positive radius bounded by both distances to the endpoints. Any other time in that neighborhood cannot be a root, by isolation, and is therefore Generic by the proved implication from all controls nonzero. This uses only the valid direction: a control root may remain Generic when a concurrence is inactive. The construction imposes no central G1, Generic, Regular or supplied local Generic-neighborhood assumption."
+    },
+    {
+      "clause": "Actual constructed patch and centered germ",
+      "assessment": "CentralRootPatch transparently records the constructed positive radius, endpoint-distance bounds, actual root equation, all other positive products and punctured Generic property. Its nonempty theorem proves every field from the previous result, and chooseCentralRootPatch uses ordinary Classical.choice on that proved existence. toWallGerm has exactly the existing source WallGerm structure and actual curve t↦tupleOfScalarCoordinates(leg.assignment W (r+t.val)) on Ioo(−radius,radius). Continuity is proved by composing the actual continuous tuple leg with addition on the interval subtype. Nonzero centered times correspond to times distinct from r, so punctured Generic follows from the patch. The center is exactly the actual tuple at r. The extra nongeneric-center argument to this lower-level constructor selects actual wall events among polynomial roots; the final aggregate obtains the root from nongenericness and does not assert every root is a wall."
+    },
+    {
+      "clause": "Leg domain, collision freedom and fixed other signs",
+      "assessment": "The inequalities radius≤r and radius≤1−r imply 0<r+t<1 for every t in the open centered interval, with strictness supplied by the interval inequalities even when a radius bound is attained. Every actual germ tuple is the same central leg at that shifted time, so the inherited all-real-parameter collision theorem yields Function.Injective of the actual vertex tuple at all germ parameters, including its center. The other-control product law is transported using the exact scalarCoordinates/tupleOfScalarCoordinates inverse identity and the exact center identity. It applies to every germ parameter and every distinct named control; no relabeling, support filtering or omission of endpoint-adjacent vertex pairs is introduced."
+    },
+    {
+      "clause": "Actual sign change and nonzero centered derivative",
+      "assessment": "The selected control is an actual root of the affine parameter polynomial by its evaluation identity. Its existence forces actual coordinate dependence; JointLegConditions then gives a nonzero parameter slope, the product of the evaluated coordinate slope and the actual scalar step. The established affine root product inequality at r−t and r+t is transported to the existing WallGerm.SignChanges definition; the order of the two factors is corrected only by commutativity, and radius itself is a valid witness. The centered real function is differentiated using the actual HasDerivAt chain rule for s↦r+s with derivative one, so the resulting derivative equals that same parameter slope at zero. It is a derivative of the actual evaluated control along the actual leg. This is not yet an independently formalized ambient smooth-hypersurface or named-wall classification theorem."
+    },
+    {
+      "clause": "No supplied root or transversality in the final local aggregate",
+      "assessment": "central_nongeneric_has_wallGerm requires only n≥3, a source central leg with its proved JointLegConditions, an interior time and actual nongenericness. central_nongeneric_subset_roots supplies a vanishing control name; the patch and germ are then constructed, and the nonzero derivative is derived. The conclusion binds one name and one actual WallGerm to the exact tuple curve, times, collision property, selected-control SignChanges, all other positive products and nonzero centered derivative. The aggregate does not explicitly state an existential-unique name assertion, but the chosen name comes from a genuine root and the previously reviewed central_root_unique_name theorem supplies uniqueness for that root. The independent kernel specialization confirms the germ and derivative can be obtained with no supplied root equation, name, slope, derivative or transversality hypothesis."
+    },
+    {
+      "clause": "Local Regular and endpoint Generic cubes retain exact geometry",
+      "assessment": "ScalarBoxes has exactly the previously independently kernel-checked prototype namespace body; only its module packaging changes. Its boxes are actual equal-radius coordinate cubes, with closures inside a given open tuple set and strict diameter in the real 2n-coordinate EuclideanSpace. RegularScalarBoxes applies this theorem to the independently proved open full Regular locus, which includes positive collinearity and zero principal turns. At a Generic tuple, n≥3 gives Regular, and openness of both loci gives a box whose entire closure is in their intersection. Neither endpoint theorem assumes all point/concurrence controls nonzero: inactive concurrence vanishing at a generic endpoint is allowed. The Euclidean estimate continues to use the actual tupleCoordinates map and the delta/4 radial margin, not the finite product maximum metric as a replacement."
+    },
+    {
+      "clause": "Actual joint assignments stay in their cube",
+      "assessment": "Each endpoint hybrid chooses every actual scalar from the appropriate left or right waypoint, so two waypoint values in one cube imply both hybrids are in it by the exact coordinate-selection lemma. The actual assignment equals the affine line between those two endpoint hybrids and remains in the convex cube for every parameter in [0,1]. tuple_assignment_mem_box transports this statement with the actual tuple/scalar inverse identities. These are proved local containment statements about the real assignments, not assumed geometric embeddings. Later composition with a cube closure contained in Regular or Generic gives the corresponding pointwise locus property."
+    },
+    {
+      "clause": "Fixed exhaustive scalar order and exact local endpoints",
+      "assessment": "scalarCoordinateOrder is a proved equivalence from ScalarCoordinate n=ZMod n×Fin 2 to Fin(2*n), using the actual cardinality identity. It is chosen once as a function of n and the finite-coordinate instance, independently of the endpoint vectors. The source permits any fixed order, so no special lexicographic order is needed. orderedHybrid changes exactly those coordinates whose order value is less than k; at k=0 it is the first endpoint, and at k=m it is the second. orderedScalarLeg is the actual scalar affine line between consecutive hybrids. Its endpoint, successor join, first start and final finish equalities are exact labelled-vector equalities. These constructions allow coincident endpoint values and zero steps for collar legs; JointLegConditions is not imposed on arbitrary fixed endpoints. The independent example derives the exhaustive 2n-coordinate equivalence, both inverse identities and positive leg count directly from source n≥3."
+    },
+    {
+      "clause": "Correspondence to central joint-waypoint leg data",
+      "assessment": "orderedWaypointLeg uses left/right distinct waypoint labels, moving coordinate order.symm j and the switched set of strictly earlier coordinates; the moving coordinate is proved absent from that set. The false endpoint is exactly hybrid j. At the true endpoint the moving coordinate takes its right value, earlier coordinates already have their right values, and all later coordinates retain their left values. Equivalence injectivity supplies the nonmoving index inequality, and the final Fin/Nat comparison correction preserves precisely this distinction. Hence the true endpoint is hybrid j+1. The actual assignment-equals-line theorem then proves equality of the complete real-time assignments with orderedScalarLeg for every real t. This binds the existing joint polynomial conditions to the actual fixed-order coordinate legs; it does not merely identify their endpoint values."
+    },
+    {
+      "clause": "Local collar specialization and honest remaining scope",
+      "assessment": "The independent third example proves that if an actual tuple cube has closure in Regular∩Generic and both actual endpoint tuples lie in it, every reconstructed ordered scalar leg at every t∈[0,1] is Regular and Generic. No endpoint polynomial nonvanishing is an input. This establishes the local mechanism needed for endpoint collars. The current library still does not choose the finite image cover/subdivision, prove actual consecutive cube overlaps, choose all waypoints in those overlaps, construct a global timed concatenation or prove its uniform Euclidean closeness and original endpoint preservation. Nor does this unit classify each active germ as F/V/T/E/C or prove the ambient smoothness and no-cusp clauses. Those are separate pending original-source obligations."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance or original proof/checklist increment.",
+    "No finite strictly increasing subdivision, regular cube assignment to all source subintervals, endpoint cube/collar time selection, or actual overlap-domain construction.",
+    "No global timed concatenation, original global endpoint theorem, full piecewise-affine path, uniform Euclidean approximation or global occurrence-label theorem.",
+    "No ambient smooth-hypersurface theorem, named simple-wall F/V/T/E/C classification, or no-cusp conclusion. The actual centered WallGerm and local selected-control derivative are proved, but are not a substitute for those remaining claims.",
+    "No converse identifying every concurrence-control root as a nongeneric wall event; inactive Generic roots remain allowed."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/ScalarBoxes.lean": "4f381863e439983f18b282f38e52346c3fb566a1543986c2cb6c0606d45108d4",
+    "work/lean/SM/CentralRootNeighborhoods.lean": "4a98ffe2f0c26cc907760651d9f0fd2e994f9e1e8cc1f3307e6e6cde24f10480",
+    "work/lean/SM/CentralRootGerms.lean": "d3ed85423d8f7663c022d53ccf0b938bd90c351d6762f72c7648b0e22d352e4d",
+    "work/lean/SM/RegularScalarBoxes.lean": "0eb747eb64d4c4710298531e0379f1b096f5f199e526f2837c833a093d83ea01",
+    "work/lean/SM/OrderedCoordinateLegs.lean": "df1ce600a46565cc70a9e089996e7becd8a9fdc851d6c707fb394e9cb692d121"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/AreaDensity.lean": "feb216f85720f9efba537288047ebedb5ec4e58c71738ff343fe750889c1af5b",
+    "work/lean/SM/AreaPolynomialSupport.lean": "84e36014cd46a22d06dae7ed7810e4893debb9e5aa58a6120ac3f25c4462ce59",
+    "work/lean/SM/CentralLegCollision.lean": "f390df44bf2f68738dfd3ddcf096c566bf24bc52ded5dff6858d359344866069",
+    "work/lean/SM/CentralLegFiniteRoots.lean": "d178caa0c02f5faffecf7265e5c62c5fd715e88e9320e942c37e58736b174b26",
+    "work/lean/SM/CentralLegPolynomial.lean": "65710eea07f9bdc6a7321e9c344db73ed698919aa3388c88bd68dfd8ab064cb6",
+    "work/lean/SM/CentralLegRootControls.lean": "5aaada92dc5f903d3d1c2d0b9b6a1529b9fcca607534327464b426ca94fa46f5",
+    "work/lean/SM/CentralRootGerms.lean": "d3ed85423d8f7663c022d53ccf0b938bd90c351d6762f72c7648b0e22d352e4d",
+    "work/lean/SM/CentralRootNeighborhoods.lean": "4a98ffe2f0c26cc907760651d9f0fd2e994f9e1e8cc1f3307e6e6cde24f10480",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ConcurrenceDensity.lean": "a554f55511441e5c45f1d50423bb586f9578eaaecd33d1002b85aa661796b726",
+    "work/lean/SM/ConcurrenceNonassociation.lean": "553781853a5e3262295fc06810d3a97923048a20203982c506557c7fe7e104eb",
+    "work/lean/SM/ConcurrencePolynomialIrreducible.lean": "62227ac1d9253ea8647c8acdd8f0e6b64af41f8f62aafb524087758e2a70cd60",
+    "work/lean/SM/ConcurrencePolynomialSupport.lean": "3502c744d11b672d3f3bb8b43395cfc3c5f1047bfca07bf069c6beb4cb64aeb8",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CoordinateWaypointLeg.lean": "c1734d2079b73195397f9559e53e847b6eb85175cc50e58112f8cac024ac3a20",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/EndpointCollapseWitness.lean": "f3f9d08bf7f91115fcaeb3538edc0c145a5742311564e0ee3771171e7f8e503e",
+    "work/lean/SM/EuclideanPlane.lean": "30a5956221225bc9811a792b5a67c6c5967fb6dda0b4cb14be997051b32b7a4f",
+    "work/lean/SM/EuclideanTuple.lean": "acf79a23b262961b245ec4333627f06d02af2cbe74e9c3385ea237a98f016e69",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/GermSides.lean": "a95418d15b11a300c5e6a88cbb43ecd9877b5fd061dab754e2efc19eac625d0a",
+    "work/lean/SM/GermSignChange.lean": "18a9abb6b32839d22aabfdba3e45d533ff515aef021adc6efb5337854be0d91a",
+    "work/lean/SM/JointWaypointConstraints.lean": "c17f8a1107cc0cb678881372e03452e7c539b88e8a69315f43e8ce970c410259",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/LinearConcurrenceCore.lean": "223102e228de47454e0612693d96394a1c52c8e48f758e80fdf36160c93917dd",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/NonzeroControlsGeneric.lean": "50e2ea943174b598758ec808c53d5dfe411dd32a778a96a7e70cea3cfc6654dc",
+    "work/lean/SM/OrderedCoordinateLegs.lean": "df1ce600a46565cc70a9e089996e7becd8a9fdc851d6c707fb394e9cb692d121",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolygonalConnected.lean": "63c87005b5678e811be587290a0cfb2924825f3463c7263119611940db6e33e2",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialControlFamily.lean": "b2fb09ad925963ca6184aed73990292b595299f4ca24d90c919a8a4a3a0b12ca",
+    "work/lean/SM/PolynomialControlRepresentatives.lean": "10fc439c0147bf022c07219846bc04764f3ac5ac8c0fba32049425f023fa5ffc",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/PolynomialVertexSupport.lean": "09f684efeebcdb74eccdd8ba2e005f4ef44fb1509e26086a55b3339de6313597",
+    "work/lean/SM/PrincipalAngles.lean": "d618c6e2b040d5f5dbaf4b0bc7ef46a565dfb439756587d6f1c83e5c8955672a",
+    "work/lean/SM/RealAffineCrossing.lean": "0228c36c47d4a2daa620594e8ee4f03329953ec44254d23a910106b9ad2a82de",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/RegularDefinition.lean": "1abcbd05624a34d5df1963ebef27e1497296f1986b39dd5a635561fed4ce86e1",
+    "work/lean/SM/RegularLocus.lean": "ad97d04e3eda38ba6f46d435ee9873344808d0d811ce28c410cd91e35b963acf",
+    "work/lean/SM/RegularPairs.lean": "7d09c9ecbb9b2515808d606a060256ee83b744ce42f946c5d9ff9f97ade80a06",
+    "work/lean/SM/RegularPerturbation.lean": "78b538c140845ef82b4cb9ee638e00306a40e2e8e93ebe2226273d8264a4072e",
+    "work/lean/SM/RegularScalarBoxes.lean": "0eb747eb64d4c4710298531e0379f1b096f5f199e526f2837c833a093d83ea01",
+    "work/lean/SM/RotationContinuity.lean": "bf50759ea133797a9261172c39e32e551bb40b23dfed483b8c541524d3c6c005",
+    "work/lean/SM/RotationNumber.lean": "8d6dc7680484539bf4243b6256155f900061ad34740b29b4f0d0eae6dbd1c0df",
+    "work/lean/SM/ScalarBoxes.lean": "4f381863e439983f18b282f38e52346c3fb566a1543986c2cb6c0606d45108d4",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/SixEndpointTuples.lean": "09d000b7483fceb7bb0cce539e667e427583433ba826bffc95e49ae06c5fbfad",
+    "work/lean/SM/TransportPolynomials.lean": "65af6edf9f4b8bc835e39b5e6c3ed6d99481b7c0b42f6ed241403afb69d169a5",
+    "work/lean/SM/WallGerm.lean": "fca24dab7111c6b6f404b075ab4e1b8c20d2fb48083565b6ba89758ebf684f9b",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WaypointPullback.lean": "2115b95c13eac4b0911274ec8e8c7a163dc7a2ec48e3fbd54f9a5041994f2ad9",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+    "work/lean/SM/WeakGeometry.lean": "4504cad4539531adc6f8271d30d389c62aa72249e3506cffed0352b73f22bcb2",
+    "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2"
+  },
+  "import_closure_roots": [
+    "SM.CentralRootGerms",
+    "SM.RegularScalarBoxes",
+    "SM.OrderedCoordinateLegs"
+  ],
+  "import_closure_file_count": 77,
+  "inherited_review_binding": {
+    "inherited_file_count": 72,
+    "all_inherited_hashes_match": true,
+    "reviews": {
+      "work/reviews/central-leg-roots.json": {
+        "sha256": "eb237abb2f3df42ea5484b30f3f4533e796678819e5124a3a8bf2a6308735935",
+        "matching_file_count_in_current_closure": 48
+      },
+      "work/reviews/central-leg-collision.json": {
+        "sha256": "ba952b2e4a189cb7132b537fe584219c035ce10303d445d362ff2351bc21af35",
+        "matching_file_count_in_current_closure": 45
+      },
+      "work/reviews/lem-fibres.json": {
+        "sha256": "01a5033e9dba533e96b790d6556ab5abcc9f6c9e0f824f0e6c493fed83dee20f",
+        "matching_file_count_in_current_closure": 27
+      },
+      "work/reviews/def-germ.json": {
+        "sha256": "24eea4d4ec45c870beb5dc545fc05c9c1650ca67bc53bf7cea8823346bd82df0",
+        "matching_file_count_in_current_closure": 18
+      },
+      "work/reviews/lem-weak-open.json": {
+        "sha256": "dca728c8908d29b30caf05cca052006ffc255d75104cc0a8bbeb8f0b16b911b2",
+        "matching_file_count_in_current_closure": 18
+      }
+    },
+    "coverage_by_file": {
+      "work/lean/SM/AffineResultant.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/AreaPolynomialSupport.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CentralLegFiniteRoots.lean": [
+        "work/reviews/central-leg-roots.json"
+      ],
+      "work/lean/SM/CentralLegPolynomial.lean": [
+        "work/reviews/central-leg-roots.json"
+      ],
+      "work/lean/SM/CentralLegRootControls.lean": [
+        "work/reviews/central-leg-roots.json"
+      ],
+      "work/lean/SM/Chirotope.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/CoefficientSpecialization.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ConcurrenceAffinity.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ConcurrenceNonassociation.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ConcurrencePolynomialIrreducible.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ConcurrencePolynomialSupport.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ContinuousGeometry.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/CoordinateAffinity.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CoordinateIsolation.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CoordinatePolynomials.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CoordinateWaypointLeg.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CrossingCriterion.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/CrossingEquiv.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/Crossings.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/DeterminantPolynomial.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/DirectionPolynomials.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/EndpointCollapseWitness.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/FirstTwoLinePolynomials.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/G1Consequences.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/Generic.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/GenericTopology.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/GeometricCoordinateSpecialization.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/JointWaypointConstraints.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/LineConcurrence.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/LinePolynomials.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/LinearConcurrenceCore.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/MultivariateAvoidance.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/NonzeroControlsGeneric.lean": [
+        "work/reviews/central-leg-roots.json"
+      ],
+      "work/lean/SM/Polygon.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/PolynomialAvoidance.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/PolynomialControlFamily.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/PolynomialControlRepresentatives.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/PolynomialLinearCore.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/PolynomialShear.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/PolynomialVertexSupport.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/RealAffineCrossing.lean": [
+        "work/reviews/central-leg-roots.json"
+      ],
+      "work/lean/SM/RealAffineRoots.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/Segment.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/SegmentStability.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/SixEndpointTuples.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/TransportPolynomials.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/WallSegmentStability.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json",
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/WaypointPullback.lean": [
+        "work/reviews/central-leg-roots.json",
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/CentralLegCollision.lean": [
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/ScalarCoordinateTopology.lean": [
+        "work/reviews/central-leg-collision.json"
+      ],
+      "work/lean/SM/AreaDensity.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/Chambers.lean": [
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json",
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/ConcurrenceDensity.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/CyclicChambers.lean": [
+        "work/reviews/lem-fibres.json",
+        "work/reviews/def-germ.json"
+      ],
+      "work/lean/SM/EuclideanPlane.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/GenericDensity.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/PrincipalAngles.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RegularDefinition.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RegularLocus.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RegularPairs.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RegularPerturbation.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RotationContinuity.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/RotationNumber.lean": [
+        "work/reviews/lem-fibres.json"
+      ],
+      "work/lean/SM/ChamberPaths.lean": [
+        "work/reviews/def-germ.json"
+      ],
+      "work/lean/SM/GermSides.lean": [
+        "work/reviews/def-germ.json"
+      ],
+      "work/lean/SM/GermSignChange.lean": [
+        "work/reviews/def-germ.json"
+      ],
+      "work/lean/SM/WallGerm.lean": [
+        "work/reviews/def-germ.json"
+      ],
+      "work/lean/SM/WeakGeneric.lean": [
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/WeakGeometry.lean": [
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/WeakTopology.lean": [
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/PolygonalConnected.lean": [
+        "work/reviews/lem-weak-open.json"
+      ],
+      "work/lean/SM/EuclideanTuple.lean": [
+        "work/reviews/lem-weak-open.json"
+      ]
+    },
+    "scalar_box_prototype_review": "work/reviews/scalar-boxes-prototype.json",
+    "scalar_box_prototype_review_sha256": "c2af632029508d1b7c8f860dc9e08f7608a2391038c39cc18c7ce432c278d5a5",
+    "prototype_source": "work/checks/ScalarBoxes.prototype.lean",
+    "prototype_source_sha256": "ddcb19795b3abb36867aa4af7ed3d19c1c5b53f62558cb06240d976b5f9f865b",
+    "ported_ScalarBoxes_namespace_body_identical": true
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "additional_pinned_library_files_read_sha256": {
+      "Mathlib/Data/Fintype/EquivFin.lean": "dd3c00a08181a6ab680d7fd11752c75de32d9ccb0c5b5803bdf2c9e1a1f609f9",
+      "Mathlib/Order/Filter/Finite.lean": "90069992a6aff0a703f85164b3f282058d84f4e556d3df0e728d049bb2e3ea47",
+      "Mathlib/Analysis/Calculus/Deriv/Comp.lean": "e9665150f347dc2da9a5a4cc3ca10489bb1a98053a36f75c06059e9461fad85d",
+      "Mathlib/Analysis/Calculus/Deriv/Add.lean": "0c337370d60b27ce270b4efb71ecf5c7a2a11ddf2cda2ad19ba1049d7174b47c"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/local-germs-boxes-ordered-review-types.lean",
+    "independent_trace_source_sha256": "1c0d38e89e0ac228718fc00e1ba5b64d7a597efb6eb01316eb40814a70fb0e6f",
+    "independent_trace_log": "work/checks/local-germs-boxes-ordered-review-types.log",
+    "independent_trace_log_sha256": "117eba342b4e8ca8442d6ae5b6cc48fec44496c4345bfc94ac6b0e3399288563",
+    "independent_kernel_command": "lake env lean ../checks/local-germs-boxes-ordered-review-types.lean",
+    "independent_kernel_session": 30825,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": 56,
+    "declaration_axioms": {
+      "SM.scalarOpenBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarClosedBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_scalarOpenBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isClosed_scalarClosedBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_subset_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.closure_scalarOpenBox_subset_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_eq_pi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.convex_scalarOpenBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_mem_of_coordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarAssignmentLine_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_scalarBox_closed_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_scalarBox_closure_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_tupleScalarBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarBox_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_tupleScalarBox_closure_diameter": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_control_continuous": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_other_control_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_other_products_eventually": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_root_neighborhood": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nonempty_centralRootPatch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.chooseCentralRootPatch": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.time_mem_leg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm_center": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm_curve_eq": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm_curve_collision_free": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm_other_products": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.parameter_isRoot": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.toWallGerm_control_signChanges": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.parameterSlope_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CentralRootPatch.centered_control_hasDerivAt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.central_nongeneric_has_wallGerm": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.endpoint_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.assignment_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.CoordinateWaypointLeg.tuple_assignment_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_regular_tupleScalarBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_generic_tupleScalarBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarCoordinateOrder": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedHybrid": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedHybrid_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedHybrid_last": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedHybrid_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_join": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_start": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_finish": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.continuous_orderedScalarLeg": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedScalarLeg_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedWaypointLeg": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.orderedWaypointLeg_endpoint_false": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedWaypointLeg_endpoint_true": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.orderedWaypointLeg_assignment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "Actual nongeneric interior time gives an actual collision-free WallGerm and nonzero centered control derivative without supplied root/transversality.",
+      "Source n≥3 gives the exhaustive actual 2n-coordinate order with both inverse identities and positive leg count.",
+      "Generic/Regular cube closure plus actual endpoint containment yields both properties along every reconstructed ordered scalar leg, without polynomial nonvanishing at endpoints."
+    ],
+    "additional_examples_passed": true,
+    "successful_build_log": "work/checks/local-germs-boxes-ordered-build.log",
+    "successful_build_log_sha256": "c19e5cb74ab60e04696ca5f4e6f1d1cd92c2d212db8129a29658ff951afcc41e",
+    "successful_build_session": 65141,
+    "successful_build_exit_code": 0,
+    "candidate_inventory": "work/checks/local-germs-boxes-candidate-files.json",
+    "candidate_inventory_sha256": "4b80e90ef8b459ad5c51190b2629e0b0f28144a29c62be7cd2c9ca6b7d0e53fd",
+    "independent_closure_evidence": "work/checks/local-germs-boxes-ordered-review-closure.json",
+    "independent_closure_evidence_sha256": "9b2fe7918e4b329b83675c42e656a1f805a582e22c569fb14c699ea3b88ec169",
+    "initial_independent_example_elaboration": {
+      "session": 35457,
+      "exit_code": 1,
+      "log": "work/checks/local-germs-boxes-ordered-review-example-elaboration.log",
+      "log_sha256": "4d471b9ebf6c787d6ee22db6df67649fe17e34016b440ac3269feaffdb517cfa",
+      "reason": "Only the reviewer-written third example had an underspecified Membership target. All 56 declaration checks and the first two examples passed. Its change target was made explicit, with no implementation modification; the final trace then passed all checks."
+    },
+    "non_failing_trace_warning": "One haveI proof-style linter warning in the independent source-size example; no errors in the final kernel run."
+  },
+  "audit_context": {
+    "prior_receipt": "work/checks/checkpoint-054-output.json",
+    "prior_receipt_sha256": "d63e3e443df5756b8120d4e5dc1f8eeacfefe86a74491436e2dcec86e72a89c7",
+    "prior_receipt_passed": true,
+    "prior_stage_accepted": false,
+    "all_263_prior_SM_files_unchanged": true,
+    "prior_audited_local_declarations": 2928,
+    "prior_mapped_claims": 30,
+    "scope": "Checkpoint054 covers the inherited 263-module baseline. These five new modules and appended root imports are not covered by that earlier receipt. This partial review binds their successful frozen build, current 77-file closure and independent kernel trace; the fresh whole-project audit055 is a subsequent root step."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "source_row_status_unchanged": true
+  },
+  "independence": "Reviewer did not author or edit implementation modules, root imports or declaration mappings. All five final source bodies, transparent constructions and actual compiled types were reviewed independently, with inherited semantic support reused only after exact hash verification. Only separate review evidence and this report were written.",
+  "edits": "Created independent work/checks trace/closure evidence and this work/reviews report; corrected one reviewer-only example and archived its failed elaboration log. No source, theorem-library, map or progress edits."
+}

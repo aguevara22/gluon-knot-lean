@@ -1,0 +1,91 @@
+{
+  "state": "PREPARED ONLY: source inspection complete; independent kernel and final reviewed-type extraction pending shared-kernel release",
+  "reviewer": "/root/review_mark_transport",
+  "timestamp_utc": "2026-09-11T09:18:18.016604+00:00",
+  "declaration_count": 13,
+  "consumer_count": 9,
+  "files_sha256": {
+    "work/checks/ContractedIntervals-prototype-result.json": "ad5628f6dc9e00f7f630d67444504ad3baee6cb1d429afa6891936d30d3f8e0c",
+    "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+    "work/checks/ContractedIntervals.prototype.lean": "06bb0420f52bb916497ce56c01652e1f6bb7655ae153fc207324744efe7838b0",
+    "work/checks/ContractedIntervals-first-kernel.log": "cd20bfc2d45e946a9aafb3dc1427a3aba76f6df2e54145cd0ad5e0e2f8fc3acd",
+    "work/checks/contracted-intervals-review-examples.lean": "e5c149722151d329beb2c6254abd838b39851ffbea1fd560a88cf328b7507da6",
+    "work/checks/contracted-intervals-review-types.lean": "ef1c84445c527a7644e3592653a56efc9bcda05d70abd1d5c0d722a9a73df2a5",
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "work/reviews/contracted-geometric-word-independent.json": "bc2a97148842fa527bf5f350a664543f77ab9bd0de303a24e3340f5fde08f415"
+  },
+  "source_signatures": {
+    "SM.IncreasingBoundaryTriple.expandInterval": {
+      "text": "def expandInterval (t : IncreasingBoundaryTriple n)\n    (J : BoundaryInterval t.contractedSize) : BoundaryInterval n",
+      "sha256": "c748eaee738f87bc94d0e8c93b190d4915f1ad1eb2bc3311deabca0e0b6c068c"
+    },
+    "SM.IncreasingBoundaryTriple.expandTriple": {
+      "text": "def expandTriple (t : IncreasingBoundaryTriple n)\n    (u : IncreasingBoundaryTriple t.contractedSize) : IncreasingBoundaryTriple n",
+      "sha256": "4e72032a4d868f4f8aa53fa3a86998b7fe2304da2d6c71899c8d4e3b1880e1dd"
+    },
+    "SM.IncreasingBoundaryTriple.contractedLeaf": {
+      "text": "def contractedLeaf (t : IncreasingBoundaryTriple n) : BoundaryInterval t.contractedSize",
+      "sha256": "0ae4153ccbfcea3ec6bedb1807c15c20c2572b96ab1da7f30d8f619e9a5ac6c5"
+    },
+    "SM.IncreasingBoundaryTriple.contractedLeaf_leaves": {
+      "text": "theorem contractedLeaf_leaves (t : IncreasingBoundaryTriple n) : t.contractedLeaf.leaves = 1",
+      "sha256": "251f86a91dded0878d83ee207ccf2c7d188decd09be07d381404d6426b562c2e"
+    },
+    "SM.IncreasingBoundaryTriple.expandInterval_contractedLeaf": {
+      "text": "theorem expandInterval_contractedLeaf (t : IncreasingBoundaryTriple n) :\n    t.expandInterval t.contractedLeaf = t.spanInterval",
+      "sha256": "c00923dcc8a5f995d7a592f1eba2515fb27a78b4af66ef5729e6d27c8f4c85bb"
+    },
+    "SM.IncreasingBoundaryTriple.expandInterval_contains": {
+      "text": "theorem expandInterval_contains (t : IncreasingBoundaryTriple n)\n    (J : BoundaryInterval t.contractedSize) :\n    ((t.expandInterval J).left ≤ t.lower ∧ t.upper ≤ (t.expandInterval J).right) ↔\n      (J.left ≤ t.contractedLeaf.left ∧ t.contractedLeaf.right ≤ J.right)",
+      "sha256": "3e8e924532beb7f747614eb88873f69bb95c5d4d7274e658c971bf90af83f0a7"
+    },
+    "SM.IncreasingBoundaryTriple.expandInterval_injective": {
+      "text": "theorem expandInterval_injective (t : IncreasingBoundaryTriple n) :\n    Function.Injective t.expandInterval",
+      "sha256": "825e9eaa6e58666ecf4c9715c9a194d024549b581c14de875d70e8f57cdfab68"
+    },
+    "SM.IncreasingBoundaryTriple.contractInterval": {
+      "text": "def contractInterval (t : IncreasingBoundaryTriple n) (I : BoundaryInterval n)\n    (hl : I.left ≤ t.lower ∨ t.upper ≤ I.left)\n    (hr : I.right ≤ t.lower ∨ t.upper ≤ I.right) : BoundaryInterval t.contractedSize",
+      "sha256": "81b4846df172604a38fa3de0f45a29fee28af3d1b4443410028c3c2cc939683d"
+    },
+    "SM.IncreasingBoundaryTriple.expand_contractInterval": {
+      "text": "theorem expand_contractInterval (t : IncreasingBoundaryTriple n) (I : BoundaryInterval n)\n    (hl : I.left ≤ t.lower ∨ t.upper ≤ I.left)\n    (hr : I.right ≤ t.lower ∨ t.upper ≤ I.right) :\n    t.expandInterval (t.contractInterval I hl hr) = I",
+      "sha256": "0bae7707ef5747a159270c3dedf124e22dc1ed3a4607586d42f05ee1eb853d9e"
+    },
+    "SM.IncreasingBoundaryTriple.contract_expandInterval": {
+      "text": "theorem contract_expandInterval (t : IncreasingBoundaryTriple n)\n    (J : BoundaryInterval t.contractedSize) :\n    t.contractInterval (t.expandInterval J) (t.expandPosition_survives J.left)\n      (t.expandPosition_survives J.right) = J",
+      "sha256": "b967d2ba290232dd50bf430ff8c53adb1be3132bea9c20a4409e392e2a67c2a7"
+    },
+    "SM.IncreasingBoundaryTriple.containing_interval_is_expanded": {
+      "text": "theorem containing_interval_is_expanded (t : IncreasingBoundaryTriple n)\n    (I : BoundaryInterval n) (hI : I.left ≤ t.lower ∧ t.upper ≤ I.right) :\n    ∃ J : BoundaryInterval t.contractedSize,\n      t.expandInterval J = I ∧ J.left ≤ t.contractedLeaf.left ∧ t.contractedLeaf.right ≤ J.right",
+      "sha256": "43eac8bf0f860e728943016ff638f1139e677f8c9dd9376c86270098c1e94434"
+    },
+    "SM.IncreasingBoundaryTriple.expandInterval_full": {
+      "text": "theorem expandInterval_full (t : IncreasingBoundaryTriple n) (hn : 3 ≤ n)\n    (hproper : t.spanInterval ≠ fullBoundaryInterval hn) :\n    t.expandInterval (fullBoundaryInterval (t.contractedSize_of_proper hn hproper)) =\n      fullBoundaryInterval hn",
+      "sha256": "2de4428a7a2ce6ef92aae844a206bb725764bd7dfb8912109020c28126406aba"
+    },
+    "SM.IncreasingBoundaryTriple.containing_contracted_nonleaf": {
+      "text": "theorem containing_contracted_nonleaf (t : IncreasingBoundaryTriple n)\n    (J : BoundaryInterval t.contractedSize)\n    (hJ : J.left ≤ t.contractedLeaf.left ∧ t.contractedLeaf.right ≤ J.right)\n    (hne : J ≠ t.contractedLeaf) : 2 ≤ J.leaves",
+      "sha256": "36517a6e4cc61ec51a600bb0563439b3a6ca4a1d6f267bad43a98bdbd68933f0"
+    }
+  },
+  "root_evidence": {
+    "session": 71610,
+    "exit_code": 0,
+    "first_run_passed": true,
+    "all_receipt_hashes_match": true
+  },
+  "source_assessments": [
+    "Expansion applies the same strict surviving-position map to every interval endpoint and all three triple entries; it preserves physical positions and order.",
+    "Contraction is defined on exactly the intervals whose two endpoints survive. Both round trips are exact interval equalities, not just equal lengths.",
+    "The distinguished leaf is adjacent contracted positions lower and lower+1, expands to the complete critical span, and has one leaf.",
+    "Strict-monotone order reflection makes containing the old span equivalent to containing the new leaf. Every containing old interval has surviving endpoints and is represented; the consumer adds uniqueness.",
+    "The full expanded interval uses size>=3 only in the proper source polygon case. Full-span two-position behavior remains available through contractInterval and contractedLeaf.",
+    "A containing contracted interval distinct from the leaf must have at least two leaves: otherwise its bounded integer endpoints would be precisely the two leaf endpoints. The consumers specialize this to the actual inverse equation and its one-leaf base."
+  ],
+  "limits": [
+    "Independent consumer file is untested; no passing independent kernel is claimed.",
+    "These13 do not establish the raw-composition contraction bijection, factor transport or propagation.",
+    "No implementation, canonical source, source document, map or pre-existing evidence was edited."
+  ],
+  "source_acceptance_increment": 0
+}

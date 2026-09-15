@@ -1,0 +1,339 @@
+<title>Corner Laws Proof Graph</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F2F3F6; --bg2:#E9EBF0; --surface:#FFFFFF; --ink:#181B22; --muted:#5C6473; --line:#D5D9E1; --line2:#BFC5D0;
+  --accent:#0E7C86; --accent-soft:#D6EEF0; --ok:#2F8F5B; --ok-soft:#E3F3EA; --pend:#D07C1F; --pend-soft:#FBEBD6;
+  --root:#C43D2F; --root-soft:#F9DDD9; --lit:#6E4FE0; --lit-soft:#E7E0FB; --up:#1F6FB2; --down:#B0257A;
+  --display:"Schibsted Grotesk",system-ui,"Segoe UI",sans-serif; --body:"Source Sans 3","Source Sans Pro",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#12151B; --bg2:#181C24; --surface:#1C2029; --ink:#E7E9EE; --muted:#9AA3B3; --line:#2C323D; --line2:#3B4350;
+  --accent:#3FC3CD; --accent-soft:#163A3E; --ok:#5CC98A; --ok-soft:#173A28; --pend:#F0A24C; --pend-soft:#3F2A12;
+  --root:#F26B5B; --root-soft:#45201C; --lit:#A995FF; --lit-soft:#2B2450; --up:#6FB2F0; --down:#E872B6; }}
+:root[data-theme="dark"]{
+  --bg:#12151B; --bg2:#181C24; --surface:#1C2029; --ink:#E7E9EE; --muted:#9AA3B3; --line:#2C323D; --line2:#3B4350;
+  --accent:#3FC3CD; --accent-soft:#163A3E; --ok:#5CC98A; --ok-soft:#173A28; --pend:#F0A24C; --pend-soft:#3F2A12;
+  --root:#F26B5B; --root-soft:#45201C; --lit:#A995FF; --lit-soft:#2B2450; --up:#6FB2F0; --down:#E872B6; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;padding-block:0 48px;padding-inline:clamp(16px,3vw,36px)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:700;margin-block:0 6px}
+h3{font-size:15px;font-weight:700}
+p{margin:0;max-width:68ch}
+code,.mono{font-family:var(--mono);font-size:.92em}
+a{color:var(--accent)}
+.top{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between;padding-block:28px 18px;border-bottom:1px solid var(--line)}
+.brand p{color:var(--muted);margin-top:6px;max-width:62ch}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
+.tile .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tile .v{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px}
+.tile .v small{font-size:14px;color:var(--muted);font-weight:500}
+.tile .n{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tile.warn{border-color:var(--pend)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding-block:12px;font-size:13.5px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:2px solid;vertical-align:-2px;margin-right:6px;background:var(--surface)}
+.sw.ok{border-color:var(--ok);background:var(--ok-soft)} .sw.pend{border-color:var(--pend);background:var(--pend-soft)}
+.sw.root{border-color:var(--root);background:var(--root-soft)} .sw.lit{border-color:var(--lit);background:var(--lit-soft)}
+.sw.target{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface),0 0 0 3px var(--ink)}
+section{padding-block:26px 0}
+.intro{color:var(--muted);margin-top:4px}
+figure{margin:14px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.fig-scroll{overflow-x:auto}
+figure svg{display:block;max-width:100%;height:auto}
+#crit{min-width:900px}
+figcaption{padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;max-width:none}
+.routes{margin-top:16px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+th,td{text-align:left;padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-top:0}
+td:first-child{font-weight:600;white-space:nowrap}
+/* explorer */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:12px}
+.toolbar .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+button,.chip{font:inherit;font-size:13.5px;border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer;line-height:1.2}
+button:hover{border-color:var(--accent)}
+button:focus-visible,.chip:focus-within,input:focus-visible,.node:focus-visible rect{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip{display:inline-flex;align-items:center;gap:6px;user-select:none}
+.chip input{margin:0;accent-color:var(--accent)}
+input[type=search]{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line2);border-radius:6px;background:var(--surface);color:var(--ink);min-width:200px}
+.explorer{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;margin-top:12px}
+.canvas{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:8px;height:640px;overflow:hidden;touch-action:none}
+.canvas svg{width:100%;height:100%;display:block;cursor:grab}
+.canvas svg.dragging{cursor:grabbing}
+.hint{position:absolute;left:10px;bottom:8px;font-size:12px;color:var(--muted);background:var(--surface);padding:2px 8px;border-radius:4px;border:1px solid var(--line);pointer-events:none}
+.zoom{position:absolute;right:10px;top:10px;display:flex;gap:6px}
+.zoom button{padding:4px 9px;border-radius:6px}
+aside{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;min-height:640px;font-size:14px;overflow:auto;max-height:640px}
+aside h3{font-family:var(--mono);font-size:14px;word-break:break-all;margin-bottom:6px}
+aside .row{margin-top:8px}
+aside .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block}
+.status{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid;margin-right:6px}
+.status.accepted{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+.status.pending{color:var(--pend);border-color:var(--pend);background:var(--pend-soft)}
+.status.root{color:var(--root);border-color:var(--root);background:var(--root-soft)}
+.status.lit{color:var(--lit);border-color:var(--lit);background:var(--lit-soft)}
+aside ul{list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:3px}
+aside li button{border:0;background:none;padding:0;color:var(--accent);font-family:var(--mono);font-size:12.5px;text-align:left;border-radius:0}
+aside li .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--ok)}
+aside li .dot.pending{background:var(--pend)} aside li .dot.root{background:var(--root)}
+.reason{font-size:13px;color:var(--ink);background:var(--bg2);padding:8px 10px;border-radius:6px;margin-top:4px}
+/* svg */
+.lane{fill:var(--bg)} .lane.alt{fill:var(--bg2)}
+.lane-name{font-family:var(--display);font-size:13px;font-weight:700;fill:var(--muted)}
+.lane-count{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.edge{fill:none;stroke:var(--line2);stroke-width:1;opacity:.55}
+.edge.blocked{stroke:var(--pend);opacity:.75;stroke-width:1.3}
+.edge.hi-in{stroke:var(--up);stroke-width:2;opacity:1;marker-end:url(#arr-up)}
+.edge.hi-out{stroke:var(--down);stroke-width:2;opacity:1;marker-end:url(#arr-down)}
+svg.focus .edge:not(.hi-in):not(.hi-out){opacity:.12}
+.node rect{fill:var(--surface);stroke:var(--ok);stroke-width:1.4}
+.node text{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+.node.pending rect{stroke:var(--pend);fill:var(--pend-soft)}
+.node.root rect{stroke:var(--root);stroke-width:2;fill:var(--root-soft)}
+.node.lit rect{stroke:var(--lit);fill:var(--lit-soft)}
+.node.target rect{stroke-width:2.6} .node.target text{font-weight:600}
+.node.target .ring{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:3 2}
+.node{cursor:pointer}
+.node.sel rect{stroke:var(--accent);stroke-width:3}
+.node.up rect{stroke:var(--up);stroke-width:2.4} .node.down rect{stroke:var(--down);stroke-width:2.4}
+svg.focus .node:not(.sel):not(.up):not(.down){opacity:.35}
+.node.ctx{opacity:.55}
+.node.hid{display:none}
+/* critical figure */
+.cnode rect{fill:var(--surface);stroke:var(--ok);stroke-width:1.6}
+.cnode.pending rect{stroke:var(--pend);fill:var(--pend-soft)}
+.cnode.root rect{stroke:var(--root);stroke-width:2.2;fill:var(--root-soft)}
+.cnode.lit rect{stroke:var(--lit);fill:var(--lit-soft)}
+.cnode.target rect{stroke-width:2.8}
+.cnode.target .ring{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:3 2}
+.cnode .t1{font-family:var(--mono);font-size:12px;font-weight:600;fill:var(--ink)}
+.cnode .t2{font-family:var(--body);font-size:11px;fill:var(--muted)}
+.cnode.pending .t2,.cnode.root .t2{fill:var(--ink)}
+.cedge{fill:none;stroke:var(--line2);stroke-width:1.4;marker-end:url(#carr)}
+.cedge.blocked{stroke:var(--pend);stroke-width:1.8;marker-end:url(#carr-pend)}
+.cedge.gap{stroke:var(--root);stroke-width:2;stroke-dasharray:6 4;marker-end:url(#carr-root)}
+.cedge.undecl{stroke:var(--lit);stroke-dasharray:4 4;marker-end:url(#carr-lit)}
+.col-name{font-family:var(--display);font-size:13px;font-weight:700;fill:var(--muted)}
+.col-line{stroke:var(--line);stroke-width:1}
+.elabel{font-family:var(--body);font-size:11px;fill:var(--root);font-weight:600}
+.note{font-family:var(--body);font-size:11px;fill:var(--muted)}
+.notes ul{margin:8px 0 0;padding-left:18px;max-width:78ch;color:var(--muted);font-size:14.5px}
+.notes li{margin-top:4px}
+@media (max-width:900px){ .explorer{grid-template-columns:1fr} aside{min-height:0;max-height:none} .stats{grid-template-columns:repeat(2,1fr)} .canvas{height:520px} }
+@media (prefers-reduced-motion:no-preference){ .node rect,.edge{transition:opacity .15s,stroke-width .15s} }
+</style>
+
+<header class="top">
+  <div class="brand">
+    <h1>Corner Laws Proof Graph</h1>
+    <p>Every row of the SM15 formalization of <code>SM.corner_laws_and_soft</code>, wired by the blueprint's dependency edges and coloured by acceptance state as of 2026-09-14 18:20 UTC. Prerequisites sit above or to the left of what consumes them.</p>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="legend">
+  <span><i class="sw ok"></i>accepted (kernel-checked, reviewed)</span>
+  <span><i class="sw pend"></i>pending, blocked by a pending prerequisite</span>
+  <span><i class="sw root"></i>pending root cause (all prerequisites accepted)</span>
+  <span><i class="sw lit"></i>literature axiom</span>
+  <span><i class="sw target"></i>one of the 8 final targets</span>
+</div>
+
+<section id="critical">
+  <h2>The critical path</h2>
+  <p class="intro">The 24 pending rows, the eight targets, and the inputs that explain them. Read top to bottom: an arrow means "is needed by". Three rows have every prerequisite accepted and are the only places where work can start.</p>
+  <figure>
+    <div class="fig-scroll"><svg id="crit" role="img" aria-label="Dependency chain from the HOMFLY axiom through row 91 down to the final theorem, with the CV, R and bridge branches; 22 rows are blocked by row 91, one row is deferred, one interface is undeclared."></svg></div>
+    <figcaption>One clause of the HOMFLY axiom was formalized over diagram moves only (design decision D2). Row 91 needs it over smooth spatial isotopies, so row 91 is proved only modulo <code>SM.AmbientIsotopyDescent</code>, and everything below it waits. Row 57 is isolated: its one accepted consumer was proved without it.</figcaption>
+  </figure>
+  <div class="routes">
+    <table>
+      <thead><tr><th>Route to close GAP-2</th><th>What changes</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>α restate the axiom</td><td>Add a spatial descent field to <code>HomflyClauses</code>, so <code>SM.lit_homfly</code> says what the printed literature block says. Rewrites an accepted declaration, which the package rules forbid, so it is a policy change.</td><td>Small in code. Re-review of the 28 accepted rows that use the axiom, including the four accepted targets.</td></tr>
+        <tr><td>α′ split form</td><td>Keep the literal clause on an actual ambient isotopy as literature, and prove the isotopy-extension step of the printed proof (sm-3:3264-3313) in Lean.</td><td>Same policy question for the first half. Roughly 3 to 5 thousand lines of analysis for the second.</td></tr>
+        <tr><td>β prove Reidemeister</td><td>Prove that a smooth isotopy of polygonal readings factors through planar isotopy and the three moves. No policy change.</td><td>Many thousands of lines. Out of the executor's horizon.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="explorer">
+  <h2>Every row</h2>
+  <p class="intro">All 192 checklist rows in swim lanes by chapter, prerequisites to the left. Click a row for its sources, Lean name, prerequisites and consumers. Blue marks what a row needs, magenta what needs it.</p>
+  <div class="toolbar">
+    <div class="grp" role="group" aria-label="View">
+      <button id="mode-all" aria-pressed="true">Everything</button>
+      <button id="mode-blocked" aria-pressed="false">Only what blocks the final theorem</button>
+    </div>
+    <div class="grp" id="lane-chips" aria-label="Lanes"></div>
+    <div class="grp"><input type="search" id="q" placeholder="find a row, e.g. carrierfloor" aria-label="Find a row"></div>
+  </div>
+  <div class="explorer">
+    <div class="canvas" id="canvas">
+      <svg id="full" aria-label="Full dependency graph of 192 rows"></svg>
+      <div class="zoom"><button id="z-in" title="Zoom in">+</button><button id="z-out" title="Zoom out">−</button><button id="z-fit" title="Fit">Fit</button></div>
+      <div class="hint">scroll to zoom · drag to pan · click a row</div>
+    </div>
+    <aside id="detail" aria-live="polite"></aside>
+  </div>
+</section>
+
+<section class="notes">
+  <h2>How this graph was built</h2>
+  <ul>
+    <li>Edges are the frozen blueprint's explicit references plus its documented semantic additions (<code>blueprint/DEPENDENCIES.json</code>, 443 edges over 191 rows; the extra supporting lemma <code>lem:weak-open</code> has none). The blueprint itself warns that unlabelled dependencies may exist.</li>
+    <li>Status comes from <code>work/lean/lean-declarations.json</code>: accepted means kernel-checked, mapped, and independently AI-reviewed with the statement hash bound in the final checker receipt. Numbers are <code>tools/claims.py</code> document order; rows outside that list carry none.</li>
+    <li>Two accepted rows deviate from the blueprint: <code>cb:embedded-rotation</code> was proved without <code>lem:gauss-two-discs</code> (decision D-ER1), and <code>thm:uniqueness</code> is accepted although its listed prerequisite <code>prop:anchor-values</code> is pending. Kernel-checked proofs cannot cite a pending row, so both are blueprint edges the proof route did not use.</li>
+    <li>Pending reasons are quoted from the completed fidelity review (<code>FINAL_REVIEW.md</code> §3).</li>
+  </ul>
+</section>
+
+<script>
+const D = /*__DATA__*/null;
+const N = D.nodes;
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const nodeClass = n => [n.status, n.root_cause?'root':'', n.literature?'lit':'', n.target?'target':''].filter(Boolean).join(' ');
+
+/* ---------- header stats ---------- */
+(function(){
+  const s = D.stats;
+  const pend = Object.values(N).filter(n=>n.status!=='accepted');
+  const gap2 = pend.filter(n=>n.id!=='lem:gauss-two-discs' && n.id!=='src:contact').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="tile"><div class="k">Claims verified</div><div class="v">${s.claims_verified}<small> / ${s.claims_total}</small></div><div class="n">${Math.round(100*s.claims_verified/s.claims_total)}% of the source claims</div></div>
+    <div class="tile"><div class="k">Rows accepted</div><div class="v">${s.accepted}<small> / ${s.total}</small></div><div class="n">definitions, claims, interfaces, obligations</div></div>
+    <div class="tile"><div class="k">Final targets</div><div class="v">${s.targets_accepted}<small> / ${s.targets_total}</small></div><div class="n">chamber, silence, flat law, empty cusp</div></div>
+    <div class="tile warn"><div class="k">Pending</div><div class="v">${s.pending}</div><div class="n">${gap2} behind GAP-2 · 1 deferred · 1 undeclared</div></div>`;
+})();
+
+/* ---------- critical figure ---------- */
+(function(){
+  const C = D.crit, W = C.meta.width, H = C.meta.height;
+  const svg = document.getElementById('crit');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('width', W); svg.setAttribute('height', H);
+  let g = `<defs>
+    <marker id="carr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--line2)"/></marker>
+    <marker id="carr-pend" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--pend)"/></marker>
+    <marker id="carr-root" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--root)"/></marker>
+    <marker id="carr-lit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--lit)"/></marker>
+  </defs>`;
+  C.cols.forEach((c,i)=>{ g += `<text class="col-name" x="${c.x + c.w/2}" y="20" text-anchor="middle">${esc(c.name)}</text>`;
+    if(i>0) g += `<line class="col-line" x1="${c.x}" y1="28" x2="${c.x}" y2="${H-6}"/>`; });
+  const special = {'lit:homfly>cp:finite-contact-path':'gap', 'lit:homfly>fd:contact':'gap', 'src:contact>fd:contact':'undecl', 'src:contact>CV:ax:etnyre':'undecl'};
+  const curveV = (a,b)=>{ const x1=a.x+a.w/2, y1=a.y+a.h, x2=b.x+b.w/2, y2=b.y; const dy=Math.max(22,(y2-y1)/2);
+    return `M${x1},${y1} C${x1},${y1+dy} ${x2},${y2-dy} ${x2},${y2}`; };
+  let labels = '';
+  for(const [a,b] of C.edges){ const pa=C.pos[a], pb=C.pos[b]; const sp = special[a+'>'+b];
+    const blocked = N[a].status!=='accepted' && N[b].status!=='accepted';
+    g += `<path class="cedge ${sp||(blocked?'blocked':'')}" d="${curveV(pa,pb)}"/>`;
+    if(a==='lit:homfly' && b==='cp:finite-contact-path'){ const mx=(pa.x+pa.w/2+pb.x+pb.w/2)/2, my=(pa.y+pa.h+pb.y)/2;
+      labels += `<text class="elabel" x="${mx+14}" y="${my-8}">descent clause weaker than printed (D2)</text>`; }
+  }
+  g += labels;
+  const clip = (s,n)=> s.length>n ? s.slice(0,n-1)+'…' : s;
+  for(const id of C.ids){ const p=C.pos[id], n=N[id]; const num = n.num ? n.num+' ' : '';
+    g += `<g class="cnode ${nodeClass(n)}" transform="translate(${p.x},${p.y})">${n.target?`<rect class="ring" x="-3" y="-3" width="${p.w+6}" height="${p.h+6}" rx="7"/>`:''}<rect width="${p.w}" height="${p.h}" rx="5"/><text class="t1" x="9" y="16">${esc(clip(num+n.short,25))}</text><text class="t2" x="9" y="31">${esc(clip(n.tag,33))}</text></g>`;
+  }
+  const p57 = C.pos['lem:gauss-two-discs']; if(p57) g += `<text class="note" x="${p57.x+p57.w/2}" y="${p57.y+p57.h+13}" text-anchor="middle">no pending consumer<tspan x="${p57.x+p57.w/2}" dy="12">row 104 was proved without it</tspan></text>`;
+  svg.innerHTML = g;
+})();
+
+/* ---------- full graph ---------- */
+const svg = document.getElementById('full'), canvas = document.getElementById('canvas');
+const W = D.meta.width, H = D.meta.height;
+const state = { s:1, tx:0, ty:0, mode:'all', lanes:new Set(D.lanes), q:'', sel:null };
+const curveH = (a,b)=>{ const x1=a.x+a.w, y1=a.y+a.h/2, x2=b.x, y2=b.y+b.h/2; const dx=Math.max(40,(x2-x1)/2);
+  return `M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`; };
+(function render(){
+  const laneCount = {}; for(const id in N){ const l=N[id].lane; laneCount[l]=laneCount[l]||{a:0,t:0}; laneCount[l].t++; if(N[id].status==='accepted') laneCount[l].a++; }
+  let g = `<defs>
+    <marker id="arr-up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--up)"/></marker>
+    <marker id="arr-down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--down)"/></marker>
+  </defs><g id="world">`;
+  D.laneBoxes.forEach((b,i)=>{ const c=laneCount[b.name]||{a:0,t:0};
+    g += `<rect class="lane ${i%2?'alt':''}" x="0" y="${b.y}" width="${W}" height="${b.h}"/><text class="lane-name" x="12" y="${b.y+17}">${esc(b.name)}</text><text class="lane-count" x="12" y="${b.y+31}">${c.a}/${c.t} accepted</text>`; });
+  for(const [a,b] of D.edges){ const pa=D.pos[a], pb=D.pos[b]; const blocked = N[a].status!=='accepted' && N[b].status!=='accepted';
+    g += `<path class="edge ${blocked?'blocked':''}" data-a="${esc(a)}" data-b="${esc(b)}" d="${curveH(pa,pb)}"/>`; }
+  for(const id in N){ const p=D.pos[id], n=N[id];
+    g += `<g class="node ${nodeClass(n)}" data-id="${esc(id)}" tabindex="0" role="button" aria-label="${esc(id)}, ${n.status}" transform="translate(${p.x},${p.y})">${n.target?`<rect class="ring" x="-3" y="-3" width="${p.w+6}" height="${p.h+6}" rx="6"/>`:''}<rect width="${p.w}" height="${p.h}" rx="4"/><text x="8" y="15">${esc(id)}</text></g>`; }
+  svg.innerHTML = g + '</g>';
+})();
+const world = document.getElementById('world');
+const nodeEls = {}; svg.querySelectorAll('.node').forEach(el=>nodeEls[el.dataset.id]=el);
+const edgeEls = Array.from(svg.querySelectorAll('.edge'));
+function apply(){ world.setAttribute('transform', `translate(${state.tx},${state.ty}) scale(${state.s})`); }
+const hiddenSet = new Set();
+function visibleIds(){ const out=[]; for(const id in N) if(!hiddenSet.has(id)) out.push(id); return out; }
+function fit(ids){ ids = ids && ids.length ? ids : Object.keys(N); const r = canvas.getBoundingClientRect();
+  let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity; for(const id of ids){ const p=D.pos[id]; x0=Math.min(x0,p.x); y0=Math.min(y0,p.y); x1=Math.max(x1,p.x+p.w); y1=Math.max(y1,p.y+p.h); }
+  if(ids.length===Object.keys(N).length){ x0=0; y0=0; x1=W; y1=H; }
+  const pad=30; state.s = Math.min((r.width-2*pad)/(x1-x0), (r.height-2*pad)/(y1-y0), 1.8);
+  state.tx = (r.width - (x1-x0)*state.s)/2 - x0*state.s; state.ty = (r.height - (y1-y0)*state.s)/2 - y0*state.s; apply(); }
+function zoomAt(f, cx, cy){ const ns = Math.max(.08, Math.min(4, state.s*f)); state.tx = cx - (cx-state.tx)*ns/state.s; state.ty = cy - (cy-state.ty)*ns/state.s; state.s = ns; apply(); }
+canvas.addEventListener('wheel', e=>{ e.preventDefault(); const r=canvas.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY*0.0016), e.clientX-r.left, e.clientY-r.top); }, {passive:false});
+let drag=null;
+svg.addEventListener('pointerdown', e=>{ if(e.button!==0) return; drag={x:e.clientX,y:e.clientY,tx:state.tx,ty:state.ty,moved:false}; svg.setPointerCapture(e.pointerId); });
+svg.addEventListener('pointermove', e=>{ if(!drag) return; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3){ drag.moved=true; svg.classList.add('dragging'); } state.tx=drag.tx+dx; state.ty=drag.ty+dy; apply(); });
+svg.addEventListener('pointerup', e=>{ if(drag && !drag.moved){ const el = e.target.closest('.node'); if(el) select(el.dataset.id); } drag=null; svg.classList.remove('dragging'); });
+svg.addEventListener('keydown', e=>{ if((e.key==='Enter'||e.key===' ') && e.target.classList.contains('node')){ e.preventDefault(); select(e.target.dataset.id); } });
+document.getElementById('z-in').onclick = ()=>{ const r=canvas.getBoundingClientRect(); zoomAt(1.4, r.width/2, r.height/2); };
+document.getElementById('z-out').onclick = ()=>{ const r=canvas.getBoundingClientRect(); zoomAt(1/1.4, r.width/2, r.height/2); };
+document.getElementById('z-fit').onclick = ()=>fit(visibleIds());
+svg.addEventListener('mouseover', e=>{ const el=e.target.closest('.node'); if(el && !state.sel) highlight(el.dataset.id); });
+svg.addEventListener('mouseout', e=>{ const el=e.target.closest('.node'); if(el && !state.sel) highlight(null); });
+
+function highlight(id){
+  svg.classList.toggle('focus', !!id);
+  for(const k in nodeEls){ nodeEls[k].classList.remove('up','down','sel'); }
+  for(const e of edgeEls){ e.classList.remove('hi-in','hi-out'); }
+  if(!id) return;
+  const n=N[id]; nodeEls[id].classList.add('sel');
+  n.deps.forEach(d=>nodeEls[d].classList.add('up')); n.dependents.forEach(d=>nodeEls[d].classList.add('down'));
+  for(const e of edgeEls){ if(e.dataset.b===id) e.classList.add('hi-in'); if(e.dataset.a===id) e.classList.add('hi-out'); }
+  const sel = nodeEls[id]; world.appendChild(sel);
+}
+function centerOn(id){ const p=D.pos[id], r=canvas.getBoundingClientRect(); const s=Math.max(state.s,.9); state.s=s; state.tx = r.width/2 - (p.x+p.w/2)*s; state.ty = r.height/2 - (p.y+p.h/2)*s; apply(); }
+function select(id, pan){ state.sel=id; highlight(id); detail(id); if(pan) centerOn(id); }
+function li(ids){ if(!ids.length) return '<ul><li style="color:var(--muted)">none</li></ul>';
+  return '<ul>' + ids.map(d=>{ const n=N[d]; const cls = n.status==='accepted'?'':(n.root_cause?'root':'pending');
+    return `<li><span class="dot ${cls}"></span><button data-go="${esc(d)}">${esc(d)}</button>${n.num?` <span style="color:var(--muted);font-size:12px">#${n.num}</span>`:''}</li>`; }).join('') + '</ul>'; }
+function detail(id){
+  const n=N[id]; const aside=document.getElementById('detail');
+  const st = n.status==='accepted' ? (n.literature?'<span class="status lit">literature axiom</span>':'<span class="status accepted">accepted</span>')
+           : (n.root_cause?'<span class="status root">pending · root cause</span>':'<span class="status pending">pending</span>');
+  const roots = n.status!=='accepted' && !n.root_cause ? `<div class="row"><span class="lbl">Blocked at the root by</span>${li(n.roots)}</div>` : '';
+  aside.innerHTML = `<h3>${esc(id)}</h3>${st}${n.target?'<span class="status" style="border-color:var(--ink);color:var(--ink)">final target</span>':''}
+    <div class="row"><span class="lbl">What</span>${n.num?'#'+n.num+' · ':''}${esc(n.kind)} · ${esc(n.lane)}${n.src?` · <span class="mono">${esc(n.src)}</span>`:''}</div>
+    ${n.decl?`<div class="row"><span class="lbl">Lean</span><span class="mono">${esc(n.decl)}</span>${n.module?` in <span class="mono">${esc(n.module)}</span>`:' (name fixed, not declared)'}</div>`:''}
+    ${n.reason?`<div class="row"><span class="lbl">Why pending</span><div class="reason">${esc(n.reason)}</div></div>`:''}
+    ${roots}
+    <div class="row"><span class="lbl">Needs (${n.deps.length})</span>${li(n.deps)}</div>
+    <div class="row"><span class="lbl">Needed by (${n.dependents.length})</span>${li(n.dependents)}</div>`;
+  aside.querySelectorAll('button[data-go]').forEach(b=>b.onclick=()=>select(b.dataset.go, true));
+}
+/* filters */
+const chips = document.getElementById('lane-chips');
+D.lanes.forEach(l=>{ const id='lane-'+l.replace(/\W+/g,'-'); chips.insertAdjacentHTML('beforeend', `<label class="chip"><input type="checkbox" id="${id}" checked data-lane="${esc(l)}">${esc(l)}</label>`); });
+chips.addEventListener('change', e=>{ const l=e.target.dataset.lane; if(e.target.checked) state.lanes.add(l); else state.lanes.delete(l); refilter(); });
+function setMode(m){ state.mode=m; document.getElementById('mode-all').setAttribute('aria-pressed', m==='all'); document.getElementById('mode-blocked').setAttribute('aria-pressed', m==='blocked'); refilter(); fit(visibleIds()); }
+document.getElementById('mode-all').onclick=()=>setMode('all'); document.getElementById('mode-blocked').onclick=()=>setMode('blocked');
+document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value.trim().toLowerCase(); refilter(); });
+document.getElementById('q').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const v=visibleIds().find(id=>id.toLowerCase().includes(state.q)); if(v) select(v,true); } });
+function refilter(){
+  const pendingSet = new Set(Object.keys(N).filter(id=>N[id].status!=='accepted'));
+  const ctx = new Set(); if(state.mode==='blocked') pendingSet.forEach(id=>N[id].deps.forEach(d=>{ if(!pendingSet.has(d)) ctx.add(d); }));
+  for(const id in N){ const n=N[id]; let vis = state.lanes.has(n.lane);
+    if(state.mode==='blocked') vis = vis && (pendingSet.has(id) || ctx.has(id));
+    if(state.q) vis = vis && id.toLowerCase().includes(state.q);
+    if(vis) hiddenSet.delete(id); else hiddenSet.add(id);
+    nodeEls[id].classList.toggle('hid', !vis); nodeEls[id].classList.toggle('ctx', state.mode==='blocked' && ctx.has(id)); }
+  for(const e of edgeEls){ e.style.display = (hiddenSet.has(e.dataset.a) || hiddenSet.has(e.dataset.b)) ? 'none' : ''; }
+}
+refilter(); fit(); select('cp:finite-contact-path');
+window.addEventListener('resize', ()=>fit(visibleIds()));
+</script>

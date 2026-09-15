@@ -1,0 +1,19 @@
+\begin{lemma}[a residual piece is carried by an actual closed curve]
+\label{lem:piececurve}
+Let $P$ be diagrammatic (Definition~\ref{def:diagrammatic}),
+$S\in\Ind(G_P)$, and let $H$ be a residual piece of $S$. Let $C_H$ be the closed
+plane curve that the proof's own route constructs, and nothing else: smooth
+every crossing of $S$ --- of $S$ \emph{only} --- so that the curve falls into
+the $|S|+1$ carriers of $S$; take the one carrier that carries $H$, which is
+unique by Lemma~\ref{lem:carriers}(iv); and apply to it Step 5's iteration,
+smoothing at each step one double point outside $H$ and keeping the daughter
+curve that carries $H$, which Step 5 shows is well defined. Then $C_H$ is a
+closed plane curve whose double points are exactly the crossings of $H$ and
+whose Gauss word is the parent word restricted to $H$ in the parent's cyclic
+order.
+
+This binding is the construction and not a description of its result. The
+route above smooths nothing but $S$, so $H$ lies on one carrier before the
+iteration begins, and each subsequent step preserves that. In particular that restricted word is realizable, and the datum of
+Definition~\ref{def:piecediagram} is the datum of $C_H$.
+\end{lemma}

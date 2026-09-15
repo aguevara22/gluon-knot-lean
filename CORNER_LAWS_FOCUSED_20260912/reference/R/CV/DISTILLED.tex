@@ -1,0 +1,76 @@
+% =====================================================================
+%  THE DISTILLED PROOF  --  phase 1.9 of the augusst knot campaign.
+%  A main theorem and an internal theorem, three declared inputs, the shortest complete proof.
+%  Lean-ready; no Lean.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage[colorlinks,linkcolor=blue!50!black,citecolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{axiom}{Axiom}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\wind}{\operatorname{wind}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Cat}{\operatorname{Cat}}
+
+\title{The polygon coefficient $X_1$ satisfies the wall-crossing laws:\\
+a distilled proof}
+\author{augusst knot campaign, phase 1.9}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document proves the main theorem that the state sum $X_1$ of
+Definition~\ref{def:X1} agrees with the lawful quantity $A$ on every generic
+polygon, and therefore satisfies the wall-crossing laws (S3)--(S8) on the
+domains where the specification states them. It assumes exactly three
+things \emph{of the campaign}, all listed in the first group of the axiom list
+of Section~\ref{sec:axioms}: the law (S2) for $X_1$; the laws asserted of the
+campaign's declared constant $A$ --- declared, not asserted to exist, the
+declaration being what supplies it; and the project owner's normalization of
+$A$ on one explicit polygon per rotation class. It also proves internally the
+cyclic-classification Theorem~\ref{thm:mycyclic} used in the transport step.
+It quotes five theorems from the literature, listed in the same section with
+their sources and with the reason each is not proved here; an earlier abstract
+said ``exactly three'' without that distinction, which read as a claim to
+assume nothing else.
+Every other definition it uses is stated here, and every other statement it
+uses is proved here. Where the text names an evidence pack, a ledger edge or
+the phase-1.5 manuscript, it does so as source history only: no conclusion
+depends on any of them, every argument so credited being printed here in
+full. It is written so that a formalizer can proceed line by line with no
+mathematics left to invent, and the eight axiom entries are the interface
+such a formalization would have to import.
+\end{abstract}
+
+\tableofcontents
+
+\input{d1_setup}
+\input{d2_laws}
+\input{d3_floor}
+\input{d8a_dictionary}
+\input{d4_flat}
+\input{d5_spike}
+\input{d6_vertexedge}
+\input{d7_anchors}
+\input{d8_transport}
+
+\input{d9_induction}
+\input{d10_axioms}
+
+\end{document}

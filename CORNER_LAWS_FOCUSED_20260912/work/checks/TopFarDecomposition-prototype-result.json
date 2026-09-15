@@ -1,0 +1,58 @@
+{
+  "utc": "2026-09-12T00:05:46.806820+00:00",
+  "kernel_session": 9281,
+  "exit_code": 0,
+  "first_run_passed": true,
+  "files_sha256": {
+    "work/checks/SelectedCutRefinement.body.lean": "14813200d24d78c3da98cdc7508400e3b82251cfed19f4dddbf4f81cfe190b18",
+    "work/checks/PositionalCutDecomposition.body.lean": "ed59789e73793bd8b885ab65bd9096abe7065de2b7cd4386f19de6ff26a82b6d",
+    "work/checks/TopFarDecomposition.body.lean": "2cc1eb1027a60fd62c29ba50c6e933c3ea3c84ec524b550fda66a3be4cdf4231",
+    "work/checks/TopFarDecomposition.prototype.lean": "51164fb7399420eea32b90d84ffcfe3ba0691a63777d4500e6d6b25f11d197e4",
+    "work/checks/TopFarDecomposition-first-kernel.log": "1a3263b8439b47f7eba1125f7a329f4efbcefdb7aabf72a681ad130a6ae87099"
+  },
+  "printed_declarations": [
+    "SM.intervalFarValue",
+    "SM.intervalFarValue_interior",
+    "SM.intervalFarValue_map",
+    "SM.intervalFarCutWeight",
+    "SM.intervalFarCutWeight_add",
+    "SM.positionCutSummand_intervalFar",
+    "SM.farTransform_positionCutSum",
+    "SM.farTransform_add_decomposition"
+  ],
+  "declaration_axioms": {
+    "SM.intervalFarValue": [],
+    "SM.intervalFarValue_interior": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.intervalFarValue_map": [
+      "propext"
+    ],
+    "SM.intervalFarCutWeight": [
+      "propext"
+    ],
+    "SM.intervalFarCutWeight_add": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.positionCutSummand_intervalFar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farTransform_positionCutSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farTransform_add_decomposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Eight exact actual top far-array decomposition candidates passed; frozen; stronger fidelity pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

@@ -1,0 +1,456 @@
+% The wall dictionary.  Split out of the fixed-count transport section so that
+% the sections that consume it --- the spike, the vertex-on-edge laws --- come
+% after it in document order and not before.
+\section{Relative general position and the wall dictionary}\label{sec:dictionary}
+
+A path between generic polygons meets the discriminant, and every law proved
+later is a statement about one kind of crossing. This section fixes the regular
+locus, replaces an arbitrary path by a finite factor-simple path, and proves
+that each relevant hit carries exactly one of five bundles. Nothing here
+consumes a wall law; the sections that prove those laws consume this one.
+
+\subsection{The regular locus}
+
+
+\begin{lemma}[the regular locus is open, and generic polygons lie in it]
+\label{lem:regularopen}
+$\mathcal R_n$ is open in $(\mathbb R^2)^n$, and every generic polygon
+(Definition~\ref{def:generic}(A)) lies in $\mathcal R_n$. Consequently a compact
+path in $\mathcal R_n$ has a positive minimum edge length and positive distance
+from the complement.
+\end{lemma}
+\begin{proof}
+Write $B_i=\{d_i=0\}$ and
+$C_i=\{d_{i+1}=-\lambda d_i\text{ for some }\lambda>0\}$. Each $B_i$ is closed.
+The union $B_i\cup B_{i+1}\cup C_i$ is closed: let $P^{(k)}$ be a sequence in it
+converging to $P$, and suppose $P\notin B_i\cup B_{i+1}$, so $d_i,d_{i+1}\neq0$
+at $P$. Then for large $k$ the same holds at $P^{(k)}$, so $P^{(k)}\in C_i$ and
+$d_{i+1}^{(k)}=-\lambda_kd_i^{(k)}$ with $\lambda_k>0$; taking norms,
+$\lambda_k=|d^{(k)}_{i+1}|/|d^{(k)}_i|\to|d_{i+1}|/|d_i|>0$, and passing to the
+limit gives $d_{i+1}=-\lambda d_i$ with $\lambda>0$, i.e.\ $P\in C_i$. The set
+$B_i\cup C_i$ alone need \emph{not} be closed --- with $d_i=(1,0)$ fixed and
+$d_{i+1}=(-1/k,0)$, every term lies in $C_i$ while the limit lies only in
+$B_{i+1}$ --- which is why the triple union is what the paragraph proves
+closed. Since the indices are cyclic,
+$\bigcup_i(B_i\cup C_i)=\bigcup_i(B_i\cup B_{i+1}\cup C_i)$, a finite union of
+the closed sets just proved closed; that union is the complement of
+$\mathcal R_n$, so $\mathcal R_n$ is open. An earlier revision called
+$B_i\cup C_i$ closed on the way. A generic polygon has
+$\det(d_{i-1},d_i)\neq0$ for all $i$ by (G1), so no consecutive pair is
+proportional at all. The last sentence is compactness.
+\end{proof}
+
+
+
+
+\subsection{Finite relative general position, and which bundles occur}
+
+\begin{lemma}[canonical factors: definition and finite relative general position]\label{lem:relgp}
+Fix $n\geq3$.
+On $\mathbb R^{2n}$ define, for three distinct vertex indices $a,b,c$, for two
+\emph{remote} edges $e\neq f$, and for three pairwise remote edges $e,f,g$,
+\[
+   \Delta_{abc}=\det\bigl(p_b-p_a,\ p_c-p_a\bigr),\qquad
+   H_{e,f}=\det(d_e,d_f),\qquad
+   T_{e,f,g}=\det\bigl(\ell_e,\ell_f,\ell_g\bigr),
+\]
+where $\ell$ is the line-coefficient row of Definition~\ref{def:guarded}. A
+\emph{canonical factor} is a polynomial in one of these three families with
+indices as restricted here. Two canonical factors are \emph{associates} if one
+is a nonzero real multiple of the other; the associate classes are what the
+counting below uses, and an earlier revision spoke of canonical factors without
+ever defining either the list or the equivalence.
+
+The index restrictions are not decoration. With $a$, $b$, $c$ not distinct,
+$\Delta$ is the zero polynomial; likewise $\det(d_e,d_e)=0$, and
+$\det(d_e,p_i-p_e)=0$ when $p_i$ is an endpoint of $e$. An earlier revision
+printed an unrestricted list and called every member of it irreducible, which
+is false at exactly those indices.
+
+The turn and the vertex-on-line determinant are one family and not two:
+\[
+   \det\bigl(p_b-p_a,\ p_c-p_b\bigr)=\det\bigl(p_b-p_a,\ p_c-p_a\bigr)
+   =\Delta_{abc},
+\]
+identically, so the turn at $b$ of the two edges $ab$, $bc$ \emph{is} the
+determinant that puts $c$ on the line of $ab$. Every (G1) and every (G2) is a
+$\Delta$, and so is every direction determinant of two \emph{consecutive}
+edges; $H$ is reserved for remote pairs, where four distinct vertices occur.
+
+\begin{enumerate}
+\item[(A1)] Every member of $\mathcal G$ is, up to sign, a canonical factor
+as defined above or a product of two: $\mathrm{G1}_j=\Delta_{(j-1)j(j+1)}$,
+$\mathrm{G2}_{e,i}=\Delta_{e_0e_1i}$ with $e=(e_0,e_1)$ and $i$ not an endpoint
+of $e$, $\mathrm{G5}_{e,f}=H_{e,f}$, and $\mathrm{G3}_{e,f,g}=T_{e,f,g}$; the
+order predicate $\mathrm{G4}_{e;f,g}$ equals $-T_{e,f,g}$ when $f$ and $g$ are
+remote to each other, and $-\Delta_{e_0e_1M}\Delta_{f_0Mg_1}$ when they meet at
+the vertex $M$, which is a product of two canonical factors and the only
+member that is not a single one.
+\item[(A2)] Every canonical factor is irreducible in $\mathbb R[x_1,\dots,x_{2n}]$.
+\item[(A3)] Two canonical factors are associates if and only if they have the same
+variable support and one is a signed reindexing of the other; explicitly, the
+associate class of $\Delta_{abc}$ is the six orderings of $\{a,b,c\}$ with the
+sign of the permutation, that of $H_{e,f}$ is $\{H_{e,f},-H_{e,f}\}$, and that
+of $T_{e,f,g}$ is its six row orderings with sign.
+\item[(B)] Let $\mathcal C$ contain one representative of each associate class of the
+canonical factors occurring in members of $\mathcal G$. Let
+$\gamma\colon[0,1]\to\mathcal R_n$ be continuous with generic endpoints and
+let $\delta>0$. There is a continuous piecewise-affine path
+$\tilde\gamma\colon[0,1]\to\mathcal R_n$, with the same endpoints and within
+$\delta$ of $\gamma$, whose non-generic parameters form a finite set. Every
+such parameter $t_0$ lies in the interior of a nonconstant segment on which one
+scalar vertex coordinate $x_j$ moves, and has this certificate:
+\begin{enumerate}
+\item[(B1)] exactly one $F\in\mathcal C$ vanishes at
+$x=\tilde\gamma(t_0)$;
+\item[(B2)] $(F\circ\tilde\gamma)'(t_0)\neq0$;
+\item[(B3)] no two vertices coincide at $x$.
+\end{enumerate}
+Every junction outside the two endpoint collars has all canonical factors
+nonzero and has both scalar-coordinate differences nonzero for every pair of
+vertices. The endpoint collars lie in $\mathcal U_n$. Thus corners of the path
+are wall-free, and every wall germ is an affine one-parameter family with one
+simple canonical-factor root.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For (A1), use Definition~\ref{def:guarded} together with the displays above and the
+factorization of a concurrency determinant whose last two edges are
+consecutive.
+
+For (A2), consider $\Delta$ and $H$: the quadratic form $q(u,w)=u_1w_2-u_2w_1$ has rank
+four, and a reducible quadratic form is a product of two linear forms and so has
+rank at most two; hence $q$ is irreducible. Both are $q$ pulled back along a
+surjective linear map of the vertex coordinates --- $(p_b-p_a,\,p_c-p_a)$ in one
+case, $(d_e,d_f)$ in the other, and both maps are surjective precisely because
+the index restrictions make the two arguments independent. A pullback $q\circ L$
+along a surjective linear $L$ is again irreducible: a factorization $q\circ L=AB$
+has both factors independent of $\ker L$, because a divisor of a polynomial of
+degree zero in a variable has degree zero in it, so $A=A'\circ L$ and
+$B=B'\circ L$ and $q=A'B'$.
+
+For $T$: it has degree one in each of the six two-vector blocks
+$p_e,d_e,p_f,d_f,p_g,d_g$, which are independent coordinates because the edges
+are pairwise remote. Suppose $T=AB$ with both factors nonconstant. Since $T$ has
+degree one in $d_g$, one factor, say $B$, is free of $d_g$. Expanding the
+determinant along the row of $g$ and collecting,
+\[
+   T=d_{g,y}\bigl(p_{g,x}M_C-M_A\bigr)+d_{g,x}\bigl(M_B-p_{g,y}M_C\bigr),
+\]
+where $M_A,M_B,M_C$ are the $2\times2$ cofactors of that row and involve only
+the blocks of $e$ and $f$. As $B$ is free of $d_g$ it divides both bracketed
+polynomials; the first is free of $p_{g,y}$ and the second is free of
+$p_{g,x}$, so $B$ is free of both, hence of every block of $g$. Comparing the
+coefficients of the four distinct monomials $d_{g,y}p_{g,x}$, $d_{g,y}$,
+$d_{g,x}$, $d_{g,x}p_{g,y}$ then gives $B\mid M_A$, $B\mid M_B$ and
+$B\mid M_C$. But $M_C=\det(d_e,d_f)=H_{e,f}$, which is irreducible by the
+previous paragraph, so $B$ is a unit or an associate of $H_{e,f}$; and
+$H_{e,f}$ does not divide $T$, since setting $d_e=d_f=(1,0)$ makes $H_{e,f}$
+vanish while $T$ becomes $-d_{g,y}(p_{e,y}-p_{f,y})$, not the zero polynomial.
+So $B$ is a unit, contrary to assumption.
+For (A3), first observe that associates have the same zero set and the same variable support, so it is
+enough to consider two canonical factors of the same family on the same
+support. For $\Delta_{abc}$ the six orderings of $a,b,c$ give the same polynomial up to
+the sign $\sgn\sigma$ of the permutation $\sigma$ relating them, and nothing
+else: $\Delta_{\sigma(a)\sigma(b)\sigma(c)}=\sgn(\sigma)\,\Delta_{abc}$,
+a determinant being alternating in its rows. For $T_{e,f,g}$ the same holds of
+the six orderings of the three line-coefficient rows,
+$T_{\sigma(e)\sigma(f)\sigma(g)}=\sgn(\sigma)\,T_{e,f,g}$. So two orderings of
+one triple are associates by a unit $\pm1$, which is what this clause needs; an
+earlier revision said "the sign of the permutation" without binding $\sigma$ or
+displaying either identity. Two canonical
+factors on \emph{different} supports are never associates: a vertex coordinate
+occurring in one and not in the other cannot be matched by a scalar.
+
+Two same-support pairs remain, and they are the only ones. The support of a
+remote edge pair $\{e,f\}$ is $\{e,e+1\}\sqcup\{f,f+1\}$, two disjoint blocks of
+two cyclically adjacent indices. If a second remote pair has the same support,
+that four-element set splits into two adjacent blocks in a second way, so some
+index is blocked with its \emph{other} neighbour: $f=e+2$ and, applying the same
+to the other block, $e=f+2$. Then $e=e+4$ in $\mathbb Z_n$, so $n$ divides $4$,
+and $n\geq3$ leaves $n=4$. The same count settles triples: the support of a
+pairwise remote triple is three disjoint adjacent blocks, a second such
+decomposition pairs every index with its other neighbour, and following the
+chain $a\to a+1\to a+2\to\cdots$ around returns to $a$ after six steps, so
+$n=6$.
+
+At $n=4$ the two pairs are
+$H_{0,2}=\det(p_1-p_0,p_3-p_2)$ and $H_{1,3}=\det(p_2-p_1,p_0-p_3)$: the
+monomial $x_0y_2$ occurs in the first with coefficient $1$ and in the second
+with coefficient $-1$, while $x_0y_1$ occurs in the second and not in the first,
+so no scalar carries one to the other. At $n=6$ the two triples are the
+alternating ones, and the hexagon
+$p_0=(1,0)$, $p_1=(2,0)$, $p_2=(0,1)$, $p_3=(0,2)$, $p_4=(1,1)$, $p_5=(2,2)$
+gives $T_{0,2,4}=0$ and $T_{1,3,5}=2$, so those two are not associates either.
+
+
+For (B), put $N=2n$ and write the scalar coordinates as $x_1,\ldots,x_N$. The set
+$\mathcal C$ is finite by (A1). We first print the
+one-variable algebra used to choose the path.
+
+Fix $F\in\mathcal C$ depending on $x_j$, and put
+$K_j=\operatorname{Frac}(\mathbb R[x_1,\ldots,\widehat{x_j},\ldots,x_N])$.
+Irreducibility of $F$ in the full polynomial ring
+(A2) and Gauss's lemma make it irreducible in
+$K_j[x_j]$. Characteristic zero and dependence on $x_j$ give
+$\gcd(F,\partial_jF)=1$ there. A Bezout identity, after clearing its finitely
+many denominators, therefore has the form
+\[
+ A_{F,j}F+B_{F,j}\partial_jF=D_{F,j},
+ \qquad 0\neq D_{F,j}\in
+ \mathbb R[x_1,\ldots,\widehat{x_j},\ldots,x_N].
+\]
+If nonassociate $F,G\in\mathcal C$ both depend on $x_j$, they are coprime in
+$K_j[x_j]$: otherwise their primitive irreducible representatives would become
+associates over $K_j$, and clearing the scalar would make them associates in
+the full ring. Clearing a second Bezout identity gives
+\[
+ A_{FG,j}F+B_{FG,j}G=R_{FG,j},
+ \qquad 0\neq R_{FG,j}\in
+ \mathbb R[x_1,\ldots,\widehat{x_j},\ldots,x_N].
+\]
+At a specialization where $D_{F,j}\neq0$, the univariate specialization of
+$F$ has no repeated root; where $R_{FG,j}\neq0$, the specializations of $F$
+and $G$ have no common root. A factor independent of $x_j$ is constant on that
+coordinate segment and is kept nonzero at its initial junction. This includes
+the two exceptional same-support comparisons: the $n=4$ pair of $H$ factors
+and the $n=6$ alternating pair of $T$ factors are nonassociate by the explicit
+monomial and hexagon tests in (A3), so their Bezout
+certificates occur in the same finite list.
+
+We now choose the whole path at once, including its parametrization. Use the
+same norm as in the asserted $\delta$-bound. Compactness of $\gamma([0,1])$
+and openness of $\mathcal R_n$ (Lemma~\ref{lem:regularopen}) give an open
+cover of $\gamma([0,1])$ by axis-aligned cubes whose closures lie in
+$\mathcal R_n$ and whose diameters are less than $\delta$. At the two
+endpoints choose the cover cubes inside $\mathcal U_n$, using openness of
+$\mathcal U_n$ (Proposition~\ref{prop:chamberinv}(i)). Uniform continuity of $\gamma$
+(equivalently, a Lebesgue-number subdivision of the pulled-back cover) gives
+a partition
+\[
+ 0=t_0<t_1<\cdots<t_m=1
+\]
+and cubes $Q_0,\ldots,Q_{m-1}$ from this cover such that
+$\gamma([t_i,t_{i+1}])\subset Q_i$; refine at the ends so that
+$Q_0,Q_{m-1}\subset\mathcal U_n$. In particular
+$\gamma(t_i)\in Q_{i-1}\cap Q_i$, so every consecutive overlap is nonempty.
+Put $q_0=\gamma(0)$ and $q_m=\gamma(1)$, and choose each internal waypoint
+$q_i$ in $Q_{i-1}\cap Q_i$. Then $q_i,q_{i+1}\in Q_i$, so every
+coordinate-order hybrid between them remains in $Q_i$.
+
+Call the intervals with $1\leq i\leq m-2$ central. Their waypoints are chosen
+jointly in the nonempty open product of the overlaps. Impose the following
+finite list of nonvanishings for every central
+coordinate segment and every one of its hybrids: $F$ at the hybrid for each
+$F\in\mathcal C$; the corresponding $D_{F,j}$ and $R_{FG,j}$ on the fixed
+coordinates of the segment; the coordinate step
+$q_{i+1,j}-q_{i,j}$; and, at every hybrid, both coordinate differences for
+every pair of vertices. Each condition pulls back to a nonzero polynomial on
+the waypoint product. Indeed, a hybrid or fixed-coordinate map selects distinct
+scalar coordinates from the two adjacent variable waypoints, so its image
+contains an open coordinate box; a nonzero polynomial cannot vanish on that
+box. The step and vertex-difference conditions are visibly nonzero linear
+polynomials. Their finite product is nonzero because the polynomial ring is an
+integral domain, and a nonzero polynomial cannot vanish on a nonempty open set
+(all Taylor coefficients at an interior point would then vanish). Hence one
+joint waypoint choice satisfies every condition. Sequential choice is not used.
+
+On each original interval $[t_i,t_{i+1}]$, join $q_i$ to $q_{i+1}$ by
+changing the $N$ scalar coordinates in the fixed order and parametrizing the
+resulting coordinate legs inside that same interval (constant legs are simply
+omitted). The first and last such pieces lie in
+$Q_0,Q_{m-1}\subset\mathcal U_n$ and therefore contain no wall, even if an
+inactive canonical factor vanishes there. For every $t\in[t_i,t_{i+1}]$, both
+$\tilde\gamma(t)$ and $\gamma(t)$ lie in $Q_i$. Consequently
+\[
+ \|\tilde\gamma(t)-\gamma(t)\|<\operatorname{diam}(Q_i)<\delta,
+\]
+which is the required pointwise, hence uniform, bound. The central path lies
+in $\mathcal R_n$; its junctions are factor-free, and every leg is nonconstant.
+Along a leg, the Bezout certificates make each canonical-factor root simple
+and prevent roots of two nonassociate classes from coinciding. Each
+restriction is a nonzero univariate polynomial, so the union of their root
+sets over finitely many legs is finite.
+
+Finally, vertices cannot collide. On a leg moving an $x$-coordinate, every
+relevant $y$-difference is the fixed nonzero value imposed at its two hybrid
+ends; on a leg moving a $y$-coordinate, the corresponding $x$-difference is
+fixed and nonzero; pairs not involving the moving vertex do not change. A
+non-generic parameter is a zero of a relevant member, hence of one of its one
+or two canonical factors (A1); the root audit gives
+the unique $F$, its simple derivative, and the collision exclusion claimed.
+\end{proof}
+
+\begin{remark}[bundles, not single predicates]\label{rem:bundles}
+Two mistakes in an earlier general-position route are worth keeping visible.
+It treated any two simultaneously vanishing members as independent conditions,
+which is false for every bundle below; and it asserted that every active (G4)
+tie is a three-remote-edge concurrence, missing the incident-edge tie of the
+bigon. The exact witness is the remote edge $(0,0)\to(4,0)$ with
+$M=(2,t)$, $p=(1,1)$ and $q=(3,1)$: there
+$\mathrm{G2}_{e,M}=4t$ and $\mathrm{G4}_{e;f,g}=-8t(1-t)$.
+\end{remark}
+
+\begin{remark}[where bundle transversality is consumed]\label{rem:bundlescope}
+At a Reidemeister-III hit the induction verifies event transversality directly
+from the common simple factor supplied by Lemma~\ref{lem:dictionary}; at a
+silent hit no sign change is consumed. Thus the fixed-count transport step in the induction
+consumes the dictionary's simple-zero conclusion only for flat, bigon and
+sliding bundles; the induction treats Reidemeister III separately.
+\end{remark}
+
+\begin{lemma}[inactive-zero exclusions and the exhaustive wall dictionary]\label{lem:dictionary}
+\begin{enumerate}
+\item[(A)] Let $t\mapsto P(t)$ be an event and let $Z$ be its zero set.
+\begin{enumerate}
+\item[(a)] If $\mathrm{G3}_{e,f,g}$ vanishes at $t=0$, the three lines are not
+all equal, and their common point fails to lie on at least one of the three
+segments, then $\mathrm{G3}_{e,f,g}\notin Z$. (When the three lines coincide
+there is no common point to speak of and the hypothesis says nothing; that case
+is excluded here and is not used below.)
+\item[(b)] If $\mathrm{G5}_{e,f}$ vanishes at $t=0$ and the two closed segments
+$e(0)$ and $f(0)$ are disjoint, then $\mathrm{G5}_{e,f}\notin Z$.
+\end{enumerate}
+\item[(B)] Let $\tilde\gamma$ be a path supplied by Lemma~\ref{lem:relgp}(B), let $t_0$ be
+one of its finitely many non-generic parameters, and put
+$x=\tilde\gamma(t_0)$. Define
+\[
+ \mathcal B(x)=\{g\in\mathcal G:g(x)=0\text{ and }g\text{ is relevant at }
+ \tilde\gamma(t)\text{ for some }t\neq t_0\text{ in every neighbourhood of }t_0\}.
+\]
+On an interval containing no other non-generic parameter this is exactly the
+zero set of the event of Definition~\ref{def:event}. There is one canonical
+factor $F$ with $F(x)=0$ and $\mathrm dF(x)\neq0$ such that every
+$g\in\mathcal B(x)$ has $g=F B_g$ with $B_g(x)\neq0$. In particular all
+members share one smooth branch and their restrictions to the path have simple
+zeros, so every member changes sign at $t_0$. The bundle is exactly one of:
+\begin{enumerate}
+\item[(i)] \emph{Flat}: $\{\mathrm{G1}_j,
+\mathrm{G2}_{(j-1,j),j+1},\mathrm{G2}_{(j,j+1),j-1}\}$ with $p_j$ strictly
+between its neighbours; wall (S3).
+\item[(ii)] \emph{Vertex-on-edge, bigon}:
+$\{\mathrm{G2}_{(a,b),M},\mathrm{G4}\langle(a,b);e_{M-1},e_M\rangle\}$,
+the foot in the segment interior and the two neighbours of $M$ strictly on one
+side of the remote line; wall (S7).
+\item[(iii)] \emph{Vertex-on-edge, sliding}: the singleton
+$\{\mathrm{G2}_{(a,b),M}\}$, the foot in the segment interior and the two
+neighbours strictly on opposite sides; wall (S7).
+\item[(iv)] \emph{Reidemeister III}: $\{\mathrm{G3}_{e,f,g}\}$ together with
+the three (G4) members whose ties it forces, for three pairwise remote edges
+concurrent in the interior of all three; wall (S2).
+\item[(v)] \emph{Silent}: a (G2) vanishing with its point off the segment,
+together with whatever members it forces, silent in the sense of
+Definition~\ref{def:silent}.
+\end{enumerate}
+The exterior consecutive-collinearity branch is the cusp and lies outside
+$\mathcal R_n$. Remote-edge overlap, vertex coincidence, four-edge
+concurrence and two independent bundles cannot occur at a certified hit.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{Clause (A).} \emph{Clause (a).} Say the common point $q$ misses
+the segment $g$. Activation asks that all
+three pairs cross (Definition~\ref{def:guarded}), so it is enough to exhibit
+\emph{one} pair that does not cross at $t=0$ and does not cross for $|t|$ small,
+and the pair must be chosen with care: an earlier revision took $(e,g)$ and said
+"the lines of $e$ and $g$ meet only at $q$", which is false when those two lines
+coincide.
+
+Choose the pair as follows. The three lines are not all equal, so at least one
+of $e,f$ has a line different from $g$'s; call it $h$, so that the lines of $h$
+and $g$ are distinct and meet exactly at $q$. Since $q$ misses the segment $g$,
+the edges $h$ and $g$ do not cross at $t=0$. For nearby $t$: if the lines of $h$
+and $g$ are not parallel their intersection point is a continuous function of
+the vertices, and at $t=0$ it lies at positive distance from the compact segment
+$g$, so it misses $g$ for all $|t|$ small; if they are parallel --- which at
+$t=0$ they are not, distinct lines through $q$ --- they can become so only by
+first ceasing to meet near $g$, and in any case two parallel edges meet at most
+in a collinear overlap and do not cross transversally. Either way $h$ and $g$ do
+not cross for $|t|$ small, so $\mathrm{G3}_{e,f,g}$ is inactive there and
+relevant at no $t\neq0$ near $0$. By Definition~\ref{def:event} it is not in
+$Z$.
+
+\emph{Clause (b).} Disjoint compact sets stay disjoint under a small
+perturbation: the
+distance $\min\{|u-v|:u\in e(t),v\in f(t)\}$ is a continuous function of $t$,
+positive at $t=0$, hence positive for $|t|$ small. So $e$ and $f$ do not meet,
+in particular do not cross, for those $t$; $\mathrm{G5}_{e,f}$ is inactive
+there and relevant at no such $t\neq0$, so it is not in $Z$.
+
+\emph{Clause (B).} Choose an interval $I$ about $t_0$ containing no other non-generic parameter.
+Every point of $I\setminus\{t_0\}$ is generic, so the restricted path is an
+event. Activation is constant on each punctured side because it is decided by
+strict sign conditions in unconditional (G2) members. This proves the asserted
+equality between $\mathcal B(x)$ and the event zero set.
+
+\emph{Event-cell check.} Fix a vertex $M$ and a remote edge $e$. Put
+$s_{e,M}=\langle p_M-p_e,d_e\rangle$. Its three strict incidence regimes are
+$s_{e,M}<0$, $0<s_{e,M}<\lVert d_e\rVert^2$ and
+$s_{e,M}>\lVert d_e\rVert^2$, according as the perpendicular foot lies before,
+inside or after the segment; the outer two are the silent regime. The two
+strict side regimes are distinguished by the sign of
+$\mathrm{G2}_{e,M-1}\mathrm{G2}_{e,M+1}$: positive puts the neighbours on one
+side of the remote line and negative puts them on opposite sides. Finally, for
+each $g\in\mathcal G$, its activation locus is the finite conjunction of
+strict guarded inequalities of Definition~\ref{def:guarded} (all of
+$\mathbb R^{2n}$ when $g$ is unconditional), and its two sign regimes are
+$g>0$ and $g<0$. All these regimes are semialgebraic, being cut out by finitely
+many polynomial equalities and strict inequalities. This is their only use.
+
+By Lemma~\ref{lem:relgp}(A1), every member of $\mathcal G$ is, up to
+sign, one canonical factor or a product of two. Lemma~\ref{lem:relgp}(B1) says that
+exactly one associate class vanishes at $x$. Thus a vanishing single-factor
+member is a unit multiple of its representative $F$; for a product exactly one
+factor is associate to $F$ and the other is nonzero at $x$. Hence every member
+of $\mathcal B(x)$ is $F B_g$ with $B_g(x)\neq0$. The simple derivative of
+$F\circ\tilde\gamma$ implies $\mathrm dF(x)\neq0$ and makes every restricted
+member change sign with the same branch.
+
+It remains to classify the possible defining family. A (G1) zero inside
+$\mathcal R_n$ is positive collinearity, so the middle vertex lies between its
+neighbours; its two (G2) companions are identically the same determinant. This
+is (i). Negative collinearity is outside $\mathcal R_n$ and is the cusp.
+
+For a (G2) zero, first remove the adjacent case: if $M=a-1$ or $M=b+1$, the
+member is the corresponding (G1), hence (i). Otherwise the perpendicular foot
+cannot be an endpoint of the remote segment, because at a zero that would make
+$p_M$ equal to a remote-edge endpoint, a vertex collision excluded by
+Lemma~\ref{lem:relgp}(B3). Nor can a neighbour of $M$ lie on the remote line: its
+vertex-on-line factor is nonassociate to the defining factor outside the
+already separated adjacent case, so two classes would vanish. The incidence
+and side regimes in the event-cell check above are therefore strict. With
+the foot inside the segment, neighbours on one side give the bigon bundle (ii):
+the order member is active on the two-crossing side and its consecutive-edge
+factorization has the incidence as its unique vanishing factor. Neighbours on
+opposite sides give the sliding singleton (iii), since the order member is
+active on neither side. With the foot off the segment, clause~(A)
+leaves the silent case (v).
+
+For three pairwise remote edges, the concurrency determinant and the three
+order predicates satisfy, for a fixed ordering,
+\[
+ \mathrm{G4}_{e;f,g}=-\mathrm{G3}_{e,f,g},\qquad
+ \mathrm{G4}_{f;e,g}=+\mathrm{G3}_{e,f,g},\qquad
+ \mathrm{G4}_{g;e,f}=-\mathrm{G3}_{e,f,g}.
+\]
+When the three crossings are active their common point is interior to all three
+segments, and this is (iv). If the last two edges of a (G4) are consecutive at
+$M$, its polynomial instead factors as the vertex-on-line factor
+$\Delta_{e_0e_1M}$ times the turn at $M$; the unique-factor certificate assigns
+the hit to the corresponding (G2) or (G1) case. A punctured-side-relevant (G5) contributes no new case. Suppose it
+vanishes at $x$. If some (G1) or (G2) member also vanishes there, the preceding
+flat or vertex-on-edge case owns the hit, and the unique-factor certificate
+leaves no independent (G5) family. Otherwise all (G1) and (G2) members are
+nonzero at $x$. Their strict signs persist to $x$; an endpoint limit would force
+a (G2) zero, so the pair is active at $x$. Proposition~\ref{prop:fidelity}(i)
+then contradicts the (G5) vanishing.
+
+Finally, each excluded coincidence violates a printed part of the certificate.
+Remote-edge overlap forces two nonassociate vertex-on-line factors. Four-edge
+concurrence forces two nonassociate concurrency factors; the possible
+same-support $n=6$ pair is nonassociate by Lemma~\ref{lem:relgp}(A3).
+Two independent bundles likewise force two nonassociate classes. A vertex
+coincidence is excluded separately by Lemma~\ref{lem:relgp}(B3). These
+exhaust the guarded families and the event-cell boundaries, proving the list.
+\end{proof}
+

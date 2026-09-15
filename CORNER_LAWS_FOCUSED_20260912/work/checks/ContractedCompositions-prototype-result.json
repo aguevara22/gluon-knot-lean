@@ -1,0 +1,108 @@
+{
+  "kernel_session": 81445,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "earlier_attempt": {
+    "session": 24501,
+    "exit_code": 1,
+    "reason": "eq_of_parts_cut rfl needed explicit composition operands in the two inverse identities. Proof-only repair, all14 types unchanged."
+  },
+  "utc": "2026-09-11T09:17:50.744349+00:00",
+  "files_sha256": {
+    "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+    "work/checks/ContractedCompositions.prototype.lean": "33e953489328443cd22d964917fde25f7a9a68d7d7567e125c62016967b5a5f7",
+    "work/checks/ContractedCompositions-first.body.lean": "c17e8c6892e44fa4922b460bb57e7829faca1abda86d5614b8cdc36d136e196a",
+    "work/checks/ContractedCompositions-first.prototype.lean": "2521f2c698a0ed338ae07d509fd957f7006f05306819003086d10b068b3b9f4d",
+    "work/checks/ContractedCompositions-first-kernel.log": "910dbd9cbb9c557563571fe4b2e52ceeb2600a9efc913665fda6ce65c878198e",
+    "work/checks/ContractedCompositions-second-kernel.log": "1fb30fe23f61378c1ad54bffdc4d181e3c4b450567124146da557b781380dbe7",
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+    "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+    "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+    "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f"
+  },
+  "printed_declarations": [
+    "SM.IntervalComposition.expandComposition",
+    "SM.IntervalComposition.SurvivingCuts",
+    "SM.IntervalComposition.expandComposition_survives",
+    "SM.IntervalComposition.contractComposition",
+    "SM.IntervalComposition.contract_expandComposition",
+    "SM.IntervalComposition.expand_contractComposition",
+    "SM.IntervalComposition.survivingCompositionEquiv",
+    "SM.IntervalComposition.expandComposition_part",
+    "SM.IntervalComposition.expandComposition_nearTriple",
+    "SM.IntervalComposition.expandComposition_farTriple",
+    "SM.IntervalComposition.survivingCuts_of_containing_child",
+    "SM.IntervalComposition.containing_child_of_survivingCuts",
+    "SM.IntervalComposition.survivingCuts_iff_containing_child",
+    "SM.IntervalComposition.containingCompositionEquiv"
+  ],
+  "declaration_axioms": {
+    "SM.IntervalComposition.expandComposition": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.SurvivingCuts": [
+      "propext"
+    ],
+    "SM.IntervalComposition.expandComposition_survives": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.contractComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.contract_expandComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.expand_contractComposition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.survivingCompositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.expandComposition_part": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.expandComposition_nearTriple": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.expandComposition_farTriple": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.survivingCuts_of_containing_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.containing_child_of_survivingCuts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.survivingCuts_iff_containing_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.containingCompositionEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Root14 passed; body/prototype frozen; independent source/type review pending.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

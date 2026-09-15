@@ -1,0 +1,84 @@
+{
+  "id": "prop:chambers",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "652b6ad790f5cb0ea92cff39ced055e41be1c0eff6abf3a7c4f94a2e01936be1",
+  "verdict": "faithful",
+  "reason": "Compared the complete source prop:chambers and its proof with SM.chambers and the concrete geometric/topological definitions in its type. The first conjunction is openness of the actual Generic locus in LabelledTuple n, the finite product of the real coordinate plane indexed by ZMod n. Generic has both original G1 and G2 clauses. The supporting equivalence tests G2 by absence of a common point of pairwise remote closed segments only under G1: common interior points of distinct adjacent edges are excluded by the proved endpoint-intersection property, while remote closed meetings are interior by G1. The compact parameter cube then gives a genuine closedness argument for each triple and openness of Generic. Thus G2 is not silently replaced by an unrelated weaker condition. The second conjunction gives openness and path connectedness for every chamber in the genuine cyclic quotient topology, with chamber defined as connectedComponent. Local path connectedness comes from the open real-product locus and the pinned mathlib quotient result, not from assuming components are combinatorial sign classes. The third conjunction quantifies every pair of generic endpoints P,Q and every genuine Mathlib Path P Q. It compares every pair of times s,t in the closed unit interval, including 0 and 1, so the result is full constancy along an arbitrary continuous path rather than only endpoint agreement. It proves all chirotope entries equal, including repeated-index zero entries, and equality of the actual sets of unordered geometric crossing supports. The order clause quantifies every edge i and partners j,k whose crossings occur at P, and then all s,t. The simultaneously proved crossing-set constancy makes these exactly the crossing partners throughout the path; no crossing is assumed to persist as an extra hypothesis. The edgeParameter expression is the correctly oriented first Cramer parameter, and crossingParameter_eq_edgeParameter proves its equality to the source parameter already defined from the unique intersection. Its denominator is nonzero at every actual crossing by G1. For different partners, Generic proves different parameter values through actual crossing-point injectivity from G2. Continuity of the two parameters and constancy of the sign of their nonzero difference prove order preservation. Equal partners j=k are explicitly included and their strict comparison is false at every time; no source case is removed by an extra inequality premise. The universal partner quantifiers cover both order orientations. The theorem assumes only n>=3; path membership in Generic is exactly the source path domain and supplies the required G1/G2 properties, not the desired invariant data. The semantic hash binds Generic, the quotient/component definitions, the actual IsCrossing predicate and coordinate edgeParameter formula. All source conclusions are present; helper results are not counted as separate source claims. Independent source-fidelity review is distinct from the successful build and standard-axiom audit.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.g2_iff_no_remote_closed_triples",
+    "SM.isClosed_closedTripleMeet",
+    "SM.isOpen_Generic",
+    "SM.genericPolygon_locallyPathConnected",
+    "SM.chambers_open_pathConnected",
+    "SM.continuous_generic_chi",
+    "SM.crossingParameter_eq_edgeParameter",
+    "SM.generic_edgeParameters_ne",
+    "SM.generic_family_chi_constant",
+    "SM.generic_family_crossingSet_constant",
+    "SM.generic_family_crossingOrder_constant"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 201,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 213,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "dbbb7b3a3fae85c617f8f7fba441ed2f1f188a830c1e4378c92fb5f94df29602",
+    "to_excerpt_sha256": "dbbb7b3a3fae85c617f8f7fba441ed2f1f188a830c1e4378c92fb5f94df29602",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:213-219, byte-identical to the excerpt the accepted review compared; sm15_reworded=false and CHANGES_SINCE_20260909.md only lists prop:chambers as a citation target) asserts three things: (a) U_n is open in (R^2)^n; (b) every chamber (connected component of U_n/(Z/n), def:chamber lines 206-211) is open and path connected; (c) along any path in U_n the chirotope, the crossing set X(P), and for each edge E_i the order of the parameters t_ij ({i,j} in X(P)) along E_i are constant. SM.chambers (work/lean/SM/ChamberPaths.lean:73-82) under hn : 3 <= n states exactly these. (a) IsOpen {P : LabelledTuple n | Generic P} where LabelledTuple n = ZMod n -> R x R with the Pi/product topology (Polygon.lean:13-14) and Generic = G1 and G2 (Generic.lean:11-19): G1 is chi P i j k != 0 for pairwise distinct i j k with chi = sign det(mu_j - mu_i, mu_k - mu_i) (Chirotope.lean:10-11, det at Polygon.lean:16 matching the SM convention); G2 forbids a point in the edgeInterior (open-parameter segment, Polygon.lean:57-58) of three distinct edges. (b) GenericPolygon n = Quotient of GenericTuple n = {P // Generic P} by the comap of cyclicSetoid (Q = shift k P, shift k P i = P (i+k), so shift 1 = sigma; Polygon.lean:22-35, Chambers.lean:14-19), with the standard quotient topology (no custom instances), and chamber P = connectedComponent P (Chambers.lean:28-29); the clause quantifies all P, i.e. every component. (c) quantifies all P Q : GenericTuple n and every Mathlib Path P Q (continuous [0,1] -> U_n) and all s t in unitInterval: chi equal for all i j k; {c | IsCrossing (gamma s).val c} equal as sets, where IsCrossing P s := exists i j, s = {i,j} and remote i j and (edgeSegment P i ∩ edgeSegment P j).Nonempty (Crossings.lean:12-13; remote/adjacent at Polygon.lean:63-66 match j-i in {-1,0,1}; edgeSegment is the closed segment) which is exactly def:crossings' X(P); and for every i j k with {i,j},{i,k} crossings at the start P, the strict comparison edgeParameter i j < edgeParameter i k is the same at all times, where edgeParameter P i j = det(mu_j - mu_i, lambda_j)/det(lambda_i, lambda_j) (Chambers.lean:86-87, ContinuousGeometry.lean:18) is the unique solution t of mu_i + t lambda_i = mu_j + t' lambda_j, i.e. the source's t_ij (identified with the chosen crossingParameter by crossingParameter_eq_edgeParameter, Chambers.lean:109-111). Because clause (c2) makes the crossing set time-independent, hypothesising the crossings at the start point is equivalent to the source's {i,j} in X(P); pairwise strict-order invariance for all j,k is the constancy of the order along E_i (parameters are distinct for j != k by G2, and the j = k case is trivially false on both sides). Same domain (n >= 3, generic labelled tuples), same quantifiers (any path, all times, all edges and crossing pairs), same conclusions; nothing vacuous (U_n is nonempty for n >= 3 and the openness clause is unconditional). No sorry/axiom in the module chain; all file hashes match the accepted review record.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Chirotope constancy is stated for all index triples i j k, including repeated indices (trivially 0 = 0), not only pairwise distinct ones; substantively equivalent.",
+      "The order clause includes the partner case j = k (both strict comparisons false); substantively equivalent."
+    ],
+    "weaker_than_source": [
+      "Representation remark only (not a weakening of content): the order clause is phrased with the explicit Cramer formula edgeParameter rather than the source's t_ij defined from the unique crossing point; their equality under G1 at a crossing is a separate theorem SM.crossingParameter_eq_edgeParameter (work/lean/SM/Chambers.lean:109-111), and along the path every {i,j} in the clause is a crossing by the crossing-set clause, so the statement is about the source's parameters."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/ChamberPaths.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chambers.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/GenericTopology.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Crossings.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/ContinuousGeometry.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/prop-chambers.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

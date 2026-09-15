@@ -1,0 +1,144 @@
+### B3. All four sign changes
+
+**Lemma B3.** The three parameter-difference sign changes in SM type $T$, together with its central conditions, imply CV transversality for the zero set (3).
+
+The parameter factorization is printed in CV:
+
+<!-- BEGIN QUOTE CV_PARAMETERS -->
+**CV_PARAMETERS — CV `d1_setup.tex:198–207`**
+
+````tex
+$\det(d_f,d_e)$ and $\det(d_g,d_e)$ are nonzero, the crossing of $e$ with $f$
+sits at the parameter $t_f=\det(d_f,p_f-p_e)/\det(d_f,d_e)$ along $e$, and, for
+the ordered representative pair $\bar f<\bar g$ that indexes the member,
+\[
+   \mathrm{G4}_{e;\bar f,\bar g}
+      =(t_{\bar f}-t_{\bar g})\det(d_{\bar f},d_e)\det(d_{\bar g},d_e),
+\]
+so its vanishing is exactly a tie $t_{\bar f}=t_{\bar g}$ in the order of
+crossings along $e$. Presented in the other order the same identity holds for the oriented value,
+both sides changing sign. Two kinds of consumer read this display, and they read
+````
+<!-- END QUOTE CV_PARAMETERS -->
+
+The signed polynomial identities are also printed, with a fixed ordering, in CV's wall dictionary:
+
+<!-- BEGIN QUOTE CV_IDENTITIES -->
+**CV_IDENTITIES — CV `d8a_dictionary.tex:429–435`**
+
+````tex
+For three pairwise remote edges, the concurrency determinant and the three
+order predicates satisfy, for a fixed ordering,
+\[
+ \mathrm{G4}_{e;f,g}=-\mathrm{G3}_{e,f,g},\qquad
+ \mathrm{G4}_{f;e,g}=+\mathrm{G3}_{e,f,g},\qquad
+ \mathrm{G4}_{g;e,f}=-\mathrm{G3}_{e,f,g}.
+\]
+````
+<!-- END QUOTE CV_IDENTITIES -->
+
+RA uses the corresponding nonzero-factor implication in the other direction inside its localization proof:
+
+<!-- BEGIN QUOTE RA_PARAMETERS -->
+**RA_PARAMETERS — RA `R_ATTACHMENT_WARRANTS.md:45–64`**
+
+````tex
+**(2a) The order along each bundle edge reverses — with the $\mathrm{G5}$
+factors made explicit (repair 2).** `def:guarded` defines
+$$\mathrm{G4}_{e;f,g}=\det(d_f,p_f-p_e)\det(d_g,d_e)-\det(d_g,p_g-p_e)\det(d_f,d_e).$$
+Writing $t_f$ for the parameter along $e$ of the crossing $x_{ef}$, the line
+intersection gives $t_f=\det(d_f,p_f-p_e)/\det(d_f,d_e)$, and hence the
+factorization
+$$\mathrm{G4}_{e;f,g}=(t_f-t_g)\,\det(d_f,d_e)\,\det(d_g,d_e)
+ =(t_f-t_g)\,\mathrm{G5}_{e,f}\,\mathrm{G5}_{e,g},$$
+the last equality up to the sign convention $\mathrm{G5}_{e,f}=\det(d_e,d_f)$,
+whose two reversals cancel in the product. Therefore
+$$\operatorname{sgn}\mathrm{G4}_{e;f,g}
+=\operatorname{sgn}(t_f-t_g)\cdot\operatorname{sgn}\mathrm{G5}_{e,f}
+\cdot\operatorname{sgn}\mathrm{G5}_{e,g}.$$
+$\mathrm{G5}_{e,f}$ and $\mathrm{G5}_{e,g}$ are **active** ($f$ and $g$ both
+cross $e$), hence relevant, and neither lies in $Z$; so by `lem:guardconst` each
+is nonzero with constant sign on a neighbourhood of $t=0$. $\mathrm{G4}_{e;f,g}$
+lies in $Z$ and changes sign at $t=0$ by transversality. With the two
+$\mathrm{G5}$ signs constant, the sign change is carried by $t_f-t_g$ alone:
+the order of $x_{ef}$ and $x_{eg}$ along $e$ reverses. Identically on $f$ and
+$g$.
+````
+<!-- END QUOTE RA_PARAMETERS -->
+
+We give the full algebra and the required direction here. For an edge $a$ and two edges $b,c$ crossing it near zero, put
+
+$$
+N_b=\det(d_b,p_b-p_a),\qquad D_b=\det(d_b,d_a),
+\qquad N_c=\det(d_c,p_c-p_a),\qquad D_c=\det(d_c,d_a).
+$$
+
+(4)
+
+These are functions of the germ parameter $t$. Denote the intersection parameters on $a$ by $\tau_b,\tau_c$, using a new letter to distinguish them from the germ parameter. The line equation at the first crossing is
+
+$$
+0=\det(d_b,p_a+\tau_b d_a-p_b)
+  =-N_b+\tau_b D_b.
+$$
+
+(5)
+
+The second equality uses bilinearity and $p_a-p_b=-(p_b-p_a)$. Since $D_b\ne0$, adding $N_b$ and dividing by $D_b$ gives $\tau_b=N_b/D_b$. The same steps give $\tau_c=N_c/D_c$. Subtracting these two fractions over their nonzero common denominator gives
+
+$$
+\tau_b-\tau_c=\frac{N_bD_c-N_cD_b}{D_bD_c}.
+$$
+
+(6)
+
+The numerator is exactly the CV G4 formula in the order (a;b,c). Thus, when $b<c$ are the representative indices,
+
+$$
+\mathrm{G4}_{a;b,c}=(\tau_b-\tau_c)D_bD_c.
+$$
+
+(7)
+
+If SM presents the difference in the opposite order, its negative gives the representative order. Multiplication by the constant $-1$ does not affect the sign-change test, because the product of the two values is multiplied by $(-1)^2=1$.
+
+Apply this with base edge each of $e,f,g$. Every relevant central pair has independent directions by B1, so each denominator in (4) is nonzero at zero. Continuity and finiteness give one symmetric neighbourhood on which all six such determinants are nonzero and each keeps its central sign. For a chosen base edge put $K(t)=D_b(t)D_c(t)$. It is continuous, nonzero, and of one sign on that neighbourhood. Therefore $K(t)K(-t)>0$ for all sufficiently small positive $t$. Set $\delta_a(t)=\tau_b(t)-\tau_c(t)$. SM's exact sign-change definition gives $\delta_a(t)\delta_a(-t)<0$. Evaluating (7) at the two times and multiplying gives
+
+$$
+\mathrm{G4}_{a;b,c}(P(t))\mathrm{G4}_{a;b,c}(P(-t))
+=\delta_a(t)\delta_a(-t)K(t)K(-t)<0.
+$$
+
+(8)
+
+The inequality follows from one strictly negative factor and one strictly positive factor. This proves the sign change of each of the three indexed G4 members. All functions concerned are continuous and nonzero on either sufficiently small punctured half-interval, so the symmetric test also gives constant opposite signs on the two halves.
+
+For the G3 member, we additionally derive the printed polynomial identity directly. Write $D=\mathrm{G3}_{e,f,g}$, and in (4) take $a=e,b=f,c=g$. In the line-coefficient matrix for $D$, add $p_{e,1}$ times column 1 and $p_{e,2}$ times column 2 to column 3. Adding multiples of other columns preserves a determinant. The three entries of the new column 3 are respectively $\ell_e(p_e)=0$, $\ell_f(p_e)=-N_f$, and $\ell_g(p_e)=-N_g$. Expansion along that column now gives
+
+$$
+D=N_f(A_eB_g-B_eA_g)-N_g(A_eB_f-B_eA_f).
+$$
+
+(9)
+
+For each row $(A_i,B_i)=(-d_{i,2},d_{i,1})$, direct multiplication gives
+
+$$
+A_eB_j-B_eA_j=d_{e,1}d_{j,2}-d_{e,2}d_{j,1}
+=\det(d_e,d_j).
+$$
+
+(10)
+
+Alternation gives $\det(d_e,d_j)=-\det(d_j,d_e)=-D_j$. Substituting this separately into the two summands of (9) yields
+
+$$
+D=-N_fD_g+N_gD_f=-\mathrm{G4}_{e;f,g}.
+$$
+
+(11)
+
+The last equality is the negative of the defining numerator in (7), not an assumption about a picture. Hence the product of the two G3 values equals the product of the two $e$-based G4 values, which is strictly negative by (8). G3 changes sign. Repeating (11) with $f$ and $g$ as base edge, and using the odd permutation ($f,e,g$) and even permutation ($g,e,f$) of the coefficient rows, gives respectively $\mathrm{G4}_{f;e,g}=+D$ and $\mathrm{G4}_{g;e,f}=-D$, agreeing with the quoted dictionary. This also checks the representative-order signs.
+
+B2 lists all four members of $Z$, and we have proved their four sign changes. This is exactly CV transversality. No derivative, differentiability, nonzero speed, or additional wall hypothesis was used. ∎
+

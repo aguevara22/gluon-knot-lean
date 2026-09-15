@@ -1,0 +1,479 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "gap-split-products-prototype",
+  "source_id": "thm:single-triple",
+  "source_line": 229,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "thm:single-triple229-269; proof285-289 split compositions/children,304-317 weighted gap sums and erased changing factor.",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T07:15:15.133962+00:00",
+  "main_declarations": [
+    "SM.IntervalComposition.prod_interiorPositions",
+    "SM.IntervalComposition.prod_interiorPositions_erase",
+    "SM.IncreasingBoundaryTriple.gapBaseComposition",
+    "SM.IncreasingBoundaryTriple.gapRefinement",
+    "SM.IncreasingBoundaryTriple.gapComposition_child_product",
+    "SM.IncreasingBoundaryTriple.gapComposition_interior_union",
+    "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint",
+    "SM.IncreasingBoundaryTriple.middle_not_gap_interiors",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product",
+    "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle",
+    "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum",
+    "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum"
+  ],
+  "prototype_files_sha256": {
+    "CriticalCutSplit": "765604b67cc21ecb5f2e7aa3051ed5b0dc2a94af16fb161161461c42e6d4a70c",
+    "GapSplitProducts": "c1a56231cdf054a9a577c727bf8cfa0787a74f204ebca53c72cdcae9048f781a"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90",
+    "work/checks/GapSplitProducts.body.lean": "53fd8e1035d666119987bcc0beb856098767acc2e3e144ca274bc58eed4038bc"
+  },
+  "import_closure_roots": [
+    "SM.Farout"
+  ],
+  "import_closure_file_count": 32,
+  "embedded_body_count": 2,
+  "inherited_review_binding": {
+    "work/reviews/lem-farout.json": "4edce603db73c068608295762fcfef682e428a1694bd35fa2442d8268f219358",
+    "work/reviews/critical-cut-split-occurrence-prototype.json": "fe722b9c8cf4c2f4d9abd3b0253751de74564e7697af06927f51254f57f8dbad",
+    "work/checks/critical-cut-reviewed-types.json": "5f84821a3ed534a7215da6b6370838ad4f8ffab35b7bfcafa527df4a79827c1b",
+    "work/reviews/marked-transport-independent.json": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/gap-split-products-review-types.lean",
+    "independent_trace_source_sha256": "b9e8df0876ebd36fcd6c6a4a0f38b95d8f6142903552d2cbcb465112ddb4e9b1",
+    "independent_trace_log": "work/checks/gap-split-products-review-types.log",
+    "independent_trace_log_sha256": "6fb9548fdcbce30666b2698de570b64df320a63e761004d3f90229d5d969b37e",
+    "independent_kernel_command": "lake env lean ../checks/gap-split-products-review-types.lean",
+    "independent_kernel_session": 32490,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": false,
+    "prior_failed_independent_run": {
+      "session": 3064,
+      "exit_code": 1,
+      "source": "work/checks/gap-split-products-review-first.lean",
+      "log": "work/checks/gap-split-products-review-first.log",
+      "reason": "Only the reviewer raw-pair consumer failed: simp did not rewrite the dependent Fin/fintype product domain through the equivalence inverse law. Replaced it by explicit rw on the complete proved equality. No consumer statement or implementation changed; all implementation traces passed.",
+      "source_sha256": "e4a4cf2331db0df9c4782eb1e2a50c3a11371d646e9a1d6b85e5bc6e042a3c51",
+      "log_sha256": "357c56412a67c8ad578e7b100ea9fa48132fef3175fa1dd0444fbf93e23ee7a2"
+    },
+    "checked_declarations": [
+      "SM.IncreasingBoundaryTriple.MiddleCutSet",
+      "SM.IncreasingBoundaryTriple.MiddleComposition",
+      "SM.IncreasingBoundaryTriple.spanInterval",
+      "SM.IncreasingBoundaryTriple.joinGapCuts",
+      "SM.IncreasingBoundaryTriple.splitGapCuts",
+      "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+      "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+      "SM.IncreasingBoundaryTriple.gapCutEquiv",
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+      "SM.IncreasingBoundaryTriple.sum_middle_compositions",
+      "SM.IntervalComposition.prod_interiorPositions",
+      "SM.IntervalComposition.prod_interiorPositions_erase",
+      "SM.IncreasingBoundaryTriple.gapBaseComposition",
+      "SM.IncreasingBoundaryTriple.gapRefinement",
+      "SM.IncreasingBoundaryTriple.gapComposition_child_product",
+      "SM.IncreasingBoundaryTriple.gapComposition_interior_union",
+      "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint",
+      "SM.IncreasingBoundaryTriple.middle_not_gap_interiors",
+      "SM.IncreasingBoundaryTriple.gapComposition_cut_product",
+      "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle",
+      "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum",
+      "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum"
+    ],
+    "declaration_count": 26,
+    "new_declaration_count": 12,
+    "all_14_predecessor_types_unchanged": true,
+    "declaration_axioms": {
+      "SM.IncreasingBoundaryTriple.MiddleCutSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.MiddleComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.spanInterval": [
+        "propext"
+      ],
+      "SM.IncreasingBoundaryTriple.joinGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.splitGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.split_joinGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.join_splitGapCuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCutEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.sum_middle_compositions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_interiorPositions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_interiorPositions_erase": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapBaseComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapRefinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapComposition_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapComposition_interior_union": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.middle_not_gap_interiors": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapComposition_cut_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "GapSplitProductsIndependentReview.every_raw_left_child_preserved",
+      "GapSplitProductsIndependentReview.every_raw_right_child_preserved",
+      "GapSplitProductsIndependentReview.arbitrary_raw_pair_child_product",
+      "GapSplitProductsIndependentReview.unary_left_keeps_actual_gap_coordinate",
+      "GapSplitProductsIndependentReview.unary_right_keeps_actual_gap_coordinate",
+      "GapSplitProductsIndependentReview.erased_product_ignores_omitted_value",
+      "GapSplitProductsIndependentReview.two_unary_gaps_leave_empty_gate_product",
+      "GapSplitProductsIndependentReview.zero_middle_annuls_full_sum",
+      "GapSplitProductsIndependentReview.erased_sum_keeps_gap_products_when_middle_zero",
+      "GapSplitProductsIndependentReview.erased_sum_ignores_any_middle_change"
+    ],
+    "additional_example_count": 10,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "GapSplitProductsIndependentReview.every_raw_left_child_preserved": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.every_raw_right_child_preserved": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.arbitrary_raw_pair_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.unary_left_keeps_actual_gap_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.unary_right_keeps_actual_gap_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.erased_product_ignores_omitted_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.two_unary_gaps_leave_empty_gate_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.zero_middle_annuls_full_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.erased_sum_keeps_gap_products_when_middle_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GapSplitProductsIndependentReview.erased_sum_ignores_any_middle_change": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.IncreasingBoundaryTriple.spanInterval",
+      "SM.IncreasingBoundaryTriple.MiddleCutSet",
+      "SM.IncreasingBoundaryTriple.MiddleComposition",
+      "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+      "SM.IncreasingBoundaryTriple.gapBaseComposition",
+      "SM.IncreasingBoundaryTriple.gapRefinement",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.interiorPosition"
+    ],
+    "reviewed_types": "work/checks/gap-split-products-reviewed-types.json",
+    "reviewed_types_sha256": "3eac02d0d78f9c193cd21227afc494214c88b0d32d16473459ded2ee62a5b419",
+    "independent_closure_evidence": "work/checks/gap-split-products-review-closure.json",
+    "independent_closure_evidence_sha256": "54a5870e7868da9841ade5ed671f0aa80c36496173e6270b8785c7f76264637b",
+    "root_successful_results": {
+      "work/checks/CriticalCutSplit-prototype-result.json": {
+        "kernel_session": 14499,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "prior_failed_session": 25820,
+        "utc": "2026-09-11T07:00:56.249363+00:00",
+        "files_sha256": {
+          "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90",
+          "work/checks/CriticalCutSplit.prototype.lean": "765604b67cc21ecb5f2e7aa3051ed5b0dc2a94af16fb161161461c42e6d4a70c",
+          "work/checks/CriticalCutSplit-second-kernel.log": "068628fa045382cdd50790bb6189821cd7e82a115cc1fc75b1eb05b8ad82fec0"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.spanInterval",
+          "SM.IncreasingBoundaryTriple.joinGapCuts",
+          "SM.IncreasingBoundaryTriple.splitGapCuts",
+          "SM.IncreasingBoundaryTriple.split_joinGapCuts",
+          "SM.IncreasingBoundaryTriple.join_splitGapCuts",
+          "SM.IncreasingBoundaryTriple.gapCutEquiv",
+          "SM.IncreasingBoundaryTriple.middleCompositionCutEquiv",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_left_cuts",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_right_cuts",
+          "SM.IncreasingBoundaryTriple.gapCompositionEquiv_symm_cuts",
+          "SM.IncreasingBoundaryTriple.sum_middle_compositions"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/GapSplitProducts-prototype-result.json": {
+        "kernel_session": 16379,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:09:09.648440+00:00",
+        "files_sha256": {
+          "work/checks/GapSplitProducts.body.lean": "53fd8e1035d666119987bcc0beb856098767acc2e3e144ca274bc58eed4038bc",
+          "work/checks/GapSplitProducts.prototype.lean": "c1a56231cdf054a9a577c727bf8cfa0787a74f204ebca53c72cdcae9048f781a",
+          "work/checks/GapSplitProducts-first-kernel.log": "e631c5c41beef369cccd09378e0c5ee3888137dac58fb6191d717f1b771021f3",
+          "work/checks/CriticalCutSplit.body.lean": "260254e62c8f34a9389432647746a94aad1c77da5df59c0bf04911d5958dea90"
+        },
+        "printed_declarations": [
+          "SM.IntervalComposition.prod_interiorPositions",
+          "SM.IntervalComposition.prod_interiorPositions_erase",
+          "SM.IncreasingBoundaryTriple.gapBaseComposition",
+          "SM.IncreasingBoundaryTriple.gapRefinement",
+          "SM.IncreasingBoundaryTriple.gapComposition_child_product",
+          "SM.IncreasingBoundaryTriple.gapComposition_interior_union",
+          "SM.IncreasingBoundaryTriple.gapComposition_interiors_disjoint",
+          "SM.IncreasingBoundaryTriple.middle_not_gap_interiors",
+          "SM.IncreasingBoundaryTriple.gapComposition_cut_product",
+          "SM.IncreasingBoundaryTriple.gapComposition_cut_product_without_middle",
+          "SM.IncreasingBoundaryTriple.middle_weighted_composition_sum",
+          "SM.IncreasingBoundaryTriple.middle_erased_weighted_composition_sum"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      }
+    },
+    "root_receipts_sha256": {
+      "work/checks/CriticalCutSplit-prototype-result.json": "341645ee400739e6cb84d69121ceba7502eb8f33703df1c3a89b51c8478ec0b3",
+      "work/checks/GapSplitProducts-prototype-result.json": "3a9409361d3263700e0997d1fccc67d6da4f43d669c1e458bc7ab46ac541eb0f"
+    },
+    "scope_note": "The exact frozen CriticalCutSplit and GapSplitProducts bodies compile over the actual 32-module canonical Farout closure. All fourteen predecessor types match the earlier trace. Ten consumers test actual raw children, unary gaps, zero scalar behavior and erased full sums."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "reason": "Faithful exact child/cut product and full weighted-sum factorization development in the partial proof of thm:single-triple. The actual binary outer gap composition and full refined-child bijection partition every raw child coordinate between the two actual split compositions. Interior positions are exactly the distinguished middle plus two disjoint gap interior sets. Both ordinary and erased products are transported through these actual sets, with no division, cancellation or nonzero hypothesis. Complete sums over all middle-cut compositions then factor into both full gap sums by the proved index equivalence and distributivity. Independent second kernel 32490 passes 26 declarations and ten consumers with 36 standard-or-empty traces; fourteen predecessor types are unchanged. The preserved first reviewer failure concerned only a dependent-product rewrite in a consumer proof, with no statement or implementation change. Geometric epsilon transport and complete wall jumps/propagation remain outside this scope, so no original source theorem is accepted.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact interior-index and physical-position products",
+      "assessment": "prod_interiorPositions identifies the image of every actual interior index with the complete physical interior cut set, using the proved exact interior-position membership equivalence. The existing indexMarks product transport then replaces the full index product by the physical-position product. For a deleted index k, injectivity of interiorPosition proves that the image of univ.erase k is exactly the physical interior set with interiorPosition(k) erased. Conversely every surviving physical position has an interior index which cannot be k. Reusing the arbitrary marked-product theorem gives the erased product identity. Both proofs require only CommMonoid; no scalar is divided out, assumed nonzero, or cancelled."
+    },
+    {
+      "clause": "Actual two-gap outer composition and raw refinement",
+      "assessment": "gapBaseComposition is the raw two-part composition with the three actual cuts [t.lower,t.middle,t.upper]. Its strict ordering follows from the two strict inequalities of the critical triple. gapRefinement embeds every raw middle-cut composition as a refinement of that exact outer cut list: the lower and upper cuts are already its endpoints and the middle is its defining retained cut. No arbitrary surrogate outer composition or narrowed inner family is used."
+    },
+    {
+      "clause": "Every actual raw child factor appears once",
+      "assessment": "gapComposition_child_product instantiates the already proved full refined-child product bijection with gapBaseComposition and the actual middle-cut composition. The two recovered inner compositions are definitionally the two filtered gap compositions from gapCompositionEquiv. Expanding the two-element outer product therefore yields exactly the two gap child products. The reconstructed fine cut-set composition is then identified with the original raw composition by cutSet_toComposition. This retains the full raw part count and every actual interval factor. Independent consumers separately recover every actual left and right child as an actual original child interval, and an arbitrary raw-pair consumer verifies the complete joined product for every pair of gap compositions."
+    },
+    {
+      "clause": "Complete interior partition with the middle exactly once",
+      "assessment": "The whole composition interior set is proved equal to the insertion of t.middle into the union of the two split interior sets. For a whole interior point, trichotomy places it strictly left of the middle, at the middle, or strictly right; the literal split-cut filter lemmas establish its corresponding gap membership. Conversely each gap interior point is a whole interior point, and the retained middle is strictly between whole endpoints. A point in both gap interiors would be simultaneously less and greater than the middle, so those interiors are disjoint. The middle is excluded from both by strict gap-interior inequalities. These facts justify prod_insert and prod_union without omission or duplicated factors."
+    },
+    {
+      "clause": "Full and erased cut-factor products",
+      "assessment": "The full index product is first moved to the exact physical interior set. The interior partition then gives one distinguished middle factor times both complete gap interior products. For the erased version, the proved index-erasure correspondence first removes the actual chosen middle position; erase_insert removes precisely that inserted point and leaves the two disjoint gap interiors. Both gap products are then returned to their full interior-index products. The erased result is proved directly, never by dividing the full identity by f(middle). It therefore remains valid even when the critical factor or any retained factor is zero."
+    },
+    {
+      "clause": "Complete weighted composition sums",
+      "assessment": "middle_weighted_composition_sum reindexes the entire original MiddleComposition sum through the exact raw gapCompositionEquiv. Each summand is rewritten using both the full cut-product and full child-product identities. The inverse-forward equivalence equation recovers the original arbitrary pair of gap compositions. Finite distributivity in a commutative semiring factors the double sum as the middle scalar times the product of both complete gap weighted sums. The erased version starts with the physical middle-erased set, decomposes it directly into the same two gap interiors and applies the full child-product identity, then performs the same finite distributivity. Neither theorem assumes a response law or an already factored weighted summand."
+    },
+    {
+      "clause": "Unary-gap, zero-factor and omitted-value consumers",
+      "assessment": "Independent raw-pair consumers specialize each gap separately to its unary composition. The unary child product becomes the actual X(leftGap) or X(rightGap), so the source interval coordinate is retained while the corresponding cut product is empty. Another consumer proves that when both gap compositions are unary, deleting the unique middle gate leaves product one for arbitrary scalar functions. The zero-middle full-sum consumer obtains zero from the full weighted identity, while a separate zero-middle erased-sum consumer still obtains the two gap sums, showing that no zero factor is cancelled. Further consumers prove that each erased product and the full erased sum are unchanged under any alteration of the omitted middle scalar."
+    },
+    {
+      "clause": "Algebraic generality and distinction from epsilon geometry",
+      "assessment": "Product transports assume only a commutative monoid and sum factorizations only a commutative semiring. They therefore specialize to the source rings with invertible two and also remain valid with zero divisors or zero gates; there is no hidden field or nontriviality premise. The scalar function f reads actual physical cut positions. When later specialized to a full-span far gate, the gap sums still use those same physical scalar values. Identifying them with the natural gap far gates and choosing E or B according to the wall epsilon requires the separate geometric sign-ratio identities. Those epsilon identities are not assumed or proved by this algebraic batch."
+    },
+    {
+      "clause": "Source scope remains partial",
+      "assessment": "The body covers the exact product and weighted-sum content behind source285-289 and304-317. The original wall theorem additionally needs a common punctured-neighborhood sign comparison, gap G1, epsilon geometry, actual critical-coordinate inverse and reversed-output differences, contracted polygons and larger-interval propagation. The already reviewed critical scalar-difference body and this product body have not yet been assembled here into those full conclusions. Thus the implementation is faithful within its explicit algebraic helper scope; thm:single-triple and the final corner wall laws remain unaccepted."
+    }
+  ],
+  "independence": "The reviewer independently read the source, exact new body, actual frozen splitting body and canonical refined-child/interior-index definitions, and wrote only new consumer and review files. No mathematical implementation, authoritative source, map, root receipt or frozen report was changed. The first reviewer run was preserved and only the failed dependent-product consumer proof was corrected. This new body contains no reviewer-authored implementation fragment. The dependency on canonical Farout retains its separately disclosed marking-fragment provenance and independent fresh review through the bound prior reports.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_pending": true,
+    "full_single_triple_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "Wall sign stabilization, nondegenerate gap geometry and epsilon identities.",
+    "Assembly of actual critical-coordinate c and reversed-output differences.",
+    "Contracted polygon/root identification and larger-interval propagation.",
+    "Both final single-triple wall-response formulas."
+  ],
+  "not_certified": [
+    "No original thm:single-triple acceptance or canonical semantic hash.",
+    "No complete corner wall law, soft theorem, R theorem or overall stage completion."
+  ]
+}

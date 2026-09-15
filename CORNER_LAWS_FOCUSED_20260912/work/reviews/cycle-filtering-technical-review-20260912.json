@@ -1,0 +1,102 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "cycle-filtering-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:22:27.917325+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root assigned the quotient-filter goal and suggested explicit coercion or congrArg repair after the first quotient elaboration failure. The implementing agent authored all statements and proofs."
+  },
+  "scope": {
+    "group": "CycleFiltering",
+    "declarations": [
+      "List.IsRotated.filter",
+      "Cycle.filter",
+      "Cycle.filter_coe",
+      "Cycle.filter_nil",
+      "Cycle.mem_filter",
+      "Cycle.filter_map",
+      "Cycle.filter_filter",
+      "Cycle.filter_eq_self",
+      "Cycle.Nodup.filter"
+    ],
+    "source_id": "lem:soft-generic cyclic deletion prerequisite",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1039\u20131053,1143\u20131150"
+  },
+  "assessment": "No technical defect found in the bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/CycleFiltering-prototype-result.json",
+    "receipt_sha256": "5c29fec5a1a0c5128e3e8c98ca53bf44aa5f0a8306407b9d0e8d8c9baf456767",
+    "receipt_bound_files_sha256": {
+      "work/checks/CycleFiltering.body.lean": "9b0aa68627a006733a347c879574724b54f833724579820e13a6fbc8f1722c5e",
+      "work/checks/CycleFiltering.prototype.lean": "d3bc2b349b7b4c644439cee38531daa40c59aa4068f87cae6e8d101ff4d631ca",
+      "work/checks/CycleFiltering-second-kernel.log": "41a38af4d602bc6a8fe25a88a30d36d9c1ada55d101b3bc10aa71ee53aa72e87"
+    },
+    "declaration_axioms": {
+      "List.IsRotated.filter": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter_coe": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter_nil": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.mem_filter": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter_map": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter_filter": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.filter_eq_self": [
+        "propext",
+        "Quot.sound"
+      ],
+      "Cycle.Nodup.filter": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/CycleFiltering-first-failed.body.lean": "bce25edf0380d786621b8b074deb8df65b4c4b4ff46b3ba395ddf937d935700d",
+      "work/checks/CycleFiltering-first-failed.prototype.lean": "93dc708cee82c3887314ab3aa457bebe9e8c85e2011ca2a1eb19656f1d0a2389",
+      "work/checks/CycleFiltering-first-kernel.log": "1b686f4e27074274f847ee325577b365db7262620f72db4b996afa099403680b",
+      "work/checks/CycleFiltering-first-draft.body.lean": "bce25edf0380d786621b8b074deb8df65b4c4b4ff46b3ba395ddf937d935700d",
+      "work/checks/CycleFiltering-first-draft.prototype.lean": "93dc708cee82c3887314ab3aa457bebe9e8c85e2011ca2a1eb19656f1d0a2389",
+      "work/checks/CycleFiltering-body-dependencies.json": "9e243092a4f39aa2ff0695821668f0bd00be70b44d4a85fb1a9581eb4c06e6ee",
+      "work/decisions/cycle-filtering-20260912.md": "b427d20b4f5708923e11f3049eca5f8ece9f6e92369458b29e15f3c678787e0a",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf"
+    }
+  },
+  "findings": [
+    "For any rotated lists, the proof writes the rotation as drop followed by take. Filtering distributes over concatenation; the original filtered list is filtered take followed by filtered drop. Swapping those blocks is a rotation, including empty blocks, empty cycles and repeated entries.",
+    "Cycle.filter is the actual Quotient.map on List.filter, using the proved rotation compatibility. Cycle is the pinned Mathlib quotient by List.IsRotated; no representative choice or additional equivalence premise is assumed.",
+    "The coercion and empty-cycle formulas are definitional. Membership is precisely old membership and retention. Mapping and filtering commute without injectivity; this preserves the two visits carrying a common crossing label rather than suppressing multiplicity.",
+    "Composition retains the conjunction of both predicates. Retaining every occurring entry is the identity. Filtering a nodup cycle retains nodup. All are lifted from actual List identities.",
+    "All nine printed declarations use only propext and Quot.sound. Root second31100 exited0. First39816 failed solely on quotient/coercion tactic matching in filter_map and filter_filter. The repair makes the coerced list goals explicit and applies congrArg; signatures and quotient definition are unchanged."
+  ],
+  "limits": "This is a general filtering prerequisite, not a proof of geometric Gauss transport, newborn existence/adjacency, the complete soft lemma or a final target. Stronger fidelity and controlled integration remain pending."
+}

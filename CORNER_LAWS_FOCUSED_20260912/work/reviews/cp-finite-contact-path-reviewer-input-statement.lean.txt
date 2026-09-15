@@ -1,0 +1,186 @@
+import SM.CeRounding
+
+/-! # Row 91 cp:finite-contact-path — the STATEMENTS (frozen for the statement review)
+
+2026-09-14 (pod, architect subagent; lane "Row 91 modulo the descent clause").  This file is §1 of
+work/drafts/gap2/CPRow91_Skeleton.lean, byte for byte from `namespace SM` to the cut marker before
+§1.3: the row bundle `ContactPathData` (one field per printed clause of sm-3:3210-3233) and the GAP-2
+clauses `AmbientIsotopyDescent` (the hypothesis of `SM.cp_finite_contact_path_of_descent`),
+`AmbientIsotopyLinkEquiv` (Reidemeister form), `AmbientIsotopy`, `AmbientIsotopyDescentLit`,
+`IsotopyExtension`, with the two proved implications.  NO sorry, NO axiom, NO row theorem here; the
+conditional row theorem and its proof are in the skeleton.  Plan and fidelity risks FR-CP-1..:
+work/drafts/gap2/CPRow91_PLAN.md.  Check: `cd work/lean && lake env lean ../drafts/gap2/CPRow91_Statements.lean`. -/
+
+namespace SM
+
+open Link SmoothFront
+open scoped ContDiff
+
+noncomputable section
+open Classical
+
+/-! ## 1. Statements: the row bundle and the descent clauses -/
+
+/-- Lemma cp:finite-contact-path (sm-3:3210-3233), one field per printed clause (table in the module
+docstring).  Throughout: "C … oriented parameter circles, L : C → ℝ³ a smooth embedding with
+nonvanishing parameter derivative" is `L : SpatialLink c` with `0 < c` ("nonempty"; orientation =
+parameter direction, T-1); "its xz projection F" is `L.projLoop` with cusps `L.cuspSet`; the two
+"Assume" sentences are `L.CuspedProjection` (the class of ce:rounding, sm-3:3033-3042, identical
+clauses); "a supplied jointly smooth family of oriented spatial embeddings G_t" is `F : SpatialFamily c`
+(indexed by all of `ℝ`, every slice embedded and regular) with `F.G 0 = L` ("starts at this
+parametrized L") and `T = F.G 1`; "whose specified xz projection D_T is an ordinary finite regular
+generic diagram" is `(F.G 1).RegularGenericProjection` read polygonally (FR-1) by
+`(F.G 1).HeightMarking (F.G 1).projLoop X` (over = smaller `y` of `T`, the specified diagram's own
+height choice); "every clean ordinary cusp smoothing S(F)" is a loop family `G` with
+`L.CleanCuspSmoothing G` (row 90's definition sentence) read polygonally by `L.HeightMarking G S`,
+whose `over_iff` IS "with smaller y over at the unchanged crossings"; `P` is the accepted campaign
+polynomial (SM/LocalPolynomial.lean).  Fields 1-5 are the printed hypotheses read back on the
+vocabulary (the pattern of the accepted `CeRoundingData`); `endpoint_polynomial` is the theorem. -/
+structure ContactPathData : Prop where
+  /-- sm-3:3211-3213: "Let C be a finite nonempty disjoint union of oriented parameter circles, and
+  let L : C → ℝ³ be a smooth embedding with nonvanishing parameter derivative." -/
+  link_class : ∀ {c : ℕ} (L : SpatialLink c), 0 < c →
+    (∀ i, ContDiff ℝ ∞ (L.T i)) ∧ (∀ i, Function.Periodic (L.T i) 1) ∧
+    (∀ (i j : Fin c) (s t : ℝ), L.T i s = L.T j t → i = j ∧ SameT s t) ∧
+    (∀ i t, deriv (L.T i) t ≠ 0)
+  /-- sm-3:3213-3218: "Assume its xz projection F is regular except at finitely many cusps, each with
+  the exact germ [cp:exact-cusp]" (= ce:exact-germ, `ExactCuspGerm`). -/
+  cusped_front : ∀ {c : ℕ} (L : SpatialLink c), 0 < c → L.CuspedProjection →
+    L.cuspSet.Finite ∧ (∀ p ∈ L.cuspSet, L.ExactCuspGerm p.1 p.2)
+  /-- sm-3:3219-3221: "Assume the only multiple points of F are finitely many transverse double
+  points, none at a cusp, and the two y values differ at every double point." ("none at a cusp" is a
+  consequence of transversality, `CuspedProjection.not_isCusp_of_isDouble`, CE-R3.) -/
+  double_points : ∀ {c : ℕ} (L : SpatialLink c), 0 < c → L.CuspedProjection →
+    (occSetOf L.projLoop).Finite ∧
+    (∀ p q : Param c, IsDoubleOf L.projLoop p q →
+      det (deriv (xzOf (L.T p.1)) p.2) (deriv (xzOf (L.T q.1)) q.2) ≠ 0) ∧
+    (∀ p q r : Param c, IsDoubleOf L.projLoop p q → IsDoubleOf L.projLoop q r →
+      IsDoubleOf L.projLoop p r → False) ∧
+    (∀ p q : Param c, IsDoubleOf L.projLoop p q → ¬ L.IsCusp p.1 p.2) ∧
+    (∀ p q : Param c, IsDoubleOf L.projLoop p q → L.height p ≠ L.height q)
+  /-- sm-3:3221-3225: "Suppose a supplied jointly smooth family of oriented spatial embeddings G_t
+  starts at this parametrized L and ends at T, whose specified xz projection D_T is an ordinary
+  finite regular generic diagram.": joint `C^∞` smoothness, every slice embedded and regular on the
+  same parameter circles, `G_0 = L` as parametrized maps, and the end's projection has no cusp and
+  finitely many transverse double points, no triple point, distinct heights. -/
+  supplied_family : ∀ {c : ℕ} (L : SpatialLink c) (F : SpatialFamily c), F.G 0 = L →
+    (F.G 1).RegularGenericProjection →
+    (∀ i, ContDiff ℝ ∞ (fun p : ℝ × ℝ => (F.G p.1).T i p.2)) ∧
+    (∀ (t : ℝ) (i j : Fin c) (s s' : ℝ), (F.G t).T i s = (F.G t).T j s' → i = j ∧ SameT s s') ∧
+    (∀ (t : ℝ) (i : Fin c) (s : ℝ), deriv ((F.G t).T i) s ≠ 0) ∧
+    (∀ (t : ℝ) (i : Fin c), Function.Periodic ((F.G t).T i) 1) ∧
+    (∀ i, (F.G 0).T i = L.T i) ∧
+    (F.G 1).cuspSet = ∅ ∧ (occSetOf (F.G 1).projLoop).Finite ∧
+    (∀ p q : Param c, IsDoubleOf (F.G 1).projLoop p q →
+      det (deriv (xzOf ((F.G 1).T p.1)) p.2) (deriv (xzOf ((F.G 1).T q.1)) q.2) ≠ 0) ∧
+    (∀ p q r : Param c, IsDoubleOf (F.G 1).projLoop p q → IsDoubleOf (F.G 1).projLoop q r →
+      IsDoubleOf (F.G 1).projLoop p r → False) ∧
+    (∀ p q : Param c, IsDoubleOf (F.G 1).projLoop p q → (F.G 1).height p ≠ (F.G 1).height q)
+  /-- sm-3:3225-3227: "every clean ordinary cusp smoothing S(F), with smaller y over at the unchanged
+  crossings": a clean smoothing keeps exactly the crossings of `F` ("unchanged"), and its polygonal
+  reading puts the smaller-`y` branch of `L` over at each of them. -/
+  smaller_y_over : ∀ {c : ℕ} (L : SpatialLink c), 0 < c → L.CuspedProjection →
+    ∀ (G : Fin c → SmoothLoop) (S : Diagram) (r : L.CleanCuspSmoothing G)
+      (m : L.HeightMarking G S),
+      (∀ p q : Param c, IsDoubleOf G p q ↔ IsDoubleOf L.projLoop p q) ∧
+      (∀ k : L.cuspSet, ∀ t ∈ Set.Ioo (r.a k) (r.b k), ∀ q : Param c, ¬ SameParam (k.1.1, t) q →
+        (G q.1).γ q.2 ≠ (G k.1.1).γ t) ∧
+      ∀ p q : OccOf G, p ≠ q → (G p.1.1).γ p.1.2 = (G q.1.1).γ q.1.2 →
+        (S.overBit (m.Φ p) = true ↔ L.height p.1 < L.height q.1)
+  /-- sm-3:3227-3230, display cp:endpoint-polynomial: "has the same campaign polynomial as D_T:
+  P_{S(F)} = P_{D_T}" — for every polygonal reading `X` of `D_T` and every polygonal reading `S` of a
+  clean smoothing.  (The rendering of the GAP-2 memo §4 "91", unchanged.) -/
+  endpoint_polynomial : ∀ {c : ℕ} (L : SpatialLink c), 0 < c → L.CuspedProjection →
+    ∀ (F : SpatialFamily c), F.G 0 = L → (F.G 1).RegularGenericProjection →
+    ∀ (X : Diagram), Nonempty ((F.G 1).HeightMarking (F.G 1).projLoop X) →
+    ∀ (G : Fin c → SmoothLoop) (S : Diagram),
+      Nonempty (L.CleanCuspSmoothing G) → Nonempty (L.HeightMarking G S) →
+      P S = P X
+
+/-- **GAP-2, the missing clause** — exactly what the printed proof consumes at sm-3:3313-3316 ("Thus
+its endpoint gives an actual ambient isotopy between the two oriented links. The retained global
+source premise yields H_{D_ε} = H_{D_T}"), stated on the accepted vocabulary: along a jointly smooth
+family `H` of oriented spatial embeddings (a smooth isotopy of the parametrized links, orientations
+and component labels carried by the parameter) whose two ends have ordinary regular generic
+projections, the HOMFLY–PT values `homfly` of any polygonal readings of the two end diagrams agree.
+This is lit:homfly's fifth clause "Its value depends only on the oriented link presented by D" read
+SPATIALLY.  The frozen `SM.lit_homfly` reads it as `HomflyClauses.descent` over `LinkEquiv` (planar
+isotopy + the three moves); deriving this clause from that one is Reidemeister's theorem for smooth
+isotopies of the polygonal readings (`AmbientIsotopyLinkEquiv` below), excluded by design D2, and no
+other accepted declaration relates a `Diagram` to a point of `ℝ³`.  A `def … : Prop`, NOT an axiom:
+the row is proved conditionally on it (`cp_finite_contact_path_of_descent`).  Fidelity: the clause
+bundles the isotopy-extension step the printed proof performs by hand (3264-3313) with the literature
+premise; the split is `IsotopyExtension ∧ AmbientIsotopyDescentLit` (§1.2). -/
+def AmbientIsotopyDescent : Prop :=
+  ∀ {c : ℕ} (H : SpatialFamily c),
+    (H.G 0).RegularGenericProjection → (H.G 1).RegularGenericProjection →
+    ∀ X₀ X₁ : Diagram,
+      Nonempty ((H.G 0).HeightMarking (H.G 0).projLoop X₀) →
+      Nonempty ((H.G 1).HeightMarking (H.G 1).projLoop X₁) →
+      homfly X₀ = homfly X₁
+
+/-- The memo's form of the gap (GAP2_STATEMENTS_MEMO.md §1, §6): the polygonal readings of the two
+ends of a smooth spatial family with regular generic projections are `LinkEquiv` — Reidemeister's
+theorem for smooth isotopies of spatial links (with the PL reading of the ends).  Stronger than
+`AmbientIsotopyDescent` (`AmbientIsotopyLinkEquiv.descent`); what closing GAP-2 by route (β) of the
+memo would prove. -/
+def AmbientIsotopyLinkEquiv : Prop :=
+  ∀ {c : ℕ} (H : SpatialFamily c),
+    (H.G 0).RegularGenericProjection → (H.G 1).RegularGenericProjection →
+    ∀ X₀ X₁ : Diagram,
+      Nonempty ((H.G 0).HeightMarking (H.G 0).projLoop X₀) →
+      Nonempty ((H.G 1).HeightMarking (H.G 1).projLoop X₁) →
+      LinkEquiv X₀ X₁
+
+/-- Reidemeister + the frozen descent clause give the spatial descent clause. -/
+theorem AmbientIsotopyLinkEquiv.descent (h : AmbientIsotopyLinkEquiv) : AmbientIsotopyDescent :=
+  fun H h0 h1 X₀ X₁ m₀ m₁ => homfly_descent (h H h0 h1 X₀ X₁ m₀ m₁)
+
+/-! ### 1.2 The printed proof's own split: isotopy extension + the literature premise -/
+
+/-- "an actual ambient isotopy between the two oriented links" (sm-3:3313-3314), as the printed proof
+produces it (3264-3313): a jointly smooth family of diffeomorphisms `Φ_s` of `ℝ³` (with smooth
+inverses `Ψ_s`), `Φ_0 = id`, fixing the complement of a compact set (hence orientation-preserving),
+whose end carries the parametrized `L₀` to the parametrized `L₁` (orientation and component labels
+carried by the parameter). -/
+structure AmbientIsotopy {c : ℕ} (L₀ L₁ : SpatialLink c) where
+  Φ : ℝ → Space → Space
+  Ψ : ℝ → Space → Space
+  smooth : ContDiff ℝ ∞ (fun p : ℝ × Space => Φ p.1 p.2)
+  smooth_inv : ContDiff ℝ ∞ (fun p : ℝ × Space => Ψ p.1 p.2)
+  left_inv : ∀ s x, Ψ s (Φ s x) = x
+  right_inv : ∀ s x, Φ s (Ψ s x) = x
+  start : ∀ x, Φ 0 x = x
+  compact_support : ∃ K : Set Space, IsCompact K ∧ ∀ s x, x ∉ K → Φ s x = x
+  carries : ∀ (i : Fin c) (t : ℝ), Φ 1 (L₀.T i t) = L₁.T i t
+
+/-- lit:homfly's fifth clause, literally, on spatial links: ambient-isotopic oriented links with
+regular generic projections have the same `homfly` on any polygonal readings.  What the printed proof
+cites ("The retained global source premise", 3314-3315); out of scope by D2 exactly as
+`AmbientIsotopyDescent`. -/
+def AmbientIsotopyDescentLit : Prop :=
+  ∀ {c : ℕ} (L₀ L₁ : SpatialLink c), Nonempty (AmbientIsotopy L₀ L₁) →
+    L₀.RegularGenericProjection → L₁.RegularGenericProjection →
+    ∀ X₀ X₁ : Diagram,
+      Nonempty (L₀.HeightMarking L₀.projLoop X₀) → Nonempty (L₁.HeightMarking L₁.projLoop X₁) →
+      homfly X₀ = homfly X₁
+
+/-- The isotopy extension step the printed proof performs by hand (sm-3:3264-3313: normal charts,
+uniform normal radius, compactly supported velocity field, ODE flow): a smooth family of embeddings
+of the finite union of circles is carried by an ambient isotopy.  TRUE (the isotopy extension theorem
+for compact submanifolds); pure analysis, NOT excluded by any policy, outside the horizon by effort. -/
+def IsotopyExtension : Prop :=
+  ∀ {c : ℕ} (H : SpatialFamily c), Nonempty (AmbientIsotopy (H.G 0) (H.G 1))
+
+/-- the printed split reassembled: isotopy extension + the literal premise give the clause consumed -/
+theorem ambientIsotopyDescent_of_lit (hlit : AmbientIsotopyDescentLit) (hext : IsotopyExtension) :
+    AmbientIsotopyDescent :=
+  fun H h0 h1 X₀ X₁ m₀ m₁ => hlit (H.G 0) (H.G 1) (hext H) h0 h1 X₀ X₁ m₀ m₁
+
+/-- Row 91 cp:finite-contact-path PROVED MODULO the descent clause: the theorem under review (proof withheld). -/
+theorem cp_finite_contact_path_of_descent (hdesc : AmbientIsotopyDescent) : ContactPathData := by
+  sorry
+
+end
+
+end SM

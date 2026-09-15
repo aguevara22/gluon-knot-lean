@@ -1,0 +1,66 @@
+{
+  "id": "lem:chi-basic",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "51f29fe380ad1ea6786c9c7daff7b505bace9739620544c71d67c0dba632cf8c",
+  "verdict": "faithful",
+  "reason": "Compared the complete four-part lemma at source lines 72-89 and its proof with the full proposition SM.chi_basic and the concrete coordinate definitions used in that proposition. Clause (i): its conjunction includes each of the three index transpositions, a cyclic rotation, and all three repeated-index placements. Applying the cyclic identity twice gives the other cyclic rotation; no permutation case is lost. Clause (ii): bracket(u,v) is u.2*v.1-u.1*v.2, exactly the main text's negative determinant, and the second vector is P j-P k with the required sign. Clause (iii): the edge identity uses edge P i=P(i+1)-P i. strictlyLeft and strictlyRight are the standard positive and negative determinant half-plane tests for that directed edge, so the included equivalences imply both source sign assertions with the correct orientation. No nonzero edge or genericity premise has been inserted; for a degenerate edge neither strict sign test holds. Clause (iv): turn is chi(i-1,i,i+1), its determinant uses the incoming edge i-1 followed by outgoing edge i, and positivity characterizes the left turn. The theorem is universal over labelled tuples and modular indices; allowing additional n beyond n >= 3 strengthens rather than restricts the source assertion. The source explicitly permits labelled representatives, and chi_shift/turn_shift establish the corresponding relabelling interpretation. There is no hypothesis containing the desired conclusion or a supplied lawful chirotope; all signs derive from real coordinates. The independent source-fidelity assessment is separate from the passing Lean build and axiom audit. All four source clauses are represented, and supporting helper lemmas are not additional original claims.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.chi_shift",
+    "SM.turn_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 72,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 72,
+    "statement_excerpt_status": "wording-changed",
+    "from_excerpt_sha256": "ba1b54b49266f3e9265cd9d9dae1abaa2d63b6340142f73657a3c40736a5080f",
+    "to_excerpt_sha256": "64ac58b796af36a0ce860f50c92e85cc76b3834a59de09d1e1ceadb2cf515168",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 wording changed; see re_review.",
+    "re_review": "SM15 rewords clause (iii): the left/right sentence becomes a naming convention stated for a nonzero edge vector e_i, while the formula chi_{i,i+1,k} = sgn det(e_i, mu_k - mu_i) is unchanged (CHANGES_SINCE_20260909.md: wording only). SM.chi_basic states that formula for all i, k and characterizes the values +1 and -1 by strictlyLeft/strictlyRight, the determinant half-plane tests for the directed edge; for a zero edge neither test holds, so the Lean statement is consistent with a convention stated only for e_i != 0 and proves everything SM15 asserts. Clauses (i), (ii), (iv) are byte-identical to SM12. Verdict: faithful.",
+    "countersign_requested": "The package's independent reviewer should countersign this re-read at the next checkpoint.",
+    "countersigned_20260913": {
+      "by": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent; AI reviewer)",
+      "verdict": "faithful",
+      "utc": "2026-09-13T16:02:07+00:00",
+      "note": "The accepted Lean statement was re-read against the SM15 wording; see countersignature_20260913 in this file for the full reason. This answers countersign_requested."
+    }
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:72-87, SM15) states four clauses about chi_{ijk}(P) = sgn det(mu_j - mu_i, mu_k - mu_i) (def:chirotope, lines 63-70) for a labelled tuple P and all i,j,k in Z/n, with no genericity or nonzero-edge hypothesis. The Lean definitions denote the printed objects exactly: SM.det u v = u.1*v.2 - u.2*v.1 (Polygon.lean:16) is det(u,v) = u_1v_2 - u_2v_1 (source line 5); SM.bracket u v = u.2*v.1 - u.1*v.2 (Polygon.lean:17) is the main text's [u,v] = u_2v_1 - u_1v_2 (source line 14, lemma (ii)); SM.edge P i = P(i+1) - P i (Polygon.lean:49) is l_i; SM.chi (Chirotope.lean:10-11) is sgn det(mu_j - mu_i, mu_k - mu_i) with Mathlib's SignType.sign, which is exactly sgn: R -> {-1,0,1} (sign_apply); SM.turn P i = chi P (i-1) i (i+1) (Chirotope.lean:13-14) is tau_i; SM.leftTurns counts turn P i = 1, matching l(P). SM.chi_basic (Chirotope.lean:121-134) takes an arbitrary P : LabelledTuple n = ZMod n -> R x R and asserts: (i) sign change under all three transpositions (lines 122-124), invariance under a cyclic permutation (line 125; the other cyclic rotation follows by applying it twice), and vanishing for all three coincidence patterns (lines 126-128); (ii) chi P i j k = sign (bracket (P j - P i) (P j - P k)) (line 129), the printed formula with the same argument order; (iii) chi P i (i+1) k = sign (det (edge P i) (P k - P i)) (line 130), the printed formula, plus the naming convention via strictlyLeft/strictlyRight (lines 131-132, defs at 24-28: positive/negative det(l_i, x - mu_i)), which is exactly 'sign +1 = strictly left, -1 = strictly right'; (iv) turn P i = sign (det (edge P (i-1)) (edge P i)) (line 133) and turn P i = 1 iff 0 < det(l_{i-1}, l_i) (line 134), the printed identity and the left-turn naming. Same domain (labelled tuples, cyclic indices), same universal quantifiers, same conclusions, no inserted hypotheses, nothing vacuous. SM15 rewording: only clause (iii)'s naming sentence changed, now conditioned on l_i != 0 (CHANGES_SINCE_20260909.md section 1: wording only, formula unchanged). The accepted Lean statement matches the SM15 text: the formula clause is stated verbatim, and the strictlyLeft/strictlyRight predicates are total but agree with the source's convention wherever the source makes it (l_i != 0); for a zero edge both predicates are false and chi = 0, so the iff clauses hold trivially and assert nothing beyond the source on that degenerate locus. No restatement is needed for SM15. After forming this judgement I read work/reviews/lem-chi-basic.json; it reaches the same conclusion and its recorded file hashes match the files I read.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Lean quantifies over every n : ℕ (implicit {n : ℕ}, no NeZero or 3 ≤ n), whereas the source fixes n ≥ 3 (sm-1-polygons.tex:13, 26); the lemma holds for all n so this is a harmless generalization.",
+      "strictlyLeft/strictlyRight (Chirotope.lean:24-28) are total predicates and the iff clauses (lines 131-132) hold for every i,k including a zero edge vector, whereas SM15 introduces the left/right naming only 'when l_i ≠ 0' (source line 80); on the extra locus both sides are false, so nothing false or non-trivial is added."
+    ],
+    "weaker_than_source": [
+      "Only one generator of the cyclic group is stated (chi P j k i = chi P i j k, line 125); the other cyclic rotation chi P k i j = chi P i j k is obtained by applying it twice, so no content is lost. No named 'leftTurn' predicate is introduced for 'tau_i = +1 is a left turn'; the Lean records it as turn P i = 1 ↔ 0 < det (line 134) and leftTurns counts turn P i = 1, which is the source's l(P). Neither point is a fidelity gap."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-chi-basic.json",
+      "/root/lean-lake/packages/mathlib/Mathlib/Data/Sign/Defs.lean"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

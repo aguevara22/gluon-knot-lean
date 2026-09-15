@@ -1,0 +1,205 @@
+-- Condensed from a 345-line file that elaborates with `lake env lean` under the pinned toolchain
+-- (Lean v4.34.0-rc2, Mathlib 85e3a25e); `sorry` marks bodies deliberately omitted here.
+import SM.CarrierCrossings
+import SM.RotationNumber
+import Mathlib.Algebra.MonoidAlgebra.Basic
+import Mathlib.Algebra.MonoidAlgebra.MapDomain
+import Mathlib.Algebra.MonoidAlgebra.NoZeroDivisors
+import Mathlib.NumberTheory.Zsqrtd.GaussianInt
+namespace SM
+open AddMonoidAlgebra
+attribute [local instance] Classical.propDecidable
+
+/-! (3) Ring layer: R = ℤ[a^{±1},z^{±1}], T = ℤ[l^{±1},m^{±1}], Gaussian extensions. -/
+abbrev Laurent₂ (K : Type) [CommRing K] : Type := AddMonoidAlgebra K (ℤ × ℤ)   -- (d,k) ↦ a^d z^k
+abbrev R : Type := Laurent₂ ℤ
+def T : Type := Laurent₂ ℤ                                   -- distinct type: l is never a
+noncomputable instance : CommRing T := inferInstanceAs (CommRing (Laurent₂ ℤ))
+abbrev RG : Type := Laurent₂ GaussianInt
+def TG : Type := Laurent₂ GaussianInt
+noncomputable instance : CommRing TG := inferInstanceAs (CommRing (Laurent₂ GaussianInt))
+noncomputable def R.a : R := single (1, 0) 1
+noncomputable def R.z : R := single (0, 1) 1
+noncomputable def R.aInv : R := single (-1, 0) 1
+noncomputable def R.zInv : R := single (0, -1) 1
+noncomputable def T.l : T := (single (1, 0) 1 : Laurent₂ ℤ)
+noncomputable def T.m : T := (single (0, 1) 1 : Laurent₂ ℤ)
+noncomputable def T.lInv : T := (single (-1, 0) 1 : Laurent₂ ℤ)
+noncomputable def T.mInv : T := (single (0, -1) 1 : Laurent₂ ℤ)
+noncomputable def T.mu : T := -(T.l + T.lInv) * T.mInv       -- μ = -(l+l⁻¹)m⁻¹
+noncomputable def R.delta : R := (R.a - R.aInv) * R.zInv       -- δ = (a-a⁻¹)z⁻¹
+example : IsDomain R := inferInstance
+theorem R.a_mul_aInv : R.a * R.aInv = 1 := by
+  simp [R.a, R.aInv, single_mul_single, one_def, Prod.mk_zero_zero]
+def coeffAt (d k : ℤ) (f : R) : ℤ := f.coeff (d, k)                              -- [a^d z^k] f
+noncomputable def degA (f : R) : WithBot ℤ := (f.coeff.support.image Prod.fst).max   -- def:adeg
+noncomputable def mindegA (f : R) : WithTop ℤ := (f.coeff.support.image Prod.fst).min
+def InSupportM (c : ℕ) (f : R) : Prop :=                        -- f ∈ z^{1-c} ℤ[a^{±1}, z^2]
+  ∀ e ∈ f.coeff.support, 1 - (c : ℤ) ≤ e.2 ∧ Even (e.2 - (1 - (c : ℤ)))
+noncomputable def R.toRG : R →+* RG := mapRingHom (ℤ × ℤ) (Int.castRingHom GaussianInt)
+noncomputable def unitPowers {A : Type} [CommRing A] (u v : Aˣ) : Multiplicative (ℤ × ℤ) →* A where
+  toFun g := ((u ^ (Multiplicative.toAdd g).1 * v ^ (Multiplicative.toAdd g).2 : Aˣ) : A)
+  map_one' := by simp
+  map_mul' g h := by simp only [toAdd_mul, Prod.fst_add, Prod.snd_add, zpow_add, Units.val_mul]; ring
+/-- φ = substHom (i•a) (-i•z) : T_G → R_G,  ψ = substHom (-i•l) (i•m) : R_G → T_G. -/
+noncomputable def substHom {A : Type} [CommRing A] [Algebra GaussianInt A] (u v : Aˣ) :
+    Laurent₂ GaussianInt →ₐ[GaussianInt] A := AddMonoidAlgebra.lift GaussianInt A (ℤ × ℤ) (unitPowers u v)
+
+/-! (1) Oriented link diagrams: finite families of closed generic polygons. -/
+structure PolyComp where (k : ℕ) (hk : 3 ≤ k) (P : LabelledTuple k)
+structure Shadow where (c : ℕ) (hc : 0 < c) (comp : Fin c → PolyComp)
+namespace Shadow
+variable (Γ : Shadow)
+abbrev Strand := Σ i : Fin Γ.c, ZMod (Γ.comp i).k                     -- a directed edge E_j of component i
+def seg (s : Γ.Strand) : Set Plane := edgeSegment (Γ.comp s.1).P s.2
+def interior (s : Γ.Strand) : Set Plane := edgeInterior (Γ.comp s.1).P s.2
+def dir (s : Γ.Strand) : Plane := edge (Γ.comp s.1).P s.2               -- strand direction u
+def tail (s : Γ.Strand) : Plane := (Γ.comp s.1).P s.2
+def Adjacent (s t : Γ.Strand) : Prop :=
+  ∃ (i : Fin Γ.c) (a b : ZMod (Γ.comp i).k), s = ⟨i, a⟩ ∧ t = ⟨i, b⟩ ∧ adjacent a b
+def IncidentTail (s t : Γ.Strand) : Prop :=
+  ∃ (i : Fin Γ.c) (a b : ZMod (Γ.comp i).k), s = ⟨i, a⟩ ∧ t = ⟨i, b⟩ ∧ incident a b
+def IsCrossing (x : Finset Γ.Strand) : Prop := ∃ s t, x = {s, t} ∧ ¬ Γ.Adjacent s t ∧ (Γ.seg s ∩ Γ.seg t).Nonempty
+abbrev Crossing := {x : Finset Γ.Strand // Γ.IsCrossing x}
+abbrev Visit := Σ x : Γ.Crossing, {s // s ∈ x.val}                     -- occurrence set M
+noncomputable def crossingPoint (x : Γ.Crossing) : Plane := sorry     -- Classical.choose of the common point
+structure Generic : Prop where                                          -- transverse double points, no triple points
+  regular : ∀ i, Regular (Γ.comp i).P
+  tail_off : ∀ s t, ¬ Γ.IncidentTail s t → Γ.tail s ∉ Γ.seg t
+  transverse : ∀ s t, ¬ Γ.Adjacent s t → (Γ.seg s ∩ Γ.seg t).Nonempty → det (Γ.dir s) (Γ.dir t) ≠ 0
+  no_triple : ¬ ∃ s t u : Γ.Strand, s ≠ t ∧ t ≠ u ∧ s ≠ u ∧ (Γ.interior s ∩ Γ.interior t ∩ Γ.interior u).Nonempty
+abbrev Pt := Σ i : Fin Γ.c, TraversalPoint (Γ.comp i).k                -- the parameter circles
+def eval (p : Γ.Pt) : Plane := traversalEvaluation (Γ.comp p.1).P p.2
+end Shadow
+/-- def:positive-lift, sentence 1: an oriented link diagram. -/
+structure Diagram where
+  Γ : Shadow
+  generic : Γ.Generic
+  overStrand : Γ.Crossing → Γ.Strand
+  over_mem : ∀ x, overStrand x ∈ x.val
+namespace Diagram
+variable (D : Diagram)
+noncomputable def underStrand (x : D.Γ.Crossing) : D.Γ.Strand := sorry   -- the other element of x
+def IsPositive (x : D.Γ.Crossing) : Prop := 0 < det (D.Γ.dir (D.overStrand x)) (D.Γ.dir (D.underStrand x))
+noncomputable def sign (x : D.Γ.Crossing) : SignType := SignType.sign (det (D.Γ.dir (D.overStrand x)) (D.Γ.dir (D.underStrand x)))
+noncomputable def writhe : ℤ := ∑ x : D.Γ.Crossing, (D.sign x : ℤ)
+noncomputable def switch (x₀ : D.Γ.Crossing) : Diagram :=                   -- D^{sw}: same shadow, over exchanged at x₀
+  { D with overStrand := Function.update D.overStrand x₀ (D.underStrand x₀), over_mem := sorry }
+def componentCount : ℕ := D.Γ.c
+def IsCrossingFreeCircle : Prop := D.Γ.c = 1 ∧ IsEmpty D.Γ.Crossing
+noncomputable def restrict (B : Finset (Fin D.Γ.c)) (hB : B.Nonempty) : Diagram := sorry  -- block restriction
+structure Basing where                                                  -- based order + nonsingular basepoints
+  rank : Fin D.Γ.c ≃ Fin D.Γ.c
+  base : ∀ i : Fin D.Γ.c, TraversalPoint (D.Γ.comp i).k
+  nonsingular : ∀ i (x : D.Γ.Crossing), D.Γ.eval ⟨i, base i⟩ ≠ D.Γ.crossingPoint x
+noncomputable def visitPt (v : D.Γ.Visit) : D.Γ.Pt := sorry
+noncomputable def basedRank (B : D.Basing) (v : D.Γ.Visit) : ℕ × ℝ := (B.rank (D.visitPt v).1, sorry) -- offset from base
+def overVisit (x : D.Γ.Crossing) : D.Γ.Visit := ⟨x, ⟨D.overStrand x, D.over_mem x⟩⟩
+noncomputable def underVisit (x : D.Γ.Crossing) : D.Γ.Visit := sorry
+def UnderFirst (B : D.Basing) : Prop :=                                 -- first encounter with each crossing is the underpass
+  ∀ x, Prod.Lex (· < ·) (· < ·) (D.basedRank B (D.underVisit x)) (D.basedRank B (D.overVisit x))
+def Reparam (D D' : Diagram) : Prop :=                                  -- same trace, cyclic orders and over data
+  ∃ (e : Fin D.Γ.c ≃ Fin D'.Γ.c) (φ : ∀ i, TraversalPoint (D.Γ.comp i).k ≃ TraversalPoint (D'.Γ.comp (e i)).k),
+    (∀ i p q r, traversalBetween p q r → traversalBetween (φ i p) (φ i q) (φ i r)) ∧
+    (∀ i p, D'.Γ.eval ⟨e i, φ i p⟩ = D.Γ.eval ⟨i, p⟩) ∧
+    (∀ x, ∃ x', (⟨e _, φ _ (D.visitPt (D.overVisit x)).2⟩ : D'.Γ.Pt) = D'.visitPt (D'.overVisit x'))
+def Deform (D D' : Diagram) : Prop := sorry           -- continuous vertex path through generic shadows, crossings constant
+def AgreeOutside (B : Set Plane) (D D' : Diagram) : Prop := sorry       -- local-replacement primitive
+def RI (D D' : Diagram) : Prop := sorry               -- trivial arc ↔ kink in a disc
+def RII (D D' : Diagram) : Prop := sorry              -- two disjoint arcs ↔ bigon with one over strand
+def RIII (D D' : Diagram) : Prop := sorry             -- triangle ↔ flipped triangle, same height order
+def PlanarIsotopic : Diagram → Diagram → Prop := Relation.EqvGen fun D D' => Reparam D D' ∨ Deform D D'
+def LinkEquiv : Diagram → Diagram → Prop :=            -- "the oriented link presented by D" (SOURCES/INDEX §D)
+  Relation.EqvGen fun D D' => PlanarIsotopic D D' ∨ RI D D' ∨ RII D D' ∨ RIII D D'
+def IsOrientedSmoothing (D : Diagram) (x : D.Γ.Crossing) (D₀ : Diagram) : Prop := sorry  -- AgreeOutside a disc about x; in-i → out-j
+def IsSkeinTriple (Dp Dm D0 : Diagram) : Prop := ∃ x, Dp.IsPositive x ∧ Dm = Dp.switch x ∧ IsOrientedSmoothing Dp x D0
+end Diagram
+
+/-! (4) The three L-1 interfaces, verbatim. -/
+axiom lit_homfly : ∃ H : Diagram → R,
+  (∀ D D', Diagram.RI D D' → H D = H D') ∧ (∀ D D', Diagram.RII D D' → H D = H D') ∧
+  (∀ D D', Diagram.RIII D D' → H D = H D') ∧ (∀ D D', Diagram.PlanarIsotopic D D' → H D = H D') ∧
+  (∀ D, D.IsCrossingFreeCircle → H D = 1) ∧
+  (∀ Dp Dm D0, Diagram.IsSkeinTriple Dp Dm D0 → R.a * H Dp - R.aInv * H Dm = R.z * H D0) ∧
+  (∀ D D', Diagram.LinkEquiv D D' → H D = H D')
+noncomputable def homfly : Diagram → R := Classical.choose lit_homfly
+axiom lp_lm : ∃ F : Diagram → T,
+  (∀ D D', Diagram.PlanarIsotopic D D' → F D = F D') ∧
+  (∀ Dp Dm D0, Diagram.IsSkeinTriple Dp Dm D0 → T.l * F Dp + T.lInv * F Dm + T.m * F D0 = 0) ∧
+  (∀ D (B : D.Basing), D.UnderFirst B → F D = T.mu ^ (D.componentCount - 1)) ∧
+  (∀ D D', Diagram.RI D D' → F D = F D') ∧ (∀ D D', Diagram.RII D D' → F D = F D') ∧ (∀ D D', Diagram.RIII D D' → F D = F D')
+noncomputable def lmF : Diagram → T := Classical.choose lp_lm
+axiom lp_lm_uniqueness : ∀ Q : Diagram → T,
+  (∀ D D', Diagram.PlanarIsotopic D D' → Q D = Q D') → (∀ D D', Diagram.RI D D' → Q D = Q D') →
+  (∀ D D', Diagram.RII D D' → Q D = Q D') → (∀ D D', Diagram.RIII D D' → Q D = Q D') →
+  (∀ D, D.IsCrossingFreeCircle → Q D = 1) →
+  (∀ Dp Dm D0, Diagram.IsSkeinTriple Dp Dm D0 → T.l * Q Dp + T.lInv * Q Dm + T.m * Q D0 = 0) → Q = lmF
+
+/-! (2) def:gauss-record. -/
+structure Record where
+  comps : Type   [compsFin : Fintype comps]
+  M : Type       [mFin : Fintype M]
+  comp : M → comps
+  succ : Equiv.Perm M          -- forward successor s
+  pair : Equiv.Perm M          -- pairing τ
+  isOver : M → Bool            -- over/under bit
+  sgn : M → SignType           -- σ(c) = sgn det(u_{c,O}, u_{c,U})
+  succ_comp : ∀ v, comp (succ v) = comp v
+  succ_cycle : ∀ v w, comp v = comp w → succ.SameCycle v w
+  pair_ne : ∀ v, pair v ≠ v
+  pair_invol : ∀ v, pair (pair v) = v
+  bit_pair : ∀ v, isOver (pair v) = !isOver v
+  sgn_pair : ∀ v, sgn (pair v) = sgn v
+  sgn_ne : ∀ v, sgn v ≠ 0
+structure RecordIso (ρ ρ' : Record) where
+  e : ρ.comps ≃ ρ'.comps
+  Φ : ρ.M ≃ ρ'.M
+  comp_eq : ∀ v, ρ'.comp (Φ v) = e (ρ.comp v)
+  succ_eq : ∀ v, Φ (ρ.succ v) = ρ'.succ (Φ v)
+  pair_eq : ∀ v, Φ (ρ.pair v) = ρ'.pair (Φ v)
+  bit_eq : ∀ v, ρ'.isOver (Φ v) = ρ.isOver v
+  sgn_eq : ∀ v, ρ'.sgn (Φ v) = ρ.sgn v
+noncomputable def Diagram.record (D : Diagram) : Record := sorry   -- M := Γ.Visit, succ := next visit on the component
+
+/-! (5) Positive lifts of carriers and def:C over the Carrier lane. -/
+variable {n : ℕ} [NeZero n]
+open Carrier in
+noncomputable def carrierCornerCount (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (S : Finset (Crossing P)) (q : Component hn hP S) : ℕ :=
+  ((componentMarkList hn hP S q).filter (fun a => decide (IsTrueCorner S a))).length
+open Carrier in
+noncomputable def carrierPolygon (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (S : Finset (Crossing P)) (q : Component hn hP S) : LabelledTuple (carrierCornerCount hn hP S q) := fun i =>
+  let L := (componentMarkList hn hP S q).filter (fun a => decide (IsTrueCorner S a))
+  if h : i.val < L.length then traversalEvaluation P (markPosition hn hP.1 (L[i.val]'h)) else 0
+/-- lem:carriers (ii),(iii) packaged as the shadow hypotheses of the lift (a theorem for independent S). -/
+def CarrierGeneric (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) (S : Finset (Crossing P))
+    (q : Carrier.Component hn hP S) : Prop :=
+  3 ≤ carrierCornerCount hn hP S q ∧ (Shadow.mk 1 Nat.one_pos fun _ => ⟨_, sorry, carrierPolygon hn hP S q⟩).Generic
+theorem positive_strand_exists (Γ : Shadow) (hΓ : Γ.Generic) (x : Γ.Crossing) :
+    ∃ s ∈ x.val, ∀ t ∈ x.val, t ≠ s → 0 < det (Γ.dir s) (Γ.dir t) := sorry
+/-- def:positive-lift: the knot diagram on Q with every crossing made positive; writhe = m_Q. -/
+noncomputable def positiveLift (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) (S : Finset (Crossing P))
+    (q : Carrier.Component hn hP S) (hq : CarrierGeneric hn hP S q) : Diagram :=
+  { Γ := Shadow.mk 1 Nat.one_pos fun _ => ⟨_, hq.1, carrierPolygon hn hP S q⟩
+    generic := hq.2
+    overStrand := fun x => Classical.choose (positive_strand_exists _ hq.2 x)
+    over_mem := fun x => (Classical.choose_spec (positive_strand_exists _ hq.2 x)).1 }
+noncomputable def carrierRot (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) (S : Finset (Crossing P))
+    (q : Carrier.Component hn hP S) (hq : CarrierGeneric hn hP S q) : ℤ :=            -- r_Q via lem:rot
+  haveI : NeZero (carrierCornerCount hn hP S q) := ⟨by have := hq.1; omega⟩
+  Classical.choose (rotationNumber_integer (hq.2.regular ⟨0, Nat.one_pos⟩))
+def IsUniformCarrier (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) (S : Finset (Crossing P))
+    (q : Carrier.Component hn hP S) : Prop :=                                           -- def:uniform
+  (∀ i, turn (carrierPolygon hn hP S q) i = 1) ∨ (∀ i, turn (carrierPolygon hn hP S q) i = -1)
+noncomputable def cornerCoefficient (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P) (S : Finset (Crossing P))
+    (q : Carrier.Component hn hP S) (hq : CarrierGeneric hn hP S q) : ℤ :=              -- c(Q) = [a^{d_Q} z^0] H⁺_Q
+  coeffAt (1 - (Carrier.carrierCrossingCount hn hP S q : ℤ) - |carrierRot hn hP S q hq|) 0 (homfly (positiveLift hn hP S q hq))
+/-- def:C: C(P) = (-1)^{ℓ(P)} Σ_{S ∈ Ind(G_P) uniform} (-1)^{|S|} Π_{Q carrier of S} c(Q). -/
+noncomputable def cornerStateSum (hn : 3 ≤ n) {P : LabelledTuple n} (hP : Generic P)
+    (hgen : ∀ S q, CarrierGeneric hn hP S q) : ℤ := by
+  classical
+  exact (-1) ^ leftTurns P *
+    ∑ S ∈ (independentSupports hn hP).filter (fun S => ∀ q, IsUniformCarrier hn hP S q),
+      (-1) ^ S.card * ∏ q : Carrier.Component hn hP S, cornerCoefficient hn hP S q (hgen S q)
+end SM

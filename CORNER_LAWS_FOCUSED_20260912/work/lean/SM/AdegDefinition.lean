@@ -1,0 +1,72 @@
+import SM.LinkLaurentRing
+
+/-! Source def:adeg (reference/SM/sm-3-statesum.tex:1887, frame SM15): degrees in `a` (and in `z`).
+Main declaration: `SM.adeg_definition : AdegDefinitionData`.
+
+Notation. The ring `ℤ[a^{±1}, z^{±1}]` is `Link.R = Laurent₂ ℤ = AddMonoidAlgebra ℤ (ℤ × ℤ)`, the
+exponent pair `(d, k)` standing for the monomial `a^d z^k` (`single (d, k) 1 = a^d z^k` with the units
+`R.aUnit`, `R.zUnit`); a Laurent polynomial in `a` with coefficients in the integral domain
+`ℤ[z^{±1}]` is read as an element of this ring (the design decision of 2026-09-13), which is an
+integral domain. The coefficient of `a^d z^k` in `f` is `coeffAt d k f` (zero if the monomial is
+absent). For `f ≠ 0`, `deg_a f = maxdeg_a f` is `degAZ f : ℤ`, `mindeg_a f` is `mindegAZ f : ℤ`, and
+with the subscript `z` they are `degZZ f`, `mindegZZ f` (the `WithBot`/`WithTop`-valued
+`degA`/`mindegA`/`degZ`/`mindegZ` are Mathlib's `supDegree`/`infDegree` for the exponent weights and
+coincide with the integers on nonzero elements). -/
+
+namespace SM
+
+open Link AddMonoidAlgebra
+
+/-- def:adeg as printed on SM15. -/
+structure AdegDefinitionData : Prop where
+  /-- The coefficient ring `ℤ[a^{±1}, z^{±1}]` is an integral domain (so is its subring
+  `ℤ[z^{±1}]`, read inside it). -/
+  domain : IsDomain R
+  /-- The exponent pair `(d, k)` is the monomial `a^d z^k`. -/
+  monomial : ∀ d k : ℤ, (single (d, k) (1 : ℤ) : R) = ((R.aUnit ^ d * R.zUnit ^ k : Rˣ) : R)
+  /-- `coeffAt d k f` is the coefficient of `a^d z^k` in `f`: it reads off monomials and determines
+  `f`. -/
+  coeff : (∀ (d k p q : ℤ) (c : ℤ),
+      coeffAt d k (single (p, q) c : R) = if (p, q) = (d, k) then c else 0) ∧
+    (∀ f g : R, (∀ d k, coeffAt d k f = coeffAt d k g) → f = g)
+  /-- `deg_a f` for `f ≠ 0`: an integer, the largest `a`-exponent with nonzero coefficient, and
+  the only such integer. -/
+  degA : ∀ f : R, f ≠ 0 →
+    Link.degA f = (degAZ f : WithBot ℤ) ∧
+    (∃ k, coeffAt (degAZ f) k f ≠ 0) ∧ (∀ d k, coeffAt d k f ≠ 0 → d ≤ degAZ f) ∧
+    (∀ d : ℤ, (∃ k, coeffAt d k f ≠ 0) → (∀ d' k, coeffAt d' k f ≠ 0 → d' ≤ d) → degAZ f = d)
+  /-- `mindeg_a f` for `f ≠ 0`: an integer, the smallest `a`-exponent with nonzero coefficient,
+  and the only such integer. -/
+  mindegA : ∀ f : R, f ≠ 0 →
+    Link.mindegA f = (mindegAZ f : WithTop ℤ) ∧
+    (∃ k, coeffAt (mindegAZ f) k f ≠ 0) ∧ (∀ d k, coeffAt d k f ≠ 0 → mindegAZ f ≤ d) ∧
+    (∀ d : ℤ, (∃ k, coeffAt d k f ≠ 0) → (∀ d' k, coeffAt d' k f ≠ 0 → d ≤ d') → mindegAZ f = d)
+  /-- `deg_z f` for `f ≠ 0`: the largest `z`-exponent with nonzero coefficient. -/
+  degZ : ∀ f : R, f ≠ 0 →
+    Link.degZ f = (degZZ f : WithBot ℤ) ∧
+    (∃ d, coeffAt d (degZZ f) f ≠ 0) ∧ (∀ d k, coeffAt d k f ≠ 0 → k ≤ degZZ f) ∧
+    (∀ k : ℤ, (∃ d, coeffAt d k f ≠ 0) → (∀ d k', coeffAt d k' f ≠ 0 → k' ≤ k) → degZZ f = k)
+  /-- `mindeg_z f` for `f ≠ 0`: the smallest `z`-exponent with nonzero coefficient. -/
+  mindegZ : ∀ f : R, f ≠ 0 →
+    Link.mindegZ f = (mindegZZ f : WithTop ℤ) ∧
+    (∃ d, coeffAt d (mindegZZ f) f ≠ 0) ∧ (∀ d k, coeffAt d k f ≠ 0 → mindegZZ f ≤ k) ∧
+    (∀ k : ℤ, (∃ d, coeffAt d k f ≠ 0) → (∀ d k', coeffAt d k' f ≠ 0 → k ≤ k') → mindegZZ f = k)
+
+theorem adeg_definition : AdegDefinitionData where
+  domain := inferInstance
+  monomial := R.single_eq_aUnit_zpow_mul_zUnit_zpow
+  coeff := ⟨coeffAt_single, fun _ _ h => ext_coeffAt h⟩
+  degA := fun f hf =>
+    ⟨degA_eq_degAZ hf, (degAZ_spec hf).1, (degAZ_spec hf).2,
+      fun _ hatt hbd => degAZ_eq_of_spec hatt hbd⟩
+  mindegA := fun f hf =>
+    ⟨mindegA_eq_mindegAZ hf, (mindegAZ_spec hf).1, (mindegAZ_spec hf).2,
+      fun _ hatt hbd => mindegAZ_eq_of_spec hatt hbd⟩
+  degZ := fun f hf =>
+    ⟨degZ_eq_degZZ hf, (degZZ_spec hf).1, (degZZ_spec hf).2,
+      fun _ hatt hbd => degZZ_eq_of_spec hatt hbd⟩
+  mindegZ := fun f hf =>
+    ⟨mindegZ_eq_mindegZZ hf, (mindegZZ_spec hf).1, (mindegZZ_spec hf).2,
+      fun _ hatt hbd => mindegZZ_eq_of_spec hatt hbd⟩
+
+end SM

@@ -1,0 +1,30 @@
+{
+  "utc": "2026-09-12T03:26:22.092811+00:00",
+  "reviewer": "/root/review_relgp_full",
+  "status": "Passed independent finite arithmetic/set checks, not a Lean theorem.",
+  "range": "All strict spanning child intervals and all core cut subsets containing s, for core sizes n=3 through9.",
+  "definitions": "old(k)=k for k<=s else k+1; tail(k)=k for k<s else k+1; collapse(p)=p for p<=s else p-1. Each row expands all bounded nonduplicate preimages and exactly its local subset {A}, {B}, or {A,B}.",
+  "assertions": [
+    "A-only is the whole old image",
+    "B-only is the whole tail image",
+    "Both is insert B of A-only and insert A of B-only",
+    "All three rows distinct and each collapses to exact C",
+    "All consecutive children in each one-cut row are exactly mapped core children in sorted order"
+  ],
+  "counts": {
+    "total": 2116,
+    "by_core_size": {
+      "3": 1,
+      "4": 6,
+      "5": 23,
+      "6": 72,
+      "7": 201,
+      "8": 522,
+      "9": 1291
+    },
+    "triangle_cases": 1,
+    "minimal_three_cut_core_cases": 210
+  },
+  "reviewer_ran_lean_kernel_build_or_audit": false,
+  "source_claim_acceptance_increment": 0
+}

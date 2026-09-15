@@ -1,0 +1,107 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-attachment-signs-technical-review-20260912",
+  "sealed_utc": "2026-09-12T00:51:27.971721+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "Reviewer authored SoftLocalDeterminants, which is embedded in this prototype. This report independently reviews the root-authored group and its use of that interface; it does not independently self-review the local determinant construction. The separate root technical review is bound below."
+  },
+  "scope": {
+    "group": "SoftAttachmentSigns",
+    "declarations": [
+      "SM.softInsertion_attachment_signs",
+      "SM.softAttachment_signs_nonzero",
+      "SM.softInsertion_attachment_turns",
+      "SM.soft_insertion_definition"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "def:soft and the two attachment-turn equalities in lem:soft-generic(ii), source 991–1150."
+  },
+  "assessment": "No technical mathematical defect found within the stated bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_proof_or_frozen_evidence": false,
+    "root_kernel_session": 74029,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes, including complete bodies and ambient binder context. No extracted-header hashes or split-on-:= metadata.",
+    "receipt_path": "work/checks/SoftAttachmentSigns-prototype-result.json",
+    "receipt_sha256": "f34f232bdad2b24c79bb096d1bb3ca4cfb817b64984a983809353a61c6ecdbde",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+      "work/checks/SoftAttachmentSigns.body.lean": "a7517f1232ff90b13ef8b3cb563e6a5decee4ae7c6226621d26d4cef26082994",
+      "work/checks/SoftAttachmentSigns.prototype.lean": "8f8636f1ab616d7517e8dbe65b8b990b08f0fe49c20b3dcda25384262496addf",
+      "work/checks/SoftAttachmentSigns-first-kernel.log": "54d662fdab7182ccd150e05e492c1cf4ce7b032a2eacd4a4ff013ebd1cf7b3b7"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftLocalDeterminants.body.lean": 1,
+      "work/checks/SoftAttachmentSigns.body.lean": 1
+    },
+    "printed_trace_count": 4,
+    "declaration_axioms": {
+      "SM.softInsertion_attachment_signs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softAttachment_signs_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_attachment_turns": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_insertion_definition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/reviews/soft-local-determinants-technical-review-20260912.json": "cee90155bd58c3607edbb71261a4d10ffb6e4e7b508b054f234d6406dfe17daa",
+      "work/checks/soft-geometry-preserved-failures-20260912.json": "49cf74f4747eeae29f2dad7ee3f118c7f66f75cf503711781df0c6e028f7db58",
+      "work/reviews/soft-insertion-indices-technical-review-20260911.json": "75deca0aa5e9a32a4d11a96b335f637ee5a1bfe05c47a7c2fab5fb7d472505d4",
+      "work/reviews/soft-insertion-successors-technical-review-20260911.json": "73915e847d68a794082ce2c1d012902242390ef88cbc5187b934ccdecf5174ac",
+      "work/reviews/soft-insertion-tuple-technical-review-20260911.json": "16b2627ac67c12379f58e2b213ca660ab51646510d7d98a5b351d8e47cb1bf06",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465"
+    }
+  },
+  "findings": [
+    "The two ordered chirotopes use the actual newborn, old attachment vertex j, and old predecessor/successor labels. Their values are precisely -sign det(edge P (j-1),q) and -sign det(q,edge P j), for every positive epsilon.",
+    "SoftAdmissible supplies the two nonzero determinants used by softAttachment_signs_nonzero. The sign identities themselves need no nonzero assumption and therefore also state their correct zero-valued algebraic extension.",
+    "The turn proof derives the actual predecessor indices from the proved enlarged successor equations. It identifies the incoming old edge, soft edge and return edge before applying the local determinant formulas. The signs at old j and the newborn are the negatives of the corresponding attachment signs.",
+    "The aggregate soft_insertion_definition states every old point, the inserted point, every unchanged edge, the soft/return directions, both attachment chirotopes and both turns. These equalities concern the literal inserted tuple, rather than an unspecified equivalent polygon.",
+    "The turn/aggregate results require only n>=3 and epsilon>0, retaining n=3, arbitrary j and the cyclic seam. Parent G1 and admissibility are unnecessary for these algebraic equalities, so their omission does not narrow the source domain. Actual admissibility and q nonzero are supplied by the separate frozen definition interface when required."
+  ],
+  "limits": "These are definition and sign interfaces, not a full soft-generic theorem. They make no claim about G2, chamber membership, crossings, inherited parameters or visit order. Stronger fidelity approval and canonical integration remain pending. Hash and kernel checks do not establish source acceptance."
+}

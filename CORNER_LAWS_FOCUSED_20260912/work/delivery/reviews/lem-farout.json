@@ -1,0 +1,1427 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "Full lemma146-168 and proof170-227. Source section assumptions3-6; roots/compositions10-27; gates29-62; tree definition66-82; near/far definition132-144; labelled-representative permission in sm-1-polygons55-60.",
+  "source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "This reviewer independently read the complete authoritative lemma and surrounding definitions, all three new bodies and the full aggregate closure, and wrote fresh physical-domain and consumer checks. No implementation, source, declaration map, root receipt or frozen prior report was edited. The two earlier marking-transport fragments have the inherited explicit authorship limitation; their exact source/type fidelity was separately reviewed by the noncontributing /root/review_mark_transport and is bound here. This kernel supplies fresh elaborated-type and axiom evidence for those fragments as well. The canonical review wrote only new reviewer check/report files; no implementation, source, map, root receipt or frozen prior report was changed.",
+  "provenance_disclosure": {
+    "reviewer_derived_fragments": [
+      "SM.BoundaryCutSet.marked_transport_val",
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks"
+    ],
+    "origin_consumer": "NearFarRefinementIndependentReview.marked_forward_has_actual_cuts",
+    "origin_file": "work/checks/nearfar-refinement-review-examples.lean",
+    "origin_file_sha256": "a26a21c579e6ad78bb80d814a4f9ab87950b027161597efbb4f95cb92b300578",
+    "fresh_noncontributing_reviewer": "/root/review_mark_transport",
+    "fresh_fragment_review": "work/reviews/marked-transport-independent.json",
+    "fresh_fragment_review_sha256": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "fresh_review_is_read_only_without_its_own_kernel": true,
+    "current_independent_kernel_checks_fragments": true,
+    "scope_resolved_by_combined_reviews": true
+  },
+  "review_schema": "independent-full-source-review-v1",
+  "id": "lem:farout",
+  "source_id": "lem:farout",
+  "source_line": 146,
+  "labels": [
+    "lem:farout"
+  ],
+  "declaration": "SM.farout",
+  "module": "SM.Farout",
+  "verdict": "faithful",
+  "full_source_coverage": true,
+  "source_claim_accepted": true,
+  "in_theorem_library": true,
+  "statement_sha256": "079a085d5f248db40018ec89c9840d4d3b40300c923e82f5eb13eae7ec56a3d8",
+  "utc": "2026-09-11T06:44:32.424267+00:00",
+  "reason": "Faithful complete original lem:farout: two-sided coordinate-polynomial inverse; exact full marked-refinement factorization; actual geometric open/full-root identities; entire-output independence of near arrays with fixed H and E; all open leaf/nonleaf values; and the restricted nonleaf coefficient under only local G1 at the actual closing edge from a_j to a_i. The exact canonical implementation passes independent first kernel 94940 with all 127 prototype types unchanged and 48 substantive consumers. Immutable audit067 passes and its 80-entry transparent statement/definition hash is independently recomputed. Shared marking-fragment provenance is explicitly resolved by the separately bound noncontributing reviewer. This exact source row is faithful and eligible for map acceptance.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual unmarked fine cuts and all inner cuts",
+      "assessment": "RefinementUnmarked is every fine interior index whose actual physical position is absent from the outer cut set. Each inner interior cut lies strictly inside its outer part, lies in the global refined cut set by restriction, and cannot be an outer cut because the part is consecutive. The actual fine index is recovered by the physical-position equivalence. Equality of images forces equality of strict outer-part interiors and then inner indices. Conversely an unmarked fine cut lies in a half-open outer part; it cannot equal that part’s left endpoint because that would be an outer cut, so it is strictly interior and occurs in the exact recovered inner composition. Thus all and only unmarked cuts occur once, including empty unary domains."
+    },
+    {
+      "clause": "Exact inner neighboring triples",
+      "assessment": "For each inner cut, the preceding and following child intervals are globally consecutive in the refined cut set. The existing consecutive-triple uniqueness theorem therefore identifies both neighbors around the same physical middle cut. inner_nearTriple_transport proves equality of the full triples, not merely equality of their signs or scalar samples. Applying any triple-valued factor function and reindexing the full sigma of inner interior indices gives the exact unmarked fine product. The independent entry consumer checks all three positions explicitly."
+    },
+    {
+      "clause": "All marked cuts and global far endpoints",
+      "assessment": "Every outer interior position remains a refined interior position by cut-set containment. The position-preserving outer-index map is injective; any marked fine interior position is an actual outer cut strictly between the global endpoints, so it has a unique outer interior index. RefinementMarked therefore contains exactly these positions. Both farTriple constructions use the same source interval I; their lower and upper entries are I.left and I.right, and their middle entries agree by the position lemma. The independent consumer checks those exact global endpoints, excluding an accidental inner-interval far sample. Reindexing arbitrary far-triple factors supplies precisely every marked factor."
+    },
+    {
+      "clause": "Exact partition and half coefficients",
+      "assessment": "refinementMarks stores the actual outer interior positions as marks of the fine composition. refinementMarkIndices recovers their fine indices; membership is equivalent to membership in the outer cut set because all fine indices already exclude global endpoints. Subtype products therefore equal products over this exact finite marked set and its complementary interior-index set. The independent factor-count consumer combines both index equivalences and the subtype-complement cardinality formula to show that the outer interior count plus every inner interior count equals the fine interior count. Thus every refined interior cut supplies exactly one half factor. Near-only weights become D of the actual neighboring triple times inverse two; far-only weights become negative H of the global-endpoint triple times inverse two."
+    },
+    {
+      "clause": "Complete recovered and arbitrary raw nested summands",
+      "assessment": "nested_summand_transport distributes the product of each inner weight times its child product. The proved near-factor product, marked far-factor product and full refined child-coordinate product then yield exactly the source marked/unmarked coefficient times the complete refined child product. The ring is arbitrary CommRing with invertible two; no field, ordering or nontriviality premise appears. Independent raw-family consumers replace every recovered inner composition by the original arbitrary family using refinementInner_flatten and whole-family congruence, so coverage does not depend on a restricted reconstructed-family presentation. Unary outer data gives no marks; an identical outer/fine cut set marks every fine position; every unary inner coefficient is one."
+    },
+    {
+      "clause": "Actual marked equivalence and disclosed shared proof provenance",
+      "assessment": "nestedMarkedCutEquiv_marks projects the actual full canonical nested/marked equivalence and proves that its physical marked finset is exactly the original outer interior finset. Its final inverse sigma equivalence transports a dependent marking along equality of the reconstructed and original cut sets; marked_transport_val proves this leaves the underlying positions unchanged. These two fragments adapt the earlier independent consumer argument and are not treated as authorship-independent work of this reviewer. A separate reviewer, /root/review_mark_transport, independently read their exact source, proofs, canonical map and mathlib transport definitions, with no authorship. Its passed report and exact fragment hashes are bound here; the current kernel independently checks their elaborated types and standard axiom traces."
+    },
+    {
+      "clause": "Termwise correspondence through the actual full source bijection",
+      "assessment": "nestedSummand and markedSummand are transparent products of the actual outer far weight, all inner near weights, all child coordinates, and the corresponding selected/complementary fine factors. The marking projection identifies the output marking with refinementMarks, while exact raw-family recovery identifies the original inner family with the restriction family. The proved complete-summand transport then gives equality under nestedMarkedCutEquiv for every actual raw outer composition and every inner family. Neither the bijection nor the factor equality is assumed as a premise."
+    },
+    {
+      "clause": "Full factorization on all interval arrays",
+      "assessment": "nearFar_factorization_coordinate expands the actual F_H(G_D(X)) definition by finite distributivity over every inner composition choice for every outer part. The double sum is rewritten as its complete sigma index domain. Fintype.sum_equiv reindexes that sum through the exact source nestedMarkedCutEquiv using the proved equality of complete summands. The resulting sigma sum separates into every refined composition and every physical mark set. The marked-index equivalence rewrites the inner sum over all index subsets; nearFarWeight_marked_expansion recombines the negative-far and near half choices independently. The result is exactly the defining Phi sum, and function extensionality yields Phi=F_H composed with G_D on the whole array space. An independent inverse-order consumer derives G_D inverse after F_H inverse, confirming the composition order. The unary marked-sum consumer retains precisely X_I."
+    },
+    {
+      "clause": "Polynomial inverse premise already supplied without new axioms",
+      "assessment": "The existing canonical triangular-polynomial development supplies explicit coordinate polynomials for the inverse of every exact Phi and both inverse identities; its full source and canonical review is already bound through the inherited NearFar dependencies. This batch’s factorization operates on the actual finite polynomial expressions, without an additional literature axiom or a new bijectivity premise. The independent inverse-order and canonical-solution consumers use those proved inverse identities on arbitrary targets."
+    },
+    {
+      "clause": "Whole-solution far-only output and genuine near-array independence",
+      "assessment": "If Phi(D,H)(X)=Y, full factorization gives F_H(G_D(X))=Y. Applying the proved uniqueness of the F_H inverse identifies the entire near-only array G_D(X) with nearFarInverse(0,H)(Y). Factorization with negative H then identifies the complete reversed-far output with F_(-H) of that same array. Thus two independently chosen near arrays and their possibly different solutions at a common target have identical complete output. The independent consumer instantiates both solutions with their actual constructed inverses, so no hypothetical existence premise is required. No independence of individual tree terms or open sums is asserted."
+    },
+    {
+      "clause": "Exact geometric source root and representative transport",
+      "assessment": "farOnlyCoordinates is precisely nearFarInverse(0,H)(E), and farOnlyOutput is F_(-H) of that coordinate array. The previously proved actual geometric open sums solve Phi(b)=E; substituting them gives the full geometric far-only array. The actual rooted tree coefficient is its fullBoundaryInterval coordinate using the source root theorem and hn:3<=n. An independent consumer combines this with solution-level independence to express the same geometric root coefficient using any arbitrary near array D and its actual inverse solution. Another consumer applies the proven simultaneous tuple/root shift to the entire far-only output, preserving the specified physical root."
+    },
+    {
+      "clause": "Source leaf and nonleaf coordinate conventions",
+      "assessment": "On a one-leaf interval there is no nonunary raw composition, so every Phi is the identity on that coordinate. The source E indicator is one there; the inverse equation forces c to be one, and both F_H(c) and F_(-H)(c) are one. On any interval with at least two leaves, the actual inverse equation F_H(c)=E gives the ordinary coordinate zero. These statements quantify over every source interval and arbitrary allowed H. They implement the open-word convention only; no two-vertex polygon amplitude is introduced."
+    },
+    {
+      "clause": "Complete interval and composition domains remain unchanged",
+      "assessment": "BoundaryInterval is every pair of Fin n positions with left<right; leaves is right-left. IntervalComposition has arbitrary positive natural part count, a strictly increasing Fin(parts+1) cut map, and exact first/last endpoints. Finiteness and the parts<n bound are derived, not assumptions narrowing this raw domain. TripleArray and IntervalArray are unrestricted functions on their actual finite source domains. The current trace rechecks the previously reviewed full factorization on these same definitions, and all 93 predecessor printed types are byte-for-byte unchanged."
+    },
+    {
+      "clause": "All local positions and all physical subintervals",
+      "assessment": "globalPosition sends a local position k to J.left+k. Its bound uses k<=J.leaves=J.right-J.left, so every output lies between J.left and J.right. localPosition subtracts J.left from any physical position within those bounds. The two proved inverse equations and strict monotonicity establish exact ordered coverage. The independent existence-and-uniqueness consumer verifies every physical position occurs once. A second consumer constructs a local interval from any original interval contained in J, proves its endpoints remain strictly ordered after subtraction, and recovers the entire original interval. Thus the restriction is not limited to a selected or assumed collection of subintervals. Another consumer verifies that translation preserves the actual leaf count."
+    },
+    {
+      "clause": "Every raw composition and every translated sample",
+      "assessment": "liftComposition keeps the original natural part count and cut-index type and translates each actual cut by J.left. lowerComposition keeps the same part count and subtracts J.left from every cut; all cuts are in J because first/last and strict monotonicity bound them inside the translated local interval. The first/last equations and strict ordering are proved. Raw composition extensionality then yields both inverse laws, including dependent cut maps, and restrictionEquiv covers every composition in both directions. Independent consumers verify all part counts and cut values, exact unary preservation and full finite cardinality. The part, nearTriple and farTriple equations are equalities of the actual intervals/triples. Independent sample and product consumers check arbitrary arrays at the true neighboring positions, global endpoints of the current subinterval, and every actual child interval. No coefficient or summand is discarded."
+    },
+    {
+      "clause": "All coordinate equations and their unique inverses commute with restriction",
+      "assessment": "restrictTripleArray and restrictIntervalArray are plain composition with the actual translation maps. nearFarTransform_restrict reindexes the full local composition sum through restrictionEquiv. Corresponding summands are definitionally identical because counts, all near/far samples and every child interval are preserved. Hence this holds for arbitrary D,H,X over every CommRing with invertible two. Applying it to the proved global inverse solution and using triangular uniqueness identifies the restriction of the actual inverse with the independently constructed local inverse, for every target Y. Adjacency is invariant under adding J.left, so the E array also restricts exactly. These results give exact restriction of both c=F_H inverse(E) and B=F_(-H)(c); no geometric or G1 assumption enters this algebraic restriction proof. The independent local-inverse consumer verifies the equation directly."
+    },
+    {
+      "clause": "Actual restricted word and directed physical root",
+      "assessment": "restrictedWordTuple labels the local polygon by Q(j)=a_(J.left+(j-1 mod m)), with m=J.leaves+1. The cyclic subtraction makes Q(0)=a_j and Q(1)=a_i. The complete boundary word at local root zero is proved to be a_i,...,a_j, position by position, rather than merely sign-equivalent to it. Consequently edge Q 0=Q(1)-Q(0)=a_i-a_j is precisely the directed closing edge from a_j to a_i. The independent combined consumer extracts all positions, both endpoint labels and the actual displacement together. This is an allowed labelled representative of the source endpoint polygon, consistent with the explicit formalization permission in sm-1-polygons lines55-60 and the source boundary/root convention."
+    },
+    {
+      "clause": "Exact geometric restriction without an assumed sign agreement",
+      "assessment": "geometricBoundaryArray_restrictedWord unfolds the actual reversed chirotope sample and replaces each of its three local boundary vertices using the full boundary-word equality. Thus its determinant, sign, integer cast and scalar embedding are literally the restriction of the same physical global geometry. The equality requires no genericity assumption. The independent local-c consumer combines it with algebraic restriction and identifies the restriction of the original far-only coordinate array with nearFarInverse(0,H_local)(E_local). No new geometric array, unproved compatibility premise or global G1 requirement is substituted."
+    },
+    {
+      "clause": "Local G1 is exactly sufficient for the nonleaf tree coefficient",
+      "assessment": "For J.leaves>=2 the restricted word has m=J.leaves+1>=3; this bound is proved, and the local NeZero instance is available because m is a successor. Translating its full interval yields J itself. The actual farOnlyOutput restriction equation at that local full interval, exact geometric-array restriction, and the already proved geometric full-root theorem on Q give B_J equal to the cast treeCoefficient Q hlocal 0. The only geometric premise in this theorem is G1(Q), precisely the source condition on the closed endpoint word. The global tuple P need not satisfy G1. An independent consumer extracts this conclusion directly from SM.farout with no G1(P) parameter, while another verifies the local vertex-count bound. Together with the physical directed-root identity this proves source lines163-165 and its proof213-226."
+    },
+    {
+      "clause": "Full original aggregate includes each printed clause",
+      "assessment": "SM.farout first quantifies over every arbitrary D,H and supplies actual MvPolynomial inverse coordinates with both evaluation identities, plus Phi=F_H composed with G_D as maps. It then states actual geometric Phi(b)=E, A=Phi(D,-H)(b) at the full source interval, and A=F_(-H)(c) there. The next conjunct compares complete reversed-far output arrays for any two near arrays and corresponding solutions with the same H and E. Actual inverse solutions exist by the first conjunct; an independent consumer instantiates them, excluding vacuous conditional independence. The fourth conjunct gives E_J=0 on every nonleaf and E_J=B_J=1 on every leaf. The last gives the exact directed closing edge and local-G1 coefficient. Separate independent consumers extract the inverse polynomial identities, map order, geometry, complete near freedom, open leaf/nonleaf values and local root from the aggregate itself. None of these conclusions is an input premise."
+    },
+    {
+      "clause": "Source scope, ordinary leaf convention and absence of strengthened assumptions",
+      "assessment": "The geometric section assumes G1 and does not use G2. The implementation requires G1 only where actual geometric tree sums need it, while ring factorization and inverse results remain unrestricted. The ambient hn:3<=n is the source polygon-size assumption; NeZero n follows from it by elementary arithmetic and introduces no additional mathematical restriction. The local restricted coefficient uses only its own G1 and derived size>=3. Leaf values are open-word conventions and never invoke a two-vertex polygon tree coefficient. The arbitrary ring may have zero divisors or be trivial; no field, order or nontriviality premise is present. The scalar image of the integral source tree coefficient is evaluated in any allowed ring, as required by the half-factor formulation."
+    },
+    {
+      "clause": "Current canonical statement and complete dependency closure",
+      "assessment": "All twelve reviewed bodies are installed exactly, with the original 307 modules unchanged. The independent canonical import-only check reruns every one of the 48 consumers and matches all 127 printed types to the external trace. Immutable audit067 covers 319 SM modules and 4169 local declarations; all 38 prior mapped semantic hashes are unchanged. The current 80-entry semantic closure contains the actual finite interval/triple/composition constructors, full unrestricted array definitions, actual near/far coefficient and transform, constructed triangular inverse, E/c/B, geometric chirotope and integer casts, original recursive tree sums, and restricted tuple/global-position/directed-edge definitions. The G1 predicate is present and G2 is absent. The semantic hash is independently recomputed from these exact records. This semantic closure is distinguished from the full proof dependency graph: full proof validity is supplied by the kernel, while the exact 32-module import closure and separately reviewed refinement proofs bind proof provenance. The two shared marking fragments retain the fresh authorship-independent statement review and current independent kernel checks. Every printed original lemma clause is now faithful and eligible for acceptance; no accepted-map audit is prematurely asserted."
+    }
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d"
+  },
+  "import_closure_roots": [
+    "SM.Farout"
+  ],
+  "import_closure_file_count": 32,
+  "semantic_dependency_count": 80,
+  "required_semantic_definitions_checked": [
+    "SM.farout",
+    "SM.BoundaryInterval",
+    "SM.BoundaryInterval.mk",
+    "SM.BoundaryInterval.leaves",
+    "SM.BoundaryInterval.globalPosition",
+    "SM.IntervalComposition",
+    "SM.IntervalComposition.mk",
+    "SM.IntervalComposition.parts",
+    "SM.IntervalComposition.cut",
+    "SM.IntervalComposition.part",
+    "SM.IntervalComposition.finite",
+    "SM.IntervalComposition.fintype",
+    "SM.IncreasingBoundaryTriple",
+    "SM.IncreasingBoundaryTriple.mk",
+    "SM.TripleArray",
+    "SM.IntervalArray",
+    "SM.IntervalComposition.nearTriple",
+    "SM.IntervalComposition.farTriple",
+    "SM.IntervalComposition.nearFarWeight",
+    "SM.nearFarTransform",
+    "SM.nearTransform",
+    "SM.farTransform",
+    "SM.triangularInverse",
+    "SM.nearFarInverse",
+    "SM.farOnlyCoordinates",
+    "SM.farOnlyOutput",
+    "SM.boundaryUnitArray",
+    "SM.LabelledTuple",
+    "SM.G1",
+    "SM.Plane",
+    "SM.det",
+    "SM.chi",
+    "SM.geometricBoundaryArray",
+    "SM.boundaryIndex",
+    "SM.boundaryWord",
+    "SM.edge",
+    "SM.restrictedWordTuple",
+    "SM.fullBoundaryInterval",
+    "SM.openTreeRec",
+    "SM.rootedTreeRec",
+    "SM.openTreeSum",
+    "SM.treeCoefficient",
+    "SM.IntervalComposition.ordinaryWeight",
+    "SM.IntervalComposition.rootWeight",
+    "SM.ordinaryGate",
+    "SM.rootGate",
+    "SM.signTheta"
+  ],
+  "prototype_review": "work/reviews/farout-prototype.json",
+  "prototype_review_sha256": "7f0e403763fbc0564ea4634d88cfdc62c70ed3f1a1688bd84d3016c80ae784ab",
+  "prototype_review_binding": {
+    "work/reviews/nearfar-helper-port.json": "827cd20235e2e5c6c5b0faa8cc48fd20d21d9289d90ae25020ac4615e442f1e3",
+    "work/reviews/nearfar-refinement-canonical-partial.json": "93537539849574269dd1609dcb76e125a9e56002498a04d29db1bd96edd2549f",
+    "work/reviews/composition-cut-set-canonical-partial.json": "37bd41b7708dce3be1dfaf5fd3a0cf4b84b382f7495627eef7acdb6352021121",
+    "work/reviews/def-nearfar.json": "933022e776a0440ac35e0f9fbfa193c9e3fc32d6e8c0f67e3560c61361dd314a",
+    "work/reviews/refinement-transport-prototype.json": "5e5e665a5f60f46318ef55d13b28c6cd1d27738d8085b0e3ae273242db713013",
+    "work/checks/refinement-transport-reviewed-types.json": "cd681b4b4f54b62004381d9921a259625e4cff67efe8b865e2fbc3362ce93e00",
+    "work/checks/refinement-transport-review-examples.lean": "db798398254f3b34cdd409e6f618732685c4d2159a29a8220fd0def81a8db834",
+    "work/reviews/nearfar-factorization-far-only-prototype.json": "6a680e4851f116f42e77593f75ce1fbbe9683f5ec8b519cdcc3cef11dd6fe881",
+    "work/checks/refined-weights-reviewed-types.json": "b9f20774b3e240285df9ba3ea7b0015f651ac9f32fefd907e58a6fe89bb6d3e3",
+    "work/reviews/marked-transport-independent.json": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "work/reviews/triangular-polynomial-inverse-canonical-partial.json": "bf3e5d8fbcea2b3b9bc1d2a2257dbf20eba813efb9f7d47f140905fecfeb8a4e",
+    "work/checks/refined-weights-review-examples.lean": "001a29fa016d488dd8b330165f49f50a054a666c2b58fc7207533850b98e5c51",
+    "work/checks/nearfar-factorization-review-examples.lean": "0d90ab5e4c6ee269a9e0ea6b31d854cee04d030c9046b49eb5565690e712a672",
+    "work/checks/farout-review-examples.lean": "0090a2c6ecd5fe310a7946a321c8e1a2d145b73aa95b9113ddd47c967b19428f",
+    "work/reviews/farout-prototype.json": "7f0e403763fbc0564ea4634d88cfdc62c70ed3f1a1688bd84d3016c80ae784ab",
+    "work/checks/farout-reviewed-types.json": "ef24f25e7a80c26105d5b4dd6c17bbc9d8325b5a8c25a04604726d1fe3aa949e",
+    "work/checks/farout-review-closure.json": "9a7263fe9467eb2dd487ffee07839fd5d2db9b9c4c5dddaf36d4c260ef740190"
+  },
+  "port_review": "work/reviews/farout-port.json",
+  "port_review_sha256": "fa559a031f8a2b29c4a17eb23316244e077d0f83b68b2e2a1ed97cfb92483e0c",
+  "evidence": {
+    "independent_trace_source": "work/checks/farout-canonical-review-types.lean",
+    "independent_trace_source_sha256": "c6d26d8498761a92178c83e8cef5f2577a57860e41f04e15b3bf5203af5f6240",
+    "independent_trace_log": "work/checks/farout-canonical-review-types.log",
+    "independent_trace_log_sha256": "4ac6e49179eed59300e3157e1c1b856c3f0b76cd12e7319d7b11400de8f976a9",
+    "independent_kernel_command": "lake env lean ../checks/farout-canonical-review-types.lean",
+    "independent_kernel_session": 94940,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.BoundaryInterval.eq_of_endpoints",
+      "SM.BoundaryCutSet.consecutive_restrict_iff",
+      "SM.IntervalComposition.part_consecutive",
+      "SM.IntervalComposition.part_injective",
+      "SM.IntervalComposition.exists_part_of_consecutive",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.consecutive_contained_in_part",
+      "SM.IntervalComposition.containing_part_unique",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.BoundaryCutSet.consecutive_eq_of_left",
+      "SM.BoundaryCutSet.consecutive_eq_of_right",
+      "SM.IncreasingBoundaryTriple.eq_of_entries",
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+      "SM.IntervalComposition.nearTriple_leftInterval",
+      "SM.IntervalComposition.nearTriple_rightInterval",
+      "SM.IntervalComposition.nearTriple_consecutive",
+      "SM.IntervalComposition.nearTriple_middle_position",
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.inner_child_consecutive",
+      "SM.IntervalComposition.exists_refined_child",
+      "SM.IntervalComposition.refinedChildIndex_part",
+      "SM.IntervalComposition.refinedChildIndex_injective",
+      "SM.IntervalComposition.refinedChildIndex_surjective",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.prod_refined_children",
+      "SM.IntervalComposition.refinementInner_flatten",
+      "SM.IntervalComposition.prod_nested_children",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.markIndices_indexMarks",
+      "SM.IntervalComposition.indexMarks_markIndices",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.position_mem_indexMarks",
+      "SM.IntervalComposition.indexMarks_compl",
+      "SM.IntervalComposition.prod_indexMarks",
+      "SM.IntervalComposition.prod_markIndices",
+      "SM.IntervalComposition.sum_all_indexMarks",
+      "SM.IntervalComposition.RefinementUnmarked",
+      "SM.IntervalComposition.refinedInteriorIndex",
+      "SM.IntervalComposition.refinedUnmarkedIndex",
+      "SM.BoundaryCutSet.mem_interior_iff",
+      "SM.IntervalComposition.innerPosition_in_refinement",
+      "SM.IntervalComposition.refinedInteriorIndex_position",
+      "SM.IntervalComposition.refinedUnmarkedIndex_injective",
+      "SM.IntervalComposition.refinedUnmarkedIndex_surjective",
+      "SM.IntervalComposition.refinedUnmarkedEquiv",
+      "SM.IntervalComposition.inner_nearTriple_transport",
+      "SM.IntervalComposition.prod_inner_nearTriples",
+      "SM.IntervalComposition.RefinementMarked",
+      "SM.IntervalComposition.refinedOuterIndex",
+      "SM.IntervalComposition.refinedMarkedIndex",
+      "SM.IntervalComposition.outerPosition_in_refinement",
+      "SM.IntervalComposition.refinedOuterIndex_position",
+      "SM.IntervalComposition.refinedMarkedIndex_injective",
+      "SM.IntervalComposition.refinedMarkedIndex_surjective",
+      "SM.IntervalComposition.refinedMarkedEquiv",
+      "SM.IntervalComposition.outer_farTriple_transport",
+      "SM.IntervalComposition.prod_outer_farTriples",
+      "SM.IntervalComposition.refinementMarks",
+      "SM.IntervalComposition.refinementMarkIndices",
+      "SM.IntervalComposition.mem_refinementMarkIndices",
+      "SM.IntervalComposition.prod_refinementMarked",
+      "SM.IntervalComposition.prod_refinementUnmarked",
+      "SM.IntervalComposition.nearFarWeight_near_only",
+      "SM.IntervalComposition.nearFarWeight_far_only",
+      "SM.IntervalComposition.prod_inner_near_weights",
+      "SM.IntervalComposition.outer_far_weight",
+      "SM.IntervalComposition.nested_summand_transport",
+      "SM.IntervalComposition.nestedSummand",
+      "SM.IntervalComposition.markedSummand",
+      "SM.BoundaryCutSet.marked_transport_val",
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+      "SM.IntervalComposition.nestedSummand_eq_markedSummand",
+      "SM.IntervalComposition.sum_markedSummand",
+      "SM.nearFar_factorization_coordinate",
+      "SM.nearFar_factorization",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.nearTransform_of_nearFar_solution",
+      "SM.reversedFar_output_of_solution",
+      "SM.complete_output_near_independent",
+      "SM.farOnlyCoordinates_equation",
+      "SM.geometric_farOnly_output",
+      "SM.treeCoefficient_farOnly",
+      "SM.nearFarTransform_leaf",
+      "SM.boundaryUnitArray_leaf",
+      "SM.farOnlyCoordinates_leaf",
+      "SM.farOnly_leaf_values",
+      "SM.farOnly_nonleaf_E",
+      "SM.BoundaryInterval.globalPosition",
+      "SM.BoundaryInterval.localPosition",
+      "SM.BoundaryInterval.liftInterval",
+      "SM.BoundaryInterval.liftTriple",
+      "SM.IntervalComposition.liftComposition",
+      "SM.IntervalComposition.lowerComposition",
+      "SM.restrictTripleArray",
+      "SM.restrictIntervalArray",
+      "SM.BoundaryInterval.globalPosition_strict",
+      "SM.BoundaryInterval.globalPosition_bounds",
+      "SM.BoundaryInterval.global_localPosition",
+      "SM.BoundaryInterval.local_globalPosition",
+      "SM.IntervalComposition.eq_of_parts_cut",
+      "SM.IntervalComposition.cut_bounds",
+      "SM.IntervalComposition.lower_liftComposition",
+      "SM.IntervalComposition.lift_lowerComposition",
+      "SM.IntervalComposition.restrictionEquiv",
+      "SM.IntervalComposition.liftComposition_part",
+      "SM.IntervalComposition.liftComposition_nearTriple",
+      "SM.IntervalComposition.liftComposition_farTriple",
+      "SM.nearFarTransform_restrict",
+      "SM.nearFarInverse_restrict",
+      "SM.boundaryUnitArray_restrict",
+      "SM.farOnlyCoordinates_restrict",
+      "SM.farOnlyOutput_restrict",
+      "SM.restrictedWordTuple",
+      "SM.restrictedWord_boundary",
+      "SM.restrictedWord_first_vertex",
+      "SM.restrictedWord_last_vertex",
+      "SM.restrictedWord_closing_edge",
+      "SM.BoundaryInterval.lift_fullInterval",
+      "SM.geometricBoundaryArray_restrictedWord",
+      "SM.farOnlyOutput_restricted_tree",
+      "SM.farout"
+    ],
+    "declaration_count": 127,
+    "declaration_axioms": {
+      "SM.BoundaryCutSet.Consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.eq_of_endpoints": [
+        "propext"
+      ],
+      "SM.BoundaryCutSet.consecutive_restrict_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_injective": [
+        "propext"
+      ],
+      "SM.IntervalComposition.exists_part_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.partConsecutiveEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.consecutive_contained_in_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.containing_part_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.leftInterval": [],
+      "SM.IncreasingBoundaryTriple.rightInterval": [],
+      "SM.BoundaryCutSet.consecutive_eq_of_left": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.consecutive_eq_of_right": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_entries": [
+        "propext"
+      ],
+      "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_leftInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_rightInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_middle_position": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearTriple_eq_of_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.inner_child_consecutive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.exists_refined_child": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_part": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedChildrenEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refined_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementInner_flatten": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_nested_children": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markIndices_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.marksIndexEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.position_mem_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.indexMarks_compl": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_markIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.sum_all_indexMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.RefinementUnmarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedInteriorIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.mem_interior_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.innerPosition_in_refinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedInteriorIndex_position": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedUnmarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.inner_nearTriple_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_inner_nearTriples": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.RefinementMarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedOuterIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outerPosition_in_refinement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedOuterIndex_position": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedIndex_surjective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinedMarkedEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outer_farTriple_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_outer_farTriples": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementMarks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.refinementMarkIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.mem_refinementMarkIndices": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refinementMarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_refinementUnmarked": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_near_only": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearFarWeight_far_only": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.prod_inner_near_weights": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.outer_far_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nested_summand_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryCutSet.marked_transport_val": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedMarkedCutEquiv_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nestedSummand_eq_markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.sum_markedSummand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_factorization_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFar_factorization": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearTransform_of_nearFar_solution": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.reversedFar_output_of_solution": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.complete_output_near_independent": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_equation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_farOnly_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_farOnly": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray_leaf": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnly_leaf_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnly_nonleaf_E": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.localPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.liftInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.liftTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lowerComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictTripleArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.restrictIntervalArray": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition_strict": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.globalPosition_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.global_localPosition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.local_globalPosition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.eq_of_parts_cut": [
+        "propext"
+      ],
+      "SM.IntervalComposition.cut_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lower_liftComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.lift_lowerComposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.restrictionEquiv": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_part": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_nearTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.liftComposition_farTriple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.nearFarTransform_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.nearFarInverse_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundaryUnitArray_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyCoordinates_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_restrict": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWordTuple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_boundary": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_first_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_last_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_closing_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.BoundaryInterval.lift_fullInterval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_restrictedWord": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_restricted_tree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farout": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs",
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer",
+      "RefinementTransportIndependentReview.actual_near_sample_unique",
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors",
+      "RefinementTransportIndependentReview.refined_index_keeps_interval",
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts",
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data",
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product",
+      "RefinementTransportIndependentReview.all_inner_unary_product",
+      "RefinementTransportIndependentReview.empty_and_full_index_marks",
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative",
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport",
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality",
+      "RefinementTransportIndependentReview.unary_marking_sum",
+      "RefinedWeightsIndependentReview.complete_factor_count",
+      "RefinedWeightsIndependentReview.inner_near_entries_are_exact",
+      "RefinedWeightsIndependentReview.outer_far_entries_are_global",
+      "RefinedWeightsIndependentReview.unary_outer_has_empty_marks",
+      "RefinedWeightsIndependentReview.identical_outer_and_fine_marks_all",
+      "RefinedWeightsIndependentReview.raw_family_near_weight_transport",
+      "RefinedWeightsIndependentReview.raw_full_nested_summand",
+      "RefinedWeightsIndependentReview.all_unary_inner_coefficients_one",
+      "RefinedWeightsIndependentReview.raw_marks_match_actual_bijection",
+      "NearFarFactorizationIndependentReview.inverse_factorization_order",
+      "NearFarFactorizationIndependentReview.output_independent_with_actual_inverse",
+      "NearFarFactorizationIndependentReview.inverse_target_E_has_far_only_output",
+      "NearFarFactorizationIndependentReview.actual_root_all_near_arrays",
+      "NearFarFactorizationIndependentReview.far_only_output_physical_root_shift",
+      "NearFarFactorizationIndependentReview.all_interval_E_and_leaf_B_values",
+      "NearFarFactorizationIndependentReview.unary_marked_sum_retains_coordinate",
+      "FaroutIndependentReview.all_physical_positions_once",
+      "FaroutIndependentReview.translated_leaf_count",
+      "FaroutIndependentReview.all_physical_subintervals",
+      "FaroutIndependentReview.all_raw_parts_and_cuts",
+      "FaroutIndependentReview.unary_is_preserved",
+      "FaroutIndependentReview.complete_composition_cardinality",
+      "FaroutIndependentReview.actual_child_product",
+      "FaroutIndependentReview.all_actual_samples",
+      "FaroutIndependentReview.local_inverse_solves_actual_restriction",
+      "FaroutIndependentReview.restricted_c_is_actual_local_inverse",
+      "FaroutIndependentReview.full_contiguous_word_and_directed_root",
+      "FaroutIndependentReview.nonleaf_has_three_vertices",
+      "FaroutIndependentReview.local_root_without_global_G1",
+      "FaroutIndependentReview.aggregate_polynomials_both_directions",
+      "FaroutIndependentReview.aggregate_factorization_on_every_array",
+      "FaroutIndependentReview.aggregate_geometry_and_actual_full_root",
+      "FaroutIndependentReview.aggregate_near_freedom_has_real_solutions",
+      "FaroutIndependentReview.aggregate_open_leaf_and_nonleaf"
+    ],
+    "additional_example_count": 48,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_near_sample_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.refined_index_keeps_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.recovered_inner_has_raw_data": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.actual_marked_refinement_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_inner_unary_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.empty_and_full_index_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.marked_and_unmarked_product_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.all_markings_have_full_cardinality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinementTransportIndependentReview.unary_marking_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.complete_factor_count": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.inner_near_entries_are_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.outer_far_entries_are_global": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.unary_outer_has_empty_marks": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.identical_outer_and_fine_marks_all": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_family_near_weight_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_full_nested_summand": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.all_unary_inner_coefficients_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "RefinedWeightsIndependentReview.raw_marks_match_actual_bijection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.inverse_factorization_order": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.output_independent_with_actual_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.inverse_target_E_has_far_only_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.actual_root_all_near_arrays": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.far_only_output_physical_root_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.all_interval_E_and_leaf_B_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "NearFarFactorizationIndependentReview.unary_marked_sum_retains_coordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_physical_positions_once": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.translated_leaf_count": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_physical_subintervals": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_raw_parts_and_cuts": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.unary_is_preserved": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.complete_composition_cardinality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.actual_child_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.all_actual_samples": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.local_inverse_solves_actual_restriction": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.restricted_c_is_actual_local_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.full_contiguous_word_and_directed_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.nonleaf_has_three_vertices": [
+        "propext",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.local_root_without_global_G1": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_polynomials_both_directions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_factorization_on_every_array": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_geometry_and_actual_full_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_near_freedom_has_real_solutions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FaroutIndependentReview.aggregate_open_leaf_and_nonleaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_127_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.BoundaryCutSet.Consecutive",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.IntervalComposition.refinementInner",
+      "SM.IntervalComposition.refinedChildIndex",
+      "SM.IntervalComposition.indexMarks",
+      "SM.IntervalComposition.markIndices",
+      "SM.IntervalComposition.partConsecutiveEquiv",
+      "SM.IntervalComposition.refinedChildrenEquiv",
+      "SM.IntervalComposition.marksIndexEquiv",
+      "SM.IntervalComposition.RefinementUnmarked",
+      "SM.IntervalComposition.refinedInteriorIndex",
+      "SM.IntervalComposition.refinedUnmarkedIndex",
+      "SM.IntervalComposition.RefinementMarked",
+      "SM.IntervalComposition.refinedOuterIndex",
+      "SM.IntervalComposition.refinedMarkedIndex",
+      "SM.IntervalComposition.refinementMarks",
+      "SM.IntervalComposition.refinementMarkIndices",
+      "SM.IntervalComposition.nestedSummand",
+      "SM.IntervalComposition.markedSummand",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.IntervalComposition.refinedUnmarkedEquiv",
+      "SM.IntervalComposition.refinedMarkedEquiv",
+      "SM.BoundaryInterval.globalPosition",
+      "SM.BoundaryInterval.localPosition",
+      "SM.BoundaryInterval.liftInterval",
+      "SM.BoundaryInterval.liftTriple",
+      "SM.IntervalComposition.liftComposition",
+      "SM.IntervalComposition.lowerComposition",
+      "SM.restrictTripleArray",
+      "SM.restrictIntervalArray",
+      "SM.restrictedWordTuple",
+      "SM.IntervalComposition.restrictionEquiv"
+    ],
+    "independent_closure_evidence": "work/checks/farout-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "ca88e6de3d6489056b9760a4ec0a699472bacbd3d6416efff83ed5af25aa9fc7",
+    "canonical_semantic_evidence": "work/checks/farout-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "b5839af660689012f27db39d20a3c9e5ead7393bbbf1cc01e014fe645f3c3c4d",
+    "root_result_file": "work/checks/farout-port-audit-result.json",
+    "root_result_sha256": "ce657df8ea39648de6cfaa87054b4a23565cfcbfec62ac94421051dc15d337f6",
+    "successful_build_session": 62779,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-067-lean-check.log",
+    "successful_build_log_sha256": "f640bf498d16c32367571e367ddec92509c7643cce75c3d0e89e6d75c69a98db",
+    "audit_receipt": "work/checks/checkpoint-067-output.json",
+    "audit_receipt_sha256": "081b77dd7adb43ce96576f6525e083d4a966f646d3ca9a0b71ff406ef00e5b9e",
+    "declaration_audit": "work/checks/checkpoint-067-declaration-audit.json",
+    "declaration_audit_sha256": "bf2defda3c4c3e6fd45a973b8c2d02b869870e02dc610f83e38a9ea639444511",
+    "fresh_fragment_statement_review": "work/reviews/marked-transport-independent.json",
+    "fresh_fragment_statement_review_sha256": "660b35e9ce99e04fce1ad1a722652b388806cdf0df55574b09804a66a9f71174",
+    "scope_note": "Canonical imports only; no implementation definitions embedded. All 48 substantive external consumers rerun unchanged, including every physical subinterval/composition, actual near/far samples, polynomial inverses, complete output independence, and local-G1 physical closing-root coefficient."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-067-output.json",
+    "receipt_sha256": "081b77dd7adb43ce96576f6525e083d4a966f646d3ca9a0b71ff406ef00e5b9e",
+    "root_audit_session": 62779,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 4169,
+    "mapped_claims": 39,
+    "audited_SM_modules": 319,
+    "audited_project_files": 325,
+    "all_receipt_project_and_bundle_hashes_checked_at_review": true,
+    "all_38_prior_semantic_hashes_unchanged": true,
+    "scope": "Immutable actual audit067 covers installed twelve-module batch with lem:farout in review. The unrelated pre-port audit94944 is not used. A later accepted-map audit is not asserted to have passed."
+  },
+  "acceptance_scope": {
+    "original_claim": "lem:farout",
+    "original_rows_added_if_mapped_accepted": 1,
+    "proofs_added_if_mapped_accepted": 1,
+    "definitions_added_if_mapped_accepted": 0,
+    "current_map_was_not_edited_by_reviewer": true,
+    "helper_original_claim_count": 0,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [],
+  "not_certified": [
+    "No additional original claims for supporting helpers.",
+    "No later accepted-map audit before it runs.",
+    "No state-sum wall law, soft theorem, unconditional R theorem or overall handoff completion.",
+    "Later untested FarOnlyLocality is outside this exact port/review."
+  ],
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "from_line": 146,
+    "to_frame": "SM15",
+    "to_source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+    "to_line": 151,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "90710cc64962579f6837e941abf4d42c057a7374b35af3aebd5e55a5f1e2b144",
+    "to_excerpt_sha256": "90710cc64962579f6837e941abf4d42c057a7374b35af3aebd5e55a5f1e2b144",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Independent re-read of SM15 sm-2-amplitude.tex:151-173 (lem:farout, plus def:root 10-27, def:gates 29-43, def:treesum 66-82, def:nearfar 134-149, chi/G1 in sm-1-polygons 63-70, 100-108) against work/lean/SM/Farout.lean:13-39 and every definition it uses. All three printed clauses are present with the same objects: (i) nearFarTransform D H X I = sum over IntervalComposition I of prod_k (D(near k) - H(far k))*inv(2) times prod X(part) is exactly Phi_{D,H}; farTransform = Phi_{0,H}, nearTransform = Phi_{D,0}; the Lean gives an explicit two-sided polynomial inverse (a family of MvPolynomial (BoundaryInterval n) R evaluated at the target array) and the factorization Phi = F_H o G_D as an equality of maps on full arrays, for every D, H over any CommRing R with 2 invertible. (ii) geometricBoundaryArray P g t = chi P (a_upper) (a_middle) (a_lower) with boundaryWord a_k = P(g+k+1), i.e. D(x,y,z)=H(x,y,z)=chi(a_z,a_y,a_x) as printed; openTreeSum is the b-recursion (1 on one leaf, minus the sum over compositions with >=2 parts of ordinaryGate products, ordinaryGate = d*Theta(-hd)); treeCoefficient is the root sum with rootGate = d*Theta(hd) over compositions of fullBoundaryInterval = [0,n-1] including the unary one; the Lean states Phi_{D,H}(b) = E (boundaryUnitArray = 1 iff right = left+1), A_g(P) = Phi_{D,-H}(b)_{0N}, and A_g(P) = farOnlyOutput H [0,N] where farOnlyOutput H = F_{-H}(nearFarInverse 0 H E), which by the two-sided-inverse clause is F_{-H}(F_H^{-1}(E)); the D-independence sentence is formalised as: any solutions X1, X2 of Phi_{D1,H}X1 = E, Phi_{D2,H}X2 = E give Phi_{D1,-H}X1 = Phi_{D2,-H}X2 as whole arrays. (iii) E_J = 0 for J.leaves >= 2 and E_J = B_J = 1 for one leaf, with J.leaves = right - left = j - i; and for j - i >= 2, restrictedWordTuple P g J : LabelledTuple (leaves+1) has vertices 1..m = a_i..a_{j-1} and vertex 0 = a_j (verified from globalPosition and (j-1).val), so edge 0 runs from a_j to a_i (the Lean also states this displacement explicitly), its boundary word at root 0 is (a_i,...,a_j), and farOnlyOutput (geometric H) J = treeCoefficient of that word at root 0 under G1 of the word only. Domain, hypotheses (G1 P for (ii), local G1 for (iii), 3 <= n, 2 invertible), quantifiers and conclusions agree; nothing is vacuous (the geometric arrays are honest chi values, the recursion is well-founded on leaves, the dependency chain of 32 SM modules contains no sorry/axiom). sm15_reworded is false and I confirmed the SM15 excerpt at 151-173 is the text the blueprint extract carries; the accepted Lean statement matches it. The existing review (read afterwards) reaches the same verdict.",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Farout.lean:32-34 — the (iii) formal values (E_J = 0 for >= 2 leaves, E_J = B_J = 1 for one leaf) are asserted for every TripleArray H, not only the geometric far array of (P,g) as in source lines 164-167.",
+      "Farout.lean:28-31 — the source sentence 'The complete output is independent of D when H is held fixed' (line 163) is formalised as a general statement: for arbitrary D1, D2, H and arbitrary solutions X1, X2 of Phi_{D_i,H}(X_i) = E, the whole arrays Phi_{D1,-H}(X1) and Phi_{D2,-H}(X2) coincide.",
+      "Farout.lean:35-39 — the restricted tree-coefficient clause assumes only G1 of the restricted word (a_i,...,a_j) (as (iii) says, line 168-169) and drops the section-wide standing hypothesis that P itself satisfies (G1) (source line 3); it also states explicitly that the root edge of the restricted polygon is the displacement a_i - a_j (from a_j to a_i).",
+      "Farout.lean:14-20 — the two-sided inverse of clause (i) is given as an explicit family of MvPolynomial (BoundaryInterval n) R, one per interval, satisfying both composition identities, rather than a bare existence claim."
+    ],
+    "weaker_than_source": [
+      "Farout.lean:15-20 — the inverse polynomials Psi have coefficients in R (depending on the fixed D, H); if 'polynomial inverse' (source line 153-154, proof line 180) were read as jointly polynomial in the entries of D, H and Y over Z[1/2], that stronger reading is not captured. The natural reading (for fixed D, H the map Phi_{D,H} has a polynomial two-sided inverse) is exactly what is stated, so I do not count this as a discrepancy.",
+      "Farout.lean:13 — the hypothesis 3 <= n is attached to the whole conjunction, so the purely formal clauses (i) and (iii)-formal are only asserted for n >= 3; the source works with polygons of n >= 3 throughout, so nothing printed is lost."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-2-amplitude.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Farout.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/NearFar.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RootBoundary.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TreeCoefficient.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FarOnlyOutput.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RestrictedWordRoot.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/IntervalRestriction.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Gates.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/NearFarTriangular.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TriangularInverse.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TriangularPolynomial.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-farout.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

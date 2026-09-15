@@ -1,0 +1,1005 @@
+{
+  "cv_reference_edge_removed": {
+    "from": "CV:lem:fulltwist",
+    "reason": "Historical negative reference; abstract lemma binds its own data at d6_vertexedge.tex:1981ff.",
+    "to": "CV:def:markeddata"
+  },
+  "cv_roots": [
+    "ax:R",
+    "def:X1",
+    "def:event",
+    "def:generic",
+    "def:guarded",
+    "def:polygon",
+    "def:record",
+    "def:regular",
+    "def:interlace",
+    "def:pieces",
+    "lem:carriers",
+    "lem:carrierword",
+    "lem:fulltwist",
+    "lem:guardconst",
+    "lem:homflyrows",
+    "lem:silence",
+    "lem:turnlift",
+    "lem:uniformrot",
+    "prop:chamberinv",
+    "thm:carrierfloor",
+    "cor:groupedknot"
+  ],
+  "edges": {
+    "Bridge:B1": [
+      "def:polygon",
+      "def:germ",
+      "def:walls",
+      "CV:def:polygon",
+      "CV:def:generic"
+    ],
+    "Bridge:B2": [
+      "Bridge:B1",
+      "CV:def:guarded"
+    ],
+    "Bridge:B3": [
+      "Bridge:B2",
+      "CV:def:event"
+    ],
+    "Bridge:B4": [
+      "Bridge:B1",
+      "CV:def:X1",
+      "CV:prop:chamberinv",
+      "def:C",
+      "prop:C-chamber"
+    ],
+    "Bridge:theorem": [
+      "hyp:R",
+      "R:cv_theorem",
+      "Bridge:B1",
+      "Bridge:B2",
+      "Bridge:B3",
+      "Bridge:B4"
+    ],
+    "CV:ax:R": [
+      "CV:def:event"
+    ],
+    "CV:ax:etnyre": [
+      "src:contact"
+    ],
+    "CV:ax:gausscode": [
+      "CV:def:record",
+      "def:gauss-record",
+      "rp:record-polynomial"
+    ],
+    "CV:ax:homfly": [
+      "lit:homfly",
+      "lp:core"
+    ],
+    "CV:ax:slbound": [
+      "fd:contact"
+    ],
+    "CV:cor:groupedknot": [
+      "CV:ax:gausscode",
+      "CV:def:diagrammatic",
+      "CV:def:piecediagram",
+      "CV:def:record",
+      "CV:def:smoothing",
+      "CV:lem:carriers",
+      "CV:lem:homflyrows",
+      "CV:lem:piececurve",
+      "CV:lem:pieceintrinsic"
+    ],
+    "CV:def:X1": [
+      "CV:ax:homfly",
+      "CV:def:homfly",
+      "CV:def:interlace",
+      "CV:def:pieces",
+      "CV:def:polygon"
+    ],
+    "CV:def:diagrammatic": [],
+    "CV:def:event": [],
+    "CV:def:generic": [
+      "CV:def:guarded",
+      "CV:def:polygon"
+    ],
+    "CV:def:guarded": [],
+    "CV:def:homfly": [],
+    "CV:def:interlace": [],
+    "CV:def:piecediagram": [
+      "CV:def:homfly",
+      "CV:def:record"
+    ],
+    "CV:def:pieces": [],
+    "CV:def:polygon": [],
+    "CV:def:record": [],
+    "CV:def:regular": [],
+    "CV:def:rot": [
+      "CV:def:regular"
+    ],
+    "CV:def:silent": [],
+    "CV:def:smoothing": [],
+    "CV:def:wind": [],
+    "CV:lem:carriers": [
+      "CV:def:diagrammatic"
+    ],
+    "CV:lem:carrierword": [],
+    "CV:lem:curl": [
+      "CV:ax:gausscode",
+      "CV:ax:homfly",
+      "CV:def:rot",
+      "CV:lem:rounding",
+      "CV:lem:turnlift"
+    ],
+    "CV:lem:fulltwist": [
+      "CV:ax:homfly",
+      "CV:def:rot"
+    ],
+    "CV:lem:guardconst": [
+      "CV:def:event"
+    ],
+    "CV:lem:homflyrows": [
+      "CV:ax:homfly",
+      "CV:def:homfly"
+    ],
+    "CV:lem:piececurve": [
+      "CV:def:diagrammatic",
+      "CV:def:piecediagram",
+      "CV:lem:carriers",
+      "CV:lem:carrierword"
+    ],
+    "CV:lem:pieceintrinsic": [
+      "CV:ax:gausscode",
+      "CV:def:piecediagram",
+      "CV:def:record",
+      "CV:lem:carrierword"
+    ],
+    "CV:lem:rounding": [
+      "CV:def:rot",
+      "CV:lem:turnlift"
+    ],
+    "CV:lem:silence": [
+      "CV:ax:gausscode",
+      "CV:ax:homfly",
+      "CV:def:X1",
+      "CV:def:record",
+      "CV:def:silent",
+      "CV:lem:guardconst",
+      "CV:lem:piececurve",
+      "CV:lem:turnlift",
+      "CV:prop:chamberinv"
+    ],
+    "CV:lem:turnlift": [
+      "CV:def:rot"
+    ],
+    "CV:lem:uniformrot": [
+      "CV:def:rot",
+      "CV:lem:turnlift"
+    ],
+    "CV:prop:chamberinv": [
+      "CV:ax:gausscode",
+      "CV:ax:homfly",
+      "CV:def:guarded",
+      "CV:def:record",
+      "CV:def:regular",
+      "CV:def:wind",
+      "CV:lem:carriers",
+      "CV:lem:piececurve",
+      "CV:lem:turnlift"
+    ],
+    "CV:selector_A": [
+      "CV:def:generic",
+      "CV:def:regular",
+      "CV:lem:carriers"
+    ],
+    "CV:singleton_D_i": [
+      "CV:def:X1",
+      "CV:def:pieces",
+      "CV:lem:carriers",
+      "CV:thm:carrierfloor",
+      "CV:cor:groupedknot",
+      "CV:lem:homflyrows",
+      "cb:singleton"
+    ],
+    "CV:thm:carrierfloor": [
+      "CV:ax:etnyre",
+      "CV:ax:homfly",
+      "CV:ax:slbound",
+      "CV:def:X1",
+      "CV:def:diagrammatic",
+      "CV:def:rot",
+      "CV:def:wind",
+      "CV:lem:curl",
+      "CV:lem:rounding",
+      "CV:lem:turnlift",
+      "CV:lem:uniformrot"
+    ],
+    "R:availability_0_1": [
+      "R:fibre_partition",
+      "R:exterior"
+    ],
+    "R:cv_theorem": [
+      "CV:ax:R",
+      "R:fibre_partition",
+      "R:availability_0_1",
+      "R:generic_transport",
+      "R:generic_selected",
+      "R:generic_selector",
+      "R:extreme_pair_zero",
+      "R:extreme_transport",
+      "R:extreme_selected"
+    ],
+    "R:exterior": [
+      "R:parity",
+      "CV:cor:groupedknot",
+      "CV:lem:carrierword"
+    ],
+    "R:extreme_pair_zero": [
+      "R:parity",
+      "CV:singleton_D_i"
+    ],
+    "R:extreme_selected": [
+      "R:exterior",
+      "CV:lem:homflyrows",
+      "CV:selector_A",
+      "CV:thm:carrierfloor"
+    ],
+    "R:extreme_transport": [
+      "R:exterior",
+      "CV:lem:fulltwist",
+      "CV:selector_A",
+      "CV:thm:carrierfloor"
+    ],
+    "R:fibre_partition": [
+      "R:parity",
+      "CV:def:X1"
+    ],
+    "R:generic_selected": [
+      "R:generic_table",
+      "R:generic_selector",
+      "R:exterior",
+      "CV:thm:carrierfloor",
+      "CV:lem:fulltwist",
+      "CV:lem:homflyrows"
+    ],
+    "R:generic_selector": [
+      "R:generic_table",
+      "CV:def:wind",
+      "CV:selector_A"
+    ],
+    "R:generic_table": [
+      "R:localization",
+      "R:parity",
+      "CV:lem:carrierword"
+    ],
+    "R:generic_transport": [
+      "R:generic_table",
+      "R:exterior",
+      "CV:cor:groupedknot"
+    ],
+    "R:localization": [
+      "CV:def:event",
+      "CV:def:guarded",
+      "CV:lem:guardconst",
+      "CV:lem:silence"
+    ],
+    "R:parity": [
+      "R:localization",
+      "CV:def:interlace"
+    ],
+    "SM:corner_laws_and_soft": [
+      "cor:C-inherits",
+      "Bridge:theorem",
+      "thm:C-soft",
+      "thm:C-S5"
+    ],
+    "cb:blocks": [],
+    "cb:embedded-rotation": [
+      "lem:gauss-two-discs",
+      "lem:rot"
+    ],
+    "cb:products": [
+      "lem:carriers",
+      "lp:core",
+      "mp:blocks",
+      "rp:record-polynomial"
+    ],
+    "cb:singleton": [
+      "cb:products",
+      "lc:single-crossing",
+      "lem:carriers",
+      "lem:uniformrot",
+      "lp:core",
+      "thm:floor"
+    ],
+    "ce:rounding": [],
+    "ce:smoothing-record": [
+      "lp:core",
+      "lp:lm",
+      "rp:record-polynomial"
+    ],
+    "cf:def-turning": [],
+    "cf:lem-curl": [
+      "cf:def-turning",
+      "cf:lem-rounding",
+      "cf:lem-turnlift",
+      "lp:core",
+      "lp:lm",
+      "rp:record-polynomial"
+    ],
+    "cf:lem-rounding": [
+      "cf:def-turning",
+      "cf:lem-turnlift",
+      "lem:rot"
+    ],
+    "cf:lem-turnlift": [
+      "cf:def-turning",
+      "lem:rot"
+    ],
+    "cf:thm-carrierfloor": [
+      "cf:def-turning",
+      "cf:lem-curl",
+      "cf:lem-rounding",
+      "cf:lem-turnlift",
+      "fd:contact",
+      "lem:rot",
+      "lem:uniformrot",
+      "lp:coefficient-transport",
+      "lp:core",
+      "rp:record-polynomial"
+    ],
+    "conv:selected-visits": [],
+    "cor:A-lawful": [
+      "lem:A-small-values",
+      "prop:A-reversal",
+      "thm:A-R3E",
+      "thm:A-S3",
+      "thm:A-S4",
+      "thm:A-S7",
+      "thm:A-soft",
+      "thm:root-indep-proof"
+    ],
+    "cor:C-inherits": [
+      "cor:A-lawful",
+      "def:C",
+      "def:germ",
+      "def:walls",
+      "lem:children",
+      "lem:soft-generic",
+      "lem:star-generic",
+      "thm:comparison"
+    ],
+    "cor:flat-carriers": [
+      "def:flat-carriers",
+      "lem:flat-sides"
+    ],
+    "cp:finite-contact-path": [
+      "ce:rounding",
+      "ce:smoothing-record",
+      "fd:linking-calculus",
+      "lit:homfly",
+      "lp:core",
+      "rp:record-polynomial"
+    ],
+    "def:C": [
+      "def:decomposition",
+      "def:generic"
+    ],
+    "def:adeg": [],
+    "def:admissible": [],
+    "def:anchors": [
+      "def:soft"
+    ],
+    "def:chamber": [],
+    "def:chirotope": [],
+    "def:crossings": [],
+    "def:decomposition": [
+      "def:interlace"
+    ],
+    "def:deletion-halves": [],
+    "def:flat-carriers": [
+      "conv:selected-visits",
+      "def:smoothing"
+    ],
+    "def:gates": [],
+    "def:gauss": [],
+    "def:gauss-record": [],
+    "def:generic": [],
+    "def:germ": [],
+    "def:induced-roots": [],
+    "def:interlace": [],
+    "def:nearfar": [],
+    "def:polygon": [],
+    "def:positive-lift": [],
+    "def:regular": [],
+    "def:root": [],
+    "def:shift": [],
+    "def:smoothing": [],
+    "def:soft": [],
+    "def:star": [],
+    "def:transverse-front": [],
+    "def:treesum": [],
+    "def:uniform": [],
+    "def:visible": [],
+    "def:walls": [],
+    "def:weak": [],
+    "fd:contact": [
+      "cp:finite-contact-path",
+      "def:transverse-front",
+      "fd:generic-front",
+      "fd:linking-calculus",
+      "fd:ng-bound",
+      "fd:transverse-neighborhood",
+      "lit:homfly",
+      "ng:front-domain",
+      "src:contact"
+    ],
+    "fd:contact-motions": [],
+    "fd:generic-front": [
+      "fd:contact-motions",
+      "fd:parameter-avoidance"
+    ],
+    "fd:linking-calculus": [],
+    "fd:ng-bound": [
+      "lp:core",
+      "ng:front-domain",
+      "ng:local-front-bound",
+      "ng:smoothing-record"
+    ],
+    "fd:parameter-avoidance": [],
+    "fd:transverse-neighborhood": [],
+    "hyp:R": [],
+    "lc:presentations": [
+      "rp:record-polynomial"
+    ],
+    "lc:single-crossing": [],
+    "lem:A-small-values": [
+      "def:star",
+      "lem:chi-basic",
+      "lem:gates-nonzero",
+      "prop:A-reversal"
+    ],
+    "lem:C-X1": [
+      "def:C",
+      "lem:carriers"
+    ],
+    "lem:carriers": [],
+    "lem:chi-basic": [],
+    "lem:children": [
+      "def:deletion-halves",
+      "lem:flat-sides",
+      "lem:wall-sides"
+    ],
+    "lem:corner-values": [
+      "cb:embedded-rotation",
+      "cb:singleton",
+      "lp:core"
+    ],
+    "lem:crossing-test": [
+      "lem:chi-basic",
+      "lem:g1"
+    ],
+    "lem:cusp-sides": [],
+    "lem:farout": [
+      "def:nearfar"
+    ],
+    "lem:fibres": [
+      "lem:rot"
+    ],
+    "lem:flat-sides": [
+      "def:crossings",
+      "def:gauss",
+      "def:interlace"
+    ],
+    "lem:g1": [],
+    "lem:gates-nonzero": [
+      "def:gates"
+    ],
+    "lem:gauss-two-discs": [],
+    "lem:homflyrows": [
+      "def:positive-lift",
+      "lit:homfly",
+      "lp:core",
+      "mp:join",
+      "mp:lowest",
+      "mp:stack"
+    ],
+    "lem:rot": [],
+    "lem:shift": [
+      "def:regular",
+      "lem:chi-basic",
+      "lem:g1",
+      "lem:rot"
+    ],
+    "lem:soft-generic": [
+      "def:soft"
+    ],
+    "lem:soft-rotation": [
+      "lem:rot",
+      "lem:soft-generic"
+    ],
+    "lem:star-generic": [
+      "lem:chi-basic",
+      "lem:shift"
+    ],
+    "lem:transport": [
+      "def:regular",
+      "def:weak",
+      "lem:children",
+      "lem:rot",
+      "thm:mycyclic",
+      "thm:relgp"
+    ],
+    "lem:transport-angle-interval": [],
+    "lem:transport-lengths": [],
+    "lem:transport-polynomials": [],
+    "lem:treesum-trees": [
+      "def:gates",
+      "def:treesum"
+    ],
+    "lem:triple-sides": [
+      "lem:wall-segment-stability"
+    ],
+    "lem:uniformrot": [
+      "lem:rot"
+    ],
+    "lem:wall-segment-stability": [],
+    "lem:wall-sides": [
+      "lem:flat-sides",
+      "lem:triple-sides",
+      "lem:wall-segment-stability"
+    ],
+    "lit:homfly": [],
+    "lp:coefficient-transport": [
+      "lp:lm-uniqueness"
+    ],
+    "lp:core": [
+      "lit:homfly",
+      "lp:coefficient-transport",
+      "lp:lm",
+      "lp:lm-uniqueness"
+    ],
+    "lp:lm": [],
+    "lp:lm-uniqueness": [],
+    "lp:split-circle": [],
+    "mp:blocks": [
+      "lc:presentations",
+      "mp:join"
+    ],
+    "mp:join": [
+      "lc:presentations",
+      "lp:core"
+    ],
+    "mp:lowest": [
+      "lp:core",
+      "mp:stack",
+      "mp:zero-link"
+    ],
+    "mp:stack": [],
+    "mp:zero-link": [],
+    "ng:circle": [
+      "lp:split-circle"
+    ],
+    "ng:commutation": [
+      "rp:record-polynomial"
+    ],
+    "ng:cusp-skein": [],
+    "ng:deletions": [],
+    "ng:finite-word": [
+      "ng:front-domain"
+    ],
+    "ng:front-I": [],
+    "ng:front-II": [],
+    "ng:front-III": [],
+    "ng:front-domain": [],
+    "ng:local-front-bound": [
+      "ng:circle",
+      "ng:commutation",
+      "ng:cusp-skein",
+      "ng:deletions",
+      "ng:finite-word",
+      "ng:front-I",
+      "ng:front-II",
+      "ng:front-III",
+      "ng:front-domain",
+      "ng:smoothing-record"
+    ],
+    "ng:smoothing-record": [
+      "ng:front-domain",
+      "rp:record-polynomial"
+    ],
+    "prop:A-chamber": [
+      "def:gates",
+      "def:treesum",
+      "prop:chambers"
+    ],
+    "prop:A-reversal": [
+      "lem:treesum-trees"
+    ],
+    "prop:C-chamber": [
+      "def:C",
+      "def:chamber",
+      "lem:carriers",
+      "lem:rot",
+      "lp:core",
+      "prop:chambers",
+      "rp:record-polynomial"
+    ],
+    "prop:C-silent": [
+      "def:visible",
+      "lc:presentations",
+      "lem:rot",
+      "lem:wall-sides",
+      "lp:core",
+      "prop:C-chamber"
+    ],
+    "prop:anchor-values": [
+      "def:anchors",
+      "lem:soft-generic",
+      "prop:A-chamber",
+      "prop:C-chamber",
+      "thm:A-soft",
+      "thm:C-soft"
+    ],
+    "prop:anchors-exist": [
+      "def:admissible",
+      "def:anchors",
+      "lem:fibres",
+      "lem:rot",
+      "lem:soft-generic",
+      "lem:soft-rotation",
+      "lem:star-generic",
+      "prop:chambers"
+    ],
+    "prop:chambers": [
+      "lem:crossing-test",
+      "lem:g1",
+      "lem:wall-segment-stability"
+    ],
+    "rp:record-polynomial": [
+      "def:gauss-record"
+    ],
+    "src:contact": [
+      "def:transverse-front"
+    ],
+    "thm:A-R3E": [
+      "def:gates",
+      "def:walls",
+      "lem:farout",
+      "thm:single-triple"
+    ],
+    "thm:A-S3": [
+      "def:induced-roots",
+      "thm:single-triple"
+    ],
+    "thm:A-S4": [
+      "lem:rot",
+      "thm:single-triple"
+    ],
+    "thm:A-S7": [
+      "def:deletion-halves",
+      "def:induced-roots",
+      "lem:children",
+      "lem:farout",
+      "thm:single-triple"
+    ],
+    "thm:A-soft": [],
+    "thm:C-S3": [
+      "cor:flat-carriers",
+      "def:C",
+      "lc:presentations",
+      "lem:carriers",
+      "lem:flat-sides",
+      "lp:core",
+      "prop:C-chamber"
+    ],
+    "thm:C-S5": [
+      "def:C",
+      "def:smoothing",
+      "def:uniform",
+      "lem:cusp-sides",
+      "prop:chambers"
+    ],
+    "thm:C-S7": [
+      "cb:blocks",
+      "cb:products",
+      "cb:singleton",
+      "def:deletion-halves",
+      "def:smoothing",
+      "lem:C-X1",
+      "lem:carriers",
+      "lem:children",
+      "lem:homflyrows",
+      "lem:rot",
+      "lem:uniformrot",
+      "lem:wall-sides",
+      "rp:record-polynomial",
+      "thm:floor"
+    ],
+    "thm:C-soft": [
+      "def:C",
+      "def:positive-lift",
+      "def:soft",
+      "lem:carriers",
+      "lem:corner-values",
+      "lem:rot",
+      "lem:soft-generic",
+      "lp:core",
+      "prop:C-chamber",
+      "rp:record-polynomial"
+    ],
+    "thm:comparison": [
+      "def:C",
+      "def:polygon",
+      "hyp:R",
+      "lem:corner-values",
+      "prop:C-chamber",
+      "prop:C-silent",
+      "thm:C-S3",
+      "thm:C-S7",
+      "thm:C-soft",
+      "thm:uniqueness"
+    ],
+    "thm:floor": [
+      "cf:thm-carrierfloor",
+      "def:adeg",
+      "lem:carriers",
+      "lp:core"
+    ],
+    "thm:mycyclic": [
+      "lem:transport-angle-interval",
+      "lem:transport-lengths"
+    ],
+    "thm:relgp": [
+      "lem:g1",
+      "lem:transport-polynomials",
+      "lem:wall-segment-stability"
+    ],
+    "thm:root-indep-proof": [
+      "def:anchors",
+      "def:chirotope",
+      "def:root",
+      "def:shift",
+      "def:star",
+      "lem:A-small-values",
+      "lem:star-generic",
+      "lem:transport",
+      "prop:A-chamber",
+      "prop:A-reversal",
+      "prop:anchors-exist",
+      "thm:A-R3E",
+      "thm:A-S3",
+      "thm:A-S7",
+      "thm:A-soft"
+    ],
+    "thm:single-triple": [
+      "lem:farout"
+    ],
+    "thm:uniqueness": [
+      "cor:A-lawful",
+      "def:anchors",
+      "lem:transport",
+      "prop:anchor-values",
+      "prop:anchors-exist"
+    ]
+  },
+  "order": [
+    "CV:def:polygon",
+    "def:germ",
+    "def:polygon",
+    "def:walls",
+    "CV:def:guarded",
+    "CV:def:event",
+    "hyp:R",
+    "CV:def:record",
+    "def:gauss-record",
+    "lit:homfly",
+    "CV:def:diagrammatic",
+    "CV:def:smoothing",
+    "CV:def:homfly",
+    "CV:def:interlace",
+    "CV:def:pieces",
+    "CV:def:regular",
+    "CV:def:silent",
+    "CV:def:wind",
+    "CV:lem:carrierword",
+    "cb:blocks",
+    "lem:gauss-two-discs",
+    "lem:rot",
+    "lem:carriers",
+    "lc:single-crossing",
+    "ce:rounding",
+    "lp:lm",
+    "cf:def-turning",
+    "conv:selected-visits",
+    "thm:A-soft",
+    "fd:linking-calculus",
+    "def:generic",
+    "def:adeg",
+    "def:admissible",
+    "def:soft",
+    "def:chamber",
+    "def:chirotope",
+    "def:crossings",
+    "def:interlace",
+    "def:deletion-halves",
+    "def:smoothing",
+    "def:gates",
+    "def:gauss",
+    "def:induced-roots",
+    "def:nearfar",
+    "def:positive-lift",
+    "def:regular",
+    "def:root",
+    "def:shift",
+    "def:star",
+    "def:transverse-front",
+    "def:treesum",
+    "def:uniform",
+    "def:visible",
+    "def:weak",
+    "fd:transverse-neighborhood",
+    "ng:front-domain",
+    "fd:contact-motions",
+    "fd:parameter-avoidance",
+    "lem:chi-basic",
+    "lem:g1",
+    "lem:cusp-sides",
+    "mp:stack",
+    "lem:transport-angle-interval",
+    "lem:transport-lengths",
+    "lem:transport-polynomials",
+    "lem:wall-segment-stability",
+    "lp:lm-uniqueness",
+    "lp:split-circle",
+    "mp:zero-link",
+    "ng:cusp-skein",
+    "ng:deletions",
+    "ng:front-I",
+    "ng:front-II",
+    "ng:front-III",
+    "CV:def:generic",
+    "CV:ax:R",
+    "CV:lem:guardconst",
+    "rp:record-polynomial",
+    "CV:lem:carriers",
+    "CV:def:piecediagram",
+    "CV:def:rot",
+    "cb:embedded-rotation",
+    "lem:fibres",
+    "lem:uniformrot",
+    "cf:lem-turnlift",
+    "def:anchors",
+    "lem:soft-generic",
+    "def:decomposition",
+    "def:flat-carriers",
+    "lem:gates-nonzero",
+    "lem:flat-sides",
+    "lem:farout",
+    "src:contact",
+    "lem:treesum-trees",
+    "ng:finite-word",
+    "fd:generic-front",
+    "lem:crossing-test",
+    "lem:shift",
+    "thm:mycyclic",
+    "lem:triple-sides",
+    "thm:relgp",
+    "lp:coefficient-transport",
+    "ng:circle",
+    "Bridge:B1",
+    "CV:ax:gausscode",
+    "lc:presentations",
+    "ng:commutation",
+    "ng:smoothing-record",
+    "CV:selector_A",
+    "CV:lem:piececurve",
+    "CV:lem:turnlift",
+    "cf:lem-rounding",
+    "lem:soft-rotation",
+    "def:C",
+    "cor:flat-carriers",
+    "thm:single-triple",
+    "CV:ax:etnyre",
+    "prop:A-reversal",
+    "prop:chambers",
+    "lem:star-generic",
+    "lem:wall-sides",
+    "lp:core",
+    "Bridge:B2",
+    "CV:lem:pieceintrinsic",
+    "ng:local-front-bound",
+    "CV:lem:rounding",
+    "CV:lem:uniformrot",
+    "lem:C-X1",
+    "thm:A-R3E",
+    "thm:A-S3",
+    "thm:A-S4",
+    "lem:A-small-values",
+    "prop:A-chamber",
+    "thm:C-S5",
+    "prop:anchors-exist",
+    "lem:children",
+    "CV:ax:homfly",
+    "ce:smoothing-record",
+    "cf:lem-curl",
+    "mp:join",
+    "mp:lowest",
+    "prop:C-chamber",
+    "Bridge:B3",
+    "fd:ng-bound",
+    "lem:transport",
+    "thm:A-S7",
+    "CV:def:X1",
+    "CV:lem:curl",
+    "CV:lem:fulltwist",
+    "CV:lem:homflyrows",
+    "CV:prop:chamberinv",
+    "cp:finite-contact-path",
+    "mp:blocks",
+    "lem:homflyrows",
+    "prop:C-silent",
+    "thm:C-S3",
+    "thm:root-indep-proof",
+    "CV:cor:groupedknot",
+    "Bridge:B4",
+    "CV:lem:silence",
+    "fd:contact",
+    "cb:products",
+    "cor:A-lawful",
+    "R:localization",
+    "CV:ax:slbound",
+    "cf:thm-carrierfloor",
+    "R:parity",
+    "CV:thm:carrierfloor",
+    "thm:floor",
+    "R:exterior",
+    "R:fibre_partition",
+    "R:generic_table",
+    "cb:singleton",
+    "R:extreme_selected",
+    "R:extreme_transport",
+    "R:availability_0_1",
+    "R:generic_selector",
+    "R:generic_transport",
+    "CV:singleton_D_i",
+    "lem:corner-values",
+    "thm:C-S7",
+    "R:generic_selected",
+    "R:extreme_pair_zero",
+    "thm:C-soft",
+    "R:cv_theorem",
+    "prop:anchor-values",
+    "Bridge:theorem",
+    "thm:uniqueness",
+    "thm:comparison",
+    "cor:C-inherits",
+    "SM:corner_laws_and_soft"
+  ],
+  "partial_clauses": [
+    "CV:selector_A",
+    "CV:singleton_D_i"
+  ],
+  "sm_context_additions": {
+    "def:adeg": "Coefficient/degree notation for the corner bound.",
+    "def:chamber": "Connected components, not combinatorial chambers by assumption.",
+    "def:chirotope": "Determinant signs used by the amplitude prerequisites.",
+    "def:decomposition": "Independent supports and smoothing carriers of the state sum.",
+    "def:gauss-record": "Named records for the polynomial construction.",
+    "def:generic": "Domain of C and the final theorem.",
+    "def:polygon": "Underlying labelled tuples and cyclic quotient.",
+    "def:regular": "Domain of the transport paths.",
+    "def:root": "Rooted tree amplitude used for the full cusp route.",
+    "def:shift": "Cyclic representative changes in root independence.",
+    "def:visible": "Visible/silent locus in the transport argument.",
+    "def:weak": "Weakly generic locus used in transport."
+  },
+  "sm_roots": [
+    "prop:C-chamber",
+    "prop:C-silent",
+    "thm:C-S3",
+    "thm:C-S7",
+    "thm:C-S5",
+    "thm:C-soft",
+    "hyp:R",
+    "cor:C-inherits"
+  ],
+  "warning": "Explicit reference closure plus documented semantic additions. Further implicit dependencies may be needed; add them locally without new axioms."
+}

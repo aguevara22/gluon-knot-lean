@@ -1,0 +1,1041 @@
+{
+  "review_schema": "independent-partial-source-prototype-review-v1",
+  "id": "geometric-gap-response-prototype",
+  "source_id": "thm:single-triple",
+  "source_line": 229,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "source_lines": "229-269,271-283,290-317; full-span branch and nonleaf closed-gap G1, proper propagation excluded",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "utc": "2026-09-11T08:59:17.848742+00:00",
+  "main_declarations": [
+    "SM.WallGerm.boundary_values_stable_near_center",
+    "SM.wallGapU",
+    "SM.wallGapV",
+    "SM.cutWeightedSum_signed_inverse",
+    "SM.cutWeightedSum_neg_signed_inverse",
+    "SM.boundary_left_gap_gate",
+    "SM.boundary_right_gap_gate",
+    "SM.geometric_gap_sums",
+    "SM.geometric_critical_inverse_response",
+    "SM.geometric_critical_output_response",
+    "SM.WallGerm.full_span_tree_response",
+    "SM.restrictedVertexIndex",
+    "SM.restrictedVertexIndex_injective",
+    "SM.restrictedWord_G1_off_critical",
+    "SM.critical_closed_gaps_G1"
+  ],
+  "main_declarations_by_body": {
+    "WallArrayNeighborhood": [
+      "SM.WallGerm.boundary_values_stable_near_center"
+    ],
+    "WallGapValues": [
+      "SM.wallGapU",
+      "SM.wallGapV",
+      "SM.cutWeightedSum_signed_inverse",
+      "SM.cutWeightedSum_neg_signed_inverse"
+    ],
+    "BoundaryGapGates": [
+      "SM.boundary_left_gap_gate",
+      "SM.boundary_right_gap_gate"
+    ],
+    "GeometricGapResponse": [
+      "SM.geometric_gap_sums",
+      "SM.geometric_critical_inverse_response",
+      "SM.geometric_critical_output_response"
+    ],
+    "FullSpanGermResponse": [
+      "SM.WallGerm.full_span_tree_response"
+    ],
+    "RestrictedCriticalG1": [
+      "SM.restrictedVertexIndex",
+      "SM.restrictedVertexIndex_injective",
+      "SM.restrictedWord_G1_off_critical",
+      "SM.critical_closed_gaps_G1"
+    ]
+  },
+  "prototype_files_sha256": {
+    "CollinearGateSigns": "c3d05fc111fa800c1d25157a39a359b104d8c3852634974e341e2b224b358401",
+    "BoundaryGateSigns": "51c54062115c3498a31a53862640419e486f51d29c557ec8db0c13971305c22c",
+    "BoundaryTripleSupports": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+    "FarOnlyOutputLocality": "c0a5dc5d64c30dbad1c6f6aff7cf18ae064564e527d6daf83b85f4b1ccdccb7d",
+    "BoundaryArrayStability": "8dcd7f72ad6b3fa419239a788dd3737b499d80535fa39764bebd62708c4b92b2",
+    "WallArrayNeighborhood": "467c296be4b83b1a3be75a4c3dba36cf3d36dd0c8fc187b4bf56acaa2bc390c9",
+    "WallGapValues": "4e28f2da7c19070400f3b31d53cb7bbd67df6e612df0f53f3bf81ebcef36c0dc",
+    "BoundaryGapGates": "86e7a8cb558f026beb546fb2b2e14136f85624202d90a38278749ff98dfc3d29",
+    "GeometricGapResponse": "f5e1f97fe153b8328d5fc528d0a4ba01412c74252d78d29ffa2c8a80260f3d34",
+    "FullSpanGermResponse": "1e519a4ac7882d59ef266e2a868645c42d8342219c4807ba192722bb3820fc5a",
+    "RestrictedCriticalG1": "dcfba9c797588bd08197ed50d5f14f645859d4c74435536c9dfbffe4a73d971f"
+  },
+  "reviewed_files_sha256": {
+    "work/lean/SM/CriticalSourceResponse.lean": "154f456d16f796f6d52fabb1f2979b04b9b62dff8421cc2d785def4a2797b705",
+    "work/lean/SM/CoefficientResponse.lean": "709865501de144f8640efc7a55717e168a735385cbdca7fa02b2ba410769640f",
+    "work/lean/SM/FixedEndpointGate.lean": "3fdfd8603154185a6f82e7aafb86ceb0e7297ede7f4b9c6ce91033784ca55651",
+    "work/lean/SM/CriticalFarOccurrence.lean": "3a85c4eef913ff6e5c7e26374f93a166376ff0686a35995da6d630598b9d81f0",
+    "work/lean/SM/CriticalCutSplit.lean": "057fda75b742c22a8112736bc73f368766212d49d2df07024756673d848bcb1b",
+    "work/lean/SM/Farout.lean": "8c5f49e94ae0240cb9ae6e7e233ea369c1b496c330a4357af74b418f1366495b",
+    "work/lean/SM/RestrictedWordRoot.lean": "a2d45634865602373437222b5e190794f31375624fa3021745ae6a0043551e8e",
+    "work/lean/SM/IntervalRestriction.lean": "1f95b822cd0c8ea8dd0668dd6c64143510d496955b8cbd9b302dda2c50eae458",
+    "work/lean/SM/FarOnlyOutput.lean": "d773b636e2dc37babf11ae3df6b1eb813f5bc2812ad10f5e9bb76faf7d133aa4",
+    "work/lean/SM/NearFarFactorization.lean": "5ba746897c43bb5382e4a409feba3c77acfca9bbbadcd6a5e708b94263d92628",
+    "work/lean/SM/RefinedWeights.lean": "328abc14a9737341c01603980d66fc7ef58e05b1c5fc672d6ea8419fe034a6b6",
+    "work/lean/SM/RefinedOuter.lean": "afd60b4ad330b24f5a273b20512c54ef58b2f36e0f7a9c59f82f13de70afe1d0",
+    "work/lean/SM/RefinedInterior.lean": "b3df53fad5a7616efc35bf277faad08a2295b4dab5a3fcdde259752af61980b0",
+    "work/lean/SM/RefinedChildren.lean": "c201df125ee9221a73c9ce58a195fcec98e55c7c1b78de5616e1bdf94e5ea3d3",
+    "work/lean/SM/ConsecutiveCuts.lean": "725ecdb60d3dce8a26c168caf7e01b640228745f8a5460eb630096a9a84d8a5a",
+    "work/lean/SM/NestedCutSets.lean": "1d2532f7a0928ad105e901bf534dced931244866bc875eecc59f47b338970945",
+    "work/lean/SM/InteriorCutSet.lean": "4eaf17d0deef9554cbbfbd3464a3a0f1c54de03ac419932b14a595cc35aca326",
+    "work/lean/SM/CompositionCutSet.lean": "7c007ce2a90c25360a5d58949493ce2bc9d1d7ac3c6c8da71b6dd481bcfeec84",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/CompositionSegments.lean": "e55a09f154dd85ad4e4d7e0b35b5c87ccf78459a2c4344a80c7669b909e48144",
+    "work/lean/SM/ConsecutiveTriples.lean": "b347a77963e4ac55f7c65cc8f562d7532d66f385bf9d558b81a8bc0b4fcc0289",
+    "work/lean/SM/InteriorCutIndex.lean": "0e908253e77c9994d1668711e8ca8038931e5c96d8a39e4c9e945a3b77359938",
+    "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/MarkedRefinement.lean": "e0755615095571245f94fab25e6690ca61a79a9a0df664f3332da03d4a612144",
+    "work/lean/SM/MarkedCutIndex.lean": "8a6cb69376fa533591a4e6efe819bc91a0138ea24630106598e3da58d1135de5",
+    "work/lean/SM/NearFarCutExpansion.lean": "efc67675d7784559882f295f8d531adca689143bc818dfa4b6f65b613cdd5366",
+    "work/lean/SM/GeometricNearFar.lean": "16fc42cbef7c8e207f8b7c1cbb0718ca70b2aa63b73c5a5bdad5e8c5342ece4b",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+    "work/lean/SM/NearFarTriangular.lean": "851c9d30affbb3d38893bdc72249173f4b830d552768ba04e971e1ee848663b2",
+    "work/lean/SM/UnaryComposition.lean": "2ab97aefcf1216934b9e44ce6897c73e70d6d16487a4f82123e68d415c47176d",
+    "work/lean/SM/TriangularInverse.lean": "c1ad3aab34d9695ee82fa41284461d921125d0d67281c1a67d46cbb48c0f5db2",
+    "work/lean/SM/TriangularPolynomial.lean": "ec63d8347f1a639d7f6a9033864ceb09a3e083bf7025a1d19e00624d56b40b67",
+    "work/lean/SM/GapSplitProducts.lean": "6cd04237f5c6358f97c53f8f0222844d27cbe967d798d29181f2e518d696d1c2",
+    "work/lean/SM/CriticalInverseDifference.lean": "8d24a82540feb67b99bcdf636e0642cd11451f8b7718f9f22cdeee29ec22cc17",
+    "work/lean/SM/FarOnlyLocality.lean": "acabcc232d65c15d1b3137751bdc91d16c9f5b452898e33685be67964a29639c",
+    "work/lean/SM/FiniteChiStability.lean": "7160db9c4ac930a64c65ce44b9e9a41d4f139a3442a49604b3c96f9a347cadc9",
+    "work/lean/SM/ChamberPaths.lean": "cabb36d739563036aeee39c1a7bc0cf925a6259c5f90a22ecd61c9e2e737d44a",
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SinglePointTriple.lean": "5930e77bd3eb05d371b5226c226d9caa464f99d0be48038b1154d02c623dc2c8",
+    "work/lean/SM/ZeroTriples.lean": "33e64bb519d61fdb2d9e7613cd42af12831246e5774276ca5e2e21f63ea2c23a",
+    "work/lean/SM/GermNeighborhood.lean": "b5b30d800215dde4ff3a11d04b16a261501f6736224807df97a434a2aed0ca5a",
+    "work/lean/SM/GermDefinition.lean": "bd33269270393122371529e33deed075c34348d1a2455537303abc4579206ed8",
+    "work/lean/SM/GermRelabel.lean": "6b3b502329e87eb0abd75e9d42cf8cfb41280ee90675b9c0142ac762d337934f",
+    "work/lean/SM/GermSignChange.lean": "18a9abb6b32839d22aabfdba3e45d533ff515aef021adc6efb5337854be0d91a",
+    "work/lean/SM/GermSides.lean": "a95418d15b11a300c5e6a88cbb43ecd9877b5fd061dab754e2efc19eac625d0a",
+    "work/lean/SM/WallGerm.lean": "fca24dab7111c6b6f404b075ab4e1b8c20d2fb48083565b6ba89758ebf684f9b",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/ZeroTripleRelabel.lean": "ba2a7a5174923198645d8eed3a0e72bc46ba6d58ce812ee6c81f58fa44f0dae7",
+    "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+    "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+    "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+    "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee",
+    "work/checks/WallArrayNeighborhood.body.lean": "5ef5fb97198c66c9a0f1d2bea464c106d9ef93bf8b0c73153e0d75139bf6213a",
+    "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+    "work/checks/BoundaryGapGates.body.lean": "5248742ac58e44ae72069b018da0f46e7f1f9d6e925454ddd4849cfd2155e2fb",
+    "work/checks/GeometricGapResponse.body.lean": "45f267f51b434174444eaa11e516355d69976add4f940ddf1b588cca69aa22e5",
+    "work/checks/FullSpanGermResponse.body.lean": "36f2f2ba96fcd4ae0b33e9a9331f0c8e240c11122d09df2272ba4055c16d5c89",
+    "work/checks/RestrictedCriticalG1.body.lean": "be36ad6817db31270a9ea436505688e2d2e65f00a8c839449bdcfdd268b2df60"
+  },
+  "import_closure_roots": [
+    "SM.CriticalSourceResponse",
+    "SM.FiniteChiStability",
+    "SM.GermNeighborhood"
+  ],
+  "import_closure_file_count": 62,
+  "embedded_body_count": 11,
+  "evidence": {
+    "independent_trace_source": "work/checks/geometric-gap-response-review-types.lean",
+    "independent_trace_source_sha256": "1ae45173a1d76d85da17d1303342d4f6eb9a37975ff54b4d70d2e590f82a38fc",
+    "independent_trace_log": "work/checks/geometric-gap-response-review-types.log",
+    "independent_trace_log_sha256": "14d6f889de5d0c8beb7c4d12280f88d1986d2631fb90619b92991f36ba818da4",
+    "independent_kernel_command": "lake env lean ../checks/geometric-gap-response-review-types.lean",
+    "independent_kernel_session": 76983,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "prior_failed_independent_runs": [],
+    "checked_declarations": [
+      "SM.pointFarSign",
+      "SM.sign_rescale_nonzero",
+      "SM.wallLeftEpsilon",
+      "SM.wallRightEpsilon",
+      "SM.wall_epsilons_nonzero",
+      "SM.wall_epsilons_one_or_neg_one",
+      "SM.wall_epsilon_positive",
+      "SM.affine_line_difference",
+      "SM.collinear_left_gate_sign",
+      "SM.collinear_right_gate_sign",
+      "SM.affine_collinear_left_gate",
+      "SM.affine_collinear_right_gate",
+      "SM.geometricBoundaryArray_pointFarSign",
+      "SM.boundary_collinear_left_sign",
+      "SM.boundary_collinear_right_sign",
+      "SM.IncreasingBoundaryTriple.positionSet",
+      "SM.IncreasingBoundaryTriple.positionSet_bounds",
+      "SM.IncreasingBoundaryTriple.positionSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet",
+      "SM.IncreasingBoundaryTriple.vertexSet_injective",
+      "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+      "SM.boundary_chi_nonzero_off_critical",
+      "SM.farOnlyOutput_local",
+      "SM.farOnlyOutput_unchanged_off_critical",
+      "SM.geometric_array_persists_off_critical",
+      "SM.geometric_inverse_persists_off_span",
+      "SM.geometric_output_persists_off_span",
+      "SM.WallGerm.boundary_values_stable_near_center",
+      "SM.wallGapU",
+      "SM.wallGapV",
+      "SM.cutWeightedSum_signed_inverse",
+      "SM.cutWeightedSum_neg_signed_inverse",
+      "SM.boundary_left_gap_gate",
+      "SM.boundary_right_gap_gate",
+      "SM.geometric_gap_sums",
+      "SM.geometric_critical_inverse_response",
+      "SM.geometric_critical_output_response",
+      "SM.WallGerm.full_span_tree_response",
+      "SM.restrictedVertexIndex",
+      "SM.restrictedVertexIndex_injective",
+      "SM.restrictedWord_G1_off_critical",
+      "SM.critical_closed_gaps_G1"
+    ],
+    "declaration_count": 42,
+    "new_declaration_count": 15,
+    "all_27_predecessor_types_unchanged": true,
+    "declaration_axioms": {
+      "SM.pointFarSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.sign_rescale_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallLeftEpsilon": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallRightEpsilon": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilons_nonzero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilons_one_or_neg_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wall_epsilon_positive": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_line_difference": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.collinear_left_gate_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.collinear_right_gate_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_collinear_left_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_collinear_right_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometricBoundaryArray_pointFarSign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_collinear_left_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_collinear_right_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.positionSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IncreasingBoundaryTriple.vertexSet_reversed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_chi_nonzero_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_local": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.farOnlyOutput_unchanged_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_array_persists_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_inverse_persists_off_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_output_persists_off_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.WallGerm.boundary_values_stable_near_center": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallGapU": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.wallGapV": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.cutWeightedSum_signed_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.cutWeightedSum_neg_signed_inverse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_left_gap_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.boundary_right_gap_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_gap_sums": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_critical_inverse_response": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.geometric_critical_output_response": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.WallGerm.full_span_tree_response": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.restrictedVertexIndex": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.restrictedVertexIndex_injective": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.restrictedWord_G1_off_critical": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.critical_closed_gaps_G1": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "BoundaryGateStabilityIndependentReview.support_has_three_positions",
+      "BoundaryGateStabilityIndependentReview.support_has_three_labels",
+      "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality",
+      "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign",
+      "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_between",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_before",
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_after",
+      "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible",
+      "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate",
+      "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio",
+      "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio",
+      "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple",
+      "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged",
+      "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged",
+      "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement",
+      "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output",
+      "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates",
+      "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs",
+      "GeometricGapResponseIndependentReview.gap_values_have_exact_four_cases",
+      "GeometricGapResponseIndependentReview.leaf_gap_values_are_both_one",
+      "GeometricGapResponseIndependentReview.reversing_nonzero_epsilon_exchanges_gap_values",
+      "GeometricGapResponseIndependentReview.nonleaf_positive_U_and_negative_V_vanish",
+      "GeometricGapResponseIndependentReview.critical_entry_changes_no_excluded_gap_value",
+      "GeometricGapResponseIndependentReview.restricted_labels_read_the_actual_original_tuple",
+      "GeometricGapResponseIndependentReview.restricted_label_equality_is_exact",
+      "GeometricGapResponseIndependentReview.off_span_word_has_G1_and_physical_closing_edge",
+      "GeometricGapResponseIndependentReview.off_span_nonleaf_output_is_actual_closed_tree",
+      "GeometricGapResponseIndependentReview.common_radius_covers_both_actual_side_maps",
+      "GeometricGapResponseIndependentReview.arbitrary_critical_value_retains_geometric_gap_sum",
+      "GeometricGapResponseIndependentReview.full_tree_response_at_equal_positive_side_distances"
+    ],
+    "additional_example_count": 31,
+    "new_consumer_count": 12,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "BoundaryGateStabilityIndependentReview.support_has_three_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.support_has_three_labels": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.support_equality_exactly_ordered_equality": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_noncritical_point_sign": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_critical_point_sign_is_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_before": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.epsilon_middle_after": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.both_negative_epsilons_impossible": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.scalar_rescaling_allows_zero_gate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_left_negative_ratio": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.actual_right_negative_ratio": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.n3_has_only_one_increasing_triple": [
+        "propext",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.complete_left_gap_output_unchanged": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.complete_right_gap_output_unchanged": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.leaf_output_needs_no_array_agreement": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.arbitrary_critical_update_preserves_output": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.one_neighborhood_all_arrays_and_coordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "BoundaryGateStabilityIndependentReview.two_tuples_in_same_neighborhood_have_same_outputs": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.gap_values_have_exact_four_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.leaf_gap_values_are_both_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.reversing_nonzero_epsilon_exchanges_gap_values": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.nonleaf_positive_U_and_negative_V_vanish": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.critical_entry_changes_no_excluded_gap_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.restricted_labels_read_the_actual_original_tuple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.restricted_label_equality_is_exact": [
+        "propext",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.off_span_word_has_G1_and_physical_closing_edge": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.off_span_nonleaf_output_is_actual_closed_tree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.common_radius_covers_both_actual_side_maps": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.arbitrary_critical_value_retains_geometric_gap_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "GeometricGapResponseIndependentReview.full_tree_response_at_equal_positive_side_distances": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_definitions_printed": [
+      "SM.pointFarSign",
+      "SM.wallLeftEpsilon",
+      "SM.wallRightEpsilon",
+      "SM.IncreasingBoundaryTriple",
+      "SM.IncreasingBoundaryTriple.positionSet",
+      "SM.IncreasingBoundaryTriple.vertexSet",
+      "SM.boundaryIndex",
+      "SM.boundaryWord",
+      "SM.geometricBoundaryArray",
+      "SM.PointZeroTriple",
+      "SM.pointZeroTriples",
+      "SM.chi",
+      "SM.farOnlyCoordinates",
+      "SM.farOnlyOutput",
+      "SM.farTransform",
+      "SM.nearFarTransform",
+      "SM.IntervalComposition.nearFarWeight",
+      "SM.BoundaryInterval",
+      "SM.IncreasingBoundaryTriple.leftInterval",
+      "SM.IncreasingBoundaryTriple.rightInterval",
+      "SM.wallGapU",
+      "SM.wallGapV",
+      "SM.cutWeightedSum",
+      "SM.IncreasingBoundaryTriple.fixedFarGate",
+      "SM.restrictedVertexIndex",
+      "SM.restrictedWordTuple",
+      "SM.WallGerm",
+      "SM.WallGerm.sideTime",
+      "SM.WallGerm.sideTuple",
+      "SM.WallGerm.center",
+      "SM.WallGerm.zeroParameter"
+    ],
+    "supporting_types_printed": [
+      "SM.boundaryIndex_injective",
+      "SM.chi_nonzero_outside_singleton",
+      "SM.chi_locally_constant_of_ne_zero",
+      "SM.finite_nonzero_chi_persists",
+      "SM.farOnlyCoordinates_local",
+      "SM.farOnlyCoordinates_unchanged_off_critical",
+      "SM.IntervalComposition.part_bounds",
+      "SM.WallGerm.eventually_center_iff_radius",
+      "SM.treeCoefficient_farOnly",
+      "SM.farOnlyOutput_restricted_tree",
+      "SM.restrictedWord_closing_edge",
+      "SM.BoundaryInterval.globalPosition_strict",
+      "SM.BoundaryInterval.globalPosition_bounds"
+    ],
+    "reviewed_types": "work/checks/geometric-gap-response-reviewed-types.json",
+    "reviewed_types_sha256": "7660dee6bbceb5e93d9ebdca1fc07ab82dfa86325577d93a8fd56bf0e0b27d9c",
+    "independent_closure_evidence": "work/checks/geometric-gap-response-review-closure.json",
+    "independent_closure_evidence_sha256": "672d35d2826910e39a3122899724242e7495b818e7b854f0dc2ec025eb0e3afa",
+    "root_successful_results": {
+      "work/checks/CollinearGateSigns-prototype-result.json": {
+        "kernel_session": 50086,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:32:14.300156+00:00",
+        "files_sha256": {
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+          "work/checks/CollinearGateSigns.prototype.lean": "c3d05fc111fa800c1d25157a39a359b104d8c3852634974e341e2b224b358401",
+          "work/checks/CollinearGateSigns-first-kernel.log": "93ed12f96a6d68567b94f1daef8c69adc1ff1d9bfc84891e7e90eb03a79ce8ff"
+        },
+        "printed_declarations": [
+          "SM.pointFarSign",
+          "SM.sign_rescale_nonzero",
+          "SM.wallLeftEpsilon",
+          "SM.wallRightEpsilon",
+          "SM.wall_epsilons_nonzero",
+          "SM.wall_epsilons_one_or_neg_one",
+          "SM.wall_epsilon_positive",
+          "SM.affine_line_difference",
+          "SM.collinear_left_gate_sign",
+          "SM.collinear_right_gate_sign",
+          "SM.affine_collinear_left_gate",
+          "SM.affine_collinear_right_gate"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryGateSigns-prototype-result.json": {
+        "kernel_session": 24750,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:43:34.280322+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+          "work/checks/BoundaryGateSigns.prototype.lean": "51c54062115c3498a31a53862640419e486f51d29c557ec8db0c13971305c22c",
+          "work/checks/BoundaryGateSigns-first-kernel.log": "31795aa7c376159a6b7548433df52eb8734c603998a9fa41240815593fe09285",
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40"
+        },
+        "printed_declarations": [
+          "SM.geometricBoundaryArray_pointFarSign",
+          "SM.boundary_collinear_left_sign",
+          "SM.boundary_collinear_right_sign"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryTripleSupports-prototype-result.json": {
+        "kernel_session": 98450,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:50:25.110049+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/BoundaryTripleSupports.prototype.lean": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+          "work/checks/BoundaryTripleSupports-first-kernel.log": "6cd541d10c340a215848b9073eb49fd32d6df339572f999f969d0105af0ca61a"
+        },
+        "printed_declarations": [
+          "SM.IncreasingBoundaryTriple.positionSet",
+          "SM.IncreasingBoundaryTriple.positionSet_bounds",
+          "SM.IncreasingBoundaryTriple.positionSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet",
+          "SM.IncreasingBoundaryTriple.vertexSet_injective",
+          "SM.IncreasingBoundaryTriple.vertexSet_reversed",
+          "SM.boundary_chi_nonzero_off_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/FarOnlyOutputLocality-prototype-result.json": {
+        "kernel_session": 21440,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:51:11.120532+00:00",
+        "files_sha256": {
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+          "work/checks/FarOnlyOutputLocality.prototype.lean": "c0a5dc5d64c30dbad1c6f6aff7cf18ae064564e527d6daf83b85f4b1ccdccb7d",
+          "work/checks/FarOnlyOutputLocality-first-kernel.log": "291bca2230b873fa68990533346fe17077ac31c7e4a92c89f82d4de2b81cff59"
+        },
+        "printed_declarations": [
+          "SM.farOnlyOutput_local",
+          "SM.farOnlyOutput_unchanged_off_critical"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryArrayStability-prototype-result.json": {
+        "kernel_session": 68168,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T07:52:11.220647+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee",
+          "work/checks/BoundaryArrayStability.prototype.lean": "8dcd7f72ad6b3fa419239a788dd3737b499d80535fa39764bebd62708c4b92b2",
+          "work/checks/BoundaryArrayStability-first-kernel.log": "cdc3e5a6e2a53b12c22d6d33bf1ce0a7e390b28ca55b67fb651554efad1a0867",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03"
+        },
+        "printed_declarations": [
+          "SM.geometric_array_persists_off_critical",
+          "SM.geometric_inverse_persists_off_span",
+          "SM.geometric_output_persists_off_span"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/WallArrayNeighborhood-prototype-result.json": {
+        "kernel_session": 38042,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 25874,
+          "exit_code": 1,
+          "reason": "Implicit continuity point not inferable; proof-only explicit ContinuousAt at zeroParameter fixed it. Statement unchanged."
+        },
+        "utc": "2026-09-11T08:00:17.403133+00:00",
+        "files_sha256": {
+          "work/checks/WallArrayNeighborhood.body.lean": "5ef5fb97198c66c9a0f1d2bea464c106d9ef93bf8b0c73153e0d75139bf6213a",
+          "work/checks/WallArrayNeighborhood.prototype.lean": "467c296be4b83b1a3be75a4c3dba36cf3d36dd0c8fc187b4bf56acaa2bc390c9",
+          "work/checks/WallArrayNeighborhood-second-kernel.log": "ce8c96e46777d5fc7ed0817e32b11a8f1fbbd02a6c3e515bfe74a0942ca08255",
+          "work/checks/WallArrayNeighborhood-first.body.lean": "49ba5314a281f105814d2807b9e4496f9253622f17e1afc8318624b10ccb6a25",
+          "work/checks/WallArrayNeighborhood-first.prototype.lean": "7dea025ff1efd38402ef9f60e091ca788ac39e2048e92ab0b363c6fae45e26fc",
+          "work/checks/WallArrayNeighborhood-first-kernel.log": "bc966fe486fc95cba4f2c307fa6c109621d0ca3693c599e54c649df3514bf301",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+          "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee"
+        },
+        "printed_declarations": [
+          "SM.WallGerm.boundary_values_stable_near_center"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/WallGapValues-prototype-result.json": {
+        "kernel_session": 75114,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T08:00:44.665118+00:00",
+        "files_sha256": {
+          "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+          "work/checks/WallGapValues.prototype.lean": "4e28f2da7c19070400f3b31d53cb7bbd67df6e612df0f53f3bf81ebcef36c0dc",
+          "work/checks/WallGapValues-first-kernel.log": "63fb1a861f9e0ac21e9c41a47edbd28988e254e31ffb101ece2344421b4cf3b6"
+        },
+        "printed_declarations": [
+          "SM.wallGapU",
+          "SM.wallGapV",
+          "SM.cutWeightedSum_signed_inverse",
+          "SM.cutWeightedSum_neg_signed_inverse"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/BoundaryGapGates-prototype-result.json": {
+        "kernel_session": 91026,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T08:01:11.316760+00:00",
+        "files_sha256": {
+          "work/checks/BoundaryGapGates.body.lean": "5248742ac58e44ae72069b018da0f46e7f1f9d6e925454ddd4849cfd2155e2fb",
+          "work/checks/BoundaryGapGates.prototype.lean": "86e7a8cb558f026beb546fb2b2e14136f85624202d90a38278749ff98dfc3d29",
+          "work/checks/BoundaryGapGates-first-kernel.log": "1e934518aaf45dc370c330925a52a9e899160811b69d81211ee6b6864768f73b",
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+          "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502"
+        },
+        "printed_declarations": [
+          "SM.boundary_left_gap_gate",
+          "SM.boundary_right_gap_gate"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/GeometricGapResponse-prototype-result.json": {
+        "kernel_session": 56962,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "utc": "2026-09-11T08:02:01.581899+00:00",
+        "files_sha256": {
+          "work/checks/GeometricGapResponse.body.lean": "45f267f51b434174444eaa11e516355d69976add4f940ddf1b588cca69aa22e5",
+          "work/checks/GeometricGapResponse.prototype.lean": "f5e1f97fe153b8328d5fc528d0a4ba01412c74252d78d29ffa2c8a80260f3d34",
+          "work/checks/GeometricGapResponse-first-kernel.log": "13379ff6796e404a1825942bfb5d4e3ff886c1a3d5d9e2bccd5cb4e7172c2dec",
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+          "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+          "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+          "work/checks/BoundaryGapGates.body.lean": "5248742ac58e44ae72069b018da0f46e7f1f9d6e925454ddd4849cfd2155e2fb"
+        },
+        "printed_declarations": [
+          "SM.geometric_gap_sums",
+          "SM.geometric_critical_inverse_response",
+          "SM.geometric_critical_output_response"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      },
+      "work/checks/FullSpanGermResponse-prototype-result.json": {
+        "kernel_session": 13810,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 46570,
+          "exit_code": 1,
+          "reason": "Unsupported subscript-minus/plus identifier suffixes; renamed bound variables Minus/Plus without changing the formula."
+        },
+        "utc": "2026-09-11T08:43:00.900883+00:00",
+        "files_sha256": {
+          "work/checks/FullSpanGermResponse.body.lean": "36f2f2ba96fcd4ae0b33e9a9331f0c8e240c11122d09df2272ba4055c16d5c89",
+          "work/checks/FullSpanGermResponse.prototype.lean": "1e519a4ac7882d59ef266e2a868645c42d8342219c4807ba192722bb3820fc5a",
+          "work/checks/FullSpanGermResponse-second-kernel.log": "cae9a944653cdf260b36005dd5d2ba10b1746bbcd69e4b5b09e5a59cb8d572d9",
+          "work/checks/FullSpanGermResponse-first.body.lean": "ac1283d3c690b051a38d126e6a7d30e6a34933b536d513c259d0c9f65d6d82fa",
+          "work/checks/FullSpanGermResponse-first.prototype.lean": "77eb2cd376c69c6986e64b69fb9c5784ddefe5c3d91e8bd05bb17e0971961b85",
+          "work/checks/FullSpanGermResponse-first-kernel.log": "f5e30a64a26eba2ea0850f9a81f408f0a3778c392a6f5ed767f6e28b49027beb",
+          "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+          "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+          "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+          "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee",
+          "work/checks/WallArrayNeighborhood.body.lean": "5ef5fb97198c66c9a0f1d2bea464c106d9ef93bf8b0c73153e0d75139bf6213a",
+          "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+          "work/checks/BoundaryGapGates.body.lean": "5248742ac58e44ae72069b018da0f46e7f1f9d6e925454ddd4849cfd2155e2fb",
+          "work/checks/GeometricGapResponse.body.lean": "45f267f51b434174444eaa11e516355d69976add4f940ddf1b588cca69aa22e5"
+        },
+        "printed_declarations": [
+          "SM.WallGerm.full_span_tree_response"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0,
+        "scope": "Actual full-span tree coefficient identity at one common punctured radius, all U/V values evaluated at wall center. Does not accept whole thm:single-triple or proper contraction/propagation."
+      },
+      "work/checks/RestrictedCriticalG1-prototype-result.json": {
+        "kernel_session": 18064,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "earlier_attempt": {
+          "session": 16444,
+          "exit_code": 1,
+          "reason": "Missing sub_right_cancel API; proof-only correction adds1 to both sides and uses sub_add_cancel."
+        },
+        "utc": "2026-09-11T08:47:18.437806+00:00",
+        "files_sha256": {
+          "work/checks/RestrictedCriticalG1.body.lean": "be36ad6817db31270a9ea436505688e2d2e65f00a8c839449bdcfdd268b2df60",
+          "work/checks/RestrictedCriticalG1.prototype.lean": "dcfba9c797588bd08197ed50d5f14f645859d4c74435536c9dfbffe4a73d971f",
+          "work/checks/RestrictedCriticalG1-second-kernel.log": "ba8b9ec99affe882ed7287401b8fb27a031df0bf35279aab327de633ffdc0ef6",
+          "work/checks/RestrictedCriticalG1-first.body.lean": "b1be71550da4f5bb5e768ec7ab61905305aa73864b0a02c8e0a13571e9405e94",
+          "work/checks/RestrictedCriticalG1-first.prototype.lean": "98db6d19e2d42c03593a79476dc5a35129a9ad268646a07471d3b141b9e0c4e4",
+          "work/checks/RestrictedCriticalG1-first-kernel.log": "680a886f00862956b944eb1a8bf744a5c8317b7addb931e4a784a9687be2a072",
+          "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42"
+        },
+        "printed_declarations": [
+          "SM.restrictedVertexIndex",
+          "SM.restrictedVertexIndex_injective",
+          "SM.restrictedWord_G1_off_critical",
+          "SM.critical_closed_gaps_G1"
+        ],
+        "state": "kernel passed; frozen; independent review pending; external only",
+        "source_id": "thm:single-triple",
+        "acceptance_increment": 0
+      }
+    },
+    "root_receipts_sha256": {
+      "work/checks/CollinearGateSigns-prototype-result.json": "b5f578b1ad81402c9f8122aae4685dd503ee4e52902e7d8e6678eb74ae28776d",
+      "work/checks/BoundaryGateSigns-prototype-result.json": "a25a476db0181b65ce6931c83d7804a8e7b0305611898e921beb9369d7671df1",
+      "work/checks/BoundaryTripleSupports-prototype-result.json": "9d01fd6c9528b498689a788e001933ae0e5e74bb62299c4ca1812fd53653ec5f",
+      "work/checks/FarOnlyOutputLocality-prototype-result.json": "af99909a0aeac9fc15beb1893fa466d1e1558039d6c88f9d7e4584b2d13d4f11",
+      "work/checks/BoundaryArrayStability-prototype-result.json": "fb267c4a1f3b8e6cf0b60ffca09bba7e28c4219211d49e8116113f69ddcf5949",
+      "work/checks/WallArrayNeighborhood-prototype-result.json": "7788e395bf6611a4ca80e03a493a8872eaa22596fd0f1691a3bbf029410243de",
+      "work/checks/WallGapValues-prototype-result.json": "ee6747c8bbb01dfe99e4007d02091f2e0e667a926dfda0abee56750a1bb34d32",
+      "work/checks/BoundaryGapGates-prototype-result.json": "ea2ee903df1e9cd8416ed9eddc4ce0bb276569bd5536fdc93a3008bb37483110",
+      "work/checks/GeometricGapResponse-prototype-result.json": "dc6e199d4f347e62b515a9d6dbd5f72e03f8cf81ab0be0e19f60111ab7f68dcb",
+      "work/checks/FullSpanGermResponse-prototype-result.json": "e2cc3d726e25c8fb50661beff9491fefc87a5bc7dba39c36a7a1df32fb884064",
+      "work/checks/RestrictedCriticalG1-prototype-result.json": "7f0c7790f1522bbca24708cacabb5b7ca249cb1a762f86ad8ebaa8c8da14cc56"
+    }
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "prior_checkpoint_bindings_sha256": {
+    "work/reviews/critical-response-port.json": "fd22bf709fcb40f61e4fd214a75c14be1d8bb415ed7e3a50f9a8bd8e6361ef2d",
+    "work/reviews/critical-source-response-canonical-partial.json": "0fbdd72a206b7ba711a5e1507c3246d60c59b99260109e2d1ce0af365c0f71a3",
+    "work/reviews/single-triple-n3-domain-note.json": "6c80aa7a8f9255bb5eff53aec13eefa32f59c830b564d997734ec36183b1d7ad",
+    "work/checks/checkpoint-070-output.json": "07f4e178bb741d9d830e4bb38836ff936bf7f9fe0bf1021ae8188983c6b422aa",
+    "work/checks/checkpoint-070-declaration-audit.json": "0b35a3cbc2164c3ce95a0e01abf9fba744530dd340ced228ff5aca6160a67f7e",
+    "work/checks/checkpoint-070-lean-check.log": "a4e610892517ae36f7161f3da8ae99a7795cce3e13ec1f1cf95ae7d719c0d22e",
+    "work/reviews/boundary-gate-stability-prototype.json": "1669b62133d629a4d65a14263bb3a6cbe3b3d886a8b52791cecb538a4df1b51d",
+    "work/checks/boundary-gate-stability-reviewed-types.json": "02ff16e122b5232ba420d7980f786dd8b8764f830b17cb169d408fce90ac7989"
+  },
+  "reason": "Faithful partial geometric response and actual full-span wall-germ identity. A common positive radius is obtained by continuity on the real interval subtype. Actual noncritical samples transfer the wall determinant identities to every gap composition gate. The complete ordinary/reversed gap sums become the source U/V values, yielding the actual critical c/B response. At full span, the rooted tree coefficient on each punctured side is the actual far-only output and all gap factors transport to their center values. The restricted word has the actual cyclic label map and G1 off the critical span, allowing nonleaf gap B to be identified with its physical closing-root coefficient. All42 types and31 consumers pass with standard axioms only, and all27 prior types match. The proper contraction/propagation branch and a separate +/-1 conclusion for the sign-change prefactor remain outside this review.",
+  "mathematical_justification": [
+    {
+      "clause": "Actual common radius on the continuous wall germ",
+      "assessment": "boundary_values_stable_near_center uses the actual WallGerm curve on the open real interval subtype, not an arbitrary global extension or a differentiable replacement. Its continuousAt statement is explicitly at zeroParameter. Pulling back the three previously proved ambient-neighborhood events through that continuous map gives one event in the parameter neighborhood for all noncritical arrays and all excluded inverse/output intervals. The already canonical eventually_center_iff_radius equivalence extracts a positive radius bounded by the original germ radius using the metric ball at zero and the minimum of radii. The result quantifies every actual parameter with absolute value below that common radius, including zero. The independent consumer specializes the same radius simultaneously to both actual sideTime/sideTuple maps; it does not choose a separate radius for a side, triple, or interval."
+    },
+    {
+      "clause": "Source U/V and their exact allowed sign domain",
+      "assessment": "wallGapU chooses the actual unit array E when epsilon=1 and the complete farOnlyOutput B otherwise; wallGapV interchanges those two. The source epsilon is +/-1, and every signed-sum theorem explicitly assumes that disjunction, with geometric callers deriving it from the three distinct real coordinates. The arbitrary zero branch of the total Lean definitions is not certified as an additional source case. Independent consumers verify the exact four +/-1 cases, reversal of epsilon, the one-leaf values U=V=1, and the nonleaf E choices U(+1)=V(-1)=0. Thus the source formal open-word convention does not introduce a two-vertex polygon coefficient."
+    },
+    {
+      "clause": "Complete signed and reversed gap sums",
+      "assessment": "cutWeightedSum_signed_inverse compares every actual scalar factor in every unchanged raw interval composition with -(epsilon*H(farTriple))/2. For epsilon=1 the complete sum is the actual F_H(c), which equals E by the already proved inverse equation. For epsilon=-1 it is the actual F_(-H)(c)=B, with c still the inverse for H. The reversed-sum theorem negates the entire gate function, so epsilon=1 yields B and epsilon=-1 yields E. It never replaces c(H) by c(-H), drops unary compositions, or cancels a possibly zero gate. The complete finite product/sum bridge and prior empty/zero-factor checks remain bound through the canonical algebra report."
+    },
+    {
+      "clause": "Every gap factor uses the physical wall endpoints",
+      "assessment": "For each left-gap interior cut, the proof obtains its physical position strictly between lower and middle, hence also between lower and upper. The global sampled triple cannot be the critical triple because its middle is strictly below the critical middle. The local left-gap far triple cannot be critical because its upper endpoint is the critical middle rather than upper. Therefore the assumption that H agrees with the actual wall array only off the critical triple applies to both samples. The frozen geometric sign bridge gives exactly the left epsilon factor. The right proof uses a middle strictly above the critical middle and a local lower endpoint equal to that middle; both samples are again noncritical, and the printed right epsilon orientation is retained. Unfolding fixedFarGate uses only the proved strict-interior branch. Nearby points need not be collinear and the critical gate need not be zero."
+    },
+    {
+      "clause": "Four geometric gap sums and actual critical inverse/output responses",
+      "assessment": "geometric_gap_sums applies the two complete signed-sum identities to both physical gaps, using epsilon nonzero from the explicit source coordinate inequalities. Reversal is handled by the proved pointwise fixedFarGate(-H)=-fixedFarGate(H), preserving the actual inverse array c(H). The four conclusions are the two ordinary U values and the two reversed V values. In geometric_critical_inverse_response and geometric_critical_output_response, both arrays agree with the same actual wall geometry off the critical triple, so they agree with each other there. The already proved actual algebraic critical responses apply; substituting the four exact gap identities yields the U product for c and the sum of U and V products for B. No response equation is a premise. An independent consumer sets the critical H entry to any ring value using Function.update and still obtains the wall-centered ordinary gap sum, explicitly checking that the argument does not evaluate the critical gate at zero."
+    },
+    {
+      "clause": "Gap values transport to the wall center",
+      "assessment": "The actual geometric stability theorem equates the full B output between a close tuple and the center on every interval excluding the complete critical span. Both gaps exclude that span by their strict endpoint inequalities. Since E is the same unit array on either tuple, the conditional U/V definitions consequently preserve both gap values. The independent consumer proves this transport for arbitrary arrays and any excluded interval and sign, then applies it to the arbitrary-critical-entry geometric gap sum. No continuity of a nongeneric polygon amplitude or individual tree summand is assumed."
+    },
+    {
+      "clause": "Actual rooted full-span response on both sufficiently close sides",
+      "assessment": "full_span_tree_response chooses the common radius above and permits arbitrary negative sMinus and positive sPlus inside it, not merely a symmetric pair. Their actual generic-punctured proofs provide G1 and hence the already accepted identification of the rooted tree coefficient with the full-interval far-only output. The span equality identifies this with the critical B response. The baseline-side B values on both gaps are equal to their center values, and E is unchanged, so all four U/V factors in the final expression are evaluated at the wall center. The physical root g is retained throughout. The independent consumer specializes the theorem to the actual positive and negative sideTuple maps at the same positive distance, checking sign orientation, subtype bounds, and actual tree coefficients. This proves the literal half-difference-prefactor full-span identity; it does not separately prove that this prefactor is +/-1 under the source sign-change condition."
+    },
+    {
+      "clause": "Exact restricted-word cyclic labels",
+      "assessment": "restrictedVertexIndex g J j is the existing boundaryIndex at J.globalPosition((j-1).val). Thus residue zero labels the actual last vertex of the contiguous closed word, exactly as in the accepted Farout construction, while residue one labels the first. Injectivity follows in three steps: injectivity of boundaryIndex, strictness and therefore injectivity of globalPosition, and injectivity of the residue value map followed by adding one to both sides. No cropped or repeated label set is substituted. Independent consumers check the actual tuple evaluation P(restrictedVertexIndex j) and equality of these original labels if and only if equality of the local labels."
+    },
+    {
+      "clause": "Actual closed-word G1 without genericity at the wall",
+      "assessment": "For any distinct local labels i,j,k, the restricted index injection makes their three original labels distinct. If their unordered support were the critical one, membership of the critical lower and upper labels in that support would place both actual positions inside J: boundaryIndex injectivity identifies each with a globalPosition value, and the actual globalPosition bounds give the endpoint inequalities. This contradicts exclusion of the whole critical span. The singleton-zero theorem then gives nonzero chi for those exact original vertices, definitionally the chirotope of the actual restrictedWordTuple. Both gaps exclude the span, so the advertised nonleaf closed gap polygons satisfy G1. The final gap theorem keeps the source leaf-count conditions explicit. The stronger intermediate G1 predicate on a one-leaf word is only a vacuous distinct-label predicate, not a claim that a two-vertex polygon amplitude exists."
+    },
+    {
+      "clause": "Physical closing root and nonleaf coefficient bridge",
+      "assessment": "The independent nonleaf consumer combines the newly derived G1 condition with the canonical farOnlyOutput_restricted_tree theorem. It identifies the actual J coordinate of the original wall far-only output with the tree coefficient of the exact closed word rooted at local zero, and derives the required local size at least three from the nonleaf bound. A separate consumer simultaneously checks G1 and the physical closing edge from the actual last boundary vertex to the first. No global G1 P is added to these conclusions; this is precisely the source use of nondegenerate closed gap coefficients evaluated at wall data."
+    },
+    {
+      "clause": "Source-domain and remaining limitations",
+      "assessment": "The three wall vertices are supplied by explicit affine-coordinate equalities and distinct real coordinate assumptions in all geometric response declarations. No inference of geometric distinctness from singleton Zpt at n=3 is made, and the separately bound source note remains applicable. These sign identities require even less than the printed nonzero direction, but no nonzero direction or point-injectivity conclusion is inferred from that weaker helper domain. The full-span formula holds without an explicit sign-change premise, with its actual half-difference prefactor; the separate source conclusion that delta is +/-1 still needs the source sign-change argument when assembling the whole original theorem. No proper-span contracted polygon, larger-interval propagation, complete wall law, soft theorem, or R theorem is certified by these15 new helpers."
+    }
+  ],
+  "independence": "This reviewer independently read all six new frozen bodies and the full relevant source, inspected the actual canonical topology, tuple/root, transform, and restriction definitions, and wrote only independent consumers and review evidence. No implementation, source, map, root receipt, or prior frozen review was edited. The new common-neighborhood consumer and the root implementation are separate proof artifacts; the root neighborhood implementation was already authored before this consumer preparation. The earlier disclosed inverse-difference conceptual overlap remains resolved and bound through its existing independent review. All27 prior implementation types match their independent successful trace exactly.",
+  "separate_source_domain_note": "work/reviews/single-triple-n3-domain-note.json",
+  "separate_source_domain_note_sha256": "6c80aa7a8f9255bb5eff53aec13eefa32f59c830b564d997734ec36183b1d7ad",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_pending": true,
+    "full_single_triple_accepted": false,
+    "stage_complete": false
+  },
+  "unproved_original_clauses_in_this_reviewed_batch": [
+    "The source sign-change conclusion that the actual half-difference prefactor is +/-1.",
+    "Reconstruction or explicit source-equivalent packaging of the affine wall-coordinate data: these helpers take the displayed coordinate equalities and distinct xi as input rather than proving their existence from unordered wall data.",
+    "Proper-span contracted polygon, its physical root and genericity, and larger-interval propagation.",
+    "Assembly of the entire original thm:single-triple, remaining corner wall laws, soft theorem and R."
+  ],
+  "not_certified": [
+    "No original thm:single-triple acceptance or canonical semantic hash for these external helpers.",
+    "No geometric-injectivity inference from singleton Zpt at n=3.",
+    "No two-vertex polygon amplitude for a one-leaf gap.",
+    "No proper-span contraction/propagation or overall stage completion."
+  ]
+}

@@ -1,0 +1,386 @@
+import SM.Rounding
+import SM.LinkMoves
+import SM.LocalPolynomial
+
+/-! # SM cf:lem-curl — exact negative-curl replacement (FIXED STATEMENT, judge's FINAL)
+
+Source: reference/SM/sm-3-statesum.tex:3870-3891 (statement), 3892-4280 (proof); consumer
+cf:thm-carrierfloor (C), sm-3:4282-4330, use at 4438-4455.  Judge, 2026-09-14, from the candidates
+Statements_A.lean (Architect A: winner — statement shape, record-level class, existential disc in any
+preassigned neighbourhood) and Statements_B.lean (Architect B: grafted — the velocity export
+`unchanged_deriv`).  Decision record: work/drafts/curl/PLAN_FINAL.md; chain and assembly:
+Skeleton_FINAL.lean.  Check: `cd work/lean && lake env lean ../drafts/curl/Statements_FINAL.lean`
+(`SM/Rounding.olean` is built in work/lean since 2026-09-14 05:12 UTC; the plain command applies).
+
+## The printed statement (sm-3:3870-3891, clause by clause)
+
+"Here rot is as in Lemma lem:rot for polygons and Definition cf:def-turning for closed C¹ regular
+curves.  Let F be a connected C^∞ immersed circle in the plane — one component, with finitely many
+transverse double points and no triple points — given with an oriented diagram, and let p be a
+point of F at which the tangent points in a fixed direction u, isolated among such points, lying in
+an embedded arc of F that contains no double point and along which the tangent turns strictly
+positively.  Then F may be modified inside a disc Δ meeting the rest of the diagram only in that
+arc, so that the resulting diagram F'
+(i) is again such an oriented diagram, satisfies P_{F'}(a,z) = P_F(a,z), and has the same double
+points outside Δ, with the same signs;
+(ii) has no point of Δ at which the tangent equals u, and exactly one at which it equals −u;
+(iii) has exactly one double point inside Δ, and it is negative;
+(iv) satisfies rot(F') = rot(F) − 1 and w(F') = w(F) − 1."
+
+## Printed notion → Lean (model decisions, PLAN_A.md §2)
+
+| printed | Lean |
+|---|---|
+| "a connected C^∞ immersed circle in the plane — one component" | `F : SmoothRegularLoop` (accepted, SM/Rounding.lean §3: `SmoothLoop` C^∞ of period 1 + `regular`); `rot` = `F.toClosedC1Curve.rot` (cf:def-turning, the same bridge as cf:lem-rounding (d)) |
+| "with finitely many transverse double points and no triple points — given with an oriented diagram" | `D : Diagram` (accepted polygonal one-component diagram) with `RecordCarried F D`: the *record-level* carrying of FR-R1 — `D`'s occurrences are realised at parameters `τ` of `F`, the double points of `F` are exactly the twin pairs, transverse, in `D`'s cyclic order, with `D`'s over/under read by sign consistency.  It is the accepted `Carried` (Rounding.lean §4) without the clause `γ (τ v) = crossingPoint v`; `Carried.toRecordCarried` is the bridge from the rounding output.  Reason (FR-C1): the crossing points of the *polygon* `D` cannot coincide with the double points of a curl inserted near `p`; the accepted front-block record `SmoothFront.Marking` (FrontSmooth.lean §7) is record-level in exactly this sense.  "no triple points" is a theorem of the record (`RecordCarried.no_triple`) |
+| "a point p at which the tangent points in a fixed direction u" | `t₀ : ℝ`, `p = F.γ t₀`, `u : Plane`, `normalize (deriv F.γ t₀) = u` |
+| "lying in an embedded arc of F that contains no double point" | the parameter interval `[α, β]`, `α < t₀ < β`, `β − α < 1`; `InjOn F.γ (Icc α β)`; no occurrence parameter `τ v` (mod 1) in `[α, β]` |
+| "along which the tangent turns strictly positively" | a tangent-angle lift `θ` on `[α, β]` (accepted `IsLiftOn`, TurnLift.lean) with `StrictMonoOn θ (Icc α β)` |
+| "isolated among such points" | `∀ t ∈ Icc α β, normalize (deriv F.γ t) = u → t = t₀` (the consumer's rounding junction has `direction_once`; implied by strict monotonicity on a short enough arc) |
+| "F may be modified inside a disc Δ meeting the rest of the diagram only in that arc" | `CurlWitness S Δ`: `F'` equal to `F` — with its velocity (`unchanged_deriv`) — outside the parameter window `(s₁, s₂) ⊆ [α, β]` (mod 1), the window image inside `Δ`; `IsDisc Δ` (accepted, LinkMoves.lean), `p ∈ interior Δ`, every curve point in `Δ` has parameter in the arc.  The disc is existential as printed, and may be taken inside any preassigned neighbourhood `Δ₀` of `p` (the proof's "the disc is fixed first", sm-3:4038-4041; the consumer's "choose each curl disc inside its rounding disc", sm-3:4442) |
+| (i) "again such an oriented diagram" | `F' : SmoothRegularLoop`, `D' : Diagram`, `RecordCarried F' D'`; the polygonal diagram changes by the accepted Reidemeister-I move `RI D D'` (LinkMoves.lean: the monogon deleted/created in a disc) |
+| (i) "P_{F'} = P_F" | `P D' = P D` for the accepted `P : Diagram → R` (SM/LocalPolynomial.lean; FR-R1: the polynomial of a smooth diagram is that of its carried polygonal diagram) |
+| (i) "the same double points outside Δ, with the same signs" | `doublePoints F'.γ \ Δ = doublePoints F.γ \ Δ`; a bijection `old` of the crossings of `D` with those of `D'` other than the kink, realised at the same points of the plane by `F'`/`F`, with `D'.sign (old x) = D.sign x` |
+| (ii) | `∀ t, F'.γ t ∈ Δ → normalize (deriv F'.γ t) ≠ u`; `∃! t ∈ Ico 0 1, F'.γ t ∈ Δ ∧ normalize (deriv F'.γ t) = −u` |
+| (iii) | the kink crossing `kink : D'.Γ.Crossing`, realised in `Δ`; every double point of `F'` in `Δ` is that point; `D'.sign kink = −1` (hence the smooth sign, `RecordCarried.sign_eq`) |
+| (iv) | `F'.toClosedC1Curve.rot = F.toClosedC1Curve.rot − 1`; `D'.writhe = D.writhe − 1` (= the smooth writhe, `RecordCarried.smoothWrithe_eq`) |
+
+One structure field per printed sub-clause in `CurlWitness` (grouped by clause); one bundle field per
+printed sentence/clause in `CurlData` (the existence sentence carries the theorem, the clause fields
+are its reading on a witness); main declaration `SM.cf_lem_curl : CurlData`. -/
+
+namespace SM
+
+open Link
+open scoped ContDiff
+
+noncomputable section
+open Classical
+
+/-! ## 1. Record-level carrying of a polygonal diagram by a `C^∞` regular loop (FR-C1) -/
+
+/-- The polygonal one-component `Diagram X` *carries the record* of the regular smooth loop `γ`
+(FR-R1 at record level; lem:gauss-pl-model "the crossing names, the four-ray orders, the traversal
+direction and the over/under designations are retained"): every occurrence of `X` is realised at a
+parameter `τ v` of `γ`, the two occurrences of a crossing are realised at the same point, the double
+points of `γ` are exactly these twin pairs, the branches are transverse, the cyclic order of the
+occurrences along the circle is that of `X` (accepted `cycBetween`/`visitCoord`), and the over/under
+assignment is `X`'s (sign consistency, def:positive-lift).  This is the accepted `Carried` (Rounding.lean
+§4) without its clause `γ (τ v) = crossingPoint v`, which ties the polygon's crossing *points* to the
+curve's double points and cannot hold once a curl is inserted near `p` while the polygonal kink lives
+on an edge of `X`; it is the reading of the accepted front record `SmoothFront.Marking` (FrontSmooth.lean
+§7: occurrence bijection, cyclic order, pairing, over/under bits, signs — no point coincidence).  The
+polynomial of the smooth diagram, `P X` (FR-R1), is well defined at this level: two polygons whose records
+`γ` carries have isomorphic records, so rp:record-polynomial gives them one `P`. -/
+structure RecordCarried (γ : SmoothRegularLoop) (X : Diagram) where
+  /-- one parameter circle -/
+  one : X.Γ.c = 1
+  /-- the parameter (in the fundamental period) at which the occurrence `v` is traversed -/
+  τ : X.Γ.Visit → ℝ
+  τ_mem : ∀ v, τ v ∈ Set.Ico (0 : ℝ) 1
+  τ_inj : Function.Injective τ
+  /-- the two occurrences of a crossing are realised at one point of the plane -/
+  twin_eval : ∀ v, γ.γ (τ v) = γ.γ (τ (X.twin v))
+  /-- every double point of `γ` is one of the crossings, with the two occurrences paired by `twin` -/
+  doubles : ∀ s t : ℝ, s ∈ Set.Ico (0 : ℝ) 1 → t ∈ Set.Ico (0 : ℝ) 1 → s ≠ t → γ.γ s = γ.γ t →
+    ∃ v : X.Γ.Visit, s = τ v ∧ t = τ (X.twin v)
+  /-- transverse double points -/
+  transverse : ∀ v, det (deriv γ.γ (τ v)) (deriv γ.γ (τ (X.twin v))) ≠ 0
+  /-- the cyclic order of the occurrences along the oriented circle is that of `X` -/
+  order : ∀ v w z : X.Γ.Visit,
+    (cycBetween (τ v) (τ w) (τ z) ↔ cycBetween (X.visitCoord v) (X.visitCoord w) (X.visitCoord z))
+  /-- the over/under assignment is `X`'s: the over-first tangent-determinant sign of the smooth
+  double point equals the crossing sign of `X` -/
+  sign_eq : ∀ x : X.Γ.Crossing,
+    SignType.sign (det (deriv γ.γ (τ (X.overVisit x))) (deriv γ.γ (τ (X.underVisit x)))) = X.sign x
+
+namespace RecordCarried
+
+variable {γ : SmoothRegularLoop} {X : Diagram}
+
+/-- the crossing sign of the smooth diagram at `x`: `sgn det(velocity_over, velocity_under)` -/
+def smoothSign (c : RecordCarried γ X) (x : X.Γ.Crossing) : SignType :=
+  SignType.sign (det (deriv γ.γ (c.τ (X.overVisit x))) (deriv γ.γ (c.τ (X.underVisit x))))
+
+/-- the writhe of the smooth diagram -/
+def smoothWrithe (c : RecordCarried γ X) : ℤ := ∑ x : X.Γ.Crossing, (c.smoothSign x : ℤ)
+
+theorem smoothSign_eq (c : RecordCarried γ X) (x : X.Γ.Crossing) : c.smoothSign x = X.sign x :=
+  c.sign_eq x
+
+theorem smoothWrithe_eq (c : RecordCarried γ X) : c.smoothWrithe = X.writhe := by
+  unfold smoothWrithe Diagram.writhe
+  exact Finset.sum_congr rfl fun x _ => by rw [c.smoothSign_eq]
+
+/-- "no triple points": no three distinct parameters of the fundamental period trace one point -/
+theorem no_triple (c : RecordCarried γ X) {r s t : ℝ} (hr : r ∈ Set.Ico (0 : ℝ) 1) (hs : s ∈ Set.Ico (0 : ℝ) 1)
+    (ht : t ∈ Set.Ico (0 : ℝ) 1) (hrs : r ≠ s) (hrt : r ≠ t) (hrs' : γ.γ r = γ.γ s)
+    (hrt' : γ.γ r = γ.γ t) : s = t := by
+  obtain ⟨v, hv, hv'⟩ := c.doubles r s hr hs hrs hrs'
+  obtain ⟨w, hw, hw'⟩ := c.doubles r t hr ht hrt hrt'
+  have : v = w := c.τ_inj (hv.symm.trans hw)
+  subst this
+  exact hv'.trans hw'.symm
+
+/-- the double points of `γ` are exactly the realised crossings -/
+theorem doublePoints_eq (c : RecordCarried γ X) :
+    SmoothRegularLoop.doublePoints γ.γ = {q | ∃ v : X.Γ.Visit, q = γ.γ (c.τ v)} := by
+  ext q
+  constructor
+  · rintro ⟨s, t, hs, ht, hne, rfl, hts⟩
+    obtain ⟨v, rfl, -⟩ := c.doubles s t hs ht hne hts.symm
+    exact ⟨v, rfl⟩
+  · rintro ⟨v, rfl⟩
+    refine ⟨c.τ v, c.τ (X.twin v), c.τ_mem v, c.τ_mem _, fun h => ?_, rfl, (c.twin_eval v).symm⟩
+    exact X.twin_ne v (c.τ_inj h).symm
+
+end RecordCarried
+
+/-- the accepted `Carried` (Rounding.lean §4) carries the record: the bridge from the output of
+cf:lem-rounding to the input of cf:lem-curl -/
+def Carried.toRecordCarried {γ : SmoothRegularLoop} {X : Diagram} (c : Carried γ X) :
+    RecordCarried γ X where
+  one := c.one
+  τ := c.τ
+  τ_mem := c.τ_mem
+  τ_inj := c.τ_inj
+  twin_eval := fun v => by rw [c.τ_eval, c.τ_eval, Diagram.twin_fst]
+  doubles := c.doubles
+  transverse := c.transverse
+  order := c.order
+  sign_eq := c.sign_eq
+
+@[simp] theorem Carried.toRecordCarried_τ {γ : SmoothRegularLoop} {X : Diagram} (c : Carried γ X) :
+    c.toRecordCarried.τ = c.τ := rfl
+
+/-! ## 2. The site: the curve, its diagram, the direction `u`, the point `p` and the embedded arc -/
+
+/-- The hypotheses of cf:lem-curl (sm-3:3873-3878): "Let F be a connected C^∞ immersed circle in
+the plane — one component, with finitely many transverse double points and no triple points — given
+with an oriented diagram, and let p be a point of F at which the tangent points in a fixed direction
+u, isolated among such points, lying in an embedded arc of F that contains no double point and along
+which the tangent turns strictly positively."  The arc is the parameter interval `[α, β]` (shorter
+than the period), `p = F.γ t₀`. -/
+structure CurlSite where
+  /-- "a connected C^∞ immersed circle in the plane — one component" -/
+  F : SmoothRegularLoop
+  /-- "given with an oriented diagram" … -/
+  D : Diagram
+  /-- … whose record `F` carries ("finitely many transverse double points and no triple points") -/
+  carried : RecordCarried F D
+  /-- "a fixed direction u" -/
+  u : Plane
+  /-- the parameter of "a point p of F" … -/
+  t₀ : ℝ
+  /-- … "at which the tangent points in a fixed direction u" -/
+  tangent_at : normalize (deriv F.γ t₀) = u
+  /-- "lying in an embedded arc of F": the parameter interval `[α, β]` around `t₀`, shorter than the
+  period … -/
+  α : ℝ
+  β : ℝ
+  α_lt : α < t₀
+  lt_β : t₀ < β
+  short : β - α < 1
+  /-- … on which the curve is embedded -/
+  embedded : Set.InjOn F.γ (Set.Icc α β)
+  /-- "that contains no double point": no crossing occurrence is traversed on the arc -/
+  no_double : ∀ v : D.Γ.Visit, ∀ n : ℤ, carried.τ v + n ∉ Set.Icc α β
+  /-- "along which the tangent turns strictly positively": a tangent-angle lift on the arc … -/
+  θ : ℝ → ℝ
+  lift : IsLiftOn (fun t => normalize (deriv F.γ t)) θ α β
+  /-- … strictly increasing -/
+  turns_pos : StrictMonoOn θ (Set.Icc α β)
+  /-- "isolated among such points": `p` is the only point of the arc with tangent `u` -/
+  isolated : ∀ t ∈ Set.Icc α β, normalize (deriv F.γ t) = u → t = t₀
+
+namespace CurlSite
+
+variable (S : CurlSite)
+
+/-- the point `p` -/
+def p : Plane := S.F.γ S.t₀
+
+/-- the unit tangent `T = F'/|F'|` -/
+def T : ℝ → Plane := fun t => normalize (deriv S.F.γ t)
+
+theorem T_eq_tangentLoop : S.T = S.F.toClosedC1Curve.tangentLoop.T := rfl
+
+theorem u_unit : euclideanLength S.u = 1 := by
+  rw [← S.tangent_at]; exact euclideanLength_normalize (S.F.regular _)
+
+theorem one : S.D.Γ.c = 1 := S.carried.one
+
+/-- "the tangent equals u" only at `p`: the printed isolation, on the arc -/
+theorem T_eq_u_iff {t : ℝ} (ht : t ∈ Set.Icc S.α S.β) : S.T t = S.u ↔ t = S.t₀ :=
+  ⟨S.isolated t ht, fun h => h ▸ S.tangent_at⟩
+
+end CurlSite
+
+/-! ## 3. The witness: the modified curve and diagram at a disc `Δ`, one field per printed sub-clause -/
+
+/-- "Then F may be modified inside a disc Δ meeting the rest of the diagram only in that arc, so
+that the resulting diagram F' [(i)–(iv)]" (sm-3:3878-3890), at the disc `Δ`.  The modification is
+the parameter window `[s₁, s₂] ⊆ [α, β]` around `t₀`: outside it (mod 1) `F'` *is* `F`; the polygonal
+diagram changes by one accepted Reidemeister-I move (the kink `kink`), and `F'` carries the record of
+`D'`.  The kink is the new double point; the printed (ii)–(iv) are read on `F'`, `D'`. -/
+structure CurlWitness (S : CurlSite) (Δ : Set Plane) where
+  /-- "the resulting diagram F'": the modified curve … -/
+  F' : SmoothRegularLoop
+  /-- … its oriented diagram … -/
+  D' : Diagram
+  /-- … whose record `F'` carries ((i) "is again such an oriented diagram") -/
+  carried' : RecordCarried F' D'
+  /-- the modification window `[s₁, s₂]` around `t₀`, inside the arc -/
+  s₁ : ℝ
+  s₂ : ℝ
+  s₁_lt : s₁ < S.t₀
+  lt_s₂ : S.t₀ < s₂
+  α_le : S.α ≤ s₁
+  le_β : s₂ ≤ S.β
+  /-- "F may be modified inside a disc Δ": `F'` coincides with `F` outside the window (mod 1) … -/
+  unchanged : ∀ t : ℝ, (∀ n : ℤ, t + n ∉ Set.Ioo s₁ s₂) → F'.γ t = S.F.γ t
+  /-- … with its velocity (the tangents of `F'` off the window are those of `F`; read by the
+  consumer at the other tangency points, sm-3:4443-4445 "leave one another intact") … -/
+  unchanged_deriv : ∀ t : ℝ, (∀ n : ℤ, t + n ∉ Set.Ioo s₁ s₂) → deriv F'.γ t = deriv S.F.γ t
+  /-- … the modified arc lies in `Δ` … -/
+  new_in_disc : ∀ t ∈ Set.Icc s₁ s₂, F'.γ t ∈ Δ
+  /-- … and so does the replaced arc of `F` -/
+  old_in_disc : ∀ t ∈ Set.Icc s₁ s₂, S.F.γ t ∈ Δ
+  /-- "a disc Δ" (accepted clean-disc vocabulary) about `p` … -/
+  disc : IsDisc Δ
+  p_mem : S.p ∈ interior Δ
+  /-- … "meeting the rest of the diagram only in that arc": every point of `F` in `Δ` is traversed
+  on the arc -/
+  disc_meets_arc : ∀ t : ℝ, S.F.γ t ∈ Δ → ∃ n : ℤ, t + n ∈ Set.Icc S.α S.β
+  /-- (i) the polygonal diagram changes by one Reidemeister-I move (the accepted `RI`: a monogon
+  created in a disc) -/
+  ri : RI S.D D'
+  /-- (i) "satisfies P_{F'}(a,z) = P_F(a,z)" -/
+  poly_eq : P D' = P S.D
+  /-- (i) "has the same double points outside Δ" -/
+  doubles_outside :
+    SmoothRegularLoop.doublePoints F'.γ \ Δ = SmoothRegularLoop.doublePoints S.F.γ \ Δ
+  /-- (iii) the new double point: the kink crossing of `D'` -/
+  kink : D'.Γ.Crossing
+  /-- (i) the old crossings correspond to the crossings of `D'` other than the kink … -/
+  old : S.D.Γ.Crossing ≃ {y : D'.Γ.Crossing // y ≠ kink}
+  /-- … realised at the same points of the plane … -/
+  old_point : ∀ x : S.D.Γ.Crossing,
+    F'.γ (carried'.τ (D'.overVisit (old x).1)) = S.F.γ (S.carried.τ (S.D.overVisit x))
+  /-- … "with the same signs" -/
+  old_sign : ∀ x : S.D.Γ.Crossing, D'.sign (old x).1 = S.D.sign x
+  /-- (ii) "has no point of Δ at which the tangent equals u" … -/
+  no_u : ∀ t : ℝ, F'.γ t ∈ Δ → normalize (deriv F'.γ t) ≠ S.u
+  /-- … "and exactly one at which it equals −u" -/
+  one_neg_u : ∃! t : ℝ, t ∈ Set.Ico (0 : ℝ) 1 ∧ F'.γ t ∈ Δ ∧ normalize (deriv F'.γ t) = -S.u
+  /-- (iii) "has exactly one double point inside Δ": the kink is realised in `Δ` … -/
+  kink_mem : F'.γ (carried'.τ (D'.overVisit kink)) ∈ Δ
+  /-- … and every double point of `F'` in `Δ` is that point -/
+  one_double : ∀ q ∈ SmoothRegularLoop.doublePoints F'.γ ∩ Δ,
+    q = F'.γ (carried'.τ (D'.overVisit kink))
+  /-- (iii) "and it is negative" -/
+  kink_neg : D'.sign kink = -1
+  /-- (iv) "rot(F') = rot(F) − 1" (cf:def-turning on both sides) -/
+  rot_eq : F'.toClosedC1Curve.rot = S.F.toClosedC1Curve.rot - 1
+  /-- (iv) "w(F') = w(F) − 1" -/
+  writhe_eq : D'.writhe = S.D.writhe - 1
+
+namespace CurlWitness
+
+variable {S : CurlSite} {Δ : Set Plane} (W : CurlWitness S Δ)
+
+/-- the modified curve in the accepted `C¹` class -/
+def curve : ClosedC1Curve := W.F'.toClosedC1Curve
+
+/-- the unit tangent of `F'` -/
+def T : ℝ → Plane := fun t => normalize (deriv W.F'.γ t)
+
+theorem smooth : ContDiff ℝ ∞ W.F'.γ := W.F'.smooth
+theorem periodic : Function.Periodic W.F'.γ 1 := W.F'.periodic
+theorem regular : ∀ t, deriv W.F'.γ t ≠ 0 := W.F'.regular
+
+/-- (i) one component -/
+theorem one : W.D'.Γ.c = 1 := W.carried'.one
+
+/-- (iii) the smooth sign of the new double point is negative -/
+theorem kink_smoothSign : W.carried'.smoothSign W.kink = -1 := by
+  rw [W.carried'.smoothSign_eq]; exact W.kink_neg
+
+/-- (i) the smooth signs of the old double points are unchanged -/
+theorem old_smoothSign (x : S.D.Γ.Crossing) :
+    W.carried'.smoothSign (W.old x).1 = S.carried.smoothSign x := by
+  rw [W.carried'.smoothSign_eq, S.carried.smoothSign_eq]; exact W.old_sign x
+
+/-- (iv) the smooth writhe drops by one -/
+theorem smoothWrithe_eq : W.carried'.smoothWrithe = S.carried.smoothWrithe - 1 := by
+  rw [W.carried'.smoothWrithe_eq, S.carried.smoothWrithe_eq]; exact W.writhe_eq
+
+end CurlWitness
+
+/-! ## 4. The row bundle: one field per printed sentence / clause -/
+
+/-- cf:lem-curl (sm-3:3870-3891), one field per printed sentence or clause; the objects are those of
+`CurlSite` and `CurlWitness`.  The existence sentence (`exists_curl`) carries the theorem, in the
+form the proof establishes and the consumer cf:thm-carrierfloor (C) reads (sm-3:4438-4442 "Choose
+each curl disc inside its corresponding rounding disc"): the disc `Δ` may be taken inside any
+preassigned neighbourhood `Δ₀` of `p`; the printed bare existence is `exists_curl'`.  The clause
+fields state how each printed clause reads on a witness (projections of `CurlWitness`, so the fixed
+content of (i)–(iv) is the field list of that structure). -/
+structure CurlData : Prop where
+  /-- "Then F may be modified inside a disc Δ meeting the rest of the diagram only in that arc, so
+  that the resulting diagram F' [has (i)–(iv)]" — with the disc inside any preassigned neighbourhood
+  `Δ₀` of `p` (the proof's "the disc is fixed first and the cuts afterwards", sm-3:4038-4041). -/
+  exists_curl : ∀ (S : CurlSite) (Δ₀ : Set Plane), S.p ∈ interior Δ₀ →
+    ∃ Δ : Set Plane, Δ ⊆ Δ₀ ∧ Nonempty (CurlWitness S Δ)
+  /-- the printed existence sentence as printed (no preassigned neighbourhood) -/
+  exists_curl' : ∀ S : CurlSite, ∃ Δ : Set Plane, Nonempty (CurlWitness S Δ)
+  /-- "a disc Δ meeting the rest of the diagram only in that arc", the modification inside it -/
+  disc : ∀ (S : CurlSite) (Δ : Set Plane) (W : CurlWitness S Δ),
+    IsDisc Δ ∧ S.p ∈ interior Δ ∧ (∀ t : ℝ, S.F.γ t ∈ Δ → ∃ n : ℤ, t + n ∈ Set.Icc S.α S.β) ∧
+    (∀ t : ℝ, (∀ n : ℤ, t + n ∉ Set.Ioo W.s₁ W.s₂) →
+      W.F'.γ t = S.F.γ t ∧ deriv W.F'.γ t = deriv S.F.γ t) ∧
+    (∀ t ∈ Set.Icc W.s₁ W.s₂, W.F'.γ t ∈ Δ)
+  /-- (i) "is again such an oriented diagram, satisfies P_{F'}(a,z) = P_F(a,z), and has the same
+  double points outside Δ, with the same signs" -/
+  i : ∀ (S : CurlSite) (Δ : Set Plane) (W : CurlWitness S Δ),
+    ContDiff ℝ ∞ W.F'.γ ∧ Function.Periodic W.F'.γ 1 ∧ (∀ t, deriv W.F'.γ t ≠ 0) ∧
+    W.D'.Γ.c = 1 ∧ Nonempty (RecordCarried W.F' W.D') ∧ RI S.D W.D' ∧
+    P W.D' = P S.D ∧
+    SmoothRegularLoop.doublePoints W.F'.γ \ Δ = SmoothRegularLoop.doublePoints S.F.γ \ Δ ∧
+    (∀ x : S.D.Γ.Crossing,
+      W.F'.γ (W.carried'.τ (W.D'.overVisit (W.old x).1)) = S.F.γ (S.carried.τ (S.D.overVisit x)) ∧
+      W.D'.sign (W.old x).1 = S.D.sign x)
+  /-- (ii) "has no point of Δ at which the tangent equals u, and exactly one at which it equals −u" -/
+  ii : ∀ (S : CurlSite) (Δ : Set Plane) (W : CurlWitness S Δ),
+    (∀ t, W.F'.γ t ∈ Δ → normalize (deriv W.F'.γ t) ≠ S.u) ∧
+    (∃! t : ℝ, t ∈ Set.Ico (0 : ℝ) 1 ∧ W.F'.γ t ∈ Δ ∧ normalize (deriv W.F'.γ t) = -S.u)
+  /-- (iii) "has exactly one double point inside Δ, and it is negative" -/
+  iii : ∀ (S : CurlSite) (Δ : Set Plane) (W : CurlWitness S Δ),
+    W.F'.γ (W.carried'.τ (W.D'.overVisit W.kink)) ∈ Δ ∧
+    (∀ q ∈ SmoothRegularLoop.doublePoints W.F'.γ ∩ Δ,
+      q = W.F'.γ (W.carried'.τ (W.D'.overVisit W.kink))) ∧
+    W.D'.sign W.kink = -1 ∧ W.carried'.smoothSign W.kink = -1
+  /-- (iv) "satisfies rot(F') = rot(F) − 1 and w(F') = w(F) − 1" -/
+  iv : ∀ (S : CurlSite) (Δ : Set Plane) (W : CurlWitness S Δ),
+    W.F'.toClosedC1Curve.rot = S.F.toClosedC1Curve.rot - 1 ∧
+    W.D'.writhe = S.D.writhe - 1 ∧ W.carried'.smoothWrithe = S.carried.smoothWrithe - 1
+
+/-- The site of the consumer: the output of cf:lem-rounding (a `Carried` record, here the rounded
+curve `L_ε` carrying `D`) is a curl site through `Carried.toRecordCarried`; the hypotheses are those
+of `CurlSite` with `τ` the parameters of the `Carried` record. -/
+def CurlSite.ofCarried (F : SmoothRegularLoop) (D : Diagram) (c : Carried F D) (u : Plane)
+    (t₀ α β : ℝ) (θ : ℝ → ℝ) (tangent_at : normalize (deriv F.γ t₀) = u) (α_lt : α < t₀)
+    (lt_β : t₀ < β) (short : β - α < 1) (embedded : Set.InjOn F.γ (Set.Icc α β))
+    (no_double : ∀ v : D.Γ.Visit, ∀ n : ℤ, c.τ v + n ∉ Set.Icc α β)
+    (lift : IsLiftOn (fun t => normalize (deriv F.γ t)) θ α β) (turns_pos : StrictMonoOn θ (Set.Icc α β))
+    (isolated : ∀ t ∈ Set.Icc α β, normalize (deriv F.γ t) = u → t = t₀) : CurlSite :=
+  ⟨F, D, c.toRecordCarried, u, t₀, tangent_at, α, β, α_lt, lt_β, short, embedded, no_double, θ, lift,
+    turns_pos, isolated⟩
+
+/-- cf:lem-curl. -/
+theorem cf_lem_curl : CurlData := by
+  sorry
+
+end
+
+end SM

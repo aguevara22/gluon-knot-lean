@@ -1,0 +1,186 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "finite-compositions-prototype",
+  "source_id": "def:treesum",
+  "supporting_source_ids": [
+    "def:root",
+    "def:treesum"
+  ],
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "10-27: full composition domain;66-82: finite recursive sum and actual strict child measure obligation",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "in_theorem_library": false,
+  "prototype_file": "work/checks/FiniteCompositions.prototype.lean",
+  "prototype_sha256": "f42d164091c49a1909e32aace74569aa855d17278eca82914a91315fc5995388",
+  "prototype_body": "work/checks/FiniteCompositions.body.lean",
+  "prototype_body_sha256": "736512b45c60efcc257173fc3dc199550b8ed6f66fd1330b75e1126911b6016a",
+  "main_declarations": [
+    "SM.IntervalComposition.finiteCode",
+    "SM.IntervalComposition.finiteCode_injective",
+    "SM.IntervalComposition.finite",
+    "SM.IntervalComposition.fintype",
+    "SM.IntervalComposition.part_leaves_lt"
+  ],
+  "reason": "Faithful implementation of finiteness and well-founded child decrease for the unchanged full source composition domain. A proved finite encoding gives actual Finite/Fintype instances without adding a bound to the definition. Every part of a composition with at least two parts has positive and strictly smaller actual leaf count; both endpoint cases are covered. Independent consumer theorems verify full enumeration, nonemptiness, all-child positivity/decrease, the actual source child relation well foundedness, and the exact nondecreasing singleton boundary case. The actual tree coefficient recursion has not yet been implemented by these helpers, so no original source claim is accepted.",
+  "mathematical_justification": [
+    {
+      "clause": "Full raw domain",
+      "assessment": "IntervalComposition is unchanged: arbitrary natural parts>0, an actual strictly increasing finite cut list, exact endpoints and no assumed upper part-count bound. finiteCode maps that same object to the sigma of s:Fin n and functions Fin(s+1)->Fin n; its s bound is the already proved parts_lt consequence of strict monotonicity. No substitute or truncated composition type enters the instances."
+    },
+    {
+      "clause": "Injectivity and finiteness",
+      "assessment": "Equality of finiteCode first gives equality of the original natural parts through the first sigma projection. Substituting that equality makes both cut-function types identical, and sigma equality gives equality of every cut. The remaining fields are proofs, so equality of the structures follows by proof irrelevance. Finite.of_injective applies to an actually finite sigma domain; Fintype.ofFinite then equips the exact raw type with a finite enumeration. The independent every_composition_enumerated theorem checks every original composition belongs to its Finset.univ, and that the enumeration is nonempty from single I. No constructor case is excluded."
+    },
+    {
+      "clause": "Strict source child decrease",
+      "assessment": "For k:Fin parts, strictness first supplies left<=cut(k)<cut(k+1)<=right. If k=0 and parts>=2, k+1<parts makes the child right endpoint strictly smaller than the parent right. If k!=0, strictness makes the child left endpoint strictly larger than the parent left. Either strict endpoint inequality, together with the other weak bound and positive child length, implies cut(k+1)-cut(k)<right-left in the actual natural leaf measure. These are precisely the source children of a composition with at least two parts, not a renamed auxiliary relation."
+    },
+    {
+      "clause": "Termination and boundary cases checked",
+      "assessment": "The independent all_source_children_decrease theorem retains positive child leaves and strict decrease for every source child. source_child_relation_wellFounded defines the actual relation J=pi.part(k) for some pi with parts>=2 and proves it well founded by subrelation to the measure BoundaryInterval.leaves. singleton_measure_equal checks the one-part child has the same measure as its parent, so the >=2 assumption is necessary and not silently dropped. This prepares the source recursive definition but does not itself define or accept that recursion."
+    },
+    {
+      "clause": "Scope and independence",
+      "assessment": "All five new implementation declarations and all four finite-specific consumer theorems passed in the joint independent trace. The same trace also checks the separate frozen Gates core; those findings do not expand this finite-helper verdict. All285 canonical SM modules and the frozen RootBoundary prefix remain unchanged. The root supervisor exited1 because a separate Gates subprocess failed; the actual FiniteCompositions subprocess exited0 and this report records both facts. The independent reviewer did not edit this implementation. Its finite encoding strategy also appeared in the earlier independently authored representation test; this review independently checks the actual new implementation/typeclass interfaces and proof bodies, and does not claim independent discovery of that elementary strategy."
+    }
+  ],
+  "independence": "Reviewer wrote only independent consumer checks and review evidence, not the frozen helper implementation or canonical modules. The previous independent composition-finiteness test is disclosed as prior related review work.",
+  "utc": "2026-09-11T03:54:40.338373+00:00",
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d"
+  },
+  "import_closure_roots": [
+    "SM.Generic"
+  ],
+  "import_closure_file_count": 3,
+  "inherited_review_binding": {
+    "work/reviews/root-boundary-prototype.json": "1fd4cd5b83f4288a9bb0fa1513d972f6f43fdf96cd6ca163e6b197584eb59239"
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/finite-and-gates-review-types.lean",
+    "independent_trace_source_sha256": "1cdf5277bd93817b63157e753d0dabec56bf6eb71f7ac98cb5e7b3cca8005ecb",
+    "independent_trace_log": "work/checks/finite-and-gates-review-types.log",
+    "independent_trace_log_sha256": "a88e23da7fe70e268cb4c95090083b40bddc75685cd40994ff03b319b3a7c34e",
+    "independent_kernel_command": "lake env lean ../checks/finite-and-gates-review-types.lean",
+    "independent_kernel_session": 15551,
+    "independent_kernel_exit_code": 0,
+    "checked_declarations": [
+      "SM.IntervalComposition.finiteCode",
+      "SM.IntervalComposition.finiteCode_injective",
+      "SM.IntervalComposition.finite",
+      "SM.IntervalComposition.fintype",
+      "SM.IntervalComposition.part_leaves_lt"
+    ],
+    "declaration_axioms": {
+      "SM.IntervalComposition.finiteCode": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.finiteCode_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.fintype": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.part_leaves_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "FiniteAndGatesIndependentReview.every_composition_enumerated",
+      "FiniteAndGatesIndependentReview.all_source_children_decrease",
+      "FiniteAndGatesIndependentReview.source_child_relation_wellFounded",
+      "FiniteAndGatesIndependentReview.singleton_measure_equal"
+    ],
+    "additional_example_count": 4,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "FiniteAndGatesIndependentReview.every_composition_enumerated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.all_source_children_decrease": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.source_child_relation_wellFounded": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "FiniteAndGatesIndependentReview.singleton_measure_equal": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "joint_trace_total_implementation_declarations": 22,
+    "joint_trace_total_examples": 11,
+    "independent_closure_evidence": "work/checks/finite-and-gates-review-closure.json",
+    "independent_closure_evidence_sha256": "f98a049728a74f0f1c892669798783c646a19baba08fabd978c4cf114d05a3e9",
+    "printed_type_evidence": "work/checks/finite-and-gates-reviewed-types.json",
+    "printed_type_evidence_sha256": "89961b77dce3ade22c1792d8b17b6ed55f8f769b4d5dbfc1cb5fd92104bfe548",
+    "exact_frozen_inputs_preserved": true,
+    "root_result_file": "work/checks/finite-compositions-prototype-result.json",
+    "root_result_sha256": "12eec72908d6da7c925d554e6b74dcc66dbe79e3440c50fae94ee7014649fb5b",
+    "successful_build_log": "work/checks/finite-compositions-prototype.log",
+    "successful_build_log_sha256": "87b7a7287a549823dc7b5cc092b64d0ad541214bdd09518ae74fde35be14041a",
+    "root_supervisor_session": 47092,
+    "root_supervisor_exit_code": 1,
+    "root_finite_subprocess_exit_code": 0,
+    "root_supervisor_failure_scope": "Separate Gates subprocess only; FiniteCompositions successful subprocess is independently confirmed by root receipt and final independent trace.",
+    "earlier_independent_runs": [
+      {
+        "session": 94381,
+        "exit_code": 1,
+        "reason": "All22 implementation declarations and ten consumer theorems passed. Only the reviewer singleton-measure example used decide on a free-interval-dependent Fin bound; replaced by the existing parts_pos proof."
+      }
+    ],
+    "earlier_trace_source": "work/checks/finite-and-gates-review-types-initial.lean",
+    "earlier_trace_source_sha256": "f35ccd4b048de66590085a8785766c6635a080cc9affede612fa584aa01ed1d9",
+    "earlier_trace_log": "work/checks/finite-and-gates-review-types-initial.log",
+    "earlier_trace_log_sha256": "b01240efa4ac2daeb9d6337c85a156902d90fb7fdca3584f2d35b5e099cc2674"
+  },
+  "accounting": {
+    "original_claim_increment": 0,
+    "original_proof_increment": 0,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No implementation or acceptance of the actual open-sum/tree-coefficient recursion or tree-sum equivalence.",
+    "No standalone original claim acceptance for this helper; canonical port/audit remain pending.",
+    "The Fintype instance is noncomputable and proves a finite mathematical domain; no efficient executable enumeration is claimed."
+  ]
+}

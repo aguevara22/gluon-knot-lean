@@ -1,0 +1,54 @@
+{
+  "state": "prepared; independent kernel pending",
+  "checked_declarations": [
+    "SM.IntervalComposition.eq_single_of_parts_eq_one",
+    "SM.IntervalComposition.parts_eq_one_iff_eq_single",
+    "SM.IntervalComposition.single_part",
+    "SM.IntervalComposition.single_product",
+    "SM.IntervalComposition.nonSingleEquiv",
+    "SM.BoundaryCutSet",
+    "SM.BoundaryCutSet.ext",
+    "SM.BoundaryCutSet.card_ge_two",
+    "SM.BoundaryCutSet.toComposition",
+    "SM.IntervalComposition.cutSet",
+    "SM.IntervalComposition.cutSet_card",
+    "SM.IntervalComposition.cutSet_injective",
+    "SM.BoundaryCutSet.toComposition_cutSet",
+    "SM.IntervalComposition.cutSet_toComposition",
+    "SM.IntervalComposition.cutSetEquiv"
+  ],
+  "additional_examples": [
+    "CompositionCutSetIndependentReview.every_raw_cut_set_admitted",
+    "CompositionCutSetIndependentReview.unary_cut_set_is_exactly_endpoints",
+    "CompositionCutSetIndependentReview.full_cut_coverage",
+    "CompositionCutSetIndependentReview.exact_cut_membership",
+    "CompositionCutSetIndependentReview.complete_raw_roundtrip",
+    "CompositionCutSetIndependentReview.same_cut_set_iff_same_composition"
+  ],
+  "frozen_files_sha256": {
+    "work/checks/UnaryComposition.body.lean": "2d1893ca9f46648d2e799bb818bb42a58e3f22666e15b9b5881e4914e69df9b7",
+    "work/checks/UnaryComposition.prototype.lean": "9caf13c864d147e28ce26dfe94d87129a8464f766f17f44350e48d51280cc3de",
+    "work/checks/UnaryComposition-second-kernel.log": "d7a18c33a3860fa57e84109e0a1ce93f8260c29797256c2cbac6c25827dc427b",
+    "work/checks/CompositionCutSet-first-kernel.log": "002769949314a13bec19f60fecaac06cfc4f1034473525bbd484ca7d08e7255e",
+    "work/checks/CompositionCutSet.body.lean": "8c5adedcca981b1b44faa750ad5c95738e06560be89041eed31908aa264a0123",
+    "work/checks/CompositionCutSet.prototype.lean": "91813e78c96acf85c11aa2854623dc8b69e6a8d51a76b2b152f84212f45a308b"
+  },
+  "root_receipts_sha256": {
+    "work/checks/UnaryComposition-prototype-result.json": "ed1bd2c6161bb8f804a4d95433264725222975129665e02262dc8a1f7c4deb03",
+    "work/checks/CompositionCutSet-prototype-result.json": "587d7acfb786defc98515d35fdaaf4af8c50e8a984f7660eb3683ab5362e4beb"
+  },
+  "trace": "work/checks/composition-cut-set-review-types.lean",
+  "trace_sha256": "2bf0c5de092695977f4845ecee5f8ac5c6650419c9539344360143c1e3c9a377",
+  "examples": "work/checks/composition-cut-set-review-examples.lean",
+  "examples_sha256": "bddad0d13ca00128c31b10ee811811d304305edcabc813fdfa1a4801576429bd",
+  "SM_closure_files_sha256": {
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d"
+  },
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "scope": "Only cut-set/composition representation helper for factorization. No full farout acceptance."
+}

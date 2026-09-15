@@ -1,0 +1,348 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "scalar-boxes-prototype",
+  "source_id": "thm:relgp",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1408–1427, especially local axis-parallel cubes with closures in an open locus and strict Euclidean diameter, plus coordinate hybridization and segment containment",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The actual local scalar/tuple box prototype and its geometric conclusions only. This is not an acceptance of full thm:relgp, a finite subdivision, endpoint collars or any global path.",
+  "prototype_file": "work/checks/ScalarBoxes.prototype.lean",
+  "prototype_sha256": "ddcb19795b3abb36867aa4af7ed3d19c1c5b53f62558cb06240d976b5f9f865b",
+  "in_theorem_library": false,
+  "main_declarations": [
+    "SM.scalarOpenBox_eq_pi",
+    "SM.scalarOpenBox_mem_of_coordinates",
+    "SM.scalarAssignmentLine_mem_box",
+    "SM.exists_scalarBox_closure_subset",
+    "SM.exists_tupleScalarBox_closure_diameter"
+  ],
+  "reason": "The prototype faithfully supplies the local coordinate-cube construction required by the source. scalarOpenBox is exactly a product of open real intervals of one common positive radius in the actual scalar coordinates, and tupleScalarBox is its preimage under the proved actual tuple/scalar homeomorphism. It is therefore an open neighborhood of the actual labelled center, not an arbitrary proxy or a lower-dimensional subset. Coordinate hybrids and affine segments between points in a box remain in that same box. At any point of any open tuple set S and for any positive delta, a positive box is constructed whose actual topological closure lies in S and whose image under the actual 2n-dimensional Euclidean tuple-coordinate map has diameter strictly below delta. The proof first pulls back a Euclidean ball of radius delta/4 to scalar coordinates and then chooses a closed scalar box inside its intersection with the preimage of S. It uses the scalar product maximum metric only to obtain a local closed box, and separately uses the actual Euclidean triangle inequality and diameter bound. No product/Euclidean metric equality, all-control-nonzero endpoint condition, Regular/Generic strengthening, synthetic domain or new axiom is introduced. The compiled statements and transparent proof bodies establish this bounded local scope; the source finite cover/subdivision, overlap waypoint domains, concatenated path, collars and wall dictionary remain unfinished.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact scalar cubes, openness, closure and domain",
+      "assessment": "scalarOpenBox x r requires abs(y i−x i)<r for every coordinate. The explicit equality with Set.pi univ of Ioo(x i−r,x i+r) proves the source axis-parallel equal-radius convention. Openness is proved by a finite intersection of inverse images of strict inequalities, with Finite sigma precisely where required; scalarClosedBox uses non-strict inequalities and is closed even for arbitrary sigma. The open box is contained in this closed box, so its topological closure is contained there by closure_minimal. Equality of the closure and closed box is neither asserted nor needed. For positive r the center belongs. The local box existence theorem requires Fintype sigma for its finite product metric; ScalarCoordinate n is finite under NeZero n. The independent n≥3 specialization constructs this redundant instance, so the source size domain is fully covered. Empty finite coordinate types are also harmless; none of the lemmas assumes an unstated nonempty coordinate set."
+    },
+    {
+      "clause": "Actual coordinate hybridization and segment containment",
+      "assessment": "For any z whose every coordinate equals the corresponding coordinate of x or y, each defining strict inequality is inherited from the appropriate endpoint. This includes arbitrary hybrid coordinate choices and does not require distinct endpoints. The box is convex because its exact interval factors are convex. The actual scalarAssignmentLine is separately expanded as x+t*(y−x)=(1−t)•x+t•y by pointwise ring algebra. On 0≤t≤1 its weights are nonnegative and sum to one, so convexity proves containment, including both endpoints. This is an actual affine interpolation and does not accept an externally supplied path-containment premise. Construction of the finite ordered sequence of coordinate legs and their source time parameterization remains separate."
+    },
+    {
+      "clause": "Closed boxes in every open scalar neighborhood",
+      "assessment": "Metric.isOpen_iff gives a positive epsilon-ball inside the supplied open set at its given point. Choosing r=epsilon/2, the componentwise non-strict closed-box inequalities imply product distance at most epsilon/2 by the actual finite-sup metric formula dist_pi_le_iff. This is strictly below epsilon, so the entire closed box lies in the open set. Composing with the already proved closure inclusion gives closure of the open box inside the set. The product metric is being used on the finite scalar-coordinate space where it is the actual metric; the proof makes no numerical assertion about Euclidean distance at this step."
+    },
+    {
+      "clause": "Full actual tuple/scalar representation and topology",
+      "assessment": "The inherited scalarCoordinates and tupleOfScalarCoordinates use the two real components at every ZMod label and have proved inverse identities. Their continuous maps define the actual scalarCoordinateHomeomorph. tupleScalarBox is exactly the scalar box preimage, so inverse reconstruction yields all scalar points of the box; the independent trace proves the image equality explicitly. The actual tuple coordinate map to EuclideanSpace ℝ (Fin n × Fin 2) retains all vertex coordinates and uses WithLp.toLp 2. Its inverse identities and continuity were reread in EuclideanTuple, with unchanged hashes bound to the earlier independent weak-open review. Thus the two scalar presentations differ only in genuine label/coordinate presentation, not in which tuples are allowed."
+    },
+    {
+      "clause": "Closure inside arbitrary prescribed open tuple set",
+      "assessment": "Let Psi be tupleCoordinates composed with tupleOfScalarCoordinates. Its continuity follows from the actual continuous maps. The scalar set U is the intersection of the preimage of S and the preimage under Psi of the Euclidean delta/4-ball about the center. It is open and contains scalarCoordinates P by both actual inverse identities and delta>0. The local closed-box lemma gives positive r with the closed scalar box contained in U. The closure of tupleScalarBox is contained in the preimage of that closed scalar box because the preimage is closed and contains the tuple box. Its S-component, transported through tupleOf_scalarCoordinates, proves the required actual tuple closure inclusion. No central Regular or Generic hypothesis is presumed; any supplied open locus may be used."
+    },
+    {
+      "clause": "Strict Euclidean diameter and pairwise bounds",
+      "assessment": "The Euclidean component of U proves that every actual Q in the tuple box has dist(tupleCoordinates Q,tupleCoordinates P)<delta/4. Applying the Euclidean triangle inequality to Q,P,R and symmetry on the second radial bound gives each pair distance<delta/2. These inequalities imply a non-strict global diameter bound ≤delta/2 via Metric.diam_le_of_forall_dist_le, whose hypotheses include the established nonnegative bound and actual pairwise distances. Since delta>0, delta/2<delta, hence the supremum-style diameter is strictly below delta; the proof does not incorrectly infer a strict supremum bound merely from distances<delta. The theorem also returns the direct pairwise bound<delta. EuclideanSpace is pinned Mathlib PiLp 2; no maximum-norm identification or unproved dimension-dependent norm estimate is used."
+    },
+    {
+      "clause": "Precise relation to the incomplete source theorem",
+      "assessment": "These lemmas supply centered positive axis-parallel open cubes at every point of an arbitrary open tuple set, with closures in that set and the requested actual Euclidean diameter. They can be applied to the independently proved open Regular or Generic loci; that local construction does not demand all polynomials nonzero at the original endpoints. The prototype does not choose a finite image cover, obtain a sufficiently fine strictly increasing subdivision or N≥3 refinement, produce endpoint-generic cubes, assemble overlap domains, place a common algebraic waypoint assignment in those overlaps, construct or reparameterize coordinate polylines, or prove their global closeness/collars/wall classification. Those obligations must remain pending for full thm:relgp."
+    }
+  ],
+  "not_certified": [
+    "No full original thm:relgp acceptance and no original proof/checklist increment.",
+    "No finite cover of the actual continuous image, finite subdivision/refinement, first/last generic cube selection, or actual consecutive cube overlap-domain assembly.",
+    "No construction or concatenation of ordered coordinate legs, original global labelled endpoint preservation, global uniform approximation, or complete endpoint collars.",
+    "No common root neighborhood with all other signs fixed, ambient hypersurface smoothness, complete simple wall germs, wall dictionary, cusp exclusion or full occurrence-label theorem.",
+    "The prototype remains outside the audited theorem-library inventory; audit054 verifies its existing imports, not the prototype itself."
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/EuclideanTuple.lean": "acf79a23b262961b245ec4333627f06d02af2cbe74e9c3385ea237a98f016e69",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/MultivariateAvoidance.lean": "44ba32b741564aeccf0766c49486f7503f5b11f4fdf481b53660baf14ad3b127",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolygonalConnected.lean": "63c87005b5678e811be587290a0cfb2924825f3463c7263119611940db6e33e2",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/ScalarCoordinateTopology.lean": "0684c58a49aa12fe225243d82a5f59fc6f4a64817a20d02461151c806fcadd38",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+    "work/lean/SM/WeakGeometry.lean": "4504cad4539531adc6f8271d30d389c62aa72249e3506cffed0352b73f22bcb2",
+    "work/lean/SM/WeakTopology.lean": "1a0c7b165f333b81e575c1a0f0bc865d1309f87e752d142c533d7ae0cf038ae2"
+  },
+  "import_closure_roots": [
+    "SM.MultivariateAvoidance",
+    "SM.ScalarCoordinateTopology",
+    "SM.EuclideanTuple"
+  ],
+  "import_closure_file_count": 23,
+  "inherited_review_binding": {
+    "all_23_imported_local_files_match_prior_independent_reviews": true,
+    "reviews": {
+      "work/reviews/central-leg-collision.json": {
+        "sha256": "ba952b2e4a189cb7132b537fe584219c035ce10303d445d362ff2351bc21af35",
+        "matching_file_count_in_current_closure": 17
+      },
+      "work/reviews/joint-waypoint-choice.json": {
+        "sha256": "8609999cf4db4b00f221df4ac7ba0a4140eb7c81df2bdd78baa739c610d495f5",
+        "matching_file_count_in_current_closure": 16
+      },
+      "work/reviews/lem-weak-open.json": {
+        "sha256": "dca728c8908d29b30caf05cca052006ffc255d75104cc0a8bbeb8f0b16b911b2",
+        "matching_file_count_in_current_closure": 18
+      }
+    },
+    "coverage_by_file": {
+      "work/lean/SM/Chirotope.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/ContinuousGeometry.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/CoordinatePolynomials.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json"
+      ],
+      "work/lean/SM/CrossingCriterion.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/CrossingEquiv.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/Crossings.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/DeterminantPolynomial.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json"
+      ],
+      "work/lean/SM/G1Consequences.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/Generic.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/GenericTopology.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/MultivariateAvoidance.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json"
+      ],
+      "work/lean/SM/Polygon.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/PolynomialShear.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json"
+      ],
+      "work/lean/SM/ScalarCoordinateTopology.lean": [
+        "central-leg-collision.json"
+      ],
+      "work/lean/SM/Segment.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/SegmentStability.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/WallSegmentStability.lean": [
+        "central-leg-collision.json",
+        "joint-waypoint-choice.json",
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/Chambers.lean": [
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/WeakGeneric.lean": [
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/WeakGeometry.lean": [
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/WeakTopology.lean": [
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/PolygonalConnected.lean": [
+        "lem-weak-open.json"
+      ],
+      "work/lean/SM/EuclideanTuple.lean": [
+        "lem-weak-open.json"
+      ]
+    }
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "additional_pinned_library_files_read_sha256": {
+      "Mathlib/Topology/MetricSpace/Pseudo/Pi.lean": "4ed78c934e5f0d0771bde5f9a717bc91d27b23248a006631879adf76678ae6c2",
+      "Mathlib/Topology/MetricSpace/Bounded.lean": "9bf48d97a400e5c57e260c95aaabb978667b13248b3cfbdc57890a8e9ad3e583",
+      "Mathlib/Analysis/Convex/Basic.lean": "9044a0be27a288e404cbd80670eb0e739271be1fdd7577dbf205dff40af24fcf",
+      "Mathlib/Analysis/InnerProductSpace/PiL2.lean": "7f3bd15b40c2cbc2c889207a8342a2faf8a661d99caca99d27332b263430fd70"
+    },
+    "listed_library_bytes_verified_against_pinned_git_revision": true
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/scalar-boxes-review-types.lean",
+    "independent_trace_source_sha256": "2613b71a1feb5ec808b369e3e4ecac52ca9fdcb0681e82395b10be9152b5e7b3",
+    "independent_trace_log": "work/checks/scalar-boxes-review-types.log",
+    "independent_trace_log_sha256": "bbc1b6bd1c385d346e1780059b7244336f758b5446f2420285cc76ec18bb9b1f",
+    "independent_kernel_command": "lake env lean ../checks/scalar-boxes-review-types.lean",
+    "independent_kernel_session": 8113,
+    "independent_kernel_exit_code": 0,
+    "exact_prototype_definition_and_proof_prefix_copied_unchanged": true,
+    "checked_declarations": 14,
+    "declaration_axioms": {
+      "SM.isOpen_scalarOpenBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isClosed_scalarClosedBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_subset_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.closure_scalarOpenBox_subset_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_eq_pi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.convex_scalarOpenBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarOpenBox_mem_of_coordinates": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.scalarAssignmentLine_mem_box": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_scalarBox_closed_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_scalarBox_closure_subset": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isOpen_tupleScalarBox": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarBox_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.exists_tupleScalarBox_closure_diameter": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "Actual image under scalarCoordinates of tupleScalarBox equals the full scalarOpenBox.",
+      "Source n≥3 yields a positive-radius box containing the center, open in the actual tuple topology, with closure in S and actual Euclidean diameter<delta."
+    ],
+    "additional_examples_passed": true,
+    "trace_warning": "One non-failing haveI proof-style linter warning in the independent n≥3 specialization; no kernel errors.",
+    "prototype_root_kernel_session": 10541,
+    "prototype_root_kernel_exit_code": 0,
+    "prototype_root_log": "work/checks/scalar-boxes-prototype.log",
+    "prototype_root_log_sha256": "cfeb2b461072456d050bcafe20c4ab9c52de665fdc5fd0be97d9e14cb679d72b",
+    "prototype_result": "work/checks/scalar-boxes-prototype-result.json",
+    "prototype_result_sha256": "7ec298942452c2ab36677061236182b330bbe2ef17f96b2e3477a9ba6bda3e5c",
+    "independent_closure_evidence": "work/checks/scalar-boxes-review-closure.json",
+    "independent_closure_evidence_sha256": "b3a22df1969717b05eea52397ac454fc3e0fd9bebcec31d6749e99f394b3a47f"
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-054-output.json",
+    "receipt_sha256": "d63e3e443df5756b8120d4e5dc1f8eeacfefe86a74491436e2dcec86e72a89c7",
+    "parent_reported_terminal_session": 35317,
+    "parent_reported_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "receipt_equals_stage_development": true,
+    "project_file_count": 269,
+    "frozen_file_count": 38,
+    "SM_module_count": 263,
+    "exact_lean_inventory_count": 265,
+    "audited_local_declarations": 2928,
+    "mapped_claims": 30,
+    "all_project_and_frozen_hashes_independently_verified": true,
+    "all_258_prior_SM_modules_unchanged": true,
+    "scope": "The prototype and independent trace are outside this project inventory. This receipt verifies the current supporting theorem-library bytes only; independent prototype kernel evidence is recorded separately."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0,
+    "source_row_status_unchanged": true
+  },
+  "independence": "This reviewer did not author or edit the prototype or any implementation module. The source, current transparent definitions/proofs and inherited coordinate semantics were independently inspected. A byte-identical prototype prefix was kernel-checked with expanded type/axiom tracing and two independent semantic specializations.",
+  "edits": "Only independent work/checks review evidence and this work/reviews report were created; no source, prototype, Lean theorem-library, declaration-map or progress files were edited."
+}

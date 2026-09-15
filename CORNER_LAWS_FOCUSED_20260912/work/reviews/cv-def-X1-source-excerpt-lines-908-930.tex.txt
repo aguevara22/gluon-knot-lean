@@ -1,0 +1,23 @@
+\begin{definition}[the slot, the factor, and $X_1$]\label{def:X1}
+Let $P$ be generic and $S\in\Ind(G_P)$. For a carrier $L$ of $S$ set
+\[
+  P_{S,L}=\prod_{H\text{ carried by }L}P_H,\qquad
+  w_{S,L}=\sum_{H\text{ carried by }L}w(H),
+\]
+the products and sums taken over the residual pieces assigned to $L$ by
+Lemma~\ref{lem:carriers}(iv), with the empty product $P_{S,L}=1$ and the empty
+sum $w_{S,L}=0$ when no piece is carried by $L$. Here $P_H$ is the HOMFLY--PT
+polynomial of the link that the piece $H$ presents, in the normalization of
+Definition~\ref{def:homfly}; that such a polynomial exists at all is
+Axiom~\ref{ax:homfly}, and this definition is where it is first read. The \emph{slot} of $L$ is the
+integer $1-w_{S,L}-R(L)$, the \emph{factor} is
+\[
+   \Omega_1(S,L)=\bigl[a^{\,1-w_{S,L}-R(L)}z^{0}\bigr]P_{S,L}(a,z)
+\]
+--- the coefficient itself, taken as a value, with no sign gate and no
+zero-gate applied --- and
+\[
+   X_1(P)\;=\;\sum_{S\in\Ind(G_P)}\wind(S)\prod_{L}\Omega_1(S,L),
+\]
+the inner product running over the $|S|+1$ carriers of $S$.
+\end{definition}

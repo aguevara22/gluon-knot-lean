@@ -1,0 +1,123 @@
+{
+  "checkpoint": "105",
+  "utc": "2026-09-12T07:20:08.560318+00:00",
+  "goal_status": "active; incomplete",
+  "previous_goal_turn_classification": "progress",
+  "this_goal_turn_classification": "progress:18 checked declarations derive actual true-corner existence and nonempty filter, exact edge/parameter matching across unselected visits, generic first-retained blocks and actual component corner blocks; geometric compression and remaining source clauses remain",
+  "original_proofs": 19,
+  "original_proof_total": 132,
+  "original_checklist_accepted": 38,
+  "original_checklist_total": 191,
+  "expanded_checklist_accepted": 39,
+  "expanded_checklist_total": 192,
+  "main_targets_accepted": 0,
+  "main_targets_total": 8,
+  "new_kernel_checked_declarations": 18,
+  "implementation_declarations": 18,
+  "prototype_consumers": 0,
+  "candidate_groups": 4,
+  "root_kernel_state": "none; all5 root kernel attempts terminal:4 passing runs and1 preserved first failure",
+  "reviewer_kernel_state": "none launched",
+  "passing_root_sessions": {
+    "CarrierTrueCorners": 34502,
+    "CarrierUnselectedDirection": 32546,
+    "CarrierFirstCornerBlock": 89195,
+    "CarrierActualCornerBlock": 28160
+  },
+  "same_model_technical_reviews": {
+    "status": "Four sealed; no technical defect within bounded scopes; independent AI authorship and review limits disclosed; no stronger approval",
+    "files_sha256": {
+      "work/reviews/carrier-true-corners-technical-review-20260912.json": "779db0952208dd51f298ca55a6e05ab24529108921fca5a46c14f5db1e6d1377",
+      "work/reviews/carrier-unselected-direction-technical-review-20260912.json": "d7492accb77096cd718f720948bd704af4aeb9df991a5bbfa90490a1ba2b1ceb",
+      "work/reviews/carrier-first-corner-block-technical-review-20260912.json": "17ea53bf0634a599ff4219f5e2446f5b351b766a3be9def9a696be0a61389e8c",
+      "work/reviews/carrier-actual-corner-block-technical-review-20260912.json": "537300997a68f1d194f373f73c3eb4dbd90eca3cd7baf4cff23dca333fa31b7a"
+    },
+    "quoted_bindings_verified": 116,
+    "unique_bound_files": 83,
+    "source_fidelity_approval": false
+  },
+  "canonical_modules_unchanged": 327,
+  "baseline_files_unchanged": 2393,
+  "unique_candidate_evidence_files_checked": 64,
+  "passing_receipts_sha256": {
+    "work/checks/CarrierTrueCorners-prototype-result.json": "e1c583c9f9b64b3d591dc71a4a87dceca566cd626b259c9cacd680fc1b84a31c",
+    "work/checks/CarrierUnselectedDirection-prototype-result.json": "972d4e1bceab0de05de8bfec877dd81ca09a94602c379c27536f766b965f067b",
+    "work/checks/CarrierFirstCornerBlock-prototype-result.json": "d98f5e681331e1bd17ca7dc4fc8447cee9cfbec1ca2f580d80d6cb584ef690e0",
+    "work/checks/CarrierActualCornerBlock-prototype-result.json": "c14ea046cc1ebd76a4cddd8e4874e9b996649e72f04af727617215b913fa0d89"
+  },
+  "preserved_failed_sessions": [
+    32316
+  ],
+  "repair_header_changes": {
+    "32316": []
+  },
+  "proof_repairs": "FirstCornerBlock first32316: replace dependent case-generalization on the filtered tail by an empty/nonempty proposition split and explicit cons witness, then simplify the original target. All three headers and dependencies unchanged; complete failed attempt preserved and excluded. ActualCornerBlock pre-assembly simplifier choice was made before its successful first attempt and is separately disclosed.",
+  "verifier_execution": "Both new verifiers passed first execution after independent static adaptation review against frozen104 current scripts. Exact names/counts, receipts, complete bodies/traces, preserved repair, review bindings and frozen baseline verified; no acceptance rule relaxed.",
+  "source_claim_acceptance_increment": 0,
+  "new_source_theorem_candidates": [],
+  "source_scope": "Actual true-corner predicate, all-support corner existence and nonempty exact corner filter; actual matching edge/parameters across an unselected visit; derived first-retained blocks including closing and singleton cases; actual independent-component corner blocks with exact corner-cycle next, owner and current-successor action. Positive finite-block compression with trace-image equality, regularity, retained crossings, all-visit noncrossing and the main corner theorem remain.",
+  "proved_scope": [
+    "True corners are exactly original vertices and actual selected visits. Every actual component for every support has a true corner, derived by contradiction and actual owner-block orbit transport. The exact corner filter is nonempty and duplicate-free as marks",
+    "An actual incoming visit forces the original edge and strictly smaller starting parameter. At an unselected visit, incoming upper and outgoing lower parameters match exactly and both full affine formulas follow positive intervals of that same edge",
+    "Finite recursion derives the first retained entry in the remaining list plus its anchor, exact filtered cyclic next, omitted noncorners, and a literal closed-prefix witness; empty and closing/singleton cases are included",
+    "Actual owner membership constructs a rotated component representative. Its derived first-corner block has retained endpoint owner, omitted noncorners, exact actual cornerCycle.next and actual current successor action under independent support"
+  ],
+  "remaining_carrier_scope": [
+    "Derive actual consecutive steps on the constructed closed prefix, retaining closing/singleton cases",
+    "Positive finite same-original-edge compression with exact equality of segment-image unions; actual compressed cyclic corner tuple",
+    "True-corner directions/signs, regularity, at least three corners, exact retained crossings and all-visits noncrossing"
+  ],
+  "remaining_main_goal": "Actual corner-state-sum C, all-sector C-soft and wall laws, full-cusp/comparison and R/bridge; stronger fidelity, controlled integration and final acceptance checks",
+  "whole_library_audit_rerun": false,
+  "last_canonical_audit": "070",
+  "report": "reports/carrier-true-corner-blocks-candidates-20260912.md",
+  "next_action_document": "decisions/carrier-block-compression-next-step-20260912.md",
+  "next_action": "Execute decisions/carrier-block-compression-next-step-20260912.md. Derive actual consecutive successor steps on the constructed closed corner block using the parent list action and literal prefix, including closing and singleton cases. Use the checked incoming/unselected parameter matching to prove finite positive same-original-edge compression, with both positive total displacement and equality of segment-image unions. Construct the actual compressed cyclic corner tuple and prove corner directions/signs, regularity, at least three corners, retained crossings and all-visits noncrossing. Continue actual corner coefficients/state sum, all-sector C-soft, wall laws, full-cusp/comparison and R/bridge. Global parameter-circle maps are optional unless a consumer needs one. Stronger fidelity and controlled integration remain separate.",
+  "progress_watch_session": 85969,
+  "progress_watch_exit_code": 0,
+  "progress_reports_relayed_utc": [
+    "2026-09-12T06:55:36Z",
+    "2026-09-12T07:05:37Z",
+    "2026-09-12T07:15:37Z"
+  ],
+  "exit_progress_report_utc": "2026-09-12T07:18:29Z",
+  "hourly_app_automation": {
+    "id": "hourly-lean-formalization-progress",
+    "state": "Existing hourly heartbeat observed firing07:14:05 UTC; requested source audit run and reported; no automation configuration changes",
+    "observation": "work/checks/checkpoint-105-hourly-claims-observation.json",
+    "last_full_configuration_observation": "099"
+  },
+  "process_inventory_note": "All terminal states use exact observed root session results; reviewers report no kernels. No process-inventory escalation.",
+  "checkpoint_evidence_sha256": {
+    "work/checks/checkpoint-105-verification.json": "03c3e33b314f335938a12478c89c98f8c52b9030a130e83be754b932b966b167",
+    "work/checks/checkpoint-105-review-bindings.json": "fd10145c5f92773f3af477de72ccda444e5e03651a8f4b17dc85817730f67189",
+    "work/checks/checkpoint-105-verifier-static-review.json": "2eabcd235da8ae627a5aae12279a825c4547151a0b5abda8bc393b1099a60b9d",
+    "work/checks/checkpoint-105-hourly-claims-observation.json": "df362efc441c0678eef7c0fb59bf00be984e78bd08cbb41ba1f10a157da7af65",
+    "work/checks/verify_carrier_corners_candidates.py": "0cb2be6d89812777f5885c477b4c35d95df271d5bc7a7245712e3c224143630e",
+    "work/checks/verify_carrier_corners_review_bindings.py": "1be1c817154240946054b5a76651cf6df250d8ba1cf805a6f65a49ad364784b4",
+    "work/checks/verify_carrier_corners_candidates-first-draft.py": "0cb2be6d89812777f5885c477b4c35d95df271d5bc7a7245712e3c224143630e",
+    "work/checks/verify_carrier_corners_review_bindings-first-draft.py": "1be1c817154240946054b5a76651cf6df250d8ba1cf805a6f65a49ad364784b4",
+    "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+    "work/checks/carrier-corners-baseline-20260912.json": "823673704b91142c69ed1434df26fb27697bdc4b40944a970b642a57c9aabc88",
+    "work/checks/carrier-corners-candidate-groups-20260912.json": "d74303689fdfd55cc0ec2a38a9caf8cca70397ae9feb813766bf967a379823ae",
+    "work/checks/carrier-corners-preserved-failures-20260912.json": "6895b8d4e8c9e308412f291f8422d59a10b819f372b18947afad774fc2ffe03c",
+    "work/checkpoints/goal-turn-105-candidates.json": "c5a87e712eda19f87b0dba830ce2dd0004c0b2ce6e0dc7b310d7ebde1a7a82d1",
+    "work/reports/carrier-true-corner-blocks-candidates-20260912.md": "c5a952637937cacd85de34c143736c9376cab12fed7b23eb33e3b6ab7b6c4b7d",
+    "work/decisions/carrier-block-compression-next-step-20260912.md": "f409ffa5f38c82bc173626b2311b9c4655d16ec8011aed7fcc563cf4b36e525d",
+    "work/checks/CarrierActualCornerBlock-first-execution-options.json": "dc4aeae4814cfdfa6dc4de9d055fe2dd70bc20a650b17ee9f29f57446ea67d48",
+    "work/STATUS.md": "3eee25f86d402f09cfc623cb6833296a559eeb6297a0e94413b68d2ecd87cd5d",
+    "work/TASKS.json": "005cee7e87f910de4bda6142204106f110fe6e52d639c33accd96ab9d2d531d5",
+    "work/AUTHOR_NOTES.md": "09e6e06a16e6f4c7d184dd1f33d5835e1f4d9e3a69ac65966454c47e1c66570c",
+    "work/reviews/carrier-true-corners-technical-review-20260912.json": "779db0952208dd51f298ca55a6e05ab24529108921fca5a46c14f5db1e6d1377",
+    "work/reviews/carrier-unselected-direction-technical-review-20260912.json": "d7492accb77096cd718f720948bd704af4aeb9df991a5bbfa90490a1ba2b1ceb",
+    "work/reviews/carrier-first-corner-block-technical-review-20260912.json": "17ea53bf0634a599ff4219f5e2446f5b351b766a3be9def9a696be0a61389e8c",
+    "work/reviews/carrier-actual-corner-block-technical-review-20260912.json": "537300997a68f1d194f373f73c3eb4dbd90eca3cd7baf4cff23dca333fa31b7a",
+    "work/checks/CarrierTrueCorners-prototype-result.json": "e1c583c9f9b64b3d591dc71a4a87dceca566cd626b259c9cacd680fc1b84a31c",
+    "work/checks/CarrierUnselectedDirection-prototype-result.json": "972d4e1bceab0de05de8bfec877dd81ca09a94602c379c27536f766b965f067b",
+    "work/checks/CarrierFirstCornerBlock-prototype-result.json": "d98f5e681331e1bd17ca7dc4fc8447cee9cfbec1ca2f580d80d6cb584ef690e0",
+    "work/checks/CarrierActualCornerBlock-prototype-result.json": "c14ea046cc1ebd76a4cddd8e4874e9b996649e72f04af727617215b913fa0d89"
+  },
+  "execution_options": "ActualCornerBlock first28160 used separately recorded CLI maxHeartbeats=1000000 for unchanged SortedArcLists in the expanded closure. No mathematical assumptions or kernel trust setting changed.",
+  "optional_interface_note": "A separate global continuous parameter-circle map is unconstructed and optional unless a concrete source consumer needs it; it is not imposed as an extra gate.",
+  "planning_capacity_incident": "The delegated compression-note turn failed at model capacity before producing its artifact. Root wrote the unproved next-step note locally. No mathematical proof or review was left blocked by this incident."
+}

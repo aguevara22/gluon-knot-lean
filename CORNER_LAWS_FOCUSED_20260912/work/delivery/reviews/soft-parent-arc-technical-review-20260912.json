@@ -1,0 +1,188 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-parent-arc-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:24:47.242585+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_mark_transport",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "authorship_disclosure": "Root authored this group. Reviewer authored neither its statements/proofs nor any repair, and previously reviewed its frozen prerequisites without implementing changes."
+  },
+  "scope": {
+    "group": "SoftParentArc",
+    "declarations": [
+      "SM.soft_parent_no_cyclic_edge_between",
+      "SM.soft_parent_traversal_arc_empty"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "Numerical cyclic-edge and traversal-arc exclusion helpers for the oriented newborn arc in lem:soft-generic(iv)."
+  },
+  "assessment": "No technical mathematical defect found in this bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 87223,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and complete body embeddings in recorded order; full reviewed body retained below. No extracted-header hashes.",
+    "receipt_path": "work/checks/SoftParentArc-prototype-result.json",
+    "receipt_sha256": "1f9542a9d7baf449a3992b7ac5d95901ed3516f4251fa894a3b7c0a6fb3b8eac",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftParentOrder.body.lean": "c5598d7e148d33bfe30c6704a47001aa6c9f00489a6aaadebe740a9e4ef55d37",
+      "work/checks/SoftParentArc.body.lean": "97c398d1a43fe2d014744d717e22b79cde69c3d05a5d3e6de6e8247cfdee6178",
+      "work/checks/SoftParentArc.prototype.lean": "b23bbaa05aa31c73736a46c6dbd835fe1c68695a1e2a2dcad7ffce3c2837fe7c",
+      "work/checks/SoftParentArc-first-kernel.log": "24a5d781f41e4a4e206ddea298ac266a837851184cbc3928ade5f026bf0aa5f2"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftParentEdges.body.lean": 1,
+      "work/checks/SoftParentOrder.body.lean": 1,
+      "work/checks/SoftParentArc.body.lean": 1
+    },
+    "body_embedding_order_verified": true,
+    "printed_trace_count": 2,
+    "declaration_axioms": {
+      "SM.soft_parent_no_cyclic_edge_between": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.soft_parent_traversal_arc_empty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/reviews/soft-parent-order-technical-review-20260912.json": "15411ff8dbc8407b6f1211a03818995c21d99a6b84132531e8db9b60b17b6024",
+      "work/reviews/soft-parent-edges-technical-review-20260912.json": "18d3ddbc4b2db9da974218017152dfba53c1285a46c26f5193144e651337a502",
+      "work/checks/BoundaryTripleSupports-prototype-result.json": "9d01fd6c9528b498689a788e001933ae0e5e74bb62299c4ca1812fd53653ec5f",
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/BoundaryTripleSupports.prototype.lean": "b0548609f91f6362fd1a7cd299d801af926595eed0654c3a1e84f86500a52db3",
+      "work/checks/BoundaryTripleSupports-first-kernel.log": "6cd541d10c340a215848b9073eb49fd32d6df339572f999f969d0105af0ca61a",
+      "work/checks/CanonicalTripleSigns-prototype-result.json": "53e6a7ae2f98efec1a636723522852d62c779ecf03db425902d8e53e36f51f7b",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/CanonicalTripleSigns.prototype.lean": "6e50bba7ee1b376b928ad1dc0838c74063db18a9a583beb33fb50c42a14effad",
+      "work/checks/CanonicalTripleSigns-second-kernel.log": "7e2a6ec29b17d2faae708a452df304c62fd19b90da62fec417fd30de8a993f7a",
+      "work/checks/SoftInsertionIndices-prototype-result.json": "43add936daf500085079f94eedc7af9090f1a7234eb88a0e68521ee40a8f0546",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionIndices.prototype.lean": "2c7c6f2a346ef7c56ad8d656c90d064ab5344627b91aa202a387e6b038471b47",
+      "work/checks/SoftInsertionIndices-first-kernel.log": "0597fba71859d06150861655d0ac9b75e37e78267bd2e0ce894f86a5941a0861",
+      "work/checks/SoftInsertionSuccessors-prototype-result.json": "cda367b3b514ade4cc39971e6add0396b6f4f1b50ef028a2b695b6be4b1c763f",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionSuccessors.prototype.lean": "35481f3085f8e6d32ca2e4c05e5e440337dcddfb6c08d95778e401b7e0c9bf18",
+      "work/checks/SoftInsertionSuccessors-first-kernel.log": "77d6b7fd6d376fb8f79491c98af1208ccb5f1fabfa03a80a828b148430f1d8a0",
+      "work/checks/SoftInsertionTuple-prototype-result.json": "99d1ec750b10bded19a61efb5b8c8bc3c7af3ba443e5ae80eaa746295bfc82a5",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftInsertionTuple.prototype.lean": "261263c4390f8196c69943062225ac3a3ab5536a8f85cd92692a890a5f639a2a",
+      "work/checks/SoftInsertionTuple-second-kernel.log": "5644e749a4f26c2836e55b8b98497e67cd271836a397b0bc363660fbff09e389",
+      "work/checks/SoftParentEdges-prototype-result.json": "7f028780eb63efd02219353d9e61708f8bf77d10ecc10aa946646883505cfbd5",
+      "work/checks/SoftParentEdges.body.lean": "7e3bdac0ebc61907c36f3d1e65816718b25f2b3fad517b27475c444579c1df9c",
+      "work/checks/SoftParentEdges.prototype.lean": "ae2a30547a4c24c3ec4ee4ef2a9bab2bcb0f256501c129776e582dd6e443126a",
+      "work/checks/SoftParentEdges-second-kernel.log": "ece98edb1ba391228077229a513e94038c80976cbb5f50e91239e79c72f21c23",
+      "work/checks/SoftParentOrder-prototype-result.json": "cb69d9d964168284944bec4575923462bb8b36f0d05fa2f1977e7dab6f9dc74f",
+      "work/checks/SoftParentOrder.body.lean": "c5598d7e148d33bfe30c6704a47001aa6c9f00489a6aaadebe740a9e4ef55d37",
+      "work/checks/SoftParentOrder.prototype.lean": "641ef6996427b6f1f60f6fd96262db8eec084b56f92d80b1d35d75e5d5be12be",
+      "work/checks/SoftParentOrder-second-kernel.log": "e8972ad68d7e7fe1e1a440a73cb22f56310a9825688cd687ae9ba39f480beb86"
+    },
+    "dependency_receipts": {
+      "work/checks/BoundaryTripleSupports-prototype-result.json": {
+        "sha256": "9d01fd6c9528b498689a788e001933ae0e5e74bb62299c4ca1812fd53653ec5f",
+        "kernel_session": 98450,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "preserved_failed_sessions": []
+      },
+      "work/checks/CanonicalTripleSigns-prototype-result.json": {
+        "sha256": "53e6a7ae2f98efec1a636723522852d62c779ecf03db425902d8e53e36f51f7b",
+        "kernel_session": 60299,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "preserved_failed_sessions": [
+          11385
+        ]
+      },
+      "work/checks/SoftInsertionIndices-prototype-result.json": {
+        "sha256": "43add936daf500085079f94eedc7af9090f1a7234eb88a0e68521ee40a8f0546",
+        "kernel_session": 1276,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "preserved_failed_sessions": []
+      },
+      "work/checks/SoftInsertionSuccessors-prototype-result.json": {
+        "sha256": "cda367b3b514ade4cc39971e6add0396b6f4f1b50ef028a2b695b6be4b1c763f",
+        "kernel_session": 98068,
+        "exit_code": 0,
+        "first_run_passed": true,
+        "preserved_failed_sessions": []
+      },
+      "work/checks/SoftInsertionTuple-prototype-result.json": {
+        "sha256": "99d1ec750b10bded19a61efb5b8c8bc3c7af3ba443e5ae80eaa746295bfc82a5",
+        "kernel_session": 84277,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "preserved_failed_sessions": [
+          6443
+        ]
+      },
+      "work/checks/SoftParentEdges-prototype-result.json": {
+        "sha256": "7f028780eb63efd02219353d9e61708f8bf77d10ecc10aa946646883505cfbd5",
+        "kernel_session": 18025,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "preserved_failed_sessions": [
+          2081
+        ]
+      },
+      "work/checks/SoftParentOrder-prototype-result.json": {
+        "sha256": "cb69d9d964168284944bec4575923462bb8b36f0d05fa2f1977e7dab6f9dc74f",
+        "kernel_session": 81102,
+        "exit_code": 0,
+        "first_run_passed": false,
+        "preserved_failed_sessions": [
+          17757
+        ]
+      }
+    },
+    "all_dependency_receipt_bound_hashes_verified": true,
+    "full_reviewed_body_text": "namespace SM\n\nnoncomputable section\nvariable {n : ℕ} [NeZero n]\n\n/-- There is no parent edge strictly between a predecessor and its successor\nin the cyclic numerical edge order. This includes the residue-zero cut. -/\ntheorem soft_parent_no_cyclic_edge_between (j k : ZMod n) :\n    ¬ (((j - 1).val < k.val ∧ k.val < j.val) ∨\n      (k.val < j.val ∧ j.val < (j - 1).val) ∨\n      (j.val < (j - 1).val ∧ (j - 1).val < k.val)) := by\n  have hk := ZMod.val_lt k\n  have hj := ZMod.val_lt j\n  by_cases hz : j = 0\n  · subst j\n    have hv : ((0 : ZMod n) - 1).val = n - 1 := canonicalPosition_val_zero\n    rw [hv, ZMod.val_zero]\n    omega\n  · have hv : (j - 1).val = j.val - 1 := canonicalPosition_val_nonzero j hz\n    rw [hv]\n    omega\n\n/-- Every point on a corresponding parent edge is outside the short inserted\narc if it precedes the incoming endpoint on that edge and follows the return\nendpoint on that edge. No visit or chamber premise is hidden here. -/\ntheorem soft_parent_traversal_arc_empty (hn : 3 ≤ n) (j k : ZMod n)\n    (a x b : TraversalPoint (n + 1))\n    (ha : a.1 = softParentEdge j (j - 1)) (hx : x.1 = softParentEdge j k)\n    (hb : b.1 = softParentEdge j j)\n    (hin : k = j - 1 → x.2.val ≤ a.2.val)\n    (hout : k = j → b.2.val ≤ x.2.val) : ¬ traversalBetween a x b := by\n  haveI : Fact (1 < n) := ⟨by omega⟩\n  have hpj : j - 1 ≠ j := prev_ne_self j\n  intro h\n  unfold traversalBetween at h\n  simp only [traversalKey_lt_iff, ha, hx, hb, softParentEdge_val_lt_iff,\n    (softParentEdge_injective j).eq_iff] at h\n  by_cases hkprev : k = j - 1\n  · have hpar := hin hkprev\n    subst k\n    simp only [lt_self_iff_false, true_and, false_or, hpj, Ne.symm hpj,\n      false_and, or_false] at h\n    rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩\n    · linarith\n    · omega\n    · linarith\n  · by_cases hkj : k = j\n    · have hpar := hout hkj\n      subst k\n      simp only [lt_self_iff_false, true_and, false_or, hpj, Ne.symm hpj,\n        false_and, or_false] at h\n      rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩\n      · linarith\n      · linarith\n      · omega\n    · simp only [hkprev, Ne.symm hkprev, hkj, Ne.symm hkj, hpj, Ne.symm hpj,\n        false_and, or_false] at h\n      exact soft_parent_no_cyclic_edge_between j k h\n\nend\nend SM\n",
+    "root_log_limit": "The successful root log prints the recorded axiom traces, not the full elaborated types of this group. Exact full statement texts, section context and proofs are bound by the body/prototype bytes. No reviewer elaboration or global canonical audit was run."
+  },
+  "findings": [
+    "The first theorem negates all three possible strict cyclic-between configurations of numerical parent edge values. For j!=0, the predecessor has value j.val-1, leaving no integer value strictly between successive labels. For j=0, the predecessor has value n-1; the value bounds 0<=k.val<n exclude both wrap branches as well as the increasing branch.",
+    "The arithmetic theorem retains the whole nonzero-n domain. At n=1 all residues coincide, so every strict cyclic-between conjunction is false. It asserts label arithmetic only, not polygon geometry at arity1.",
+    "The second theorem uses the actual canonical TraversalPoint, whose parameter lies in [0,1), and traversalBetween, which is the disjunction of the increasing order and both possible cut-wrap orders. It fixes a on the mapped incoming edge, b on the mapped parent j return edge, and x on an arbitrary mapped parent edge.",
+    "Expanding traversalKey_lt_iff and the proven numerical monotonicity/injectivity of softParentEdge converts each cyclic comparison to its exact parent edge comparison plus the relevant same-edge parameter comparison. All three cyclic alternatives remain in the proof; no particular attachment or numerical cut is chosen.",
+    "If k=j-1, the supplied x.parameter<=a.parameter contradicts every cyclic alternative that would place x after a on the incoming part. If k=j, the supplied b.parameter<=x.parameter contradicts every alternative placing x before b on the return part. For every other parent k, the first no-cyclic-edge-between theorem excludes it. The weak inequalities are sufficient because traversalBetween is strict and excludes its endpoints.",
+    "The n>=3 premise of the traversal theorem guarantees j-1!=j. Its edge equations select the physical incoming and return edges, not the soft edge. The hypotheses are explicit conditional parameter windows; the theorem neither fabricates their geometric proof nor assumes visits or chamber membership.",
+    "Both complete declarations passed first root87223 with standard foundational axioms. All eight embedded bodies match their frozen files exactly and preserve the current residue-zero conventions."
+  ],
+  "limits": "This is a conditional combinatorial traversal-arc theorem. It does not identify a and b with actual newborn visits, prove the parameter windows, exclude soft-edge visits by itself, or conclude nextGaussVisit adjacency. Those source applications require the separate newborn geometry and crossing/visit classification. Stronger fidelity/source acceptance and canonical integration remain pending; no reviewer kernel was run."
+}

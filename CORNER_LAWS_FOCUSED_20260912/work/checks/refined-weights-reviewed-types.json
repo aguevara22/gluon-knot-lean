@@ -1,0 +1,946 @@
+{
+  "types": {
+    "SM.BoundaryCutSet.Consecutive": "SM.BoundaryCutSet.Consecutive {n : \u2115} {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  (J : SM.BoundaryInterval n) : Prop",
+    "SM.BoundaryInterval.eq_of_endpoints": "SM.BoundaryInterval.eq_of_endpoints {n : \u2115} [NeZero n] {J K : SM.BoundaryInterval n} (hl : J.left = K.left)\n  (hr : J.right = K.right) : J = K",
+    "SM.BoundaryCutSet.consecutive_restrict_iff": "SM.BoundaryCutSet.consecutive_restrict_iff {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  (O J : SM.BoundaryInterval n) (hol : O.left \u2208 S.cuts) (hor : O.right \u2208 S.cuts) (hl : O.left \u2264 J.left)\n  (hr : J.right \u2264 O.right) : (S.restrict O hol hor).Consecutive J \u2194 S.Consecutive J",
+    "SM.IntervalComposition.part_consecutive": "SM.IntervalComposition.part_consecutive {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (k : Fin \u03c0.parts) : \u03c0.cutSet.Consecutive (\u03c0.part k)",
+    "SM.IntervalComposition.part_injective": "SM.IntervalComposition.part_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  Function.Injective \u03c0.part",
+    "SM.IntervalComposition.exists_part_of_consecutive": "SM.IntervalComposition.exists_part_of_consecutive {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (J : SM.BoundaryInterval n) (hJ : \u03c0.cutSet.Consecutive J) : \u2203 k, \u03c0.part k = J",
+    "SM.IntervalComposition.partConsecutiveEquiv": "SM.IntervalComposition.partConsecutiveEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) : Fin \u03c0.parts \u2243 { J // \u03c0.cutSet.Consecutive J }",
+    "SM.IntervalComposition.consecutive_contained_in_part": "SM.IntervalComposition.consecutive_contained_in_part {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.BoundaryCutSet I) (h\u03c0 : \u03c0.cutSet.cuts \u2286 T.cuts) (J : SM.BoundaryInterval n)\n  (hJ : T.Consecutive J) : \u2203 k, (\u03c0.part k).left \u2264 J.left \u2227 J.right \u2264 (\u03c0.part k).right",
+    "SM.IntervalComposition.containing_part_unique": "SM.IntervalComposition.containing_part_unique {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (J : SM.BoundaryInterval n) {k l : Fin \u03c0.parts}\n  (hk : (\u03c0.part k).left \u2264 J.left \u2227 J.right \u2264 (\u03c0.part k).right)\n  (hl : (\u03c0.part l).left \u2264 J.left \u2227 J.right \u2264 (\u03c0.part l).right) : k = l",
+    "SM.IncreasingBoundaryTriple.leftInterval": "SM.IncreasingBoundaryTriple.leftInterval {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : SM.BoundaryInterval n",
+    "SM.IncreasingBoundaryTriple.rightInterval": "SM.IncreasingBoundaryTriple.rightInterval {n : \u2115} (t : SM.IncreasingBoundaryTriple n) : SM.BoundaryInterval n",
+    "SM.BoundaryCutSet.consecutive_eq_of_left": "SM.BoundaryCutSet.consecutive_eq_of_left {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  {J K : SM.BoundaryInterval n} (hJ : S.Consecutive J) (hK : S.Consecutive K) (hl : J.left = K.left) : J = K",
+    "SM.BoundaryCutSet.consecutive_eq_of_right": "SM.BoundaryCutSet.consecutive_eq_of_right {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  {J K : SM.BoundaryInterval n} (hJ : S.Consecutive J) (hK : S.Consecutive K) (hr : J.right = K.right) : J = K",
+    "SM.IncreasingBoundaryTriple.eq_of_entries": "SM.IncreasingBoundaryTriple.eq_of_entries {n : \u2115} [NeZero n] {t u : SM.IncreasingBoundaryTriple n}\n  (hl : t.lower = u.lower) (hm : t.middle = u.middle) (hu : t.upper = u.upper) : t = u",
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (S : SM.BoundaryCutSet I) {t u : SM.IncreasingBoundaryTriple n} (htl : S.Consecutive t.leftInterval)\n  (htr : S.Consecutive t.rightInterval) (hul : S.Consecutive u.leftInterval) (hur : S.Consecutive u.rightInterval)\n  (hm : t.middle = u.middle) : t = u",
+    "SM.IntervalComposition.nearTriple_leftInterval": "SM.IntervalComposition.nearTriple_leftInterval {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) : (\u03c0.nearTriple k).leftInterval = \u03c0.part \u27e8\u2191k, \u22ef\u27e9",
+    "SM.IntervalComposition.nearTriple_rightInterval": "SM.IntervalComposition.nearTriple_rightInterval {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) : (\u03c0.nearTriple k).rightInterval = \u03c0.part \u27e8\u2191k + 1, \u22ef\u27e9",
+    "SM.IntervalComposition.nearTriple_consecutive": "SM.IntervalComposition.nearTriple_consecutive {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.cutSet.Consecutive (\u03c0.nearTriple k).leftInterval \u2227 \u03c0.cutSet.Consecutive (\u03c0.nearTriple k).rightInterval",
+    "SM.IntervalComposition.nearTriple_middle_position": "SM.IntervalComposition.nearTriple_middle_position {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) : (\u03c0.nearTriple k).middle = \u03c0.interiorPosition k",
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive": "SM.IntervalComposition.nearTriple_eq_of_consecutive {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (k : Fin (\u03c0.parts - 1)) (t : SM.IncreasingBoundaryTriple n)\n  (hl : \u03c0.cutSet.Consecutive t.leftInterval) (hr : \u03c0.cutSet.Consecutive t.rightInterval)\n  (hm : \u03c0.interiorPosition k = t.middle) : \u03c0.nearTriple k = t",
+    "SM.IntervalComposition.refinementInner": "SM.IntervalComposition.refinementInner {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts) : SM.IntervalComposition (\u03c0.part k)",
+    "SM.IntervalComposition.refinedChildIndex": "SM.IntervalComposition.refinedChildIndex {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) (a : (k : Fin \u03c0.parts) \u00d7 Fin (\u03c0.refinementInner T k).parts) : Fin (\u2191T).toComposition.parts",
+    "SM.IntervalComposition.inner_child_consecutive": "SM.IntervalComposition.inner_child_consecutive {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts) (j : Fin (\u03c0.refinementInner T k).parts) :\n  (\u2191T).Consecutive ((\u03c0.refinementInner T k).part j)",
+    "SM.IntervalComposition.exists_refined_child": "SM.IntervalComposition.exists_refined_child {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts) (j : Fin (\u03c0.refinementInner T k).parts) :\n  \u2203 r, (\u2191T).toComposition.part r = (\u03c0.refinementInner T k).part j",
+    "SM.IntervalComposition.refinedChildIndex_part": "SM.IntervalComposition.refinedChildIndex_part {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (a : (k : Fin \u03c0.parts) \u00d7 Fin (\u03c0.refinementInner T k).parts) :\n  (\u2191T).toComposition.part (\u03c0.refinedChildIndex T a) = (\u03c0.refinementInner T a.fst).part a.snd",
+    "SM.IntervalComposition.refinedChildIndex_injective": "SM.IntervalComposition.refinedChildIndex_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Injective (\u03c0.refinedChildIndex T)",
+    "SM.IntervalComposition.refinedChildIndex_surjective": "SM.IntervalComposition.refinedChildIndex_surjective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Surjective (\u03c0.refinedChildIndex T)",
+    "SM.IntervalComposition.refinedChildrenEquiv": "SM.IntervalComposition.refinedChildrenEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) :\n  (k : Fin \u03c0.parts) \u00d7 Fin (\u03c0.refinementInner T k).parts \u2243 Fin (\u2191T).toComposition.parts",
+    "SM.IntervalComposition.prod_refined_children": "SM.IntervalComposition.prod_refined_children.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (X : SM.BoundaryInterval n \u2192 R) :\n  \u220f k, \u220f j, X ((\u03c0.refinementInner T k).part j) = \u220f r, X ((\u2191T).toComposition.part r)",
+    "SM.IntervalComposition.refinementInner_flatten": "SM.IntervalComposition.refinementInner_flatten {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (\u03c3 : (k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) (k : Fin \u03c0.parts) :\n  \u03c0.refinementInner (\u03c0.flattenRefinement fun k => (\u03c3 k).cutSet) k = \u03c3 k",
+    "SM.IntervalComposition.prod_nested_children": "SM.IntervalComposition.prod_nested_children.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (\u03c3 : (k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k))\n  (X : SM.BoundaryInterval n \u2192 R) :\n  \u220f k, \u220f j, X ((\u03c3 k).part j) = \u220f r, X ((\u03c0.flattenCutSets fun k => (\u03c3 k).cutSet).toComposition.part r)",
+    "SM.IntervalComposition.indexMarks": "SM.IntervalComposition.indexMarks {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (s : Finset (Fin (\u03c0.parts - 1))) : SM.MarkedCuts \u03c0.cutSet",
+    "SM.IntervalComposition.markIndices": "SM.IntervalComposition.markIndices {n : \u2115} {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (m : SM.MarkedCuts \u03c0.cutSet) : Finset (Fin (\u03c0.parts - 1))",
+    "SM.IntervalComposition.markIndices_indexMarks": "SM.IntervalComposition.markIndices_indexMarks {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (s : Finset (Fin (\u03c0.parts - 1))) : \u03c0.markIndices (\u03c0.indexMarks s) = s",
+    "SM.IntervalComposition.indexMarks_markIndices": "SM.IntervalComposition.indexMarks_markIndices {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (m : SM.MarkedCuts \u03c0.cutSet) : \u03c0.indexMarks (\u03c0.markIndices m) = m",
+    "SM.IntervalComposition.marksIndexEquiv": "SM.IntervalComposition.marksIndexEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I) :\n  Finset (Fin (\u03c0.parts - 1)) \u2243 SM.MarkedCuts \u03c0.cutSet",
+    "SM.IntervalComposition.position_mem_indexMarks": "SM.IntervalComposition.position_mem_indexMarks {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (s : Finset (Fin (\u03c0.parts - 1))) (k : Fin (\u03c0.parts - 1)) :\n  \u03c0.interiorPosition k \u2208 \u2191(\u03c0.indexMarks s) \u2194 k \u2208 s",
+    "SM.IntervalComposition.indexMarks_compl": "SM.IntervalComposition.indexMarks_compl {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (s : Finset (Fin (\u03c0.parts - 1))) : \u2191(\u03c0.indexMarks s\u1d9c) = \u2191\u03c0.cutSet.interior \\ \u2191(\u03c0.indexMarks s)",
+    "SM.IntervalComposition.prod_indexMarks": "SM.IntervalComposition.prod_indexMarks.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (s : Finset (Fin (\u03c0.parts - 1))) (f : Fin n \u2192 R) :\n  \u220f k \u2208 s, f (\u03c0.interiorPosition k) = \u220f x \u2208 \u2191(\u03c0.indexMarks s), f x",
+    "SM.IntervalComposition.prod_markIndices": "SM.IntervalComposition.prod_markIndices.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (m : SM.MarkedCuts \u03c0.cutSet) (f : Fin n \u2192 R) :\n  \u220f k \u2208 \u03c0.markIndices m, f (\u03c0.interiorPosition k) = \u220f x \u2208 \u2191m, f x",
+    "SM.IntervalComposition.sum_all_indexMarks": "SM.IntervalComposition.sum_all_indexMarks.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [AddCommMonoid R] (\u03c0 : SM.IntervalComposition I) (f : SM.MarkedCuts \u03c0.cutSet \u2192 R) : \u2211 s, f (\u03c0.indexMarks s) = \u2211 m, f m",
+    "SM.IntervalComposition.RefinementUnmarked": "SM.IntervalComposition.RefinementUnmarked {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) : Type",
+    "SM.IntervalComposition.refinedInteriorIndex": "SM.IntervalComposition.refinedInteriorIndex {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0)\n  (a : (k : Fin \u03c0.parts) \u00d7 Fin ((\u03c0.refinementInner T k).parts - 1)) : Fin ((\u2191T).toComposition.parts - 1)",
+    "SM.IntervalComposition.refinedUnmarkedIndex": "SM.IntervalComposition.refinedUnmarkedIndex {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0)\n  (a : (k : Fin \u03c0.parts) \u00d7 Fin ((\u03c0.refinementInner T k).parts - 1)) : \u03c0.RefinementUnmarked T",
+    "SM.BoundaryCutSet.mem_interior_iff": "SM.BoundaryCutSet.mem_interior_iff {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (S : SM.BoundaryCutSet I)\n  (x : Fin n) : x \u2208 \u2191S.interior \u2194 x \u2208 S.cuts \u2227 I.left < x \u2227 x < I.right",
+    "SM.IntervalComposition.innerPosition_in_refinement": "SM.IntervalComposition.innerPosition_in_refinement {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts)\n  (j : Fin ((\u03c0.refinementInner T k).parts - 1)) :\n  (\u03c0.refinementInner T k).interiorPosition j \u2208 \u2191(\u2191T).interior \u2227\n    (\u03c0.refinementInner T k).interiorPosition j \u2209 \u03c0.cutSet.cuts",
+    "SM.IntervalComposition.refinedInteriorIndex_position": "SM.IntervalComposition.refinedInteriorIndex_position {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0)\n  (a : (k : Fin \u03c0.parts) \u00d7 Fin ((\u03c0.refinementInner T k).parts - 1)) :\n  (\u2191T).toComposition.interiorPosition (\u03c0.refinedInteriorIndex T a) = (\u03c0.refinementInner T a.fst).interiorPosition a.snd",
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective": "SM.IntervalComposition.refinedUnmarkedIndex_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Injective (\u03c0.refinedUnmarkedIndex T)",
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective": "SM.IntervalComposition.refinedUnmarkedIndex_surjective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Surjective (\u03c0.refinedUnmarkedIndex T)",
+    "SM.IntervalComposition.refinedUnmarkedEquiv": "SM.IntervalComposition.refinedUnmarkedEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) :\n  (k : Fin \u03c0.parts) \u00d7 Fin ((\u03c0.refinementInner T k).parts - 1) \u2243 \u03c0.RefinementUnmarked T",
+    "SM.IntervalComposition.inner_nearTriple_transport": "SM.IntervalComposition.inner_nearTriple_transport {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (k : Fin \u03c0.parts)\n  (j : Fin ((\u03c0.refinementInner T k).parts - 1)) :\n  (\u2191T).toComposition.nearTriple (\u03c0.refinedInteriorIndex T \u27e8k, j\u27e9) = (\u03c0.refinementInner T k).nearTriple j",
+    "SM.IntervalComposition.prod_inner_nearTriples": "SM.IntervalComposition.prod_inner_nearTriples.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (f : SM.IncreasingBoundaryTriple n \u2192 R) :\n  \u220f k, \u220f j, f ((\u03c0.refinementInner T k).nearTriple j) = \u220f r, f ((\u2191T).toComposition.nearTriple \u2191r)",
+    "SM.IntervalComposition.RefinementMarked": "SM.IntervalComposition.RefinementMarked {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) : Type",
+    "SM.IntervalComposition.refinedOuterIndex": "SM.IntervalComposition.refinedOuterIndex {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) (j : Fin (\u03c0.parts - 1)) : Fin ((\u2191T).toComposition.parts - 1)",
+    "SM.IntervalComposition.refinedMarkedIndex": "SM.IntervalComposition.refinedMarkedIndex {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) (j : Fin (\u03c0.parts - 1)) : \u03c0.RefinementMarked T",
+    "SM.IntervalComposition.outerPosition_in_refinement": "SM.IntervalComposition.outerPosition_in_refinement {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (j : Fin (\u03c0.parts - 1)) :\n  \u03c0.interiorPosition j \u2208 \u2191(\u2191T).interior",
+    "SM.IntervalComposition.refinedOuterIndex_position": "SM.IntervalComposition.refinedOuterIndex_position {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (j : Fin (\u03c0.parts - 1)) :\n  (\u2191T).toComposition.interiorPosition (\u03c0.refinedOuterIndex T j) = \u03c0.interiorPosition j",
+    "SM.IntervalComposition.refinedMarkedIndex_injective": "SM.IntervalComposition.refinedMarkedIndex_injective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Injective (\u03c0.refinedMarkedIndex T)",
+    "SM.IntervalComposition.refinedMarkedIndex_surjective": "SM.IntervalComposition.refinedMarkedIndex_surjective {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Function.Surjective (\u03c0.refinedMarkedIndex T)",
+    "SM.IntervalComposition.refinedMarkedEquiv": "SM.IntervalComposition.refinedMarkedEquiv {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) : Fin (\u03c0.parts - 1) \u2243 \u03c0.RefinementMarked T",
+    "SM.IntervalComposition.outer_farTriple_transport": "SM.IntervalComposition.outer_farTriple_transport {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (j : Fin (\u03c0.parts - 1)) :\n  (\u2191T).toComposition.farTriple (\u03c0.refinedOuterIndex T j) = \u03c0.farTriple j",
+    "SM.IntervalComposition.prod_outer_farTriples": "SM.IntervalComposition.prod_outer_farTriples.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (f : SM.IncreasingBoundaryTriple n \u2192 R) :\n  \u220f j, f (\u03c0.farTriple j) = \u220f r, f ((\u2191T).toComposition.farTriple \u2191r)",
+    "SM.IntervalComposition.refinementMarks": "SM.IntervalComposition.refinementMarks {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} (\u03c0 : SM.IntervalComposition I)\n  (T : SM.RefiningCutSet \u03c0) : SM.MarkedCuts (\u2191T).toComposition.cutSet",
+    "SM.IntervalComposition.refinementMarkIndices": "SM.IntervalComposition.refinementMarkIndices {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) : Finset (Fin ((\u2191T).toComposition.parts - 1))",
+    "SM.IntervalComposition.mem_refinementMarkIndices": "SM.IntervalComposition.mem_refinementMarkIndices {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (r : Fin ((\u2191T).toComposition.parts - 1)) :\n  r \u2208 \u03c0.refinementMarkIndices T \u2194 (\u2191T).toComposition.interiorPosition r \u2208 \u03c0.cutSet.cuts",
+    "SM.IntervalComposition.prod_refinementMarked": "SM.IntervalComposition.prod_refinementMarked.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (f : Fin ((\u2191T).toComposition.parts - 1) \u2192 R) :\n  \u220f r, f \u2191r = \u220f r \u2208 \u03c0.refinementMarkIndices T, f r",
+    "SM.IntervalComposition.prod_refinementUnmarked": "SM.IntervalComposition.prod_refinementUnmarked.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommMonoid R] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (f : Fin ((\u2191T).toComposition.parts - 1) \u2192 R) :\n  \u220f r, f \u2191r = \u220f r \u2208 (\u03c0.refinementMarkIndices T)\u1d9c, f r",
+    "SM.IntervalComposition.nearFarWeight_near_only": "SM.IntervalComposition.nearFarWeight_near_only.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommRing R] [Invertible 2] (\u03c0 : SM.IntervalComposition I) (D : SM.TripleArray n R) :\n  \u03c0.nearFarWeight D 0 = \u220f r, D (\u03c0.nearTriple r) * \u215f2",
+    "SM.IntervalComposition.nearFarWeight_far_only": "SM.IntervalComposition.nearFarWeight_far_only.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommRing R] [Invertible 2] (\u03c0 : SM.IntervalComposition I) (H : SM.TripleArray n R) :\n  \u03c0.nearFarWeight 0 H = \u220f r, -H (\u03c0.farTriple r) * \u215f2",
+    "SM.IntervalComposition.prod_inner_near_weights": "SM.IntervalComposition.prod_inner_near_weights.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommRing R] [Invertible 2] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (D : SM.TripleArray n R) :\n  \u220f k, (\u03c0.refinementInner T k).nearFarWeight D 0 =\n    \u220f r \u2208 (\u03c0.refinementMarkIndices T)\u1d9c, D ((\u2191T).toComposition.nearTriple r) * \u215f2",
+    "SM.IntervalComposition.outer_far_weight": "SM.IntervalComposition.outer_far_weight.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1} [CommRing R]\n  [Invertible 2] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (H : SM.TripleArray n R) :\n  \u03c0.nearFarWeight 0 H = \u220f r \u2208 \u03c0.refinementMarkIndices T, -H ((\u2191T).toComposition.farTriple r) * \u215f2",
+    "SM.IntervalComposition.nested_summand_transport": "SM.IntervalComposition.nested_summand_transport.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommRing R] [Invertible 2] (\u03c0 : SM.IntervalComposition I) (T : SM.RefiningCutSet \u03c0) (D H : SM.TripleArray n R)\n  (X : SM.IntervalArray n R) :\n  \u03c0.nearFarWeight 0 H * \u220f k, (\u03c0.refinementInner T k).nearFarWeight D 0 * \u220f j, X ((\u03c0.refinementInner T k).part j) =\n    ((\u220f r \u2208 \u03c0.refinementMarkIndices T, -H ((\u2191T).toComposition.farTriple r) * \u215f2) *\n        \u220f r \u2208 (\u03c0.refinementMarkIndices T)\u1d9c, D ((\u2191T).toComposition.nearTriple r) * \u215f2) *\n      \u220f j, X ((\u2191T).toComposition.part j)",
+    "SM.IntervalComposition.nestedSummand": "SM.IntervalComposition.nestedSummand.{u_1} {n : \u2115} {I : SM.BoundaryInterval n} {R : Type u_1} [CommRing R]\n  [Invertible 2] (D H : SM.TripleArray n R) (X : SM.IntervalArray n R) (\u03c0 : SM.IntervalComposition I)\n  (\u03c3 : (k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) : R",
+    "SM.IntervalComposition.markedSummand": "SM.IntervalComposition.markedSummand.{u_1} {n : \u2115} {I : SM.BoundaryInterval n} {R : Type u_1} [CommRing R]\n  [Invertible 2] (D H : SM.TripleArray n R) (X : SM.IntervalArray n R) (\u03c1 : SM.IntervalComposition I)\n  (m : SM.MarkedCuts \u03c1.cutSet) : R",
+    "SM.BoundaryCutSet.marked_transport_val": "SM.BoundaryCutSet.marked_transport_val {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {S T : SM.BoundaryCutSet I}\n  (h : S = T) (m : SM.MarkedCuts S) : \u2191(h \u25b8 m) = \u2191m",
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks": "SM.IntervalComposition.nestedMarkedCutEquiv_marks {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  (\u03c0 : SM.IntervalComposition I) (\u03c3 : (k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) :\n  \u2191((SM.IntervalComposition.nestedMarkedCutEquiv I) \u27e8\u03c0, \u03c3\u27e9).snd = \u2191\u03c0.cutSet.interior",
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand": "SM.IntervalComposition.nestedSummand_eq_markedSummand.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n}\n  {R : Type u_1} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R) (X : SM.IntervalArray n R)\n  (\u03c0 : SM.IntervalComposition I) (\u03c3 : (k : Fin \u03c0.parts) \u2192 SM.IntervalComposition (\u03c0.part k)) :\n  SM.IntervalComposition.nestedSummand D H X \u03c0 \u03c3 =\n    SM.IntervalComposition.markedSummand D H X ((SM.IntervalComposition.nestedMarkedCutEquiv I) \u27e8\u03c0, \u03c3\u27e9).fst\n      ((SM.IntervalComposition.nestedMarkedCutEquiv I) \u27e8\u03c0, \u03c3\u27e9).snd",
+    "SM.IntervalComposition.sum_markedSummand": "SM.IntervalComposition.sum_markedSummand.{u_1} {n : \u2115} [NeZero n] {I : SM.BoundaryInterval n} {R : Type u_1}\n  [CommRing R] [Invertible 2] (D H : SM.TripleArray n R) (X : SM.IntervalArray n R) (\u03c1 : SM.IntervalComposition I) :\n  \u2211 m, SM.IntervalComposition.markedSummand D H X \u03c1 m = \u03c1.nearFarWeight D H * \u220f j, X (\u03c1.part j)",
+    "SM.nearFar_factorization_coordinate": "SM.nearFar_factorization_coordinate.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) (X : SM.IntervalArray n R) (I : SM.BoundaryInterval n) :\n  SM.farTransform H (SM.nearTransform D X) I = SM.nearFarTransform D H X I",
+    "SM.nearFar_factorization": "SM.nearFar_factorization.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) : SM.nearFarTransform D H = SM.farTransform H \u2218 SM.nearTransform D",
+    "SM.farOnlyCoordinates": "SM.farOnlyCoordinates.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R) :\n  SM.IntervalArray n R",
+    "SM.farOnlyOutput": "SM.farOnlyOutput.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R) :\n  SM.IntervalArray n R",
+    "SM.nearTransform_of_nearFar_solution": "SM.nearTransform_of_nearFar_solution.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) (X Y : SM.IntervalArray n R) (h : SM.nearFarTransform D H X = Y) :\n  SM.nearTransform D X = SM.nearFarInverse 0 H Y",
+    "SM.reversedFar_output_of_solution": "SM.reversedFar_output_of_solution.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (D H : SM.TripleArray n R) (X Y : SM.IntervalArray n R) (h : SM.nearFarTransform D H X = Y) :\n  SM.nearFarTransform D (-H) X = SM.farTransform (-H) (SM.nearFarInverse 0 H Y)",
+    "SM.complete_output_near_independent": "SM.complete_output_near_independent.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (D\u2081 D\u2082 H : SM.TripleArray n R) (X\u2081 X\u2082 Y : SM.IntervalArray n R) (h\u2081 : SM.nearFarTransform D\u2081 H X\u2081 = Y)\n  (h\u2082 : SM.nearFarTransform D\u2082 H X\u2082 = Y) : SM.nearFarTransform D\u2081 (-H) X\u2081 = SM.nearFarTransform D\u2082 (-H) X\u2082",
+    "SM.farOnlyCoordinates_equation": "SM.farOnlyCoordinates_equation.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (H : SM.TripleArray n R) : SM.farTransform H (SM.farOnlyCoordinates H) = SM.boundaryUnitArray",
+    "SM.geometric_farOnly_output": "SM.geometric_farOnly_output.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (hP : SM.G1 P) (g : ZMod n) :\n  (SM.nearFarTransform (SM.geometricBoundaryArray P g) (-SM.geometricBoundaryArray P g) fun I =>\n      \u2191(SM.openTreeSum P hP g I)) =\n    SM.farOnlyOutput (SM.geometricBoundaryArray P g)",
+    "SM.treeCoefficient_farOnly": "SM.treeCoefficient_farOnly.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (P : SM.LabelledTuple n)\n  (hP : SM.G1 P) (g : ZMod n) (hn : 3 \u2264 n) :\n  \u2191(SM.treeCoefficient P hP g hn) = SM.farOnlyOutput (SM.geometricBoundaryArray P g) (SM.fullBoundaryInterval hn)",
+    "SM.nearFarTransform_leaf": "SM.nearFarTransform_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (D H : SM.TripleArray n R)\n  (X : SM.IntervalArray n R) (I : SM.BoundaryInterval n) (hI : I.leaves = 1) : SM.nearFarTransform D H X I = X I",
+    "SM.boundaryUnitArray_leaf": "SM.boundaryUnitArray_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (I : SM.BoundaryInterval n) (hI : I.leaves = 1) : SM.boundaryUnitArray I = 1",
+    "SM.farOnlyCoordinates_leaf": "SM.farOnlyCoordinates_leaf.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R)\n  (I : SM.BoundaryInterval n) (hI : I.leaves = 1) : SM.farOnlyCoordinates H I = 1",
+    "SM.farOnly_leaf_values": "SM.farOnly_leaf_values.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R)\n  (I : SM.BoundaryInterval n) (hI : I.leaves = 1) :\n  SM.farTransform H (SM.farOnlyCoordinates H) I = 1 \u2227 SM.farOnlyOutput H I = 1",
+    "SM.farOnly_nonleaf_E": "SM.farOnly_nonleaf_E.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2] (H : SM.TripleArray n R)\n  (I : SM.BoundaryInterval n) (hI : 2 \u2264 I.leaves) : SM.farTransform H (SM.farOnlyCoordinates H) I = 0"
+  },
+  "type_sha256": {
+    "SM.BoundaryCutSet.Consecutive": "ee8cfaa81a707b15b712847e9ba0e4b43bf061c5066b36d83d98922fe00fc802",
+    "SM.BoundaryInterval.eq_of_endpoints": "9fcf14a2be832ec7d90a1dd4cea2004b20d76d9e95d0706325036a8952a24c42",
+    "SM.BoundaryCutSet.consecutive_restrict_iff": "f3a4b7b74de425c7bf224144adc091b8d47a942e83b72b25dabf5023336e0fac",
+    "SM.IntervalComposition.part_consecutive": "e6e21da7434abe55fdd1c6ebdf43b371b98643b59e7780574c67f704e12b2f23",
+    "SM.IntervalComposition.part_injective": "8bc649f2c66aa5c56f18b7dc15ca144437f639ce65d91baef00b0ad73f596db5",
+    "SM.IntervalComposition.exists_part_of_consecutive": "6c8476753d935be36fe890eccdb972fdbd851b64609f433d56c87d29d901bb9f",
+    "SM.IntervalComposition.partConsecutiveEquiv": "9733a9bb7fac422ac4478efbdca6e208eea6a16d0c5c22c7341c2cc691097399",
+    "SM.IntervalComposition.consecutive_contained_in_part": "eb24e62419b716bbd6e53f9a37088a215de0d7382c471f5f35bc260372f9fcff",
+    "SM.IntervalComposition.containing_part_unique": "95239648567940ed4af9ea3c7896d7a66e91302a4581812099a6b9372b6ebd6d",
+    "SM.IncreasingBoundaryTriple.leftInterval": "f312422d8698df4657199c1f857f64ba309d9324febd6577925ea696f4c573b7",
+    "SM.IncreasingBoundaryTriple.rightInterval": "c873d6dad8b13569bdb90190575132103f5c75cf4f64eef623de8fd7ba971c5a",
+    "SM.BoundaryCutSet.consecutive_eq_of_left": "eb09a6d6250b80871ff332c2dd78ddf583409514151cc43c3f92bea349c919f3",
+    "SM.BoundaryCutSet.consecutive_eq_of_right": "2448acdfe80949ae735b540849c6111dfb78e4ab4e3f98c82e805686a62b9f6e",
+    "SM.IncreasingBoundaryTriple.eq_of_entries": "f9e67fadf788789cd1549fab8af0ac9a61601b3f4fdc620ab073e44b0691b848",
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": "94502c2cc7cceee1ccbd3c1fba467dca93c8baa86939efe86a955509b677b6ab",
+    "SM.IntervalComposition.nearTriple_leftInterval": "fca011895b5856dfdcdf0fca8e0aac56798f9c9693af1ffe3ff0d137be08859b",
+    "SM.IntervalComposition.nearTriple_rightInterval": "48014fdd646748b7cf875b3608263c9a9bcc1671dac78d3af9b7a0085334eacb",
+    "SM.IntervalComposition.nearTriple_consecutive": "69d7eee6c9ec440c19aff85c90d30faf1f3d522cfc65b5d970ad29124b379e6e",
+    "SM.IntervalComposition.nearTriple_middle_position": "347495a01c1739c619ac7d5265570c91915bbe1b0439689c72bd2b187664b8f3",
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive": "ab5c6af48a5895793075fc321544527b047a3bb74ab252f940dc3f2f2c5d222f",
+    "SM.IntervalComposition.refinementInner": "660836564eb6dcadd09b1a162de2b8cbfe9a7ca18c42067257f3b83bd405393c",
+    "SM.IntervalComposition.refinedChildIndex": "903e630135b0aa6a56a509a3ab1ac575f57ac1521f6fffb623c2c6ecfe6e5f59",
+    "SM.IntervalComposition.inner_child_consecutive": "a53347cef3f9be21371e7d85d050a963e60c0dd96863b955e1f5f8d9e62d5388",
+    "SM.IntervalComposition.exists_refined_child": "fd4fa8d755849d895800e03e8b3b2fd83ff74adad24fb14b53593720c62cdb32",
+    "SM.IntervalComposition.refinedChildIndex_part": "3d080ecd6d17e8514dc9d04421b4a433d54989e2cb63c29f88ec3f0e4d13a39d",
+    "SM.IntervalComposition.refinedChildIndex_injective": "b18d5cabeb9b4627ecc1d59568b6efbb4ace397a263bda872c99ea48ddc5ceb4",
+    "SM.IntervalComposition.refinedChildIndex_surjective": "ee90ebcd3af4162ea84092e9cdffe967de74c9589c0e18fde918fa662277a2d0",
+    "SM.IntervalComposition.refinedChildrenEquiv": "7a07b0d8ba24e1ce5905bc62d211dba9fbe37c96ce27e02cb5585d3437f703c5",
+    "SM.IntervalComposition.prod_refined_children": "4b512eb45648a36c2e8f6876cf22132d3f6a2a70af686ac6789c5d632812d832",
+    "SM.IntervalComposition.refinementInner_flatten": "e3e8f0f9bad33522fa64021a0094d937be6065e20946bce5230059cf99c366d8",
+    "SM.IntervalComposition.prod_nested_children": "255b1bac9c0c7baaa618d979c5bd1e681646c5d697ed34fc72dc3be4d1fdc587",
+    "SM.IntervalComposition.indexMarks": "926c1fde3c3e98897d85b3bf4df25c0cc5989965ee81fb9bd97a548e3a8f8c57",
+    "SM.IntervalComposition.markIndices": "3f4a136beb936aa7ab42fd217a622c902c68dae9851a4bc2c0706e9cce141fb3",
+    "SM.IntervalComposition.markIndices_indexMarks": "5cc394932055633df43702cfc741bff03ad4fee7a37f18852646997b866e76e3",
+    "SM.IntervalComposition.indexMarks_markIndices": "d680c4e994aa71374b1b2c2741cd7921de918136d50b4ed587b23684f3172dbf",
+    "SM.IntervalComposition.marksIndexEquiv": "e841441cc943f628b14d322f14d251271252715104d72bc8b8efe2dd199a247a",
+    "SM.IntervalComposition.position_mem_indexMarks": "e09d4378ac65b70c4a38a5fa4aec7e80ffc89f824e95327c2f97398029438141",
+    "SM.IntervalComposition.indexMarks_compl": "075fbd47a7c2f27455641b8ff744d8cf169b30a67cfbb30d5b4db4bb2b38d291",
+    "SM.IntervalComposition.prod_indexMarks": "cd11fe8b5833df6df1891af24269c2b0c0651f9b4b5af9e045e066b82197fd81",
+    "SM.IntervalComposition.prod_markIndices": "93a819a329a4c9ad5f2d7c0285cf240ee9fcb0b1639ef1d46c4f1d518689aae5",
+    "SM.IntervalComposition.sum_all_indexMarks": "7f2ee433ceb1737a9a381493d838a5795ab08c8047e29a1e5e4fec4600dcdd38",
+    "SM.IntervalComposition.RefinementUnmarked": "9c1a9db1719c8e50c966dbf1c1ee4fb6275ab00aad90515db4890d3427932ba0",
+    "SM.IntervalComposition.refinedInteriorIndex": "64b67606e7c0de1547d4755e4520cebd4324a03dce49c836ce4a673ba6dab00c",
+    "SM.IntervalComposition.refinedUnmarkedIndex": "b7f31c38f2eff7569bd8dea208f81fed887525deaacb8aa5f1375b6482fc5d20",
+    "SM.BoundaryCutSet.mem_interior_iff": "07f8daaf283caced2c48536120af88bbb8288317cb13601fcc25405e19d66895",
+    "SM.IntervalComposition.innerPosition_in_refinement": "4e2e1d39492753f6e31da3657e1bae3f82b0b54502ba3b7800902818fe370640",
+    "SM.IntervalComposition.refinedInteriorIndex_position": "6bb5d67dc1e79b9789c5244afd11978d005949cafe6770ea4d522acb3cdfc15d",
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective": "8ee0efb098a99463ea916b87f02515285ed6990b732fd665194d052944f3fa89",
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective": "9d09821d469539af9a97af5a1d4497ce0a798f6de308e79c7c67d1df0cfc065e",
+    "SM.IntervalComposition.refinedUnmarkedEquiv": "a9e11be84069a5fa10fb57aad73f1abdf7fb3d59b120364e57fddd1161fcb593",
+    "SM.IntervalComposition.inner_nearTriple_transport": "f05ee7554cab401e9446a54c54bea0bda42863c4053a23fe732f2fb270409fb9",
+    "SM.IntervalComposition.prod_inner_nearTriples": "f39219cb00ef19b852c2467d0a85650885883c2740f9efee1ca1ff4fadea8d62",
+    "SM.IntervalComposition.RefinementMarked": "a61bb63fb596c3ac82e81537d28ae3ae50a2296013f177e8a7c44fd176fb6bdb",
+    "SM.IntervalComposition.refinedOuterIndex": "0206044d6e269739ff4cd0e37b645135ca030e5f21c1ac1d453b4c64b0b9dbe8",
+    "SM.IntervalComposition.refinedMarkedIndex": "ca3632b1f544577e1838f83b371470979d2382f7e5c3ea53383d1209dbe68013",
+    "SM.IntervalComposition.outerPosition_in_refinement": "87e2525fe5519fe5403da005057106c8432803b38b7ec55fa5bd28a4c4f18b18",
+    "SM.IntervalComposition.refinedOuterIndex_position": "a9b6bde119b8e5a88d511d57a6b512d354d814d5d57c444086662c838311e8a9",
+    "SM.IntervalComposition.refinedMarkedIndex_injective": "7103364cfebdff9c19160c1bf183e90b0d427f29fb4511f58180ec9b8bcdce30",
+    "SM.IntervalComposition.refinedMarkedIndex_surjective": "9b4b9e1b742f666f65dfd5269c485e823f4ecdfcf88160cbae5702c85f19d67f",
+    "SM.IntervalComposition.refinedMarkedEquiv": "dfe615541d5d5386eb6c456dab3ff50321261985c8dff647c8960fb87ad2ffdf",
+    "SM.IntervalComposition.outer_farTriple_transport": "4354823096bcede521834e8030ecd114c9c382bbb083e1ce5ec21460cf679599",
+    "SM.IntervalComposition.prod_outer_farTriples": "de8dca12012185c400835a5a17771301b8f02fdf5f905c8fb586a2ff7054f131",
+    "SM.IntervalComposition.refinementMarks": "77c9968f7370888c3a77d5c5c770928967e0dbfc76977e0a2d1c04fca78f9daf",
+    "SM.IntervalComposition.refinementMarkIndices": "88a9861ac0fff81cc482cbbfe5d9ef8ca64d7871935cbd420809634f09fd37e8",
+    "SM.IntervalComposition.mem_refinementMarkIndices": "6617a5491ab71b546046820fd4ef167af7a6cb411153b5f58cb0079edc370ede",
+    "SM.IntervalComposition.prod_refinementMarked": "54bfc8277eea9d3c0f2d30827a7d815d098ca51639fc03ddcf43ed2ac41c2c65",
+    "SM.IntervalComposition.prod_refinementUnmarked": "a9b00183a37bc56516b9dc9a0ec322d06402ad8f0688d554406a0b34ba825c1b",
+    "SM.IntervalComposition.nearFarWeight_near_only": "7156520f041174f11256e615bb2c97b16d1a504c99ecd5bef2be61e09116c87f",
+    "SM.IntervalComposition.nearFarWeight_far_only": "c3ac0c310048919ed92afde4dab74f48689cc6c734d5e450389670bc234379ca",
+    "SM.IntervalComposition.prod_inner_near_weights": "d7a3b5e0e0da8ba10d2bb4f5f570ac43852e9d203b7fdec2ec95c08466a676d0",
+    "SM.IntervalComposition.outer_far_weight": "a0caea515090109bfc999c1a7180de787b71a09018982efec376efcee6675903",
+    "SM.IntervalComposition.nested_summand_transport": "1cae5c47168069c737ca6c06ed0e13db16bd2963f07722de25854425356a508d",
+    "SM.IntervalComposition.nestedSummand": "d716fdf99f90337b1396e5367a4979594f365f4b5dab92cc0472c6e2451435bf",
+    "SM.IntervalComposition.markedSummand": "1cdf35f68d9c4a23d31e5760324785744fe7e41ec4fe37679f47b77ac2178941",
+    "SM.BoundaryCutSet.marked_transport_val": "52c09fab0cad86757f2a5c6501d3250d46f554026960222bd9687f3fa2b7c523",
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks": "37e6b3f9c1641e51dbff6120ab9b4a7535a9bf3e964cb8dfa20ece7c25bfe7ef",
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand": "f4a95d549c2261dc5c299197c6e19ff6d8d02a922e254aecd0ae09fe0346a362",
+    "SM.IntervalComposition.sum_markedSummand": "d2b60a0aeca1cf819862dad90c4ee998efc3b6f6d670e7b877fa50ccf5e2c37c",
+    "SM.nearFar_factorization_coordinate": "7bf69a9366edbfe360b3bdea251d2daf41e6497fb11a3ba0c37e994f0cb5b738",
+    "SM.nearFar_factorization": "ad193e53f6073c6373d91f4ca5aa0dbe2dace9611bb5e21b1c6b1295efa2bd80",
+    "SM.farOnlyCoordinates": "0f7427dd3f35442d7ede0d9a3b8221e8c9847700b86bb149a81556282329be60",
+    "SM.farOnlyOutput": "1bc80f4bc86eaf74dcded78ba463508cb1479dc719c08eea3484bff57d1d7a6a",
+    "SM.nearTransform_of_nearFar_solution": "edbedce42673ed2a7ac6a4635d68c2700b43dbb984fe105ca8a3b44db151069e",
+    "SM.reversedFar_output_of_solution": "ea20c7fbd80ba61d41113af1076cd757311064a58394248fc857738fd48d55aa",
+    "SM.complete_output_near_independent": "b5c1a517b3a32272ae045e8b175390c0f8e2273c9ea16ca3459b6c853c8cac7d",
+    "SM.farOnlyCoordinates_equation": "df31708a71b0c46ff164bf457975a312c6adc12f25a02a121b64f7d77088dda6",
+    "SM.geometric_farOnly_output": "c69f35681b099d11ee0fbbe121c6bf943b639e88ac7977b62cdb3d9fc2024560",
+    "SM.treeCoefficient_farOnly": "f35e30b8f9e3e9585c015ef89c61f3afeee02f02ab286b148abbea0ae88190d0",
+    "SM.nearFarTransform_leaf": "2da676981faac86f16a0ecdc21a9bfcb987cb5019f84e255abd63cb18f086259",
+    "SM.boundaryUnitArray_leaf": "463bcb5f167a3b9db07c02f1220be74475cd92740a03089c368a2c5459ae4e1c",
+    "SM.farOnlyCoordinates_leaf": "eeaa67a332a16268a1a9e7cae9cb9db599b8b538e6a39183cce9128447e182d0",
+    "SM.farOnly_leaf_values": "128dd7de7049de658021d32ef4975ab873b853d536821249f8edf427e0ad740e",
+    "SM.farOnly_nonleaf_E": "80f76dbdde444414f899c00b1dd766a32d17fae26e06ad22f5635b6c7bb54e6a"
+  },
+  "axioms": {
+    "SM.BoundaryCutSet.Consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryInterval.eq_of_endpoints": [
+      "propext"
+    ],
+    "SM.BoundaryCutSet.consecutive_restrict_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.part_injective": [
+      "propext"
+    ],
+    "SM.IntervalComposition.exists_part_of_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.partConsecutiveEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.consecutive_contained_in_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.containing_part_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.leftInterval": [],
+    "SM.IncreasingBoundaryTriple.rightInterval": [],
+    "SM.BoundaryCutSet.consecutive_eq_of_left": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.consecutive_eq_of_right": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.eq_of_entries": [
+      "propext"
+    ],
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearTriple_leftInterval": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearTriple_rightInterval": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearTriple_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearTriple_middle_position": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinementInner": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedChildIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.inner_child_consecutive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.exists_refined_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedChildIndex_part": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedChildIndex_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedChildIndex_surjective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedChildrenEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_refined_children": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinementInner_flatten": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_nested_children": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.indexMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.markIndices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.markIndices_indexMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.indexMarks_markIndices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.marksIndexEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.position_mem_indexMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.indexMarks_compl": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_indexMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_markIndices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.sum_all_indexMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.RefinementUnmarked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedInteriorIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedUnmarkedIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.mem_interior_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.innerPosition_in_refinement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedInteriorIndex_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedUnmarkedEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.inner_nearTriple_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_inner_nearTriples": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.RefinementMarked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedOuterIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedMarkedIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.outerPosition_in_refinement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedOuterIndex_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedMarkedIndex_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedMarkedIndex_surjective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinedMarkedEquiv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.outer_farTriple_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_outer_farTriples": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinementMarks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.refinementMarkIndices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.mem_refinementMarkIndices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_refinementMarked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_refinementUnmarked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearFarWeight_near_only": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nearFarWeight_far_only": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.prod_inner_near_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.outer_far_weight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nested_summand_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedSummand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.markedSummand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.BoundaryCutSet.marked_transport_val": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IntervalComposition.sum_markedSummand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFar_factorization_coordinate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFar_factorization": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyOutput": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearTransform_of_nearFar_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.reversedFar_output_of_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.complete_output_near_independent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates_equation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.geometric_farOnly_output": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.treeCoefficient_farOnly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.nearFarTransform_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundaryUnitArray_leaf": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates_leaf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnly_leaf_values": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnly_nonleaf_E": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.actual_parts_are_exact_consecutive_pairs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.actual_fine_child_has_unique_outer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.actual_near_sample_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.arbitrary_array_samples_actual_neighbors": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.refined_index_keeps_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.child_count_is_sum_of_inner_counts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.recovered_inner_has_raw_data": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.actual_marked_refinement_child_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.all_inner_unary_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.empty_and_full_index_marks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.unmarked_positions_are_exactly_relative": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.marked_and_unmarked_product_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.all_markings_have_full_cardinality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinementTransportIndependentReview.unary_marking_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.complete_factor_count": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.inner_near_entries_are_exact": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.outer_far_entries_are_global": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.unary_outer_has_empty_marks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.identical_outer_and_fine_marks_all": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.raw_family_near_weight_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.raw_full_nested_summand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.all_unary_inner_coefficients_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RefinedWeightsIndependentReview.raw_marks_match_actual_bijection": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.inverse_factorization_order": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.output_independent_with_actual_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.inverse_target_E_has_far_only_output": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.actual_root_all_near_arrays": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.far_only_output_physical_root_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.all_interval_E_and_leaf_B_values": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NearFarFactorizationIndependentReview.unary_marked_sum_retains_coordinate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.BoundaryCutSet.Consecutive",
+    "SM.BoundaryInterval.eq_of_endpoints",
+    "SM.BoundaryCutSet.consecutive_restrict_iff",
+    "SM.IntervalComposition.part_consecutive",
+    "SM.IntervalComposition.part_injective",
+    "SM.IntervalComposition.exists_part_of_consecutive",
+    "SM.IntervalComposition.partConsecutiveEquiv",
+    "SM.IntervalComposition.consecutive_contained_in_part",
+    "SM.IntervalComposition.containing_part_unique",
+    "SM.IncreasingBoundaryTriple.leftInterval",
+    "SM.IncreasingBoundaryTriple.rightInterval",
+    "SM.BoundaryCutSet.consecutive_eq_of_left",
+    "SM.BoundaryCutSet.consecutive_eq_of_right",
+    "SM.IncreasingBoundaryTriple.eq_of_entries",
+    "SM.IncreasingBoundaryTriple.eq_of_consecutive_middle",
+    "SM.IntervalComposition.nearTriple_leftInterval",
+    "SM.IntervalComposition.nearTriple_rightInterval",
+    "SM.IntervalComposition.nearTriple_consecutive",
+    "SM.IntervalComposition.nearTriple_middle_position",
+    "SM.IntervalComposition.nearTriple_eq_of_consecutive",
+    "SM.IntervalComposition.refinementInner",
+    "SM.IntervalComposition.refinedChildIndex",
+    "SM.IntervalComposition.inner_child_consecutive",
+    "SM.IntervalComposition.exists_refined_child",
+    "SM.IntervalComposition.refinedChildIndex_part",
+    "SM.IntervalComposition.refinedChildIndex_injective",
+    "SM.IntervalComposition.refinedChildIndex_surjective",
+    "SM.IntervalComposition.refinedChildrenEquiv",
+    "SM.IntervalComposition.prod_refined_children",
+    "SM.IntervalComposition.refinementInner_flatten",
+    "SM.IntervalComposition.prod_nested_children",
+    "SM.IntervalComposition.indexMarks",
+    "SM.IntervalComposition.markIndices",
+    "SM.IntervalComposition.markIndices_indexMarks",
+    "SM.IntervalComposition.indexMarks_markIndices",
+    "SM.IntervalComposition.marksIndexEquiv",
+    "SM.IntervalComposition.position_mem_indexMarks",
+    "SM.IntervalComposition.indexMarks_compl",
+    "SM.IntervalComposition.prod_indexMarks",
+    "SM.IntervalComposition.prod_markIndices",
+    "SM.IntervalComposition.sum_all_indexMarks",
+    "SM.IntervalComposition.RefinementUnmarked",
+    "SM.IntervalComposition.refinedInteriorIndex",
+    "SM.IntervalComposition.refinedUnmarkedIndex",
+    "SM.BoundaryCutSet.mem_interior_iff",
+    "SM.IntervalComposition.innerPosition_in_refinement",
+    "SM.IntervalComposition.refinedInteriorIndex_position",
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective",
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective",
+    "SM.IntervalComposition.refinedUnmarkedEquiv",
+    "SM.IntervalComposition.inner_nearTriple_transport",
+    "SM.IntervalComposition.prod_inner_nearTriples",
+    "SM.IntervalComposition.RefinementMarked",
+    "SM.IntervalComposition.refinedOuterIndex",
+    "SM.IntervalComposition.refinedMarkedIndex",
+    "SM.IntervalComposition.outerPosition_in_refinement",
+    "SM.IntervalComposition.refinedOuterIndex_position",
+    "SM.IntervalComposition.refinedMarkedIndex_injective",
+    "SM.IntervalComposition.refinedMarkedIndex_surjective",
+    "SM.IntervalComposition.refinedMarkedEquiv",
+    "SM.IntervalComposition.outer_farTriple_transport",
+    "SM.IntervalComposition.prod_outer_farTriples",
+    "SM.IntervalComposition.refinementMarks",
+    "SM.IntervalComposition.refinementMarkIndices",
+    "SM.IntervalComposition.mem_refinementMarkIndices",
+    "SM.IntervalComposition.prod_refinementMarked",
+    "SM.IntervalComposition.prod_refinementUnmarked",
+    "SM.IntervalComposition.nearFarWeight_near_only",
+    "SM.IntervalComposition.nearFarWeight_far_only",
+    "SM.IntervalComposition.prod_inner_near_weights",
+    "SM.IntervalComposition.outer_far_weight",
+    "SM.IntervalComposition.nested_summand_transport",
+    "SM.IntervalComposition.nestedSummand",
+    "SM.IntervalComposition.markedSummand",
+    "SM.BoundaryCutSet.marked_transport_val",
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand",
+    "SM.IntervalComposition.sum_markedSummand",
+    "SM.nearFar_factorization_coordinate",
+    "SM.nearFar_factorization",
+    "SM.farOnlyCoordinates",
+    "SM.farOnlyOutput",
+    "SM.nearTransform_of_nearFar_solution",
+    "SM.reversedFar_output_of_solution",
+    "SM.complete_output_near_independent",
+    "SM.farOnlyCoordinates_equation",
+    "SM.geometric_farOnly_output",
+    "SM.treeCoefficient_farOnly",
+    "SM.nearFarTransform_leaf",
+    "SM.boundaryUnitArray_leaf",
+    "SM.farOnlyCoordinates_leaf",
+    "SM.farOnly_leaf_values",
+    "SM.farOnly_nonleaf_E"
+  ],
+  "new_checked_declarations": [
+    "SM.IntervalComposition.RefinementUnmarked",
+    "SM.IntervalComposition.refinedInteriorIndex",
+    "SM.IntervalComposition.refinedUnmarkedIndex",
+    "SM.BoundaryCutSet.mem_interior_iff",
+    "SM.IntervalComposition.innerPosition_in_refinement",
+    "SM.IntervalComposition.refinedInteriorIndex_position",
+    "SM.IntervalComposition.refinedUnmarkedIndex_injective",
+    "SM.IntervalComposition.refinedUnmarkedIndex_surjective",
+    "SM.IntervalComposition.refinedUnmarkedEquiv",
+    "SM.IntervalComposition.inner_nearTriple_transport",
+    "SM.IntervalComposition.prod_inner_nearTriples",
+    "SM.IntervalComposition.RefinementMarked",
+    "SM.IntervalComposition.refinedOuterIndex",
+    "SM.IntervalComposition.refinedMarkedIndex",
+    "SM.IntervalComposition.outerPosition_in_refinement",
+    "SM.IntervalComposition.refinedOuterIndex_position",
+    "SM.IntervalComposition.refinedMarkedIndex_injective",
+    "SM.IntervalComposition.refinedMarkedIndex_surjective",
+    "SM.IntervalComposition.refinedMarkedEquiv",
+    "SM.IntervalComposition.outer_farTriple_transport",
+    "SM.IntervalComposition.prod_outer_farTriples",
+    "SM.IntervalComposition.refinementMarks",
+    "SM.IntervalComposition.refinementMarkIndices",
+    "SM.IntervalComposition.mem_refinementMarkIndices",
+    "SM.IntervalComposition.prod_refinementMarked",
+    "SM.IntervalComposition.prod_refinementUnmarked",
+    "SM.IntervalComposition.nearFarWeight_near_only",
+    "SM.IntervalComposition.nearFarWeight_far_only",
+    "SM.IntervalComposition.prod_inner_near_weights",
+    "SM.IntervalComposition.outer_far_weight",
+    "SM.IntervalComposition.nested_summand_transport",
+    "SM.IntervalComposition.nestedSummand",
+    "SM.IntervalComposition.markedSummand",
+    "SM.BoundaryCutSet.marked_transport_val",
+    "SM.IntervalComposition.nestedMarkedCutEquiv_marks",
+    "SM.IntervalComposition.nestedSummand_eq_markedSummand",
+    "SM.IntervalComposition.sum_markedSummand",
+    "SM.nearFar_factorization_coordinate",
+    "SM.nearFar_factorization",
+    "SM.farOnlyCoordinates",
+    "SM.farOnlyOutput",
+    "SM.nearTransform_of_nearFar_solution",
+    "SM.reversedFar_output_of_solution",
+    "SM.complete_output_near_independent",
+    "SM.farOnlyCoordinates_equation",
+    "SM.geometric_farOnly_output",
+    "SM.treeCoefficient_farOnly",
+    "SM.nearFarTransform_leaf",
+    "SM.boundaryUnitArray_leaf",
+    "SM.farOnlyCoordinates_leaf",
+    "SM.farOnly_leaf_values",
+    "SM.farOnly_nonleaf_E"
+  ],
+  "all_41_predecessor_types_unchanged": true,
+  "consumer_count": 30,
+  "trace_log": "work/checks/refined-weights-review-types.log",
+  "trace_log_sha256": "684fe4b002dc124f8a7ef745acc9fa88027d20a6358ca6790585b3046fb5e866",
+  "independent_kernel_session": 23085,
+  "exit_code": 0
+}

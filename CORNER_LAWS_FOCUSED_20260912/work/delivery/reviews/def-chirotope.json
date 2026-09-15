@@ -1,0 +1,56 @@
+{
+  "id": "def:chirotope",
+  "reviewer": "review_chirotope-independent-20260910",
+  "statement_sha256": "b6db0acc807dcd23205c60b46a1eff84e28eaf4f59ffe5e00a75bebc57806539",
+  "verdict": "faithful",
+  "reason": "Compared every clause of source lines 63-70 with SM.chirotopeData and its concrete dependencies chi, turn and leftTurns. chi is the sign of det(P j - P i, P k - P i), using the source's determinant orientation; mathlib SignType has exactly the values negative one, zero and positive one, and its real sign function assigns them by negativity, equality to zero and positivity. turn is chi(i-1,i,i+1), with all index arithmetic in ZMod n. leftTurns is the cardinality of the complete finite set of indices with turn equal to positive one, not a subset or an assumed count. Its NeZero n parameter supplies finiteness and follows from the source's n >= 3 domain; the definitions extending to n=1 or n=2 discard no source case. There is no genericity or nonzero-turn premise. chi_shift and turn_shift give exactly the induced cyclic relabelling; the newly added leftTurns_shift proves equality of counts by the bijection i maps to i+a with inverse j maps to j-a. This resolves the previous missing invariance check. Under the explicit source remark, this labelled-tuple implementation with proved equivariance/invariance defines the required polygon notions without attaching arbitrary fixed labels to a quotient. The reviewed aggregate binds all three introduced functions.",
+  "source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "supporting_theorems_inspected": [
+    "SM.chi_shift",
+    "SM.turn_shift",
+    "SM.leftTurns_shift"
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575"
+  },
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+    "from_line": 63,
+    "to_frame": "SM15",
+    "to_source_sha256": "65d7657590381fe27459f3936645339f99ed7ae02209e7c512c04247a8ab861e",
+    "to_line": 63,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "e453f71b61499da49b8f225ba03a977dd3cbba8e5c6989984909a8e7493c8fd0",
+    "to_excerpt_sha256": "e453f71b61499da49b8f225ba03a977dd3cbba8e5c6989984909a8e7493c8fd0",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "Source (reference/SM/sm-1-polygons.tex:63-70, byte-identical in the blueprint extract; sm15_reworded=false and CHANGES_SINCE_20260909.md does not touch this label) defines, for i,j,k in Z/n, chi_ijk(P) = sgn det(mu_j - mu_i, mu_k - mu_i) in {-1,0,1}, tau_i(P) = chi_{i-1,i,i+1}(P), and l(P) = #{i : tau_i(P) = 1}, with det(u,v) = u_1 v_2 - u_2 v_1 (sm-1-polygons.tex:5) and sgn: R -> {-1,0,1}. Lean (work/lean/SM/Chirotope.lean:10-11): `chi P i j k := SignType.sign (det (P j - P i) (P k - P i))` with `SM.det u v = u.1*v.2 - u.2*v.1` (Polygon.lean:16, same orientation as the source, not the bracket) on `Plane := R x R` with componentwise subtraction, and Mathlib's `SignType.sign a = if 0 < a then 1 else if a < 0 then -1 else 0` (Mathlib/Data/Sign/Defs.lean:266-267), i.e. exactly sgn into {-1,0,1}. `turn P i := chi P (i-1) i (i+1)` (Chirotope.lean:13-14) is tau_i with index arithmetic in ZMod n = Z/n. `leftTurns P := (Finset.univ.filter (fun i => turn P i = 1)).card` (Chirotope.lean:16-17) counts all i : ZMod n with tau_i = +1 (`1 : SignType` is pos), i.e. l(P); [NeZero n] only supplies finiteness of ZMod n and is implied by the source's n >= 3. `chirotopeData P := (chi P, turn P, leftTurns P)` (Chirotope.lean:20-21) binds the three printed functions and nothing else. Domain is LabelledTuple n = ZMod n -> Plane (Polygon.lean:14), the representative on which the source says every notion is introduced (def:polygon and the formalization remark, sm-1-polygons.tex:35-41, 55-61); no genericity, nonzero-edge or distinct-vertex hypothesis is added or omitted, matching the source which imposes none at this level. Nothing is vacuous. Same domain, same quantification over Z/n, same values. The only difference is a harmless generalization: chi/turn are also defined for n < 3 (and n = 0 where ZMod 0 = Z), leftTurns for every n != 0, while the source has n >= 3; on the source's domain the objects coincide. My independent reading agrees with the existing review work/reviews/def-chirotope.json (file hashes of Chirotope.lean and Polygon.lean match those it recorded).",
+    "notes_listed_as_discrepancies": [],
+    "stronger_than_source": [
+      "Definitions are given on a wider domain than the printed one: chi and turn are defined for every n (including n = 0, 1, 2, where the source's n >= 3 restriction from def:polygon, sm-1-polygons.tex:14 and 36, does not apply), and leftTurns for every n with NeZero n. On n >= 3 they are exactly the printed objects, so this is a generalization, not a change of meaning."
+    ],
+    "weaker_than_source": [],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/root/lean-lake/packages/mathlib/Mathlib/Data/Sign/Defs.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/def-chirotope.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

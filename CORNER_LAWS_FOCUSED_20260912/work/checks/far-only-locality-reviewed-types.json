@@ -1,0 +1,89 @@
+{
+  "types": {
+    "SM.restrictTripleArray_eq_of_local": "SM.restrictTripleArray_eq_of_local.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (J : SM.BoundaryInterval n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h : \u2200 (t : SM.IncreasingBoundaryTriple n), J.left \u2264 t.lower \u2192 t.upper \u2264 J.right \u2192 H\u2081 t = H\u2082 t) :\n  SM.restrictTripleArray J H\u2081 = SM.restrictTripleArray J H\u2082",
+    "SM.farOnlyCoordinates_local": "SM.farOnlyCoordinates_local.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (J : SM.BoundaryInterval n) (H\u2081 H\u2082 : SM.TripleArray n R)\n  (h : \u2200 (t : SM.IncreasingBoundaryTriple n), J.left \u2264 t.lower \u2192 t.upper \u2264 J.right \u2192 H\u2081 t = H\u2082 t) :\n  SM.farOnlyCoordinates H\u2081 J = SM.farOnlyCoordinates H\u2082 J",
+    "SM.farOnlyCoordinates_unchanged_off_critical": "SM.farOnlyCoordinates_unchanged_off_critical.{u_1} {n : \u2115} [NeZero n] {R : Type u_1} [CommRing R] [Invertible 2]\n  (H\u2081 H\u2082 : SM.TripleArray n R) (critical : SM.IncreasingBoundaryTriple n)\n  (h : \u2200 (t : SM.IncreasingBoundaryTriple n), t \u2260 critical \u2192 H\u2081 t = H\u2082 t) (J : SM.BoundaryInterval n)\n  (hJ : \u00ac(J.left \u2264 critical.lower \u2227 critical.upper \u2264 J.right)) : SM.farOnlyCoordinates H\u2081 J = SM.farOnlyCoordinates H\u2082 J"
+  },
+  "type_sha256": {
+    "SM.restrictTripleArray_eq_of_local": "736e2be798bada9f733586c4a1922189d6f87f7c804d9107fb51786aa3ce4982",
+    "SM.farOnlyCoordinates_local": "4ea200db774c1d78b870de7923421d7b43d5bb8fb6b1d659fea472e45fb8967a",
+    "SM.farOnlyCoordinates_unchanged_off_critical": "fc70816605764d137305d8d9c435ee749fb9a2940f484c08da8aeb1c8aa267ac"
+  },
+  "axioms": {
+    "SM.restrictTripleArray_eq_of_local": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates_local": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.farOnlyCoordinates_unchanged_off_critical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.entire_restricted_c_equal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.every_actual_local_subinterval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.left_gap_unchanged": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.right_gap_unchanged": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.every_proper_critical_child": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.leaf_needs_no_array_agreement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.arbitrary_critical_update_off_span": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FarOnlyLocalityIndependentReview.entire_restricted_output_equal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "checked_declarations": [
+    "SM.restrictTripleArray_eq_of_local",
+    "SM.farOnlyCoordinates_local",
+    "SM.farOnlyCoordinates_unchanged_off_critical"
+  ],
+  "additional_examples": [
+    "FarOnlyLocalityIndependentReview.entire_restricted_c_equal",
+    "FarOnlyLocalityIndependentReview.every_actual_local_subinterval",
+    "FarOnlyLocalityIndependentReview.left_gap_unchanged",
+    "FarOnlyLocalityIndependentReview.right_gap_unchanged",
+    "FarOnlyLocalityIndependentReview.every_proper_critical_child",
+    "FarOnlyLocalityIndependentReview.leaf_needs_no_array_agreement",
+    "FarOnlyLocalityIndependentReview.arbitrary_critical_update_off_span",
+    "FarOnlyLocalityIndependentReview.entire_restricted_output_equal"
+  ],
+  "consumer_count": 8,
+  "trace_log": "work/checks/far-only-locality-review-types.log",
+  "trace_log_sha256": "6939246748ee09949fa7782db1aaffacbaa4f327091d86a7d6b1598344d3c425",
+  "independent_kernel_session": 74760,
+  "exit_code": 0
+}

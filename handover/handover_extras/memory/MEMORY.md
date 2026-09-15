@@ -1,0 +1,4 @@
+- [Lean project setup](lean-project-setup.md) — where the Lean handoff lives, env.sh, toolchain pins
+- [Lean project progress](lean-project-progress.md) — claims verified count, current unit, plan
+- [Lean fixed target names](lean-fixed-target-names.md) — checker-enforced declaration names for target rows (prop:C-chamber = SM.prop_C_chamber etc.)
+- [Lean reassessment rule](lean-reassessment-rule.md) — Mark's audit-after-2-attempts/60-min rule for stalled branches (2026-09-14)

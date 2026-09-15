@@ -1,0 +1,32 @@
+{
+  "utc": "2026-09-12T03:09:03.481355+00:00",
+  "author": "/root/review_relgp_full",
+  "state": "Second draft; one proof syntax repair; awaiting root kernel.",
+  "failed_root_session": 66002,
+  "public_signatures_unchanged": 17,
+  "repair_provenance": "Root identified the split exact application; the author inspected the failure log and joined it into one line.",
+  "exact_diff": "--- first-failed\n+++ second-draft\n@@ -130,8 +130,7 @@\n     | inr x =>\n       cases y with\n       | inl u => exact False.elim ((Fin.succAbove_ne (A s) x.val) hv)\n-      | inr y => exact congrArg Sum.inr\n-          (Subtype.ext ((startingTailEmbedding s).injective hv))\n+      | inr y => exact congrArg Sum.inr (Subtype.ext ((startingTailEmbedding s).injective hv))\n     , by\n     intro p\n     have hp : p.val ∈ insert (A s) (C.interior.val.image (startingTailEmbedding s)) :=\n",
+  "files_sha256": {
+    "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+    "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+    "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+    "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+    "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+    "work/checks/CutSetNearFar.body.lean": "acafef61406c9f460db333b9614da2ec644bc848f4827b0ed256c26c048417c2",
+    "work/checks/CutSetNearFarNeighbors.body.lean": "37fa18e71ce48f08a0073c12847ceb00232b26523ff883327750f0d5918cbbed",
+    "work/checks/SoftDuplicationStartingGatePositions.body.lean": "0165790103d0c21260c50aec6e880a6afce9f7a80f0e5cf61b713a5ff10ba004",
+    "work/checks/SoftDuplicationEndingChildren.body.lean": "07b91d54685646804700fba89d482da94f9f30af3b5bd9d52010a84842b1dbcb",
+    "work/checks/SoftDuplicationEndingGatePositions.body.lean": "73845c7e84e9c262eb86b64d0e89b04b83df94e40327a593ea311debd170dfd0",
+    "work/checks/SoftDuplicationEndingGatePositions.prototype.lean": "5c230cf0d5abaa4016553ed1b65c2dbcf8359a398086acf35dca9006028e39aa",
+    "work/checks/SoftDuplicationEndingGatePositions-first-failed.body.lean": "f73962e088cb375556bf0715bf6d92eb3fb16dc11323d6b568de71d7951682ed",
+    "work/checks/SoftDuplicationEndingGatePositions-first-failed.prototype.lean": "cc6a74a7d3bd3edc46f7dceff2c78da67fa883696f38b60e5eecdaf726f6b829",
+    "work/checks/SoftDuplicationEndingGatePositions-first-kernel.log": "8073a85123f7e7bb1eedbe5dd836b17ab59f23eae79b2306d0f1c4fd3403c20c",
+    "work/checks/SoftDuplicationEndingGatePositions-first-draft.body.lean": "f73962e088cb375556bf0715bf6d92eb3fb16dc11323d6b568de71d7951682ed",
+    "work/checks/SoftDuplicationEndingGatePositions-first-draft.prototype.lean": "cc6a74a7d3bd3edc46f7dceff2c78da67fa883696f38b60e5eecdaf726f6b829",
+    "work/checks/SoftDuplicationEndingGatePositions-draft-dependency-bindings.json": "ca9741bbdcc2f47b2af990f40d3f1f0d9c846a1465e3f230db1fb89afdb3aa96",
+    "work/checks/SoftDuplicationEndingGatePositions-body-dependencies.json": "ea7cf620a8b22485dba8647b1b7ea9b6d0408c7b5512a9e907860197c221be72"
+  },
+  "source_claim_acceptance_increment": 0,
+  "stronger_model_statement_fidelity_approval": false,
+  "reviewer_ran_lean_kernel_build_or_audit": false
+}

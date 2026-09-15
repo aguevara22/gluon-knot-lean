@@ -1,0 +1,347 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "Reviewer did not author or edit these implementations, canonical modules, source, maps or previous reviews. Only new independent consumers, type/closure traces and review reports were written. The proof strategy and actual source representations were inspected independently; implementation success was not treated as source fidelity. The independent trace copies all seven frozen namespace bodies verbatim over their canonical predecessor imports.",
+  "accounting": {
+    "original_claims_accepted": 0,
+    "proof_increment": 0,
+    "definition_increment": 0,
+    "canonical_port_and_current_semantic_audit_pending": true,
+    "stage_complete": false
+  },
+  "review_schema": "independent-full-source-prototype-review-v1",
+  "id": "tree-chamber-claim-prototype",
+  "source_id": "prop:A-chamber",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "120-128; source section G1-only domain3-6; rooted convention10-15; sm-1-polygons.tex33-38 and55-60",
+  "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+  "additional_source_sha256": {
+    "reference/SM/sm-1-polygons.tex": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00"
+  },
+  "verdict": "faithful",
+  "implemented_scope_verdict": "faithful",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "in_theorem_library": false,
+  "prototype_file": "work/checks/TreeChamberClaim.prototype.lean",
+  "prototype_sha256": "8eeba29612be639c62a94578187633c1c8774ccaa5658a46355550b16aeacf5b",
+  "main_declarations": [
+    "SM.TreeDataEqual",
+    "SM.A_chamber"
+  ],
+  "reason": "Faithful complete rooted interpretation of prop:A-chamber. The transparent TreeDataEqual predicate contains both actual composition weights, every open interval sum and the actual rooted coefficient. A_chamber proves equality under G1 and equal chirotopes, constancy on genuine labelled connected components, the coherent physical-root transport over actual cyclic-quotient chambers, and the actual G1-path clause with its printed constant-chirotope premise. This follows the explicit source permission to use labelled representatives and the rule that a root is part of the data and shifts with the tuple. Independent kernel25757 passes29 declarations and4 substantive consumers, including transport of all quantities over the quotient chamber. Original acceptance remains pending the exact canonical port, semantic hash and whole-project audit.",
+  "mathematical_justification": [
+    {
+      "clause": "All named quantities and G1 domain",
+      "assessment": "TreeDataEqual is a transparent conjunction quantifying over every actual BoundaryInterval and raw IntervalComposition, comparing ordinaryWeight and rootWeight, then every openTreeSum and the treeCoefficient at the chosen root. A_chamber first quantifies over arbitrary labelled tuples with G1 proofs and equality of all actual chi entries. The already checked sign/weight congruence theorems give equal weight functions; substituting these functions into the defined recursion gives equal open and rooted sums. No G2, regularity, nonzero-control oracle or unproved constancy is added. The independent complete_G1_quantities consumer extracts every source quantity on this precise domain."
+    },
+    {
+      "clause": "Actual connected-component chambers",
+      "assessment": "The labelled chamber in the source formalization remark is the actual connected component of GenericTuple, not the locus of a fixed sign pattern used as a replacement definition. continuous_generic_chi maps this space continuously to discrete SignType. Preconnectedness of a connected component forces each chi entry to be constant, yielding the full data equality. The independent actual_connected_component consumer begins directly with Q in connectedComponent P and obtains TreeDataEqual, verifying the domain is exactly the topological component."
+    },
+    {
+      "clause": "Rooted interpretation and quotient chamber",
+      "assessment": "The source states that a polygon has no distinguished edge and a needed root is part of the construction data (sm-1 lines33-38), explicitly permits labelled tuples with shift-equivariance (lines55-60), and requires the simultaneous rule (P,g)->(shift a P,g-a) in def:root. Consequently constancy of A_g on a chamber uses the same physical-root choice under representative changes; it does not assert that selecting fixed label zero afresh on every representative defines an unrooted invariant. The proved chamber preimage formula expresses the actual quotient component as a union of shifted labelled components. A_chamber exposes one a with Q in the actual labelled component of genericShift a P and transports every root g coherently to g-a. This is the source permitted representative interpretation, strengthened by explicit quotient transport, without presuming independence of different physical roots."
+    },
+    {
+      "clause": "All quantities also transport under the quotient reading",
+      "assessment": "The independent all_quantities_under_quotient_transport consumer uses the aggregate to obtain the same a and actual component. Labelled TreeDataEqual compares genericShift a P and Q at root g-a. Reversing these equalities and applying the independently reviewed gate/open shift identities compares both actual weights and every open sum of Q at g-a with P at g. The aggregate already provides the same equality for A_g. This verifies that no quantity from the first clause is lost when interpreting the source through the quotient, although the printed in-particular chamber clause itself names only A_g."
+    },
+    {
+      "clause": "Actual G1 paths and their printed premise",
+      "assessment": "The final clause uses an actual Path in the subtype of G1 labelled tuples, retaining all time parameters in unitInterval and the stated equality of chirotopes at every pair of times. It applies the G1 chirotope theorem to these actual path values to get every named quantity. The independent actual_G1_path consumer checks this full domain. It does not replace the path by a finite list, assume G2 along it, or drop the source constant-chirotope premise."
+    },
+    {
+      "clause": "Independent proof and scope binding",
+      "assessment": "The exact frozen helper and new aggregate bodies were independently read and compiled over canonical predecessors. All27 predecessor printed types equal the previous full tree review, and the two new types expose the intended complete predicate and aggregate. The independent first run25757 checks29 declarations and four source consumers with standard axioms only. The helper/prototype and source hashes, successful root44816 receipt, and17-module canonical import closure are bound below. No previous review or implementation was edited."
+    }
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chambers.lean": "595dbb81227c5e368a9aaa696d6a609338961899c3c948590ab6a6f94d70ecc9",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/CyclicChambers.lean": "4ccfd2ca935569715942948987467564944d4f0946d6ce879fd055f64d08b5e5",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa",
+    "work/checks/TreeCoefficient.body.lean": "d4e251f9b331f12bb5a9625c661928639d3606c3f253a94ef21144ea8b73f8c6",
+    "work/checks/TreeCoefficientTransport.body.lean": "922287e0a90987f2d5f0206e5198512c4d62beb8a7e4aa48f620a149af580c7f",
+    "work/checks/TreeChamber.body.lean": "ffd49c183bf6509f56bd10cbd7e87a775d6caa4e86080f814fbbb0ddce6cc52b",
+    "work/checks/TreeChamberClaim.body.lean": "bb181ce0d8265180429fb6fe6b6b6c9d59f6fb1e8f7d8bc60459e1e3d4c1c904",
+    "work/checks/TreeChamberClaim-first-kernel.log": "baf0691d9cb18ea5e754ffeb197ce1b1ff8a235f31d810f830d128edc46acd46",
+    "work/checks/TreeChamberClaim.prototype.lean": "8eeba29612be639c62a94578187633c1c8774ccaa5658a46355550b16aeacf5b"
+  },
+  "import_closure_roots": [
+    "SM.Gates",
+    "SM.FiniteCompositions",
+    "SM.CyclicChambers"
+  ],
+  "import_closure_file_count": 17,
+  "inherited_review_binding": {
+    "work/reviews/tree-coefficient-prototype.json": "e92f0569ef1f8579dc854567897c1d7a80942f9fa8018a2192973aeaf37a78e4",
+    "work/reviews/plane-tree-prototype.json": "0e8eaadf0f16e7f4fdd2d6c21c19ccf5bb3100983b6dac80d07e3aca8f94a161",
+    "work/reviews/tree-chamber-prototype.json": "4906e62046037bfd443d53f2c545548af2e994db32094c368c16fd7bec6bafd9",
+    "work/reviews/def-root.json": "bdd0d6766fbc4c5e956c04dcd1d0290fa5fbeeeb802ecb66eeb9fbf3f8f56ae3",
+    "work/reviews/def-gates.json": "ec2553ec6d18437aa3694c2d41af44932f3d28107808f1b516df51d9caaf8094"
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/tree-chamber-claim-review-types.lean",
+    "independent_trace_source_sha256": "445f670c1fe8a64436e0d83e6b9d227660ecf91ad2d23d752aeb128ec162f842",
+    "independent_trace_log": "work/checks/tree-chamber-claim-review-types.log",
+    "independent_trace_log_sha256": "43b05dc87b6e60522fae39736ee95777cafd66d089f109b37d2bb96fd88d5aa7",
+    "independent_kernel_command": "lake env lean ../checks/tree-chamber-claim-review-types.lean",
+    "independent_kernel_session": 25757,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.openTreeRec",
+      "SM.rootedTreeRec",
+      "SM.openTreeRec_one",
+      "SM.openTreeRec_many",
+      "SM.fullBoundaryInterval",
+      "SM.openTreeSum",
+      "SM.treeCoefficient",
+      "SM.mainTreeCoefficient",
+      "SM.openTreeSum_one",
+      "SM.openTreeSum_many",
+      "SM.treeCoefficient_eq",
+      "SM.treesumData",
+      "SM.IntervalComposition.nearSign_eq_of_chi",
+      "SM.IntervalComposition.farSign_eq_of_chi",
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi",
+      "SM.IntervalComposition.rootWeight_eq_of_chi",
+      "SM.openTreeSum_eq_of_chi",
+      "SM.treeCoefficient_eq_of_chi",
+      "SM.openTreeSum_shift",
+      "SM.treeCoefficient_shift",
+      "SM.mainTreeCoefficient_shift",
+      "SM.treesumData_shift",
+      "SM.tree_data_eq_of_chi",
+      "SM.labelled_chamber_chi_constant",
+      "SM.tree_data_labelled_chamber_constant",
+      "SM.tree_data_G1_path_constant",
+      "SM.treeCoefficient_quotient_chamber_transport",
+      "SM.TreeDataEqual",
+      "SM.A_chamber"
+    ],
+    "declaration_axioms": {
+      "SM.openTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.fullBoundaryInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.labelled_chamber_chi_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_labelled_chamber_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_G1_path_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_quotient_chamber_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.TreeDataEqual": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.A_chamber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "TreeChamberClaimIndependentReview.complete_G1_quantities",
+      "TreeChamberClaimIndependentReview.actual_connected_component",
+      "TreeChamberClaimIndependentReview.actual_G1_path",
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport"
+    ],
+    "additional_example_count": 4,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "TreeChamberClaimIndependentReview.complete_G1_quantities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_connected_component": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_G1_path": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "transparent_predicates_printed": [
+      "SM.TreeDataEqual"
+    ],
+    "all_27_predecessor_types_unchanged": true,
+    "printed_types": "work/checks/tree-chamber-claim-reviewed-types.json",
+    "printed_types_sha256": "b78f1d7865a319f72a23ff7ac5db656acfcca5990847eac60689ea838e1f7bbc",
+    "independent_closure_evidence": "work/checks/tree-chamber-claim-review-closure.json",
+    "independent_closure_evidence_sha256": "785a066c58febf3a8d4131b7277dc206fff640f3b6782809e3671a97098078ff",
+    "root_result_file": "work/checks/TreeChamberClaim-prototype-result.json",
+    "root_result_sha256": "47072476e73a15d861fb891ab087ac84bd5d9d59b1d590555ceb442073f2e48f",
+    "successful_root_kernel_session": 44816,
+    "successful_root_kernel_exit_code": 0,
+    "root_files_sha256": {
+      "work/checks/TreeChamberClaim-first-kernel.log": "baf0691d9cb18ea5e754ffeb197ce1b1ff8a235f31d810f830d128edc46acd46",
+      "work/checks/TreeChamberClaim.body.lean": "bb181ce0d8265180429fb6fe6b6b6c9d59f6fb1e8f7d8bc60459e1e3d4c1c904",
+      "work/checks/TreeChamberClaim.prototype.lean": "8eeba29612be639c62a94578187633c1c8774ccaa5658a46355550b16aeacf5b"
+    }
+  },
+  "utc": "2026-09-11T04:40:34.125044+00:00",
+  "not_certified": [
+    "No canonical or original source acceptance before exact port and current semantic audit.",
+    "No equality between arbitrary different physical roots is claimed.",
+    "No wall law, soft theorem, R theorem or overall stage completion."
+  ]
+}

@@ -1,0 +1,162 @@
+-- Reviewer input for prop:anchors-exist: the definitions of SM/Anchors.lean verbatim (structures and projections),
+-- then the statement of SM.anchors_exist with its proof replaced by sorry. Nothing else from that module.
+
+import SM.SoftRotation
+import SM.Admissible
+import SM.Fibres
+
+/-! Towards def:anchors (sm-5-transport.tex:373) and prop:anchors-exist (sm-5-transport.tex:399). Written 2026-09-13 by a Claude Code
+prover subagent of the pod executor (workflow prove-transport-lane-2 / prove:anchors), checked with `lake env lean` (sorry-free, standard
+axioms) and ported verbatim from work/drafts/Anchors.lean (only this header added and #print lines removed). -/
+
+/-! Source def:anchors (reference/SM/sm-5-transport.tex:373) and prop:anchors-exist
+(sm-5-transport.tex:399), frame SM15. Main declarations: `SM.SoftAnchorData`, `SM.ZeroAnchor`,
+`SM.LoopAnchor`, `SM.LoopAnchorZero`, `SM.Anchor` (def:anchors) and `SM.anchors_exist`
+(prop:anchors-exist).
+
+Notation. The admissible pair `(n, r)` of the source is `((m : ℤ) + 1, r)` where `m` is the vertex
+count of the parent (so `n - 1 = m`, `n ≥ 4 ↔ m ≥ 3`); an anchor is an `n`-gon
+`softInsertion P j q ε : LabelledTuple (m + 1)` (`P^{(j,q)}_ε`, def:soft) with parent `P`, insertion
+vertex `j : ZMod m`, admissible `q` (`SoftAdmissible P j q`), and `0 < ε < ε₀` where
+`ε₀ = ε₀(P, j, q) > 0` is the bound of lem:soft-generic: on `(0, ε₀)` every `P_ε` is generic and
+all of them lie in one (labelled) chamber (`labelledChamber`, `chamber`: def:chamber); the bound is
+carried as data (`SoftAnchorData.bound`). The sectors are those of lem:soft-generic (iv) /
+lem:soft-rotation: mixed `χ_- ≠ χ_+`, loop `χ_- = χ_+ = τ_j` with
+`χ_- = softAttachmentMinus P j q`, `χ_+ = softAttachmentPlus P j q`, `τ_j = turn P j`.
+`sgn r = SignType.sign r`. The soft edge of the anchor is its edge `E_j` at the label
+`softOldIndex j j` (from `μ_j` to `μ_* = μ_{j+1}`, the label `softNewIndex j = softOldIndex j j + 1`
+in the labelling of the anchor). -/
+
+namespace SM
+
+noncomputable section
+open Filter Topology
+
+variable {m : ℕ} [NeZero m]
+
+/-- The common data of an anchor (def:anchors): the parent `P` (a generic `m`-gon, `m = n - 1 ≥ 3`),
+the insertion vertex `j`, an admissible vector `q`, the bound `ε₀ = ε₀(P, j, q) > 0` of
+lem:soft-generic (on `(0, ε₀)` the insertion `P^{(j,q)}_ε` is generic and lies in one chamber), and
+the parameter `0 < ε < ε₀`. The anchor itself is the `(m + 1)`-gon `softInsertion P j q ε`. -/
+structure SoftAnchorData (m : ℕ) [NeZero m] where
+  /-- the parent `P`, an `(n-1)`-gon -/
+  parent : LabelledTuple m
+  parent_card : 3 ≤ m
+  parent_generic : Generic parent
+  /-- the insertion vertex `j` -/
+  vertex : ZMod m
+  /-- the inserted vector `q` -/
+  vector : Plane
+  admissible : SoftAdmissible parent vertex vector
+  /-- the geometric bound `ε₀(P, j, q)` of lem:soft-generic, part of the anchor data -/
+  bound : ℝ
+  bound_pos : 0 < bound
+  /-- on `(0, ε₀)` the insertion is generic and lies in one chamber -/
+  bound_spec : ∃ B : GenericTuple (m + 1), ∀ ε : ℝ, 0 < ε → ε < bound →
+    ∃ hQ : Generic (softInsertion parent vertex vector ε),
+      (⟨softInsertion parent vertex vector ε, hQ⟩ : GenericTuple (m + 1)) ∈ labelledChamber B ∧
+      polygonProjection (⟨softInsertion parent vertex vector ε, hQ⟩ : GenericTuple (m + 1)) ∈
+        chamber (polygonProjection B)
+  /-- the parameter `ε` with `0 < ε < ε₀` -/
+  param : ℝ
+  param_pos : 0 < param
+  param_lt : param < bound
+
+/-- The anchor polygon `P^{(j,q)}_ε`, an `n`-gon (`n = m + 1`). -/
+def SoftAnchorData.polygon (A : SoftAnchorData m) : LabelledTuple (m + 1) :=
+  softInsertion A.parent A.vertex A.vector A.param
+
+/-- The label of the soft edge `E_j` of the anchor (the edge from `μ_j` to `μ_*`). -/
+def SoftAnchorData.softEdge (A : SoftAnchorData m) : ZMod (m + 1) :=
+  softOldIndex A.vertex A.vertex
+
+/-- (Z) A zero anchor for `(n, r)` (with `(n - 1, r)` admissible): a generic `n`-gon
+`P^{(j,q)}_ε` in the mixed sector, for a generic `(n-1)`-gon `P` of rotation `r`, a vertex `j`,
+admissible `q` and `0 < ε < ε₀`. -/
+structure ZeroAnchor (m : ℕ) [NeZero m] (r : ℤ) extends SoftAnchorData m where
+  parent_rotation : rotationNumber parent = (r : ℝ)
+  /-- the mixed sector `χ_- ≠ χ_+` -/
+  mixed : softAttachmentMinus parent vertex vector ≠ softAttachmentPlus parent vertex vector
+
+/-- (L) A loop anchor for `(n, r)` (with `(n, r)` minimal, `|r| ≥ 2`): a generic `n`-gon
+`P^{(j,q)}_ε` in the loop sector, for a generic `(n-1)`-gon `P` of rotation `r - sgn r` and a
+vertex `j` with `τ_j(P) = -sgn r`. -/
+structure LoopAnchor (m : ℕ) [NeZero m] (r : ℤ) extends SoftAnchorData m where
+  parent_rotation : rotationNumber parent = (r : ℝ) - (SignType.sign r : ℝ)
+  parent_turn : turn parent vertex = -SignType.sign r
+  /-- the loop sector `χ_- = χ_+ = τ_j` -/
+  loop : softAttachmentMinus parent vertex vector = turn parent vertex ∧
+    softAttachmentPlus parent vertex vector = turn parent vertex
+
+/-- (L₀) A loop anchor for `(n, r) = (4, 0)`: a generic `4`-gon `P^{(j,q)}_ε` in the loop sector
+for a triangle `P` and any of its vertices `j`. -/
+structure LoopAnchorZero (m : ℕ) [NeZero m] extends SoftAnchorData m where
+  triangle : m = 3
+  /-- the loop sector `χ_- = χ_+ = τ_j` -/
+  loop : softAttachmentMinus parent vertex vector = turn parent vertex ∧
+    softAttachmentPlus parent vertex vector = turn parent vertex
+
+/-- def:anchors: an anchor for the admissible pair `(n, r) = ((m : ℤ) + 1, r)`, in the case that
+applies: (Z) `(n - 1, r)` admissible, (L) `(n, r)` minimal with `|r| ≥ 2`, (L₀) `(n, r) = (4, 0)`. -/
+inductive Anchor (m : ℕ) [NeZero m] (r : ℤ) : Type
+  | zero (hZ : Admissible (m : ℤ) r) (A : ZeroAnchor m r) : Anchor m r
+  | loop (hL : MinimalAdmissible ((m : ℤ) + 1) r) (hr : 2 ≤ |r|) (A : LoopAnchor m r) : Anchor m r
+  | loopZero (hL₀ : ((m : ℤ) + 1, r) = (4, 0)) (A : LoopAnchorZero m) : Anchor m r
+
+/-- The underlying data (parent, insertion vertex, vector, bound, parameter) of an anchor. -/
+def Anchor.data {r : ℤ} : Anchor m r → SoftAnchorData m
+  | .zero _ A => A.toSoftAnchorData
+  | .loop _ _ A => A.toSoftAnchorData
+  | .loopZero _ A => A.toSoftAnchorData
+
+/-- The anchor as an `n`-gon. -/
+def Anchor.polygon {r : ℤ} (A : Anchor m r) : LabelledTuple (m + 1) := A.data.polygon
+
+/-- The parent `P` of an anchor. -/
+def Anchor.parent {r : ℤ} (A : Anchor m r) : LabelledTuple m := A.data.parent
+
+/-- The insertion vertex `j` of an anchor. -/
+def Anchor.vertex {r : ℤ} (A : Anchor m r) : ZMod m := A.data.vertex
+
+/-- The label of the soft edge `E_j` of an anchor. -/
+def Anchor.softEdge {r : ℤ} (A : Anchor m r) : ZMod (m + 1) := A.data.softEdge
+
+/-! ### prop:anchors-exist -/
+
+/-- prop:anchors-exist (anchors exist), as printed on SM15, with `(n, r) = ((m : ℤ) + 1, r)`.
+For every admissible `(n, r)` with `n ≥ 4`, exactly one of the cases (Z), (L), (L₀) of def:anchors
+applies (first clause, stated for integer pairs); an anchor of that type exists (second clause:
+each case separately, and the bundled `Anchor`); every anchor is generic, is an `n`-gon
+(`LabelledTuple (m + 1)`) and has rotation `r` (third clause); for a given generic parent `P` and
+vertex `j` the mixed and loop sectors both contain admissible vectors (fourth clause), so in case
+(Z) the insertion vertex may be prescribed (fifth clause); likewise the parent and vertex may be
+prescribed in case (L₀) and, given a parent as in (L), in case (L) (sixth clause). -/
+theorem anchors_exist :
+    (∀ n r : ℤ, Admissible n r → 4 ≤ n →
+      (Admissible (n - 1) r ∨ (MinimalAdmissible n r ∧ 2 ≤ |r|) ∨ (n, r) = (4, 0)) ∧
+      ¬ (Admissible (n - 1) r ∧ (MinimalAdmissible n r ∧ 2 ≤ |r|)) ∧
+      ¬ (Admissible (n - 1) r ∧ (n, r) = (4, 0)) ∧
+      ¬ ((MinimalAdmissible n r ∧ 2 ≤ |r|) ∧ (n, r) = (4, 0))) ∧
+    (∀ (m : ℕ) [NeZero m] (r : ℤ),
+      (Admissible (m : ℤ) r → Nonempty (ZeroAnchor m r)) ∧
+      (MinimalAdmissible ((m : ℤ) + 1) r → 2 ≤ |r| → Nonempty (LoopAnchor m r)) ∧
+      (((m : ℤ) + 1, r) = (4, 0) → Nonempty (LoopAnchorZero m)) ∧
+      (Admissible ((m : ℤ) + 1) r → 4 ≤ (m : ℤ) + 1 → Nonempty (Anchor m r))) ∧
+    (∀ (m : ℕ) [NeZero m] (r : ℤ) (A : Anchor m r),
+      Generic A.polygon ∧ rotationNumber A.polygon = (r : ℝ)) ∧
+    (∀ (m : ℕ) [NeZero m], 3 ≤ m → ∀ P : LabelledTuple m, Generic P → ∀ j : ZMod m,
+      (∃ q : Plane, SoftAdmissible P j q ∧
+        softAttachmentMinus P j q ≠ softAttachmentPlus P j q) ∧
+      (∃ q : Plane, SoftAdmissible P j q ∧
+        (softAttachmentMinus P j q = turn P j ∧ softAttachmentPlus P j q = turn P j))) ∧
+    (∀ (m : ℕ) [NeZero m], 3 ≤ m → ∀ (r : ℤ) (P : LabelledTuple m), Generic P →
+      rotationNumber P = (r : ℝ) → ∀ j : ZMod m,
+      ∃ A : ZeroAnchor m r, A.parent = P ∧ A.vertex = j) ∧
+    ((∀ (m : ℕ) [NeZero m], m = 3 → ∀ P : LabelledTuple m, Generic P → ∀ j : ZMod m,
+      ∃ A : LoopAnchorZero m, A.parent = P ∧ A.vertex = j) ∧
+     (∀ (m : ℕ) [NeZero m], 3 ≤ m → ∀ (r : ℤ) (P : LabelledTuple m), Generic P →
+      rotationNumber P = (r : ℝ) - (SignType.sign r : ℝ) → ∀ j : ZMod m,
+      turn P j = -SignType.sign r → ∃ A : LoopAnchor m r, A.parent = P ∧ A.vertex = j)) := sorry
+
+end
+end SM

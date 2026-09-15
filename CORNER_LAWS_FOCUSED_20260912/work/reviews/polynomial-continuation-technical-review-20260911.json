@@ -1,0 +1,395 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "polynomial-continuation-technical-review-20260911",
+  "sealed_utc": "2026-09-12T00:27:13.432727+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "provider": "OpenAI",
+    "product": "Codex",
+    "model_relationship": "Same currently available model as root; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "exact_serving_model_identifier": "Not independently exposed in this session.",
+    "authored_reviewed_body": false
+  },
+  "scope": {
+    "group": "PolynomialContinuation",
+    "declarations": [
+      "SM.canonicalTripleValue_agree_of_chi",
+      "SM.canonicalTreePolynomial_continuation_value",
+      "SM.polynomial_form_continuation"
+    ],
+    "source_id": "cor:polyform",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "source_statement_and_proof_lines": "937-986",
+    "additional_source_context": "thm:A-continuation 655-696 and rem:silent-amplitude 698-712; lem:multiaffine and lem:farout through separately reviewed dependencies"
+  },
+  "assessment": "No technical or domain defect, circular premise, or untranslated mathematical conclusion of cor:polyform was identified in this bounded all-clause comparison. This assessment is not source acceptance or stronger-model approval.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "complete_new_body_with_ambient_context": "namespace SM\n\nnoncomputable section\nvariable {n : ℕ} [NeZero n]\n\n/-- Persistence of the ordered signs implies agreement on exactly the\nnonzero canonical physical-triple entries used by the polynomial. -/\ntheorem canonicalTripleValue_agree_of_chi (P Q : LabelledTuple n)\n    (hchi : ∀ i j k : ZMod n, chi P i j k ≠ 0 → chi Q i j k = chi P i j k) :\n    ∀ t, canonicalTripleValue P t ≠ 0 → canonicalTripleValue Q t = canonicalTripleValue P t := by\n  intro t ht\n  have hs : chi P (boundaryIndex 0 t.lower) (boundaryIndex 0 t.middle)\n      (boundaryIndex 0 t.upper) ≠ 0 := by\n    intro hz\n    apply ht\n    simp [canonicalTripleValue, hz]\n  exact congrArg (fun s : SignType => ((s : ℤ) : ℚ)) (hchi _ _ _ hs)\n\n/-- Every function satisfying the already proved continuation specification\nhas the polynomial value at every weak tuple. The specification mentions\nonly actual visible chambers and agreement with the original generic tree\ncoefficient; polynomial agreement is a conclusion, never an assumption. -/\ntheorem canonicalTreePolynomial_continuation_value (hn : 3 ≤ n) (g : ZMod n)\n    (F : WeakTuple n → ℤ)\n    (hF : (∀ P Q : WeakTuple n, Q ∈ labelledVisibleChamber P → F Q = F P) ∧\n      (∀ Q : GenericTuple n,\n        F ⟨Q.val, generic_implies_weak hn Q.property⟩ = treeCoefficient Q.val Q.property.1 g hn))\n    (P : WeakTuple n) :\n    (F P : ℚ) = MvPolynomial.eval (canonicalTripleValue P.val) (canonicalTreePolynomial g hn) := by\n  obtain ⟨Q, hch, hchi⟩ := visible_chamber_generic_preserving_nonzero_chi hn P\n  have he := eval_canonicalTreePolynomial_of_nonzero_agree hn P.property g\n    (canonicalTripleValue Q.val) (canonicalTripleValue_agree_of_chi P.val Q.val hchi)\n  calc\n    (F P : ℚ) = (F ⟨Q.val, generic_implies_weak hn Q.property⟩ : ℚ) :=\n      congrArg (fun z : ℤ => (z : ℚ)) (hF.1 P _ hch).symm\n    _ = (treeCoefficient Q.val Q.property.1 g hn : ℚ) :=\n      congrArg (fun z : ℤ => (z : ℚ)) (hF.2 Q)\n    _ = MvPolynomial.eval (canonicalTripleValue Q.val) (canonicalTreePolynomial g hn) :=\n      (eval_canonicalTreePolynomial Q.val Q.property.1 g hn).symm\n    _ = MvPolynomial.eval (canonicalTripleValue P.val) (canonicalTreePolynomial g hn) := he\n\n/-- Full source cor:polyform, together with the exact existence/uniqueness\ninterface identifying its continuation. At every weak tuple and each fixed\narbitrary root, the integer continuation has the prescribed polynomial\nvalue, and freezing all nonzero canonical entries yields that constant\nin the unrestricted free polynomial ring. Silent entries remain independent;\nno value of a step-function gate at zero is introduced. -/\ntheorem polynomial_form_continuation (hn : 3 ≤ n) (g : ZMod n) :\n    ∃! F : WeakTuple n → ℤ,\n      ((∀ P Q : WeakTuple n, Q ∈ labelledVisibleChamber P → F Q = F P) ∧\n        (∀ Q : GenericTuple n,\n          F ⟨Q.val, generic_implies_weak hn Q.property⟩ = treeCoefficient Q.val Q.property.1 g hn)) ∧\n      ∀ P : WeakTuple n,\n        (F P : ℚ) = MvPolynomial.eval (canonicalTripleValue P.val) (canonicalTreePolynomial g hn) ∧\n        canonicalFreezeHom P.val (canonicalTreePolynomial g hn) = MvPolynomial.C (F P : ℚ) := by\n  obtain ⟨F, hF, huniq⟩ := A_continuation hn g\n  refine ⟨F, ⟨hF, ?_⟩, ?_⟩\n  · intro P\n    have hv := canonicalTreePolynomial_continuation_value hn g F hF P\n    refine ⟨hv, ?_⟩\n    rw [canonicalTreePolynomial_freeze_constancy hn P.property g, ← hv]\n  · intro G hG\n    exact huniq G hG.1\n\nend\nend SM\n",
+  "declaration_binding_method": "Complete source body, including namespace/section context, all binders, statements and proofs, with SHA-256; no delimiter-split header extraction.",
+  "execution": {
+    "reviewer_ran_lean_kernel": false,
+    "reviewer_ran_build_or_audit": false,
+    "reviewed_proofs_modified": false,
+    "root_kernel_session": 34627,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_session": 11319
+  },
+  "evidence": {
+    "receipt_path": "work/checks/PolynomialContinuation-prototype-result.json",
+    "receipt_sha256": "5db994f88f2c96fc2b734768f4eeaab0703af5c4f18b39012f90dd93f92ff533",
+    "all_92_receipt_file_hashes_matched": true,
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CriticalContractionPositions.body.lean": "46373031003e593e9376693fa333d6b1741419469089375c5bd6e3afe9b7bd68",
+      "work/checks/CriticalContractionBounds.body.lean": "38b76fb513cace1adfe8eead8d6497990e88646633db60cd287355a97ad4532f",
+      "work/checks/ContractedGeometricWord.body.lean": "c020155992147c8a5c79ba7e69d48814491984d42d339e4cb98a56a584a43382",
+      "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+      "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+      "work/checks/OffLeafContraction.body.lean": "d1d5b9b3fe2ab7b0c98754ead433363b28822cee6e83b78eda6954fa91a03f73",
+      "work/checks/UniqueChangingChild.body.lean": "fbce177f766e40e57d6dbc6a7fe7e50ee86f20db8d8b8672713bf8945a204926",
+      "work/checks/ContractedChildResponse.body.lean": "9fa72c539417648f78d5b30307945f9f8c299805c9ce8fa554e5317c5375ddc0",
+      "work/checks/NonunaryContraction.body.lean": "a4d3f95360deeaa279851bd8ee00a4e155ef71ff85fe87642dac4d80afff8c7c",
+      "work/checks/ContractionPropagation.body.lean": "82af9dbc8bb2f930b99d49e76f998479dd944b9a3ce29c914be172f0ff6dbe13",
+      "work/checks/ContractionOutput.body.lean": "0825a335eecee26967be082037a848c933cf6595a0dd4c5d3047162555b6b4ab",
+      "work/checks/CollinearGateSigns.body.lean": "a26b36fbead365ba221a10ec0658fc5d7c6e70462e924f9c4e7d5d5c4cfd4e40",
+      "work/checks/BoundaryGateSigns.body.lean": "b327307adca542f3911407a58f1a9981e3deb7f3cf90d42fd3eedf34e74b3502",
+      "work/checks/FarOnlyOutputLocality.body.lean": "8466eed2a36c5c2e3473c4f86b7abe7e9df91d90f56f598a5c5662d863f64c03",
+      "work/checks/BoundaryArrayStability.body.lean": "39383fb9235a5cc119d79cfcfcd582332d1cdb56d54f7825340ca12098d823ee",
+      "work/checks/WallArrayNeighborhood.body.lean": "5ef5fb97198c66c9a0f1d2bea464c106d9ef93bf8b0c73153e0d75139bf6213a",
+      "work/checks/WallGapValues.body.lean": "4c12a44985c7c3ffb2fa820e7836689fac116f8776d9346e1f3a6df2d3d38841",
+      "work/checks/BoundaryGapGates.body.lean": "5248742ac58e44ae72069b018da0f46e7f1f9d6e925454ddd4849cfd2155e2fb",
+      "work/checks/GeometricGapResponse.body.lean": "45f267f51b434174444eaa11e516355d69976add4f940ddf1b588cca69aa22e5",
+      "work/checks/ContractedGeometricArray.body.lean": "994556496b3b0a24747dd07001d7b8b1506d04c025557eb225eede48d9362605",
+      "work/checks/GeometricProperResponse.body.lean": "a774179b0e4ff1955f3cfa06059e02754fe938bd1204006ec7cf225b397d895a",
+      "work/checks/ProperSpanGermResponse.body.lean": "2818b513ce2539d8efcd4d1f3df7b465d37fa46a23ce05ee2fb4e130adfe755f",
+      "work/checks/FullSpanGermResponse.body.lean": "36f2f2ba96fcd4ae0b33e9a9331f0c8e240c11122d09df2272ba4055c16d5c89",
+      "work/checks/CriticalAffineData.body.lean": "eac6a342f4efb6e55da13322feab4e3f685e63828440ccc820297813971b5be1",
+      "work/checks/SignedCriticalJump.body.lean": "98e8e750a50f6c3ead9740ebcfba4ea05cceda3624a0c7f6ec81e7a485c31ffc",
+      "work/checks/SingleTripleTreeResponse.body.lean": "6e60aa2449dbc4eb4ddbe942ec908b52f1e28d0c81a10d0801580d511b1fa328",
+      "work/checks/RestrictedCriticalG1.body.lean": "be36ad6817db31270a9ea436505688e2d2e65f00a8c839449bdcfdd268b2df60",
+      "work/checks/IntegerCriticalGaps.body.lean": "0ad1c8c46a927d04c736b49f06a092028463264675fd2a2a0d85420f638cba05",
+      "work/checks/IntegerSingleTripleResponse.body.lean": "227462b1bbe0456ce83377b04e35bc6d78ef8aed641200b783f83f9779d4d130",
+      "work/checks/UnorderedCriticalTriple.body.lean": "985956064e7fa879661ee9a144753639f56a73cf48741d1e8e503cf5a201c110",
+      "work/checks/FlatBoundaryPositions.body.lean": "13f01dbe3050125a22ce407f5d6e01101ee680b98627f6b226ff325964a6fc56",
+      "work/checks/FlatContractionArithmetic.body.lean": "45aa1ca887728c3d32dbf7a0e1df36966894d273d868bf6fc3a4f842eaa7f52a",
+      "work/checks/ContactBoundaryPositions.body.lean": "61d797a366cb8db5312ac0739037da47361b87eed4ed50e786ee3b72b7c2c4b7",
+      "work/checks/ContactRootPartition.body.lean": "efecdb4cbb8581ed5fd9a922eaeb66ecfa44d2d2fcd6ae041a2e3f43c4b1504a",
+      "work/checks/ContactHalfRoots.body.lean": "58a657d17361ddf4eba802a2367c9a0f4a27006c0cc26086374cb2b4cb188cfa",
+      "work/checks/ContactContractionLabels.body.lean": "1f64ec78ee9419379e3fa58af25ad9b53c3e5ccb02323e7a9ad18600d677019f",
+      "work/checks/FlatIntegerFactors.body.lean": "b441262771ca2212a4200a18b0dc3f8334cde9180f3085769ccccbeabdbf696d",
+      "work/checks/TupleArityTransport.body.lean": "d18e9d42a019ba7a88be7963e0bb77ddaac1a32a2c533c77ddc779de7cbb002f",
+      "work/checks/ContactGapTuples.body.lean": "e10aa2e1663e8a0aa962b3606fcca260e53e73ef0c14077f09b59971e4f86945",
+      "work/checks/ContactGapWords.body.lean": "27891ffab2f368aa0afe2ffb333d14b17dc50a2aa9aec7cc457abc4bad50087d",
+      "work/checks/ContactIntegerFactors.body.lean": "406f96eee710116768518910df04615235b4ee4842106b1d4d847dfd3fcb27e7",
+      "work/checks/ContactContractionCoefficients.body.lean": "b205652841dfed1f37a9ddf77d8f41e2fe033ef221f4b8af945407670f06d328",
+      "work/checks/CuspIntegerFactors.body.lean": "f34d8db440519782d6e12a16afe9e2146a5ff3d8288fa0267378c800f832429d",
+      "work/checks/ContactAffineSigns.body.lean": "eb17b5a65fb80e38549b9c7be114cb000caf8469e6dc3a43265105e5ab525b47",
+      "work/checks/ContactSignedResponse.body.lean": "9f11f6f9e4c2a99728045722a1488f1f9bb11555e697d5cd865d0b368aab8d0c",
+      "work/checks/ContactSourceResponse.body.lean": "4ab1650111909f9ee0dbb406db7a5e431240c510331befaa148ca1ccbcece874",
+      "work/checks/SilentIntegerFactors.body.lean": "52225243bc48a9a04c37f1fe92c52f28819033adc222a2d41a43fde9e6be3552",
+      "work/checks/ExtensionAffineSigns.body.lean": "02971d5e80a6f6e46f17ac15f2d2b18be1b0d7c47bed8ed501fec86baf011c5a",
+      "work/checks/GermTreeEquality.body.lean": "23ae56adbfd3faec1538d1ba80c8471b33b31d62afb85d5d77e6ef8daeb9bc0d",
+      "work/checks/ExtensionTreeResponse.body.lean": "269dbcdda2e731c4f84b40b79966e45e5f9299588f801993d222c85aab327716",
+      "work/checks/PureCutBoundaryBounds.body.lean": "3283ab71d8cd9074e3eccb36ea5809a6a13e8bd0ee927ab91257f8aa8ae2d5c9",
+      "work/checks/PureCutTreeResponse.body.lean": "9fc9c04cdc1d68c85753c66bec09d2f3ab17b2df766ecac4d984772afcf5872f",
+      "work/checks/TripleTreeData.body.lean": "34f289b190ef8c9a35d1277fab4ef45d261b11c8021b618f517dd6e304aa0cc4",
+      "work/checks/TripleSilentTreeLaws.body.lean": "d44fe4500b259ad724d6d71ff1c9f7f69c355ca978fc483414bde5d80ff7fe9f",
+      "work/checks/DenseLocalPairs.body.lean": "11f2384626f702549dd37b874ba665a326f9613c768fcc5dbfe15b3ba1f48cdc",
+      "work/checks/WeakCenterSilent.body.lean": "71fb7d0b8cea85738641274219121ed0c5f29c78f852df43f2c586b159d2c561",
+      "work/checks/GermPathGeometry.body.lean": "14149417adc4b8a116d6ba9e8bce6f8d1ba9f9c00acd0a57edbe6cc760003e41",
+      "work/checks/WeakPathTolerance.body.lean": "7fcea08ceee8dbba853a89a8d7f0da76ffd265b3700e607f2833ab0a78b283c5",
+      "work/checks/TreePathLocal.body.lean": "8e092c2403ebcc45dc96d7df151fccf60c423d9930f3d186ff960a744f656f87",
+      "work/checks/TreePathGluing.body.lean": "326e810eb8199deadf18bef44c54d99b960d1b5fb0774a5d9a99fbafaabf4269",
+      "work/checks/VisibleTreeContinuation.body.lean": "2da035de3fc2da322de9725aa607703aa3e273d18a46f1c20bceec67d4f4d588",
+      "work/checks/SelectedCutRefinement.body.lean": "14813200d24d78c3da98cdc7508400e3b82251cfed19f4dddbf4f81cfe190b18",
+      "work/checks/PositionalCutDecomposition.body.lean": "ed59789e73793bd8b885ab65bd9096abe7065de2b7cd4386f19de6ff26a82b6d",
+      "work/checks/TopFarDecomposition.body.lean": "2cc1eb1027a60fd62c29ba50c6e933c3ea3c84ec524b550fda66a3be4cdf4231",
+      "work/checks/InternalGapSigns.body.lean": "09846a9e9beba9fdf6a68b7c7f32e1dfc7c46b3bd12fb3cdfee33d4d67355a6c",
+      "work/checks/WeakLineGeometry.body.lean": "33fa407bf8a5c37dd2c9459d56e50cb3c48faa85f48076f679a2197694135dc3",
+      "work/checks/WeakLineSelections.body.lean": "a91324f0380378fd48fcecea0bb1642f52dcdcc9fbfd45c626d43209cc6782c5",
+      "work/checks/FiniteLineGaps.body.lean": "9d7d3e76bb2e142b2e675922d663fa116ab03ba6e3908fd8ec809e8b980ed2bd",
+      "work/checks/LineCoordinateNormalization.body.lean": "95806b56f50651011b05d31989e3ce43076c9a129ac9a7de6f0f08d903c37797",
+      "work/checks/WeakSelectedLineCoordinates.body.lean": "a711895a3661f741753269d46d480168b15840561b488d7a8ebd78c17b431d3b",
+      "work/checks/SilentLineGap.body.lean": "466edcf63484a6e2f4d41a038164383d6d0e216c325c964ad41b27cfa433f5a7",
+      "work/checks/SelectedGapFarArray.body.lean": "51a021cbde0a113355cf7657f9a94e331dac24721840692c31afc63c4eabd031",
+      "work/checks/SilentCompositionLine.body.lean": "4d3e7ed775b33529bc1c55fa9695ab4c3dd8fa913ab5397aafddc8e431300da9",
+      "work/checks/SilentGapTransform.body.lean": "cd5fa17cde20c28806f14f5c790a90da41cc1b1a1d599f0cf88d29fd410b4295",
+      "work/checks/TopFarCancellation.body.lean": "fd57112cda0a7cfbfb7f15d91d224723e60f5ae5a7f9032f585aeeccae882a44",
+      "work/checks/SilentSupportedPerturbation.body.lean": "fd4b2656d0073ce518f0460d28bace8528c87723b40682d533fb3f539b6c20ba",
+      "work/checks/NearFarRingMaps.body.lean": "7a5aaadbc1a8041a39f316fb825632afd3493d892e0722fc32defd8fc64c8f16",
+      "work/checks/SilentFarPolynomial.body.lean": "46ce117365d9aa9b3f262c215a50a73bde1f4c4939fd2eeb9aed64051a876fe0",
+      "work/checks/FormalSilentCancellation.body.lean": "5cd1e816bc173404929919a02d98943d2c15bc2fcbbbc440c45d99667ae1f27e",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/FormalOrderedChi.body.lean": "1df0e2ad12df3d28dc32318201fe2a786eb880fe56ea2fff374f7fc3f2d3ebe6",
+      "work/checks/CompositionTripleSupports.body.lean": "c6600e67a028ccffb28c0aae1d02e782b689f24e823ddd3a49b297e0cb069cff",
+      "work/checks/FormalTriplePolynomial.body.lean": "138f5620027a3be64bbaed123b2a8ef6723b50fe6911bd4b2f6cf06a8b6c2d84",
+      "work/checks/FormalNearFarRecursion.body.lean": "cb09942ff8dd58949c85ff68239e441c17f132aa94b6d54810c50834738e2666",
+      "work/checks/CanonicalTreeFarOutput.body.lean": "a8db84464fabbfe8160d9d3db54a3ee260ccc669bb6c5ad59a3d02de9a64ca3d",
+      "work/checks/CanonicalFreezing.body.lean": "eaef2d5b55b1cde02c04eb34653677eefec816fa77b03a1c645ea23130d0e0d2",
+      "work/checks/CanonicalSilentConstancy.body.lean": "ba3f176fbafecfabb5070facd9d7f6f2dd3efd7e46c4d525dd967b68aad5a142",
+      "work/checks/VisibleGenericSignPersistence.body.lean": "4a440e836f439ea0475cb26c0f647f45a1596876f54197c1a561ac12c7b3d8c7",
+      "work/checks/PolynomialContinuation.body.lean": "684c21176c3a54ea00b8c3711a2dc5efb3e69993c14caca6c41928dc1b4da4b4",
+      "work/checks/PolynomialContinuation.prototype.lean": "4d2a9ad525d3ff41a7a2ab0f63cb5e823dd1928e6fc65419851e79c6472de8e5",
+      "work/checks/PolynomialContinuation-second-kernel.log": "524712e82f0912e45eabb5613af0f66eef580a4b74c976ab8f28d3ccefbef67e"
+    },
+    "exact_90_body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CriticalContractionPositions.body.lean": 1,
+      "work/checks/CriticalContractionBounds.body.lean": 1,
+      "work/checks/ContractedGeometricWord.body.lean": 1,
+      "work/checks/ContractedIntervals.body.lean": 1,
+      "work/checks/ContractedCompositions.body.lean": 1,
+      "work/checks/OffLeafContraction.body.lean": 1,
+      "work/checks/UniqueChangingChild.body.lean": 1,
+      "work/checks/ContractedChildResponse.body.lean": 1,
+      "work/checks/NonunaryContraction.body.lean": 1,
+      "work/checks/ContractionPropagation.body.lean": 1,
+      "work/checks/ContractionOutput.body.lean": 1,
+      "work/checks/CollinearGateSigns.body.lean": 1,
+      "work/checks/BoundaryGateSigns.body.lean": 1,
+      "work/checks/FarOnlyOutputLocality.body.lean": 1,
+      "work/checks/BoundaryArrayStability.body.lean": 1,
+      "work/checks/WallArrayNeighborhood.body.lean": 1,
+      "work/checks/WallGapValues.body.lean": 1,
+      "work/checks/BoundaryGapGates.body.lean": 1,
+      "work/checks/GeometricGapResponse.body.lean": 1,
+      "work/checks/ContractedGeometricArray.body.lean": 1,
+      "work/checks/GeometricProperResponse.body.lean": 1,
+      "work/checks/ProperSpanGermResponse.body.lean": 1,
+      "work/checks/FullSpanGermResponse.body.lean": 1,
+      "work/checks/CriticalAffineData.body.lean": 1,
+      "work/checks/SignedCriticalJump.body.lean": 1,
+      "work/checks/SingleTripleTreeResponse.body.lean": 1,
+      "work/checks/RestrictedCriticalG1.body.lean": 1,
+      "work/checks/IntegerCriticalGaps.body.lean": 1,
+      "work/checks/IntegerSingleTripleResponse.body.lean": 1,
+      "work/checks/UnorderedCriticalTriple.body.lean": 1,
+      "work/checks/FlatBoundaryPositions.body.lean": 1,
+      "work/checks/FlatContractionArithmetic.body.lean": 1,
+      "work/checks/ContactBoundaryPositions.body.lean": 1,
+      "work/checks/ContactRootPartition.body.lean": 1,
+      "work/checks/ContactHalfRoots.body.lean": 1,
+      "work/checks/ContactContractionLabels.body.lean": 1,
+      "work/checks/FlatIntegerFactors.body.lean": 1,
+      "work/checks/TupleArityTransport.body.lean": 1,
+      "work/checks/ContactGapTuples.body.lean": 1,
+      "work/checks/ContactGapWords.body.lean": 1,
+      "work/checks/ContactIntegerFactors.body.lean": 1,
+      "work/checks/ContactContractionCoefficients.body.lean": 1,
+      "work/checks/CuspIntegerFactors.body.lean": 1,
+      "work/checks/ContactAffineSigns.body.lean": 1,
+      "work/checks/ContactSignedResponse.body.lean": 1,
+      "work/checks/ContactSourceResponse.body.lean": 1,
+      "work/checks/SilentIntegerFactors.body.lean": 1,
+      "work/checks/ExtensionAffineSigns.body.lean": 1,
+      "work/checks/GermTreeEquality.body.lean": 1,
+      "work/checks/ExtensionTreeResponse.body.lean": 1,
+      "work/checks/PureCutBoundaryBounds.body.lean": 1,
+      "work/checks/PureCutTreeResponse.body.lean": 1,
+      "work/checks/TripleTreeData.body.lean": 1,
+      "work/checks/TripleSilentTreeLaws.body.lean": 1,
+      "work/checks/DenseLocalPairs.body.lean": 1,
+      "work/checks/WeakCenterSilent.body.lean": 1,
+      "work/checks/GermPathGeometry.body.lean": 1,
+      "work/checks/WeakPathTolerance.body.lean": 1,
+      "work/checks/TreePathLocal.body.lean": 1,
+      "work/checks/TreePathGluing.body.lean": 1,
+      "work/checks/VisibleTreeContinuation.body.lean": 1,
+      "work/checks/SelectedCutRefinement.body.lean": 1,
+      "work/checks/PositionalCutDecomposition.body.lean": 1,
+      "work/checks/TopFarDecomposition.body.lean": 1,
+      "work/checks/InternalGapSigns.body.lean": 1,
+      "work/checks/WeakLineGeometry.body.lean": 1,
+      "work/checks/WeakLineSelections.body.lean": 1,
+      "work/checks/FiniteLineGaps.body.lean": 1,
+      "work/checks/LineCoordinateNormalization.body.lean": 1,
+      "work/checks/WeakSelectedLineCoordinates.body.lean": 1,
+      "work/checks/SilentLineGap.body.lean": 1,
+      "work/checks/SelectedGapFarArray.body.lean": 1,
+      "work/checks/SilentCompositionLine.body.lean": 1,
+      "work/checks/SilentGapTransform.body.lean": 1,
+      "work/checks/TopFarCancellation.body.lean": 1,
+      "work/checks/SilentSupportedPerturbation.body.lean": 1,
+      "work/checks/NearFarRingMaps.body.lean": 1,
+      "work/checks/SilentFarPolynomial.body.lean": 1,
+      "work/checks/FormalSilentCancellation.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/FormalOrderedChi.body.lean": 1,
+      "work/checks/CompositionTripleSupports.body.lean": 1,
+      "work/checks/FormalTriplePolynomial.body.lean": 1,
+      "work/checks/FormalNearFarRecursion.body.lean": 1,
+      "work/checks/CanonicalTreeFarOutput.body.lean": 1,
+      "work/checks/CanonicalFreezing.body.lean": 1,
+      "work/checks/CanonicalSilentConstancy.body.lean": 1,
+      "work/checks/VisibleGenericSignPersistence.body.lean": 1,
+      "work/checks/PolynomialContinuation.body.lean": 1
+    },
+    "requested_declaration_axioms_verified_from_successful_log": {
+      "SM.canonicalTripleValue_agree_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.canonicalTreePolynomial_continuation_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.polynomial_form_continuation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "successful_log_forbidden_error_or_axiom_hits": [],
+    "canonical_definition_hashes": {
+      "work/lean/SM/WeakGeneric.lean": "1a72ebddb4ddb4d72a89f14a5fede9badc3dbed095a972f6dd1b85db30789b22",
+      "work/lean/SM/WeakOpen.lean": "d529ddd96240311708fe3a840c9fb4cf2692764943435b77dae59e5c56b79bd5",
+      "work/lean/SM/GenericDensity.lean": "6b6880d31118c202d47ca340811b3006e4ef565e7d6dfe666b5ac7f115ae39c1",
+      "work/lean/SM/FiniteChiStability.lean": "7160db9c4ac930a64c65ce44b9e9a41d4f139a3442a49604b3c96f9a347cadc9",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06",
+      "work/lean/SM/PlaneTreeFormal.lean": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60"
+    }
+  },
+  "preserved_failure_review": {
+    "files_sha256": {
+      "work/checks/PolynomialContinuation.first-failed.body.lean": "684c21176c3a54ea00b8c3711a2dc5efb3e69993c14caca6c41928dc1b4da4b4",
+      "work/checks/PolynomialContinuation.first-failed.prototype.lean": "872fb2a6609b0456ca0d89aab5f6addbebe9d6f02d535034ba2e7e264116d770",
+      "work/checks/PolynomialContinuation-first-kernel.log": "539b89d939329adfaea6591e45bcf503ac32fe7e1a7eb91d2981a39651067a3e",
+      "work/checks/PolynomialContinuation-first-failed-body-dependencies.json": "b0bb02b19875920474d535a4f129519d827928ca77c72e8a865999a9aac190df",
+      "work/checks/PolynomialContinuation-body-dependencies.json": "c4bdd198221b7a928fd78dbf66e89bdefdc8429a26913b8a82ffbab67cf94731"
+    },
+    "new_body_identical_between_failed_and_passing": true,
+    "all_90_current_frozen_bodies_occur_exactly_once_in_failed_prototype": true,
+    "same_90_dependency_set": true,
+    "dependency_order_changed": true,
+    "both_dependency_lists_match_actual_order_in_their_respective_prototypes": true,
+    "prototype_residuals_identical_after_removing_the_same_90_bodies": true,
+    "interpretation": "First11319 failed because definitions such as contractedSize were consumed before their declaring bodies. The second prototype only reorders the same exact bodies; imports and remaining prototype text are identical. Failed traces are not mathematical evidence and no axiom from the failed environment is credited. The root separately records its failure manifest."
+  },
+  "findings": [
+    {
+      "clause": "Exact continuation specification, without polynomial assumptions",
+      "finding": "canonicalTreePolynomial_continuation_value assumes only the same two clauses as A_continuation: integer-valued F is constant on actual labelledVisibleChamber connected components of WeakTuple n, and agrees with the original treeCoefficient on every GenericTuple n at the same root g. There is no polynomial, silent-evaluation, R, root-independence, or extra regularity premise. The final theorem obtains an actual F and uniqueness from the prior A_continuation theorem; existence is not left conditional."
+    },
+    {
+      "clause": "All weak tuples, sizes and physical roots",
+      "finding": "The final theorem quantifies over every hn : 3 <= n and arbitrary g : ZMod n, then all P : WeakTuple n. The ambient NeZero instance is redundant under hn and imposes no n>=4 restriction. WeakGeneric is the actual source predicate, allowing simultaneous silent collinearities without G1 at P. The root remains fixed consistently in the generic coefficient, canonical polynomial, and prior continuation; no equality between different roots or quotient descent is inferred."
+    },
+    {
+      "clause": "Generic witness and exact canonical agreement",
+      "finding": "visible_chamber_generic_preserving_nonzero_chi constructs one full Generic Q in the actual visible chamber of P, preserving every initially nonzero ordered chi. canonicalTripleValue_agree_of_chi derives nonzero SignType from a nonzero rational canonical value by contraposition, then transports the exact ordered sign equality through SignType-to-integer-to-rational casting. This covers precisely the increasing physical canonical labels required by the freeze map, with no sorting or root-sign mismatch."
+    },
+    {
+      "clause": "Polynomial value of the continuation",
+      "finding": "The proof first uses chamber constancy to replace F(P) by F(Q), then generic agreement to replace F(Q) by the original integer tree coefficient at Q. The proved G1 evaluation theorem identifies that coefficient with the prescribed polynomial at Q; Generic supplies G1. Finally, unrestricted silent-variable evaluation constancy transports the value to P because the canonical nonzero entries agree. Every original gate evaluation in this chain is at the generic Q, never at a zero gate of P."
+    },
+    {
+      "clause": "Full simultaneous formal cancellation",
+      "finding": "For every weak P, the final conjunction includes canonicalFreezeHom P (canonicalTreePolynomial g hn) = C(F(P) as a rational). The freeze map fixes exactly the initially nonzero canonical entries and leaves each zero entry as its own independent X in the full rational polynomial ring. Equality to a constant polynomial proves simultaneous cancellation of all nonconstant silent-variable terms, including mixed terms, and controls nonrealizable assignments. This is not merely the result of evaluating all silent variables at zero. The same conjunction identifies the base polynomial evaluation with the integer continuation via the faithful rational embedding."
+    },
+    {
+      "clause": "Existence and uniqueness on the complete domain",
+      "finding": "A_continuation supplies F, its exact chamber/generic specification hF, and uniqueness huniq. The newly proved value theorem augments this same F with both polynomial conclusions at every P. A competing G satisfying the final conjunction already satisfies hF via its first projection; huniq therefore proves G=F as functions on all WeakTuple n. No vacuous restriction to selected chambers, selected tuples, or an externally supplied continuation remains."
+    },
+    {
+      "clause": "Entire source proof chain and representation choices",
+      "finding": "The reviewed dependencies identify the prescribed signed canonical finite-tree polynomial with the actual full open/root recursion, using entire cut products and unary empty products, and then with the full far-only output by the arbitrary-ring factorization/inverse identity. Exact signed physical boundary labels bridge canonical freezing to the proved simultaneous far-zero perturbation theorem. The witness helper uses a nonempty open neighborhood instead of explicitly naming a ball, preserving precisely the chamber and sign conditions used in the source proof. No separate dyadic-subring gate-homomorphism or coefficient-bracket theorem is exported; the full rational polynomial identities and constant-polynomial equality establish the corollary conclusions directly."
+    },
+    {
+      "clause": "Circularity and silent-amplitude warning",
+      "finding": "The prior A_continuation specification contains no polynomial agreement and was constructed using genuine generic chamber values and silent path responses. The constancy side is independently algebraic and geometric. Their present assembly therefore does not use cor:polyform to define or justify its own continuation. It preserves the source warning: the literal step-function tree sum is not evaluated at simultaneous zero gates."
+    }
+  ],
+  "authorship_disclosure": {
+    "current_body_independent": true,
+    "reviewer_authored_inherited_dependencies": [
+      "ContactBoundaryPositions",
+      "ContactAffineSigns",
+      "ContactIntegerFactors",
+      "ExtensionAffineSigns",
+      "PureCutBoundaryBounds",
+      "WeakCenterSilent",
+      "SelectedCutRefinement",
+      "PositionalCutDecomposition",
+      "FiniteLineGaps",
+      "SilentGapTransform",
+      "CompositionTripleSupports",
+      "VisibleGenericSignPersistence"
+    ],
+    "separate_root_review_bindings": {
+      "ContactBoundaryPositions": {
+        "review_path": "work/reviews/contact-boundary-positions-technical-review-20260911.md",
+        "sha256": "690440a0038ed210cdc465b9fb0ace87528bbda0ebef018e13fc7ced90c3bb3a"
+      },
+      "ContactAffineSigns": {
+        "review_path": "work/reviews/contact-affine-signs-technical-review-20260911.md",
+        "sha256": "fdb3c1366239a6765f5499d35d222a451a520e4c0d157e54a6c79553950c7870"
+      },
+      "ContactIntegerFactors": {
+        "review_path": "work/reviews/contact-integer-factors-technical-review-20260911.md",
+        "sha256": "73b3d1512e553cb09214a5ebd3c59d2a7c46eb71e6d376af31aeac33e58ca8db"
+      },
+      "ExtensionAffineSigns": {
+        "review_path": "work/reviews/silent-boundary-geometry-technical-review-20260911.md",
+        "sha256": "671716c33b42ffc3b4a055286a9c499a239ab22abf949ed65a801a2d8f53481f"
+      },
+      "PureCutBoundaryBounds": {
+        "review_path": "work/reviews/silent-boundary-geometry-technical-review-20260911.md",
+        "sha256": "671716c33b42ffc3b4a055286a9c499a239ab22abf949ed65a801a2d8f53481f"
+      },
+      "WeakCenterSilent": {
+        "review_path": "work/reviews/weak-center-silent-technical-review-20260911.md",
+        "sha256": "266a29f84ae07d56aeca52cc142c1aa358ace3dc1ef3141a530085f303fab2c5"
+      },
+      "SelectedCutRefinement": {
+        "review_path": "work/reviews/selected-cut-refinement-technical-review-20260911.md",
+        "sha256": "fdc5706133aabcdd77ca0c7419269866b257b8c77377f9cc2336904738af1c13"
+      },
+      "PositionalCutDecomposition": {
+        "review_path": "work/reviews/positional-cut-decomposition-core-review-20260912.md",
+        "sha256": "5fd3bb4bf8bdff142159fbe4e01d0b81485e85efe886f5cc9447c13af94301e0"
+      },
+      "FiniteLineGaps": {
+        "review_path": "work/reviews/finite-line-gaps-technical-review-20260911.md",
+        "sha256": "e9c3e5eac643bbd0a9554a6ce386d57b1f89d84e30c3b4b41dd50546079fae23"
+      },
+      "SilentGapTransform": {
+        "review_path": "work/reviews/silent-gap-transform-technical-review-20260912.md",
+        "sha256": "27442075ebc86ed020cf224d9be7f94f654cae1763db90fb33fdef1498a00ae0"
+      },
+      "CompositionTripleSupports": {
+        "review_path": "work/reviews/composition-triple-supports-technical-review-20260911.md",
+        "sha256": "1873942067abdb990d28a5cd1b646ef0cf43d3379508a4201e08dd8a5d5e9355"
+      },
+      "VisibleGenericSignPersistence": {
+        "review_path": "work/reviews/visible-generic-sign-persistence-technical-review-20260912.json",
+        "sha256": "70502428277429c78db0ee3844f0101020145a2538643c9eaaf69223f9ac92d9"
+      }
+    },
+    "qualification": "This report reviews root-authored assembly, not an independent self-review of the listed inherited constructions. Root authored the two PositionalCutDecomposition zero-function repairs and suggested Filter.inter_mem for VisibleGenericSignPersistence; their original constructions were authored by this reviewer. Other historical dependencies are covered by their existing reviews, not represented as newly re-proved here."
+  },
+  "inherited_group_reviews_sha256": {
+    "work/reviews/visible-tree-continuation-technical-review-20260911.md": "cd703be5e0ac78bd0bf837d889d070c70265062494a0e9915c6b9a083b937cd8",
+    "work/reviews/formal-near-far-recursion-technical-review-20260911.json": "1eb96dd15d573c1d9f3e7752a6d23d479df9482c81a7edb221e9687b7e0cd23f",
+    "work/reviews/canonical-tree-far-output-technical-review-20260911.json": "9da76dccd29a361596aa641d4d50436fdaaeaa3669393fa0d7c946abfd88e0e0",
+    "work/reviews/formal-recursion-canonical-output-header-addendum-20260911.json": "89728ce2892662e7a5c42f4189776e45b0add7748d190e5cd8b4557f496d467a",
+    "work/reviews/canonical-freezing-technical-review-20260911.json": "dfb0c37a6450ea37af8ff60d89f0299b1ba010c22d3eb8d46d153d3f27466afc",
+    "work/reviews/canonical-silent-constancy-technical-review-20260911.json": "4cdbaaac13a38069cfed572e3d8b3f71f15076368fc4888bded7e78095a4a81b",
+    "work/reviews/formal-silent-cancellation-technical-review-20260911.md": "535705eb3e20f8188aa5c1d61e0173e906f17e72272c70bcf9a0249f4fa6ff43"
+  },
+  "limits": [
+    "Same-model technical/source comparison only; stronger statement/definition-fidelity approval and controlled canonical integration remain pending.",
+    "Root kernel success and matching hashes bind evidence but do not alone establish source fidelity. No source acceptance, stage completion, final corner theorem, soft theorem, or R theorem is claimed.",
+    "The accounting remains 39/192 accepted (20.3%), targets 0/8; this review makes no accounting edits."
+  ]
+}

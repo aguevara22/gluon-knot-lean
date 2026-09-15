@@ -1,0 +1,43 @@
+import SM.StarPolygons
+import SM.BowTie
+
+/-! Source lem:star-generic (reference/SM/sm-5-transport.tex:16, frame SM15): the stars are
+generic. Main declaration: `SM.star_generic_law`. Notation: `star r = K_r` (def:star,
+`SM.star_definition`), `starNeg r = K_{-r} = reversal (star r)`, `bowTie = K_0`; `shift 1 = σ`;
+`rotationMap θ = R` (rotation by θ about the origin, an explicit linear map); `starAngle r = 2πr/N`;
+`starRadius r = ρ = cos(πr/N)`; `principalTurn`, `turn`, `rotationNumber = rot`;
+`edgePoint P i (1/2)` is the midpoint of the edge `E_i`, `edge P i = ℓ_i`, and `strictlyLeft P i x`
+means `x` lies strictly to the left of the directed edge `E_i` (`0 < det (edge P i) (x - P i)`);
+`euclideanLength`, `planeDot` are the Euclidean norm and inner product; `Generic` is def:generic;
+`chi`, `turn`, `crossingSet` are def:chirotope and def:crossings (the source label `4` of `K_0` is
+the residue `0`). Clause (ii) "every edge line is tangent to the circle of radius ρ at the midpoint
+of the edge" is stated as: the midpoint has norm ρ, the edge vector is orthogonal to the midpoint,
+and every other point of the edge line is strictly farther than ρ from the origin. Proofs:
+SM.StarPolygons and SM.BowTie (prover subagents, ported verbatim). -/
+
+namespace SM
+
+/-- lem:star-generic, clauses (i)–(iv) as printed on SM15, for `r ≥ 1`, `N = 2r + 1`. -/
+theorem star_generic_law {r : ℕ} (hr : 1 ≤ r) :
+    (Nat.gcd r (2 * r + 1) = 1 ∧
+    (shift 1 (star r) = (rotationMap (starAngle r)) ∘ star r ∧
+      (∀ i, principalTurn (star r) i = starAngle r) ∧
+      starAngle r ∈ Set.Ioo 0 Real.pi ∧
+      (∀ i, turn (star r) i = 1) ∧
+      rotationNumber (star r) = (r : ℝ)) ∧
+    (∀ i, euclideanLength (edgePoint (star r) i (1 / 2)) = starRadius r ∧
+      planeDot (edgePoint (star r) i (1 / 2)) (edge (star r) i) = 0 ∧
+      (∀ t : ℝ, starRadius r ≤ euclideanLength (edgePoint (star r) i t) ∧
+        (euclideanLength (edgePoint (star r) i t) = starRadius r ↔ t = 1 / 2)) ∧
+      strictlyLeft (star r) i 0) ∧
+    (Generic (star r) ∧ Generic (starNeg r) ∧ (∀ i, turn (starNeg r) i = -1) ∧
+      rotationNumber (starNeg r) = -(r : ℝ))) ∧
+    (Generic bowTie ∧
+    (chi bowTie 1 2 3, chi bowTie 1 2 4, chi bowTie 1 3 4, chi bowTie 2 3 4) =
+      (1, -1, -1, 1) ∧
+    (turn bowTie 1, turn bowTie 2, turn bowTie 3, turn bowTie 4) = (-1, 1, 1, -1) ∧
+    rotationNumber bowTie = 0 ∧
+    crossingSet bowTie = {{1, 3}}) :=
+  ⟨star_generic_lemma hr, star_generic_iv_printed⟩
+
+end SM

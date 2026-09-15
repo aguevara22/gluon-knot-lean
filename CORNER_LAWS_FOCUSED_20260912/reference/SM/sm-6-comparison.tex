@@ -1,0 +1,405 @@
+\section{Root independence, uniqueness, and the comparison theorem}\label{sec:comparison}
+
+\subsection{Root independence of the tree coefficient}
+
+\begin{lemma}[triangle and bow-tie values]\label{lem:A-small-values}
+\begin{enumerate}
+\item[(i)] For every labelled triangle satisfying (G1), all turns
+have a common sign $\tau$, and $A_g=-\tau$ at every physical root.
+\item[(ii)] For the bow-tie of Definition~\ref{def:star},
+$A_g(\sigma^kK_0)=-1$ for every physical root $g$ and every integer $k$.
+\end{enumerate}
+\status{new (round~4; extracted from the SM4 proof of Theorem~\ref{thm:root-indep-proof}; adopted from the Codex proposal sm4\_round4\_exports\_v1, P-25-24, F117-SMALL-LEMMA, re-read by the author; F-25-117; cleared by bench~A on SM5 (2026-09-06T00:32:58Z))}
+\end{lemma}
+\begin{proof}
+For a noncollinear triangle the three turn triples are cyclic
+permutations of one ordered triple. Lemma~\ref{lem:chi-basic}(i)
+therefore gives the common sign $\tau$. For any physical root,
+the boundary word has two leaves. Its unary root contribution is
+$b_{[0,2]}=0$, since its only ordinary composition has two parts
+and vanishes by Lemma~\ref{lem:gates-nonzero}. The binary root
+has $d=h=\chi(a_2,a_1,a_0)=-\tau$, so its factor
+$(d+h)/2$ is $-\tau$. This proves (i) directly on (G1).
+
+For (ii), use the four coordinates of Definition~\ref{def:star}.
+All two-leaf open sums vanish, because their near
+and far signs agree. On a boundary word $(a_0,a_1,a_2,a_3)$, put
+$d_1=\chi(a_2,a_1,a_0)$, $d_2=\chi(a_3,a_2,a_1)$,
+$h_1=\chi(a_3,a_1,a_0)$ and $h_2=\chi(a_3,a_2,a_0)$.
+Every two-part composition has a two-leaf child and vanishes.
+The unary root term is therefore minus the ordinary three-part gate
+product, and the three-part root term is its barred counterpart. Hence
+\begin{equation}\label{eq:root-bowtie-recursion}
+A_g=\frac{(d_1+h_1)(d_2+h_2)-(d_1-h_1)(d_2-h_2)}4.
+\end{equation}
+Expanding the two products cancels $d_1d_2$ and $h_1h_2$ and leaves
+$2d_1h_2+2h_1d_2$. Thus $A_g=(d_1h_2+h_1d_2)/2$.
+At the four physical roots of $K_0$, direct determinants of its displayed
+coordinates give
+\begin{equation}\label{eq:root-bowtie-signs}
+\begin{array}{c|rrrr|r}
+g&d_1&d_2&h_1&h_2&A_g\\\hline
+1&-1&1&-1&1&-1\\
+2&1&1&-1&-1&-1\\
+3&1&-1&1&-1&-1\\
+4&-1&-1&1&1&-1
+\end{array}
+\end{equation}
+Cyclic shifts merely permute these four root words by
+Proposition~\ref{prop:A-reversal}(i). Consequently every root of every
+$\sigma^kK_0$ has value $-1$.
+\end{proof}
+
+\begin{theorem}[root independence]\label{thm:root-indep-proof}
+For every generic polygon $P$ and any two of its edges $g,h$, $A_g(P)=A_h(P)$.
+\status{new (round~4: the anchor parameter chosen below the geometric bound and the two root-specific soft bounds, F-25-119; the triangle value and the bow-tie table extracted to Lemma~\ref{lem:A-small-values} and the negative stars handled by reversal, F-25-117; Codex proposals P-25-23 and P-25-24 adopted or adapted)}
+\end{theorem}
+\begin{proof}
+Strong induction on $n$. The case $n=3$ follows from
+Lemma~\ref{lem:A-small-values}(i).
+
+Let $n\geq4$, let $P$ be generic of rotation $r$, and let $g\neq h$ be two
+edge labels. For a generic labelled tuple $Q$ with $n$ vertices put
+$\Delta_{gh}(Q)=A_g(Q)-A_h(Q)$. Choose a target $Z$ in the fibre $(n,r)$ as
+follows.
+\begin{itemize}
+\item If $(n,r)$ is not minimal: $Z$ is a zero anchor whose insertion vertex
+$j$ is chosen with $j\notin\{g,h\}$ (Proposition~\ref{prop:anchors-exist};
+there are $n-1\geq3$ choices of $j$). Its soft edge is $E_j(Z)$.
+Choose its parameter below the geometric bound of
+Definition~\ref{def:anchors} and below the two bounds in
+Theorem~\ref{thm:A-soft} for the roots $g$ and $h$.
+All three bounds are positive, so such a choice exists.
+\item If $(n,r)$ is minimal with $|r|\geq2$: $Z=K_r$.
+\item If $(n,r)=(4,0)$: $Z=K_0$.
+\end{itemize}
+Lemma~\ref{lem:transport} gives $k$ ($k=0$ in the first two cases) and a path
+from $P$ to $\sigma^kZ$ with finitely many simple walls. Along the path
+$\Delta_{gh}$ is constant: on generic segments by
+Proposition~\ref{prop:A-chamber}; at (T), (E), (C) by
+Theorem~\ref{thm:A-R3E}, which gives zero jump for each root separately; at a
+flat wall at $i$ the jump of $\Delta_{gh}$ is
+$A_{D_i(g)}(Q)-A_{D_i(h)}(Q)$ with $Q$ the generic deletion
+(Theorem~\ref{thm:A-S3}), which vanishes by induction; at a vertex--edge wall
+the jump is
+$s\bigl(A_{h_1}(\lambda_1)A_{h_2}(\lambda_2)-A_{h_1'}(\lambda_1)A_{h_2'}(\lambda_2)\bigr)$
+with $(h_1,h_2)=H(g)$, $(h_1',h_2')=H(h)$ and generic halves
+(Theorem~\ref{thm:A-S7}), which vanishes by induction applied to each half.
+Hence $\Delta_{gh}(P)=\Delta_{gh}(\sigma^kZ)$.
+
+At the target: in the non-minimal case $k=0$ and neither $E_g$ nor $E_h$ is
+the soft edge of $Z$, so Theorem~\ref{thm:A-soft} in the mixed sector gives
+$A_g(Z)=A_h(Z)=0$. For $Z=K_r$ with $r\geq2$: by Lemma~\ref{lem:star-generic}(i) and
+Proposition~\ref{prop:A-reversal}(i),
+$A_{g+1}(K_r)=A_g(\sigma K_r)=A_g(R(K_r))=A_g(K_r)$, the last step because
+every chirotope, hence every gate, is invariant under a rotation of the plane;
+so all roots of $K_r$ have one value. For $r\leq-2$, $K_r=\overline{K_{|r|}}$
+by Definition~\ref{def:star}, and Proposition~\ref{prop:A-reversal}(ii) gives
+$A_h(K_r)=(-1)^NA_{1-h}(K_{|r|})=-A_{1-h}(K_{|r|})$ with $N=2|r|+1$ odd; since
+$h\mapsto1-h$ is a bijection of $\ZZ/N$, all roots of $K_r$ have one value as
+well. Cyclic covariance, Proposition~\ref{prop:A-reversal}(i), covers every
+shift. For $Z=K_0$, Lemma~\ref{lem:A-small-values}(ii) gives $-1$ at every
+root of every shift. In every target case $\Delta_{gh}(\sigma^kZ)=0$.
+\end{proof}
+
+\begin{corollary}[$A$ is a chamber function on polygons]\label{cor:A-lawful}
+$A(P):=A_g(P)$ (any $g$) is well defined on generic polygons and satisfies:
+chamber constancy and silence (Proposition~\ref{prop:A-chamber},
+Theorem~\ref{thm:A-R3E}(ii)); the flat law
+$A(P_{\rm right})-A(P_{\rm left})=A(P(0)\setminus j)$; the cusp law
+$A(P_{\rm loop})-A(P_{\rm no})=-\kappa A(P(0)\setminus j)$ when the deletion
+satisfies (G1); the vertex--edge law $A(P_+)-A(P_-)=sA(\lambda_1)A(\lambda_2)$;
+the triple law $A(P_+)=A(P_-)$; the soft theorem
+$A(P_\varepsilon)=\frac{\chi_-+\chi_+}2A(P)$ in every sector; reversal
+$A(\overline P)=(-1)^nA(P)$; and $A(K_1)=-1$, $A(K_{-1})=+1$ on the
+counterclockwise and clockwise triangles. \status{new (round~4 assembly: Theorem~\ref{thm:root-indep-proof} (new) removes the root choice; Proposition~\ref{prop:A-reversal}(i),(ii), Theorems~\ref{thm:A-S3}, \ref{thm:A-S4}, \ref{thm:A-S7}, \ref{thm:A-R3E} and~\ref{thm:A-soft} refereed; Proposition~\ref{prop:A-chamber} proved; Lemma~\ref{lem:A-small-values} (new) supplies the triangle values; F-25-117)}
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:root-indep-proof} removes the root choice, and
+Proposition~\ref{prop:A-reversal}(i) gives cyclic descent.
+Theorems~\ref{thm:A-S3}, \ref{thm:A-S4}, \ref{thm:A-S7}, \ref{thm:A-R3E},
+\ref{thm:A-soft} (evaluated at any root other than the soft edge),
+Proposition~\ref{prop:A-reversal}(ii), and the triangle values in
+Lemma~\ref{lem:A-small-values}(i) give the listed laws and base values.
+\end{proof}
+
+\begin{corollary}[root independence and cyclic descent of the continuation]\label{cor:weak-root-indep}
+For $n\geq3$ and any two roots $g,h$, the continuations of
+Theorem~\ref{thm:A-continuation} satisfy $\widetilde A_g=\widetilde A_h$ on
+$\mathcal W_n$. For every root $g$ and every labelled weakly generic tuple
+$P$,
+\begin{equation}\label{eq:weak-root-covariance}
+\widetilde A_g(\sigma P)=\widetilde A_{g+1}(P),
+\end{equation}
+with root indices read modulo $n$; consequently
+$\widetilde A_g(\sigma P)=\widetilde A_g(P)$, and each $\widetilde A_g$ is
+a function on weakly generic polygons.
+\status{new (round~3; adapted from the Codex proposal cor:weak-root-indep, P-25-17, lane sm2\_integrated\_review\_v1, with bench~A's remark of 2026-09-05T18:31:35Z; no Hypothesis~R; F-25-68, F-25-41)}
+\end{corollary}
+\begin{proof}
+By Theorem~\ref{thm:root-indep-proof}, $A_g=A_h$ on $\mathcal U_n$. By
+Theorem~\ref{thm:A-continuation}, $\widetilde A_h$ is constant on visible
+chambers and agrees with $A_h=A_g$ on $\mathcal U_n$; the uniqueness clause
+of that theorem for the root $g$ gives $\widetilde A_h=\widetilde A_g$.
+
+The cyclic shift $\sigma$ permutes the coordinates of a labelled tuple, and
+every condition of Definition~\ref{def:weak} is a condition on the polygon:
+nonzero edge vectors and turns, no vertex on a nonincident closed edge,
+remote edges meeting at most once and transversally, and (G2) are all
+invariant under relabelling. Hence $\sigma$ and $\sigma^{-1}$ map
+$\mathcal W_n$ onto itself, are continuous, and permute its connected
+components, the visible chambers; likewise for $\mathcal U_n$. The
+function $P\mapsto\widetilde A_g(\sigma P)$ is therefore constant on every
+visible chamber, and at a generic tuple its value is
+$A_g(\sigma P)=A_{g+1}(P)$ by Proposition~\ref{prop:A-reversal}(i). The
+uniqueness clause of Theorem~\ref{thm:A-continuation} for the root $g+1$
+gives $\widetilde A_g\circ\sigma=\widetilde A_{g+1}$, which
+is~\eqref{eq:weak-root-covariance}. With the first assertion,
+$\widetilde A_g(\sigma P)=\widetilde A_{g+1}(P)=\widetilde A_g(P)$;
+iterating, $\widetilde A_g$ is invariant under every power of $\sigma$ and
+descends to the orbits of Definition~\ref{def:polygon}.
+\end{proof}
+
+\begin{definition}[the amplitude on the weakly generic locus]\label{def:weak-amplitude}
+For a weakly generic polygon $P\in\mathcal W_n$ put
+\begin{equation}\label{eq:weak-amplitude}
+A^{\rm cont}(P)=\widetilde A_g(P)\qquad(\text{any root }g),
+\end{equation}
+which is well defined on polygons by Corollary~\ref{cor:weak-root-indep}.
+On $\mathcal U_n$ it is the function $A(P)=A_g(P)$ of
+Corollary~\ref{cor:A-lawful}, by the agreement clause of
+Theorem~\ref{thm:A-continuation}. The main text's amplitude on its generic
+locus, which is $\mathcal W_n$ (Definition~\ref{def:weak}), is read as
+$A^{\rm cont}$. On the silent locus $\mathcal S_n$ this is a definition,
+not an identity with the tree sum of Definition~\ref{def:treesum}, which
+assigns no value to a gate at zero (Remark~\ref{rem:silent-amplitude}).
+\end{definition}
+
+\begin{corollary}[finite evaluation of the continuation]\label{cor:weak-amplitude}
+For every $P\in\mathcal W_n$ and every root $g$,
+\begin{equation}\label{eq:weak-amplitude-polynomial}
+A^{\rm cont}(P)=\mathsf A_g(\chi(P)),
+\end{equation}
+the polynomial form of Corollary~\ref{cor:polyform} evaluated at the
+chirotope of $P$, zero entries included. Moreover $A^{\rm cont}$ is the
+unique function on $\mathcal W_n$ that is constant on visible chambers and
+agrees with $A$ on $\mathcal U_n$.
+\status{new (round~3; adapted from the Codex proposal cor:weak-amplitude, F68-P2, P-25-17, with bench~A's correction of 2026-09-05T18:31:35Z; uses Corollary~\ref{cor:polyform}, tag \textsc{new}, whose two lemmas clear bench~A's referee, R-25-21; no Hypothesis~R; F-25-68); assembly: Definition~\ref{def:weak-amplitude}; Corollary~\ref{cor:polyform} new (its two lemmas refereed, R-25-21; its round-4 lemmas unrefereed); Theorem~\ref{thm:A-continuation} new; Corollary~\ref{cor:A-lawful} new (round~4)}
+\end{corollary}
+\begin{proof}
+By Definition~\ref{def:weak-amplitude}, $A^{\rm cont}(P)=\widetilde A_g(P)$,
+and Corollary~\ref{cor:polyform} identifies this with $\mathsf A_g(\chi(P))$
+on all of $\mathcal W_n$. For the uniqueness, $A^{\rm cont}$ is constant on
+visible chambers and agrees with $A=A_g$ on $\mathcal U_n$
+(Theorem~\ref{thm:A-continuation}, Corollary~\ref{cor:A-lawful}); any
+function with these two properties equals $\widetilde A_g=A^{\rm cont}$ by
+the uniqueness clause of Theorem~\ref{thm:A-continuation}.
+\end{proof}
+
+\subsection{Uniqueness}
+
+\begin{theorem}[uniqueness; Theorem~1 of the main text]\label{thm:uniqueness}
+Let $F$ be a function assigning an integer to every generic polygon of every
+arity $n\geq3$ and satisfying:
+\begin{enumerate}
+\item[(a)] $F$ is constant on chambers and unchanged across simple silent
+walls (types (E) and (C));
+\item[(b)] the flat law $F(P_{\rm right})-F(P_{\rm left})=F(P(0)\setminus j)$
+at every simple flat wall;
+\item[(c)] the vertex--edge law $F(P_+)-F(P_-)=s\,F(\lambda_1)F(\lambda_2)$
+at every simple vertex--edge wall, both branches;
+\item[(d)] $F(P_+)=F(P_-)$ at every simple triple wall;
+\item[(e)] the soft theorem $F(P_\varepsilon)=\frac{\chi_-+\chi_+}2F(P)$ for
+all small $\varepsilon$, at every soft insertion of an admissible vector into
+a generic polygon;
+\item[(f)] $F(K_1)=-1$ and $F(K_{-1})=+1$.
+\end{enumerate}
+Then $F(P)=A(P)$ for every generic polygon $P$. \status{new (round~4: the anchor step cites hypotheses (a) and (e), as Proposition~\ref{prop:anchor-values} now requires, F-25-119)}
+\end{theorem}
+\begin{proof}
+$A$ satisfies (a)--(f) by Corollary~\ref{cor:A-lawful}. Put $\Delta=F-A$, a
+function on generic polygons, and argue by strong induction on $n$.
+
+\emph{Base $n=3$.} The generic triangles form two chambers, the
+counterclockwise and the clockwise triangles, containing $K_1$ and $K_{-1}$
+respectively; by (a) and (f), $\Delta=0$ on both.
+
+\emph{Step.} Let $n\geq4$ and assume $\Delta=0$ on every generic polygon with
+fewer than $n$ vertices. Let $P$ be generic with $\rot(P)=r$, so that $(n,r)$
+is admissible, and let $Z$ be an anchor for $(n,r)$
+(Definition~\ref{def:anchors}, Proposition~\ref{prop:anchors-exist}).
+Lemma~\ref{lem:transport} gives a path from $P$ to $\sigma^kZ$, which as a
+path of polygons ends at $Z$, with finitely many simple walls of types (F),
+(V), (T), (E), (C). Between walls $\Delta$ is constant by (a); at (E), (C) it
+is unchanged by (a); at (T) by (d). At a flat wall at $j$ the jump of
+$\Delta$ is $\Delta(P(0)\setminus j)=0$ by induction, the deletion being
+generic with $n-1$ vertices. At a vertex--edge wall the jump is
+$s\bigl(F(\lambda_1)F(\lambda_2)-A(\lambda_1)A(\lambda_2)\bigr)
+=s\bigl(\Delta(\lambda_1)F(\lambda_2)+A(\lambda_1)\Delta(\lambda_2)\bigr)=0$
+by induction, the halves being generic with fewer than $n$ vertices. Hence
+$\Delta(P)=\Delta(Z)$. At the anchor, Proposition~\ref{prop:anchor-values}
+applies to $F$ and to $A$ (hypotheses (a) and (e),
+Corollary~\ref{cor:A-lawful}):
+for a zero anchor both values are $0$; for a loop anchor with parent $P'$
+(a generic polygon with $n-1$ vertices) and insertion vertex $j$,
+$F(Z)=\tau_j(P')F(P')$ and $A(Z)=\tau_j(P')A(P')$, and $\Delta(P')=0$ by
+induction. So $\Delta(Z)=0$ and $\Delta(P)=0$.
+\end{proof}
+
+\begin{remark}[what the theorem does not assume]
+No invariance under reversal is assumed. Cyclic relabelling is already
+built into $F$ being a function on polygons, and the two triangle values
+are prescribed separately. The cusp law is not assumed either; transport
+paths avoid cusps (Theorem~\ref{thm:relgp}). Anchor values follow from the
+soft theorem together with chamber constancy on the initial soft family.
+The prescribed values at the triangle stars $K_1$ and $K_{-1}$ are the
+base data; no value at a higher star or at the bow-tie is assumed.
+Those remaining values in Section~\ref{sec:anchors} are consequences.
+\end{remark}
+
+\begin{corollary}[uniqueness on the weakly generic locus]\label{cor:uniqueness-weak}
+For every $n\geq3$ let $F$ assign an integer to every weakly generic polygon
+in $\mathcal W_n$ (Definition~\ref{def:weak}). Suppose that $F$ is constant on
+every visible chamber and that its restrictions to the generic loci
+$\mathcal U_n$, for all arities, satisfy (a)--(f) of
+Theorem~\ref{thm:uniqueness}. Then $F(P)=\widetilde A_g(P)$ for every
+$P\in\mathcal W_n$ and every root $g$; in particular the continuation
+$\widetilde A_g$ of Theorem~\ref{thm:A-continuation} does not depend on $g$.
+\status{new (author, round 1; adapted from bench A P-25-4 item 13 and Codex P-25-9; F-25-41); assembly: Theorems~\ref{thm:uniqueness}, \ref{thm:root-indep-proof} and~\ref{thm:A-continuation} new (bench~A cleared the first two on their own arguments on SM3, the third read in full on SM2)}
+\end{corollary}
+\begin{proof}
+By Theorem~\ref{thm:uniqueness}, $F=A$ on every $\mathcal U_n$, and by
+Theorem~\ref{thm:root-indep-proof}, $A=A_g$ there for every root $g$. Fix a
+root $g$. By Theorem~\ref{thm:A-continuation}, $\widetilde A_g$ is the unique
+function on $\mathcal W_n$ that is constant on visible chambers and agrees
+with $A_g$ on $\mathcal U_n$. The function $F$ is constant on visible chambers
+by hypothesis and agrees with $A_g$ on $\mathcal U_n$ by the first sentence;
+hence $F=\widetilde A_g$ on $\mathcal W_n$. The left side does not involve
+$g$, so $\widetilde A_g=\widetilde A_h$ for any two roots $g,h$.
+\end{proof}
+
+\begin{remark}[the weak-locus hypothesis; Theorem~1 of the main text]
+The main text's Theorem~1 concludes on its generic polygons, which are the
+weakly generic polygons of Definition~\ref{def:weak}, and its
+chamber-constancy hypothesis is constancy on the visible chambers. Taking
+any root $g$ in Corollary~\ref{cor:uniqueness-weak} and
+Definition~\ref{def:weak-amplitude} gives $F=A^{\rm cont}$ on
+$\mathcal W_n$: the corollary is the form in which
+Theorem~\ref{thm:uniqueness} covers the main text's statement, its
+amplitude at a silent configuration being read as the continuation, which
+is how this document defines it (Remark~\ref{rem:silent-amplitude}); no
+gate is evaluated at zero. Constancy on the chambers of $\mathcal U_n$
+alone would leave the values of $F$ on the silent locus unspecified. The
+common value is also the polynomial value $\mathsf A_g(\chi(P))$ by
+Corollary~\ref{cor:weak-amplitude}, which is not used in the proof.
+\end{remark}
+
+\subsection{The comparison theorem}
+
+\begin{theorem}[comparison]\label{thm:comparison}
+Assume Hypothesis~R. Then $C(P)=A(P)$ for every generic polygon $P$.
+\status{new (assembly; Proposition~\ref{prop:C-silent}, Theorems~\ref{thm:C-S3} and~\ref{thm:C-S7} refereed; Proposition~\ref{prop:C-chamber} and Lemma~\ref{lem:corner-values} held; Theorem~\ref{thm:C-soft} new (round~4), unrefereed; Theorem~\ref{thm:uniqueness} new; conditional on Hypothesis~R; round~5: hypothesis (d) discharged by citing Hypothesis~\ref{hyp:R} by label, so that the ordering instrument records the consumption, F-25-160)}
+\end{theorem}
+\begin{proof}
+$C$ satisfies (a)--(f) of Theorem~\ref{thm:uniqueness}: (a)
+Propositions~\ref{prop:C-chamber}, \ref{prop:C-silent}; (b)
+Theorem~\ref{thm:C-S3}; (c) Theorem~\ref{thm:C-S7}; (d) Hypothesis~\ref{hyp:R}; (e)
+Theorem~\ref{thm:C-soft}; (f) Lemma~\ref{lem:corner-values}(i)
+gives corner coefficient $1$ for either oriented triangle. Its only
+decomposition is empty, so Definition~\ref{def:C} gives $-1$ when
+$\ell=3$ and $+1$ when $\ell=0$, as required.
+\end{proof}
+
+\begin{corollary}[laws inherited by $C$]\label{cor:C-inherits}
+Under Hypothesis~R, $C$ satisfies every identity of
+Corollary~\ref{cor:A-lawful} on the domains stated there, in particular
+the cusp law
+$C(P_{\rm loop})-C(P_{\rm no})=-\kappa\,C(P(0)\setminus j)$.
+\status{new (printed in round~1, C013; restricted to Corollary~\ref{cor:A-lawful}, F-25-11; round~3: proof completed with the domain checks on bench~A's named step, adapted from the Codex proposal P-25-19, F-25-11)}
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:comparison} identifies $C$ with $A$ on every generic
+polygon, and Definition~\ref{def:C} defines $C$ on generic polygons only;
+so before $C=A$ is substituted in an identity of
+Corollary~\ref{cor:A-lawful}, every argument of that identity must be
+shown generic. The two sides of a wall germ are generic by
+Definition~\ref{def:germ}. At a simple flat wall the deletion
+$P(0)\setminus j$ is generic by Lemma~\ref{lem:children}(i), and at a
+simple vertex--edge wall both halves are generic by
+Lemma~\ref{lem:children}(ii). The soft family $P_\varepsilon$ is generic
+for all sufficiently small $\varepsilon>0$ in every sector by
+Lemma~\ref{lem:soft-generic}. Reversal permutes the vertex triples and
+preserves the edge segments, so it preserves (G1) and (G2). The two
+triangles $K_{\pm1}$ are generic by Lemma~\ref{lem:star-generic}(iii).
+
+For the cusp law let the simple cusp wall be at $j$ and write
+$A=\mu_{j-1}(0)$, $M=\mu_j(0)$ and $B=\mu_{j+1}(0)$. The deletion
+$Q=P(0)\setminus j$ has the vertices $\mu_i(0)$, $i\neq j$, and its edges
+are the parent edges $E_i(0)$, $i\notin\{j-1,j\}$, together with the fused
+edge $[A,B]$; it satisfies (G1) by the hypothesis of the cusp law. For (G2):
+by Definition~\ref{def:walls}(K) the three points are collinear with $M$
+outside the closed segment $[A,B]$, so $[A,B]$ is contained in the longer of
+$[A,M]=E_{j-1}(0)$ and $[M,B]=E_j(0)$, and its relative interior in the
+relative interior of that edge. Suppose three distinct edges of $Q$ had a
+common point in their relative interiors. Two adjacent edges of $Q$ are not
+collinear, by (G1) for $Q$, and so meet only at their common vertex; hence
+the three edges are pairwise remote in $Q$. Send the fused edge, if it is
+among them, to the longer parent edge containing it, and every other edge
+to itself. This map is injective, since neither $E_{j-1}(0)$ nor $E_j(0)$
+is an edge of $Q$, and the common point lies in the relative interiors of
+the three image edges. The image edges are pairwise remote in $P(0)$: two
+surviving edges are adjacent in $P(0)$ exactly when they share a vertex,
+which is a vertex of $Q$, hence exactly when they are adjacent in $Q$; and
+the parent neighbours of the longer cusp edge are the other cusp edge,
+which is not an edge of $Q$, and one of the two edges of $Q$ adjacent to
+the fused edge, both excluded because the three edges are pairwise remote
+in $Q$. This is a point in the relative interiors of three pairwise remote
+edges of the centre, contrary to $Z_{\rm c}=\varnothing$ in
+Definition~\ref{def:walls}(K). Thus $Q$ is generic; the argument does not
+require the cusp to be empty.
+
+Now apply each identity of Corollary~\ref{cor:A-lawful} to its stated
+arguments and substitute $C=A$ at every one of them, including the
+deletions and halves just checked. For a chamber-side identity each
+sufficiently small punctured side lies in one generic chamber, on which
+$C=A$ holds pointwise, so the constant side values of $C$ and of $A$
+agree; no value at the wall centre and no limit is used. This gives every
+identity for $C$ on the domain stated in Corollary~\ref{cor:A-lawful},
+including the displayed cusp law.
+\end{proof}
+
+\begin{corollary}[comparison on the weakly generic locus]\label{cor:comparison-weak}
+Assume Hypothesis~R. Then $C(P)=A^{\rm cont}(P)$ for every weakly generic
+polygon $P\in\mathcal W_n$, with $C$ the state sum of
+Definition~\ref{def:C-weak} and $A^{\rm cont}$ the continuation of
+Definition~\ref{def:weak-amplitude}.
+\status{new (round~3; adapted from the Codex proposal W-P3, P-25-13, lane sm2\_weak\_c\_v1; conditional on Hypothesis~R; F-25-90); assembly: Theorem~\ref{thm:comparison} new, conditional; Theorem~\ref{thm:root-indep-proof} new; Lemma~\ref{lem:C-weak-local} new (cleared by bench~A on SM4, R-25-36); Theorem~\ref{thm:A-continuation} new}
+\end{corollary}
+\begin{proof}
+On $\mathcal U_n$, Theorem~\ref{thm:comparison} gives $C=A$, and $A=A_g$
+for every root $g$ by Theorem~\ref{thm:root-indep-proof}. By
+Lemma~\ref{lem:C-weak-local}, $C$ is constant on every visible chamber of
+$\mathcal W_n$. Fix a root $g$. The uniqueness clause of
+Theorem~\ref{thm:A-continuation} identifies every function on
+$\mathcal W_n$ that is constant on visible chambers and agrees with $A_g$
+on $\mathcal U_n$ with $\widetilde A_g=A^{\rm cont}$; hence
+$C=A^{\rm cont}$. No identification of a value at a silent configuration
+with the tree sum of Definition~\ref{def:treesum} is used.
+\end{proof}
+
+\begin{remark}[Dependence on Hypothesis R]\label{rem:conditional}
+The printed rooted tree laws, root-independence, uniqueness and the
+continuation (Corollaries~\ref{cor:weak-root-indep}
+and~\ref{cor:weak-amplitude}) do not use Hypothesis~\ref{hyp:R}.
+Theorem~\ref{thm:comparison}, Corollary~\ref{cor:C-inherits} and
+Corollary~\ref{cor:comparison-weak} do use it. A later transfer from a
+value of $C$ to a value of $A$ through that comparison has the same
+condition. The independent source premises in the registry remain
+explicit. The polynomial identification of Corollary~\ref{cor:polyform} on
+all of $\mathcal W_n$ and the linear relations of
+Section~\ref{sec:relations} are printed with the tag \textsc{new}; their
+proofs were assembled in round~1 of Phase~2.5, the two lemmas of the former
+were refereed by bench~A on SM2 (ledger row F-25-25, closed by ruling
+R-25-21), and the exception request of decision item D3 for the latter was
+withdrawn (ruling R-25-17: the former step~(ii) is obviated, not proved).
+\end{remark}

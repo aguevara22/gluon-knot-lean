@@ -1,0 +1,294 @@
+{
+  "review_schema": "independent-partial-source-review-v1",
+  "id": "transport-coefficients-partial",
+  "source_id": "lem:transport-polynomials",
+  "reviewer": "review_chirotope-independent-20260910",
+  "verdict": "partial",
+  "implemented_scope_verdict": "faithful",
+  "source_claim_accepted": false,
+  "statement_sha256": null,
+  "source": "reference/SM/sm-1-polygons.tex",
+  "source_lines": "1292–1383, especially remaining-coordinate coefficients, slopes, resultants and specialized roots at 1306–1314 and 1369–1383",
+  "source_sha256": "8bc30167c9cde79c3eb4b9cf52052f81f040ec91490f49517b9f1b7ad0333a00",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "review_flags_scope": "The five implemented modules and the explicit hypotheses of their conditional theorems only. In particular the generic resultant theorem does not discharge concrete family nonassociation; the full original source lemma is not accepted.",
+  "reason": "Faithful partial implementation of the printed remaining-variable coefficient and root clauses. The chosen scalar is isolated by an actual algebra equivalence, with every other coordinate retained in the exact subtype-indexed multivariate coefficient ring. Affinity yields the proved coefficient decomposition; actual formal dependence yields a nonzero formal slope. Irreducibility and nonassociation explicitly imply a nonzero remaining-variable resultant. Actual real specializations with nonzero evaluated slope have one root of multiplicity one, and nonzero evaluated resultant excludes common roots without any added slope premise. The geometric wrapper changes exactly one scalar coordinate of an actual labelled tuple and proves equality with the existing area and line-concurrence evaluations. Source, full new-module bodies, imported meanings and the compiled types were reviewed independently. The finite named family and its concrete nonassociation are still unproved, so none of these conditional results is treated as acceptance of the complete source row.",
+  "mathematical_justification": [
+    {
+      "clause": "Exact remaining-variable ring and algebra equivalence",
+      "assessment": "RemainingPolynomial i is MvPolynomial {j : σ // j ≠ i} ℝ. isolateCoordinate is the composition of a genuine renaming equivalence with the pinned option-variable equivalence to Polynomial (RemainingPolynomial i). The selected variable maps to ordinary X; every other scalar maps to C of its corresponding subtype variable. Constants, inverse C/X images and generator maps are proved. embedRemaining is rename by Subtype.val, proved injective and independent of i. Its isolation equals C, and its evaluation is the restriction of the full assignment. This retains all unused variables and does not assume a coefficient-ring or coordinate-change axiom."
+    },
+    {
+      "clause": "Affine decomposition and nonzero slope",
+      "assessment": "coordinateSlope and coordinateIntercept are coefficients 1 and 0 of the actual isolated polynomial. isolateCoordinate_natDegree identifies its univariate degree with the original degreeOf i. The pinned degree-at-most-one coefficient identity gives C(slope)*X+C(intercept); the algebra equivalence transports it back to the original ring. For i in p.vars, a zero slope would make that isolated polynomial constant, hence degreeOf i p = 0, contradicting actual formal dependency. Nonzero formal slope is not asserted to have a nonzero value at every specialization."
+    },
+    {
+      "clause": "Nonzero resultant under explicit irreducibility and nonassociation",
+      "assessment": "The stronger helper assumes a ≠ 0, i absent from a and b, irreducibility of F = a*X i+b and G = c*X i+d, and not Associated F G. It needs genuine degree one only for F. If ad−bc=0 then cF=aG, so F divides aG. In the actual polynomial unique factorization domain, irreducible F is prime. Its i-degree is one, whereas nonzero a has i-degree zero; the degree bound therefore rules out F dividing a. Primality forces F to divide G, and irreducibility of both forces association, a contradiction. The wrapper coordinateResultant_ne_zero works in the exact remaining-variable ring and uses both affine decompositions, actual i-membership in p.vars, embedding injectivity, and the explicit irreducibility/nonassociation premises. Its resultant is exactly slope(p)*intercept(q)−intercept(p)*slope(q). This is a complete proof of the conditional algebraic claim, not an assumption that distinct concrete family members are nonassociate."
+    },
+    {
+      "clause": "Unique simple real root and no common root",
+      "assessment": "For realAffinePolynomial a b = C a*X+C b and a ≠ 0, IsRoot t is equivalent to t=−b/a. Its rootMultiplicity at that value is proved equal to one using the exact factorization C a*(X−C r), nonzeroness of the product, multiplicity of a nonzero constant, and multiplicity of X−C r. The no-common-root theorem assumes only ad−bc ≠ 0: two root equations imply determinant zero by their linear combination. It adds no nonzero-slope assumption and correctly includes the cases where one polynomial is a nonzero constant."
+    },
+    {
+      "clause": "Actual specialization with the selected variable still free",
+      "assessment": "extendCoordinateAssignment sets i to the selected real t and every other coordinate to its subtype assignment; self, other and reconstruction identities are proved. specializeCoordinate first isolates the chosen variable and then maps the coefficient ring by eval η, so the result is an actual real univariate polynomial. Under affinity it equals the real affine polynomial formed from evaluated slope and intercept, and its evaluation at t equals full multivariate evaluation at the extended assignment. With evaluated slope nonzero the package gives a root, uniqueness for every real t, and actual rootMultiplicity one. With evaluated resultant nonzero and the affine degree bounds it excludes common roots, without extra irreducibility, nonassociation or slope premises at this specialization step. A formally nonzero resultant is carefully distinguished from a nonzero value at a given assignment."
+    },
+    {
+      "clause": "One scalar coordinate of a genuine geometric tuple",
+      "assessment": "tupleScalarSpecialization reconstructs an actual LabelledTuple from the extended scalar assignment. It restores P at its original scalar value, sets exactly the selected scalar coordinate to t, and fixes every other scalar including the other component of the same vertex. The area wrapper evaluates the actual determinant of point differences for that changed tuple. The concurrence wrapper evaluates the existing concurrenceDet, with the pairwise-remoteness conditions used only to supply the already-proved coordinate affinity. No Generic or regularity hypothesis is imposed on the changed tuple, and changing one scalar is never replaced by changing a whole vertex."
+    }
+  ],
+  "not_certified": [
+    "The concrete finite family with one ordered representative for each unordered eligible support, and every concrete nonassociation case, remain outstanding. This includes the exceptional same-six-vertex-support case discussed in the source.",
+    "The explicit Irreducible p/q and not Associated p q premises in the conditional resultant theorem are not silently discharged for the still-unassembled concrete family.",
+    "The whole original lem:transport-polynomials remains pending; this partial unit adds no original proof or checklist count.",
+    "No main wall law, soft theorem or completed formalization stage is certified."
+  ],
+  "new_module_files_sha256": {
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab"
+  },
+  "import_closure_root": "SM.GeometricCoordinateSpecialization",
+  "import_closure_file_count": 28,
+  "reviewed_files_sha256": {
+    "work/lean/SM/AffineResultant.lean": "ed4f2f2d8668d7f7e431d63f07bba1a618a02c9771460c1420383a4ba0d8d160",
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/CoefficientSpecialization.lean": "feaa5892e5a51e79f07e81288ac0d89eee2c6e077e8996584c831cb082494c1b",
+    "work/lean/SM/ConcurrenceAffinity.lean": "8a7a5976006fa5a5f5d4fd2574dfca8afe75047b6d953ffc9da634225ae74ed3",
+    "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+    "work/lean/SM/CoordinateAffinity.lean": "6c1ff0520c96a315e547ce5f2ea2620cfc6e8562bea8c7d6b4bcccd00cac9d73",
+    "work/lean/SM/CoordinateIsolation.lean": "647cd4bd9601eb28f602cea6cf8a49d2a524205cbbcddd1aa680818f6fdd04d4",
+    "work/lean/SM/CoordinatePolynomials.lean": "cde7e4442ed188cefafc3f81791896c2898ebf0913cd135c6fb98f296d55bee9",
+    "work/lean/SM/CrossingCriterion.lean": "855c16a0d99ed9abb634a5494f7e30d947d68592d4f2878762b5ecd6c8aef648",
+    "work/lean/SM/CrossingEquiv.lean": "a505d6a14ecc81ff72512016a68817d70fec010e12722b08f4b6c8b10f132055",
+    "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+    "work/lean/SM/DeterminantPolynomial.lean": "da3b22981f245ad53b1c62e97f03af1eeb3a400d9b3fdd5368a7a4c5d0123fa5",
+    "work/lean/SM/DirectionPolynomials.lean": "c3ec7245fb70565d1a9c456ea52f2f197b38a1577528a719b9008a35b65bbae6",
+    "work/lean/SM/FirstTwoLinePolynomials.lean": "8b719b698aed0320b255deba0a6969143c81ddcf530e8f0e4947a16d9eb8de8d",
+    "work/lean/SM/G1Consequences.lean": "61debba77e41a48207c8d01bdeb113ee05048ec5f1f8a5868588fcf4601a4763",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/GenericTopology.lean": "040360bc1e5bd08f2fc1c8d4ea1d2d673f83bd59589dd1206c1d9547d51842ea",
+    "work/lean/SM/GeometricCoordinateSpecialization.lean": "bb5428be789dc9b21cb25f9d7804d05886f714c79bcc0c68f5c2a80b6dbf8bab",
+    "work/lean/SM/LineConcurrence.lean": "ef7a863ca806779f0ca56d8dfccd23b1b4b0b0e8eb5654cb8dd3b38f0dbde8d8",
+    "work/lean/SM/LinePolynomials.lean": "1823b1bdb8ce86b59a0b29a3765d19a5fdee8722b2ec31b3cc78dbe5c8ee5fea",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/PolynomialAvoidance.lean": "1ce818995ea5d7201384179af6fead8ada7fa4942175783a18074eda25b6bacb",
+    "work/lean/SM/PolynomialLinearCore.lean": "b94c9c9a1387f66c8aa09531dc0e84449673737da467bee3f511de49098dbfc6",
+    "work/lean/SM/PolynomialShear.lean": "335c85ad34f4c6d9519f297c03fe426c6ae8e5a8dcf846ef88f24fdd53433e90",
+    "work/lean/SM/RealAffineRoots.lean": "498af541b33176d6cc4d7dec6701eff892c54e8e363c148f01a617f8562c238e",
+    "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+    "work/lean/SM/SegmentStability.lean": "9a6cea7cc27227212a23856056f9b07c4a09cc1d48f6f7e214a9381ffc07a0e4",
+    "work/lean/SM/WallSegmentStability.lean": "2780b5212553bca3f703e6c3c9fe37393ebd872ec729980a5eae884039f646aa"
+  },
+  "inherited_closure_review_coverage": {
+    "previously_reviewed_inherited_files": 23,
+    "new_files": 5,
+    "all_inherited_hashes_match_previous_independent_review_inventories": true,
+    "note": "The closure uses the prior affinity, actual coordinate/line models and geometric evaluation definitions. ConcurrencePolynomialIrreducible is not in this import closure; irreducibility and nonassociation are explicit inputs of the generic resultant theorem."
+  },
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    },
+    "pinned_library_files_sha256": {
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Equiv.lean": "3e2ef0b3cfa3713e0e56b21ad0eb753d4b178c8c5752b81b8d854591a6159d54",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/Degree/SmallDegree.lean": "46ade3e5c8c6334c08cc2e6a1ffa22f5325f1758be9ce268b4de423b512596f7",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean": "0d8d1e338df392f891387c11880f9ce75af5dd87425aad581460fc9d82d5fdfe",
+      "work/lean/.lake/packages/mathlib/Mathlib/RingTheory/Polynomial/UniqueFactorization.lean": "e7b6599d144797c866f33aeec3454d88913e4de349a440d8309a80a2c5182f66"
+    },
+    "library_files_verified_against_pinned_git_revision": true,
+    "library_review_scope": "Inspected the actual option equivalence and inverse/generator proofs, the small-degree affine coefficient decomposition, and nonzero-product root-multiplicity lemmas. The unique factorization import is additionally hash-bound and used through its checked typeclass consequences; no claim of reviewing every line of that file is made."
+  },
+  "evidence": {
+    "independent_trace_source": "work/checks/transport-coefficients-review-types.lean",
+    "independent_trace_source_sha256": "8b4bcc523ce6f9b66b0728c594dc0fc552cf20e16c2b86a980edd37f79d9031d",
+    "independent_trace_log": "work/checks/transport-coefficients-review-types.log",
+    "independent_trace_log_sha256": "e1f6a5e9db40721cb30a42923a6989d88fd73df230c96b2c4fba61249fa1d7a9",
+    "independent_kernel_command": "lake env lean ../checks/transport-coefficients-review-types.lean",
+    "independent_kernel_session": 43988,
+    "independent_kernel_exit_code": 0,
+    "declaration_axioms": {
+      "SM.isolateCoordinate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isolateCoordinate_X_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isolateCoordinate_X_other": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isolateCoordinate_embedRemaining": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.isolateCoordinate_natDegree": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.embedRemaining_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.embedRemaining_avoids": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinate_affine_decomposition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateSlope_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.affine_polynomial_resultant_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.coordinateResultant_ne_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_root_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_simple_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.realAffinePolynomial_no_common_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_eval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_simple_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_no_common_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarSpecialization_base": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarSpecialization_self": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tupleScalarSpecialization_other": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_area_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.specializeCoordinate_concurrence_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "successful_build_logs_sha256": {
+      "work/checks/affine-resultant-build.log": "1ec98d9ee35e73f3e49cc435756341ab7c248981eac6064607697914f1b6a26c",
+      "work/checks/coefficient-specialization-build.log": "a4e9455bb163d4b74083c72f32700131a576282d2a7c1badf730e1af634d9d53",
+      "work/checks/geometric-coordinate-specialization-build.log": "ce02f2fca80db4640f549806cf477c255b91f87df675a4ab04b800c2f6b34e90"
+    },
+    "successful_build_sessions": [
+      64921,
+      57844,
+      73045
+    ],
+    "successful_build_exit_codes": [
+      0,
+      0,
+      0
+    ]
+  },
+  "principal_declarations_inspected": [
+    "SM.isolateCoordinate",
+    "SM.isolateCoordinate_X_self",
+    "SM.isolateCoordinate_X_other",
+    "SM.isolateCoordinate_embedRemaining",
+    "SM.isolateCoordinate_natDegree",
+    "SM.embedRemaining_injective",
+    "SM.embedRemaining_avoids",
+    "SM.coordinate_affine_decomposition",
+    "SM.coordinateSlope_ne_zero",
+    "SM.affine_polynomial_resultant_ne_zero",
+    "SM.coordinateResultant_ne_zero",
+    "SM.realAffinePolynomial_root_iff",
+    "SM.realAffinePolynomial_simple_root",
+    "SM.realAffinePolynomial_no_common_root",
+    "SM.specializeCoordinate_eval",
+    "SM.specializeCoordinate_simple_root",
+    "SM.specializeCoordinate_no_common_root",
+    "SM.tupleScalarSpecialization_base",
+    "SM.tupleScalarSpecialization_self",
+    "SM.tupleScalarSpecialization_other",
+    "SM.specializeCoordinate_area_value",
+    "SM.specializeCoordinate_concurrence_value"
+  ],
+  "receipt_binding": {
+    "receipt": "work/checks/checkpoint-050-output.json",
+    "receipt_sha256": "735f7f3808637e37001a3bb2c851661b48b3aef1f6e13b557aa13e75f3f57538",
+    "stage_development_byte_identical": true,
+    "passed": true,
+    "stage_accepted": false,
+    "SM_module_count": 242,
+    "local_declaration_count": 2554,
+    "mapped_claim_count": 29,
+    "project_file_count": 248,
+    "frozen_file_count": 38,
+    "exact_Lean_inventory_count": 244,
+    "all_project_and_frozen_hashes_independently_recomputed": true,
+    "prior_237_SM_files_unchanged": true,
+    "declaration_audit": "work/checks/declaration-audit.json",
+    "declaration_audit_sha256": "3b8891f78513a32d3e9f41b743f82eddd47b4cf6146fea14d9aeb2687d72ee21",
+    "scope": "Successful whole-project development audit only; this partial report claims no complete source-row semantic acceptance hash."
+  },
+  "accounting": {
+    "original_proof_increment": 0,
+    "original_checklist_increment": 0
+  },
+  "independence": "Reviewer authored no theorem-library implementation. Only independent check evidence and this partial review report were written.",
+  "edits": "No Lean theorem-library, frozen-source, declaration-map or progress-metadata edits."
+}

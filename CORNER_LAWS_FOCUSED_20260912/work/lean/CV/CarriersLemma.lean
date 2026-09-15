@@ -1,0 +1,450 @@
+import CV.Carriers
+import SM.GeoCarrierCrossings
+import SM.GeoCarrierNoncrossing
+
+/-! Ported 2026-09-14 from work/drafts/cvdom/U7b/CVCarriersLemma.lean (CV-DOM unit U7b, decision work/drafts/cvdom/DECISION_FINAL.md: CV:lem:carriers on its printed Diagrammatic binder over the accepted geo carrier layer; REPORT.md in the same directory). Row CV:lem:carriers, main declaration `CV.carriers` (bundle `CV.CarriersData`). Only this header added. -/
+
+/-! # CV/CarriersLemma.lean — CV:lem:carriers (136) on the accepted geometric carrier layer
+(CV-DOM unit U7b)
+
+Written 2026-09-14 by a Claude Code prover subagent of the pod executor, for the CV-DOM decision
+(work/drafts/cvdom/DECISION_FINAL.md §0 option (C), §2 fidelity + the three documented readings,
+§3 rulings R1–R5, §4 review-note template, §5 unit U7b, §6 order of rows). Draft home
+work/drafts/cvdom/U7b/CVCarriersLemma.lean; intended home work/lean/CV/CarriersLemma.lean (after
+CV/Carriers.lean, the row module of CV:def:smoothing / def:wind / def:pieces, whose auxiliary
+notions `Piece`, `pieceOf`, `pieceLabels`, `piecesOn` this module consumes). Source:
+reference/R/CV/d1_setup.tex (frozen) 362–378 (the statement) and 379–449 (its proof, read for the
+conventions only).
+
+Row declaration: `CV.carriers hD S hS : CV.CarriersData hD S hS` (136, a PROVE row). Each field of
+`CarriersData` renders one printed clause and quotes it: the setup sentence on the traversal circle
+`Γ`, then (i)–(iv).
+
+## Binder (as printed; DECISION_FINAL §2 "Fidelity", no domain change)
+
+"Let `P` be diagrammatic (Definition def:diagrammatic) and `S ∈ Ind(G_P)` — genericity is not needed
+here and an earlier revision assumed it; what the argument reads is the Gauss word." (d1:362–365.)
+So `hD : CV.Diagrammatic P` and `hS : S ∈ CV.Ind hD.crossingGeometry` (the accepted CV:def:interlace;
+ruling R2: `CV.mem_Ind_iff_geoIndependent` turns it into the geo lane's `GeoIndependent`). No
+`hn : 3 ≤ n` anywhere: none of the geo lemmas consumed here takes it (ruling R5; the §5 targets
+`geoComponent_card hn`, `geo_noncrossing hn`, `geo_nonneighbor_visits_together hn` carry an unused
+`hn` for the §5 binder list, and their `hn`-free bodies `geoComponent_card_independent`,
+`geo_carriers_noncrossing_visits`, `geo_unselected_nonneighbor_both_visits_one_carrier` are used).
+
+## Review note (DECISION_FINAL §4, filled in)
+
+Stated on the printed binder (`hD : CV.Diagrammatic P`, `S ∈ Ind(G_P)`); no domain change (CV-DOM
+decision, AUTHOR_NOTES 2026-09-14). The carriers and their marks are the accepted `SM.GeoCarrier`
+objects (def:flat-carriers, SM/FlatCarriersDefs.lean) read through `hD.crossingGeometry`;
+`Ind(G_P)` is the accepted `CV.Ind` (CV:def:interlace). On SM-generic polygons these are the
+accepted def:smoothing / lem:carriers objects by `geoSmoothingSuccessor_eq_generic`,
+`geoComponentEquivGeneric`, `geoComponentCornerList_eq_generic` (FlatCarriersDefs.lean:638–724).
+The ownership of the two visits of a selected crossing follows SM conv:selected-visits
+(`SM.selected_visits_convention`, the same `selectedMarkPerm`: a mark keeps its own cycle, the arc
+arriving at a selected visit `v` continues along the arc leaving `visitTwin v`), a disambiguation
+the CV text leaves implicit. The reviewer checks: same binder as printed, same quantifiers, each
+printed sentence = one bundle field, and that the `geo*` object named in each field is the one the
+sentence describes.
+
+## Printed notions → Lean (write `hP := hD.crossingGeometry`)
+
+* the traversal circle `Γ` with its traversal map `Γ → ℝ²`: `TraversalPoint n` with
+  `traversalEvaluation P` (SM/Traversal.lean); its strict oriented cyclic order — the only thing the
+  lemma reads on `Γ` ("no coordinate is placed on `Γ`") — is `traversalBetween p q r` ("`q` lies
+  strictly between `p` and `r` going around once"); "`u₁, u₂, u₃, u₄` in this cyclic order" is
+  `traversalBetween u₁ u₂ u₃ ∧ traversalBetween u₃ u₄ u₁`, the shape of the accepted
+  `SM.CarriersLemmaData.noncrossing` (SM/CarriersLemma.lean).
+* the `2m` marked points ("each double point of `P` has exactly two preimages"): the visits
+  `Visit P = Σ c : Crossing P, {i // i ∈ c.val}` at their positions `geometricVisitPosition hP`
+  (accepted, SM/GeometricVisits.lean); `[m] = Crossing P`; the two preimages of `c` are
+  `⟨c, i⟩`, `⟨c, j⟩` for the two edges `i ≠ j` of `c` (`crossing_visits_exist/_exhaust`), and the
+  fibre of the traversal map over `crossingPoint c` is exactly these two positions
+  (`traversalEvaluation_eq_crossingPoint_iff`, tier 1: a third preimage would be a vertex on a
+  non-incident edge or a triple concurrence).
+* "the oriented smoothing of `P` along `S`" and its carriers: CV:def:smoothing (row 135,
+  `CV.smoothing_definition`) — the cycles `GeoComponent hP S` of `ρ_S = geoSmoothingSuccessor hP S`;
+  "a point `u` (a visit) lies on the carrier `L`" is `geoOwner hP S (Sum.inr u) = L`
+  (conv:selected-visits ownership at the selected visits).
+* "non-adjacent in `G_P` to every element of `S`": `∀ y ∈ S, ¬ GeometricInterlaces hP c y`
+  (accepted CV:def:interlace, `geometricInterlacementGraph`), i.e. `c ∈ CV.U hP S` when also
+  `c ∉ S` (`CV.mem_U_iff`).
+* "a connected component `H` of the induced graph `G_P[[m] ∖ (S ∪ N_{G_P}(S))]`": `CV.Piece hP S`
+  (row 139, `SimpleGraph.ConnectedComponent` of `CV.residualGraph hP S =
+  (geometricInterlacementGraph hP).induce ↑(U hP S)`, `U hP S = univ \ (S ∪ N hP S)`); "`c ∈ H`"
+  is `c ∈ CV.pieceLabels hP S H`.
+
+## Proof sources
+
+(i) `SM.GeoCarrier.geoComponent_card_independent` (U1a, SM/GeoCarrierCount.lean); (ii)
+`geo_carriers_noncrossing_visits` (U2a, SM/GeoCarrierNoncrossing.lean; the printed restriction
+"none a preimage of an element of `S`" is dropped by the lane — the geo statement covers selected
+visits too, `carriers_noncrossing_marks` below); (iii)
+`geo_unselected_nonneighbor_both_visits_one_carrier` (U2a, SM/GeoCarrierCrossings.lean §6); (iv) NEW
+here (the cv-lane plan's gap G3): the connectivity induction `owner_eq_of_walk` on a
+`SimpleGraph.Walk` in `G_P[U(S)]` — the step is the printed one (d1:426–433): adjacent `c, c'` in
+`G_P[U(S)]` interlace, so their four visits alternate on `Γ` (this IS the accepted definition
+`GeometricInterlaces`: `geometricCrossingVisitBetween hP c x₀ x₁ c' y₀ ∧ … x₁ x₀ c' y₁`), none is a
+selected visit (`c, c' ∈ U(S)`), (iii) puts the two visits of `c` on one carrier and those of `c'`
+on one carrier, and (ii) in its positive form (`geo_carriers_noncrossing_owner_eq`) forces the two
+carriers to coincide; constancy along a walk follows by induction, and `SimpleGraph.ConnectedComponent.eq`
+turns "same component" into a walk. Uniqueness "because it is a function" (d1:435): the carrier is
+determined by any one visit of any one `c ∈ H`.
+
+Checked with `cd work/lean && lake env lean ../drafts/cvdom/U7b/CVCarriersLemma.lean`. -/
+
+namespace CV
+
+open SM SM.Carrier SM.GeoCarrier
+
+attribute [local instance] Classical.propDecidable
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n}
+
+/-! ## 1. The traversal circle `Γ` and its `2m` marked points (d1_setup.tex:365–370) -/
+
+section TraversalCircle
+
+omit [NeZero n] in
+/-- "each double point of `P` has exactly two preimages": the two visits `⟨c, i⟩`, `⟨c, j⟩` of a
+crossing `c` (one per edge of `c`), and no other visit belongs to `c`. -/
+theorem crossing_two_visits (c : Crossing P) :
+    ∃ v w : Visit P, v.1 = c ∧ w.1 = c ∧ v ≠ w ∧ ∀ u : Visit P, u.1 = c → u = v ∨ u = w := by
+  obtain ⟨i, -, -⟩ := crossing_visits_exist c
+  exact ⟨⟨c, i⟩, visitTwin ⟨c, i⟩, rfl, visitTwin_crossing _, (visitTwin_ne _).symm,
+    fun u hu => visit_eq_or_twin ⟨c, i⟩ u hu⟩
+
+omit [NeZero n] in
+/-- The fibre of the traversal map `Γ → ℝ²` over a double point is exactly the two positions of its
+visits (tier 1, `hD`): a preimage on an edge `i` of `c` is the visit `⟨c, i⟩` (parameters on a
+nonzero edge are unique); a preimage on a third edge would put the crossing point at a vertex
+(excluded: `cg_crossingPoint_ne_vertex`, from "no vertex on a non-incident closed edge") or make
+three edge interiors concur (excluded: `CrossingGeometry` clause 3). -/
+theorem traversalEvaluation_eq_crossingPoint_iff (hD : Diagrammatic P) (c : Crossing P)
+    (p : TraversalPoint n) :
+    traversalEvaluation P p = crossingPoint c ↔
+      ∃ v : Visit P, v.1 = c ∧ p = geometricVisitPosition hD.crossingGeometry v := by
+  have hP : CrossingGeometry P := hD.crossingGeometry
+  constructor
+  · intro hp
+    obtain ⟨i, ⟨t, ht0, ht1⟩⟩ := p
+    change edgePoint P i t = crossingPoint c at hp
+    by_cases hi : i ∈ c.val
+    · refine ⟨⟨c, ⟨i, hi⟩⟩, rfl, ?_⟩
+      have ht : t = crossingParameter c i hi :=
+        edgePoint_injective (hP.1 i) (hp.trans (crossingParameter_spec c i hi).2.2)
+      exact Prod.ext rfl (Subtype.ext ht)
+    · exfalso
+      obtain ⟨j, k, hs, hr, -⟩ := c.property
+      have hj : j ∈ c.val := by rw [hs]; simp
+      have hk : k ∈ c.val := by rw [hs]; simp
+      have hjk : j ≠ k := by
+        intro he
+        apply hr
+        rw [he, adjacent_iff]
+        exact Or.inr (Or.inl rfl)
+      rw [hs] at hi
+      simp only [Finset.mem_insert, Finset.mem_singleton, not_or] at hi
+      rcases ht0.lt_or_eq with ht0' | ht0'
+      · exact hP.2.2 ⟨i, j, k, crossingPoint c, hi.1, hjk, hi.2, ⟨t, ht0', ht1, hp.symm⟩,
+          crossingPoint_interior_of_geometry hP c j hj,
+          crossingPoint_interior_of_geometry hP c k hk⟩
+      · apply cg_crossingPoint_ne_vertex (CarrierGeometry.ofDiagrammatic hD) c i
+        rw [← hp, ← ht0', edgePoint_zero]
+  · rintro ⟨v, rfl, rfl⟩
+    exact geometricVisitPosition_evaluation hP v
+
+/-- "`Γ` carries `2m` marked points" (`m = |[m]| = |Crossing P|`; `m = 0` allowed). -/
+theorem card_visit_eq_two_mul_card_crossing :
+    Fintype.card (Visit P) = 2 * Fintype.card (Crossing P) := by
+  rw [card_visit, card_crossing]
+
+end TraversalCircle
+
+/-! ## 2. Clauses (ii) and (iii) on the CV binder `S ∈ Ind(G_P)` (tier 0) -/
+
+section Clauses
+
+variable (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+
+/-- Ruling R2 in the direction the proofs use. -/
+theorem geoIndependent_of_mem_Ind (hS : S ∈ Ind hP) : GeoIndependent hP S :=
+  (mem_Ind_iff_geoIndependent hP S).mp hS
+
+/-- The accepted `CV.U` and the geo lane's `geoSupportUnselected` have the same members
+(`CV.mem_U_iff`, `mem_geoSupportUnselected_iff`). -/
+theorem mem_geoSupportUnselected_of_mem_U {c : Crossing P} (hc : c ∈ U hP S) :
+    c ∈ geoSupportUnselected hP S :=
+  (mem_geoSupportUnselected_iff hP S c).mpr ((mem_U_iff hP S c).mp hc)
+
+/-- **(ii)** as printed, restricted to the marked points that are not preimages of elements of `S`:
+no four visits `u₁, u₂, u₃, u₄` in that cyclic order on `Γ`, none a visit of a selected crossing,
+have `u₁, u₃` on one carrier and `u₂, u₄` on a different carrier. -/
+theorem carriers_noncrossing (hS : S ∈ Ind hP) :
+    ¬ ∃ u₁ u₂ u₃ u₄ : Visit P,
+      traversalBetween (geometricVisitPosition hP u₁) (geometricVisitPosition hP u₂)
+        (geometricVisitPosition hP u₃) ∧
+      traversalBetween (geometricVisitPosition hP u₃) (geometricVisitPosition hP u₄)
+        (geometricVisitPosition hP u₁) ∧
+      (u₁.1 ∉ S ∧ u₂.1 ∉ S ∧ u₃.1 ∉ S ∧ u₄.1 ∉ S) ∧
+      geoOwner hP S (Sum.inr u₁) = geoOwner hP S (Sum.inr u₃) ∧
+      geoOwner hP S (Sum.inr u₂) = geoOwner hP S (Sum.inr u₄) ∧
+      geoOwner hP S (Sum.inr u₁) ≠ geoOwner hP S (Sum.inr u₂) := by
+  rintro ⟨u₁, u₂, u₃, u₄, h123, h341, -, h13, h24, h12⟩
+  exact geo_carriers_noncrossing_visits hP (geoIndependent_of_mem_Ind hP hS) u₁ u₂ u₃ u₄ h123 h341
+    ⟨h13, h24, h12⟩
+
+/-- (ii) in the full form the geo lane proves (`geo_carriers_noncrossing_marks`): for ALL marks of
+the traversal circle — original vertices and selected visits included — the ownership is
+noncrossing. The printed restriction "none of them a preimage of an element of `S`" is therefore
+not needed; it is kept in the row field because it is printed. -/
+theorem carriers_noncrossing_marks (hS : S ∈ Ind hP) (m₁ m₂ m₃ m₄ : Mark P)
+    (h123 : traversalBetween (geoMarkPosition hP m₁) (geoMarkPosition hP m₂)
+      (geoMarkPosition hP m₃))
+    (h341 : traversalBetween (geoMarkPosition hP m₃) (geoMarkPosition hP m₄)
+      (geoMarkPosition hP m₁))
+    (h13 : geoOwner hP S m₁ = geoOwner hP S m₃) (h24 : geoOwner hP S m₂ = geoOwner hP S m₄) :
+    geoOwner hP S m₁ = geoOwner hP S m₂ :=
+  geoIndependent_noncrossingOwners hP (geoIndependent_of_mem_Ind hP hS) m₁ m₂ m₃ m₄ h123 h341
+    h13 h24
+
+/-- **(iii)** as printed: "if `c ∈ [m] ∖ S` is non-adjacent in `G_P` to every element of `S`, then
+both occurrences of `c` lie on the same carrier". -/
+theorem carriers_nonadjacent_together (hS : S ∈ Ind hP) (c : Crossing P) (hcS : c ∉ S)
+    (hcN : ∀ y ∈ S, ¬ GeometricInterlaces hP c y) (v w : Visit P) (hv : v.1 = c) (hw : w.1 = c) :
+    geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr w) :=
+  geo_unselected_nonneighbor_both_visits_one_carrier hP (geoIndependent_of_mem_Ind hP hS)
+    ((mem_geoSupportUnselected_iff hP S c).mpr ⟨hcS, hcN⟩) v w hv hw
+
+/-- (iii) in the `U(S)` form used by (iv). -/
+theorem owner_eq_of_mem_U (hS : S ∈ Ind hP) {c : Crossing P} (hc : c ∈ U hP S) (v w : Visit P)
+    (hv : v.1 = c) (hw : w.1 = c) :
+    geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr w) :=
+  geo_unselected_nonneighbor_both_visits_one_carrier hP (geoIndependent_of_mem_Ind hP hS)
+    (mem_geoSupportUnselected_of_mem_U hP hc) v w hv hw
+
+/-- The proof's closing remark (d1:436–443): the two visits of a crossing lie on different carriers
+exactly when the crossing is selected or dominated (`S ∪ N_{G_P}(S)`); at every crossing of `U(S)`
+both visits lie on one carrier (iii). Selected: `geo_selected_visits_separated`
+(conv:selected-visits); dominated: `geo_neighbor_visit_owners_ne` (U2a). -/
+theorem visits_separated_iff (hS : S ∈ Ind hP) (v : Visit P) :
+    geoOwner hP S (Sum.inr v) ≠ geoOwner hP S (Sum.inr (visitTwin v)) ↔
+      v.1 ∈ S ∨ v.1 ∈ N hP S := by
+  have hS' := geoIndependent_of_mem_Ind hP hS
+  constructor
+  · intro hne
+    by_contra h
+    rw [not_or] at h
+    exact hne (owner_eq_of_mem_U hP hS ((mem_U hP S v.1).mpr h) v (visitTwin v) rfl
+      (visitTwin_crossing v))
+  · rintro (hvS | hvN)
+    · exact geo_selected_visits_separated hP hS' v hvS
+    · exact geo_neighbor_visit_owners_ne hP hS'
+        ((mem_geoSupportNeighbors hP S v.1).mpr ((mem_N_iff hP S v.1).mp hvN)) v rfl
+
+end Clauses
+
+/-! ## 3. Clause (iv): the connectivity induction (cv-lane plan gap G3) -/
+
+section PieceCarrier
+
+variable (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+
+/-- The printed step (d1:426–433): if `c, c' ∈ U(S)` are adjacent in `G_P[U(S)]`, i.e. interlace,
+"exactly one occurrence of `c'` lies between the two occurrences of `c`. Thus their four occurrences
+alternate on `Γ`, and none is an occurrence of an element of `S`. If `L(c) ≠ L(c')`, those four
+points violate clause (ii). Hence `L(c) = L(c')`." The alternation is the accepted definition
+`GeometricInterlaces`; (iii) makes `L(c)`, `L(c')` well defined; (ii) in positive form
+(`geo_carriers_noncrossing_owner_eq`) identifies them. -/
+theorem owner_eq_of_interlaces_mem_U (hS : S ∈ Ind hP) {c c' : Crossing P} (hc : c ∈ U hP S)
+    (hc' : c' ∈ U hP S) (hI : GeometricInterlaces hP c c') (v w : Visit P) (hv : v.1 = c)
+    (hw : w.1 = c') :
+    geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr w) := by
+  obtain ⟨-, x₀, x₁, y₀, y₁, -, -, h₀, h₁⟩ := hI
+  have h13 : geoOwner hP S (Sum.inr ⟨c, x₀⟩) = geoOwner hP S (Sum.inr ⟨c, x₁⟩) :=
+    owner_eq_of_mem_U hP hS hc _ _ rfl rfl
+  have h24 : geoOwner hP S (Sum.inr ⟨c', y₀⟩) = geoOwner hP S (Sum.inr ⟨c', y₁⟩) :=
+    owner_eq_of_mem_U hP hS hc' _ _ rfl rfl
+  have h12 : geoOwner hP S (Sum.inr ⟨c, x₀⟩) = geoOwner hP S (Sum.inr ⟨c', y₀⟩) :=
+    geo_carriers_noncrossing_owner_eq hP (geoIndependent_of_mem_Ind hP hS)
+      ⟨c, x₀⟩ ⟨c', y₀⟩ ⟨c, x₁⟩ ⟨c', y₁⟩ h₀ h₁ h13 h24
+  calc geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr ⟨c, x₀⟩) :=
+        owner_eq_of_mem_U hP hS hc v _ hv rfl
+    _ = geoOwner hP S (Sum.inr ⟨c', y₀⟩) := h12
+    _ = geoOwner hP S (Sum.inr w) := owner_eq_of_mem_U hP hS hc' _ w rfl hw
+
+/-- "The assignment `c ↦ L(c)` is therefore constant on every edge of the connected graph `H`,
+hence constant on `H`": induction along a walk of `G_P[U(S)]`. -/
+theorem owner_eq_of_walk (hS : S ∈ Ind hP) {x y : (↑(U hP S) : Set (Crossing P))}
+    (p : (residualGraph hP S).Walk x y) :
+    ∀ v w : Visit P, v.1 = x.1 → w.1 = y.1 →
+      geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr w) := by
+  induction p with
+  | @nil a =>
+    intro v w hv hw
+    exact owner_eq_of_mem_U hP hS a.2 v w hv hw
+  | @cons a b _ hab _ ih =>
+    intro v w hv hw
+    obtain ⟨i, -, -⟩ := crossing_visits_exist b.1
+    have hI : GeometricInterlaces hP a.1 b.1 := hab
+    calc geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr ⟨b.1, i⟩) :=
+          owner_eq_of_interlaces_mem_U hP hS a.2 b.2 hI v ⟨b.1, i⟩ hv rfl
+      _ = geoOwner hP S (Sum.inr w) := ih ⟨b.1, i⟩ w rfl hw
+
+/-- Two crossings of one residual piece have all their visits on one carrier. -/
+theorem owner_eq_of_same_piece (hS : S ∈ Ind hP) {c c' : Crossing P} (hc : c ∈ U hP S)
+    (hc' : c' ∈ U hP S) (hH : pieceOf hP S c hc = pieceOf hP S c' hc') (v w : Visit P)
+    (hv : v.1 = c) (hw : w.1 = c') :
+    geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr w) := by
+  have hr : (residualGraph hP S).Reachable ⟨c, hc⟩ ⟨c', hc'⟩ :=
+    SimpleGraph.ConnectedComponent.eq.mp hH
+  exact hr.elim fun p => owner_eq_of_walk hP hS p v w hv hw
+
+/-- **(iv)** as printed: for every residual piece `H` "there is exactly one carrier on which both
+occurrences of every `c ∈ H` lie". -/
+theorem exists_unique_piece_carrier (hS : S ∈ Ind hP) (H : Piece hP S) :
+    ∃! q : GeoComponent hP S, ∀ c ∈ pieceLabels hP S H, ∀ v : Visit P, v.1 = c →
+      geoOwner hP S (Sum.inr v) = q := by
+  obtain ⟨c₀, hc₀⟩ := pieceLabels_nonempty hP S H
+  obtain ⟨hc₀U, hH₀⟩ := (mem_pieceLabels hP S H c₀).mp hc₀
+  obtain ⟨i, -, -⟩ := crossing_visits_exist c₀
+  refine ⟨geoOwner hP S (Sum.inr ⟨c₀, i⟩), ?_, ?_⟩
+  · intro c hc v hv
+    obtain ⟨hcU, hH⟩ := (mem_pieceLabels hP S H c).mp hc
+    exact owner_eq_of_same_piece hP hS hcU hc₀U (hH.trans hH₀.symm) v ⟨c₀, i⟩ hv rfl
+  · intro q hq
+    exact (hq c₀ hc₀ ⟨c₀, i⟩ rfl).symm
+
+/-- The carrier of a residual piece, `L(H)` (lem:carriers (iv)); def:X1's "the residual pieces
+assigned to `L` by Lemma lem:carriers (iv)" are the `H` with `pieceOwner H = L` (`mem_piecesOn_iff`). -/
+noncomputable def pieceOwner (hS : S ∈ Ind hP) (H : Piece hP S) : GeoComponent hP S :=
+  Classical.choose (exists_unique_piece_carrier hP hS H).exists
+
+theorem pieceOwner_spec (hS : S ∈ Ind hP) (H : Piece hP S) :
+    ∀ c ∈ pieceLabels hP S H, ∀ v : Visit P, v.1 = c →
+      geoOwner hP S (Sum.inr v) = pieceOwner hP hS H :=
+  Classical.choose_spec (exists_unique_piece_carrier hP hS H).exists
+
+theorem pieceOwner_unique (hS : S ∈ Ind hP) (H : Piece hP S) (q : GeoComponent hP S)
+    (hq : ∀ c ∈ pieceLabels hP S H, ∀ v : Visit P, v.1 = c → geoOwner hP S (Sum.inr v) = q) :
+    q = pieceOwner hP hS H :=
+  (exists_unique_piece_carrier hP hS H).unique hq (pieceOwner_spec hP hS H)
+
+/-- The carrier of the piece of `c ∈ U(S)` is the carrier of either visit of `c`. -/
+theorem pieceOwner_pieceOf (hS : S ∈ Ind hP) {c : Crossing P} (hc : c ∈ U hP S) (v : Visit P)
+    (hv : v.1 = c) : pieceOwner hP hS (pieceOf hP S c hc) = geoOwner hP S (Sum.inr v) :=
+  (pieceOwner_spec hP hS (pieceOf hP S c hc) c (pieceOf_mem_pieceLabels hP S c hc) v hv).symm
+
+/-- `H` is one of "the residual pieces assigned to `L`" (`CV.piecesOn`, row 139) iff `L(H) = L`. -/
+theorem mem_piecesOn_iff (hS : S ∈ Ind hP) (q : GeoComponent hP S) (H : Piece hP S) :
+    H ∈ piecesOn hP S q ↔ pieceOwner hP hS H = q := by
+  rw [mem_piecesOn]
+  constructor
+  · intro h
+    exact (pieceOwner_unique hP hS H q h).symm
+  · rintro rfl
+    exact pieceOwner_spec hP hS H
+
+theorem piecesOn_eq (hS : S ∈ Ind hP) (q : GeoComponent hP S) :
+    piecesOn hP S q = Finset.univ.filter fun H : Piece hP S => pieceOwner hP hS H = q := by
+  ext H
+  rw [mem_piecesOn_iff hP hS]
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+
+/-- Every residual piece is assigned to exactly one carrier: the sets `piecesOn q` partition the
+pieces. -/
+theorem exists_unique_mem_piecesOn (hS : S ∈ Ind hP) (H : Piece hP S) :
+    ∃! q : GeoComponent hP S, H ∈ piecesOn hP S q := by
+  refine ⟨pieceOwner hP hS H, (mem_piecesOn_iff hP hS _ H).mpr rfl, fun q hq => ?_⟩
+  exact ((mem_piecesOn_iff hP hS q H).mp hq).symm
+
+end PieceCarrier
+
+/-! ## 4. Row 136 — CV:lem:carriers (d1_setup.tex:362–378)
+
+Printed text: "Let `P` be diagrammatic (Definition def:diagrammatic) and `S ∈ Ind(G_P)` —
+genericity is not needed here and an earlier revision assumed it; what the argument reads is the
+Gauss word. Let `Γ` be the *traversal circle*: an abstract oriented circle together with the
+traversal map `Γ → ℝ²` that runs once around `P`, on which each double point of `P` has exactly two
+preimages, so that `Γ` carries `2m` marked points. (No coordinate is placed on `Γ`; in particular
+the crossing-free case `m = 0` is allowed, with no marked points.) Then:
+(i) the oriented smoothing of `P` along `S` has exactly `|S|+1` carriers;
+(ii) the assignment of traversal points to carriers is *non-crossing*: there are no four points
+`u₁, u₂, u₃, u₄` of `Γ` in this cyclic order, none of them a preimage of an element of `S`, with
+`u₁, u₃` on one carrier and `u₂, u₄` on a different carrier;
+(iii) if `c ∈ [m] ∖ S` is non-adjacent in `G_P` to every element of `S`, then both occurrences of
+`c` lie on the same carrier;
+(iv) if `H` is a connected component of the induced graph `G_P[[m] ∖ (S ∪ N_{G_P}(S))]`, then there
+is exactly one carrier on which both occurrences of every `c ∈ H` lie." -/
+
+section CarriersRow
+
+variable (hD : Diagrammatic P) (S : Finset (Crossing P))
+
+/-- CV:lem:carriers, one field per printed clause, on the printed binder `hD : Diagrammatic P`,
+`hS : S ∈ Ind(G_P)`; `hP = hD.crossingGeometry`. "A visit `u` lies on the carrier `L`" is
+`geoOwner hP S (Sum.inr u) = L` (SM conv:selected-visits at the selected visits). -/
+structure CarriersData (hS : S ∈ Ind hD.crossingGeometry) : Prop where
+  /-- "Let `Γ` be the traversal circle: an abstract oriented circle together with the traversal map
+  `Γ → ℝ²` that runs once around `P`, on which each double point of `P` has exactly two preimages,
+  so that `Γ` carries `2m` marked points. (… in particular the crossing-free case `m = 0` is allowed,
+  with no marked points.)": the preimages of a double point `c` under the traversal map are exactly
+  the positions of its visits; `c` has exactly two visits; distinct visits have distinct positions;
+  there are `2m` visits in all (`m = 0` included) -/
+  traversal_circle :
+    (∀ (c : Crossing P) (p : TraversalPoint n), traversalEvaluation P p = crossingPoint c ↔
+      ∃ v : Visit P, v.1 = c ∧ p = geometricVisitPosition hD.crossingGeometry v) ∧
+    (∀ c : Crossing P, ∃ v w : Visit P, v.1 = c ∧ w.1 = c ∧ v ≠ w ∧
+      ∀ u : Visit P, u.1 = c → u = v ∨ u = w) ∧
+    Function.Injective (geometricVisitPosition hD.crossingGeometry) ∧
+    Fintype.card (Visit P) = 2 * Fintype.card (Crossing P)
+  /-- "(i) the oriented smoothing of `P` along `S` has exactly `|S|+1` carriers" -/
+  count : Fintype.card (GeoComponent hD.crossingGeometry S) = S.card + 1
+  /-- "(ii) the assignment of traversal points to carriers is non-crossing: there are no four points
+  `u₁, u₂, u₃, u₄` of `Γ` in this cyclic order, none of them a preimage of an element of `S`, with `u₁, u₃`
+  on one carrier and `u₂, u₄` on a different carrier" — read on the marked points of the traversal circle
+  (`Mark P` = the original vertices and the crossing visits: the points of `Γ` the accepted carriers of
+  def:smoothing own; a "preimage of an element of `S`" is a visit of a selected crossing). -/
+  noncrossing :
+    ¬ ∃ m₁ m₂ m₃ m₄ : Mark P,
+      traversalBetween (geoMarkPosition hD.crossingGeometry m₁) (geoMarkPosition hD.crossingGeometry m₂)
+        (geoMarkPosition hD.crossingGeometry m₃) ∧
+      traversalBetween (geoMarkPosition hD.crossingGeometry m₃) (geoMarkPosition hD.crossingGeometry m₄)
+        (geoMarkPosition hD.crossingGeometry m₁) ∧
+      ((∀ v : Visit P, m₁ = Sum.inr v → v.1 ∉ S) ∧ (∀ v : Visit P, m₂ = Sum.inr v → v.1 ∉ S) ∧
+        (∀ v : Visit P, m₃ = Sum.inr v → v.1 ∉ S) ∧ (∀ v : Visit P, m₄ = Sum.inr v → v.1 ∉ S)) ∧
+      geoOwner hD.crossingGeometry S m₁ = geoOwner hD.crossingGeometry S m₃ ∧
+      geoOwner hD.crossingGeometry S m₂ = geoOwner hD.crossingGeometry S m₄ ∧
+      geoOwner hD.crossingGeometry S m₁ ≠ geoOwner hD.crossingGeometry S m₂
+  /-- "(iii) if `c ∈ [m] ∖ S` is non-adjacent in `G_P` to every element of `S`, then both
+  occurrences of `c` lie on the same carrier" -/
+  nonadjacent_together : ∀ c : Crossing P, c ∉ S →
+    (∀ y ∈ S, ¬ GeometricInterlaces hD.crossingGeometry c y) →
+    ∀ v w : Visit P, v.1 = c → w.1 = c →
+      geoOwner hD.crossingGeometry S (Sum.inr v) = geoOwner hD.crossingGeometry S (Sum.inr w)
+  /-- "(iv) if `H` is a connected component of the induced graph `G_P[[m] ∖ (S ∪ N_{G_P}(S))]`,
+  then there is exactly one carrier on which both occurrences of every `c ∈ H` lie" (`H : Piece`,
+  the connected components of `residualGraph = G_P.induce (U S)`, `U S = univ \ (S ∪ N S)`;
+  `c ∈ H` is `c ∈ pieceLabels H`) -/
+  piece_carrier : ∀ H : Piece hD.crossingGeometry S, ∃! q : GeoComponent hD.crossingGeometry S,
+    ∀ c ∈ pieceLabels hD.crossingGeometry S H, ∀ v : Visit P, v.1 = c →
+      geoOwner hD.crossingGeometry S (Sum.inr v) = q
+
+/-- **Row 136, CV:lem:carriers**, on the printed binder `hD : Diagrammatic P`, `S ∈ Ind(G_P)`. -/
+theorem carriers (hS : S ∈ Ind hD.crossingGeometry) : CarriersData hD S hS where
+  traversal_circle :=
+    ⟨traversalEvaluation_eq_crossingPoint_iff hD, crossing_two_visits,
+      geometricVisitPosition_injective hD.crossingGeometry, card_visit_eq_two_mul_card_crossing⟩
+  count := geoComponent_card_independent hD.crossingGeometry
+    (geoIndependent_of_mem_Ind hD.crossingGeometry hS)
+  noncrossing := by
+    rintro ⟨m₁, m₂, m₃, m₄, h123, h341, -, h13, h24, hne⟩
+    exact hne (carriers_noncrossing_marks hD.crossingGeometry hS m₁ m₂ m₃ m₄ h123 h341 h13 h24)
+  nonadjacent_together := carriers_nonadjacent_together hD.crossingGeometry hS
+  piece_carrier := exists_unique_piece_carrier hD.crossingGeometry hS
+
+end CarriersRow
+
+end CV
+
+/-! ## Axiom check (removed at porting, as in the accepted CV modules) -/
+

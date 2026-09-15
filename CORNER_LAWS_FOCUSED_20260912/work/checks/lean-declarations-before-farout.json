@@ -1,0 +1,3396 @@
+{
+  "schema": 1,
+  "declarations": [
+    {
+      "id": "def:polygon",
+      "labels": [
+        "def:polygon"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 27,
+      "stage1": true,
+      "declaration": "SM.polygonData",
+      "module": "SM.Polygon",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "fbffadabe446c75d26dc07d63bdfad22f9fc0dc3a71bf449d1495d3a801987db",
+      "review_file": "reviews/def-polygon.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:chirotope",
+      "labels": [
+        "def:chirotope"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 63,
+      "stage1": true,
+      "declaration": "SM.chirotopeData",
+      "module": "SM.Chirotope",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "b6db0acc807dcd23205c60b46a1eff84e28eaf4f59ffe5e00a75bebc57806539",
+      "review_file": "reviews/def-chirotope.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:chi-basic",
+      "labels": [
+        "lem:chi-basic"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 72,
+      "stage1": true,
+      "declaration": "SM.chi_basic",
+      "module": "SM.Chirotope",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "51f29fe380ad1ea6786c9c7daff7b505bace9739620544c71d67c0dba632cf8c",
+      "review_file": "reviews/lem-chi-basic.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:generic",
+      "labels": [
+        "def:generic"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 99,
+      "stage1": true,
+      "declaration": "SM.Generic",
+      "module": "SM.Generic",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "db3f8bb35c42bcd318f3ec78faeefc8d423d230cb0a46cd75c8e0a77d19838b0",
+      "review_file": "reviews/def-generic.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:g1",
+      "labels": [
+        "lem:g1"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 109,
+      "stage1": true,
+      "declaration": "SM.g1",
+      "module": "SM.G1Consequences",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "fc19ab5a1af2a730e0802722bb8415f586c76caa987ab633aaa73abe1d99906a",
+      "review_file": "reviews/lem-g1.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:crossings",
+      "labels": [
+        "def:crossings"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 137,
+      "stage1": true,
+      "declaration": "SM.crossingData",
+      "module": "SM.CrossingEquiv",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "c5f223d0372ebf4762a0a62cb0eea801b201d6a7b9b26bb712a944e273008d0a",
+      "review_file": "reviews/def-crossings.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:crossing-test",
+      "labels": [
+        "lem:crossing-test"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 147,
+      "stage1": true,
+      "declaration": "SM.crossing_test",
+      "module": "SM.Crossings",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "5688e4fc407d7761ee3939e8c37f914c3b412499d3bd699b01de6b74a5b958fe",
+      "review_file": "reviews/lem-crossing-test.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:wall-segment-stability",
+      "labels": [
+        "lem:wall-segment-stability"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 166,
+      "stage1": true,
+      "declaration": "SM.wall_segment_stability",
+      "module": "SM.WallSegmentStability",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "98e879c982df48475959df0444b5e791cc9552fa46193ad44facca610859c8bb",
+      "review_file": "reviews/lem-wall-segment-stability.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:chamber",
+      "labels": [
+        "def:chamber"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 194,
+      "stage1": true,
+      "declaration": "SM.chamber_definition",
+      "module": "SM.CyclicChambers",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "a23c4c9416052d693aabd52d331df64250e3fbfba03d95df06a82b26dca81adb",
+      "review_file": "reviews/def-chamber.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "prop:chambers",
+      "labels": [
+        "prop:chambers"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 201,
+      "stage1": true,
+      "declaration": "SM.chambers",
+      "module": "SM.ChamberPaths",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "652b6ad790f5cb0ea92cff39ced055e41be1c0eff6abf3a7c4f94a2e01936be1",
+      "review_file": "reviews/prop-chambers.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:gauss",
+      "labels": [
+        "def:gauss"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 237,
+      "stage1": true,
+      "declaration": "SM.gauss_definition",
+      "module": "SM.GaussDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "69b9c4a0749aa624a5677ec07138a5bad7b7bfd9c6628fa4925c06128b9bf8b0",
+      "review_file": "reviews/def-gauss.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:interlace",
+      "labels": [
+        "def:interlace"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 247,
+      "stage1": true,
+      "declaration": "SM.interlacement_definition",
+      "module": "SM.InterlaceDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "08dd9e9d028d04b3703385337c6084f2cc6c27074348ae2242f9d48408d97a47",
+      "review_file": "reviews/def-interlace.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:visible",
+      "labels": [
+        "def:visible"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 258,
+      "stage1": true,
+      "declaration": "SM.visible_signature_definition",
+      "module": "SM.VisibleDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "82d7bfbebc8f388011238a8c467b1beb783010a64602ad4a249a94f755e1fdf9",
+      "review_file": "reviews/def-visible.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:weak",
+      "labels": [
+        "def:weak"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 267,
+      "stage1": true,
+      "declaration": "SM.weak_definition",
+      "module": "SM.WeakGeneric",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "4a671f8e6b532ccd5e391cc5823be78d1f8c057edbc5ea65ee984c02afb26365",
+      "review_file": "reviews/def-weak.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:regular",
+      "labels": [
+        "def:regular"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 374,
+      "stage1": true,
+      "declaration": "SM.regular_definition",
+      "module": "SM.RegularDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "8a62d85fc1d8b3723b863093d7c2b1a555fc3064cd36980a36668c701bc9cfc2",
+      "review_file": "reviews/def-regular.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:shift",
+      "labels": [
+        "def:shift"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 386,
+      "stage1": true,
+      "declaration": "SM.reversal_definition",
+      "module": "SM.Reversal",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "e63594e2c5752b11f26d08cf49a2797e65957691b02b6255ad179f237be6e7ef",
+      "review_file": "reviews/def-shift.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:rot",
+      "labels": [
+        "lem:rot"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 395,
+      "stage1": true,
+      "declaration": "SM.rotation_number",
+      "module": "SM.RotationTheorem",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "847dc8b72fa93fe2f7edc30e0d550f96ab2bfa0b2eb96bf047c15fc8d6b4c889",
+      "review_file": "reviews/lem-rot.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:uniformrot",
+      "labels": [
+        "lem:uniformrot"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 428,
+      "stage1": true,
+      "declaration": "SM.uniform_rotation",
+      "module": "SM.UniformRotation",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "7ea25a7517b8ea35522431f42857e13a299aaae1e663beb9a2fda7db86ea4fc1",
+      "review_file": "reviews/lem-uniformrot.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:shift",
+      "labels": [
+        "lem:shift"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 484,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false,
+      "scope_issue": "The unrestricted left-count conclusion is false for a regular quadrilateral with one zero turn. See reviews/lem-shift-scope.md and repairs/ShiftZeroTurn.lean. SM.shift_reversal_corrected is separately tracked and does not accept this original row."
+    },
+    {
+      "id": "def:admissible",
+      "labels": [
+        "def:admissible"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 512,
+      "stage1": true,
+      "declaration": "SM.admissible_definition",
+      "module": "SM.Admissible",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "f573f5525867696d3d0398761286535bb1fc806a4fb4b9534ab106599c759cba",
+      "review_file": "reviews/def-admissible.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:fibres",
+      "labels": [
+        "lem:fibres"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 520,
+      "stage1": true,
+      "declaration": "SM.nonempty_fibres",
+      "module": "SM.Fibres",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "48ab82a43285f5174e250cd1cdf8e35fe936821eae3762c4624a54137ad1833b",
+      "review_file": "reviews/lem-fibres.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:germ",
+      "labels": [
+        "def:germ"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 653,
+      "stage1": true,
+      "declaration": "SM.wall_germ_definition",
+      "module": "SM.GermDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "955b5ddf1638ba17aef798e9545375ede704c0a24972b8556c529542c6d95e09",
+      "review_file": "reviews/def-germ.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:triple-sides",
+      "labels": [
+        "lem:triple-sides"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 670,
+      "stage1": true,
+      "declaration": "SM.triple_sides",
+      "module": "SM.TripleSides",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "411fa8796f549d890ea8784b9f5e8c748db1cacdb3288f6fc20ace8fa7ebe4ec",
+      "review_file": "reviews/lem-triple-sides.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:walls",
+      "labels": [
+        "def:walls"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 710,
+      "stage1": true,
+      "declaration": "SM.named_walls_definition",
+      "module": "SM.NamedWallsDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "8ff086fefee29d16819d4feb0335c0d3c6b062abdfaa3e4e9d1dfdea869e1086",
+      "review_file": "reviews/def-walls.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:flat-sides",
+      "labels": [
+        "lem:flat-sides",
+        "flatpr:fusion"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 751,
+      "stage1": true,
+      "declaration": "SM.flat_sides",
+      "module": "SM.FlatSides",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "390e52915488af936ec194118130b4e6e0e9123922c47211147040be011980f2",
+      "review_file": "reviews/lem-flat-sides.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:wall-sides",
+      "labels": [
+        "lem:wall-sides"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 896,
+      "stage1": true,
+      "declaration": "SM.wall_sides",
+      "module": "SM.WallSides",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "4437240a488e0fa8f4c9ab0a6446fa19489ba9e81ca971a15a2f9656878e31bd",
+      "review_file": "reviews/lem-wall-sides.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:cusp-sides",
+      "labels": [
+        "lem:cusp-sides",
+        "cusppr:data",
+        "cusppr:rotation-law"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 1024,
+      "stage1": true,
+      "declaration": "SM.cusp_sides_of_continuous_curve",
+      "module": "SM.CuspCurve",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "fc86e8effeeb5b38737a86d14fe2a5191f1eabb2986f88aa886538910940df59",
+      "review_file": "reviews/lem-cusp-sides.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:deletion-halves",
+      "labels": [
+        "def:deletion-halves"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 1227,
+      "stage1": true,
+      "declaration": "SM.deletion_halves_definition",
+      "module": "SM.DeletionHalvesDefinition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "932349e3386701e37af93fd5aa18a31ecd60fd08916c2583f38066f3026fa0ae",
+      "review_file": "reviews/def-deletion-halves.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:children",
+      "labels": [
+        "lem:children"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 1242,
+      "stage1": true,
+      "declaration": "SM.children",
+      "module": "SM.Children",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "69f94f71788e7139d4b6a464ee04ac2f940861482e961af825fb841156e6824e",
+      "review_file": "reviews/lem-children.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:transport-polynomials",
+      "labels": [
+        "lem:transport-polynomials",
+        "transport:delta",
+        "transport:T"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 1292,
+      "stage1": true,
+      "declaration": "SM.transport_polynomials",
+      "module": "SM.TransportPolynomials",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "5b75978bcaf47e7ac032c146b24a1f55726d665776ac5311b239f6a44fabedef",
+      "review_file": "reviews/lem-transport-polynomials.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "thm:relgp",
+      "labels": [
+        "thm:relgp"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 1385,
+      "stage1": true,
+      "declaration": "SM.relative_general_position",
+      "module": "SM.RelativeGeneralPosition",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "ea9976b281dfda84381a7c7e0fbf0a258dd7e7b5a8d8d03cb86db9639e8100ec",
+      "review_file": "reviews/thm-relgp.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:root",
+      "labels": [
+        "def:root"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 10,
+      "stage1": true,
+      "declaration": "SM.rootData",
+      "module": "SM.RootBoundary",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "dfcef42f11cca897af0adb1a6904e350abfb7ad8472df6d2fc4b55906ed14282",
+      "review_file": "reviews/def-root.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:gates",
+      "labels": [
+        "def:gates"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 29,
+      "stage1": true,
+      "declaration": "SM.gatesData",
+      "module": "SM.Gates",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "6046c5a12d8e8a2f993208f96a05690f1f202a628a4dccf0556d69b36ee00229",
+      "review_file": "reviews/def-gates.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:gates-nonzero",
+      "labels": [
+        "lem:gates-nonzero"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 46,
+      "stage1": true,
+      "declaration": "SM.gates_nonzero",
+      "module": "SM.Gates",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "123190f19e018cfb3f7065c2a5b7db9bf5eb3b3bf2474a78997cba1e9343cba8",
+      "review_file": "reviews/lem-gates-nonzero.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:treesum",
+      "labels": [
+        "def:treesum"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 66,
+      "stage1": true,
+      "declaration": "SM.treesumData",
+      "module": "SM.TreeCoefficient",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "a76894e86314e1439b4c07bf4ef5d60c96a74294bb7603c66414bd7825ac37ae",
+      "review_file": "reviews/def-treesum.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:treesum-trees",
+      "labels": [
+        "lem:treesum-trees"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 84,
+      "stage1": true,
+      "declaration": "SM.treesum_trees",
+      "module": "SM.PlaneTreeFormal",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "6ebebea98b61e1a9b0b77d87402da3ff79c2ce2ea9f7d80a4ae00106af05f6cd",
+      "review_file": "reviews/lem-treesum-trees.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "prop:A-chamber",
+      "labels": [
+        "prop:A-chamber"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 121,
+      "stage1": true,
+      "declaration": "SM.A_chamber",
+      "module": "SM.TreeChamber",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "633969d333f0363e799aaadc09efe5459c2dbc40db21d008a4ddb3a93d67c59a",
+      "review_file": "reviews/prop-A-chamber.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "def:nearfar",
+      "labels": [
+        "def:nearfar"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 132,
+      "stage1": true,
+      "declaration": "SM.nearfarData",
+      "module": "SM.NearFar",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "reviewer": "review_relgp_full-independent-20260911",
+      "statement_sha256": "91f29768c7e1ce1bb4f0d7c110e5a9e379d62e50b38064d2373ecb64bea22aa0",
+      "review_file": "reviews/def-nearfar.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    },
+    {
+      "id": "lem:farout",
+      "labels": [
+        "lem:farout",
+        "afr:factor",
+        "afr:far-output"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 146,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:single-triple",
+      "labels": [
+        "thm:single-triple",
+        "afr:wall-data",
+        "afr:wall-epsilons",
+        "afr:wall-uv",
+        "afr:wall-proper",
+        "afr:wall-full"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 229,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:induced-roots",
+      "labels": [
+        "def:induced-roots"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 380,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:A-S3",
+      "labels": [
+        "thm:A-S3",
+        "afr:S3"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 396,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:A-S4",
+      "labels": [
+        "thm:A-S4",
+        "afr:S4"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 455,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:A-S7",
+      "labels": [
+        "thm:A-S7",
+        "as7:law"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 520,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:A-R3E",
+      "labels": [
+        "thm:A-R3E"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 588,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:soft",
+      "labels": [
+        "def:soft"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 991,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:soft-generic",
+      "labels": [
+        "lem:soft-generic"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 1012,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:A-soft",
+      "labels": [
+        "thm:A-soft",
+        "aspr:soft-law"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 1152,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "prop:A-reversal",
+      "labels": [
+        "prop:A-reversal",
+        "arpr:reversal"
+      ],
+      "source": "reference/SM/sm-2-amplitude.tex",
+      "line": 1495,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:decomposition",
+      "labels": [
+        "def:decomposition"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 9,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:smoothing",
+      "labels": [
+        "def:smoothing"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 14,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "conv:selected-visits",
+      "labels": [
+        "conv:selected-visits"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 29,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:carriers",
+      "labels": [
+        "lem:carriers"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 54,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:uniform",
+      "labels": [
+        "def:uniform"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 242,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:positive-lift",
+      "labels": [
+        "def:positive-lift"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 325,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:gauss-record",
+      "labels": [
+        "def:gauss-record",
+        "eq:gauss-cross-sign"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 352,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:gauss-two-discs",
+      "labels": [
+        "lem:gauss-two-discs"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 428,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:flat-carriers",
+      "labels": [
+        "def:flat-carriers"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 788,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cor:flat-carriers",
+      "labels": [
+        "cor:flat-carriers",
+        "flatpr:selector-identity"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 805,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lit:homfly",
+      "labels": [
+        "lit:homfly"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 916,
+      "stage1": true,
+      "declaration": "SM.lit_homfly",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lp:lm",
+      "labels": [
+        "lp:lm",
+        "src:lm",
+        "lp:source-skein"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 935,
+      "stage1": true,
+      "declaration": "SM.lp_lm",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lp:lm-uniqueness",
+      "labels": [
+        "lp:lm-uniqueness"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 962,
+      "stage1": true,
+      "declaration": "SM.lp_lm_uniqueness",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lp:coefficient-transport",
+      "labels": [
+        "lp:coefficient-transport"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 981,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lp:core",
+      "labels": [
+        "lp:core",
+        "lp:skein",
+        "lp:support"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1041,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lp:split-circle",
+      "labels": [
+        "lp:split-circle",
+        "lp:split"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1180,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "rp:record-polynomial",
+      "labels": [
+        "rp:record-polynomial"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1215,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lc:presentations",
+      "labels": [
+        "lc:presentations"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1306,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lc:single-crossing",
+      "labels": [
+        "lc:single-crossing"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1345,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "mp:join",
+      "labels": [
+        "mp:join",
+        "mp:join-value"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1427,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "mp:stack",
+      "labels": [
+        "mp:stack",
+        "mp:stack-value"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1494,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "mp:zero-link",
+      "labels": [
+        "mp:zero-link"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1538,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "mp:lowest",
+      "labels": [
+        "mp:lowest",
+        "mp:lowest-value"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1582,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "mp:blocks",
+      "labels": [
+        "mp:blocks"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1624,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:C",
+      "labels": [
+        "def:C"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1688,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:C-X1",
+      "labels": [
+        "lem:C-X1",
+        "eq:C-selector-form"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1787,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:front-domain",
+      "labels": [
+        "ng:front-domain"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1825,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:smoothing-record",
+      "labels": [
+        "ng:smoothing-record"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1843,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:adeg",
+      "labels": [
+        "def:adeg"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1887,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:commutation",
+      "labels": [
+        "ng:commutation"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1921,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:front-I",
+      "labels": [
+        "ng:front-I"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1950,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:front-II",
+      "labels": [
+        "ng:front-II"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1972,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:front-III",
+      "labels": [
+        "ng:front-III"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 1990,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:deletions",
+      "labels": [
+        "ng:deletions"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2008,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:circle",
+      "labels": [
+        "ng:circle"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2046,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:cusp-skein",
+      "labels": [
+        "ng:cusp-skein"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2076,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:finite-word",
+      "labels": [
+        "ng:finite-word"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2170,
+      "stage1": true,
+      "declaration": "SM.ng_finite_word",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ng:local-front-bound",
+      "labels": [
+        "ng:local-front-bound",
+        "ng:front-inequality"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2305,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:transverse-neighborhood",
+      "labels": [
+        "fd:transverse-neighborhood",
+        "fd:transverse-model"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2395,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:parameter-avoidance",
+      "labels": [
+        "fd:parameter-avoidance"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2561,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:contact-motions",
+      "labels": [
+        "fd:contact-motions"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2586,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:generic-front",
+      "labels": [
+        "fd:generic-front",
+        "fd:generic-exact-germ"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2613,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:linking-calculus",
+      "labels": [
+        "fd:linking-calculus",
+        "fd:gauss-linking",
+        "fd:framed-linking"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 2785,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ce:rounding",
+      "labels": [
+        "ce:rounding",
+        "ce:exact-germ"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3029,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "ce:smoothing-record",
+      "labels": [
+        "ce:smoothing-record"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3171,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cp:finite-contact-path",
+      "labels": [
+        "cp:finite-contact-path",
+        "cp:exact-cusp",
+        "cp:endpoint-polynomial"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3210,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:transverse-front",
+      "labels": [
+        "def:transverse-front"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3328,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "src:contact",
+      "labels": [
+        "src:contact",
+        "fd:contact-inputs"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3341,
+      "stage1": true,
+      "declaration": "SM.src_contact",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:ng-bound",
+      "labels": [
+        "fd:ng-bound",
+        "fd:ng-input"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3379,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "fd:contact",
+      "labels": [
+        "fd:contact",
+        "fd:front-writhe",
+        "fd:representative-bound"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3404,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cf:def-turning",
+      "labels": [
+        "cf:def-turning"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3514,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cf:lem-turnlift",
+      "labels": [
+        "cf:lem-turnlift"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3542,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cf:lem-rounding",
+      "labels": [
+        "cf:lem-rounding"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3644,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cf:lem-curl",
+      "labels": [
+        "cf:lem-curl"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 3870,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cf:thm-carrierfloor",
+      "labels": [
+        "cf:thm-carrierfloor",
+        "cf:eq-floor"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4282,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:floor",
+      "labels": [
+        "thm:floor"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4576,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cb:blocks",
+      "labels": [
+        "cb:blocks",
+        "cb:undominated"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4623,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cb:products",
+      "labels": [
+        "cb:products",
+        "cb:product"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4638,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cb:singleton",
+      "labels": [
+        "cb:singleton"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4697,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cb:embedded-rotation",
+      "labels": [
+        "cb:embedded-rotation"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4760,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:corner-values",
+      "labels": [
+        "lem:corner-values"
+      ],
+      "source": "reference/SM/sm-3-statesum.tex",
+      "line": 4801,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "prop:C-chamber",
+      "labels": [
+        "prop:C-chamber"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 36,
+      "stage1": true,
+      "declaration": "SM.prop_C_chamber",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "prop:C-silent",
+      "labels": [
+        "prop:C-silent",
+        "ccf:silence"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 101,
+      "stage1": true,
+      "declaration": "SM.prop_C_silent",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:C-S3",
+      "labels": [
+        "thm:C-S3",
+        "ccf:flat-law"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 153,
+      "stage1": true,
+      "declaration": "SM.thm_C_S3",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:homflyrows",
+      "labels": [
+        "lem:homflyrows"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 230,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:C-S7",
+      "labels": [
+        "thm:C-S7"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 267,
+      "stage1": true,
+      "declaration": "SM.thm_C_S7",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:C-S5",
+      "labels": [
+        "thm:C-S5"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 910,
+      "stage1": true,
+      "declaration": "SM.thm_C_S5",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:C-soft",
+      "labels": [
+        "thm:C-soft"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 984,
+      "stage1": true,
+      "declaration": "SM.thm_C_soft",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "hyp:R",
+      "labels": [
+        "hyp:R"
+      ],
+      "source": "reference/SM/sm-4-knotlaws.tex",
+      "line": 1149,
+      "stage1": true,
+      "declaration": "SM.hyp_R",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:star",
+      "labels": [
+        "def:star"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 5,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:star-generic",
+      "labels": [
+        "lem:star-generic"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 16,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:transport-lengths",
+      "labels": [
+        "lem:transport-lengths"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 75,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:transport-angle-interval",
+      "labels": [
+        "lem:transport-angle-interval"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 132,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:mycyclic",
+      "labels": [
+        "thm:mycyclic"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 150,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:transport",
+      "labels": [
+        "lem:transport"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 299,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:soft-rotation",
+      "labels": [
+        "lem:soft-rotation"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 317,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "def:anchors",
+      "labels": [
+        "def:anchors"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 373,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "prop:anchors-exist",
+      "labels": [
+        "prop:anchors-exist"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 399,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "prop:anchor-values",
+      "labels": [
+        "prop:anchor-values"
+      ],
+      "source": "reference/SM/sm-5-transport.tex",
+      "line": 461,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:A-small-values",
+      "labels": [
+        "lem:A-small-values"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 5,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:root-indep-proof",
+      "labels": [
+        "thm:root-indep-proof"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 53,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cor:A-lawful",
+      "labels": [
+        "cor:A-lawful"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 105,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:uniqueness",
+      "labels": [
+        "thm:uniqueness"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 201,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "thm:comparison",
+      "labels": [
+        "thm:comparison"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 299,
+      "stage1": true,
+      "declaration": "SM.thm_comparison",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "cor:C-inherits",
+      "labels": [
+        "cor:C-inherits"
+      ],
+      "source": "reference/SM/sm-6-comparison.tex",
+      "line": 313,
+      "stage1": true,
+      "declaration": "SM.cor_C_inherits",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:polygon",
+      "labels": [
+        "def:polygon"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 8,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:regular",
+      "labels": [
+        "def:regular"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 22,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:guarded",
+      "labels": [
+        "def:guarded"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 42,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:generic",
+      "labels": [
+        "def:generic"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 220,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:diagrammatic",
+      "labels": [
+        "def:diagrammatic"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 315,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:interlace",
+      "labels": [
+        "def:interlace"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 346,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:smoothing",
+      "labels": [
+        "def:smoothing"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 355,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:carriers",
+      "labels": [
+        "lem:carriers"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 362,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:carrierword",
+      "labels": [
+        "lem:carrierword"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 450,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:wind",
+      "labels": [
+        "def:wind"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 487,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:pieces",
+      "labels": [
+        "def:pieces"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 514,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:record",
+      "labels": [
+        "def:record"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 522,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:homfly",
+      "labels": [
+        "def:homfly",
+        "eq:homfly"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 552,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:piecediagram",
+      "labels": [
+        "def:piecediagram"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 565,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:piececurve",
+      "labels": [
+        "lem:piececurve"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 592,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:rot",
+      "labels": [
+        "def:rot"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 726,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:turnlift",
+      "labels": [
+        "lem:turnlift"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 789,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:X1",
+      "labels": [
+        "def:X1"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 908,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:prop:chamberinv",
+      "labels": [
+        "prop:chamberinv"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 932,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:event",
+      "labels": [
+        "def:event"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 1072,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:guardconst",
+      "labels": [
+        "lem:guardconst"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 1107,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:def:silent",
+      "labels": [
+        "def:silent"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 1265,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:silence",
+      "labels": [
+        "lem:silence"
+      ],
+      "source": "reference/R/CV/d1_setup.tex",
+      "line": 1300,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:rounding",
+      "labels": [
+        "lem:rounding"
+      ],
+      "source": "reference/R/CV/d3_floor.tex",
+      "line": 31,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:uniformrot",
+      "labels": [
+        "lem:uniformrot"
+      ],
+      "source": "reference/R/CV/d3_floor.tex",
+      "line": 263,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:curl",
+      "labels": [
+        "lem:curl"
+      ],
+      "source": "reference/R/CV/d3_floor.tex",
+      "line": 304,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:thm:carrierfloor",
+      "labels": [
+        "thm:carrierfloor",
+        "eq:floor"
+      ],
+      "source": "reference/R/CV/d3_floor.tex",
+      "line": 736,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:pieceintrinsic",
+      "labels": [
+        "lem:pieceintrinsic"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 56,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:homflyrows",
+      "labels": [
+        "lem:homflyrows"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 117,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:cor:groupedknot",
+      "labels": [
+        "cor:groupedknot"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 263,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:lem:fulltwist",
+      "labels": [
+        "lem:fulltwist"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 1981,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:ax:R",
+      "labels": [
+        "ax:R"
+      ],
+      "source": "reference/R/CV/d10_axioms.tex",
+      "line": 18,
+      "stage1": true,
+      "declaration": "CV.hyp_R",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:ax:homfly",
+      "labels": [
+        "ax:homfly"
+      ],
+      "source": "reference/R/CV/d10_axioms.tex",
+      "line": 342,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:ax:etnyre",
+      "labels": [
+        "ax:etnyre"
+      ],
+      "source": "reference/R/CV/d10_axioms.tex",
+      "line": 387,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:ax:slbound",
+      "labels": [
+        "ax:slbound"
+      ],
+      "source": "reference/R/CV/d10_axioms.tex",
+      "line": 399,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:ax:gausscode",
+      "labels": [
+        "ax:gausscode"
+      ],
+      "source": "reference/R/CV/d10_axioms.tex",
+      "line": 525,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:selector_A",
+      "labels": [
+        "lem:selectorid(A)"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 1017,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "CV:singleton_D_i",
+      "labels": [
+        "thm:s7universal(D)(i)"
+      ],
+      "source": "reference/R/CV/d6_vertexedge.tex",
+      "line": 2682,
+      "stage1": true,
+      "declaration": "",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:localization",
+      "declaration": "RProof.localization",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:parity",
+      "declaration": "RProof.parity",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:exterior",
+      "declaration": "RProof.exterior",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:fibre_partition",
+      "declaration": "RProof.fibre_partition",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:availability_0_1",
+      "declaration": "RProof.availability_zero_one",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:generic_table",
+      "declaration": "RProof.generic_table",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:generic_selector",
+      "declaration": "RProof.generic_selector",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:generic_transport",
+      "declaration": "RProof.generic_transport",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:generic_selected",
+      "declaration": "RProof.generic_selected",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:extreme_pair_zero",
+      "declaration": "RProof.extreme_pair_zero",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:extreme_transport",
+      "declaration": "RProof.extreme_transport",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:extreme_selected",
+      "declaration": "RProof.extreme_selected",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "R:cv_theorem",
+      "declaration": "RProof.cv_R",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "Bridge:B1",
+      "declaration": "Bridge.B1",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "Bridge:B2",
+      "declaration": "Bridge.B2",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "Bridge:B3",
+      "declaration": "Bridge.B3",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "Bridge:B4",
+      "declaration": "Bridge.B4",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "Bridge:theorem",
+      "declaration": "Bridge.sm_R",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "SM:corner_laws_and_soft",
+      "declaration": "SM.corner_laws_and_soft",
+      "module": "",
+      "status": "pending",
+      "author": "",
+      "reviewer": "",
+      "statement_sha256": "",
+      "review_file": "",
+      "parameters_reviewed": false,
+      "definition_equivalence_reviewed": false
+    },
+    {
+      "id": "lem:weak-open",
+      "labels": [
+        "lem:weak-open"
+      ],
+      "source": "reference/SM/sm-1-polygons.tex",
+      "line": 278,
+      "stage1": false,
+      "declaration": "SM.weak_open",
+      "module": "SM.WeakOpen",
+      "status": "accepted",
+      "author": "root-implementation-20260910",
+      "scope_note": "Additional supporting source lemma, absent from frozen focused baseline; does not increase original 132-proof/191-checklist counts.",
+      "reviewer": "review_chirotope-independent-20260910",
+      "statement_sha256": "1fdc136e7b8978046e4cbc893d71c1a30bd0a1be479a060974cc7ba03cf08a43",
+      "review_file": "reviews/lem-weak-open.json",
+      "parameters_reviewed": true,
+      "definition_equivalence_reviewed": true
+    }
+  ]
+}

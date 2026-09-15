@@ -1,0 +1,68 @@
+{
+  "utc": "2026-09-11T19:38:29.775147+00:00",
+  "kernel_session": 94314,
+  "exit_code": 0,
+  "first_run_passed": false,
+  "files_sha256": {
+    "work/checks/UnorderedCriticalTriple.prototype.lean": "f26153ac6ef62a55523d12d7fde2628293d1ea415dba9aa7eaf9f790d1a3b387",
+    "work/checks/UnorderedCriticalTriple-second-kernel.log": "a4df74ba47488bc4bdecf6ac98763c9bd11237e54e828f44129e30a89168781c",
+    "work/checks/UnorderedCriticalTriple.body.lean": "985956064e7fa879661ee9a144753639f56a73cf48741d1e8e503cf5a201c110",
+    "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42"
+  },
+  "printed_declarations": [
+    "SM.boundaryIndex_surjective",
+    "SM.IncreasingBoundaryTriple.exists_positionSet",
+    "SM.IncreasingBoundaryTriple.existsUnique_vertexSet",
+    "SM.boundary_points_distinct_of_support",
+    "SM.WallGerm.chi_signChanges_cyclic",
+    "SM.WallGerm.chi_signChanges_swap_last",
+    "SM.WallGerm.chi_signChanges_of_support_eq",
+    "SM.WallGerm.single_triple_boundary_data"
+  ],
+  "declaration_axioms": {
+    "SM.boundaryIndex_surjective": [
+      "propext",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.exists_positionSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.IncreasingBoundaryTriple.existsUnique_vertexSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.boundary_points_distinct_of_support": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.chi_signChanges_cyclic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.chi_signChanges_swap_last": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.chi_signChanges_of_support_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "SM.WallGerm.single_triple_boundary_data": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "state": "Eight source-input candidates passed; frozen. Stronger statement-fidelity approval pending.",
+  "preserved_failed_session": 4424,
+  "proof_repair": "Replaced a looping global sign-swap simp with an explicit single function rewrite. All eight theorem statements retained.",
+  "source_claim_acceptance_increment": 0,
+  "canonical_modules_unchanged": 327
+}

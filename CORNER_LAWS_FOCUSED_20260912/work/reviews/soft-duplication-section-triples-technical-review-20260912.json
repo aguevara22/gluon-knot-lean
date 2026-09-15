@@ -1,0 +1,146 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-section-triples-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:55:06.425631+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The reviewer authored frozen SoftDuplicationIndices, SoftDuplicationArrays and OrderedBoundaryTransport, all embedded dependencies. This review assesses the root-authored SectionTriples body and its concrete use of those dependencies; it is not an independent reapproval of their authored mathematics. The reviewer did not author SectionTriples or Mark’s StartingChildren implementation."
+  },
+  "scope": {
+    "group": "SoftDuplicationSectionTriples",
+    "declarations": [
+      "SM.SoftDuplication.startingOld_triple_eq",
+      "SM.SoftDuplication.startingTail_ne_A",
+      "SM.SoftDuplication.startingTail_triple_plain",
+      "SM.SoftDuplication.collapse_startingTail_triple",
+      "SM.SoftDuplication.tripleLift_startingOld",
+      "SM.SoftDuplication.tripleLift_startingTail"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1223–1256 (formal pullback and near-array prescriptions), 1280–1302 (two starting presentations, especially the neighboring near gate and inherited far pullbacks).",
+    "ambient_context": "namespace SM.SoftDuplication; {n : ℕ} [NeZero n], arbitrary s : Fin n and actual IncreasingBoundaryTriple n. The two array evaluations quantify an arbitrary result type R : Type*, H0 : TripleArray n R and t : Fin n → R, without ring, geometry, sign, or nonzero-value assumptions. The intermediate collapse theorem accepts any proof of plainness; the final tail evaluation supplies the proved plainness of the actual tail section."
+  },
+  "assessment": "No technical mathematical or domain defect found in the six-declaration scope. The concrete old and tail sections preserve every triple entry after collapse, and their lifted arrays evaluate to the exact core values.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 87471,
+    "root_exit_code": 0,
+    "first_run_passed": true,
+    "preserved_failed_sessions": []
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes and exact ordered complete-body embeddings; no extracted-header hashes.",
+    "receipt_path": "work/checks/SoftDuplicationSectionTriples-prototype-result.json",
+    "receipt_sha256": "c2accf610b4dc944cc317026a04731b80c340a460b4ed906239ebb6521cec2c6",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationCutFibers.body.lean": "99b96ceffa7a8af2309d9e4d7834e2352a1efe81311474d7abe24cfd0b65dd5a",
+      "work/checks/SoftDuplicationPresentations.body.lean": "28cc28bef013e5a341bdc50368b9c1a7b74a6548d0fd96a2cd1e2ef146a30ed9",
+      "work/checks/OrderedBoundaryTransport.body.lean": "a8cdf0762d01c7c6d16ebb611ed65d072cc8302f310ff0c5ba1c59b8477a6ba6",
+      "work/checks/SoftDuplicationStartingChildren.body.lean": "7dbdf490200a1ed0064d6e0357317e50c79c6b34946971659cdbfb2bab4c8857",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationSectionTriples.body.lean": "1df5f0f4648a76504970a6eb8fd490b69ed834e4405f7a61e1708ce9bc502b1a",
+      "work/checks/SoftDuplicationSectionTriples.prototype.lean": "60d3608d27bf1e500073b9d11f192ded6f2f55ca2a86787edc24881e304c1195",
+      "work/checks/SoftDuplicationSectionTriples-first-kernel.log": "f3cdb71776a1e7ebbad6b27855d5069bf5b0f7e10984464093d505da3664e204"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/SoftDuplicationIndices.body.lean": 1,
+      "work/checks/SoftDuplicationCutFibers.body.lean": 1,
+      "work/checks/SoftDuplicationPresentations.body.lean": 1,
+      "work/checks/OrderedBoundaryTransport.body.lean": 1,
+      "work/checks/SoftDuplicationStartingChildren.body.lean": 1,
+      "work/checks/SoftDuplicationArrays.body.lean": 1,
+      "work/checks/SoftDuplicationSectionTriples.body.lean": 1
+    },
+    "ordered_body_dependencies": [
+      "work/checks/SoftDuplicationIndices.body.lean",
+      "work/checks/SoftDuplicationCutFibers.body.lean",
+      "work/checks/SoftDuplicationPresentations.body.lean",
+      "work/checks/OrderedBoundaryTransport.body.lean",
+      "work/checks/SoftDuplicationStartingChildren.body.lean",
+      "work/checks/SoftDuplicationArrays.body.lean",
+      "work/checks/SoftDuplicationSectionTriples.body.lean"
+    ],
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 6,
+    "declaration_axioms": {
+      "SM.SoftDuplication.startingOld_triple_eq": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.startingTail_ne_A": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.startingTail_triple_plain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_startingTail_triple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_startingOld": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_startingTail": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/SoftDuplicationSectionTriples-first-draft.body.lean": "1df5f0f4648a76504970a6eb8fd490b69ed834e4405f7a61e1708ce9bc502b1a",
+      "work/checks/SoftDuplicationSectionTriples-first-draft.prototype.lean": "60d3608d27bf1e500073b9d11f192ded6f2f55ca2a86787edc24881e304c1195",
+      "work/checks/SoftDuplicationSectionTriples-body-dependencies.json": "b1256ed8434db87dd9585a48e44676a566b6d36f85048e97cc683fc067886166",
+      "work/checks/SoftDuplicationSectionTriples-draft-dependency-bindings.json": "c49b54c9af9c81421b2ea82b003c611fd2a76fbcc7c7e9c513f6f72e0c603915"
+    },
+    "first_drafts_byte_identical_to_passing_files": true,
+    "draft_files_sha256_bindings_verified": true,
+    "preserved_failure_evidence": "No failed SectionTriples run: first87471 passed. Earlier dependency failures remain separately preserved and are not treated as successful proof evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "work/checks/SoftDuplicationCutFibers-prototype-result.json": "e06bf043c8cb7f99e46292fc35eca8468ff74df39b9cec7102ca2adad16d1f1f",
+      "work/checks/SoftDuplicationPresentations-prototype-result.json": "f93271ac727d7814f760d2feaaf44577c56b6addc2f75dc5a22db68a8d4c2486",
+      "work/checks/OrderedBoundaryTransport-prototype-result.json": "c170fc89ed6806cf1065ca47547b93b119eb9f33a02e0bc99a749d605d720e3b",
+      "work/checks/SoftDuplicationStartingChildren-prototype-result.json": "903cf8b8d74c0593db3ec1735d21d0b4e5b3f6fc767ef03fdfd9db67504f63a2",
+      "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad",
+      "work/decisions/soft-duplication-starting-gates-plan-20260912.md": "85fe053a0d3565e8bc2b880089436efdb8860a7ca56b698d56fd981bf4834ebb",
+      "work/reviews/soft-duplication-starting-child-factors-technical-review-20260912.json": "f2c780ea919b337f5c0058eb2a8c8b8e7f17d23fd909c841742ec8e47ae31c9e"
+    }
+  },
+  "findings": [
+    "startingOld_triple_eq identifies the complete OrderedBoundaryTransport triple with oldTriple by all three coordinates. The old section skips B. The equality is not inferred from an endpoint-only comparison and does not presuppose that a composition gate has been transported.",
+    "startingTail_ne_A follows from the actual Fin.succAbove section that skips A. Applying this fact separately to lower, middle and upper excludes occurrence of A and therefore excludes containing both A and B. This works whether s is an endpoint or an interior core position and whether the core triple contains s.",
+    "collapse_startingTail_triple uses collapse_startingTail for each of the three positions, then triple_ext. Strictness is carried by the actual order embedding and by collapseTriple’s established sole-equality-exception argument. Any plainness proof gives the same exact core triple; the proof parameter is not a caller-supplied geometric or array identity.",
+    "tripleLift_startingOld invokes the exact old-triple identification and the frozen plain-array pullback theorem. tripleLift_startingTail first derives actual tail plainness and then collapses the whole triple. Both conclusions are H0 T for arbitrary result type and arbitrary exceptional data t, so no arithmetic, invertibility, sign-square or nonzero assumption is hidden.",
+    "These are the concrete evaluations required by the printed starting paragraph: row-zero near and far gates may use old images; row-one inherited near gates use the tail image because its first endpoint is B, while inherited far gates must use the old image because the full top interval still starts at A. The present body proves evaluation for either actual image but does not itself identify which image equals each actual cut gate; that is a separate StartingGatePositions obligation.",
+    "The domain contains the source’s n≥3 case with arbitrary distinguished s and does not impose n≥4 or any interval/composition nonemptiness premise. The helper is independent of the number of cuts, so its use does not discard the unary composition or a zero product. It is not a theorem about the exceptional newborn gate containing both A and B."
+  ],
+  "limits": "This group establishes concrete section-triple evaluations only. Actual row interior-cut bijections, near/far gate identifications, the exceptional B gate, complete gate and child products, two-row weighted sums, the starting ordinary E equation, the root multiplier, and the remaining ending/spanning cases must be proved by consumers. No full A-soft law, equality of individual auxiliary and geometric open sums, source acceptance, canonical integration, or stronger-model statement-fidelity approval is granted."
+}

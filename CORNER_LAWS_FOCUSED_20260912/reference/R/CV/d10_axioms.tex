@@ -1,0 +1,651 @@
+% Section 10: the AXIOM LIST.
+% RULE FOR THIS SECTION: an axiom entry appears here if and only if some proof
+% in this document uses it and does not prove it. Every axiom entry is a closed
+% statement with its hypotheses written out and is referenced by number from
+% each consumer. The internal theorem stands separately from
+% the imported interface.
+\section{The axiom list}\label{sec:axioms}
+
+This section contains the complete eight-entry interface of the document: the
+statements it uses and does not prove. A formalization of the main theorem must
+supply each of them, either by importing a library result or by proving it.
+The eight axiom entries fall into two groups --- the three inputs declared by the
+campaign, and five theorems taken from the literature. The document also proves
+one internal cyclic-classification theorem, Theorem~\ref{thm:mycyclic}, proved in Section~\ref{sec:transport}, which stands separately from that interface.
+
+\subsection{Declared inputs of the campaign}
+
+\begin{axiom}[Hypothesis R for $X_1$]\label{ax:R}
+$X_1(P_+)=X_1(P_-)$ across every simple Reidemeister III event, i.e.\ every
+event whose zero set is the forced bundle
+$Z=\{\mathrm{G3}_{e,f,g},\mathrm{G4}_{e;f,g},\mathrm{G4}_{f;e,g},
+\mathrm{G4}_{g;e,f}\}$ for three pairwise remote edges with
+$1\leq e<f<g\leq n$, concurrent at $t=0$ at a point interior to all three, the
+event being transversal in the sense of Definition~\ref{def:event}.
+
+\emph{Why it is not proved here.} It is not a theorem of the literature and not
+a claim of this document: it is a \emph{declared input} of the campaign, the
+hypothesis under which the main theorem is stated. Proving it is the open
+problem the campaign exists for, and a document that proved it would not need
+the entry.
+\emph{Used in:} Theorem~\ref{thm:main}(B), and there only --- in the Reidemeister
+III case of its induction. No other statement of this document reads it.
+\end{axiom}
+
+\begin{remark}[the domain of Hypothesis R, and what the entry said before]
+\label{rem:axRhistory}
+The index order and the transversality in Axiom~\ref{ax:R} are the antecedent
+of (S2) in Definition~\ref{def:laws}, and that entry now carries the same one: a
+declared input and the law it declares must have one domain, and an earlier
+revision repaired the law's antecedent and left the entry's alone.
+
+\emph{Fidelity: this domain is the specification's own.} The specification asks
+$C(P_+)=C(P_-)$ across every Reidemeister III wall, and restricts every one of
+its laws to a \emph{simple} event: only the predicate defining the named event
+vanishes, all other listed vertex, edge-concurrency and crossing-order
+predicates keeping their signs. Write $\mathcal E_{\mathrm{spec}}$ for the
+events its (S2) thereby covers and $\mathcal E_{\mathrm{ax}}$ for those this
+entry covers. Then $\mathcal E_{\mathrm{ax}}=\mathcal E_{\mathrm{spec}}$.
+Containment one way is immediate, an event admitted here being a
+Reidemeister-III wall at which nothing outside the forced bundle vanishes. The
+other way is the reading of "the predicate defining the event": at a transverse
+concurrency the two crossings on each of the three edges collide, so the three
+order predicates vanish with it necessarily --- they are dependents of the
+concurrency, not independent coincidences --- and a specification that asked
+them to keep their signs there would have an empty (S2). The defining condition
+is the bundle, exactly as the flat wall's three vanishing members are one
+condition; and with that reading the two classes are the same events.
+
+An earlier revision of this paragraph called the entry's domain a strict
+subset and defended the narrowing as the safe direction for an assumption. That
+was wrong in the direction that flatters: it claimed less than the entry
+delivers, and it misread the specification, whose simplicity clause was already
+doing the restricting. The correction is the peer's.
+
+Where the law is \emph{read} is narrower than where it is asserted, and that is
+a fact about the proof rather than about the entry: its one consumer,
+Theorem~\ref{thm:main}(B), meets Reidemeister-III walls only at certified simple-factor hits of the
+path supplied by Lemma~\ref{lem:relgp}(B), and it proves there that the zero set is
+the forced bundle rather than assuming it here. A sentence in this position previously said that "nothing is lost
+downstream by the restriction" and spoke of "the excluded events"; with the
+equality above there are no excluded events, and the sentence was left over from
+the framing the paragraph before it withdraws.
+\emph{Wording changed, hypothesis unchanged.} An earlier revision of this entry
+read "a concurrency of three pairwise remote edges together with the
+crossing-order predicates it exchanges, all other members of $\mathcal G$
+keeping their signs". That domain is \emph{empty}: at a transverse concurrency
+the two crossings on each of the three edges collide, so all three order
+predicates vanish with the concurrency and cannot be required to keep their
+signs. \emph{And the change is not neutral.} A universal law whose domain is empty is
+vacuously true, so the earlier print asserted nothing and the present entry,
+whose domain is the actual Reidemeister-III zero set, is formally
+\textbf{stronger}. What is unchanged is the \emph{intended} input: the
+specification's own words, ``$C(P_+)=C(P_-)$ across every Reidemeister III
+wall''. That intention was formalized vacuously in the earlier revision and is
+formalized on the real domain here. An earlier revision of this paragraph
+claimed the entry was ``neither strengthened nor weakened''; that was wrong.
+\end{remark}
+
+
+
+\begin{remark}[why the parameter is a convention and not a phrase]
+\label{rem:lawfulbinder}
+An earlier revision wrote the first entry as a closed existential, "there is a
+function $A$ which \ldots", and then used the letter $A$ in the second entry and
+in the theorem with nothing binding it. Two closed existentials have two
+witnesses: the peer's two-object model satisfies each separately and neither
+jointly, and the document contains no common binder for them.
+
+A second revision --- also mine --- read $A$ as \emph{universally} quantified
+and described that in print as strictly stronger than the existential form. It
+is not: the two are \emph{incomparable}. With $X_1=0$ and no function satisfying
+both properties, the universal statement is vacuously true and the existential
+false; with two such functions, one agreeing with $X_1$ and one not, the
+existential-and-agreement is true and the universal false. What the campaign
+assumes is neither: its owner \emph{supplies} the quantity, so $A$ is a declared
+constant (Convention~\ref{conv:lawful}) of which the two entries below assert
+properties. The content assumed is unchanged by either repair; what moved is
+where the quantifier sits, and it now has a numbered home a formalizer can point
+at.
+
+\emph{What the axiom entries of this section are.} Each axiom entry is an
+assumption about objects already declared: about $X_1$, which
+Definition~\ref{def:X1} constructs; about the declared constant $A$; or about
+the mathematical literature, in which case it is a theorem quoted and not
+proved here. No axiom entry declares an object of its own, and none asserts a
+bare existence.
+Theorem~\ref{thm:mycyclic} stands separately as a result proved in Section~\ref{sec:transport}.
+\end{remark}
+
+\begin{axiom}[the lawful quantity]\label{ax:lawful}
+With $A$ as in Convention~\ref{conv:lawful}, $A$ is constant on chambers,
+unchanged across silent events, and satisfies (S2), (S3), (S4), (S5), (S7) with
+the sign (S6), (S8), and (S9) of Definition~\ref{def:laws}, each on the domain
+where Definition~\ref{def:laws} states it. Write $\mathrm{Lawful}(A)$ for this
+conjunction. In particular
+\begin{equation}
+  A(\sigma^{k}P)=A(P)\qquad\text{for every generic }P\text{ and every }k\geq0,
+  \label{eq:lawful-cyclic}
+\end{equation}
+by induction on $k$ from \eqref{eq:S9}.
+
+\emph{Why it is not proved here.} It is a declared input, of the same kind as
+the rest of the entry: the properties the campaign's owner asserts of the
+quantity $A$ it supplies. Nothing in this document computes $A$.
+
+\emph{Stability of the remaining laws under \eqref{eq:sigma}.} The relabeling
+permutes the labels and fixes the point set, the plane and its orientation. The
+census is stated as equalities evaluated at $\sigma P$, in the direction of
+\eqref{eq:pullback}.
+
+\begin{itemize}
+\item[(chambers)] The relabeling is a homeomorphism of the generic locus with
+  inverse $\sigma^{n-1}$, by Definition~\ref{def:cycshift}, so it carries
+  chambers to chambers and the constancy clause transports.
+\item[(silence)] Definition~\ref{def:silent} asks of \emph{every} member of the
+  zero set $Z$ that it be a predicate $\mathrm{G2}_{e,i}$ whose vanishing at the
+  event places $p_i$ on the \emph{line} of $e$ but not on the segment $e$; in
+  particular no member of $Z$ is a turn (G1), a concurrency (G3), a
+  crossing-order predicate (G4) or a direction determinant (G5). Both halves
+  transport. By \eqref{eq:pullback} the $\mathrm{G2}$ expressions satisfy
+  $\mathrm{G2}_{e,i}(\sigma P)=\mathrm{G2}_{e^{+},i^{+}}(P)$, and the
+  correspondence of index tuples is a bijection of each guard family with
+  itself, so $Z(\sigma P)$ consists of $\mathrm{G2}$ members exactly when $Z(P)$
+  does and the exclusion of the other four families is preserved. For the
+  remaining half, the line of an edge and the segment spanned by it are
+  determined by the edge as a point set; $\sigma$ fixes every edge as a point
+  set and moves no vertex, so the corresponding member's vanishing places the
+  same vertex on the same line and off the same segment. The condition holds at
+  $\sigma P$ for every member of $Z(\sigma P)$ exactly when it holds at $P$ for
+  every member of $Z(P)$, and silent events correspond to silent events.
+\item[(genericity)] The guards are indexed by labels, and evaluation at
+  $\sigma P$ reads the guard at the successor tuple:
+  $\mathrm{G1}_i(\sigma P)=\mathrm{G1}_{i^{+}}(P)$ and
+  $\mathrm{G2}_{e,i}(\sigma P)=\mathrm{G2}_{e^{+},i^{+}}(P)$, and likewise for
+  $\mathrm{G3}$, $\mathrm{G4}$ and $\mathrm{G5}$ on their index tuples.
+  Remoteness, incidence and the crossing of two segments are conditions on the
+  edges and vertices rather than on their labels, and $\sigma$ fixes those point
+  sets, so the activation conditions of $\mathrm{G3}$, $\mathrm{G4}$ and
+  $\mathrm{G5}$ hold at $\sigma P$ exactly at the tuples corresponding under
+  \eqref{eq:pullback}. The generic locus is carried to itself.
+% UNSIGNED TYPESETTING (D5-ACC-3): item-heading repair; rival re-verification pending.
+\item[(cut)]\emph{Guard values at the cut.} The conditional members carry an
+  \emph{ordered representative}: (G5) is indexed by $e<f$, (G3) by $e<f<g$ and
+  (G4) by a distinguished edge together with $f<g$, the comparisons being
+  between the integer representatives in $\{1,\dots,n\}$, as
+  Definition~\ref{def:guarded} prescribes. The relabeling sends the edge with
+  representative $i$ at $\sigma P$ to the edge with representative $i^{+}$ at
+  $P$, and $i\mapsto i^{+}$ preserves the order of every pair except one: the
+  top representative $n$ wraps to $1$. The three identities, each an equality of
+  values \emph{evaluated at} $\sigma P$, are therefore
+  \begin{align}
+    \mathrm{G5}_{e,f}(\sigma P)&=
+      \begin{cases}
+        \mathrm{G5}_{e^{+},f^{+}}(P), & f<n,\\[2pt]
+        -\,\mathrm{G5}_{1,e^{+}}(P), & f=n,
+      \end{cases}
+    \label{eq:g5-wrap}\\[4pt]
+    \mathrm{G4}_{e;f,g}(\sigma P)&=
+      \begin{cases}
+        \mathrm{G4}_{e^{+};f^{+},g^{+}}(P), & g<n,\\[2pt]
+        -\,\mathrm{G4}_{e^{+};1,f^{+}}(P), & g=n,
+      \end{cases}
+    \label{eq:g4-wrap}\\[4pt]
+    \mathrm{G3}_{e,f,g}(\sigma P)&=
+      \begin{cases}
+        \mathrm{G3}_{e^{+},f^{+},g^{+}}(P), & g<n,\\[2pt]
+        \phantom{-\,}\mathrm{G3}_{1,e^{+},f^{+}}(P), & g=n.
+      \end{cases}
+    \label{eq:g3-wrap}
+  \end{align}
+  Off the wrap the representatives increase with the labels and the member is
+  read unchanged. At the wrap the two determinantal families behave differently,
+  and the difference is the parity of the permutation that restores the sorted
+  order. In \eqref{eq:g5-wrap} with $f=n$ the pair $(e^{+},f^{+})=(e^{+},1)$ is
+  \emph{decreasing}, and $\det(d_f,d_e)=-\det(d_e,d_f)$ gives the sign. In
+  \eqref{eq:g4-wrap} with $g=n$ the ordered pair $(f^{+},1)$ is likewise
+  decreasing, and the antisymmetry
+  $\mathrm{G4}_{e;g,f}=-\mathrm{G4}_{e;f,g}$ of Definition~\ref{def:guarded}
+  gives the sign; the distinguished edge carries no order constraint and simply
+  becomes $e^{+}$. In \eqref{eq:g3-wrap} with $g=n$ the three representatives
+  present themselves as $(e^{+},f^{+},1)$ and the sorted triple is
+  $(1,e^{+},f^{+})$, reached by a cyclic permutation of three rows; that
+  permutation is \emph{even}, so the $3\times3$ determinant is unchanged and no
+  sign appears. Genericity asks that the guard values be nonvanishing, which
+  every case above preserves; the two sign changes are changes of the
+  representative, not of the geometry.
+\item[(S2)] The domain asks that the zero set be the forced bundle
+  $\{\mathrm{G3}_{e,f,g},\mathrm{G4}_{e;f,g},\mathrm{G4}_{f;e,g},
+  \mathrm{G4}_{g;e,f}\}$ of three pairwise remote edges, concurrent and
+  transversal. All four members correspond under \eqref{eq:pullback} to the
+  members of the successor triple, remoteness and concurrency are conditions on
+  the edges, and transversality is the simultaneous sign change of the bundle,
+  which the permutation preserves. The asserted equality $C(P_+)=C(P_-)$ carries
+  no label.
+\item[(S3), (S4)] The events and the genericity of the wall deletion are
+  conditions on the polygon. The statements evaluate $C$ on the deletion, and
+  \begin{equation}
+    (\sigma P)\setminus j^{-}=
+    \begin{cases}
+      P\setminus j, & j=1,\\[2pt]
+      \sigma\,(P\setminus j), & j\neq1,
+    \end{cases}
+    \label{eq:deletion-shift}
+  \end{equation}
+  as configurations. In the case $j=1$ the deleted label crosses the cut and the
+  child is the deletion itself; otherwise the child is a relabeling of it, and
+  $C$ agrees on the two by \eqref{eq:S9} applied at arity $n-1$. The left and
+  right labels of the wall, which belong to (S3), and the loop and no-loop
+  labels together with the change $\kappa$ of the Whitney rotation number, which
+  belong to (S4), are read from the event's geometry and are carried with it,
+  $\sigma$ fixing that geometry. Equation \eqref{eq:deletion-shift} is an
+  identity of configurations, and it is at that level that it is used.
+\item[(S5)] The empty-spike condition is a condition on the disc bounded by the
+  loop-side arc, and the asserted value $0$ carries no label.
+\item[(S6), (S7)] The sign $s$ of \eqref{eq:S6} is the sign of
+  $\det(p_b-p_a,\,p_M-p_a)$, formed from the oriented remote edge $(a,b)$ and
+  the moving vertex $M$ and read in the orientation of the plane; $\sigma$ moves
+  the labels $a,b,M$ and fixes the three points and the orientation, so $s$ is
+  unchanged. The halves of Definition~\ref{def:halves} are based at $M$ and
+  correspond under \eqref{eq:pullback} to the halves of the relabeled polygon,
+  so
+  \begin{equation}
+    C(P_+)-C(P_-)=s\,C(\lambda_1)C(\lambda_2)
+    \label{eq:lawful-s7}
+  \end{equation}
+  transports with the same sign, the values $C(\lambda_i)$ agreeing with those
+  of the relabeled halves by \eqref{eq:S9} at the halves' arities.
+\item[(S8)] Strict convexity is stated in the cyclic order of the hull boundary,
+  and equivalently by the turns having one sign with no three vertices collinear
+  and the curve embedded; each condition is invariant under \eqref{eq:sigma}.
+  The two asserted values, $1$ for the clockwise boundary and $(-1)^{n}$ for the
+  counterclockwise one, are attached to the two orientations of the boundary,
+  which $\sigma$ preserves, so each convex polygon keeps the value of its own
+  orientation.
+\end{itemize}
+
+\emph{Used in:} the consumers of the clauses already present are unchanged ---
+Theorem~\ref{thm:zeroanchor}(B) reads (S5), and Theorem~\ref{thm:main}(B) reads
+all of them, additionally reading \eqref{eq:S9} at the relabeled endpoint of its
+transport step. Those two consume it. Four
+remarks --- Remarks~\ref{rem:noncircular}, \ref{rem:notassumed},
+\ref{rem:s7wellposed} and \ref{rem:silencenew} --- name it while discussing what
+is assumed and what is proved; naming is not consuming.
+\end{axiom}
+
+\begin{remark}[the transport read of \eqref{eq:S9}]
+\label{rem:lawful-cyclic-use}
+The transport step of Theorem~\ref{thm:main}(B) terminates at
+$\sigma^{k}Z_{n,r}$, where $Z_{n,r}$ is the anchor selected there and $k$ is the
+relabeling supplied by Theorem~\ref{thm:mycyclic}. The step reads
+\begin{equation}
+  A\bigl(\sigma^{k}Z_{n,r}\bigr)=A\bigl(Z_{n,r}\bigr)
+  \label{eq:anchor-shift}
+\end{equation}
+for that $k$ and that anchor. Equation \eqref{eq:anchor-shift} is read for every
+iterate returned by Theorem~\ref{thm:mycyclic} and at every selected anchor,
+which is the generality \eqref{eq:lawful-cyclic} supplies.
+
+The declared anchor values depend on the rank alone and \eqref{eq:sigma}
+preserves the rank, so anchors related by \eqref{eq:S9} carry equal declared
+values. At $(n,r)=(4,0)$ the anchor is $K_0$ and \eqref{eq:anchor-shift} carries
+the value $A(K_0)=-1$ of Axiom~\ref{ax:ownerlist} to each $\sigma^{k}K_0$.
+\end{remark}
+
+\begin{axiom}[owner normalization on the anchors]\label{ax:ownerlist}
+With $A$ as in Convention~\ref{conv:lawful}, $\Cat$ the Catalan numbers of
+Definition~\ref{def:catalan} --- the display below reads $\Cat_{|r|}$, the
+subscript bound there by $r$ --- and $K_r$ the circular star of
+Definition~\ref{def:circularstar} for an integer $r$ with $|r|\geq1$, together
+with $K_0$ the four-vertex bow-tie of that definition:
+\[
+   A(K_0)=-1,\qquad
+   A(K_r)=\sgn(r)\,(-1)^{|r|}\,\Cat_{|r|}\quad\text{for every integer }r\neq0 .
+\]
+The quantifier is written out --- $r$ ranging over the nonzero integers ---
+because an earlier revision left it to be read off the display; the Catalan
+numbers' own quantifier lives with their definition.
+Write $\mathrm{Owner}(A)$ for this pair of identities.
+
+\emph{Why it is not proved here.} A declared input again: the two normalization
+values the owner supplies on the anchors. This document computes $X_1$ on those
+anchors --- that is Proposition~\ref{prop:anchorvalues}(D) --- but it does not and
+cannot compute $A$ there.
+\emph{Used in:} Theorem~\ref{thm:main}(B), which reads the anchor values
+\emph{directly} --- at the base case $n=3$, where $\Delta(K_{\pm1})=0$ needs
+$A(K_{\pm1})$, and at the minimal anchors of the induction step. An earlier
+revision routed the use "through the rank-zero anchor of
+Theorem~\ref{thm:zeroanchor}(B)", whose proof reads Axiom~\ref{ax:lawful}'s (S5)
+clause and not this entry. That is the one consumer. Remarks
+\ref{rem:notassumed}, \ref{rem:s7wellposed} and \ref{rem:whichanchors} name it
+in discussion, which is not the same as reading it.
+\end{axiom}
+
+\begin{remark}[an entry that was added and then struck]\label{rem:diffdeadremoved}
+An intermediate revision of this document listed a fourth entry in this group,
+asserting that at a noninterlacing bigon wall an eligible support whose two
+newborns lie in different residual pieces has a mixed contact carrier. It was
+added because the different-piece row had been reduced to a single term whose
+prefactor is that selector, with nothing yet fixing that selector's value.
+
+It was false. The peer produced an exact guarded $24$-gon with a live
+selector on a different-piece support, recorded with its data in
+Remark~\ref{rem:diffcensus}. The entry is struck, and the sector it was
+covering is now proved without it in Theorem~\ref{thm:s7universal}(D)(v): the row dies
+by the coefficient, not by the selector. The episode is left in the text
+because an axiom introduced to cover a gap in a proof is exactly the move
+this document is supposed to make visible.
+\end{remark}
+
+\subsection{Literature axioms}
+
+\begin{axiom}[HOMFLY--PT]\label{ax:homfly}
+There is a unique map $L\mapsto P_L(a,z)\in\mathbb Z[a^{\pm1},z^{\pm1}]$ from
+isotopy classes of oriented links in $S^3$ satisfying
+$P_{\bigcirc}=1$ and $aP_{L_+}-a^{-1}P_{L_-}=zP_{L_0}$ for every skein triple.
+In particular $P_L$ is invariant under the Reidemeister moves. One consequence
+is consumed as part of this entry: $P_K\in\mathbb Z[a^{\pm1},z^2]$ for a
+\emph{knot} $K$, so that the $z^0$ coefficient of a product of knot
+polynomials is the product of their $z^0$ coefficients.
+
+\emph{Why it is not proved here.} The existence of the invariant is a theorem
+about all links at once, proved by induction over the full skein tree with a
+descending complexity. This document does not construct that invariant; the relative induction in
+Lemma~\ref{lem:homflyrows} starts with $P$ already supplied and compares
+based-link expressions only.
+\emph{Used in:} Definition~\ref{def:X1} (to have $P_H$ at all);
+Proposition~\ref{prop:chamberinv}(ii), Lemma~\ref{lem:flatdata} and
+Lemma~\ref{lem:silence}; Lemma~\ref{lem:curl} and Theorem~\ref{thm:carrierfloor},
+clauses~(C) and~(R); Lemma~\ref{lem:homflyrows},
+Proposition~\ref{prop:sectortarget}(B), Lemma~\ref{lem:fulltwist},
+Lemma~\ref{lem:triplebridge} and Lemma~\ref{lem:nitransport}, clause~(A); and, through the
+knot-parity clause, Theorem~\ref{thm:s7universal}(D)(i) and
+Theorem~\ref{thm:s7universal}(D)(iv)(c).
+\end{axiom}
+
+\begin{remark}[the trimmed clauses of Axiom~\ref{ax:homfly}]
+\label{rem:homflywhole}
+This remark is about one entry and two clauses, and it makes no claim about
+any other.
+
+\emph{Axiom~\ref{ax:homfly}, clause dropped.} The disjoint-union value
+$P_{L\sqcup\bigcirc}=\frac{a-a^{-1}}{z}P_L$ left the entry as a duplicate and
+not as a narrowing: it is a consequence of the skein relation and it is
+displayed in Definition~\ref{def:homfly} where the normalization is fixed.
+
+\emph{Axiom~\ref{ax:homfly}, clause still dropped.} The general
+$z$-order bound for a multi-component link is not restored.
+Lemma~\ref{lem:homflyrows}(ii) uses only the retained knot clause: smoothing a
+mixed crossing gives a knot, and
+$[z^{-2}]P_K=0$ because $P_K\in\mathbb Z[a^{\pm1},z^2]$ has nonnegative even
+$z$-powers. It then proves the two-component coefficient identity directly by
+mixed switches and split separation. No order bound for a multi-component
+polynomial is assumed.
+
+\end{remark}
+
+\begin{axiom}[Etnyre; self-linking from a front]\label{ax:etnyre}
+Let $T$ be a front diagram of a transverse knot with no downward vertical
+tangency. Then $\operatorname{sl}(T)$ equals the writhe of $T$.
+
+\emph{Why it is not proved here.} The identity is a computation of the
+self-linking number from a front, which presupposes the contact-geometric
+definition of $\operatorname{sl}$; this document never defines it, and reads
+the identity only as a bridge from the diagram's writhe to the transverse
+HOMFLY--PT bound of Axiom~\ref{ax:slbound}.
+\emph{Used in:} Theorem~\ref{thm:carrierfloor}(C).
+\end{axiom}
+
+\begin{axiom}[the HOMFLY--PT bound on the self-linking number]\label{ax:slbound}
+Let $T$ be a transverse knot in the standard contact $\mathbb R^3$ and let
+$P_T(a,z)$ be the HOMFLY--PT polynomial of the knot it presents, in the
+normalization of Axiom~\ref{ax:homfly}. Then
+\[
+   \operatorname{sl}(T)\;\leq\;-\max\deg_a P_T(a,z)-1 .
+\]
+
+\emph{Why it is not proved here.} The bound is a theorem about the whole
+invariant, proved in the source by a skein template argument this document has
+no machinery for. Source fidelity: the source states the bound for the maximal
+self-linking number of a topological knot type and proves it representative by
+representative, each front's self-linking number being that of the usual
+positive transverse pushoff; the form assumed here, at a single transverse
+representative $T$, is that maximum read at one of its values, and that
+reading is quoted rather than renamed: every transverse knot is the positive
+transverse pushoff of a Legendrian knot, by the Legendrian-pushoff
+construction of Etnyre's survey, Section~2.9, and the positive pushoff's
+self-linking number is $\operatorname{tb}-r$ of that Legendrian by Lemma~2.22
+of the same section.  So $\operatorname{sl}(T)$ is one of the values the
+maximum is taken over. The normalization of the source is that of Axiom~\ref{ax:homfly}
+verbatim, in the same variable $a$; no variable conversion is assumed.
+\emph{Used in:} Theorem~\ref{thm:carrierfloor}(C).
+\end{axiom}
+
+\begin{axiom}[Brini--Eynard--Mari\~no; one coefficient of a torus knot]
+\label{ax:bem}
+For every integer $r\geq2$, with $T(r,2r+1)$ the torus knot of those parameters,
+$P$ the HOMFLY--PT polynomial in the normalization of
+Definition~\ref{def:homfly}, and $\Cat_r$ the Catalan number of Definition~\ref{def:catalan},
+\[
+   \bigl[a^{\,1-(2r+1)(r-1)-r}\,z^{0}\bigr]\,P_{T(r,2r+1)}(a,z)
+   =(-1)^{r-1}\,\Cat_r .
+\]
+
+\emph{Used in:} Proposition~\ref{prop:anchorvalues}(D), and there only.
+\emph{Why it is not proved here.} The coefficient is read off a closed
+evaluation of the torus-knot polynomials obtained from topological recursion on
+a spectral curve; nothing in this document computes a torus-knot polynomial.
+Remark~\ref{rem:bemfidelity} carries that evaluation, the variable dictionary
+and the derivation of the identity above from it, so the step from the
+literature to this entry is on the page.
+\end{axiom}
+
+\begin{remark}[the torus-knot entry and its source formula]
+\label{rem:bemfidelity}
+\emph{The source's statement, in full.} Let $P,Q$ be coprime with
+$P\geq Q\geq1$ --- coprime so that $K_{Q,P}$ is a knot, and $P\geq Q$ so that
+every factorial below has a nonnegative argument at every $k\leq d$ --- and put
+$d=\min(P-1,Q-1)=Q-1$, reading $[0]!=1$. With $q$ the quantum variable,
+\[
+   [n]=q^{n/2}-q^{-n/2},\qquad [n]!=[n][n-1]\cdots[1],\qquad
+   z=[1]=q^{1/2}-q^{-1/2},
+\]
+and $c=e^{t/2}$ the exponentiated 't~Hooft coupling, the HOMFLY--PT polynomial
+of the torus knot $K_{Q,P}$ in the normalization of
+Definition~\ref{def:homfly}, written in the campaign variables $a=c^{-1}$ and
+$z=q^{1/2}-q^{-1/2}$, satisfies
+\begin{equation}
+   \frac{P_{K_{Q,P}}(a,z)}{z}
+   =c^{(P-1)(Q-1)}\,\frac{1}{[P][Q]}
+   \sum_{k=0}^{d}(-1)^k c^{2k}\,
+   \frac{[P+Q-k-1]!}{[P-k-1]!\,[Q-k-1]!\,[k]!} .
+\label{eq:bemsum}
+\end{equation}
+That display is the source's own, read at \texttt{arxiv.org/abs/1105.2012}:
+quantum integers as displayed, $c=e^{t/2}$, the sum to $d=\min(P-1,Q-1)$, and
+the left side normalized by $q^{1/2}-q^{-1/2}$. Axiom~\ref{ax:bem} assumes one
+coefficient of it and not the display, and the derivation of that coefficient
+from this one is below, so the step from this display to what the entry
+assumes is on the page, next to its source.
+
+\emph{Why the entry is the coefficient and not the sum.} Only one number of
+\eqref{eq:bemsum} is ever read, and the step that used the rest --- that the
+terminal summand has the least $a$-degree in the row --- is needed only to
+extract that number \emph{from} the sum. Stating the number directly removes
+the step; an earlier revision kept the sum as the entry and defended it by that
+step.
+
+For the row the consumer extracts, the bookkeeping of $z$-powers has to be
+exact, and an earlier revision of this paragraph was off by one. Since
+$[n]=nz+O(z^3)$, a quantum factorial $[m]!$ has $z$-order $m$, so the summand
+$[P+Q-k-1]!/\bigl([P-k-1]!\,[Q-k-1]!\,[k]!\bigr)$ has $z$-order
+$(P+Q-k-1)-(P-k-1)-(Q-k-1)-k=1$, while $[P][Q]$ has $z$-order $2$: the right
+side, and so the left, has $z$-order $-1$. The row the consumer wants is
+therefore the coefficient of $z^{-1}$ in $P_{K_{Q,P}}/z$, which is the
+coefficient of $z^0$ in $P_{K_{Q,P}}$ itself:
+\[
+   \bigl[z^{-1}\bigr]\bigl(P_{K_{Q,P}}/z\bigr)
+   =\bigl[z^{0}\bigr]P_{K_{Q,P}}
+   =\sum_k(-1)^k c^{(P-1)(Q-1)+2k}\,C_k/(PQ),
+   \qquad
+   C_k=\frac{(P+Q-k-1)!}{(P-k-1)!\,(Q-k-1)!\,k!} .
+\]
+Writing $[z^0]$ of the divided left side, as that revision did, names a
+coefficient one power too high. For $(Q,P)=(2,3)$ this gives
+$2c^{2}-c^{4}=2a^{-2}-a^{-4}$, the $z^0$ row of the positive trefoil; for
+$(Q,P)=(2,5)$ it gives $3c^{4}-2c^{6}=3a^{-4}-2a^{-6}$, the $z^0$ row of the
+$(2,5)$ torus knot. \emph{The derivation of Axiom~\ref{ax:bem} from \eqref{eq:bemsum}, in five
+steps.} (1) The $z^0$ row of the polynomial is the displayed sum's constant
+term, by the bookkeeping just given. (2) The $k$-th summand carries the campaign
+exponent $-\bigl((P-1)(Q-1)+2k\bigr)$ in $a$, since $c=a^{-1}$, and that
+exponent is strictly decreasing in $k$; so the summands sit at distinct
+$a$-degrees and the terminal one, $k=Q-1$, sits at the least. (3) Its quantum
+ratio has classical limit
+$C_{Q-1}=\frac{P!}{(P-Q)!\,(Q-1)!}$, so its coefficient is
+$(-1)^{Q-1}\frac1Q\binom{P-1}{Q-1}$ at $a^{1-P(Q-1)-Q}$. (4) Specialize to the
+pairs the circular stars present, $(Q,P)=(r,2r+1)$ with $r\geq2$: the exponent
+is $1-(2r+1)(r-1)-r$ and the coefficient is
+$(-1)^{r-1}\frac1r\binom{2r}{r-1}$. (5) That number is $(-1)^{r-1}\Cat_r$,
+since $\frac1r\binom{2r}{r-1}$ and $\frac1{r+1}\binom{2r}{r}$ are both
+$\frac{(2r)!}{r!\,(r+1)!}$. Steps (1)--(5) are exactly the identity
+Axiom~\ref{ax:bem} states, and step (2) --- the least-degree step --- lives
+here, where it is used to read one number off a formula, and nowhere in the
+document's own chain.
+\end{remark}
+
+\begin{remark}[an entry removed]\label{rem:prremoved}
+The phase-1.5 manuscript proved the genericity of the circular star by
+importing Poonen and Rubinstein's theorem on the diagonals of a regular
+$n$-gon. Lemma~\ref{lem:stargeneric}(i) proves it instead from the fact that the
+star's edges are tangent to one concentric circle and that at most two tangents
+to a circle pass through a point, so that import is gone from this list. Its
+removal is the kind of change the axiom list exists to make visible.
+\end{remark}
+
+\begin{axiom}[isomorphic records present the same link]\label{ax:gausscode}
+Let $D$ and $D'$ be oriented link diagrams, each of whose underlying plane
+curves is a connected generic immersed circle in the sphere --- one component,
+transverse double points, no triple points --- and suppose there is an
+orientation-preserving record isomorphism from the record of $D$ to the record
+of $D'$ (Definition~\ref{def:record}). Then $D$ and $D'$ present the same
+oriented link.
+\emph{Used in:} Lemma~\ref{lem:pieceintrinsic}, Lemma~\ref{lem:curl},
+Proposition~\ref{prop:chamberinv}(ii), Lemma~\ref{lem:flatdata},
+Lemma~\ref{lem:silence}, Corollary~\ref{cor:groupedknot}(A) and~(B),
+Proposition~\ref{prop:sectortarget}(B),
+Lemma~\ref{lem:slidingcartesian},
+clauses~(A) and~(C), Theorem~\ref{thm:s7universal}, clause~(A) and
+Lemma~\ref{lem:triplebridge}. An earlier revision named the first and then said
+``every consumer of a grouped carrier row'', which is a description and not a
+list.
+\emph{Why it is not proved here.} This is the classical statement that a
+realizable classical signed Gauss code determines its oriented link. Its content
+is Carter's classification of generic immersed curves by their Gauss data: two
+such curves in a surface with isomorphic data differ by a homeomorphism of the
+surface, \emph{provided the curves fill it}, that is, provided every
+complementary region is a disc. The hypothesis above is the case in which that
+proviso is automatic and is stated for that reason rather than dropped: the
+underlying curve of each diagram is a connected four-valent graph embedded in
+the sphere, and every face of a connected graph embedded in the sphere is a
+disc, the crossing-free case being a circle with two disc faces. The resulting
+homeomorphism carries diagram to diagram and so link to link, a priori only up
+to reflection if it reverses orientation; the crossing signs, which the record
+isomorphism preserves, exclude that. This document does not develop the
+realizability theory, and the consumers need the conclusion for diagrams built
+on different curves, whose traversal circles are compared by an explicit record
+isomorphism rather than identified.
+\emph{Two earlier revisions.} The first did not list this entry at all: the
+identification it provides was asserted inside the proof of
+Corollary~\ref{cor:groupedknot}(B) in one sentence, and the peer refuted the
+sentence --- smoothing the support changes the traversal successor, so retaining
+the same labels does not identify the cyclic signed records. The second listed
+the entry but hypothesized that the two records were \emph{equal}, which
+presupposes a shared traversal circle that these two diagrams do not have; the
+peer refused that typing too. The combinatorial content is proved ---
+Lemma~\ref{lem:carrierword} for the order, Lemma~\ref{lem:pieceintrinsic} for
+the map --- and what remains, the passage from a record isomorphism to an
+equality of links, is this entry.
+\end{axiom}
+
+\begin{remark}[an entry removed, the second]\label{rem:arcremoved}
+An earlier revision carried an axiom asserting that two embedded regular arcs
+in a disc with the same endpoints and endpoint tangents are regularly
+homotopic. It was used at two places and the peer broke the first: for the
+empty support the carrier meets the contact disc in two arcs, not one, and they
+cross. Both places now argue instead that the deformation inside the contact
+disc is a regular homotopy of a polygonal immersion, because no corner
+determinant vanishes along it --- which is how the counterpart's own packs
+argue it. The entry is gone from this list.
+\end{remark}
+
+\subsection{Citations}\label{sec:axcitations}
+
+The five axiom entries in this subsection are statements taken from the
+literature. Their sources are:
+\begin{itemize}
+\item Axiom~\ref{ax:homfly}: W.~B.~R. Lickorish and K.~C. Millett,
+\emph{A polynomial invariant of oriented links}, Topology \textbf{26}
+(1987), 107--141, Section~1, especially p.~120, for the complete proof of
+existence and uniqueness; and S.~Chmutov and M.~Polyak, \emph{Elementary
+combinatorics of the HOMFLYPT polynomial}, Int. Math. Res. Not. IMRN 2010,
+no.~3, 480--495, Remarks~1--2 on p.~3 and the proof in Section~5, for the
+retained knot-parity clause in the exact normalization of
+Axiom~\ref{ax:homfly}.
+\item Axiom~\ref{ax:etnyre}: H.~Geiges, \emph{An Introduction to Contact
+Topology}, Cambridge Studies in Advanced Mathematics \textbf{109}, Cambridge
+University Press (2008), Proposition~3.5.32, p.~127, with printed proof; see
+also J.~B. Etnyre, \emph{Legendrian and transversal knots},
+\texttt{arXiv:math/0306256}, in \emph{Handbook of Knot Theory}, Elsevier
+(2005), 105--185, Section~2.6.4, Equation~(9).
+\item Axiom~\ref{ax:slbound}: L. Ng, \emph{A skein approach to Bennequin type
+inequalities}, Int. Math. Res. Not. (text at
+\texttt{sites.math.duke.edu/\~{}ng/math/papers/bound.pdf}), stated in its list
+of Bennequin type inequalities as the HOMFLY--PT bound and proved by its
+Theorem~1 (skein template), extended to oriented links by its Corollary~1;
+attributed there to J. Franks, R. F. Williams, \emph{Braids and the Jones
+polynomial}, Trans. Amer. Math. Soc. \textbf{303} (1987), 97--108, and
+H. R. Morton, \emph{Seifert circles and knot polynomials}, Math. Proc.
+Cambridge Philos. Soc. \textbf{99} (1986), 107--109; the reading of that bound
+at a single transverse representative uses J.~B.~Etnyre, \emph{Legendrian and
+transversal knots}, preprint \texttt{arXiv:math/0306256}, Section~2.9 --- the
+Legendrian pushoff of a transverse knot, and Lemma~2.22,
+$\operatorname{sl}(T_\pm(L))=\operatorname{tb}(L)\mp r(L)$. For the classical
+origin of the inequality, rather than the HOMFLY--PT refinement, see
+D.~Bennequin, \emph{Entrelacements et \'equations de Pfaff}, Ast\'erisque
+\textbf{107--108} (1983), 87--161, Th\'eor\`eme~3, p.~96.
+\item Axiom~\ref{ax:bem}: A. Brini, B. Eynard, M. Mari\~no, \emph{Torus knots
+and mirror symmetry}, Ann. Henri Poincar\'e \textbf{13} (2012), 1873--1910;
+preprint \texttt{arXiv:1105.2012}, the finite closed formula of Section~3 with
+the quantum integers of its Equation~(3.40). Read at the preprint on
+2026-08-23. The proof source for the coefficient is E.~Gorsky,
+\emph{$q,t$-Catalan numbers and knot homology},
+\texttt{arXiv:1003.0916v3}, Theorem~3.1 and its Appendix. Its torus-knot
+HOMFLY input is V.~F.~R. Jones, \emph{Hecke algebra representations of braid
+groups and link polynomials}, Ann. of Math. \textbf{126} (1987), 335--388,
+Theorem~9.7, p.~359, whose proof is printed. The rewriting uses N.~M.
+Dunfield, S.~Gukov and J.~Rasmussen, \emph{The superpolynomial for knot
+homologies}, Experiment. Math. \textbf{15} (2006), 129--159,
+Equations~(69) and~(71), p.~25; the equality of those displays, asserted there
+without the intervening algebra, has been verified term by term in a symbolic
+derivation on file.
+\item Axiom~\ref{ax:gausscode}: J.~S.~Carter, \emph{Classifying immersed
+curves}, Proc.\ Amer.\ Math.\ Soc.\ \textbf{111} (1991) 281--287, which
+classifies generic immersed curves in the plane by their Gauss data up to
+homeomorphism of the sphere; the use of Gauss codes as a complete presentation
+of a classical link, with the classical codes exactly the realizable ones, is
+the framing of L.~H.~Kauffman, \emph{Virtual knot theory}, European J.\
+Combin.\ \textbf{20} (1999) 663--690. For diagrams satisfying the paper's
+standing Rule~1, C.~H. Dowker and M.~B. Thistlethwaite, \emph{Classification
+of knot projections}, Topology Appl. \textbf{16} (1983), 19--31,
+Corollary~1.2, p.~24, supplies the orientation refinement; this citation is
+only for that prime/reduced subclass. The universal signed-oriented
+Gauss-data route uses M.~Goussarov, M.~Polyak and O.~Viro, \emph{Finite type
+invariants of classical and virtual knots}, Topology \textbf{39} (2000),
+1045--1068, Theorem~1.A, p.~4, together with G.~Kuperberg, \emph{What is a
+virtual link?}, Algebr. Geom. Topol. \textbf{3} (2003), 587--591, Theorem~1,
+p.~588, and the oriented-link conclusion on p.~591. For the isotopy step see
+S.~Smale, \emph{Diffeomorphisms of the 2-sphere}, Proc. Amer. Math. Soc.
+\textbf{10} (1959), 621--626, Theorem~6; the topological case is attributed
+there to H.~Kneser, \emph{Die Deformationss\"atze der einfach
+zusammenh\"angenden Fl\"achen}, Math. Z. \textbf{25} (1926), 362--372.
+\end{itemize}

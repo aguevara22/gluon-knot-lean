@@ -1,0 +1,171 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-ambient-transport-technical-review-20260912",
+  "sealed_utc": "2026-09-12T05:59:58.466355+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root/spanning_gates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "The agent /root/spanning_gates authored all nine mathematical declarations and the preceding read-only ambient-transport decision. Root alone assembled evidence and ran Lean. This reviewer authored no reviewed proof body or dependency, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Contributions comprise independent source/type/definition comparison, checking unrestricted ambient orbit endpoints and two-sided invariant-set closure, and exact receipt/full-file/ordered-embedding/axiom-trace verification. The author supplied the single proof-only eta-expansion after root preserved the failure; this reviewer inspected its exact diff and unchanged headers without supplying proof code."
+  },
+  "scope": {
+    "group": "CarrierAmbientTransport",
+    "declarations": [
+      "SM.Carrier.perm_bijOn_mem_iff",
+      "SM.Carrier.sameCycle_congr_of_eqOn_bijOn",
+      "SM.Carrier.isCycleOn_of_eqOn",
+      "SM.Carrier.splitList_ambient_swap_eqOn",
+      "SM.Carrier.splitList_ambient_left_sameCycle_iff",
+      "SM.Carrier.splitList_ambient_right_sameCycle_iff",
+      "SM.Carrier.splitList_ambient_not_sameCycle",
+      "SM.Carrier.splitList_ambient_left_apply",
+      "SM.Carrier.splitList_ambient_right_apply"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "97–113 actual outgoing-slot swaps; 115–139 splitting the one current cycle while all other ambient cycles remain present, including empty intervening lists. This is a generic helper packet for that argument.",
+    "ambient_context": "The first three declarations concern arbitrary ambient types and permutations with one Set.BijOn invariant set and Set.EqOn agreement; there is no ambient finiteness or decidable-equality requirement. Split-list specializations add DecidableEq, a literal Nodup parent list, and restricted equality of its formPerm with an arbitrary ambient permutation. Actual polygon data and the independent-support induction are not supplied or discharged here."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in local ambient orbit transport and its exact split-list specialization.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 93753,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      65745
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierAmbientTransport-prototype-result.json",
+    "receipt_sha256": "c3defffe52e0798bc4d079b98a46ee433fe2faceb44866d005e7643175d58f2d",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierSplitList.body.lean": "cff54b56e0d3b8963aef1508e2f6b0d4a167bf2242bd77ebd4ed9a26951ec9fc",
+      "work/checks/CarrierAmbientTransport.body.lean": "0239a767d840c4c3a559e76b930beafa0c797e8ebca95b2d0614356e0523cffa",
+      "work/checks/CarrierAmbientTransport.prototype.lean": "e47227b9328af8d8f68939d3ac23571c0db5196ecf2864d99b1126f2924c53b2",
+      "work/checks/CarrierAmbientTransport-second-kernel.log": "afa879f3ed14f5fcdc7f2110842b8130c3c65fbecc821e5ff1b44296e0211579"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierSplitList.body.lean",
+      "work/checks/CarrierAmbientTransport.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierSplitList.body.lean": 1,
+      "work/checks/CarrierAmbientTransport.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 9,
+    "declaration_axioms": {
+      "SM.Carrier.perm_bijOn_mem_iff": [
+        "Quot.sound"
+      ],
+      "SM.Carrier.sameCycle_congr_of_eqOn_bijOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.isCycleOn_of_eqOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_swap_eqOn": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_left_sameCycle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_right_sameCycle_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_not_sameCycle": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_left_apply": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.splitList_ambient_right_apply": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierAmbientTransport-first-draft.body.lean": "e34014485f1c97d5f2c4f0d149391e2e048a41e68c762da604b22a32fdef0f10",
+      "work/checks/CarrierAmbientTransport-first-draft.prototype.lean": "b977f08c51c24617147b352a47edaa271d66c6e9f4bf09c8b57ec7a499fb5077",
+      "work/checks/CarrierAmbientTransport-body-dependencies.json": "703ef1f62956ff62fd4e32ceff31012694d2d93cd2b1c94cb3c95dbdfd211410",
+      "work/checks/CarrierAmbientTransport-draft-dependency-bindings.json": "1903a8469e45e82bbcb541b10838244a60c071147d45dc3bb24dd0d899ec3bbe"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "second_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierAmbientTransport.body.lean": "work/checks/CarrierAmbientTransport-first-failed.body.lean",
+      "work/checks/CarrierAmbientTransport.prototype.lean": "work/checks/CarrierAmbientTransport-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierAmbientTransport-first-failed.body.lean": "e34014485f1c97d5f2c4f0d149391e2e048a41e68c762da604b22a32fdef0f10",
+      "work/checks/CarrierAmbientTransport-first-failed.prototype.lean": "b977f08c51c24617147b352a47edaa271d66c6e9f4bf09c8b57ec7a499fb5077",
+      "work/checks/CarrierAmbientTransport-first-failed-body-dependencies.json": "703ef1f62956ff62fd4e32ceff31012694d2d93cd2b1c94cb3c95dbdfd211410",
+      "work/checks/CarrierAmbientTransport-first-kernel.log": "665c4c1af53d9b8c729595b361c6ba39db5540d3d4134820d0441742dfd8f823",
+      "work/checks/CarrierAmbientTransport-first-failure-bindings.json": "788f0b40772cbc5e1425872d9daa07870ba3cdf4247a01defe93acf7d8b74ad8",
+      "work/checks/CarrierAmbientTransport-second-draft-repair-bindings.json": "0b6c711e66de94296d4b867f4dccc048bde5d4da510e52b47f4ab8c89fb8bd92"
+    },
+    "second_draft_files_sha256": {},
+    "changed_header_names": [],
+    "proof_only_changed_declarations": [
+      "perm_bijOn_mem_iff"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first65745 failed in the reverse implication of perm_bijOn_mem_iff because the point-implicit MapsTo function was not elaborated as the requested fixed-point membership implication. The author repaired only that proof branch by introducing its membership proof hx and applying hU.mapsTo hx explicitly. Exact first-failed body, prototype, dependency manifest and log are preserved. All nine header texts and all dependency bodies remain unchanged. The complete failed run, including propagated compiler sorryAx traces, is excluded from successful proof evidence.",
+    "dependency_receipts_sha256": {
+      "work/checks/CarrierSplitList-prototype-result.json": "181bf6e2d85fcd43e0ef4439d5303d65b9c90f63c1e743ef83da52c61d1d4733"
+    },
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/Basic.lean": "f2bcb1faac9d92cc807d3aef10ab80b0c993754ae7d6b2f2cb68175281d7def1",
+      "work/lean/.lake/packages/mathlib/Mathlib/GroupTheory/Perm/Cycle/Basic.lean": "e8dcb2b6b203e3b73f22c8183b65171275b46e6275baeeb7b7321a51f4d5afed",
+      "work/lean/.lake/packages/mathlib/Mathlib/Algebra/Group/End.lean": "4540822a4384157e931d0bba440c4323dff66d55131bea1f2a9f3d160dadb28b",
+      "work/lean/.lake/packages/mathlib/Mathlib/Data/Set/Function.lean": "d0428ce1f37bd8251ae34abd07aa90cf52c69f26255e1bf302165470df089520",
+      "work/checks/carrier-transport-baseline-20260912.json": "d1aeb496f2cb65ce5e078fff4fa2c2ef074e106dc3c016bf3d8173719e108185",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+      "work/reviews/carrier-split-list-technical-review-20260912.json": "4fb323ae8c236b679daea52655b74e87c9f6003bed7ee08cdea487bb7cacd44d"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "perm_bijOn_mem_iff derives inverse closure using the actual ambient inverse and the proved BijOn.perm_inv. Forward closure is the MapsTo component. The resulting membership iff requires no finiteness assumption.",
+    "sameCycle_congr_of_eqOn_bijOn constructs both subtype permutations on exactly the same invariant set and proves their equality by the given pointwise agreement. It does not assume a supplied orbit equivalence, inverse map or bijective correspondence.",
+    "The starting point x is required to lie in U but y is unrestricted. In each implication, the existing integer-power orbit witness and BijOn.perm_zpow prove y lies in U before the subtype SameCycle equivalence is used. Thus the result excludes reaching outside points as well as transferring internal connectivity.",
+    "BijOn for the second ambient permutation is derived from local EqOn agreement with the first. Neither full ambient permutation equality nor behavior outside U is assumed. Two-sided closure prevents the inverse-iteration gap that mere EqOn would leave.",
+    "isCycleOn_of_eqOn transfers both the set bijection and pairwise orbit connectivity. Canonical IsCycleOn includes singleton fixed-point cycles and does not impose nontrivial support.",
+    "splitList_ambient_swap_eqOn applies the same outgoing-slot transposition on the right of both permutations. Membership after that swap is checked at a, at b and elsewhere, preserving agreement on the complete parent list without assuming that the ambient permutation fixes exterior marks.",
+    "The left and right orbit characterizations restrict this switched agreement to the child node sets and obtain BijOn from the already proved exact split-list IsCycleOn results. For every ambient x, the new orbit of a is exactly a::B and the new orbit of b exactly b::A.",
+    "Endpoint separation follows from the exact ambient left orbit description and disjoint child lists. This is separation in the ambient switched permutation, not merely the isolated list permutation.",
+    "Both child action lemmas use the exact local split product and disjointness, which makes the other child's formPerm fix a member of the chosen child. The right branch commutes the disjoint factors explicitly before the same argument.",
+    "Empty A or B is permitted throughout. A one-mark child retains its explicit node even though its permutation is identity; no substitution of permutation support for the full child mark set occurs.",
+    "The local EqOn premise is still explicit. Actual current-cycle representation, inherited-order preservation, unprocessed independent-pair current ownership, quotient fibers and geometric carriers require further actual specialization and induction."
+  ],
+  "limits": "Generic ambient orbit/action transport and exact split-list specialization only. The packet does not discharge actual inherited-order or same-current-component premises, prove general independent-support induction or count, or establish carrier geometry. Source increment0; stronger fidelity and canonical integration false."
+}

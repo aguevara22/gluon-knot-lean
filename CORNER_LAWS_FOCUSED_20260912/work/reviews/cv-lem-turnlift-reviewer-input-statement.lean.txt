@@ -1,0 +1,195 @@
+import CV.RotationSmooth
+import SM.TurnLift
+
+/-! Ported verbatim 2026-09-13 from work/drafts/CV_TurnLift.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row 145 CV:lem:turnlift → `CV.turnlift_full : TurnLiftFullData` (clauses (i),(iii) from the shared SM.turnlift, clause (ii) from CV.turnlift_ii / turnlift_ii_data; decision F6). -/
+
+/-! # CV:lem:turnlift — tangent lifts and principal turns (row 145, in full)
+
+Source: reference/R/CV/d1_setup.tex:789–822 (proof 823–905). "Here `rot` is as in Definition
+def:rot" (790): the polygon `rot` is CV's `ε_i` ray formula `CV.rot` (CV.Rotation, d1_setup.tex:726–765,
+with `rotRay L r = Σ_i ε_i(r)` at a chosen reference vector `r`), and the curve rotation `rot(γ) = tw(T_γ)`
+is `CV.rotCurve` (CV.RotationSmooth, d1_setup.tex:767–785), the CV name of the shared
+`SM.ClosedC1Curve.rot`; `CV.tw` is the shared `SM.tw` (decision F6: one definition, two names).
+
+What this file assembles. Clause (ii) (798–805) is PROVED in the built module `CV.Rotation`
+(`CV.turnlift_ii`, `CV.rotRay_indep`, `CV.turnlift_ii_data : TurnliftIIData`). Clauses (i) (792–797) and
+(iii) (806–820) are printed verbatim in SM cf:lem-turnlift (sm-3:3547–3552 and 3561–3575; scout
+work/reports/turning-number-scout-20260913.md §1 — the textual differences of the whole lemma are the
+preamble, SM's `ϑ_i` for CV's `τ_i` in (ii), and the citations) and are PROVED and BUILT as
+`SM.turnlift : SM.TurnLiftData` (SM/TurnLift.lean) on the shared definitions of `SM.TurningNumber`.
+This file states every printed clause of the CV lemma in CV's notation (`CV.tw`, `CV.rotCurve`, `CV.rot`,
+`CV.rotRay`, `CV.principalTurn`, `CV.Regular`, `CV.Admissible`) as a field of `TurnLiftFullData`, and
+`turnlift_full` proves it from those two sources.
+
+Where CV's clause differs from SM's in content, not only in notation:
+* (ii) and (iii-a): the polygon rotation `rot(L)` is CV's ray formula `CV.rot L hL : ℤ`, so
+  `2π rot(L) = Σ τ_i` is a theorem (`CV.turnlift_ii`, proved by the printed ray-angle argument 865–874),
+  where SM's clause is the definition of `SM.rotationNumber`; the rounding conclusion "Its rotation equals
+  `rot(L)`" (808) reads `rotCurve γ = (rot L hL : ℝ)` and is obtained from SM's `rounding` (right side
+  `SM.rotationNumber L`) through the theorem `CV.rot_eq_rotationNumber` (decision F2, an equality of
+  values, never an identification of definitions). `CV.principalTurn` is definitionally `SM.principalTurn`
+  (`CV.principalTurn_eq_sm : … := rfl`).
+* CV's (ii) consequences carry no `3 ≤ c` hypothesis: `L ∈ 𝓡_c` forces `c ≥ 3` (`CV.Regular.three_le`).
+* Every other clause is the same sentence on the same objects; its proof is the corresponding field of
+  `SM.turnlift`, cited at each field. No CV clause lacks an SM counterpart.
+
+Models (all from SM/TurningNumber.lean and SM/TurnLift.lean, documented there): `SM.DirectionLoop`
+(a 1-periodic continuous unit-vector map `T : ℝ → Plane`, the printed `T : ℝ/ℤ → S¹`); `SM.IsSeamLift T θ`
+(the printed tangent-angle lift at the seam `[0,1]`); `SM.DirectionLoop.shift a` (the seam moved to `a`);
+`SM.Reparam` (an orientation-preserving reparametrisation of `ℝ/ℤ`: the printed increasing representative
+`φ : ℝ → ℝ` with `φ(s+1) = φ(s)+1`, d1_setup.tex:842–845); `SM.DirectionHomotopy` (a continuous homotopy
+`H(t, ·)` through direction loops); `SM.RegularHomotopy` (a family `Γ(t, ·)` of closed `C¹` regular curves
+with jointly continuous nonvanishing derivative); `SM.ClosedC1Curve.reverse` (`s ↦ γ(−s)`); `SM.IsLiftOn u θ a b`
+(a tangent-angle lift of the direction path `u` on `[a, b]`); `SM.GLPlusPath` (a continuous path `A_t` in
+`GL⁺(2, ℝ)` with `A_0 = I`, acting on vectors by `SM.GLPlusPath.apply`). -/
+
+namespace CV
+
+open SM
+
+/-! ## (iii-a) in CV's notation: rounding lands on CV's `rot` -/
+
+/-- CV lem:turnlift (iii), first paragraph (d1_setup.tex:806–808): "Suppose a closed `C¹` regular curve is
+obtained from `L` by replacing every corner by a regular arc whose compatible tangent-angle lift has
+increment `τ_i`. Its rotation equals `rot(L)`", with `rot(L)` CV's ray formula. Direction-loop reading (as
+in `SM.rot_eq_rotationNumber_of_rounding`): the curve `γ` is subdivided by
+`0 = a 0 ≤ b 0 ≤ a 1 ≤ ⋯ ≤ b (c−1) ≤ a c = 1`; on `[a k, b k]` runs the arc rounding the corner `q_k`
+(between `δ_{k−1}` and `δ_k`), whose tangent direction admits a lift there of increment `τ_k`; on
+`[b k, a (k+1)]` the curve runs straight along the edge `δ_k`. Proof: SM's `rounding` gives
+`rotCurve γ = SM.rotationNumber L`, and `CV.rot_eq_rotationNumber` identifies the value with `rot L hL`. -/
+theorem rotCurve_eq_rot_of_rounding {c : ℕ} [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+    (γ : SM.ClosedC1Curve) (a b : ℕ → ℝ) (ha0 : a 0 = 0) (hac : a c = 1)
+    (hab : ∀ k < c, a k ≤ b k) (hba : ∀ k < c, b k ≤ a (k + 1))
+    (hcorner : ∀ k < c, ∃ θ : ℝ → ℝ, SM.IsLiftOn (tangentLoop γ).T θ (a k) (b k) ∧
+      θ (b k) - θ (a k) = principalTurn L (k : ZMod c))
+    (hstraight : ∀ k < c, ∀ s ∈ Set.Icc (b k) (a (k + 1)),
+      (tangentLoop γ).T s = SM.normalize (edge L (k : ZMod c))) :
+    rotCurve γ = (rot L hL : ℝ) := sorry
+
+/-! ## The lemma row: one field per printed clause of CV lem:turnlift (d1_setup.tex:789–822) -/
+
+/-- CV lem:turnlift (d1_setup.tex:789–822), "Here `rot` is as in Definition def:rot" (790). Clause (i)
+(792–797): fields `direction_loop_has_lift` … `rotCurve_reverse`, on `CV.tw` and `CV.rotCurve`; clause (ii)
+(798–805): fields `polygon_two_pi_rot` … `polygon_triangle`, on `CV.rot` and `CV.rotRay`; clause (iii)
+(806–820): fields `rounding`, `replacement`, `glplus_invariance`, on `CV.rotCurve` and `CV.rot`. Each
+docstring quotes the printed sentence and names the source of its proof (`SM.turnlift` field or
+`CV.turnlift_ii_data` field / `CV.Rotation` theorem). -/
+structure TurnLiftFullData : Prop where
+  /-- (i) "Every continuous direction loop has a tangent-angle lift" (792): a lift at the seam `[0,1]`
+  (`SM.turnlift.exists_tangent_angle_lift`). -/
+  direction_loop_has_lift : ∀ L : SM.DirectionLoop, ∃ θ : ℝ → ℝ, SM.IsSeamLift L.T θ
+  /-- (i) "The integer `tw(T)`" (793): `tw` takes integer values (`SM.turnlift.tw_integer`). -/
+  tw_integer : ∀ L : SM.DirectionLoop, ∃ k : ℤ, tw L = (k : ℝ)
+  /-- (i) "The integer `tw(T)` is independent of the lift" (793): every tangent-angle lift at the seam
+  gives the printed quotient `(θ(1) − θ(0)) / 2π` of def:rot (772–774) (`SM.turnlift.tw_lift_independent`). -/
+  tw_lift_independent : ∀ (L : SM.DirectionLoop) (θ : ℝ → ℝ), SM.IsSeamLift L.T θ →
+    tw L = (θ 1 - θ 0) / (2 * Real.pi)
+  /-- (i) "… and seam" (793): moving the seam to `a` (the loop `s ↦ T(s + a)`) does not change `tw`
+  (`SM.turnlift.tw_seam_independent`). -/
+  tw_seam_independent : ∀ (L : SM.DirectionLoop) (a : ℝ), tw (L.shift a) = tw L
+  /-- (i) "is unchanged by an orientation-preserving reparametrisation" (794): `φ : ℝ → ℝ` continuous,
+  strictly increasing, `φ(s+1) = φ(s) + 1` (`SM.Reparam`; `SM.turnlift.tw_reparam`). -/
+  tw_reparam : ∀ (L : SM.DirectionLoop) (φ : SM.Reparam), tw (L.reparam φ) = tw L
+  /-- (i) "and is constant under a continuous homotopy through direction loops" (794–795)
+  (`SM.turnlift.tw_homotopy`). -/
+  tw_homotopy : ∀ (h : SM.DirectionHomotopy) (t t' : ℝ), tw (h.loop t) = tw (h.loop t')
+  /-- (i) "Consequently the rotation of a closed `C¹` regular curve is invariant under regular homotopy"
+  (795–796), on `rotCurve` (`SM.turnlift.rot_regular_homotopy`). -/
+  rotCurve_regular_homotopy : ∀ (h : SM.RegularHomotopy) (t t' : ℝ),
+    rotCurve (h.curve t) = rotCurve (h.curve t')
+  /-- (i) "and reversing its orientation negates it" (796–797): the oppositely oriented curve
+  `s ↦ γ(−s)` (`SM.turnlift.rot_reverse`). -/
+  rotCurve_reverse : ∀ γ : SM.ClosedC1Curve, rotCurve γ.reverse = -rotCurve γ
+  /-- (ii) "If `L ∈ 𝓡_c` has principal turns `τ_i`, then `2π rot(L) = Σ_i τ_i`" (798–801), with `rot(L)`
+  CV's ray formula at the chosen admissible reference vector (`CV.turnlift_ii_data.identity`, i.e.
+  `CV.two_pi_mul_rot`). Content differs from SM's clause: there the identity is the definition of
+  `SM.rotationNumber`; here it is the theorem `CV.turnlift_ii` (printed proof 865–874). -/
+  polygon_two_pi_rot : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L),
+    (2 * Real.pi) * (rot L hL : ℝ) = ∑ i, principalTurn L i
+  /-- (ii) The same identity for the ray formula `Σ_i ε_i(r)` at every admissible `r` (the sentence as the
+  printed proof establishes it, 865–874: "give the admissible reference vector `r` of Definition def:rot an
+  angle `ρ` … Summing cyclically cancels the `β` terms and proves the displayed identity")
+  (`CV.turnlift_ii`). -/
+  polygon_two_pi_rotRay : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c), Regular L →
+    ∀ r : Plane, Admissible L r → (2 * Real.pi) * (rotRay L r : ℝ) = ∑ i, principalTurn L i
+  /-- (ii) Consequently `rot(L)` "is independent of the admissible `r`" (def:rot, 744–745; the lemma's
+  preamble "Here `rot` is as in Definition def:rot", 790, makes the value at any admissible `r` the same
+  integer) (`CV.rotRay_indep`, `CV.rot_eq_rotRay`). -/
+  polygon_ray_independent : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+    (r r' : Plane), Admissible L r → Admissible L r' →
+      rotRay L r = rotRay L r' ∧ rot L hL = rotRay L r
+  /-- (ii) "Consequently rotation is constant along every path in `𝓡_c`" (802; proof 876–877)
+  (`CV.turnlift_ii_data.constant_along_paths`). -/
+  polygon_path_constant : ∀ (c : ℕ) [NeZero c] (L Q : LabelledTuple c) (γ : Path L Q)
+    (hγ : ∀ u, Regular (γ u)) (s t : unitInterval), rot (γ s) (hγ s) = rot (γ t) (hγ t)
+  /-- (ii) "is unchanged by a positive flat subdivision" (802–803; proof 877–878): inserting the point
+  `q_i + t δ_i`, `0 < t < 1`, in the interior of the edge `δ_i` keeps the polygon in `𝓡_{c+1}` and keeps
+  its rotation (`CV.turnlift_ii_data.flat_subdivision`). -/
+  polygon_flat_subdivision : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+    (i : ZMod c) (t : ℝ), 0 < t → t < 1 →
+      Regular (insertVertex L i t) ∧ ∀ h', rot (insertVertex L i t) h' = rot L hL
+  /-- (ii) "and is negated by orientation reversal" (803–804; proof 878–879)
+  (`CV.turnlift_ii_data.reversal`). -/
+  polygon_reversal : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L),
+    Regular (SM.reversal L) ∧ ∀ h', rot (SM.reversal L) h' = -rot L hL
+  /-- (ii) "Every regular three-corner polygon has rotation `+1` or `−1` according to the common sign of
+  its three turns" (804–805; proof 881–887): `rot(L)` equals the sign `turn L i` of each of the three
+  turns and is `±1` (`CV.turnlift_ii_data.triangle`). -/
+  polygon_triangle : ∀ (L : LabelledTuple 3) (hL : Regular L),
+    (∀ i : ZMod 3, rot L hL = ((turn L i : SignType) : ℤ)) ∧ (rot L hL = 1 ∨ rot L hL = -1)
+  /-- (iii) "Suppose a closed `C¹` regular curve is obtained from `L` by replacing every corner by a regular
+  arc whose compatible tangent-angle lift has increment `τ_i`. Its rotation equals `rot(L)`" (806–808;
+  proof 889–891), on `rotCurve` and CV's `rot` (subdivision `0 = a 0 ≤ b 0 ≤ a 1 ≤ ⋯ ≤ a c = 1`, corner
+  arc at `q_k` on `[a k, b k]`, straight piece along `δ_k` on `[b k, a (k+1)]`; see
+  `rotCurve_eq_rot_of_rounding`, from `SM.turnlift.rounding` and `CV.rot_eq_rotationNumber`). -/
+  rounding : ∀ (c : ℕ) [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+    (γ : SM.ClosedC1Curve) (a b : ℕ → ℝ), a 0 = 0 → a c = 1 →
+      (∀ k < c, a k ≤ b k) → (∀ k < c, b k ≤ a (k + 1)) →
+      (∀ k < c, ∃ θ : ℝ → ℝ, SM.IsLiftOn (tangentLoop γ).T θ (a k) (b k) ∧
+        θ (b k) - θ (a k) = principalTurn L (k : ZMod c)) →
+      (∀ k < c, ∀ s ∈ Set.Icc (b k) (a (k + 1)),
+        (tangentLoop γ).T s = SM.normalize (edge L (k : ZMod c))) →
+      rotCurve γ = (rot L hL : ℝ)
+  /-- (iii) "More generally, let `b, c` be regular oriented arcs having the same endpoints and the same
+  oriented tangent rays at both endpoints, and suppose replacing `b` by `c` in a closed curve gives closed
+  `C¹` regular curves `F_b, F_c`. For compatible tangent lifts with equal initial values, write their
+  increments as `Δ_b, Δ_c`. Then `rot(F_c) − rot(F_b) = (Δ_c − Δ_b) / 2π`" (810–817; proof 893–896). Model
+  (`SM.rot_sub_rot_of_replace`): the arc `b` occupies `[0, λ]` of `F_b`, the arc `c` occupies `[0, μ]` of
+  `F_c`, and the common complementary arc is traversed by `F_b` on `[λ, 1]` and by `F_c` on `[μ, 1]` up to a
+  monotone continuous change of parameter `ψ` with the same oriented tangents; `θb`, `θc` are tangent-angle
+  lifts on the arcs with equal initial values (`SM.turnlift.replacement`). -/
+  replacement : ∀ (Fb Fc : SM.ClosedC1Curve) (lam mu : ℝ), lam ∈ Set.Icc (0 : ℝ) 1 →
+    mu ∈ Set.Icc (0 : ℝ) 1 →
+    ∀ ψ : ℝ → ℝ, ContinuousOn ψ (Set.Icc lam 1) → MonotoneOn ψ (Set.Icc lam 1) → ψ lam = mu →
+      ψ 1 = 1 → (∀ s ∈ Set.Icc lam 1, (tangentLoop Fb).T s = (tangentLoop Fc).T (ψ s)) →
+      ∀ θb θc : ℝ → ℝ, SM.IsLiftOn (tangentLoop Fb).T θb 0 lam →
+        SM.IsLiftOn (tangentLoop Fc).T θc 0 mu → θb 0 = θc 0 →
+        rotCurve Fc - rotCurve Fb = ((θc mu - θc 0) - (θb lam - θb 0)) / (2 * Real.pi)
+  /-- (iii) "If `A_t`, `0 ≤ t ≤ 1`, is a supplied continuous path in `GL⁺(2, ℝ)` with `A_0 = I` and
+  `A_1 = A`, applying `A` to both arcs leaves `Δ_c − Δ_b` unchanged" (818–820; proof 898–905). Model
+  (`SM.glplus_increment_sub_invariant`): the arcs are given by their continuous nonvanishing tangent paths
+  `vb, vc` on `[0, 1]` with common oriented tangent rays at both ends; `A` acts on an arc through its
+  tangent vectors; `θb, θc` lift the normalised tangents of `b, c` and `θb', θc'` those of `A b, A c`
+  (`SM.turnlift.glplus_invariance`). -/
+  glplus_invariance : ∀ (A : SM.GLPlusPath) (vb vc : ℝ → Plane), Continuous vb → Continuous vc →
+    (∀ s, vb s ≠ 0) → (∀ s, vc s ≠ 0) →
+    (∃ r : ℝ, 0 < r ∧ vc 0 = r • vb 0) → (∃ r : ℝ, 0 < r ∧ vc 1 = r • vb 1) →
+    ∀ θb θc θb' θc' : ℝ → ℝ,
+      SM.IsLiftOn (fun s => SM.normalize (vb s)) θb 0 1 →
+      SM.IsLiftOn (fun s => SM.normalize (vc s)) θc 0 1 →
+      SM.IsLiftOn (fun s => SM.normalize (A.apply 1 (vb s))) θb' 0 1 →
+      SM.IsLiftOn (fun s => SM.normalize (A.apply 1 (vc s))) θc' 0 1 →
+      (θc' 1 - θc' 0) - (θb' 1 - θb' 0) = (θc 1 - θc 0) - (θb 1 - θb 0)
+
+/-- Row 145, CV:lem:turnlift in full: (i) and (iii) from `SM.turnlift` (the same printed sentences on the
+shared objects), (ii) from `CV.turnlift_ii_data` / `CV.Rotation`, (iii-a) through
+`rotCurve_eq_rot_of_rounding`. -/
+theorem turnlift_full : TurnLiftFullData := sorry
+
+/-- The two polygon readings of (ii) agree in value on `𝓡_c`: CV's `rot` (ray formula) and SM's
+`rotationNumber` (`Σ τ_i / 2π`), decision F2 (`CV.rot_eq_rotationNumber`), and hence CV's (iii-a)
+conclusion and SM's `rounding` conclusion are the same real number. -/
+theorem turnlift_full_rot_eq_SM {c : ℕ} [NeZero c] (L : LabelledTuple c) (hL : Regular L) :
+    (rot L hL : ℝ) = SM.rotationNumber L := sorry
+
+end CV

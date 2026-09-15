@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "repairs": [
+    {
+      "source_id": "lem:shift",
+      "source": "reference/SM/sm-1-polygons.tex",
+      "source_line": 484,
+      "original_status": "unaccepted-source-omission",
+      "reason": "The printed leftTurns(reversal P)=n-leftTurns P is false if a turn is zero; no surrounding nonzero-turn or Generic premise applies.",
+      "counterexample": {
+        "file": "work/repairs/ShiftZeroTurn.lean",
+        "declaration": "SM.ScopeInvestigation.shift_left_count_fails_on_regular",
+        "sha256": "3db5b53e42a7efffcd9b2e9a196b25ab2f2f0744b7d715c0901f8bb7a008b583",
+        "command": "lake env lean ../repairs/ShiftZeroTurn.lean (from work/lean)",
+        "exit_code": 0,
+        "log": "work/checks/shift-zero-turn-check.log",
+        "log_sha256": "a276be29131095d0084556132824d75329a45f840daf6bdc66c0ed17a298d051",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "independent_review": "work/reviews/lem-shift-scope.md",
+        "review_sha256": "3ed7dd5da78abc4e50e6f79a18766f5bfe6c91e8dbef250c8e1ccb8e905e9295"
+      },
+      "proposed_repair": {
+        "file": "work/lean/SM/ShiftReversal.lean",
+        "declaration": "SM.shift_reversal_corrected",
+        "change": "Only the n-leftTurns conclusion acquires the explicit condition that all turns are nonzero. The unrestricted count equals original rightTurns. Other tuple/generic/regular domains are retained.",
+        "status": "independently-reviewed-explicit-repair",
+        "candidate_receipt": "work/checks/checkpoint-025-output.json",
+        "independent_review": "work/reviews/lem-shift-repair.md",
+        "review_sha256": "a5d0dc97ef89c990bff08d8718cd26ace6f0c4d062e3961e1cfe310180b9361d",
+        "current_receipt": "work/checks/checkpoint-059-output.json"
+      },
+      "count_as_original": false,
+      "safe_consumers": [
+        "prop:C-reversal (explicit generic section scope)",
+        "lem:star-generic (proved Generic premise)"
+      ],
+      "consumer_discharge": "SM.leftTurns_reversal_of_generic proves the required nonzero-turn consequence from actual G1."
+    }
+  ]
+}

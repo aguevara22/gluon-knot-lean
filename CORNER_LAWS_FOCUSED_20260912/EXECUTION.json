@@ -1,0 +1,66 @@
+{
+  "acceptance_stages": [
+    1
+  ],
+  "certificates": [],
+  "extra": [
+    "R:localization",
+    "R:parity",
+    "R:exterior",
+    "R:fibre_partition",
+    "R:availability_0_1",
+    "R:generic_table",
+    "R:generic_selector",
+    "R:generic_transport",
+    "R:generic_selected",
+    "R:extreme_pair_zero",
+    "R:extreme_transport",
+    "R:extreme_selected",
+    "R:cv_theorem",
+    "Bridge:B1",
+    "Bridge:B2",
+    "Bridge:B3",
+    "Bridge:B4",
+    "Bridge:theorem",
+    "SM:corner_laws_and_soft"
+  ],
+  "mode": "focused",
+  "name": "Corner state sum: wall laws and soft theorem",
+  "progress_interval_seconds": 900,
+  "targets": [
+    "prop:C-chamber",
+    "prop:C-silent",
+    "thm:C-S3",
+    "thm:C-S7",
+    "thm:C-S5",
+    "thm:C-soft",
+    "Bridge:theorem",
+    "SM:corner_laws_and_soft"
+  ],
+  "tasks": [
+    [
+      "FOUNDATIONS",
+      "Implement the selected definitions and five literature interfaces."
+    ],
+    [
+      "CORNER",
+      "Prove the local polynomial, carrier bound and corner coefficient results."
+    ],
+    [
+      "DIRECT-LAWS",
+      "Prove chamber/silent, flat, both vertex-edge branches, empty cusp and all soft sectors."
+    ],
+    [
+      "FULL-CUSP",
+      "Prove the selected amplitude/transport/uniqueness comparison chain and inherited cusp with explicit R parameter."
+    ],
+    [
+      "R-AND-BRIDGE",
+      "Execute OPEN_WORK.md and discharge R without circular inputs."
+    ],
+    [
+      "FINAL",
+      "Assemble the unconditional corner-laws theorem and pass independent review and stage 1."
+    ]
+  ]
+}

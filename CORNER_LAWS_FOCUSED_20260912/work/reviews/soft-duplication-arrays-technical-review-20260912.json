@@ -1,0 +1,278 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-arrays-technical-review-20260912",
+  "sealed_utc": "2026-09-12T02:12:58.548468+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root proposed the detailed formal-array architecture and the proof-only simplification repair after the first run. The implementing agent authored all reviewed declarations and the repair, and also authored the frozen Indices dependency. This is a disclosed technical review, not independent stronger-model fidelity approval."
+  },
+  "scope": {
+    "group": "SoftDuplicationArrays",
+    "declarations": [
+      "SM.SoftDuplication.collapse_lt_distinguished",
+      "SM.SoftDuplication.distinguished_lt_collapse",
+      "SM.SoftDuplication.tripleContainsBoth",
+      "SM.SoftDuplication.triple_exception_disjoint",
+      "SM.SoftDuplication.triple_contains_both_iff",
+      "SM.SoftDuplication.collapseTriple",
+      "SM.SoftDuplication.collapseTriple_positions",
+      "SM.SoftDuplication.oldTriple",
+      "SM.SoftDuplication.oldTriple_plain",
+      "SM.SoftDuplication.triple_ext",
+      "SM.SoftDuplication.collapseTriple_oldTriple",
+      "SM.SoftDuplication.tripleLift",
+      "SM.SoftDuplication.tripleLift_upper",
+      "SM.SoftDuplication.tripleLift_lower",
+      "SM.SoftDuplication.tripleLift_plain",
+      "SM.SoftDuplication.tripleLift_oldTriple",
+      "SM.SoftDuplication.upper_exception_argument_lt",
+      "SM.SoftDuplication.lower_exception_argument_gt",
+      "SM.SoftDuplication.coreNear",
+      "SM.SoftDuplication.coreNear_at_middle",
+      "SM.SoftDuplication.coreNear_off_middle",
+      "SM.SoftDuplication.coreNear_argument_lt",
+      "SM.SoftDuplication.parentNear",
+      "SM.SoftDuplication.parentNear_oldTriple",
+      "SM.SoftDuplication.intervalContainsBoth",
+      "SM.SoftDuplication.intervalContainsBoth_iff",
+      "SM.SoftDuplication.interval_eq_duplicate",
+      "SM.SoftDuplication.interval_five_cases",
+      "SM.SoftDuplication.not_duplicate_of_not_contains",
+      "SM.SoftDuplication.not_duplicate_of_right_gt",
+      "SM.SoftDuplication.not_duplicate_of_left_lt",
+      "SM.SoftDuplication.start_collapsed_bounds",
+      "SM.SoftDuplication.end_collapsed_bounds",
+      "SM.SoftDuplication.span_collapsed_bounds",
+      "SM.SoftDuplication.ordinaryLift",
+      "SM.SoftDuplication.ordinaryLift_duplicate",
+      "SM.SoftDuplication.ordinaryLift_plain",
+      "SM.SoftDuplication.ordinaryLift_start",
+      "SM.SoftDuplication.ordinaryLift_end",
+      "SM.SoftDuplication.ordinaryLift_span"
+    ],
+    "source_id": "thm:A-soft formal far/near data and proposed ordinary table",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1223\u20131269"
+  },
+  "assessment": "No technical defect found in the bounded array-definition and exhaustive-case scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/SoftDuplicationArrays-prototype-result.json",
+    "receipt_sha256": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+      "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8"
+    },
+    "declaration_axioms": {
+      "SM.SoftDuplication.collapse_lt_distinguished": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.distinguished_lt_collapse": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleContainsBoth": [],
+      "SM.SoftDuplication.triple_exception_disjoint": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.triple_contains_both_iff": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseTriple_positions": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.oldTriple": [
+        "propext"
+      ],
+      "SM.SoftDuplication.oldTriple_plain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.triple_ext": [],
+      "SM.SoftDuplication.collapseTriple_oldTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_upper": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_lower": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_plain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.tripleLift_oldTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.upper_exception_argument_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.lower_exception_argument_gt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.coreNear": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.coreNear_at_middle": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.coreNear_off_middle": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.coreNear_argument_lt": [],
+      "SM.SoftDuplication.parentNear": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.parentNear_oldTriple": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.intervalContainsBoth": [],
+      "SM.SoftDuplication.intervalContainsBoth_iff": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.interval_eq_duplicate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.interval_five_cases": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.not_duplicate_of_not_contains": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.not_duplicate_of_right_gt": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.not_duplicate_of_left_lt": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.start_collapsed_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.end_collapsed_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.span_collapsed_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_duplicate": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_plain": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_start": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_end": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.ordinaryLift_span": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/SoftDuplicationArrays-second-kernel.log": "f6441e565835a3ae8406728794cb55612a971e1052b5a2c931331ac9be60fbd8",
+      "work/checks/SoftDuplicationArrays-first-draft.prototype.lean": "3a8d396581d2ec1a613f9b5c5aedfe536f7ee6590b2b759b29cd26de1280aa7f",
+      "work/checks/SoftDuplicationArrays-first-draft.body.lean": "8f95d9e46a3d94453dce5fc6d67ed1047498c3c8b8d13a03af6583223d3c0ece",
+      "work/checks/SoftDuplicationArrays-prototype-result.json": "047a1903632ea89c7f990fab7774eda6f45f1155cdcde9779598d75da8c7af95",
+      "work/checks/SoftDuplicationArrays-first-failed.body.lean": "8f95d9e46a3d94453dce5fc6d67ed1047498c3c8b8d13a03af6583223d3c0ece",
+      "work/checks/SoftDuplicationArrays-first-kernel.log": "68491c0096cfca64b96be52ecd6f02a216296f0f6a43aa251f005fc0d37c2825",
+      "work/checks/SoftDuplicationArrays.body.lean": "fcf9770a693fea9aa8d92aba4e3081a99268a6b1392cb6d2e34ad37fee838917",
+      "work/checks/SoftDuplicationArrays-body-dependencies.json": "0c56917963ef06f0f43e85f24cbdc0f40660a763d1528b7ca6ed3a14426bcd4a",
+      "work/checks/SoftDuplicationArrays-first-failed.prototype.lean": "3a8d396581d2ec1a613f9b5c5aedfe536f7ee6590b2b759b29cd26de1280aa7f",
+      "work/checks/SoftDuplicationArrays.prototype.lean": "dc98fbe137588950887afb7b44365721203ed6b7d8031f84c3f487666c63856c",
+      "work/checks/SoftDuplicationArrays-draft-dependency-bindings.json": "bb96c47f47a04350d636e4aaa026a1bc0f1f68eddd1f4bd15b88fbe9b05ea58d",
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/NearFar.lean": "3d243e1d12636a02743e0f8dc37e3eecc7d46306fbd3cfca5170fd223ad6fa60",
+      "work/decisions/soft-duplication-arrays-20260912.md": "2b1ee2daa8e96db18f51b32e9b620e96baaa12afea54a6b7d67b9f942e931675"
+    }
+  },
+  "findings": [
+    "Triple membership means literal ordered positions A and B. Strict increasing triples and consecutiveness exclude their occupying the two exterior positions. Thus exactly the upper adjacent pair or the lower adjacent pair can be exceptional, and these cases are disjoint. All remaining triples have strictly increasing collapsed positions, derived using the proved sole collapse-equality exception.",
+    "The tripleLift definition uses t at the third collapsed position for each exceptional pair and the supplied core array on the proved collapsed triple otherwise. The two exceptional argument bounds prove that t(s) is never read there. oldTriple is an actual strict embedding and is always plain; collapsing it recovers the exact core triple.",
+    "coreNear is exactly t(lower) for triples with middle s and zero otherwise. parentNear uses the identical exceptional prescription as the far array. These are explicitly auxiliary arrays and have no assumption that they are geometric chirotopes.",
+    "Closed interval membership of both occurrences is equivalent to left\u2264A and B\u2264right. Splitting each bound into strict or equal yields exactly the five source rows, including the sole coincident collapsed-endpoint interval [A,B]. All other table rows form a valid core interval from a proved strict collapse, including endpoint values of s.",
+    "ordinaryLift first assigns the literal duplicate interval value1. Plain, starting, ending, and strictly spanning intervals then have exactly the source factors1, (etaPlus\u2212t(right))/2, (etaMinus\u2212t(left))/2, and (etaMinus+etaPlus)/2 multiplying the complete supplied b0 value. etaMinus, etaPlus and b0 remain arbitrary helper parameters: neither cyclic neighbor identities nor the recurrence is smuggled into a premise or claimed by these equations.",
+    "The first84103 failure was confined to a proof simplification leaving an if-True branch at ordinaryLift_duplicate. The second79873 repair changes only that proof to simp[ordinaryLift]; all40 statements are unchanged. Exact failed body/prototype/log and first drafts remain preserved. The observed successful run prints40 standard-only or axiom-free declaration traces."
+  ],
+  "limits": "These40 declarations define and evaluate the proposed arrays. They do not prove their full ordinary recurrence, weighted composition identities, cyclic neighbor specialization, root output or thm:A-soft. No source row is accepted."
+}

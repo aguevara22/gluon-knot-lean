@@ -1,0 +1,193 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-duplication-indices-technical-review-20260912",
+  "sealed_utc": "2026-09-12T01:57:59.431363+00:00",
+  "reviewer_identity": {
+    "agent": "/root",
+    "implementer": "/root/review_contraction_candidates",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Same model; no stronger-model review.",
+    "disclosure": "Root assigned the linear ordered duplication/collapse task and suggested the two proof-only elaboration fixes after the first failed run. The implementing agent chose Fin.succAbove/predAbove and authored every reviewed declaration, including the repairs. Root is also implementing the separate cut-set transform bridge."
+  },
+  "scope": {
+    "group": "SoftDuplicationIndices",
+    "declarations": [
+      "SM.SoftDuplication.A",
+      "SM.SoftDuplication.B",
+      "SM.SoftDuplication.old",
+      "SM.SoftDuplication.collapse",
+      "SM.SoftDuplication.A_val",
+      "SM.SoftDuplication.B_val",
+      "SM.SoftDuplication.A_lt_B",
+      "SM.SoftDuplication.old_val",
+      "SM.SoftDuplication.old_self",
+      "SM.SoftDuplication.old_strictMono",
+      "SM.SoftDuplication.old_injective",
+      "SM.SoftDuplication.old_ne_B",
+      "SM.SoftDuplication.collapse_val",
+      "SM.SoftDuplication.collapse_A",
+      "SM.SoftDuplication.collapse_B",
+      "SM.SoftDuplication.collapse_old",
+      "SM.SoftDuplication.collapse_leftInverse",
+      "SM.SoftDuplication.collapse_monotone",
+      "SM.SoftDuplication.old_collapse_of_ne_B",
+      "SM.SoftDuplication.child_exhaust",
+      "SM.SoftDuplication.collapse_eq_s_iff",
+      "SM.SoftDuplication.collapse_eq_iff_of_ne",
+      "SM.SoftDuplication.collapse_fiber_s",
+      "SM.SoftDuplication.collapse_fiber_of_ne",
+      "SM.SoftDuplication.collapse_eq_iff_of_lt",
+      "SM.SoftDuplication.collapse_lt_iff_of_lt",
+      "SM.SoftDuplication.duplicateInterval",
+      "SM.SoftDuplication.duplicateInterval_leaves",
+      "SM.SoftDuplication.collapse_endpoints_eq_iff",
+      "SM.SoftDuplication.collapse_endpoints_lt",
+      "SM.SoftDuplication.collapseInterval",
+      "SM.SoftDuplication.collapseInterval_endpoints"
+    ],
+    "source_id": "thm:A-soft formal duplication positions and collapsed interval domain",
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "1223\u20131269"
+  },
+  "assessment": "No technical defect found in the bounded index/domain scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "evidence": {
+    "receipt_path": "work/checks/SoftDuplicationIndices-prototype-result.json",
+    "receipt_sha256": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+    "receipt_bound_files_sha256": {
+      "work/checks/SoftDuplicationIndices.body.lean": "1544715ba36199576100de93edae56933aa2cc0efb9a75e060e41e5952ea0445",
+      "work/checks/SoftDuplicationIndices.prototype.lean": "331f6b9e1aa4ab9984dd0509d6b3857b4ac678a42a3a2b755469455007ea721b",
+      "work/checks/SoftDuplicationIndices-second-kernel.log": "603465c598208976950bc46d68d96118188745b7b03ba7029ac99e8cb7efa615"
+    },
+    "declaration_axioms": {
+      "SM.SoftDuplication.A": [],
+      "SM.SoftDuplication.B": [],
+      "SM.SoftDuplication.old": [],
+      "SM.SoftDuplication.collapse": [
+        "propext"
+      ],
+      "SM.SoftDuplication.A_val": [],
+      "SM.SoftDuplication.B_val": [],
+      "SM.SoftDuplication.A_lt_B": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.old_val": [
+        "propext"
+      ],
+      "SM.SoftDuplication.old_self": [],
+      "SM.SoftDuplication.old_strictMono": [
+        "propext"
+      ],
+      "SM.SoftDuplication.old_injective": [
+        "propext"
+      ],
+      "SM.SoftDuplication.old_ne_B": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_val": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_A": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_B": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_old": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_leftInverse": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_monotone": [
+        "propext"
+      ],
+      "SM.SoftDuplication.old_collapse_of_ne_B": [
+        "propext"
+      ],
+      "SM.SoftDuplication.child_exhaust": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_eq_s_iff": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_eq_iff_of_ne": [
+        "propext"
+      ],
+      "SM.SoftDuplication.collapse_fiber_s": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_fiber_of_ne": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_eq_iff_of_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_lt_iff_of_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.duplicateInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.duplicateInterval_leaves": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_endpoints_eq_iff": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapse_endpoints_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseInterval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.SoftDuplication.collapseInterval_endpoints": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_files_sha256": {
+      "work/checks/SoftDuplicationIndices-first-kernel.log": "71cdb1b75c63c1d1631f239e7c6171a5f85ebe00ac00037428c41803685d9f01",
+      "work/checks/SoftDuplicationIndices-first-failed.body.lean": "0232499719a463712b836a8fe74f0d988b54df6e379bb30a9f39a938548f3703",
+      "work/checks/SoftDuplicationIndices-draft-dependency-bindings.json": "462ef2adb38801637f6d395baa51db951a573971100a0f604ab20b2b888c9775",
+      "work/checks/SoftDuplicationIndices-first-failed.prototype.lean": "ec4b590de4b43278ce99a1cc5169d6b357ad1656b98e3535653b0675276ed150",
+      "work/checks/SoftDuplicationIndices-body-dependencies.json": "892df3fd96afb73fe38f769401066d92e667498c3ba6972a4ba1d64817823f1a",
+      "work/checks/SoftDuplicationIndices-prototype-result.json": "5f6e453b3a0c8ebefe71d4bcb8fd79c61179390f7bf0959bc806d0512bdfacfb",
+      "work/checks/SoftDuplicationIndices-first-draft.prototype.lean": "ec4b590de4b43278ce99a1cc5169d6b357ad1656b98e3535653b0675276ed150",
+      "work/checks/SoftDuplicationIndices-first-draft.body.lean": "0232499719a463712b836a8fe74f0d988b54df6e379bb30a9f39a938548f3703",
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+      "work/decisions/soft-duplication-indices-20260912.md": "f5c05473532416673457c24fd020fb9573fd1d9d1d10c09dbfe74d6cd7106640"
+    }
+  },
+  "findings": [
+    "A=s.castSucc and B=s.succ are consecutive physical positions in the linear child boundary word. The old embedding skips exactly B, retaining s at A. Its numeric formula shifts exactly positions strictly after s. These definitions concern occurrences, not the existing cyclic edge labels.",
+    "collapse=s.predAbove is monotone, sends both A and B to s and is a left inverse of the strict old embedding. Every child position except B is recovered as old(collapse p), so child exhaustion and each stated fiber are actual map equalities.",
+    "The fiber over s is exactly {A,B}; every other core position has exactly the one old preimage. The zero and last distinguished positions are included. There is no n>=3 or interior-s premise in these helpers; the source domain is contained in their domain.",
+    "For p<q the numeric collapse formula proves equality precisely when p=A and q=B. Monotonicity then gives strictness for every other increasing pair. Thus the only child BoundaryInterval with coincident collapsed endpoints is duplicateInterval=[A,B], whose leaf count is1. Every other collapseInterval derives its increasing field from the proved exception characterization.",
+    "Root first59431 failed only on an implicit Fin lemma argument and Fin/natural condition elaboration. The exact failed body/prototype/log and identical first drafts are preserved. Agent repairs supply direct numeric arithmetic and typed natural tests; every declaration statement is unchanged. Second5770 exited0 with32 standard-only or axiom-free traces."
+  ],
+  "limits": "This proves occurrence and interval indexing. Composition fiber equivalences, weight transport, the ordinary-array recurrence and root output identity, cyclic geometric root-word correspondence and full thm:A-soft are separate obligations. No source row is accepted."
+}

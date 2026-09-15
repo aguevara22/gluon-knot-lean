@@ -1,0 +1,1438 @@
+% Section 1 of the distilled proof: everything the readout is made of.
+% Self-containment rule: no phrase of the form ``as in the specification''
+% survives here without the specification's own text printed beside it.
+\section{Setup}\label{sec:setup}
+
+\subsection{Polygons, guarded predicates, genericity}
+
+\begin{definition}[polygon]\label{def:polygon}
+Let $n\geq3$. A \emph{polygon} on $n$ vertices is a tuple
+$P=(p_1,\dots,p_n)\in(\mathbb{R}^2)^n$ with $p_{i+1}\neq p_i$ for every $i$,
+indices read cyclically modulo $n$ throughout. Its \emph{edges} are the closed
+segments $e_i=[p_i,p_{i+1}]$ and its \emph{edge directions} are
+$d_i=p_{i+1}-p_i\in\mathbb{R}^2\setminus\{0\}$. Two edges are \emph{consecutive}
+if their index sets meet, and \emph{remote} otherwise. An edge is \emph{remote
+to a vertex} $p_M$ when it is remote to both edges incident to $M$ --- the
+stronger of the two possible readings, and the one every consumer of the phrase
+uses: it excludes an edge that merely avoids $p_M$ while sharing a vertex with
+one of its edges. We write
+$\det(u,v)=u_1v_2-u_2v_1$.
+\end{definition}
+
+\begin{definition}[principal turns and the regular locus]\label{def:regular}
+\begin{enumerate}
+\item[(A)] Let $L$ be a closed polygon with corners $q_0,\dots,q_{c-1}$ and edge directions
+$\delta_i=q_{i+1}-q_i$. The \emph{principal turn} at $q_i$ is the unique
+$\tau_i\in(-\pi,\pi)$ with
+$\cos\tau_i=\frac{\langle\delta_{i-1},\delta_i\rangle}{|\delta_{i-1}||\delta_i|}$
+and $\sgn\tau_i=\sgn\det(\delta_{i-1},\delta_i)$. It exists precisely when
+$\delta_i$ is not a negative multiple of $\delta_{i-1}$: if
+$\det(\delta_{i-1},\delta_i)\neq0$ it is nonzero, and if $\delta_i$ is a
+positive multiple of $\delta_{i-1}$ it is $0$. The excluded case
+$\delta_i\in\mathbb R_{<0}\delta_{i-1}$ is the \emph{kink}, where the two
+candidate values $\pm\pi$ are both excluded from the open interval.
+\item[(B)] The \emph{regular locus} $\mathcal R_n\subseteq(\mathbb R^2)^n$ is the set of
+$P=(p_1,\dots,p_n)$ with $d_i\neq0$ for all $i$ and $d_{i+1}\neq-\lambda d_i$
+for all $i$ and all $\lambda>0$: nonzero edges and no consecutive pair that
+doubles back. Equivalently, every principal turn of
+clause~(A) exists.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[the guarded list $\mathcal G$]\label{def:guarded}
+Fix $n$. The \emph{guarded list} is a finite family of real polynomial functions
+on $(\mathbb R^2)^n$, indexed once and for all by combinatorial data that does
+not depend on the configuration. Write $d_i=p_{i+1}-p_i$ and, for an edge index
+$e$, write $\ell_e(x)=\det(d_e,\,x-p_e)$ for the affine form vanishing on the
+line of $e$, with coefficient row
+$\bigl(A_e,B_e,C_e\bigr)=\bigl(-d_{e,2},\;d_{e,1},\;d_{e,2}p_{e,1}-d_{e,1}p_{e,2}\bigr)$,
+so that $\ell_e(x)=A_ex_1+B_ex_2+C_e$.
+
+\emph{Unconditional members.}
+\begin{enumerate}
+\item[(G1)] $\mathrm{G1}_i=\det(d_{i-1},d_i)$, for every $i\in\{1,\dots,n\}$.
+\item[(G2)] $\mathrm{G2}_{e,i}=\ell_e(p_i)=\det(d_e,\,p_i-p_e)$, for every edge
+index $e$ and every $i\notin\{e,e+1\}$.
+\end{enumerate}
+
+\emph{Activation.} Two remote edges $e,f$ are \emph{defined} to cross when
+\[
+   \mathrm{G2}_{e,f}\,\mathrm{G2}_{e,f+1}<0
+   \quad\text{and}\quad
+   \mathrm{G2}_{f,e}\,\mathrm{G2}_{f,e+1}<0 ,
+\]
+a condition on unconditional members alone. The products are \emph{strict}, and
+that is a decision, not a formality: an earlier revision wrote
+$\sgn\neq\sgn$, which is undecided exactly where it is consumed. At a wall
+point one of the four members vanishes, and the three available readings
+disagree there. The strict product makes the pair \emph{inactive} at such a
+point; a three-valued $\sgn\in\{-1,0,+1\}$ would make it active, and then the
+sliding bundle of the wall dictionary of
+Section~\ref{sec:dictionary} would be $\{\mathrm{G2},\mathrm{G4}\}$ rather than
+the singleton that dictionary's item~(iii) records;
+and the shipped evaluator's test treats a zero as negative, which is asymmetric
+between the two edges. The strict product is taken, and the divergence from the
+evaluator is recorded here rather than left silent. What can be said about its
+consequences is scoped to this document: every statement below evaluates $X_1$
+at \emph{generic} polygons, where no $\mathrm{G2}$ vanishes and the two
+readings agree, so no statement below depends on which reading the code takes.
+What an external caller passes to that code is outside this document's claims
+--- a caller that hands it a collinear configuration reaches the divergence, and
+nothing here says otherwise. An earlier revision wrote that the code "never
+reaches" such a configuration, which is a claim about the code's callers and not
+about this document. It is the sign
+condition, and not the geometric phrase ``their relative interiors meet'', that
+every consumer below reads and that the shipped evaluator computes.
+
+The two agree wherever the four members are nonzero, and there they say that
+each edge has its two endpoints strictly on opposite sides of the other's line,
+which for segments is exactly a transverse interior crossing. They do
+\emph{not} agree everywhere in $\mathcal R_n$, and an earlier revision wrote
+``exactly when'' as though they did: two collinear overlapping remote edges have
+meeting relative interiors while all four members vanish, so the sign condition
+fails. Such a configuration is not generic --- those vanishing members are
+unconditional, hence relevant --- so the generic locus defined below and the
+discriminant $\mathcal D$ of Section~\ref{sec:dictionary} are the same sets under
+either reading, and no statement
+below changes. What changes is that activation is now decided by a formula.
+
+\emph{Conditional members.}
+\begin{enumerate}
+\item[(G5)] $\mathrm{G5}_{e,f}=\det(d_e,d_f)$, for every pair of remote edge
+indices with $1\leq e<f\leq n$ as integers --- the comparison is between the
+integer representatives $1,\dots,n$ of the edge indices and not a cyclic
+comparison, there being no such thing; adjacency and remoteness continue to be
+read modulo $n$. This fixes one \emph{ordered representative} per pair, and an
+unordered pair will not do, because
+$\det(d_f,d_e)=-\det(d_e,d_f)$ and the family is used where signs are read, in
+the sign-change condition that defines a transversal event below; \emph{active} when $e$
+and $f$ cross. Making it
+conditional rather than unconditional is a fidelity point: the specification
+guards the turn at a smoothing site, and a smoothing site exists only where two
+edges cross. Demanding $\det(d_e,d_f)\neq0$ for a pair that does not cross
+would shrink the generic locus below the specification's and exclude polygons
+the laws are stated about.
+\item[(G3)] $\mathrm{G3}_{e,f,g}=\det\begin{pmatrix}A_e&B_e&C_e\\
+A_f&B_f&C_f\\ A_g&B_g&C_g\end{pmatrix}$, the rows being the line-coefficient
+rows bound at the head of this definition, one for each of $e$, $f$ and $g$;
+for every triple of pairwise remote edges $1\leq e<f<g\leq n$, ordered by their
+integer representatives; \emph{active} when $e,f,g$ pairwise cross. It vanishes exactly when the
+three lines share a point of the projective plane: either they are concurrent in
+the plane, or all three are parallel. A parallel \emph{pair} with a transverse
+third does \emph{not} make it vanish --- an earlier revision said it did, and the
+configuration $p_0=(0,0)$, $p_1=(1,0)$, $p_2=(0,1)$, $p_3=(1,1)$, $p_4=(2,-1)$,
+$p_5=(2,2)$ refutes it, the rows of $e_0,e_2,e_4$ being $(0,1,0)$, $(0,1,-1)$
+and $(-3,0,6)$ with determinant $3$. On the active domain the three edges
+pairwise cross, so no two of the lines are parallel and the vanishing is exactly
+a concurrence at a finite point, which is what every consumer reads.
+\item[(G4)] $\mathrm{G4}_{e;f,g}
+=\det(d_f,\,p_f-p_e)\,\det(d_g,d_e)-\det(d_g,\,p_g-p_e)\,\det(d_f,d_e)$,
+for every edge $e$ and every pair of edges remote to $e$ with
+$1\leq f<g\leq n$ as integers --- again the comparison is between integer
+representatives, and again one ordered representative per pair, since
+$\mathrm{G4}_{e;g,f}=-\mathrm{G4}_{e;f,g}$; \emph{active} when $f$ and $g$ both
+cross $e$.
+
+\emph{Normalization of cyclic aliases.} Edge indices are read cyclically, so
+one edge has many names: $e_0$, $e_n$ and $e_{2n}$ are the same edge. Every
+comparison of indices in this document --- the $f<g$ of (G5), the $e<f<g$ of
+(G3), the $f<g$ of (G4) --- is a comparison of \emph{representatives}: each
+index is first reduced to the unique integer in $\{1,\dots,n\}$ naming that
+edge, and the reduced integers are compared. Adjacency, remoteness and the
+edges themselves are unaffected by the reduction; only the choice of ordered
+representative depends on it, and only that choice carries a sign.
+
+\emph{The two accessors.} Consumers meet a pair of edges in the order the
+geometry gives, which after reduction may be the reverse of the representative
+order. Let $f,g$ be distinct edges remote to $e$, presented in some order and
+possibly under aliases, and let $\bar f,\bar g\in\{1,\dots,n\}$ be their
+representatives. Define
+\[
+   \mathrm{G4}\langle e;f,g\rangle
+   =\mathrm{G4}_{e;\min(\bar f,\bar g),\,\max(\bar f,\bar g)}\in\mathcal G,
+   \qquad
+   \epsilon(f,g)=\begin{cases}+1,&\bar f<\bar g,\\ -1,&\bar f>\bar g,\end{cases}
+\]
+the first a \emph{member-valued} accessor --- it returns an element of the
+guarded list, the one indexed by the ordered representative pair --- and the
+second an \emph{orientation sign} in $\{\pm1\}$, a constant of the index data
+and not a function of the configuration. Their product
+\[
+   \widehat{\mathrm{G4}}_{e;f,g}
+   =\epsilon(f,g)\cdot\mathrm{G4}\langle e;f,g\rangle
+\]
+is the \emph{oriented value}: a real polynomial function on $(\mathbb R^2)^n$,
+antisymmetric in the ordered pair, equal to the member up to the orientation
+sign.
+
+The two are used in different places and the distinction is not cosmetic.
+Every set of guarded predicates formed below --- in particular the zero set of
+an event, defined later in this section --- is a set of \emph{members} of
+$\mathcal G$, and membership there is by \emph{index}: the element is
+$\mathrm{G4}\langle e;f,g\rangle$, the member indexed by the ordered
+representative pair, and not the oriented value, which when $\epsilon=-1$ is
+that member's negative and is indexed by nothing. The distinction is one of
+indexing and not of polynomials, and the difference matters: as polynomials a
+negated member can coincide with another member, since for three pairwise
+remote edges $\mathrm{G4}_{e;f,g}=-\mathrm{G3}_{e,f,g}$ --- an identity of
+polynomials, proved in the dictionary section where the canonical factors are
+analysed --- so $-\mathrm{G4}_{e;f,g}$ is the polynomial $\mathrm{G3}_{e,f,g}$,
+which \emph{is} a member. An earlier revision said the
+oriented value "is not a member of $\mathcal G$ when $\epsilon=-1$", which as a
+statement about polynomials is false.
+
+Statements about vanishing, activation and relevance are statements about the
+member and are insensitive to the presentation order. Statements about
+\emph{sign} --- a sign change across an event, a factorization whose two sides
+must agree in sign, the order of two crossings along an edge --- read the
+oriented value, and there the orientation sign $\epsilon$ is carried
+explicitly. Both kinds occur below, and the next display is of the first kind.
+
+Two illustrations of the reduction, both used below. At $j=0$ the pair
+$(e_{j-1},e_j)$ is $(e_{n-1},e_n)$, whose representatives are already
+increasing: $\epsilon=+1$, and the oriented value is the member. At $j=1$ it is
+$(e_0,e_1)$, whose representatives are $(n,1)$: $\epsilon=-1$, and the member
+is $\mathrm{G4}_{e;1,n}$. An earlier revision wrote
+$\mathrm{G4}_{h;e_{j-1},e_j}$ where the reduction makes that name empty and the
+sign opposite, and a later one placed the wrap at $j=0$, where there is none. When active, both
+$\det(d_f,d_e)$ and $\det(d_g,d_e)$ are nonzero, the crossing of $e$ with $f$
+sits at the parameter $t_f=\det(d_f,p_f-p_e)/\det(d_f,d_e)$ along $e$, and, for
+the ordered representative pair $\bar f<\bar g$ that indexes the member,
+\[
+   \mathrm{G4}_{e;\bar f,\bar g}
+      =(t_{\bar f}-t_{\bar g})\det(d_{\bar f},d_e)\det(d_{\bar g},d_e),
+\]
+so its vanishing is exactly a tie $t_{\bar f}=t_{\bar g}$ in the order of
+crossings along $e$. Presented in the other order the same identity holds for the oriented value,
+both sides changing sign. Two kinds of consumer read this display, and they read
+different things. Those that need only the \emph{vanishing} --- the two collision arguments
+below, in the chamber-invariance proposition and in the silence lemma --- read
+the member, and the presentation order is irrelevant to them. Those that
+need the \emph{sign} --- the order of the two crossings along $e$, and the
+bigon-bundle computation of Section~\ref{sec:dictionary} --- read the oriented
+value $\widehat{\mathrm{G4}}_{e;f,g}=\epsilon(f,g)\,\mathrm{G4}\langle
+e;f,g\rangle$ and carry $\epsilon$. An earlier revision said the vanishing was
+"the only reading the consumers of this display take", which the sign-reading
+sites contradict.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[relevant members, generic polygons and chambers]\label{def:generic}
+\begin{enumerate}
+\item[(A)] A member of $\mathcal G$ is \emph{relevant} at a polygon $P$ if it is
+unconditional, or if it is conditional and active at $P$
+(Definition~\ref{def:guarded}). A polygon $P$
+(Definition~\ref{def:polygon}) is \emph{generic} if every member relevant at
+$P$ is nonzero at $P$; equivalently, if every unconditional member of
+$\mathcal G$ is nonzero at $P$ and every conditional member that is active at
+$P$ is nonzero at $P$. We write $\mathcal U_n$ for the set of generic polygons
+on $n$ vertices.
+
+\item[(B)] A \emph{chamber} is a connected component of the set $\mathcal U_n$ of generic
+polygons on $n$ vertices (clause~(A)). It is \emph{not} in
+general a component of the set where every member of $\mathcal G$ is nonzero:
+a conditional member that is inactive may vanish, or vanish identically, at a
+perfectly generic polygon, and nothing in this document asks it not to.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[what genericity excludes, item by item]\label{rem:genericmeans}
+$\mathrm{G1}_i\neq0$ says $d_{i-1}$ and $d_i$ are linearly independent, which
+excludes \emph{both} degenerate turns at once: the \emph{flat} turn, where
+$d_i$ is a positive multiple of $d_{i-1}$ and $p_i$ lies strictly between its
+neighbours, and the \emph{kink}, where $d_i$ is a negative multiple of $d_{i-1}$
+and the polygon reverses at $p_i$. $\mathrm{G2}_{e,i}\neq0$ says no vertex lies
+on the line of a non-incident edge, hence none lies on the edge.
+$\mathrm{G3}\neq0$ says no three pairwise remote edges are concurrent, so no two
+crossings collide. $\mathrm{G4}\neq0$ says the crossings along each edge are
+totally ordered with no ties. $\mathrm{G5}\neq0$ says two crossing edges are
+never parallel, so every crossing is a transversal double point. Consequently a
+generic polygon meets each of its remote edges in finitely many transversal
+double points, has no triple points, and has no vertex on a non-incident edge:
+it is an A'Campo divide.
+\end{remark}
+
+\begin{proposition}[active (G5) and the frozen generic locus]\label{prop:fidelity}
+Fix $n\geq3$. Let $\mathcal U_n^{\flat}$ be the set of polygons at which every member of the
+four families (G1)--(G4) that is relevant is nonzero --- the specification's
+guarded list, which does not mention $\det(d_e,d_f)$.
+\begin{enumerate}
+\item[(i)] Let $P$ be a polygon on $n$ vertices with $\mathrm{G1}_i(P)\neq0$ for every $i$ and
+$\mathrm{G2}_{e,i}(P)\neq0$ for every edge $e$ and every valid
+$i\notin\{e,e+1\}$. Then every (G5) member active at $P$ is nonzero,
+equivalently every remote pair whose relative interiors meet has nonzero direction determinant.
+\item[(ii)] $\mathcal U_n=\mathcal U_n^{\flat}$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(i) Let $e,f$ be remote with a common interior point and suppose
+$\det(d_e,d_f)=0$. Then $d_e$ and $d_f$ are proportional and the two segments,
+having a common point, lie on one line and overlap in a segment of positive
+length or in a point. If they overlap in a segment, an endpoint of one lies in
+the other, so the corresponding $\mathrm{G2}$ vanishes, contrary to hypothesis.
+If they meet in a single point, that point is interior to both by assumption,
+and two collinear segments meeting in exactly one interior point of each is
+impossible. So $\det(d_e,d_f)\neq0$.
+
+(ii) $\mathcal U_n\subseteq\mathcal U_n^{\flat}$ because $\mathcal U_n$ asks for more.
+Conversely let $P\in\mathcal U_n^{\flat}$; every relevant (G1), (G2), (G3) and
+(G4) is nonzero there. Since (G1) and (G2) are unconditional, clause (i) gives
+$\mathrm{G5}_{e,f}\neq0$ for every active pair. An inactive (G5) is not
+relevant, so every member relevant at $P$ is nonzero and $P\in\mathcal U_n$.
+\end{proof}
+
+\begin{remark}[why (G5) is conditional, and what it would cost to change]
+\label{rem:fidelity}
+Proposition~\ref{prop:fidelity}(ii) is the fidelity statement, and it is stated
+rather than remarked because it is load-bearing: it says no theorem below is
+proved on a narrower domain than the specification states it for.
+Definition~\ref{def:guarded} adds (G5) as a \emph{conditional} member so that
+the turn at a smoothing site has a named predicate, and the proposition says
+that this adds nothing.
+
+Making (G5) unconditional would \emph{not} be harmless: the pinned bow-tie $K_0$
+of Definition~\ref{def:circularstar} has two parallel remote edges that do not
+meet, so it would cease to be generic and the rank-zero anchor of
+Theorem~\ref{thm:main}(B) would not exist. The same bow-tie later refuted an
+argument that ran general position on the unconditional zero set
+(Lemma~\ref{lem:relgp}(B)); it is the configuration this whole distinction exists
+to keep.
+\end{remark}
+
+
+\subsection{The Gauss word, supports and carriers}
+
+Fix a \emph{diagrammatic} polygon $P$ --- the class defined below, of which
+every generic polygon is a member --- and let $m=m(P)$ be the number of its
+double points, labelled $1,\dots,m$. Everything in this subsection, up to and
+including the residual pieces and their diagrams, is stated for that class:
+genericity enters later, with the guards, and an earlier revision fixed a
+generic polygon here and then claimed the wider scope downstream. Traversing $P$ once from $p_1$ in the direction of
+increasing index visits each double point exactly twice; recording the labels in
+the order visited gives a cyclic word of length $2m$ in which every letter occurs
+twice, the \emph{Gauss word} of $P$.
+
+\begin{definition}[diagrammatic polygon]\label{def:diagrammatic}
+A polygon $P$ is \emph{diagrammatic} if its self-intersections are finitely
+many, each of them an isolated transverse crossing of two edges with exactly two
+preimages on the traversal circle, no two of them sharing an image or a
+preimage, none of them at a corner, and no vertex of $P$ lying on an edge not
+incident to it. The clause about preimages and shared images is not implied by
+the others, and an earlier revision omitted it: the polygon
+$((-3,0),(3,0),(0,-3),(0,3),(-2,-2),(2,2))$ has its edges $e_0,e_2,e_4$ meeting
+pairwise transversally --- the three determinants are $36$, $24$, $-24$ --- at
+the \emph{single} point $(0,0)$, so three strands pass through one point, and the
+$2m$-letter Gauss word does not exist.
+
+Every generic polygon is diagrammatic: the (G2) members forbid a vertex on a
+remote edge, the (G5) members make each crossing transversal, and a triple point
+would make a (G3) member vanish while all three pairs cross, so that member is
+active, hence relevant, hence nonzero. So is the polygon at a simple positive
+flat wall, whose only degeneracy is a vanishing turn with the middle vertex
+\emph{inside} the segment. That last qualification matters: at an exterior
+collinear vertex the two incident edges overlap and the far one carries the
+middle vertex, as in $((0,0),(2,0),(1,0),(0,1))$, which is not diagrammatic ---
+an earlier revision said "any polygon whose only degeneracy is a vanishing
+turn".
+
+The class is named because the Gauss word, the interlacement graph, the
+independent sets, the undominated sets, the residual pieces and their diagrams
+are read off a diagrammatic polygon and need nothing more; genericity is what
+$X_1$ needs, through the guards, and is a strictly stronger condition. Three
+sections use exactly this class: the flat law at its wall, the rounding lemma,
+and the carrier floor.
+\end{definition}
+
+\begin{definition}[interlacement graph]\label{def:interlace}
+The \emph{interlacement graph} $G_P$ has vertex set $[m]=\{1,\dots,m\}$, with
+$c\sim c'$ if and only if exactly one of the two occurrences of $c'$ lies between
+the two occurrences of $c$ in the Gauss word. (The relation is symmetric.) We
+write $\Ind(G_P)$ for the set of independent sets of $G_P$, including
+$\varnothing$, and $N_{G_P}(S)$ for the set of vertices adjacent to some element
+of $S$.
+\end{definition}
+
+\begin{definition}[oriented smoothing]\label{def:smoothing}
+For $S\in\Ind(G_P)$, the \emph{oriented smoothing of $P$ along $S$} replaces, at
+each double point of $S$, the two transversally crossing arcs by the two arcs
+that respect the orientation of $P$ and do not cross. The result is a disjoint
+union of closed oriented curves, called the \emph{carriers} of $S$.
+\end{definition}
+
+\begin{lemma}[the carriers of a support]\label{lem:carriers}
+Let $P$ be diagrammatic (Definition~\ref{def:diagrammatic}) and
+$S\in\Ind(G_P)$ --- genericity is not needed here and an earlier revision
+assumed it; what the argument reads is the Gauss word. Let $\Gamma$ be the
+\emph{traversal circle}: an abstract oriented circle
+together with the traversal map $\Gamma\to\mathbb R^2$ that runs once around
+$P$, on which each double point of $P$ has exactly two preimages, so that
+$\Gamma$ carries $2m$ marked points. (No coordinate is placed on $\Gamma$; in
+particular the crossing-free case $m=0$ is allowed, with no marked points.) Then:
+\begin{enumerate}
+\item[(i)] the oriented smoothing of $P$ along $S$ has exactly $|S|+1$ carriers;
+\item[(ii)] the assignment of traversal points to carriers is \emph{non-crossing}:
+there are no four points $u_1,u_2,u_3,u_4$ of $\Gamma$ in this cyclic order,
+none of them a preimage of an element of $S$, with $u_1,u_3$ on one carrier and
+$u_2,u_4$ on a different carrier;
+\item[(iii)] if $c\in[m]\setminus S$ is non-adjacent in $G_P$ to every element of
+$S$, then both occurrences of $c$ lie on the same carrier;
+\item[(iv)] if $H$ is a connected component of the induced graph
+$G_P\bigl[[m]\setminus(S\cup N_{G_P}(S))\bigr]$, then there is exactly one
+carrier on which both occurrences of every $c\in H$ lie.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Induct on $|S|$, proving (i), (ii) and (iii) together; the induction is on the
+conjunction, and (iii) is what makes the step go through.
+
+\emph{Base $S=\varnothing$.} There is one carrier, namely $P$ itself: (i) and
+(iii) are immediate and (ii) is vacuous, all four points lying on that one
+carrier.
+
+\emph{Step.} Let $|S|\geq1$, fix $c\in S$ and put $S'=S\setminus\{c\}$, so
+$S'\in\Ind(G_P)$ and $|S'|=|S|-1$. Since $S$ is independent, $c$ is non-adjacent
+to every element of $S'$, so the inductive hypothesis (iii) applies to $S'$ and
+$c$: both occurrences of $c$ lie on one and the same carrier $L$ of $S'$. Write $x_1,x_2\in\Gamma$ for its two preimages; they cut $\Gamma$ into two
+arcs $\alpha,\beta$.
+
+(i) Oriented smoothing at $c$ replaces the two crossing arcs at that double point
+by the two non-crossing arcs respecting the orientation, which severs $L$ at
+$x_1$ and $x_2$ and reconnects it as the two closed curves carried by
+$L\cap\alpha$ and $L\cap\beta$; every other carrier of $S'$ is untouched, since
+$c$ meets none of them. So the number of carriers rises by exactly one, from
+$|S'|+1$ to $|S|+1$.
+
+(ii) The carriers of $S$ are those of $S'$ with the single block $L$ replaced by
+the two blocks $L\cap\alpha$ and $L\cap\beta$. Suppose $u_1,u_2,u_3,u_4$ in cyclic
+order violate (ii) for $S$, with $u_1,u_3$ on a carrier $A$ and $u_2,u_4$ on a
+carrier $B\neq A$, none of the $u_k$ an occurrence of an element of $S$. If
+neither $A$ nor $B$ is one of the two new blocks, the same four points violate
+(ii) for $S'$, contradicting the inductive hypothesis. If exactly one of them, say
+$A$, is a new block, then $A\subseteq L$ and $B$ is a carrier of $S'$ distinct
+from $L$, so the four points again violate (ii) for $S'$ with $L$ in place of $A$.
+If both are new blocks, then $\{A,B\}=\{L\cap\alpha,\,L\cap\beta\}$, so
+$u_1,u_3\in\alpha$ and $u_2,u_4\in\beta$ (or the same with $\alpha,\beta$
+exchanged). None of the $u_k$ equals $x_1$ or $x_2$, so each of the four cyclic
+transitions $u_1\to u_2\to u_3\to u_4\to u_1$ passes from $\alpha$ to $\beta$ or
+back, and every such passage contains one of the two points $x_1,x_2$ in its
+interior. Four disjoint open arcs would then each contain a point of the
+two-element set $\{x_1,x_2\}$, which is impossible
+
+(iii) Let $c''\in[m]\setminus S$ be non-adjacent to every element of $S$, hence to
+every element of $S'$. By the inductive hypothesis both occurrences of $c''$ lie
+on one carrier $L''$ of $S'$. If $L''\neq L$ then $L''$ is a carrier of $S$ as
+well and the claim holds. If $L''=L$, use that $c''$ is non-adjacent to $c$:
+exactly one occurrence of $c$ lying between the two occurrences of $c''$ is what
+adjacency means, so non-adjacency puts both occurrences of $c''$ strictly inside
+the same arc, $\alpha$ or $\beta$. Hence both lie on the same one of
+$L\cap\alpha$, $L\cap\beta$.
+
+(iv) Put $U=[m]\setminus(S\cup N_{G_P}(S))$. For $c\in H$, clause~(iii) puts
+both occurrences of $c$ on one carrier, which we call $L(c)$. If $c,c'\in H$
+are adjacent in $G_P[U]$, exactly one occurrence of $c'$ lies between the two
+occurrences of $c$. Thus their four occurrences alternate on $\Gamma$, and none
+is an occurrence of an element of $S$. If $L(c)\neq L(c')$, those four points
+violate clause~(ii). Hence $L(c)=L(c')$. The assignment $c\mapsto L(c)$ is
+therefore constant on every edge of the connected graph $H$, hence constant on
+$H$.
+
+It is one carrier, not two, because it is a function. Uniqueness is immediate:
+the carriers partition $\Gamma$, so distinct carriers are disjoint \emph{as
+subsets of the traversal circle} --- not as subsets of the plane, where two
+distinct carriers can meet only at \emph{dominated} crossings, those of
+$N_{G_P}(S)$. At a crossing outside $S\cup N_{G_P}(S)$ both visits lie on one
+carrier by clause~(iii), so distinct carriers cannot meet there, and the
+crossings of $S$ are smoothed. An earlier revision said distinct carriers meet
+at every shared double point \emph{outside} $S\cup N_{G_P}(S)$, which names
+exactly the set where they cannot.
+\end{proof}
+
+\begin{lemma}[smoothing preserves the induced cyclic order]\label{lem:carrierword}
+Let $C$ be a closed curve with a traversal circle $\Gamma_C$ and finitely many
+transverse double points, and let $S$ be a set of them no two of which
+interlace. Then each closed curve produced by smoothing $C$ along $S$ traverses
+the marked points of $\Gamma_C$ lying on it in the cyclic order they have on
+$\Gamma_C$.
+
+In particular, taking $C=P$ generic and $S\in\Ind(G_P)$, each carrier of $S$
+traverses the marked points lying on it in the order induced from $\Gamma$.
+\end{lemma}
+\begin{proof}
+Induction on $|S|$. If $S=\varnothing$ the only curve is $C$ itself, traversing
+$\Gamma_C$, and there is nothing to prove.
+
+Let $|S|\geq1$ and pick $c\in S$, with traversal preimages $c_1,c_2$. Smoothing
+$c$ alone joins the incoming branch at $c_1$ to the outgoing branch at $c_2$ and
+the incoming at $c_2$ to the outgoing at $c_1$, so the two resulting closed
+curves traverse exactly the two arcs $\Gamma_1=(c_1,c_2)$ and
+$\Gamma_2=(c_2,c_1)$ of $\Gamma_C$, each in the order induced from $\Gamma_C$;
+no marked point changes arcs and none is visited twice.
+
+Every other $e\in S$ is nonadjacent to $c$, so its two preimages do not separate
+$c_1$ from $c_2$: both lie in $\Gamma_1$ or both in $\Gamma_2$. Hence
+$S\setminus\{c\}$ is partitioned into two sets, one carried by each of the two
+closed curves, no two members of either interlacing; and the remaining
+smoothings are performed inside those two curves separately. Each is a closed
+curve with a traversal circle and finitely many transverse double points, which
+is the hypothesis of this lemma, so the induction hypothesis applies to each and
+gives the induced order there; composing with the previous paragraph gives it on
+$\Gamma_C$.
+
+The statement was restated at this generality because the induction applies it
+to curves obtained by smoothing, which are not polygons; an earlier revision
+quantified it over generic polygons only, and the peer was right that its own
+proof then stepped outside its domain.
+\end{proof}
+
+\begin{definition}[corner, turn sign, and $\wind$]\label{def:wind}
+Let $P$ be \emph{generic} and $S\in\Ind(G_P)$ --- the binders under which the
+definition is read, and which an earlier revision left to the ambient
+subsection, whose standing hypothesis is only that $P$ is diagrammatic. A
+\emph{corner} of a carrier of $S$ is either a vertex $p_i$ of $P$ traversed by
+it or a smoothing site of $S$ traversed by it. At each corner the carrier turns
+\emph{left} or \emph{right} according to the sign of the determinant of the
+incoming and outgoing directions, which under genericity is nonzero: at a
+vertex by (G1), unconditional and hence relevant, at a smoothing site by (G5),
+active at a crossing. On a merely diagrammatic polygon the vertex clause is
+false --- $((0,0),(1,0),(2,0),(0,1))$ is diagrammatic and its turn at $p_2$ is
+exactly zero --- which is why the generic binder is part of this definition and
+not decoration. A carrier is \emph{uniform} if all its corners turn the
+same way and \emph{mixed} otherwise. Its \emph{weight} is
+\[
+   \mathrm{wt}(L)=\begin{cases}
+     +1, & L \text{ uniform, all turns right},\\
+     (-1)^{c(L)}, & L \text{ uniform, all turns left, } c(L)=\#\text{corners},\\
+     0, & L \text{ mixed},
+   \end{cases}
+\]
+and $\wind(S)=\prod_{L}\mathrm{wt}(L)$, the product over the $|S|+1$ carriers of
+$S$. In particular $\wind(S)\neq0$ forces every carrier of $S$ to be
+uniform: $\wind(S)$ is a product of integers, a product of integers is
+nonzero only if every factor is, and the weight of a mixed carrier is $0$.
+\end{definition}
+
+\begin{definition}[undominated set and residual pieces]\label{def:pieces}
+For $S\in\Ind(G_P)$ put $U(S)=[m]\setminus\bigl(S\cup N_{G_P}(S)\bigr)$. The
+\emph{residual pieces} of $S$ are the connected components
+$H\in\pi_0\bigl(G_P[U(S)]\bigr)$ of the induced subgraph on $U(S)$.
+\end{definition}
+
+\subsection{The readout}
+
+\begin{definition}[record, and record isomorphism]\label{def:record}
+A \emph{record} consists of an oriented circle $\Gamma$; a finite subset
+$V\subset\Gamma$ of \emph{marked points}; a partition of $V$ into two-element
+sets, the \emph{double points}; for each double point a designation of one of
+its two points as the \emph{over} position and the other as the \emph{under}
+position; and for each double point a \emph{sign} in $\{\pm1\}$. The record of a
+link diagram is the one obtained by taking $\Gamma$ to be its traversal circle,
+$V$ the preimages of its crossings, the partition the crossing correspondence,
+and the over/under and sign data those of the diagram.
+
+A \emph{record isomorphism} from $(\Gamma,V,\dots)$ to $(\Gamma',V',\dots)$ is a
+bijection $\varphi:V\to V'$ that
+\begin{enumerate}
+\item[(a)] preserves the cyclic order: for all $v_1,v_2,v_3\in V$ occurring in
+that cyclic order on $\Gamma$, the points $\varphi v_1,\varphi v_2,\varphi v_3$
+occur in that cyclic order on $\Gamma'$;
+\item[(b)] carries double points to double points;
+\item[(c)] carries over positions to over positions and under to under;
+\item[(d)] preserves signs.
+\end{enumerate}
+Condition (a) says exactly that $\varphi$ extends to an orientation-preserving
+homeomorphism $\Gamma\to\Gamma'$ carrying $V$ onto $V'$, and any two such
+extensions are isotopic through such homeomorphisms: an orientation-preserving
+circle homeomorphism is determined up to isotopy by the cyclic-order-preserving
+bijection it induces on a finite subset, the complementary arcs being carried to
+the complementary arcs in the induced order and any two orientation-preserving
+homeomorphisms of a closed arc rel endpoints being isotopic. Records are
+\emph{isomorphic} when such a $\varphi$ exists; the relation is an equivalence.
+\end{definition}
+
+\begin{definition}[HOMFLY--PT normalization]\label{def:homfly}
+$P_H$ is normalized by the first two identities below; the third is their
+consequence, obtained by applying the skein relation at a crossing between $L$
+and a split unknot, and is displayed because it fixes the reader's convention
+for a split component:
+\begin{equation}
+P(\bigcirc)=1,\qquad
+aP(L_+)-a^{-1}P(L_-)=zP(L_0),\qquad
+P(L\sqcup\bigcirc)=\frac{a-a^{-1}}{z}\,P(L).
+\label{eq:homfly}
+\end{equation}
+\end{definition}
+
+\begin{definition}[piece diagram, positivity, writhe]\label{def:piecediagram}
+For a diagrammatic parent $P$, the diagram of a residual piece $H$ is the parent
+curve $P$ with every double
+point outside $H$ erased --- the two strands drawn as passing without
+interaction --- and every double point of $H$ resolved by the divide convention:
+the branch whose direction $u_{\mathrm{over}}$ satisfies
+$\det(u_{\mathrm{over}},u_{\mathrm{under}})>0$ passes over. Under this convention
+every crossing of the diagram is positive, so its writhe is
+$w(H)=|H|$, the number of double points of $H$. We write $P_H(a,z)$ for the
+HOMFLY--PT polynomial of the link so presented, normalized as in
+Definition~\ref{def:homfly}.
+
+\emph{What ``erased'' means, stated once, and where the statement comes from.}
+The evaluator that defines $X_1$ builds a piece's datum as the parent Gauss word
+restricted to the crossings of $H$, in the parent's cyclic order, together with
+the parent's per-crossing counter-clockwise half-edge order restricted to the
+surviving half-edges and re-expressed in the restricted word's arc labels
+(\texttt{sub\_word\_and\_rot},
+\texttt{engines/polygon\_motivic/ruling\_dp\_statesum\_fin.py:28} of the shipped
+code). So the datum is a word \emph{together with a rotation system}, not a bare
+word, and the definition above is to be read as naming that pair.
+
+To erase a double point is to omit it from that datum. The combinatorial shadow
+of the datum --- the word with its over/under and signs and nothing else --- is
+Definition~\ref{def:record}.
+\end{definition}
+
+\begin{lemma}[a residual piece is carried by an actual closed curve]
+\label{lem:piececurve}
+Let $P$ be diagrammatic (Definition~\ref{def:diagrammatic}),
+$S\in\Ind(G_P)$, and let $H$ be a residual piece of $S$. Let $C_H$ be the closed
+plane curve that the proof's own route constructs, and nothing else: smooth
+every crossing of $S$ --- of $S$ \emph{only} --- so that the curve falls into
+the $|S|+1$ carriers of $S$; take the one carrier that carries $H$, which is
+unique by Lemma~\ref{lem:carriers}(iv); and apply to it Step 5's iteration,
+smoothing at each step one double point outside $H$ and keeping the daughter
+curve that carries $H$, which Step 5 shows is well defined. Then $C_H$ is a
+closed plane curve whose double points are exactly the crossings of $H$ and
+whose Gauss word is the parent word restricted to $H$ in the parent's cyclic
+order.
+
+This binding is the construction and not a description of its result. The
+route above smooths nothing but $S$, so $H$ lies on one carrier before the
+iteration begins, and each subsequent step preserves that. In particular that restricted word is realizable, and the datum of
+Definition~\ref{def:piecediagram} is the datum of $C_H$.
+\end{lemma}
+\begin{proof}
+\emph{Step 1: a dominated crossing has its two visits on different carriers.}
+Let $c\notin S$ interlace some $s\in S$. Smoothing $s$ alone splits the curve
+into two closed curves traversing the two arcs $(s_1,s_2)$ and $(s_2,s_1)$ of
+$\Gamma$, and $c$ interlacing $s$ means one visit of $c$ lies in each. Smoothing
+the remaining elements of $S$ only ever splits: the carriers number $|S|+1$ by
+Lemma~\ref{lem:carriers}(i), which is the count reached when every one of the
+$|S|$ smoothings increases the component count, so none of them merges two
+components. Hence the two visits of $c$ lie on different carriers.
+
+\emph{Step 2: the double points of a carrier are exactly the undominated
+crossings it carries.} A double point of a carrier $L$ is a crossing outside $S$
+both of whose visits lie on $L$. Step 1 excludes the dominated ones, and
+Lemma~\ref{lem:carriers}(iii) puts both visits of each undominated one on a
+single carrier.
+
+\emph{Step 3: a carrier's Gauss word is realizable and is a restriction.} A
+carrier is a closed plane curve with transverse double points, so its Gauss word
+is realizable, being read off an actual curve. By Step 2 its double points are
+the undominated crossings it carries, and by Lemma~\ref{lem:carrierword} it
+traverses them in the cyclic order they have on $\Gamma$. So the carrier's word
+is the parent word restricted to those crossings.
+
+\emph{Step 4: a residual piece interlaces nothing else in that word.} $H$ is a
+connected component of $G_P[U(S)]$, so an undominated crossing interlacing a
+member of $H$ lies in $H$; and $H$ lies on one carrier by
+Lemma~\ref{lem:carriers}(iv).
+
+\emph{Step 5: restricting to such a set is realizable, constructively.} Let $C$
+be a closed plane curve and $K$ a nonempty set of its double points such that no
+member of $K$ interlaces a double point outside $K$ \emph{and $K$ induces a
+connected interlacement subgraph}. If $C$ has a double point $d$ outside $K$,
+smooth it. The curve becomes two closed curves, traversing the two arcs of $d$.
+Since $d$ interlaces no member of $K$, each member of $K$ has both visits in one
+of those two arcs; and two members lying in different arcs have their visits in
+disjoint arcs, so they do not interlace. Connectedness of $K$ therefore forces
+all of $K$ into one arc, hence onto one of the two curves. Keep that one and
+discard the other, which carries no member of $K$; the retained visits keep
+their cyclic order by Lemma~\ref{lem:carrierword} applied to the single smoothed
+chord. The hypotheses persist: $K$ is unchanged, so it is still connected, and
+it still interlaces no surviving double point outside it. Each step removes at
+least one double point outside $K$, so after finitely many steps the curve
+$C_H$ has double points exactly $K$ and Gauss word the restriction.
+
+The connectedness hypothesis is not decoration. Without it the step is false,
+and the peer's exact witness is the word $d\,a\,a\,d\,b\,b$ with
+$K=\{a,b\}$: neither $a$ nor $b$ interlaces $d$, yet $a$ lies inside the arc
+$(d_1,d_2)$ and $b$ outside it, so $K$ is not on one side. A residual piece
+supplies the hypothesis by Step 4, being a connected component.
+
+Applying Step 5 to the carrier of $H$ with $K=H$, which Steps 3 and 4
+licence --- Step 4 supplying both the non-interlacing and the connectedness
+hypotheses --- performs exactly the statement's third operation and gives
+$C_H$. Its rotation system at each surviving crossing is the carrier's,
+which is the parent's, since smoothing at other points does not disturb the
+half-edge order at a survivor; that is the second half of the datum.
+\end{proof}
+
+\begin{remark}[what the piece datum presents, and a reading that fails]
+\label{rem:piecedatum}
+An earlier revision of Definition~\ref{def:piecediagram} defined the diagram by
+its record alone. That is not the evaluator's datum and it is not safe:
+restricting a realizable Gauss word to an arbitrary label set can produce a word
+no plane curve realizes --- the peer's witness restricts $123123$ to two of its
+three crossings and gets $2323$, in which each chord interlaces exactly one
+other, against the realizable-word parity used in the proof of
+Corollary~\ref{cor:evendominated}. What rescues the
+definition is not a reading but the lemma above: a residual piece is not an
+arbitrary label set. The record shadow is what Lemma~\ref{lem:pieceintrinsic}
+compares.
+
+Definition~\ref{def:piecediagram} names a word together with a rotation system
+and calls it the diagram of a piece. Lemma~\ref{lem:piececurve} is what makes
+that a link diagram rather than a formal datum: the pair is the datum of an
+actual closed plane curve, so $P_H$ is a classical invariant and no
+realizability question is left open. The fact is recorded here, after the lemma,
+rather than inside the definition, which cannot draw on a result printed after
+it.
+\end{remark}
+
+\begin{corollary}[undominated crossings meet an even number of dominated ones]
+\label{cor:evendominated}
+Let $P$ be generic and $S\in\Ind(G_P)$. Every undominated crossing interlaces an
+even number of dominated crossings.
+\end{corollary}
+\begin{proof}
+Let $h$ be undominated, on the carrier $L$. The word of $L$ is realizable
+(Step 3 above), so $h$ interlaces an even number of chords of that word, which
+by Step 2 are the undominated crossings on $L$; and $h$ interlaces no
+undominated crossing off $L$, by the non-crossing property
+Lemma~\ref{lem:carriers}(ii). So $h$ interlaces an even number of undominated
+crossings in $\Gamma$'s word. That word is realizable too, so $h$ interlaces an
+even number of chords altogether, and $h$ interlaces no member of $S$, being
+undominated. Subtracting leaves an even number of dominated ones.
+\end{proof}
+\begin{proof}[Second proof, the peer's]
+This argument is not this author's and is printed with that attribution. For any
+independent $T$, the set $N(T)$ is exactly the set of crossings whose two visits
+lie on \emph{different} carriers of $T$, by Steps 1 and 2 above. Distinct closed
+curves in the plane meet in an even number of transverse points, so summing over
+the pairs of carriers, $|N(T)|$ is even. Now $h$ is undominated, so $S$,
+$\{h\}$ and $S\cup\{h\}$ are all independent, and
+\[
+   N\bigl(S\cup\{h\}\bigr)=N(S)\cup N(h).
+\]
+Taking cardinalities modulo two and using that all three of
+$|N(S\cup\{h\})|$, $|N(S)|$ and $|N(h)|$ are even gives $|N(S)\cap N(h)|$ even,
+and that intersection is exactly the set of dominated crossings interlacing $h$.
+
+The peer's caveat is worth keeping with the proof: this parity fact is necessary
+for realizability but not equivalent to it, so it does not replace
+Lemma~\ref{lem:piececurve}, whose carrier construction remains load-bearing.
+\end{proof}
+
+
+\begin{definition}[rotation number, computably]\label{def:rot}
+Let $L$ be a closed polygon through corner points $q_0,\dots,q_{c-1}$, lying
+in the regular locus $\mathcal R_c$ of Definition~\ref{def:regular}(B) ---
+nonzero edges, no consecutive pair doubling back; equivalently, every
+principal turn of Definition~\ref{def:regular}(A) exists --- and put
+$\delta_i=q_{i+1}-q_i$. Choose $r\in\mathbb{R}^2$ with $\det(r,\delta_i)\neq0$
+for all $i$; such $r$ exists because the $\delta_i$ are finitely many. Then
+\[
+   \rot(L)=\sum_{i}\epsilon_i,\qquad
+   \epsilon_i=\begin{cases}
+     +1,&\det(\delta_{i-1},\delta_i)>0,\ \det(\delta_{i-1},r)>0,\ \det(r,\delta_i)>0,\\
+     -1,&\det(\delta_{i-1},\delta_i)<0,\ \det(\delta_{i-1},r)<0,\ \det(r,\delta_i)<0,\\
+     0,&\text{otherwise.}
+   \end{cases}
+\]
+All comparisons are exact sign tests of determinants: no angles and no
+tolerances occur.
+
+\emph{Why regularity is part of the definition.} The sum is independent of
+the admissible $r$, and regularity is what makes it so; a vanishing turn is
+harmless. First delete flat corners: if $\delta_i=\lambda\delta_{i-1}$ with
+$\lambda>0$ then $\det(\delta_{i-1},\delta_i)=0$, so $\epsilon_i=0$ for every
+$r$, and deleting $q_i$ merges the two edges into one of the same direction,
+changing no other $\epsilon_j$, since every determinant a surviving term
+reads is altered only by a positive scale. The deletion lands in
+$\mathcal R_{c-1}$, and no polygon of any $\mathcal R_c$ is all-flat --- a
+closed polygon with every turn flat would traverse one direction forever and
+could not close --- so finitely many deletions reach a polygon with every
+$\det(\delta_{i-1},\delta_i)\neq0$ and the same sum. On that polygon,
+$\epsilon_i$ depends on $r$ only through $\det(\delta_{i-1},r)$ and
+$\det(r,\delta_i)$, so it moves only as $r$ crosses the line of
+$\delta_{i-1}$ or of $\delta_i$. Crossing the line of $\delta_j$ moves
+exactly $\epsilon_j$ and $\epsilon_{j+1}$, and in each of the four sign cases
+one gains what the other loses, so the sum is unchanged; if several edges
+share that line they are pairwise nonconsecutive --- consecutive ones would
+be flat or doubling back, and both are gone --- so their pairs are disjoint
+and each is preserved separately. Regularity is not decoration: the polygon
+$((-7,4),(-9,6),(9,-9),(3,3),(9,-9),(-7,-7),(-7,-6))$, whose consecutive
+pair $(-6,12),(6,-12)$ doubles back, returns both $-1$ and $0$ at admissible
+rays.
+
+\emph{Direction loops and smooth curves.}
+For a continuous loop $T\colon\mathbb R/\mathbb Z\to S^1$, a
+\emph{tangent-angle lift} at a seam is a continuous
+$\theta\colon[0,1]\to\mathbb R$ such that
+$T(s)=(\cos\theta(s),\sin\theta(s))$. Put
+\[
+   \operatorname{tw}(T)=\frac{\theta(1)-\theta(0)}{2\pi}.
+\]
+For a closed $C^1$ regular oriented curve
+$\gamma\colon\mathbb R/\mathbb Z\to\mathbb R^2$, put
+\[
+   T_\gamma=\frac{\gamma'}{|\gamma'|},
+   \qquad
+   \rot(\gamma)=\operatorname{tw}(T_\gamma).
+\]
+Lemma~\ref{lem:turnlift} constructs the lift and proves that these values do
+not depend on its choices, on the seam, or on an orientation-preserving regular
+reparametrisation. For either a polygon or a $C^1$ regular closed curve put
+$R(L)=|\rot(L)|$.
+
+\end{definition}
+
+\begin{lemma}[tangent lifts and principal turns]\label{lem:turnlift}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+\begin{enumerate}
+\item[(i)] Every continuous direction loop has a tangent-angle lift.
+The integer $\operatorname{tw}(T)$ is independent of the lift and seam,
+is unchanged by an orientation-preserving reparametrisation, and is constant
+under a continuous homotopy through direction loops. Consequently the rotation
+of a closed $C^1$ regular curve is invariant under regular homotopy, and
+reversing its orientation negates it.
+\item[(ii)] If $L\in\mathcal R_c$ has principal turns $\tau_i$, then
+\[
+   2\pi\rot(L)=\sum_i\tau_i.
+\]
+Consequently rotation is constant along every path in $\mathcal R_c$, is
+unchanged by a positive flat subdivision, and is negated by orientation
+reversal. Every regular three-corner polygon has rotation $+1$ or $-1$
+according to the common sign of its three turns.
+\item[(iii)] Suppose a closed $C^1$ regular curve is obtained from $L$ by
+replacing every corner by a regular arc whose compatible tangent-angle lift
+has increment $\tau_i$. Its rotation equals $\rot(L)$.
+
+More generally, let $b,c$ be regular oriented arcs having the same endpoints
+and the same oriented tangent rays at both endpoints, and suppose replacing
+$b$ by $c$ in a closed curve gives closed $C^1$ regular curves $F_b,F_c$.
+For compatible tangent lifts with equal initial values, write their increments
+as $\Delta_b,\Delta_c$. Then
+\[
+   \rot(F_c)-\rot(F_b)=\frac{\Delta_c-\Delta_b}{2\pi}.
+\]
+If $A_t$, $0\leq t\leq1$, is a supplied continuous path in
+$\mathrm{GL}^+(2,\mathbb R)$ with $A_0=I$ and $A_1=A$, applying $A$ to both
+arcs leaves $\Delta_c-\Delta_b$ unchanged.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For~(i), uniform continuity gives
+$0=s_0<\cdots<s_m=1$ such that
+$T(s)\cdot T(s_{j-1})>0$ on every
+$[s_{j-1},s_j]$. After choosing $\theta(0)$, continue it there by
+\[
+ \theta(s)=\theta(s_{j-1})+
+ \operatorname{atan2}\!\left(
+   \det(T(s_{j-1}),T(s)),\,
+   T(s_{j-1})\cdot T(s)\right).
+\]
+The second argument is positive, so the added angle lies in
+$(-\pi/2,\pi/2)$; the formulas match at the subdivision points and construct a
+continuous lift without a covering-space theorem. Since $T(1)=T(0)$, its
+endpoint increment belongs to $2\pi\mathbb Z$. Two lifts differ continuously
+by a value in $2\pi\mathbb Z$, hence by one constant.
+
+If the increment is $2\pi k$, extend the lift by
+$\theta(s+n)=\theta(s)+2\pi nk$. Every interval of length one then has the same
+increment, proving seam independence. An orientation-preserving
+reparametrisation of the circle has an increasing representative
+$\phi\colon\mathbb R\to\mathbb R$ with
+$\phi(s+1)=\phi(s)+1$; the lift $\theta\circ\phi$ has the same increment.
+
+For a homotopy $T(s,t)$ fix $t_0$. Uniform continuity gives a neighbourhood of
+$t_0$ on which
+$T(s,t)\cdot T(s,t_0)>0$ for every $s$. There is therefore
+a unique continuous relative angle
+\[
+ \alpha(s,t)=\operatorname{atan2}\!\left(
+ \det(T(s,t_0),T(s,t)),\,
+ T(s,t_0)\cdot T(s,t)\right)
+ \in(-\pi/2,\pi/2).
+\]
+If $\theta_0$ lifts $T(\,\cdot\,,t_0)$, then
+$\theta_0+\alpha(\,\cdot\,,t)$ lifts $T(\,\cdot\,,t)$.
+Periodicity gives $\alpha(1,t)=\alpha(0,t)$, so the endpoint increment is
+locally, hence globally, constant in $t$. A regular homotopy supplies such a
+homotopy of normalised tangents. For the oppositely oriented curve,
+$-T_\gamma(1-s)$ has lift $\theta(1-s)+\pi$, whose increment is the negative
+of the original one.
+
+For~(ii), give the admissible reference vector $r$ of
+Definition~\ref{def:rot} an angle $\rho$, and let
+$\beta_i\in(\rho,\rho+2\pi)$ represent the direction of the $i$th edge.
+The three cases in that definition give exactly
+\[
+   \tau_i=\beta_i-\beta_{i-1}+2\pi\epsilon_i:
+\]
+a positive crossing of the reference ray contributes $+2\pi$, a negative
+crossing contributes $-2\pi$, and otherwise no correction occurs.
+Summing cyclically cancels the $\beta$ terms and proves the displayed identity.
+
+Along a path in $\mathcal R_c$, every $\tau_i$ varies continuously in
+$(-\pi,\pi)$; hence the displayed integer is constant. A positive flat
+subdivision inserts one zero turn and changes no other turn. Reversal negates
+and reverses the turn list.
+
+For the three-corner claim, if the vertices are $A,B,C$, all three cyclic turn
+determinants equal $\det(B-A,C-A)$. This determinant cannot vanish: otherwise
+the three nonzero collinear edge scalars sum to zero, and a cyclic sign change
+is a consecutive negative-multiple pair, contrary to regularity. Thus all
+three turns have one sign. Their sum is nonzero and has magnitude below
+$3\pi$; being $2\pi$ times an integer, it has rotation $+1$ or $-1$ according
+to that sign.
+
+For~(iii), concatenate constant lifts on the straight pieces with the
+prescribed corner lifts. Their total increment is $\sum_i\tau_i$, so~(ii)
+proves the rounding assertion.
+
+For the replacement assertion, use the same lift on the unchanged
+complementary arc. Shifting that complementary lift at a join changes neither
+its increment nor the computation; subtraction cancels it and leaves
+$\Delta_c-\Delta_b$.
+
+Finally follow the tangent path of $c$ and then the tangent path of $b$
+backwards. This is a closed direction loop of increment
+$\Delta_c-\Delta_b$. The maps
+\[
+   \nu_t(z)=\frac{A_tz}{|A_tz|}
+\]
+give a homotopy of that direction loop. Clause~(i) keeps its increment
+constant, proving the last assertion without invoking degree.
+\end{proof}
+
+\begin{definition}[the slot, the factor, and $X_1$]\label{def:X1}
+Let $P$ be generic and $S\in\Ind(G_P)$. For a carrier $L$ of $S$ set
+\[
+  P_{S,L}=\prod_{H\text{ carried by }L}P_H,\qquad
+  w_{S,L}=\sum_{H\text{ carried by }L}w(H),
+\]
+the products and sums taken over the residual pieces assigned to $L$ by
+Lemma~\ref{lem:carriers}(iv), with the empty product $P_{S,L}=1$ and the empty
+sum $w_{S,L}=0$ when no piece is carried by $L$. Here $P_H$ is the HOMFLY--PT
+polynomial of the link that the piece $H$ presents, in the normalization of
+Definition~\ref{def:homfly}; that such a polynomial exists at all is
+Axiom~\ref{ax:homfly}, and this definition is where it is first read. The \emph{slot} of $L$ is the
+integer $1-w_{S,L}-R(L)$, the \emph{factor} is
+\[
+   \Omega_1(S,L)=\bigl[a^{\,1-w_{S,L}-R(L)}z^{0}\bigr]P_{S,L}(a,z)
+\]
+--- the coefficient itself, taken as a value, with no sign gate and no
+zero-gate applied --- and
+\[
+   X_1(P)\;=\;\sum_{S\in\Ind(G_P)}\wind(S)\prod_{L}\Omega_1(S,L),
+\]
+the inner product running over the $|S|+1$ carriers of $S$.
+\end{definition}
+
+\begin{proposition}[chambers and chamber invariance]\label{prop:chamberinv}
+Fix $n\geq3$.
+\begin{enumerate}
+\item[(i)] The generic locus $\mathcal U_n$ is open in $(\mathbb R^2)^n$, and
+every chamber --- every connected component of it --- is open and path connected.
+\item[(ii)] $X_1$ is constant on each chamber.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+For clause (i), fix $P\in\mathcal U_n$. The argument must control the members that are
+\emph{not} relevant at $P$ as well as those that are: openness of an activation
+region says that a member active at $P$ stays active nearby, and says nothing
+about one that is inactive at $P$ becoming active. An earlier revision inferred
+the second from the first.
+
+What controls both is the unconditional layer. Every unconditional member ---
+every $\mathrm{G1}_i$ and every $\mathrm{G2}_{e,i}$ --- is relevant at every
+polygon, so all of them are nonzero at $P$, they are finitely many, and they are
+polynomials; let $N$ be a neighbourhood of $P$ on which each of them keeps its
+sign. On $N$ the crossing status of every pair of remote edges is constant,
+being the four-sign condition of Definition~\ref{def:guarded} in exactly those
+members; hence the activation of every conditional member is constant on $N$,
+and so is the set of members relevant at a point. Shrinking $N$ so that the
+finitely many members relevant at $P$ --- now the members relevant everywhere on
+$N$ --- also keep their signs, every point of $N$ is generic. So
+$\mathcal U_n$ is open.
+
+A connected component of an open subset of $\mathbb R^N$ is open, the space
+being locally connected, and an open connected subset of $\mathbb R^N$ is path
+connected: the set of points reachable from a fixed one by a path in it is open
+and its complement in the component is open, and the component is connected. An
+earlier revision asserted both facts inside the proof that consumes them,
+rather than proving them.
+
+For clause (ii), let $P^{0},P^{1}$ lie in one chamber and choose a path
+$t\mapsto P(t)$, $t\in[0,1]$, between them inside it, as clause (i) allows.
+Every statement below is proved along that path.
+
+\emph{The combinatorics.} Each unconditional member $g\in\mathcal G$ is a
+polynomial, so the composite $t\mapsto g(P(t))$ is continuous and, by genericity,
+nowhere zero along the path. Its sign is therefore constant on the connected
+interval $[0,1]$. The four-sign crossing test of
+Definition~\ref{def:guarded} therefore fixes the set of crossing pairs
+along the path, and hence a conditional member is active at one parameter
+exactly when it is active at every parameter. Each $g$ in this now-fixed active
+set is a polynomial relevant at every $P(t)$, so $t\mapsto g(P(t))$ is likewise
+continuous and nowhere zero by genericity. Its sign is therefore constant as
+well. So: the set of double points, indexed by the pairs of edges carrying them, is
+constant; and no two of them collide, for the following reason, which splits in
+two cases and uses (G3) in one and (G4) in the other --- an earlier revision
+announced it as "the (G4) one and not the (G3) one", which is the half that is
+true when the two double points share an edge. Two double points can collide in two ways, and an earlier revision admitted
+only one of them, saying that four distinct edges through a point "is not a
+coincidence of any member". It is one. \emph{If the four edges are distinct}, the collision puts four edges through a
+single point, and there are two sub-cases. If some three of the four are
+pairwise nonparallel, they cross pairwise at that point, so their
+$\mathrm{G3}$ member is active, and it vanishes, three concurrent lines sharing
+a projective point; being active it is relevant, so genericity forbids it. If
+no such triple exists, then two of the four are parallel, and being parallel
+lines through a common point they are the same line: two distinct edges lying
+on one line, each containing that point in its relative interior, hence
+overlapping in a segment. Then an endpoint of one lies on the other, an
+\emph{unconditional} $\mathrm{G2}$ vanishes, and genericity forbids that as
+well. Either way no such collision occurs along a path of generic polygons.
+\emph{Otherwise the two double points share an edge}, and there the concurrency
+member says nothing --- the two carrying edges may be parallel --- so the
+argument is the (G4) one: let them lie on a common edge
+$e$, carried by $f$ and $g$, in the order the path presents them. The member
+that decides their order along $e$ is
+$\mathrm{G4}\langle e;f,g\rangle$, the member-valued accessor of
+Definition~\ref{def:guarded}, and the order itself is the sign of the oriented
+value $\widehat{\mathrm{G4}}_{e;f,g}=(t_f-t_g)\det(d_f,d_e)\det(d_g,d_e)$,
+which is that member times the orientation sign $\epsilon(f,g)$. The member is
+active exactly when both $f$ and $g$ cross $e$, which is the case, so it is
+relevant and hence nonzero of constant sign along the path; and since
+$\epsilon(f,g)$ is a constant of the index data, the oriented value is of
+constant sign too. Only the nonvanishing is used below, so the conclusion is
+the same under either reading. A collision would be $t_f=t_g$, so no collision occurs and the
+order along each edge is constant. When $f$ and $g$ share a vertex $M$ the same
+member does the work, its vanishing being that of
+$\mathrm{G2}_{e,M}\mathrm{G1}_M$. Both factors are unconditional members, so on
+this path --- along which every polygon is \emph{generic} --- both are nonzero;
+in particular $\mathrm{G1}_M\neq0$, and that is genericity and not regularity.
+Membership of $\mathcal R_n$ (Definition~\ref{def:regular}(B)) excludes only zero
+edges and a consecutive pair that doubles back, and a flat vertex with
+$\mathrm{G1}_M=0$ is regular. So the product vanishes only if
+$\mathrm{G2}_{e,M}$ does, which puts $M$ on the edge $e$ and is forbidden here.
+An earlier revision of this sentence said "the turn is nonzero on a regular
+polygon", which is false of $\mathcal R_n$. An earlier revision credited
+the constancy of the active (G3) signs for all of this; a concurrency member is
+inactive when its three edges do not pairwise cross, and then it says nothing,
+while two crossings on one edge can still swap. Hence the cyclic sequence of crossing visits along
+the traversal --- the Gauss word --- is constant, and so are $G_P$, $\Ind(G_P)$,
+each $U(S)$, each family of residual pieces, and, by
+Lemma~\ref{lem:carriers}(iv), the assignment of pieces to carriers. Each
+carrier is determined by the Gauss word and the smoothing sites, so the carriers
+correspond canonically along the path, with corners varying continuously.
+
+\emph{The weights.} At a vertex corner the turn sign is $\sgn\mathrm{G1}_i$,
+constant; at a smoothing corner of the crossing of $e,f$ it is the sign of
+$\mathrm{G5}_{e,f}$ up to the fixed sign of the smoothing convention, also
+constant. So each carrier is uniform on the whole path or mixed on the whole
+path, its corner count is constant, and $\mathrm{wt}(L)$ and $\wind(S)$ are
+constant (Definition~\ref{def:wind}).
+
+\emph{The rotations.} Turn signs alone do \emph{not} determine a rotation
+number --- the convex regular pentagon and the regular pentagram have the same
+five positive turn signs and rotations $1$ and $2$ --- so this step is a path
+argument, not a sign count. Along the path each carrier $L(t)$ has corners
+varying continuously and no vanishing turn determinant, so each principal turn
+$\tau_k(t)$ is continuous with values in $(-\pi,\pi)$, and
+$\rot(L(t))=\frac1{2\pi}\sum_k\tau_k(t)$ by Lemma~\ref{lem:turnlift}(ii) is a
+continuous integer-valued function of $t$ on the connected interval, hence
+constant. So each $R(L)$ is constant.
+
+\emph{The piece polynomials.} Fix two parameters $t_0,t_1$ and a residual
+piece $H$, identified at the two parameters by the common Gauss word. By
+Lemma~\ref{lem:piececurve}, each piece datum is realized by a connected closed
+plane curve whose double points are exactly the crossings of $H$ and whose
+cyclic word is the parent word restricted to $H$. Match each marked crossing--
+carrying-edge incidence $(c,e)$ at $t_0$ with $(c,e)$ at $t_1$. This bijection
+preserves cyclic order, and the two incidences bearing $c$ remain its crossing
+pair. It preserves signs because every piece crossing is positive, and it
+preserves over/under
+positions because the divide convention chooses them from the sign of the
+active $\mathrm{G5}$ member of the two carrying edges, which is constant along
+the chamber. Thus it is an orientation-preserving record isomorphism
+(Definition~\ref{def:record}). Lemma~\ref{lem:piececurve} retains exactly
+the finite, distinct transverse crossings of $H$
+and creates no self-intersection when it smooths locally; hence each realizing
+curve has one component and no triple points. Axiom~\ref{ax:gausscode}
+therefore says that the piece diagrams present the same oriented link. Hence
+$P_H$ is constant by Axiom~\ref{ax:homfly}, while $w(H)=|H|$ is constant because
+$H$ is.
+
+Hence every $\Omega_1(S,L)=[a^{1-w_{S,L}-R(L)}z^0]P_{S,L}$ is constant along the
+path, and so is the finite sum defining $X_1$. In particular
+$X_1(P^0)=X_1(P^1)$.
+\end{proof}
+
+\begin{definition}[event, and its zero set]\label{def:event}
+An \emph{event} is a continuous path $t\mapsto P(t)$ of polygons on $n$
+vertices, $t\in(-\varepsilon,\varepsilon)$, such that $P(t)$ is generic for
+every $t\neq0$ and $P(0)$ is not. Its \emph{zero set} is
+\[
+   Z=\bigl\{g\in\mathcal G:\ g(P(0))=0\ \text{ and }\ g\ \text{is relevant at }
+   P(t)\ \text{for some }t\neq0\bigr\}.
+\]
+The \emph{two chambers of the event} are the chambers containing
+$P\bigl((-\varepsilon,0)\bigr)$ and $P\bigl((0,\varepsilon)\bigr)$; each of
+those two sets is connected and consists of generic polygons, so each does lie
+in one chamber. We say the event is \emph{guarded relative
+to $Z$}, and every appeal to simplicity below names its $Z$.
+
+The event is \emph{transversal} if every member of $Z$ changes sign at $t=0$.
+Every named event of the convention that lists them is required to be
+transversal. Without that requirement the definition admits a tangency: the
+path
+\[
+   p_1=(0,0),\quad p_2(t)=(2,-t^2),\quad p_3=(1,0),\quad p_4=(3,2)
+\]
+is generic for $t\neq0$ and has exactly the cusp zero bundle at $t=0$, yet
+$P(t)=P(-t)$, so its two punctured sides are the same chamber and no crossing
+is created. A tangency is not a wall crossing and every wall law would be
+vacuous or false there.
+\end{definition}
+
+\begin{remark}[why the two chambers give two values]\label{rem:eventvalues}
+$X_1$ takes one value on each of the two chambers of an event, by
+Proposition~\ref{prop:chamberinv}(ii), which is what makes the jump across the event
+a well-defined number and is the reason the definition names the chambers at
+all. The fact is recorded here rather than in the definition, so that the
+definition depends on nothing proved after it.
+\end{remark}
+
+\begin{lemma}[the guards outside the zero set]\label{lem:guardconst}
+Let $t\mapsto P(t)$, $t\in(-\varepsilon,\varepsilon)$, be an event with zero set
+$Z$, and let $g\in\mathcal G$ be relevant at $P(t)$ for some $t\neq0$ and not a
+member of $Z$. Then $g(P(0))\neq0$, and there is
+$\varepsilon'\in(0,\varepsilon]$ such that $g$ is nonzero and of constant sign
+on the whole of $(-\varepsilon',\varepsilon')$.
+\end{lemma}
+\begin{proof}
+By Definition~\ref{def:event}, $Z$ consists of the members that vanish at
+$P(0)$ \emph{and} are relevant at some $t\neq0$. The hypothesis supplies the
+second clause and denies membership, so the first clause fails: $g(P(0))\neq0$.
+Since $g$ is a polynomial in the coordinates and $t\mapsto P(t)$ is continuous,
+$g\circ P$ is continuous and nonzero at $0$, hence nonzero on some interval
+$(-\varepsilon',\varepsilon')$, on which, being continuous and nowhere zero, it
+has constant sign.
+\end{proof}
+
+\begin{remark}[why the conclusion is local and not global]\label{rem:guardlocal}
+An earlier revision concluded that $g$ is nonzero on the \emph{whole} interval.
+That does not follow and its own proof conceded as much: $g$ may be relevant on
+one side of the event and inactive on the other, and an inactive conditional
+member is under no constraint --- it may vanish, or vanish identically. What is
+true, and what every consumer uses, is the local statement above. Since an
+event is used only as a germ at $t=0$, shrinking $\varepsilon$ costs nothing,
+and every appeal below is to the shrunken interval.
+\end{remark}
+
+\begin{remark}[why the zero set is defined and not imposed]\label{rem:zeroset}
+An earlier form of this definition required \emph{every} member of
+$\mathcal G\setminus Z$ to be nonzero throughout. That is too strong and makes
+the intended domains empty: a conditional member that is inactive on both sides
+of the event may vanish identically --- for instance a crossing-order predicate
+$\mathrm{G4}_{e;f,g}$ for a pair $f,g$ that never crosses $e$ --- so no event
+would satisfy it. It was also too weak in the other direction, since it did not
+require the two punctured sides to be generic, and without that the values
+$X_1(P_\pm)$ that every wall law compares need not exist.
+Definition~\ref{def:event} asks only for genericity off the wall and reads the
+zero set off the path; Lemma~\ref{lem:guardconst} then \emph{proves} the
+constancy that used to be assumed.
+
+The specification's Definition~3 declares an event simple when \emph{the}
+predicate defining the named event vanishes and every other guarded predicate
+keeps its sign. Read with $|Z|=1$ that has empty domain at some events used
+below: at a flat event three members vanish together --- the turn
+$\mathrm{G1}_j$ and the two incidences it forces --- so no such event has a
+singleton zero set. The set-valued form above is what every appeal here uses.
+\end{remark}
+
+\begin{convention}[the named events]\label{conv:events}
+Throughout, all three named events are required to be transversal in the
+sense of Definition~\ref{def:event}, and for a polygon on $n$ vertices and an
+index $j$:
+\begin{itemize}
+\item write $\mathcal T_j=\{\mathrm{G1}_j,\ \mathrm{G2}_{(j-1,j),\,j+1},\
+\mathrm{G2}_{(j,j+1),\,j-1}\}$ for the \emph{turn trio at $j$}, and
+\[
+   \mathcal F_j=\bigl\{\,\mathrm{G4}\langle h;\,e_{j-1},e_j\rangle\ :\ h\
+   \text{an edge remote to the vertex } p_j\,\bigr\}
+\]
+for the order predicates that compare the two crossings a single edge makes with
+the two edges at $j$. The entries of $\mathcal F_j$ are \emph{members} of
+$\mathcal G$ --- the member-valued accessor of Definition~\ref{def:guarded}
+returns the member indexed by the reduced representatives --- as
+Definition~\ref{def:event} requires of anything that can lie in a zero set. The
+factorization is a statement about signs and is therefore written on the
+oriented value:
+$\widehat{\mathrm{G4}}_{h;e_{j-1},e_j}=-\mathrm{G2}_{h,j}\,\mathrm{G1}_j$,
+where the orientation sign $\epsilon(e_{j-1},e_j)$ is $-1$ exactly when the
+pair wraps, that is exactly when $j\equiv1$. Since $\epsilon$ is a nonzero
+constant, the member and the oriented value vanish together and change sign
+together, so the conclusion below may be read off either. On a
+neighbourhood of a configuration with $\mathrm{G2}_{h,j}\neq0$ it is a nonzero
+multiple of $\mathrm{G1}_j$: it vanishes with the trio and changes sign with it.
+\item a \emph{simple flat event at $j$} is an event whose zero set is exactly
+$\mathcal T_j$, at which $p_j$ lies strictly between $p_{j-1}$ and $p_{j+1}$ at
+$t=0$. No member of $\mathcal F_j$ can be relevant at such an event, so nothing
+is lost by requiring the zero set to be the trio alone: at $t=0$ the two edges
+at $j$ lie on one line $\ell$ and meet only at $p_j$, which is interior to their
+union. A remote edge $h$ is then in one of two positions. If $h$ is not
+contained in $\ell$ it meets $\ell$ in at most one point, so it cannot meet both
+legs in their relative interiors and cannot cross both. If $h$ \emph{is}
+contained in $\ell$ it is parallel to both legs, and a parallel pair does not
+cross --- the four-sign condition of Definition~\ref{def:guarded} fails, its
+four $\mathrm{G2}$ members vanishing --- so it crosses neither. Either way no
+member of $\mathcal F_j$ is active at $t=0$.
+
+Activation on a punctured side is a germ condition and is settled in the
+limit, not by the value at $t=0$ alone. Suppose $h$ crosses both legs at
+parameters $t_n\neq0$ with $t_n\to0$; let $x_n$ and $y_n$ be the crossing
+points on the two legs. The vertices are continuous in $t$ and the segments
+are compact, so after passing to a subsequence $x_n\to x$ and $y_n\to y$, with
+$x$ and $y$ in the closed edge $h(0)$ and in the respective closed legs at
+$t=0$, all three of which lie where their $t=0$ positions are. Two positions of
+$h(0)$ against the flat line $\ell$ remain, and both force $p_j\in h(0)$. If
+$h(0)$ is not contained in $\ell$, it meets $\ell$ in at most one point; both
+$x$ and $y$ lie in $h(0)\cap\ell$, so $x=y$, and that one point lies in both
+closed legs, whose intersection is $\{p_j\}$. If $h(0)$ \emph{is} contained in
+$\ell$, then it is a segment of $\ell$ meeting both closed legs, which lie on
+opposite sides of $p_j$ along $\ell$, $p_j$ being interior to their union; a
+connected set meeting both sides contains the point between them. Either way
+$p_j\in h(0)$, so the unconditional member $\mathrm{G2}_{h,j}$ vanishes at
+$t=0$, joins the zero set, and the simplicity requirement excludes it. A
+previous repair of this paragraph argued instead from "$h$ meets at most one
+leg's relative interior at $t=0$", which the contained-line position falsifies
+--- legs $(-2,0)$--$(0,0)$--$(2,0)$ with $h(0)=[(-1,0),(1,0)]$ meet in both
+relative interiors --- while the conclusion survives, $h(0)$ containing $p_j$
+there. So on a
+punctured neighbourhood of $0$ no member of $\mathcal F_j$ is relevant, which is
+the condition Definition~\ref{def:event} imposes. An earlier revision argued the
+first position only, writing "a straight edge $h$ meeting that line once", which
+says nothing about an $h$ lying along it;
+\item a \emph{simple cusp event at $j$} is an event with a zero set of that same
+form --- $\mathcal T_j$ together with the relevant members of $\mathcal F_j$ ---
+at which $p_j$ lies outside the segment $[p_{j-1},p_{j+1}]$ at $t=0$. The event
+is \emph{threaded} when some member of $\mathcal F_j$ is relevant, that is when
+some edge crosses both collapsing legs, and \emph{unthreaded} otherwise; both
+are simple, and the laws are stated for both.
+
+This is where an earlier revision of this document narrowed the domain. It
+required the zero set to be exactly $\mathcal T_j$, which excludes every
+threaded cusp. The witness, printed in Remark~\ref{rem:witnesses} in its
+own indexing, has the cusp at $j=1$ on seven vertices: the trio vanishes as
+$\tfrac25\to0\to-\tfrac25$ across the wall and the thread's member
+$\mathrm{G4}_{4;1,7}$ as $-\tfrac{16}5\to0\to\tfrac{16}5$ --- oriented value
+$\tfrac{16}5\to0\to-\tfrac{16}5$, the pair at $j=1$ wrapping --- the
+thread crossing both legs on both sides --- while the cusp law and the main
+theorem are both stated "threaded or not".
+Phase 1.5 admitted those events under \emph{relative} simplicity; the clause
+above is that condition printed. The enlarged zero set is still \emph{one}
+condition: every added member is a nonzero multiple of $\mathrm{G1}_j$ near the
+wall, so it vanishes and changes sign exactly when the turn does, which is the
+flat bundle's pattern and is what the transversality requirement asks;
+\item a \emph{simple vertex-on-edge event}, with moving vertex $M$ and remote
+edge $(a,b)$, is an event at which $p_M$ lies in the relative interior of
+$[p_a,p_b]$ at $t=0$, and whose zero set is \emph{branch-specific}:
+\[
+   Z_{\mathrm{bigon}}
+   =\bigl\{\mathrm{G2}_{(a,b),\,M},\
+     \mathrm{G4}\langle (a,b);\,e_{M-1},e_{M}\rangle\bigr\},
+   \qquad
+   Z_{\mathrm{sliding}}=\bigl\{\mathrm{G2}_{(a,b),\,M}\bigr\}.
+\]
+In the \emph{bigon} branch the two neighbours of $M$ lie strictly on one side of
+the remote line, so on the two-crossing chamber both edges incident to $M$ meet
+the remote edge; the order predicate comparing their crossing parameters along
+$(a,b)$ is active there, and at the event the two parameters coincide at $p_M$,
+so it vanishes. It is therefore relevant at some $t\neq0$ and vanishes at
+$t=0$: by Definition~\ref{def:event} it belongs to $Z$, and a singleton zero
+set would have empty domain, exactly as at a flat event.
+
+In the \emph{sliding} branch the two neighbours lie strictly on opposite sides,
+so on \emph{each} punctured side exactly one incident edge meets the remote
+edge. That order predicate is then active on neither side; it vanishes at the
+wall but is relevant at no $t\neq0$, so Definition~\ref{def:event} does not put
+it in $Z$, and imposing it would empty the branch
+\end{itemize}
+\end{convention}
+
+\begin{definition}[silent event]\label{def:silent}
+An event is \emph{silent} if every member of its zero set $Z$ is a predicate
+$\mathrm{G2}_{e,i}$ whose vanishing at $t=0$ places $p_i$ on the \emph{line} of
+$e$ but not on the segment $e$. In particular no member of $Z$ is a turn (G1),
+a crossing-order predicate (G4), a concurrency (G3) or a direction determinant
+(G5).
+\end{definition}
+
+\begin{remark}[two clauses that were removed because they are empty]
+\label{rem:silentclauses}
+An earlier revision of Definition~\ref{def:silent} admitted two further kinds of
+member of $Z$: a conditional (G3) whose common point at $t=0$ misses one of the
+three segments, and a (G5) whose pair of edges has relative interiors not
+meeting at $t=0$. Neither can occur.
+
+The first is Lemma~\ref{lem:dictionary}(A)(a). For the second, split on whether
+the two closed segments meet at $t=0$. If they do not, it is
+Lemma~\ref{lem:dictionary}(A)(b). If they do, then since they are parallel
+with disjoint relative interiors they meet at a point that is an endpoint of at
+least one of them, say the vertex $p_i$ of $e$ lying on $f$; then
+$\mathrm{G2}_{f,i}$ vanishes at $t=0$ \emph{with the vertex on the segment}, and
+$\mathrm{G2}$ is unconditional, hence relevant at every $P(t)$, so that
+predicate lies in $Z$ and the event is not silent, since
+Definition~\ref{def:silent} asks of every member of $Z$ that its vanishing put
+the vertex on the \emph{line} and not on the segment; no clause about its (G5)
+would have made it so.
+
+Removing the clauses does not change the class of silent events. What it costs
+is that the proof of Lemma~\ref{lem:silence} can no longer say ``clause~(ii)
+excludes that''; it argues instead from the dichotomy the relevance filter
+provides, which is the honest form of the same step. The peer raised this; the
+entry records it.
+\end{remark}
+
+
+\begin{lemma}[$X_1$ is unchanged across a silent event]\label{lem:silence}
+Let $t\mapsto P(t)$ be a silent event. Then $X_1(P_+)=X_1(P_-)$.
+\end{lemma}
+\begin{proof}
+By the proof of Proposition~\ref{prop:chamberinv}(ii), $X_1$ is determined by the
+set of double points indexed by the pairs of edges carrying them, their order
+along each edge, the turn signs at vertices and at smoothing sites, the
+\emph{absolute rotation} $R(L)$ of each carrier, and the polynomial $P_H$ of each
+residual piece. An earlier revision omitted $R(L)$ from this list,
+although the slot of Definition~\ref{def:X1} reads it. It suffices to show each is
+constant on the whole interval, $t=0$ included.
+
+A double point of the pair $(e,f)$ exists exactly when the relative interiors of
+$e$ and $f$ meet, and by continuity it can appear or disappear only through a
+configuration in which an endpoint of one segment lies on the other segment ---
+a $\mathrm{G2}$ predicate vanishing \emph{with the vertex on the segment}.
+Definition~\ref{def:silent} excludes that --- a member of $Z$ may put $p_i$ on
+the line of $e$ but never on the segment --- and every other relevant
+$\mathrm{G2}$ is nonzero throughout by Lemma~\ref{lem:guardconst}.
+So the set of double points is constant, and with it the set of active
+conditional members. Nor do two double points on \emph{disjoint} pairs of edges collide: that puts
+four edges through one point, and the two sub-cases are those of
+Proposition~\ref{prop:chamberinv}(ii). If some three of the four are pairwise
+nonparallel they cross pairwise there, so their $\mathrm{G3}$ member is active
+and vanishes, and an active member is relevant, hence lies in $Z$ if it
+vanishes at $t=0$ --- which Definition~\ref{def:silent} forbids, its zero sets
+containing no (G3). Otherwise two of the four are collinear and overlap at the
+point, so an unconditional $\mathrm{G2}$ vanishes there with the vertex on the
+\emph{segment}, which Definition~\ref{def:silent} also forbids.
+The collision would leave the Gauss word alone but would destroy the
+diagrammatic hypothesis the isotopy step below reads.
+
+Two double points on a common edge exchange order only by colliding, which puts
+three segments through one common point. Fix the common edge $e$ and the two edges $f,g$ carrying the colliding double
+points; both are remote to $e$, a crossing requiring remoteness. The predicate
+that decides the order of those two crossings along $e$ is the member
+$\mathrm{G4}\langle e;f,g\rangle$ --- the accessor, since $f$ and $g$ are
+presented in the order the geometry gives and their representatives need not be
+increasing --- and it is the right tool: it is \emph{active} exactly when $f$
+and $g$ both cross $e$, which is the situation in hand, and it vanishes exactly
+when the two crossing parameters coincide, which is the collision. Being active
+it is relevant, so if it vanished at $t=0$ it would lie in the zero set $Z$;
+and $Z$ contains no (G4) member, by Definition~\ref{def:silent} --- the zero
+set holds members, so it is membership of the accessor's value that is
+excluded, and the orientation sign is irrelevant to it. So it does not
+vanish, and by Lemma~\ref{lem:guardconst} it keeps its sign: no collision.
+
+An earlier revision reached instead for the concurrency member
+$\mathrm{G3}_{e,f,g}$ and argued by cases on whether $f$ and $g$ are remote or
+consecutive. That misses a configuration, and the peer's chart is exact: with
+$e$ from $(-2,0)$ of direction $(4,0)$, $f_t$ from $(t,-1)$ of direction
+$(0,2)$ and $g_t$ from $(-t,-2)$ of direction $(0,4)$, the triple is pairwise
+remote, $f$ and $g$ are \emph{parallel} so $\mathrm{G3}$ is inactive and says
+nothing, yet both cross $e$ and their crossings swap at $t=0$;
+$\mathrm{G3}=-64t$ and $\mathrm{G4}_{e;f,g}=64t$, and it is the (G4) that is
+active and in the zero set's way.
+
+The two edges $f,g$ may also share a vertex $M$, and then the same predicate
+does the work, being indexed for any pair remote to $e$. Its vanishing is then
+the vanishing of $\mathrm{G2}_{e,M}\,\mathrm{G1}_M$. The second factor is a
+turn, and it is nonzero here because $\mathrm{G1}_M$ is unconditional and every
+polygon of a silent event's punctured sides is generic, with $\mathrm{G1}_M$
+outside the zero set by Definition~\ref{def:silent} and so nonzero at $t=0$ as
+well by Lemma~\ref{lem:guardconst} --- regularity alone would not give it, a
+flat vertex being regular. So a collision would need $M$ on the line of $e$, and
+on the \emph{segment}, since the collision point is the common crossing
+--- a $\mathrm{G2}$ vanishing with the vertex on the segment, which
+Definition~\ref{def:silent} excludes from $Z$ while $\mathrm{G2}$ is
+unconditional and hence relevant.
+
+So no collision occurs, the order along each edge is constant, and the Gauss
+word with it.
+
+The turn sign at a vertex is $\sgn\mathrm{G1}_i$, which is unconditional,
+hence relevant, and lies in no $Z$ of a silent event, so it is nonzero of
+constant sign by Lemma~\ref{lem:guardconst}. The
+turn sign at a smoothing site of the crossing of $e$ and $f$ is the sign of
+$\mathrm{G5}_{e,f}$ up to the fixed sign of the smoothing convention. That
+predicate is not in $Z$, so by the same dichotomy either it is nonzero on a
+neighbourhood, or $e$ and $f$ carry no double point for $t\neq0$ and hence no
+smoothing site whose turn could change.
+
+The absolute rotation $R(L)$ of a carrier is next, and it needs its own
+argument: turn signs alone do not determine a rotation number, and link
+isotopy cannot substitute for it, plane rotation not being a knot-type
+invariant. Each carrier $L(t)$ has, by the no-birth and no-collision facts
+above, a fixed finite cyclic corner set, each corner varying continuously in
+$t$. Each corner's turn determinant --- the $\mathrm{G1}$ at a vertex, the
+$\mathrm{G5}$ at a smoothing site --- is nonzero through the wall by the two
+preceding paragraphs, $t=0$ included, so each principal turn $\tau_k(t)$ is
+continuous with values in $(-\pi,\pi)$, and
+$\rot(L(t))=\frac1{2\pi}\sum_k\tau_k(t)$ by Lemma~\ref{lem:turnlift}(ii) is a
+continuous integer-valued function on the connected event interval, hence
+constant. This is the path argument of Proposition~\ref{prop:chamberinv}(ii) run
+through the wall, and it is printed rather than cited because a silent wall
+lies inside no chamber. So each $R(L)$ is constant.
+
+Finally, the common Gauss word identifies every residual piece $H$ on the two
+sides. The edge-pair indexing is constant as proved above: a silent zero puts its vertex
+off the remote segment, so no crossing changes carrying edge at the wall.
+Lemma~\ref{lem:piececurve} realizes its datum on each side by a connected
+closed plane curve whose double points are exactly the crossings of $H$. Match each marked crossing--carrying-edge
+incidence $(c,e)$ on the first side with the same incidence $(c,e)$
+on the second. The common restricted word makes this bijection cyclic-order
+preserving; the two incidences bearing $c$ remain its crossing pair. Every sign
+is positive, and the $\mathrm{G5}$ argument above shows that the divide
+convention designates the same visit as over on the two sides. Thus the map is
+an orientation-preserving record isomorphism
+(Definition~\ref{def:record}). Lemma~\ref{lem:piececurve} retains exactly
+the finite, distinct transverse crossings of $H$ from the two generic parents
+and creates no self-intersection when it smooths locally; hence each realizing
+curve has one component and no triple points. Axiom~\ref{ax:gausscode} says that the piece diagrams present the same
+oriented link, so Axiom~\ref{ax:homfly} gives the same $P_H$; and
+$w(H)=|H|$ is unchanged because $H$ is.
+Every input to $X_1$ is therefore constant on $(-\varepsilon,\varepsilon)$, and
+$X_1(P_+)=X_1(P_-)$.
+\end{proof}
+
+\begin{remark}[why this lemma is here]\label{rem:silencenew}
+The induction that proves the main theorem transports a polygon along a path
+and needs $\Delta=X_1-A$ to be unchanged wherever the path is not at one of the
+four named walls. For $A$ that is a declared input (Axiom~\ref{ax:lawful}). For
+$X_1$ it is two facts, not one: constancy inside a chamber
+(Proposition~\ref{prop:chamberinv}(ii)) and invariance across the silent walls
+between chambers (Lemma~\ref{lem:silence}). A silent wall \emph{is} a wall ---
+a guarded predicate vanishes on it --- so chamber constancy does not cross it.
+\end{remark}
+
+\begin{remark}[the guarded list cannot be trimmed]\label{rem:chamberguards}
+The proof of Proposition~\ref{prop:chamberinv}(ii) uses all five families, and an
+implementation enforcing only some of them defines a coarser partition than
+Definition~\ref{def:generic}(B), on which the proposition is false. (G1) fixes the
+vertex turn signs, (G2) keeps vertices off edges, (G3) keeps three edges from
+concurring, (G4) fixes the crossing order along each edge, (G5) fixes the
+smoothing-site turn signs. Which pairs of edges cross, and hence which
+conditional members are active, is decided by the (G2) signs alone. Dropping (G3) or (G4) permits two crossings to
+exchange order along an edge with no guarded predicate changing sign; that
+changes the Gauss word and can change $X_1$.
+\end{remark}

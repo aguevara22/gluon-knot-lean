@@ -1,0 +1,51 @@
+\begin{lemma}[the abstract full-twist triple]\label{lem:fulltwist}
+Let $D_{\mathrm L},D_{\mathrm H},D_{\mathrm A}$ be oriented diagrams and let $q$
+be a positive crossing of $D_{\mathrm H}$ such that
+\begin{enumerate}
+\item[(T1)] the oriented smoothing of $D_{\mathrm H}$ at $q$ is
+$D_{\mathrm A}$;
+\item[(T2)] switching $q$ in $D_{\mathrm H}$ gives a diagram carried to
+$D_{\mathrm L}$ by oriented Reidemeister-II moves.
+\end{enumerate}
+The symbols this lemma reads off a diagram are bound here, from the diagrams it
+quantifies over, and are not imported from any definition attached to a polygon
+or a chamber. They are bound in two groups, because they have two domains. For
+\emph{any} oriented diagram $D$ --- any number of components --- put
+\[
+   F_D=P_D ,
+\]
+the HOMFLY--PT polynomial of the link it presents (Axiom~\ref{ax:homfly}). For
+a diagram $D$ carried by a \emph{single} closed plane curve $\Gamma_D$, and
+only for such a diagram, put
+\[
+   d(D)=1-w(D)-R(\Gamma_D),\qquad
+   \Omega(D)=\bigl[a^{d(D)}z^0\bigr]F_D ,
+\]
+with $w(D)$ the writhe and $R(\Gamma_D)=|\rot(\Gamma_D)|$ the absolute
+rotation of that curve. An earlier revision bound all three on one domain,
+which typed $d$ and $\Omega$ at a two-component diagram, where the rotation
+number of Definition~\ref{def:rot} is not defined. Abbreviate $F_\nu=F_{D_\nu}$ for $\nu\in\{\mathrm L,\mathrm H,\mathrm A\}$,
+and $d_\nu=d(D_\nu)$, $\Omega_\nu=\Omega(D_\nu)$ for
+$\nu\in\{\mathrm L,\mathrm H\}$ \emph{only}. The restriction is not tidiness:
+$D_{\mathrm A}$ is the oriented smoothing of $D_{\mathrm H}$ and is carried by a
+\emph{two-component} link in the application, while $R(\Gamma_D)$ is the
+absolute rotation of one closed curve (Definition~\ref{def:rot}), so $d$ and
+$\Omega$ are not defined at $\mathrm A$ at all. Nothing below asks for them:
+$D_{\mathrm A}$ enters only through $F_{\mathrm A}$ and through the coefficient
+$[a^{d_{\mathrm L}-1}z^{-1}]F_{\mathrm A}$, which is a coefficient of that
+polynomial and not a read at a slot of its own. An
+earlier revision used $d_\nu$ and $\Omega_\nu$ in this statement while binding
+them only in Definition~\ref{def:markeddata}, which is about the contact
+carriers of an eligible support; the abstract triple has no support, and the
+lemma was not readable on its own hypotheses. The two bindings agree wherever
+both apply, that definition computing $d_\nu$ and $\Omega_\nu$ from these same
+grouped diagrams. Then
+\[
+   F_{\mathrm H}=a^{-2}F_{\mathrm L}+a^{-1}zF_{\mathrm A}.
+\]
+If moreover $d_{\mathrm H}=d_{\mathrm L}-2$, then
+\[
+   \Omega_{\mathrm H}-\Omega_{\mathrm L}
+   =\bigl[a^{d_{\mathrm L}-1}z^{-1}\bigr]F_{\mathrm A}.
+\]
+\end{lemma}

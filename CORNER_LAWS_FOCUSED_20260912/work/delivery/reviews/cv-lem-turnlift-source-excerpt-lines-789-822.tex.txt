@@ -1,0 +1,34 @@
+\begin{lemma}[tangent lifts and principal turns]\label{lem:turnlift}
+Here $\rot$ is as in Definition~\ref{def:rot}.
+\begin{enumerate}
+\item[(i)] Every continuous direction loop has a tangent-angle lift.
+The integer $\operatorname{tw}(T)$ is independent of the lift and seam,
+is unchanged by an orientation-preserving reparametrisation, and is constant
+under a continuous homotopy through direction loops. Consequently the rotation
+of a closed $C^1$ regular curve is invariant under regular homotopy, and
+reversing its orientation negates it.
+\item[(ii)] If $L\in\mathcal R_c$ has principal turns $\tau_i$, then
+\[
+   2\pi\rot(L)=\sum_i\tau_i.
+\]
+Consequently rotation is constant along every path in $\mathcal R_c$, is
+unchanged by a positive flat subdivision, and is negated by orientation
+reversal. Every regular three-corner polygon has rotation $+1$ or $-1$
+according to the common sign of its three turns.
+\item[(iii)] Suppose a closed $C^1$ regular curve is obtained from $L$ by
+replacing every corner by a regular arc whose compatible tangent-angle lift
+has increment $\tau_i$. Its rotation equals $\rot(L)$.
+
+More generally, let $b,c$ be regular oriented arcs having the same endpoints
+and the same oriented tangent rays at both endpoints, and suppose replacing
+$b$ by $c$ in a closed curve gives closed $C^1$ regular curves $F_b,F_c$.
+For compatible tangent lifts with equal initial values, write their increments
+as $\Delta_b,\Delta_c$. Then
+\[
+   \rot(F_c)-\rot(F_b)=\frac{\Delta_c-\Delta_b}{2\pi}.
+\]
+If $A_t$, $0\leq t\leq1$, is a supplied continuous path in
+$\mathrm{GL}^+(2,\mathbb R)$ with $A_0=I$ and $A_1=A$, applying $A$ to both
+arcs leaves $\Delta_c-\Delta_b$ unchanged.
+\end{enumerate}
+\end{lemma}

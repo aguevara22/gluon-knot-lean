@@ -1,0 +1,116 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "soft-family-turns-technical-review-20260912",
+  "sealed_utc": "2026-09-12T00:51:27.978782+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_contraction_candidates",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "Reviewer authored SoftLocalDeterminants, which is embedded in this prototype. This report independently reviews the root-authored group and its use of that interface; it does not independently self-review the local determinant construction. The separate root technical review is bound below."
+  },
+  "scope": {
+    "group": "SoftFamilyTurns",
+    "declarations": [
+      "SM.softInsertion_old_turn_zero",
+      "SM.softInsertion_old_turns_persist",
+      "SM.softInsertion_return_tendsto",
+      "SM.softInsertion_small_turns"
+    ],
+    "source_path": "reference/SM/sm-2-amplitude.tex",
+    "source_lines": "991–1150",
+    "source_comparison": "All local turn and direction-limit/sign statements of lem:soft-generic(ii), source 991–1150; unchanged-edge identities are supplied by SoftInsertionTuple."
+  },
+  "assessment": "No technical mathematical defect found within the stated bounded scope.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_proof_or_frozen_evidence": false,
+    "root_kernel_session": 56783,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      54616
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete file bytes, including complete bodies and ambient binder context. No extracted-header hashes or split-on-:= metadata.",
+    "receipt_path": "work/checks/SoftFamilyTurns-prototype-result.json",
+    "receipt_sha256": "0edc8298ab364ab373a86af89bc5f76f650ae49529c7a7f8f59918ab7485eaa6",
+    "receipt_bound_files_sha256": {
+      "work/checks/BoundaryTripleSupports.body.lean": "60199670494951bea511f187f7f894fd63fd4d074237e5b0442602e2c4f02e42",
+      "work/checks/CanonicalTripleSigns.body.lean": "76321d75b54c5a31611575577ecbf36bb1edaeef2142f0177bfd22f042fbbe54",
+      "work/checks/SoftInsertionIndices.body.lean": "0a6a356c89f46fadb7f8f9a5f0bcb23589b36d50e3f3e88e11e6d61190d02efc",
+      "work/checks/SoftInsertionSuccessors.body.lean": "71d6345f739bada0d722a9fb3baff3d1c9510ffb1f132213d00e5cb227122cce",
+      "work/checks/SoftInsertionTuple.body.lean": "6eceb2d5376a62ab4ca28f31e1a41273571768835de0cd22c0d798fd77ddd20b",
+      "work/checks/SoftLocalDeterminants.body.lean": "8243f88865da034c0a0f60e87954b332f8e9d180459fd2fd14eeba2e09d5474a",
+      "work/checks/SoftAttachmentSigns.body.lean": "a7517f1232ff90b13ef8b3cb563e6a5decee4ae7c6226621d26d4cef26082994",
+      "work/checks/SoftFamilyTurns.body.lean": "a48410f1c60ae759873da9fb3e741391f1b73f8521deac229abc17f686a3e581",
+      "work/checks/SoftFamilyTurns.prototype.lean": "e4ec79be1cfcdbe085860bf64fffa7d1073515607a854c7349570956fd0489d1",
+      "work/checks/SoftFamilyTurns-second-kernel.log": "922dd6ad81cee079f0b75b56863950e66edb364aebcdd5b04f857651776caf35"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "body_embedding_counts": {
+      "work/checks/BoundaryTripleSupports.body.lean": 1,
+      "work/checks/CanonicalTripleSigns.body.lean": 1,
+      "work/checks/SoftInsertionIndices.body.lean": 1,
+      "work/checks/SoftInsertionSuccessors.body.lean": 1,
+      "work/checks/SoftInsertionTuple.body.lean": 1,
+      "work/checks/SoftLocalDeterminants.body.lean": 1,
+      "work/checks/SoftAttachmentSigns.body.lean": 1,
+      "work/checks/SoftFamilyTurns.body.lean": 1
+    },
+    "printed_trace_count": 4,
+    "declaration_axioms": {
+      "SM.softInsertion_old_turn_zero": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_old_turns_persist": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_return_tendsto": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.softInsertion_small_turns": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+      "work/reviews/soft-local-determinants-technical-review-20260912.json": "cee90155bd58c3607edbb71261a4d10ffb6e4e7b508b054f234d6406dfe17daa",
+      "work/checks/soft-geometry-preserved-failures-20260912.json": "49cf74f4747eeae29f2dad7ee3f118c7f66f75cf503711781df0c6e028f7db58",
+      "work/reviews/soft-insertion-indices-technical-review-20260911.json": "75deca0aa5e9a32a4d11a96b335f637ee5a1bfe05c47a7c2fab5fb7d472505d4",
+      "work/reviews/soft-insertion-successors-technical-review-20260911.json": "73915e847d68a794082ce2c1d012902242390ef88cbc5187b934ccdecf5174ac",
+      "work/reviews/soft-insertion-tuple-technical-review-20260911.json": "16b2627ac67c12379f58e2b213ca660ab51646510d7d98a5b351d8e47cb1bf06",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/ContinuousGeometry.lean": "61250145831b23c7d8bedc54956643d844bc52ef4ff1ab55b87b81b26cc2000c",
+      "work/lean/SM/Segment.lean": "40fcfef972866bf0d762b08240941b3f7cd189259692d330709702ad1c9a7465",
+      "work/checks/SoftFamilyTurns-first-failed.body.lean": "2456c23406539c8a0cbb2482f705e8fc193b3a2547496299a4099f15e5a1c28b",
+      "work/checks/SoftFamilyTurns-first-failed.prototype.lean": "1bc44ffd88d3825e664c4a8a28eb1966d3bd6a5ac21af46e13df34697e242c7e",
+      "work/checks/SoftFamilyTurns-first-kernel.log": "3d33c3c859df8d3a4a2a8405550e115804bfa6e32c5bbf91d93971ddb208e109"
+    }
+  },
+  "findings": [
+    "The zero-parameter old-turn theorem distinguishes k=j+1 from every other k!=j. At the successor corner the incoming enlarged edge is the return edge, whose value at zero is the original edge P j. In the other case both actual incident edges are unchanged. Thus the changed incoming edge at the successor is not overlooked.",
+    "Parent G1 makes every retained old turn nonzero. Continuity of each specified turn at zero, followed by a finite intersection over all old labels, proves simultaneous turn persistence. No genericity assumption is made at the whole zero-parameter inserted tuple.",
+    "The actual return direction is edge P j-epsilon*q. Its two-sided limit at zero is proved directly from continuity, with no orientation restriction on q.",
+    "The final theorem combines the old-turn neighborhood and the local nonzero parent-turn sign neighborhood by min. On that common positive interval it exports all retained old turns, the two exact new turns, sign det(incoming,return)=turn P j, and the opposite ordered sign=-turn P j.",
+    "The only geometric premise of the final result is parent G1, with n>=3 and arbitrary q. Admissibility is not needed for these equalities or old-turn persistence; when q is degenerate the theorem does not claim that the two new turns are nonzero. The source admissible case is included without a new caller premise.",
+    "The first failure was repaired solely by rewriting the actual return edge before unfolding edge notation. The complete diff preserves all four theorem types and changes no mathematical input."
+  ],
+  "limits": "This group covers clause (ii), together with the frozen unchanged-edge identities. It does not establish G2, a common chamber, inherited crossing parameters/order, or the newborn Gauss-word clause. Stronger fidelity approval and canonical integration remain pending. Hash and kernel checks do not establish source acceptance."
+}

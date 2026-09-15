@@ -1,0 +1,220 @@
+{
+  "review_schema": "same-model-technical-source-comparison-v1",
+  "review_id": "carrier-marks-technical-review-20260912",
+  "sealed_utc": "2026-09-12T04:39:53.550105+00:00",
+  "reviewer_identity": {
+    "agent": "/root/review_spanning_weights",
+    "implementer": "/root",
+    "reviewer_is_ai": true,
+    "authored_reviewed_body": false,
+    "model_relationship": "Another agent of the same currently available model; NOT the stronger-model statement-fidelity approval requested by the user.",
+    "inherited_authorship_disclosure": "Root authored the 18 new declarations, repaired the final invalid API header, assembled the prototypes, and alone ran both kernels and generated the evidence. This reviewer authored no proof body, supplied no implementation edit or proof suggestion, and ran no Lean kernel/build/audit. Review contributions are independent source/type/definition comparison, assessment of the disclosed one-line header repair, and exact full-file/receipt/embedding verification. Earlier review documents authored by this reviewer do not constitute proof-body authorship."
+  },
+  "scope": {
+    "group": "CarrierMarks",
+    "declarations": [
+      "SM.Carrier.Mark",
+      "SM.Carrier.markPosition",
+      "SM.Carrier.markPosition_vertex",
+      "SM.Carrier.markPosition_visit",
+      "SM.Carrier.markPosition_evaluation_vertex",
+      "SM.Carrier.markPosition_evaluation_visit",
+      "SM.Carrier.markPosition_injective",
+      "SM.Carrier.markKey",
+      "SM.Carrier.markKey_vertex",
+      "SM.Carrier.markKey_visit",
+      "SM.Carrier.markKey_injective",
+      "SM.Carrier.markLinearOrder",
+      "SM.Carrier.markList",
+      "SM.Carrier.markList_nodup",
+      "SM.Carrier.mem_markList",
+      "SM.Carrier.markList_sorted",
+      "SM.Carrier.markList_length",
+      "SM.Carrier.markList_nonempty"
+    ],
+    "source_path": "reference/SM/sm-3-statesum.tex",
+    "source_lines": "9–39 actual smoothing and incoming-visit ownership; 54–90 carrier theorem context; 97–113 finite marked successor model, especially the complete nonempty marked list at97–101. Later geometric assertions at175 onward are not discharged by this packet.",
+    "ambient_context": "{n : ℕ} [NeZero n], actual LabelledTuple n, hn:3≤n. Position and evaluation use G1; injectivity, induced order, and the complete list use Generic. No supplied mark set, embedding, key order, cyclic word, or carrier correspondence appears as a premise."
+  },
+  "assessment": "No technical mathematical or source-domain defect found in the actual marked-traversal foundation after the explicit invalid-API repair.",
+  "stronger_model_statement_fidelity_approval": false,
+  "source_claim_accepted": false,
+  "source_claim_acceptance_increment": 0,
+  "canonical_integration_approved": false,
+  "execution": {
+    "reviewer_ran_lean_kernel_build_or_audit": false,
+    "reviewer_modified_reviewed_proof_or_frozen_evidence": false,
+    "root_kernel_session": 24989,
+    "root_exit_code": 0,
+    "first_run_passed": false,
+    "preserved_failed_sessions": [
+      19827
+    ]
+  },
+  "evidence": {
+    "binding_method": "SHA256 of complete files and exact single body embeddings in manifest order; no extracted-header hashes.",
+    "receipt_path": "work/checks/CarrierMarks-prototype-result.json",
+    "receipt_sha256": "e2c26037204cd196acc809b474422d2957c3211584a55f9a64853c807d9971a6",
+    "receipt_bound_files_sha256": {
+      "work/checks/CarrierMarks.body.lean": "cc66829da71fc7c7f344b03b751fc29b0778d36a53e4bca120be51e25e0549af",
+      "work/checks/CarrierMarks.prototype.lean": "4a60c835244657348f2beae260314fb4f03d67cba4f70c2821fc0b59d9e20e3c",
+      "work/checks/CarrierMarks-second-kernel.log": "524c2f45e8cd0abe4118ffe0ba10a7e8a33680b13cfdaa34634448420174b019"
+    },
+    "all_receipt_bound_hashes_verified": true,
+    "ordered_body_dependencies": [
+      "work/checks/CarrierMarks.body.lean"
+    ],
+    "body_embedding_counts": {
+      "work/checks/CarrierMarks.body.lean": 1
+    },
+    "dependency_list_matches_exact_ordered_embeddings": true,
+    "printed_trace_count": 18,
+    "declaration_axioms": {
+      "SM.Carrier.Mark": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition_visit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition_evaluation_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition_evaluation_visit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markPosition_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markKey": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markKey_vertex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markKey_visit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markKey_injective": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markLinearOrder": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_nodup": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.mem_markList": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_sorted": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_length": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.Carrier.markList_nonempty": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "only_standard_foundational_axioms_in_success_log": true,
+    "success_log_contains_no_error_sorryAx_or_native_decide": true,
+    "first_draft_and_dependency_files_sha256": {
+      "work/checks/CarrierMarks-first-draft.body.lean": "083cf3f4392ecd66bbcdd557f5ff58621356827e6d3d6b404d330cacc2fe9e38",
+      "work/checks/CarrierMarks-first-draft.prototype.lean": "51930136c87ce014e08bd236aafb126d2d776226be75ee198d7297cb9d2dd179",
+      "work/checks/CarrierMarks-body-dependencies.json": "fb94c9c9dd7a9a7a99890186f0126b039f669c91f3f8f3c604b18997e12e0afb",
+      "work/checks/CarrierMarks-draft-dependency-bindings.json": "b436f735851040638e64b2b4e931e7d2021e894fa023a519481f7f7e00e2aedc"
+    },
+    "first_drafts_byte_identical_to_passing_files": false,
+    "draft_files_sha256_bindings_verified": true,
+    "historical_draft_binding_resolution": {
+      "work/checks/CarrierMarks.body.lean": "work/checks/CarrierMarks-first-failed.body.lean",
+      "work/checks/CarrierMarks.prototype.lean": "work/checks/CarrierMarks-first-failed.prototype.lean"
+    },
+    "preserved_failure_files_sha256": {
+      "work/checks/CarrierMarks-first-failed.body.lean": "083cf3f4392ecd66bbcdd557f5ff58621356827e6d3d6b404d330cacc2fe9e38",
+      "work/checks/CarrierMarks-first-failed.prototype.lean": "51930136c87ce014e08bd236aafb126d2d776226be75ee198d7297cb9d2dd179",
+      "work/checks/CarrierMarks-first-failed-body-dependencies.json": "fb94c9c9dd7a9a7a99890186f0126b039f669c91f3f8f3c604b18997e12e0afb",
+      "work/checks/CarrierMarks-first-kernel.log": "0b8b216c4f6f007ab50a57f63501e3955448fdf80fe53fe472b167daf9dd71c3",
+      "work/checks/CarrierMarks-first-failure-bindings.json": "4fc5d7cb371b0264b8f70354166290c5e782edf3530822bedcd2d9d78dc9b6d8",
+      "work/checks/CarrierMarks-second-draft-repair-bindings.json": "76ccc75b1c7e59cc5dd37796694e8114c8a2356225df7a6aa932588ccd6acf0f"
+    },
+    "changed_header_names": [
+      "markList_nonempty"
+    ],
+    "all_other_complete_body_and_prototype_text_preserved": true,
+    "failure_scope": "Root first19827 failed on the nonexistent List.Nonempty field in the final intended theorem header. The exact first drafts and failed artifacts are preserved. Root replaced only that header expression with explicit existence of a mark belonging to the list; its premises and vertex-zero witness are unchanged, and the other17 declaration texts are unchanged. Root second24989 passed. The failed run and its final placeholder trace are not successful evidence.",
+    "dependency_receipts_sha256": {},
+    "dependency_receipt_bound_file_hashes_verified": true,
+    "additional_files_sha256": {
+      "reference/SM/sm-3-statesum.tex": "fa17a1b162bd5a7a9cabc65fe8f95e4fb53c7f17050bfe8008cb805aa7954af5",
+      "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+      "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+      "work/lean/SM/Crossings.lean": "e337375a30160a74c7c04fdd5d2def19c419afedf189c16f72ce33b814153885",
+      "work/lean/SM/Traversal.lean": "3a8494f9376c80e7afbc0e2666bded6763feeec87e1f701db974e73df092acac",
+      "work/lean/SM/GaussVisits.lean": "50dbbfa547bf24786d4491717f422aff25e179126e5ccee18146bbe7847e5496",
+      "work/lean/SM/GaussWord.lean": "d903156efdddbbe6682eb89d6fe13c2ccc7f02d1f3dde22dc2dc8bbdc936619c",
+      "work/lean/SM/SortedCyclicGap.lean": "bdcbd5fd1c714ef7b68a27a7a2009ea471ad06b051e65fe80777b2a25cc72300",
+      "work/checks/carrier-successor-baseline-20260912.json": "d1d5be00e0ed33d844ec329bfedb39ac2568f7b9d82c56728c85a3c8e75b8372",
+      "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+      "work/decisions/corner-soft-after-amplitude-inventory-20260912.md": "0d8af3c9a4ed07d9de75827a34ca781a0bdcdafe5f0fdad29ee15e9ff44c494b"
+    },
+    "upstream_review_status": "The complete frozen transitive body closure is bound. This packet review compares the new declarations and their consumed actual definitions and theorem interfaces; it does not independently reapprove all transitive dependency mathematics or infer stronger statement fidelity/canonical integration."
+  },
+  "findings": [
+    "Mark P is exactly ZMod n ⊕ Visit P. Visit is the sigma type of an actual unordered geometric crossing and an edge in its proved two-member support. Original vertices and all crossing visits are retained, rather than only selected visits or an arbitrary finite word.",
+    "markPosition puts vertex i at the half-open traversal point (i,0) and every visit at its canonical crossing parameter on its actual traversed edge. The two evaluation lemmas identify these positions with P i and the visit's own crossingPoint. This is an actual traversal embedding, not an assertion that distinct visits have distinct points in the plane: paired visits correctly share one planar point.",
+    "markPosition_injective checks all four sum-constructor cases. Vertex equality follows from edge labels; each mixed case is impossible because every crossing parameter is strictly positive; visit equality follows from the existing Generic position-injectivity theorem, whose crossing-point argument uses G2 to exclude coincident distinct crossings. Thus the stronger Generic premise is used where G1 alone would not establish the needed injectivity.",
+    "markKey is the canonical real key edge.val+parameter, so it increases along each directed edge and places its parameter-zero vertex before its strictly interior visits. Half-open parameters distinguish consecutive edge readings. traversalKey_injective composed with position injectivity yields a genuine linear order of actual marks; the zero-based label cut changes neither orientation nor the intended circular reading.",
+    "markList is Finset.univ.sort under that induced order. Nodup and mem_markList establish that each actual mark occurs exactly once. markList_sorted gives nondecreasing keys, which become strictly ordered at distinct marks by markKey_injective. markList_length counts n original vertices plus two actual visits per crossing.",
+    "The final checked nonemptiness theorem explicitly provides an actual mark in the list. Its witness is the original vertex with label0, so no assumption that Crossing P is inhabited or nonempty is hidden. The crossing-free case therefore has exactly n entries and is covered for all n≥3.",
+    "The first attempted final header used a nonexistent List.Nonempty field and failed elaboration. The replacement explicit existential is exactly the intended source assertion that the list contains a mark. Complete body and prototype comparisons show this is the sole textual replacement; the witness and premises are unchanged. This review does not call the invalid first header a proved equivalent theorem or claim all18 headers were unchanged.",
+    "The selected incoming-visit convention is compatible with keeping the original visit nodes in this mark type, but this packet defines no selected reconnection or carrier ownership. In particular it does not yet establish that successor arcs are positive straight subsegments, that cycles split, or that selected twins belong to different carriers.",
+    "The second24989 receipt binds the full repaired body, exact prototype and success log. The one body is embedded exactly once, with only the declared imports before it and18 exact axiom commands after it. All18 successful traces use standard foundational axioms. Failed19827 remains separate and is not used as passing evidence."
+  ],
+  "limits": "This is the marked-traversal foundation only. Actual cyclic successor, selected reconnection, order-independent processing, geometric carriers, cycle count, inherited cyclic order, noncrossing ownership, turns, retained crossings and the corner state sum remain separate obligations. Source acceptance increment remains0; stronger-model statement-fidelity approval and canonical integration remain false."
+}

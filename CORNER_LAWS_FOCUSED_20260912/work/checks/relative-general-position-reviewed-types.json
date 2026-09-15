@@ -1,0 +1,35 @@
+{
+  "format": "pp.fullNames true, pp.universes false; #check output before corresponding #print axioms",
+  "types": {
+    "SM.RegularWallKind": "SM.RegularWallKind : Type",
+    "SM.RegularWallKind.toWallKind": "SM.RegularWallKind.toWallKind : SM.RegularWallKind \u2192 SM.WallKind",
+    "SM.WallGerm.HasRegularWallKind": "SM.WallGerm.HasRegularWallKind {n : \u2115} [NeZero n] (g : SM.WallGerm n) : SM.RegularWallKind \u2192 Prop",
+    "SM.WallGerm.hasRegularWallKind_underlying": "SM.WallGerm.hasRegularWallKind_underlying {n : \u2115} [NeZero n] (g : SM.WallGerm n) {kind : SM.RegularWallKind}\n  (h : g.HasRegularWallKind kind) : g.HasWallKind kind.toWallKind",
+    "SM.WallGerm.bigon_sliding_marks_incompatible": "SM.WallGerm.bigon_sliding_marks_incompatible {n : \u2115} [NeZero n] (g : SM.WallGerm n) (hn : 3 \u2264 n)\n  (hb : g.HasRegularWallKind SM.RegularWallKind.bigon) (hs : g.HasRegularWallKind SM.RegularWallKind.sliding) : False",
+    "SM.WallGerm.regularWallKind_unique": "SM.WallGerm.regularWallKind_unique {n : \u2115} [NeZero n] (g : SM.WallGerm n) (hn : 3 \u2264 n) {a b : SM.RegularWallKind}\n  (ha : g.HasRegularWallKind a) (hb : g.HasRegularWallKind b) : a = b",
+    "SM.WallGerm.exists_regularWallKind_of_simple": "SM.WallGerm.exists_regularWallKind_of_simple {n : \u2115} [NeZero n] (g : SM.WallGerm n) (h : g.Simple)\n  (hno : \u2200 (j : ZMod n), \u00acg.CuspAt j) : \u2203 kind, g.HasRegularWallKind kind",
+    "SM.WallGerm.existsUnique_regularWallKind_of_simple": "SM.WallGerm.existsUnique_regularWallKind_of_simple {n : \u2115} [NeZero n] (g : SM.WallGerm n) (hn : 3 \u2264 n) (h : g.Simple)\n  (hno : \u2200 (j : ZMod n), \u00acg.CuspAt j) : \u2203! kind, g.HasRegularWallKind kind",
+    "SM.CurveCubeSubdivision.TimedEventCertificate.simple": "SM.CurveCubeSubdivision.TimedEventCertificate.simple {n : \u2115} [NeZero n] {\u03b3 : \u2191unitInterval \u2192 SM.LabelledTuple n} {\u03b4 : \u211d}\n  {d : SM.CurveCubeSubdivision \u03b3 \u03b4} {W : d.InternalWaypoint \u00d7 SM.ScalarCoordinate n \u2192 \u211d}\n  {A : d.CubeCoordinateApproximation W} {hn : 3 \u2264 n} {t : \u2191unitInterval}\n  (E : SM.CurveCubeSubdivision.TimedEventCertificate A hn t) : E.germ.Simple",
+    "SM.CurveCubeSubdivision.TimedEventCertificate.regular_kind_unique": "SM.CurveCubeSubdivision.TimedEventCertificate.regular_kind_unique {n : \u2115} [NeZero n]\n  {\u03b3 : \u2191unitInterval \u2192 SM.LabelledTuple n} {\u03b4 : \u211d} {d : SM.CurveCubeSubdivision \u03b3 \u03b4}\n  {W : d.InternalWaypoint \u00d7 SM.ScalarCoordinate n \u2192 \u211d} {A : d.CubeCoordinateApproximation W} {hn : 3 \u2264 n}\n  {t : \u2191unitInterval} (E : SM.CurveCubeSubdivision.TimedEventCertificate A hn t) :\n  (\u2203! kind, E.germ.HasRegularWallKind kind) \u2227 \u2200 (j : ZMod n), \u00acE.germ.CuspAt j",
+    "SM.WallGerm.isolates_shifted_path": "SM.WallGerm.isolates_shifted_path {n : \u2115} [NeZero n] (g : SM.WallGerm n) (p : \u2191unitInterval \u2192 SM.LabelledTuple n)\n  (t : \u2191unitInterval) (hcurve : \u2200 (s : \u2191g.Parameter), \u2203 (hs : \u2191t + \u2191s \u2208 Set.Icc 0 1), g.curve s = p \u27e8\u2191t + \u2191s, hs\u27e9) :\n  \u2203 \u03b5 > 0, \u2200 (u : \u2191unitInterval), u \u2260 t \u2192 |\u2191u - \u2191t| < \u03b5 \u2192 SM.Generic (p u)",
+    "SM.RelativeGeneralPositionPath": "SM.RelativeGeneralPositionPath {n : \u2115} [NeZero n] (\u03b3 : \u2191unitInterval \u2192 SM.LabelledTuple n) (\u03b4 : \u211d) : Type",
+    "SM.relative_general_position_with_certificates": "SM.relative_general_position_with_certificates {n : \u2115} [NeZero n] (hn : 3 \u2264 n) (\u03b3 : \u2191unitInterval \u2192 SM.LabelledTuple n)\n  (h\u03b3 : Continuous \u03b3) (hregular : \u2200 (t : \u2191unitInterval), SM.Regular (\u03b3 t)) (hfirst : SM.Generic (\u03b3 0))\n  (hlast : SM.Generic (\u03b3 1)) (\u03b4 : \u211d) (h\u03b4 : 0 < \u03b4) :\n  \u2203 d W A,\n    (\u2200 (t : \u2191unitInterval), Function.Injective (A.path t)) \u2227\n      {t | \u00acSM.Generic (A.path t)}.Finite \u2227\n        \u2200 (t : \u2191unitInterval),\n          \u00acSM.Generic (A.path t) \u2192 \u2203 E, (\u2203! kind, E.germ.HasRegularWallKind kind) \u2227 \u2200 (j : ZMod n), \u00acE.germ.CuspAt j",
+    "SM.relative_general_position": "SM.relative_general_position {n : \u2115} [NeZero n] (hn : 3 \u2264 n) (\u03b3 : \u2191unitInterval \u2192 SM.LabelledTuple n)\n  (h\u03b3 : Continuous \u03b3) (hregular : \u2200 (t : \u2191unitInterval), SM.Regular (\u03b3 t)) (hfirst : SM.Generic (\u03b3 0))\n  (hlast : SM.Generic (\u03b3 1)) (\u03b4 : \u211d) (h\u03b4 : 0 < \u03b4) : Nonempty (SM.RelativeGeneralPositionPath \u03b3 \u03b4)"
+  },
+  "printed_type_sha256": {
+    "SM.RegularWallKind": "2a5d60169e648eec0145a6dc55dd4b1721ad16eafeda34ca55af2be5b3a7c91b",
+    "SM.RegularWallKind.toWallKind": "291fe69384c7e81cdb2281acc1f94080e5f6140d3411bcc01a1384654bce42cb",
+    "SM.WallGerm.HasRegularWallKind": "39b41807f82c7bc46ad40b8a24d11bf3dd10225bee8194de3314e229afe2c231",
+    "SM.WallGerm.hasRegularWallKind_underlying": "9a9fdaaa023cc6b87c57e0599024416be8c508522c150c79b2a123c3edc58fc3",
+    "SM.WallGerm.bigon_sliding_marks_incompatible": "191f1ce0784467a624b5c7343fd9074365690f9dc6206031e1fd870280aff622",
+    "SM.WallGerm.regularWallKind_unique": "14b96c265aefffa6d2a281830c22fe258b959789fd1e631013b216604cd11705",
+    "SM.WallGerm.exists_regularWallKind_of_simple": "420d15d8cbc11d787a81b9e9cd6bd2e8186b96984c3d5a97ba9a29e8db6c2ec2",
+    "SM.WallGerm.existsUnique_regularWallKind_of_simple": "bc677274ec45578b33a2289aedc5199b7a18caa6c541d3e4068274900f0f0cda",
+    "SM.CurveCubeSubdivision.TimedEventCertificate.simple": "52f2a72945752982a4e301ea40a8a3744c01f4900930de25e6c21354e8ef6922",
+    "SM.CurveCubeSubdivision.TimedEventCertificate.regular_kind_unique": "c56bd2eaec4c66e5e576285b4d238976e22dc44a7a07c2051b98d7ca9a37c03b",
+    "SM.WallGerm.isolates_shifted_path": "de45b2b9b4904a6a4dbab23180c3ea6645de670135a6b7a522d0943380d725a3",
+    "SM.RelativeGeneralPositionPath": "b6c19f72e8fa4635f93a7411f2c07c8493dc9c0e70188797d94b38ae8e1c37f0",
+    "SM.relative_general_position_with_certificates": "73646d27d280a5380ffb47e2ce7fc68cbfcd6f1fe71ea3ea89edcf24af68a1f9",
+    "SM.relative_general_position": "9026d92a75b4522d203ca7c339a5b6d44ddea7d129821ca4a5e605be737c281c"
+  }
+}

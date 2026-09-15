@@ -1,0 +1,715 @@
+{
+  "reviewer": "review_relgp_full-independent-20260911",
+  "implementer": "root-implementation-20260910",
+  "source": "reference/SM/sm-2-amplitude.tex",
+  "source_lines": "84-110; supporting binary remark112-116 and definitions10-82",
+  "source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+  "parameters_reviewed": true,
+  "definition_equivalence_reviewed": true,
+  "pins": {
+    "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "pin_files_sha256": {
+      "work/lean/lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+      "work/lean/lake-manifest.json": "f63e67f0f33f7785a0056cc049280fa78ae1d63208cb17efe6362837a0ac31ad"
+    }
+  },
+  "independence": "Reviewer did not author or edit these implementations, canonical modules, source, maps or previous reviews. Only new independent consumers, type/closure traces and review reports were written. The proof strategy and actual source representations were inspected independently; implementation success was not treated as source fidelity. The independent trace copies all seven frozen namespace bodies verbatim over their canonical predecessor imports. For the canonical review only new check/report evidence was written; no implementation, source, map or frozen prior review was changed.",
+  "review_schema": "independent-full-source-review-v1",
+  "id": "lem:treesum-trees",
+  "source_id": "lem:treesum-trees",
+  "source_line": 84,
+  "labels": [
+    "lem:treesum-trees"
+  ],
+  "declaration": "SM.treesum_trees",
+  "module": "SM.PlaneTreeFormal",
+  "verdict": "faithful",
+  "source_claim_accepted": true,
+  "in_theorem_library": true,
+  "statement_sha256": "6ebebea98b61e1a9b0b77d87402da3ff79c2ce2ea9f7d80a4ae00106af05f6cd",
+  "utc": "2026-09-11T04:49:09.626837+00:00",
+  "reason": "Faithful complete implementation of lem:treesum-trees: the actual finite ordered plane-tree domain retains all source arities; ungrafting/grafting supplies the termwise correspondence; the signed vertex-product identity holds for independent commutative-ring weights, explicitly as a polynomial identity over integers and under every ring evaluation, and specializes to the actual G1 gates. The exact canonical port passes independent kernel3756 with58 declaration checks and20 substantive consumers; all printed types match the reviewed prototypes and immutable whole-project audit062 passes. This exact source row is faithful and eligible for map acceptance.",
+  "mathematical_justification": [
+    {
+      "clause": "Genuine finite ordered plane-tree domain",
+      "assessment": "OpenPlaneTree is the inductive representation of an ordinary rooted plane tree on its actual interval: a leaf exists only on a one-leaf interval; a node stores the complete actual composition, at least two parts, and an ordered dependent child array indexed by those parts. RootedPlaneTree separately stores an unrestricted positive-part composition and the same ordered array, so the distinguished root may have one child. Binary ordinary nodes remain present. The independent concrete actualBinaryTree has one ordinary vertex and weight equal to the negative of an arbitrary ordinary-weight value, before any gate specialization. Thus gate-zero binary nodes are not silently removed from the formal-variable domain."
+    },
+    {
+      "clause": "All leaves, labels and order",
+      "assessment": "The already reviewed boundary word traverses exactly every nonroot edge occurrence in order. At any internal node the strictly increasing cuts with fixed endpoints partition this leaf interval into successive positive child intervals. Explicitly, each leaf position has a unique largest cut not exceeding it; it lies before the final cut and before the next cut, hence belongs to exactly that part. Strictness makes the parts disjoint in traversal order. Repeating this decomposition preserves the actual leaf labels and their order. The independent part_leaf_sum and actual_tree_leaf_count theorems additionally prove the exact total number of actual leaf constructors is the original interval leaf count. The independent only_leaf_on_one_leaf_interval proves no spurious internal node can occur at the base case."
+    },
+    {
+      "clause": "Ungrafting, grafting and finiteness",
+      "assessment": "openPlaneTreeUngraft is an explicit equivalence to a leaf summand or a sigma of the full top composition and every ordered child choice. Both inverse laws are proved on the actual constructors. The independent arbitrary_graft_and_ungraft check instantiates both directions for an arbitrary composition and child array. The ordinary tree type is finite by strong induction on actual interval leaves: every child decreases, so each child type is finite; the full finite composition index and finite dependent product give a finite grafting domain. Injectivity of ungrafting proves finiteness of the entire tree type. Root finiteness follows from the unrestricted finite composition sigma and child products. No chosen height bound, omitted arity or externally supplied finite tree list is assumed. Independent enumeration checks use these actual Fintype instances."
+    },
+    {
+      "clause": "Exact signed vertex product",
+      "assessment": "A leaf contributes one, zero ordinary vertices and empty ordinary product. At an ordinary node weight is negative ordinaryWeight times the product of child weights; ordinaryCount is one plus the sum of child counts; ordinaryProduct multiplies the node weight without its sign and every child product. Induction replaces each child weight by its signed product. Finite-product distributivity separates the powers of -1, and the product-of-powers identity adds their exponents; multiplying the top minus adds exactly one. At the distinguished root only child counts are summed, and its separate root weight multiplies the child weights without another minus. Both signed-product identities are proved over arbitrary commutative rings; the independent arbitrary_root_weight_formula checks the root exponent and factor explicitly."
+    },
+    {
+      "clause": "Term-by-term expansion and multiplicities",
+      "assessment": "For a one-leaf interval, the entire ordinary tree type consists of its unique leaf and its sum is one. For a larger interval, the leaf summand is empty; the ungrafting equivalence reindexes the sum by the exact top composition and independent ordered child choices. Finite distributivity changes the sum over choice functions into a product of child sums, while retaining the single top minus. This is exactly the open recursion. Strong induction on leaf count proves openTreeRec_eq_planeTreeSum. At the root the unrestricted composition sigma yields the analogous sum, including the one-child term and no root minus. The explicit identity equivalence reconciles two Fintype instances of the same sigma type; it does not merge equal-valued terms. Substituting the signed-product theorem gives the complete displayed source formula with the correct multiplicities."
+    },
+    {
+      "clause": "Independent formal variables and every evaluation",
+      "assessment": "TreeWeightIndex is Bool times the sigma of every actual interval/composition. False indexes the ordinary indeterminate and true the distinguished-root indeterminate; every formal weight is the corresponding X in MvPolynomial over integers, with no geometric relations imposed. The independent ordinary_root_variables_distinct theorem evaluates these two tags to zero and one to prove they remain distinct even for the same composition. The generic arbitrary-CommRing expansion specializes to this polynomial ring, proving the source formal identity. Ring homomorphisms preserve each finite tree evaluation by induction, then the finite sum. The eval2 homomorphism from integers therefore yields the same recursion for every assignment in any commutative ring. The independent arbitrary_separate_assignments theorem constructs an assignment realizing every pair of ordinary/root weight functions; no root/ordinary equality, half-invertibility or sign constraint is required."
+    },
+    {
+      "clause": "Full actual aggregate and source scope",
+      "assessment": "treeCoefficient_eq_signed_planeTreeSum specializes to the actual integer G1 gate weights on the full interval. treesum_trees includes that geometric identity, the independent-variable polynomial identity, and universal evaluation compatibility in arbitrary ring universes. The independent actual_source_identity extracts the actual geometric clause without supplying a plane-tree identity as a premise; the irrelevant evaluation universe is explicitly instantiated in the consumer. Source vertex weights and m=s agree with the already reviewed gates on the actual cuts. The helper TreeChamber developments are separately reviewed below and are not required as extra premises. No wall law, soft theorem or R claim is implied by this tree identity."
+    },
+    {
+      "clause": "Canonical statement, definition closure and independent evidence",
+      "assessment": "The exact reviewed bodies are now installed as canonical modules, with every previous source module unchanged. All58 canonical printed implementation types exactly equal the separately checked prototype types. The canonical-only independent kernel3756 passes the same20 substantive consumers, without embedding implementation definitions in the check file. The immutable whole-project audit062 passes; its complete transparent semantic closure is checked for the actual recursion, raw compositions, tree constructors, finite instances, vertex counts/products, formal-variable indices, actual G1/chamber definitions and root transport as relevant to this source row. The source semantic hash is independently recomputed from those records. G2 appears only inside the genuine generic-chamber definition; the source G1 chirotope/path/recursion clauses do not acquire that premise. No axiom or unproved source interface is introduced."
+    }
+  ],
+  "reviewed_files_sha256": {
+    "work/lean/SM/Chirotope.lean": "e0225bc712162273f43269ed764ac4849ae8fcd8798245a367d4262858fbf575",
+    "work/lean/SM/FiniteCompositions.lean": "e8d64c8add8ffddb3aa487ccacf8a44e991e6f65eed84270eb0dfaa62d7c7009",
+    "work/lean/SM/Gates.lean": "91abf2e71af3d1ee9090b3c1a30cd15458d2e0884cb8f46f0b8f59af06065c83",
+    "work/lean/SM/Generic.lean": "d66da53bd155faf33a26116324dfe2211e01ac75a8b9f2ccbf028630ee1e6417",
+    "work/lean/SM/PlaneTreeExpansion.lean": "c8730af354e242689181de79683ad35e5ab1e052637aa17ee50e95de475c3877",
+    "work/lean/SM/PlaneTreeFormal.lean": "e36d624ef09a1accfb48326fc17a61473c767729e37a05d990cb31264debd1b9",
+    "work/lean/SM/PlaneTreeShape.lean": "749fc1127dc506251ea5c081636580ab02797425f4092d6d15ef39541d4d753b",
+    "work/lean/SM/PlaneTreeWeights.lean": "bc0e6a06e62193b96fba3a7327ce035422ca0b8be6da2f87c22b0d1e1035eda0",
+    "work/lean/SM/Polygon.lean": "d0b5d37591c252d66e1a3f060cea1e3d58625fedd6c5491cf4c1cf6d2b8c149d",
+    "work/lean/SM/RootBoundary.lean": "604906b750e1ab198a2db3fc3cc011ab325493a91404a0b52ffe4583dd403f1a",
+    "work/lean/SM/TreeCoefficient.lean": "d070e70dfbb61e036641f0d5fac4adae83fd1cadfe22f3ce2ffd8c8e1de9ab06"
+  },
+  "import_closure_roots": [
+    "SM.PlaneTreeFormal"
+  ],
+  "import_closure_file_count": 11,
+  "semantic_dependency_count": 63,
+  "required_semantic_definitions_checked": [
+    "SM.treesum_trees",
+    "SM.RootedPlaneTree",
+    "SM.OpenPlaneTree",
+    "SM.OpenPlaneTree.leaf",
+    "SM.OpenPlaneTree.node",
+    "SM.RootedPlaneTree.ordinaryCount",
+    "SM.RootedPlaneTree.ordinaryProduct",
+    "SM.OpenPlaneTree.ordinaryCount",
+    "SM.OpenPlaneTree.ordinaryProduct",
+    "SM.instFiniteRootedPlaneTree",
+    "SM.instFintypeRootedPlaneTree",
+    "SM.TreeWeightIndex",
+    "SM.formalOrdinaryWeight",
+    "SM.formalRootWeight",
+    "SM.rootedTreeRec",
+    "SM.openTreeRec",
+    "SM.treeCoefficient",
+    "SM.fullBoundaryInterval",
+    "SM.IntervalComposition.mk",
+    "SM.BoundaryInterval.mk",
+    "SM.G1"
+  ],
+  "prototype_review": "work/reviews/plane-tree-prototype.json",
+  "prototype_review_sha256": "0e8eaadf0f16e7f4fdd2d6c21c19ccf5bb3100983b6dac80d07e3aca8f94a161",
+  "prototype_review_binding": {
+    "work/reviews/tree-coefficient-prototype.json": "e92f0569ef1f8579dc854567897c1d7a80942f9fa8018a2192973aeaf37a78e4",
+    "work/reviews/plane-tree-prototype.json": "0e8eaadf0f16e7f4fdd2d6c21c19ccf5bb3100983b6dac80d07e3aca8f94a161",
+    "work/reviews/tree-chamber-claim-prototype.json": "03a87ec9196be4520ce48f28bd0ef3b0dd80f5f3274c8a9fe24c56b15e377372",
+    "work/reviews/tree-chamber-prototype.json": "4906e62046037bfd443d53f2c545548af2e994db32094c368c16fd7bec6bafd9",
+    "work/checks/tree-laws-reviewed-types.json": "f5dbdcc1beee7f4b269f6c0030a9ac8be34744c091b967951a0abb3cdca1617c",
+    "work/checks/tree-chamber-claim-reviewed-types.json": "b78f1d7865a319f72a23ff7ac5db656acfcca5990847eac60689ea838e1f7bbc",
+    "work/checks/tree-definition-and-shape-review-examples.lean": "3ffcf5549f51ead6d97e1bc9e0e321bb994f2b1e5c91066a07e60b514df0a95f",
+    "work/checks/tree-chamber-claim-review-examples.lean": "c3811acb2acdf96a192005346c91b46fc08c556bd00db1c575bec45bc4cc108c"
+  },
+  "port_review": "work/reviews/tree-laws-port.json",
+  "port_review_sha256": "331638bacca329bf4ad0982b876dc9e17a2a9ca0516466a15fba6e159181b5e4",
+  "evidence": {
+    "independent_trace_source": "work/checks/tree-laws-canonical-review-types.lean",
+    "independent_trace_source_sha256": "ea0ad33a2ff86f45dff7fda95d30c83396fc5c2842b02bd958f1bb89459712b5",
+    "independent_trace_log": "work/checks/tree-laws-canonical-review-types.log",
+    "independent_trace_log_sha256": "fb2ed0308e43bca1ef71e0ca91e3a36f8906a51b1ac8e4be770ecf9740c1cca6",
+    "independent_kernel_command": "lake env lean ../checks/tree-laws-canonical-review-types.lean",
+    "independent_kernel_session": 3756,
+    "independent_kernel_exit_code": 0,
+    "first_independent_run_passed": true,
+    "checked_declarations": [
+      "SM.openTreeRec",
+      "SM.rootedTreeRec",
+      "SM.openTreeRec_one",
+      "SM.openTreeRec_many",
+      "SM.fullBoundaryInterval",
+      "SM.openTreeSum",
+      "SM.treeCoefficient",
+      "SM.mainTreeCoefficient",
+      "SM.openTreeSum_one",
+      "SM.openTreeSum_many",
+      "SM.treeCoefficient_eq",
+      "SM.treesumData",
+      "SM.IntervalComposition.nearSign_eq_of_chi",
+      "SM.IntervalComposition.farSign_eq_of_chi",
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi",
+      "SM.IntervalComposition.rootWeight_eq_of_chi",
+      "SM.openTreeSum_eq_of_chi",
+      "SM.treeCoefficient_eq_of_chi",
+      "SM.openTreeSum_shift",
+      "SM.treeCoefficient_shift",
+      "SM.mainTreeCoefficient_shift",
+      "SM.treesumData_shift",
+      "SM.tree_data_eq_of_chi",
+      "SM.labelled_chamber_chi_constant",
+      "SM.tree_data_labelled_chamber_constant",
+      "SM.tree_data_G1_path_constant",
+      "SM.treeCoefficient_quotient_chamber_transport",
+      "SM.OpenPlaneTree",
+      "SM.openPlaneTreeUngraft",
+      "SM.openPlaneTree_finite",
+      "SM.RootedPlaneTree",
+      "SM.OpenPlaneTree.weight",
+      "SM.OpenPlaneTree.ordinaryCount",
+      "SM.OpenPlaneTree.ordinaryProduct",
+      "SM.OpenPlaneTree.weight_eq_signed_product",
+      "SM.RootedPlaneTree.weight",
+      "SM.RootedPlaneTree.ordinaryCount",
+      "SM.RootedPlaneTree.ordinaryProduct",
+      "SM.RootedPlaneTree.weight_eq_signed_product",
+      "SM.openPlaneTreeSum",
+      "SM.OpenPlaneTree.eq_leaf",
+      "SM.openPlaneTreeSum_one",
+      "SM.openPlaneTreeSum_many",
+      "SM.openTreeRec_eq_planeTreeSum",
+      "SM.rootedTreeRec_eq_planeTreeSum",
+      "SM.rootedTreeRec_eq_signed_planeTreeSum",
+      "SM.OpenPlaneTree.map_weight",
+      "SM.RootedPlaneTree.map_weight",
+      "SM.map_rootedTreeRec",
+      "SM.TreeWeightIndex",
+      "SM.formalOrdinaryWeight",
+      "SM.formalRootWeight",
+      "SM.planeTree_formal_identity",
+      "SM.planeTree_formal_evaluation",
+      "SM.treeCoefficient_eq_signed_planeTreeSum",
+      "SM.treesum_trees",
+      "SM.TreeDataEqual",
+      "SM.A_chamber"
+    ],
+    "declaration_axioms": {
+      "SM.openTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.fullBoundaryInterval": [
+        "propext",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.nearSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.farSign_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.ordinaryWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.IntervalComposition.rootWeight_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeSum_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.mainTreeCoefficient_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesumData_shift": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_eq_of_chi": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.labelled_chamber_chi_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_labelled_chamber_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.tree_data_G1_path_constant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_quotient_chamber_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree": [],
+      "SM.openPlaneTreeUngraft": [
+        "propext"
+      ],
+      "SM.openPlaneTree_finite": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree": [
+        "propext"
+      ],
+      "SM.OpenPlaneTree.weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.ordinaryCount": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.ordinaryProduct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.weight_eq_signed_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.ordinaryCount": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.ordinaryProduct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.weight_eq_signed_product": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.eq_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openPlaneTreeSum_many": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.openTreeRec_eq_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec_eq_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.rootedTreeRec_eq_signed_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.OpenPlaneTree.map_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.RootedPlaneTree.map_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.map_rootedTreeRec": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.TreeWeightIndex": [
+        "propext"
+      ],
+      "SM.formalOrdinaryWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.formalRootWeight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.planeTree_formal_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.planeTree_formal_evaluation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treeCoefficient_eq_signed_planeTreeSum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.treesum_trees": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.TreeDataEqual": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "SM.A_chamber": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "additional_examples": [
+      "TreeDefinitionIndependentReview.interval_recursion_cases",
+      "TreeDefinitionIndependentReview.part_leaf_sum",
+      "TreeDefinitionIndependentReview.source_arity_bound",
+      "TreeDefinitionIndependentReview.one_part_root_term",
+      "TreeDefinitionIndependentReview.source_recursion_unique",
+      "TreeDefinitionIndependentReview.full_interval_and_last_root",
+      "TreeDefinitionIndependentReview.exact_root_transport",
+      "TreeDefinitionIndependentReview.actual_tree_leaf_count",
+      "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval",
+      "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft",
+      "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated",
+      "TreeDefinitionIndependentReview.arbitrary_root_weight_formula",
+      "TreeDefinitionIndependentReview.binary_tree_formal_weight",
+      "TreeDefinitionIndependentReview.ordinary_root_variables_distinct",
+      "TreeDefinitionIndependentReview.arbitrary_separate_assignments",
+      "TreeDefinitionIndependentReview.actual_source_identity",
+      "TreeChamberClaimIndependentReview.complete_G1_quantities",
+      "TreeChamberClaimIndependentReview.actual_connected_component",
+      "TreeChamberClaimIndependentReview.actual_G1_path",
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport"
+    ],
+    "additional_example_count": 20,
+    "additional_examples_passed": true,
+    "additional_example_axioms": {
+      "TreeDefinitionIndependentReview.interval_recursion_cases": [
+        "propext",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.part_leaf_sum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.source_arity_bound": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.one_part_root_term": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.source_recursion_unique": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.full_interval_and_last_root": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.exact_root_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.actual_tree_leaf_count": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.only_leaf_on_one_leaf_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_graft_and_ungraft": [
+        "propext",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.all_actual_tree_shapes_enumerated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_root_weight_formula": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.binary_tree_formal_weight": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.ordinary_root_variables_distinct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.arbitrary_separate_assignments": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeDefinitionIndependentReview.actual_source_identity": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.complete_G1_quantities": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_connected_component": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.actual_G1_path": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "TreeChamberClaimIndependentReview.all_quantities_under_quotient_transport": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_58_prototype_canonical_printed_types_equal": true,
+    "transparent_predicates_printed": [
+      "SM.openTreeRec",
+      "SM.rootedTreeRec",
+      "SM.fullBoundaryInterval",
+      "SM.openTreeSum",
+      "SM.treeCoefficient",
+      "SM.mainTreeCoefficient",
+      "SM.treesumData",
+      "SM.OpenPlaneTree",
+      "SM.openPlaneTreeUngraft",
+      "SM.RootedPlaneTree",
+      "SM.OpenPlaneTree.weight",
+      "SM.OpenPlaneTree.ordinaryCount",
+      "SM.OpenPlaneTree.ordinaryProduct",
+      "SM.RootedPlaneTree.weight",
+      "SM.RootedPlaneTree.ordinaryCount",
+      "SM.RootedPlaneTree.ordinaryProduct",
+      "SM.TreeWeightIndex",
+      "SM.formalOrdinaryWeight",
+      "SM.formalRootWeight",
+      "SM.TreeDataEqual"
+    ],
+    "independent_closure_evidence": "work/checks/tree-laws-canonical-review-closure.json",
+    "independent_closure_evidence_sha256": "dc038c37c005e589a881417c072decaccc0f1e4121608c0ae91f43c26d4a0279",
+    "canonical_semantic_evidence": "work/checks/tree-laws-canonical-semantic-review.json",
+    "canonical_semantic_evidence_sha256": "42651c32fe6a13f9b48c7a32731fd366c3c0fd49584ed812268c2071f161f7e1",
+    "root_result_file": "work/checks/tree-laws-port-audit-result.json",
+    "root_result_sha256": "4cb286471dd57d63c9a1e5855feafed7010d76c188b695dd66277de1003db0aa",
+    "successful_build_session": 14456,
+    "successful_build_exit_code": 0,
+    "successful_build_log": "work/checks/checkpoint-062-lean-check.log",
+    "successful_build_log_sha256": "af870546b87dd42173ca06a30f86ec87c52c2bff0e4caa19968a81e3f6daed58",
+    "audit_receipt": "work/checks/checkpoint-062-output.json",
+    "audit_receipt_sha256": "9740a13b18d1331769c6b529138d8bff2d6269fa00e9346a6ef9532754f4eca9",
+    "declaration_audit": "work/checks/checkpoint-062-declaration-audit.json",
+    "declaration_audit_sha256": "1d422ec842720f3b00ef4ee6bdb5cdd2a25e4133ce333c7174e2b56e8604c800",
+    "scope_note": "The same20 substantive external consumers were rerun using canonical imports only, including recurrence uniqueness, one-part term, exact leaf counts, binary formal weight, arbitrary polynomial assignments, actual connected components and all-quantity quotient root transport."
+  },
+  "audit_context": {
+    "receipt": "work/checks/checkpoint-062-output.json",
+    "receipt_sha256": "9740a13b18d1331769c6b529138d8bff2d6269fa00e9346a6ef9532754f4eca9",
+    "root_audit_session": 14456,
+    "root_audit_exit_code": 0,
+    "passed": true,
+    "stage_accepted": false,
+    "audited_local_declarations": 3719,
+    "mapped_claims": 37,
+    "audited_SM_modules": 294,
+    "audited_project_files": 300,
+    "all_receipt_project_and_bundle_hashes_checked_at_review": true,
+    "all_34_prior_semantic_hashes_unchanged": true,
+    "scope": "Immutable audit062 covers the installed six-module batch before these review rows are accepted. This report does not claim that a subsequent accepted-map audit has already passed."
+  },
+  "acceptance_scope": {
+    "original_claim": "lem:treesum-trees",
+    "original_rows_added_if_mapped_accepted": 1,
+    "proofs_added_if_mapped_accepted": 1,
+    "definitions_added_if_mapped_accepted": 0,
+    "current_map_was_not_edited_by_reviewer": true,
+    "helper_original_claim_count": 0,
+    "stage_complete": false
+  },
+  "not_certified": [
+    "No additional original claims for supporting helpers.",
+    "No state-sum wall law, soft theorem, unconditional R theorem or overall handoff completion."
+  ],
+  "source_realignment": {
+    "from_frame": "SM12",
+    "from_source_sha256": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf",
+    "from_line": 84,
+    "to_frame": "SM15",
+    "to_source_sha256": "776a32deacce83abd9ed97400d26204d435106a3b178cb4615f2363d45081a72",
+    "to_line": 84,
+    "statement_excerpt_status": "identical",
+    "from_excerpt_sha256": "634899ca1feeb2f569378f0b809690d2d16b879b88854c92419797f957c2310c",
+    "to_excerpt_sha256": "634899ca1feeb2f569378f0b809690d2d16b879b88854c92419797f957c2310c",
+    "attested_by": "claude-fable-5-1 (Anthropic Claude Code session, 2026-09-12; AI reviewer with no authorship of any Lean statement in work/lean)",
+    "attested_utc": "2026-09-12T09:20:12+00:00",
+    "note": "The Lean statement, its statement hash and the original reviewer's comparison are unchanged; only the source frame moved. The SM15 statement excerpt is byte-identical to the SM12 excerpt the review compared."
+  },
+  "countersignature_20260913": {
+    "countersigner": "reviewer-pod-rereview-claude-fable-5-1-20260913 (independent Claude Code subagent of the pod executor session, workflow rereview-handover-rows, one reviewer per row; AI reviewer; read the SM15 extract and the Lean statement (proofs skipped) and formed its judgement before comparing with this file; no authorship of any statement)",
+    "verdict": "faithful",
+    "reason": "The printed lemma (reference/SM/sm-2-amplitude.tex:84-104, byte-identical in SM15; not listed in CHANGES_SINCE_20260909.md section 1) asserts, for a polygon P with (G1) and a root g, that A_g(P) of def:treesum equals the signed sum over rooted plane trees T in T_g(P) of (-1)^{N_+(T)} V^-(pi_root) prod_{v ordinary} V^+(pi_v), and that the identity is formal in independent variables V^+-(pi) over Z and specializes to every evaluation. SM.treesum_trees (work/lean/SM/PlaneTreeFormal.lean:74-86) is a three-way conjunction over the same domain (P : ZMod n -> R^2, hP : G1 P with G1 = chi nonzero on pairwise distinct triples exactly as def:generic, g : ZMod n, 3 <= n). Conjunct 1 (lines 75-77): treeCoefficient P hP g hn = sum over T : RootedPlaneTree (fullBoundaryInterval hn) of (-1)^T.ordinaryCount * rootWeight(T.fst) * ordinaryProduct(ordinaryWeight). I checked each definition: treeCoefficient (TreeCoefficient.lean:51-53) is rootedTreeRec = sum over ALL compositions pi of [0,n-1] of V^-(pi) * prod openTreeRec(parts), and openTreeRec (lines 15-21) is b: 1 on one-leaf intervals, else -(sum over compositions with >= 2 parts of V^+(pi) * prod b(parts)), exactly def:treesum lines 66-82. The boundary word (RootBoundary.lean:8-12) gives a_k = mu_{g+k+1}, a_0 = mu_{g+1}, a_{n-1} = mu_g as def:root; intervals [i,j] with 0<=i<j<=N and compositions as strictly increasing cut sequences match RootBoundary.lean:48-68. Gates (Gates.lean:12-22, 35-43, 66-72): nearSign = chi(a_{r_{k+1}}, a_{r_k}, a_{r_{k-1}}), farSign = chi(a_j, a_{r_k}, a_i), chi = sign det(P j - P i, P k - P i) with det u v = u1 v2 - u2 v1 (Polygon.lean:16, Chirotope.lean:10), signTheta = Theta on nonzero signs, ordinaryGate = d*Theta(-h d), rootGate = d*Theta(h d), products over the s-1 interior cuts; all match def:gates and sm-1-polygons.tex:5-9. Trees (PlaneTreeShape.lean:13-16, 53-54): RootedPlaneTree I = Sigma over any composition pi of I (parts >= 1: root has one or more children) of ordered children on pi's parts, each an OpenPlaneTree which is a leaf on a one-leaf interval or a node with a composition of >= 2 parts (ordinary vertices have >= 2 children, labelled by the composition of the leaf interval); on the full interval the leaves are the n-1 leaf edges in order. ordinaryCount counts one per ordinary node and ordinaryProduct multiplies V^+ over ordinary nodes (PlaneTreeWeights.lean:18-26, 48-54); the sum is a genuine Finset sum over the Fintype-of-Finite instances. Conjunct 2 (lines 78-81) is the same identity in MvPolynomial (Bool x Sigma I, IntervalComposition I) Z with X(false,I,pi) for V^+(pi) and X(true,I,pi) for V^-(pi): the independent-variable identity over Z. Conjunct 3 (lines 82-86) states that for every commutative ring A and assignment of the variables, the evaluation of the formal recursion equals the recursion on the evaluated weights, rendering the specialization clause. Nothing is vacuous (RootedPlaneTree of the full interval is inhabited by the one-part composition with leaf children; G1 is satisfiable). The reference to the main text's eq:amplitude is a cross-reference, not formal content. Reading the existing review afterwards, I concur with its faithful verdict; the recorded file hashes match the current files.",
+    "notes_listed_as_discrepancies": [
+      "Minor, non-disqualifying: the source's 'specializes to every evaluation of them' (sm-2-amplitude.tex:97-98) speaks of the identity specializing; Lean conjunct 3 (PlaneTreeFormal.lean:82-86) states only eval(formal recursion) = concrete recursion for every ring A and assignment; the companion fact eval(formal tree sum) = concrete tree sum is not part of treesum_trees (it is routine map_sum/map_prod, and the concrete identity in every commutative ring is separately proved as rootedTreeRec_eq_signed_planeTreeSum, PlaneTreeExpansion.lean:90-94).",
+      "The clause 'This is \\mt{eq:amplitude}, whose vertex weights are Definition def:gates with m=s, ...' (sm-2-amplitude.tex:99-102) identifies the sum with the main text's formula; it is a cross-reference outside the SM and is not formalized (not a fidelity defect)."
+    ],
+    "stronger_than_source": [
+      "Conjunct 3 quantifies over every commutative ring A (in any universe) and every assignment of the variables, not only integer or gate evaluations.",
+      "The underlying identity rootedTreeRec_eq_signed_planeTreeSum holds directly for arbitrary weights in any commutative ring; treesum_trees itself only exports the gate instance, the Z-polynomial instance and the evaluation law."
+    ],
+    "weaker_than_source": [
+      "Conjunct 3 gives the specialization of the left-hand side (the recursion) only; the statement does not literally say that, for an arbitrary evaluation, the evaluated recursion equals the tree sum with evaluated weights (that follows from conjunct 2 plus ring-homomorphism bookkeeping, and is separately a theorem in the module)."
+    ],
+    "files_read": [
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/port/rereview_rows.json",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/blueprint/STATEMENTS_AND_PROOFS.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-2-amplitude.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-0-legend.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/reference/SM/sm-1-polygons.tex",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/CHANGES_SINCE_20260909.md",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PlaneTreeFormal.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PlaneTreeExpansion.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PlaneTreeShape.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/PlaneTreeWeights.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/TreeCoefficient.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Gates.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/RootBoundary.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/FiniteCompositions.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Generic.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Chirotope.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/lean/SM/Polygon.lean",
+      "/workspace/repos/lean/lean_repo/LEAN_HANDOFF_20260912_RESUME/CORNER_LAWS_FOCUSED_20260912/work/reviews/lem-treesum-trees.json"
+    ],
+    "utc": "2026-09-13T16:00:23+00:00",
+    "disclosure": "AI countersignature requested by STATE_OF_WORK.md section 4; no human has read it."
+  }
+}

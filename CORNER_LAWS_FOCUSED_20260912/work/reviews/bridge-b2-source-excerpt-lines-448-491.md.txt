@@ -1,0 +1,44 @@
+### B2. Exactly the forced bundle
+
+**Lemma B2.** For the germ in B1, its CV zero set is
+
+$$
+Z=\{\mathrm{G3}_{e,f,g},\mathrm{G4}_{e;f,g},
+       \mathrm{G4}_{f;e,g},\mathrm{G4}_{g;e,f}\}.
+$$
+
+(3)
+
+These are four **indexed members**. In particular their later polynomial identities do not collapse this set. CV says so explicitly:
+
+<!-- BEGIN QUOTE CV_INDEX -->
+**CV_INDEX — CV `d1_setup.tex:168–179`**
+
+````tex
+The two are used in different places and the distinction is not cosmetic.
+Every set of guarded predicates formed below --- in particular the zero set of
+an event, defined later in this section --- is a set of \emph{members} of
+$\mathcal G$, and membership there is by \emph{index}: the element is
+$\mathrm{G4}\langle e;f,g\rangle$, the member indexed by the ordered
+representative pair, and not the oriented value, which when $\epsilon=-1$ is
+that member's negative and is indexed by nothing. The distinction is one of
+indexing and not of polynomials, and the difference matters: as polynomials a
+negated member can coincide with another member, since for three pairwise
+remote edges $\mathrm{G4}_{e;f,g}=-\mathrm{G3}_{e,f,g}$ --- an identity of
+polynomials, proved in the dictionary section where the canonical factors are
+analysed --- so $-\mathrm{G4}_{e;f,g}$ is the polynomial $\mathrm{G3}_{e,f,g}$,
+````
+<!-- END QUOTE CV_INDEX -->
+
+**Proof: the relevance quantifier.** On every punctured value SM (G1) holds, and at zero it holds because $Z_{\rm pt}=\varnothing$. The calculation in B1 therefore makes every unconditional CV G1/G2 polynomial nonzero at **every** time in the original germ interval. Each is continuous. A nonzero continuous real function on an interval has constant sign: if two values had opposite signs, the intermediate value theorem would give a zero between them. Thus every G2 sign is constant on that entire interval. CV's strict crossing tests are products of those G2 values, so every crossing activation predicate, and hence the activation of each conditional guard, is constant throughout the interval. For a conditional member, being relevant at *some* nonzero time is consequently equivalent to being active at the centre. This proves the needed treatment of the literal `for some` quantifier in CV's zero set; it does not discard distant times by an unjustified truncation.
+
+**Forced bundle contained in $Z$.** The three central crossings found in B1 persist on both punctured sides; this follows either from the constant strict tests just proved or from SM `lem:triple-sides`. Thus the central G3 and all three G4 members are relevant at nonzero times. The G3 determinant vanishes because the lines contain $q$. On each edge the two central intersections are the same point $q$, so their two parameters are equal. The defining G4 polynomial is their difference multiplied by its two nonzero direction determinants, and is therefore zero. Every member displayed in (3) satisfies both clauses of CV's definition of $Z$.
+
+**$Z$ contained in the forced bundle.** Take any member of $Z$, and exhaust CV's five guard families.
+
+1. It cannot be G1 or G2: both unconditional families are nonzero at the centre.
+2. It cannot be G5: relevance at some nonzero time implies central activation, and an active central pair crosses transversely, so its direction determinant is nonzero.
+3. If it is G3, central activation gives three pairwise crossing, pairwise nonparallel lines. Their vanishing coefficient determinant makes their unique finite pairwise intersection a common point. Since each pair crosses in the interiors, the common point lies in all three interiors. Its index triple belongs to $Z_{\rm c}$, so it must be $\{e,f,g\}$. The unique increasing representative is the displayed G3 member.
+4. If it is $\mathrm{G4}_{a;b,c}$, central activation gives two transverse interior crossings on $a$. The two nonzero denominators and the zero numerator force the parameters to be equal. There is consequently one point interior to $a,b,c$. The edges $b,c$ cannot be adjacent: under central SM (G1), adjacent edges meet only at their common endpoint, whereas this point is interior to both. They are distinct by the G4 indexing rule. All three edges are therefore pairwise remote and give a member of $Z_{\rm c}$. They are exactly $e,f,g$. The possible base edge $a$ is one of these three, and the remaining two indices are put in increasing representative order, giving exactly one of the three G4 members in (3).
+
+There is no other guard family in the printed list. Both inclusions have now been proved. ∎

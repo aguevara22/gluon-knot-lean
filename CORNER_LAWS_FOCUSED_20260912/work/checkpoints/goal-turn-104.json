@@ -1,0 +1,123 @@
+{
+  "checkpoint": "104",
+  "utc": "2026-09-12T06:55:12.962086+00:00",
+  "goal_status": "active; incomplete",
+  "previous_goal_turn_classification": "progress",
+  "this_goal_turn_classification": "progress:23 checked declarations prove actual positive original-successor parameter intervals including wraparound, affine smoothing segments with positive Euclidean length and local geometric properties, and actual independent-support finite closed marked traces; true-corner reduction and remaining source clauses remain",
+  "original_proofs": 19,
+  "original_proof_total": 132,
+  "original_checklist_accepted": 38,
+  "original_checklist_total": 191,
+  "expanded_checklist_accepted": 39,
+  "expanded_checklist_total": 192,
+  "main_targets_accepted": 0,
+  "main_targets_total": 8,
+  "new_kernel_checked_declarations": 23,
+  "implementation_declarations": 23,
+  "prototype_consumers": 0,
+  "candidate_groups": 4,
+  "root_kernel_state": "none; all6 root kernel attempts terminal:4 passing runs and2 preserved first failures",
+  "reviewer_kernel_state": "none launched",
+  "passing_root_sessions": {
+    "CarrierAffineSegments": 24066,
+    "CarrierMarkedSegments": 4362,
+    "CarrierSegmentGeometry": 20830,
+    "CarrierClosedTrace": 14350
+  },
+  "same_model_technical_reviews": {
+    "status": "Four sealed; no technical defect within bounded scopes; independent AI authorship and review limitations disclosed; no stronger approval",
+    "files_sha256": {
+      "work/reviews/carrier-affine-segments-technical-review-20260912.json": "4bb9ab8a09db72eab349f42c806497d4739f42f320df20ec2f5ce798bd71a0da",
+      "work/reviews/carrier-marked-segments-technical-review-20260912.json": "956ae46b8aacf9628cef8e6bdbd9fedcf853f86fac1f71d2b54aff8d2adcba6d",
+      "work/reviews/carrier-segment-geometry-technical-review-20260912.json": "23fecb745a7c7b70e0cd354f42ee8470a2894b947883a9d086d1b7cdf738bd43",
+      "work/reviews/carrier-closed-trace-technical-review-20260912.json": "642f805f6c5a83ef266781683bd19f118f8e0ca36cb22b69e1732316fce86766"
+    },
+    "quoted_bindings_verified": 126,
+    "unique_bound_files": 88,
+    "source_fidelity_approval": false
+  },
+  "canonical_modules_unchanged": 327,
+  "baseline_files_unchanged": 2326,
+  "unique_candidate_evidence_files_checked": 69,
+  "passing_receipts_sha256": {
+    "work/checks/CarrierAffineSegments-prototype-result.json": "161b664c53efe343f4c20936fcfb327f3a03979c91133075b21db154dbe13291",
+    "work/checks/CarrierMarkedSegments-prototype-result.json": "1ee94c1f6999618ac902862cdcd59cb062b152572af80b66ec93e5b0dbac2e5d",
+    "work/checks/CarrierSegmentGeometry-prototype-result.json": "aeeb87c267d531be7c9e1118c9b48ae54db598a664af1ba9e385fe684a6e54cd",
+    "work/checks/CarrierClosedTrace-prototype-result.json": "f98676d4270672eddbd30413832a8d2e23619cc9783cc72ec49908c2dc642b08"
+  },
+  "preserved_failed_sessions": [
+    19499,
+    77729
+  ],
+  "repair_header_changes": {
+    "19499": [],
+    "77729": []
+  },
+  "proof_repairs": "MarkedSegments first19499: explicit Prod.ext, edge-coordinate abel, and Subtype.ext/rfl prove the shifted-next-vertex equality. ClosedTrace first77729: remove the explicit mark from an EqOn application whose mark argument is implicit. All public headers and exact dependencies unchanged; both complete failed attempts preserved and excluded.",
+  "verifier_execution": "Both new verifiers passed first execution after independent static adaptation review. Before execution, root corrected stale output metadata candidate_groups from3 to4 while preserving the first draft and correction record. Exact names/counts, receipts, complete bodies/traces, failed proof repairs, review bindings and frozen baseline verified; no acceptance rule relaxed.",
+  "source_claim_acceptance_increment": 0,
+  "new_source_theorem_candidates": [],
+  "source_scope": "Actual marked successor bounds a positive original-edge parameter interval, including wraparound. Explicit affine smoothing segments have positive Euclidean length, original-edge containment, local injectivity, continuity and endpoint gluing. Independent-support owner-filtered component lists give actual cyclic successor edges and finite closed marked traces. Global continuous circle parameterization, true-corner reduction, regularity, retained crossings, all-visit noncrossing and the main corner theorem remain.",
+  "proved_scope": [
+    "The actual original successor has no fixed mark. Shifting the traversal cut and excluding the actual next vertex from the open gap proves increasing same-edge parameters or the exact next vertex, including wraparound",
+    "The explicit actual smoothing segment has exact endpoints, gluing and continuity. Selected-slot plane equality and the proved original successor interval yield a positive original-edge parameter difference",
+    "Every smoothing segment has positive Euclidean length, original-edge containment for unit parameters and local injectivity; actual smoothed marks cannot be fixed. These hold for arbitrary supports without independent-order premises",
+    "The actual owner-filtered component mark list is nonempty with exact membership. Under actual support independence, its modular next indices equal the smoothed successor, so each finite trace edge is the positive smoothing segment, with closing-edge gluing and per-edge continuity"
+  ],
+  "remaining_carrier_scope": [
+    "Actual true-corner existence and nonempty corner filter; derived first-retained-corner blocks including closing and singleton cases",
+    "Geometric compression of unselected intermediate visits with positive displacement and trace-image equality; actual compressed cyclic corner tuple",
+    "True-corner directions and signs, regularity, at least three corners, exact retained crossings and all-visits noncrossing"
+  ],
+  "remaining_main_goal": "Actual corner-state-sum C, all-sector C-soft and wall laws, full-cusp/comparison and R/bridge; stronger fidelity, controlled integration and final acceptance checks",
+  "whole_library_audit_rerun": false,
+  "last_canonical_audit": "070",
+  "report": "reports/carrier-positive-segments-candidates-20260912.md",
+  "next_action_document": "decisions/carrier-true-corners-next-step-20260912.md",
+  "next_action": "Execute decisions/carrier-true-corners-next-step-20260912.md. Define the actual true-corner predicate (original vertices or selected visits), prove every actual component contains one by transporting a hypothetical cornerless owner block to the original successor circle, and construct its nonempty corner filter. Derive first-retained-corner blocks including closing and singleton cases; prove unselected intermediate visits keep the same original edge and compress positive marked subsegments with both positive total displacement and trace-image equality. Construct the actual compressed cyclic corner tuple, then prove corner directions, regularity, at least three corners, retained crossings and all-visits noncrossing. Continue actual corner coefficients/state sum, all-sector C-soft, wall laws, full-cusp/comparison and R/bridge. A separate global parameter-circle map is optional unless a consumer needs it. Stronger fidelity and controlled integration remain separate.",
+  "progress_watch_session": 89600,
+  "progress_watch_exit_code": 0,
+  "progress_reports_relayed_utc": [
+    "2026-09-12T06:35:40Z",
+    "2026-09-12T06:45:40Z"
+  ],
+  "exit_progress_report_utc": "2026-09-12T06:54:04Z",
+  "hourly_app_automation": {
+    "id": "hourly-lean-formalization-progress",
+    "state": "Existing hourly heartbeat retained without changes; last saved configuration observation in099",
+    "observation": "work/checks/checkpoint-099-hourly-reporter-observation.json"
+  },
+  "process_inventory_note": "All terminal states use exact observed root session results; reviewers report no kernels. No process-inventory escalation.",
+  "checkpoint_evidence_sha256": {
+    "work/checks/checkpoint-104-verification.json": "6776501e050256955248aa393c4d43dab1e85cc190cc07bb1a80e992e3a0f5ce",
+    "work/checks/checkpoint-104-review-bindings.json": "3a98612542a57a417b3568e5b6994cdfe5d7e8acdeae05754c1e4b1a76fca4fc",
+    "work/checks/checkpoint-104-verifier-static-review.json": "d3a0a3589b6b308801d94e86156bfdb8539ac1621075e8cd138ade3f8f461d3d",
+    "work/checks/checkpoint-104-verifier-draft-correction.json": "9aff6eba5edf5d46eb57e7d3c2d874d06cb555f13704c7971047a27137d79c89",
+    "work/checks/verify_carrier_segments_candidates.py": "ff2f41a50091707c76be4b1799b7af6fce086742f510142b9830f90d331258e4",
+    "work/checks/verify_carrier_segments_review_bindings.py": "c43c88bb1435757caeebc778e3f033caa7d0a0a61f7c4b020b8d15de9882cda2",
+    "work/checks/verify_carrier_segments_candidates-first-draft.py": "58fc0e57a383296284dbe1ecef9c650ebf1bd0a7aea14358702f6bfbfa163333",
+    "work/checks/verify_carrier_segments_review_bindings-first-draft.py": "c43c88bb1435757caeebc778e3f033caa7d0a0a61f7c4b020b8d15de9882cda2",
+    "work/checks/assemble_carrier_prototype.py": "0c9024afad29fda5593b9c40a0eac816d4b29cc31029026e65f3aee20deff9de",
+    "work/checks/carrier-segments-baseline-20260912.json": "02cfbd9368d7ef172243c9e02015279dd074396d1ae8c038f8a5eda633226389",
+    "work/checks/carrier-segments-candidate-groups-20260912.json": "6800fd129d707b79038f1a9617626790f975e4169fc8b2532c149f09f2bd33b3",
+    "work/checks/carrier-segments-preserved-failures-20260912.json": "1305f8c6e7a823540410d8ca3ac57c9b867453c956e985488c9d45858bdf9ad7",
+    "work/checkpoints/goal-turn-104-candidates.json": "90f8dbcceaea47c82ae01124826546cb0b82028da6dc9e01791d34179e3efa00",
+    "work/reports/carrier-positive-segments-candidates-20260912.md": "34b72a7bb6f3b1949cc9641ff378351ae5affbece574b265c980ed6dce257de3",
+    "work/decisions/carrier-true-corners-next-step-20260912.md": "195dd18692882638e20f461a7fe69b3420ac3da613402fedba97d27d859ff862",
+    "work/checks/CarrierClosedTrace-first-execution-options.json": "f9ca4b0767ed19c8e788ce460ff1859e1853f908a2568b40bfa219482f88b1f8",
+    "work/checks/CarrierClosedTrace-second-execution-options.json": "af7207eae9640c9f9b5eb3327a70c9d9749858df4879500d4dc54649a5afb38b",
+    "work/STATUS.md": "45ce8ac984d117dadc904037c61b9493d3d9c6ef56cff603c95ce895a97937e8",
+    "work/TASKS.json": "9ddc783dac390c035b5f72a30d2d7cc12eaaf630400368417b7d9843cfac7df2",
+    "work/AUTHOR_NOTES.md": "2b8cbabd50c4ef25fbca7225e4ee4a2eb29e39cb274ee928bd3f108142d5fcc1",
+    "work/reviews/carrier-affine-segments-technical-review-20260912.json": "4bb9ab8a09db72eab349f42c806497d4739f42f320df20ec2f5ce798bd71a0da",
+    "work/reviews/carrier-marked-segments-technical-review-20260912.json": "956ae46b8aacf9628cef8e6bdbd9fedcf853f86fac1f71d2b54aff8d2adcba6d",
+    "work/reviews/carrier-segment-geometry-technical-review-20260912.json": "23fecb745a7c7b70e0cd354f42ee8470a2894b947883a9d086d1b7cdf738bd43",
+    "work/reviews/carrier-closed-trace-technical-review-20260912.json": "642f805f6c5a83ef266781683bd19f118f8e0ca36cb22b69e1732316fce86766",
+    "work/checks/CarrierAffineSegments-prototype-result.json": "161b664c53efe343f4c20936fcfb327f3a03979c91133075b21db154dbe13291",
+    "work/checks/CarrierMarkedSegments-prototype-result.json": "1ee94c1f6999618ac902862cdcd59cb062b152572af80b66ec93e5b0dbac2e5d",
+    "work/checks/CarrierSegmentGeometry-prototype-result.json": "aeeb87c267d531be7c9e1118c9b48ae54db598a664af1ba9e385fe684a6e54cd",
+    "work/checks/CarrierClosedTrace-prototype-result.json": "f98676d4270672eddbd30413832a8d2e23619cc9783cc72ec49908c2dc642b08"
+  },
+  "execution_options": "Both ClosedTrace attempts used separately recorded CLI maxHeartbeats=1000000 for unchanged SortedArcLists in the expanded independent-order closure. No mathematical assumptions or trust setting changed.",
+  "optional_interface_note": "A separate global continuous parameter-circle map is unconstructed and optional unless a concrete source consumer needs it; it is not imposed as an extra gate."
+}

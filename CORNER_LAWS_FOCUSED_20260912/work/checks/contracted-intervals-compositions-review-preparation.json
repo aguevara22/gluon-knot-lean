@@ -1,0 +1,43 @@
+{
+  "state": "SOURCE REVIEW PREPARED; independent combined kernel pending one reviewer-only image consumer proof repair",
+  "reviewer": "/root/review_mark_transport",
+  "timestamp_utc": "2026-09-11T09:25:23.433993+00:00",
+  "implementation_declaration_count": 27,
+  "consumer_count": 16,
+  "files_sha256": {
+    "work/checks/ContractedIntervals.body.lean": "441797dc46affa3975c89fa23a60f7c694bd33ae07001188551abb8a7f04543f",
+    "work/checks/ContractedCompositions.body.lean": "4afae8695286b2ca855721db42668f5127355fab87460139eef2e8e8bb847065",
+    "work/checks/contracted-intervals-review-examples.lean": "e5c149722151d329beb2c6254abd838b39851ffbea1fd560a88cf328b7507da6",
+    "work/checks/contracted-compositions-review-examples-third.lean": "46cc8b96757fc5e58ae7d71c3bc8a3af781f1a51eb7bfd07ab031ee88f1726db",
+    "work/checks/contracted-intervals-compositions-review-types-third.lean": "70f25ec963695f1c644716d5f4299b61bd169c019b329f5e5a4139e3329ffbcd",
+    "work/checks/contracted-intervals-compositions-review-first-kernel.log": "ef39c8fea15e56012ef2e8f91782d67df687e05c0acec6bc0dcdf34c1724e193",
+    "work/checks/contracted-intervals-compositions-review-second-kernel.log": "30f6f95ea1386385b8c714c0523358264716f7c32cd67b2e6661898c3c83717f",
+    "reference/SM/sm-2-amplitude.tex": "014068e2f6e2d86b0ff4edf48877b5967847d661eaae04d2d4c5fd9f54b7c9cf"
+  },
+  "source_assessments": [
+    "Every interval with surviving endpoints is represented; exact contraction/expansion round trips and monotone containment reflection preserve all containing intervals, including critical and full source intervals.",
+    "The critical formal leaf has length1 and expands exactly to the critical span; every strictly larger containing contracted interval has at least2 leaves, giving the correct unit-array zero equation.",
+    "Every raw composition retains its natural part count and its complete ordered cut function. Expansion/contracted inverse preserve both fixed endpoints and every raw child, near triple and far triple.",
+    "SurvivingCuts quantifies over every cut including endpoints; on a containing parent it is equivalent to existence of a containing child, since the half-open child at the critical lower endpoint must have a surviving right endpoint at least the critical upper endpoint.",
+    "The containingCompositionEquiv is built from those actual expansion/contraction maps. It includes unary and zero-weight terms. Independent consumers check exact raw recovery, unique containing child, arbitrary finite sums and child/factor products."
+  ],
+  "kernel_history": [
+    {
+      "session": 82383,
+      "exit_code": 1,
+      "only_failed_declaration": "ContractedCompositionsIndependentReview.expanded_complete_cut_set",
+      "reason": "Function composition remained opaque after simp."
+    },
+    {
+      "session": 30790,
+      "exit_code": 1,
+      "only_failed_declaration": "ContractedCompositionsIndependentReview.expanded_complete_cut_set",
+      "reason": "After Function.comp_def, hidden definitional arguments still prevented simp from closing identical displayed sides."
+    }
+  ],
+  "prepared_third_proof": "Expose the Finset image composition on Fin (π.parts+1), then exact Finset.image_comp. No frozen body or source/consumer statement changed.",
+  "third_kernel_executed": false,
+  "implementation_defect_found": false,
+  "source_acceptance_increment": 0,
+  "scope_limit": "Full interval-length propagation and unchanged coordinate/geometric array transport remain separate; no final wall theorem acceptance."
+}
