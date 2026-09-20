@@ -1,0 +1,20 @@
+--- blueprint/AXIOM_REGISTRY.md
++++ blueprint/AXIOM_REGISTRY.md
+@@ -17,6 +17,17 @@
+ \end{literature}
+ ```
+ 
++### lit:homfly (descent sentence) — AXIOM, second declaration of lit:homfly: `SM.lit_homfly_descent : SM.AmbientIsotopyDescent`
++
++reference/SM/sm-3-statesum.tex:920–921 (the last sentence of the literature input printed above; lines 14–15 of its block)
++
++```tex
++$aH_{D_+}-a^{-1}H_{D_-}=zH_{D_0}$ for every skein triple. Its value depends
++only on the oriented link presented by $D$.
++```
++
++Second declaration (2026-09-15) of this literature input, authorised by the author (decision D-GAP2, `work/AUTHOR_NOTES.md`; this sub-entry by D-AUTH-20260919 G-07): `axiom SM.lit_homfly_descent : SM.AmbientIsotopyDescent` in module `work/lean/SM/LitHomflyDescent.lean`, registered in `lean/axiom-policy.json` (`literature`) under the policy label "lit:homfly (descent sentence)". It asserts the printed descent sentence for the SAME fixed map `SM.homfly := Classical.choose SM.lit_homfly`, read on the spatial vocabulary of rows 89–91 (`SM.AmbientIsotopyDescent`, `work/lean/SM/ContactPathOfDescent.lean`): along every jointly smooth ℝ-indexed family of oriented spatial embeddings whose two ends have regular generic xz projections, `homfly` takes equal values on any polygonal `HeightMarking` readings of the two end diagrams. Not a sixth interface: five literature interfaces, six axiom constants. Interface review against this text: `work/reviews/lit-homfly-descent.json` (faithful; three lenses, two refuters; 2026-09-15T14:25Z). Disclosed readings FR-LHD-1..4 (stronger: the isotopy-extension step that the printed proof of cp:finite-contact-path performs by hand, sm-3:3276–3312, is bundled with the sentence; weaker: regular generic ends, polygonal readings, labelled components, an ℝ-indexed C^∞ family). `SM.lit_homfly` (the first declaration, `work/lean/SM/LinkInterfaces.lean`) is unchanged.
++
+ ## lp:lm — AXIOM
+ 
+ reference/SM/sm-3-statesum.tex:935–960

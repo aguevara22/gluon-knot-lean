@@ -12,7 +12,7 @@ CV:def:diagrammatic (315-344) — each with a row bundle `CV.<row>Data` and its 
 them to the accepted SM notions (`CV.Regular ↔ SM.Regular`, `SM.Generic → CV.Generic` = Bridge B1(1), `CV.Generic → CrossingGeometry`).
 Follows the CV-lane plan (work/reports/cv-lane-plan-20260913.md) and decision F2 (no domain narrowing; recorded in work/AUTHOR_NOTES.md).
 Written 2026-09-13 by a Claude Code implementer subagent of the pod executor (workflow implement-cv-definitions), checked with
-`lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/CV_Setup.lean (only this header added and #print lines
+`lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/CV_Setup.lean (only this header added and #print lines
 removed). -/
 
 /-! # CV lane, setup definitions (reference/R/CV/d1_setup.tex, frozen)

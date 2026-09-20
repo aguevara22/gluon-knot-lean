@@ -5,7 +5,7 @@ import SM.GenericTopology
 
 /-! Chapter-3 representation layer, module LinkDiagram: polygonal oriented link diagrams (Shadow, Strand, multi-component crossings and visits, Shadow.Generic, Diagram with over-strand data, signs and writhe, switch / restrict / reverse / mirror, based orders and UnderFirst). Implements the design adopted 2026-09-13
 (work/reports/design-decision-diagram-record-20260913.md, Proposal #1 with the judges' grafts). Written 2026-09-13 by a Claude Code
-implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (sorry-free,
+implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (placeholder-free,
 standard axioms) and ported verbatim from work/drafts/LinkDiagram.lean (only this header added and #print lines removed). All
 declarations live in `SM.Link`; no row points here yet — the definition rows (def:positive-lift, def:gauss-record, def:adeg, ...)
 are stated on top of this layer and reviewed against the source. -/

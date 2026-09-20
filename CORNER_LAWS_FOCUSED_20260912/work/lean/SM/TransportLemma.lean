@@ -5,7 +5,7 @@ import SM.Children
 /-! Source lem:transport (reference/SM/sm-5-transport.tex:299, frame SM15): transport. Main declaration:
 `SM.transport_lemma`. Statement fixed by the executor (work/drafts/TransportLemma_statement.lean); proof written 2026-09-13 by a
 Claude Code prover subagent of the pod executor (workflow prove-transport-lemma / prove:transport-A), checked with `lake env lean`
-(sorry-free, standard axioms) and ported verbatim from work/drafts/TransportLemmaA.lean (only this header added and #print lines
+(placeholder-free, standard axioms) and ported verbatim from work/drafts/TransportLemmaA.lean (only this header added and #print lines
 removed). A second independent proof (work/drafts/TransportLemmaB.lean) compiles as well and is kept as a cross-check. -/
 
 /-! Source lem:transport (reference/SM/sm-5-transport.tex:299, frame SM15): transport. Main

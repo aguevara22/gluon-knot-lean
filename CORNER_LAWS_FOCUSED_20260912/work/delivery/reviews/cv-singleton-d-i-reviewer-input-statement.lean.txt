@@ -1,0 +1,744 @@
+-- Ported 18:08Z 2026-09-15 from work/drafts/cvtail/Wave1_Assembled.lean lines 702-1763 (CV/R tail lane, row 165 CV:singleton_D_i: §2 = SingletonPieceOn, SingletonDiData, cvt_omega1_eq_zero_of_gap, SingletonDiData.of_degree_gap, SingletonSplitData, singleton_D_i_of, U-SPLIT's cvt165s_ helpers (sections Cvt165sPattern, Cvt165s with its nine sub-sections, kept exactly), the leaf cvt_singleton_split and the row) by the pod executor; body verbatim except this header, the import block (CV.PieceHomflyTransport and SM.ZeroRotationSeed supply homfly_geoPositiveLift_eq_of_geoCarrierCrossings_eq and principalAngle_swap, imported in Wave1 through CV.ChamberInvRow and the §5 SM imports), and the namespace/section opening lines (Wave1 241-247) and closing `end` / `end CV` (1765/1767) repeated around the §2 block. Row 165: `CV.singleton_D_i : CV.SingletonDiData := singleton_D_i_of cvt_singleton_split (carrier_slot_floor_of_C SM.cf_thm_carrierfloor.clauseC)`.
+import CV.CarrierFloor
+import CV.PieceHomflyTransport
+import SM.ZeroRotationSeed
+
+namespace CV
+
+open SM SM.Link SM.Carrier SM.GeoCarrier
+open scoped ContDiff
+
+noncomputable section
+open Classical
+
+/-! ## 2. Row 165 CV:singleton_D_i — thm:s7universal (D)(i) (d6_vertexedge.tex:2682-2687)
+
+"(i) Let S ∈ Ind(G_P), let A be a uniform carrier of S, and let {c} be a singleton residual piece of S
+carried by A. Then min deg_a f_A ≥ (1 − w_{S,A} − R(A)) + 2, so the factor Ω₁(S,A) of Definition def:X1
+is zero."  `f_A = [z^0] P_{S,A}` (def:markeddata), `P_{S,A} = groupedPoly`, `1 − w_{S,A} − R(A) = slot`,
+`Ω₁(S,A) = Omega1` (CV:def:X1); "uniform carrier" = CV:def:wind's `CarrierUniform`; the degree bound in
+support form (every `a^d z^0` present has `d ≥ slot + 2`; vacuous when `f_A = 0`, FR-CV-165-1). -/
+
+/-- "`{c}` a singleton residual piece of `S` carried by `A`": `c ∈ U(S)`, its piece has label set `{c}`,
+and that piece is assigned to `q` (def:X1 / lem:carriers (iv)) — exactly the shape produced by the
+accepted `ExtremePairZeroData.third_singleton_piece` (FR-CV-165-2). -/
+structure SingletonPieceOn {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P)
+    (S : Finset (Crossing P)) (q : GeoComponent hP S) (c : Crossing P) : Prop where
+  mem_U : c ∈ U hP S
+  labels : pieceLabels hP S (pieceOf hP S c mem_U) = {c}
+  owner : pieceOf hP S c mem_U ∈ piecesOn hP S q
+
+/-- **Row 165** (proposed row declaration `CV.singleton_D_i : SingletonDiData`), the two printed clauses. -/
+structure SingletonDiData : Prop where
+  /-- "min deg_a f_A ≥ (1 − w_{S,A} − R(A)) + 2" -/
+  degree_gap : ∀ {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hG : Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S),
+    CarrierUniform hG.crossingGeometry S q →
+    ∀ c : Crossing P, SingletonPieceOn hG.crossingGeometry S q c →
+      ∀ d : ℤ, coeffAt d 0 (groupedPoly hn hG hS q) ≠ 0 → slot hn hG hS q + 2 ≤ d
+  /-- "so the factor Ω₁(S,A) of Definition def:X1 is zero" -/
+  factor_zero : ∀ {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hG : Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S),
+    CarrierUniform hG.crossingGeometry S q →
+    ∀ c : Crossing P, SingletonPieceOn hG.crossingGeometry S q c → Omega1 hn hG hS q = 0
+
+/-- The printed "so": the coefficient at the slot lies two degrees below the lowest present degree. PROVED. -/
+theorem cvt_omega1_eq_zero_of_gap {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hG : Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (hgap : ∀ d : ℤ, coeffAt d 0 (groupedPoly hn hG hS q) ≠ 0 → slot hn hG hS q + 2 ≤ d) :
+    Omega1 hn hG hS q = 0 := by
+  sorry
+
+
+/-- The bundle from its first clause. PROVED. -/
+theorem SingletonDiData.of_degree_gap
+    (hgap : ∀ {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hG : Generic P)
+      {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S),
+      CarrierUniform hG.crossingGeometry S q →
+      ∀ c : Crossing P, SingletonPieceOn hG.crossingGeometry S q c →
+        ∀ d : ℤ, coeffAt d 0 (groupedPoly hn hG hS q) ≠ 0 → slot hn hG hS q + 2 ≤ d) :
+    SingletonDiData := by
+  sorry
+
+
+/-- The split interface (unit U-SPLIT of THIS lane, on the geo layer — the corner lane's cb:singleton
+split `sg_daughters_*` lives on SM's `Component`/`IsDecomposition`, so it cannot be consumed here,
+FR-CV-165-3): smoothing `c` splits the uniform carrier `A` of `S` into two carriers `Λ₁, Λ₂` of
+`S' = S ∪ {c}` with `P_{S,A} = P_{S',Λ₁} P_{S',Λ₂}` (the pieces "literally the same objects" +
+`P_{{c}} = 1`), `w_{S,A} = w_{S',Λ₁} + w_{S',Λ₂} + 1`, `R(A) = R(Λ₁) + R(Λ₂)` (turnlift (ii) +
+uniformrot signs), one loop uniform and the other one-dissent (d6:2890-2935). -/
+def SingletonSplitData : Prop :=
+  ∀ {n : ℕ} [NeZero n] (hn : 3 ≤ n) {P : LabelledTuple n} (hG : Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S),
+    CarrierUniform hG.crossingGeometry S q →
+    ∀ c : Crossing P, SingletonPieceOn hG.crossingGeometry S q c →
+      ∃ hS' : insert c S ∈ Ind hG.crossingGeometry,
+      ∃ q₁ q₂ : GeoComponent hG.crossingGeometry (insert c S),
+        groupedPoly hn hG hS q = groupedPoly hn hG hS' q₁ * groupedPoly hn hG hS' q₂ ∧
+        groupedWrithe hG q = groupedWrithe hG q₁ + groupedWrithe hG q₂ + 1 ∧
+        (carrierR hn hG hS q : ℤ) = carrierR hn hG hS' q₁ + carrierR hn hG hS' q₂ ∧
+        UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry (insert c S) q₁) ∧
+        UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry (insert c S) q₂)
+
+/-- **Row 165 from the split and the carrier floor** (the printed proof d6:2890-2947; the two floors add
+through `mindegAZ_mul` on the nonzero factors — the corner lane's FR-CC-3 route, FR-CV-165-4). PROVED. -/
+theorem singleton_D_i_of (hsplit : SingletonSplitData) (hfloor : CarrierSlotFloor) : SingletonDiData := by
+  sorry
+
+
+/-! ### U-SPLIT helpers (prefix `cvt165s_`): the singleton split on the geo layer.
+
+Route (PLAN_FINAL §4, U-SPLIT (a)–(e); template: the corner lane's U103-B/E units on SM's `Component`,
+ported here to `GeoComponent`/`piecesOn`/`groupedPoly`):
+(a) `insert c S ∈ Ind` (`geoIndependent_insert_unselected`), `U(insert c S) = U(S) ∖ {c}` membership-wise, and
+    `Piece (insert c S) ≃ {H : Piece S // pieceLabels H ≠ {c}}` label-preserving (Mathlib `induceHomOfLE`;
+    `c` is isolated in `G_P[U(S)]` because its piece is `{c}`);
+(b) the carrier split: `Λ₁ = geoOwner (insert c S) (inr v)`, `Λ₂ = geoOwner (insert c S) (inr (visitTwin v))` for a
+    visit `v` of `c` (`geoComponentForgetSwitch_fiber_affected`, `geoOwner_insert_eq_imp`,
+    `geo_selected_visits_separated`);
+(c) `piecesOn S A = insert (pieceOf c) ((piecesOn S' Λ₁ ∪ piecesOn S' Λ₂).map emb)`; `pieceHomfly` is a function
+    of the labels (`homfly_geoPositiveLift_eq_of_geoCarrierCrossings_eq`, lem:pieceintrinsic) and
+    `pieceHomfly (pieceOf c) = 1` (lc:single-crossing), `pieceWrithe (pieceOf c) = 1`;
+(d) rotation: the real principal turn of a corner is a function of its corner MARK
+    (`geoCornerPolygon_edge_smul/_edge_pred_smul` + `principalAngle_smul`), `2π rot = Σ` over the corner-mark
+    finset, inherited corners keep their turn, the two smoothing corners cancel (`principalAngle_swap`); the
+    signs put all three integers on one ray (lem:uniformrot);
+(e) the sign pattern of each daughter (uniform with `A`'s sign or one dissent) gives `UniformOrOneDissentCV`
+    in the literal reversal form (`principalTurn_reversal`). -/
+
+/-! (e), polygon side: signed turn patterns, the rays of lem:uniformrot, and the literal reversal form. -/
+
+section Cvt165sPattern
+
+/-- Two nonzero signs agree or are opposite. -/
+theorem cvt165s_signType_eq_or_neg {σ τ : SignType} (hσ : σ ≠ 0) (hτ : τ ≠ 0) : σ = τ ∨ σ = -τ := by
+  sorry
+
+
+variable {c : ℕ} [NeZero c] (L : LabelledTuple c) (hL : Regular L)
+
+include hL in
+theorem cvt165s_sign_principalTurn (k : ZMod c) : SignType.sign (principalTurn L k) = turn L k := by
+  sorry
+
+
+omit [NeZero c] in
+include hL in
+theorem cvt165s_principalTurn_reversal (k : ZMod c) :
+    principalTurn (reversal L) k = -principalTurn L (2 - k) := by
+  sorry
+
+
+include hL in
+/-- lem:uniformrot read at a signed pattern: a regular polygon that is uniform of sign `τ` or has exactly
+one dissent `−τ` has its rotation on the ray of `τ` (`one_le_rot_of_pos`, `one_le_rot_of_one_dissent`,
+and their reversal forms). -/
+theorem cvt165s_rot_ray (τ : SignType)
+    (h : (∀ k, turn L k = τ) ∨ (∃ k₀, turn L k₀ = -τ ∧ ∀ k, k ≠ k₀ → turn L k = τ)) :
+    (τ = 1 → 1 ≤ rot L hL) ∧ (τ = -1 → rot L hL ≤ -1) := by
+  sorry
+
+
+include hL in
+/-- (e) A signed pattern gives the literal reversal form `UniformOrOneDissentCV`. -/
+theorem cvt165s_uniformOrOneDissent_of_pattern (τ : SignType) (hτ0 : τ ≠ 0)
+    (h : (∀ k, turn L k = τ) ∨ (∃ k₀, turn L k₀ = -τ ∧ ∀ k, k ≠ k₀ → turn L k = τ)) :
+    UniformOrOneDissentCV L := by
+  sorry
+
+
+/-- Two integers on one ray have additive absolute values (the `ω`-free arithmetic of (d), kept outside the
+classical-instance region so that `omega` may be used). -/
+theorem cvt165s_abs_add_of_ray (a b : ℤ) :
+    (a ≤ -1 → b ≤ -1 → |a + b| = |a| + |b|) ∧ (1 ≤ a → 1 ≤ b → |a + b| = |a| + |b|) := by
+  sorry
+
+
+end Cvt165sPattern
+
+section Cvt165s
+
+/- The library states everything about `insert`, `∪`, `filter` on `Crossing P` with the classical
+`DecidableEq` (every CV/SM module has `attribute [local instance high] Classical.propDecidable`); the frozen
+statements of this file elaborate `insert c S` with the global `RProof.instDecidableEqCrossing`. The helpers
+below follow the library; the leaf bridges the two through `cvt165s_insert_eq` (a `Subsingleton` fact). -/
+attribute [local instance high] Classical.propDecidable
+
+/-- `insert` does not depend on the `DecidableEq` instance (bridge between the frozen statement's instance
+and the library's classical one). -/
+theorem cvt165s_insert_eq {α : Type*} [inst : DecidableEq α] (a : α) (s : Finset α) :
+    @insert α (Finset α) (@Finset.instInsert α inst) a s =
+      @insert α (Finset α) (@Finset.instInsert α fun x y => Classical.propDecidable (x = y)) a s := by
+  sorry
+
+
+section Cvt165sGraph
+
+variable {V : Type*} (G : SimpleGraph V) {s t : Set V} {c : V}
+
+/-- An isolated vertex of `G[s]` reaches no other vertex of `G[s]`. -/
+theorem cvt165s_not_reachable_of_isolated (hc : ∀ x ∈ s, ¬ G.Adj x c) (hcs : c ∈ s)
+    {z : s} (hz : z.1 ≠ c) : ¬ (G.induce s).Reachable ⟨c, hcs⟩ z := by
+  sorry
+
+
+/-- A walk of `G[s]` between vertices other than the isolated `c` never visits `c`: reachability descends
+to `G[t]`, `t = s ∖ {c}` (given membership-wise). -/
+theorem cvt165s_reachable_descend (hc : ∀ x ∈ s, ¬ G.Adj x c) (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c)
+    {x y : s} (hx : x.1 ≠ c) (hy : y.1 ≠ c) (h : (G.induce s).Reachable x y) :
+    (G.induce t).Reachable ⟨x.1, (ht _).mpr ⟨x.2, hx⟩⟩ ⟨y.1, (ht _).mpr ⟨y.2, hy⟩⟩ := by
+  sorry
+
+
+/-- The inclusion `G[t] ↪ G[s]` on connected components. -/
+def cvt165s_compMap (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) :
+    (G.induce t).ConnectedComponent → (G.induce s).ConnectedComponent :=
+  SimpleGraph.ConnectedComponent.map (G.induceHomOfLE fun x hx => ((ht x).mp hx).1).toHom
+
+theorem cvt165s_compMap_mk (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) (x : t) :
+    cvt165s_compMap G ht ((G.induce t).connectedComponentMk x) =
+      (G.induce s).connectedComponentMk ⟨x.1, ((ht x).mp x.2).1⟩ := by
+  sorry
+
+
+theorem cvt165s_compMap_injective (hc : ∀ x ∈ s, ¬ G.Adj x c) (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) :
+    Function.Injective (cvt165s_compMap G ht) := by
+  sorry
+
+
+theorem cvt165s_mem_range_compMap_iff (hc : ∀ x ∈ s, ¬ G.Adj x c) (hcs : c ∈ s)
+    (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) (C : (G.induce s).ConnectedComponent) :
+    C ∈ Set.range (cvt165s_compMap G ht) ↔ C ≠ (G.induce s).connectedComponentMk ⟨c, hcs⟩ := by
+  sorry
+
+
+/-- **The components of `G[s ∖ {c}]` are the components of `G[s]` other than that of the isolated `c`.** -/
+def cvt165s_compEquiv (hc : ∀ x ∈ s, ¬ G.Adj x c) (hcs : c ∈ s) (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) :
+    (G.induce t).ConnectedComponent ≃
+      {C : (G.induce s).ConnectedComponent // C ≠ (G.induce s).connectedComponentMk ⟨c, hcs⟩} :=
+  (Equiv.ofInjective _ (cvt165s_compMap_injective G hc ht)).trans
+    (Equiv.subtypeEquivRight (cvt165s_mem_range_compMap_iff G hc hcs ht))
+
+theorem cvt165s_compEquiv_apply_val (hc : ∀ x ∈ s, ¬ G.Adj x c) (hcs : c ∈ s)
+    (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) (D : (G.induce t).ConnectedComponent) :
+    (cvt165s_compEquiv G hc hcs ht D).1 = cvt165s_compMap G ht D := by
+  sorry
+
+
+/-- Vertex by vertex: `x` lies in the component `e D` of `G[s]` iff it lies in `D`. -/
+theorem cvt165s_compEquiv_mem_iff (hc : ∀ x ∈ s, ¬ G.Adj x c) (hcs : c ∈ s)
+    (ht : ∀ x, x ∈ t ↔ x ∈ s ∧ x ≠ c) (D : (G.induce t).ConnectedComponent) (x : V) :
+    (∃ hx : x ∈ s, (G.induce s).connectedComponentMk ⟨x, hx⟩ = (cvt165s_compEquiv G hc hcs ht D).1) ↔
+      ∃ hx : x ∈ t, (G.induce t).connectedComponentMk ⟨x, hx⟩ = D := by
+  sorry
+
+
+end Cvt165sGraph
+
+/-! (a) The pieces of `insert c S` when the piece of `c` is `{c}`: `c` is isolated in `G_P[U(S)]`, and
+`U(insert c S) = U(S) ∖ {c}`. -/
+
+section Cvt165sPieces
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+  {c : Crossing P}
+
+/-- The piece of `c` is `{c}` ⇒ no undominated crossing interlaces `c` (an interlacing undominated
+crossing would lie in the piece of `c`). -/
+theorem cvt165s_not_interlaces (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) :
+    ∀ x ∈ U hP S, ¬ GeometricInterlaces hP x c := by
+  sorry
+
+
+/-- `U(insert c S) = U(S) ∖ {c}`, membership-wise. -/
+theorem cvt165s_mem_U_insert_iff (hiso : ∀ x ∈ U hP S, ¬ GeometricInterlaces hP x c) (x : Crossing P) :
+    x ∈ U hP (insert c S) ↔ x ∈ U hP S ∧ x ≠ c := by
+  sorry
+
+
+theorem cvt165s_mem_U_set (hcU : c ∈ U hP S) : c ∈ (↑(U hP S) : Set (Crossing P)) := by
+  sorry
+
+
+theorem cvt165s_mem_U_insert_iff_set (hiso : ∀ x ∈ U hP S, ¬ GeometricInterlaces hP x c) (x : Crossing P) :
+    x ∈ (↑(U hP (insert c S)) : Set (Crossing P)) ↔ x ∈ (↑(U hP S) : Set (Crossing P)) ∧ x ≠ c := by
+  sorry
+
+
+theorem cvt165s_adj_isolated (hiso : ∀ x ∈ U hP S, ¬ GeometricInterlaces hP x c) :
+    ∀ x ∈ (↑(U hP S) : Set (Crossing P)), ¬ (geometricInterlacementGraph hP).Adj x c := by
+  sorry
+
+
+/-- A piece has the labels `{c}` iff it is the piece of `c`. -/
+theorem cvt165s_pieceLabels_eq_singleton_iff (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H : Piece hP S) :
+    pieceLabels hP S H = {c} ↔ H = pieceOf hP S c hcU := by
+  sorry
+
+
+/-- **`Piece (insert c S) ≃ {H : Piece S // pieceLabels H ≠ {c}}`**, label-preserving
+(`cvt165s_pieceEquiv_labels`). -/
+def cvt165s_pieceEquiv (hcU : c ∈ U hP S) (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) :
+    Piece hP (insert c S) ≃ {H : Piece hP S // pieceLabels hP S H ≠ {c}} :=
+  (cvt165s_compEquiv (geometricInterlacementGraph hP)
+      (cvt165s_adj_isolated hP (cvt165s_not_interlaces hP hcU hlab)) (cvt165s_mem_U_set hP hcU)
+      (cvt165s_mem_U_insert_iff_set hP (cvt165s_not_interlaces hP hcU hlab))).trans
+    (Equiv.subtypeEquivRight fun H =>
+      (not_congr (cvt165s_pieceLabels_eq_singleton_iff hP hcU hlab H)).symm)
+
+/-- **Label-preserving**: the labels of `e H'` (as a piece of `S`) are the labels of `H'` (as a piece of
+`insert c S`). -/
+theorem cvt165s_pieceEquiv_labels (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H' : Piece hP (insert c S)) :
+    pieceLabels hP S (cvt165s_pieceEquiv hP hcU hlab H').1 = pieceLabels hP (insert c S) H' := by
+  sorry
+
+
+/-- The pieces of `insert c S` as pieces of `S`. -/
+def cvt165s_pieceEmbedding (hcU : c ∈ U hP S) (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) :
+    Piece hP (insert c S) ↪ Piece hP S :=
+  (cvt165s_pieceEquiv hP hcU hlab).toEmbedding.trans (Function.Embedding.subtype _)
+
+theorem cvt165s_pieceEmbedding_apply (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H' : Piece hP (insert c S)) :
+    cvt165s_pieceEmbedding hP hcU hlab H' = (cvt165s_pieceEquiv hP hcU hlab H').1 := by
+  sorry
+
+
+theorem cvt165s_pieceLabels_pieceEmbedding (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H' : Piece hP (insert c S)) :
+    pieceLabels hP S (cvt165s_pieceEmbedding hP hcU hlab H') = pieceLabels hP (insert c S) H' := by
+  sorry
+
+
+/-- A piece of `S` is in the range of the embedding iff it is not the piece `{c}`. -/
+theorem cvt165s_mem_range_pieceEmbedding_iff (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H : Piece hP S) :
+    (∃ H', cvt165s_pieceEmbedding hP hcU hlab H' = H) ↔ pieceLabels hP S H ≠ {c} := by
+  sorry
+
+
+theorem cvt165s_pieceOf_notMem_map (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (T : Finset (Piece hP (insert c S))) :
+    pieceOf hP S c hcU ∉ T.map (cvt165s_pieceEmbedding hP hcU hlab) := by
+  sorry
+
+
+/-- `w(H)` is carried by the embedding (the labels are literally the same). -/
+theorem cvt165s_pieceWrithe_pieceEmbedding (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) (H' : Piece hP (insert c S)) :
+    pieceWrithe hP S (cvt165s_pieceEmbedding hP hcU hlab H') = pieceWrithe hP (insert c S) H' := by
+  sorry
+
+
+/-- `w({c}) = 1`. -/
+theorem cvt165s_pieceWrithe_singleton (hcU : c ∈ U hP S)
+    (hlab : pieceLabels hP S (pieceOf hP S c hcU) = {c}) :
+    pieceWrithe hP S (pieceOf hP S c hcU) = 1 := by
+  sorry
+
+
+end Cvt165sPieces
+
+/-! (b) The carrier split: for a visit `v` of `c`, the two daughters are the carriers of `v` and of
+`visitTwin v` at `insert c S`; every mark of `A` lies on exactly one of them and no other mark does. -/
+
+section Cvt165sOwner
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+  {q : GeoComponent hP S} {v : Visit P} (hc : SingletonPieceOn hP S q v.1)
+
+include hc in
+theorem cvt165s_notMem : v.1 ∉ S := by
+  sorry
+
+
+include hc in
+/-- Both visits of `c` lie on `A` (the piece `{c}` is assigned to `A`). -/
+theorem cvt165s_owner_visit (w : Visit P) (hw : w.1 = v.1) : geoOwner hP S (Sum.inr w) = q := by
+  sorry
+
+
+include hc in
+theorem cvt165s_owner_eq_twin :
+    geoOwner hP S (Sum.inr v) = geoOwner hP S (Sum.inr (visitTwin v)) := by
+  sorry
+
+
+include hc in
+theorem cvt165s_sameCycle :
+    (geoSmoothingSuccessor hP S).SameCycle (Sum.inr v) (Sum.inr (visitTwin v)) := by
+  sorry
+
+
+include hc in
+/-- (a) `insert c S ∈ Ind(G_P)`: `c ∈ U(S)` interlaces no element of `S`. -/
+theorem cvt165s_geoIndependent_insert (hS : S ∈ Ind hP) : GeoIndependent hP (insert v.1 S) := by
+  sorry
+
+
+include hc in
+theorem cvt165s_mem_Ind_insert (hS : S ∈ Ind hP) : insert v.1 S ∈ Ind hP := by
+  sorry
+
+
+include hc in
+/-- The two daughters are distinct (conv:selected-visits separates the two visits of the selected `c`). -/
+theorem cvt165s_daughters_ne (hS : S ∈ Ind hP) :
+    geoOwner hP (insert v.1 S) (Sum.inr v) ≠ geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v)) := by
+  sorry
+
+
+include hc in
+/-- A mark of a daughter is a mark of `A` (the reconnection refines the carriers). -/
+theorem cvt165s_owner_of_insert {m : Mark P}
+    (h : geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr v) ∨
+      geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v))) :
+    geoOwner hP S m = q := by
+  sorry
+
+
+include hc in
+/-- A mark of `A` lies on one of the two daughters (the fibre of the forget map over `A` is exactly
+the two daughters). -/
+theorem cvt165s_owner_insert_of (hS : S ∈ Ind hP) {m : Mark P} (hm : geoOwner hP S m = q) :
+    geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr v) ∨
+      geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v)) := by
+  sorry
+
+
+include hc in
+/-- **The marks of `A` are exactly the marks of the two daughters.** -/
+theorem cvt165s_owner_iff (hS : S ∈ Ind hP) (m : Mark P) :
+    geoOwner hP S m = q ↔
+      geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr v) ∨
+        geoOwner hP (insert v.1 S) m = geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v)) := by
+  sorry
+
+
+end Cvt165sOwner
+
+/-! (c) The pieces carried by the daughters, and the factorisation of `P_{S,A}` and `w_{S,A}`. -/
+
+section Cvt165sProducts
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+
+/-- Distinct carriers carry disjoint sets of pieces (lem:carriers (iv)). -/
+theorem cvt165s_piecesOn_disjoint (hS : S ∈ Ind hP) {q r : GeoComponent hP S} (hqr : q ≠ r) :
+    Disjoint (piecesOn hP S q) (piecesOn hP S r) := by
+  sorry
+
+
+/-- The carrier of a piece is the carrier of any visit of any of its labels. -/
+theorem cvt165s_pieceOwner_eq_owner (hS : S ∈ Ind hP) (H : Piece hP S) {x : Crossing P}
+    (hx : x ∈ pieceLabels hP S H) (w : Visit P) (hw : w.1 = x) :
+    pieceOwner hP hS H = geoOwner hP S (Sum.inr w) := by
+  sorry
+
+
+variable {q : GeoComponent hP S} {v : Visit P} (hc : SingletonPieceOn hP S q v.1)
+
+include hc in
+/-- A piece of `insert c S` (read as a piece of `S`) is carried by `A` iff it is carried by one of the
+two daughters. -/
+theorem cvt165s_mem_piecesOn_pieceEmbedding_iff (hS : S ∈ Ind hP) (H' : Piece hP (insert v.1 S)) :
+    cvt165s_pieceEmbedding hP hc.mem_U hc.labels H' ∈ piecesOn hP S q ↔
+      H' ∈ piecesOn hP (insert v.1 S) (geoOwner hP (insert v.1 S) (Sum.inr v)) ∨
+        H' ∈ piecesOn hP (insert v.1 S) (geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v))) := by
+  sorry
+
+
+include hc in
+/-- **The pieces carried by `A` are the piece `{c}` and the pieces carried by the two daughters.** -/
+theorem cvt165s_piecesOn_eq (hS : S ∈ Ind hP) :
+    piecesOn hP S q =
+      insert (pieceOf hP S v.1 hc.mem_U)
+        ((piecesOn hP (insert v.1 S) (geoOwner hP (insert v.1 S) (Sum.inr v)) ∪
+          piecesOn hP (insert v.1 S) (geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v)))).map
+            (cvt165s_pieceEmbedding hP hc.mem_U hc.labels)) := by
+  sorry
+
+
+end Cvt165sProducts
+
+section Cvt165sHomfly
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hn : 3 ≤ n) (hD : Diagrammatic P)
+
+/-- **`P_H` is a function of the labels of `H`** (lem:pieceintrinsic through
+`homfly_geoPositiveLift_eq_of_geoCarrierCrossings_eq`): two pieces, of `S` and of `S'`, with the same
+labels have the same polynomial. -/
+theorem cvt165s_pieceHomfly_eq_of_labels {S S' : Finset (Crossing P)} (hS : S ∈ Ind hD.crossingGeometry)
+    (hS' : S' ∈ Ind hD.crossingGeometry) (H : Piece hD.crossingGeometry S) (H' : Piece hD.crossingGeometry S')
+    (h : pieceLabels hD.crossingGeometry S H = pieceLabels hD.crossingGeometry S' H') :
+    pieceHomfly hn hD hS H = pieceHomfly hn hD hS' H' := by
+  sorry
+
+
+/-- **`P_{{c}} = 1`** (lc:single-crossing): the piece diagram of a singleton piece is a one-circle
+diagram with exactly one crossing. -/
+theorem cvt165s_pieceHomfly_singleton {S : Finset (Crossing P)} (hS : S ∈ Ind hD.crossingGeometry)
+    {c : Crossing P} (hcU : c ∈ U hD.crossingGeometry S)
+    (hlab : pieceLabels hD.crossingGeometry S (pieceOf hD.crossingGeometry S c hcU) = {c}) :
+    pieceHomfly hn hD hS (pieceOf hD.crossingGeometry S c hcU) = 1 := by
+  sorry
+
+
+end Cvt165sHomfly
+
+section Cvt165sSplitAlgebra
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)}
+  (hS : S ∈ Ind hG.crossingGeometry) {q : GeoComponent hG.crossingGeometry S} {v : Visit P}
+  (hc : SingletonPieceOn hG.crossingGeometry S q v.1)
+
+include hc in
+/-- **(c) `P_{S,A} = P_{S',Λ₁} P_{S',Λ₂}`**: the pieces are literally the same objects and `P_{{c}} = 1`. -/
+theorem cvt165s_groupedPoly_split :
+    groupedPoly hn hG hS q =
+      groupedPoly hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v)) *
+        groupedPoly hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v))) := by
+  sorry
+
+
+include hS hc in
+/-- **(c) `w_{S,A} = w_{S',Λ₁} + w_{S',Λ₂} + 1`**: the same pieces, and `w({c}) = 1`. -/
+theorem cvt165s_groupedWrithe_split :
+    groupedWrithe hG q =
+      groupedWrithe hG (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v)) +
+        groupedWrithe hG (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v))) + 1 := by
+  sorry
+
+
+end Cvt165sSplitAlgebra
+
+/-! (d)–(e) Rotation additivity and the sign patterns: the real principal turn and the turn sign of a corner
+are functions of its corner MARK and of the support only. -/
+
+section Cvt165sRot
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P)
+
+/-- The real principal turn of a corner mark: the principal angle from the original incoming direction to
+the original outgoing direction (lem:carriers (ii)). -/
+noncomputable def cvt165s_markPrincipalTurn (S : Finset (Crossing P)) (m : Mark P) : ℝ :=
+  principalAngle (edge P (geoInEdge hP m)) (edge P (geoOutSlot hP S m).1)
+
+/-- The turn sign of a corner mark. -/
+noncomputable def cvt165s_markTurn (S : Finset (Crossing P)) (m : Mark P) : SignType :=
+  SignType.sign (det (edge P (geoInEdge hP m)) (edge P (geoOutSlot hP S m).1))
+
+/-- The principal turn of the corner polygon at its `k`-th corner is the mark principal turn of that corner
+(both corner edges are positive multiples of the original directions). -/
+theorem cvt165s_principalTurn_eq_mark (hn : 3 ≤ n) {S : Finset (Crossing P)} (hS : GeoIndependent hP S)
+    (q : GeoComponent hP S) (k : ZMod (geoCornerCount hP S q)) :
+    principalTurn (geoCornerPolygon hP S q) k = cvt165s_markPrincipalTurn hP S (geoCornerMark hP S q k) := by
+  sorry
+
+
+theorem cvt165s_turn_eq_mark (hn : 3 ≤ n) {S : Finset (Crossing P)} (hS : GeoIndependent hP S)
+    (q : GeoComponent hP S) (k : ZMod (geoCornerCount hP S q)) :
+    turn (geoCornerPolygon hP S q) k = cvt165s_markTurn hP S (geoCornerMark hP S q k) := by
+  sorry
+
+
+/-- The corner marks of the carrier `q` at `S` as a finset: the true corners of `S` owned by `q`. -/
+noncomputable def cvt165s_cornerSet (S : Finset (Crossing P)) (q : GeoComponent hP S) : Finset (Mark P) :=
+  Finset.univ.filter fun m => geoOwner hP S m = q ∧ IsTrueCorner S m
+
+theorem cvt165s_mem_cornerSet (S : Finset (Crossing P)) (q : GeoComponent hP S) (m : Mark P) :
+    m ∈ cvt165s_cornerSet hP S q ↔ geoOwner hP S m = q ∧ IsTrueCorner S m := by
+  sorry
+
+
+/-- `geoCornerMark` enumerates the corner set exactly once. -/
+theorem cvt165s_image_cornerMark (S : Finset (Crossing P)) (q : GeoComponent hP S) :
+    Finset.univ.image (geoCornerMark hP S q) = cvt165s_cornerSet hP S q := by
+  sorry
+
+
+/-- A sum over the corners of `q` is a sum over its corner-mark finset. -/
+theorem cvt165s_sum_corners (S : Finset (Crossing P)) (q : GeoComponent hP S) (f : Mark P → ℝ) :
+    ∑ k, f (geoCornerMark hP S q k) = ∑ m ∈ cvt165s_cornerSet hP S q, f m := by
+  sorry
+
+
+/-- **Inherited corners keep their principal turn** under `S → insert c S`: the incoming edge is
+support-free and the outgoing slot of a true corner of `S` is unchanged. -/
+theorem cvt165s_markPrincipalTurn_insert (S : Finset (Crossing P)) (c : Crossing P) (m : Mark P)
+    (hm : IsTrueCorner S m) :
+    cvt165s_markPrincipalTurn hP (insert c S) m = cvt165s_markPrincipalTurn hP S m := by
+  sorry
+
+
+/-- The same for the turn sign. -/
+theorem cvt165s_markTurn_insert (S : Finset (Crossing P)) (c : Crossing P) (m : Mark P)
+    (hm : IsTrueCorner S m) :
+    cvt165s_markTurn hP (insert c S) m = cvt165s_markTurn hP S m := by
+  sorry
+
+
+/-- **The two smoothing corners of a selected crossing cancel** in the real turn ledger: their principal
+angles are `∠(d_i, d_j)` and `∠(d_j, d_i)` on a transverse pair (G5). -/
+theorem cvt165s_new_turns_cancel (hn : 3 ≤ n) (S : Finset (Crossing P)) (v : Visit P) (hv : v.1 ∈ S) :
+    cvt165s_markPrincipalTurn hP S (Sum.inr v) + cvt165s_markPrincipalTurn hP S (Sum.inr (visitTwin v)) = 0 := by
+  sorry
+
+
+/-- The turn sign at a selected visit is nonzero (transversality). -/
+theorem cvt165s_markTurn_visit_ne_zero (hn : 3 ≤ n) (S : Finset (Crossing P)) (v : Visit P) (hv : v.1 ∈ S) :
+    cvt165s_markTurn hP S (Sum.inr v) ≠ 0 := by
+  sorry
+
+
+/-- The true corners of `insert c S` are those of `S` and the two visits of `c`. -/
+theorem cvt165s_isTrueCorner_insert (S : Finset (Crossing P)) (c : Crossing P) (v₀ : Visit P)
+    (hv₀ : v₀.1 = c) (m : Mark P) :
+    IsTrueCorner (insert c S) m ↔ IsTrueCorner S m ∨ m = Sum.inr v₀ ∨ m = Sum.inr (visitTwin v₀) := by
+  sorry
+
+
+theorem cvt165s_cornerSet_disjoint (S : Finset (Crossing P)) {q r : GeoComponent hP S} (hqr : q ≠ r) :
+    Disjoint (cvt165s_cornerSet hP S q) (cvt165s_cornerSet hP S r) := by
+  sorry
+
+
+/-- **The corner ledger of the split**: the corner marks of the two daughters at `insert c S` are the corner
+marks of `A` at `S` together with the two visits of `c`. -/
+theorem cvt165s_cornerSet_union (S : Finset (Crossing P)) (q : GeoComponent hP S) (v₀ : Visit P)
+    (hown0 : ∀ w : Visit P, w.1 = v₀.1 → geoOwner hP S (Sum.inr w) = q)
+    (q₁ q₂ : GeoComponent hP (insert v₀.1 S))
+    (hown : ∀ m : Mark P, geoOwner hP S m = q ↔
+      geoOwner hP (insert v₀.1 S) m = q₁ ∨ geoOwner hP (insert v₀.1 S) m = q₂) :
+    cvt165s_cornerSet hP (insert v₀.1 S) q₁ ∪ cvt165s_cornerSet hP (insert v₀.1 S) q₂ =
+      cvt165s_cornerSet hP S q ∪ {Sum.inr v₀, Sum.inr (visitTwin v₀)} := by
+  sorry
+
+
+/-- The two visits of the unselected `c` are not corners of `S`. -/
+theorem cvt165s_cornerSet_disjoint_visits (S : Finset (Crossing P)) (q : GeoComponent hP S) (v₀ : Visit P)
+    (hcS : v₀.1 ∉ S) :
+    Disjoint (cvt165s_cornerSet hP S q) {Sum.inr v₀, Sum.inr (visitTwin v₀)} := by
+  sorry
+
+
+end Cvt165sRot
+
+
+
+section Cvt165sDaughterPattern
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hP : CrossingGeometry P) (hn : 3 ≤ n)
+  {S : Finset (Crossing P)} (hS : S ∈ Ind hP) {q : GeoComponent hP S} {v : Visit P}
+  (hc : SingletonPieceOn hP S q v.1)
+
+include hn hS hc in
+/-- **The signed turn pattern of a daughter.** Every corner of the daughter `Λ` other than its visit `w` of
+`c` is a corner of `A` (owned by `A`, a true corner of `S`), hence turns by `τ`; the corner at `w` turns by
+`markTurn (inr w) ∈ {τ, −τ}`. -/
+theorem cvt165s_daughter_pattern (Λ : GeoComponent hP (insert v.1 S))
+    (hΛ : Λ = geoOwner hP (insert v.1 S) (Sum.inr v) ∨ Λ = geoOwner hP (insert v.1 S) (Sum.inr (visitTwin v)))
+    (w : Visit P) (hw : w.1 = v.1) (hwΛ : geoOwner hP (insert v.1 S) (Sum.inr w) = Λ)
+    (τ : SignType) (hτ0 : τ ≠ 0) (hτ : ∀ k, turn (geoCornerPolygon hP S q) k = τ) :
+    (∀ k, turn (geoCornerPolygon hP (insert v.1 S) Λ) k = τ) ∨
+      (∃ k₀, turn (geoCornerPolygon hP (insert v.1 S) Λ) k₀ = -τ ∧
+        ∀ k, k ≠ k₀ → turn (geoCornerPolygon hP (insert v.1 S) Λ) k = τ) := by
+  sorry
+
+
+end Cvt165sDaughterPattern
+
+section Cvt165sSplitRot
+
+variable {n : ℕ} [NeZero n] {P : LabelledTuple n} (hn : 3 ≤ n) (hG : Generic P) {S : Finset (Crossing P)}
+  (hS : S ∈ Ind hG.crossingGeometry) {q : GeoComponent hG.crossingGeometry S}
+
+/-- **`2π rot(L) = Σ` over the corner marks of `L`** of the mark principal turn. -/
+theorem cvt165s_two_pi_rot (q : GeoComponent hG.crossingGeometry S) :
+    2 * Real.pi * (rot (geoCornerPolygon hG.crossingGeometry S q) (carrierPolygon_cvRegular hn hG hS q) : ℝ) =
+      ∑ m ∈ cvt165s_cornerSet hG.crossingGeometry S q, cvt165s_markPrincipalTurn hG.crossingGeometry S m := by
+  sorry
+
+
+variable {v : Visit P} (hc : SingletonPieceOn hG.crossingGeometry S q v.1)
+
+include hc in
+/-- **(d), real form: `rot(A) = rot(Λ₁) + rot(Λ₂)`** — every inherited corner keeps its principal turn and
+the two new smoothing corners cancel. -/
+theorem cvt165s_rot_add :
+    (rot (geoCornerPolygon hG.crossingGeometry S q) (carrierPolygon_cvRegular hn hG hS q) : ℝ) =
+      rot (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v)))
+          (carrierPolygon_cvRegular hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS) _) +
+        rot (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v))))
+          (carrierPolygon_cvRegular hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS) _) := by
+  sorry
+
+
+include hn hS hc in
+/-- The daughter patterns, at the two daughters. -/
+theorem cvt165s_daughter_patterns (hq : CarrierUniform hG.crossingGeometry S q) :
+    ∃ τ : SignType, τ ≠ 0 ∧
+      (∀ k, turn (geoCornerPolygon hG.crossingGeometry S q) k = τ) ∧
+      ((∀ k, turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v))) k = τ) ∨
+        (∃ k₀, turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+            (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v))) k₀ = -τ ∧
+          ∀ k, k ≠ k₀ → turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+            (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v))) k = τ)) ∧
+      ((∀ k, turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v)))) k = τ) ∨
+        (∃ k₀, turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+            (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v)))) k₀ = -τ ∧
+          ∀ k, k ≠ k₀ → turn (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+            (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v)))) k = τ)) := by
+  sorry
+
+
+include hc in
+/-- **(d) `R(A) = R(Λ₁) + R(Λ₂)`**: the real rotations add and all three lie on the ray of `A`'s sign
+(lem:uniformrot), so the absolute values add. -/
+theorem cvt165s_carrierR_split (hq : CarrierUniform hG.crossingGeometry S q) :
+    (carrierR hn hG hS q : ℤ) =
+      carrierR hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v)) +
+        carrierR hn hG (cvt165s_mem_Ind_insert hG.crossingGeometry hc hS)
+          (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v))) := by
+  sorry
+
+
+include hn hS hc in
+/-- **(e)** Both daughters are uniform or one-dissent after reversal. -/
+theorem cvt165s_daughters_alt (hq : CarrierUniform hG.crossingGeometry S q) :
+    UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+        (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr v))) ∧
+      UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry (insert v.1 S)
+        (geoOwner hG.crossingGeometry (insert v.1 S) (Sum.inr (visitTwin v)))) := by
+  sorry
+
+
+end Cvt165sSplitRot
+
+end Cvt165s
+
+
+/-- LEAF (unit U-SPLIT, ~1.5-2.5k lines): the split interface on the geo layer. -/
+theorem cvt_singleton_split : SingletonSplitData := by
+  sorry
+
+
+/-- **Row 165, CV:singleton_D_i** (proposed name `CV.singleton_D_i`; declared and mapped only when
+row 99 (C) lands). -/
+theorem singleton_D_i : SingletonDiData := by
+  sorry
+
+
+end
+
+end CV

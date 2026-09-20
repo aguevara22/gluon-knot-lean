@@ -1,0 +1,59 @@
+
+=== L4: a=1, gam=0.3 (D=1, U=3, w=0 expected) ===
+  max |alpha(L')| = 0.00e+00;  min |L'| = 0.900;  min far-apart distance = 0.0170
+  cusps = [(0.0, 'down'), (1.8235, 'up'), (3.1416, 'up'), (4.4597, 'up')]  -> D = 1, U = 3
+  front crossings (slope rule) = [];  w = 0 (y-rule: 0)
+  Etnyre: r = (D-U)/2 = -1.0, tb = w-(D+U)/2 = -2.0, tb-r = w-D = -1;   [w-U = -3]
+  s0=0.1, W = sin(4t)/4: min alpha (exact) = 0.0051, (numeric) = 0.0051;  circle min far-apart dist = 0.0082
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(6.202, 0.081, -1, -0.113, 0.113)];  min y-gap = 0.226
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.2158), np.float64(-1.1272)]    [w-D = -1, w-U = -3]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.12), np.float64(-1.1133)]    [w-D = -1, w-U = -3]
+  s0=0.2, W = sin(4t)/4: min alpha (exact) = 0.0195, (numeric) = 0.0195;  circle min far-apart dist = 0.0046
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(6.123, 0.159, -1, -0.298, 0.297)];  min y-gap = 0.595
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.0316), np.float64(-1.0098)]    [w-D = -1, w-U = -3]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.0084), np.float64(-0.9999)]    [w-D = -1, w-U = -3]
+
+=== search: 4-cusp Legendrians with crossings (embedded, generic) ===
+  a=2.4 gam=-0.8 dlt=0.0 eta=0.0 : w=1, #crossings=3, min dist=0.025
+  a=2.4 gam=-0.8 dlt=0.0 eta=0.5 : w=1, #crossings=3, min dist=0.022
+  a=2.4 gam=-0.8 dlt=0.7 eta=0.0 : w=1, #crossings=3, min dist=0.025
+  a=2.4 gam=-0.8 dlt=0.7 eta=0.5 : w=1, #crossings=3, min dist=0.024
+
+=== Legendrian a=2.4, gam=-0.8, dlt=0.0, eta=0.0 ===
+  max |alpha(L')| = 0.00e+00;  min |L'| = 1.000;  min far-apart distance = 0.0189
+  cusps = [(0.0, 'up'), (2.2143, 'down'), (3.1416, 'up'), (4.0689, 'down')]  -> D = 2, U = 2
+  front crossings (slope rule) = [(3.654, 1.905, 1, -0.716, 2.119), (4.342, 1.94, -1, -2.097, 2.098), (4.377, 2.628, 1, -2.118, 0.718)];  w = 1 (y-rule: 1)
+  Etnyre: r = (D-U)/2 = 0.0, tb = w-(D+U)/2 = -1.0, tb-r = w-D = -1;   [w-U = -1]
+  s0=0.08, W = sin(6t)/6: min alpha (exact) = 0.0044, (numeric) = 0.0044;  circle min far-apart dist = 0.0082
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(3.653, 1.905, 1, -0.672, 2.201), (4.343, 1.94, -1, -2.169, 2.169), (2.265, 2.164, -1, 1.546, 1.786), (4.378, 2.629, 1, -2.201, 0.674), (4.118, 4.017, -1, -1.785, -1.545)];  min y-gap = 0.240
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.3956), np.float64(0.7066)]    [w-D = -1, w-U = -1]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(0.5593), np.float64(0.007)]    [w-D = -1, w-U = -1]
+  s0=0.15, W = sin(6t)/6: min alpha (exact) = 0.0133, (numeric) = 0.0133;  circle min far-apart dist = 0.0072
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(3.652, 1.904, 1, -0.632, 2.274), (4.344, 1.939, -1, -2.233, 2.233), (2.31, 2.125, -1, 1.418, 1.89), (4.379, 2.631, 1, -2.273, 0.633), (4.158, 3.972, -1, -1.889, -1.417)];  min y-gap = 0.472
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-0.3441), np.float64(-0.5523)]    [w-D = -1, w-U = -1]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(-0.5148), np.float64(-1.1707)]    [w-D = -1, w-U = -1]
+
+=== Legendrian a=2.4, gam=-0.8, dlt=0.0, eta=0.5 ===
+  max |alpha(L')| = 0.00e+00;  min |L'| = 0.867;  min far-apart distance = 0.0164
+  cusps = [(0.0, 'up'), (2.2143, 'down'), (3.1416, 'up'), (4.0689, 'down')]  -> D = 2, U = 2
+  front crossings (slope rule) = [(3.597, 1.877, 1, -0.297, 1.72), (4.342, 1.94, -1, -2.466, 1.728), (4.359, 2.594, 1, -2.488, 1.019)];  w = 1 (y-rule: 1)
+  Etnyre: r = (D-U)/2 = 0.0, tb = w-(D+U)/2 = -1.0, tb-r = w-D = -1;   [w-U = -1]
+  s0=0.08, W = sin(6t)/6: min alpha (exact) = 0.0044, (numeric) = 0.0044;  circle min far-apart dist = 0.0071
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(3.595, 1.877, 1, -0.251, 1.811), (4.343, 1.94, -1, -2.539, 1.8), (2.283, 2.149, -1, 1.429, 1.619), (4.359, 2.594, 1, -2.565, 0.976), (4.11, 4.026, -1, -1.945, -1.664)];  min y-gap = 0.190
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-0.637), np.float64(1.2199)]    [w-D = -1, w-U = -1]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(0.9954), np.float64(-0.4347)]    [w-D = -1, w-U = -1]
+  s0=0.15, W = sin(6t)/6: min alpha (exact) = 0.0133, (numeric) = 0.0133;  circle min far-apart dist = 0.0062
+     front writhe of the circle (over = smaller y) = -1;  crossings = [(3.592, 1.875, 1, -0.207, 1.891), (4.344, 1.939, -1, -2.603, 1.863), (2.342, 2.098, -1, 1.32, 1.703), (4.36, 2.595, 1, -2.633, 0.938), (4.145, 3.989, -1, -2.068, -1.521)];  min y-gap = 0.383
+     eps=0.050: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.0645), np.float64(-1.0408)]    [w-D = -1, w-U = -1]
+     eps=0.100: sl(Gauss) at N=[6000, 12000] -> [np.float64(-1.0392), np.float64(-0.7259)]    [w-D = -1, w-U = -1]
+
+=== transverse curve T3' = (2cos t + cos 2t, -3x', sin 6t/6 + 0.2 sin 3t + 0.3 cos t) ===
+  min alpha = 0.1779;  min far-apart distance = 0.0005
+  front writhe (over = smaller y) = -1; #crossings = 7; min y-gap = 1.0684159883478372e-06
+  crossings = [(5.545, 0.738, -1, -10.01, 10.01), (5.236, 1.047, 1, -10.39, 10.39), (4.927, 1.356, -1, -8.36, 8.36), (2.809, 1.626, -1, -1.74, 5.34), (4.189, 2.094, 1, 0.0, 0.0), (2.095, 4.189, 1, -0.0, 0.0), (2.832, 3.45, -1, -1.65, 1.65)]
+  eps=0.1: sl(Gauss) at N=6000,12000 -> [np.float64(-2.9701), np.float64(-2.8906)]
+  eps=0.2: sl(Gauss) at N=6000,12000 -> [np.float64(-3.0004), np.float64(-2.9997)]
+
+real	3m5.442s
+user	2m39.870s
+sys	0m24.644s

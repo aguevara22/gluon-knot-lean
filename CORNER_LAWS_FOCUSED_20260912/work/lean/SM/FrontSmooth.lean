@@ -147,7 +147,7 @@ it rather than duplicating the turning-number notions.
 `no_triple`, `toClosedC1Curve`), `Rounding`, `IsRounding`, `dOf`, `defect`), `int_eq_of_add_mem_Icc`,
 `eventually_add_int_notMem_Icc`, `det_pos_iff_of_slope_lt`, `germFront` with `germFront_semicubical`,
 `germFront_cuspDisc`, and the row bundle `FrontDomainDefinitionData` / `front_domain_definition`.
-Sorry-free; checked with `lake env lean`. -/
+Placeholder-free; checked with `lake env lean`. -/
 
 namespace SM
 

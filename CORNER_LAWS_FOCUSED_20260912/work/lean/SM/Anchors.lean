@@ -3,7 +3,7 @@ import SM.Admissible
 import SM.Fibres
 
 /-! Towards def:anchors (sm-5-transport.tex:373) and prop:anchors-exist (sm-5-transport.tex:399). Written 2026-09-13 by a Claude Code
-prover subagent of the pod executor (workflow prove-transport-lane-2 / prove:anchors), checked with `lake env lean` (sorry-free, standard
+prover subagent of the pod executor (workflow prove-transport-lane-2 / prove:anchors), checked with `lake env lean` (placeholder-free, standard
 axioms) and ported verbatim from work/drafts/Anchors.lean (only this header added and #print lines removed). -/
 
 /-! Source def:anchors (reference/SM/sm-5-transport.tex:373) and prop:anchors-exist

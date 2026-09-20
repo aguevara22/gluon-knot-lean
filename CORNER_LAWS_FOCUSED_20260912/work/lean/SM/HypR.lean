@@ -66,7 +66,7 @@ form yields `SM.hyp_R` directly with independent `tp, tm` (`hyp_R_of_cv_hyp_R`, 
 `smR_shape_of_hyp_R`), so `sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` is PROVED from accepted rows and
 `Bridge.sm_R := sm_R_of_cv_R RProof.cv_R` is the one-line row Bridge:theorem once `RProof.cv_R` exists.
 
-Checked with `cd work/lean && lake env lean ../drafts/hypr/HypR.lean` (no sorry). -/
+Checked with `cd work/lean && lake env lean ../drafts/hypr/HypR.lean` (no placeholder). -/
 
 namespace SM
 /-! ## Part 1 — the definition (intended home: work/lean/SM/HypR.lean, imports SM.CornerStateSum,

@@ -1,0 +1,110 @@
+[
+ [
+  "and the direction data) are stated as `s7q_`-prefixed black boxes with `sorry` (§S7QBoxes). -/",
+  "and the direction data) are stated as `s7q_`-prefixed black boxes (§S7QBoxes; every one discharged in waves 3-4 or superseded and dropped at port). -/"
+ ],
+ [
+  "visits under `s7b_firstVisitQ`/`s7b_secondVisitQ`); its proof `w3_SlidingOrder_of_box := s7q_box_order` is sorry-free:",
+  "visits under `s7b_firstVisitQ`/`s7b_secondVisitQ`); its proof `w3_SlidingOrder_of_box := s7q_box_order` is complete:"
+ ],
+ [
+  "/-- **Prop S2 PROVED**: `s7q_box_order` is discharged in the ROT block above (sorry-free). -/",
+  "/-- **Prop S2 PROVED**: `s7q_box_order` is discharged in the ROT block above (no placeholder). -/"
+ ],
+ [
+  "**Black boxes** (`sorry`, geometric; stated exactly as consumed — see W3_F_REPORT.md §2):",
+  "**Black boxes** (geometric; stated exactly as consumed — see W3_F_REPORT.md §2; all three PROVED in wave 4 by units FB1, FB2, FB3):"
+ ],
+ [
+  "existence below a radius is the single sorried theorem `s7z_exists_rowSector`.  PROVED here: the state-sum",
+  "existence below a radius was the single black-box theorem `s7z_exists_rowSector` (superseded by the wave-4 route and dropped at port).  PROVED here: the state-sum"
+ ],
+ [
+  "/-! #### E. The black boxes (rule (3)): the three per-unit existence statements, `sorry` -/",
+  "/-! #### E. The black boxes (rule (3)): the three per-unit existence statements — B1 `s7z_F_exists` and B2 `s7z_returned_of_FSector` were superseded by the wave-4/5 route and are dropped at port; B3 `s7z_oneNewborn_exists` is PROVED (unit B3) -/"
+ ],
+ [
+  "closed, so F's residual identity `s7f_exists_law_residual` and B3's `s7z_oneNewborn_exists` are sorry-free.  Following",
+  "closed, so F's residual identity `s7f_exists_law_residual` and B3's `s7z_oneNewborn_exists` are fully proved.  Following"
+ ],
+ [
+  "K's own boxes `s7z_F_exists` (B1) and `s7z_returned_of_FSector` (B2) are superseded by this route and stay sorried",
+  "K's own boxes `s7z_F_exists` (B1) and `s7z_returned_of_FSector` (B2) are superseded by this route (dropped at port,"
+ ],
+ [
+  "at these carriers (rule (2); each `w5r_box_*` is a sorried theorem stating exactly what is consumed):",
+  "at these carriers (rule (2); each `w5r_box_*` is a black-box theorem stating exactly what is consumed — `w5r_box_transport`, `w5r_box_contact` (wave 5) and `w5r_box_corners` (wave 6) are discharged, `w5r_box_branch` is superseded by `w6_box_branch` and dropped at port):"
+ ],
+ [
+  "  needs the contact-parameter facts `hr hr0 hr1 hη`), so it stays sorried and UNUSED.",
+  "  needs the contact-parameter facts `hr hr0 hr1 hη`), so it is unproved and UNUSED (dropped at port)."
+ ],
+ [
+  "* `w5_branchData`, `w5_box_branch`: ROW's `w5r_BranchData` from BR's `w5b_interlacingData` /",
+  "* `w5_branchData`, `w5_box_branch` (wave 5; superseded by the wave-6 glue `w6_branchData` / `w6_box_branch`, section W6Glue, and dropped at port): ROW's `w5r_BranchData` from BR's `w5b_interlacingData` /"
+ ],
+ [
+  "  `w5r_x`, `w5b_v_fst_val`).  ROW's box `w5r_box_branch` (no selector hypothesis) is not discharged and stays sorried",
+  "  `w5r_x`, `w5b_v_fst_val`).  ROW's box `w5r_box_branch` (no selector hypothesis) is not discharged and stays unproved"
+ ],
+ [
+  "/-- **BLACK BOX (ROT (a)-(c) geometry, given RET + SPLIT)**: below a radius, for every row and every",
+  "/-- **PROVED (formerly BLACK BOX: ROT (a)-(c) geometry, given RET + SPLIT)**: below a radius, for every row and every"
+ ],
+ [
+  "/-- **BLACK BOX 1 (geometric; U110-B §2.2 in its bigon form, U_S7B_REPORT §2.2/§2.4).**  Below a radius,",
+  "/-- **BLACK BOX 1, PROVED (wave 4, unit FB1: `s7fa_exists_bigonSplit`; geometric; U110-B §2.2 in its bigon form, U_S7B_REPORT §2.2/§2.4).**  Below a radius,"
+ ],
+ [
+  "/-- **BLACK BOX 2 (geometric; sm-4:434-447, the `ε = 0` two-newborn row).**  Below a radius, for",
+  "/-- **BLACK BOX 2, PROVED (wave 4, unit FB2: `s7fb_exists_twoNewbornTerm`; geometric; sm-4:434-447, the `ε = 0` two-newborn row).**  Below a radius, for"
+ ],
+ [
+  "/-- **BLACK BOX 3 (geometric; sm-4:418-421 \"Deleting their four visits identifies the complete smoothing",
+  "/-- **BLACK BOX 3, PROVED (wave 4, unit FB3: `s7fc_ineligible_transport_at`; geometric; sm-4:418-421 \"Deleting their four visits identifies the complete smoothing"
+ ],
+ [
+  "/-- **BLACK BOX (this unit's own remaining content; NOT proved).**  Clearance of the carrier edges that lie",
+  "/-- **PROVED (wave 4, unit SITEC; formerly this unit's own remaining black box).**  Clearance of the carrier edges that lie"
+ ],
+ [
+  "/-- **BLACK BOX (U110-A/B wall data; NOT proved here).**  At a bigon wall (`g.BigonAt M a`), below some",
+  "/-- **PROVED (wave 4, unit SITEH; formerly a black box on U110-A/B wall data).**  At a bigon wall (`g.BigonAt M a`), below some"
+ ],
+ [
+  "/-- **BLACK BOX — unit J (cb:singleton) with unit C (the one-newborn selectors)** (sm-4:693-723,",
+  "/-- **PROVED (wave 4, unit B3: `s7o_oneNewborn_exists`; formerly a black box for unit J (cb:singleton) with unit C (the one-newborn selectors))** (sm-4:693-723,"
+ ],
+ [
+  "/-- **BLACK BOX (unit W5-RT — the returned transport)**: below a radius, every eligible decomposition has",
+  "/-- **PROVED at the wave-5 merge from unit W5-RT (`w5_transportData`; formerly BLACK BOX — the returned transport)**: below a radius, every eligible decomposition has"
+ ],
+ [
+  "/-- **BLACK BOX (unit W5-RT or W5-BR — the contact-corner correspondence)**: below a radius, every eligible",
+  "/-- **PROVED by wave-6 unit W6-COR (`w6c_cornerData`; formerly BLACK BOX — the contact-corner correspondence)**: below a radius, every eligible"
+ ],
+ [
+  "/-- **BLACK BOX (unit W5-SITE — the contact carrier pair)**: below a radius, every eligible decomposition has",
+  "/-- **PROVED at the wave-5 merge from unit W5-SITE (`w5_contactData`; formerly BLACK BOX — the contact carrier pair)**: below a radius, every eligible decomposition has"
+ ],
+ [
+  "/-- **BLACK BOX (wave 5: the per-eligible-decomposition instantiation of SITE + SITEH + BLOCK + J on the carriers",
+  "/-- **PROVED at the wave-5/6 merges (the per-eligible-decomposition instantiation of SITE + SITEH + BLOCK + J on the carriers"
+ ],
+ [
+  "off every proved path.  The leaf keeps its `sorry` (merge rule); it closes as\n`w4_s7_bigon_law_at_of hn g h h₁ h₂ hsing (w4_box_returnedRows hn g h h₁ h₂ hF)` once wave 5 lands. -/",
+  "off every proved path).  The leaf is CLOSED (wave 6) by the line\n`w4_s7_bigon_law_at_of hn g h h₁ h₂ hsing (w4_box_returnedRows hn g h h₁ h₂ hF)` (Prop B2' proved at the wave-5/6 merges). -/"
+ ],
+ [
+  "B3's one-newborn rows and B2' feed K's F-aligned `s7z_bigon_law_at_of_residual`.  The leaf closes as\n`w4_s7_bigon_law_at_of hn g h h₁ h₂ hsing (w4_box_returnedRows hn g h h₁ h₂ hF)` once wave 5 lands. -/",
+  "B3's one-newborn rows and B2' feed K's F-aligned `s7z_bigon_law_at_of_residual`.  The leaf is closed (wave 6) by\n`w4_s7_bigon_law_at_of hn g h h₁ h₂ hsing (w4_box_returnedRows hn g h h₁ h₂ hF)` (Prop B2' proved at the wave-5/6 merges). -/"
+ ],
+ [
+  "/-- **BLACK BOX (consumed, rule 2 — wave-6 corner unit W6-COR / GLUE): the centre corner data below a radius**, for every",
+  "/-- **PROVED by wave-6 unit W6-CC (`w6x_centreCornerData`; formerly a black box consumed by W6-ROT under rule 2): the centre corner data below a radius**, for every"
+ ],
+ [
+  "stated as exact `w5b_` Props and left as black boxes in this pass (see W5_BR_REPORT.md §2). -/",
+  "stated as exact `w5b_` Props and left as black boxes in this pass (see W5_BR_REPORT.md §2); at port those per-`t` boxes and the two deliverables\n`w5b_interlacingData` / `w5b_noninterlacingData` consuming them are dropped in favour of the wave-6 glue `w6_interlacingData` /\n`w6_noninterlacingData` (section W6Glue), which supplies the turn fields from W6-ROT/W6-COR and the curl fields from W6-CURL below the wave-6 radii. -/"
+ ]
+]

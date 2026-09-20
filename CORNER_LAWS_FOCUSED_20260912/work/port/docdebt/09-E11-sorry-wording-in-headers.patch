@@ -1,0 +1,706 @@
+--- work/lean/Bridge/B1.lean
++++ work/lean/Bridge/B1.lean
+@@ -3,7 +3,7 @@
+ import SM.TripleOrder
+ import SM.UnorderedWallTriples
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B1.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Module `Bridge.B1` carries rows Bridge:B1 (`Bridge.B1`) and Bridge:B2 (`Bridge.B2`). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B1.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Module `Bridge.B1` carries rows Bridge:B1 (`Bridge.B1`) and Bridge:B2 (`Bridge.B2`). -/
+ 
+ /-! Bridge lane, rows 179 (Bridge:B1) and 180 (Bridge:B2).
+ Source: reference/BRIDGE/BRIDGE.md §2, B1 at lines 159–446 and B2 at 448–491; coordinates as in
+--- work/lean/Bridge/B3.lean
++++ work/lean/Bridge/B3.lean
+@@ -1,6 +1,6 @@
+ import Bridge.B1
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B3.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row Bridge:B3 → `Bridge.B3` (with `Bridge.B3_unsorted`). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B3.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row Bridge:B3 → `Bridge.B3` (with `Bridge.B3_unsorted`). -/
+ 
+ /-! Bridge lane, row 181 (Bridge:B3).
+ Source: reference/BRIDGE/BRIDGE.md §2, B3 at lines 493–636; coordinates as in BRIDGE.md §0 (SM_MAP):
+--- work/lean/CV/Axioms.lean
++++ work/lean/CV/Axioms.lean
+@@ -7,7 +7,7 @@
+ Source: reference/R/CV/d10_axioms.tex, `ax:homfly` (lines 342–360, with the trimming remark
+ `rem:homflywhole` 362–385) and `ax:gausscode` (lines 525–563).  Plan entries:
+ work/reports/cv-lane-plan-20260913.md rows 160 and 163, fidelity fact F4; OPEN_WORK.md.
+-Written 2026-09-14 by a Claude Code prover subagent; checked with `lake env lean` (sorry-free; the
++Written 2026-09-14 by a Claude Code prover subagent; checked with `lake env lean` (placeholder-free; the
+ only non-standard axioms are the three literature interfaces `SM.lit_homfly`, `SM.lp_lm`,
+ `SM.lp_lm_uniqueness` of SM/LinkInterfaces.lean).
+ 
+--- work/lean/CV/Carriers.lean
++++ work/lean/CV/Carriers.lean
+@@ -78,7 +78,7 @@
+ 
+ ## Dependence on the port (DECISION_FINAL §5)
+ 
+-Sorry-free. The only lane input beyond the accepted library is unit U1b's
++Placeholder-free. The only lane input beyond the accepted library is unit U1b's
+ `SM.GeoCarrier.geoTracedSuccessor_of_independent` (SM/GeoCarrierOrder.lean, landed 2026-09-14): for an
+ independent `S`, consecutive entries of a carrier's inherited mark list are `ρ_S`-successors
+ (`SM.GeoCarrier.TracedSuccessor`, the field `traced_successor` of the accepted `GeoCarrierSpec`),
+--- work/lean/CV/ChamberInv.lean
++++ work/lean/CV/ChamberInv.lean
+@@ -1,6 +1,6 @@
+ import CV.Setup
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CV_ChamberInv.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row 147 CV:prop:chamberinv clause (i); clause (ii) (X₁ constant on chambers) is blocked on CV:def:X1 and is not in this module. -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CV_ChamberInv.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row 147 CV:prop:chamberinv clause (i); clause (ii) (X₁ constant on chambers) is blocked on CV:def:X1 and is not in this module. -/
+ 
+ /-! # CV lane, row 147 — CV:prop:chamberinv, clause (i) (reference/R/CV/d1_setup.tex:932–961)
+ 
+@@ -38,7 +38,7 @@
+ restates it on the printed domain `3 ≤ n`.
+ 
+ Written 2026-09-13 by a Claude Code implementer subagent of the pod executor; checked with
+-`lake env lean` (sorry-free, standard axioms). -/
++`lake env lean` (placeholder-free, standard axioms). -/
+ 
+ namespace CV
+ 
+--- work/lean/CV/Events.lean
++++ work/lean/CV/Events.lean
+@@ -9,7 +9,7 @@
+ each with a row bundle and its theorem (`CV.interlace_definition`, `CV.event_definition`, `CV.guardconst`, `CV.silent_definition`).
+ Follows the CV-lane plan (work/reports/cv-lane-plan-20260913.md) and decision F2 (no domain narrowing). Written 2026-09-13 by Claude
+ Code implementer subagents of the pod executor (workflow implement-cv-definitions, then unified with CV.Setup by a second subagent),
+-checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/CV_Events_unified.lean (only this header
++checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/CV_Events_unified.lean (only this header
+ added and #print lines removed). Revised 2026-09-13 (work/drafts/CV_Events_rev.lean, after an independent review of rows 134 and 148):
+ row 134's bundle lost the `U(S)` clause and the cross-lane `generic_agree` clause (now the standalone theorem
+ `CV.interlace_generic_agree`) and gained the printed vertex set — the crossing point map is a bijection from `SM.Crossing P` onto the
+--- work/lean/CV/FullTwist.lean
++++ work/lean/CV/FullTwist.lean
+@@ -10,7 +10,7 @@
+ work/reports/cv-lane-plan-20260913.md §159.  Consumes CV:ax:homfly, which this project derives as
+ `CV.ax_homfly` (work/lean/CV/Axioms.lean), and CV:def:rot, built as `CV.rot` / `CV.rotAbs`
+ (work/lean/CV/Rotation.lean).  Written 2026-09-14 by a Claude Code prover subagent; checked with
+-`lake env lean` (sorry-free; the only non-standard axioms are those of `CV.ax_homfly`:
++`lake env lean` (placeholder-free; the only non-standard axioms are those of `CV.ax_homfly`:
+ `SM.lit_homfly`, `SM.lp_lm`, `SM.lp_lm_uniqueness`).
+ 
+ ## The printed statement (d6_vertexedge.tex:1981–2031)
+--- work/lean/CV/RecordHomfly.lean
++++ work/lean/CV/RecordHomfly.lean
+@@ -9,7 +9,7 @@
+ Source: reference/R/CV/d1_setup.tex, `def:record` (lines 522–551, "record, and record isomorphism")
+ and `def:homfly` (lines 552–564, "HOMFLY–PT normalization").  Plan entries:
+ work/reports/cv-lane-plan-20260913.md §140 and §141, gaps G12 and G13.  Written 2026-09-14 by a
+-Claude Code prover subagent; checked with `lake env lean` (sorry-free).
++Claude Code prover subagent; checked with `lake env lean` (placeholder-free).
+ 
+ Row declarations: `CV.record_definition : CV.RecordDefinitionData` (140) and
+ `CV.homfly_definition : CV.HomflyDefinitionData` (141).  Each field of a `…DefinitionData`
+--- work/lean/CV/Rotation.lean
++++ work/lean/CV/Rotation.lean
+@@ -1,7 +1,7 @@
+ import CV.Setup
+ import SM.RotationTheorem
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CV_Rotation.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Covers the POLYGON part of CV:def:rot (row 144; the "Direction loops and smooth curves" paragraph d1_setup.tex:767-785 is deferred to the shared turning-number definitions of SM cf:def-turning, decision F6) and clause (ii) of CV:lem:turnlift (row 145; clauses (i),(iii) deferred with SM cf:lem-turnlift). Neither row is mapped until those parts exist. -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CV_Rotation.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Covers the POLYGON part of CV:def:rot (row 144; the "Direction loops and smooth curves" paragraph d1_setup.tex:767-785 is deferred to the shared turning-number definitions of SM cf:def-turning, decision F6) and clause (ii) of CV:lem:turnlift (row 145; clauses (i),(iii) deferred with SM cf:lem-turnlift). Neither row is mapped until those parts exist. -/
+ 
+ /-! # CV lane, rotation number (reference/R/CV/d1_setup.tex, frozen)
+ 
+--- work/lean/CV/RotationSmooth.lean
++++ work/lean/CV/RotationSmooth.lean
+@@ -1,7 +1,7 @@
+ import CV.Rotation
+ import SM.TurningNumber
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CV_RotationSmooth.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Completes row 144 CV:def:rot: `CV.rot_definition_full : RotDefinitionFullData` (polygon part in CV/Rotation.lean + the "Direction loops and smooth curves" paragraph on the shared SM/TurningNumber.lean definitions, decision F6). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CV_RotationSmooth.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Completes row 144 CV:def:rot: `CV.rot_definition_full : RotDefinitionFullData` (polygon part in CV/Rotation.lean + the "Direction loops and smooth curves" paragraph on the shared SM/TurningNumber.lean definitions, decision F6). -/
+ 
+ /-! # CV:def:rot, paragraph "Direction loops and smooth curves" (row 144, the remaining part)
+ 
+--- work/lean/CV/Setup.lean
++++ work/lean/CV/Setup.lean
+@@ -12,7 +12,7 @@
+ them to the accepted SM notions (`CV.Regular ↔ SM.Regular`, `SM.Generic → CV.Generic` = Bridge B1(1), `CV.Generic → CrossingGeometry`).
+ Follows the CV-lane plan (work/reports/cv-lane-plan-20260913.md) and decision F2 (no domain narrowing; recorded in work/AUTHOR_NOTES.md).
+ Written 2026-09-13 by a Claude Code implementer subagent of the pod executor (workflow implement-cv-definitions), checked with
+-`lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/CV_Setup.lean (only this header added and #print lines
++`lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/CV_Setup.lean (only this header added and #print lines
+ removed). -/
+ 
+ /-! # CV lane, setup definitions (reference/R/CV/d1_setup.tex, frozen)
+--- work/lean/CV/TurnLift.lean
++++ work/lean/CV/TurnLift.lean
+@@ -1,7 +1,7 @@
+ import CV.RotationSmooth
+ import SM.TurnLift
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CV_TurnLift.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row 145 CV:lem:turnlift → `CV.turnlift_full : TurnLiftFullData` (clauses (i),(iii) from the shared SM.turnlift, clause (ii) from CV.turnlift_ii / turnlift_ii_data; decision F6). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CV_TurnLift.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row 145 CV:lem:turnlift → `CV.turnlift_full : TurnLiftFullData` (clauses (i),(iii) from the shared SM.turnlift, clause (ii) from CV.turnlift_ii / turnlift_ii_data; decision F6). -/
+ 
+ /-! # CV:lem:turnlift — tangent lifts and principal turns (row 145, in full)
+ 
+--- work/lean/SM/ALawful.lean
++++ work/lean/SM/ALawful.lean
+@@ -13,7 +13,7 @@
+ /-! Source cor:A-lawful (reference/SM/sm-6-comparison.tex:105, frame SM15): `A` is a chamber
+ function on polygons. Main declaration: `SM.A_lawful : ALawfulData`. Statement fixed by the executor
+ (work/drafts/ALawful_statement.lean); proof by a Claude Code prover subagent (workflow prove-A-lawful / attempt A), checked
+-with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/ALawfulA.lean (only the #print line
++with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/ALawfulA.lean (only the #print line
+ removed and this sentence added); attempt B (work/drafts/ALawfulB.lean) compiles as well and is kept as a cross-check.
+ 
+ Notation. `A(P) := A_g(P)` for any root `g`; the Lean `amplitude P hP hn` is the tree coefficient at
+--- work/lean/SM/Anchors.lean
++++ work/lean/SM/Anchors.lean
+@@ -3,7 +3,7 @@
+ import SM.Fibres
+ 
+ /-! Towards def:anchors (sm-5-transport.tex:373) and prop:anchors-exist (sm-5-transport.tex:399). Written 2026-09-13 by a Claude Code
+-prover subagent of the pod executor (workflow prove-transport-lane-2 / prove:anchors), checked with `lake env lean` (sorry-free, standard
++prover subagent of the pod executor (workflow prove-transport-lane-2 / prove:anchors), checked with `lake env lean` (placeholder-free, standard
+ axioms) and ported verbatim from work/drafts/Anchors.lean (only this header added and #print lines removed). -/
+ 
+ /-! Source def:anchors (reference/SM/sm-5-transport.tex:373) and prop:anchors-exist
+--- work/lean/SM/BowTie.lean
++++ work/lean/SM/BowTie.lean
+@@ -2,7 +2,7 @@
+ import SM.Crossings
+ 
+ /-! Towards def:star (K_0) and lem:star-generic (iv) (sm-5-transport.tex:5, 16). Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-transport-lane / prove:bowtie), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-transport-lane / prove:bowtie), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/BowTie.lean (only this header added and #print lines removed). -/
+ 
+ /-! SM def:star (the bow-tie `K₀`) and lem:star-generic clause (iv).
+--- work/lean/SM/CChamber.lean
++++ work/lean/SM/CChamber.lean
+@@ -12,7 +12,7 @@
+ import SM.SortedCut
+ import Mathlib.Topology.LocallyConstant.Basic
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/cchamber/CChamber_Assembled.lean (assembler subagent of the pod executor merging the six sorry-free prover units U1a, U1b, U2, U3, U4, U5 of work/drafts/cchamber/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row prop:C-chamber → `SM.prop_C_chamber : CChamberData` (statement verbatim work/drafts/CChamber_statement.lean; design PLAN_FINAL.md). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/cchamber/CChamber_Assembled.lean (assembler subagent of the pod executor merging the six placeholder-free prover units U1a, U1b, U2, U3, U4, U5 of work/drafts/cchamber/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row prop:C-chamber → `SM.prop_C_chamber : CChamberData` (statement verbatim work/drafts/CChamber_statement.lean; design PLAN_FINAL.md). -/
+ 
+ 
+ /-! Source prop:C-chamber (reference/SM/sm-4-knotlaws.tex:36-40, frame SM15): chamber constancy of the corner
+@@ -28,7 +28,7 @@
+ 
+ Assembly provenance (2026-09-13).  Assembled from work/drafts/cchamber/Skeleton_FINAL.lean and the six
+ prover units U1a, U1b, U2, U3, U4, U5 (work/drafts/cchamber/U*.lean; plan PLAN_FINAL.md, route B with
+-three grafts from route A); every `sorry` of the skeleton is replaced by the owning unit's proof, the
++three grafts from route A); every placeholder of the skeleton is replaced by the owning unit's proof, the
+ units' helpers are inserted where they placed them, and the one recorded statement fix
+ (`leftTurns_transport`, PLAN_FINAL.md §5 addendum) is applied.  The route:
+ 
+@@ -57,7 +57,7 @@
+ positive lifts differ by a cyclic re-indexing of the one component, a `Reparam`
+ (`reparam_positiveDiagram_single_shift`).
+ 
+-Descent (already closed, no sorry): `chamber (polygonProjection P) = polygonProjection '' labelledChamber P`
++Descent (already closed, no placeholder): `chamber (polygonProjection P) = polygonProjection '' labelledChamber P`
+ (accepted `projection_labelledChamber_eq_chamber`), `projection_eq_iff`, and labelled chambers are path
+ connected (`labelledChambers_open_pathConnected`).
+ 
+--- work/lean/SM/CS5.lean
++++ work/lean/SM/CS5.lean
+@@ -1,7 +1,7 @@
+ import SM.CornerStateSum
+ import SM.CuspSides
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CS5A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row thm:C-S5 → `SM.thm_C_S5` (fixed target name). Cross-check draft: work/drafts/CS5B.lean (independent, in progress at port time). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CS5A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row thm:C-S5 → `SM.thm_C_S5` (fixed target name). Cross-check draft: work/drafts/CS5B.lean (independent, in progress at port time). -/
+ 
+ /-! Source thm:C-S5 (reference/SM/sm-4-knotlaws.tex:910-913, frame SM15): empty-cusp zero, "At a simple empty cusp,
+ `C(P_no) = 0`." Main declaration: `SM.thm_C_S5` (the fixed target name of work/lean/axiom-policy.json).
+--- work/lean/SM/CX1.lean
++++ work/lean/SM/CX1.lean
+@@ -1,6 +1,6 @@
+ import SM.CornerStateSum
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CX1A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row lem:C-X1 → `SM.C_X1`. Cross-check draft: work/drafts/CX1B.lean (independent, in progress at port time). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CX1A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row lem:C-X1 → `SM.C_X1`. Cross-check draft: work/drafts/CX1B.lean (independent, in progress at port time). -/
+ 
+ /-! Source lem:C-X1 (reference/SM/sm-3-statesum.tex:1787-1798, frame SM15): selector form of the carrier state
+ sum. Main declaration: `SM.C_X1`.
+--- work/lean/SM/CarrierCornerPolygon.lean
++++ work/lean/SM/CarrierCornerPolygon.lean
+@@ -4,7 +4,7 @@
+ import SM.GeometricParameters
+ 
+ /-! Towards lem:carriers (ii) (sm-3-statesum.tex:54): block compression, the corner polygon of a carrier, its regularity and turn signs, at least three corners. Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-carriers-lemma / prove:carriers-ii), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-carriers-lemma / prove:carriers-ii), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/CarriersCornerPolygon.lean (only this header added and #print lines removed). -/
+ 
+ /-! # lem:carriers clause (ii): the compressed corner polygon of a carrier
+--- work/lean/SM/CarrierCrossings.lean
++++ work/lean/SM/CarrierCrossings.lean
+@@ -2,7 +2,7 @@
+ import SM.CarrierComponentCount
+ 
+ /-! Towards def:smoothing (sm-3-statesum.tex:14): crossings of a carrier, m_Q, corner directions, unselected non-neighbour ownership. Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-smoothing-support / prove:smoothing-A), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-smoothing-support / prove:smoothing-A), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/SmoothingSupportA.lean (only this header added and #print lines removed). -/
+ 
+ /-! # SM15, `def:smoothing` (oriented smoothing and subpolygons), Task A
+--- work/lean/SM/CarrierNeighborSeparation.lean
++++ work/lean/SM/CarrierNeighborSeparation.lean
+@@ -2,7 +2,7 @@
+ import SM.CarrierComponentCount
+ 
+ /-! Towards def:smoothing / lem:carriers (iii) (sm-3-statesum.tex:14, 54): a crossing interlacing a selected crossing has its visits on different carriers. Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-smoothing-support / prove:smoothing-B), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-smoothing-support / prove:smoothing-B), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/SmoothingSupportB.lean (only this header added and #print lines removed). -/
+ 
+ /-! # Task B: neighbours of an independent support have separated visits
+--- work/lean/SM/CarrierNoncrossing.lean
++++ work/lean/SM/CarrierNoncrossing.lean
+@@ -3,7 +3,7 @@
+ import SM.SmoothingDefinition
+ 
+ /-! Towards lem:carriers (iv) (sm-3-statesum.tex:54): the assignment of all crossing visits is noncrossing. Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-carriers-lemma / prove:carriers-iv), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-carriers-lemma / prove:carriers-iv), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/CarriersNoncrossing.lean (only this header added and #print lines removed). -/
+ 
+ /-! # lem:carriers (iv): the assignment of all crossing visits is noncrossing
+--- work/lean/SM/CarrierSelfIntersections.lean
++++ work/lean/SM/CarrierSelfIntersections.lean
+@@ -3,7 +3,7 @@
+ import SM.SmoothingDefinition
+ 
+ /-! Towards lem:carriers (iii), geometric part (sm-3-statesum.tex:54): self-intersections of a carrier are exactly its owned unselected crossings, transverse, not corners, no triple point. Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-carriers-lemma / prove:carriers-iii-geom), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-carriers-lemma / prove:carriers-iii-geom), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/CarriersSelfIntersections.lean (only this header added and #print lines removed). -/
+ 
+ /-! # lem:carriers (iii), geometric part: self-intersections of a carrier
+--- work/lean/SM/CoefficientTransport.lean
++++ work/lean/SM/CoefficientTransport.lean
+@@ -1,6 +1,6 @@
+ import SM.LinkInterfaces
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CoefficientTransportB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lp_lm/SM.lp_lm_uniqueness); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/CoefficientTransportA.lean (independent second proof). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CoefficientTransportB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lp_lm/SM.lp_lm_uniqueness); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/CoefficientTransportA.lean (independent second proof). -/
+ 
+ /-! Source lp:coefficient-transport (reference/SM/sm-3-statesum.tex:981-992, frame SM15): Gaussian coefficient
+ transport of skein uniqueness. Main declaration: `SM.coefficient_transport`.
+--- work/lean/SM/CornerStateSum.lean
++++ work/lean/SM/CornerStateSum.lean
+@@ -3,7 +3,7 @@
+ import SM.DecompositionDefinition
+ import SM.LinkInterfaces
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/CornerStateSum.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row def:C → `SM.corner_state_sum_definition`. -/
++/-! Ported verbatim 2026-09-13 from work/drafts/CornerStateSum.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row def:C → `SM.corner_state_sum_definition`. -/
+ 
+ /-! Source def:C (reference/SM/sm-3-statesum.tex:1688-1700, frame SM15): the corner coefficient
+ `c(Q)` and the corner state sum `C(P)`. Main declaration: `SM.corner_state_sum_definition`.
+--- work/lean/SM/FlatCarriers.lean
++++ work/lean/SM/FlatCarriers.lean
+@@ -4,12 +4,12 @@
+ import SM.GermNeighborhood
+ import SM.GeometricParameters
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/flatcarriers/FlatCarriers_Assembled.lean (assembler subagent of the pod executor merging the five sorry-free prover units U1_Records, U2_Correspondence, U3_CentreGeometry, U4_Rotation, U5_Selector; de-duplication and wiring recorded in work/drafts/flatcarriers/ASSEMBLY_REPORT.md; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Rows def:flat-carriers → `SM.flat_carriers_definition`, cor:flat-carriers → `SM.flat_carriers` (bundles and definitions in SM/FlatCarriersDefs.lean; statements byte-identical to work/drafts/flatcarriers/Statement_FINAL.lean; design PLAN_FINAL.md). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/flatcarriers/FlatCarriers_Assembled.lean (assembler subagent of the pod executor merging the five placeholder-free prover units U1_Records, U2_Correspondence, U3_CentreGeometry, U4_Rotation, U5_Selector; de-duplication and wiring recorded in work/drafts/flatcarriers/ASSEMBLY_REPORT.md; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Rows def:flat-carriers → `SM.flat_carriers_definition`, cor:flat-carriers → `SM.flat_carriers` (bundles and definitions in SM/FlatCarriersDefs.lean; statements byte-identical to work/drafts/flatcarriers/Statement_FINAL.lean; design PLAN_FINAL.md). -/
+ 
+ 
+ /-! # def:flat-carriers / cor:flat-carriers — ASSEMBLED
+ 
+-Assembly (2026-09-13) of the five sorry-free prover units of work/drafts/flatcarriers/
++Assembly (2026-09-13) of the five placeholder-free prover units of work/drafts/flatcarriers/
+ (`U1_Records`, `U2_Correspondence`, `U3_CentreGeometry`, `U4_Rotation`, `U5_Selector`; plan
+ PLAN_FINAL.md §5) into the two row theorems `SM.flat_carriers_definition` and `SM.flat_carriers`,
+ whose statements are EXACTLY those of `Statement_FINAL.lean` (lines 950 and 1272), on the FIXED
+@@ -1045,7 +1045,7 @@
+ (def:flat-carriers / cor:flat-carriers, work/drafts/flatcarriers/PLAN_FINAL.md §5 "### U2").
+ 
+ Written 2026-09-13 by the U2 prover subagent on top of the built module `SM.FlatCarriersDefs`.
+-Everything here is sorry-free. The interface lemmas of U1 are taken as explicit hypotheses,
++Everything here is placeholder-free. The interface lemmas of U1 are taken as explicit hypotheses,
+ named as in PLAN_FINAL.md:
+ * `identify_sides_marks` : `(geoMarkList C).map (markTransport (hs b)) = geoMarkList T`;
+ * `identify_deletion_marks` : `(((geoMarkList C).erase (inl j)).map delMark : Cycle _) = geoMarkList D`;
+@@ -2674,7 +2674,7 @@
+    `geoComponentCornerList_eq_generic` by `generic_corner_props`.
+ 6. Turn signs: `same_turn_signs`, `centre_turn_signs`, `extra_corner`.
+ 
+-Assumed interface (explicit hypotheses, never `sorry`): U2's `GeoCarrierSpec (flatCentreCG …) S`
++Assumed interface (explicit hypotheses, never a placeholder): U2's `GeoCarrierSpec (flatCentreCG …) S`
+ (only `traced_successor` is used), U1's `independent_supports` output in the form
+ `IsDecomposition … (transportSupport (hs b) S)` / `IsDecomposition … (deletionSupport … S)`, and the
+ side facts of lem:flat-sides read at the side parameter (chi agreement off `turnSupport j`, crossing
+@@ -3982,7 +3982,7 @@
+   `rotationNumber_locally_constant` gives a common radius `δ_rot` for all supports and carriers.
+ * §F: `same_rotation`: the field of `FlatCarriersData` from the U2/U3 interface hypotheses.
+ 
+-Interface hypotheses (assumed explicitly as arguments, never `sorry`; each is a projection of a
++Interface hypotheses (assumed explicitly as arguments, never a placeholder; each is a projection of a
+ `FlatCarriersData` field or a U2 lemma — checked by an `example` against the field projections
+ `correspond_deletion.2.1`, `central_vs_deletion_through_mu_j.1`/`.2.2.1`, `others_unchanged _ _ |>.2.1`,
+ `nonzero_segments.2.1`/`.2.2.2.1`, `no_antiparallel.1`/`.2.1`, `turns_nonzero.1`, and the conclusion of
+@@ -4821,7 +4821,7 @@
+   other carrier "retain[s] all [its] corner signs and counts" (sm-3:906-907), so the side copy's
+   selector is the deletion copy's.
+ 
+-Interface. The three lemmas take as explicit hypotheses (never `sorry`) the fields of
++Interface. The three lemmas take as explicit hypotheses (never a placeholder) the fields of
+ `FlatCarriersData` proved by the units U2 (carrier correspondences and corner-cycle identities:
+ `correspond_sides`, `others_unchanged`, `central_vs_deletion_through_mu_j`) and U3 (turn transport:
+ `same_turn_signs`, `extra_corner`), stated verbatim as the fields so that the assembly (U1) can pass
+@@ -4830,7 +4830,7 @@
+ exhaustive over `SignType`, a zero turn counting as "mixed"), `hF`, and any hypothesis on `n, g, j`
+ beyond those in the fields' statements.
+ 
+-Everything is sorry-free; `#print axioms` at the end: `propext, Classical.choice, Quot.sound`. -/
++Everything is placeholder-free; `#print axioms` at the end: `propext, Classical.choice, Quot.sound`. -/
+ 
+ namespace SM
+ 
+--- work/lean/SM/FrontInterfaces.lean
++++ work/lean/SM/FrontInterfaces.lean
+@@ -142,7 +142,7 @@
+ 
+ `s`, `B`, `Base` of `wordMovesOf` are parameters in the consumer theorems because `Moves.Chain` does not
+ depend on `s` or `B`; nothing is assumed about them.  Checked with `cd work/lean && lake env lean
+-../drafts/front/FrontInterfaces_statement.lean` (no `sorry`; `#print axioms ng_finite_word_bound` =
++../drafts/front/FrontInterfaces_statement.lean` (no placeholder; `#print axioms ng_finite_word_bound` =
+ standard three + `SM.ng_finite_word`). -/
+ 
+ namespace SM.FrontWord
+--- work/lean/SM/FrontSmooth.lean
++++ work/lean/SM/FrontSmooth.lean
+@@ -147,7 +147,7 @@
+ `no_triple`, `toClosedC1Curve`), `Rounding`, `IsRounding`, `dOf`, `defect`), `int_eq_of_add_mem_Icc`,
+ `eventually_add_int_notMem_Icc`, `det_pos_iff_of_slope_lt`, `germFront` with `germFront_semicubical`,
+ `germFront_cuspDisc`, and the row bundle `FrontDomainDefinitionData` / `front_domain_definition`.
+-Sorry-free; checked with `lake env lean`. -/
++Placeholder-free; checked with `lake env lean`. -/
+ 
+ namespace SM
+ 
+--- work/lean/SM/HypR.lean
++++ work/lean/SM/HypR.lean
+@@ -66,7 +66,7 @@
+ `smR_shape_of_hyp_R`), so `sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` is PROVED from accepted rows and
+ `Bridge.sm_R := sm_R_of_cv_R RProof.cv_R` is the one-line row Bridge:theorem once `RProof.cv_R` exists.
+ 
+-Checked with `cd work/lean && lake env lean ../drafts/hypr/HypR.lean` (no sorry). -/
++Checked with `cd work/lean && lake env lean ../drafts/hypr/HypR.lean` (no placeholder). -/
+ 
+ namespace SM
+ /-! ## Part 1 — the definition (intended home: work/lean/SM/HypR.lean, imports SM.CornerStateSum,
+--- work/lean/SM/LinkDiagram.lean
++++ work/lean/SM/LinkDiagram.lean
+@@ -5,7 +5,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkDiagram: polygonal oriented link diagrams (Shadow, Strand, multi-component crossings and visits, Shadow.Generic, Diagram with over-strand data, signs and writhe, switch / restrict / reverse / mirror, based orders and UnderFirst). Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md, Proposal #1 with the judges' grafts). Written 2026-09-13 by a Claude Code
+-implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (sorry-free,
++implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (placeholder-free,
+ standard axioms) and ported verbatim from work/drafts/LinkDiagram.lean (only this header added and #print lines removed). All
+ declarations live in `SM.Link`; no row points here yet — the definition rows (def:positive-lift, def:gauss-record, def:adeg, ...)
+ are stated on top of this layer and reviewed against the source. -/
+--- work/lean/SM/LinkDiagramExtras.lean
++++ work/lean/SM/LinkDiagramExtras.lean
+@@ -3,13 +3,13 @@
+ import SM.CarrierVisitTwin
+ 
+ /-! Chapter-3 representation layer, module LinkDiagramExtras: closing the open items of LinkDiagram: over/under strands of the derived diagrams, involutivity of reverse and mirror, the one-component agreement with the accepted Gauss data (visitPosition, visitTwin), and the per-operation positivity lemmas. Written 2026-09-13 by a Claude Code prover subagent of the pod executor
+-(workflow close-phase1-open-items), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
++(workflow close-phase1-open-items), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
+ work/drafts/LinkDiagramExtras.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
+ 
+ /-! # Extras for polygonal oriented link diagrams (closing the open items of `SM.LinkDiagram`)
+ 
+ Chapter-3 representation layer, module LinkDiagramExtras.  Written 2026-09-13 by a Claude Code
+-prover subagent; checked with `lake env lean` (sorry-free, standard axioms).  Everything lives in
++prover subagent; checked with `lake env lean` (placeholder-free, standard axioms).  Everything lives in
+ `SM.Link`.  Source frame: reference/SM/sm-3-statesum.tex, def:positive-lift (325-335), the
+ named-record bridge paragraph (337-351), def:gauss-record (352-372) and lp:lm (935-960), as rendered
+ by `SM.LinkDiagram`; nothing new is read from the source here — this file only closes the design
+--- work/lean/SM/LinkDiagramRecord.lean
++++ work/lean/SM/LinkDiagramRecord.lean
+@@ -3,7 +3,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkDiagramRecord: the bridge from polygonal diagrams to crossing records (Diagram.record: per-component cyclic successor of visits, twin pairing, over bits, signs), its sanity laws (writhe, crossing count), the switch and restrict bridges (RecordIso), IsRealizable, the one-polygon agreement with the accepted Gauss data (record_of_single_polygon), the cyclic-order equivalence of def:gauss-record, and the statement of the PL-extension clause. Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md). Written 2026-09-13 by a Claude Code implementer subagent of the pod executor
+-(workflow implement-diagram-layer-phase2), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
++(workflow implement-diagram-layer-phase2), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
+ work/drafts/LinkDiagramRecord.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
+ 
+ /-! # The crossing record of a polygonal oriented link diagram (`Diagram.record`)
+--- work/lean/SM/LinkInterfaces.lean
++++ work/lean/SM/LinkInterfaces.lean
+@@ -7,7 +7,7 @@
+ (`HomflyClauses`, `LMClauses`, `LMCompetitor`), with the maps fixed once by `Classical.choose` (`homfly`, `lmF`) and sanity theorems
+ (the descent clause of lit:homfly is implied by the other clauses; any lp:lm witness equals `lmF`). Design: work/reports/
+ design-decision-diagram-record-20260913.md (literature_interfaces; judges' graft). Written 2026-09-13 by a Claude Code implementer
+-subagent of the pod executor (workflow implement-knot-interfaces), checked with `lake env lean` (no sorry; the only non-standard axioms
++subagent of the pod executor (workflow implement-knot-interfaces), checked with `lake env lean` (no placeholder; the only non-standard axioms
+ are the three interfaces) and ported verbatim from work/drafts/LinkInterfaces.lean (only this header added and #print lines removed). -/
+ 
+ /-! # The three knot-theory literature interfaces: lit:homfly, lp:lm, lp:lm-uniqueness
+--- work/lean/SM/LinkLaurentRing.lean
++++ work/lean/SM/LinkLaurentRing.lean
+@@ -10,7 +10,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkLaurentRing: the two-variable Laurent-polynomial ring layer (R = ℤ[a^{±1}, z^{±1}], the distinct T = ℤ[l^{±1}, m^{±1}], the Gaussian detour RG/TG with φ, ψ, coefficient extraction, def:adeg degrees). Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md, Proposal #1 with the judges' grafts). Written 2026-09-13 by a Claude Code
+-implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (sorry-free,
++implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (placeholder-free,
+ standard axioms) and ported verbatim from work/drafts/LinkLaurentRing.lean (only this header added and #print lines removed). All
+ declarations live in `SM.Link`; no row points here yet — the definition rows (def:positive-lift, def:gauss-record, def:adeg, ...)
+ are stated on top of this layer and reviewed against the source. -/
+--- work/lean/SM/LinkMoves.lean
++++ work/lean/SM/LinkMoves.lean
+@@ -4,7 +4,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkMoves: planar isotopy (Reparam, Deform, PlanarIsotopic), the Reidemeister moves RI/RII/RIII as local replacements in a disc with their crossing-count and component sanity laws, oriented smoothings and skein triples (IsOrientedSmoothing, IsSkeinTriple), LinkEquiv, split-circle addition and marked intervals, with reversal transport. Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md). Written 2026-09-13 by a Claude Code implementer subagent of the pod executor
+-(workflow implement-diagram-layer-phase2), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
++(workflow implement-diagram-layer-phase2), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
+ work/drafts/LinkMoves.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
+ 
+ /-! # Planar isotopy, Reidemeister moves, oriented smoothing and skein triples
+@@ -13,7 +13,7 @@
+ Source: reference/SM/sm-3-statesum.tex, frame SM15.  Design: work/reports/design-decision-diagram-
+ record-20260913.md, section `skein_and_moves` and fidelity risks 1-3, with the judges' decisions
+ D2/D3 (Judge 1) and D2-D4 (Judge 2).  Written 2026-09-13 by a Claude Code implementer subagent of
+-the pod executor; checked with `lake env lean` (sorry-free, standard axioms only).
++the pod executor; checked with `lake env lean` (placeholder-free, standard axioms only).
+ 
+ The printed words rendered by this module:
+ 
+--- work/lean/SM/LinkPositiveLift.lean
++++ work/lean/SM/LinkPositiveLift.lean
+@@ -6,7 +6,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkPositiveLift: the positive lift of a carrier (def:positive-lift): the carrier shadow over the corner polygon, its genericity (carrierShadow_generic), the all-positive over-strand choice, positivity of every crossing, and writhe = number of crossings = m_Q. Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md). Written 2026-09-13 by a Claude Code implementer subagent of the pod executor
+-(workflow implement-diagram-layer-phase2), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
++(workflow implement-diagram-layer-phase2), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
+ work/drafts/LinkPositiveLift.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
+ 
+ /-! # The positive lift of a carrier (def:positive-lift, sm-3:325-335)
+--- work/lean/SM/LinkRecord.lean
++++ work/lean/SM/LinkRecord.lean
+@@ -8,7 +8,7 @@
+ 
+ /-! Chapter-3 representation layer, module LinkRecord: combinatorial crossing records (Record, RecordIso, record-level switch / smooth / restrict / join). Implements the design adopted 2026-09-13
+ (work/reports/design-decision-diagram-record-20260913.md, Proposal #1 with the judges' grafts). Written 2026-09-13 by a Claude Code
+-implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (sorry-free,
++implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (placeholder-free,
+ standard axioms) and ported verbatim from work/drafts/LinkRecord.lean (only this header added and #print lines removed). All
+ declarations live in `SM.Link`; no row points here yet — the definition rows (def:positive-lift, def:gauss-record, def:adeg, ...)
+ are stated on top of this layer and reviewed against the source. -/
+--- work/lean/SM/LinkRecordExtension.lean
++++ work/lean/SM/LinkRecordExtension.lean
+@@ -5,7 +5,7 @@
+ circles which carry each occurrence to its image and are the positive affine map between successive marks in oriented key
+ coordinates (a linear rescaling on a mark-free circle): `RecordIso.ExtendsPiecewiseAffine`, `rexB_recordIso_extend_pl`, and the weaker
+ `recordIso_extend_statement` (`rexB_recordIso_extend`). Written 2026-09-13 by Claude Code prover subagents of the pod executor
+-(workflows prove-record-extension / prove-record-extension-pl), checked with `lake env lean` (sorry-free, standard axioms) and ported
++(workflows prove-record-extension / prove-record-extension-pl), checked with `lake env lean` (placeholder-free, standard axioms) and ported
+ verbatim from work/drafts/RecordExtensionPL.lean (only this header added and #print lines removed); the independent attempt
+ work/drafts/RecordExtensionA.lean is kept as a cross-check. -/
+ 
+--- work/lean/SM/LinkRecordExtras.lean
++++ work/lean/SM/LinkRecordExtras.lean
+@@ -1,7 +1,7 @@
+ import SM.LinkRecord
+ 
+ /-! Chapter-3 representation layer, module LinkRecordExtras: closing the open items of LinkRecord: the component count of the record-level smoothing (c + 1 at a self crossing, c − 1 ≥ 1 at a mixed crossing, via the cycle count of a permutation composed with a transposition), RecordIso transport for smooth / restrict / joinRecord, Crossing-indexed switchAt / smoothAt, and the kink and Hopf examples. Written 2026-09-13 by a Claude Code prover subagent of the pod executor
+-(workflow close-phase1-open-items), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
++(workflow close-phase1-open-items), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
+ work/drafts/LinkRecordExtras.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
+ 
+ /-! # Record extras: component count of the smoothing, isomorphism transport, crossing-indexed
+--- work/lean/SM/LocalPolynomial.lean
++++ work/lean/SM/LocalPolynomial.lean
+@@ -1,6 +1,6 @@
+ import SM.LinkInterfaces
+ 
+-/-! Ported 2026-09-13 from work/drafts/LocalPolynomial_statement.lean (pod executor; checked with `lake env lean`, no sorry). -/
++/-! Ported 2026-09-13 from work/drafts/LocalPolynomial_statement.lean (pod executor; checked with `lake env lean`, no placeholder). -/
+ 
+ /-! The local campaign polynomial `P` of lp:core (reference/SM/sm-3-statesum.tex:1041-1063, frame SM15):
+ "the same source construction has an evaluation `P_D ∈ R`", namely the Gaussian evaluation
+--- work/lean/SM/MyCyclicB.lean
++++ work/lean/SM/MyCyclicB.lean
+@@ -10,7 +10,7 @@
+ import Mathlib.Topology.Instances.Sign
+ 
+ /-! Towards thm:mycyclic (sm-5-transport.tex:150), strategy B (JoinedIn). Written 2026-09-13 by a Claude Code prover subagent of the
+-pod executor (workflow prove-transport-lane-2 / prove:mycyclic-B), checked with `lake env lean` (sorry-free, standard axioms) and ported
++pod executor (workflow prove-transport-lane-2 / prove:mycyclic-B), checked with `lake env lean` (placeholder-free, standard axioms) and ported
+ verbatim from work/drafts/MyCyclicB.lean (only this header added and #print lines removed). An independent Path-based proof of the same
+ theorem (work/drafts/MyCyclicA.lean) compiles as well and is kept as a cross-check; it is not part of the library. -/
+ 
+--- work/lean/SM/PolynomialBlock.lean
++++ work/lean/SM/PolynomialBlock.lean
+@@ -3,7 +3,7 @@
+ import SM.LocalPolynomial
+ import SM.SingleCrossing
+ 
+-/-! Ported 2026-09-14 from work/drafts/polyblock/Skeleton_FINAL.lean §0-§5 and §7 (design panel, winner B grafted with A; PLAN_FINAL.md), i.e. the sorry-free part: the record-level (N, b) skein induction and the four rows lp:core (`SM.lp_core`), rp:record-polynomial (`SM.record_polynomial`), lc:presentations (`SM.presentations`), lp:split-circle (`SM.split_circle`); the mp:stack chain (§6, with open lemmas) stays in the draft until its units finish. Bundles verbatim from work/drafts/{LpCore,RecordPolynomial,Presentations,SplitCircle}_statement.lean. Only this header added. -/
++/-! Ported 2026-09-14 from work/drafts/polyblock/Skeleton_FINAL.lean §0-§5 and §7 (design panel, winner B grafted with A; PLAN_FINAL.md), i.e. the placeholder-free part: the record-level (N, b) skein induction and the four rows lp:core (`SM.lp_core`), rp:record-polynomial (`SM.record_polynomial`), lc:presentations (`SM.presentations`), lp:split-circle (`SM.split_circle`); the mp:stack chain (§6, with open lemmas) stays in the draft until its units finish. Bundles verbatim from work/drafts/{LpCore,RecordPolynomial,Presentations,SplitCircle}_statement.lean. Only this header added. -/
+ 
+ 
+ /-! # Skeleton FINAL — the five polynomial rows by a RECORD-LEVEL `(N, b)` induction
+@@ -24,7 +24,7 @@
+ Status (`lake env lean`: no errors): the five row theorems `record_polynomial`, `lp_core`,
+ `split_circle`, `presentations`, `stack` (fixed bundles copied verbatim from
+ work/drafts/*_statement.lean) are PROVED from the chain; the chains of rp:record-polynomial,
+-lp:core, lp:split-circle and lc:presentations are PROVED (no `sorry` in §0-§5).  The `sorry`s are
++lp:core, lp:split-circle and lc:presentations are PROVED (no placeholder in §0-§5).  The draft's placeholders (its §6, NOT ported here) are
+ exactly the mp:stack chain of §6: `beta_comp_eq_of_reconnect_sameCycle`, `firstReturn_firstReturn`,
+ `firstReturn_mul_swap`, `restrictSmoothIso`, `restrictSmoothDisjointIso`,
+ `rBlockOrdered_of_blockOrdered`, `BlockOrdered.switch_of_internal`,
+--- work/lean/SM/RootIndependence.lean
++++ work/lean/SM/RootIndependence.lean
+@@ -20,7 +20,7 @@
+ /-! Source thm:root-indep-proof (reference/SM/sm-6-comparison.tex:53, frame SM15): root independence of the tree coefficient.
+ Main declaration: `SM.root_independence`. Proof planned and drafted 2026-09-13 by a Claude Code scout subagent of the pod executor
+ (work/reports/root-indep-plan-20260913.md, Appendix A), made unconditional on the accepted lem:transport by a second subagent,
+-checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/RootIndependence.lean (only this
++checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/RootIndependence.lean (only this
+ header added and the #print line removed). Every helper is prefixed `ri_`. -/
+ 
+ open Filter Topology
+--- work/lean/SM/SingleCrossing.lean
++++ work/lean/SM/SingleCrossing.lean
+@@ -1,6 +1,6 @@
+ import SM.LocalPolynomial
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/SingleCrossingB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lp_lm); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/SingleCrossingA.lean (independent, in progress at port time). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/SingleCrossingB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lp_lm); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/SingleCrossingA.lean (independent, in progress at port time). -/
+ 
+ /-! Source lc:single-crossing (reference/SM/sm-3-statesum.tex:1345-1352, frame SM15): a single self crossing
+ has scalar value one. Main declaration: `SM.single_crossing`.
+--- work/lean/SM/SmallValues.lean
++++ work/lean/SM/SmallValues.lean
+@@ -3,12 +3,12 @@
+ import SM.BowTie
+ 
+ /-! Towards lem:A-small-values (sm-6-comparison.tex:5). Written 2026-09-13 by a Claude Code prover subagent of the pod executor
+-(workflow prove-transport-lane-2 / prove:small-values), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim
++(workflow prove-transport-lane-2 / prove:small-values), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim
+ from work/drafts/SmallValues.lean (only this header added and #print lines removed). -/
+ 
+ /-! lem:A-small-values (reference/SM/sm-6-comparison.tex:5-52): triangle and bow-tie values of the
+ tree coefficient. Written 2026-09-13 by a Claude Code prover subagent, checked with `lake env lean`
+-(sorry-free, standard axioms).
++(placeholder-free, standard axioms).
+ 
+ Contents: cut-position bounds for interval compositions (`smallValues_left_add_le_cut`,
+ `smallValues_cut_add_le_right`), uniqueness of the all-leaves composition, the vanishing of every
+--- work/lean/SM/Smoothing.lean
++++ work/lean/SM/Smoothing.lean
+@@ -4,7 +4,7 @@
+ import SM.LinkDiagramExtras
+ import SM.LinkRecordExtension
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/smoothing/Smoothing_Assembled.lean (assembler subagent of the pod executor merging the eight sorry-free prover units U1-U5, U6a-c of work/drafts/smoothing/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md records the de-duplications and the replacement of the false lemma `seg_arc_subset_ball` by `seg_arc_subset_closedBall`; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Library module (no row): the geometric smoothing existence `exists_smoothing : ∀ D x, ∃ D₀, IsOrientedSmoothing D x D₀`, the constructive record bridge `exists_smoothing_record` / `exists_smoothing_record_visit` (D₀ with RecordIso D₀.record (D.record.smooth v)) and `exists_smoothing_counts` — the gate for lp:core, rp:record-polynomial, lp:split-circle, lc:presentations and the mp:* rows. Design: work/drafts/smoothing/PLAN_FINAL.md. -/
++/-! Ported verbatim 2026-09-13 from work/drafts/smoothing/Smoothing_Assembled.lean (assembler subagent of the pod executor merging the eight placeholder-free prover units U1-U5, U6a-c of work/drafts/smoothing/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md records the de-duplications and the replacement of the false lemma `seg_arc_subset_ball` by `seg_arc_subset_closedBall`; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Library module (no row): the geometric smoothing existence `exists_smoothing : ∀ D x, ∃ D₀, IsOrientedSmoothing D x D₀`, the constructive record bridge `exists_smoothing_record` / `exists_smoothing_record_visit` (D₀ with RecordIso D₀.record (D.record.smooth v)) and `exists_smoothing_counts` — the gate for lp:core, rp:record-polynomial, lp:split-circle, lc:presentations and the mp:* rows. Design: work/drafts/smoothing/PLAN_FINAL.md. -/
+ 
+ 
+ /-! # Smoothing (assembled) — the oriented smoothing `exists_smoothing` / `smoothing_record`
+--- work/lean/SM/SoftRotation.lean
++++ work/lean/SM/SoftRotation.lean
+@@ -4,7 +4,7 @@
+ import SM.AngleScaling
+ 
+ /-! Towards lem:soft-rotation (sm-5-transport.tex:317). Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-transport-lane / prove:soft-rotation), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-transport-lane / prove:soft-rotation), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/SoftRotation.lean (only this header added and #print lines removed). -/
+ 
+ /-! Source lem:soft-rotation (reference/SM/sm-5-transport.tex:317, frame SM15): rotation of a
+--- work/lean/SM/StarPolygons.lean
++++ work/lean/SM/StarPolygons.lean
+@@ -2,7 +2,7 @@
+ import SM.ShiftTheorem
+ 
+ /-! Towards def:star and lem:star-generic (i)-(iii) (sm-5-transport.tex:5, 16). Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-transport-lane / prove:stars-Kr), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-transport-lane / prove:stars-Kr), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/StarPolygons.lean (only this header added and #print lines removed). -/
+ 
+ /-! SM def:star (the stars `K_r`, `r ≥ 1`) and lem:star-generic (i)–(iii), from
+--- work/lean/SM/TransportAngleInterval.lean
++++ work/lean/SM/TransportAngleInterval.lean
+@@ -4,7 +4,7 @@
+ import Mathlib.Algebra.Order.Round
+ 
+ /-! Towards lem:transport-angle-interval (sm-5-transport.tex:133). Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-transport-lane / prove:angle-interval), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-transport-lane / prove:angle-interval), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/AngleInterval.lean (only this header added and #print lines removed). -/
+ 
+ /-! # SM15, `lem:transport-angle-interval` (lifting a semicircle to one real interval)
+--- work/lean/SM/TransportLemma.lean
++++ work/lean/SM/TransportLemma.lean
+@@ -5,7 +5,7 @@
+ /-! Source lem:transport (reference/SM/sm-5-transport.tex:299, frame SM15): transport. Main declaration:
+ `SM.transport_lemma`. Statement fixed by the executor (work/drafts/TransportLemma_statement.lean); proof written 2026-09-13 by a
+ Claude Code prover subagent of the pod executor (workflow prove-transport-lemma / prove:transport-A), checked with `lake env lean`
+-(sorry-free, standard axioms) and ported verbatim from work/drafts/TransportLemmaA.lean (only this header added and #print lines
++(placeholder-free, standard axioms) and ported verbatim from work/drafts/TransportLemmaA.lean (only this header added and #print lines
+ removed). A second independent proof (work/drafts/TransportLemmaB.lean) compiles as well and is kept as a cross-check. -/
+ 
+ /-! Source lem:transport (reference/SM/sm-5-transport.tex:299, frame SM15): transport. Main
+--- work/lean/SM/TransportLengths.lean
++++ work/lean/SM/TransportLengths.lean
+@@ -6,7 +6,7 @@
+ import Mathlib.Topology.MetricSpace.Bounded
+ 
+ /-! Towards lem:transport-lengths (sm-5-transport.tex:76). Written 2026-09-13 by a Claude Code prover subagent of the pod
+-executor (workflow prove-transport-lane / prove:transport-lengths), checked with `lake env lean` (sorry-free, standard axioms) and
++executor (workflow prove-transport-lane / prove:transport-lengths), checked with `lake env lean` (placeholder-free, standard axioms) and
+ ported verbatim from work/drafts/TransportLengths.lean (only this header added and #print lines removed). -/
+ 
+ /-! # SM lem:transport-lengths (positive closing lengths along a direction path)
+--- work/lean/SM/TurnLift.lean
++++ work/lean/SM/TurnLift.lean
+@@ -1,6 +1,6 @@
+ import SM.TurningNumber
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/TurnLift.lean (implementer/prover subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row cf:lem-turnlift → `SM.turnlift : TurnLiftData`; plan work/drafts/TurnLift_PLAN.md. Shared with CV row 145 (decision F6). -/
++/-! Ported verbatim 2026-09-13 from work/drafts/TurnLift.lean (implementer/prover subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row cf:lem-turnlift → `SM.turnlift : TurnLiftData`; plan work/drafts/TurnLift_PLAN.md. Shared with CV row 145 (decision F6). -/
+ 
+ /-! # SM cf:lem-turnlift — tangent lifts and principal turns (row 96)
+ 
+--- work/lean/SM/TurningNumber.lean
++++ work/lean/SM/TurningNumber.lean
+@@ -9,7 +9,7 @@
+ import SM.RotationContinuity
+ import SM.RotationTheorem
+ 
+-/-! Ported verbatim 2026-09-13 from work/drafts/TurningNumber.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row cf:def-turning → `SM.turning_definition`; the definitions are shared with cf:lem-turnlift (row 96) and CV def:rot / lem:turnlift (rows 144-145, decision F6). Plan: work/drafts/TurningNumber_PLAN.md; scout: work/reports/turning-number-scout-20260913.md. -/
++/-! Ported verbatim 2026-09-13 from work/drafts/TurningNumber.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row cf:def-turning → `SM.turning_definition`; the definitions are shared with cf:lem-turnlift (row 96) and CV def:rot / lem:turnlift (rows 144-145, decision F6). Plan: work/drafts/TurningNumber_PLAN.md; scout: work/reports/turning-number-scout-20260913.md. -/
+ 
+ /-! # SM cf:def-turning — direction loops and smooth rotation
+ 
+--- work/lean/SM/Uniqueness.lean
++++ work/lean/SM/Uniqueness.lean
+@@ -5,7 +5,7 @@
+ /-! Source thm:uniqueness (reference/SM/sm-6-comparison.tex:201, frame SM15): uniqueness (Theorem 1 of
+ the main text). Main declaration: `SM.uniqueness`. Statement fixed by the executor
+ (work/drafts/Uniqueness_statement.lean); proof by a Claude Code prover subagent (workflow prove-uniqueness / attempt A), checked
+-with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/UniquenessA.lean (only the #print line
++with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/UniquenessA.lean (only the #print line
+ removed and this sentence added); attempt B (work/drafts/UniquenessB.lean, a symmetric formulation) compiles as well and is kept
+ as a cross-check.
+ 
+--- work/lean/SM/ZeroLink.lean
++++ work/lean/SM/ZeroLink.lean
+@@ -1,6 +1,6 @@
+ import SM.LinkDiagram
+ 
+-/-! Ported 2026-09-13 from work/drafts/zerolink/Skeleton_FINAL.lean (design-panel winner A, fully proved by the designer; judge-merged; checked with `lake env lean`, no sorry, standard axioms). The statement part (module docstring, `Shadow.MixedPair`, `mixedSignSum`, `ZeroLinkData`, the signature of `zero_link`) is verbatim work/drafts/ZeroLink_statement.lean; plan work/drafts/zerolink/PLAN_FINAL.md; cross-check draft work/drafts/zerolink/Skeleton_B.lean (independent partial design). Row mp:zero-link → `SM.zero_link`. -/
++/-! Ported 2026-09-13 from work/drafts/zerolink/Skeleton_FINAL.lean (design-panel winner A, fully proved by the designer; judge-merged; checked with `lake env lean`, no placeholder, standard axioms). The statement part (module docstring, `Shadow.MixedPair`, `mixedSignSum`, `ZeroLinkData`, the signature of `zero_link`) is verbatim work/drafts/ZeroLink_statement.lean; plan work/drafts/zerolink/PLAN_FINAL.md; cross-check draft work/drafts/zerolink/Skeleton_B.lean (independent partial design). Row mp:zero-link → `SM.zero_link`. -/
+ 
+ /-! Source mp:zero-link (reference/SM/sm-3-statesum.tex:1538-1545, frame SM15): mixed signed crossings in
+ a stack. Main declaration: `SM.zero_link`.

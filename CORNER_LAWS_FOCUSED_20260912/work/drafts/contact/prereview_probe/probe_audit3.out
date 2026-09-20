@@ -1,0 +1,20 @@
+
+=== L4 (a=1, gam=0.3): D=1, U=3, w=0;  w-D=-1, w-U=-3;  L self-approach (param sep>0.3*2pi) = 0.679 ===
+  s0=0.2, W=sin(4t)/4: min alpha = 0.0195;  circle self-approach = 0.739;  max speed = 2.99
+  circle front writhe (over = smaller y) = -1; crossings (t_o,t_u,sgn,y_o,y_u) = [(6.124, 0.159, -1, -0.3, 0.3)]; min y-gap = 0.594
+  eps=0.1: sl(Gauss) at N=(8000, 16000) -> [np.float64(-1.0014), np.float64(-1.0)]    [w-D=-1, w-U=-3]
+
+=== crossing Legendrian (a=2.4, gam=-0.8): D=2, U=2, w=1;  w-D=-1, w-U=-1;  L self-approach (param sep>0.3*2pi) = 2.502 ===
+  no k gives a positive circle
+
+=== transverse curve T3'' = (2cos t + cos 2t, -3x', sin 6t/6 + 0.2 sin 3t + 0.3 cos t + 0.25 sin t) ===
+  min alpha = -0.0596;  self-approach = 0.271;  max speed = 18.09
+  front writhe (over = smaller y) = -3; #crossings = 5; min y-gap = 2.056
+  crossings = [(4.659, 1.624, -1, -5.35, 5.36), (2.707, 1.664, -1, -2.06, 4.87), (4.353, 1.93, 1, -1.67, 1.67), (4.597, 2.656, -1, -4.58, -2.15), (2.964, 3.319, -1, -1.03, 1.03)]
+  eps=0.1: sl(Gauss) at N=8000,16000 -> [np.float64(-2.9761), np.float64(-2.999)]
+  eps=0.2: sl(Gauss) at N=8000,16000 -> [np.float64(-2.999), np.float64(-3.0)]
+
+real	1m9.692s
+user	0m59.307s
+sys	0m9.543s
+exit=0

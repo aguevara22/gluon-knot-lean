@@ -1,0 +1,293 @@
+{
+  "base": "Wave1_Assembled.lean",
+  "adopted_units": [
+    "W2_S7A2",
+    "W2_S7E",
+    "Wave2a_Assembled"
+  ],
+  "rejected_units": {},
+  "audit_only": {
+    "W2_SGD": {
+      "base": "Partial_Assembled.lean",
+      "hunks": [
+        "672a673,838",
+        "691c857,868"
+      ],
+      "removed_lines": [
+        "  sorry"
+      ],
+      "violations": [],
+      "imports": [],
+      "blocks": [
+        {
+          "hunk": "672a673,838",
+          "n_lines": 166,
+          "n_decls": 7
+        }
+      ],
+      "bodies": [
+        {
+          "hunk": "691c857,868",
+          "leaf": "sg_daughters_products",
+          "n_lines": 12
+        }
+      ],
+      "verdict": "clean"
+    },
+    "W2_SFTC": {
+      "base": "Partial_Assembled.lean",
+      "hunks": [
+        "7109a7110,7802",
+        "7119c7812,7865"
+      ],
+      "removed_lines": [
+        "  sorry"
+      ],
+      "violations": [],
+      "imports": [],
+      "blocks": [
+        {
+          "hunk": "7109a7110,7802",
+          "n_lines": 693,
+          "n_decls": 36
+        }
+      ],
+      "bodies": [
+        {
+          "hunk": "7119c7812,7865",
+          "leaf": "sft_same_sign",
+          "n_lines": 54
+        }
+      ],
+      "verdict": "clean"
+    },
+    "W2_SFTD": {
+      "base": "Partial_Assembled.lean",
+      "hunks": [
+        "7261a7262,9827",
+        "7272c9838,9863"
+      ],
+      "removed_lines": [
+        "  sorry"
+      ],
+      "violations": [],
+      "imports": [],
+      "blocks": [
+        {
+          "hunk": "7261a7262,9827",
+          "n_lines": 2566,
+          "n_decls": 188
+        }
+      ],
+      "bodies": [
+        {
+          "hunk": "7272c9838,9863",
+          "leaf": "sft_loop",
+          "n_lines": 26
+        }
+      ],
+      "verdict": "clean"
+    }
+  },
+  "imports_added": [],
+  "helper_blocks": [
+    {
+      "unit": "W2_S7A2",
+      "hunk": "5543a5544,6257",
+      "base": "Wave1_Assembled.lean",
+      "anchor_after_base_line": 5543,
+      "n_lines": 714,
+      "n_decls": 60,
+      "decls_head": [
+        "s7a2_outEdge",
+        "s7a2_inEdge",
+        "s7a2_outParam",
+        "s7a2_inParam"
+      ]
+    },
+    {
+      "unit": "W2_S7E",
+      "hunk": "6256a6257,8477",
+      "base": "W2_S7A2.lean",
+      "anchor_after_base_line": 6256,
+      "n_lines": 2221,
+      "n_decls": 179,
+      "decls_head": [
+        "s7e_term",
+        "s7e_term_of_not",
+        "s7e_term_of_decomposition",
+        "s7e_cornerStateSum_eq_sum_term"
+      ]
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "672a673,838",
+      "base": "Wave1_Assembled.lean",
+      "anchor_after_base_line": 672,
+      "n_lines": 166,
+      "n_decls": 7,
+      "decls_head": [
+        "sgd_daughters",
+        "sgd_blocksOwnedBy_disjoint",
+        "sgd_pieceEmbedding_mem_blocksOwnedBy",
+        "sgd_exists_preimage"
+      ]
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8438a8616,9308",
+      "base": "Wave1_Assembled.lean",
+      "anchor_after_base_line": 8438,
+      "n_lines": 693,
+      "n_decls": 36,
+      "decls_head": [
+        "sftc_soft_data",
+        "sftc_dir",
+        "sftc_dir_of_ne",
+        "sftc_dir_att"
+      ]
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8590a9514,12079",
+      "base": "Wave1_Assembled.lean",
+      "anchor_after_base_line": 8590,
+      "n_lines": 2566,
+      "n_decls": 188,
+      "decls_head": [
+        "sftd_IsLoopInsertion",
+        "sftd_block_length",
+        "sftd_block_perm",
+        "sftd_block_nodup"
+      ]
+    }
+  ],
+  "leaf_bodies": [
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "691c857,868",
+      "leaf": "sg_daughters_products",
+      "n_lines": 12
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8448c9318,9371",
+      "leaf": "sft_same_sign",
+      "n_lines": 54
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8601c12090,12115",
+      "leaf": "sft_loop",
+      "n_lines": 26
+    }
+  ],
+  "notes": [
+    "W2_S7A2 (base Wave1_Assembled.lean): hunks=['5543a5544,6257'] removed_lines=[]",
+    "W2_S7E (base W2_S7A2.lean): hunks=['6256a6257,8477'] removed_lines=[]",
+    "Wave2a_Assembled (base Wave1_Assembled.lean): hunks=['672a673,838', '691c857,868', '8438a8616,9308', '8448c9318,9371', '8590a9514,12079', '8601c12090,12115'] removed_lines=['  sorry', '  sorry', '  sorry']"
+  ],
+  "dedup_dropped": [],
+  "renamed": [],
+  "contiguity": [
+    {
+      "unit": "W2_S7A2",
+      "hunk": "5543a5544,6257",
+      "out_lines": "5721-6432",
+      "trailing_blank_lines_of_hunk": 2,
+      "occurrences": 1,
+      "contiguous": true,
+      "section": "section VertexEdge"
+    },
+    {
+      "unit": "W2_S7E",
+      "hunk": "6256a6257,8477",
+      "out_lines": "6434-8653",
+      "trailing_blank_lines_of_hunk": 1,
+      "occurrences": 1,
+      "contiguous": true,
+      "section": "section VertexEdge"
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "672a673,838",
+      "out_lines": "673-837",
+      "trailing_blank_lines_of_hunk": 1,
+      "occurrences": 1,
+      "contiguous": true,
+      "section": "section Singleton"
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8438a8616,9308",
+      "out_lines": "11551-12241",
+      "trailing_blank_lines_of_hunk": 2,
+      "occurrences": 1,
+      "contiguous": true,
+      "section": "section Soft"
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "hunk": "8590a9514,12079",
+      "out_lines": "12449-15013",
+      "trailing_blank_lines_of_hunk": 1,
+      "occurrences": 1,
+      "contiguous": true,
+      "section": "section Soft"
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "leaf": "sg_daughters_products",
+      "out_lines": "857-868",
+      "in_place": true,
+      "occurrences": 1
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "leaf": "sft_same_sign",
+      "out_lines": "12253-12306",
+      "in_place": true,
+      "occurrences": 1
+    },
+    {
+      "unit": "Wave2a_Assembled",
+      "leaf": "sft_loop",
+      "out_lines": "15025-15050",
+      "in_place": true,
+      "occurrences": 1
+    }
+  ],
+  "checks": {
+    "output == W2_S7A2.lean after applying W2_S7A2": true,
+    "import_header": {
+      "base_imports": 17,
+      "added": [],
+      "out_header_is_imports": true
+    },
+    "2a_blocks_equal_units_blocks": true,
+    "2a_bodies_equal_units_bodies": true
+  },
+  "out": "Corner_Assembled.lean",
+  "out_lines": 15168,
+  "sorry_lines": 8,
+  "sorry_line_numbers": [
+    25,
+    8667,
+    9833,
+    15135,
+    15141,
+    15146,
+    15151,
+    15156
+  ],
+  "sorry_decls": [
+    "s7_sliding_law_at",
+    "s7_bigon_law_at",
+    "cb_singleton",
+    "corner_values",
+    "thm_C_S7",
+    "thm_C_soft"
+  ],
+  "n_decls_out": 1096,
+  "failed": false
+}

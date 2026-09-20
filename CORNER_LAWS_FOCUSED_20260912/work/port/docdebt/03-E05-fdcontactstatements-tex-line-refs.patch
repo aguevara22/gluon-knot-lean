@@ -1,0 +1,20 @@
+--- work/lean/SM/FdContactStatements.lean
++++ work/lean/SM/FdContactStatements.lean
+@@ -26,7 +26,7 @@
+ polynomial of this actual diagram, one has [fd:representative-bound]" = `representative_bound`,
+ `P_T = P X` for every polygonal reading `X` of `D_T` (FR-1: a `HeightMarking` of the one-component
+ spatial link `K.spatial`, over = smaller `y` — the reading row 91 takes for its endpoint `T`).  The two
+-closing sentences (3418-3421) are commentary on the hypotheses and have no field. -/
++closing sentences (3419-3421) are commentary on the hypotheses and have no field. -/
+ structure FdContactData : Prop where
+   /-- sm-3:3406-3407, the first sentence (the front page convention, definitional on row 92). -/
+   over_rule_sign : ∀ (K : TransverseKnot) (s t : ℝ), K.front.IsDouble s t →
+@@ -34,7 +34,7 @@
+     K.front.crossSign s t = ((SignType.sign (det (K.front.vel s) (K.front.vel t)) : SignType) : ℤ)
+   /-- display fd:front-writhe (sm-3:3409-3411): `sl(T) = Σ_q sgn det_xz(u_O(q), u_U(q))`. -/
+   front_writhe : ∀ K : TransverseKnot, sl K = (K.front.writhe : ℝ)
+-  /-- display fd:representative-bound (sm-3:3412-3418): `sl(T) ≤ −max deg_a P_T(a,z) − 1`, for every
++  /-- display fd:representative-bound (sm-3:3412-3418; the display itself 3416-3418): `sl(T) ≤ −max deg_a P_T(a,z) − 1`, for every
+   polygonal reading `X` of the specified diagram `D_T`. -/
+   representative_bound : ∀ (K : TransverseKnot) (X : Diagram),
+     Nonempty (K.spatial.HeightMarking K.spatial.projLoop X) →

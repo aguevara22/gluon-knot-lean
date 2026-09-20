@@ -1,0 +1,57 @@
+\begin{corollary}[laws inherited by $C$]\label{cor:C-inherits}
+Under Hypothesis~R, $C$ satisfies every identity of
+Corollary~\ref{cor:A-lawful} on the domains stated there, in particular
+the cusp law
+$C(P_{\rm loop})-C(P_{\rm no})=-\kappa\,C(P(0)\setminus j)$.
+\status{new (printed in round~1, C013; restricted to Corollary~\ref{cor:A-lawful}, F-25-11; round~3: proof completed with the domain checks on bench~A's named step, adapted from the Codex proposal P-25-19, F-25-11)}
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:comparison} identifies $C$ with $A$ on every generic
+polygon, and Definition~\ref{def:C} defines $C$ on generic polygons only;
+so before $C=A$ is substituted in an identity of
+Corollary~\ref{cor:A-lawful}, every argument of that identity must be
+shown generic. The two sides of a wall germ are generic by
+Definition~\ref{def:germ}. At a simple flat wall the deletion
+$P(0)\setminus j$ is generic by Lemma~\ref{lem:children}(i), and at a
+simple vertex--edge wall both halves are generic by
+Lemma~\ref{lem:children}(ii). The soft family $P_\varepsilon$ is generic
+for all sufficiently small $\varepsilon>0$ in every sector by
+Lemma~\ref{lem:soft-generic}. Reversal permutes the vertex triples and
+preserves the edge segments, so it preserves (G1) and (G2). The two
+triangles $K_{\pm1}$ are generic by Lemma~\ref{lem:star-generic}(iii).
+
+For the cusp law let the simple cusp wall be at $j$ and write
+$A=\mu_{j-1}(0)$, $M=\mu_j(0)$ and $B=\mu_{j+1}(0)$. The deletion
+$Q=P(0)\setminus j$ has the vertices $\mu_i(0)$, $i\neq j$, and its edges
+are the parent edges $E_i(0)$, $i\notin\{j-1,j\}$, together with the fused
+edge $[A,B]$; it satisfies (G1) by the hypothesis of the cusp law. For (G2):
+by Definition~\ref{def:walls}(K) the three points are collinear with $M$
+outside the closed segment $[A,B]$, so $[A,B]$ is contained in the longer of
+$[A,M]=E_{j-1}(0)$ and $[M,B]=E_j(0)$, and its relative interior in the
+relative interior of that edge. Suppose three distinct edges of $Q$ had a
+common point in their relative interiors. Two adjacent edges of $Q$ are not
+collinear, by (G1) for $Q$, and so meet only at their common vertex; hence
+the three edges are pairwise remote in $Q$. Send the fused edge, if it is
+among them, to the longer parent edge containing it, and every other edge
+to itself. This map is injective, since neither $E_{j-1}(0)$ nor $E_j(0)$
+is an edge of $Q$, and the common point lies in the relative interiors of
+the three image edges. The image edges are pairwise remote in $P(0)$: two
+surviving edges are adjacent in $P(0)$ exactly when they share a vertex,
+which is a vertex of $Q$, hence exactly when they are adjacent in $Q$; and
+the parent neighbours of the longer cusp edge are the other cusp edge,
+which is not an edge of $Q$, and one of the two edges of $Q$ adjacent to
+the fused edge, both excluded because the three edges are pairwise remote
+in $Q$. This is a point in the relative interiors of three pairwise remote
+edges of the centre, contrary to $Z_{\rm c}=\varnothing$ in
+Definition~\ref{def:walls}(K). Thus $Q$ is generic; the argument does not
+require the cusp to be empty.
+
+Now apply each identity of Corollary~\ref{cor:A-lawful} to its stated
+arguments and substitute $C=A$ at every one of them, including the
+deletions and halves just checked. For a chamber-side identity each
+sufficiently small punctured side lies in one generic chamber, on which
+$C=A$ holds pointwise, so the constant side values of $C$ and of $A$
+agree; no value at the wall centre and no limit is used. This gives every
+identity for $C$ on the domain stated in Corollary~\ref{cor:A-lawful},
+including the displayed cusp law.
+\end{proof}

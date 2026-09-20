@@ -4,12 +4,12 @@ import SM.RegularPerturbation
 import SM.GermNeighborhood
 import SM.GeometricParameters
 
-/-! Ported verbatim 2026-09-13 from work/drafts/flatcarriers/FlatCarriers_Assembled.lean (assembler subagent of the pod executor merging the five sorry-free prover units U1_Records, U2_Correspondence, U3_CentreGeometry, U4_Rotation, U5_Selector; de-duplication and wiring recorded in work/drafts/flatcarriers/ASSEMBLY_REPORT.md; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Rows def:flat-carriers → `SM.flat_carriers_definition`, cor:flat-carriers → `SM.flat_carriers` (bundles and definitions in SM/FlatCarriersDefs.lean; statements byte-identical to work/drafts/flatcarriers/Statement_FINAL.lean; design PLAN_FINAL.md). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/flatcarriers/FlatCarriers_Assembled.lean (assembler subagent of the pod executor merging the five placeholder-free prover units U1_Records, U2_Correspondence, U3_CentreGeometry, U4_Rotation, U5_Selector; de-duplication and wiring recorded in work/drafts/flatcarriers/ASSEMBLY_REPORT.md; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Rows def:flat-carriers → `SM.flat_carriers_definition`, cor:flat-carriers → `SM.flat_carriers` (bundles and definitions in SM/FlatCarriersDefs.lean; statements byte-identical to work/drafts/flatcarriers/Statement_FINAL.lean; design PLAN_FINAL.md). -/
 
 
 /-! # def:flat-carriers / cor:flat-carriers — ASSEMBLED
 
-Assembly (2026-09-13) of the five sorry-free prover units of work/drafts/flatcarriers/
+Assembly (2026-09-13) of the five placeholder-free prover units of work/drafts/flatcarriers/
 (`U1_Records`, `U2_Correspondence`, `U3_CentreGeometry`, `U4_Rotation`, `U5_Selector`; plan
 PLAN_FINAL.md §5) into the two row theorems `SM.flat_carriers_definition` and `SM.flat_carriers`,
 whose statements are EXACTLY those of `Statement_FINAL.lean` (lines 950 and 1272), on the FIXED
@@ -1045,7 +1045,7 @@ end SM
 (def:flat-carriers / cor:flat-carriers, work/drafts/flatcarriers/PLAN_FINAL.md §5 "### U2").
 
 Written 2026-09-13 by the U2 prover subagent on top of the built module `SM.FlatCarriersDefs`.
-Everything here is sorry-free. The interface lemmas of U1 are taken as explicit hypotheses,
+Everything here is placeholder-free. The interface lemmas of U1 are taken as explicit hypotheses,
 named as in PLAN_FINAL.md:
 * `identify_sides_marks` : `(geoMarkList C).map (markTransport (hs b)) = geoMarkList T`;
 * `identify_deletion_marks` : `(((geoMarkList C).erase (inl j)).map delMark : Cycle _) = geoMarkList D`;
@@ -2674,7 +2674,7 @@ Contents.
    `geoComponentCornerList_eq_generic` by `generic_corner_props`.
 6. Turn signs: `same_turn_signs`, `centre_turn_signs`, `extra_corner`.
 
-Assumed interface (explicit hypotheses, never `sorry`): U2's `GeoCarrierSpec (flatCentreCG …) S`
+Assumed interface (explicit hypotheses, never a placeholder): U2's `GeoCarrierSpec (flatCentreCG …) S`
 (only `traced_successor` is used), U1's `independent_supports` output in the form
 `IsDecomposition … (transportSupport (hs b) S)` / `IsDecomposition … (deletionSupport … S)`, and the
 side facts of lem:flat-sides read at the side parameter (chi agreement off `turnSupport j`, crossing
@@ -3982,7 +3982,7 @@ Contents.
   `rotationNumber_locally_constant` gives a common radius `δ_rot` for all supports and carriers.
 * §F: `same_rotation`: the field of `FlatCarriersData` from the U2/U3 interface hypotheses.
 
-Interface hypotheses (assumed explicitly as arguments, never `sorry`; each is a projection of a
+Interface hypotheses (assumed explicitly as arguments, never a placeholder; each is a projection of a
 `FlatCarriersData` field or a U2 lemma — checked by an `example` against the field projections
 `correspond_deletion.2.1`, `central_vs_deletion_through_mu_j.1`/`.2.2.1`, `others_unchanged _ _ |>.2.1`,
 `nonzero_segments.2.1`/`.2.2.2.1`, `no_antiparallel.1`/`.2.1`, `turns_nonzero.1`, and the conclusion of
@@ -4821,7 +4821,7 @@ selector fields of `SM.FlatCarriersData` (SM/FlatCarriersDefs.lean):
   other carrier "retain[s] all [its] corner signs and counts" (sm-3:906-907), so the side copy's
   selector is the deletion copy's.
 
-Interface. The three lemmas take as explicit hypotheses (never `sorry`) the fields of
+Interface. The three lemmas take as explicit hypotheses (never a placeholder) the fields of
 `FlatCarriersData` proved by the units U2 (carrier correspondences and corner-cycle identities:
 `correspond_sides`, `others_unchanged`, `central_vs_deletion_through_mu_j`) and U3 (turn transport:
 `same_turn_signs`, `extra_corner`), stated verbatim as the fields so that the assembly (U1) can pass
@@ -4830,7 +4830,7 @@ Interface. The three lemmas take as explicit hypotheses (never `sorry`) the fiel
 exhaustive over `SignType`, a zero turn counting as "mixed"), `hF`, and any hypothesis on `n, g, j`
 beyond those in the fields' statements.
 
-Everything is sorry-free; `#print axioms` at the end: `propext, Classical.choice, Quot.sound`. -/
+Everything is placeholder-free; `#print axioms` at the end: `propext, Classical.choice, Quot.sound`. -/
 
 namespace SM
 

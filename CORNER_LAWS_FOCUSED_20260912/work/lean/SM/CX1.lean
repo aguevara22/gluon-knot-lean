@@ -1,6 +1,6 @@
 import SM.CornerStateSum
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CX1A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row lem:C-X1 → `SM.C_X1`. Cross-check draft: work/drafts/CX1B.lean (independent, in progress at port time). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CX1A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row lem:C-X1 → `SM.C_X1`. Cross-check draft: work/drafts/CX1B.lean (independent, in progress at port time). -/
 
 /-! Source lem:C-X1 (reference/SM/sm-3-statesum.tex:1787-1798, frame SM15): selector form of the carrier state
 sum. Main declaration: `SM.C_X1`.

@@ -1,0 +1,29 @@
+# Exact final target
+
+Prove that the corner state sum C of SM `def:C` satisfies every wall law on
+the domains of SM `cor:A-lawful`, together with SM `thm:C-soft` in every soft
+sector. The final declaration is `SM.corner_laws_and_soft`. Define its conclusion
+as the conjunction of these actual C identities, with their printed quantifiers,
+signs and domains. Do not replace it by a theorem about a freely supplied lawful
+function. Its only unproved nonstandard inputs may be the five listed literature
+interfaces. It must not retain an R assumption or assume the desired laws.
+
+Required coverage:
+- Chamber constancy and silent-wall invariance.
+- The flat deletion law.
+- Both bigon branches and the sliding branch of the vertex-edge law, with the
+  stated sign and the actual two child polygons.
+- Triple-wall invariance at every source simple triple wall, after proving R.
+- The full cusp jump on the source domain (the deletion satisfies G1), including
+  threaded cusps; retain the direct empty-cusp zero result.
+- The soft theorem in every sector, including zero-selector sectors.
+
+Use the normalizations and reversal/cyclic identities inherited with
+`cor:A-lawful` as stated there. No stronger cusp domain is commissioned.
+Full cusp is obtained in the supplied proof through `cor:C-inherits`, so its
+comparison/transport/amplitude prerequisites remain in scope. Equality C=A is
+a helper in that route; it is not a replacement for the requested final laws.
+
+The source calls R a hypothesis. This deliverable must prove it. The extracts
+below preserve the source's conditional wording; the final assembly instantiates
+that conditional theorem with the separately proved R result.

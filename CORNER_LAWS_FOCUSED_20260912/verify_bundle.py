@@ -97,7 +97,9 @@ def verify():
     require(spec['mode'] == 'focused' and spec['acceptance_stages'] == [1] and not spec['certificates'], 'focused mode')
     policy = json.loads((ROOT / 'lean/axiom-policy.json').read_text())
     required_axioms = {'lit:homfly', 'lp:lm', 'lp:lm-uniqueness', 'ng:finite-word', 'src:contact'}
-    require(set(policy['literature']) == {x['id'] for x in axioms} == required_axioms, 'literature ceiling')
+    # A literature input may carry a second declaration under a key '<id> (<note>)' (author's decision D-GAP2, 2026-09-15);
+    # the ceiling is on the set of literature inputs (labels), which must still be exactly the five.
+    require({k.split(' ')[0] for k in policy['literature']} == {x['id'] for x in axioms} == required_axioms, 'literature ceiling')
     require('hd:tableau-source' not in ids and 'CV:thm:main' not in ids and 'CV:ax:lawful' not in ids, 'unrelated or circular scope')
     # Check the sealed SM11 quotations against SM15 through the pinned realignment ledger.
     quotes = json.loads((ROOT / 'reference/BRIDGE/QUOTATIONS.json').read_text())['quotes']

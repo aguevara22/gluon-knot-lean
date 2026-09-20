@@ -1,35 +1,35 @@
 flowchart TD
-  n0["183 theorem<br/><i>blocked via cv_theorem</i>"]
+  n0["183 theorem<br/><i>accepted</i>"]
   n1["ax:R<br/><i>hypothesis (Prop)</i>"]
-  n2["161 ax:etnyre<br/><i>needs src:contact; no sl object</i>"]
-  n3["162 ax:slbound<br/><i>blocked via fd:contact</i>"]
-  n4["165 singleton_D_i<br/><i>blocked via thm:carrierfloor, cb:singleton</i>"]
-  n5["155 thm:carrierfloor<br/><i>blocked via ax:etnyre, ax:slbound</i>"]
-  n6["178 cv_theorem<br/><i>blocked via generic_selected, extreme_pair_zero, extreme_transport +1</i>"]
-  n7["175 extreme_pair_zero<br/><i>blocked via singleton_D_i</i>"]
-  n8["177 extreme_selected<br/><i>blocked via thm:carrierfloor</i>"]
-  n9["176 extreme_transport<br/><i>blocked via thm:carrierfloor</i>"]
-  n10["174 generic_selected<br/><i>blocked via thm:carrierfloor</i>"]
-  n11["184 corner_laws_and_soft<br/><i>blocked via cor:C-inherits, theorem, thm:C-soft</i>"]
-  n12["103 cb:singleton<br/><i>blocked via thm:floor</i>"]
-  n13["99 cf:thm-carrierfloor<br/><i>blocked via fd:contact</i>"]
-  n14["128 cor:C-inherits<br/><i>blocked via thm:comparison</i>"]
-  n15["91 cp:finite-contact-path<br/><i>GAP-2 origin: proved modulo AmbientIsotopyDescent</i>"]
-  n16["94 fd:contact<br/><i>blocked via cp:finite-contact-path, src:contact</i>"]
+  n2["161 ax:etnyre<br/><i>accepted</i>"]
+  n3["162 ax:slbound<br/><i>accepted</i>"]
+  n4["165 singleton_D_i<br/><i>accepted</i>"]
+  n5["155 thm:carrierfloor<br/><i>accepted</i>"]
+  n6["178 cv_theorem<br/><i>accepted</i>"]
+  n7["175 extreme_pair_zero<br/><i>accepted</i>"]
+  n8["177 extreme_selected<br/><i>accepted</i>"]
+  n9["176 extreme_transport<br/><i>accepted</i>"]
+  n10["174 generic_selected<br/><i>accepted</i>"]
+  n11["184 corner_laws_and_soft<br/><i>accepted</i>"]
+  n12["103 cb:singleton<br/><i>accepted</i>"]
+  n13["99 cf:thm-carrierfloor<br/><i>accepted</i>"]
+  n14["128 cor:C-inherits<br/><i>accepted</i>"]
+  n15["91 cp:finite-contact-path<br/><i>accepted</i>"]
+  n16["94 fd:contact<br/><i>accepted</i>"]
   n17["hyp:R<br/><i>hypothesis (Prop)</i>"]
-  n18["105 lem:corner-values<br/><i>blocked via cb:singleton</i>"]
-  n19["57 lem:gauss-two-discs<br/><i>deferred: PL Schoenflies, 12-20k lines</i>"]
+  n18["105 lem:corner-values<br/><i>accepted</i>"]
+  n19["57 lem:gauss-two-discs<br/><i>accepted</i>"]
   n20["lit:homfly<br/><i>literature axiom</i>"]
   n21["106 prop:C-chamber<br/><i>accepted</i>"]
   n22["107 prop:C-silent<br/><i>accepted</i>"]
-  n23["122 prop:anchor-values<br/><i>blocked via thm:C-soft</i>"]
-  n24["src:contact<br/><i>never declared (5th literature interface)</i>"]
+  n23["122 prop:anchor-values<br/><i>accepted</i>"]
+  n24["src:contact<br/><i>literature axiom</i>"]
   n25["108 thm:C-S3<br/><i>accepted</i>"]
   n26["111 thm:C-S5<br/><i>accepted</i>"]
-  n27["110 thm:C-S7<br/><i>blocked via cb:singleton, thm:floor</i>"]
-  n28["112 thm:C-soft<br/><i>blocked via lem:corner-values</i>"]
-  n29["127 thm:comparison<br/><i>blocked via lem:corner-values, thm:C-S7, thm:C-soft</i>"]
-  n30["100 thm:floor<br/><i>blocked via cf:thm-carrierfloor</i>"]
+  n27["110 thm:C-S7<br/><i>accepted</i>"]
+  n28["112 thm:C-soft<br/><i>accepted</i>"]
+  n29["127 thm:comparison<br/><i>accepted</i>"]
+  n30["100 thm:floor<br/><i>accepted</i>"]
   n0 --> n11
   n1 --> n6
   n2 --> n5
@@ -80,8 +80,6 @@ flowchart TD
   classDef root fill:#F9DDD9,stroke:#C43D2F,stroke-width:2px,color:#181B22
   classDef lit fill:#E7E0FB,stroke:#6E4FE0,color:#181B22
   classDef target stroke-width:3px
-  class n1,n17,n21,n22,n25,n26 ok
+  class n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n21,n22,n23,n25,n26,n27,n28,n29,n30 ok
   class n20,n24 lit
-  class n15,n19,n24 root
-  class n0,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n16,n18,n23,n27,n28,n29,n30 pend
   class n11,n14,n21,n22,n25,n26,n27,n28 target

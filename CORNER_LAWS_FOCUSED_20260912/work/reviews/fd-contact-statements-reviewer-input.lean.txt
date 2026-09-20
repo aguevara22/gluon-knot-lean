@@ -1,0 +1,279 @@
+-- Ported 15:05Z 2026-09-15 from work/drafts/contact/Statements_FINAL.lean lines 283-548 (§4 the row-94 bundle FdContactData with its two proved fields, the CV bundles of rows 161/162 and their derivations from FdContactData, §5 the unit Props, the bridges to row 87 vocabulary, the assembly fd_contact_of_units and U_package_of) by the pod executor; body verbatim except this header and the CV block moved from `namespace CV` inside `namespace SM` to the root namespace `CV` (D-SC-5; statements unchanged). LIBRARY MATERIAL: the row theorems SM.fd_contact and CV.ax_slbound are not declared here (they wait for the prover units).
+import SM.SrcContact
+
+/-! # Row 94 fd:contact — the statement bundle, the CV bundles of rows 161/162, and the proof route as unit Props
+
+See SM/SrcContact.lean and work/drafts/contact/PLAN_FINAL.md §2.3-§2.4, §5-§6. -/
+
+namespace SM
+
+open SM.Link TransverseNeighborhood
+open scoped ContDiff
+open Set Function Real
+
+noncomputable section
+open Classical
+
+local notation "E3" => EuclideanSpace ℝ (Fin 3)
+
+/-! ## 4. The rows -/
+
+/-- **fd:contact** (sm-3:3404-3423), one field per printed clause.  "In the xz front page the smaller-y
+branch is over, and its crossing sign is sgn det_xz(u_O, u_U)" = `over_rule_sign` (definitional on the
+accepted class, row 92); display fd:front-writhe = `front_writhe`; "Let T be an individual smooth
+positive transverse knot whose specified xz projection D_T is an ordinary finite regular generic
+diagram [= every `TransverseKnot`, def:transverse-front]. With P_T denoting the original campaign
+polynomial of this actual diagram, one has [fd:representative-bound]" = `representative_bound`,
+`P_T = P X` for every polygonal reading `X` of `D_T` (FR-1: a `HeightMarking` of the one-component
+spatial link `K.spatial`, over = smaller `y` — the reading row 91 takes for its endpoint `T`).  The two
+closing sentences (3418-3421) are commentary on the hypotheses and have no field. -/
+structure FdContactData : Prop where
+  /-- sm-3:3406-3407, the first sentence (the front page convention, definitional on row 92). -/
+  over_rule_sign : ∀ (K : TransverseKnot) (s t : ℝ), K.front.IsDouble s t →
+    (K.front.isOver s t ↔ yOf K.T s < yOf K.T t) ∧
+    K.front.crossSign s t = ((SignType.sign (det (K.front.vel s) (K.front.vel t)) : SignType) : ℤ)
+  /-- display fd:front-writhe (sm-3:3409-3411): `sl(T) = Σ_q sgn det_xz(u_O(q), u_U(q))`. -/
+  front_writhe : ∀ K : TransverseKnot, sl K = (K.front.writhe : ℝ)
+  /-- display fd:representative-bound (sm-3:3412-3418): `sl(T) ≤ −max deg_a P_T(a,z) − 1`, for every
+  polygonal reading `X` of the specified diagram `D_T`. -/
+  representative_bound : ∀ (K : TransverseKnot) (X : Diagram),
+    Nonempty (K.spatial.HeightMarking K.spatial.projLoop X) →
+    sl K ≤ ((-degAZ (P X) - 1 : ℤ) : ℝ)
+
+/-- The first field holds now (row 92, definitional). -/
+theorem fdContact_over_rule_sign (K : TransverseKnot) (s t : ℝ) (h : K.front.IsDouble s t) :
+    (K.front.isOver s t ↔ yOf K.T s < yOf K.T t) ∧
+    K.front.crossSign s t = ((SignType.sign (det (K.front.vel s) (K.front.vel t)) : SignType) : ℤ) := by
+  sorry
+
+
+/-- The second field holds now (the axiom's transverse clause). -/
+theorem fdContact_front_writhe (K : TransverseKnot) : sl K = (K.front.writhe : ℝ) := by
+  sorry
+
+
+end
+
+end SM
+
+namespace CV
+
+open SM SM.Link
+
+/-- **CV:ax:etnyre** (d10_axioms.tex:387-397): "Let T be a front diagram of a transverse knot with no
+downward vertical tangency. Then sl(T) equals the writhe of T."  Printed shape kept: `D` is a front
+diagram of the transverse knot `K` (`K.front = D`, def:transverse-front's class), "no downward vertical
+tangency" is the explicit hypothesis on `D` (redundant on this class: `TransverseKnot.front_vertical_up`,
+FR-FC-4); `sl(T)` is the SM's `sl` (the CV text never defines it: "presupposes the contact-geometric
+definition of sl; this document never defines it"; rem:sl-convention). -/
+structure AxEtnyreData : Prop where
+  self_linking_eq_writhe : ∀ (D : SM.SmoothKnotDiagram) (K : SM.TransverseKnot), K.front = D →
+    (∀ t : ℝ, (D.vel t).1 = 0 → 0 < (D.vel t).2) → SM.sl K = (D.writhe : ℝ)
+
+/-- **CV:ax:slbound** (d10_axioms.tex:399-425): "Let T be a transverse knot in the standard contact ℝ³
+and let P_T(a,z) be the HOMFLY–PT polynomial of the knot it presents, in the normalization of Axiom
+ax:homfly. Then sl(T) ≤ −max deg_a P_T(a,z) − 1."  Recorded narrowing (FR-FC-5): `T` ranges over the
+transverse knots with a generic front (`TransverseKnot`, SM fd:contact's own domain and the only
+consumer's instance, thm:carrierfloor (C)); "the knot it presents" has polynomial `homfly X`
+(`CV.ax_homfly`'s map = `SM.homfly`) for every polygonal reading `X` of its front (FR-1); the
+source-fidelity paragraph is commentary (FR-FC-6). -/
+structure AxSlboundData : Prop where
+  bound : ∀ (K : SM.TransverseKnot) (X : Diagram),
+    Nonempty (K.spatial.HeightMarking K.spatial.projLoop X) →
+    SM.sl K ≤ ((-degAZ (homfly X) - 1 : ℤ) : ℝ)
+
+/-- Row 161 from row 94's display fd:front-writhe (the printed hypothesis is unused). -/
+theorem ax_etnyre_of (h : FdContactData) : AxEtnyreData := by
+  sorry
+
+
+/-- Row 162 from row 94 (`P = homfly`, lp:core). -/
+theorem ax_slbound_of (h : FdContactData) : AxSlboundData := by
+  sorry
+
+
+end CV
+
+namespace SM
+
+open SM.Link TransverseNeighborhood
+open scoped ContDiff
+open Set Function Real
+
+noncomputable section
+open Classical
+
+local notation "E3" => EuclideanSpace ℝ (Fin 3)
+
+/-! ## 5. The proof of fd:contact through rows 84 → 87 → src:contact → 93 → 91: the units (named
+Props) and the assembly theorem (PLAN_FINAL §5-§6).  Each unit is one prover unit. -/
+
+/-! ### 5.0 The verbatim copies of row 84's notions in row 87 (`SM.GenericFront.*`) are the same
+predicates: eta bridges (unit U0, proved here) -/
+
+theorem embeddedCircle_toGF {L : ℝ → E3} (h : IsEmbeddedCircle L) :
+    GenericFront.IsEmbeddedCircle L := by
+  sorry
+
+
+theorem embeddedCircle_ofGF {L : ℝ → E3} (h : GenericFront.IsEmbeddedCircle L) :
+    IsEmbeddedCircle L := by
+  sorry
+
+
+theorem legendrian_toGF {L : ℝ → E3} (h : IsLegendrian L) : GenericFront.IsLegendrian L := by
+  sorry
+
+theorem legendrian_ofGF {L : ℝ → E3} (h : GenericFront.IsLegendrian L) : IsLegendrian L := by
+  sorry
+
+
+theorem annulus_toGF {L : ℝ → E3} {ε b : ℝ} {B : ℝ × ℝ → E3} (h : IsPushoffAnnulus L ε b B) :
+    GenericFront.IsPushoffAnnulus L ε b B := by
+  sorry
+
+
+theorem annulus_ofGF {L : ℝ → E3} {ε b : ℝ} {B : ℝ × ℝ → E3}
+    (h : GenericFront.IsPushoffAnnulus L ε b B) : IsPushoffAnnulus L ε b B := by
+  sorry
+
+
+theorem pushoff_toGF {L T' : ℝ → E3} (h : IsPositivePushoff L T') :
+    GenericFront.IsPositivePushoff L T' := by
+  sorry
+
+
+theorem pushoff_ofGF {L T' : ℝ → E3} (h : GenericFront.IsPositivePushoff L T') :
+    IsPositivePushoff L T' := by
+  sorry
+
+
+theorem circleReparam_ofGF {ρ : ℝ → ℝ} (h : GenericFront.IsCircleReparam ρ) : IsCircleReparam ρ := by
+  sorry
+
+
+theorem transverselyIsotopic_ofGF {T₀ T₁ : ℝ → E3} (h : GenericFront.TransverselyIsotopic T₀ T₁) :
+    TransverselyIsotopic T₀ T₁ := by
+  sorry
+
+
+/-! ### 5.1 The units -/
+
+/-- U0: the knot of def:transverse-front is a row-84 input (2π-periodic embedded circle, `α(T′) > 0`);
+chain rule through the continuous linear `toE3` and `θ ↦ θ/2π`. -/
+def U_circle : Prop := ∀ K : TransverseKnot, TransverseNeighborhoodHyp K.circle
+
+/-- U1: `sl` is a transverse-isotopy invariant (row 88's `self_linking_invariant` + `transverse_uniform`
+on the strip family extended to `ℝ × ℝ` by the clock `Real.smoothTransition`, and reparametrization
+invariance through the family `ρ_s = (1−s)·id + s·ρ`, U1c). -/
+def U_sl_isotopy : Prop := ∀ T₀ T₁ : ℝ → E3, TransverselyIsotopic T₀ T₁ → slCircle T₀ = slCircle T₁
+
+/-- U6a: the specified projection of a transverse knot is an ordinary finite regular generic diagram
+in row 91's sense (heights distinct at double points from embeddedness, `y_ne_of_isDouble`). -/
+def U_regular : Prop := ∀ K : TransverseKnot, K.spatial.RegularGenericProjection
+
+/-- The data the printed proof extracts from `L_T = Φ₁ ∘ L` (units U2-U5): its spatial link, its front
+`F_T` on ng:front-domain, the rounding `S(F_T)` as both a rounding of `F_T` (row 93's input) and a clean
+cusp smoothing with a height reading (row 91's input).  Design point: build `F` FROM `sp` so that
+`F.comp 0 = sp.projLoop 0` definitionally. -/
+structure LegendrianPackage (Lc : ℝ → E3) where
+  /-- the one-component spatial link of `L_T` (1-periodic, on `Space`) -/
+  sp : SpatialLink 1
+  sp_T : ∀ (i : Fin 1) (t : ℝ), sp.T i t = toSpace (Lc (2 * π * t))
+  /-- the front `F_T` -/
+  F : SmoothFront
+  F_front : IsLegendrianFrontOf Lc F
+  /-- row 91's input class for `L_T` -/
+  cusped : sp.CuspedProjection
+  /-- the rounded curves `S(F_T)` and one polygonal reading `S` -/
+  G : Fin 1 → SmoothLoop
+  S : Diagram
+  clean : Nonempty (sp.CleanCuspSmoothing G)
+  height_marking : Nonempty (sp.HeightMarking G S)
+  rounding : F.IsRounding S
+
+/-- U2-U5: every Legendrian embedded circle with a generic front (row 87's output) has such a package. -/
+def U_package : Prop := ∀ Lc : ℝ → E3, GenericFront.IsEmbeddedCircle Lc → GenericFront.IsLegendrian Lc →
+  GenericFront.IsGenericFront Lc → Nonempty (LegendrianPackage Lc)
+
+/-- U6: the supplied family `G_t = Ψ_t ∘ Φ_{1−t} ∘ L` (display fd:contact-ambient-composition) as a
+`SpatialFamily 1` from `L_T`'s spatial link to the knot's, time-clamped, with the endpoint reading
+transported. -/
+def U_family : Prop := ∀ (K : TransverseKnot) (L : ℝ → E3) (Ψ Φ : ℝ → E3 → E3)
+    (pkg : LegendrianPackage (Φ 1 ∘ L)),
+  IsCompactlySupportedAmbientIsotopy Ψ → (∀ θ, Ψ 1 (L θ) = K.circle θ) →
+  GenericFront.IsContactIsotopy Φ →
+  ∃ Fam : SpatialFamily 1, Fam.G 0 = pkg.sp ∧ (Fam.G 1).RegularGenericProjection ∧
+    ∀ X : Diagram, Nonempty (K.spatial.HeightMarking K.spatial.projLoop X) →
+      Nonempty ((Fam.G 1).HeightMarking (Fam.G 1).projLoop X)
+
+/-! ### 5.2 The assembly: fd:contact from the units and the accepted rows -/
+
+/-- **fd:contact from the units** — the printed proof (sm-3:3424-3492) composed on the accepted
+vocabulary: row 84 gives `L`, `T′` (positive pushoff transversely isotopic to `T`) and `Ψ`; row 87 gives
+`Φ`, `L_T = Φ₁ ∘ L` with generic front, and carries `T′` to a positive pushoff of `L_T` transversely
+isotopic to it; row 88 (U1) transports `sl`; src:contact's cusp calculation gives
+`sl(T₊(L_T)) = sl_Ng(F_T)`; row 93 bounds it by `−max deg_a P_{S(F_T)} − 1`; row 91 on the supplied
+family (U6) gives `P_{S(F_T)} = P_{D_T}`. -/
+theorem fd_contact_of_units (h0 : U_circle) (h1 : U_sl_isotopy) (h3 : U_package) (h4 : U_family) :
+    FdContactData := by
+  sorry
+
+
+/-! ### 5.3 The finer prover units behind `U_package` and `U_sl_isotopy` (PLAN_FINAL §6), and the
+composition of `U_package` from them through the accepted row 89 (`ce_rounding`) -/
+
+/-- U1a: `sl` is `ℓ(T, T + ε∂_y)` at EVERY admissible radius (row 88 `self_linking_invariant` on the
+constant family, both radii compared with `min`). -/
+def U_sl_radius : Prop := ∀ (T : ℝ → E3) (ε : ℝ), IsPositiveTransverseEmbedding (2 * π) T → 0 < ε →
+  (∀ ε', 0 < ε' → ε' ≤ ε → ∀ u u', pushoff T (fun _ => ey) ε' u ≠ T u') →
+  slCircle T = selfLinking (2 * π) T ε
+
+/-- U1b: `sl` is constant along a transverse family (row 88 `transverse_uniform` +
+`self_linking_invariant`, then U1a at both ends). -/
+def U_sl_family : Prop := ∀ F : ℝ → ℝ → E3, TransverseFamily (2 * π) F →
+  ∀ s ∈ Icc (0 : ℝ) 1, ∀ s' ∈ Icc (0 : ℝ) 1, slCircle (F s) = slCircle (F s')
+
+/-- U1c: reparametrization invariance, through the family `ρ_s = (1 − s)·id + s·ρ` (`ρ_s′ > 0`, lift
+by `2π`, `α((T∘ρ_s)′) = ρ_s′ · α(T′)`) and U1b — no change of variables in the Gauss integral. -/
+def U_sl_reparam : Prop := ∀ (T : ℝ → E3) (ρ : ℝ → ℝ), IsPositiveTransverseEmbedding (2 * π) T →
+  IsCircleReparam ρ → slCircle (T ∘ ρ) = slCircle T
+
+/-- U2: the `xz` front of a Legendrian embedded circle with row 87's generic front is a front on
+ng:front-domain with `IsLegendrianFrontOf` (the printed argument sm-3:3455-3462: exact germs give the
+semicubical clauses, `z′ = y x′` gives "no vertical tangency on regular arcs"). -/
+def U_legendrianFront : Prop := ∀ Lc : ℝ → E3, GenericFront.IsEmbeddedCircle Lc →
+  GenericFront.IsLegendrian Lc → GenericFront.IsGenericFront Lc → ∃ F : SmoothFront, IsLegendrianFrontOf Lc F
+
+/-- U3: the same curve as a one-component spatial link in row 91's input class (heights distinct at
+double points from embeddedness; the exact germ on an interval from continuity of `y′`). -/
+def U_spatialOf : Prop := ∀ Lc : ℝ → E3, GenericFront.IsEmbeddedCircle Lc →
+  GenericFront.IsLegendrian Lc → GenericFront.IsGenericFront Lc →
+  ∃ sp : SpatialLink 1, (∀ (i : Fin 1) (t : ℝ), sp.T i t = toSpace (Lc (2 * π * t))) ∧ sp.CuspedProjection
+
+/-- U4 (THE RISK ITEM, FR-1): every front on ng:front-domain has a polygonal reading —
+`S := (realize (oword F)).diagram`, `RecordIso (frontRecord F) S.record` from the sweep block
+(`U8R.recordIso F`, `U2.realizeRecordIso (oword F) (word_ne_nil F)`), turned into a `Marking` by
+`Marking.ofRecordIso` (the converse of `markingRecordIso`: on a finite cycle the successor determines
+`cycBetween`; `record_succ_no_between`, `cycNext_no_between` are accepted). -/
+def U_reading : Prop := ∀ F : SmoothFront, ∃ S : Diagram, Nonempty (F.Marking S)
+
+/-- U5: a clean cusp smoothing of the spatial link is a clean-disc rounding of the front, and a
+slope-rule marking of the front is a height-rule marking of the smoothing (`y = dz/dx` on a Legendrian
+at its double points, `x′ ≠ 0` there; `CleanCuspSmoothing.occEquiv`, `crossSignOf_eq`). -/
+def U_transport : Prop := ∀ (Lc : ℝ → E3) (sp : SpatialLink 1) (F : SmoothFront)
+    (G : Fin 1 → SmoothLoop) (S : Diagram),
+  (∀ (i : Fin 1) (t : ℝ), sp.T i t = toSpace (Lc (2 * π * t))) → IsLegendrianFrontOf Lc F →
+  sp.CleanCuspSmoothing G → F.Marking S →
+  Nonempty (sp.HeightMarking G S) ∧ F.IsRounding S
+
+/-- `U_package` from U2-U5 and the accepted row 89: the rounded curves are the end of ce:rounding's
+family (`CuspRoundingFamily.endSmoothing`, accepted in SM/CeSmoothingRecord.lean). -/
+theorem U_package_of (u2 : U_legendrianFront) (u3 : U_spatialOf) (u4 : U_reading)
+    (u5 : U_transport) : U_package := by
+  sorry
+
+
+end
+
+end SM

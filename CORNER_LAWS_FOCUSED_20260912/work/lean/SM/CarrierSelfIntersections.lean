@@ -3,7 +3,7 @@ import SM.CarrierNeighborSeparation
 import SM.SmoothingDefinition
 
 /-! Towards lem:carriers (iii), geometric part (sm-3-statesum.tex:54): self-intersections of a carrier are exactly its owned unselected crossings, transverse, not corners, no triple point. Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-carriers-lemma / prove:carriers-iii-geom), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-carriers-lemma / prove:carriers-iii-geom), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/CarriersSelfIntersections.lean (only this header added and #print lines removed). -/
 
 /-! # lem:carriers (iii), geometric part: self-intersections of a carrier

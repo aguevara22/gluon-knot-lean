@@ -1,0 +1,49 @@
+'RProof.extreme_selected' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lit_homfly_descent,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness,
+ SM.ng_finite_word,
+ SM.src_contact]
+'SM.Link.w3ck_extreme_selected' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lit_homfly_descent,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness,
+ SM.ng_finite_word,
+ SM.src_contact]
+'SM.Link.w3cx_outer_residue_data' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness]
+'SM.Link.w3dp_parity_at_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SM.Link.w3di_ident_at' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness]
+'SM.Link.w3dk_rii_value_sites_data' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness]
+'SM.Link.G11_core_sw' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ SM.lit_homfly,
+ SM.lp_lm,
+ SM.lp_lm_uniqueness]
+@RProof.extreme_selected : ∀ {n : ℕ} [inst : NeZero n] (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n)
+  (h3 : SM.remote e f ∧ SM.remote f g ∧ SM.remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+  (h4e : SM.remote e f ∧ SM.remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)
+  (h4f : SM.remote f e ∧ SM.remote f g ∧ e ≠ g ∧ CV.rep e < CV.rep g)
+  (h4g : SM.remote g e ∧ SM.remote g f ∧ e ≠ f ∧ CV.rep e < CV.rep f),
+  E.IsSimpleRIII e f g h3 h4e h4f h4g → ∃ δ, 0 < δ ∧ δ ≤ E.radius ∧ RProof.ExtremeSelectedData hn E e f g δ

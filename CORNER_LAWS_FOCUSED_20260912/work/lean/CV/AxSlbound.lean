@@ -1,0 +1,16 @@
+-- Ported 16:39Z 2026-09-15 from work/drafts/contact/Contact_Units_Delta.lean lines 1452-1463 (the CV block) by the pod executor; body verbatim except this header and the import. Row 162 CV:ax:slbound: `CV.ax_slbound : CV.AxSlboundData := ax_slbound_of SM.fd_contact`.
+import SM.FdContactUnits
+
+/-! # Row 162 CV:ax:slbound (reference/R/CV/d10_axioms.tex 399-425) — row 94 fd:contact in CV notation (`P = homfly`, lp:core). -/
+
+namespace CV
+
+open SM
+
+/-! **Row 161 CV:ax:etnyre** is `CV.ax_etnyre` in CV/AxEtnyre.lean (ported 15:05Z 2026-09-15, proved from the
+axiom's transverse clause `SM.src_contact_spec.transverse_front_writhe`); it is not redeclared here. -/
+
+/-- **Row 162 CV:ax:slbound** — row 94 in CV notation (`P = homfly`, lp:core); waits on `fd_contact`. -/
+theorem ax_slbound : AxSlboundData := ax_slbound_of SM.fd_contact
+
+end CV

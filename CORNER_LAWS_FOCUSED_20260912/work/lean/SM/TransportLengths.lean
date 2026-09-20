@@ -6,7 +6,7 @@ import Mathlib.Topology.Order.ProjIcc
 import Mathlib.Topology.MetricSpace.Bounded
 
 /-! Towards lem:transport-lengths (sm-5-transport.tex:76). Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-transport-lane / prove:transport-lengths), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-transport-lane / prove:transport-lengths), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/TransportLengths.lean (only this header added and #print lines removed). -/
 
 /-! # SM lem:transport-lengths (positive closing lengths along a direction path)

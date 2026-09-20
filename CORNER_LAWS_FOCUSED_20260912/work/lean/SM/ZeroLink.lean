@@ -1,6 +1,6 @@
 import SM.LinkDiagram
 
-/-! Ported 2026-09-13 from work/drafts/zerolink/Skeleton_FINAL.lean (design-panel winner A, fully proved by the designer; judge-merged; checked with `lake env lean`, no sorry, standard axioms). The statement part (module docstring, `Shadow.MixedPair`, `mixedSignSum`, `ZeroLinkData`, the signature of `zero_link`) is verbatim work/drafts/ZeroLink_statement.lean; plan work/drafts/zerolink/PLAN_FINAL.md; cross-check draft work/drafts/zerolink/Skeleton_B.lean (independent partial design). Row mp:zero-link → `SM.zero_link`. -/
+/-! Ported 2026-09-13 from work/drafts/zerolink/Skeleton_FINAL.lean (design-panel winner A, fully proved by the designer; judge-merged; checked with `lake env lean`, no placeholder, standard axioms). The statement part (module docstring, `Shadow.MixedPair`, `mixedSignSum`, `ZeroLinkData`, the signature of `zero_link`) is verbatim work/drafts/ZeroLink_statement.lean; plan work/drafts/zerolink/PLAN_FINAL.md; cross-check draft work/drafts/zerolink/Skeleton_B.lean (independent partial design). Row mp:zero-link → `SM.zero_link`. -/
 
 /-! Source mp:zero-link (reference/SM/sm-3-statesum.tex:1538-1545, frame SM15): mixed signed crossings in
 a stack. Main declaration: `SM.zero_link`.

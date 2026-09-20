@@ -142,7 +142,7 @@ work/drafts/front/BETA1_REPORT.md §3.2-3.3, §5.
 
 `s`, `B`, `Base` of `wordMovesOf` are parameters in the consumer theorems because `Moves.Chain` does not
 depend on `s` or `B`; nothing is assumed about them.  Checked with `cd work/lean && lake env lean
-../drafts/front/FrontInterfaces_statement.lean` (no `sorry`; `#print axioms ng_finite_word_bound` =
+../drafts/front/FrontInterfaces_statement.lean` (no placeholder; `#print axioms ng_finite_word_bound` =
 standard three + `SM.ng_finite_word`). -/
 
 namespace SM.FrontWord

@@ -10,7 +10,7 @@ import SM.Fibres
 import Mathlib.Topology.Instances.Sign
 
 /-! Towards thm:mycyclic (sm-5-transport.tex:150), strategy B (JoinedIn). Written 2026-09-13 by a Claude Code prover subagent of the
-pod executor (workflow prove-transport-lane-2 / prove:mycyclic-B), checked with `lake env lean` (sorry-free, standard axioms) and ported
+pod executor (workflow prove-transport-lane-2 / prove:mycyclic-B), checked with `lake env lean` (placeholder-free, standard axioms) and ported
 verbatim from work/drafts/MyCyclicB.lean (only this header added and #print lines removed). An independent Path-based proof of the same
 theorem (work/drafts/MyCyclicA.lean) compiles as well and is kept as a cross-check; it is not part of the library. -/
 

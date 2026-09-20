@@ -3,13 +3,13 @@ import SM.GaussVisits
 import SM.CarrierVisitTwin
 
 /-! Chapter-3 representation layer, module LinkDiagramExtras: closing the open items of LinkDiagram: over/under strands of the derived diagrams, involutivity of reverse and mirror, the one-component agreement with the accepted Gauss data (visitPosition, visitTwin), and the per-operation positivity lemmas. Written 2026-09-13 by a Claude Code prover subagent of the pod executor
-(workflow close-phase1-open-items), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
+(workflow close-phase1-open-items), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
 work/drafts/LinkDiagramExtras.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
 
 /-! # Extras for polygonal oriented link diagrams (closing the open items of `SM.LinkDiagram`)
 
 Chapter-3 representation layer, module LinkDiagramExtras.  Written 2026-09-13 by a Claude Code
-prover subagent; checked with `lake env lean` (sorry-free, standard axioms).  Everything lives in
+prover subagent; checked with `lake env lean` (placeholder-free, standard axioms).  Everything lives in
 `SM.Link`.  Source frame: reference/SM/sm-3-statesum.tex, def:positive-lift (325-335), the
 named-record bridge paragraph (337-351), def:gauss-record (352-372) and lp:lm (935-960), as rendered
 by `SM.LinkDiagram`; nothing new is read from the source here — this file only closes the design

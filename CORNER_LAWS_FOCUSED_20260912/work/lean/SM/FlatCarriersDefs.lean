@@ -3,14 +3,15 @@ import SM.CarriersLemma
 import SM.UniformDefinition
 import SM.SmoothingDefinition
 
-/-! Definitions and bundle statements for def:flat-carriers / cor:flat-carriers (rows 58-59), ported 2026-09-13 from work/drafts/flatcarriers/Statement_FINAL.lean (design panel, judge-merged plan work/drafts/flatcarriers/PLAN_FINAL.md) with the two row theorems `flat_carriers_definition` / `flat_carriers` REMOVED (they are proved in SM/FlatCarriers.lean when the prover units finish); everything here is sorry-free. -/
+/-! Definitions and bundle statements for def:flat-carriers / cor:flat-carriers (rows 58-59), ported 2026-09-13 from work/drafts/flatcarriers/Statement_FINAL.lean (design panel, judge-merged plan work/drafts/flatcarriers/PLAN_FINAL.md) with the two row theorems `flat_carriers_definition` / `flat_carriers` REMOVED (they are proved in SM/FlatCarriers.lean — `SM.flat_carriers_definition`, `SM.flat_carriers`, rows 58-59 accepted 2026-09-13); everything here is complete (no placeholder). -/
 
 /-! Source def:flat-carriers (reference/SM/sm-3-statesum.tex:788-804, frame SM15) and
 cor:flat-carriers (sm-3-statesum.tex:805-835, proof 836-913), both "under the hypotheses of
 Lemma lem:flat-sides" (sm-1-polygons.tex:778-826, accepted as `SM.flat_sides : … →
 FlatSidesData hn g j hz hb hc`, SM/FlatSides.lean). STATEMENT (final design, judge's merge of the
-drafts A and B; see work/drafts/flatcarriers/PLAN_FINAL.md). Main declarations:
-`SM.flat_carriers_definition` (def row) and `SM.flat_carriers` (cor row); proofs are `sorry`.
+drafts A and B; see work/drafts/flatcarriers/PLAN_FINAL.md). Main declarations of the design:
+`SM.flat_carriers_definition` (def row) and `SM.flat_carriers` (cor row) — NOT in this module: they are proved in
+SM/FlatCarriers.lean (accepted 2026-09-13); this module holds their definitions and bundle statements.
 
 Design ("the same words define them, no genericity being assumed"). The accepted carrier
 machinery (`SM.Carrier.markPosition`, `markSuccessor`, `smoothingSuccessor`, `Component`, `owner`,

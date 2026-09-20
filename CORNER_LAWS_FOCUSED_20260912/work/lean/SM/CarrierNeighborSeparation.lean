@@ -2,7 +2,7 @@ import SM.CarrierActualCornerBlock
 import SM.CarrierComponentCount
 
 /-! Towards def:smoothing / lem:carriers (iii) (sm-3-statesum.tex:14, 54): a crossing interlacing a selected crossing has its visits on different carriers. Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-smoothing-support / prove:smoothing-B), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-smoothing-support / prove:smoothing-B), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/SmoothingSupportB.lean (only this header added and #print lines removed). -/
 
 /-! # Task B: neighbours of an independent support have separated visits

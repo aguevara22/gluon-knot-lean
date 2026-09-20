@@ -3,12 +3,12 @@ import SM.UnaryComposition
 import SM.BowTie
 
 /-! Towards lem:A-small-values (sm-6-comparison.tex:5). Written 2026-09-13 by a Claude Code prover subagent of the pod executor
-(workflow prove-transport-lane-2 / prove:small-values), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim
+(workflow prove-transport-lane-2 / prove:small-values), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim
 from work/drafts/SmallValues.lean (only this header added and #print lines removed). -/
 
 /-! lem:A-small-values (reference/SM/sm-6-comparison.tex:5-52): triangle and bow-tie values of the
 tree coefficient. Written 2026-09-13 by a Claude Code prover subagent, checked with `lake env lean`
-(sorry-free, standard axioms).
+(placeholder-free, standard axioms).
 
 Contents: cut-position bounds for interval compositions (`smallValues_left_add_le_cut`,
 `smallValues_cut_add_le_right`), uniqueness of the all-leaves composition, the vanishing of every

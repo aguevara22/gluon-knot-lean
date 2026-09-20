@@ -24,8 +24,9 @@ ONLY the new material of unit U-GT, prefixed `GT_`:
   actual Reidemeister III move between the two positive lifts), the field `GT_173_empty_row` PROVED
   modulo `GT_G11`, and the row `GT_generic_transport_of_G11` PROVED modulo `GT_G11`.
 
-No `sorry`; the row theorem `RProof.generic_transport` itself is not in this module (it stays open in
-`W3_GT.lean`, its field `empty_row` needing G11). -/
+No placeholder; the row theorem `RProof.generic_transport` itself is not in this module: it is stated and proved
+in RProof/GenericTransport.lean (row 173 accepted 17:41Z 2026-09-14, see the superseding header note above; the
+former open fact `GT_G11` was proved there as `GT_G11_strong`), and this module is its imported library. -/
 
 namespace RProof
 

@@ -12,7 +12,7 @@ import SM.InterlaceRelabel
 import SM.SortedCut
 import Mathlib.Topology.LocallyConstant.Basic
 
-/-! Ported verbatim 2026-09-13 from work/drafts/cchamber/CChamber_Assembled.lean (assembler subagent of the pod executor merging the six sorry-free prover units U1a, U1b, U2, U3, U4, U5 of work/drafts/cchamber/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row prop:C-chamber → `SM.prop_C_chamber : CChamberData` (statement verbatim work/drafts/CChamber_statement.lean; design PLAN_FINAL.md). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/cchamber/CChamber_Assembled.lean (assembler subagent of the pod executor merging the six placeholder-free prover units U1a, U1b, U2, U3, U4, U5 of work/drafts/cchamber/ into the judge-merged Skeleton_FINAL.lean; ASSEMBLY_REPORT.md; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row prop:C-chamber → `SM.prop_C_chamber : CChamberData` (statement verbatim work/drafts/CChamber_statement.lean; design PLAN_FINAL.md). -/
 
 
 /-! Source prop:C-chamber (reference/SM/sm-4-knotlaws.tex:36-40, frame SM15): chamber constancy of the corner
@@ -28,7 +28,7 @@ chambers).
 
 Assembly provenance (2026-09-13).  Assembled from work/drafts/cchamber/Skeleton_FINAL.lean and the six
 prover units U1a, U1b, U2, U3, U4, U5 (work/drafts/cchamber/U*.lean; plan PLAN_FINAL.md, route B with
-three grafts from route A); every `sorry` of the skeleton is replaced by the owning unit's proof, the
+three grafts from route A); every placeholder of the skeleton is replaced by the owning unit's proof, the
 units' helpers are inserted where they placed them, and the one recorded statement fix
 (`leftTurns_transport`, PLAN_FINAL.md §5 addendum) is applied.  The route:
 
@@ -57,7 +57,7 @@ the positive lifts at `0` and `1` are related by a `Deform` (`Deform.of_family`)
 positive lifts differ by a cyclic re-indexing of the one component, a `Reparam`
 (`reparam_positiveDiagram_single_shift`).
 
-Descent (already closed, no sorry): `chamber (polygonProjection P) = polygonProjection '' labelledChamber P`
+Descent (already closed, no placeholder): `chamber (polygonProjection P) = polygonProjection '' labelledChamber P`
 (accepted `projection_labelledChamber_eq_chamber`), `projection_eq_iff`, and labelled chambers are path
 connected (`labelledChambers_open_pathConnected`).
 

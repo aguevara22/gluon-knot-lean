@@ -4,7 +4,7 @@ import SM.RotationTheorem
 import SM.AngleScaling
 
 /-! Towards lem:soft-rotation (sm-5-transport.tex:317). Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-transport-lane / prove:soft-rotation), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-transport-lane / prove:soft-rotation), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/SoftRotation.lean (only this header added and #print lines removed). -/
 
 /-! Source lem:soft-rotation (reference/SM/sm-5-transport.tex:317, frame SM15): rotation of a

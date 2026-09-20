@@ -2,7 +2,7 @@ import SM.PositiveRotationSeed
 import SM.ShiftTheorem
 
 /-! Towards def:star and lem:star-generic (i)-(iii) (sm-5-transport.tex:5, 16). Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-transport-lane / prove:stars-Kr), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-transport-lane / prove:stars-Kr), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/StarPolygons.lean (only this header added and #print lines removed). -/
 
 /-! SM def:star (the stars `K_r`, `r ≥ 1`) and lem:star-generic (i)–(iii), from

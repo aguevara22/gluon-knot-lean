@@ -5,7 +5,7 @@ import SM.LinkDiagramRecord
 circles which carry each occurrence to its image and are the positive affine map between successive marks in oriented key
 coordinates (a linear rescaling on a mark-free circle): `RecordIso.ExtendsPiecewiseAffine`, `rexB_recordIso_extend_pl`, and the weaker
 `recordIso_extend_statement` (`rexB_recordIso_extend`). Written 2026-09-13 by Claude Code prover subagents of the pod executor
-(workflows prove-record-extension / prove-record-extension-pl), checked with `lake env lean` (sorry-free, standard axioms) and ported
+(workflows prove-record-extension / prove-record-extension-pl), checked with `lake env lean` (placeholder-free, standard axioms) and ported
 verbatim from work/drafts/RecordExtensionPL.lean (only this header added and #print lines removed); the independent attempt
 work/drafts/RecordExtensionA.lean is kept as a cross-check. -/
 

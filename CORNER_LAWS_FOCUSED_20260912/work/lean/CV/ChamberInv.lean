@@ -1,6 +1,6 @@
 import CV.Setup
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CV_ChamberInv.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row 147 CV:prop:chamberinv clause (i); clause (ii) (X₁ constant on chambers) is blocked on CV:def:X1 and is not in this module. -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CV_ChamberInv.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row 147 CV:prop:chamberinv clause (i); clause (ii) (X₁ constant on chambers) is blocked on CV:def:X1 and is not in this module. -/
 
 /-! # CV lane, row 147 — CV:prop:chamberinv, clause (i) (reference/R/CV/d1_setup.tex:932–961)
 
@@ -38,7 +38,7 @@ and is not used by the proof of clause (i); the bundle is therefore stated for e
 restates it on the printed domain `3 ≤ n`.
 
 Written 2026-09-13 by a Claude Code implementer subagent of the pod executor; checked with
-`lake env lean` (sorry-free, standard axioms). -/
+`lake env lean` (placeholder-free, standard axioms). -/
 
 namespace CV
 

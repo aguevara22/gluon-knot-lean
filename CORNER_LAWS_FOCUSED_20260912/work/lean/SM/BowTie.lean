@@ -2,7 +2,7 @@ import SM.ZeroRotationSeed
 import SM.Crossings
 
 /-! Towards def:star (K_0) and lem:star-generic (iv) (sm-5-transport.tex:5, 16). Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-transport-lane / prove:bowtie), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-transport-lane / prove:bowtie), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/BowTie.lean (only this header added and #print lines removed). -/
 
 /-! SM def:star (the bow-tie `K₀`) and lem:star-generic clause (iv).

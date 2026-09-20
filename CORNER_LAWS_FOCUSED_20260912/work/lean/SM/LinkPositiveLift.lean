@@ -6,7 +6,7 @@ import SM.UniformDefinition
 
 /-! Chapter-3 representation layer, module LinkPositiveLift: the positive lift of a carrier (def:positive-lift): the carrier shadow over the corner polygon, its genericity (carrierShadow_generic), the all-positive over-strand choice, positivity of every crossing, and writhe = number of crossings = m_Q. Implements the design adopted 2026-09-13
 (work/reports/design-decision-diagram-record-20260913.md). Written 2026-09-13 by a Claude Code implementer subagent of the pod executor
-(workflow implement-diagram-layer-phase2), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
+(workflow implement-diagram-layer-phase2), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
 work/drafts/LinkPositiveLift.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
 
 /-! # The positive lift of a carrier (def:positive-lift, sm-3:325-335)

@@ -7,7 +7,7 @@ policy names of work/lean/axiom-policy.json: `SM.lit_homfly` (lit:homfly, sm-3:9
 (`HomflyClauses`, `LMClauses`, `LMCompetitor`), with the maps fixed once by `Classical.choose` (`homfly`, `lmF`) and sanity theorems
 (the descent clause of lit:homfly is implied by the other clauses; any lp:lm witness equals `lmF`). Design: work/reports/
 design-decision-diagram-record-20260913.md (literature_interfaces; judges' graft). Written 2026-09-13 by a Claude Code implementer
-subagent of the pod executor (workflow implement-knot-interfaces), checked with `lake env lean` (no sorry; the only non-standard axioms
+subagent of the pod executor (workflow implement-knot-interfaces), checked with `lake env lean` (no placeholder; the only non-standard axioms
 are the three interfaces) and ported verbatim from work/drafts/LinkInterfaces.lean (only this header added and #print lines removed). -/
 
 /-! # The three knot-theory literature interfaces: lit:homfly, lp:lm, lp:lm-uniqueness
@@ -20,7 +20,7 @@ sm-3:935-960; lp:lm-uniqueness = AXIOM_REGISTRY.md:58-75 = sm-3:962-979).  Desig
 work/reports/design-decision-diagram-record-20260913.md, sections `literature_interfaces`,
 `skein_and_moves`, fidelity risks 1-4, and the judges' graft (1): "Bundle each axiom's clauses in a
 Prop-structure with one named field per printed sentence (`HomflyClauses H`: reidemeister_I/II/III,
-planar, circle, skein, descent; `LMClauses F`: planar, skein, underFirst_init,
+planar, circle, skein, descent; `LMClauses F`: planar, skein [the field is named `sourceSkein`], underFirst_init,
 reidemeister_I/II/III; `LMCompetitor Q` for lp_lm_uniqueness's hypotheses) and state the axioms as
 `∃ H, HomflyClauses H`, `∃ F, LMClauses F`, `∀ Q, LMCompetitor Q → Q = lmF`."  Written 2026-09-13
 by a Claude Code implementer subagent of the pod executor; checked with `lake env lean` (no
@@ -36,16 +36,20 @@ a `def` or a proved `theorem`.
 * "a map D ↦ H_D(a,z) ∈ ℤ[a^{±1},z^{±1}] on oriented link diagrams" (lit:homfly) is a function
   `Diagram → R` on the polygonal oriented link diagrams of `SM.LinkDiagram` (def:positive-lift's
   first sentence), `R = ℤ[a^{±1},z^{±1}]` of `SM.LinkLaurentRing`; "in ℤ[l^{±1},m^{±1}]" (lp:lm)
-  is the DISTINCT type `T` of the same module, so no statement over `R` can leak into
-  lp:lm-uniqueness ("The ring is the source's: no statement over ℤ[a^{±1},z^{±1}] is imported
-  here", AXIOM_REGISTRY.md:72-73).
+  is the type `T` of the same module — a `def` with its own name, kept apart from `R` by review POLICY
+  (distinct names and generators; only the documented bridges convert), NOT by the elaborator: `T = R` is
+  `rfl` at default transparency (AUTHOR_NOTES 2026-09-13, documentation defects (a)).  The lp:lm and
+  lp:lm-uniqueness statements below are written over `T`, so none of them is a statement over `R` ("The
+  ring is the source's: no statement over ℤ[a^{±1},z^{±1}] is imported here", AXIOM_REGISTRY.md:72-73).
 * "planar isotopy" / "positive page isotopy" / "modulo plane isotopy" is `PlanarIsotopic`; "the
   three Reidemeister moves" / "each actual ordinary oriented Reidemeister move" are `RI`, `RII`,
   `RIII`; "skein triple" is `IsSkeinTriple` (D₋ literally the switch of D₊ at a positive crossing,
   D₀ an oriented smoothing there); "the oriented link presented by D" is the `LinkEquiv` class —
   all from `SM.LinkMoves`, whose header records the readings (SOURCES/INDEX.md §D: links are
   diagrams modulo the moves and planar isotopy; Reidemeister's theorem is outside the formal scope
-  and no sixth axiom is admitted).
+  and is admitted as no axiom — the 2026-09-15 second declaration of lit:homfly, `SM.lit_homfly_descent`
+  in SM/LitHomflyDescent.lean, declares the printed descent sentence spatially and is not Reidemeister's
+  theorem: five literature interfaces, six axiom constants).
 * "the crossing-free circle" (lit:homfly) and "the unknot" (lp:lm-uniqueness) are every
   one-component crossing-free diagram, `Diagram.IsCrossingFreeCircle` (design decision D10: no
   Jordan/Schoenflies theorem is needed to state the clause this way).
@@ -176,8 +180,9 @@ crossing switches. It is defined modulo positive page isotopy, satisfies
 l F_{D₊} + l⁻¹ F_{D₋} + m F_{D₀} = 0, μ = −(l+l⁻¹)m⁻¹, and has the initialization F_D = μ^{c−1} for
 every based ordered c-component UNDER-first diagram. ... The same function is invariant under each
 actual ordinary oriented Reidemeister move."  Existence in ∃-form over the source ring `T`; the
-clauses are the fields of `LMClauses`.  The source function itself is the witness fixed by `lmF`
-(see the module header and `eq_lmF_of_lmClauses`). -/
+clauses are the fields of `LMClauses`.  The witness fixed by `lmF` is identified with the source function
+only through lp:lm-uniqueness (`eq_lmF_of_lmClauses`: every function with lp:lm's clauses equals `lmF`), not
+by naming Lickorish--Millett's construction, which Lean cannot do (see the module header). -/
 axiom lp_lm : ∃ F : Diagram → T, LMClauses F
 
 /-- The local LM function `D ↦ F_D(l,m)` of lp:lm: one witness of `lp_lm`, fixed once by

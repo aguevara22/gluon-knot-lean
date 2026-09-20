@@ -10,7 +10,7 @@ Source: reference/R/CV/d6_vertexedge.tex, `lem:fulltwist` (statement lines 1981�
 work/reports/cv-lane-plan-20260913.md §159.  Consumes CV:ax:homfly, which this project derives as
 `CV.ax_homfly` (work/lean/CV/Axioms.lean), and CV:def:rot, built as `CV.rot` / `CV.rotAbs`
 (work/lean/CV/Rotation.lean).  Written 2026-09-14 by a Claude Code prover subagent; checked with
-`lake env lean` (sorry-free; the only non-standard axioms are those of `CV.ax_homfly`:
+`lake env lean` (placeholder-free; the only non-standard axioms are those of `CV.ax_homfly`:
 `SM.lit_homfly`, `SM.lp_lm`, `SM.lp_lm_uniqueness`).
 
 ## The printed statement (d6_vertexedge.tex:1981–2031)

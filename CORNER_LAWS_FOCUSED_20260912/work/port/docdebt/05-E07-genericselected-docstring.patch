@@ -1,0 +1,27 @@
+--- work/lean/RProof/GenericSelected.lean
++++ work/lean/RProof/GenericSelected.lean
+@@ -25,17 +25,19 @@
+ complete X1 term of `Q union J` on side `nu`, absent rows being zero, then `T_E(b) = T_P(b) + T_P(ac)`
+ (GSC). This is exactly the selected `b/ac` complementary-couple identity, with the opposite
+ coorientation obtained by multiplying the equation by `-1`."
+-The side `P` is the two-edge side (`EdgeAB ∧ EdgeBC`, centre `b`), `E` the other side; the three
+-branches are the fields of `GenericSelectedData` (RProof/X1Rows.lean).
++The side `P` is the two-edge side (`EdgeAB ∧ EdgeBC`, centre `b`), `E` the other side; the bundle
++`GenericSelectedData` (RProof/X1Rows.lean) has TWO fields — `couple_canonical` (the canonical branch
++`s_a = s_b = s_c`, centre `b`) and `couple_relabelled` (the same couple in the other four generic branches:
++selected pair `ab` with centre `c`, selected pair `bc` with centre `a`).
+ 
+ Proof: the RA ledger `gsc_generic_selected_of_moves` (RProof/RALedgers.lean) at the carrier floor
+ `CV.carrierSlotFloor`, with the interface Prop `gsc_moves` realised by
+ `SM.Link.r174_gsc_moves_of_arc_rec` from the arc-record identification
+ `SM.Link.r174v_arc_rec_moves_proof : SM.Link.r174_arc_rec_moves` (RProof/GenericSelectedUnits.lean:
+ site I-174, units HREC, CARRIERS, SITEIN, WALL, SMOOTH, the composition, and Route V — the visit data
+-`ψ_A`, `ψ_B` of the two arcs of `x'`).  Axioms: the standard three and the six literature interfaces
+-(`SM.lit_homfly`, `SM.lit_homfly_descent`, `SM.lp_lm`, `SM.lp_lm_uniqueness`, `SM.ng_finite_word`,
+-`SM.src_contact`); no placeholder. -/
++`ψ_A`, `ψ_B` of the two arcs of `x'`).  Axioms: the standard three and the six literature axiom constants
++under the five registered interfaces (`SM.lit_homfly`, `SM.lit_homfly_descent` — the second declaration of
++lit:homfly, D-GAP2 —, `SM.lp_lm`, `SM.lp_lm_uniqueness`, `SM.ng_finite_word`, `SM.src_contact`); no placeholder. -/
+ theorem generic_selected (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n)
+     (h3 : remote e f ∧ remote f g ∧ remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+     (h4e : remote e f ∧ remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)

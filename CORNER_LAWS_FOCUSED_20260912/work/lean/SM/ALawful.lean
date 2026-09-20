@@ -13,7 +13,7 @@ import SM.RootIndependence
 /-! Source cor:A-lawful (reference/SM/sm-6-comparison.tex:105, frame SM15): `A` is a chamber
 function on polygons. Main declaration: `SM.A_lawful : ALawfulData`. Statement fixed by the executor
 (work/drafts/ALawful_statement.lean); proof by a Claude Code prover subagent (workflow prove-A-lawful / attempt A), checked
-with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/ALawfulA.lean (only the #print line
+with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/ALawfulA.lean (only the #print line
 removed and this sentence added); attempt B (work/drafts/ALawfulB.lean) compiles as well and is kept as a cross-check.
 
 Notation. `A(P) := A_g(P)` for any root `g`; the Lean `amplitude P hP hn` is the tree coefficient at

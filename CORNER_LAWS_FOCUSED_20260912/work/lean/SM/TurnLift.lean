@@ -1,6 +1,6 @@
 import SM.TurningNumber
 
-/-! Ported verbatim 2026-09-13 from work/drafts/TurnLift.lean (implementer/prover subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row cf:lem-turnlift → `SM.turnlift : TurnLiftData`; plan work/drafts/TurnLift_PLAN.md. Shared with CV row 145 (decision F6). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/TurnLift.lean (implementer/prover subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row cf:lem-turnlift → `SM.turnlift : TurnLiftData`; plan work/drafts/TurnLift_PLAN.md. Shared with CV row 145 (decision F6). -/
 
 /-! # SM cf:lem-turnlift — tangent lifts and principal turns (row 96)
 

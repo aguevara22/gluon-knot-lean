@@ -1,6 +1,6 @@
 import Bridge.B1
 
-/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B3.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row Bridge:B3 → `Bridge.B3` (with `Bridge.B3_unsorted`). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B3.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row Bridge:B3 → `Bridge.B3` (with `Bridge.B3_unsorted`). -/
 
 /-! Bridge lane, row 181 (Bridge:B3).
 Source: reference/BRIDGE/BRIDGE.md §2, B3 at lines 493–636; coordinates as in BRIDGE.md §0 (SM_MAP):

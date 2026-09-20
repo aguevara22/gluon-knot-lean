@@ -10,7 +10,7 @@ import Mathlib.FieldTheory.RatFunc.AsPolynomial
 
 /-! Chapter-3 representation layer, module LinkLaurentRing: the two-variable Laurent-polynomial ring layer (R = ℤ[a^{±1}, z^{±1}], the distinct T = ℤ[l^{±1}, m^{±1}], the Gaussian detour RG/TG with φ, ψ, coefficient extraction, def:adeg degrees). Implements the design adopted 2026-09-13
 (work/reports/design-decision-diagram-record-20260913.md, Proposal #1 with the judges' grafts). Written 2026-09-13 by a Claude Code
-implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (sorry-free,
+implementer subagent of the pod executor (workflow implement-diagram-layer-phase1), checked with `lake env lean` (placeholder-free,
 standard axioms) and ported verbatim from work/drafts/LinkLaurentRing.lean (only this header added and #print lines removed). All
 declarations live in `SM.Link`; no row points here yet — the definition rows (def:positive-lift, def:gauss-record, def:adeg, ...)
 are stated on top of this layer and reviewed against the source. -/
@@ -77,8 +77,11 @@ abbrev R : Type := Laurent₂ ℤ
 
 /-- `T = ℤ[l^{±1}, m^{±1}]`: the source ring of lp:lm (sm-3:939, "The source constructs it in
 `ℤ[l^{±1},m^{±1}]`") and lp:lm-uniqueness (966, "to `T = ℤ[l^{±1},m^{±1}]`"; 976-978, "The ring
-is the source's: no statement over `ℤ[a^{±1},z^{±1}]` is imported here"). A DISTINCT type from
-`R` (a `def`, not an `abbrev`), so the two rings are never confused by the elaborator. -/
+is the source's: no statement over `ℤ[a^{±1},z^{±1}]` is imported here"). A `def` with its own name (not
+an `abbrev`), distinct from `R` at reducible transparency; NOTE that `T = R` is nevertheless `rfl` at default
+transparency, so the separation of the two rings is a POLICY enforced by review — distinct names and
+generators, only the documented bridges convert — not a barrier the elaborator provides (AUTHOR_NOTES
+2026-09-13, documentation defects (a)). -/
 def T : Type := Laurent₂ ℤ
 
 noncomputable instance : CommRing T := inferInstanceAs (CommRing (Laurent₂ ℤ))

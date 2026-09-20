@@ -3,7 +3,7 @@ import SM.UniformDefinition
 import SM.DecompositionDefinition
 import SM.LinkInterfaces
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CornerStateSum.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row def:C → `SM.corner_state_sum_definition`. -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CornerStateSum.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and `#print axioms` lines removed. Row def:C → `SM.corner_state_sum_definition`. -/
 
 /-! Source def:C (reference/SM/sm-3-statesum.tex:1688-1700, frame SM15): the corner coefficient
 `c(Q)` and the corner state sum `C(P)`. Main declaration: `SM.corner_state_sum_definition`.

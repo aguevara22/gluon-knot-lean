@@ -1,0 +1,42 @@
+--- work/lean/SM/CSoft.lean
++++ work/lean/SM/CSoft.lean
+@@ -8,7 +8,7 @@
+ 
+ namespace SM
+ 
+-/-- **Theorem thm:C-soft** (sm-4:984-991; proof 992-1147; FIXED target name, axiom-policy.json): `CSoftData`
++/-- **Theorem thm:C-soft** (sm-4:984-991; proof 993-1147; FIXED target name, axiom-policy.json): `CSoftData`
+ (SM/CornerChainStatements.lean §5) from thm:floor through `thm_C_soft_of_floor` (SM/CornerChainUnits.lean §5:
+ row 112 ← lem:corner-values ← cb:singleton ← thm:floor). -/
+ theorem thm_C_soft : CSoftData := thm_C_soft_of_floor thm_floor
+--- work/lean/SM/CornerChainStatements.lean
++++ work/lean/SM/CornerChainStatements.lean
+@@ -37,7 +37,7 @@
+ 
+ Sources (frame SM15): reference/SM/sm-3-statesum.tex 4697-4702 (103; proof 4703-4759), 4801-4809 (105;
+ proof 4810-4820); reference/SM/sm-4-knotlaws.tex 267-274 (110; proof 275-908), 984-991 (112; proof
+-992-1147).  Dependencies (tools/claims.py): 103 ← thm:floor; 105 ← cb:singleton; 110 ← cb:singleton,
++993-1147).  Dependencies (tools/claims.py): 103 ← thm:floor; 105 ← cb:singleton; 110 ← cb:singleton,
+ thm:floor; 112 ← lem:corner-values.  Fixed target names (work/lean/axiom-policy.json): `SM.thm_C_S7`,
+ `SM.thm_C_soft`.  Proposed: `SM.cb_singleton : CbSingletonData`, `SM.corner_values : CornerValuesData`.
+ 
+@@ -270,7 +270,7 @@
+ 
+ end VertexEdge
+ 
+-/-! ## §5 Row 112 thm:C-soft (sm-4:984-991; proof 992-1147) — fixed target name `SM.thm_C_soft` -/
++/-! ## §5 Row 112 thm:C-soft (sm-4:984-991; proof 993-1147) — fixed target name `SM.thm_C_soft` -/
+ 
+ section Soft
+ 
+--- work/lean/SM/CornerChainUnits.lean
++++ work/lean/SM/CornerChainUnits.lean
+@@ -6789,7 +6789,7 @@
+ 
+ end VertexEdge
+ 
+-/-! ## §5 Row 112 thm:C-soft (sm-4:984-991; proof 992-1147) — fixed target name `SM.thm_C_soft` -/
++/-! ## §5 Row 112 thm:C-soft (sm-4:984-991; proof 993-1147) — fixed target name `SM.thm_C_soft` -/
+ 
+ section Soft
+ 

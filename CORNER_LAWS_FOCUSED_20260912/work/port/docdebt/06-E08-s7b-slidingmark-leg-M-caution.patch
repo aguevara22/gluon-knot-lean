@@ -1,0 +1,39 @@
+--- work/lean/SM/CornerChainUnits.lean
++++ work/lean/SM/CornerChainUnits.lean
+@@ -3812,7 +3812,15 @@
+ /-- The marks of `λ₁ ⊔ λ₂` inside the marks of `Q`, for a sliding row through the contact visit
+ `vm` (the visit of `x₋` on the leg edge `M−1` / `M`; its twin on `E_a` has no counterpart): the
+ vertices `M, …, a` of `λ₁` and `a+1, …, M−1` of `λ₂` are the vertices of `Q`, the vertex `0 = μ_M` of
+-`λ₂` is the smoothing corner `vm`, the visits are carried by `s7b_firstVisitQ`/`s7b_secondVisitQ`. -/
++`λ₂` is the smoothing corner `vm`, the visits are carried by `s7b_firstVisitQ`/`s7b_secondVisitQ`.
++CAUTION (unit RET, rule-4 finding of 2026-09-15; OPEN_ITEMS_20260916.md §C-05, work/drafts/corner/W3_RET_REPORT.md
++§2): this mark map is the right one on the side of the wall whose contact crossing is `{a, M−1}` (leg `false`)
++ONLY.  On the leg-`M` side (contact crossing `{a, M}`) `nextMark μ_M` is the leg visit `v_ℓ`, an image mark of
++`λ₂`, so the structure `s7b_SlidingTransport` built on this map is not inhabited there (its field `ret` fails
++for every `vm`).  The corrected mark map for that side — `λ₁`'s vertex `0 ↦ v_a` (the contact `a`-visit),
++`λ₂`'s vertex `0 ↦ μ_M`, the leg visit the skipped extra corner — is the draft `s7r_slidingMark'` with the
++corrected structure `s7r_SlidingTransport'` (work/drafts/corner/W3_Assembled.lean), whose first-return law is
++PROVED there (`s7r_slidingTransport_of_leg_true`); one first-return engine serves both sides. -/
+ def s7b_slidingMark (vm : Visit Q) :
+     Mark (firstHalf P M a) ⊕ Mark (secondHalf P M a) → Mark Q
+   | Sum.inl (Sum.inl i) => Sum.inl (firstHalfIndex M a i)
+@@ -3925,12 +3933,16 @@
+ 
+ /-! ### U110-B, part III (continued): the sliding-row transport structure and its consequences.
+ The field `ret` (the smoothing successor of `S` is the first-return map of the halves' successors
+-on the image of `s7b_slidingMark`) is the ONLY geometric input; everything below is derived from
+-it with part I: owners, the carrier correspondence `Component hn hQ S ≃ Component λ₁ S₁ ⊕
++on the image of `s7b_slidingMark`) is the ONLY geometric input (inhabited on the leg-(M−1) side only — see the
++CAUTION on `s7b_slidingMark` and the draft `s7r_SlidingTransport'` for the leg-`M` side); everything below is
++derived from it with part I: owners, the carrier correspondence `Component hn hQ S ≃ Component λ₁ S₁ ⊕
+ Component λ₂ S₂`, and (with the pivot split of part IV) the carrier crossings and `m_Q`. -/
+ 
+ /-- A sliding row `S ∋ x₋ = vm.1` of the side polygon `Q` with its two half supports `S₁, S₂`
+-(the preimages of `S`), and the first-return law for the smoothing successors. -/
++(the preimages of `S`), and the first-return law for the smoothing successors.  Stated with the mark map
++`s7b_slidingMark`, hence usable on the leg-(M−1) side (contact crossing `{a, M−1}`) only; on the leg-`M` side
++the field `ret` is FALSE for every `vm` (RET rule 4, OPEN_ITEMS_20260916.md §C-05) and the draft's corrected
++`s7r_SlidingTransport'` (mark map `s7r_slidingMark'`) is the structure to use. -/
+ structure s7b_SlidingTransport (hn : 3 ≤ n) {M a : ZMod n} (hsep : ContactSeparated M a)
+     {P Q : LabelledTuple n} (hm : P M ∈ edgeInterior P a)
+     (hQC : ∀ s, ¬ ContactAffected M a s → (IsCrossing Q s ↔ IsCrossing P s))

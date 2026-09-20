@@ -1,0 +1,93 @@
+Hopf link C1=(cos,sin,0), C2=(1+cos,0,sin): lk(B)=-1.0000  lk(A)=-1.0000
+  hand crossing-formula for this Hopf link with nu=-e_y: -1  (so Gauss must return -1 for consistency)
+--- transverse unknot T1 = (cos t, sin t, sin 2t / 4)   [alpha = 1/2] ---
+  min alpha(T') = 0.50000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0188
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(4.712, 1.57, -1, -1.0, 1.0)]
+  eps=0.05: sl (closed form B) = -1.0000   sl (finite-diff G, method A) = -1.0000
+  eps=0.1: sl (closed form B) = -1.0000   sl (finite-diff G, method A) = -1.0000
+--- transverse unknot T2 = (-sin t, 2cos t, -sin t cos t)   [alpha = 1] ---
+  min alpha(T') = 1.00000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0262
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(3.141, 6.283, -1, -2.0, 2.0)]
+  eps=0.05: sl (closed form B) = -1.0000
+  eps=0.1: sl (closed form B) = -1.0000
+--- transverse curve T3 = (2cos t + cos 2t, -3x', sin 6t/6) ---
+  min alpha(T') = 0.54866   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0026
+  front writhe (over = smaller y) = 23;  crossings (t_over, t_under, sgn, y_over, y_under) = [(5.759, 0.523, -1, -8.203, 8.195), (5.236, 1.047, 1, -10.392, 10.394), (3.141, 1.57, 1, -0.002, 6.005), (4.712, 1.57, -1, -5.995, 6.005), (2.709, 1.662, -1, -2.051, 4.883), (3.906, 1.852, -1, 1.841, 2.561), (4.183, 2.089, 1, 0.048, 0.051), (2.09, 4.183, 1, 0.044, 0.048), (4.184, 2.09, 1, 0.041, 0.044), (2.09, 4.184, 1, 0.037, 0.041), (4.185, 2.09, 1, 0.034, 0.037), (2.091, 4.185, 1, 0.03, 0.034), (4.186, 2.091, 1, 0.027, 0.03), (2.092, 4.186, 1, 0.022, 0.027), (4.187, 2.092, 1, 0.02, 0.022), (2.093, 4.187, 1, 0.015, 0.02), (4.187, 2.093, 1, 0.013, 0.015), (2.093, 4.187, 1, 0.008, 0.013), (4.188, 2.093, 1, 0.006, 0.008), (2.094, 4.188, 1, 0.001, 0.006), (4.189, 2.094, 1, -0.001, 0.001), (2.095, 4.189, 1, -0.006, -0.001), (4.19, 2.095, 1, -0.008, -0.006), (2.096, 4.19, 1, -0.013, -0.008), (4.19, 2.096, 1, -0.015, -0.013), (2.097, 4.19, 1, -0.02, -0.015), (4.191, 2.097, 1, -0.022, -0.02), (2.097, 4.191, 1, -0.027, -0.022), (4.192, 2.097, 1, -0.03, -0.027), (2.098, 4.192, 1, -0.034, -0.03), (4.193, 2.098, 1, -0.037, -0.034), (2.099, 4.193, 1, -0.041, -0.037), (4.194, 2.099, 1, -0.044, -0.041), (4.43, 2.376, -1, -2.551, -1.838), (2.617, 3.665, -1, -2.197, 2.196), (4.712, 3.141, 1, -5.995, -0.002), (4.62, 3.573, -1, -4.873, 2.05)]
+  eps=0.05: sl (closed form B) = -3.5862
+  eps=0.1: sl (closed form B) = -3.7569
+--- convergence of sl(T1) in the grid size N (closed form B) ---
+  eps=0.05: N=1000,2000,4000 -> [np.float64(-1.0), np.float64(-1.0), np.float64(-1.0)]
+  eps=0.1: N=1000,2000,4000 -> [np.float64(-1.0), np.float64(-1.0), np.float64(-1.0)]
+
+=== Legendrian eye L = (cos t, -sin 2t/2, sin^3 t/3) ===
+  max |alpha(L')| = 1.11e-16
+  cusps (t, type, cuspDisc) = [(4.7679633093780367e-14, 'up', 1.9994667207480268), (3.141592653589745, 'down', -1.9994667207480759)]
+  front writhe w = 0, D = 1, U = 1  =>  Etnyre: r=(D-U)/2=0.0, tb=w-(D+U)/2=-1.0, tb-r=-1.0 ; slNg = w-D = -1
+
+  annulus V = e_z - x' e_y (Etnyre's L+ direction, alpha(V)=+1):  B = L + s V + s^2 (sin 2t/2) e_z
+   s0=0.1: exact min alpha = 0.0100
+--- positive circle B(., 0.1) ---
+  min alpha(T') = 0.01000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0128
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(3.314, 2.968, -1, -0.186, 0.187)]
+  eps=0.02: sl (closed form B) = -0.9566
+  eps=0.05: sl (closed form B) = -0.9957
+   => compare: w - D = -1,  w - U = -1
+   s0=0.3: exact min alpha = 0.0900
+--- positive circle B(., 0.3) ---
+  min alpha(T') = 0.09000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0114
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(3.648, 2.634, -1, -0.57, 0.57)]
+  eps=0.02: sl (closed form B) = -0.9735   sl (finite-diff G, method A) = -1.3777
+  eps=0.05: sl (closed form B) = -0.9998   sl (finite-diff G, method A) = -0.9732
+   => compare: w - D = -1,  w - U = -1
+
+  annulus V = -e_z - x' e_y (alpha(V)=-1, same first-order y-push):  B = L + s V + s^2 (sin 2t/2) e_z
+   s0=0.1: exact min alpha = 0.0100
+--- positive circle B(., 0.1) ---
+  min alpha(T') = 0.01000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0128
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(3.314, 2.968, -1, -0.186, 0.187)]
+  eps=0.02: sl (closed form B) = -0.9566
+  eps=0.05: sl (closed form B) = -0.9957
+   => compare: w - D = -1,  w - U = -1
+   s0=0.3: exact min alpha = 0.0900
+--- positive circle B(., 0.3) ---
+  min alpha(T') = 0.09000   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0114
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(3.648, 2.634, -1, -0.57, 0.57)]
+  eps=0.02: sl (closed form B) = -0.9735
+  eps=0.05: sl (closed form B) = -0.9998
+   => compare: w - D = -1,  w - U = -1
+
+=== 4-cusp Legendrian L4: x = cos 2t + cos t, y = sin t - sin 2t/2 + 0.3 sin 3t, z = int x' y ===
+  check z' = x' y: max error = 2.66e-15;  max |alpha(L4')| = 2.66e-15
+  min |L4'| = 0.9000 (immersion iff > 0);  min far-apart distance = 0.0170
+  cusps = [(0.0, 'down', -224.885), (1.8235, 'up', 131.096), (3.1416, 'up', 156.512), (4.4597, 'up', 131.096)]
+  front writhe (slope rule) w = 0  [y-rule gives 0], crossings (t_over,t_under,sgn,y_over,y_under) = []
+  D = 1, U = 3  =>  r = -1.0, tb = -2.0, tb - r = w - D = -1;  w - U = -3
+
+   annulus B4 = L4 + s(0,-x',1) + s^2 (sin 4t/4) e_z, s0=0.1: exact min alpha = 0.0051
+--- positive circle B4(., 0.1) ---
+  min alpha(T') = 0.00510   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0163
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(6.202, 0.081, -1, -0.113, 0.112)]
+  eps=0.03: sl (closed form B) = 1.5923
+  eps=0.05: sl (closed form B) = -1.4872
+   => compare: w - D = -1,  w - U = -3
+
+   annulus B4 = L4 + s(0,-x',1) + s^2 (sin 4t/4) e_z, s0=0.2: exact min alpha = 0.0195
+--- positive circle B4(., 0.2) ---
+  min alpha(T') = 0.01948   (positive transverse iff > 0)
+  min distance between far-apart points = 0.0092
+  front writhe (over = smaller y) = -1;  crossings (t_over, t_under, sgn, y_over, y_under) = [(6.123, 0.159, -1, -0.298, 0.297)]
+  eps=0.03: sl (closed form B) = -1.5230
+  eps=0.05: sl (closed form B) = -0.9088
+   => compare: w - D = -1,  w - U = -3
+
+--- convergence of sl(B(.,0.3)) for the eye, closed form B ---
+  eps=0.05: N=2000,4000,6000 -> [np.float64(-1.00091), np.float64(-0.99998), np.float64(-1.0)]
+  eps=0.1: N=2000,4000,6000 -> [np.float64(-0.99998), np.float64(-1.0), np.float64(-1.0)]

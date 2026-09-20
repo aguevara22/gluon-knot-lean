@@ -3,7 +3,7 @@ import SM.NamedWallPredicates
 import SM.TripleOrder
 import SM.UnorderedWallTriples
 
-/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B1.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Module `Bridge.B1` carries rows Bridge:B1 (`Bridge.B1`) and Bridge:B2 (`Bridge.B2`). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/Bridge_B1.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Module `Bridge.B1` carries rows Bridge:B1 (`Bridge.B1`) and Bridge:B2 (`Bridge.B2`). -/
 
 /-! Bridge lane, rows 179 (Bridge:B1) and 180 (Bridge:B2).
 Source: reference/BRIDGE/BRIDGE.md §2, B1 at lines 159–446 and B2 at 448–491; coordinates as in

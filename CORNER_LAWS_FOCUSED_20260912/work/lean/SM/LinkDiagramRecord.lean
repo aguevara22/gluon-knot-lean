@@ -3,7 +3,7 @@ import SM.LinkRecord
 
 /-! Chapter-3 representation layer, module LinkDiagramRecord: the bridge from polygonal diagrams to crossing records (Diagram.record: per-component cyclic successor of visits, twin pairing, over bits, signs), its sanity laws (writhe, crossing count), the switch and restrict bridges (RecordIso), IsRealizable, the one-polygon agreement with the accepted Gauss data (record_of_single_polygon), the cyclic-order equivalence of def:gauss-record, and the statement of the PL-extension clause. Implements the design adopted 2026-09-13
 (work/reports/design-decision-diagram-record-20260913.md). Written 2026-09-13 by a Claude Code implementer subagent of the pod executor
-(workflow implement-diagram-layer-phase2), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
+(workflow implement-diagram-layer-phase2), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
 work/drafts/LinkDiagramRecord.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
 
 /-! # The crossing record of a polygonal oriented link diagram (`Diagram.record`)

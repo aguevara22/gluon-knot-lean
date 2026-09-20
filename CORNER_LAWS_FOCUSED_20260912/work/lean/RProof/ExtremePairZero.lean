@@ -1,0 +1,88 @@
+-- Ported 18:08Z 2026-09-15 from work/drafts/cvtail/Wave1_Assembled.lean lines 2552-2621 (CV/R tail lane, row 175 R:extreme_pair_zero: cvt_exists_owner, U-175's helper cvt175_exists_third, the leaf cvt_pair_row_zero_of_singleton, extreme_pair_zero_of_singleton and the row, proved from CV.singleton_D_i) by the pod executor; body verbatim except this header, the import block, the module docstring (new), and the namespace opening lines `namespace RProof` / `open SM SM.GeoCarrier` / `variable {n : ℕ} [NeZero n]` (Wave1 1772-1795) and `end RProof` (4228) repeated around the block. Row 175 (FIXED name, RowShape @ExtremePairZeroData form): `RProof.extreme_pair_zero … := extreme_pair_zero_of_singleton CV.singleton_D_i n hn E e f g h3 h4e h4f h4g hE`.
+import RProof.RALedgers
+import CV.SingletonDi
+
+/-! # Row 175 R:extreme_pair_zero (FIXED name) — from row 165 CV:singleton_D_i
+
+The fixed statement of RProof/X1Rows.lean's `ExtremePairZeroData` in the accepted row shape (`RowShape`,
+RProof/RALedgers.lean); the three presupposition fields are the accepted `PRE_175_*`, the `pair_row_zero` field is
+`cvt_pair_row_zero_of_singleton` (unit U-175 of the CV/R tail lane, work/drafts/cvtail/U_R175_REPORT.md). -/
+
+namespace RProof
+
+open SM SM.GeoCarrier
+
+variable {n : ℕ} [NeZero n]
+
+/-- The owner of a residual piece (lem:carriers (iv), accepted `pieceOwner` / `mem_piecesOn_iff`). PROVED. -/
+theorem cvt_exists_owner {P : LabelledTuple n} (hP : CrossingGeometry P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hP) (H : CV.Piece hP S) : ∃ q : GeoComponent hP S, H ∈ CV.piecesOn hP S q :=
+  ⟨CV.pieceOwner hP hS H, (CV.mem_piecesOn_iff hP hS _ H).mpr rfl⟩
+
+/-- U-175 helper: a two-element `J` inside the three-element `T = {x_ef, x_eg, x_fg}`
+(`P1.triangleCrossings_card`) leaves out a third crossing `z ∈ T ∖ J` ("The remaining crossing `z`",
+R_EXTREME_PAIR_ZERO_PROOF.md). PROVED. -/
+theorem cvt175_exists_third {P : LabelledTuple n} {e f g : ZMod n} (hef : IsCrossing P {e, f})
+    (heg : IsCrossing P {e, g}) (hfg : IsCrossing P {f, g}) {J : Finset (Crossing P)}
+    (hJ2 : J.card = 2) : ∃ z ∈ triangleCrossings P e f g, z ∉ J := by
+  have h3 := P1.triangleCrossings_card hef heg hfg
+  obtain ⟨z, hz, hzJ⟩ := Finset.exists_mem_notMem_of_card_lt_card (s := J)
+    (t := triangleCrossings P e f g) (by omega)
+  exact ⟨z, hz, hzJ⟩
+
+/-- LEAF (unit U-175, ~120 lines): the `pair_row_zero` field of row 175 from row 165
+(R_EXTREME_PAIR_ZERO_PROOF.md, paragraphs 4-5): `rowTerm = wind * ∏ Ω₁` (`rowTerm_of_mem_Ind`); `wind = 0`
+or every carrier uniform (`weight_ne_zero_iff`, `Finset.prod_ne_zero_iff`); the third crossing `z ∉ J`
+(`triangleCrossings_card`) has the singleton piece `{z}` (`PRE_175_third_singleton_piece`); its owner
+(`cvt_exists_owner`) is uniform; `singleton_D_i.factor_zero` kills its `Ω₁`; `Finset.prod_eq_zero`. -/
+theorem cvt_pair_row_zero_of_singleton (h165 : CV.SingletonDiData) (hn : 3 ≤ n) (E : CV.Event n)
+    (e f g : ZMod n) (δ : ℝ) (hPar : ParityData E e f g δ) :
+    ∀ t : E.Parameter, ∀ ht : Punctured E δ t,
+    ∀ (hef : IsCrossing (E.curve t) {e, f}) (heg : IsCrossing (E.curve t) {e, g})
+      (hfg : IsCrossing (E.curve t) {f, g}),
+    EmptyLocal (geomAt E t ht.1) hef heg hfg →
+    ∀ Q ∈ outsideSupports (geomAt E t ht.1) e f g, FullAvail (geomAt E t ht.1) e f g Q →
+    ∀ J : Finset (Crossing (E.curve t)), J ⊆ triangleCrossings (E.curve t) e f g → J.card = 2 →
+      rowTerm hn (genericAt E t ht.1) (Q ∪ J) = 0 := by
+  intro t ht hef heg hfg hL Q hQ hfull J hJT hJ2
+  -- the row is present on the empty-graph side (`PRE_175_pair_present_on_empty`), so
+  -- `T(Q ∪ J) = wind(Q ∪ J) · ∏_L Ω₁(Q ∪ J, L)` (def:X1, `rowTerm_of_mem_Ind`).
+  have hS : Q ∪ J ∈ CV.Ind (geomAt E t ht.1) :=
+    PRE_175_pair_present_on_empty E e f g δ t ht hef heg hfg hL Q hQ hfull J hJT hJ2
+  rw [rowTerm_of_mem_Ind hn (genericAt E t ht.1) hS]
+  by_cases hw : CV.wind (geomAt E t ht.1) (Q ∪ J) = 0
+  · -- "either wind(S) = 0 and the term vanishes"
+    rw [hw, zero_mul]
+  · -- "or every carrier of S is uniform" (def:wind, `wind_ne_zero_imp`)
+    have huni := (CV.wind_ne_zero_imp _ _ hw).2
+    -- the third crossing `z ∈ T ∖ J` (`|T| = 3 > 2 = |J|`) has the singleton residual piece `{z}`
+    obtain ⟨z, hz, hzJ⟩ := cvt175_exists_third hef heg hfg hJ2
+    obtain ⟨hzU, hlab⟩ :=
+      PRE_175_third_singleton_piece hPar t ht hef heg hfg hL Q hQ hfull J hJT hJ2 z hz hzJ
+    -- its owner carrier `L(z)` (lem:carriers (iv)) is uniform and carries `{z}`: row 165 (D)(i)
+    -- gives `Ω₁(Q ∪ J, L(z)) = 0`, and one zero factor kills the product.
+    obtain ⟨q, hq⟩ := cvt_exists_owner (geomAt E t ht.1) hS (CV.pieceOf _ _ z hzU)
+    have hΩ : CV.Omega1 hn (genericAt E t ht.1) hS q = 0 :=
+      h165.factor_zero hn (genericAt E t ht.1) hS q (huni q) z ⟨hzU, hlab, hq⟩
+    rw [Finset.prod_eq_zero (Finset.mem_univ q) hΩ, mul_zero]
+
+/-- **Row 175 from row 165**: the three presupposition fields are the accepted `PRE_175_*`; `δ` is
+row 167's. PROVED modulo the one leaf. -/
+theorem extreme_pair_zero_of_singleton (h165 : CV.SingletonDiData) : RowShape @ExtremePairZeroData := by
+  intro n _ hn E e f g h3 h4e h4f h4g hE
+  obtain ⟨δ, hδ, hδr, hPar⟩ := parity E e f g h3 h4e h4f h4g hE
+  exact ⟨δ, hδ, hδr, PRE_175_pair_absent_on_complete E e f g δ, PRE_175_pair_present_on_empty E e f g δ,
+    PRE_175_third_singleton_piece hPar, cvt_pair_row_zero_of_singleton h165 hn E e f g δ hPar⟩
+
+/-- **Row 175, R:extreme_pair_zero** (FIXED name), from row 165. -/
+theorem extreme_pair_zero (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n)
+    (h3 : remote e f ∧ remote f g ∧ remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+    (h4e : remote e f ∧ remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)
+    (h4f : remote f e ∧ remote f g ∧ e ≠ g ∧ CV.rep e < CV.rep g)
+    (h4g : remote g e ∧ remote g f ∧ e ≠ f ∧ CV.rep e < CV.rep f)
+    (hE : E.IsSimpleRIII e f g h3 h4e h4f h4g) :
+    ∃ δ : ℝ, 0 < δ ∧ δ ≤ E.radius ∧ ExtremePairZeroData hn E e f g δ :=
+  extreme_pair_zero_of_singleton CV.singleton_D_i n hn E e f g h3 h4e h4f h4g hE
+
+
+end RProof

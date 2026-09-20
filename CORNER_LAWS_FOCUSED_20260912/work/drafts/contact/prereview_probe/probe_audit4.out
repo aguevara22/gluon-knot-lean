@@ -1,0 +1,18 @@
+
+=== crossing Legendrian (a=2.4, gam=-0.8): cusps=[(0.0, 'up'), (2.214, 'down'), (3.142, 'up'), (4.069, 'down')] D=2, U=2, w=1;  w-D=-1, w-U=-1 ===
+  s0=0.25, W=sin(6t+0.00)/6: min alpha (exact/numeric) = 0.0080/0.0080; circle self-approach = 2.954; max speed = 6.1
+     circle front writhe (over = smaller y) = -1; #crossings = 5 (L had 3); min y-gap = 0.816
+     eps=0.05: sl(Gauss) at N=(12000, 20000) -> [np.float64(-1.2583), np.float64(-1.0202)]   [w-D=-1, w-U=-1]
+     eps=0.08: sl(Gauss) at N=(12000, 20000) -> [np.float64(-0.9213), np.float64(-1.0077)]   [w-D=-1, w-U=-1]
+  s0=0.3: best min alpha -0.0053 <= 0, skipped
+
+=== transverse curve T3 (A=4): (2cos t + cos 2t, -4x', sin 6t/6 + 0.2 sin 3t + 0.3 cos t + 0.25 sin t) ===
+  min alpha = 0.1289;  self-approach = 0.273
+  front writhe (over = smaller y) = -3; #crossings = 5; min y-gap = 2.742; crossings = [(4.659, 1.624, -1), (2.707, 1.664, -1), (4.353, 1.93, 1), (4.597, 2.656, -1), (2.964, 3.319, -1)]
+  eps=0.1: sl(Gauss) at N=8000,16000 -> [np.float64(-3.1386), np.float64(-3.0192)]
+  eps=0.2: sl(Gauss) at N=8000,16000 -> [np.float64(-3.0196), np.float64(-3.0001)]
+
+real	1m56.148s
+user	1m38.317s
+sys	0m17.444s
+exit=0

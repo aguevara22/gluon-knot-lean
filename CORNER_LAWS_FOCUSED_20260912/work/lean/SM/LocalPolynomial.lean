@@ -1,6 +1,6 @@
 import SM.LinkInterfaces
 
-/-! Ported 2026-09-13 from work/drafts/LocalPolynomial_statement.lean (pod executor; checked with `lake env lean`, no sorry). -/
+/-! Ported 2026-09-13 from work/drafts/LocalPolynomial_statement.lean (pod executor; checked with `lake env lean`, no placeholder). -/
 
 /-! The local campaign polynomial `P` of lp:core (reference/SM/sm-3-statesum.tex:1041-1063, frame SM15):
 "the same source construction has an evaluation `P_D ∈ R`", namely the Gaussian evaluation

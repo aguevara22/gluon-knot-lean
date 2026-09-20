@@ -1,7 +1,7 @@
 import SM.LinkRecord
 
 /-! Chapter-3 representation layer, module LinkRecordExtras: closing the open items of LinkRecord: the component count of the record-level smoothing (c + 1 at a self crossing, c − 1 ≥ 1 at a mixed crossing, via the cycle count of a permutation composed with a transposition), RecordIso transport for smooth / restrict / joinRecord, Crossing-indexed switchAt / smoothAt, and the kink and Hopf examples. Written 2026-09-13 by a Claude Code prover subagent of the pod executor
-(workflow close-phase1-open-items), checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from
+(workflow close-phase1-open-items), checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from
 work/drafts/LinkRecordExtras.lean (only this header added and #print lines removed). Declarations live in `SM.Link`. -/
 
 /-! # Record extras: component count of the smoothing, isomorphism transport, crossing-indexed

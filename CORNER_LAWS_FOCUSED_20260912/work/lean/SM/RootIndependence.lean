@@ -20,7 +20,7 @@ import SM.TransportLemma
 /-! Source thm:root-indep-proof (reference/SM/sm-6-comparison.tex:53, frame SM15): root independence of the tree coefficient.
 Main declaration: `SM.root_independence`. Proof planned and drafted 2026-09-13 by a Claude Code scout subagent of the pod executor
 (work/reports/root-indep-plan-20260913.md, Appendix A), made unconditional on the accepted lem:transport by a second subagent,
-checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/RootIndependence.lean (only this
+checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/RootIndependence.lean (only this
 header added and the #print line removed). Every helper is prefixed `ri_`. -/
 
 open Filter Topology

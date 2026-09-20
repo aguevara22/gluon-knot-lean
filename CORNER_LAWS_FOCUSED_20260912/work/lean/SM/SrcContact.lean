@@ -1,0 +1,287 @@
+-- Ported 15:05Z 2026-09-15 from work/drafts/contact/Statements_FINAL.lean lines 1-283 (§0-§3: conversions, SM.sl, IsLegendrianFrontOf, the fifth literature interface src:contact and its sanity theorems) by the pod executor; body verbatim except this header and the module docstring paragraph on the row theorems (D-SC-5). Exactly one axiom: SM.src_contact (policy name).
+import SM.TransverseFront
+import SM.LinkingCalculusRow
+import SM.NgBound
+import SM.ContactPath
+import SM.GenericFront
+import SM.TransverseNeighborhood
+/-! # src:contact (fifth literature interface), `SM.sl`, rows 94 / 161 / 162 — FINAL statements
+
+Judge's synthesis of the contact panel (2026-09-15): DESIGN B (proof feasibility: the proof route of
+fd:contact composed and kernel-checked from named unit Props) with the fidelity grafts of DESIGN A
+(the axiom carries exactly the four printed formulas — the convention / consequence / provenance /
+scope sentences are theorems or commentary, as for `SM.ng_finite_word`; `SM.sl` is the name of the
+document's self-linking number; "an oriented Legendrian front" is one predicate
+`IsLegendrianFrontOf` in row 87's vocabulary, the vocabulary of the axiom's only consumer; row 161
+keeps its printed shape).  Plan: work/drafts/contact/PLAN_FINAL.md.
+
+Everything typechecks against the accepted layer.  ONE `axiom` (`SM.src_contact`, policy name in
+lean/axiom-policy.json).  The row theorems `SM.fd_contact` and `CV.ax_slbound` are NOT in this module (they wait for the
+prover units of PLAN_FINAL §6 and live in work/drafts/contact/ until then); `CV.ax_etnyre` (row 161) is
+proved from the axiom in CV/AxEtnyre.lean.  The assembly `fd_contact_of_units` is proved: the printed proof of fd:contact
+composes through rows 84 → 87 → src:contact → 93 → 91 on the accepted vocabulary.
+
+Ported from work/drafts/contact/Statements_FINAL.lean §0-§3 (this module), §4-§5 (SM/FdContactStatements.lean).
+Registry text: blueprint/AXIOM_REGISTRY.md §src:contact = reference/SM/sm-3-statesum.tex:3341-3365.
+-/
+
+namespace SM
+
+open SM.Link TransverseNeighborhood
+open scoped ContDiff
+open Set Function Real
+
+noncomputable section
+open Classical
+
+local notation "E3" => EuclideanSpace ℝ (Fin 3)
+
+
+/-! ## 0. The three parametrization conventions of the accepted layer and their conversions
+
+* def:transverse-front (row 92): `Space = ℝ × ℝ × ℝ`, 1-periodic `TransverseKnot`;
+* rows 84 / 87 / 88: `E3 = EuclideanSpace ℝ (Fin 3)`, 2π-periodic circles (row 88 at period `P = 2π`,
+  the document's `S¹ = ℝ/2πℤ` of the fd block, FR-LC-1);
+* rows 89-91: `SpatialLink c` on `Space`, 1-periodic. -/
+
+/-- `(x, y, z) ↦ !₂[x, y, z]`: the identity on coordinates. -/
+def toE3 (p : Space) : E3 := (EuclideanSpace.equiv (Fin 3) ℝ).symm ![p.1, p.2.1, p.2.2]
+
+/-- `p ↦ (p 0, p 1, p 2)`. -/
+def toSpace (p : E3) : Space := (p 0, p 1, p 2)
+
+@[simp] theorem toE3_apply0 (p : Space) : toE3 p 0 = p.1 := rfl
+@[simp] theorem toE3_apply1 (p : Space) : toE3 p 1 = p.2.1 := rfl
+@[simp] theorem toE3_apply2 (p : Space) : toE3 p 2 = p.2.2 := rfl
+
+theorem toSpace_toE3 (p : Space) : toSpace (toE3 p) = p := rfl
+
+theorem toE3_toSpace (q : E3) : toE3 (toSpace q) = q := by
+  ext i; fin_cases i <;> rfl
+
+theorem contDiff_toE3 : ContDiff ℝ ∞ toE3 := by
+  unfold toE3
+  refine (EuclideanSpace.equiv (Fin 3) ℝ).symm.contDiff.comp ?_
+  rw [contDiff_pi]
+  intro i
+  fin_cases i
+  · exact contDiff_fst
+  · exact contDiff_snd.fst
+  · exact contDiff_snd.snd
+
+/-- The convention sentence of src:contact ("standard contact space `(ℝ³, ker(dz − y dx))`") is ONE
+convention in every vocabulary of the accepted layer: the contact forms of rows 84 / 87 / 88 and of
+def:transverse-front agree (`rfl`).  No field of the axiom (FR-SC-8). -/
+theorem lcContactForm_toE3 (p v : Space) : lcContactForm (toE3 p) (toE3 v) = contactForm p v := rfl
+theorem alpha_eq_lcContactForm : TransverseNeighborhood.alpha = lcContactForm := rfl
+theorem gf_alpha_eq_lcContactForm : GenericFront.alpha = lcContactForm := rfl
+
+/-- The convention sentence "with positive transverse orientation `z′ − y x′ > 0`" is the accepted
+`IsPositiveTransverse` (`Iff.rfl`).  No field of the axiom (FR-SC-8). -/
+theorem isPositiveTransverse_iff (T : ℝ → E3) :
+    IsPositiveTransverse T ↔ ∀ θ, 0 < lcContactForm (T θ) (deriv T θ) := Iff.rfl
+
+namespace TransverseKnot
+
+variable (K : TransverseKnot)
+
+/-- The knot of def:transverse-front as a 2π-periodic circle in oriented `ℝ³` (the object of rows
+84, 87, 88): `θ ↦ T(θ / 2π)`. -/
+def circle : ℝ → E3 := fun θ => toE3 (K.T (θ / (2 * π)))
+
+/-- The knot as a one-component spatial link (the object of rows 89-91), same parametrization. -/
+def spatial : SpatialLink 1 where
+  T := fun _ => K.T
+  smooth := fun _ => K.smooth
+  periodic := fun _ => K.periodic
+  embedded := fun i j s t h => ⟨Subsingleton.elim i j, K.embedded s t h⟩
+  regular := fun _ t => K.deriv_T_ne_zero t
+
+@[simp] theorem spatial_T (i : Fin 1) : K.spatial.T i = K.T := rfl
+
+/-- The projection of the spatial link is the loop of the front. -/
+theorem spatial_projLoop (i : Fin 1) : K.spatial.projLoop i = K.xz := by
+  cases i; rfl
+
+end TransverseKnot
+
+/-! ## 1. `SM.sl`: the self-linking number of the document (fd:framed-linking, sm-3:2820-2824),
+ε-free through the accepted row 88
+
+`selfLinking P T ε = ℓ(T, T + ε∂_y)` (SM/LinkingCalculus.lean:574); row 88 gives one radius `ε₀ > 0`
+for every transverse family (`transverse_uniform`) and independence of the radius and the family
+parameter (`self_linking_invariant`).  The radius is fixed ONCE by `Classical.choose` on the constant
+family `s ↦ T`, so `sl` is a function of `T` alone; unit U1a proves the choice immaterial. -/
+
+/-- The constant transverse family of one positive transverse embedding (period `2π`). -/
+theorem IsPositiveTransverseEmbedding.constFamily {T : ℝ → E3}
+    (h : IsPositiveTransverseEmbedding (2 * π) T) : TransverseFamily (2 * π) (fun _ => T) where
+  pos := by positivity
+  smooth := by
+    show ContDiff ℝ ∞ (fun p : ℝ × ℝ => T p.2)
+    exact h.circle.smooth.comp contDiff_snd
+  periodic := fun _ => h.circle.periodic
+  embedded := fun _ _ u u' hu => h.embedded u u' hu
+  positive := fun _ _ u => h.positive u
+
+/-- **`sl` of fd:framed-linking, ε-free**, for a 2π-periodic positive transverse embedding
+`T : S¹ → ℝ³`: `ℓ(T, T + ε₀ ∂_y)` at the radius `ε₀` of row 88's `transverse_uniform` for the constant
+family; `0` off the class (never exercised: every clause applies it to a positive transverse
+embedding, FR-SC-9).  Row 88's `self_linking_invariant` makes it the value at EVERY admissible radius
+(unit U1a) and constant along transverse families (U1b). -/
+def slCircle (T : ℝ → E3) : ℝ :=
+  if h : IsPositiveTransverseEmbedding (2 * π) T then
+    selfLinking (2 * π) T
+      (Classical.choose (fd_linking_calculus.transverse_uniform (2 * π) (fun _ => T) h.constFamily))
+  else 0
+
+/-- **The document's self-linking number of a generic positive transverse knot** (def:transverse-front),
+read on the fd block's circle `ℝ/2πℤ` through `TransverseKnot.circle`.  ℝ-valued; integrality is a
+consequence of the axiom's transverse clause (`sl K = ↑writhe`), not a prerequisite (FR-SC-10). -/
+def sl (K : TransverseKnot) : ℝ := slCircle K.circle
+
+/-! ## 2. "An oriented Legendrian front": a front on ng:front-domain that is the `xz` projection of an
+oriented Legendrian knot of rows 84 / 87 (parameter bridge `θ = 2π t`) -/
+
+/-- `F` is the `xz` front of the oriented Legendrian knot `L` in the vocabulary of row 87, the axiom's
+consumer: `GenericFrontHyp L` = smooth embedded 2π-periodic circle (orientation = parameter direction,
+T-1) with `α(L′) = 0`; one parameter circle; and the loop of `F` is `t ↦ (x(2πt), z(2πt))`.  As a
+`SmoothFront` (ng:front-domain, accepted row 73), `F` carries the front vocabulary of the printed
+formulas: `D = F.downCount`, `U = F.upCount` ("traversed from its locally upper arm to its locally
+lower arm", FR-2 = Etnyre's down cusp), `w = F.writhe` (over = smaller slope, sign `sgn det(u_O,u_U)`,
+Etnyre §2.2 (3): "the positive y axis goes into the page"). -/
+structure IsLegendrianFrontOf (L : ℝ → E3) (F : SmoothFront) : Prop where
+  hyp : GenericFrontHyp L
+  one : F.c = 1
+  front : ∀ (i : Fin F.c) (t : ℝ), (F.comp i).γ t = GenericFront.front L (2 * π * t)
+
+/-- The front of `L` is unique as a `SmoothFront` (data = `c`, `comp`; the rest is `Prop`). -/
+theorem IsLegendrianFrontOf.unique {L : ℝ → E3} {F F' : SmoothFront}
+    (h : IsLegendrianFrontOf L F) (h' : IsLegendrianFrontOf L F') : F = F' := by
+  have hcomp : ∀ (i : Fin F.c) (j : Fin F'.c), (i : ℕ) = j → (F.comp i).γ = (F'.comp j).γ := by
+    intro i j hij
+    funext t
+    rw [h.front i t, h'.front j t]
+  obtain ⟨c, hc, comp, _, _, _, _, _, _, _, _⟩ := F
+  obtain ⟨c', hc', comp', _, _, _, _, _, _, _, _⟩ := F'
+  have hcc : c = c' := by
+    have := h.one; have := h'.one; simp_all
+  subst hcc
+  have hcomp' : comp = comp' := by
+    funext i
+    exact SmoothLoop.ext' (hcomp i i rfl)
+  subst hcomp'
+  rfl
+
+/-! ## 3. THE FIFTH LITERATURE INTERFACE — src:contact (AXIOM_REGISTRY.md §src:contact =
+sm-3:3341-3365), one field per printed FORMULA, ∃-form over the literature's `r`, `tb`
+
+Sentence → rendering (the table of PLAN_FINAL §2):
+* 3342-3345 "Use standard contact space … positive transverse orientation z′ − yx′ > 0": conventions,
+  theorems `lcContactForm_toE3`, `alpha_eq_lcContactForm`, `isPositiveTransverse_iff` — no field;
+* 3345-3351 "for an oriented Legendrian front with downward and upward cusp counts D, U": the binder
+  `∀ L F, IsLegendrianFrontOf L F →` with `D = F.downCount`, `U = F.upCount`, `w = F.writhe`;
+* 3349-3351 "every cusp … either downward or upward, so the total cusp count in his tb formula is
+  D+U": the accepted theorem `SmoothFront.downCount_add_upCount` — no field;
+* 3352 `r = (D−U)/2`: field `rotation`;  `tb = w − (D+U)/2`: field `thurston_bennequin`;
+* 3353 `sl(T₊(L)) = tb(L) − r(L)`: field `pushoff_self_linking`, `T₊(L)` = every positive transverse
+  pushoff `GenericFront.IsPositivePushoff L T′` (the document's own notion, FR-TN-4), `sl = slCircle`;
+* 3355-3357 provenance parenthesis — no field;
+* 3358-3363 "For a generic positive transverse front, self-linking equals its front writhe": field
+  `transverse_front_writhe` over `TransverseKnot` (row 92), `sl K = K.front.writhe`;
+* 3363-3364 "These are the local front and pushoff source formulas only": scope — no field. -/
+
+/-- The printed formulas of src:contact for candidate rotation number `r` and Thurston–Bennequin
+invariant `tb` of the literature (neither is defined in the document; both are fixed by the first two
+formulas, `src_contact_iff_consequence`). -/
+structure SrcContactClauses (r tb : (ℝ → E3) → ℝ) : Prop where
+  /-- sm-3:3352, first formula of display fd:contact-inputs: `r = (D − U)/2`. -/
+  rotation : ∀ (L : ℝ → E3) (F : SmoothFront), IsLegendrianFrontOf L F →
+    r L = ((F.downCount : ℝ) - F.upCount) / 2
+  /-- sm-3:3352, second formula: `tb = w − (D + U)/2` ("the total cusp count in his tb formula is
+  D + U", `downCount_add_upCount`). -/
+  thurston_bennequin : ∀ (L : ℝ → E3) (F : SmoothFront), IsLegendrianFrontOf L F →
+    tb L = (F.writhe : ℝ) - ((F.downCount : ℝ) + F.upCount) / 2
+  /-- sm-3:3353, third formula: `sl(T₊(L)) = tb(L) − r(L)`, for every positive transverse pushoff
+  `T₊(L)` of `L` in the document's sense (a positive circle of a pushoff annulus, row 84 / 87). -/
+  pushoff_self_linking : ∀ (L : ℝ → E3) (F : SmoothFront), IsLegendrianFrontOf L F →
+    ∀ T' : ℝ → E3, GenericFront.IsPositivePushoff L T' → slCircle T' = tb L - r L
+  /-- sm-3:3358-3360: "For a generic positive transverse front (Definition def:transverse-front),
+  self-linking equals its front writhe" — the knot `T` named separately (`K`), its front `K.front`
+  (over = smaller `y`, sign `sgn det_xz(u_O, u_U)`, accepted row 92). -/
+  transverse_front_writhe : ∀ K : TransverseKnot, sl K = (K.front.writhe : ℝ)
+
+/-- **src:contact** (AXIOM_REGISTRY.md §src:contact, sm-3:3341-3365; policy name `SM.src_contact`):
+"Use standard contact space (ℝ³, ker(dz − y dx)), with positive transverse orientation z′ − y x′ > 0.
+Etnyre's front and pushoff statements give, for an oriented Legendrian front with downward and upward
+cusp counts D, U — every cusp of an oriented front is traversed either downward or upward, so the
+total cusp count in his tb formula is D+U — r = (D−U)/2, tb = w − (D+U)/2, sl(T₊(L)) = tb(L) − r(L).
+(…)  For a generic positive transverse front (Definition def:transverse-front), self-linking equals
+its front writhe (…).  These are the local front and pushoff source formulas only."  Existence of the
+literature's `r`, `tb` in ∃-form (the pattern of `lit_homfly`, `lp_lm`); the formulas are the fields of
+`SrcContactClauses`; `sl` is the document's fd:framed-linking number (rem:sl-convention, FR-SC-4).
+AXIOM: interface review against the registry text required before any consumer cites it. -/
+axiom src_contact : ∃ r tb : (ℝ → E3) → ℝ, SrcContactClauses r tb
+
+/-- The literature's rotation number, one witness fixed by choice. -/
+def rot : (ℝ → E3) → ℝ := Classical.choose src_contact
+/-- The literature's Thurston–Bennequin invariant, one witness fixed by choice. -/
+def tb : (ℝ → E3) → ℝ := Classical.choose (Classical.choose_spec src_contact)
+
+theorem src_contact_spec : SrcContactClauses rot tb :=
+  Classical.choose_spec (Classical.choose_spec src_contact)
+
+/-! ### 3.1 Sanity: the axiom is exactly the printed formulas, no more -/
+
+/-- The cusp calculation of fd:contact's proof (sm-3:3452-3457): `tb − r = w − (D+U)/2 − (D−U)/2 =
+w − D = sl_Ng(F)` — the third formula with the first two substituted (`slNg` = the accepted `w − D` of
+row 93). -/
+theorem SrcContactClauses.pushoff_slNg {r tb : (ℝ → E3) → ℝ} (h : SrcContactClauses r tb)
+    {L : ℝ → E3} {F : SmoothFront} (hF : IsLegendrianFrontOf L F) {T' : ℝ → E3}
+    (hT : GenericFront.IsPositivePushoff L T') : slCircle T' = (F.slNg : ℝ) := by
+  rw [h.pushoff_self_linking L F hF T' hT, h.thurston_bennequin L F hF, h.rotation L F hF,
+    SmoothFront.slNg_def]
+  push_cast
+  ring
+
+/-- The substituted form of the display (what the proof of fd:contact consumes) together with the
+transverse-front clause. -/
+structure SrcContactConsequence : Prop where
+  pushoff_slNg : ∀ (L : ℝ → E3) (F : SmoothFront), IsLegendrianFrontOf L F →
+    ∀ T' : ℝ → E3, GenericFront.IsPositivePushoff L T' → slCircle T' = (F.slNg : ℝ)
+  transverse_front_writhe : ∀ K : TransverseKnot, sl K = (K.front.writhe : ℝ)
+
+/-- **The ∃-form asserts precisely the two consequences** — `sl(T₊) = w − D` on the Legendrian class
+and `sl = w` on the transverse class — and nothing about `r`, `tb` beyond the two defining formulas
+(FR-SC-1).  → : the cusp calculation.  ← : define `r`, `tb` by the two printed formulas on the (unique)
+front of `L`.  Standard axioms only. -/
+theorem src_contact_iff_consequence :
+    (∃ r tb : (ℝ → E3) → ℝ, SrcContactClauses r tb) ↔ SrcContactConsequence := by
+  constructor
+  · rintro ⟨r, tb, h⟩
+    exact ⟨fun L F hF T' hT => h.pushoff_slNg hF hT, h.transverse_front_writhe⟩
+  · intro h
+    refine ⟨fun L => if hL : ∃ F, IsLegendrianFrontOf L F then
+        ((hL.choose.downCount : ℝ) - hL.choose.upCount) / 2 else 0,
+      fun L => if hL : ∃ F, IsLegendrianFrontOf L F then
+        (hL.choose.writhe : ℝ) - ((hL.choose.downCount : ℝ) + hL.choose.upCount) / 2 else 0, ?_⟩
+    have key : ∀ (L : ℝ → E3) (F : SmoothFront) (hF : IsLegendrianFrontOf L F),
+        (⟨F, hF⟩ : ∃ F, IsLegendrianFrontOf L F).choose = F := fun L F hF =>
+      (Classical.choose_spec (⟨F, hF⟩ : ∃ F, IsLegendrianFrontOf L F)).unique hF
+    refine ⟨?_, ?_, ?_, h.transverse_front_writhe⟩
+    · intro L F hF
+      have hex : ∃ F, IsLegendrianFrontOf L F := ⟨F, hF⟩
+      simp only [hex, ↓reduceDIte, key L F hF]
+    · intro L F hF
+      have hex : ∃ F, IsLegendrianFrontOf L F := ⟨F, hF⟩
+      simp only [hex, ↓reduceDIte, key L F hF]
+    · intro L F hF T' hT'
+      have hex : ∃ F, IsLegendrianFrontOf L F := ⟨F, hF⟩
+      simp only [hex, ↓reduceDIte, key L F hF]
+      rw [h.pushoff_slNg L F hF T' hT', SmoothFront.slNg_def]
+      push_cast
+      ring
+
+end
+
+end SM

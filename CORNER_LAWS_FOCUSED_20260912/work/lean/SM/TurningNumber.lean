@@ -9,7 +9,7 @@ import Mathlib.Analysis.Calculus.Deriv.Add
 import SM.RotationContinuity
 import SM.RotationTheorem
 
-/-! Ported verbatim 2026-09-13 from work/drafts/TurningNumber.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row cf:def-turning → `SM.turning_definition`; the definitions are shared with cf:lem-turnlift (row 96) and CV def:rot / lem:turnlift (rows 144-145, decision F6). Plan: work/drafts/TurningNumber_PLAN.md; scout: work/reports/turning-number-scout-20260913.md. -/
+/-! Ported verbatim 2026-09-13 from work/drafts/TurningNumber.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row cf:def-turning → `SM.turning_definition`; the definitions are shared with cf:lem-turnlift (row 96) and CV def:rot / lem:turnlift (rows 144-145, decision F6). Plan: work/drafts/TurningNumber_PLAN.md; scout: work/reports/turning-number-scout-20260913.md. -/
 
 /-! # SM cf:def-turning — direction loops and smooth rotation
 

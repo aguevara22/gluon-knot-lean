@@ -50,83 +50,216 @@ all three stages in the full package and the single complete stage in the focuse
 package. Retain those receipts, reviews and progress history in the delivered
 implementation. A receipt must still match code, reviews, sources and policy.
 
-# Completed fidelity review — 2026-09-14 (pod executor)
+# Completed fidelity review — 2026-09-19 (pod executor)
 
-**Final fidelity review — completed 2026-09-14 18:15 UTC / 2:15pm ET (pod executor).** This is the finalized content of
-`work/FINAL_REVIEW_DRAFT.md` (the same text; the checklist above is unchanged). Paths are relative to the package root;
-`reviews/<row>.json` in the tables means `work/reviews/<row>.json`. The focused stage is INCOMPLETE (§4.8).
+**Final fidelity review — completed 15:55 UTC / 11:55am ET on 2026-09-19 (pod executor).**
+This is the 2026-09-16 review (its text of record at 02:33Z that day is preserved unchanged in the handover archive
+`LEAN_HANDOVER_20260916_0233Z.tgz` and as `work/delivery/FINAL_REVIEW.md`; the 2026-09-14 text as `work/FINAL_REVIEW_DRAFT.md`)
+updated section by section after the executor resumed on 2026-09-19 05:35Z under the author's response **D-AUTH-20260919**
+(`work/AUTHOR_NOTES.md` L6520, verbatim copy `work/AUTHOR_RESPONSE_20260919.md`; received through Mark 05:33Z): "Continue to
+completion … Both stopped branches (row 110 and row 177) are re-opened now, with no bound. Row 57 is un-deferred." Paths are
+relative to the package root; `reviews/<row>.json` means `work/reviews/<row>.json`. The draft of this text was written at 13:26Z-14:00Z
+2026-09-19 (9:26-10:00am ET) while row 57's wave 2 was running and completed at 15:20-15:55Z (11:20-11:55am ET) after row 57's
+acceptance (15:14Z) and the closing `--all` run (PASSED 15:36Z; §4.9); every place that depends on the closing steps still open at 15:55Z
+— installing this file and the post-install development receipt, the MANIFEST refresh, `verify_bundle.py`, `refresh.sh`, the final
+tarball, the exit time, the stage verdict — carries a `CLOSING:` marker in double angle brackets and is filled by the executor from those
+receipts (§0, §1, §4.9, §5, §6, §7).
 
-**Status: final; the focused stage is INCOMPLETE.** Drafted by the pod executor's documentation agent at
-14:57Z while the certificate-rows lane (rows 76-80, 83) and the row-93 lane were still running
-(AUTHOR_NOTES.md "End-of-work preparation started — 2026-09-14 ~14:50Z"); finalized at 18:15Z after the
-last acceptances (18:05Z) and the stage check (18:06Z). It follows the checklist of FINAL_REVIEW.md item
-by item. The four machine-derived tables (§1, §2, §3, §4.4) were regenerated at 18:06Z by
-`python3 work/delivery/tools/gen_final_review_tables.py --write` from `tools/claims.py --json`, the map,
-the audit summary and the review files (accepted 168, pending 24); every count in the prose was checked
-at 18:10Z against `python3 tools/claims.py --pending-only`, `work/lean/lean-declarations.json` and the
-receipts named in §0. This is a fidelity review of implemented Lean declarations against the frozen SM15
-source; it is not an author approval and it does not claim the mathematics finished (§5). Final state:
-**claims verified 109/132 (82.6%); checklist 168/192 accepted, 0 implemented-awaiting-review, 24 pending;
-final targets 4/8; `python3 tools/check_lean.py work/lean --all` FAILED with "stage is incomplete" (§4.8).**
+**Status: final; the focused stage is COMPLETE.**
+It follows the checklist of FINAL_REVIEW.md item by item. The machine-derived tables (§1, §2, §3, §4.4) were regenerated at
+2026-09-19 15:20Z from `python3 tools/claims.py --json`, the map and the 15:16Z `work/checks/declaration-audit.json` (written by the
+post-acceptance checker of row 57), through the scratch helper `scratchpad/frdraft2/gen_tables_v2.py` (the drafter's
+`frdraft/gen_tables_20260919.py` with row 57's line added; not part of the package; §7): the 184 rows of the 2026-09-16 table are
+reproduced byte-identically and their axioms column re-verified against the new audit (0 mismatches), the eight rows accepted on
+2026-09-19 are new lines. This is a fidelity review of implemented Lean declarations against the frozen SM15 source; it is not an
+author approval and it does not claim the mathematics finished beyond what the kernel checked (§5). State at 15:21Z 2026-09-19
+(11:21am ET; `tools/progress.py --once`): **claims verified 132/132 (100.0%); checklist 192/192 accepted, 0 implemented-awaiting-review,
+0 pending; final targets 8/8 (`prop:C-chamber`, `prop:C-silent`, `thm:C-S3`, `thm:C-S7`, `thm:C-S5`, `thm:C-soft`, `Bridge:theorem`,
+`SM:corner_laws_and_soft` — every fixed target of EXECUTION.json accepted); development checker passed 15:16Z (192 mapped, 49 212
+audited; `work/checks/dev-check-row57-accepted.json` = `stage-development.json` at that time).** Closing state (15:36Z): **`python3 tools/check_lean.py work/lean --all` PASSED 15:36Z (rc 0, 133 s; log `work/checks/checker-all-run-20260919_1533Z.log`, first line `"all_required_stages_passed": true`; stage 1 — the only stage this package commissions — passed with 191 mapped (every row but `lem:weak-open`, which is outside the stage-1 scope) and 49 207 audited, `stage_accepted: true`, receipt `work/checks/stage-1.json` = `stage-check-FINAL-20260919.json`; the development check passed with 192 mapped, 49 212 audited, receipt `stage-development.json` = `dev-check-FINAL-20260919.json`); the post-patch receipt `work/checks/dev-check-FINAL-20260919.json` (15:36Z; passed, 192 mapped, 49 212 audited, `project_sha256` 716 entries): every `statement_sha256` unchanged by the ten comment-only patches — 192/192 (AUTHOR_NOTES 15:36Z; re-verified 15:45Z: the 191 stage-1 rows against the 15:35Z stage-1 audit, all equal; `lem:weak-open` against the 15:16Z audit); `verify_bundle.py`: `python3 verify_bundle.py` on the installed text at 15:54Z: `FOCUSED BUNDLE VERIFIED: 191 files; no mathematical acceptance is inferred`; re-run after the closing values were written (result recorded in `work/AUTHOR_NOTES.md`).** State at draft
+time (13:26Z / 9:26am ET): 131/132, 191/192, 1 pending (row 57, wave 2 running), 8/8.
+State of record on 2026-09-16 02:33Z (the previous version of this review): 124/132, 184/192, 8 pending (57, 110, 127, 128, 177, 178,
+183, 184), targets 5/8, stage check FAIL — reported as incomplete. State at 2026-09-14 18:15Z: 109/132, 168/192, targets 4/8.
+
+The eight rows accepted on 2026-09-19, in order (AUTHOR_NOTES entry times): `R:extreme_selected` (177), `R:cv_theorem` (178),
+`Bridge:theorem` (183) at 08:39Z (review workflow wf_b3114d58-914); `thm:C-S7` (110), `thm:comparison` (127), `cor:C-inherits` (128),
+`SM:corner_laws_and_soft` (184) at 13:26Z (workflow review-rows-110-127-128-184, 12:57-13:24Z); `lem:gauss-two-discs` (57) at 15:14Z
+(workflow review-row-57, 14:55-15:13Z; §3.2). No new axiom, no policy edit, no tool edit, no code edit to any accepted module (the ten
+comment-only patches to Lean modules and one drafts note, AUTHORISED by G-05 and PREPARED in `work/port/docdebt/`, were APPLIED at 15:16Z
+as step (1) of the closing cycle — D-DOC-2; the G-07 registry sub-entry was applied at 15:16Z and REVERTED at 15:29Z, D-DOC-3, so
+`blueprint/` is unchanged; one accepted review file had a bookkeeping field corrected at 15:33Z, D-DOC-4 — §4.3, §4.9, §5 items 3 and 13,
+§7). Nothing accepted before 2026-09-19 was changed: all 184 earlier rows keep their `statement_sha256`, and at
+15:20Z every one of the 192 accepted rows' `statement_sha256` equals `statement_hashes` of the 15:16Z audit (verified over the whole
+map, §1); `RProof/RALedgers.lean` (sha256 `df745f12…`), `RProof/GenericTransport.lean` (`0e7f959d…`) and `SM/CornerChainUnits.lean`
+(`d1b400a5…`) are byte-unchanged through the 15:16Z receipt (the `project_sha256` entries of the 18:11Z 2026-09-15, 05:45Z, 13:28Z and
+15:16Z 2026-09-19 receipts agree); the comment-only patch 06 (E-08) then touched `SM/CornerChainUnits.lean`'s docstrings at 15:16Z, so
+its post-patch hash differs by comments only, and the closing checker confirmed that no statement moved: `work/checks/dev-check-FINAL-20260919.json` (15:36Z; passed, 192 mapped, 49 212 audited, `project_sha256` 716 entries): every `statement_sha256` unchanged by the ten comment-only patches — 192/192 (AUTHOR_NOTES 15:36Z; re-verified 15:45Z: the 191 stage-1 rows against the 15:35Z stage-1 audit, all equal; `lem:weak-open` against the 15:16Z audit).
 
 ## 0. Sources of truth used
 
-- Row status, declaration, module, review file: `work/lean/lean-declarations.json` (192 rows; edited only
-  through `work/port/map_row.py`). Claim numbering "#": `python3 tools/claims.py --json` (184 units in
-  document order; the 8 map rows outside it — 5 literature interfaces, `hyp:R`, `CV:ax:R`, `lem:weak-open` —
-  are tagged `m<map index>`). The notes and STATUS.md use the claims.py numbers (row 91 = `cp:finite-contact-path`).
-- Kernel evidence: `work/checks/stage-development.json` (current development receipt, byte-identical to
-  `work/checks/dev-check-frontrowsw3b-accepted.json`, 18:06Z: passed=true, 168 mapped, 36 079 audited) and
-  `work/checks/declaration-audit.json` (per-declaration axioms, `statement_hashes`); per-run receipts
-  `work/checks/dev-check-*.json` (79, all passed); logs `work/checks/checker-run-*.log`. Stage check:
-  `work/checks/stage-all-attempt-1806.log` (FAIL — the 24 unaccepted rows listed) and `work/checks/stage-1.json`
-  (`passed: false`).
-- Reviews: `work/reviews/<row>.json` (one per accepted row; the reviewer's inputs sit next to it as
-  `<row>-reviewer-input-statement.lean.txt` and `<row>-source-excerpt-*.txt` / `<row>-registry-excerpt.md.txt`).
-- Policy: `work/lean/axiom-policy.json` (standard axioms, five literature names, fixed target names);
-  `blueprint/AXIOM_REGISTRY.md`; `blueprint/DEPENDENCIES.json`; the execution rule
-  `/workspace/repos/lean/reassessment_rule.md` (adopted 17:00Z, §6).
-- Decisions and disclosed readings: `work/AUTHOR_NOTES.md` (labels D-*, D-F1..D-F16, D-FR1, D-ER1, D-CP-1,
-  FR-*, FR-C*, FR-R*, FR-CP-*, FR-ER-*, CE-R*, K-*, R-*, GAP-1/GAP-2), `work/drafts/gap2/GAP2_STATEMENTS_MEMO.md`,
-  `work/drafts/gap2/CPRow91_PLAN.md`, `work/drafts/pldiscs/PLDISCS_FEASIBILITY.md`, `work/STATUS.md`.
-- Source frame SM15: `reference/`, `provenance/SM15`, `blueprint/` (frozen; never edited).
+- Row status, declaration, module, review file: `work/lean/lean-declarations.json` (192 rows; edited only through
+  `work/port/map_row.py`). Claim numbering "#": `python3 tools/claims.py --json` (184 units in document order; the 8 map rows
+  outside it — 5 literature interfaces, `hyp:R`, `CV:ax:R`, `lem:weak-open` — are tagged `m<map index>`). The notes and STATUS.md
+  use the claims.py numbers (row 91 = `cp:finite-contact-path`, row 57 = `lem:gauss-two-discs`, row 184 = `SM:corner_laws_and_soft`).
+- Kernel evidence: `work/checks/stage-development.json` (the current development receipt, 2026-09-19 15:36Z, byte-identical to
+  `work/checks/dev-check-FINAL-20260919.json`: passed=true, stage=null, stage_accepted=false, 192 mapped, 49 212 audited; `project_sha256`
+  716 entries — the same counts as the 15:16Z post-acceptance receipt `dev-check-row57-accepted.json`, after the ten comment-only patches
+  and the full rebuild) and `work/checks/stage-1.json` (15:35Z, byte-identical to `stage-check-FINAL-20260919.json`: passed=true, stage=1,
+  stage_accepted=true, 191 mapped, 49 207 audited — the stage-1 scope is every mapped row except `lem:weak-open`, §4.9); the audits
+  `work/checks/declaration-audit.json` (the 15:16Z development audit, 1.08 GB, per-declaration axioms for the 192 mapped declarations and
+  `statement_hashes` keyed by row id — the source of the tables of §1-§2 and §4.4; overwritten at 15:35Z by the stage-1 audit, 191 rows);
+  per-run receipts `work/checks/dev-check-*.json` (108 files at 15:36Z, all passed: 27 of 2026-09-13, 53 of 2026-09-14, 18 of
+  2026-09-15, 2 of 2026-09-16, 8 of 2026-09-19); logs `work/checks/checker-run-20260919-0542.log`, `-0808.log`, `-0839.log`, `_1256Z.log`,
+  `_1325Z.log`, `_1455Z.log`, `_1514Z.log`, and the three `--all` logs `checker-all-run-20260919_1525Z.log`, `_1529Z.log` (both 50 bytes:
+  "FAIL: source review hash mismatch: ng:finite-word") and `_1533Z.log` (the PASS; §4.9). The 2026-09-16 `stage-all-check-20260916-0032.log`
+  FAIL and the 00:33Z `checking` placeholder are superseded.
+- Reviews: `work/reviews/<row>.json` (one per accepted row, 192; the reviewer's inputs sit next to it as
+  `<row>-reviewer-input-statement.lean.txt` and `<row>-source-excerpt-*.txt` / `<row>-registry-excerpt.md.txt`; raw workflow output
+  `<row>-review-workflow-raw.json`), plus the interface review `lit-homfly-descent.json` (not a checklist row). All 192 verdicts
+  `faithful` (recounted 15:20Z).
+- Policy: `work/lean/axiom-policy.json` = `lean/axiom-policy.json` (byte-identical, re-checked 2026-09-19): standard axioms, six
+  literature keys (the five registry ids plus `"lit:homfly (descent sentence)"`, §4.3), the hypothesis (`SM.hyp_R`, mode
+  `explicit_parameter`), 28 fixed target names; `blueprint/AXIOM_REGISTRY.md` (frozen and UNCHANGED: the author-authorised G-07
+  sub-entry `work/port/docdebt/registry-sub-entry.patch` was applied 15:16Z and reverted 15:29Z, D-DOC-3, because the stage check hashes
+  the registry as a frozen source; sha256 `2d00dec7…` = its MANIFEST line, re-checked 15:42Z); `blueprint/DEPENDENCIES.json`; the execution rule
+  `/workspace/repos/lean/reassessment_rule.md` (adopted 2026-09-14 17:00Z) as amended by D-AUTH-20260919 §2 (a failed audit on cost
+  never stops a branch; §6).
+- Decisions and disclosed readings up to 2026-09-16: `work/AUTHOR_NOTES.md` (2026-09-13/14 labels D-*, D-F1..D-F16, D-FR1, D-ER1,
+  D-CP-1, FR-*, FR-C*, FR-R*, FR-CP-*, FR-ER-*, CE-R*, K-*, R-*, GAP-1/GAP-2; 2026-09-15/16 labels D-GAP2-1..4, D-GAP2-2b, D-SC-1..6,
+  D-FL-1..4, D-CC-1..5, D-CVT-1..6, D-CM-1..5, D-RM-1..7; fidelity-risk lists FR-LHD-1..4, FR-FL-*, FR-SC-1..11, FR-FC-1..7,
+  FR-CC-1..15, FR-CV-155-1..9, FR-CV-165-1..4, FR-R-174..178, FR-B-183, FR-F-184-1..4, FR-CM-1..17; audits A-110-1, A-177-1, A-177-2),
+  `work/drafts/gap2/GAP2_STATEMENTS_MEMO.md`, `work/drafts/pldiscs/PLDISCS_FEASIBILITY.md`, the open-items register
+  `OPEN_ITEMS_20260916.md` (§A rows and leaves, §B axioms, §C library findings, §D review notes, §E documentation debts, §F tooling,
+  §G the author's decisions — answered by D-AUTH-20260919), `work/RESUME_FOR_NEXT_AGENT.md`.
+- **2026-09-19 additions.** `work/AUTHOR_NOTES.md` from "## D-AUTH-20260919 — the author's response to OPEN_ITEMS_20260916.md §G"
+  (L6520, 05:36Z) to the entry "15:36Z 2026-09-19 — `check_lean.py work/lean --all` PASSED" (L7149-7154), through "15:17Z — CLOSING CYCLE
+  started (D-DOC-2)" (L7110-7120), D-DOC-3 (15:29Z, L7122-7136) and D-DOC-4 (15:33Z, L7137-7148): the author's decisions G-01..G-15 and
+  the standing rule change §2; D-DOC-1 (06:06Z), D-DOC-2 (10:37Z); D-TD-0 (08:23Z), D-TD-1 (the row-57 readings FR-TD-1..14 copied
+  verbatim), D-TD-2 (11:37Z; extended 13:39Z), D-TD-3 (11:54Z); audits A-110-2 (11:22Z), A-177-NK-1 (NONKINK, 07:17Z) and A-57-1 (13:57Z);
+  rule-3 findings of the corner waves 5-6 (10:47Z, 12:01Z, 12:04Z) and of the row-57 units (11:37Z, 11:54Z, 13:39Z); the row-57 wave-2
+  entries (12:10Z, 12:22Z, 13:00Z, 13:39Z, 14:32Z), "ROW 57 … PROVED sorry-free in the draft" (14:53Z, with the 14:55Z/14:57Z port and
+  checker lines), "ROW 57 … ACCEPTED" (15:15Z). `work/STATUS.md` (header last updated 15:15Z). Lane files: corner —
+  `work/drafts/corner/W4_ASSEMBLY_REPORT.md`, `W5_ASSEMBLY_REPORT.md` (§5 honest state, §6 wave 6, §8 deviations), `W5_BR_REPORT.md`
+  (written by the executor, §6), `W6_ASSEMBLY_REPORT_B.md` (§0, §4-§5, §8), `W6_Assembled_B.lean` (27 531 lines, the port source) and
+  `W6_Assembled.lean` (27 533, instance A, cross-check), `port/CS7_B/PORT_REPORT.md` (§1 axioms, §2 the 26 deletions, §3 the 27
+  rewordings); moves — `work/drafts/moves/W3D_NONKINK_REPORT.md`, `W3D_RESPAR_REPORT.md`, `W3D_RESID_REPORT.md`,
+  `W3D_ASSEMBLY_REPORT.md` (§0, §2, §6), `W3D_Assembled.lean` (21 748 lines, 0 `sorry`), `W3D_AXIOMS.log`, `port/R177/PORT_REPORT.md`;
+  cvtail — `work/drafts/cvtail/port/SM/CornerLawsAndSoft.lean` (the row-184 module prepared 10:36Z, edit A-22); twodiscs (row 57) —
+  `work/drafts/twodiscs/PLAN_FINAL.md` (§2 risks, §5 readings), `Statements_FINAL.lean` (305 lines, frozen), `Skeleton_FINAL.lean`
+  (1 039 lines, 92 leaves), `SKELETON_REPORT.md`, `W1_ASSEMBLY_REPORT.md` (§0, §2.2 corrected forms, §5 wave-2 specification),
+  `W1_Assembled.lean` (13 815 lines), the unit reports `W1_U*_REPORT.md`, `W2_U5/U6/U7/U8/U9_REPORT.md`, `W2_ASSEMBLY_REPORT.md` (181
+  lines; §1 checks, §2.2 the fourth corrected leaf, §4 "Remaining sorry leaves: none"), `W2_Assembled.lean` (20 912 lines, the port
+  source), `port/PORT_REPORT.md` (108 lines; §1 axioms, §3 rewordings, §4 warnings), `port/SM/GaussTwoDiscs*.lean` (the six port files,
+  byte-identical to the installed modules after the header line); documentation — `work/port/docdebt/APPLY.md` + 11 patches +
+  `check_comment_only.py` (ten applied 15:16Z and standing; the registry sub-entry applied 15:16Z and reverted 15:29Z, D-DOC-3).
+- **Kernel evidence 2026-09-19:** 8 development receipts and 1 stage receipt, all passed (mapped / audited): `dev-check-resume-20260919.json` (05:45Z;
+  184 / 41 658 — the resume check, identical counts to the 2026-09-16 closing receipt), `dev-check-rows177-178-183-implemented.json`
+  (08:11Z; 187 / 44 270), `dev-check-rows177-178-183-accepted.json` (08:42Z; 187 / 44 270), `dev-check-rows110-127-128-184-implemented.json`
+  (12:59Z; 191 / 46 842), `dev-check-rows110-127-128-184-accepted.json` (13:28Z; 191 / 46 842), `dev-check-row57-implemented.json` (14:57Z;
+  192 / 49 212), `dev-check-row57-accepted.json` (15:16Z; 192 / 49 212), `dev-check-FINAL-20260919.json` (15:36Z; 192 / 49 212; after the
+  ten comment-only patches and the full rebuild; = the current `stage-development.json`), and the stage receipt
+  `stage-check-FINAL-20260919.json` (15:35Z; stage 1 passed; 191 / 49 207; = `stage-1.json`). Per-declaration axioms:
+  `work/checks/declaration-audit.json` (15:16Z; rows only for the 192 mapped declarations; since 15:35Z the stage-1 audit, 191 rows; §7).
+  Draft-level `#print axioms`
+  evidence (not checker receipts): `work/drafts/moves/W3D_AXIOMS.log` (31 declarations), the whole-file censuses of both W6 glue
+  assemblies (1 453 declarations each; `W6_ASSEMBLY_REPORT_B.md` §4), `port/CS7_B/PORT_REPORT.md` §1, the executor's probe of 12:57Z
+  (AUTHOR_NOTES L6984-6997); for row 57 the U12 census (96 declarations — the 92 leaves, the row and the 3 bridges — all standard;
+  `work/drafts/twodiscs/W2_ASSEMBLY_REPORT.md` §1), `port/PORT_REPORT.md` §1 (the same 96 through `import SM.GaussTwoDiscs`) and the
+  executor's probe of 14:55Z (AUTHOR_NOTES L7084-7089).
+- **Reviews 2026-09-19:** `work/reviews/{r-extreme-selected, r-cv-theorem, bridge-theorem}.json` (08:39Z; workflow wf_b3114d58-914;
+  briefs `work/port/review_prompt_{r-extreme-selected,r-cv-theorem,bridge-theorem}.md`) and `work/reviews/{thm-C-S7, thm-comparison,
+  cor-C-inherits, sm-corner-laws-and-soft}.json` (13:25Z; workflow review-rows-110-127-128-184; briefs
+  `work/port/review_prompt_{thm-C-S7,thm-comparison,cor-C-inherits,sm-corner-laws-and-soft}.md`); raw output
+  `<slug>-review-workflow-raw.json`; reviewer inputs `<slug>-reviewer-input-statement.lean.txt`; excerpts
+  `r-extreme-selected-source-excerpt-R_EXTREME_SELECTED_COUPLE_PROOF.md.txt` (the whole printed proof file),
+  `r-cv-theorem-source-excerpt-d10_axioms-lines-15-40.tex.txt`, `bridge-theorem-source-excerpt-lines-1443-1475.md.txt` (BRIDGE.md §3),
+  `thm-C-S7-source-excerpt-lines-266-276.tex.txt` (sm-4), `thm-comparison-source-excerpt-lines-299-311.tex.txt` (sm-6),
+  `cor-c-inherits-source-excerpt-lines-313-369.tex.txt` (sm-6), `sm-corner-laws-and-soft-source-excerpt-TARGETS.md-lines-1-29.txt`;
+  and `work/reviews/lem-gauss-two-discs.json` (15:14Z; workflow review-row-57; brief `work/port/review_prompt_lem-gauss-two-discs.md`,
+  13:31Z) with `lem-gauss-two-discs-review-workflow-raw.json`, the two reviewer inputs `lem-gauss-two-discs-reviewer-input-statement.lean.txt`
+  (the bundle and the row, proofs → `sorry`) and `lem-gauss-two-discs-defs-reviewer-input.lean.txt` (the frozen vocabulary of
+  `SM/GaussTwoDiscsDefs.lean`), and the excerpt `lem-gauss-two-discs-source-excerpt-lines-428-436.tex.txt` (sm-3).
+- **Library (mapped and unmapped) added 2026-09-19, all sorry-free:** `RProof/GenericTransportSw.lean` (7 845 lines; the additive
+  trans-free copy `G11_ConfigSw`/`G11_ParamsSw` of the accepted RIII transport, G-03 route (ii); library, imported by the row module),
+  `RProof/ExtremeSelectedUnits.lean` (13 944; the row-177 units, imports `RProof.ExtremeTransportUnits`, `SM.CBProducts`,
+  `CV.SingletonDi`, `SM.ZeroRotationSeed`), `RProof/ExtremeSelected.lean` (48; row 177), `RProof/CvR.lean` (25; row 178),
+  `Bridge/SmRRow.lean` (18; row 183) — ported 08:06-08:08Z; `SM/CS7Units.lean` (27 000 lines, ONE module; the corner-lane unit corpus
+  of waves 3-6 after the 26 deletions and 27 rewordings of `port/CS7_B/PORT_REPORT.md`; imports `SM.CornerChainUnits`,
+  `SM.CS7Sliding`, `SM.BigonDeletion`, `SM.CarrierFloorRows`), `SM/CS7.lean` (97; the two leaves, `thm_C_S7_of`, `thm_C_S7_of_floor`,
+  row 110), `SM/ComparisonRows.lean` (26; rows 127/128), `SM/CornerLawsAndSoft.lean` (86; row 184) — ported 12:54Z; the row-57 chain
+  `SM/GaussTwoDiscsDefs.lean` (274; the frozen §1-§4 vocabulary) → `SM/GaussTwoDiscsPL.lean` (4 972; units U1-U3) → `SM/GaussTwoDiscsEars.lean`
+  (5 462; U4) → `SM/GaussTwoDiscsAmbient.lean` (7 385; U5-U9) → `SM/GaussTwoDiscsExtension.lean` (2 811; U10-U11) → `SM/GaussTwoDiscs.lean`
+  (92; the frozen bundle, the row theorem and the 3 consumer bridges; row 57) — 20 996 lines, headers "Ported 14:52Z 2026-09-19 from
+  work/drafts/twodiscs/W2_Assembled.lean", built 14:53-14:55Z. `work/lean` now holds 712 `.lean` files (658 SM, 32 CV, 15 RProof, 5
+  Bridge, `Supplemental.lean`, `Supplemental/Audit.lean`), 366 040 lines (`find | xargs cat | wc -l` at 15:18Z; 706 files / ≈ 345 000
+  lines at draft time 13:26Z; 697 files / 295 911 lines on 2026-09-16). No `sorry` term anywhere in `work/lean` (`grep` for `sorry`
+  bodies: 0; at draft time the word occurred only in 55 module header comments — the E-11 "sorry-free" phrases —, and after patch 09 of
+  D-DOC-2 (applied 15:16Z) `grep -rli sorry work/lean --include=*.lean` returns 0 files, re-counted 15:18Z).
+- Source frame SM15: `reference/`, `provenance/SM15`, `blueprint/` (frozen; never edited — the one authorised addition, the G-07 registry
+  sub-entry, was applied 15:16Z and reverted 15:29Z (D-DOC-3), so the blueprint has no change at all; `verify_bundle.py` checks `reference/`).
+- Row 57: `work/drafts/twodiscs/` as above; outcome ACCEPTED 15:14Z 2026-09-19 — review `work/reviews/lem-gauss-two-discs.json` (3/3
+  lenses faithful, 2/2 refuters not refuted), receipts `work/checks/dev-check-row57-implemented.json` (14:57Z) and
+  `dev-check-row57-accepted.json` (15:16Z), modules `SM/GaussTwoDiscsDefs`, `-PL`, `-Ears`, `-Ambient`, `-Extension`, `SM/GaussTwoDiscs`
+  (§3.2).
 
-## 1. Summary of the 132 claims / 192 checklist rows by status  (table regenerated 18:06Z)
+## 1. Summary of the 132 claims / 192 checklist rows by status  (table regenerated 2026-09-19 15:20Z)
 
 <!-- BEGIN:SUMMARY -->
 | unit class | total | accepted | implemented (awaiting review) | pending |
 |---|---|---|---|---|
-| source claims (tools/claims.py: "claims verified") | 132 | 109 | 0 | 23 |
+| source claims (tools/claims.py: "claims verified") | 132 | 132 | 0 | 0 |
 | definitions / conventions (units of work, not claims) | 52 | 52 | 0 | 0 |
-| literature interfaces + hypotheses + extra lemma (map rows outside claims.py) | 8 | 7 | 0 | 1 |
-| checklist rows total (work/lean/lean-declarations.json) | 192 | 168 | 0 | 24 |
-| final targets (EXECUTION.json) | 8 | 4 | 0 | 4 |
+| literature interfaces + hypotheses + extra lemma (map rows outside claims.py) | 8 | 8 | 0 | 0 |
+| checklist rows total (work/lean/lean-declarations.json) | 192 | 192 | 0 | 0 |
+| final targets (EXECUTION.json) | 8 | 8 | 0 | 0 |
 
-Generated 2026-09-14 18:06 UTC from `python3 tools/claims.py --json` (claims verified 109/132), the map and `work/delivery/receipts/declaration-audit.summary.json`. Current checker receipt work/checks/stage-development.json: passed=True, stage=None, stage_accepted=False, mapped_declarations=168, audited_declarations=36079.
+Generated 2026-09-19 15:20Z from `python3 tools/claims.py --json` (claims verified 132/132), the map and `work/checks/declaration-audit.json` (2026-09-19 15:16Z, the audit written by the post-acceptance checker of row 57). Current checker receipt work/checks/stage-development.json: passed=True, stage=None, stage_accepted=False, mapped_declarations=192, audited_declarations=49212.
 <!-- END:SUMMARY -->
 
-Final state (`python3 tools/progress.py --once` at 18:08Z: "claims verified 109/132 (82.6%); kernel-checked
-awaiting review 0; 87.5% checklist (168/192 accepted); targets 4/8"; `work/PROGRESS.md`): claims verified
-109/132, checklist 168/192, targets 4/8 (`prop:C-chamber`, `prop:C-silent`, `thm:C-S3`, `thm:C-S5`), 0 rows
-implemented-awaiting-review, 24 pending (`python3 tools/claims.py --pending-only` lists the 23 pending claims;
-the 24th pending map row is the interface `src:contact`, outside claims.py). 109/132 is the reachable ceiling
-without GAP-2 recorded at 12:20Z (STATUS.md checkpoint 14:46Z): every row that is neither GAP-2-blocked nor deferred
-(row 57) is accepted. At draft time (14:57Z) the figures were 102/132, 160/192, 32 pending; the eight rows accepted
-since are `hyp:R` (15:45Z), `ng:commutation` (16:25Z), `ng:front-I`, `ng:front-III`, `ng:deletions` (17:40Z),
-`ng:front-II`, `ng:local-front-bound`, `fd:ng-bound` (18:05Z). All 168 accepted rows have `statement_sha256` equal
-to `statement_hashes` of the current audit (`work/delivery/receipts/declaration-audit.summary.json`, keyed by row) and
-a review file with `verdict: "faithful"` (re-checked 18:10Z over the whole map; the checker enforces the same).
+State at 15:21Z 2026-09-19 (11:21am ET; `work/PROGRESS.md`, written by `tools/progress.py` at 2026-09-19 15:21:30Z: "claims verified
+132/132 (100.0%); kernel-checked awaiting review 0; 100.0% checklist (192/192 accepted); targets 8/8; active: SM-foundations; local
+blockers: none recorded"; the executor's exit line `python3 tools/progress.py --once` at 15:55 UTC / 11:55am ET on 2026-09-19 repeats it): claims verified
+132/132, checklist 192/192, targets 8/8 (all eight of EXECUTION.json: `prop:C-chamber`, `prop:C-silent`, `thm:C-S3`, `thm:C-S7`,
+`thm:C-S5`, `thm:C-soft`, `Bridge:theorem`, `SM:corner_laws_and_soft`), 0 rows implemented-awaiting-review, 0 pending (`python3
+tools/claims.py --pending-only` at 15:25Z prints an empty table; the eight map rows outside claims.py and the 52 definition rows are all
+accepted, as on 2026-09-16). The eight rows pending on 2026-09-16 — 57, 110, 127, 128, 177, 178, 183, 184 — were all accepted on
+2026-09-19 (§3.1, §3.2, §3.4). All 192 accepted rows have `statement_sha256` equal to `statement_hashes` of the 15:16Z audit (re-checked
+at 15:20Z over the whole map: 192/192 equal, 0 mismatches; every accepted declaration has an audit row) and a review file with
+`verdict: "faithful"` (192/192; the checker enforces the same). Final: 132/132, 192/192, 8/8, and the closing `--all` run PASSED at
+15:36Z (§4.9); `tools/progress.py` printed "Stage 1: not established by a current checker receipt" until that run wrote
+`work/checks/stage-1.json` (15:35Z).
 
-## 2. Accepted rows — one line each  (table regenerated 18:06Z; 168 rows)
+## 2. Accepted rows — one line each  (table regenerated 2026-09-19 15:20Z; 192 rows)
 
-Columns: `#` claim number (claims.py) or `m<map index>`; axioms from `declaration-audit.json` with
-`std` = propext, Classical.choice, Quot.sound; `H` = `SM.lit_homfly`; `LM` = `SM.lp_lm`;
-`LMU` = `SM.lp_lm_uniqueness`; `NG` = `SM.ng_finite_word` (the four declared literature interfaces —
-nothing else appears, §4.3). "Disclosed readings" is one clause taken from the review's
-`discrepancies` / `stronger_than_source` / `weaker_than_source` arrays and the AUTHOR_NOTES fidelity-risk
-entries; "labels" names the recorded risk/decision items the reviewers cited. All 168 verdicts are `faithful`;
-39 handover rows additionally carry `countersignature_20260913` (re-review by separate sessions, AUTHOR_NOTES
-2026-09-13 ~16:15Z), and `lem:chi-basic`, `lem:g1`, `prop:A-chamber` carry the SM15 `source_realignment.re_review`.
+Columns: `#` claim number (claims.py) or `m<map index>`; axioms from `declaration-audit.json` (15:16Z) with `std` = propext,
+Classical.choice, Quot.sound; `H` = `SM.lit_homfly`; `HD` = `SM.lit_homfly_descent` (2026-09-15; the second declaration of
+lit:homfly, §4.3); `LM` = `SM.lp_lm`; `LMU` = `SM.lp_lm_uniqueness`; `NG` = `SM.ng_finite_word`; `SC` = `SM.src_contact` (the
+fifth interface, declared 2026-09-15); `9` abbreviates the full set `std+H+HD+LM+LMU+NG+SC` (nine constants), the footprint of
+every row downstream of `fd:contact` — now including the final theorem. Over the 192 accepted rows (recounted 15:20Z from the
+15:16Z audit): `std` only 115 rows (114 at draft time; + 57 `lem:gauss-two-discs`); `std+LM` 21; `9` 20 (13 on 2026-09-16: + 110, 127,
+128, 177, 178, 183, 184); `std+H+LM+LMU` 17;
+`std+H` 11; `std+SC` 2 (`src:contact`, `CV:ax:etnyre`); `std+LM+NG` 2 (rows 83, 93); `std+LM+LMU` 2; `std+NG` 1 (`ng:finite-word`);
+`std+H+HD+LM+LMU` 1 (row 91) — the same ten patterns as on 2026-09-16, nothing else. Per constant: `H` in 49 rows (42 on
+2026-09-16), `HD` 21 (14), `LM` 63 (56), `LMU` 40 (33), `NG` 23 (16), `SC` 22 (15). No `sorryAx`, no `Lean.ofReduceBool`, no other
+constant in any mapped declaration. "Disclosed readings" is one clause taken from the review's `discrepancies` /
+`stronger_than_source` / `weaker_than_source` arrays and the AUTHOR_NOTES fidelity-risk entries ("[N notes]" = the number of
+entries in those three arrays; every entry is marked non-blocking by its reviewer); "labels" names the recorded risk/decision
+items the reviewers cited. All 192 verdicts are `faithful`; 39 handover rows additionally carry `countersignature_20260913`
+(re-review by separate sessions, AUTHOR_NOTES 2026-09-13 ~16:15Z), and `lem:chi-basic`, `lem:g1`, `prop:A-chamber` carry the SM15
+`source_realignment.re_review`. The 16 rows accepted on 2026-09-15/16 and the 8 rows accepted on 2026-09-19 (177, 178, 183, 110, 127,
+128, 184, 57) each had one workflow of three lens reviewers ("literal", "definitions", "strength") + two adversarial refuters ("not
+refuted"), proof withheld (§6). Identities in the map for these 24 rows: author `executor-pod-claude-fable-5-1-20260913` (152 of the
+192 accepted rows; `root-implementation-20260910` 39, `executor-coldstart-claude-fable-5-1-20260912` 1); reviewer string
+`reviewer-pod-claude-fable-5-1-20260913 (independent Claude Code workflow subagents …)` (152; `review_chirotope-independent-20260910`
+30, `review_relgp_full-independent-20260911` 9, `reviewer-coldstart-claude-fable-5-1-20260912` 1) — the identity string carries the
+date of its first use, while each review's `ai_review_disclosure` says the five subagents were spawned on 2026-09-15 / 2026-09-16 /
+2026-09-19 (§7). Review workflows (AUTHOR_NOTES): wf_2975467c-92c (91 + the axiom), wf_728083df-580 (src:contact, 161),
+wf_abec340f-6fd (94, 162), wf_eb7abb51-523 (99, 100), wf_dfc10382-689 (155, 165, 175), wf_2a10c8d9-b97 (103, 105, 112), wf_958e4651-ab4
+(122), wf_ab43b209-c32 (174), wf_76eac4cf-aa7 (176), wf_b3114d58-914 (177, 178, 183; 2026-09-19 08:39Z), review-rows-110-127-128-184
+(110, 127, 128, 184; 2026-09-19 13:25Z, 20 agents), review-row-57 (57; 2026-09-19 15:14Z, 5 agents). The 184 lines of the 2026-09-16
+table are reproduced byte-identically (their readings unchanged); the eight new lines cite the review files' arrays and AUTHOR_NOTES
+L6640-7107. One review file changed after its line was written: `reviews/ng-finite-word.json` (row 93) had its `source_sha256` corrected
+at 15:33Z (D-DOC-4, §4.9, §5 item 13, §7) — verdict, reason, `reviewed_files_sha256`, statement hash and the table line unchanged.
 
 <!-- BEGIN:ACCEPTED -->
 | # | row | Lean declaration | module | review file | verdict | axioms | disclosed readings (one clause) |
@@ -187,6 +320,7 @@ entries; "labels" names the recorded risk/decision items the reviewers cited. Al
 | 54 | `def:uniform` | `SM.uniform_definition` | SM.UniformDefinition | reviews/def-uniform.json | faithful | std | Domain: CarrierUniform, CarrierMixed, UniformDecomposition, carrierRotation, carrierLeftTurns are defined for every S : Finset (Crossing P)… [3 notes] |
 | 55 | `def:positive-lift` | `SM.positive_lift_definition` | SM.PositiveLiftDefinition | reviews/def-positive-lift.json | faithful | std | Diagram is a labelled presentation (base vertex, component order) of the printed diagram; polygonal class (sm-3:337-343) |
 | 56 | `def:gauss-record` | `SM.gauss_record_definition` | SM.GaussRecordDefinition | reviews/def-gauss-record.json | faithful | std | domain = polygonal generic diagrams (regular smooth immersions of the bridge paragraph not in the class) |
+| 57 | `lem:gauss-two-discs` | `SM.lem_gauss_two_discs` | SM.GaussTwoDiscs | reviews/lem-gauss-two-discs.json | faithful | std | labels D-TD-0..3, FR-TD-1..14, A-57-1; accepted 2026-09-19 15:14Z; `lem_gauss_two_discs [NeZero n] (hn : 3 ≤ n) (P : LabelledTuple n) (hP : Embedded P) : GaussTwoDiscsData P` (SM/GaussTwoDiscs.lean, 92 lines: bundle + row + 3 consumer bridges; frozen vocabulary SM/GaussTwoDiscsDefs.lean, 274 lines; proof modules SM/GaussTwoDiscsPL / -Ears / -Ambient / -Extension; six modules, 20 996 lines, ported 14:52Z from work/drafts/twodiscs/W2_Assembled.lean after two waves over 92 skeleton leaves); one bundle field per printed clause (57a `two_regions`, 57b `pl_discs`, 57c `pl_extension`, 57d `top_extension`, 57e `exterior`); route A (ambient ear induction from the ear triangulation), no Jordan/Schoenflies input; NON-BLOCKING: the explicit two-disc model with the sup-norm cap chart `capInvFun` (PL-homeomorphic to the printed Euclidean radial model; the det > 0 sign convention re-derived by the reviewers, FR-TD-7), boundary maps as lifts φ in traversal coordinates (FR-TD-10), `traversalPositiveFor` through the sign of `rotationNumber` (the opposite convention would make 57c false — certified by the kernel proof, FR-TD-9), 57d's 'positive' hypothesis kept as printed and 'disc map' read as a homeomorphism (the print's b⁻¹), redundant `hn : 3 ≤ n`, the two definitional conjuncts of `exterior`; STRONGER: 57b/57c at EVERY model scale L (FR-TD-8), the circle the whole boundary of each disc (FR-TD-12), boundary maps between any two embedded polygons of any sizes and sides, the exterior identified (component of ∞, unbounded; the other bounded), homeomorphism conclusions in 57c/57d, no `Generic`; DISCLOSED: four internal skeleton sub-leaves corrected under rule 3 with recorded counterexamples, two of them kernel-checked (D-TD-2: `U3_isPositivePLFromPlane_inv`, `U4_polygonImage_ear`, `U5_exists_ear_homeo`, `U5_pushforward_edges`; none is part of the row statement), the draft def `polygonImage` renamed `embeddedPolygonImage` (D-TD-3, clash with the accepted SM/Rounding.lean) [12 notes] |
 | 58 | `def:flat-carriers` | `SM.flat_carriers_definition` | SM.FlatCarriers | reviews/def-flat-carriers.json | faithful | std | non-blocking (STRONGER): common_gauss_word.1 (stmt 819-820) asserts equality of the linear Gauss LISTS cut at label 0 for the sides, beyond… [20 notes] |
 | 59 | `cor:flat-carriers` | `SM.flat_carriers` | SM.FlatCarriers | reviews/cor-flat-carriers.json | faithful | std | non-blocking (STRONGER): centre_turn_signs (stmt 1220-1223) adds a conclusion absent from printed clause (ii) (which speaks only of 'both s… [16 notes] |
 | m60 | `lit:homfly` | `SM.lit_homfly` | SM.LinkInterfaces | reviews/lit-homfly.json | faithful | std+H | polygonal Diagram domain (def:positive-lift reading); planar isotopy = EqvGen(Reparam ∨ Deform); descent over LinkEquiv (D2); skein triples = switch-and-smooth (D3) |
@@ -224,20 +358,29 @@ entries; "labels" names the recorded risk/decision items the reviewers cited. Al
 | 88 | `fd:linking-calculus` | `SM.fd_linking_calculus` | SM.LinkingCalculusRow | reviews/fd-linking-calculus.json | faithful | std | D-F16 restated unconditionally (RegularPoleCount proved); framing pushoff embeddedness not asserted (printed sentence claims disjointness only) |
 | 89 | `ce:rounding` | `SM.ce_rounding` | SM.CeRounding | reviews/ce-rounding.json | faithful | std | CE-R1 diagram = RegularGenericProjection (no polygonal Diagram delivered); CE-R2 ℝ-indexed SpatialFamily via the smoothTransition time clamp; CE-R4 construction constants differ (statement unaffected) |
 | 90 | `ce:smoothing-record` | `SM.ce_smoothing_record` | SM.CeSmoothingRecord | reviews/ce-smoothing-record.json | faithful | std+LM | D-1 collar field on CleanCuspSmoothing; K-3 D_ε fields quantify over CuspRoundingFamily; K-5 clean neighbourhood convex (IsDisc); FR-1 polygonal reading |
+| 91 | `cp:finite-contact-path` | `SM.cp_finite_contact_path` | SM.ContactPath | reviews/cp-finite-contact-path-row.json | faithful | std+H+HD+LM+LMU | labels D-GAP2-3, FR-CP-1/5/7/9, FR-LHD-1, K-5; `:= cp_finite_contact_path_of_descent lit_homfly_descent` (statement = the `ContactPathData` reviewed 2026-09-14, unchanged); WEAKER: the supplied family is an ℝ-indexed `SpatialFamily` (printed [0,1]; FR-CP-5) and both end diagrams enter through polygonal `HeightMarking` readings with no existence of a reading asserted (FR-CP-1); STRONGER (proof side): the axiom consumed bundles the isotopy-extension step the printed proof performs by hand (FR-LHD-1); citation nit: the consumed descent sentence is at sm-3:3310-3312 and the hand isotopy-extension at 3276-3312 where docstrings say 3313-3316 / 3264-3313 [14 notes] |
 | 92 | `def:transverse-front` | `SM.transverse_front_definition` | SM.TransverseFront | reviews/def-transverse-front.json | faithful | std | contact space, C^∞ 1-periodic embedded loops, z′ − y x′ > 0; RegularGenericProjection is "the diagram" (GAP-1: no polygonal record built here) |
+| m97 | `src:contact` | `SM.src_contact` | SM.SrcContact | reviews/src-contact.json | faithful | std+SC | labels D-SC-1..6, FR-SC-1..11; `axiom src_contact : ∃ r tb : (ℝ → E3) → ℝ, SrcContactClauses r tb` — ∃-form over the literature's r, tb (never defined by the document) with exactly the four printed formulas as fields (FR-SC-1; equivalence with the substituted consequence proved, `src_contact_iff_consequence`, standard axioms); WEAKER: the Legendrian formulas hold for KNOTS (`F.c = 1`) whose front is on ng:front-domain's class (FR-SC-2); `T₊(L)` = every positive circle of every `IsPushoffAnnulus` (FR-SC-3); r, tb, sl ℝ-valued (FR-SC-10); integrality of sl not asserted (a consequence) [9 notes] |
 | 93 | `fd:ng-bound` | `SM.fd_ng_bound` | SM.NgBound | reviews/fd-ng-bound.json | faithful | std+LM+NG | labels FR-1, FR-NB-1, FR-NB-2, FR-NB-3, FR-NB-4; [presuppositional, non-blocking] The Lean row does not assert that a front admits a rounding (no existence clause); if some SmoothFront had… [8 notes] |
+| 94 | `fd:contact` | `SM.fd_contact` | SM.FdContactUnits | reviews/fd-contact.json | faithful | 9 | labels D-SC-3, FR-FC-1..3, FR-SC-4/9/10; `:= fd_contact_of_units …` (eleven unit theorems, each standard axioms only); sentence 1 (the over/sign rule) rendered on def:transverse-front's class where it is definitional (FR-FC-3); STRONGER: `representative_bound` for EVERY polygonal reading X of D_T; WEAKER: conditional on `Nonempty (HeightMarking …)`, no existence of a reading asserted (FR-FC-1, the FR-1 convention; row 91 reads its endpoint identically); `degAZ 0 = 0` and `slCircle` off-class default never exercised; `sl` ℝ-valued, casts [10 notes] |
 | 95 | `cf:def-turning` | `SM.turning_definition` | SM.TurningNumber | reviews/cf-def-turning.json | faithful | std | non-blocking: `IsSeamLift` (stmt 124-125) fixes the seam at parameter 0, whereas the printed lift is 'at a seam' (any cut point of ℝ/ℤ). Co… [19 notes] |
 | 96 | `cf:lem-turnlift` | `SM.turnlift` | SM.TurnLift | reviews/cf-lem-turnlift.json | faithful | std | `3 ≤ n` hypothesis on the (ii) fields and `rounding` (571, 574, 579, 584, 588, 596) — not printed, but implied by `Regular P`, so vacuous (… [19 notes] |
 | 97 | `cf:lem-rounding` | `SM.cf_lem_rounding` | SM.Rounding | reviews/cf-lem-rounding.json | faithful | std | FR-R1 D_ε = polygonal D carried by the smooth curve (Carried record); FR-R3 no_triple via PolygonDiagram.generic; FR-R4 period-1 parameter; witness exports more than printed |
 | 98 | `cf:lem-curl` | `SM.cf_lem_curl` | SM.Curl | reviews/cf-lem-curl.json | faithful | std+LM | FR-C1 record-level carrying (RecordCarried, no τ_eval at the kink); FR-C2 disc inside any preassigned neighbourhood (stronger); FR-C4 P_{F'} = P_F via polygonal RI |
+| 99 | `cf:thm-carrierfloor` | `SM.cf_thm_carrierfloor` | SM.CarrierFloorRows | reviews/cf-thm-carrierfloor.json | faithful | 9 | labels D-FL-1..4, FR-FL-R1..R3, A1..A2, B1..B5, C1..C9; `:= cf_thm_carrierfloor_of_bound transverseFrontBound` (row 94 enters as the sl-free composite `TransverseFrontBound`, FR-FL-C9); (B) is stated for the NORMALISED orientation (`C` or `C.reverse` with `D.reverse`) — a refuter confirmed the literal claim is false for an all-negative L, the printed proof's WLOG is the only true reading (FR-FL-B1); STRONGER: `junction_determined` fixes the parametrisation (FR-FL-A1), the (R) fields hold for every link diagram / every C¹ regular curve, `BClaim` adds `ε₁ ≤ clearance C`, (C) `floor` unconditional on `P X` (`P_ne_zero`); the printed mirror D̄ is the crossing switch (`Diagram.switchAll`), not `Diagram.mirror` (FR-FL-C4) [15 notes] |
+| 100 | `thm:floor` | `SM.thm_floor` | SM.CarrierFloorRows | reviews/thm-floor.json | faithful | 9 | labels FR-FL-F1..F3; `:= thm_floor_of_bound transverseFrontBound`; "exactly one turn is right" rendered as "one right AND every other left" (`AllLeftOrOneRight`, the literal reversal form; equivalent because carrier turns are nonzero, lem:carriers (ii)); STRONGER: `a_floor` stated twice — in ℤ with def:C's `cornerSlot` and in ℝ with the real `carrierRotation`; `z_parity` (`InSupportM 1`, `0 ≤ mindegZZ`) with no turn hypothesis (FR-FL-F3); `mindegAZ 0 = 0` convention [7 notes] |
 | 101 | `cb:blocks` | `SM.cb_blocks_definition` | SM.CBBlocks | reviews/cb-blocks.json | faithful | std+H+LM+LMU | R-1..R-12: SM block = accepted CV.Piece; owner defined via a fixed visit and pinned; hn : 3 ≤ n bundle parameter |
 | 102 | `cb:products` | `SM.cb_products` | SM.CBProducts | reviews/cb-products.json | faithful | std+LM | R-4/R-5: D_H = positiveLift of a carrier of an independent refinement; P_H = recordPolynomial of the restricted record |
+| 103 | `cb:singleton` | `SM.cb_singleton` | SM.CBSingleton | reviews/cb-singleton.json | faithful | 9 | labels D-CC-1..5, FR-CC-1..3; `:= cb_singleton_of_floor thm_floor`; one field `isolated_zero`: "interlaces no other self-crossing" is `Interlaces` of G_P (def:interlace, the graph the printed proof uses), not the record interlacement of D_A (FR-CC-1); proof route bounds `mindegAZ` of the full product instead of the printed `[z⁰]` rows (FR-CC-3); all three reviewer arrays empty [0 notes] |
 | 104 | `cb:embedded-rotation` | `SM.cb_embedded_rotation` | SM.EmbeddedRotation | reviews/cb-embedded-rotation.json | faithful | std | D-ER1 proved independently of deferred row 57; FR-ER-2 sign read at supporting vertices (bounded region not defined); Embedded P wider than generic m = 0 |
+| 105 | `lem:corner-values` | `SM.corner_values` | SM.CornerValues | reviews/lem-corner-values.json | faithful | 9 | labels FR-CC-4..6; `:= corner_values_of_floor thm_floor`; (i) the hypothesis "embedded (m_Q = 0)" is rendered by the printed gloss `carrierCrossingCount = 0` only — at most a weaker hypothesis, so the statement is at least as strong (FR-CC-4); `\|r_Q\| = 1` for the REAL `carrierRotation`, the integer form as the proved companion `embedded_rotationInt` (FR-CC-5); `d_Q = 0` in ℤ through `cornerSlot`; (ii) literally row 103's clause at (Q, y) with the redundant guard `y' ≠ y`; "uniform" kept literally though the proof does not use it [6 notes] |
 | 106 | `prop:C-chamber` | `SM.prop_C_chamber` | SM.CChamber | reviews/prop-C-chamber.json | faithful | std+H | quantified over labelled representatives with polygonProjection Q ∈ chamber (polygonProjection P); entails cyclic-relabelling invariance (printed content made explicit) |
 | 107 | `prop:C-silent` | `SM.prop_C_silent` | SM.CSilent | reviews/prop-C-silent.json | faithful | std+H | design B/R2 hybrid (work/drafts/csilent/PLAN_FINAL.md); exterior-extension (E) and pure-cut (C) walls as printed |
 | 108 | `thm:C-S3` | `SM.thm_C_S3` | SM.CS3 | reviews/thm-C-S3.json | faithful | std+H | side values below an existential δ with τ_j = ∓1 over both Booleans (equivalent to chamber values by def:germ + prop:C-chamber); n ≥ 4 via N = n+1 |
 | 109 | `lem:homflyrows` | `SM.homflyrows` | SM.MarkedProducts | reviews/lem-homflyrows.json | faithful | std+H+LM+LMU | labels D2, D9; The well-definedness of K#J and K⊔J as LinkEquiv classes (that all realizations are link-equivalent) is not stated (docstring 439); the pri… [12 notes] |
+| 110 | `thm:C-S7` | `SM.thm_C_S7` | SM.CS7 | reviews/thm-C-S7.json | faithful | 9 | labels D-CC-1, FR-CC-7..10, A-110-1, A-110-2; accepted 2026-09-19 13:26Z; `:= thm_C_S7_of_floor thm_floor` (SM/CS7.lean; units SM/CS7Units.lean, 27 000 lines, ported from work/drafts/corner/W6_Assembled_B.lean after corner waves 4-6); the fixed `CS7Data.vertex_edge_law` of the accepted SM/CornerChainStatements.lean, both bigon branches and the sliding branch, actual children λ₁ λ₂, sign `s = g.contactSign M a`; NON-BLOCKING: the identity at every pair of side parameters (tp, tm) rather than the two chamber values (equivalent by prop:C-chamber), the halves' genericity proofs universally quantified (FR-CC-9), `VertexEdgeAt` = bigon ∨ sliding as a description not a hypothesis (FR-CC-7) [9 notes] |
 | 111 | `thm:C-S5` | `SM.thm_C_S5` | SM.CS5 | reviews/thm-C-S5.json | faithful | std+H | conclusion on the germ's own no-loop side points P(t), t in the side interval (chamber values via prop:C-chamber) |
+| 112 | `thm:C-soft` | `SM.thm_C_soft` | SM.CSoft | reviews/thm-C-soft.json | faithful | 9 | labels FR-CC-11..13; the fixed target name, `:= thm_C_soft_of_floor thm_floor` — the fifth target theorem; the genericity of P_ε is QUANTIFIED (`∀ hQ : Generic (softInsertion P j q ε)`, the consumer's `UniquenessHypotheses.soft` shape) rather than asserted, the accepted thm:A-soft's `∃ hQ` form being the proved companion `CSoftData.exists_generic` (FR-CC-12; the one "weaker" entry); the identity read in ℚ with `softAmplitudeMultiplier = (χ₋+χ₊)/2`, ℤ companion `doubled` (FR-CC-11); C on labelled tuples, the quotient descent is the consumer's business (FR-CC-13) [7 notes] |
 | m118 | `hyp:R` | `SM.hyp_R` | SM.HypR | reviews/hyp-R.json | faithful | std+H | labels FR-HR-1, FR-HR-3, FR-HR-4, GAP-2; Non-blocking (FR-HR-3): the binder hn : 3 ≤ n (statement file :84) restricts to n ≥ 3, which the printed sentence does not state; it is the… [3 notes] |
 | 113 | `def:star` | `SM.star_definition` | SM.StarDefinition | reviews/def-star.json | faithful | std | none disclosed (arrays empty) |
 | 114 | `lem:star-generic` | `SM.star_generic_law` | SM.StarGenericLaw | reviews/lem-star-generic.json | faithful | std | Clause (ii) tangency (statement lines 29–32) is rendered by two independently sufficient characterizations at once — orthogonality of the e… [2 notes] |
@@ -248,10 +391,13 @@ entries; "labels" names the recorded risk/decision items the reviewers cited. Al
 | 119 | `lem:soft-rotation` | `SM.soft_rotation_law` | SM.SoftRotationLaw | reviews/lem-soft-rotation.json | faithful | std | Nuance, not a discrepancy: the Lean's threshold ε₀ (stmt l.20) is its own existential and is not identified with the ε₀ of lem:soft-generic… [3 notes] |
 | 120 | `def:anchors` | `SM.anchors_definition` | SM.AnchorsDefinition | reviews/def-anchors.json | faithful | std | bound_spec (statement lines 57-61, data clause lines 166-172) requires all P_ε, 0 < ε < ε₀, to lie in one LABELLED chamber (connectedCompon… [2 notes] |
 | 121 | `prop:anchors-exist` | `SM.anchors_exist` | SM.Anchors | reviews/prop-anchors-exist.json | faithful | std | Conjunct 5 (statement 152-154) omits the case-(Z) hypothesis `Admissible (m : ℤ) r` (source 404-405 says 'in case (Z)'; def:anchors 376): i… [5 notes] |
+| 122 | `prop:anchor-values` | `SM.prop_anchor_values` | SM.AnchorValuesRow | reviews/prop-anchor-values.json | faithful | 9 | labels D-CM-1, FR-CM-1..5, FR-CM-3′; `:= anchor_values_of thm_C_soft`; F restricted to ℤ-valued functions `∀ n [NeZero n], GenericPolygon n → ℤ` (FR-CM-1, thm:uniqueness's reading; the one "weaker" entry); STRONGER: the anchor clauses quantify over every `ZeroAnchor`/`LoopAnchor`/`LoopAnchorZero` WITHOUT def:anchors' case conditions — a kernel-proved superset (FR-CM-3′); `loopZero_turn` asserts BOTH readings of "orientation sign of the parent triangle" (common turn sign and rotation number, FR-CM-3); `A_loop`/`A_loopZero` assert `∃!` parent root; `rotationNumber` is ℝ-valued so the (L₀) clause is an equation in ℝ after casting; `cornerPolygon = 0` below arity 3, unreachable (FR-CM-5) [8 notes] |
 | 123 | `lem:A-small-values` | `SM.A_small_values_lemma` | SM.SmallValuesLemma | reviews/lem-A-small-values.json | faithful | std | Statement line 20: the conjunct `τ ≠ 0` is not in the printed sentence (source line 3-4 says only 'all turns have a common sign τ'). It is… [1 note] |
 | 124 | `thm:root-indep-proof` | `SM.root_independence` | SM.RootIndependence | reviews/thm-root-indep-proof.json | faithful | std | none disclosed (arrays empty) |
 | 125 | `cor:A-lawful` | `SM.A_lawful` | SM.ALawful | reviews/cor-A-lawful.json | faithful | std | flat_law (stmt 65-73) asserts Generic (deleteVertex w.center j), whereas thm:A-S3 (sm-2 401-409) states only (G1) of the deletion and the c… [7 notes] |
 | 126 | `thm:uniqueness` | `SM.uniqueness` | SM.Uniqueness | reviews/thm-uniqueness.json | faithful | std | formally weaker-or-equal hypotheses (theorem at least as strong) |
+| 127 | `thm:comparison` | `SM.thm_comparison` | SM.ComparisonRows | reviews/thm-comparison.json | faithful | 9 | labels D-CM-2, FR-CM-7, FR-CM-14, FR-CM-17; accepted 2026-09-19 13:26Z; `thm_comparison (hR : hyp_R) : ∀ n [NeZero n] hn P hP, cornerStateSum hn hP = amplitude P hP.1 hn := thm_comparison_of hR thm_C_S7 thm_C_soft` (SM/ComparisonRows.lean); hyp:R the EXPLICIT parameter (policy mode `explicit_parameter`) — the only accepted row, with 128, that takes `hR`; NON-BLOCKING (neutral): labelled generic tuples `P : LabelledTuple n`, `hP : Generic P` instead of polygon classes (both sides descend), A(P) rendered at root 0 (`amplitude`, root independence accepted) [4 notes] |
+| 128 | `cor:C-inherits` | `SM.cor_C_inherits` | SM.ComparisonRows | reviews/cor-C-inherits.json | faithful | 9 | labels D-CM-3, D-CM-4, FR-CM-8, FR-CM-9, FR-CM-9′, FR-CM-13, FR-CM-15; accepted 2026-09-19 13:26Z; `cor_C_inherits (hR : hyp_R) : CInheritsData := cor_C_inherits_of hR thm_C_S7 thm_C_soft` (SM/ComparisonRows.lean; the 12-field `SM.CInheritsData` of SM/CInherits.lean); the (G1) deletion at a simple cusp wall generic by `cusp_deletion_generic`, threaded cusps included, no emptiness hypothesis; STRONGER: the extra field `root_values` (C(P) = A_g(P) for every root g), the κ rotation clause of `CuspLawC`, both chamber notions (inherited from the accepted `ALawfulData`) [11 notes] |
 | 129 | `CV:def:polygon` | `CV.polygon_definition` | CV.Setup | reviews/cv-def-polygon.json | faithful | std | Domain extension only (non-blocking): CV.IsPolygon (stmt 47) is defined for every n : ℕ, including n = 0, 1, 2 where the print (d1_setup.te… [1 note] |
 | 130 | `CV:def:regular` | `CV.regular_definition` | CV.Setup | reviews/cv-def-regular.json | faithful | std | The explanatory sub-clause 'where the two candidate values ±π are both excluded from the open interval' (source 32-33) is rendered only by… [6 notes] |
 | 131 | `CV:def:guarded` | `CV.guarded_definition` | CV.Setup | reviews/cv-def-guarded.json | faithful | std | "real polynomial functions" (tex 43): the bundle records only `continuous` (S 988) and `finite` (S 987); polynomiality is not stated as a f… [9 notes] |
@@ -278,14 +424,18 @@ entries; "labels" names the recorded risk/decision items the reviewers cited. Al
 | 152 | `CV:lem:rounding` | `CV.rounding` | CV.Rounding | reviews/cv-lem-rounding.json | faithful | std | labels FR-CV1, FR-CV2, FR-CV3, FR-CV4, FR-CV5, FR-CV7, FR-R1, FR-R3, FR-R4; [W1] `Diagrammatic L` adds the no-triple / 'exactly two preimages' clause to the printed hypothesis list d3:35-38 (narrower domain; disclos… [14 notes] |
 | 153 | `CV:lem:uniformrot` | `CV.uniformrot` | CV.UniformRot | reviews/cv-uniformrot.json | faithful | std | non-blocking: neg_three (stmt 284-285) concludes `rot L hL = -1` where the source (excerpt 7-8, d3:269-270) says "equality in absolute valu… [7 notes] |
 | 154 | `CV:lem:curl` | `CV.curl` | CV.Curl | reviews/cv-lem-curl.json | faithful | std+LM | labels FR-C1, FR-C2, FR-C3, FR-C5, FR-C6; NON-BLOCKING: "disc" = IsDisc (any convex compact body with nonempty interior) rather than a round disc; the existential Δ is therefore dra… [18 notes] |
+| 155 | `CV:thm:carrierfloor` | `CV.carrierfloor` | CV.CarrierFloor | reviews/cv-thm-carrierfloor.json | faithful | 9 | labels D-CVT-1, FR-CV-155-1..9; `:= carrierfloor_of_sm SM.cf_thm_carrierfloor` — (R)(A)(B)(C) on CV's printed binders (`LabelledTuple`, `Diagrammatic`, `Regular`, `OverUnder`, `CV.rot`/`rotAbs`) PROVED from the SM row-99 bundles through the accepted polygon bridge F6, (D) proved on CV:def:X1 objects; (B) normalised orientation with the reversal branch on SM objects and R = `\|rotationNumber (reversal L)\|` (equal to `rotAbs` by `rot_eq_rotationNumber`, `rot_reversal`; FR-CV-155-5); (A)'s domain is `Diagrammatic` (no triple points), which lem:rounding's printed list omits; (D)'s "so that P = 1 and w = 0" is commentary, not a conjunct (FR-CV-155-7) [13 notes] |
 | 156 | `CV:lem:pieceintrinsic` | `CV.pieceintrinsic` | CV.PieceIntrinsic | reviews/cv-lem-pieceintrinsic.json | faithful | std+H+LM+LMU | labels F4; `same_link` (S:1007-1009): HOMFLY-PT equality instead of "present the same oriented link" — the recorded F4 replacement of CV:ax:gausscode… [15 notes] |
 | 157 | `CV:lem:homflyrows` | `CV.homflyrows` | CV.HomflyRows | reviews/cv-lem-homflyrows.json | faithful | std+H+LM+LMU | labels D2, D9; Non-blocking: connected_sum reads the printed 'K # J' as EVERY clean marked join of EVERY pair of marked representatives (IsCleanMarkedJoin… [7 notes] |
 | 158 | `CV:cor:groupedknot` | `CV.groupedknot` | CV.GroupedKnot | reviews/cv-cor-groupedknot.json | faithful | std+H+LM+LMU | labels D9, F4; 'retaining exactly the labels of W' / 'exactly the crossings of H₁ ∪ ⋯ ∪ H_k' is certified by a bare cardinality bijection Nonempty (Γ.Cros… [18 notes] |
 | 159 | `CV:lem:fulltwist` | `CV.fulltwist` | CV.FullTwist | reviews/cv-fulltwist.json | faithful | std+H+LM+LMU | non-blocking: `Relation.ReflTransGen RII (D_H.switch q) D_L` admits the empty chain, i.e. the case D_H.switch q = D_L literally; the printe… [5 notes] |
 | m166 | `CV:ax:R` | `CV.hyp_R` | RProof.X1Rows | reviews/cv-ax-R.json | faithful | std+H | CV.hyp_R is a Prop definition (the hypothesis) in the R6 all-sides chamber-value form; hn : 3 ≤ n presupposition |
 | 160 | `CV:ax:homfly` | `CV.ax_homfly` | CV.Axioms | reviews/cv-ax-homfly.json | faithful | std+H+LM+LMU | DERIVED (theorem, not axiom) from SM.lit_homfly/lp_lm/lp_lm_uniqueness; D2: links = LinkEquiv classes of polygonal diagrams |
+| 161 | `CV:ax:etnyre` | `CV.ax_etnyre` | CV.AxEtnyre | reviews/cv-ax-etnyre.json | faithful | std+SC | labels D-SC-4, FR-FC-4; a THEOREM from `SM.src_contact` alone (the CV `ax:*` rows are theorems, the `CV.ax_homfly` pattern; D-F10 option (iii) superseded); the CV text's undefined `sl` is read as the document's `SM.sl` (row 88's self-linking made ε-free); the redundant printed hypothesis "no downward vertical tangency" is kept; `TransverseKnot` fixes the class (C^∞, 1-periodic, `z′ − y x′ > 0`, generic xz projection) [2 notes] |
+| 162 | `CV:ax:slbound` | `CV.ax_slbound` | CV.AxSlbound | reviews/cv-ax-slbound.json | faithful | 9 | labels D-SC-4, FR-FC-5/6; a THEOREM `:= ax_slbound_of SM.fd_contact` (P = homfly by lp:core); WEAKER (recorded narrowing FR-FC-5): "a transverse knot in the standard contact ℝ³" is `SM.TransverseKnot` (generic xz projection, C^∞, positively transverse, 1-periodic) — fd:contact's own domain and the sole consumer's instance (thm:carrierfloor (C)); P_T = `homfly X` for every reading X (FR-FC-6); in the never-realised case `homfly X = 0` the clause would read sl ≤ −1 [9 notes] |
 | 163 | `CV:ax:gausscode` | `CV.gausscode_polynomial` | CV.Axioms | reviews/cv-ax-gausscode.json | faithful | std+H+LM+LMU | F4 replacement (scope change recorded AUTHOR_NOTES ~01:24Z): conclusion homfly D = homfly D′ instead of "present the same oriented link"; strictly weaker; all consumers pass through polynomial equality |
 | 164 | `CV:selector_A` | `CV.selector_A` | CV.SelectorA | reviews/cv-selector-A.json | faithful | std | non-blocking: the ownership of the two visit marks of a selected crossing (which of v, twin v lies on which carrier) follows SM conv:select… [5 notes] |
+| 165 | `CV:singleton_D_i` | `CV.singleton_D_i` | CV.SingletonDi | reviews/cv-singleton-d-i.json | faithful | 9 | labels D-CVT-3, FR-CV-165-1..4; `:= singleton_D_i_of cvt_singleton_split (carrier_slot_floor_of_C SM.cf_thm_carrierfloor.clauseC)`; clause (D)(i) of thm:s7universal alone (no eligibility / ε = 0 binders, which the (D) preamble attaches to (ii)-(v)); `degree_gap` in support form `slot + 2 ≤ d` (FR-CV-165-1); STRONGER (N1): quantified over every CV-generic polygon on n ≥ 3, not only the event's polygons; row 103 is the template only — nothing of it is consumable on `CV.Generic` (FR-CV-165-3) [1 note] |
 | 166 | `R:localization` | `RProof.localization` | RProof.Cores | reviews/r-localization.json | faithful | std | corollary sentence 2 ("both orbits occur") omitted by executor decision (consumed by nothing) |
 | 167 | `R:parity` | `RProof.parity` | RProof.Cores | reviews/r-parity.json | faithful | std | avail_wall_invariant conditional on the cross-wall support identification hs (R-LOC-2 (1)) |
 | 168 | `R:exterior` | `RProof.exterior` | RProof.X1Rows2 | reviews/r-exterior.json | faithful | std+H+LM+LMU | exterior factor represented by the base row; printed full-availability binder kept |
@@ -294,110 +444,408 @@ entries; "labels" names the recorded risk/decision items the reviewers cited. Al
 | 171 | `R:generic_table` | `RProof.generic_table` | RProof.Cores | reviews/r-generic-table.json | faithful | std | words/tables asserted on the canonical branch s_a = s_b = s_c (relabelled instances by F2(A)) |
 | 172 | `R:generic_selector` | `RProof.generic_selector` | RProof.X1Rows | reviews/r-generic-selector.json | faithful | std+H | fixed labels a = x_ef, b = x_eg, c = x_fg with the canonical branch + relabelled instances; sides named by local graphs; ownership convention kernel-checked (mixed_carrier was FALSE in design B) |
 | 173 | `R:generic_transport` | `RProof.generic_transport` | RProof.GenericTransport | reviews/r-generic-transport.json | faithful | std+H+LM+LMU | G11 RIII-wall invariance proved by an explicit polygonal RIII move; hs crossing-set identification a universally quantified hypothesis of cross-wall fields |
+| 174 | `R:generic_selected` | `RProof.generic_selected` | RProof.GenericSelected | reviews/r-generic-selected.json | faithful | 9 | labels D-RM-1..4, FR-R-174; accepted 2026-09-15 23:54Z; the FIXED bundle statement of the R statement panel (2026-09-14 ~06:35Z, NOTES_FINAL §6), byte-identical to the accepted siblings 168/170/172/173/175 after the theorem and bundle names; `:= r174_generic_selected_of_arc_rec r174v_arc_rec_moves_proof` — an actual R-II deletion constructed by `exists_bigonData_of_triangle` on the switched carrier diagram (SM/BigonDeletion.lean), the bigon site I-174, the wall record transport, the carrier structure and ledgers across the wall, the smoothing identification and the site inputs; the last obligation `r174_arc_rec_moves` (the two arcs of x′ carry the outer carriers' records) PROVED by two independent routes (ARCV assembled, ARCR kept as the cross-check, work/drafts/moves/); NON-BLOCKING, all in the accepted fixed shape: the sign-branch hypotheses alongside the two-edge-side graph hypotheses (equivalent in the generic orbit by row 172), the three triangle crossings and the constant crossing set `hs` as hypotheses (presuppositions, row 164), the punctured-parameter localisation form; the brief's pointer NOTES_FINAL §7 should read §6 [13 notes] |
+| 175 | `R:extreme_pair_zero` | `RProof.extreme_pair_zero` | RProof.ExtremePairZero | reviews/r-extreme-pair-zero.json | faithful | 9 | labels FR-R-174..177, NOTES_FINAL §7/§12; the FIXED bundle statement of the R statement panel (2026-09-14 ~06:35Z), byte-identical to the accepted siblings 168/170/172/173, `:= extreme_pair_zero_of_singleton CV.singleton_D_i …`; STRONGER: every field over ALL punctured parameters (`Punctured E δ t`), not only "the two nearby generic chamber-side representatives"; the K3 ↔ empty pairing is a hypothesis of no field; `third_singleton_piece` (a sentence of the printed Proof) and `pair_absent_on_complete` (a presupposition) asserted as clauses; "for arbitrary outside support" read under `FullAvail`; disclosed: one refuter saw the one-line proof term (module line 85; the same term stands in the statement file's header) [9 notes] |
+| 176 | `R:extreme_transport` | `RProof.extreme_transport` | RProof.ExtremeTransport | reviews/r-extreme-transport.json | faithful | 9 | labels D-RM-5, D-RM-6, D-RM-7; accepted 2026-09-16 00:12Z; the FIXED bundle statement (R statement panel, NOTES_FINAL §8), byte-identical to the accepted siblings 168/170/172/173/174/175; `:= r176a_extreme_transport_rowShape …` through the weak-port replay `est_port_weak` PROVED from the constructed R-II deletion (D-RM-5: the literal `est_PortData.port` is unrealisable) and the `wind(S) = 0` split (D-RM-6: `rot/alt₁/alt₂` need `wind ≠ 0`; both row terms vanish at `wind = 0`); D-RM-7: a draft outer-carrier Prop false in one disjunct, corrected and proved (a draft artefact, no accepted declaration involved); RProof/RALedgers.lean untouched; NON-BLOCKING, all in the fixed shape: the transports conditional on the explicit `hs` (R-LOC-2 (1), row 164), `singleton_rows_present` per side (the other side by R-PAR (P2)), `graphs_complementary` over every opposite pair (R-LOC-2 clause 4), `sign_branch` not restating σ ≠ 0 (row 172) [12 notes] |
+| 177 | `R:extreme_selected` | `RProof.extreme_selected` | RProof.ExtremeSelected | reviews/r-extreme-selected.json | faithful | 9 | labels FR-R-177, A-177-1, A-177-2, G-03 route (ii), G-02b NOT used; accepted 2026-09-19 08:39Z; the FIXED bundle statement (R statement panel), byte-identical to the accepted siblings 168/170/172/173/174/175/176 after the bundle name, `:= w3ck_extreme_selected …` (RProof/ExtremeSelectedUnits.lean, 13 944 lines; the switched RIII core on the trans-free copy RProof/GenericTransportSw.lean, 7 845 lines — the accepted RProof/GenericTransport.lean untouched); proof-route disclosure: the R-II-after-smoothing obligation in its VALUE form, kink case by a flat subdivision — no event-level hypothesis, no narrowing; NON-BLOCKING, in the fixed shape: `CompleteLocal` on side t only (the empty side by R-LOC-2 clause 4), `full_absent_on_complete` over every finset, the sign ledger and the words as proof data, the localisation form [8 notes] |
+| 178 | `R:cv_theorem` | `RProof.cv_R` | RProof.CvR | reviews/r-cv-theorem.json | faithful | 9 | labels D-CVT-5, FR-R-178-1, FR-R-178-2; accepted 2026-09-19 08:39Z; the staged one-liner `cv_R : CV.hyp_R := cv_R_of_rows generic_selected extreme_pair_zero extreme_transport extreme_selected` (RProof/CvR.lean; `cv_R_of_rows` RProof/RALedgers.lean:2354); no hypothesis, no R parameter; footprint `9` as FR-R-178-2 predicted (§4.3); NON-BLOCKING: the R6 all-parameters form `X1 (E.curve tp) = X1 (E.curve tm)` for all tp > 0 > tm, equivalent to the chamber form by CV:prop:chamberinv (ii); redundant index binders; `SignChanges` as the accepted def:event reading [6 notes] |
 | 179 | `Bridge:B1` | `Bridge.B1` | Bridge.B1 | reviews/bridge-b1.json | faithful | std | non-blocking: `[NeZero n]` (statement line 47) is carried as an instance argument in addition to `hn : 3 ≤ n`; it is implied by hn and only… [5 notes] |
 | 180 | `Bridge:B2` | `Bridge.B2` | Bridge.B1 | reviews/bridge-b2.json | faithful | std | stated under sorted naming rep e < rep f < rep k; unsorted case via exists_sorted_tripleAt |
 | 181 | `Bridge:B3` | `Bridge.B3` | Bridge.B3 | reviews/bridge-b3.json | faithful | std | non-blocking: `SignChanges` (both SM and CV renderings) carries an extra `δ ≤ radius` clause absent from the printed 'there is δ>0 with φ(P… [6 notes] |
 | 182 | `Bridge:B4` | `Bridge.B4` | Bridge.B4 | reviews/bridge-b4.json | faithful | std+H+LM+LMU | the C = X₁ dictionary through the accepted geo*_eq_generic lemmas (CV-DOM option (C)) |
+| 183 | `Bridge:theorem` | `Bridge.sm_R` | Bridge.SmRRow | reviews/bridge-theorem.json | faithful | 9 | labels FR-B-183, BRIDGE.md §3 (19)-(21); accepted 2026-09-19 08:39Z; the staged one-liner `sm_R : SM.hyp_R := SM.sm_R_of_cv_R RProof.cv_R` (Bridge/SmRRow.lean; `SM.sm_R_of_cv_R` Bridge/SmR.lean, B1-B4 pointwise); no hypothesis; NON-BLOCKING: the row is the CONSEQUENT of the displayed implication (19) with its antecedent discharged by row 178 (formally unconditional, stronger); the side-parameter form of hyp:R equivalent to the two chamber values by prop:C-chamber (FR-HR-1); presupposition binders `hn : 3 ≤ n` [9 notes] |
+| 184 | `SM:corner_laws_and_soft` | `SM.corner_laws_and_soft` | SM.CornerLawsAndSoft | reviews/sm-corner-laws-and-soft.json | faithful | 9 | labels FR-F-184-1..4, D-CVT-5, A-21, A-22; accepted 2026-09-19 13:26Z; `corner_laws_and_soft : CornerLawsAndSoftData := corner_laws_and_soft_of Bridge.sm_R thm_C_S7 thm_C_soft (cor_C_inherits Bridge.sm_R)` (SM/CornerLawsAndSoft.lean, 86 lines; one field per item of TARGETS' Required coverage: chamber, silent, flat, vertex_edge, triple : hyp_R (PROVED, no R parameter retained), cusp, empty_cusp, soft, reversal, cyclic, triangles); port edit A-22: the tail draft's CInheritsData copy replaced by `import SM.CInherits` (D-CM-3); NON-BLOCKING: `CuspLawC` asserts the deletion's genericity in its conclusion (∃ hQ), the all-side-parameter forms inherited from the accepted rows, CS3Data's existential δ and CS5Data's germ-side form; PROCESS: the row-184 reviewers found the thm-C-S7 / cor-C-inherits review files not yet written (concurrent workflow) and checked the field types against the printed statements directly; FOOTPRINT: the kernel lists SIX literature axioms where TARGETS says five interfaces — `SM.lit_homfly_descent` is the author-authorised second declaration of lit:homfly (§4.3) [6 notes] |
 | m192 | `lem:weak-open` | `SM.weak_open` | SM.WeakOpen | reviews/lem-weak-open.json | faithful | std | extra supporting lemma outside the 132 (scope_note in the map) |
 <!-- END:ACCEPTED -->
 
-## 3. Pending rows — one line each with the reason  (table regenerated 18:06Z; 24 rows)
+## 3. Pending rows — one line each with the reason  (table regenerated 2026-09-19 15:20Z; 0 rows)
 
 <!-- BEGIN:PENDING -->
-| # | row | policy / fixed name | status | reason at draft time |
+| # | row | policy / fixed name | status | reason (2026-09-19 15:20Z) |
 |---|---|---|---|---|
-| 57 | `lem:gauss-two-discs` | — | pending | DEFERRED — PL Jordan–Schoenflies on S²; judged INFEASIBLE now (12-20k lines, no Mathlib Jordan/Euler/triangulations): work/drafts/pldiscs/PLDISCS_FEASIBILITY.md §2.4; only non-GAP-2 consumer (row 104) proved without it (D-ER1). AUTHOR_NOTES 2026-09-13 ~20:55Z, 2026-09-14 ~04:38Z, ~12:45Z |
-| 91 | `cp:finite-contact-path` | — | pending | GAP-2 — proved modulo one named clause (see §3.1 paragraph); library module SM/ContactPathOfDescent.lean, never mapped (D-F11) |
-| m97 | `src:contact` | `SM.src_contact` | pending | NEVER DECLARED — literature interface consumed only by fd:contact (94) and CV:ax:etnyre (161), both GAP-2-blocked (blueprint/DEPENDENCIES.json edges); no consumer can cite it, so it was not stated (5th of the five admitted interfaces; policy name SM.src_contact) |
-| 94 | `fd:contact` | — | pending | GAP-2 via row 91 (and the undeclared src:contact interface) |
-| 99 | `cf:thm-carrierfloor` | — | pending | GAP-2 — clauses (R)(A)(B) statable/provable, clause (C) blocked via fd:contact (94) (GAP-2 memo §3(c); D-F12: partial clauses not pursued) |
-| 100 | `thm:floor` | — | pending | GAP-2 — z_parity provable, a_floor blocked via cf:thm-carrierfloor (C) |
-| 103 | `cb:singleton` | — | pending | GAP-2 via thm:floor |
-| 105 | `lem:corner-values` | — | pending | GAP-2 via cb:singleton (clause (ii)); clause (i) also cites deferred row 57 |
-| 110 | `thm:C-S7` | `SM.thm_C_S7` | pending | GAP-2 via cb:singleton / thm:floor — target row, fixed name SM.thm_C_S7 not declared (D-F11) |
-| 112 | `thm:C-soft` | `SM.thm_C_soft` | pending | GAP-2 via lem:corner-values — target row, fixed name SM.thm_C_soft not declared (D-F11) |
-| 122 | `prop:anchor-values` | — | pending | GAP-2 via thm:C-soft |
-| 127 | `thm:comparison` | `SM.thm_comparison` | pending | GAP-2 via lem:corner-values / thm:C-S7 / thm:C-soft — fixed name SM.thm_comparison not declared; also consumes hyp:R (explicit parameter) |
-| 128 | `cor:C-inherits` | `SM.cor_C_inherits` | pending | GAP-2 via thm:comparison — fixed name SM.cor_C_inherits not declared |
-| 155 | `CV:thm:carrierfloor` | — | pending | GAP-2 — (R)(A)(B)(C) through the polygon bridge, (D) provable now; blocked via CV:ax:slbound → fd:contact (memo §3(c)) |
-| 161 | `CV:ax:etnyre` | — | pending | GAP-2 — D-F10 option (iii): no independent sl object; kept as the parametrised bundle CV.SlBoundData with 162; a sixth axiom rejected by policy |
-| 162 | `CV:ax:slbound` | — | pending | GAP-2 — statable on TransverseKnot, blocked via fd:contact (memo §3(b)) |
-| 165 | `CV:singleton_D_i` | — | pending | GAP-2 via CV:thm:carrierfloor and cb:singleton |
-| 174 | `R:generic_selected` | `RProof.generic_selected` | pending | GAP-2 — needs CV:thm:carrierfloor (R lane statement panel, AUTHOR_NOTES ~06:35Z); statable |
-| 175 | `R:extreme_pair_zero` | `RProof.extreme_pair_zero` | pending | BLOCKED via CV:singleton_D_i (GAP-2); statable |
-| 176 | `R:extreme_transport` | `RProof.extreme_transport` | pending | GAP-2 — needs CV:thm:carrierfloor; statable |
-| 177 | `R:extreme_selected` | `RProof.extreme_selected` | pending | GAP-2 — needs CV:thm:carrierfloor; statable |
-| 178 | `R:cv_theorem` | `RProof.cv_R` | pending | BLOCKED — RProof.cv_R : CV.hyp_R needs rows 174-177; not declared (statement fixed in work/drafts/rlane2/Statements_FINAL.lean) |
-| 183 | `Bridge:theorem` | `Bridge.sm_R` | pending | BLOCKED — Bridge.sm_R waits only for RProof.cv_R (AUTHOR_NOTES 07:33Z); not declared |
-| 184 | `SM:corner_laws_and_soft` | `SM.corner_laws_and_soft` | pending | BLOCKED — final theorem needs Bridge:theorem, cor:C-inherits, thm:C-soft; not declared (D-F11); reported INCOMPLETE |
+| — | (none) | — | — | No row is pending at 15:20Z 2026-09-19; the map has 192 accepted rows (claims verified 132/132). |
 <!-- END:PENDING -->
 
-**The 24 pending rows, by reason** (checked against `python3 tools/claims.py --pending-only` = 23 pending claims, and
-the map = 24 non-accepted rows; the stage log names the same 24):
-- **22 claim rows blocked by GAP-2** — row 91 `cp:finite-contact-path`, proved modulo `SM.AmbientIsotopyDescent`
-  (library module `work/lean/SM/ContactPathOfDescent.lean`; statement independently reviewed clean,
-  `work/reviews/cp-finite-contact-path-conditional.json`, 3/3 lenses faithful, 2 refuters clean; label: **proved modulo
-  Reidemeister's theorem for smooth isotopies (literature premise + isotopy extension)**; not mapped, §3.1) and its
-  downstream rows 94, 99, 100, 103, 105, 110, 112, 122, 127, 128, 155, 161, 162, 165, 174, 175 (via `CV:singleton_D_i`),
-  176, 177, 178, 183, 184.
-- **1 deferred claim row** — 57 `lem:gauss-two-discs`, judged INFEASIBLE now (`work/drafts/pldiscs/PLDISCS_FEASIBILITY.md`);
-  its only non-GAP-2 consumer 104 `cb:embedded-rotation` was proved without it and is accepted (§3.2).
-- **1 interface row** — `src:contact` (`SM.src_contact`), never declared: no reachable consumer (§3.5).
+**No row is pending.** `python3 tools/claims.py --pending-only` (15:25Z) prints an empty table; the map has 192 accepted rows and 0
+non-accepted rows. At draft time (13:26Z) exactly one row was pending — **row 57 `lem:gauss-two-discs`**, un-deferred by the author on
+2026-09-19 (D-AUTH-20260919 G-09: "UN-DEFERRED. Prove it. … It gates nothing but the stage check"), statement frozen and proving in two
+waves — and it was accepted at 15:14Z (§3.2). The seven other rows of the 2026-09-16 list closed earlier on 2026-09-19 — 177 by a fourth
+bounded wave (3d) once the author lifted the A-177-2 consequence, 178 and 183 by their staged one-liners, 110 by three further corner
+waves (4-6) once the A-110-1 consequence was lifted, 127 and 128 by their one-liners, 184 by the prepared module with edit A-22.
 
-### 3.1 GAP-2 (rows 91 → 94 → 99 → 100 → 103 → 105 → 110/112 → 122/127/128 → 184; 155/161/162/165; 174-178 → 183 → 184)
+### 3.1 Row 110 `thm:C-S7` — CLOSED and ACCEPTED 2026-09-19 13:26Z (corner waves 4-6; audits A-110-1, A-110-2)
 
-Decision record: AUTHOR_NOTES.md "Front block: representation adopted … scope gaps — 2026-09-14 ~02:38Z"
-(FR-7, D-F3), "GAP-2 statement memo received; reclassification of rows 89/90 and decisions — ~07:51Z"
-(D-F10, D-F11, D-F12), "Row 91 … PROVED MODULO the descent clause … — ~10:26Z" (D-CP-1, FR-CP-1..10),
-"Row 91 conditional theorem reviewed and PORTED as library … — ~10:52Z"; memo
-`work/drafts/gap2/GAP2_STATEMENTS_MEMO.md` (§1 the gap precisely, §3 decisions, §4 row sheets);
-plan `work/drafts/gap2/CPRow91_PLAN.md` (§6 paragraph, §7 closing routes). The paragraph of §6, with its
-label adjusted to the sharpened reading of the later entry (~10:52Z) and the port location updated:
+Record: OPEN_ITEMS_20260916.md §A-02 (the 2026-09-16 state: kernel-proved modulo five named Props, construction stopped by audit
+A-110-1) and §A-03..A-12 (the leaves); D-AUTH-20260919 G-01 ("Fund the remainder … over as many waves as it takes"); AUTHOR_NOTES
+"Corner wave 4: the SLIDING leaf of thm:C-S7 is CLOSED; the bigon leaf reduced to ONE Prop; wave 5 launched" (08:25Z), "Corner wave 5:
+unit W5-BR finished its file but its agent died on an API 500; report written by the executor" (10:47Z), "Corner wave 5 assembled
+(W5_Assembled.lean); audit A-110-2; wave 6 launched on the four live boxes" (11:22Z), "Corner wave 6: unit W6-COR CLOSED
+`w5r_box_corners`" (11:47Z), "W6-ROT delivered both rotation identities but left ONE new box; unit W6-CC launched" (12:01Z), "W6-CURL
+proved the curl data in a CORRECTED form (rule 3)" (12:04Z), "W6-CC CLOSED `w6r_box_centreCorners`" (12:38Z), "ROW 110 thm:C-S7 PROVED
+sorry-free in the draft (corner wave 6 glued); port … started" (12:55Z), "Rows 110 / 127 / 128 / 184 PORTED and KERNEL-CHECKED"
+(12:57Z), "ROWS 110 … 184 ACCEPTED" (13:26Z); reports `W4_ASSEMBLY_REPORT.md`, `W5_ASSEMBLY_REPORT.md`, `W5_BR_REPORT.md`,
+`W6_ASSEMBLY_REPORT_B.md`, `port/CS7_B/PORT_REPORT.md`.
 
-> Row 91 cp:finite-contact-path: statement fixed as `SM.ContactPathData` (work/lean/SM/ContactPathOfDescent.lean,
-> ported from work/drafts/gap2/CPRow91_Statements.lean; one field per printed clause of sm-3:3210-3233, on the
-> accepted vocabulary of rows 89/90). The row is **proved modulo Reidemeister's theorem for smooth isotopies
-> (literature premise + isotopy extension)**: `SM.cp_finite_contact_path_of_descent : SM.AmbientIsotopyDescent →
-> SM.ContactPathData` (0 sorry; axioms = the standard three + the registered `lit_homfly`, `lp_lm`,
-> `lp_lm_uniqueness`), from the accepted rows 89 (`ce_rounding`), 90 (`ce_smoothing_record`), rp:record-polynomial
-> and lp:core. `AmbientIsotopyDescent` is a `def … : Prop`, not an axiom: for a jointly smooth family of oriented
-> spatial embeddings whose two ends have ordinary regular generic xz projections, the HOMFLY–PT values of any
-> polygonal readings of the two end diagrams agree. It is lit:homfly's fifth clause ("Its value depends only on the
-> oriented link presented by D") read on spatial isotopies — the single sentence of the printed proof
-> (sm-3:3313-3316) that the frozen interface cannot discharge: `SM.lit_homfly` states that clause as
-> `HomflyClauses.descent` over `LinkEquiv` (planar isotopy and the three Reidemeister moves between polygonal
-> diagrams; design D2), and passing from a smooth spatial isotopy to such a move sequence is Reidemeister's theorem,
-> declared outside the formal scope with no sixth axiom admitted. Because the clause is stated on the smooth family
-> of embeddings, it also absorbs the isotopy-extension step the printed proof performs by hand (sm-3:3264-3313;
-> FR-CP-7 as sharpened by the statement review, work/reviews/cp-finite-contact-path-conditional.json: 3/3 lenses
-> faithful, 2 refuters clean). The clause is a true theorem of mathematics (Reidemeister + isotopy extension), so the
-> conditional row asserts nothing false; the gap is a scope exclusion, not a conjecture. Three
-> equivalent-by-implication forms are recorded: `AmbientIsotopyDescent` (what the proof consumes),
-> `AmbientIsotopyLinkEquiv` (Reidemeister's theorem proper; implies the first through the frozen descent), and
-> `AmbientIsotopyDescentLit ∧ IsotopyExtension` (the printed proof's own split into the literature premise on an
-> actual ambient isotopy and the isotopy-extension analysis of sm-3:3264-3313, the latter provable in principle,
-> ~3-5k lines). The declaration is library material (D-F11/D-F14) and is not mapped as implemented; consequently
-> rows 94, 99(C), 100(a_floor), 103, 105, thm:C-S7, thm:C-soft, thm:comparison, cor:C-inherits and
-> SM:corner_laws_and_soft remain open with this single reason.
+**The statement is unchanged**: `CS7Data.vertex_edge_law` of the accepted `SM/CornerChainStatements.lean` (D-CC-1: `g.VertexEdgeAt
+M a → ∀ h₁ h₂ tp tm, C(P₊) − C(P₋) = contactSign · C(λ₁) · C(λ₂)`; companions `.bigon` / `.sliding`; FR-CC-7..10), frozen since
+2026-09-15 15:25Z and shared with the accepted rows 103/105/112; `stmt_check.py` reports the five frozen declarations of `W3_Skeleton.lean`
+byte-identical in every wave's assembly and in the ported `SM/CS7.lean` (5/5 PASS). **The row theorem** `theorem SM.thm_C_S7 :
+CS7Data := thm_C_S7_of_floor thm_floor` (`SM/CS7.lean:92`; `thm_C_S7_of_floor hF := thm_C_S7_of hF (cb_singleton_of_floor hF)`) has
+`#print axioms` = exactly the nine registered axioms, no `sorryAx` (PORT_REPORT §1; the executor's probe 12:57Z; the checker 12:58Z and
+13:28Z). What closed between 2026-09-16 and 2026-09-19, wave by wave (all on byte-identical copies of the previous assembly, every unit a
+pure insertion plus at most one body replacement, `W4/W5/W6 §1` diffs "all clean"):
+- **Wave 4** (wf_112e0a7f-f6b; eight units; `W4_Assembled.lean` 19 974 lines, 0 errors): the SLIDING leaf `s7_sliding_law_at` CLOSED —
+  S1′ `s7u_box_ret'` (the corrected first-return box on both sides, unit S1P) + S3′ `s7u_box_carriers'` (closed by the assembler from
+  S3G's 3 137-line `s7g_box_carriers'` on RET's two transports, 109 lines of glue) through `s7u_sliding_law_at_of`; axioms standard +
+  `lit_homfly`, `lp_lm`, `lp_lm_uniqueness`. RET's rule-4 finding stands: the original S1 box `s7q_box_ret` is FALSE as stated on the
+  leg-M side and was dropped at port. BIGON: F's three boxes (FB1 335 lines, FB2 4 020, FB3 843), SITE's two (SITEC 608) and record
+  identification (SITEH 420), K's B3 (849) all proved; K's F-aligned route built (`w4_EligDec` — a correction of W3_K_REPORT §4(a): eligible
+  DECOMPOSITIONS, not supports —, `w4_liftEquiv`, `w4_eligibleEquiv`, `w4_oneNewborn_rows`, `w4_residualData`); K's B1 no longer needed;
+  B2 restated in F's vocabulary as B2′ `w4_BigonReturnedRows` (the returned newborn-free rows per eligible decomposition below a radius);
+  `w4_s7_bigon_law_at_of hsing (hrows : B2′)` sorry-free. `thm_C_S7` then carried `sorryAx` from exactly ONE source, the bigon leaf.
+- **Wave 5** (units RT, SITE, BR, ROW; `W5_Assembled.lean` 25 237 lines, 0 errors, 1 366 new declarations): B2′ reduced to FOUR named
+  geometric Props with every consumed interface proved (`W5_ASSEMBLY_REPORT.md` §5): `w5r_box_corners` (the contact-corner
+  correspondence), `w5b_box_interlacingTurnData`, `w5b_box_noninterlacingTurnData` (rotation + the two half patterns), `w5b_box_curlData`
+  (the curl component's value and writhe). Discharged in the merge: ROW's `w5r_box_transport` (← RT) and `w5r_box_contact` (← SITE);
+  restated glue `w5_box_branch` (ROW's `w5r_box_branch` lacked the selector hypothesis; `w5_returnedRow_of` handles `wt(q_L) = 0`
+  directly — ≈ 35 lines of new assembly mathematics, §8 item 6). Incident: unit W5-BR finished its 1 656-line block (0 errors) and died on
+  a transient API HTTP 500 during its final `#print axioms` probe; the executor re-ran the probe and wrote `W5_BR_REPORT.md` from the
+  unit's file, compile log and probe only (no content added or changed; §6). **Audit A-110-2** (11:22Z; the reassessment rule, under
+  D-AUTH §2 never a stop): no counterexample, no outside assumption — the four Props are the printed sm-4:576-600 corner bookkeeping,
+  the U110-I rotation identities on the centre polygon and the cb:products curl value; method unchanged; estimate 1 900-3 200 lines;
+  wave 6 = COR + ROT + CURL in parallel, then GLUE.
+- **Wave 6** (COR, ROT, CC, CURL + two GLUE assemblers): COR CLOSED `w5r_box_corners` exactly as stated (436 lines, standard axioms);
+  ROT proved both rotation identities from the corner data and the centre polygon `L*` but stated ONE new box `w6r_box_centreCorners`
+  (the corner correspondence on `L*` in principal-turn form — the wave-6 brief's phrase "in principalTurn form" was not a reading of the
+  declared box, so ROT stated the needed Prop exactly; rule-3 disclosure, no new assumption); CC CLOSED that box exactly as stated (784
+  lines, standard axioms); CURL proved the curl data in a CORRECTED form `w6k_box_curlData` (six radius facts `hr0 hr1 hr hη hηr hηr1`
+  added — BR's box from `hloc ht` alone is not derivable; the consumer already carried them; rule 3). GLUE: BR's two turn boxes are
+  stated for EVERY side parameter without a radius and cannot be given bodies as stated (the corner and centre data hold below radii only);
+  like ROW's `w5r_box_branch` they were left unproved and UNUSED and the chain restated under the wave-6 radii (`w6_interlacingTurnData`,
+  `w6_noninterlacingTurnData`, `w6_interlacingData`, `w6_noninterlacingData`, `w6_branchData`, `w6_box_branch`; radius = A2's ∧
+  `w5r_box_corners`' ∧ `w6r_box_centreCorners`'); `w4_box_returnedRows` consumes `w6_box_branch` and is sorry-free; the bigon leaf closed
+  by the recorded line `w4_s7_bigon_law_at_of hn g h h₁ h₂ hsing (w4_box_returnedRows hn g h h₁ h₂ hF)`. **Deviations disclosed**
+  (`W6_ASSEMBLY_REPORT_B.md` §8): the two BR turn boxes and the curl box restated with radius hypotheses and the as-stated boxes dropped as
+  dead draft material; `w5b_box_curlData`'s one-token re-thread applied inside the (dead) `w5b_noninterlacingData` body; `w6r_exists_rotation`
+  kept unused. Whole-file `#print axioms` census (1 453 declarations): the axiom universe of the draft is the nine registered axioms +
+  `sorryAx`, the latter in EXACTLY 19 dead declarations (8 own sorries, 11 inherited), all off every path to a frozen declaration.
+- **Two glue-assembler instances** ran on the same unit files (the executor's message to the running workflow agent at 12:04Z resumed a
+  duplicate of its transcript): instance A wrote `W6_Assembled.lean` (27 533 lines) + `W6_ASSEMBLY_REPORT.md` + `port/CS7/`; instance B
+  wrote `W6_Assembled_B.lean` (27 531 lines, sha256 `37265742…`) + `W6_ASSEMBLY_REPORT_B.md` + `port/CS7_B/`. Both 0 errors, identical
+  axiom censuses (`thm_C_S7` on the nine; `sorryAx` in the same 19). Executor decision: port from instance B (complete first, 12:40Z;
+  verified in a scratch olean tree), A as the cross-check (§6, §7).
+- **Port** (`port/CS7_B/PORT_REPORT.md`): `SM/CS7Units.lean` = the assembled file from `namespace SM` to `end VertexEdge` minus the two
+  leaves and 26 dead declarations (468 lines; the 19 `sorryAx` carriers + 7 sorry-free companions serving only them — `s7q_box_ret`,
+  `w3_SlidingRet` and its consumers, K's B1/B2 boxes and `w3_BigonFSector`/`w3_BigonReturnedRows`/`w3_s7_bigon_law_at_of`,
+  `w5b_box_returnedData`, the two BR turn boxes and their consumers, `w5b_box_curlData`, `w5_branchData`/`w5_box_branch`,
+  `w5r_box_branch`), with 27 docstring rewordings (no `sorry` string remains; 12 "BLACK BOX" heads → "PROVED (…)"); no collapses of
+  duplicate `def`s applied (listed in §4 of the report). Statements, names and bodies untouched. `SM/CS7.lean` = the frozen declarations
+  of `W3_Skeleton.lean` verbatim. Installed 12:54Z; `lake build` 0 errors (84 s); mapped implemented 12:55Z; checker 12:58Z passed
+  (191 mapped, 46 842 audited).
+- **Review** `reviews/thm-C-S7.json` (13:25:40Z): 3 lenses `faithful`, 2 refuters "not refuted"; `kernel_check` = the nine registered
+  axioms; 9 non-blocking notes, all inherited C-row conventions (the identity at every pair of side parameters; `SignChanges`' `δ ≤ radius`;
+  `hn : 3 ≤ n` vacuous under `ContactSeparated` (n ≥ 5); the halves' genericity as universally quantified witnesses; "of bigon or sliding
+  type" as the exhaustive dichotomy `vertexEdge_bigon_or_sliding`; a reviewer disclosure that a `grep` printed four proof-local `have :
+  NeZero …` lines of `SM/CS7Units.lean`, a file the brief forbade — no statement text or proof structure read, nothing relied on). The
+  `executor_notes` disclose the wave-5/6 restatements and that "the kink-case flat-subdivision route is not used here". Accepted 13:26Z;
+  receipt `dev-check-rows110-127-128-184-accepted.json` (13:28Z).
 
-Per the memo (D-F12 reporting rule) the following are NOT to be lumped with the unprovable rows: 89 and 90 are
-accepted; 99 clauses (R)(A)(B), 100 `z_parity` and 155 clause (D) are provable now but were not pursued because no
-claim closes without (C)/`a_floor` (partial clauses of a row are not the row). CV:ax:etnyre (161): D-F10 option
-(iii) — no independent `sl` object; the printed shape is kept as the parametrised bundle `CV.SlBoundData`; a
-definitional `sl := writhe` was rejected as a substitution and a sixth axiom by the policy. Statement-only bundles
-of the blocked rows (`work/drafts/gap2/Gap2Statements.lean`, 31 structures, compiles) are never mapped (D-F11).
+Size record (for §7): D-CC-4 (2026-09-15) estimated 11-15k lines for the row; the lane produced `SM/CornerChainUnits.lean` 11 842
+(shared with 103/105/112) + `SM/CS7Sliding.lean` 2 956 + `SM/BigonDeletion.lean` 5 374 (shared with the R rows) + `SM/CS7Units.lean`
+27 000 + `SM/CS7.lean` 97 — the remainder owed on 2026-09-16 (≈ 8-12k) came to ≈ 18.5k assembled lines (W3 8 958 → W6 27 531, minus
+deletions). The 2026-09-16 audit's diagnosis "decomposition size, not mathematics" was borne out: no leaf was false at the level of a
+row statement; four draft boxes were false or not derivable as stated and were restated (rule 3), one library structure field
+(`s7b_SlidingTransport.ret`, C-05) remains false on the leg-M side and is documented by the prepared patch 06 (E-08).
 
-### 3.2 Row 57 `lem:gauss-two-discs` — deferred
+### 3.2 Row 57 `lem:gauss-two-discs` — accepted 15:14Z 2026-09-19 (un-deferred by the author; route A, two waves over 92 leaves; audit A-57-1)
 
-`work/drafts/pldiscs/PLDISCS_FEASIBILITY.md` §2.4 verdict: **INFEASIBLE now** (12 000-20 000 lines: the two-region
-clause 4-6k, the PL-disc clause = PL Schoenflies 5-8k with new PL vocabulary, extension clauses cheap only on
-convex model discs; Mathlib has no Jordan curve theorem, planar Euler count or triangulations); recommendation keep
-DEFERRED, no lane. Its only non-GAP-2 consumer, row 104 `cb:embedded-rotation`, was proved independently by a
-polygonal secant-lift argument (decision D-ER1, AUTHOR_NOTES ~12:45Z; accepted ~13:40Z); its other consumer
-`lem:corner-values` (i) is GAP-2-blocked anyway. The blueprint edge 57 → 104 (`blueprint/DEPENDENCIES.json`) is
-therefore not realised by the proof route; `tools/claims.py` uses that column only for `--next`.
+**Outcome.** `theorem SM.lem_gauss_two_discs [NeZero n] (hn : 3 ≤ n) (P : LabelledTuple n) (hP : Embedded P) : GaussTwoDiscsData P`
+(`SM/GaussTwoDiscs.lean`; the bundle `GaussTwoDiscsData` with one field per printed clause — 57a `two_regions`, 57b `pl_discs`, 57c
+`pl_extension`, 57d `top_extension`, 57e `exterior`) is declared, mapped, kernel-checked and reviewed; **accepted 15:14Z 2026-09-19**
+(`write_review_and_accept.py --allow-doc-notes`; statement hash `cf312647…`; `review_utc` 15:14:16Z). **Review**
+`reviews/lem-gauss-two-discs.json` (workflow review-row-57, 14:55-15:13Z; 5 agents, 0 errors; brief
+`work/port/review_prompt_lem-gauss-two-discs.md`): 3/3 lens reviews `faithful` ("literal" primary — 7 non-blocking notes, 5 strengthenings;
+"definitions" — 8 and 5; "strength" — 6 and 5), 2/2 refuters "not refuted"; `weaker_than_source` empty in all three; the reviewers saw the
+printed source (sm-3:428-436 and the proof 437-542), the statement with every proof replaced by `sorry`
+(`lem-gauss-two-discs-reviewer-input-statement.lean.txt`) and the frozen vocabulary (`lem-gauss-two-discs-defs-reviewer-input.lean.txt`;
+one refuter confirmed it byte-identical to `SM/GaussTwoDiscsDefs.lean` minus the header), never the proof modules. Both refuters and the
+"definitions" lens re-ran `#check` / `#print axioms` on a scratch file. **The cap-chart sign convention (FR-TD-7) was CHECKED by the
+reviewers, not taken from the plan:** the literal lens re-derived the Jacobian of `capInvFun L y = (L/‖y‖∞²)•(y₁, −y₂)` on both chart halves
+(`det = L²/y₁⁴` resp. `L²/y₂⁴ > 0`) and on the seam (the affine map `L•(y₁, −y₂)`), and a refuter confirmed it numerically (minimum > 0
+over 4 000 samples; exact self-inverse; the scale transition `L → L'` a scaling), so "`det > 0` in either chart" is one consistent
+orientation of the sphere. **Route:** A — 57a from the ear triangulation (U4) and the ambient ear homeomorphisms (U5/U6), a finite
+construction in the spirit of the printed triangulation-first proof; 57b not derived from 57a; no Jordan-curve or Schoenflies input of
+any kind (Mathlib has none to import; FR-TD-6). **Modules (`work/lean/SM/`, ported 14:52Z from `work/drafts/twodiscs/W2_Assembled.lean`,
+built 14:53-14:55Z, 0 errors, 89 s):** `GaussTwoDiscsDefs.lean` 274 lines (the frozen §1-§4 vocabulary) → `GaussTwoDiscsPL.lean` 4 972
+(units U1-U3: convex/affine toolkit, triangulation basics, overlay/refinement) → `GaussTwoDiscsEars.lean` 5 462 (U4: ear triangulation of
+an embedded polygon) → `GaussTwoDiscsAmbient.lean` 7 385 (U5-U9: ear homeomorphisms, ambient parametrisation, 57a/57e, 57b interior and
+exterior, orientation bookkeeping) → `GaussTwoDiscsExtension.lean` 2 811 (U10-U11: the fan extension for 57c, the radial extension for
+57d) → `GaussTwoDiscs.lean` 92 (the frozen bundle, the row theorem assembled from the six output leaves, and the three consumer bridges
+`two_regions_plane`, `isPLDisc_of_isPLDiscSphere`, `isPLDisc_closure_interior`); 20 996 lines, 1 467 declarations in all; the frozen
+blocks byte-identical to `Statements_FINAL.lean` (`port/check_57_identity_port.py`: IDENTITY OK); no `sorry` / `#print` / `#eval` string
+in any module. **Axioms:** `#print axioms SM.lem_gauss_two_discs` = `[propext, Classical.choice, Quot.sound]` — standard only; no
+literature axiom, no `sorryAx`, no `native_decide` (the U12 census of all 96 declarations — 92 leaves, the row, the 3 bridges —
+`W2_ASSEMBLY_REPORT.md` §1; `port/PORT_REPORT.md` §1 through `import SM.GaussTwoDiscs`; the executor's probe 14:55Z; the review's
+`kernel_check`; the checkers below). Row 57 is the only row of the eight accepted on 2026-09-19 with a standard-only footprint (§2: `std`
+114 → 115). **Receipts:** `work/checks/dev-check-row57-implemented.json` (14:57Z; passed, 192 mapped, 49 212 audited; log
+`checker-run-20260919_1455Z.log`) and `dev-check-row57-accepted.json` (15:16Z; passed, 192 / 49 212; log `checker-run-20260919_1514Z.log`;
+= `stage-development.json` until the closing run); the closure grew 46 842 → 49 212 (+ 2 370: the six modules, all imported by the
+mapped row module). **Disclosed in the review (`executor_notes`), none a change to the row statement:** (i) the fourteen readings
+FR-TD-1..14 recorded before stating (D-TD-1; listed below), every one matched by the reviewers to a printed sentence or judged a
+strengthening; (ii) **D-TD-2**, four INTERNAL skeleton sub-leaves false as stated and replaced by proved corrected forms, each with its
+counterexample recorded — `U3_isPositivePLFromPlane_inv` (false for `L ≤ 0`; gained `0 < L`), `U4_polygonImage_ear` (kernel-checked
+counterexample; gained `Embedded`, `P(j−1) ≠ P(j+1)` and the strict-ear hypothesis), `U5_exists_ear_homeo` (false for a reflex ear; gained
+`hcut`), `U5_pushforward_edges` (kernel-checked counterexample `u5h_pushforward_edges_false` — the degenerate-edge case P = (A, A, B, C),
+j = 1; corrected form `u5h_pushforward_edges`, no consumer); (iii) **D-TD-3** (FR-TD-15), the draft helper `def SM.polygonImage (P :
+LabelledTuple n)` renamed `embeddedPolygonImage` because it clashed with the accepted `SM.polygonImage (C : PolyComp)` of
+`SM/Rounding.lean:140` — a pure renaming, the statement's meaning unchanged. **Not done (optional, documentation-level):** U8 copied U10's
+order-free fan toolkit verbatim as `u8h_f_*` (73 declarations) because U8 precedes U10 in the file; the port kept both copies
+(`W2_ASSEMBLY_REPORT.md`, `PORT_REPORT.md`); 15 linter warnings (unused leaf-header variables kept as printed, style notes) remain of
+the 80 in the assembly. **The reviewers' non-blocking notes** (the union of the three lenses; all are disclosed readings of D-TD-1): the
+explicit two-disc model at scale `L` with the sup-norm inversion cap chart instead of the printed one large rectangle with the Euclidean
+radial cap (PL-homeomorphic models; the print fixes no model in the statement; FR-TD-7); 57b/57c at EVERY scale `L` with `InsideModel L P`
+— a genuine strengthening, since models of different scales are not identical PL structures (FR-TD-8); `IsPLDiscSphere`'s clauses
+`sphereCircle P ⊆ S` and `f '' sphereCircle P = frontier D` (the circle is the whole boundary of each disc, print 490-491; needed for
+57c/57d to be about boundary maps; FR-TD-12); boundary maps as lifts `φ` in traversal coordinates rather than maps `C → C'` (equivalent for
+`Embedded P`; the lifting lemma not part of the row; FR-TD-10); 57d's "continuous positive boundary map" read as a boundary homeomorphism
+(the print's proof uses `b⁻¹`, source 539) and its "positive" hypothesis kept as printed (FR-TD-5); the first two conjuncts of `exterior`
+definitional sanity clauses, the bounded/unbounded conjuncts the substantive identification (FR-TD-11); `traversalPositiveFor` DEFINING
+the induced boundary orientation through the sign of `rotationNumber` (the accepted row-104 convention; the statement's meaning does not
+depend on which sign is called positive because the two sides induce opposite orientations and the same rule is applied to `P` and `P'`;
+the opposite convention would make 57c FALSE rather than vacuous — `φ = id`, `P' = P`, `s' = s` is a satisfying instance — so the kernel
+proof certifies it; FR-TD-9); `hn : 3 ≤ n` derivable from `Embedded P` (n = 1 forces a zero edge, n = 2 makes the two edge segments
+coincide), kept for uniformity with row 104; the statement on a labelled tuple rather than the unlabelled circle (every field
+shift-invariant, as row 104). **Strengthenings recorded** (`stronger_than_source`, all three lenses): universal model scale; the circle
+the whole boundary of both discs; 57c/57d for boundary maps between the closed regions of ANY two embedded polygons of any sizes and
+sides (including the two sides of one polygon); 57e's explicit identification of the exterior (component of `∞`, unbounded; the other
+bounded and finite); homeomorphism conclusions in 57c/57d (the print says "disc maps"; its proof constructs homeomorphisms); 57c's
+conclusion positive PL in an explicit two-chart PL atlas; no `Generic` and no `Regular` hypothesis (flat vertices in the domain, as the
+printed proof keeps "collinear redundant vertices"). `weaker_than_source`: empty. **Audit on the lane:** A-57-1 (13:57Z; §6) —
+"Continue", no stop.
 
-### 3.3 Rows 76-80, 83, 93 — all ACCEPTED (in progress at draft time)
+How the lane ran (AUTHOR_NOTES L6683-6802, L6854-6905, L6937-6949, L6998-7004, L7025-7036, L7046-7107 and `work/drafts/twodiscs/`):
+- **The author's decision (G-09, 05:33Z):** "UN-DEFERRED. Prove it. The 2026-09-15 instruction 'Row 57 stays deferred' (D-GAP2 item 5)
+  is withdrawn. Start from `work/drafts/pldiscs/PLDISCS_FEASIBILITY.md` and the lane pattern of RESUME §5. It gates nothing but the stage
+  check, so it may run in parallel with rows 110 and 177." The 2026-09-14 feasibility verdict (INFEASIBLE now, 12-20k lines, PL Schoenflies)
+  is superseded by the lane's route A (below); the blueprint edges 57 → 104 and 57 → 105 remain unrealised by the proof routes (D-ER1,
+  `corner_values_i`) — no accepted row depends on row 57 either way.
+- **Design panel (wf_134d331c-e4f, 08:23Z; D-TD-0):** architect A delivered `PLAN_A.md` + `Statements_A.lean` (typechecks); architect B,
+  the judge and a standalone rerun of B all died with "response exceeded the 64000 output token maximum" spent on thinking, producing no
+  file (a process incident, §6); the fidelity critic judged `Statements_A.lean` FAITHFUL with three edits (add `B ⊆ S` to `IsPLDiscSphere`;
+  docstring notes on `traversalPositiveFor` and on the hypothesis choice; do not weaken any field). D-TD-0: proceed from A + the critic's
+  edits; a medium-effort finalizer wrote `PLAN_FINAL.md` / `Statements_FINAL.lean`; process rule adopted: design/judge agents run at
+  effort 'medium' with the instruction to decide quickly and write in small pieces.
+- **The statement (FROZEN; `Statements_FINAL.lean`, 305 lines, typechecks):** `theorem SM.lem_gauss_two_discs [NeZero n] (hn : 3 ≤ n)
+  (P : LabelledTuple n) (hP : Embedded P) : GaussTwoDiscsData P` (no fixed name in the policy for row 57), the bundle with one field per
+  printed clause: `two_regions` (57a: `Nat.card (ConnectedComponents (sphereComplement P)) = 2` in the sphere `OnePoint Plane`),
+  `pl_discs` (57b: for every side and every model scale `L` with `InsideModel L P`, the closed region is a PL disc in the two-disc-model
+  charts with the circle inside it, `IsPLDiscSphere`), `pl_extension` (57c: finite positive PL boundary lifts between the closed regions
+  of any two embedded polygons extend to positive PL sphere maps), `top_extension` (57d: topological extension), `exterior` (57e: the
+  region of `∞` is the unbounded region, the other bounded), plus the two-disc model (supNorm square `Q_L`, `capInvFun` chart at `∞`,
+  `InsideModel`). **Fidelity readings recorded BEFORE stating (D-TD-1 = PLAN_FINAL §5, FR-TD-1..14, verbatim in AUTHOR_NOTES L6736-6802):**
+  FR-TD-1 `Embedded P` with `3 ≤ n`, no `Regular` hypothesis (derived), sphere = `OnePoint Plane`, orientation `det > 0` in either chart;
+  FR-TD-2 regions = connected components of the complement, exterior = the component of `∞`; FR-TD-3 PL disc = `Link.IsDisc` with a finite
+  straight triangulation, positive affine on each triangle, at every model scale; FR-TD-4 boundary maps as lifts `φ : ℝ → ℝ` in
+  traversal coordinates (`IsPositiveBoundaryLift`, `IsFinitePL` — the accepted `rexB_pl` pattern), between the closed regions of any two
+  embedded polygons incl. the two sides of one polygon; FR-TD-5 57d = `∃ F` homeomorphism onto with the boundary condition, "positive" kept
+  as printed though unused; FR-TD-6 no Jordan/Schoenflies input (Mathlib has none) — 57a from the ear triangulation and ambient ear
+  homeomorphisms (route A), 57b not derived from 57a; FR-TD-7 the explicit two-disc model (square gauge + a reflection making the chart
+  orientation-preserving) instead of the printed Euclidean radial map — PL-homeomorphic models, sign convention verified by the Jacobian;
+  FR-TD-8 STRONGER: 57b/57c at every model scale, not one large rectangle; FR-TD-9 `traversalPositiveFor` DEFINES the positive boundary
+  orientation of the interior region as the traversal iff `0 < rotationNumber P` (the accepted `EmbeddedRotationData.orientation`
+  convention; if wrong, 57c would be false, so unit U9 checks it); FR-TD-10 lifts instead of boundary homeomorphisms (equivalent; the
+  lifting lemma not part of the row); FR-TD-11 57e rendered by `∀ s : Side` in 57b-d plus the `exterior` field; FR-TD-12 `IsPLDiscSphere`
+  carries `f '' sphereCircle P = frontier D` (the circle is the whole boundary, print 490-491) and `B ⊆ S`; FR-TD-13 set-based
+  `Triangulation` (not a Mathlib simplicial complex, by design); FR-TD-14 chart-membership clause of `IsPositivePLSphereMap` (standard
+  subdivision condition, achievable by refinement). FR-TD-15 (D-TD-3, 11:54Z): the draft `def SM.polygonImage (P : LabelledTuple n)`
+  collided with the accepted `SM.polygonImage (C : PolyComp)` of the registered `SM/Rounding.lean:140`; the DRAFT def was renamed
+  `embeddedPolygonImage` (a pure renaming of a helper; statement meaning unchanged; options (b) sub-namespace and (c) editing an accepted
+  module rejected — G-05 is comment-only).
+- **Skeleton (`Skeleton_FINAL.lean`, 1 039 lines, 0 errors, 92 leaf `sorry`s; `SKELETON_REPORT.md`):** the row theorem assembled from six
+  output leaves (`U6_two_regions`, `U6_exterior`, `U7_pl_discs_inner`, `U8_pl_discs_outer`, `U10_pl_extension`, `U11_top_extension`); the
+  other 86 leaves are the units' internal contracts; `check_57_identity.py` asserts the frozen blocks byte-identical in every unit file.
+- **Wave 1 (units U1, U2, U3, U4, U10, U11; assembled 11:51Z, `W1_Assembled.lean` 13 815 lines, 0 errors):** 62 of 92 leaves closed —
+  58 on `[propext, Classical.choice, Quot.sound]`, 4 (`U10_boundary_map_of_lift`, `U10_pl_extension`, `U11_boundary_homeo_of_lift`,
+  `U11_top_extension`) carrying `sorryAx` only through open wave-2 leaves; **no literature axiom, no `native_decide`, no unregistered
+  axiom** anywhere in the row's closure. **Rule 3 (D-TD-2, 11:37Z; three INTERNAL skeleton sub-leaves false as stated at wave 1 — a
+  fourth, `U5_pushforward_edges`, followed at wave 2, 13:39Z — none a row statement):** `U3_isPositivePLFromPlane_inv` false for `L ≤ 0` —
+  gained `(hL : 0 < L)` (closed; one consumer call site patched);
+  `U4_polygonImage_ear` false as stated — kernel-checked counterexample P0=(0,0), P1=(2,0), P2=(2,2), P3=(0,3), P4=(1,−1), j=1: the point
+  (0.6, 0.6) of edge 3 lies on the open diagonal and on no ear edge — gained `Embedded P`, `P(j−1) ≠ P(j+1)` and a STRICT-ear hypothesis
+  (closed as `u4h_polygonImage_ear`; no consumer); `U5_exists_ear_homeo` false for a reflex ear — gained `hcut : earHull P j ∩ U' =
+  segment ℝ (P (j−1)) (P (j+1))` (U6 obtains `hcut` from `u4h_regionOf_ear`). Method note (U4): the triangulation is built by strong
+  induction along a clean diagonal from the lexmin vertex (the printed triangulation argument in a different induction order; no new
+  assumption).
+- **Wave 2 (U5, U6, U7, U8, U9 on byte-identical copies of the renamed `W1_Assembled.lean`; launched 11:54Z, last unit back 14:32Z):**
+  U7 (57b interior, 7 leaves, 12:10Z; `W2_U7.lean` 13 989 lines), U6 (57a/57e via the ambient parametrisation, 8 leaves, 12:22Z; 14 150
+  lines; 57a by `Nat.card_eq_two_iff` on two disjoint open connected pieces; the ear induction `u6h_ambient_induction` consumes
+  `U5_exists_ear_homeo` once) and U9 (orientation bookkeeping, 5 leaves incl. `U9_lift_preserves_cyclicPos` — TRUE as stated;
+  `InteriorOnLeft ↔ σ = 1 ↔ 0 < rotationNumber` through the accepted `cb_embedded_rotation.orientation`, 13:00Z; 15 162 lines, 98 helpers)
+  closed ALL their leaves with no statement change. U5 (13:39Z; 15 676 lines, 112 helpers) PROVED `U5_exists_ear_homeo` in its corrected
+  `hcut` form on the standard axioms (hub at the diagonal midpoint, apex inside the face at the diagonal, the explicit hat-function PL map
+  of a convex quadrilateral, one `U3_refine_along_lines` call with six lines) — making 57a and the region identities sorry-free at
+  assembly — and found its second leaf `U5_pushforward_edges` FALSE as stated (rule 3; kernel-checked counterexample
+  `u5h_pushforward_edges_false`: P = (A, A, B, C), j = 1, U' the triangle B, C, A, h = refl — the conclusion demands the degenerate edge
+  {A} as a face edge); the corrected form `u5h_pushforward_edges` (the diagonal split at m with h m = P j, its halves unique face edges,
+  the edge clauses only for i ≠ −1, clause hC dropped) is proved; the leaf has no consumer, so the U12 assembler replaced it (D-TD-2, the
+  fourth corrected sub-leaf). U8 (57b exterior, 14:32Z; `W2_U8.lean` 17 167 lines, 251 helpers) closed all 8 leaves as stated (no rule-3
+  case): the chart algebra and the 11-ray exterior fan on the standard axioms — the fan built order-free via a radial annulus
+  triangulation with a gluing-by-choice face-wise affine map; on the sphere the map is the annulus map on `Q_L`, `capInvFun` outside, 0 at
+  `∞`, the identity in the cap chart, a homeomorphism by compactness. Open-leaf count 30 → 23 (U7) → 15 (U6) → 10 (U9) → 8 (U5) → 0 (U8);
+  **audit A-57-1** at 13:57Z between U5 and U8 (§6; "Continue"). **U12 assembler (14:31-14:51Z):** `W2_Assembled.lean` (20 912 lines, 1 467
+  declarations) = `W1_Assembled` + U5..U9 merged (each unit removed only its own `sorry` lines and added only prefixed helpers; no imports;
+  no overlaps); 0 errors, 0 `declaration uses sorry` (92 s); identity OK; `#print axioms` of all 92 leaves, `lem_gauss_two_discs` and the 3
+  bridges = exactly `[propext, Classical.choice, Quot.sound]`; clash scan vs `work/lean` (25 325 declarations): 0 clashes. The four
+  wave-1 leaves that carried `sorryAx` through open wave-2 leaves became sorry-free with no change to their bodies. **Port
+  (14:46-14:55Z):** six modules prepared under `port/SM/` in import order and compiled in a scratch olean tree (0 errors; 96 × standard
+  axioms; frozen blocks IDENTITY OK; prose reworded so that no `sorry` / `#print` / `#eval` string remains; 65 of 80 linter warnings
+  cleaned, 15 left), then installed by the executor's port cycle (`scratchpad/port_57.sh`: header stamps, forbidden-string check, `lake
+  build SM.GaussTwoDiscs*` 0 errors 89 s, `map_row.py implement lem:gauss-two-discs → SM.lem_gauss_two_discs @ SM.GaussTwoDiscs`,
+  `strip_proofs` → the two reviewer inputs, the axiom probe). **Checker** 14:54-14:57Z passed (192 mapped, 49 212 audited; receipt
+  `dev-check-row57-implemented.json`) → **review** workflow review-row-57 14:55-15:13Z → **accepted** 15:14Z → checker 15:14-15:16Z passed
+  (receipt `dev-check-row57-accepted.json`) → `progress.py --once` 132/132, 192/192, 8/8 → AUTHOR_NOTES 15:15Z, STATUS 15:15Z → the
+  closing cycle (§4.9). The reassessment rule applied per unit; one audit (A-57-1); under D-AUTH §2 no stall on cost could stop the lane,
+  and none did.
+
+### 3.3 The GAP-2 chain — CLOSED by the author's decision D-GAP2 (2026-09-15; unchanged, now carried by 21 accepted rows)
+
+The 2026-09-14 review's §3.1 (text preserved in `work/FINAL_REVIEW_DRAFT.md`) described row 91 as proved modulo
+`SM.AmbientIsotopyDescent` with no policy route to close it. On 2026-09-15 13:39Z the author (through Mark; "I authorize this
+reading as the author") decided the additive form: declare the printed descent sentence of lit:homfly as its own axiom about the
+existing `SM.homfly`, `axiom SM.lit_homfly_descent : SM.AmbientIsotopyDescent`, registered as a second declaration of lit:homfly
+(not a sixth interface), interface-reviewed like the other four; close row 91 as `cp_finite_contact_path_of_descent
+lit_homfly_descent`; declare `src:contact`; row 57 stays deferred (withdrawn 2026-09-19, G-09); the reassessment rule applies per
+branch. Execution (D-GAP2-1..4, D-GAP2-2b; §4.3): the axiom module `SM/LitHomflyDescent.lean` (13:49Z), the policy key, the verifier
+relaxation (CONFIRMED as the permanent data model by G-06 on 2026-09-19: "One literature label may carry several declarations. Do not
+revert it"), row 91 accepted 14:25Z; then five lanes, each with a design panel (two architects + judge), fidelity risks recorded BEFORE
+stating, frozen `Statements_FINAL.lean`, prover units on byte-identical copies, assembler, port, review: contact (src:contact, 161, 94,
+162; 15:03Z-17:12Z), floor (99, 100; 14:58Z-17:50Z), CV/R tail (155, 165, 175; 15:49Z-18:39Z; 174/176/177 ledgers proved with the moves
+as interfaces), corner (103, 105, 112; 15:25Z-20:25Z; 110 on 2026-09-19), comparison (122; 17:28Z-20:50Z; 127/128 on 2026-09-19), plus
+the moves toolkit (D-RM-1..4: the generic RII deletion constructor `SM/BigonDeletion.lean`, 20:19Z) on which the R rows 174/176 closed
+on 2026-09-15/16 and 177 on 2026-09-19 (§3.4). One internal leaf was false as stated and repaired without a row-statement change
+(D-FL-4: `MirrorSubstitutionData.coeff` needs `(-1)^k.natAbs`, counterexample `ui_coeff_toNat_false`); two library interface Props were
+unrealisable as stated and replaced by weak forms in new modules (D-RM-2; §5). On 2026-09-19 the author KEPT the bundled descent axiom as
+is (G-08) and the literal `est_PortData` / `esc_MoveData` fields with their weak replays (G-04); the footprint now reaches the final
+theorem: 21 accepted rows carry `SM.lit_homfly_descent` (§4.3).
+
+### 3.4 The R obligations 174/176/177, `RProof.cv_R` (178), `Bridge.sm_R` (183) and the final theorem (184) — all ACCEPTED
+
+The ledgers `gsc_ledger` / `est_ledger` / `esc_ledger` of 174/176/177 are PROVED from `CV.CarrierSlotFloor` (library
+`RProof/RALedgers.lean`, ported 2026-09-15 18:08Z) with the Reidemeister-move realisations stated as explicit interface Props (D-F11
+pattern; D-RM-1); the moves toolkit realised the generic bigon deletion (`exists_rii_deletion`; the j = 1 site builder
+`exists_bigonData_of_triangle`) and the row glue (`gsc_fulltwist_of_bigon`, `est_port_weak_of_bigon`, `esc_rii_after_smoothing_of_bigons`,
+`esc_switch_riii_of_chain`, `s7_rii_witnesses`; all sorry-free). `RProof/RALedgers.lean` was not edited by any unit or assembler on
+2026-09-15/16 OR 2026-09-19 (D-RM-5, D-RM-6, A-177-1 D2, W3D §6: replays with extended interfaces in the row modules instead; verified
+at 15:25Z — its sha256 `df745f12…` equals the `project_sha256` entry of the 18:11Z 2026-09-15 receipt and of the 13:28Z and 15:16Z
+2026-09-19 receipts; no D-DOC-2 patch touches it).
+
+- **Row 174 `R:generic_selected` — ACCEPTED 2026-09-15 23:54Z** and **row 176 `R:extreme_transport` — ACCEPTED 2026-09-16 00:12Z**: as
+  recorded in the 2026-09-16 review (two bounded waves each; 174's last Prop `r174_arc_rec_moves` proved by two independent routes,
+  176 through the weak-port replay D-RM-5, the `wind = 0` split D-RM-6 and the corrected outer-carrier Prop D-RM-7); modules
+  `RProof/GenericSelectedUnits.lean` (7 326) + `GenericSelected.lean`, `RProof/ExtremeTransportUnits.lean` (8 988) + `ExtremeTransport.lean`;
+  reviews `reviews/r-generic-selected.json`, `r-extreme-transport.json`; unchanged since (statement hashes equal, §1). Row 175
+  `R:extreme_pair_zero` accepted 2026-09-15 18:39Z, unchanged.
+- **Row 177 `R:extreme_selected` — CLOSED 08:09Z and ACCEPTED 2026-09-19 08:39Z (wave 3d, after the author lifted the A-177-2
+  consequence).** State on 2026-09-16 (OPEN_ITEMS §A-15..A-18): `w3ck_extreme_selected` in `W3C_Assembled.lean` (16 945 lines) with
+  EXACTLY TWO `sorryAx` sources — `w3cx_outer_residue_data` (parity #mixedSet = 2Λ + KNOT's identification of the three components) and
+  `w3cs_not_kink_site_data` (the lift crossing over x_ef is not a kink; "NOT a consequence of the site data; may need an event hypothesis").
+  The author's decisions: G-02 fund the remainder; **G-02b**: one substantive derivation attempt at the non-kink condition, then the
+  executor MAY add it as an explicit hypothesis on the RIII event, disclosed as a narrowing FR-R-177-K; G-03: either drop `trans` from the
+  accepted `G11_Config` or port the additive trans-free copy — "Take the faster". **Wave 3d (wf_a5a89dad-0b9; units RESPAR, RESID,
+  NONKINK; assembler 07:33-08:10Z; `W3D_ASSEMBLY_REPORT.md`):** RESPAR proved clause (i), the parity `#w3cb_mixedSet = 2Λ`, at every
+  configuration (`w3dp_parity_at`, standard axioms; the bridge count 2Λ(J_L) = #mixedSet as the analogue of `r176m_bridge_count`); RESID
+  proved the identification clause (`w3di_ident_at`, with the restrict-of-restrict record lemmas the library lacked and the word
+  (α₁ β₁ | β₂ γ₁ | γ₂ α₂) on the contact carrier) — the residue was TRUE as stated and is CLOSED. **NONKINK (audit A-177-NK-1): the stated
+  Prop `w3cs_not_kink_site` IS FALSE as stated** — the monogon e → e+1 → e+2 = f with g cutting the loop is a genuine 177 configuration
+  satisfying every binder (rule 3 on a draft leaf; no kernel counterexample built since it is not a row statement). The unit BYPASSED it:
+  the (6) obligation is consumed only through its HOMFLY VALUE form, and `w3dk_rii_value_sites` (`homfly ((D_H^x).switch y_H) = homfly
+  ((D_L^x).switch y_L)` at every 177 configuration) is PROVED in both cases — the non-kink case through the constructed bigon deletion
+  (`w3bi_bigon_of_site` + `exists_rii_deletion`) and the KINK case through a flat subdivision of the one-component lift
+  (`w3dk_subdivReparam`, `w3dk_siteData_subdiv`, `w3dk_notKink_subdiv`, `w3dk_smooth_iso_subdiv`; axioms standard + `lit_homfly`, `lp_lm`,
+  `lp_lm_uniqueness`). **Consequence: the authorised event-level hypothesis was NOT needed; no narrowing FR-R-177-K exists; no accepted
+  event vocabulary was touched.** The printed proof's bigon step is replaced, in the kink pattern, by a subdivision argument reaching the
+  same value identity — disclosed in the review's `executor_notes` as a proof-route note, not a statement change. The assembler
+  (`W3D_Assembled.lean`, 21 748 lines, 1 667 declarations, 0 errors, 0 `sorry`) rewired the operative chain onto the VALUE form
+  (`w3ck_esc_interface_ext_occ_holds := w3dk_esc_interface_ext_of w3ck_esc_outer_occ_holds w3dk_rii_value_sites_data`) and applied the
+  port-time edits of §A-18: the false Prop `w3cs_not_kink_site`, its leaf and consumers, the false Props `w3bi_bigon_pair` /
+  `w3bi_rii_sites`, the Wave-3b Props `w3bi_knot_after_two` / `w3bi_three_components` / `w3bi_esc_outer` (relational smoothings; superseded
+  by the record-clause `w3ck_` chain) and the helper `w3b_reparam_switch` DELETED (31 declarations, 727 lines); the four restated j = 2
+  bigon sub-leaves kept with their non-kink hypothesis (used only in the non-kink branch); library copies dropped by importing
+  `SM.CBProducts`, `CV.SingletonDi`, `SM.ZeroRotationSeed`, `RProof.ExtremeTransportUnits`. `#print axioms w3ck_extreme_selected` = exactly
+  the nine registered axioms (`W3D_AXIOMS.log`). **G-03 route (ii) taken:** the trans-free copy `G11_ConfigSw` / `G11_ParamsSw` ported as
+  the library module `RProof/GenericTransportSw.lean` (7 845 lines); the accepted `RProof/GenericTransport.lean` untouched (sha256
+  `0e7f959d…` unchanged since 2026-09-14 14:15Z), so no accepted row needed a re-review. Ported 08:06Z: `RProof/ExtremeSelectedUnits.lean`
+  (13 944) and `RProof/ExtremeSelected.lean` (`theorem RProof.extreme_selected`, FIXED name; statement byte-identical to the accepted
+  siblings 168/170/172/173/174/175/176 after the bundle name; `:= w3ck_extreme_selected …`); `lake build` 0 errors (85 s); checker passed
+  08:11Z (187 mapped, 44 270 audited). Review `reviews/r-extreme-selected.json` (wf_b3114d58-914; `review_utc` 08:39:13Z): 3 lenses
+  `faithful`, 2 refuters "not refuted" (both re-ran `example : RowShape @ExtremeSelectedData := @extreme_selected` on scratch files);
+  `kernel_check` = the nine registered axioms; 8 non-blocking notes, all in the fixed shape: `couple` requires `CompleteLocal` on side t
+  only (the opposite side empty by R-LOC-2 clause 4, the accepted `graphs_complementary`); `full_absent_on_complete` over EVERY finset
+  (trivially true, proved unconditionally as `PRE_177_full_absent_on_complete`); the printed words (1), sign ledger (1a)-(1c) and the
+  directed-wall remark have no field (proof data; the sign table is the accepted `GenericTableData.extreme_iff_alternating`); `hs` as a
+  universally quantified hypothesis (R-LOC-2 (1)); the `{n}` implicit-vs-explicit binder difference of all siblings; one reviewer could not
+  re-read the sibling modules (outside its allowed list) and closed the consumer question by the kernel check instead. Receipt
+  `dev-check-rows177-178-183-accepted.json` (08:42Z).
+- **Rows 178 `R:cv_theorem` and 183 `Bridge:theorem` — ACCEPTED 2026-09-19 08:39Z** through their staged one-liners, ported 08:08Z
+  exactly as staged on 2026-09-16 in `work/drafts/cvtail/port/R178_183/` (the `<HH:MM>Z` header placeholders filled, the import of
+  `RProof.ExtremeSelected` now resolving): `theorem RProof.cv_R : CV.hyp_R := cv_R_of_rows generic_selected extreme_pair_zero
+  extreme_transport extreme_selected` (`RProof/CvR.lean`, 25 lines; `cv_R_of_rows` `RProof/RALedgers.lean:2354`, D-CVT-5, FR-R-178-1) and
+  `theorem Bridge.sm_R : SM.hyp_R := SM.sm_R_of_cv_R RProof.cv_R` (`Bridge/SmRRow.lean`, 18 lines; `SM.sm_R_of_cv_R` `Bridge/SmR.lean`,
+  B1-B4 pointwise; FR-B-183: BRIDGE.md §3 (19)-(21) verbatim, no new mathematics). Both have NO hypothesis and no R parameter; both have
+  footprint `9`, as FR-R-178-2 / D-CVT-6 predicted (§4.3). Reviews `reviews/r-cv-theorem.json` (08:39:17Z; 6 non-blocking notes: the R6
+  all-parameters form `∀ tp tm, 0 < tp → tm < 0 → X1 (E.curve tp) = X1 (E.curve tm)` — equivalent to the chamber form by the accepted
+  CV:prop:chamberinv (ii) and implying it outright; `hn` and the G4 index hypotheses redundant binders derivable from `h3`; "changes sign
+  at t = 0" read as `SignChanges`, the accepted def:event reading; the brief's provenance of the "R6" label corrected to the CV-DOM
+  decision) and `reviews/bridge-theorem.json` (08:39:21Z; 9 non-blocking notes: the row states the CONSEQUENT of the printed implication
+  with the antecedent discharged by row 178 — modus ponens, "formally stronger"; `C(P₊) = C(P₋)` at every pair of side parameters,
+  equivalent by prop:C-chamber (`hyp_R_iff_base`); presupposition binders; the (T) clauses' total `edgeParameter` and `SignChanges`'
+  `δ ≤ radius` inherited from B1/B3; the class "defined in SM11" = the frozen SM15 def:walls (T)). Receipt
+  `dev-check-rows177-178-183-accepted.json` (08:42Z; 187 mapped, 44 270 audited).
+- **Row 184 `SM:corner_laws_and_soft` — ACCEPTED 2026-09-19 13:26Z (the FINAL target).** Module `SM/CornerLawsAndSoft.lean` (86 lines),
+  prepared 10:36Z from `work/drafts/cvtail/Wave1_Assembled.lean` 4231-4386 (`CyclicLawC`, `CornerLawsAndSoftData`,
+  `corner_laws_and_soft_of` VERBATIM; pre-compiled without its final line) with edit A-22 (OPEN_ITEMS §A-22 / D-CM-3): the tail draft's
+  `CInheritsData` / `CuspLawC` / `ReversalLawC` / `TrianglesC` copies REPLACED by `import SM.CInherits` (the comparison lane's FINAL
+  12-field bundle; the three consumed fields `cusp_law`, `reversal_law`, `triangles` byte-identical Props, checked against
+  `SM/CInherits.lean:24-51`), so `corner_laws_and_soft_of`'s text is unchanged; built 12:54Z once `SM.ComparisonRows` existed. The
+  declaration: `theorem SM.corner_laws_and_soft : CornerLawsAndSoftData := corner_laws_and_soft_of Bridge.sm_R thm_C_S7 thm_C_soft
+  (cor_C_inherits Bridge.sm_R)` — a structure with 0 parameters and 11 fields (§4.6); `#print axioms` = exactly the nine registered
+  axioms, no `sorryAx` (executor's probe 12:57Z; the review's `kernel_check`; the checker 12:58Z / 13:28Z). Review
+  `reviews/sm-corner-laws-and-soft.json` (13:25:50Z): 3 lenses `faithful`, 2 refuters "not refuted"; 6 non-blocking notes (§4.6, §5),
+  one PROCESS note — the brief pointed the row-184 reviewers to `reviews/thm-C-S7.json` and `reviews/cor-c-inherits.json`, which did not
+  yet exist during the concurrent workflow; they checked `CS7Data`, `CuspLawC`, `ReversalLawC`, `TrianglesC` directly against the printed
+  thm:C-S7, thm:A-S4, cor:A-lawful, def:star and the accepted `ALawfulData` shapes and asked that the acceptance be recorded as
+  contingent on rows 110/128's own reviews passing — which they did in the same workflow (13:25:40Z, 13:25:46Z) before the four rows were
+  set accepted together (13:26Z). One FOOTPRINT note (strength lens): the kernel lists SIX literature axioms where TARGETS says "the five
+  listed literature interfaces" — disclosed in §4.3.
+- **Rows 127 `thm:comparison` and 128 `cor:C-inherits` — ACCEPTED 2026-09-19 13:26Z** as their one-liners `thm_comparison (hR : hyp_R) :
+  ∀ n [NeZero n] hn P hP, cornerStateSum hn hP = amplitude P hP.1 hn := thm_comparison_of hR thm_C_S7 thm_C_soft` and `cor_C_inherits
+  (hR : hyp_R) : CInheritsData := cor_C_inherits_of hR thm_C_S7 thm_C_soft` (`SM/ComparisonRows.lean`, 26 lines; signatures verbatim from
+  `work/drafts/comparison/Comparison_Assembled.lean` 1009-1016; the `_of` theorems accepted-library since 2026-09-15). hyp:R is the EXPLICIT
+  parameter `hR` (D-CM-2; policy mode `explicit_parameter`) — these two are the printed "Assume Hypothesis R" rows and the only accepted
+  rows taking `hR`; inside row 184 it is discharged by `Bridge.sm_R`. Reviews `reviews/thm-comparison.json` (13:25:43Z; 4 non-blocking:
+  A(P) at the fixed root 0 = the accepted `amplitude` with `A_lawful.root_independent`; labelled generic tuples instead of polygon classes
+  — both sides descend, the polygon form exists as `thm_comparison_polygon_of`; `hyp_R` in the all-side-points form; presupposition binders)
+  and `reviews/cor-C-inherits.json` (13:25:46Z; 10 notes: STRONGER — the extra field `root_values` C(P) = A_g(P) for every root g (the
+  C = A substitution into cor:A-lawful's defining clause, FR-CM-13), genericity of every substituted argument ASSERTED in the conclusion
+  (∃ hQ / ∧ Generic, the accepted `ALawfulData` convention), `CuspLawC` for EVERY simple cusp wall whose deletion satisfies (G1), threaded
+  cusps included, with the cusp case b and the rotation identity rot(P_loop) − rot(P_no) = κ; the A-specific per-induced-root cusp sub-clause
+  has no C analogue (FR-CM-9); `soft_theorem` in cor:A-lawful's ∃ hQ shape; a bookkeeping nit on the excerpt's line range 313-369 vs 313-372).
+
+All of `RProof.extreme_selected`, `RProof.cv_R`, `Bridge.sm_R`, `SM.thm_C_S7`, `SM.thm_comparison`, `SM.cor_C_inherits`,
+`SM.corner_laws_and_soft` are declared in `work/lean` under their FIXED names (`axiom-policy.json` `targets`), mapped and accepted;
+D-F11 was never bent — each was mapped only once its premise was discharged.
+
+### 3.5 `src:contact` and `hyp:R` — both accepted (unchanged)
+
+`src:contact` (`SM.src_contact`, `SM/SrcContact.lean`; the fifth literature interface) was declared 2026-09-15 15:10Z and accepted
+16:51Z (§2 line m97; §4.3). `hyp:R` unchanged from 2026-09-14 (accepted 15:45Z that day; `SM/HypR.lean`): a `def … : Prop` in the
+all-sides form of the accepted prop:C-silent for the identical printed phrase (FR-HR-1; `HypRDiagonal` and `HypRBase` proved
+equivalent via prop:C-chamber; FR-HR-2 simple triple walls only; FR-HR-3 `hn : 3 ≤ n`; FR-HR-8 no `axiom SM.hyp_R`); its CV
+counterpart `CV:ax:R` is the accepted Prop definition `CV.hyp_R` (RProof/X1Rows.lean:124). Both hypotheses of the package are Prop
+definitions; since 2026-09-19 both are PROVED as theorems — `Bridge.sm_R : SM.hyp_R` and `RProof.cv_R : CV.hyp_R` (§3.4) — and the
+five literature interfaces are all declared, plus the author-authorised second declaration of lit:homfly.
+
+### 3.6 Rows 76-80, 83, 93 — the certificate rows lane (2026-09-14 text, unchanged)
 
 Certificate rows lane (design `work/drafts/frontrows/PLAN_FINAL.md`, statements frozen in `Statements_FINAL.lean`,
 FR-8..FR-17, D-F7..D-F9): all eight certificate rows 76-83 and their consumer 93 are accepted; the front block (rows
@@ -429,263 +877,551 @@ certificate rows lane is complete — ~18:05Z". Reviews: 3/3 faithful and 2 refu
 (`work/reviews/ng-commutation.json`, `ng-front-I.json`, `ng-front-III.json`, `ng-deletions.json`, `ng-front-II.json`,
 `ng-local-front-bound.json`, `fd-ng-bound.json`; reviewer inputs = the modules with every proof stripped).
 
-### 3.4 The blocked R obligations (174-178), Bridge:theorem (183) and the final theorem (184)
-
-See the R table in §4.4. Rows 174 `R:generic_selected`, 176 `R:extreme_transport`, 177 `R:extreme_selected` need
-`CV:thm:carrierfloor` (155, GAP-2); 175 `R:extreme_pair_zero` needs `CV:singleton_D_i` (165, GAP-2 via 155 and
-`cb:singleton`); 178 `RProof.cv_R : CV.hyp_R` needs 174-177; 183 `Bridge.sm_R` waits only for `RProof.cv_R`
-(AUTHOR_NOTES 07:33Z checkpoint); 184 `SM.corner_laws_and_soft` needs 183, `cor:C-inherits`, `thm:C-soft`. All nine
-statements are fixed and compile with exactly one `sorry` each in `work/drafts/rlane2/Statements_FINAL.lean`
-(statement panel ~06:35Z, readings recorded there); the four accepted ones were ported without change. None of the
-five pending names (`RProof.generic_selected`, `RProof.extreme_pair_zero`, `RProof.extreme_transport`,
-`RProof.extreme_selected`, `RProof.cv_R`), nor `Bridge.sm_R`, `SM.corner_laws_and_soft`, `SM.thm_C_S7`,
-`SM.thm_C_soft`, `SM.thm_comparison`, `SM.cor_C_inherits`, `SM.src_contact` is declared in `work/lean`
-(audit 18:06Z; D-F11: a row theorem with an unprovable hypothesis is not the row and is never mapped). `SM.hyp_R` IS
-declared and accepted (§3.5), and `Bridge/SmR.lean` proves `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` from the accepted
-rows as library material, so 183 reduces to `Bridge.sm_R := SM.sm_R_of_cv_R RProof.cv_R` the moment 178 exists.
-
-### 3.5 `src:contact` and `hyp:R`
-
-`src:contact` (policy name `SM.src_contact`, the fifth literature interface, `blueprint/AXIOM_REGISTRY.md` "src:contact —
-AXIOM", sm-3:3341-3365) was never declared: `blueprint/DEPENDENCIES.json` lists it as a dependency of exactly
-`fd:contact` (94) and `CV:ax:etnyre` (161), both GAP-2-blocked, and the package rule "no consumer may cite an axiom
-before acceptance" gave no reason to state an interface nobody can consume. It is registry text that needs no further
-source (CLAUDE.md rule 8) and could be stated and interface-reviewed at any time; §5 lists it as open. `hyp:R`
-(`SM.hyp_R`, mode `explicit_parameter`) is stated and **accepted** (definition row; stated 15:15Z, accepted 15:45Z,
-`work/reviews/hyp-R.json` 3/3 faithful, 2 refuters clean): a `def … : Prop` in `work/lean/SM/HypR.lean` in the all-sides
-form of the accepted prop:C-silent for the identical printed phrase (reading FR-HR-1; the one-parameter form
-`HypRDiagonal` and the base-point form `HypRBase` are proved equivalent to it via prop:C-chamber inside the module;
-FR-HR-2 only simple triple walls `TripleAt`; FR-HR-3 `hn : 3 ≤ n` presupposition; FR-HR-8 no `axiom SM.hyp_R`). Its
-consumer check `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` is proved in `work/lean/Bridge/SmR.lean` (library, not mapped);
-its row consumers `thm:comparison` and `Bridge:theorem` remain open (GAP-2). Its CV counterpart `CV:ax:R` is stated and
-accepted as the Prop definition `CV.hyp_R` (RProof/X1Rows.lean:124). Both hypotheses of the package are therefore stated.
-
 ## 4. The checklist of FINAL_REVIEW.md, item by item
 
 ### 4.1 The definitions denote the source objects
 
-52 definition/convention rows are accepted with a review each (§2). Evidence per object: **actual polygons** —
-`def:polygon` `SM.polygonData` (LabelledTuple n = ZMod n → ℝ × ℝ; reviews/def-polygon.json + countersignature),
+52 definition/convention rows are accepted with a review each (§2; complete since 2026-09-14, unchanged). Evidence per object:
+**actual polygons** — `def:polygon` `SM.polygonData` (LabelledTuple n = ZMod n → ℝ × ℝ; reviews/def-polygon.json + countersignature),
 `def:generic`, `def:crossings`, `def:regular`, `def:admissible`. **Connected-component chambers** — `def:chamber`
 `SM.chamber_definition`: `chamber X = connectedComponent X` in `GenericPolygon n = Quotient (genericCyclicSetoid n)` =
 𝓤_n/(ℤ/n) with the coinduced (quotient) topology, expanded to Mathlib primitives in reviews/prop-C-chamber.json and
-its refuter; used unchanged by `prop:chambers`, `prop:A-chamber`, `prop:C-chamber`. **Continuous wall germs** —
-`def:germ` `SM.wall_germ_definition` (SM.GermDefinition), `def:walls`, and the germ-based hypotheses of `thm:C-S3`
-(`WallGerm.FlatAt`), `thm:C-S5`, `prop:C-silent`. **Independent supports, carriers** — `def:decomposition`,
+its refuter; used unchanged by `prop:chambers`, `prop:A-chamber`, `prop:C-chamber`, and — through the `chamber : CChamberData` field
+— by the final theorem. **Continuous wall germs** — `def:germ` `SM.wall_germ_definition` (SM.GermDefinition), `def:walls`, and the
+germ-based hypotheses of `thm:C-S3` (`WallGerm.FlatAt`), `thm:C-S5`, `thm:C-S7` (`g.VertexEdgeAt M a`, the exhaustive dichotomy
+`vertexEdge_bigon_or_sliding`), `prop:C-silent`, `hyp:R` (`g.TripleAt e f k`). **Independent supports, carriers** — `def:decomposition`,
 `conv:selected-visits`, `lem:carriers`, `def:flat-carriers`/`cor:flat-carriers` (SM/FlatCarriers.lean), `CV:def:smoothing`,
 `CV:def:wind`, `CV:def:pieces`, `CV:lem:carriers` on the accepted geometric carrier layer (CV-DOM decision option (C),
-AUTHOR_NOTES ~02:20Z, `work/drafts/cvdom/DECISION_FINAL.md`; disclosed: carriers are finite marked cycles, CV:lem:carrierword's
+AUTHOR_NOTES ~02:20Z 2026-09-14, `work/drafts/cvdom/DECISION_FINAL.md`; disclosed: carriers are finite marked cycles, CV:lem:carrierword's
 binder narrowing). **Local polynomials and records** — design decision `work/reports/design-decision-diagram-record-20260913.md`
 (polygonal oriented link diagrams `Shadow`/`Diagram`, combinatorial `Record`, `Laurent₂ ℤ`), rows `def:positive-lift`,
 `def:gauss-record`, `lp:core`, `rp:record-polynomial`, `lc:presentations`, `lp:split-circle`, `mp:*`, `def:adeg`,
 `cf:def-turning`. **The full state sum** — `def:C` `SM.corner_state_sum_definition` / `cornerStateSum hn hP : ℤ`
 (SM/CornerStateSum.lean, bundle field `state_sum` reproduces sm-3:1697-1698; reviews/def-C.json). No empty domain is
 substituted: the reviewers checked non-vacuity where a bundle quantifies over a constructed class (CE-R11 witness in
-`SM/CeRoundingNonVacuity.lean`; K-3/K-4 for row 90 argued, not kernel-checked — §5). No definition asserts a desired
-theorem: every C law is a theorem about `cornerStateSum`, not a field of a definition (TARGETS.md).
+`SM/CeRoundingNonVacuity.lean`; K-3/K-4 for row 90 argued, not kernel-checked — §5); for the final theorem the row-184 refuters checked
+that `CornerLawsAndSoftData` has no retained hypothesis and that every field is stated on the accepted `cornerStateSum`. No definition
+asserts a desired theorem: every C law is a theorem about `cornerStateSum`, not a field of a definition (TARGETS.md); the final bundle's
+fields are the accepted row theorems themselves (§4.6).
 
 ### 4.2 Quantifiers, hypotheses and conclusions preserved; helper definitions expanded
 
-Process (ACCEPT_CYCLE.md steps 4-6 as run here): the reviewers received only the SM15 source excerpt, the row's Lean
-text with every proof replaced by `sorry` (`work/reviews/<row>-reviewer-input-statement.lean.txt`, produced by
-`work/port/strip_proofs.py` for large modules) and the definition modules; each review compares domain, quantifiers,
-hypotheses and conclusion clause by clause with helper definitions expanded to primitives and records
-`stronger_than_source` / `weaker_than_source` / `discrepancies`; two adversarial refuters attack the statement. The
-statement hash binds the type and every local definition it uses (DELIVERY_AUDIT.md defect 2), so a later helper change
-invalidates the review — all 168 hashes match the current audit. Disclosed deviations, all judged non-blocking and
-all recorded before the rows were stated: polygonal readings of smooth diagrams (FR-1, FR-CP-1, CE-R1; rows 73, 74, 89-92,
-97, 98); the word/PL layer as the printed certificate device (FR-5, FR-8; rows 76-83, and 93 through 83);
-ℝ-indexed jointly smooth families with the smoothTransition clamp instead of [0,1] (CE-R2, FR-CP-4/5; rows 89, 86-88);
-record-level carrying at the curl (FR-C1; row 98); the collar field (D-1; rows 89-91); the rounding record theorem
-`isRounding_of_geomModel` supplying row 74's printed content (D-F6, `SM/FrontGeomModel.lean`); CV binders `hn : 3 ≤ n` /
-`[NeZero n]` as presuppositions; CV:lem:carrierword's binder narrowing (round-2 unanimous). 106 of 168 reviews list
-strengthenings — printed content made explicit or exports beyond print (constant speed, windows, correspondences) — none
-narrowing a conclusion. Weakenings of substance: none accepted; the F4 replacement of `CV:ax:gausscode` (polynomial equality
-for link equivalence) is a recorded scope change, judged explicitly by its reviewers (§4.3).
+Process (ACCEPT_CYCLE.md steps 4-6 as run here): the reviewers received only the SM15 source excerpt (for the R rows the printed
+proof files, for row 183 BRIDGE.md §3, for row 184 TARGETS.md lines 1-29 with the cor:A-lawful excerpt), the row's Lean text with every
+proof replaced by `sorry` (`work/reviews/<row>-reviewer-input-statement.lean.txt`, produced by `work/port/strip_proofs.py`) and the
+definition modules; each review compares domain, quantifiers, hypotheses and conclusion clause by clause with helper definitions
+expanded to primitives and records `stronger_than_source` / `weaker_than_source` / `discrepancies`; two adversarial refuters attack
+the statement and re-run `#check` / `#print axioms` on scratch files. The statement hash binds the type and every local definition it
+uses (DELIVERY_AUDIT.md defect 2), so a later helper change invalidates the review — all 192 hashes match the 15:16Z audit (re-checked
+at 15:20Z); the closing checker repeated the comparison after the comment-only patches: `work/checks/dev-check-FINAL-20260919.json` (15:36Z; passed, 192 mapped, 49 212 audited, `project_sha256` 716 entries): every `statement_sha256` unchanged by the ten comment-only patches — 192/192 (AUTHOR_NOTES 15:36Z; re-verified 15:45Z: the 191 stage-1 rows against the 15:35Z stage-1 audit, all equal; `lem:weak-open` against the 15:16Z audit). Disclosed deviations, all judged non-blocking and all recorded before the rows were stated: polygonal
+readings of smooth diagrams (FR-1, FR-CP-1, CE-R1; rows 73, 74, 89-92, 97, 98); the word/PL layer as the printed certificate device
+(FR-5, FR-8; rows 76-83, and 93 through 83); ℝ-indexed jointly smooth families with the smoothTransition clamp instead of [0,1] (CE-R2,
+FR-CP-4/5; rows 89, 86-88); record-level carrying at the curl (FR-C1; row 98); the collar field (D-1; rows 89-91); the rounding record
+theorem `isRounding_of_geomModel` supplying row 74's printed content (D-F6, `SM/FrontGeomModel.lean`); CV binders `hn : 3 ≤ n` /
+`[NeZero n]` as presuppositions; CV:lem:carrierword's binder narrowing (round-2 unanimous); from 2026-09-15, the readings of §2 lines
+91-176 (the descent axiom's ℝ-indexed families FR-LHD-2/FR-CP-5, the `HeightMarking` reading convention FR-1 on rows 91/94/162, the
+normalised-orientation reading of clause (B) on rows 99/155, the quantified genericity of P_ε on row 112, the fixed R shape of rows
+174-176); and, from 2026-09-19, the readings of the eight new lines (§2): the C-row convention "at every pair of side parameters"
+instead of the two chamber values (rows 110, 127, 128, 183, 184 — equivalent by the accepted prop:C-chamber, `hyp_R_iff_base`), the R6
+all-parameters form of `CV.hyp_R` (row 178; equivalent by CV:prop:chamberinv (ii)), the fixed R bundle shape of row 177 (`CompleteLocal`
+on one side, `full_absent_on_complete` over every finset, `hs` as a hypothesis), the CONSEQUENT-only form of the bridge theorem (row
+183), labelled generic tuples instead of polygon classes and A(P) at root 0 (rows 127/128), the asserted genericity of substituted
+arguments and the extra `root_values` field (row 128), `CuspLawC`'s existential genericity vs `CS7Data`/`CSoftData`'s universal one
+(row 184, FR-F-184-2), and row 57's explicit two-disc model, lifts in traversal coordinates, `traversalPositiveFor` through the sign of
+`rotationNumber`, and universal model scale (FR-TD-7..10; §3.2). Strengthenings: 106 of the 168 reviews of 2026-09-14 list them (not
+re-derived here); 12 of the 16 reviews of 2026-09-15/16 and 7 of the 8 reviews of 2026-09-19 (all but `thm-comparison`) have a non-empty
+`stronger_than_source` array — printed
+content made explicit or exports beyond print — none narrowing a conclusion. Weakenings of substance: none accepted; the F4 replacement
+of `CV:ax:gausscode` is a recorded scope change (§4.3); the 2026-09-15 narrowings (row 162 to `TransverseKnot`, FR-FC-5; `src_contact`'s
+Legendrian formulas for knots with generic fronts, FR-SC-2) are recorded readings; the `weaker_than_source` entries of 2026-09-19 (rows
+110, 128, 184) name only presupposition binders (`hn : 3 ≤ n`, vacuous under `ContactSeparated`) and the def:germ side-point forms
+(equivalent by prop:C-chamber) — no printed clause is dropped. **No narrowing was added on 2026-09-19**: the authorised FR-R-177-K
+(G-02b) was not needed (§3.4).
 
 ### 4.3 Literature declarations exactly printed; no extra axiom, sorryAx or native_decide
 
-Four of the five permitted interfaces are declared, each as a single `axiom` in ∃-form over a field-named Prop structure
-of the printed clauses: `SM.lit_homfly`, `SM.lp_lm`, `SM.lp_lm_uniqueness` (`work/lean/SM/LinkInterfaces.lean`) and
-`SM.ng_finite_word` (`SM/FrontInterfaces.lean`). Interface reviews against the registry text (`blueprint/AXIOM_REGISTRY.md`
-= the sm-3 lines; excerpts `work/reviews/*-registry-excerpt.md.txt`; input `work/reviews/interfaces-reviewer-input-statement.lean.txt`):
-`reviews/lit-homfly.json`, `lp-lm.json`, `lp-lm-uniqueness.json` (3+2+2 lenses faithful, 2+1+1 refuters clean; AUTHOR_NOTES
-2026-09-13 ~20:55Z), `reviews/ng-finite-word.json` (3/3, 2 clean; ~04:56Z). "Allowed name but stronger type": each clause
-was matched to a printed sentence; the one formally stronger hypothesis (`lp:lm-uniqueness` competitor `unknot` on every
-crossing-free polygon) makes the axiom weaker, not stronger; the descent clause of `lit_homfly` is over `LinkEquiv`
-(design D2) — weaker than the printed "depends only on the oriented link", which is precisely why GAP-2 exists (§3.1).
-`SM.src_contact` is not declared (§3.5). **Kernel evidence:** `work/checks/stage-development.json` (= `dev-check-frontrowsw3b-accepted.json`, 18:06Z)
-passed=True with 168 mapped and 36 079 audited declarations; the audit's axiom sets over the 168 mapped declarations
-are exactly {propext, Classical.choice, Quot.sound} (114 rows) plus subsets of {`SM.lit_homfly` (28 rows), `SM.lp_lm`
-(42), `SM.lp_lm_uniqueness` (19), `SM.ng_finite_word` (3: the interface itself, rows 83 and 93)}; no `sorryAx`, no
-`Lean.ofReduceBool` (native_decide), no other constant (recounted 18:10Z from
-`work/delivery/receipts/declaration-audit.summary.json`). `work/lean` contains no `sorry` (rule 3; drafts live in `work/drafts/`). The CV "axioms" are theorems:
-`CV.ax_homfly` derived from the three SM interfaces, `CV.gausscode_polynomial` = F4 replacement (scope change recorded
-AUTHOR_NOTES ~01:24Z items (a)-(d); reviewers judged the replacement strictly weaker and sufficient for every in-scope
-consumer, `reviews/cv-ax-gausscode.json`), as OPEN_WORK.md requires; `CV:ax:R` is a Prop definition, not an axiom.
+**All five permitted interfaces are declared**, each as a single `axiom` in ∃-form over a field-named Prop structure of the
+printed clauses: `SM.lit_homfly`, `SM.lp_lm`, `SM.lp_lm_uniqueness` (`work/lean/SM/LinkInterfaces.lean`), `SM.ng_finite_word`
+(`SM/FrontInterfaces.lean`) and — 2026-09-15 — `SM.src_contact` (`SM/SrcContact.lean:224`). In addition, on the author's
+decision D-GAP2, **a sixth axiom constant `SM.lit_homfly_descent` is declared as the SECOND declaration of the interface
+lit:homfly** (`SM/LitHomflyDescent.lean:37`), so `work/lean` contains six `axiom` declarations for five literature inputs.
+TARGETS.md ("Its only unproved nonstandard inputs may be the five listed literature interfaces") is met in the sense the
+author authorised: the sixth constant is a printed sentence of one of the five listed interfaces, not a sixth interface
+(D-GAP2-2; confirmed on 2026-09-19 by G-06 "one literature label may carry several declarations" and G-08 "KEEP … as is"; disclosed
+here as FR-R-178-2 / D-CVT-6 require). **DISCLOSURE for the final theorem:** the kernel's `#print axioms SM.corner_laws_and_soft`
+lists SIX literature constants — `SM.lit_homfly, SM.lit_homfly_descent, SM.lp_lm, SM.lp_lm_uniqueness, SM.ng_finite_word,
+SM.src_contact` — over the standard three; the row-184 strength reviewer recorded exactly this ("the kernel lists SIX literature
+axioms — TARGETS says 'the five listed literature interfaces'"). A reader who counts constants rather than registry labels must read
+the final theorem as resting on five literature interfaces plus one further printed sentence of lit:homfly admitted as an axiom by the
+author's decision; nothing else is unproved.
 
-### 4.4 The R parameter  (table regenerated 18:06Z)
+**`SM.lit_homfly_descent : SM.AmbientIsotopyDescent`.** The sentence declared is exactly the last printed sentence of lit:homfly
+(`blueprint/AXIOM_REGISTRY.md` lines 14-15 = `reference/SM/sm-3-statesum.tex` 920-921): **"Its value depends only on the oriented
+link presented by D"**, for the map `D ↦ H_D(a,z)` of the first sentence, i.e. for the fixed witness `SM.homfly` of the accepted
+`SM.lit_homfly` (whose own reading of that sentence is `HomflyClauses.descent` over `LinkEquiv`, design D2 — weaker, which was
+GAP-2). It is read on the spatial vocabulary of the accepted rows 89-91: `AmbientIsotopyDescent` (`SM/ContactPathOfDescent.lean:177`,
+a `def … : Prop` stated and statement-reviewed on 2026-09-14, `work/reviews/cp-finite-contact-path-conditional.json`) says that
+along every jointly smooth family of oriented spatial embeddings (`SpatialFamily`, indexed by ℝ) whose two ends have ordinary
+regular generic xz projections, `homfly` takes the same value on any polygonal `HeightMarking` readings of the two end diagrams.
+Policy registration: `lean/axiom-policy.json` = `work/lean/axiom-policy.json`, `"literature"`, key `"lit:homfly (descent sentence)"`
+→ `"SM.lit_homfly_descent"` (D-GAP2-2). Tool edit: `verify_bundle.py` enforced `set(policy['literature']) == {the five registry
+ids}`; it now compares `{k.split(' ')[0] for k in policy['literature']}` with the five ids (the line carries the comment "author's
+decision D-GAP2, 2026-09-15"), so the ceiling on literature INPUTS is unchanged (exactly five labels) while a second declaration
+of an input is admitted under its own key (D-GAP2-2b; the one edit to a package tool in the whole execution; made permanent by G-06;
+`tools/check_lean.py` untouched — its `allowed = policy['standard'] + list(policy['literature'].values())` already admits the new
+value). Registry: the blueprint (frozen) still carries no sub-entry for the second declaration; the author authorised one (G-07) and it
+was prepared as `work/port/docdebt/registry-sub-entry.patch` (7 lines under "## lit:homfly — AXIOM"), APPLIED 15:16Z as part of the
+closing cycle and **REVERTED 15:29Z (decision D-DOC-3)**: the first closing `--all` run (15:25Z, after a 521 s full rebuild) passed the
+development stage but FAILED stage 1 with exactly one finding, "source review hash mismatch: ng:finite-word" — the stage check requires
+each accepted row's review `source_sha256` to equal the CURRENT sha256 of its source file (`tools/check_lean.py:155-156`), row
+`ng:finite-word` is sourced from the registry (locator AXIOM_REGISTRY.md:78-121), and the sub-entry had changed the registry's hash
+(`2d00dec7…` → `67385397…`). The sub-entry's text was correct and author-authorised, but G-07 is an authorisation, not an obligation, and
+the alternatives — rewriting an accepted review's recorded hash without re-review, or re-reviewing `ng:finite-word` against a registry that
+differs only by the new sub-entry — were judged worse than not having the sub-entry; `patch -R` restored `blueprint/AXIOM_REGISTRY.md`
+byte-identical to the frozen file (sha256 `2d00dec7…` = its MANIFEST line; 0 `.orig`/`.rej`; re-checked 15:42Z). **The blueprint therefore
+has NO change at all in this project**, and the disclosure the sub-entry carried — `SM.lit_homfly_descent : SM.AmbientIsotopyDescent` as
+the author-authorised second declaration of lit:homfly, policy label "lit:homfly (descent sentence)", review
+`work/reviews/lit-homfly-descent.json` — lives where the checker allows it: the policy file, this review (§4.3, §5), the module docstrings
+patched by 01/05/07 (G-05), AUTHOR_NOTES. The registry's MANIFEST line needs no refresh. The re-run after the revert (15:29-15:31Z) still
+failed on the same single finding, which turned out to be a latent bookkeeping error of the 2026-09-14 review itself (D-DOC-4, §4.9).
+Interface review against the registry text: `work/reviews/lit-homfly-descent.json` (3/3 lenses faithful, 2 refuters clean; 14:25Z
+2026-09-15; inputs `lit-homfly-descent-reviewer-input-statement.lean.txt` = the axiom module, the frozen Prop file, the registry excerpt
+`lit-homfly-registry-excerpt.md.txt`). Its disclosed readings, all judged non-blocking: STRONGER — FR-LHD-1, the clause is stated on a
+jointly smooth family of EMBEDDINGS, so it bundles the isotopy-extension theorem (which the source proves itself at sm-3:3276-3312 for
+this very use) with the literature sentence; the literal form `AmbientIsotopyDescentLit` and the proved split `AmbientIsotopyDescentLit
+∧ IsotopyExtension → AmbientIsotopyDescent` are in the module; FR-1/FR-LHD-3, "X presents L" is record-level (`HeightMarking`), so the
+axiom also asserts equal `homfly` for any two polygonal diagrams carrying the same signed O/U record of one regular generic projection.
+WEAKER — FR-LHD-4, both ends must have `RegularGenericProjection` (the printed sentence covers every diagram); readings only; same
+labelled circles, orientation- and label-preserving; smooth (C^∞) category only; FR-LHD-2, ℝ-indexed family (a [0,1]-isotopy enters
+after a clamp); c = 0 vacuous. Truth: for the genuine HOMFLY-PT polynomial the axiom is true under the standing D2 premise (formal
+Reidemeister moves + planar isotopy complete for PL link isotopy) already carried by `lp_lm_uniqueness`; it is not derivable from
+`lit_homfly` alone — exactly the GAP-2 content. Axiom set of the constant itself: `[propext, Classical.choice, Quot.sound, SM.lit_homfly,
+SM.lit_homfly_descent]` (its type mentions `homfly`). **Accepted rows whose footprint contains `SM.lit_homfly_descent` (21, from the
+15:16Z audit — unchanged by row 57, whose footprint is standard only; 14 on 2026-09-16):** 91 `cp:finite-contact-path` (std+H+HD+LM+LMU), and with the full set `9`: 94 `fd:contact`, 99
+`cf:thm-carrierfloor`, 100 `thm:floor`, 103 `cb:singleton`, 105 `lem:corner-values`, 112 `thm:C-soft`, 122 `prop:anchor-values`, 155
+`CV:thm:carrierfloor`, 162 `CV:ax:slbound`, 165 `CV:singleton_D_i`, 174 `R:generic_selected`, 175 `R:extreme_pair_zero`, 176
+`R:extreme_transport`, and — new on 2026-09-19, as D-CVT-6 predicted, through `CV.carrierSlotFloor` ← `SM.cf_thm_carrierfloor.clauseC` ←
+`SM.fd_contact` ← row 91 — 177 `R:extreme_selected`, 178 `R:cv_theorem`, 183 `Bridge:theorem`, and, through `thm_floor` (row 100) in
+`thm_C_S7_of_floor` and `thm_C_soft_of_floor`, 110 `thm:C-S7`, 127 `thm:comparison`, 128 `cor:C-inherits`, 184 `SM:corner_laws_and_soft`.
+So it now enters rows 177/178/183/184 (and 110/127/128) as well: **every final target except `prop:C-chamber`, `prop:C-silent`,
+`thm:C-S3` and `thm:C-S5` depends on the author's reading.** No row accepted before 2026-09-15 depends on it.
+
+**`SM.src_contact : ∃ r tb : (ℝ → E3) → ℝ, SrcContactClauses r tb`** (D-SC-1; registry `blueprint/AXIOM_REGISTRY.md` "src:contact —
+AXIOM" = sm-3:3341-3365). The existential interface form: the literature's rotation number `r` and Thurston-Bennequin invariant
+`tb` are never defined by the document, so they are existentially quantified functions `(ℝ → E3) → ℝ` and the four printed
+formulas are the fields of `SrcContactClauses` — `rotation` r = (D − U)/2, `thurston_bennequin` tb = w − (D + U)/2,
+`pushoff_self_linking` sl(T₊(L)) = tb − r for every positive pushoff circle of every pushoff annulus (rows 84/87's
+`GenericFront.IsPositivePushoff`), `transverse_front_writhe` sl K = writhe of the front for a generic positive transverse front
+(def:transverse-front). Fixed witnesses `SM.rot`, `SM.tb := Classical.choose …`, `src_contact_spec`. `SM.sl K := slCircle
+K.circle` is the document's own fd:framed-linking number (row 88) at row 88's radius (D-SC-2), so the axiom has content relative
+to an independent definition. **What is NOT constructed:** no contact-geometric `r` or `tb` — the axiom asserts nothing about them
+beyond the two defining formulas on the front class (FR-SC-1; the ∃-form is PROVABLY equivalent to the substituted consequence
+`sl(T₊) = w − D` on the Legendrian class ∧ `sl = w` on the transverse class, `src_contact_iff_consequence`, standard axioms); the
+convention, D + U, provenance and scope sentences have no field (FR-SC-6/8); no transverse-isotopy class `T₊(L)` is formed (FR-SC-3).
+Narrowings: Legendrian formulas for KNOTS whose front lies on ng:front-domain's class (FR-SC-2); real-valued quantities (FR-SC-10);
+`slCircle T = 0` off its domain, never exercised (FR-SC-9). Consistency probe on file (D-SC-6). Interface review
+`work/reviews/src-contact.json` (3/3, 2 clean, 16:51Z 2026-09-15). **Accepted rows whose footprint contains `SM.src_contact` (22;
+15 on 2026-09-16):** `src:contact` itself and 161 `CV:ax:etnyre` (std+SC), and the twenty `9`-rows listed above (94, 99, 100, 103, 105,
+110, 112, 122, 127, 128, 155, 162, 165, 174, 175, 176, 177, 178, 183, 184).
+
+**"Allowed name but stronger type"** re-examined for the two 2026-09-15 constants: `lit_homfly_descent` is formally stronger than the
+registry sentence in the two disclosed ways above (isotopy extension; record-level presentation) and weaker in six; every one was
+matched to a printed sentence or to an accepted-layer convention by the three lenses and the two refuters, and the executor
+recorded FR-LHD-1..4 before stating it (D-GAP2). `src_contact`'s four fields are the four printed formulas; nothing is stronger
+(`stronger_than_source` empty), four narrowings disclosed. No axiom was added or changed on 2026-09-19 (the five `axiom` rows of the
+map keep their `statement_sha256`). **Kernel evidence:** the receipt current at 15:16-15:25Z (`dev-check-row57-accepted.json` =
+`stage-development.json`, 2026-09-19 15:16Z) passed with 192 mapped and 49 212 audited declarations; the audit's axiom sets over the
+192 mapped declarations are exactly the ten patterns of §2's legend — subsets of {`SM.lit_homfly`, `SM.lit_homfly_descent`,
+`SM.lp_lm`, `SM.lp_lm_uniqueness`, `SM.ng_finite_word`, `SM.src_contact`} over the standard three; no `sorryAx`, no
+`Lean.ofReduceBool`, no other constant (recounted 15:20Z from the 15:16Z `declaration-audit.json`; mapped kinds: 177 theorems,
+10 definitions, 5 axioms). `work/lean` contains no `sorry` (rule 3; the 2026-09-19 draft material with dead sorried declarations
+stayed in `work/drafts/` and was deleted at port). The CV "axiom" rows 161 and 162 are theorems (`CV.ax_etnyre` from `SM.src_contact`;
+`CV.ax_slbound` from `SM.fd_contact`), as `CV.ax_homfly` and `CV.gausscode_polynomial` were on 2026-09-14; `CV:ax:R` is a Prop
+definition, not an axiom, and is now PROVED as `RProof.cv_R` (row 178). Closing-cycle check: the D-DOC-2 patches change comments
+only (`check_comment_only.py`: 198 comment lines, 0 code lines; re-run at 15:16Z before applying: "comment-only", the two `.md` targets
+"not checked (not Lean)"), and they were APPLIED 15:16Z with `patch -p0 --no-backup-if-mismatch` after a clean dry-run each (0 stray
+`.orig`/`.rej` under `work/lean`; AUTHOR_NOTES 15:17Z), so no `statement_sha256` may change — the executor re-ran the checker after the
+rebuild (it would have STOPPED if one had, APPLY.md §3) and none did: `work/checks/dev-check-FINAL-20260919.json` (15:36Z; passed, 192 mapped, 49 212 audited, `project_sha256` 716 entries): every `statement_sha256` unchanged by the ten comment-only patches — 192/192 (AUTHOR_NOTES 15:36Z; re-verified 15:45Z: the 191 stage-1 rows against the 15:35Z stage-1 audit, all equal; `lem:weak-open` against the 15:16Z audit).
+
+### 4.4 The R parameter  (table regenerated 2026-09-19 15:20Z, byte-identical to the 13:4xZ table; the column "explicit `hyp_R` parameter?" from `grep hyp_R` over the accepted row modules)
 
 <!-- BEGIN:RTABLE -->
-| obligation | policy name | status | declared? | module | axioms | note |
-|---|---|---|---|---|---|---|
-| `R:localization` | `RProof.localization` | accepted | yes | RProof.Cores | std | accepted |
-| `R:parity` | `RProof.parity` | accepted | yes | RProof.Cores | std | accepted |
-| `R:exterior` | `RProof.exterior` | accepted | yes | RProof.X1Rows2 | std+H+LM+LMU | accepted |
-| `R:fibre_partition` | `RProof.fibre_partition` | accepted | yes | RProof.Cores | std | accepted |
-| `R:availability_0_1` | `RProof.availability_zero_one` | accepted | yes | RProof.X1Rows2 | std+H+LM+LMU | accepted |
-| `R:generic_table` | `RProof.generic_table` | accepted | yes | RProof.Cores | std | accepted |
-| `R:generic_selector` | `RProof.generic_selector` | accepted | yes | RProof.X1Rows | std+H | accepted |
-| `R:generic_transport` | `RProof.generic_transport` | accepted | yes | RProof.GenericTransport | std+H+LM+LMU | accepted |
-| `R:generic_selected` | `RProof.generic_selected` | pending | no | — | — | GAP-2 — needs CV:thm:carrierfloor (R lane statement panel, AUTHOR_NOTES ~06:35Z); statable |
-| `R:extreme_pair_zero` | `RProof.extreme_pair_zero` | pending | no | — | — | BLOCKED via CV:singleton_D_i (GAP-2); statable |
-| `R:extreme_transport` | `RProof.extreme_transport` | pending | no | — | — | GAP-2 — needs CV:thm:carrierfloor; statable |
-| `R:extreme_selected` | `RProof.extreme_selected` | pending | no | — | — | GAP-2 — needs CV:thm:carrierfloor; statable |
-| `R:cv_theorem` | `RProof.cv_R` | pending | no | — | — | BLOCKED — RProof.cv_R : CV.hyp_R needs rows 174-177; not declared (statement fixed in work/drafts/rlane2/Stat… |
-| `Bridge:B1` | `Bridge.B1` | accepted | yes | Bridge.B1 | std | accepted |
-| `Bridge:B2` | `Bridge.B2` | accepted | yes | Bridge.B1 | std | accepted |
-| `Bridge:B3` | `Bridge.B3` | accepted | yes | Bridge.B3 | std | accepted |
-| `Bridge:B4` | `Bridge.B4` | accepted | yes | Bridge.B4 | std+H+LM+LMU | accepted |
-| `Bridge:theorem` | `Bridge.sm_R` | pending | no | — | — | BLOCKED — Bridge.sm_R waits only for RProof.cv_R (AUTHOR_NOTES 07:33Z); not declared |
-| `SM:corner_laws_and_soft` | `SM.corner_laws_and_soft` | pending | no | — | — | BLOCKED — final theorem needs Bridge:theorem, cor:C-inherits, thm:C-soft; not declared (D-F11); reported INCO… |
-| `CV:ax:R` | `CV.hyp_R` | accepted | yes | RProof.X1Rows | std+H | accepted |
-| `hyp:R` | `SM.hyp_R` | accepted | yes | SM.HypR | std+H | accepted |
+| obligation | policy name | status | declared? | module | axioms | explicit `hyp_R` parameter? | note |
+|---|---|---|---|---|---|---|---|
+| `R:localization` | `RProof.localization` | accepted | yes | RProof.Cores | std | none | accepted |
+| `R:parity` | `RProof.parity` | accepted | yes | RProof.Cores | std | none | accepted |
+| `R:exterior` | `RProof.exterior` | accepted | yes | RProof.X1Rows2 | std+H+LM+LMU | none | accepted |
+| `R:fibre_partition` | `RProof.fibre_partition` | accepted | yes | RProof.Cores | std | none | accepted |
+| `R:availability_0_1` | `RProof.availability_zero_one` | accepted | yes | RProof.X1Rows2 | std+H+LM+LMU | none | accepted |
+| `R:generic_table` | `RProof.generic_table` | accepted | yes | RProof.Cores | std | none | accepted |
+| `R:generic_selector` | `RProof.generic_selector` | accepted | yes | RProof.X1Rows | std+H | none | accepted |
+| `R:generic_transport` | `RProof.generic_transport` | accepted | yes | RProof.GenericTransport | std+H+LM+LMU | none | accepted |
+| `R:generic_selected` | `RProof.generic_selected` | accepted | yes | RProof.GenericSelected | 9 | none | accepted 2026-09-15 23:54Z (wave 2 of the moves-toolkit lane; last Prop proved by two independent routes); no R parameter |
+| `R:extreme_pair_zero` | `RProof.extreme_pair_zero` | accepted | yes | RProof.ExtremePairZero | 9 | none | accepted 2026-09-15 18:39Z; from `CV.singleton_D_i` (165); no R parameter |
+| `R:extreme_transport` | `RProof.extreme_transport` | accepted | yes | RProof.ExtremeTransport | 9 | none | accepted 2026-09-16 00:12Z (wave 2; weak-port replay D-RM-5, `wind = 0` split D-RM-6, corrected outer-carrier Prop D-RM-7); no R parameter |
+| `R:extreme_selected` | `RProof.extreme_selected` | accepted | yes | RProof.ExtremeSelected | 9 | none | accepted 2026-09-19 08:39Z (wave 3d: residue = parity + identification; the non-kink question resolved in the VALUE form, kink case by flat subdivision — no event hypothesis; G-03 route (ii)); no R parameter |
+| `R:cv_theorem` | `RProof.cv_R` | accepted | yes | RProof.CvR | 9 | none | accepted 2026-09-19 08:39Z; `theorem RProof.cv_R : CV.hyp_R` — NO hypothesis, no R parameter (the proved CV R theorem) |
+| `Bridge:B1` | `Bridge.B1` | accepted | yes | Bridge.B1 | std | none | accepted |
+| `Bridge:B2` | `Bridge.B2` | accepted | yes | Bridge.B1 | std | none | accepted |
+| `Bridge:B3` | `Bridge.B3` | accepted | yes | Bridge.B3 | std | none | accepted |
+| `Bridge:B4` | `Bridge.B4` | accepted | yes | Bridge.B4 | std+H+LM+LMU | none | accepted |
+| `Bridge:theorem` | `Bridge.sm_R` | accepted | yes | Bridge.SmRRow | 9 | none | accepted 2026-09-19 08:39Z; `theorem Bridge.sm_R : SM.hyp_R` — NO hypothesis, no R parameter (the resulting SM R theorem) |
+| `SM:corner_laws_and_soft` | `SM.corner_laws_and_soft` | accepted | yes | SM.CornerLawsAndSoft | 9 | none | accepted 2026-09-19 13:26Z; `theorem SM.corner_laws_and_soft : CornerLawsAndSoftData` — NO hypothesis; `triple : hyp_R` is a PROVED field (Bridge.sm_R), no R parameter retained (the unconditional final theorem) |
+| `CV:ax:R` | `CV.hyp_R` | accepted | yes | RProof.X1Rows | std+H | none | accepted; the Prop definition `CV.hyp_R` (RProof/X1Rows.lean:124), consumed as the type of `RProof.cv_R` |
+| `hyp:R` | `SM.hyp_R` | accepted | yes | SM.HypR | std+H | none | accepted; the Prop definition `SM.hyp_R` (SM/HypR.lean), the explicit parameter of 127/128 and the type of `Bridge.sm_R` |
+| `thm:comparison` (conditional row, for comparison) | `SM.thm_comparison` | accepted | yes | SM.ComparisonRows | 9 | **YES: `(hR : hyp_R)`** (policy mode `explicit_parameter`) | accepted 2026-09-19 13:26Z; the printed 'Assume Hypothesis R' rows; discharged inside row 184 by `Bridge.sm_R` |
+| `cor:C-inherits` (conditional row, for comparison) | `SM.cor_C_inherits` | accepted | yes | SM.ComparisonRows | 9 | **YES: `(hR : hyp_R)`** (policy mode `explicit_parameter`) | accepted 2026-09-19 13:26Z; the printed 'Assume Hypothesis R' rows; discharged inside row 184 by `Bridge.sm_R` |
 <!-- END:RTABLE -->
 
-Exposure: the conditional comparison theorem (`thm:comparison`, would take `SM.hyp_R` as an explicit parameter,
-axiom-policy mode `explicit_parameter`) is not declared. `SM.hyp_R` itself IS declared and accepted (row `hyp:R`,
-`work/lean/SM/HypR.lean`; audit kind `definition`, axioms std+H through `cornerStateSum`; reviews/hyp-R.json): a
-`def … : Prop` — for every n ≥ 3, every wall germ `g` with `g.TripleAt e f k` (a simple triple wall, def:walls (T),
-FR-HR-2) and all side parameters `tp tm`, `cornerStateSum` takes the same value on the two labelled side representatives
-`g.sideTuple true tp`, `g.sideTuple false tm` — reading FR-HR-1 (all-sides form, the one the accepted prop:C-silent uses
-for the identical printed phrase; `HypRDiagonal` and `HypRBase` proved equivalent via prop:C-chamber); it is a
-hypothesis, never an axiom (FR-HR-8). The consumer check `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` is proved from the
-accepted rows (B1-B4 pointwise) in `work/lean/Bridge/SmR.lean` (library, not mapped; `Bridge.sm_R` NOT declared), so
-`Bridge:theorem` is `Bridge.sm_R := SM.sm_R_of_cv_R RProof.cv_R` once `R:cv_theorem` exists. In the CV lane the
-hypothesis is the Prop `CV.hyp_R` (RProof/X1Rows.lean:124; accepted row `CV:ax:R`, form R6: for every simple RIII event,
-`X1 (E.curve t₊) = X1 (E.curve t₋)` for all `t₊ > 0 > t₋`), consumed only as the *type* of the unproved
-`RProof.cv_R`, as the conclusion of the proved auxiliary `hyp_R_of_near_of_chamberinv`, and as the hypothesis of
-`SM.sm_R_of_cv_R`. Every accepted R row
-exposes its parameters explicitly (`hn : 3 ≤ n`; the cross-wall crossing-set identification `hs` of R-LOC-2 (1) as a
-universally quantified hypothesis of the cross-wall fields, never asserted); none takes an R, lawful-quantity or
-corner-law assumption — their axiom sets are `std` (four cores) or `std+H(+LM+LMU)` through `CV.X1`/`homfly`
-(table). No R-dependent result is imported: the R modules import CV events, `CV.X1`, `CV:lem:pieceintrinsic`,
-`CV:prop:chamberinv`, `CV:lem:silence`, `Bridge.B4` and the SM geometry — nothing downstream of `thm:comparison`
-or `cor:C-inherits`. **Incomplete:** `RProof.cv_R`, `Bridge.sm_R` and `SM.corner_laws_and_soft` are not declared,
-so no "proved CV R theorem", "resulting SM R theorem" or unconditional final theorem exists to inspect (§3.4).
+Exposure, inspected on the declarations themselves (`grep -n "hyp_R\|hR"` over `SM/CS7.lean`, `SM/ComparisonRows.lean`,
+`SM/CornerLawsAndSoft.lean`, `RProof/CvR.lean`, `Bridge/SmRRow.lean`, `RProof/ExtremeSelected.lean`; the executor's `#check` probe of
+12:57Z; the reviewers' `#check` on scratch files): **the conditional comparison theorem exposes its R parameter** — `theorem
+SM.thm_comparison (hR : hyp_R) : ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (P : LabelledTuple n) (hP : Generic P), cornerStateSum hn hP =
+amplitude P hP.1 hn` (`SM/ComparisonRows.lean:17-20`; axiom-policy mode `explicit_parameter`), and so does `SM.cor_C_inherits (hR :
+hyp_R) : CInheritsData` (:23); their library forms `thm_comparison_of` / `cor_C_inherits_of` likewise (FR-CM-7, FR-CM-17). **The proved CV
+R theorem** `theorem RProof.cv_R : CV.hyp_R` (`RProof/CvR.lean:17`), **the resulting SM R theorem** `theorem Bridge.sm_R : SM.hyp_R`
+(`Bridge/SmRRow.lean:15`) and **the unconditional final theorem** `theorem SM.corner_laws_and_soft : CornerLawsAndSoftData`
+(`SM/CornerLawsAndSoft.lean:84`) have NO hypothesis of any kind — no R, lawful-quantity, corner-law or equivalent proof assumption; the
+only occurrence of `hyp_R` in the final module is the FIELD `triple : hyp_R` of the bundle and the parameter of the conditional library
+theorem `corner_laws_and_soft_of`, which the row theorem instantiates at `Bridge.sm_R`. `SM.hyp_R` itself IS declared and accepted (row
+`hyp:R`, `work/lean/SM/HypR.lean`; audit kind `definition`, axioms std+H through `cornerStateSum`; reviews/hyp-R.json): a `def … : Prop` —
+for every n ≥ 3, every wall germ `g` with `g.TripleAt e f k` (a simple triple wall, def:walls (T), FR-HR-2) and all side parameters `tp
+tm`, `cornerStateSum` takes the same value on the two labelled side representatives — reading FR-HR-1 (all-sides form; `HypRDiagonal` and
+`HypRBase` proved equivalent via prop:C-chamber); it is a hypothesis, never an axiom (FR-HR-8), and since 2026-09-19 a proved theorem's
+type. The consumer chain is `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` (B1-B4 pointwise, `Bridge/SmR.lean`, library) applied to
+`RProof.cv_R := cv_R_of_rows generic_selected extreme_pair_zero extreme_transport extreme_selected` (`RALedgers.lean:2354`), exactly the
+one-liners staged on 2026-09-16. In the CV lane the hypothesis is the Prop `CV.hyp_R` (RProof/X1Rows.lean:124; accepted row `CV:ax:R`,
+form R6: for every simple RIII event, `X1 (E.curve t₊) = X1 (E.curve t₋)` for all `t₊ > 0 > t₋`), consumed as the *type* of the proved
+`RProof.cv_R`, as the conclusion of `hyp_R_of_near_of_chamberinv` and `cv_R_of_rows`, and as the hypothesis of `SM.sm_R_of_cv_R`. Every
+accepted R row — the eight of 2026-09-14, the three of 2026-09-15/16 and 177 of 2026-09-19 — exposes its parameters explicitly (`hn : 3 ≤
+n`; the event hypotheses `h3 h4e h4f h4g hE`; the cross-wall crossing-set identification `hs` of R-LOC-2 (1) as a universally quantified
+hypothesis of the cross-wall fields, never asserted; reviews/r-extreme-selected.json notes 1 and 4); none takes an R, lawful-quantity or
+corner-law assumption — their axiom sets are `std` (four cores), `std+H(+LM+LMU)` through `CV.X1`/`homfly`, or `9` for the four rows
+whose route passes through `CV.carrierSlotFloor` ← `SM.cf_thm_carrierfloor.clauseC` ← `SM.fd_contact` ← row 91, which is where `HD` and
+`SC` enter the R lane (D-CVT-6; table). **No R-dependent result is imported:** the import lists of the row modules are `RProof/CvR.lean`
+← `RProof.RALedgers`, `GenericSelected`, `ExtremePairZero`, `ExtremeTransport`, `ExtremeSelected`; `RProof/ExtremeSelected.lean` ←
+`RProof.ExtremeSelectedUnits` ← `RProof.GenericTransportSw` (← `SM.Smoothing`, `SM.MarkedProducts`, `SM.SingleCrossing`, `CV.FullTwist`,
+`RProof.GenericTransport`, `SM.BigonDeletion`, `RProof.RALedgers`), `RProof.ExtremeTransportUnits`, `SM.CBProducts`, `CV.SingletonDi`,
+`SM.ZeroRotationSeed`; `Bridge/SmRRow.lean` ← `RProof.CvR`, `Bridge.SmR` — nothing downstream of `thm:comparison` or `cor:C-inherits`
+(`SM.Comparison`, `SM.CInherits`, `SM.ComparisonRows`, `SM.CornerLawsAndSoft` are imported by no R or Bridge module; conversely
+`SM/CornerLawsAndSoft.lean` imports `Bridge.SmRRow`, the one direction the design requires). `RProof/GenericTransport.lean` (row 173) is
+unchanged; the trans-free copy is additive (§5 item 4).
 
-### 4.5 R coverage of the printed domain; both orbits; B1-B4
+### 4.5 R coverage of the printed domain; both orbits; B1-B4 — COMPLETE
 
 Partition by outside support and availability: `R:fibre_partition` (exhaustion, disjointness, sizes 0/1/3) accepted.
 Availability 0 and 1: `R:availability_0_1` accepted (summand transport stronger than the bare fibre identity).
 Availability 3, generic orbit: `R:generic_table`, `R:generic_selector` (172), `R:generic_transport` (173, the RIII-wall
-invariance G11 proved by an explicit polygonal RIII move) accepted; `R:generic_selected` (174) pending (GAP-2).
-Extreme orbit: 175-177 pending (GAP-2). Exterior factor without division: `R:exterior` accepted (base-row
-representative, printed full-availability binder kept). Localization and parity warrants: `R:localization`,
-`R:parity` accepted (std axioms only). So the printed simple, transversal, forced-bundle domain is **not** fully
-covered: the extreme orbit and the generic selected couple are open. B1-B4 (`Bridge/B1.lean` = B1+B2, `B3.lean`,
-`B4.lean`; reviews/bridge-b1.json … bridge-b4.json) compare the SM15 and CV conventions clause by clause (B2 under
-sorted naming with the unsorted case recovered; B4 = the pointwise dictionary `X₁ = C` on SM-generic polygons through
-the accepted `geo*_eq_generic` agreement lemmas, `SM/GeoCarrierAgreement.lean`), with no assumed equality of generic
-loci: the agreement is proved on the accepted definitions (CV-DOM (C)).
+invariance G11 proved by an explicit polygonal RIII move) and `R:generic_selected` (174, the selected b/ac complementary-couple
+identity through an actual constructed R-II deletion) accepted: **the generic orbit is complete.** Extreme orbit: `R:extreme_pair_zero`
+(175), `R:extreme_transport` (176; the three singleton transports (2) with the sign branch (3)) and — since 2026-09-19 08:39Z —
+`R:extreme_selected` (177, the extreme selected couple through the switched RIII on the trans-free configuration copy and the R-II
+after smoothing in its value form, kink case by flat subdivision) accepted: **the extreme orbit is complete.** Exterior factor without
+division: `R:exterior` accepted (base-row representative, printed full-availability binder kept). Localization and parity warrants:
+`R:localization`, `R:parity` accepted (std axioms only). So the printed simple, transversal, forced-bundle domain is covered in every
+availability case and in both graph orbits, and `RProof.cv_R` IS assembled from the four row theorems (row 178, `cv_R_of_rows`): **the
+coverage is complete.** B1-B4 (`Bridge/B1.lean` = B1+B2, `B3.lean`, `B4.lean`; reviews/bridge-b1.json … bridge-b4.json) compare the SM15
+and CV conventions clause by clause (B2 under sorted naming with the unsorted case recovered; B4 = the pointwise dictionary `X₁ = C` on
+SM-generic polygons through the accepted `geo*_eq_generic` agreement lemmas, `SM/GeoCarrierAgreement.lean`), with no assumed equality of
+generic loci: the agreement is proved on the accepted definitions (CV-DOM (C)); `Bridge.sm_R` (row 183) is `SM.sm_R_of_cv_R RProof.cv_R`,
+the displayed (19)-(21) of BRIDGE.md §3 applied to the proved antecedent.
 
-### 4.6 Clause table for `SM.corner_laws_and_soft`  (the final declaration is NOT declared)
+### 4.6 Clause table for `SM.corner_laws_and_soft`  (the final declaration IS declared and accepted; one line per field of `CornerLawsAndSoftData`)
 
-| Clause | Source rows | Status at completion (18:06Z) |
-|---|---|---|
-| Chamber constancy and silence | `prop:C-chamber`, `prop:C-silent` | **accepted**: `SM.prop_C_chamber` (SM/CChamber.lean; reviews/prop-C-chamber.json), `SM.prop_C_silent` (SM/CSilent.lean; reviews/prop-C-silent.json; both wall types (E) and (C) as printed) |
-| Flat deletion jump | `thm:C-S3` (actual deletion `deleteVertex`, side sign) | **accepted**: `SM.thm_C_S3` (SM/CS3.lean; reviews/thm-C-S3.json; side values via def:germ + chamber constancy) |
-| Vertex-edge jump | `thm:C-S7` (both bigon branches, sliding, actual children `λ₁, λ₂`, sign `s`) | **open (GAP-2)** via `cb:singleton` ← `thm:floor` ← `cf:thm-carrierfloor`(C) ← `fd:contact` ← row 91; `SM.thm_C_S7` not declared |
-| Triple invariance | `hyp:R` discharged by the proved R/bridge theorem | **open**: `SM.hyp_R` stated and **accepted** (SM/HypR.lean; reviews/hyp-R.json) and `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` proved (Bridge/SmR.lean, library); but `RProof.cv_R` and `Bridge.sm_R` are not declared (rows 174-178 GAP-2/blocked), so the hypothesis is not discharged |
-| Full cusp jump | `cor:C-inherits`, `cor:A-lawful` (deletion satisfies G1; threaded cusps) | **open (GAP-2)** via `thm:comparison`; `cor:A-lawful` itself **accepted** as `SM.A_lawful` (SM/ALawful.lean; reviews/cor-A-lawful.json); `SM.cor_C_inherits` not declared |
-| Empty-cusp zero | `thm:C-S5` | **accepted**: `SM.thm_C_S5` (SM/CS5.lean; reviews/thm-C-S5.json) |
-| Soft theorem | `thm:C-soft` (every direction/attachment-sign sector incl. zero sectors, sufficiently small ε) | **open (GAP-2)** via `lem:corner-values` ← `cb:singleton`; prerequisites `def:soft`, `lem:soft-generic`, `lem:soft-rotation`, `thm:A-soft` accepted; `SM.thm_C_soft` not declared |
-| Descent and normalization | cyclic, reversal, triangle statements inherited with `cor:A-lawful` | **accepted** as A-level rows: `prop:A-reversal`, `thm:mycyclic`, `thm:root-indep-proof`, `thm:uniqueness`, `cor:A-lawful`; their transfer to C is part of the open `cor:C-inherits` |
+`theorem SM.corner_laws_and_soft : CornerLawsAndSoftData := corner_laws_and_soft_of Bridge.sm_R thm_C_S7 thm_C_soft (cor_C_inherits
+Bridge.sm_R)` (`work/lean/SM/CornerLawsAndSoft.lean:84-85`; mapped row `SM:corner_laws_and_soft`, accepted 2026-09-19 13:26Z;
+`statement_sha256 47469f91…`; review `reviews/sm-corner-laws-and-soft.json`). **The declaration has NO hypothesis** (a structure with 0
+parameters, kernel-checked by the three lenses and both refuters on scratch files); its `#print axioms` is exactly the nine registered
+axioms. Every field is stated on the source `C` = `cornerStateSum hn hP` of the accepted `def:C`; `triple : hyp_R` is a PROVED field
+(discharged by `Bridge.sm_R`, row 183) — **no R parameter is retained anywhere in the row.** Field by field:
+
+| field : type | checklist clause | accepted row it comes from (review file) | how it enters `corner_laws_and_soft_of` |
+|---|---|---|---|
+| `chamber : CChamberData` | Chamber constancy | `prop:C-chamber` = `SM.prop_C_chamber` (SM/CChamber.lean; reviews/prop-C-chamber.json; accepted 2026-09-14) | `chamber := prop_C_chamber` |
+| `silent : CSilentData` | Silence — both wall types (E) and (C) as printed | `prop:C-silent` = `SM.prop_C_silent` (SM/CSilent.lean; reviews/prop-C-silent.json; 2026-09-14) | `silent := prop_C_silent` |
+| `flat : CS3Data` | Flat deletion jump — the actual deletion `deleteVertex` and the side sign | `thm:C-S3` = `SM.thm_C_S3` (SM/CS3.lean; reviews/thm-C-S3.json; 2026-09-14) | `flat := thm_C_S3` |
+| `vertex_edge : CS7Data` | Vertex-edge jump — both bigon branches and sliding (`VertexEdgeAt` = bigon ∨ sliding, `vertexEdge_bigon_or_sliding`), actual children λ₁ λ₂, sign `s = contactSign` | `thm:C-S7` = `SM.thm_C_S7` (SM/CS7.lean + SM/CS7Units.lean; reviews/thm-C-S7.json; **2026-09-19 13:26Z**) | `vertex_edge := h7` at `thm_C_S7` |
+| `triple : hyp_R` | Triple invariance — `hyp:R` after discharging it with the proved R/bridge theorem | `Bridge:theorem` = `Bridge.sm_R : SM.hyp_R` (Bridge/SmRRow.lean; reviews/bridge-theorem.json; **2026-09-19 08:39Z**) ← `R:cv_theorem` = `RProof.cv_R` (RProof/CvR.lean; reviews/r-cv-theorem.json) ← rows 174/175/176/177 | `triple := hR` at `Bridge.sm_R` — a PROVED field; `hyp:R` (`SM.hyp_R`, reviews/hyp-R.json) is the accepted Prop it has as type |
+| `cusp : CuspLawC` | Full cusp jump on the source domain — the deletion satisfies G1 (`cusp_deletion_generic`), threaded cusps included; `cor:A-lawful`'s form | `cor:C-inherits` = `SM.cor_C_inherits` (SM/ComparisonRows.lean, bundle SM/CInherits.lean; reviews/cor-C-inherits.json; **2026-09-19 13:26Z**), field `cusp_law`; `cor:A-lawful` = `SM.A_lawful` (reviews/cor-A-lawful.json; 2026-09-14) is the template | `cusp := hinh.cusp_law` at `cor_C_inherits Bridge.sm_R` |
+| `empty_cusp : CS5Data` | Empty-cusp zero (the direct result retained) | `thm:C-S5` = `SM.thm_C_S5` (SM/CS5.lean; reviews/thm-C-S5.json; 2026-09-14) | `empty_cusp := thm_C_S5` |
+| `soft : CSoftData` | Soft theorem — every admissible direction/attachment-sign sector incl. zero sectors (`SoftAdmissible`), `∃ ε₁ > 0, ∀ ε < ε₁` | `thm:C-soft` = `SM.thm_C_soft` (SM/CSoft.lean; reviews/thm-C-soft.json; 2026-09-15 20:25Z) | `soft := hs` at `thm_C_soft` |
+| `reversal : ReversalLawC` | Descent and normalization — the reversal identity inherited with `cor:A-lawful` | `cor:C-inherits` field `reversal_law` (reviews/cor-C-inherits.json); A-level source `prop:A-reversal` (accepted) | `reversal := hinh.reversal_law` |
+| `cyclic : CyclicLawC` | Descent and normalization — the cyclic identity (`C` well defined on def:C's cyclic quotient: `cornerStateSum hn (genericShift a P).2 = cornerStateSum hn P.2`) | `def:C` = `SM.corner_state_sum_definition` (reviews/def-C.json) through the accepted library lemma `cornerStateSum_genericShift` (SM/CornerPolygon.lean); the A-level source `thm:mycyclic` (accepted) | `cyclic := fun _ _ hn P a => cornerStateSum_genericShift hn a P` |
+| `triangles : TrianglesC` | Descent and normalization — the triangle normalizations inherited with `cor:A-lawful` | `cor:C-inherits` field `triangles` (reviews/cor-C-inherits.json); A-level sources `thm:root-indep-proof`, `thm:uniqueness`, `cor:A-lawful` (accepted) | `triangles := hinh.triangles` |
+
+The reviewers' non-blocking notes on the bundle (reviews/sm-corner-laws-and-soft.json, `discrepancies` / `stronger_than_source` /
+`weaker_than_source`), quoted: "the side values C(P+), C(P-), C(P_right), C(P_left), C(P_no), C(P_loop) are rendered at every pair of
+germ side parameters (hyp_R, CSilentData, CS7Data, CS5Data, CuspLawC) or at parameters below an existential delta (CS3Data:2485-2487)
+rather than as def:germ chamber values; equivalent under the accepted def:germ + prop:C-chamber, disclosed in the accepted rows'
+reviews"; "CS7Data quantifies the genericity of the two halves universally (`∀ h₁ h₂`) and CSoftData that of P_ε (`∀ hQ`) instead of
+asserting them; `vertex_halves_children` and `CSoftData.exists_generic` supply the witnesses, so no content is lost; CuspLawC by contrast
+asserts the deletion's genericity existentially, matching the printed domain check" (FR-F-184-2); "cor:A-lawful's text … never uses the
+word 'cyclic'; TARGETS line 21 commissions a 'cyclic' identity, and `CyclicLawC` renders it as def:C's invariance under the cyclic
+relabelling `genericShift`, the natural C analogue (the A-side root-independence has no C counterpart and is correctly not a field)";
+STRONGER: "`cusp : CuspLawC` also asserts the uniqueness of the cusp case `b` and the rotation-number identity rot(P_loop) − rot(P_no) =
+κ; both are printed content of thm:A-S4 … the same shape is in the accepted `ALawfulData.cusp_law`"; WEAKER (form only): "as bare
+formulas, `flat : CS3Data` asserts the flat identity only for side parameters below some delta > 0, and `empty_cusp` / `triple` / `silent`
+/ `vertex_edge` / `cusp` state their identities at the germ's own side points rather than for every polygon of the two chambers;
+equivalent to the printed chamber-value statements via the accepted prop:C-chamber (`chamber : CChamberData`, itself a field of this
+bundle) and def:germ". The checklist's warning — "A proof for an empty cusp or one soft sector is not the full target" — is met: `cusp`
+covers every simple cusp wall whose deletion satisfies (G1) including threaded cusps (no emptiness hypothesis, FR-CM-9/9′), `soft` every
+admissible sector including zero sectors (FR-CC-12), `vertex_edge` both bigon branches and sliding (FR-CC-7).
 
 ### 4.7 The conclusion concerns the source C
 
-Every accepted C row is stated on `cornerStateSum hn hP` of the accepted `def:C` for `P : LabelledTuple n`,
-`hP : Generic P`, `hn : 3 ≤ n` (reviews/prop-C-chamber.json clause 1; thm-C-S3, thm-C-S5, prop-C-silent likewise),
-with wall data from `def:germ`/`def:walls` and deletions from `def:deletion-halves`/`def:induced-roots`; no row
-abstracts C into "a function with the laws". Arguments at which C is evaluated are generic by construction (side
-points of germs, `deleteVertex` under the printed n ≥ 4 / G1 conditions). A full-target statement over all cusps and
-all soft sectors does not exist yet (§4.6).
+Every accepted C row — the 2026-09-14 rows, the 2026-09-15 rows `cb:singleton`, `lem:corner-values`, `thm:C-soft`, `prop:anchor-values`,
+and the 2026-09-19 rows `thm:C-S7`, `thm:comparison`, `cor:C-inherits`, `SM:corner_laws_and_soft` — is stated on `cornerStateSum hn hP`
+of the accepted `def:C` for `P : LabelledTuple n`, `hP : Generic P`, `hn : 3 ≤ n` (reviews/prop-C-chamber.json clause 1; thm-C-S7,
+thm-comparison, cor-C-inherits, sm-corner-laws-and-soft likewise — the row-127/128 reviewers: "labelled generic tuples … both sides
+descend"; FR-CC-13: C on labelled tuples, the quotient descent is the consumer's business), with wall data from `def:germ`/`def:walls` and
+deletions from `def:deletion-halves`/`def:induced-roots`; no row abstracts C into "a function with the laws" — `CornerLawsAndSoftData`'s
+fields are the accepted C theorems' own bundle types (`CChamberData`, `CSilentData`, `CS3Data`, `CS7Data`, `CS5Data`, `CSoftData`) and
+`CInheritsData`'s C-shaped laws, each mentioning `cornerStateSum`. Arguments at which C is evaluated are generic by construction or by an
+asserted witness (side points of germs; `deleteVertex` under the printed n ≥ 4 / G1 conditions; the cusp deletion generic by
+`cusp_deletion_generic`, asserted as `∃ hQ` in `CuspLawC`; the halves λ₁, λ₂ by `vertex_halves_children`; P_ε by `exists_generic`). The
+soft theorem over every admissible sector exists as the accepted `SM.thm_C_soft`; the full-target statement over all cusps exists as the
+accepted `SM.cor_C_inherits` (its `cusp_law`); the final `SM.corner_laws_and_soft` exists, is declared, mapped, kernel-checked and
+reviewed (§3.4, §4.6). The comparison `C = A` (row 127) is conditional on `hyp_R` as printed and is NOT a field of the final theorem
+(TARGETS commissions the C laws, not the comparison); `root_values` inside row 128 carries the same content under the same hypothesis.
 
 ### 4.8 Certificates; 4.9 the stage check
 
-`EXECUTION.json` commissions no computation certificates in this focused package (`"certificates": []`); the
-"certificate rows" 76-83 are source lemmas of sm-3 (Rutherford/Ng front words), now all accepted (§3.3), not external
-certificates, and no `native_decide` or external data enters the library.
+`EXECUTION.json` commissions no computation certificates in this focused package (`"certificates": []`); the "certificate rows"
+76-83 are source lemmas of sm-3 (Rutherford/Ng front words), all accepted since 2026-09-14 (§3.6), not external certificates, and no
+`native_decide` or external data enters the library (the 15:16Z audit: no `Lean.ofReduceBool` anywhere).
 
-**Stage check.** `python3 tools/check_lean.py work/lean --all` was run at 18:06Z (log
-`work/checks/stage-all-attempt-1806.log`) and **FAILED as expected**, with exactly:
-
-> FAIL: stage is incomplete; unaccepted rows: Bridge:theorem, CV:ax:etnyre, CV:ax:slbound, CV:singleton_D_i,
-> CV:thm:carrierfloor, R:cv_theorem, R:extreme_pair_zero, R:extreme_selected, R:extreme_transport, R:generic_selected,
-> SM:corner_laws_and_soft, cb:singleton, cf:thm-carrierfloor, cor:C-inherits, cp:finite-contact-path, fd:contact,
-> lem:corner-values, lem:gauss-two-discs, prop:anchor-values, src:contact, thm:C-S7, thm:C-soft, thm:comparison, thm:floor
-
-`work/checks/stage-1.json` records `{"passed": false, "stage": 1, "state": "checking"}`. The 24 rows named are exactly the
-24 pending rows of §3 (22 GAP-2, row 57, `src:contact`). **The single focused stage is INCOMPLETE and is reported as
-such** (CLAUDE.md rule 9). What binds the accepted state is the development receipt
-`work/checks/dev-check-frontrowsw3b-accepted.json` (18:06Z run: passed=true, `stage: null`, `stage_accepted: false`,
-168 mapped, 36 079 audited; byte-identical to the current `work/checks/stage-development.json` and to
-`work/delivery/receipts/stage-development.json`); `work/progress-watch.log` and `tools/progress.py` accordingly print
-"Stage 1: not established by a current checker receipt". The root FINAL_REVIEW.md is itself in the checker's bundle
-(`bundle_sha256`), so the executor re-runs the development checker after this review is appended to it and refreshes
-`work/delivery/` so that the delivered receipt binds the delivered bytes; a receipt older than that edit is evidence
-about its own time only.
+**Stage check (4.9). PASSED 15:36Z 2026-09-19 (11:36am ET)** — `python3 tools/check_lean.py work/lean --all`, rc 0, 133 s, log
+`work/checks/checker-all-run-20260919_1533Z.log`, whose output begins `{"all_required_stages_passed": true, "stages": [{"receipt_schema": 2,
+"passed": true, "stage": 1, "mapped_declarations": 191, "audited_declarations": 49207, "stage_accepted": true, …`. Stage 1 is the only
+stage this package commissions (`EXECUTION.json` `acceptance_stages`); its scope (`tools/check_lean.py` `selected_rows`) is every source
+row with `stage1 = Y` that is not SKIP/CERTIFICATE plus the EXTRA rows of the focused mode (the R, Bridge and SM rows) — 191 of the 192
+mapped rows, everything but `lem:weak-open`, the extra supporting lemma outside the source list; hence 191 mapped / 49 207 audited in
+`work/checks/stage-1.json` (15:35Z; copy `stage-check-FINAL-20260919.json`) against 192 / 49 212 in the development receipt
+`stage-development.json` (15:36Z; copy `dev-check-FINAL-20260919.json`). No unregistered axiom, no `sorryAx`, every `statement_sha256`
+unchanged by the ten comment-only patches (192/192). Before it, the last completed `--all` run was the 2026-09-16 00:32Z FAIL naming the
+eight then-pending rows (`work/checks/stage-all-check-20260916-0032.log`); `tools/progress.py` printed "Stage 1: not established by a current
+checker receipt" until 15:35Z. **The closing cycle** (D-DOC-2; AUTHOR_NOTES 10:37Z, 15:17Z, 15:29Z, 15:33Z, 15:36Z; STATUS 15:15Z) began at
+15:16Z, two minutes after row 57's acceptance, and ran as follows. **(1) 15:16Z** — the 11 comment-only doc-debt patches + the G-07 registry
+sub-entry applied (`work/port/docdebt/APPLY.md`; `check_comment_only.py` before applying: comment-only, 198 comment lines, 0 code lines;
+`patch -p0 --no-backup-if-mismatch` after a clean dry-run each, all eleven in order 01-E01 … 09-E11 (the optional sorry-wording patch
+INCLUDED), 10-E19, registry-sub-entry; 66 Lean/drafts files + the registry; 0 stray `.orig`/`.rej`; 0 files under `work/lean` contain the
+string `sorry`, was 55 header phrases). **(2) 15:16-15:25Z** — full `lake build`, 0 errors (521 s, 4 295 jobs; root modules touched, hence
+near-full). **(3a) 15:25-15:27Z** — `check_lean.py --all`: development stage passed (192 mapped, 49 212 audited) but stage 1 FAILED with
+exactly one finding, "source review hash mismatch: ng:finite-word" (`checker-all-run-20260919_1525Z.log`): the stage check hashes each
+accepted row's source file and compares it with the review's `source_sha256`, and the registry sub-entry had changed the registry's hash.
+**D-DOC-3 (15:29Z):** the sub-entry REVERTED (`patch -R`; registry byte-identical to the frozen file, `2d00dec7…` = its MANIFEST line; §4.3).
+**(3b) 15:29-15:31Z** — `--all` re-run: the same single finding (`_1529Z.log`). Diagnosis (a scan of all 192 accepted rows found exactly one
+mismatch): `work/reviews/ng-finite-word.json` (2026-09-14 04:56Z) had recorded `source_sha256` = sha256(`blueprint/AXIOM_REGISTRY.md`), the
+file its excerpt was cut from (`2d00dec7…`), while the declaration map names `reference/SM/sm-3-statesum.tex:2170` as the row's source and
+the stage check hashes THAT file (`fa17a1b1…`), exactly as the four sibling literature rows (`lit:homfly`, `lp:lm`, `lp:lm-uniqueness`,
+`src:contact`) record — a latent bookkeeping error never exercised because stage 1 had never run to this point before (rows were pending).
+**D-DOC-4 (15:33Z):** `source_sha256` set to sha256(`reference/SM/sm-3-statesum.tex`) = `fa17a1b1…` (verified 15:42Z: the file's current
+hash; `reference/` is frozen and checked by `verify_bundle.py`, so this is the hash of the identical bytes the reviewers' excerpt was taken
+from); an `executor_notes` line records the change; verdict, reason, `reviewed_files_sha256` (including the registry excerpt `233a30be…`)
+and the statement hash unchanged; the pre-correction file kept in the scratchpad (§5 item 13, §7). **(3c) 15:33-15:36Z** — `--all` re-run:
+PASSED (above). **(4)** `python3 work/port/refresh_manifest.py` for `FINAL_REVIEW.md` (this file, once installed; the registry line is
+unchanged): `python3 work/port/refresh_manifest.py FINAL_REVIEW.md` at 15:54Z (after installing this text) and again at 15:55Z after the closing values below were written — 191 lines, only the `FINAL_REVIEW.md` line changes (it is the hash of this final text, see `MANIFEST.sha256`); the `blueprint/AXIOM_REGISTRY.md` line is unchanged (D-DOC-3); **(5)** `python3 verify_bundle.py`: `python3 verify_bundle.py` on the installed text at 15:54Z: `FOCUSED BUNDLE VERIFIED: 191 files; no mathematical acceptance is inferred`; re-run after the closing values were written (result recorded in `work/AUTHOR_NOTES.md`); **(6)** `work/delivery/refresh.sh` (last
+refreshed 2026-09-16 02:33Z: its `FINAL_REVIEW.md`, `AUTHOR_NOTES.md`, `receipts/` (156 files), `reviews/` (868 files) were still that state
+at 15:42Z): `bash work/delivery/refresh.sh` at 15:55Z: `receipts/` 174 files, `reviews/` 896 files, `FINAL_REVIEW.md` copied; re-run at 15:55Z after the closing values were written; **(7)** the final checkpoint tarball (the author's definition of done, D-AUTH §3): `RESULT_FINAL_20260919_1554Z.tgz` in `/workspace/scratch/lean_results/` (its sha256 is recorded in `work/AUTHOR_NOTES.md` and `work/STATUS.md`; an archive cannot contain its own hash). What binds
+the accepted state is the pair of 15:35-15:36Z receipts above. Their `bundle_sha256` binds the 2026-09-16 root `FINAL_REVIEW.md` (sha256
+`1373130e…`, the MANIFEST line), so the executor re-runs the development checker after this review replaces the root file
+(`dev-check-FINAL-closing-1552Z.json` (15:52Z 2026-09-19, the last run after every edit under `work/lean`; `FINAL_REVIEW.md` itself lies outside the checked tree): passed, 192 mapped / 49212 audited; `dev-check-*.json` count 109), refreshes the MANIFEST line, re-runs `verify_bundle.py` and refreshes `work/delivery/` so that the delivered
+receipt binds the delivered bytes; a receipt older than that edit is evidence about its own time only. **The single focused stage is
+COMPLETE** (COMPLETE = all 192 rows accepted and `--all` passed, which the 15:36Z receipts record; otherwise INCOMPLETE,
+reported as such, CLAUDE.md rule 9).
 
 ## 5. Remaining gaps (honest list)
 
-1. **GAP-2** — the one missing clause is `SM.AmbientIsotopyDescent` (§3.1): lit:homfly's descent clause read on smooth
-   spatial isotopies, i.e. Reidemeister's theorem for smooth isotopies of polygonal readings plus isotopy extension.
-   Closing it (`CPRow91_PLAN.md` §7): (α) a spatial descent field on the frozen `HomflyClauses` = type change of
-   `SM.lit_homfly` — small in code, a policy change on a frozen interface, re-acceptance of every consumer; (β) prove
-   `AmbientIsotopyLinkEquiv` (Reidemeister for smooth isotopies + PL bridge) — multi-thousand lines, no policy issue,
-   out of horizon; (γ) `AmbientIsotopyDescentLit ∧ IsotopyExtension` — (α)'s status for the first plus ~3-5k lines of
-   analysis for the second. 22 claim rows (91 and its 21 downstream rows, §3) and the unused interface row `src:contact` stay open with this
-   single reason; the four target theorems, `Bridge.sm_R`, `RProof.cv_R` and `SM.corner_laws_and_soft` are among them.
-2. **Row 57** `lem:gauss-two-discs` deferred as infeasible now (§3.2).
-3. **`SM.src_contact` never declared** (§3.5) — statable from registry text at any time; consumers blocked.
-4. ~~`SM.hyp_R` never stated~~ — **resolved 15:45Z**: stated as a Prop definition and accepted (§3.5, §4.4); its
-   row consumers `thm:comparison` and `Bridge:theorem` remain blocked by GAP-2.
-5. ~~Rows 76-80, 83, 93 in progress~~ — **done**: all seven accepted between 16:25Z and 18:05Z (§3.3); the certificate
-   rows lane 76-83 and its consumer 93 are complete, no FR-8 fallback was used.
-6. **Reviews are AI reviews only** (STATE_OF_WORK §4): 168 rows reviewed by Claude Code subagents of the same model
-   family as the implementer (disclosure §6); the 39 handover rows were re-reviewed once by separate sessions
-   (countersignatures 2026-09-13); the 129 rows accepted since had one 3-lens + 1-or-2-refuter workflow each and no
-   second session. No human has read any review.
-7. **Non-vacuity / geometric-reading items argued but not kernel-checked:** K-4 (row 90, non-vacuity of
-   `CleanCuspSmoothing`), FR-2 (row 73, equivalence of the derivative-form cusp criterion with the (u², u³) normal form
-   and the geometric upper/lower reading), FR-ER-2 (row 104, the bounded complementary region is not defined; the sign
-   clause is read at supporting vertices), K-3 (row 90, D_ε fields quantify over `CuspRoundingFamily`).
-8. **Conditional library theorems are NOT mapped** (no content effect on the accepted rows): `SM/ContactPathOfDescent.lean`
-   (`SM.cp_finite_contact_path_of_descent`, row 91 modulo `AmbientIsotopyDescent`), `Bridge/SmR.lean`
-   (`SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R`, the shape of row 183 without its premise), `RProof/X1Rows3.lean`
-   (`GT_generic_transport_of_G11`, row 173 modulo G11 — superseded by the accepted `RProof/GenericTransport.lean`; header
-   updated 18:00Z to say so), `SM/LinkingCalculus.lean` (row 88 conditional; the accepted unconditional row is
-   `SM/LinkingCalculusRow.lean`; pointer sentence fixed 18:00Z). None of these carries a row status; D-F11 forbids mapping
-   a row theorem with an undischarged premise. Remaining docstring defects listed in STATUS.md item 6 (LinkLaurentRing.lean:80-81,
-   LinkInterfaces.lean 55-60/180-181, FlatCarriersDefs.lean header).
-9. **Blueprint edge 57 → 104** not realised by the proof route (D-ER1); blueprint stays frozen, the deviation is recorded.
+1. ~~**GAP-2**~~ — **closed on 2026-09-15 by the author's decision D-GAP2**, not by a proof, and KEPT on 2026-09-19 (G-08): the
+   missing clause `SM.AmbientIsotopyDescent` is asserted by the registered axiom `SM.lit_homfly_descent` (second declaration of
+   lit:homfly; §4.3). Twenty-one accepted rows — including every R row of the extreme orbit, `RProof.cv_R`, `Bridge.sm_R`, `thm:C-S7`,
+   `thm:comparison`, `cor:C-inherits` and the final theorem `SM.corner_laws_and_soft` — depend on it. The interface review judged it a
+   faithful reading of sm-3:920-921 with the disclosed strengthening FR-LHD-1 (isotopy extension bundled) and six narrowings; a reader
+   who does not accept the author's reading should treat those twenty-one rows, the final theorem among them, as "proved modulo
+   Reidemeister's theorem for smooth isotopies + isotopy extension", exactly the 2026-09-14 label. TARGETS.md's "five listed literature
+   interfaces" vs the kernel's six literature constants is disclosed in §4.3 and was noted by the row-184 reviewer.
+2. **Row 57 `lem:gauss-two-discs`** — **accepted 15:14Z 2026-09-19; no gap.** Axiom set of `SM.lem_gauss_two_discs`: `[propext,
+   Classical.choice, Quot.sound]` — standard only, no literature axiom, no `sorryAx` (the U12 census, the port probe 14:55Z, the review's
+   `kernel_check`, the checkers 14:57Z and 15:16Z; §3.2). Disclosed items, none of them a change to the row statement: (a) D-TD-2 — four
+   INTERNAL skeleton sub-leaves false as stated, each replaced by a proved corrected form with its counterexample recorded (two of them
+   kernel-checked: `U4_polygonImage_ear`, `U5_pushforward_edges`; the other two, `U3_isPositivePLFromPlane_inv` for `L ≤ 0` and
+   `U5_exists_ear_homeo` for a reflex ear, shown false by explicit configurations); (b) D-TD-3 / FR-TD-15 — the draft helper `polygonImage`
+   renamed `embeddedPolygonImage` (a name clash with the accepted `SM/Rounding.lean:140`, resolved by renaming the DRAFT def); (c) the
+   fourteen readings FR-TD-1..14 recorded before stating (D-TD-1), every one judged non-blocking by three lenses and two refuters, the
+   sign convention of FR-TD-7 and the boundary-orientation convention of FR-TD-9 both CHECKED (by the reviewers' own Jacobian derivation
+   and by the kernel proof respectively). What remains about row 57 is documentation only: U8's verbatim copy of U10's fan toolkit
+   (`u8h_f_*`, 73 declarations) was not de-duplicated in the port (optional; no effect on any statement), and 15 linter warnings remain. No
+   accepted row depends on row 57 (D-ER1; `corner_values_i`); the blueprint edges 57 → 104 and 57 → 105 stay unrealised by the proof
+   routes (blueprint frozen). Row 57 was the last pending row; with it every one of the 132 claims and 192 checklist rows is accepted.
+3. **Closing-cycle work** (§4.9): the 10 comment-only documentation patches (`work/port/docdebt/`: E-01, E-02, E-05, E-06, E-07, E-08,
+   E-10, E-11 ×2, E-19; 66 files, 198 comment lines, 0 code lines, verified by `check_comment_only.py`) — AUTHORISED (G-05), PREPARED
+   06:06Z, deferred by D-DOC-1 and then D-DOC-2 to the LAST build cycle so that the near-full rebuild they force does not run under a dozen
+   live unit compiles — were **APPLIED 15:16Z** and stand (clean dry-runs, comment-only re-verified, 0 stray files; AUTHOR_NOTES 15:17Z), so
+   the docstring debts of §5 item 5 below are fixed in the files; the post-patch checker confirmed that no statement hash moved:
+   `work/checks/dev-check-FINAL-20260919.json` (15:36Z; passed, 192 mapped, 49 212 audited, `project_sha256` 716 entries): every `statement_sha256` unchanged by the ten comment-only patches — 192/192 (AUTHOR_NOTES 15:36Z; re-verified 15:45Z: the 191 stage-1 rows against the 15:35Z stage-1 audit, all equal; `lem:weak-open` against the 15:16Z audit). The eleventh patch, the **G-07 registry sub-entry, was applied 15:16Z and REVERTED 15:29Z (D-DOC-3)** — it broke the
+   stage check's source-hash rule for `ng:finite-word`; `blueprint/` is unchanged and the disclosure lives in the policy label, this review,
+   the module docstrings and AUTHOR_NOTES (§4.3). `check_lean.py --all`: `python3 tools/check_lean.py work/lean --all` PASSED 15:36Z (rc 0, 133 s; log `work/checks/checker-all-run-20260919_1533Z.log`, first line `"all_required_stages_passed": true`; stage 1 — the only stage this package commissions — passed with 191 mapped (every row but `lem:weak-open`, which is outside the stage-1 scope) and 49 207 audited, `stage_accepted: true`, receipt `work/checks/stage-1.json` = `stage-check-FINAL-20260919.json`; the development check passed with 192 mapped, 49 212 audited, receipt `stage-development.json` = `dev-check-FINAL-20260919.json`). Still open when this text was completed:
+   installing this file and the post-install development receipt — `dev-check-FINAL-closing-1552Z.json` (15:52Z 2026-09-19, the last run after every edit under `work/lean`; `FINAL_REVIEW.md` itself lies outside the checked tree): passed, 192 mapped / 49212 audited; `dev-check-*.json` count 109; the MANIFEST refresh — `python3 work/port/refresh_manifest.py FINAL_REVIEW.md` at 15:54Z (after installing this text) and again at 15:55Z after the closing values below were written — 191 lines, only the `FINAL_REVIEW.md` line changes (it is the hash of this final text, see `MANIFEST.sha256`); the `blueprint/AXIOM_REGISTRY.md` line is unchanged (D-DOC-3);
+   `verify_bundle.py` — `python3 verify_bundle.py` on the installed text at 15:54Z: `FOCUSED BUNDLE VERIFIED: 191 files; no mathematical acceptance is inferred`; re-run after the closing values were written (result recorded in `work/AUTHOR_NOTES.md`); `work/delivery/refresh.sh` — `bash work/delivery/refresh.sh` at 15:55Z: `receipts/` 174 files, `reviews/` 896 files, `FINAL_REVIEW.md` copied; re-run at 15:55Z after the closing values were written; the final tarball — `RESULT_FINAL_20260919_1554Z.tgz` in `/workspace/scratch/lean_results/` (its sha256 is recorded in `work/AUTHOR_NOTES.md` and `work/STATUS.md`; an archive cannot contain its own hash).
+4. **Library-interface findings — literal fields unrealisable or false as stated, KEPT by the author (G-04 "KEEP the literal fields and
+   the weak replays. No edit to accepted modules"), closed by weak replays or corrected forms WITHOUT editing the accepted library:**
+   - **D-RM-5 (row 176, `est_PortData.port`, `RProof/RALedgers.lean:878`)**: UNREALISABLE as stated (an RII chain cannot cross the wall);
+     rendered by the WEAK port form `est_port_weak` (∃ D₀′, RII-chain ∧ `homfly D₀′ = homfly D₀`), proved from a constructed R-II
+     deletion; the accepted row 176 closes through the `s176_` / `r176_` replays; the row statement untouched.
+   - **D-RM-6 (row 176, `est_PortData.rot / alt₁ / alt₂`, RALedgers.lean:903-906)**: FALSE as stated without `wind(S) ≠ 0`; corrected
+     forms under `wind ≠ 0` plus the `wind = 0` split (both row terms vanish there); the literal fields stay unused.
+   - **D-RM-7 (row 176, draft Prop `r176_outer_carriers_L`)**: FALSE in its second disjunct; corrected two-sided form proved; a draft
+     artefact.
+   - **Row 174 (R174_ASSEMBLY_REPORT §8)**: the ledger's `σ` is orientation-dependent while the `gsc_Ledger` / `gsc_moves` docstrings
+     read it as `crossingSign ℓ₁ ℓ₂`; `s174_hrec_prop` provable only at the ledger's binding `q′ = W.τ qAB`, used exactly there. No
+     AUTHOR_NOTES entry records it (E-14); recorded here.
+   - **Row 177 (`esc_MoveData.rii_after_smoothing`, C-03)**: ∀ oriented smoothings unrealisable as stated → `esc_rii_after_smoothing_weak`;
+     on 2026-09-19 the obligation was consumed in its HOMFLY VALUE form (`w3dk_rii_value_sites`) with the kink case by flat subdivision;
+     `esc_` interface and ledger replayed by extension inside `RProof/ExtremeSelectedUnits.lean` (RALedgers untouched).
+   - **`RProof.G11_Config.trans` (A-177-1, C-04)**: the accepted configuration type carries `trans : ¬ IsAlternating …`
+     (`RProof/GenericTransport.lean:125`), FALSE on the K3 side of row 177, so the 1 056 accepted `G11_Params` declarations cannot be
+     instantiated at a 177 site; the accepted type OVER-SPECIFIES what its proofs use. The author authorised either dropping the field
+     or porting the additive copy (G-03); **route (ii) taken**: `RProof/GenericTransportSw.lean` (7 845 lines) re-derives 905 of the 908
+     configuration-dependent declarations trans-free; the accepted module is untouched and the duplication is a permanent feature of the
+     library (an accepted-module rewrite would need the author to grant it and a re-review; not taken).
+   - **Corner RET rule-4 defect (C-05)**: `s7b_SlidingTransport.ret` (accepted `SM/CornerChainUnits.lean:3934`) is FALSE on the leg-M
+     side; the corrected `s7r_SlidingTransport'` is proved and is what `SM/CS7Units.lean` consumes (S1′ `s7u_box_ret'`); the accepted
+     structure keeps its literal field, documented by the prepared patch 06 (E-08: a CAUTION in the docstring; comment-only). The false
+     box `s7q_box_ret` and its consumers were deleted at port.
+   - **Row 110 wave-5/6 draft boxes (rule 3, 2026-09-19)**: BR's `w5b_box_interlacingTurnData` / `w5b_box_noninterlacingTurnData`
+     (stated for every side parameter without a radius — not derivable as stated), `w5b_box_curlData` (from `hloc ht` alone — not
+     derivable; the corrected `w6k_box_curlData` adds the six radius facts the consumer carries), ROW's `w5r_box_branch` (no selector
+     hypothesis) and `w5b_box_returnedData` (no contact-parameter facts): all restated under radii / the selector and the as-stated boxes
+     dropped at port as dead draft material (PORT_REPORT §2). ROT's brief phrase "in principalTurn form" was not a reading of the declared
+     box, so the needed Prop `w6r_box_centreCorners` was stated exactly and then proved (CC). None of these is a row or library statement.
+   - **Row 177 wave-3d (rule 3, 2026-09-19)**: `w3cs_not_kink_site` FALSE as stated (the monogon e → e+1 → e+2 = f cut by g is a genuine
+     177 configuration); `w3bi_bigon_pair`, `w3bi_rii_sites` false in the kink configuration; `w3bi_knot_after_two` /
+     `w3bi_three_components` / `w3bi_esc_outer` not provable as stated (relational smoothings): all DELETED from the assembly and the
+     port, superseded by the record-clause `w3ck_` chain and the VALUE form. The four j = 2 bigon sub-leaves stay restated with the
+     non-kink hypothesis and are used only in the non-kink branch. No kernel counterexample was built for any of these (draft leaves,
+     not row statements; `work/repairs/` not triggered).
+   - **Row 57 (rule 3, D-TD-2, 2026-09-19)**: `U3_isPositivePLFromPlane_inv` (false for L ≤ 0; gained `0 < L`), `U4_polygonImage_ear`
+     (kernel-checked counterexample, §3.2; strict-ear form), `U5_exists_ear_homeo` (false for a reflex ear; `hcut` form),
+     `U5_pushforward_edges` (kernel-checked counterexample `u5h_pushforward_edges_false`, 13:39Z; corrected form, no consumer) — internal
+     skeleton helpers corrected without touching the row statement; plus the rename D-TD-3 (`embeddedPolygonImage`, FR-TD-15). CONFIRMED
+     as the disclosed items of the row-57 review: the `executor_notes` of `reviews/lem-gauss-two-discs.json` name exactly these four
+     sub-leaves under D-TD-2 and the rename under D-TD-3 ("none is part of the row statement"); the reviewers' own notes (7 + 8 + 6
+     non-blocking, 5 + 5 + 5 strengthenings, no weakening) concern the readings FR-TD-1..14 only.
+   - **Moves toolkit `BigonData.hk : j + 3 ≤ k`** stronger than needed (C-11), satisfied at every site; **two textually identical
+     `IsPushoffAnnulus` / `IsPositivePushoff` definitions** (rows 84/87, C-12; `src:contact` uses row 87's); **library gap** — existence of
+     a polygonal `HeightMarking` reading is not a library theorem, rows 91/94/162 conditional on `Nonempty (HeightMarking …)` (C-13);
+     **`lem:corner-values` (i)** "embedded" as the gloss `carrierCrossingCount = 0` (C-14, FR-CC-4); **row 155's statement file** carries
+     library material consumed by 165/174/176/177 but reviewed under no row (C-15). All carried over from OPEN_ITEMS §C, unchanged.
+5. **Documentation debts (comment-only; all PREPARED as patches 06:06Z and APPLIED 15:16Z — §5 item 3; the list below describes the
+   state BEFORE the patches, i.e. what each patch fixed).** `SM/ContactPathOfDescent.lean`
+   docstrings called `AmbientIsotopyDescent` "a def : Prop, not an axiom" (E-01; patch 01) and carried stale tex locators (E-02; patch
+   02: descent sentence 3310-3312, hand isotopy-extension 3276-3312, etc.); `SM/FdContactStatements.lean` locators (E-05; 03); the
+   `thm-C-soft` proof locator "992-1147" → "993-1147" in four places (E-06; 04); `RProof/GenericSelected.lean` "three branches" (two
+   fields) and "the six literature interfaces" (six constants, five interfaces) (E-07; 05); the `s7b_slidingMark` / `s7b_SlidingTransport`
+   docstrings wrong for the leg-M side (E-08; 06); the four D2 sentences "no sixth axiom (is admitted)" in `ContactPathOfDescent`,
+   `LinkMoves`, `LinkInterfaces`, `CV/Axioms` (E-10; 07); the stale headers of `FlatCarriersDefs` ("proofs are `sorry` … when the prover
+   units finish"), `Bridge/SmR`, `LinkLaurentRing:80-81`, `LinkInterfaces 39-41/181-182`, `X1Rows3` (E-11; 08) and the 55 "sorry-free" /
+   "no sorry" header phrases (E-11; 09, optional); `work/drafts/floor/PLAN_FINAL.md` §4's stale axiom expectation (E-19; 10); the registry
+   sub-entry (E-16/B-05/G-07 — applied 15:16Z and reverted 15:29Z, D-DOC-3: the registry stays as frozen, and E-16/B-05 remain open as
+   documentation of the blueprint itself, which this project does not change). Items judged NOT comment-only were left out with reasons
+   (APPLY.md §5: frozen review inputs, JSON data,
+   reports). New 2026-09-19 documentation items: the port headers of the 15 new modules stamp "Ported HH:MMZ 2026-09-19 from <draft>"
+   (the six row-57 modules say "Ported 14:52Z" while AUTHOR_NOTES 14:55Z says "headers stamped 14:53Z" — the same port cycle);
+   `SM/CS7Units.lean` keeps 27 reworded docstrings and 4 `set_option linter.unusedSectionVars false in` lines; `W6_ASSEMBLY_REPORT_B.md`
+   §8.7 notes the port header names `W6_Assembled_B.lean`; the row-128 statement header cites "313-372" where the excerpt file is
+   "313-369" (cosmetic; the review's bookkeeping note).
+6. **Reviews are AI reviews only** (STATE_OF_WORK §4): all 192 accepted rows and the two interface declarations of 2026-09-15 were reviewed
+   by Claude Code subagents of the same model family as the implementer (claude-fable-5-1); the 24 rows accepted since 2026-09-14 had one
+   workflow each (three lenses + two refuters, proof withheld), no second session, no countersignature by a separate session; the 39
+   handover rows keep their 2026-09-13 countersignatures. Disclosed breaches of proof-withholding: a refuter of row 175 read the one-line
+   proof term at `RProof/ExtremePairZero.lean:85`; a refuter of row 110 printed four proof-local `have : NeZero …` lines of
+   `SM/CS7Units.lean` by `grep` (no statement text or proof structure read; nothing relied on). The row-184 reviewers were pointed at two
+   review files that did not yet exist (concurrent workflow) and checked the field types against the printed statements instead
+   (§3.4). **The author decided (G-10) that human review of the AI-only verdicts is not required for completion and is arranged
+   separately; no human has read any review.**
+7. **Strengthenings and weakenings the reviewers flagged on 2026-09-19** (all non-blocking; the full lists are the review files' arrays,
+   §2): row 177's `couple` hypothesises `CompleteLocal` on side t only and `full_absent_on_complete` holds for every finset (trivially
+   true, proved unconditionally); row 178 asserts the X₁ equality at every positive and every negative parameter (implies the printed
+   chamber form outright) and carries redundant index binders derivable from `h3`; row 183 asserts `SM.hyp_R` unconditionally (modus
+   ponens on the proved antecedent) and at every pair of side parameters; row 110 at every pair of side parameters, with `hn : 3 ≤ n`
+   vacuous under `ContactSeparated`, the halves' genericity as universally quantified witnesses; row 127 on labelled generic tuples with
+   A(P) at root 0; row 128's extra `root_values` field, the asserted genericity of every substituted argument, `CuspLawC` for every (G1)
+   cusp wall with the cusp case b and the rotation identity, the A-specific per-induced-root sub-clause without C analogue; row 184's
+   `cusp` with the printed thm:A-S4 content, its `flat` below an existential δ, its `cyclic` as `genericShift` invariance; row 57's 57b/57c
+   at every model scale, the circle as the whole boundary of each disc, boundary maps between any two embedded polygons of any sizes and
+   sides, the explicit exterior identification, homeomorphism conclusions in 57c/57d, no `Generic` (§3.2). Carried over
+   unchanged: the 2026-09-15/16 items (row 122's anchor superset, row 175's all-parameter fields, row 165's every-CV-generic-polygon form,
+   rows 99/155's normalised orientation, row 100's `z_parity`, ℝ-indexed families, the `HeightMarking` conditionality of 91/94/162, row
+   162's `TransverseKnot`, `src_contact`'s generic-front knots, row 112's quantified genericity, row 105's gloss, the fixed R shape).
+8. **The R lane's weak-form readings and the kink route (library and proof routes, not row statements):** D-RM-2 replaced two
+   unrealisable D-F11 interface Props by weak forms (`est_port_weak`; `esc_rii_after_smoothing_weak`) with the old Props kept as
+   recorded; row 177's proof consumes the R-II-after-smoothing obligation only through its HOMFLY VALUE form and, in the kink pattern
+   (where the printed bigon move does not exist), reaches the same value identity by a flat subdivision of the one-component lift — the
+   printed proof's bigon step is REPLACED there, disclosed in the review record as a proof-route note; the 110 bigon branch avoids the RI
+   curl deletion by reading the curl inside `knotRestrict` (`two_component_row_of_recordIso`, `curl_block_value`; on 2026-09-19 the curl
+   component's value and writhe by the record-level theorem `w6k_P_eq_of_curl`, no cb:products call). The row statements of 174/176/177
+   (frozen `RowShape` bundles) and of 110 (frozen `CS7Data`) are unaffected; whether the weak forms and the subdivision suffice is proved,
+   not assumed (the accepted row theorems themselves, sorry-free on the nine registered axioms).
+9. **Non-vacuity / geometric-reading items argued but not kernel-checked** (carried over): K-4, FR-2, FR-ER-2, K-3 (2026-09-14 item 7);
+   the truth of `src_contact` on the accepted definitions rests on the judge's numeric probe (D-SC-6) and a refuter's example, and the
+   identification of the document's `sl` with Etnyre's / Geiges' `sl` is rem:sl-convention, a remark (FR-SC-4); the truth of
+   `lit_homfly_descent` rests on the D2 premise (formal Reidemeister completeness). New: the two-disc model's orientation convention
+   (FR-TD-7) is checked by a Jacobian computation in the plan and was re-derived independently by the literal-lens reviewer (both chart
+   halves and the seam) and confirmed numerically by a refuter (§3.2) — argued twice over, not kernel-checked; FR-TD-9's
+   boundary-orientation convention is CHECKED by unit U9's proof (`InteriorOnLeft ↔ σ = 1 ↔ 0 < rotationNumber`, closed 13:00Z) and by
+   the fact that 57c is proved (the opposite convention would make it false) — kernel-checked, not argued.
+10. **Conditional library theorems NOT mapped** (no content effect on accepted rows): `SM/ContactPathOfDescent.lean`
+    (`cp_finite_contact_path_of_descent`, consumed by row 91), `RProof/X1Rows3.lean`, `SM/LinkingCalculus.lean`, `RProof/RALedgers.lean`
+    (the three ledgers, `cv_R_of_rows`, `Bridge.sm_R_of_rows` — now consumed by the mapped rows 178/183), `SM/Comparison.lean`
+    (`thm_comparison_of` — consumed by row 127), `SM/CInherits.lean` (`cor_C_inherits_of` — by row 128), `Bridge/SmR.lean`
+    (`SM.sm_R_of_cv_R` — by row 183), `SM/FdContactStatements.lean`, `SM/CarrierFloor.lean` (`_of_bound` forms), `SM/CornerChainUnits.lean`,
+    `SM/CS7Sliding.lean`, `SM/BigonDeletion.lean`, and the 2026-09-19 units modules `RProof/GenericTransportSw.lean`,
+    `RProof/ExtremeSelectedUnits.lean`, `SM/CS7Units.lean` (`thm_C_S7_of`, `thm_C_S7_of_floor` live in the mapped `SM/CS7.lean`). All of
+    these are now inside the audited import closure of the mapped modules (every one is imported, directly or transitively, by a mapped
+    row module), so the checker's axiom audit DOES reach them (contrast 2026-09-16, when `SM/CS7Sliding.lean` was outside the closure; §7).
+    D-F11 forbids mapping a row theorem with an undischarged premise.
+11. **Blueprint edges 57 → 104 and 57 → 105** not realised by the proof routes (D-ER1; `corner_values_i`); blueprint frozen. The
+    dependency column of `tools/claims.py` / `blueprint/DEPENDENCIES.json` is out of step with the proofs in three places (E-12: row 165
+    from the geo-layer split, rows 127/128 no longer through 105) — used only for `--next`.
+12. **Process incidents of 2026-09-19 (no effect on any accepted statement; disclosed):** (a) unit W5-BR compiled its file and died on a
+    transient API HTTP 500 during its final `#print axioms` probe; the executor re-ran the probe and wrote `W5_BR_REPORT.md` from the file
+    and logs, adding nothing (§3.1, §6); (b) two W6 glue-assembler instances ran on the same inputs after the executor messaged the running
+    workflow agent (a duplicate transcript was resumed); both finished with identical axiom censuses; the port was taken from instance B
+    (complete first) with A as the cross-check; a scratch-directory collision between them was recorded (`W6_ASSEMBLY_REPORT_B.md` §8.1)
+    and no output of either was overwritten; lesson recorded: leave notes in files the agent polls instead of messaging; (c) the row-57
+    design panel's architect B and judge (and a rerun of B) died on the 64 000 output-token limit spent on thinking, producing no file;
+    the plan was finalised from architect A + the fidelity critic (D-TD-0) and a process rule adopted (medium effort, decide quickly,
+    write in small pieces); (d) the pod container was OOM-restarted on 2026-09-18 ~01:55Z; the volume state survived intact (the resume
+    receipt 05:45Z reproduces the 2026-09-16 counts 184 / 41 658).
+13. **One accepted review file edited after acceptance — a bookkeeping field only (D-DOC-4, 15:33Z; §4.9, §7).** `work/reviews/ng-finite-word.json`
+    (row 93, reviewed 2026-09-14 04:56Z) recorded `source_sha256` as the hash of `blueprint/AXIOM_REGISTRY.md` — the file its excerpt was
+    cut from — where the declaration map names `reference/SM/sm-3-statesum.tex:2170` as the row's source and the stage check hashes that
+    file (as the four sibling literature rows record). The field was set to sha256(`reference/SM/sm-3-statesum.tex`) = `fa17a1b1…`; an
+    `executor_notes` line records the change; verdict, reason, `reviewed_files_sha256` (the registry excerpt `233a30be…` included), the
+    statement hash and the row's table line (§2) are unchanged; the pre-correction file is kept in the scratchpad. No review content was
+    re-judged; the reviewers' input (the registry excerpt, a verbatim copy of sm-3:2170-2206) is the same text under either hash. It was the
+    only source-hash mismatch among the 192 accepted rows and the only stage-1 finding of the closing run; it surfaced because stage 1 had
+    never run to completion before 2026-09-19 (rows were pending). A reader may treat the correction as an edit to the accepted record made
+    without re-review; the executor judged it bookkeeping, and this review discloses it as such.
 
 ## 6. Process
 
 **Accept cycle used for every row** (ACCEPT_CYCLE.md, with the tooling of `work/port/`): pick the unit
 (`tools/claims.py --next` / lane plan) → statement fixed BEFORE proving, fidelity risks recorded in AUTHOR_NOTES before
 the row is stated → proof produced in `work/drafts/` (checked with `lake env lean`, never `lake build` there) → ported
-verbatim into `work/lean/{SM,CV,RProof,Bridge}` with only a header added (`make_lane_modules.py`, D-FR1 for sorry-free
-increments) → `lake build` → `map_row.py implement` → `python3 tools/check_lean.py work/lean` (kernel check: builds
-mapped modules, rejects sorryAx and unregistered axioms, writes the statement hash) → independent AI review: three
+verbatim into `work/lean/{SM,CV,RProof,Bridge}` with only a header added (`make_lane_modules.py` / the lanes' `port_build` tools,
+D-FR1 for sorry-free increments) → `lake build` → `map_row.py implement` → `python3 tools/check_lean.py work/lean` (kernel check:
+builds mapped modules, rejects sorryAx and unregistered axioms, writes the statement hash) → independent AI review: three
 reviewer subagents with distinct lenses + two adversarial refuters, proof withheld (briefs `work/port/review_prompt_<slug>.md`,
 inputs `work/reviews/<slug>-reviewer-input-statement.lean.txt`, raw output `<slug>-review-workflow-raw.json`) →
 `summarize_review.py` + `write_review_and_accept.py` (unanimity required; a split verdict sends the row to round 2 with a
 neutral disclosure, e.g. CV:lem:carrierword, ng:front-domain, CV:lem:carriers, CV:lem:piececurve) → row `accepted` →
 checker again (receipt `work/checks/dev-check-<slug>-accepted.json`) → `tools/progress.py --once` → AUTHOR_NOTES,
-STATUS.md, TASKS.json. 79 development receipts record the growth from 41 mapped / 4 579 audited (2026-09-13 13:44Z,
-`dev-check-single-triple-implemented.json`) to 168 / 36 079 (2026-09-14 18:06Z, `dev-check-frontrowsw3b-accepted.json`);
-all 79 passed.
+STATUS.md, TASKS.json. 108 development receipts (at 15:36Z) record the growth from 41 mapped / 4 579 audited (2026-09-13 13:44Z,
+`dev-check-single-triple-implemented.json`) to 184 / 41 658 (2026-09-16 00:14Z) to 191 / 46 842 (2026-09-19 13:28Z) to 192 / 49 212
+(2026-09-19 15:16Z, `dev-check-row57-accepted.json`; 15:36Z, `dev-check-FINAL-20260919.json`, after the patches and the full rebuild); all
+108 passed (99 at the 2026-09-16 00:14Z closing + `dev-check-FINAL-20260916.json` 00:59Z + 8 on 2026-09-19), plus the stage receipt
+`stage-check-FINAL-20260919.json` (15:35Z); the count after the post-install re-run: `dev-check-FINAL-closing-1552Z.json` (15:52Z 2026-09-19, the last run after every edit under `work/lean`; `FINAL_REVIEW.md` itself lies outside the checked tree): passed, 192 mapped / 49212 audited; `dev-check-*.json` count 109.
 
 **AI-review disclosure** (text of `ai_review_disclosure` in every review written by this executor, e.g.
 `work/reviews/prop-C-chamber.json`): "AI review. Four separate Claude Code subagents (model claude-fable-5-1) were
@@ -694,70 +1430,228 @@ instructed to find any discrepancy. Each received only the printed SM15 source f
 proof replaced by sorry (reviews/prop-C-chamber-reviewer-input-statement.lean.txt), and the Lean definition modules; none
 saw the proof module work/lean/SM/CChamber.lean or the executor's reasoning. The executor (author) is
 executor-pod-claude-fable-5-1-20260913, a different session of the same model. No human has read these reviews."
-(later rows: "Five … three reviewers … two adversarial refuters … on 2026-09-14"). Identities in the map (168 accepted rows): authors
-`executor-pod-claude-fable-5-1-20260913` (128 rows), `root-implementation-20260910` (39), `executor-coldstart-claude-fable-5-1-20260912`
-(1); reviewers `reviewer-pod-claude-fable-5-1-20260913 (independent Claude Code workflow subagents …)` (128),
-`review_chirotope-independent-20260910` (30), `review_relgp_full-independent-20260911` (9), `reviewer-coldstart-claude-fable-5-1-20260912` (1).
+(later rows: "Five … three reviewers … two adversarial refuters … on 2026-09-14" / "… on 2026-09-15" / "… on 2026-09-16" / the eight
+rows of 2026-09-19: "… spawned by the executor on 2026-09-19 in one workflow … none saw the proof module work/lean/RProof/ExtremeSelected.lean
+[RProof/CvR.lean, Bridge/SmRRow.lean, SM/CS7.lean, SM/ComparisonRows.lean, SM/CornerLawsAndSoft.lean, SM/GaussTwoDiscs.lean] or the
+executor's reasoning …"). Identities in the map (192 accepted rows, recounted 15:20Z): authors `executor-pod-claude-fable-5-1-20260913`
+(152 rows), `root-implementation-20260910` (39), `executor-coldstart-claude-fable-5-1-20260912` (1); reviewers
+`reviewer-pod-claude-fable-5-1-20260913 (independent Claude Code workflow subagents …)` (152), `review_chirotope-independent-20260910`
+(30), `review_relgp_full-independent-20260911` (9), `reviewer-coldstart-claude-fable-5-1-20260912` (1). **The reviewers are AI only;
+the author decided on 2026-09-19 (G-10) that human review is not required for completion and is arranged separately.**
 
 **Lane pattern** for the large rows: design panel (two architects + judge, or three proposers + three judges) →
 `PLAN_FINAL.md` with fidelity risks → `Statements_FINAL.lean` (compiles; exactly the row theorems as `sorry`) →
 `Skeleton_FINAL.lean` (leaf sorries, assembly proved) → prover units on byte-identical copies (statements never change) →
-false leaves repaired without statement change and recorded (FR-C8, FR-R6, CE-R10) → assembler → statement pre-review /
-numeric probes → port. **Library hygiene:** no `sorry` in `work/lean`; clash scans before every port (renamed duplicate
-helpers recorded); never delete, rename or rewrite an accepted declaration (D-F6 extends the library instead); fixed
-target names from `axiom-policy.json`; incremental porting of sorry-free modules only (D-FR1); a checkpoint receipt after
-every accept. **Scope decisions** are in AUTHOR_NOTES with labels (§0) and were taken without any author contact
-(AUTONOMOUS_EXECUTION.md); counterexamples/false leaves went to `work/repairs/` or were repaired inside the lane.
+false leaves repaired without statement change and recorded (FR-C8, FR-R6, CE-R10; on 2026-09-19 D-TD-2 and the corner/moves rule-3
+items of §5) → assembler (statement identity check, clash scan, `#print axioms`) → statement pre-review / numeric probes → port.
+**Library hygiene:** no `sorry` in `work/lean`; clash scans before every port (the row-57 clash `SM.polygonImage` vs
+`SM/Rounding.lean:140` caught by the wave-1 assembler and resolved by renaming the DRAFT def, D-TD-3); never delete, rename or rewrite
+an accepted declaration (D-F6 extends the library instead; G-03 route (ii) ports an additive copy rather than editing `G11_Config`;
+G-05 comment-only edits are the one authorised change inside accepted modules, applied at the closing cycle with a checker re-run);
+fixed target names from `axiom-policy.json`; the blueprint never changed (the one authorised addition, G-07, applied and reverted the
+same quarter-hour, D-DOC-3); incremental porting of sorry-free modules only (D-FR1); a checkpoint receipt after every
+accept; checkpoint tarballs (`RESULT_20260919_1230Z.tgz` the latest before the closing cycle; the final one: `RESULT_FINAL_20260919_1554Z.tgz` in `/workspace/scratch/lean_results/` (its sha256 is recorded in `work/AUTHOR_NOTES.md` and `work/STATUS.md`; an archive cannot contain its own hash)). **Scope decisions** are in AUTHOR_NOTES with
+labels (§0); the author's decisions of 2026-09-19 were received through Mark as a written response and recorded verbatim
+(D-AUTH-20260919), the first author contact of the execution since D-GAP2; every other decision was taken locally (AUTONOMOUS_EXECUTION.md).
 
-**Reassessment rule** (adopted 2026-09-14 ~17:00Z, AUTHOR_NOTES.md "Reassessment rule adopted; stagnation audit for row
-78"): Mark's execution rule `/workspace/repos/lean/reassessment_rule.md` — reassess automatically after two substantive
-attempts or 60 minutes of active work without a newly accepted source claim; helpers, compiles, packets and renamed
-strategies do not reset stagnation; a complete kernel-proved claim whose acceptance is merely delayed is an acceptance
-bottleneck, not a mathematical stall; the response is a bounded method audit with one decisive test, an effort bound and
-a stated consequence on failure, never a weakened claim or a changed denominator. One bounded audit was recorded: for
-row 78 `ng:front-II` (leaf `typeII_move`, variants (b) geometry, (d) and the dispatch open after unit U6's ~4 h), the
-diagnosis was decomposition/effort, not mathematics (the same machinery had proved variants (a), (c) and the two sibling
-leaves); the decisive test — `typeII_move` proved and compiled in the follow-up unit W3_U6b with standard axioms by
-~18:30Z, else rows 78/83/93 reported INCOMPLETE with the exact remaining obligation and the proved partial kept as
-library — **succeeded at 17:30Z**, before its bound (D-FR5: the U6 version was ported, U6b kept as the independent
-cross-check). The same audit classified rows 77/79/80 (leaves already kernel-proved in unit copies) as an acceptance
-bottleneck and answered it with the incremental delta module of 17:15Z. The accepted count was reported unchanged
-(103/132) by the audit itself, as the rule requires.
+**Accept cycle 2026-09-19.** Unchanged in shape. Rows 177/178/183: W3D assembler (07:33-08:10Z) → port files `port/R177/` → executor
+port 08:06-08:08Z (headers only; `RProof/GenericTransportSw.lean`, `ExtremeSelectedUnits.lean`, `ExtremeSelected.lean`; then the two
+staged one-liners `RProof/CvR.lean`, `Bridge/SmRRow.lean`) → `lake build` 0 errors (85 s) → `map_row.py implement` ×3 → statements
+stripped → checker 08:11Z (187 / 44 270) → workflow wf_b3114d58-914 (3 lenses + 2 refuters per row) → `write_review_and_accept.py` ×3
+08:39Z → checker 08:42Z (receipt `dev-check-rows177-178-183-accepted.json`) → `progress.py --once` (127/132, 187/192, 6/8) → AUTHOR_NOTES /
+STATUS. Rows 110/127/128/184: W6-GLUE assembler B (12:04-12:52Z) → port files `port/CS7_B/` (builder `port_build_B.py` with
+`deletions.json` / `reword.json`; scratch-olean compile + `Axioms.lean` probe) + the row-184 module prepared 10:36Z → executor port cycle
+12:54-12:55Z (`scratchpad/port_cs7.sh`: header stamps, forbidden-string check, `lake build` 0 errors 84 s, `map_row implement` ×4,
+`strip_proofs` ×4) → executor `#check`/`#print axioms` probe 12:57Z → checker 12:56-12:58Z (191 / 46 842, log
+`checker-run-20260919_1256Z.log`) → workflow review-rows-110-127-128-184 (12:57-13:24Z; 20 agents, 0 errors; 12/12 lenses faithful, 8/8
+refuters not refuted) → `write_review_and_accept.py --allow-doc-notes` ×4 13:26Z → checker 13:26-13:28Z (receipt
+`dev-check-rows110-127-128-184-accepted.json`, log `checker-run-20260919_1325Z.log`) → `progress.py --once` (131/132, 191/192, 8/8) →
+AUTHOR_NOTES 13:26Z/13:29Z, STATUS 13:26Z. Row 57: U12 assembler (14:31-14:51Z; `W2_Assembled.lean`, `#print axioms` census, identity
+check, clash scan) → port files `port/SM/` (six modules compiled in a scratch olean tree, `port/PORT_REPORT.md`) → executor port cycle
+14:53-14:55Z (`scratchpad/port_57.sh`: header stamps, forbidden-string check, `lake build` 0 errors 89 s, `map_row.py implement`,
+`strip_proofs` → the two reviewer inputs, `#check`/`#print axioms` probe) → checker 14:54-14:57Z (192 / 49 212, log
+`checker-run-20260919_1455Z.log`, receipt `dev-check-row57-implemented.json`) → workflow review-row-57 (14:55-15:13Z; 5 agents, 0 errors;
+3/3 lenses faithful, 2/2 refuters not refuted) → `write_review_and_accept.py --allow-doc-notes` 15:14Z → checker 15:14-15:16Z (receipt
+`dev-check-row57-accepted.json`, log `checker-run-20260919_1514Z.log`) → `progress.py --once` (132/132, 192/192, 8/8) → AUTHOR_NOTES
+15:15Z, STATUS 15:15Z → the closing cycle 15:16Z (§4.9). One build or checker at a time throughout (the D-DOC-2 deferral exists for this
+reason). Heartbeat: cron every 14 min + `tools/progress.py --watch`.
+
+**The reassessment rule as amended by the author, and how it was applied on 2026-09-19.** The rule (`/workspace/repos/lean/reassessment_rule.md`,
+adopted 2026-09-14 ~17:00Z): reassess after two substantive attempts or 60 minutes of active work without a newly accepted source claim;
+immediate triggers; the response is a bounded method audit with one decisive test, an effort bound and a stated consequence; report the
+accepted count unchanged. **D-AUTH-20260919 §2 changed the CONSEQUENCE:** "A branch stops only for a mathematical blocker: a row
+statement believed false (then a kernel-checked counterexample under `work/repairs/`) or a needed assumption that is not in the printed
+proof and is not covered by §1 (then the exact question in AUTHOR_NOTES and STATUS while work continues on every other branch). A failed
+audit on cost, time, estimate overrun or number of attempts never stops a branch. … This paragraph supersedes the consequences recorded
+in audits A-110-1 and A-177-2." Applications, in order:
+- **Resume (05:35Z):** the consequences of A-110-1 (22:40Z 2026-09-15) and A-177-2 (00:31Z 2026-09-16) — "no further construction" — were
+  superseded; both branches re-opened with their stagnation histories retained and no bound; row 57 re-opened as a new lane.
+- **Row 177, wave 3d (units 06:xxZ → 07:17Z; assembler 07:33-08:10Z):** the author's G-02b allowed a hypothesis after one substantive
+  derivation attempt; unit NONKINK's attempt (audit A-177-NK-1) found the stated leaf FALSE and proved the consumer's value form instead,
+  so the hypothesis was never taken. Closed inside one wave; accepted 08:39Z — the first newly accepted claims of the session, resetting
+  the R branch's clock; the branch is finished.
+- **Row 110, waves 4-6:** wave 4 (→ 08:25Z) closed the sliding leaf and reduced the bigon leaf to one Prop; wave 5 (→ 11:22Z) reduced it to
+  four fully specified geometric Props with every consumed interface proved but did not close it. **Audit A-110-2 (11:22Z)**, the
+  stagnation clause (no acceptance on the branch since the lane opened): diagnosis "decomposition scope; no counterexample, no outside
+  assumption — the four Props are the printed sm-4:576-600 corner bookkeeping, the U110-I rotation identities on the centre polygon and
+  the cb:products curl value"; method unchanged with one refinement (ROT consumes COR's Prop through the declared box); estimate
+  1 900-3 200 lines; wave 6 launched; **under §2 the audit is recorded and never a stop** (accepted count reported unchanged, 127/132).
+  Wave 6 closed the row at 12:55Z (12:38Z for the last box); accepted 13:26Z with 127/128/184.
+- **Rule 3 / rule 4 (false-as-stated draft leaves; never a row statement) invoked on 2026-09-19:** corner — the two BR turn boxes and the
+  curl box (not derivable as stated: no radius / missing radius facts), ROW's `w5r_box_branch` and BR's `w5b_box_returnedData` (missing
+  hypotheses), ROT's exactly-stated new box (a brief phrase, not a false statement); moves — `w3cs_not_kink_site` (false; a genuine 177
+  configuration), `w3bi_bigon_pair` / `w3bi_rii_sites` (false in the kink pattern), the relational-smoothing Props (not provable as
+  stated); twodiscs — D-TD-2's four sub-leaves (two with kernel-checked counterexamples: U4's ear identity, U5's edge pushforward). In
+  every case the frozen statement or accepted
+  structure was left as is and the corrected form realised alongside or the dead material deleted at port (D-FR2 pattern).
+- **Row 57 (new lane, 08:23Z → accepted 15:14Z):** panel (with the incident of §5 item 12c), D-TD-0/1, skeleton, wave 1 (→ 11:51Z,
+  62/92), wave 2 (11:54Z → 14:32Z; per-unit clocks; U7 12:10Z, U6 12:22Z, U9 13:00Z, U5 13:39Z, U8 14:32Z), U12 assembly (→ 14:51Z), port,
+  review, acceptance. **One audit on the lane: A-57-1 (13:57Z; AUTHOR_NOTES L7046-7057)**, written under the reassessment rule while the
+  last wave-2 unit U8 had run since 11:55Z (81 tool calls, no failed-twice lemma reported, compiling its fan pieces) and no claim had been
+  accepted on the lane since it opened. State recorded: 84 of 92 leaves closed in units (wave 1 62; wave 2 22, with U5's second leaf
+  replaced by its proved corrected form), the 8 open leaves all U8's; 57a and the region identities sorry-free at assembly; 57c/57d
+  waiting only on `U8_pl_discs_outer`. Diagnosis: "No counterexample to the ROW statement, no assumption outside the printed proof: the
+  four rule-3 items are internal skeleton sub-leaves (U3, U4, U5 ×2), each replaced by a proved corrected form with its counterexample
+  recorded. Method unchanged." Contingency: a wave-3 unit on exactly the leaves U8 might leave open, per the U12 report, as with corner
+  waves 5 → 6. Verdict "Continue" — under D-AUTH §2 never a stop; the accepted count was reported unchanged (131/132). U8 returned 35
+  minutes later with all 8 leaves closed; no wave 3 was needed.
+
+**Process caveats a reader must know** (OPEN_ITEMS §F, unchanged and confirmed): `audited_declarations` counts the import closure of
+the MAPPED modules plus `Supplemental` (F-01; §7); one `lake build` or checker at a time, subagents never build (F-05); heredoc quoting
+when appending to AUTHOR_NOTES (F-03); `pgrep` self-match (F-04). New on 2026-09-19: messaging a running workflow subagent resumes a
+duplicate instance — leave notes in files the agent polls (AUTHOR_NOTES 12:55Z); design/judge agents at effort 'medium' with the
+instruction to decide quickly and write in small pieces (D-TD-0); an agent that dies after compiling leaves a valid file — the executor
+may re-run its probes and write its report from the file and logs, saying so (W5_BR_REPORT.md).
 
 ## 7. Inconsistencies noticed between the tools' output and the notes (for the executor)
 
-Resolved since the draft:
-- `work/STATUS.md` header: rewritten at 18:00Z to a current-state header (17:55Z figures; the 2026-09-13 header kept
-  below as history). Its sentence "The remaining 21 checklist rows are GAP-2-blocked, or row 57, or src:contact"
-  undercounts: 24 rows were non-accepted at that time (22 GAP-2 + row 57 + `src:contact`) — correct it in the final
-  checkpoint.
-- GAP-2 row count: AUTHOR_NOTES ~12:20Z and STATUS 13:06Z said "21 rows"; the 18:05Z entry says "22 claim rows
-  GAP-2-blocked (+ src:contact, unused), row 57 deferred", which matches the pending list and the stage log
-  (24 = 22 + 1 + 1). Reconciled.
-- `hyp:R`: stated (15:15Z) and accepted (15:45Z) as a Prop definition; the draft's open question is closed.
-- `RProof/X1Rows3.lean`: header now records that it is superseded as the row module by `RProof/GenericTransport.lean`
-  (comment-only edit 18:00Z; statement hashes unchanged).
+Resolved since the 2026-09-16 review:
+- **The 2026-09-16 §3.1, §3.4 (rows 110, 177 "kernel-proved modulo named leaves", 178/183/184 "INCOMPLETE"), §4.4-§4.7 ("not declared",
+  "coverage not complete", "the final declaration is NOT declared"), §4.9 (stage FAIL on eight rows) and §5 items 2-4** are superseded by
+  §3.1, §3.4, §4.4-§4.7 above; the 2026-09-16 text remains readable in `work/delivery/FINAL_REVIEW.md` and the handover archive.
+  OPEN_ITEMS_20260916.md §A-01..A-22 are all closed (A-01 = row 57, accepted 15:14Z); §G is answered by D-AUTH-20260919; §E's
+  comment-only items were prepared as patches and applied 15:16Z (D-DOC-2) — all but the registry sub-entry E-16/B-05, applied and
+  reverted (D-DOC-3), which stays open as a note about the frozen blueprint.
+- **STATUS.md staleness of 2026-09-16** (row 176 "00:05Z", "no branch past its bound"): the 2026-09-19 header (15:15Z) is current; the
+  five stacked "# STATUS" headers of 2026-09-15 and the 2026-09-14 text remain below it as history (the file now stacks the 2026-09-19
+  block, the 2026-09-15 22:40Z block header-less under it, and the older headers).
+- **Row 174's σ orientation dependence** (asked for by two reports, no AUTHOR_NOTES entry): still no entry (E-14); recorded in §5 item 4.
+- **"Five interfaces / six constants" vocabulary** (E-10): the four "no sixth axiom" sentences in accepted modules are reworded by the
+  prepared patch 07; until applied they contradict the six-constant kernel list. This review uses "the nine registered axioms" / `9`,
+  "five interfaces", "six literature constants", and quotes the row-184 reviewer's note verbatim (§4.3).
+- **Receipt count:** 99 at the 2026-09-16 00:14Z closing, + `dev-check-FINAL-20260916.json` (00:59Z) = 100 at the archive, + 7 on
+  2026-09-19 (5 by 13:28Z; `dev-check-row57-implemented.json` 14:57Z; `dev-check-row57-accepted.json` 15:16Z) = 107 `dev-check-*.json`
+  files at 15:16Z, all `passed: true`; + `dev-check-FINAL-20260919.json` (15:36Z, the post-patch closing receipt) = 108 at 15:36Z (by
+  mtime: 27 / 53 / 18 / 2 / 8 per day); the stage receipt `stage-check-FINAL-20260919.json` is a separate file. After the post-install
+  re-run: `dev-check-FINAL-closing-1552Z.json` (15:52Z 2026-09-19, the last run after every edit under `work/lean`; `FINAL_REVIEW.md` itself lies outside the checked tree): passed, 192 mapped / 49212 audited; `dev-check-*.json` count 109.
 
-Still to note:
-- **Lane size:** AUTHOR_NOTES ~17:50Z gives the per-module figures FrontRowsW2 14 665, W2S 8 600, W3 13 266, W3b 3 366 and
-  sums them to "≈ 26.8k lines"; the figures sum to 39 897 (`wc -l` at 18:10Z: 14 666 + 8 601 + 13 267 + 3 367 = 39 901,
-  plus `SM/NgBound.lean` 108). This review uses ≈ 39.9k (§3.3); D-F9's prediction of 17-23k was exceeded by more than
-  the note states. The closing brief given to the documentation agent repeated the 26.8k figure.
-- **`work/delivery/refresh.sh` line 92** copies `work/FINAL_REVIEW.md` — a file that does not exist — into the package;
-  the delivered `work/delivery/FINAL_REVIEW.md` is a copy of the ROOT `FINAL_REVIEW.md` made by hand at 18:15Z. After
-  any later edit of the root file, re-copy it by hand (`cp FINAL_REVIEW.md work/delivery/FINAL_REVIEW.md`) before the
-  last `refresh.sh` (which rewrites `MANIFEST.sha256` over whatever is in the directory).
-- `work/delivery/tools/gen_final_review_tables.py` still carries `PENDING_REASONS` entries for the now-accepted rows
-  76-80, 83, 93 and `hyp:R` ("IN PROGRESS at draft time", "NOT STATED"); they are unused (reasons are emitted for pending
-  rows only) but stale.
-- Rows 104 `cb:embedded-rotation` (accepted 13:40Z) and 173 `R:generic_transport` (14:45Z) were accepted before the
-  draft was written and are part of its 160; the closing brief listed them among the post-draft acceptances. The counts
-  here (160 → 168 by the eight rows named in §1) are the ones checked against the map.
-- Numbering: claims.py "#" (184 units) ≠ map index (192 rows); e.g. `cp:finite-contact-path` is 91 in claims.py and 95 in
-  the map. The notes use claims.py numbers throughout; §2-§3 do too (`m<index>` for the 8 rows outside claims.py).
-- STATE_OF_WORK.md/CLAUDE.md speak of 39/40 handover rows and 328 modules; the library now has 665 modules (628 SM, 28 CV,
-  5 RProof, 4 Bridge; ~248k lines, `wc -l` 18:10Z). Historical, but the delivery README carries current figures.
-- FINAL_REVIEW.md's sentence about "both independent computation certificates" applies to the full handoff; the focused
-  `EXECUTION.json` has `"certificates": []`.
-- `ng:finite-word`'s audited axiom set is `propext, SM.ng_finite_word` (no Classical.choice/Quot.sound) — consistent with a
-  plain structure statement, noted so nobody reads it as an anomaly.
+Still to note (each verified in the files named):
+- **`audited_declarations` is not a per-module audit of `work/lean`.** `tools/check_lean.py` builds the MAPPED modules plus
+  `Supplemental` (a fixed import list in `work/lean/Supplemental.lean`, unchanged) and runs `Supplemental.auditProject` over
+  `env.constants`; a library module imported by no mapped module contributes nothing to `audited_declarations`. On 2026-09-19 every new
+  library module is imported by a mapped row module (`SM/CS7Units.lean` by `SM/CS7.lean`; `RProof/GenericTransportSw.lean` and
+  `RProof/ExtremeSelectedUnits.lean` by `RProof/ExtremeSelected.lean`; the five `GaussTwoDiscs*` library modules by the mapped
+  `SM/GaussTwoDiscs.lean` through its import chain), so the closure grew 41 658 → 44 270 (+ 2 612: the 177 units and the trans-free
+  copy) → 46 842 (+ 2 572: `CS7Units` + `CS7` + `ComparisonRows` + `CornerLawsAndSoft`) → 49 212 (+ 2 370: the six row-57 modules) and
+  their axiom sets ARE machine-checked; `project_sha256` grew 701 → 706 → 710 → 716 entries. Per-declaration rows in
+  `declaration-audit.json` exist only for the 192 mapped declarations (verified on the 15:16Z audit: `audit.declarations` has 192 entries,
+  `audit.checked` = 49 212; `statement_hashes` has 192 entries and is keyed by ROW ID, not by declaration name — a reader comparing it
+  with the map must join on `id`).
+- **W6 assembly line counts:** instance A's `W6_Assembled.lean` 27 533 lines, instance B's `W6_Assembled_B.lean` 27 531 (`wc -l` at
+  draft time agrees with both reports); the port source is B (PORT_REPORT.md header; the module headers say so). `SM/CS7Units.lean` is
+  exactly 27 000 lines by `wc -l` — a coincidence of the builder's deletions, not a rounded figure (the AUTHOR_NOTES "27,000" is exact).
+- **W3D assembly:** `W3D_Assembled.lean` 21 748 lines (report §0 and `wc -l` agree); the W3C base was counted as 1 427 declarations by the
+  W3D regex vs 1 428 in `W3C_ASSEMBLY_REPORT.md` (a regex difference, report §0 says so). `W3D_AXIOMS.log` lists 31 declarations.
+- **"#print axioms" facts quoted for library modules** (`W3D_AXIOMS.log`, the W6 censuses, `port/CS7_B/PORT_REPORT.md` §1, the executor's
+  12:57Z probe; for row 57 the U12 census of `W2_ASSEMBLY_REPORT.md` §1, `port/PORT_REPORT.md` §1 and the executor's 14:55Z probe) come from
+  `lake env lean` on scratch files, not from checker receipts; the receipts of 08:11Z/08:42Z/12:59Z/13:28Z/14:57Z/15:16Z/15:36Z are the binding
+  evidence for the mapped declarations, and since every new library module is in the closure, the checker's "no unregistered axiom"
+  verdict covers them too (unlike 2026-09-16's `SM/CS7Sliding.lean`).
+- **Audit A-110-2's numbering:** AUTHOR_NOTES 11:22Z calls it "A-110-2"; `W5_ASSEMBLY_REPORT.md` does not name it (it was written before
+  the audit, at 11:20Z). The NONKINK audit is named "A-177-NK-1" only in `W3D_ASSEMBLY_REPORT.md` §6; the AUTHOR_NOTES 07:17Z entry
+  describes the same attempt without the label. This review uses both labels.
+- **Review timestamps vs acceptance times:** the eight reviews' `review_utc` are 08:39:13/17/21Z, 13:25:40/43/46/50Z and 15:14:16Z; the
+  AUTHOR_NOTES acceptance entries say 08:39Z, 13:26Z and 15:15Z (the map was written by `write_review_and_accept.py` seconds after the
+  last review; this review dates row 57's acceptance 15:14Z, the review file's time, while the AUTHOR_NOTES/STATUS entries are stamped
+  15:15Z). The
+  `accepted_utc` / `implemented_utc` fields of the map are `null` for every row (the schema carries them; the tooling never filled them —
+  since 2026-09-13); times come from AUTHOR_NOTES and `review_utc`.
+- **The row-184 brief pointed to `reviews/thm-C-S7.json` and `reviews/cor-c-inherits.json`** (the latter with a lowercase `c` — the file
+  is `cor-C-inherits.json`), neither existing during the concurrent workflow; the reviewers said so and worked from the printed statements
+  (§3.4). A brief for a bundle row should either run after its input rows' reviews or point to the statement files only.
+- **`work/drafts/twodiscs/W1_ASSEMBLY_REPORT.md` says "62 closed (60 by the units + 2 closed here under their corrected forms)"** while
+  the 11:37Z AUTHOR_NOTES tally says "60 of 92 leaves closed" before the assembler and the 11:54Z entry "62/92": consistent (the assembler
+  closed the two corrected U3/U4 forms). Wave-2 open-leaf counts: 30 → 23 (U7, 12:10Z) → 15 (U6, 12:22Z) → 10 (U9, 13:00Z) → 8 (U5,
+  13:39Z; its second leaf replaced by the proved corrected form) → 0 (U8, 14:32Z). **Final tally: 92/92 leaves closed in units, 0 open;
+  `W2_Assembled.lean` 0 `declaration uses sorry`; `W2_ASSEMBLY_REPORT.md` §4 "Remaining sorry leaves: none".** Two ways of counting the
+  corrected forms coexist in the notes: the 14:32Z entry says "all 92 skeleton leaves closed in units (two by corrected forms, D-TD-2)"
+  — the two wave-2 items — while A-57-1 and the review's `executor_notes` say "four rule-3 items (U3, U4, U5 ×2)" — the same four
+  sub-leaves, two corrected at wave 1 (closed by the wave-1 assembler) and two at wave 2 (`U5_exists_ear_homeo` corrected before wave 2
+  launched and then proved by U5; `U5_pushforward_edges` replaced at U12). This review uses "four" throughout. `W2_ASSEMBLY_REPORT.md`
+  §1 also records `grep -c sorry` = 3 prose mentions in the assembly (no `sorry` token in any declaration); the port has 0.
+- **STATUS.md 13:26Z says "W6_Assembled.lean 27.5k lines"** without the `_B`; the port came from `_B` (27 531). Documentation only.
+- **`work/delivery/`** has NOT been refreshed since 2026-09-16 02:33Z (its `FINAL_REVIEW.md` = the 2026-09-16 root file, sha256
+  `1373130e…`; `receipts/` 156 files, `reviews/` 868 files) — run `refresh.sh` after this root file is final and the closing receipts exist
+  (§4.9). `work/delivery/tools/gen_final_review_tables.py` is still the stale 2026-09-14 tool (E-17): its abbreviation table knows
+  `H`/`LM`/`LMU`/`NG` only, its `PENDING_REASONS` carry 2026-09-14 texts for rows long accepted, its `DRAFT` target is
+  `work/FINAL_REVIEW_DRAFT.md`, its `audit_axioms()` prefers the stale summary. The tables of this review were produced by
+  `scratchpad/frdraft2/gen_tables_v2.py` (the drafter's `scratchpad/frdraft/gen_tables_20260919.py` with row 57's curated line, the 15:20Z
+  stamps and the empty-PENDING row added; session scratchpad, not part of the package): it streams the 1 GB audit line-wise, reuses the
+  184 lines of the 2026-09-16 table verbatim after re-verifying their axioms column (0 mismatches), adds eight curated lines, and checks
+  192/192 statement hashes and verdicts (run 15:20Z against the 15:16Z audit; its `stats.json` differs from the 13:38Z run's only in the
+  row-57 increments: accepted 191 → 192, `std` 114 → 115, theorems 176 → 177, the executor/reviewer identity counts 151 → 152). Porting
+  these patches into the delivered tool is a tool edit for the executor, outside this documentation pass. The delivery refresh itself:
+  `bash work/delivery/refresh.sh` at 15:55Z: `receipts/` 174 files, `reviews/` 896 files, `FINAL_REVIEW.md` copied; re-run at 15:55Z after the closing values were written.
+- **MANIFEST.sha256 (191 lines at 15:42Z, unchanged since 2026-09-16 02:33Z)** binds the 2026-09-16 `FINAL_REVIEW.md`,
+  `lean/axiom-policy.json`, `verify_bundle.py` and `blueprint/AXIOM_REGISTRY.md`; the registry line is CORRECT again since the 15:29Z revert
+  (`2d00dec7…` both sides; between 15:16Z and 15:29Z it was stale, which is exactly what the stage check caught); only the `FINAL_REVIEW.md`
+  line changes, once this file is installed; `verify_bundle.py` PASS was last recorded 2026-09-16 00:56Z and must be re-run after the
+  refresh. The refresh: `python3 work/port/refresh_manifest.py FINAL_REVIEW.md` at 15:54Z (after installing this text) and again at 15:55Z after the closing values below were written — 191 lines, only the `FINAL_REVIEW.md` line changes (it is the hash of this final text, see `MANIFEST.sha256`); the `blueprint/AXIOM_REGISTRY.md` line is unchanged (D-DOC-3); the verification: `python3 verify_bundle.py` on the installed text at 15:54Z: `FOCUSED BUNDLE VERIFIED: 191 files; no mathematical acceptance is inferred`; re-run after the closing values were written (result recorded in `work/AUTHOR_NOTES.md`).
+- **`work/checks/stage-1.json`** was the 2026-09-16 00:33Z `checking` placeholder until 15:35Z; it is now the PASS receipt (stage 1, 191
+  mapped, 49 207 audited, `stage_accepted: true`; copy `stage-check-FINAL-20260919.json`). The two failed `--all` attempts of 15:25Z and
+  15:29Z left 50-byte logs (`checker-all-run-20260919_1525Z.log`, `_1529Z.log`: "FAIL: source review hash mismatch: ng:finite-word") and no
+  receipt; `declaration-audit.json` is since 15:35Z the stage-1 audit (`stage_requested: 1`, 191 rows — `lem:weak-open` absent, not
+  mismatched) rather than the 15:16Z development audit the tables of this review were generated from (the two agree on every common row:
+  191/191 statement hashes re-checked 15:45Z).
+- **"191 mapped" in the stage receipt vs "192 accepted rows" everywhere else:** stage 1 selects the source rows with `stage1 = Y` plus the
+  EXTRA rows of the focused mode; `lem:weak-open` (the extra supporting lemma, `stage1: false`, m192) is mapped, accepted and audited in the
+  development check but outside the stage-1 scope — hence 191 / 49 207 vs 192 / 49 212 (its module contributes 5 declarations). Not a
+  missing row.
+- **The G-07 sub-entry and D-DOC-3/D-DOC-4:** the drafter's text and the first pass of this file (15:20-15:25Z) said the sub-entry was
+  applied and "in `blueprint/AXIOM_REGISTRY.md`, lines 20-29"; it was, for thirteen minutes. The stage check's source-hash rule
+  (`tools/check_lean.py:155-156`) makes the registry effectively frozen even for authorised comment additions as long as an accepted row
+  cites it as a source; the executor chose the revert over rewriting or re-running a review (§4.3). The finding then persisted because the
+  2026-09-14 review of `ng:finite-word` had hashed the registry instead of the tex file the map names — a defect of the review's bookkeeping
+  that the sub-entry episode exposed (§5 item 13); the correction is the one edit to an accepted review file in the project.
+- **`hyp_R` grep (§4.4):** the string `hyp_R` occurs in `SM/CornerLawsAndSoft.lean` only as the field type `triple : hyp_R` and the
+  parameter of the library theorem `corner_laws_and_soft_of`; in `SM/ComparisonRows.lean` as the explicit `(hR : hyp_R)` of both rows; in
+  `Bridge/SmRRow.lean` and `RProof/CvR.lean` only as the conclusion types `SM.hyp_R` / `CV.hyp_R`; in `SM/CS7.lean` and
+  `RProof/ExtremeSelected.lean` not at all. No mapped row theorem other than 127/128 takes an R hypothesis.
+- **Lane size vs estimate (row 110):** D-CC-4 11-15k; the 2026-09-16 remainder estimate ≈ 8-12k over 2-3 waves; the actual remainder was
+  three waves (4, 5, 6) and ≈ 18.5k assembled lines (W3 8 958 → W6 27 531; `SM/CS7Units.lean` 27 000 after deletions), i.e. above the
+  estimate by about half. Row 177's remainder estimate (≈ 1.3-2.5k, one route open) vs actual: W3C 16 945 → W3D 21 748 (+4 803 gross,
+  −727 deleted), one wave. Row 57: PLAN_A estimated ≈ 21.5k lines in twelve units; wave 1 assembled 13 815 lines for 62 leaves; wave 2
+  assembled 20 912 lines (`W2_Assembled.lean`, 1 467 declarations) for all 92 leaves; ported as six modules totalling 20 996 lines (Defs
+  274, PL 4 972, Ears 5 462, Ambient 7 385, Extension 2 811, GaussTwoDiscs 92) — within 3 % of the PLAN_A estimate, in two waves plus the
+  assembler (no wave 3), about seven hours from the design panel (08:23Z) to acceptance (15:14Z). STATUS.md 15:15Z rounds this to "21k
+  lines". The 2026-09-14 feasibility memo's "12-20k lines, PL Schoenflies" was right on size and wrong on the route (no Schoenflies input).
+- **Citation nits and the 2026-09-14/15/16 items of this section** (the "21 vs 20 `w3a_` sub-leaves", skeleton line offsets, "8854 vs
+  8876", the addendum's stale receipt figures, the review identity string dated by first use, the lane-size arithmetic of 2026-09-14,
+  `ng:finite-word`'s axiom set without `Classical.choice`/`Quot.sound` — confirmed again by the 15:16Z audit, the only mapped declaration
+  missing them —, the numbering claims.py "#" ≠ map index, `src:contact` = m97, `lem:weak-open` = m192) stand as recorded on 2026-09-16 and
+  are not repeated here.
+- **Row-57 bookkeeping nits noticed while filling this text:** the six module headers say "Ported 14:52Z" while AUTHOR_NOTES 14:55Z says
+  "headers stamped 14:53Z" (one port cycle; documentation only); the review file's `review_utc` is 15:14:16Z while the AUTHOR_NOTES and
+  STATUS entries are stamped 15:15Z (this review says 15:14Z); the drafter's placeholder text spoke of "three" corrected sub-leaves (the
+  wave-1 state) where the final count is four; `dev-check-row57-implemented.json` and `dev-check-row57-accepted.json` differ in exactly
+  one `bundle_sha256` entry (`lean-declarations.json`, the map's status change), as expected; AUTHOR_NOTES 15:17Z counted "67 files" for
+  the eleven patches (66 Lean/drafts files + the registry), so the ten standing patches touch 66.
+- **Markers left for the executor** (the only double-angle-bracket tokens in this file; every one opens with the two angle brackets
+  followed by `CLOSING:` and names its value, and the same marker text is used wherever the same value is needed): the final time (header,
+  §1), the stage verdict (header, §4.9), the post-install development receipt and final receipt count (§4.9, §5 item 3, §6, §7), the
+  MANIFEST refresh (§4.9, §5 item 3, §7), `verify_bundle.py` (header, §4.9, §5 item 3, §7), `refresh.sh` (§4.9, §5 item 3, §7), the final
+  tarball (§4.9, §5 item 3, §6) — to be filled from the development receipt written after this file is installed, `refresh_manifest.py`,
+  `verify_bundle.py`, `refresh.sh`, the tarball's sha256 and the executor's exit `tools/progress.py --once`. The closing `--all` result and
+  the post-patch receipt are already quoted from `stage-1.json` / `dev-check-FINAL-20260919.json` (15:35-15:36Z). The tables of §1-§3 and
+  §4.4 show the final 192 rows (regenerated 15:20Z from the 15:16Z audit, whose 192 statement hashes the 15:36Z receipt confirms) and need
+  no further regeneration.

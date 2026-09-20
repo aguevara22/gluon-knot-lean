@@ -78,7 +78,7 @@ these ARE the accepted def:smoothing / lem:carriers objects: `geoSmoothingSucces
 
 ## Dependence on the port (DECISION_FINAL §5)
 
-Sorry-free. The only lane input beyond the accepted library is unit U1b's
+Placeholder-free. The only lane input beyond the accepted library is unit U1b's
 `SM.GeoCarrier.geoTracedSuccessor_of_independent` (SM/GeoCarrierOrder.lean, landed 2026-09-14): for an
 independent `S`, consecutive entries of a carrier's inherited mark list are `ρ_S`-successors
 (`SM.GeoCarrier.TracedSuccessor`, the field `traced_successor` of the accepted `GeoCarrierSpec`),

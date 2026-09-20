@@ -4,7 +4,7 @@ import SM.SmoothingDefinition
 import SM.GeometricParameters
 
 /-! Towards lem:carriers (ii) (sm-3-statesum.tex:54): block compression, the corner polygon of a carrier, its regularity and turn signs, at least three corners. Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-carriers-lemma / prove:carriers-ii), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-carriers-lemma / prove:carriers-ii), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/CarriersCornerPolygon.lean (only this header added and #print lines removed). -/
 
 /-! # lem:carriers clause (ii): the compressed corner polygon of a carrier

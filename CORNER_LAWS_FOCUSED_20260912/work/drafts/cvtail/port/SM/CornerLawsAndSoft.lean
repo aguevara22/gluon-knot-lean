@@ -1,0 +1,86 @@
+-- Ported <HH:MM>Z 2026-09-19 from work/drafts/cvtail/Wave1_Assembled.lean lines 4231-4386 (the row-184 block: CyclicLawC, CornerLawsAndSoftData, corner_laws_and_soft_of, corner_laws_and_soft; edit A-22 applied: CInheritsData / CuspLawC / ReversalLawC / TrianglesC taken from SM.CInherits via SM.ComparisonRows) by the pod executor.
+import SM.ComparisonRows
+import SM.CSoft
+import SM.CS5
+import SM.CS3
+import SM.CSilent
+import SM.CChamber
+import Bridge.SmRRow
+
+/-! # Row 184 SM:corner_laws_and_soft — `SM.corner_laws_and_soft : CornerLawsAndSoftData`
+
+TARGETS.md's FINAL target: "the final assembly instantiates that conditional theorem with the separately
+proved R result".  The bundle `CornerLawsAndSoftData` has one field per item of TARGETS' "Required coverage",
+each on its printed domain and with NO R parameter (hyp:R is a field, discharged by `Bridge.sm_R`, FR-F-184-1).
+The conditional theorem `corner_laws_and_soft_of` (AN L5801-5815) is instantiated at the accepted rows
+prop:C-chamber, prop:C-silent, thm:C-S3, thm:C-S5, thm:C-soft, def:C's cyclic invariance
+(`cornerStateSum_genericShift`), the proved rows Bridge:theorem (`Bridge.sm_R`), thm:C-S7 (`thm_C_S7`) and
+cor:C-inherits (`cor_C_inherits Bridge.sm_R`).  Port-time edit A-22 (OPEN_ITEMS §A-22 / comparison PLAN_FINAL §6):
+the tail draft's `CInheritsData` / `CuspLawC` / `ReversalLawC` / `TrianglesC` copies are REPLACED by
+`import SM.CInherits` (the comparison lane's FINAL 12-field bundle, D-CM-3); `corner_laws_and_soft_of` reads
+only `hinh.cusp_law`, `hinh.reversal_law`, `hinh.triangles`, at unchanged types, so its text is unchanged.
+`CyclicLawC` stays the tail's own (subsumed by `shift_invariant`; discharged by the accepted
+`cornerStateSum_genericShift`). -/
+
+namespace SM
+
+open WallGerm SoftDuplication
+
+/-- cor:A-lawful's cyclic identity: `C` is a function of the polygon (def:C's cyclic quotient). -/
+def CyclicLawC : Prop :=
+  ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (P : GenericTuple n) (a : ZMod n),
+    cornerStateSum hn (genericShift a P).2 = cornerStateSum hn P.2
+
+/-- **Row 184, the statement** (FIXED name `SM.corner_laws_and_soft : CornerLawsAndSoftData`): the
+conjunction of the actual `C` identities, one field per item of TARGETS' "Required coverage", each on its
+printed domain, with no R parameter. -/
+structure CornerLawsAndSoftData : Prop where
+  /-- "Chamber constancy" — prop:C-chamber (accepted) -/
+  chamber : CChamberData
+  /-- "and silent-wall invariance" — prop:C-silent (E) and (C) (accepted) -/
+  silent : CSilentData
+  /-- "The flat deletion law" — thm:C-S3 (accepted) -/
+  flat : CS3Data
+  /-- "Both bigon branches and the sliding branch of the vertex-edge law, with the stated sign and the
+  actual two child polygons" — thm:C-S7 (`VertexEdgeAt` is bigon ∨ sliding, `vertexEdge_bigon_or_sliding`) -/
+  vertex_edge : CS7Data
+  /-- "Triple-wall invariance at every source simple triple wall, after proving R" — hyp:R, PROVED
+  (Bridge:theorem), no R assumption retained -/
+  triple : hyp_R
+  /-- "The full cusp jump on the source domain (the deletion satisfies G1), including threaded cusps" —
+  cor:C-inherits' cusp law -/
+  cusp : CuspLawC
+  /-- "retain the direct empty-cusp zero result" — thm:C-S5 (accepted) -/
+  empty_cusp : CS5Data
+  /-- "The soft theorem in every sector, including zero-selector sectors" — thm:C-soft -/
+  soft : CSoftData
+  /-- "the normalizations and reversal/cyclic identities inherited with cor:A-lawful": reversal -/
+  reversal : ReversalLawC
+  /-- — cyclic (def:C's cyclic quotient, accepted `cornerStateSum_genericShift`) -/
+  cyclic : CyclicLawC
+  /-- — the triangle normalizations -/
+  triangles : TrianglesC
+
+/-- **Row 184 modulo hyp:R, rows 110, 112 and 128**, PROVED from the accepted rows prop:C-chamber,
+prop:C-silent, thm:C-S3, thm:C-S5 and def:C's cyclic invariance.  No R parameter remains in the row:
+`hR` is discharged by `Bridge.sm_R`. -/
+theorem corner_laws_and_soft_of (hR : hyp_R) (h7 : CS7Data) (hs : CSoftData) (hinh : CInheritsData) :
+    CornerLawsAndSoftData where
+  chamber := prop_C_chamber
+  silent := prop_C_silent
+  flat := thm_C_S3
+  vertex_edge := h7
+  triple := hR
+  cusp := hinh.cusp_law
+  empty_cusp := thm_C_S5
+  soft := hs
+  reversal := hinh.reversal_law
+  cyclic := fun _ _ hn P a => cornerStateSum_genericShift hn a P
+  triangles := hinh.triangles
+
+/-- **Row 184, SM:corner_laws_and_soft** (FIXED name): "the final assembly instantiates that conditional
+theorem with the separately proved R result" (TARGETS.md). -/
+theorem corner_laws_and_soft : CornerLawsAndSoftData :=
+  corner_laws_and_soft_of Bridge.sm_R thm_C_S7 thm_C_soft (cor_C_inherits Bridge.sm_R)
+
+end SM

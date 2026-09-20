@@ -9,7 +9,7 @@ sign changes and transversality), CV:lem:guardconst (1107-1121) and CV:def:silen
 each with a row bundle and its theorem (`CV.interlace_definition`, `CV.event_definition`, `CV.guardconst`, `CV.silent_definition`).
 Follows the CV-lane plan (work/reports/cv-lane-plan-20260913.md) and decision F2 (no domain narrowing). Written 2026-09-13 by Claude
 Code implementer subagents of the pod executor (workflow implement-cv-definitions, then unified with CV.Setup by a second subagent),
-checked with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/CV_Events_unified.lean (only this header
+checked with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/CV_Events_unified.lean (only this header
 added and #print lines removed). Revised 2026-09-13 (work/drafts/CV_Events_rev.lean, after an independent review of rows 134 and 148):
 row 134's bundle lost the `U(S)` clause and the cross-lane `generic_agree` clause (now the standalone theorem
 `CV.interlace_generic_agree`) and gained the printed vertex set — the crossing point map is a bijection from `SM.Crossing P` onto the

@@ -1,4 +1,5 @@
 -- Ported 15:19Z 2026-09-14 from work/drafts/hypr/HypR.lean Part 3 (hyp:R architect unit) by the pod executor; body verbatim. LIBRARY: `SM.sm_R_of_cv_R : CV.hyp_R → SM.hyp_R` is proved from accepted rows; the fixed-name row Bridge:theorem (`Bridge.sm_R : SM.hyp_R`) is NOT declared — it needs RProof.cv_R (R:cv_theorem), blocked by GAP-2.
+-- Header note 2026-09-19 (comment only; no declaration changed; D-AUTH-20260919 G-05, OPEN_ITEMS_20260916.md §E-11): GAP-2 was CLOSED on 2026-09-15 by the author's decision D-GAP2 (axiom SM.lit_homfly_descent, SM/LitHomflyDescent.lean); `Bridge.sm_R` now waits only on `RProof.cv_R` (row 178 R:cv_theorem, a staged one-liner in work/drafts/cvtail/port/R178_183/), which waits on row 177 R:extreme_selected (OPEN_ITEMS_20260916.md §A-15, §A-19, §A-20).
 import SM.HypR
 import RProof.X1Rows
 import Bridge.B4

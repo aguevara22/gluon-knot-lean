@@ -1,0 +1,1625 @@
+⚠ [1209/1547] Replayed SM.Polygon
+warning: SM/Polygon.lean:75:42: This simp argument is unused:
+  add_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [edge, shift, add_assoc, add_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [1210/1547] Replayed SM.Chirotope
+warning: SM/Chirotope.lean:105:62: This simp argument is unused:
+  add_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [turn, chi_shift, sub_eq_add_neg, add_assoc, add_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [1233/1547] Replayed SM.Generic
+warning: SM/Generic.lean:86:73: Try `simp at hi` instead of `simpa using hi`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: SM/Generic.lean:89:33: Variable name `hn` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hn
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [1244/1547] Replayed SM.G1Consequences
+warning: SM/G1Consequences.lean:124:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/G1Consequences.lean:125:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [1251/1547] Replayed SM.CrossingCriterion
+warning: SM/CrossingCriterion.lean:107:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [1523/1848] Replayed SM.Crossings
+warning: SM/Crossings.lean:105:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Crossings.lean:106:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Crossings.lean:115:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Crossings.lean:162:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [1524/1848] Replayed SM.CrossingEquiv
+warning: SM/CrossingEquiv.lean:14:46: This simp argument is unused:
+  add_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [translateSupport, Finset.image_image]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/CrossingEquiv.lean:54:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CrossingEquiv.lean:64:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CrossingEquiv.lean:65:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [1525/1848] Replayed SM.Traversal
+warning: SM/Traversal.lean:65:0: Definition `SM.traversalLinearOrder` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+warning: SM/Traversal.lean:68:0: Definition `SM.traversalCircularOrder` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+⚠ [1526/1848] Replayed SM.GaussVisits
+warning: SM/GaussVisits.lean:90:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [1527/1848] Replayed SM.GaussWord
+warning: SM/GaussWord.lean:30:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:31:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:37:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:38:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:50:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:51:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:57:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:58:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GaussWord.lean:77:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3043/3078] Replayed SM.GaussCyclicGap
+warning: SM/GaussCyclicGap.lean:13:0: automatically included section variable(s) unused in theorem `SM.gaussCycle_nodup`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/GaussCyclicGap.lean:16:0: automatically included section variable(s) unused in theorem `SM.mem_gaussCycle`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/GaussCyclicGap.lean:34:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3046/3078] Replayed SM.TraversalRelabel
+warning: SM/TraversalRelabel.lean:57:24: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/TraversalRelabel.lean:66:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/TraversalRelabel.lean:68:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [3047/3078] Replayed SM.TraversalArcs
+warning: SM/TraversalArcs.lean:13:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3048/3078] Replayed SM.Interlacement
+warning: SM/Interlacement.lean:40:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3049/3078] Replayed SM.VisitRelabel
+warning: SM/VisitRelabel.lean:35:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3072/3095] Replayed SM.InterlaceRelabel
+warning: SM/InterlaceRelabel.lean:23:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3073/3095] Replayed SM.InterlaceSupports
+warning: SM/InterlaceSupports.lean:35:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/InterlaceSupports.lean:57:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/InterlaceSupports.lean:72:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3074/3095] Replayed SM.CarrierMarks
+warning: SM/CarrierMarks.lean:42:0: automatically included section variable(s) unused in theorem `SM.Carrier.markPosition_vertex`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:45:0: automatically included section variable(s) unused in theorem `SM.Carrier.markPosition_visit`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:49:0: automatically included section variable(s) unused in theorem `SM.Carrier.markPosition_evaluation_vertex`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:54:0: automatically included section variable(s) unused in theorem `SM.Carrier.markPosition_evaluation_visit`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:60:0: automatically included section variable(s) unused in theorem `SM.Carrier.markPosition_injective`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:86:0: automatically included section variable(s) unused in theorem `SM.Carrier.markKey_visit`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierMarks.lean:107:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CarrierMarks.lean:113:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CarrierMarks.lean:119:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CarrierMarks.lean:125:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3075/3095] Replayed SM.CarrierSuccessor
+warning: SM/CarrierSuccessor.lean:120:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3076/3095] Replayed SM.CarrierVisitTwin
+warning: SM/CarrierVisitTwin.lean:85:2: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/CarrierVisitTwin.lean:89:2: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [3090/3108] Replayed SM.GenericTopology
+warning: SM/GenericTopology.lean:117:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GenericTopology.lean:118:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3092/3108] Replayed SM.CarrierSmoothing
+warning: SM/CarrierSmoothing.lean:41:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedMarkPerm_vertex`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSmoothing.lean:45:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedMarkPerm_visit`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSmoothing.lean:48:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedMarkPerm_involutive`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSmoothing.lean:64:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedMarkPerm_commute`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSmoothing.lean:72:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedMarkPerm_union_of_disjoint`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSmoothing.lean:183:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CarrierSmoothing.lean:184:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3093/3108] Replayed SM.CarrierSingleSwitch
+warning: SM/CarrierSingleSwitch.lean:37:0: automatically included section variable(s) unused in theorem `SM.Carrier.selectedVisitTwin_singleton`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CarrierSingleSwitch.lean:76:10: This simp argument is unused:
+  or_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3095/3108] Replayed SM.Chambers
+warning: SM/Chambers.lean:37:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:42:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:50:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:112:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:113:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:126:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Chambers.lean:127:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3096/3108] Replayed SM.ChamberPaths
+warning: SM/ChamberPaths.lean:24:0: automatically included section variable(s) unused in theorem `SM.generic_family_edgeParameter_continuous`:
+  [PreconnectedSpace α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [PreconnectedSpace α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3098/3108] Replayed SM.ZeroTriples
+warning: SM/ZeroTriples.lean:53:4: Try `simp at hm` instead of `simpa using hm`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3099/3108] Replayed SM.SinglePointTriple
+warning: SM/SinglePointTriple.lean:26:0: automatically included section variable(s) unused in theorem `SM.chi_zero_of_vertices_eq`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/SinglePointTriple.lean:55:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3100/3108] Replayed SM.FiniteChiStability
+warning: SM/FiniteChiStability.lean:13:0: automatically included section variable(s) unused in theorem `SM.chi_locally_constant_of_ne_zero`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3101/3108] Replayed SM.WeakGeneric
+warning: SM/WeakGeneric.lean:32:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/WeakGeneric.lean:33:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3106/3120] Replayed SM.AffineSegments
+warning: SM/AffineSegments.lean:31:41: Variable name `hs0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hs0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/AffineSegments.lean:32:19: Variable name `ht1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ht1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3108/3120] Replayed SM.CyclicChambers
+warning: SM/CyclicChambers.lean:86:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CyclicChambers.lean:87:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CyclicChambers.lean:143:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3111/3120] Replayed SM.GermSignChange
+warning: SM/GermSignChange.lean:25:33: Variable name `hδ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hδ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3114/3120] Replayed SM.TurnSupports
+warning: SM/TurnSupports.lean:12:0: automatically included section variable(s) unused in theorem `SM.small_natCast_ne_zero`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/TurnSupports.lean:20:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/TurnSupports.lean:19:0: automatically included section variable(s) unused in theorem `SM.turnSupport_card`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/TurnSupports.lean:54:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3115/3120] Replayed SM.SingleTripleTransverse
+warning: SM/SingleTripleTransverse.lean:22:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3117/3120] Replayed SM.CuspDefinition
+warning: SM/CuspDefinition.lean:27:0: automatically included section variable(s) unused in theorem `SM.cusp_indices_A`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CuspDefinition.lean:33:0: automatically included section variable(s) unused in theorem `SM.cusp_indices_B`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3118/3120] Replayed SM.CuspCenter
+warning: SM/CuspCenter.lean:49:0: automatically included section variable(s) unused in theorem `SM.cusp_negative_pair`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3119/3141] Replayed SM.CuspParameters
+warning: SM/CuspParameters.lean:13:0: automatically included section variable(s) unused in theorem `SM.edgeParameter_reverse_eq_second`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CuspParameters.lean:91:0: automatically included section variable(s) unused in theorem `SM.continuousAt_edgeParameter_of_det`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CuspParameters.lean:97:0: automatically included section variable(s) unused in theorem `SM.continuous_cuspDelta`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3120/3141] Replayed SM.RootBoundary
+warning: SM/RootBoundary.lean:14:0: automatically included section variable(s) unused in theorem `SM.boundaryIndex_injective`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:22:0: automatically included section variable(s) unused in theorem `SM.boundaryWord_shift`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:29:0: automatically included section variable(s) unused in theorem `SM.boundaryWord_first`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:33:0: automatically included section variable(s) unused in theorem `SM.boundaryWord_last`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:42:0: automatically included section variable(s) unused in theorem `SM.boundaryWord_leaf_edge`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:57:0: automatically included section variable(s) unused in theorem `SM.BoundaryInterval.leaves_pos`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RootBoundary.lean:74:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.parts_lt`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3121/3141] Replayed SM.FiniteCompositions
+warning: SM/FiniteCompositions.lean:32:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.part_leaves_lt`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3122/3141] Replayed SM.CompositionCutSet
+warning: SM/CompositionCutSet.lean:20:7: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.ext`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CompositionCutSet.lean:26:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.card_ge_two`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CompositionCutSet.lean:87:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.cutSet_card`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3123/3141] Replayed SM.InteriorCutSet
+warning: SM/InteriorCutSet.lean:36:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.interior_ofInterior`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/InteriorCutSet.lean:81:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.mem_restrict`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3124/3141] Replayed SM.CompositionSegments
+warning: SM/CompositionSegments.lean:9:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.part_bounds`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CompositionSegments.lean:18:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.part_order`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CompositionSegments.lean:26:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.exists_halfOpen_part`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3125/3141] Replayed SM.Gates
+warning: SM/Gates.lean:76:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/Gates.lean:79:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.binary_near_eq_far`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/Gates.lean:159:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearSign_shift`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/Gates.lean:165:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.farSign_shift`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3126/3141] Replayed SM.NearFar
+warning: SM/NearFar.lean:74:0: automatically included section variable(s) unused in theorem `SM.geometricBoundaryArray_near`:
+  [NeZero n]
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NearFar.lean:78:0: automatically included section variable(s) unused in theorem `SM.geometricBoundaryArray_far`:
+  [NeZero n]
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NearFar.lean:100:0: automatically included section variable(s) unused in theorem `SM.geometricBoundaryArray_shift`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3128/3158] Replayed SM.ConsecutiveCuts
+warning: SM/ConsecutiveCuts.lean:11:0: automatically included section variable(s) unused in theorem `SM.BoundaryInterval.eq_of_endpoints`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveCuts.lean:30:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.consecutive_restrict_iff`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveCuts.lean:52:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.part_consecutive`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveCuts.lean:64:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.part_injective`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3130/3158] Replayed SM.InteriorCutIndex
+warning: SM/InteriorCutIndex.lean:12:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.interiorPosition_injective`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/InteriorCutIndex.lean:21:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.interiorPosition_mem`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3131/3158] Replayed SM.ConsecutiveTriples
+warning: SM/ConsecutiveTriples.lean:46:0: automatically included section variable(s) unused in theorem `SM.IncreasingBoundaryTriple.eq_of_entries`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveTriples.lean:70:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearTriple_leftInterval`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveTriples.lean:74:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearTriple_rightInterval`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/ConsecutiveTriples.lean:83:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearTriple_middle_position`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3132/3158] Replayed SM.RefinedInterior
+warning: SM/RefinedInterior.lean:11:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.mem_interior_iff`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3133/3158] Replayed SM.MarkedRefinement
+warning: SM/MarkedRefinement.lean:14:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.cuts_subset_iff_interior_subset`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3136/3158] Replayed SM.RefinedWeights
+warning: SM/RefinedWeights.lean:52:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearFarWeight_near_only`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RefinedWeights.lean:56:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearFarWeight_far_only`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3137/3158] Replayed SM.NearFarCutExpansion
+warning: SM/NearFarCutExpansion.lean:13:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearFarWeight_marked_expansion`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3138/3158] Replayed SM.TreeCoefficient
+warning: SM/TreeCoefficient.lean:93:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearSign_eq_of_chi`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/TreeCoefficient.lean:97:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.farSign_eq_of_chi`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3139/3158] Replayed SM.UnaryComposition
+warning: SM/UnaryComposition.lean:12:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.eq_single_of_parts_eq_one`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/UnaryComposition.lean:31:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.single_part`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3141/3158] Replayed SM.NearFarTriangular
+warning: SM/NearFarTriangular.lean:17:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/NearFarTriangular.lean:15:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.nearFarWeight_one`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3142/3158] Replayed SM.GeometricNearFar
+warning: SM/GeometricNearFar.lean:78:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/GeometricNearFar.lean:85:29: `if_false` has been deprecated: Use `ite_false` instead
+⚠ [3144/3158] Replayed SM.PairVisits
+warning: SM/PairVisits.lean:52:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3145/3180] Replayed SM.NearFarFactorization
+warning: SM/NearFarFactorization.lean:10:0: automatically included section variable(s) unused in theorem `SM.BoundaryCutSet.marked_transport_val`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3146/3180] Replayed SM.FarOnlyOutput
+warning: SM/FarOnlyOutput.lean:66:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/FarOnlyOutput.lean:71:0: automatically included section variable(s) unused in theorem `SM.boundaryUnitArray_leaf`:
+  [NeZero n]
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3147/3180] Replayed SM.IntervalRestriction
+warning: SM/IntervalRestriction.lean:21:0: automatically included section variable(s) unused in theorem `SM.BoundaryInterval.globalPosition_strict`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/IntervalRestriction.lean:26:0: automatically included section variable(s) unused in theorem `SM.BoundaryInterval.globalPosition_bounds`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/IntervalRestriction.lean:44:0: automatically included section variable(s) unused in theorem `SM.BoundaryInterval.global_localPosition`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/IntervalRestriction.lean:77:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.eq_of_parts_cut`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/IntervalRestriction.lean:85:0: automatically included section variable(s) unused in theorem `SM.IntervalComposition.cut_bounds`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/IntervalRestriction.lean:199:0: automatically included section variable(s) unused in theorem `SM.boundaryUnitArray_restrict`:
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3148/3180] Replayed SM.RestrictedWordRoot
+warning: SM/RestrictedWordRoot.lean:14:0: automatically included section variable(s) unused in theorem `SM.restrictedWord_boundary`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RestrictedWordRoot.lean:22:0: automatically included section variable(s) unused in theorem `SM.restrictedWord_first_vertex`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RestrictedWordRoot.lean:29:0: automatically included section variable(s) unused in theorem `SM.restrictedWord_last_vertex`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/RestrictedWordRoot.lean:63:0: automatically included section variable(s) unused in theorem `SM.geometricBoundaryArray_restrictedWord`:
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3151/3180] Replayed SM.FarOnlyLocality
+warning: SM/FarOnlyLocality.lean:10:0: automatically included section variable(s) unused in theorem `SM.restrictTripleArray_eq_of_local`:
+  [CommRing R]
+  [Invertible 2]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CommRing R] [Invertible 2] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3152/3180] Replayed SM.ContactIndices
+warning: SM/ContactIndices.lean:14:0: automatically included section variable(s) unused in theorem `SM.contactSeparated_iff`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3154/3180] Replayed SM.NonFlatCenter
+warning: SM/NonFlatCenter.lean:14:0: automatically included section variable(s) unused in theorem `SM.nonzero_turns_regular`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NonFlatCenter.lean:33:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/NonFlatCenter.lean:48:2: Try `simp at hm` instead of `simpa using hm`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3155/3180] Replayed SM.ContactCenter
+warning: SM/ContactCenter.lean:14:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3156/3180] Replayed SM.PureCutIndices
+warning: SM/PureCutIndices.lean:27:0: automatically included section variable(s) unused in theorem `SM.noConsecutive_ne_turnSupport`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/PureCutIndices.lean:35:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3162/3193] Replayed SM.FixedEndpointGate
+warning: SM/FixedEndpointGate.lean:47:20: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: SM/FixedEndpointGate.lean:42:0: automatically included section variable(s) unused in theorem `SM.IncreasingBoundaryTriple.fixedFarGate_at_interior`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/FixedEndpointGate.lean:53:29: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: SM/FixedEndpointGate.lean:54:29: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: SM/FixedEndpointGate.lean:50:0: automatically included section variable(s) unused in theorem `SM.IncreasingBoundaryTriple.fixedFarGate_neg`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3169/3193] Replayed SM.NamedWallSides
+warning: SM/NamedWallSides.lean:17:0: automatically included section variable(s) unused in theorem `SM.WallGerm.flatRightSide_iff_at`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NamedWallSides.lean:24:0: automatically included section variable(s) unused in theorem `SM.WallGerm.flatLeftSide_iff_at`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NamedWallSides.lean:61:0: automatically included section variable(s) unused in theorem `SM.WallGerm.contactSign_eq_at`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3170/3193] Replayed SM.WallRelabelGeometry
+warning: SM/WallRelabelGeometry.lean:10:0: automatically included section variable(s) unused in theorem `SM.wall_sub_add_cancel_right`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:12:0: automatically included section variable(s) unused in theorem `SM.wall_sub_sub_cancel_right`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:14:0: automatically included section variable(s) unused in theorem `SM.wall_translateSupport_injective`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:24:0: automatically included section variable(s) unused in theorem `SM.translateSupport_turn`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:28:0: automatically included section variable(s) unused in theorem `SM.translateSupport_contact`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:32:0: automatically included section variable(s) unused in theorem `SM.translateSupport_three`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:36:0: automatically included section variable(s) unused in theorem `SM.contactSeparated_sub`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:41:0: automatically included section variable(s) unused in theorem `SM.noConsecutive_translate`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/WallRelabelGeometry.lean:53:0: automatically included section variable(s) unused in theorem `SM.edgeParameter_shift`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3171/3193] Replayed SM.NamedWallRelabel
+warning: SM/NamedWallRelabel.lean:32:63: This simp argument is unused:
+  wall_sub_sub_cancel_right
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [shift, sub_add_cancel, wall_sub_add_cancel_right]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/NamedWallRelabel.lean:41:63: This simp argument is unused:
+  wall_sub_sub_cancel_right
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [shift, sub_add_cancel, wall_sub_add_cancel_right]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/NamedWallRelabel.lean:69:0: automatically included section variable(s) unused in theorem `SM.WallGerm.flatRightSide_relabel`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/NamedWallRelabel.lean:74:0: automatically included section variable(s) unused in theorem `SM.WallGerm.flatLeftSide_relabel`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3172/3230] Replayed SM.UnorderedWallTriples
+warning: SM/UnorderedWallTriples.lean:35:0: automatically included section variable(s) unused in theorem `SM.WallGerm.signChanges_neg`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/UnorderedWallTriples.lean:48:82: This simp argument is unused:
+  or_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [or_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/UnorderedWallTriples.lean:60:82: This simp argument is unused:
+  or_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [or_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3173/3230] Replayed SM.BoundaryTripleSupports
+warning: SM/BoundaryTripleSupports.lean:24:0: automatically included section variable(s) unused in theorem `SM.IncreasingBoundaryTriple.positionSet_bounds`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/BoundaryTripleSupports.lean:62:0: automatically included section variable(s) unused in theorem `SM.IncreasingBoundaryTriple.vertexSet_reversed`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/BoundaryTripleSupports.lean:65:41: This simp argument is unused:
+  or_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [vertexSet, positionSet, or_comm, or_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3174/3230] Replayed SM.CanonicalTripleSigns
+warning: SM/CanonicalTripleSigns.lean:20:0: automatically included section variable(s) unused in theorem `SM.canonical_label`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CanonicalTripleSigns.lean:24:0: automatically included section variable(s) unused in theorem `SM.canonical_label_range`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CanonicalTripleSigns.lean:66:0: automatically included section variable(s) unused in theorem `SM.sortTriplePositions_sign`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CanonicalTripleSigns.lean:73:0: automatically included section variable(s) unused in theorem `SM.sortTriplePositions_positionSet`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/CanonicalTripleSigns.lean:78:71: This simp argument is unused:
+  or_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [IncreasingBoundaryTriple.positionSet, or_comm, or_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/CanonicalTripleSigns.lean:87:0: automatically included section variable(s) unused in theorem `SM.sortTriplePositions_evaluation`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3175/3230] Replayed SM.SoftInsertionIndices
+warning: SM/SoftInsertionIndices.lean:56:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/SoftInsertionIndices.lean:60:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [3176/3230] Replayed SM.SoftInsertionSuccessors
+warning: SM/SoftInsertionSuccessors.lean:45:14: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/SoftInsertionSuccessors.lean:45:28: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/SoftInsertionSuccessors.lean:49:14: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/SoftInsertionSuccessors.lean:49:28: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/SoftInsertionSuccessors.lean:63:35: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/SoftInsertionSuccessors.lean:66:35: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/SoftInsertionSuccessors.lean:82:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/SoftInsertionSuccessors.lean:95:35: `if_pos` has been deprecated: Use `ite_eq_left` instead
+⚠ [3188/3355] Replayed SM.SoftInsertionTuple
+warning: SM/SoftInsertionTuple.lean:69:0: automatically included section variable(s) unused in theorem `SM.SoftAdmissible.vector_ne_zero`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3189/3355] Replayed SM.SoftParentEdges
+warning: SM/SoftParentEdges.lean:95:36: This simp argument is unused:
+  false_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [softOldIndex_ne_new, ne_eq, not_true_eq_false, and_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3262/3355] Replayed SM.InsertionIndices
+warning: SM/InsertionIndices.lean:32:0: automatically included section variable(s) unused in theorem `SM.insertIndex_zero`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/InsertionIndices.lean:34:0: automatically included section variable(s) unused in theorem `SM.insertedIndex_add_one`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3311/3623] Replayed SM.SoftFamilyLocalCrossing
+warning: SM/SoftFamilyLocalCrossing.lean:47:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyLocalCrossing.lean:81:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyLocalCrossing.lean:116:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3312/3623] Replayed SM.SoftEdgeAvoidance
+warning: SM/SoftEdgeAvoidance.lean:53:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftEdgeAvoidance.lean:103:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftEdgeAvoidance.lean:104:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3313/3623] Replayed SM.SoftCrossingClassification
+warning: SM/SoftCrossingClassification.lean:48:37: Variable name `hn` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hn
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/SoftCrossingClassification.lean:85:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftCrossingClassification.lean:146:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3314/3623] Replayed SM.SoftFamilyG2
+warning: SM/SoftFamilyG2.lean:52:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyG2.lean:75:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyG2.lean:97:26: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: SM/SoftFamilyG2.lean:137:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyG2.lean:138:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftFamilyG2.lean:223:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [3316/3623] Replayed SM.InsertedTuple
+warning: SM/InsertedTuple.lean:16:44: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/InsertedTuple.lean:20:65: `if_false` has been deprecated: Use `ite_false` instead
+warning: SM/InsertedTuple.lean:18:0: automatically included section variable(s) unused in theorem `SM.appendVertex_new`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/InsertedTuple.lean:52:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: SM/InsertedTuple.lean:66:59: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [3585/3624] Replayed SM.SoftParentOrder
+warning: SM/SoftParentOrder.lean:56:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/SoftParentOrder.lean:83:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: SM/SoftParentOrder.lean:100:12: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [3588/3624] Replayed SM.CycleFiltering
+warning: SM/CycleFiltering.lean:107:30: Variable name `l` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _l
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3599/3624] Replayed SM.CarrierSplitList
+warning: SM/CarrierSplitList.lean:90:0: automatically included section variable(s) unused in theorem `SM.Carrier.splitList_child_data`:
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3609/3624] Replayed SM.Smoothing
+warning: SM/Smoothing.lean:1794:34: Variable name `hε` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hε
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/Smoothing.lean:1800:34: Variable name `hε` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hε
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/Smoothing.lean:1806:34: Variable name `hε` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hε
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/Smoothing.lean:1812:34: Variable name `hε` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hε
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: SM/Smoothing.lean:3700:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: SM/Smoothing.lean:4331:0: automatically included section variable(s) unused in theorem `SM.Link.Smoothing.origParam_mem`:
+  M
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit M in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: SM/Smoothing.lean:4449:61: Variable name `hq` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hq
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3621/3624] Replayed SM.CeRounding
+warning: SM/CeRounding.lean:377:83: This simp argument is unused:
+  Prod.fst_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [chart, Prod.fst_add, Prod.snd_add, Prod.smul_mk, smul_eq_mul, Prod.snd_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/CeRounding.lean:378:4: This simp argument is unused:
+  Prod.snd_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [chart, Prod.fst_add, Prod.snd_add, Prod.smul_mk, smul_eq_mul, Prod.fst_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: SM/CeRounding.lean:883:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:893:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:907:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:923:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:939:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:989:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: SM/CeRounding.lean:1241:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [3623/3624] Built SM.LitHomflyDescent (11s)
+✔ [3624/3624] Built SM.ContactPath (8.0s)
+Build completed successfully (3624 jobs).

@@ -3,7 +3,7 @@ import SM.CarrierNeighborSeparation
 import SM.SmoothingDefinition
 
 /-! Towards lem:carriers (iv) (sm-3-statesum.tex:54): the assignment of all crossing visits is noncrossing. Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-carriers-lemma / prove:carriers-iv), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-carriers-lemma / prove:carriers-iv), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/CarriersNoncrossing.lean (only this header added and #print lines removed). -/
 
 /-! # lem:carriers (iv): the assignment of all crossing visits is noncrossing

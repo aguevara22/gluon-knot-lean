@@ -1,0 +1,58 @@
+\begin{theorem}[geometric carrier floor]\label{cf:thm-carrierfloor}
+\begin{enumerate}
+\item[(R)] Here $\rot$ is as in Lemma~\ref{lem:rot} for polygons and
+Definition~\ref{cf:def-turning} for the underlying plane curve of a
+smooth diagram. Let $D$ be an oriented knot diagram and $-D$ the same
+diagram with every arrow reversed. Then $P_{-D}=P_D$; consequently an
+oriented knot and its reverse have the same polynomial. Moreover $-D$ has
+the same crossing signs and the same writhe as $D$, and the rotation of
+its underlying plane curve is the negative of that of $D$.
+\item[(A)] Let $L$ and $D$ satisfy the hypotheses of Lemma~\ref{cf:lem-rounding}. For every
+$\varepsilon\in(0,\varepsilon_0(L))$, the construction in the proof of that
+lemma returns \emph{one} curve and \emph{one} diagram at those data: the
+junction inserted at the corner $q_i$ is determined by $\varepsilon$, by the
+two incident unit directions and by the transition profile, which is fixed once
+and for all in that proof and is not chosen per corner or per curve; the arc
+length $\ell$ is then determined by the endpoint condition, and the rest of the
+curve is $L$ itself. Write
+\[
+   \mathrm{Round}(L,D,\varepsilon)=(L_\varepsilon,D_\varepsilon)
+\]
+for that pair, the \emph{rounding record} of $(L,D)$ at $\varepsilon$, and call
+$L_\varepsilon$ the rounded curve and $D_\varepsilon$ the rounded diagram.
+\item[(B)] Here $\rot$ is as in Lemma~\ref{lem:rot}, applied to the polygon $L$.
+Let $L$ be a closed polygon with nonzero edges and nonzero principal
+turns, finitely many transverse double points, no triple points, no corner
+at a double point and no corner on a non-incident edge, carrying a diagram
+$D$. Assume, after reversing orientation if necessary, that either all
+principal turns are positive, or exactly one is negative and all others
+are positive. Put $R=|\rot(L)|$. Then
+there are a direction $u\in S^1$ and an $\varepsilon_1>0$ such that \emph{for
+every} $\varepsilon\in(0,\varepsilon_1)$ the rounded curve $L_\varepsilon$ of
+the record $\mathrm{Round}(L,D,\varepsilon)$
+from clause~(A) has exactly $R$ points at which its unit
+tangent equals $u$ and exactly $R$ at which it equals $-u$; at each of them the
+tangent crosses that direction in the positive sense.
+\item[(C)] Here $\rot$ is as in Lemma~\ref{lem:rot}, applied to the polygon $L$.
+Let $D$ be an oriented knot diagram all of whose crossings are positive, with
+writhe $w$, whose underlying plane curve is a closed polygon $L$ with all
+principal turns existing, \emph{nonzero}, and of magnitude below $\pi$, with
+finitely many double points, all transversal, with no triple points, none of
+them a corner of $L$, and no corner of $L$ lying on a non-incident edge; and let
+$R$ be the absolute value of its Whitney rotation number.  The
+finiteness/transversality and the two corner conditions are what
+Lemma~\ref{cf:lem-rounding} asks of its input.  The no-triple condition is preserved by rounding and is needed below
+when diagram records are compared.  These
+conditions are stated here so that no generic parent polygon is assumed. Assume that, after reversing the
+orientation if necessary --- which by clause~(R) changes neither
+$P_D$, nor the crossings and their signs, nor $w$, nor $R$ --- either every
+principal turn is positive, or exactly one is negative and every other is
+positive. Then
+\begin{equation}
+\mindeg_a P_D(a,z)\;\geq\;1-w-R,
+\label{cf:eq-floor}
+\end{equation}
+and the same bound holds for $f_D(a)=[z^0]P_D(a,z)$ whenever $f_D\neq0$.
+\end{enumerate}
+\status{new (round~3: clause~(R) and the mirror paragraph of the proof consume Lemma~\ref{lp:coefficient-transport}, F-25-54; the statement's commentary moved to Remark \texttt{rem:rounding-record} and the justification of~(R) into its proof, F-25-57, the rounding record and the determinacy clause of~(A) kept; the transverse knot named $K_T$, F-25-84; the $\rot$ scoping of~(R), F-25-88; the remainder is the round-1 transcription held by bench~A, with per-item locators: (R) the reversal and mirror deductions printed here; (A) CV thm:carrierfloor(A); (B) CV thm:carrierfloor(B); (C) CV thm:carrierfloor(C) (C032)); round~6: the spelling of the minimum $a$-degree unified with Definition~\ref{def:adeg} at three sites, F-25-173}
+\end{theorem}

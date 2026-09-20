@@ -1,7 +1,7 @@
 import SM.CornerStateSum
 import SM.CuspSides
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CS5A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row thm:C-S5 → `SM.thm_C_S5` (fixed target name). Cross-check draft: work/drafts/CS5B.lean (independent, in progress at port time). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CS5A.lean (prover subagent A of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lit_homfly); only this header added and the `#print axioms` line removed. Row thm:C-S5 → `SM.thm_C_S5` (fixed target name). Cross-check draft: work/drafts/CS5B.lean (independent, in progress at port time). -/
 
 /-! Source thm:C-S5 (reference/SM/sm-4-knotlaws.tex:910-913, frame SM15): empty-cusp zero, "At a simple empty cusp,
 `C(P_no) = 0`." Main declaration: `SM.thm_C_S5` (the fixed target name of work/lean/axiom-policy.json).

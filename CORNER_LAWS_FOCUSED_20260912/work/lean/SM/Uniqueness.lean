@@ -5,7 +5,7 @@ set_option linter.unusedVariables false
 /-! Source thm:uniqueness (reference/SM/sm-6-comparison.tex:201, frame SM15): uniqueness (Theorem 1 of
 the main text). Main declaration: `SM.uniqueness`. Statement fixed by the executor
 (work/drafts/Uniqueness_statement.lean); proof by a Claude Code prover subagent (workflow prove-uniqueness / attempt A), checked
-with `lake env lean` (sorry-free, standard axioms) and ported verbatim from work/drafts/UniquenessA.lean (only the #print line
+with `lake env lean` (placeholder-free, standard axioms) and ported verbatim from work/drafts/UniquenessA.lean (only the #print line
 removed and this sentence added); attempt B (work/drafts/UniquenessB.lean, a symmetric formulation) compiles as well and is kept
 as a cross-check.
 

@@ -1,0 +1,15 @@
+--- work/drafts/floor/PLAN_FINAL.md
++++ work/drafts/floor/PLAN_FINAL.md
+@@ -337,6 +337,12 @@
+ (imports SM.Curl, SM.TransverseFront, SM.CeSmoothingRecord, SM.CornerStateSum, SM.LinkPositiveLift, SM.UniformRotation)
+ after the statement review; §1 of the file is deleted when the contact lane's module provides `spatial`/`Reads`.
+ 
++> **Note 2026-09-19** (work/port/docdebt patch 10; OPEN_ITEMS_20260916.md §E-19 — the `#print axioms` expectation above is
++> STALE): at assembly `cf_thm_carrierfloor_R` and `uf_z_parity` also depend on `SM.lit_homfly` and `SM.lp_lm_uniqueness`
++> (`coefficient_transport` on `lp_lm_uniqueness`; the frozen `knot_reverse` proof on `lit_homfly`; AUTHOR_NOTES L5602-5605), and
++> the ACCEPTED rows 99 `cf:thm-carrierfloor` and 100 `thm:floor` carry the full nine-axiom set (std + H + HD + LM + LMU + NG + SC,
++> through row 94 fd:contact; FINAL_REVIEW.md §4.3). The table below is the 2026-09-15 plan as written.
++
+ | unit | prefix | leaves (Statements_FINAL.lean §8) | lines | hours | deps | wave |
+ |---|---|---|---|---|---|---|
+ | U-R | `ur_` | `ur_P_reverse_all` | 250 | 3 | accepted only | 1 |

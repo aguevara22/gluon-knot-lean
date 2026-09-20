@@ -1,6 +1,6 @@
 import SM.LinkInterfaces
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CoefficientTransportB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lp_lm/SM.lp_lm_uniqueness); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/CoefficientTransportA.lean (independent second proof). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CoefficientTransportB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lp_lm/SM.lp_lm_uniqueness); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/CoefficientTransportA.lean (independent second proof). -/
 
 /-! Source lp:coefficient-transport (reference/SM/sm-3-statesum.tex:981-992, frame SM15): Gaussian coefficient
 transport of skein uniqueness. Main declaration: `SM.coefficient_transport`.

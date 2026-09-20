@@ -19,6 +19,8 @@ HYPOTHESES = {"hyp:R", "CV:ax:R"}
 
 num, kind = {}, {}
 out = subprocess.run(["python3", "tools/claims.py"], cwd=ROOT, capture_output=True, text=True).stdout
+_m = re.search(r"# Claims: (\d+) verified / (\d+) total", out)
+CLAIMS_VERIFIED, CLAIMS_TOTAL = (int(_m.group(1)), int(_m.group(2))) if _m else (None, 132)
 for m in re.finditer(r"^\| (\d+) \| (\w+) \| `([^`]+)` \| ([\w-]+) \|", out, re.M):
     num[m.group(3)] = int(m.group(1)); kind[m.group(3)] = m.group(4)
 
@@ -150,6 +152,11 @@ pos, lane_boxes, meta = place_horizontal(cell, nl, LANES)
 print("full layout:", meta)
 
 crit_ids = set(pending) | set(TARGETS) | {"lit:homfly", "hyp:R", "CV:ax:R"}
+if not pending:
+    # Nothing pending (2026-09-19 final state): keep the last recorded critical chain so the figure shows it closed.
+    _prev = Path(__file__).resolve().parent / "dag_data.json"
+    try: crit_ids |= set(json.load(open(_prev))["crit"]["ids"])
+    except Exception: pass
 def crit_lane(v):
     if v in ("lit:homfly", "src:contact", "lem:gauss-two-discs"): return "Inputs"
     if v.startswith("CV:"): return "CV lane"
@@ -160,7 +167,8 @@ def crit_lane(v):
 CLANES = ["Inputs", "SM 3 contact & floor", "SM 4-6 laws of C", "CV lane", "R assembly", "Bridge & final"]
 ccell, cnl, clayer = order_cells(crit_ids, crit_lane, CLANES)
 cpos, ccols, crows, cmeta = place_vertical(ccell, cnl, CLANES)
-cpos["lem:gauss-two-discs"]["y"] = cpos["fd:contact"]["y"]  # isolated row: show it with the inputs, not as a sink
+if "lem:gauss-two-discs" in cpos and "fd:contact" in cpos:
+    cpos["lem:gauss-two-discs"]["y"] = cpos["fd:contact"]["y"]  # isolated row: show it with the inputs, not as a sink
 cedges = sorted((d, v) for v in crit_ids for d in N[v]["deps"] if d in crit_ids)
 print("critical:", len(crit_ids), "nodes", len(cedges), "edges", cmeta)
 for L in range(cnl):
@@ -170,6 +178,6 @@ data = dict(nodes=N, lanes=LANES, laneBoxes=lane_boxes, pos=pos, meta=meta,
             crit=dict(ids=sorted(crit_ids), pos=cpos, cols=ccols, rows=crows, meta=cmeta, edges=cedges),
             edges=sorted((d, v) for v in N for d in N[v]["deps"]),
             stats=dict(accepted=sum(1 for i in N if N[i]["status"] == "accepted"), pending=len(pending), total=len(N),
-                       claims_verified=109, claims_total=132, targets_accepted=sum(1 for t in TARGETS if N[t]["status"] == "accepted"), targets_total=8))
+                       claims_verified=CLAIMS_VERIFIED, claims_total=CLAIMS_TOTAL, targets_accepted=sum(1 for t in TARGETS if N[t]["status"] == "accepted"), targets_total=8))
 OUT.write_text(json.dumps(data))
 print("wrote", OUT, OUT.stat().st_size, "bytes")

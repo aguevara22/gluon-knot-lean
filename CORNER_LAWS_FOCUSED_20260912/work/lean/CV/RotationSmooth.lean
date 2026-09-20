@@ -1,7 +1,7 @@
 import CV.Rotation
 import SM.TurningNumber
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CV_RotationSmooth.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Completes row 144 CV:def:rot: `CV.rot_definition_full : RotDefinitionFullData` (polygon part in CV/Rotation.lean + the "Direction loops and smooth curves" paragraph on the shared SM/TurningNumber.lean definitions, decision F6). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CV_RotationSmooth.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Completes row 144 CV:def:rot: `CV.rot_definition_full : RotDefinitionFullData` (polygon part in CV/Rotation.lean + the "Direction loops and smooth curves" paragraph on the shared SM/TurningNumber.lean definitions, decision F6). -/
 
 /-! # CV:def:rot, paragraph "Direction loops and smooth curves" (row 144, the remaining part)
 

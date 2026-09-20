@@ -3,7 +3,7 @@ import SM.CoefficientTransport
 import SM.LocalPolynomial
 import SM.SingleCrossing
 
-/-! Ported 2026-09-14 from work/drafts/polyblock/Skeleton_FINAL.lean §0-§5 and §7 (design panel, winner B grafted with A; PLAN_FINAL.md), i.e. the sorry-free part: the record-level (N, b) skein induction and the four rows lp:core (`SM.lp_core`), rp:record-polynomial (`SM.record_polynomial`), lc:presentations (`SM.presentations`), lp:split-circle (`SM.split_circle`); the mp:stack chain (§6, with open lemmas) stays in the draft until its units finish. Bundles verbatim from work/drafts/{LpCore,RecordPolynomial,Presentations,SplitCircle}_statement.lean. Only this header added. -/
+/-! Ported 2026-09-14 from work/drafts/polyblock/Skeleton_FINAL.lean §0-§5 and §7 (design panel, winner B grafted with A; PLAN_FINAL.md), i.e. the placeholder-free part: the record-level (N, b) skein induction and the four rows lp:core (`SM.lp_core`), rp:record-polynomial (`SM.record_polynomial`), lc:presentations (`SM.presentations`), lp:split-circle (`SM.split_circle`); the mp:stack chain (§6, with open lemmas) stays in the draft until its units finish. Bundles verbatim from work/drafts/{LpCore,RecordPolynomial,Presentations,SplitCircle}_statement.lean. Only this header added. -/
 
 
 /-! # Skeleton FINAL — the five polynomial rows by a RECORD-LEVEL `(N, b)` induction
@@ -24,7 +24,7 @@ Plan of record: work/drafts/polyblock/PLAN_FINAL.md.
 Status (`lake env lean`: no errors): the five row theorems `record_polynomial`, `lp_core`,
 `split_circle`, `presentations`, `stack` (fixed bundles copied verbatim from
 work/drafts/*_statement.lean) are PROVED from the chain; the chains of rp:record-polynomial,
-lp:core, lp:split-circle and lc:presentations are PROVED (no `sorry` in §0-§5).  The `sorry`s are
+lp:core, lp:split-circle and lc:presentations are PROVED (no placeholder in §0-§5).  The draft's placeholders (its §6, NOT ported here) are
 exactly the mp:stack chain of §6: `beta_comp_eq_of_reconnect_sameCycle`, `firstReturn_firstReturn`,
 `firstReturn_mul_swap`, `restrictSmoothIso`, `restrictSmoothDisjointIso`,
 `rBlockOrdered_of_blockOrdered`, `BlockOrdered.switch_of_internal`,

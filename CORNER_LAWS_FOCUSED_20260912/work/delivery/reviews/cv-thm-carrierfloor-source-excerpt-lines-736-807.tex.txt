@@ -1,0 +1,72 @@
+\begin{theorem}[global reversal, rounding record, vertical tangencies and the carrier floor]\label{thm:carrierfloor}
+\begin{enumerate}
+\item[(R)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $K$ be an oriented knot and $-K$ the same knot with its orientation
+reversed. Then $P_{-K}=P_{K}$. Moreover a diagram of $-K$ obtained by reversing
+the orientation of a diagram of $K$ has the same crossing signs, the same
+writhe, and rotation number of the underlying plane curve negated.
+\item[(A)] Let $L$ and $D$ satisfy the hypotheses of Lemma~\ref{lem:rounding}. For every
+$\varepsilon\in(0,\varepsilon_0(L))$, the construction in the proof of that
+lemma returns \emph{one} curve and \emph{one} diagram at those data: the
+junction inserted at the corner $q_i$ is determined by $\varepsilon$, by the
+two incident unit directions and by the transition profile, which is fixed once
+and for all in that proof and is not chosen per corner or per curve; the arc
+length $\ell$ is then determined by the endpoint condition, and the rest of the
+curve is $L$ itself. Write
+\[
+   \mathrm{Round}(L,D,\varepsilon)=(L_\varepsilon,D_\varepsilon)
+\]
+for that pair, the \emph{rounding record} of $(L,D)$ at $\varepsilon$, and call
+$L_\varepsilon$ the rounded curve and $D_\varepsilon$ the rounded diagram. The
+record exists to be quantified over: an earlier revision, written when the
+profile was a per-use choice, had every consumer say "every curve the lemma
+produces", which is a quantifier over an unnamed family and reads differently
+in each consumer.
+\item[(B)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $L$ be a diagrammatic closed polygon (Definition~\ref{def:diagrammatic})
+whose principal turns all exist and are nonzero, carrying a diagram $D$, and
+assume, after reversing the orientation of $L$ if necessary, that either every
+principal turn is positive, or exactly one is negative. Put $R=|\rot(L)|$. Then
+there are a direction $u\in S^1$ and an $\varepsilon_1>0$ such that \emph{for
+every} $\varepsilon\in(0,\varepsilon_1)$ the rounded curve $L_\varepsilon$ of
+the record $\mathrm{Round}(L,D,\varepsilon)$
+from clause~(A) has exactly $R$ points at which its unit
+tangent equals $u$ and exactly $R$ at which it equals $-u$; at each of them the
+tangent crosses that direction in the positive sense. The hypotheses are stated
+here rather than imported by "as in Lemma~\ref{lem:rounding}", and the
+clearance is produced here rather than borrowed from that lemma's existential
+one. The object is named rather than quantified over: the record is one curve
+and one diagram at each $\varepsilon$, the profile being fixed once and for all,
+and an earlier revision said "every curve the lemma produces" because at the
+time the profile was a per-use choice.
+\item[(C)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $D$ be an oriented knot diagram all of whose crossings are positive, with
+writhe $w$, whose underlying plane curve is a closed polygon $L$ with all
+principal turns existing, \emph{nonzero}, and of magnitude below $\pi$, with
+finitely many double points, all transversal, with no triple points, none of
+them a corner of $L$, and no corner of $L$ lying on a non-incident edge; and let
+$R$ be the absolute value of its Whitney rotation number.  The
+finiteness/transversality and the two corner conditions are what
+Lemma~\ref{lem:rounding} asks of its input.  The no-triple condition repeats the
+shared-image clause of Definition~\ref{def:diagrammatic}; it is preserved by
+rounding and is needed below when diagram records are compared.  These
+conditions are stated here so that no generic parent polygon is assumed. Assume that, after reversing the
+orientation if necessary --- which by clause~(R) changes neither
+$P_D$, nor the crossings and their signs, nor $w$, nor $R$ --- either every
+principal turn is positive, or exactly one is negative and every other is
+positive. Then
+\begin{equation}
+\min\deg_a P_D(a,z)\;\geq\;1-w-R,
+\label{eq:floor}
+\end{equation}
+and the same bound holds for $f_D(a)=[z^0]P_D(a,z)$ whenever $f_D\neq0$.
+\item[(D)] Here $\rot$ is as in Definition~\ref{def:rot}.
+Let $P$ be generic, let $S\in\Ind(G_P)$ and let $L$ be a carrier of $S$ carrying
+no residual piece, so that $P_{S,L}=1$ and $w_{S,L}=0$ by
+Definition~\ref{def:X1}'s empty conventions --- an earlier revision wrote those
+two symbols with $S$ never introduced --- and suppose that all its principal turns are nonzero and that,
+after reversing the orientation if necessary, either every turn is positive or
+exactly one is negative. Then $R(L)\geq1$ and
+$\min\deg_a P_{S,L}=0\geq 1-w_{S,L}-R(L)$.
+\end{enumerate}
+\end{theorem}

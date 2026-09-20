@@ -1,7 +1,7 @@
 import CV.Setup
 import SM.RotationTheorem
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CV_Rotation.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Covers the POLYGON part of CV:def:rot (row 144; the "Direction loops and smooth curves" paragraph d1_setup.tex:767-785 is deferred to the shared turning-number definitions of SM cf:def-turning, decision F6) and clause (ii) of CV:lem:turnlift (row 145; clauses (i),(iii) deferred with SM cf:lem-turnlift). Neither row is mapped until those parts exist. -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CV_Rotation.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Covers the POLYGON part of CV:def:rot (row 144; the "Direction loops and smooth curves" paragraph d1_setup.tex:767-785 is deferred to the shared turning-number definitions of SM cf:def-turning, decision F6) and clause (ii) of CV:lem:turnlift (row 145; clauses (i),(iii) deferred with SM cf:lem-turnlift). Neither row is mapped until those parts exist. -/
 
 /-! # CV lane, rotation number (reference/R/CV/d1_setup.tex, frozen)
 

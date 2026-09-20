@@ -1,7 +1,7 @@
 import CV.RotationSmooth
 import SM.TurnLift
 
-/-! Ported verbatim 2026-09-13 from work/drafts/CV_TurnLift.lean (implementer subagent of the pod executor; checked with `lake env lean`, no sorry, standard axioms); only this header added and `#print axioms` lines removed. Row 145 CV:lem:turnlift → `CV.turnlift_full : TurnLiftFullData` (clauses (i),(iii) from the shared SM.turnlift, clause (ii) from CV.turnlift_ii / turnlift_ii_data; decision F6). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/CV_TurnLift.lean (implementer subagent of the pod executor; checked with `lake env lean`, no placeholder, standard axioms); only this header added and `#print axioms` lines removed. Row 145 CV:lem:turnlift → `CV.turnlift_full : TurnLiftFullData` (clauses (i),(iii) from the shared SM.turnlift, clause (ii) from CV.turnlift_ii / turnlift_ii_data; decision F6). -/
 
 /-! # CV:lem:turnlift — tangent lifts and principal turns (row 145, in full)
 

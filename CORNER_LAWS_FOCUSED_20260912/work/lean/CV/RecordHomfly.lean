@@ -9,7 +9,7 @@ import CV.Axioms
 Source: reference/R/CV/d1_setup.tex, `def:record` (lines 522–551, "record, and record isomorphism")
 and `def:homfly` (lines 552–564, "HOMFLY–PT normalization").  Plan entries:
 work/reports/cv-lane-plan-20260913.md §140 and §141, gaps G12 and G13.  Written 2026-09-14 by a
-Claude Code prover subagent; checked with `lake env lean` (sorry-free).
+Claude Code prover subagent; checked with `lake env lean` (placeholder-free).
 
 Row declarations: `CV.record_definition : CV.RecordDefinitionData` (140) and
 `CV.homfly_definition : CV.HomflyDefinitionData` (141).  Each field of a `…DefinitionData`

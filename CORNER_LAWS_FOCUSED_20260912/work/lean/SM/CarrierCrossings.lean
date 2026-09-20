@@ -2,7 +2,7 @@ import SM.CarrierActualCornerBlock
 import SM.CarrierComponentCount
 
 /-! Towards def:smoothing (sm-3-statesum.tex:14): crossings of a carrier, m_Q, corner directions, unselected non-neighbour ownership. Written 2026-09-13 by a Claude Code prover subagent of the pod
-executor (workflow prove-smoothing-support / prove:smoothing-A), checked with `lake env lean` (sorry-free, standard axioms) and
+executor (workflow prove-smoothing-support / prove:smoothing-A), checked with `lake env lean` (placeholder-free, standard axioms) and
 ported verbatim from work/drafts/SmoothingSupportA.lean (only this header added and #print lines removed). -/
 
 /-! # SM15, `def:smoothing` (oriented smoothing and subpolygons), Task A

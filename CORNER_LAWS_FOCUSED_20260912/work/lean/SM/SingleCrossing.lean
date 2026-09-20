@@ -1,6 +1,6 @@
 import SM.LocalPolynomial
 
-/-! Ported verbatim 2026-09-13 from work/drafts/SingleCrossingB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no sorry, axioms propext/Classical.choice/Quot.sound/SM.lp_lm); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/SingleCrossingA.lean (independent, in progress at port time). -/
+/-! Ported verbatim 2026-09-13 from work/drafts/SingleCrossingB.lean (prover subagent B of the pod executor; checked with `lake env lean`, no placeholder, axioms propext/Classical.choice/Quot.sound/SM.lp_lm); only this header added and the `#print axioms` line removed. Cross-check draft: work/drafts/SingleCrossingA.lean (independent, in progress at port time). -/
 
 /-! Source lc:single-crossing (reference/SM/sm-3-statesum.tex:1345-1352, frame SM15): a single self crossing
 has scalar value one. Main declaration: `SM.single_crossing`.

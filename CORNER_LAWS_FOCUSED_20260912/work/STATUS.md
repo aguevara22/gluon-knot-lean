@@ -1,3 +1,81 @@
+# STATUS (pod executor) — last update 2026-09-19 15:15Z
+- 15:15Z: ROW 57 lem:gauss-two-discs ACCEPTED (3/3 faithful, 2/2 not refuted; SM/GaussTwoDiscs{Defs,PL,Ears,Ambient,Extension,}.lean, 21k lines;
+  axioms standard only) → claims verified 132/132 (100%); checklist 192/192; targets 8/8. Post-acceptance checker running. CLOSING CYCLE next:
+  D-DOC-2 doc patches (11 + G-07 registry) → full lake build → check_lean.py --all → FINAL_REVIEW.md (from work/FINAL_REVIEW_DRAFT_20260919.md,
+  placeholders filled) → MANIFEST refresh → verify_bundle.py → work/delivery/refresh.sh → final tarball → Discord.
+- 13:26Z: ROWS 110 thm:C-S7, 127 thm:comparison, 128 cor:C-inherits, 184 SM:corner_laws_and_soft ACCEPTED (12/12 lens reviews faithful,
+  8/8 refuters not refuted; modules SM/CS7Units.lean (27,000 lines), SM/CS7.lean, SM/ComparisonRows.lean, SM/CornerLawsAndSoft.lean; all four
+  on exactly the nine registered axioms, no sorryAx) → claims verified 131/132 (99.2%); checklist 191/192; targets 8/8. Row 110 closed by
+  corner waves 4-6 (W6_Assembled.lean 27.5k lines; audits A-110-1/2). Remaining: ROW 57 lem:gauss-two-discs — wave 2 running (U6, U7, U9 closed
+  all 20 of their leaves; U5 2 + U8 8 leaves in flight; wave 1 gave 62/92), then U12 assembly + port (D-TD-3: draft def renamed
+  embeddedPolygonImage) + review. Then the closing cycle: D-DOC-2 doc patches (11 + G-07 registry), check_lean.py --all, FINAL_REVIEW.md,
+  verify_bundle.py, work/delivery refresh, final tarball. Checkpoints: RESULT_20260919_1230Z.tgz (latest).
+- 08:39Z: rows 177, 178, 183 ACCEPTED → claims verified 127/132; checklist 187/192; targets 6/8. Remaining: 57 (skeleton), 110 (wave 5 →
+  127/128), 184.
+- RESUMED 2026-09-19 05:35Z after the pod's OOM restart (2026-09-18 ~01:55Z); volume state intact (claims verified 124/132; checklist
+  184/192; targets 5/8; build cache /root/lean-lake 9.4 GB present). The author's response D-AUTH-20260919 (work/AUTHOR_NOTES.md; copy
+  work/AUTHOR_RESPONSE_20260919.md) re-opens rows 110 and 177 with NO bound, un-defers row 57, authorises comment-only edits (G-05),
+  the registry sub-entry (G-07), either route for G11_Config.trans (G-03; route (ii) chosen), and — after one substantive derivation
+  attempt — an event-level non-kink hypothesis for row 177 (G-02b, FR-R-177-K). §2: a failed audit on cost never stops a branch.
+  Definition of done: 132/132, 192/192, 8/8, check_lean --all PASS, verify_bundle PASS, final tarball.
+- 08:09Z: ROW 177 CLOSED (wave 3d: residue = parity + identification; the non-kink question resolved by the VALUE form with the kink case
+  by flat subdivision — no event hypothesis, no narrowing); ported RProof/GenericTransportSw.lean, ExtremeSelectedUnits.lean,
+  ExtremeSelected.lean + rows 178 RProof/CvR.lean and 183 Bridge/SmRRow.lean; all three mapped implemented; checker running; reviews
+  wf_b3114d58-914 running. Corner wave 4: all 8 units closed their targets; assembler composing → wave 5 (B2). Row 57: architect B
+  and the judge died on the 64k output limit (runaway thinking); B rerun incrementally; judge to be rerun standalone. Doc-debt
+  patches (work/port/docdebt/, D-DOC-1) applied at the corner port build.
+
+- claims verified 121/132; checklist 181/192 accepted; targets 5/8 (thm:C-soft accepted 20:25Z). Accepted today: 91, src:contact, 161,
+  94, 162, 99, 100, 155, 165, 175, 103, 105, 112.
+- Remaining claims: 57 (deferred); 110 thm:C-S7 (sliding branch: corner wave 2b; bigon branch: corner wave 3 on the ported
+  SM/BigonDeletion.lean constructor); 122/127/128 (comparison lane fully proved modulo 110/112; porter preparing modules; 122 closes on
+  thm_C_soft); 174/176 (ledgers proved, bigon sites proving), 177 (ledger proved; Wave 3 G11_core_sw pending); 178/183/184 (assemblies
+  proved modulo inputs).
+- New literature axiom SM.lit_homfly_descent (second declaration of lit:homfly, D-GAP2); all five interfaces declared.
+- Heartbeat: cron every 14 min + tools/progress.py --watch; reassessment rule per branch/unit (AUTHOR_NOTES D-GAP2, D-RM-1..4, D-CC-5).
+
+# STATUS — current state (2026-09-15 18:40Z, pod executor; GAP-2 closing on the author's decision D-GAP2)
+
+- claims verified 118/132; checklist 178/192 accepted; targets 4/8. Accepted today: 91, src:contact, 161, 94, 162, 99, 100, 155, 165, 175.
+- Remaining claims: 57 (deferred); corner chain 103/105/110/112 (wave 2a proving 103/112 leaves; wave-1 assembler running; 110 sliding
+  after it, bigon branch on the moves toolkit); comparison 122/127/128 (fully proved modulo 110/112, Comparison_Assembled.lean); R rows
+  174/176/177 (ledgers proved, RProof/RALedgers.lean; moves toolkit lane D-RM-2: SM/BigonDeletion constructor, U-M0 running); 178/183/184
+  (assemblies proved modulo inputs).
+- New literature axiom SM.lit_homfly_descent (second declaration of lit:homfly, D-GAP2); all five interfaces declared (src:contact today).
+- Heartbeat: cron every 14 min + tools/progress.py --watch; reassessment rule per branch/unit (AUTHOR_NOTES D-GAP2, D-RM-1, D-RM-2, D-CC-5).
+
+# STATUS — current state (2026-09-15 17:52Z, pod executor; GAP-2 closing on the author's decision D-GAP2)
+
+- claims verified 115/132; checklist 175/192 accepted; targets 4/8. Accepted today: 91, src:contact, 161, 94, 162, 99, 100.
+- Chain closed through 91 → src:contact → 94 → 99 → 100. In flight: corner chain (103/105/110/112) wave 1 assembling; comparison
+  (122/127/128) fully proved modulo the corner rows, assembling; CV/R tail: 155/165/175 proved modulo 99 (porting), 174/176/177 ledgers
+  proved with move interfaces open (D-RM-1 moves-toolkit design panel running); 178/183/184 assemblies proved modulo their inputs.
+- New literature axiom SM.lit_homfly_descent (second declaration of lit:homfly, D-GAP2); all five interfaces declared (src:contact today).
+- Heartbeat: cron every 14 min + tools/progress.py --watch; reassessment rule per branch (AUTHOR_NOTES D-GAP2 resume state, D-RM-1 note).
+
+# STATUS — current state (2026-09-15 16:52Z, pod executor; GAP-2 closing on the author's decision D-GAP2)
+
+- claims verified 111/132; checklist 171/192 accepted + 2 implemented (rows 94 fd:contact = SM.fd_contact, 162 CV:ax:slbound = CV.ax_slbound,
+  proved with no sorry, checker passed 173 mapped, reviews running); targets 4/8.
+- Accepted today: row 91 (SM.cp_finite_contact_path), src:contact (SM.src_contact — all five literature interfaces now declared),
+  row 161 (CV.ax_etnyre). New literature axiom SM.lit_homfly_descent (second declaration of lit:homfly, D-GAP2), interface-reviewed.
+- Lanes: floor (99/100) wave 2 running on work/drafts/floor/Wave2_Skeleton.lean (20/23 leaves + D-FL-4 repair done); corner chain
+  (103/105/110/112) wave 1 (13 units) running; CV/R tail (155/165/174-178/183/184) wave 1 (6 units) running; comparison lane
+  (122/127/128) design panel running. Row 57 deferred (author).
+- Heartbeat: cron every 14 min + tools/progress.py --watch; reassessment rule per branch (AUTHOR_NOTES D-GAP2 resume state).
+
+# STATUS — current state (2026-09-15 14:00Z, pod executor; GAP-2 closing on the author's decision D-GAP2)
+
+- claims verified 109/132; checklist 168/192 accepted + 1 implemented (row 91 cp:finite-contact-path, SM.cp_finite_contact_path,
+  checker 13:53Z passed, 169 mapped; review running); targets 4/8.
+- New literature axiom `SM.lit_homfly_descent : AmbientIsotopyDescent` (SM/LitHomflyDescent.lean), registered as the second declaration
+  of lit:homfly (policy key "lit:homfly (descent sentence)"); interface review running. verify_bundle.py literature-ceiling line relaxed
+  to label comparison (D-GAP2-2b, the only tool edit; disclosed).
+- Lanes in design (panels of 2 architects + judge): contact (src_contact, SM.sl, rows 94/161/162 → work/drafts/contact/), floor (rows 99,
+  100 → work/drafts/floor/), corner chain (103, 105, 110, 112 → work/drafts/corner/). Then: 122/127/128, CV 155/165, R 174-178,
+  Bridge:theorem, SM:corner_laws_and_soft. Row 57 deferred (author).
+- Heartbeat: cron every 14 min + tools/progress.py --watch; reassessment rule per branch (work/AUTHOR_NOTES.md D-GAP2 resume state).
+
 # Resume point — 2026-09-14 ~17:55Z (pod executor) — CURRENT STATE
 
 Claims verified 106/132 (80.3%) at 17:35Z; checklist 165/192 accepted; three more rows (78 ng:front-II, 83 ng:local-front-bound, 93

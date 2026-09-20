@@ -1,0 +1,1544 @@
+-- Ported 18:08Z 2026-09-15 from work/drafts/cvtail/Wave1_Assembled.lean lines 1772-2536, 2622-3470, 3485-4191, 4206-4218, 4239-4244 (CV/R tail lane, LIBRARY MATERIAL, no row: RowShape and rowShape_170/172/173; unit U-174's gsc_ interface Props and PROVED ledger gsc_ledger / gsc_generic_selected_of_moves; unit U-176's est_ interface Props and PROVED ledger est_ledger / est_extreme_transport_of; unit U-177's esc_ interface Props and PROVED ledger esc_ledger; cvt_chamberInvII, cv_R_of_rows; Bridge.sm_R_of_rows) by the pod executor; body verbatim except this header, the import block, the module docstring (new; the §3/§4 headings of Wave1 lines 1769-1770 and 4230 omitted), and the omitted row theorems RProof.generic_selected / extreme_transport / extreme_selected / cv_R and Bridge.sm_R (lines 2538-2550, 3472-3483, 4193-4204, 4220-4226, 4234-4237: still unproved or depending on an unproved row — NOT ported). No unproved declaration; no interface Prop asserted.
+import RProof.X1Rows
+import RProof.X1Rows2
+import RProof.GenericTransport
+import CV.ChamberInvRow
+import CV.FullTwist
+import CV.HomflyRows
+import CV.CarrierFloor
+import Bridge.SmR
+
+/-! # CV/R tail — the RA rows' interface Props and PROVED ledgers (rows 174, 176, 177) and the row-178/183 assemblies
+
+Library material of the CV/R tail lane (work/drafts/cvtail/PLAN_FINAL.md §4-§6, WAVE1_ASSEMBLY_REPORT.md §3): the
+fixed row shape `RowShape`, the accepted rows 170/172/173 in that shape, and for each of the three open R rows the
+explicit interface Props (D-F11: stated, consumed, NEVER asserted — `gsc_moves`, `est_port_relation`,
+`esc_interface`) with the PROVED ledger of `RowShape` type (`gsc_ledger`, `est_ledger`, `esc_ledger`) from
+`CV.CarrierSlotFloor`.  `cv_R_of_rows` and `Bridge.sm_R_of_rows` assemble rows 178 and 183 from the four rows as
+hypotheses.  The row theorems `RProof.generic_selected`, `extreme_transport`, `extreme_selected`, `cv_R`, `Bridge.sm_R`
+are NOT here (open: the three interface Props are unrealised); `RProof.extreme_pair_zero` is in
+RProof/ExtremePairZero.lean.  Every declaration here is proved on standard + literature axioms. -/
+
+namespace RProof
+
+open SM SM.GeoCarrier
+
+/-- The fixed shape of an X₁-dependent R row (the accepted siblings' signature: `exterior`
+X1Rows2.lean:1966, `availability_zero_one` :3619, `generic_selector` X1Rows.lean:1309,
+`generic_transport` GenericTransport.lean:11157). -/
+def RowShape (D : ∀ {n : ℕ} [NeZero n], 3 ≤ n → CV.Event n → ZMod n → ZMod n → ZMod n → ℝ → Prop) :
+    Prop :=
+  ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n)
+    (h3 : remote e f ∧ remote f g ∧ remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+    (h4e : remote e f ∧ remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)
+    (h4f : remote f e ∧ remote f g ∧ e ≠ g ∧ CV.rep e < CV.rep g)
+    (h4g : remote g e ∧ remote g f ∧ e ≠ f ∧ CV.rep e < CV.rep f),
+    E.IsSimpleRIII e f g h3 h4e h4f h4g → ∃ δ : ℝ, 0 < δ ∧ δ ≤ E.radius ∧ D hn E e f g δ
+
+theorem rowShape_170 : RowShape @AvailabilityZeroOneData := by
+  sorry
+
+theorem rowShape_172 : RowShape @GenericSelectorData := by
+  sorry
+
+theorem rowShape_173 : RowShape @GenericTransportData := by
+  sorry
+
+
+variable {n : ℕ} [NeZero n]
+
+/-! ## Unit U-174 (prefix `gsc_`) — the generic selected complementary couple
+(R_GENERIC_SELECTED_COUPLE_PROOF.md, (GSC) `T_E(b) = T_P(b) + T_P(ac)`)
+
+Pattern D-F11: the Reidemeister move and the diagram identifications the RA argument needs are stated
+as explicit interface Props (`gsc_fulltwist_triple` — the G10 RII deletion of the switched empty pair
+`a, c`; `gsc_smoothing_split` — the two-component smoothing carries the pair-row records; the bundle
+`gsc_Ledger` — the carrier/selector/rotation ledger of GSC §1–§3; the event-level interface
+`gsc_moves`), the RA ledger of GSC §4–§5 is PROVED from them and from `CV.CarrierSlotFloor`
+(`gsc_ledger : gsc_moves → CV.CarrierSlotFloor → RowShape @GenericSelectedData`), and the moves are
+realised as far as the accepted library allows (`gsc_wall_of_endpoint`, `gsc_Ind_*`, the sign
+facts; see U_R174_REPORT.md for what remains).  Nothing here is mapped; the interface Props are never
+asserted. -/
+
+section GSC
+
+open SM.Carrier SM.Link
+
+/-! ### GSC §4 (12)–(13): the Laurent-polynomial coefficient extraction (pure algebra, PROVED) -/
+
+/-- Floors multiply: if every monomial of `f` has exponent `≥ dA` and every monomial of `g` has
+exponent `≥ dB`, the `a^{dA+dB}` coefficient of `f * g` is the product of the two floor
+coefficients ("the coefficient at `D = d_A + d_B` is the product of the two first coefficients"). -/
+theorem gsc_coeff_mul_floor {f g : LaurentPolynomial ℤ} {dA dB : ℤ}
+    (hf : ∀ i, f.coeff i ≠ 0 → dA ≤ i) (hg : ∀ j, g.coeff j ≠ 0 → dB ≤ j) :
+    (f * g).coeff (dA + dB) = f.coeff dA * g.coeff dB := by
+  sorry
+
+
+/-- Below the sum of the floors every coefficient of the product vanishes ("no exponent below `d_A`
+occurs in `f_A`, and none below `d_B` occurs in `f_B`. Therefore the first coefficient in (12) is
+zero"). -/
+theorem gsc_coeff_mul_eq_zero_of_lt {f g : LaurentPolynomial ℤ} {dA dB : ℤ}
+    (hf : ∀ i, f.coeff i ≠ 0 → dA ≤ i) (hg : ∀ j, g.coeff j ≠ 0 → dB ≤ j) {k : ℤ}
+    (hk : k < dA + dB) : (f * g).coeff k = 0 := by
+  sorry
+
+
+/-- The `a^k` coefficient of `(a − a⁻¹) a^{−2ℓ} h` is `[a^{k+2ℓ−1}] h − [a^{k+2ℓ+1}] h` ("the factor
+`a^(-2 ell)(a-a^(-1))`"). -/
+theorem gsc_coeff_shift (ℓ k : ℤ) (h : LaurentPolynomial ℤ) :
+    ((aPow 1 - aPow (-1)) * aPow (-(2 * ℓ)) * h).coeff k =
+      h.coeff (k + 2 * ℓ - 1) - h.coeff (k + 2 * ℓ + 1) := by
+  sorry
+
+
+/-- **GSC (12)–(13), the coefficient extraction.**  From lem:fulltwist's coefficient display, the
+two-component `z^{-1}` row of lem:homflyrows (ii) (already in product-of-rows form, knot parity
+included), the slot identity (11) `d_A + d_B = d_L + 2ℓ` and the two floors of thm:carrierfloor,
+`Ω_H − Ω_L = −ω_A ω_B`. -/
+theorem gsc_omega_jump_alg {ΩH ΩL dL dA dB ℓ : ℤ} {F0 QA QB : R}
+    (hfull : ΩH - ΩL = coeffAt (dL - 1) (-1) F0)
+    (hrow : zRow (-1) F0 = (aPow 1 - aPow (-1)) * aPow (-(2 * ℓ)) * (zRow 0 QA * zRow 0 QB))
+    (hD : dA + dB = dL + 2 * ℓ)
+    (hA : ∀ d, coeffAt d 0 QA ≠ 0 → dA ≤ d) (hB : ∀ d, coeffAt d 0 QB ≠ 0 → dB ≤ d) :
+    ΩH - ΩL = -(coeffAt dA 0 QA * coeffAt dB 0 QB) := by
+  sorry
+
+
+/-! ### The def:X1 objects of a carrier as lem:fulltwist's `d`, `Ω` of its grouped diagram
+(cor:groupedknot (B): `D_L`, `D_H` are the positive lifts `carrierDiagram`) -/
+
+variable {P P' : LabelledTuple n}
+
+/-- A grouped carrier diagram is carried by a single closed plane curve (cor:groupedknot (B)). -/
+theorem gsc_carrierDiagram_componentCount (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    (CV.carrierDiagram hn hG hS q).componentCount = 1 := by
+  sorry
+
+
+/-- `w(D(W)) = w_{S,L}` for every carrier (cor:groupedknot (B) `grouped_writhe`; `0 = 0` when
+piece-free). -/
+theorem gsc_carrierDiagram_writhe (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    (CV.carrierDiagram hn hG hS q).writhe = CV.groupedWrithe hG q := by
+  sorry
+
+
+/-- `R(Γ_{D(W)}) = R(L)`: the underlying curve of the grouped diagram is the carrier's corner polygon
+(cor:groupedknot (B) `underlying_curve`, definitional). -/
+theorem gsc_carrierDiagram_absRot (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (h1 : (CV.carrierDiagram hn hG hS q).componentCount = 1) :
+    CV.absRot (CV.carrierDiagram hn hG hS q) h1 = (CV.carrierR hn hG hS q : ℤ) := by
+  sorry
+
+
+/-- lem:fulltwist's `d(D(W)) = 1 − w − R` is def:X1's slot of the carrier. -/
+theorem gsc_d_carrierDiagram (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (h1 : (CV.carrierDiagram hn hG hS q).componentCount = 1) :
+    CV.d (CV.carrierDiagram hn hG hS q) h1 = CV.slot hn hG hS q := by
+  sorry
+
+
+/-- lem:fulltwist's `Ω(D(W))` is def:X1's factor `Ω₁(S,L)` ("The two bindings agree wherever both
+apply"). -/
+theorem gsc_Omega_carrierDiagram (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (h1 : (CV.carrierDiagram hn hG hS q).componentCount = 1) :
+    CV.Omega (CV.carrierDiagram hn hG hS q) h1 = CV.Omega1 hn hG hS q := by
+  sorry
+
+
+/-! ### A uniform carrier satisfies the alternative of thm:carrierfloor (C)/(D) -/
+
+/-- "The nonzero-selector assumption and (4) make each such carrier uniform with turn sign `−σ`; after
+a possible global orientation reversal, thm:carrierfloor (C) applies": a uniform carrier (def:wind) is
+all-positive or, after reversal, all-positive (`UniformOrOneDissentCV` of its corner polygon). -/
+theorem gsc_alt_of_uniform (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (hu : CV.CarrierUniform hG.crossingGeometry S q) :
+    CV.UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry S q) := by
+  sorry
+
+
+/-- The floor of thm:carrierfloor (C)/(D) in support form, at a carrier of nonzero weight. -/
+theorem gsc_floor_of_weight_ne_zero (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n) (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (hw : CV.weight hG.crossingGeometry S q ≠ 0) (d : ℤ)
+    (hd : coeffAt d 0 (CV.groupedPoly hn hG hS q) ≠ 0) : CV.slot hn hG hS q ≤ d := by
+  sorry
+
+
+/-! ### The interface Props (D-F11): the G10 move and the diagram identifications of GSC §3 -/
+
+/-- **Interface (G10): the full-twist triple of GSC §3.**  "In (3), choose the positive crossing `a` and
+let `D_0` be its oriented smoothing.  Switching `a` makes `a, c` an empty oppositely signed oriented RII
+pair; deleting that pair gives `D_L`.  Thus `(D_L, D_H, D_0)` satisfies (T1)–(T2) of lem:fulltwist":
+`q` (the retained crossing `a` of `D_H`) is positive, `D₀` is an oriented smoothing of `D_H` at `q`
+(T1), and the switched diagram is carried by RII moves (T2) to a diagram `D_L'` with the polynomial of
+`D_L` — the RII deletion of the switched empty pair is the one move of this unit.  `D_L` is the grouped
+diagram of the `P-b` carrier, which lives on the OTHER side of the wall, so the RII deletion (performed
+on the `E`-side lift `D_H`) lands on a diagram with the RECORD of `D_L` (lem:carrierword, def:record),
+whose polynomial is `P_{D_L}` by ax:gausscode (`CV.gausscode_polynomial`); the printed (T2) "gives a
+diagram carried to `D_L`" is read through that identification (`homfly D_L' = homfly D_L`), which is all
+lem:fulltwist's first display consumes (`CV.fulltwist_skein` at `D_L'`). -/
+def gsc_fulltwist_triple (D_L D_H D₀ : Diagram) (q : D_H.Γ.Crossing) : Prop :=
+  D_H.IsPositive q ∧ IsOrientedSmoothing D_H q D₀ ∧
+    ∃ D_L' : Diagram, Relation.ReflTransGen RII (D_H.switch q) D_L' ∧ homfly D_L' = homfly D_L
+
+/-- **Interface: the smoothing identification of GSC §3.**  "Smoothing `a` in (3) gives two ordered
+components.  The first inherits the `A` successor string and the second the `B` string … After deleting
+those mixed crossings from the component records, the retained visits, cyclic order, over/under
+designations, and positive crossing signs are exactly the records on the `P-ac` `A` and `B` carriers
+… By lem:carrierword, def:record, ax:gausscode, and cor:groupedknot, the two component polynomials are
+the pair-row grouped polynomials `Q_A, Q_B`": `D₀` has two components `i ≠ j`, whose knot restrictions
+have the grouped polynomials `QA`, `QB` (ax:gausscode on the record isomorphisms), and `ℓ` is their
+linking number (lem:homflyrows (ii)'s `2λ = mixedSignSum`). -/
+def gsc_smoothing_split (D₀ : Diagram) (i j : Fin D₀.Γ.c) (QA QB : R) (ℓ : ℤ) : Prop :=
+  D₀.componentCount = 2 ∧ i ≠ j ∧ homfly (D₀.knotRestrict i) = QA ∧ homfly (D₀.knotRestrict j) = QB ∧
+    CV.IsLinkingNumber D₀ i j ℓ
+
+/-- **The ledger data of the generic selected couple on an abstract configuration** (GSC §1–§3):
+two CV-generic polygons `P` (the two-edge side, local words `P = a b A a c B b c C`) and `P'` (the
+one-edge side, `E = b a A c a B c b C`) with the same crossing set, an outside support `Q`, the centre
+`m` (= `b`) and the selected pair `x, w` (= `a, c`); the rows `S_m = Q ∪ {m}` (present on both sides)
+and `S_xw = Q ∪ {x, w}` (present on `P`).  Fields, by GSC section:
+* §1 (2) the successor carriers: `qC`, `qAB` on `P-b`; `qC'`, `qA`, `qB` on `P-ac`; the wall bijection
+  `τ` of the centre row (rows 164/173: `GT_Wall`, `GT_carrierEquiv`) and the bijection `ρ` of the
+  carriers of `P-b` onto those of `P-ac` other than `B` (`AB ↦ A`, `C ↦ C'`, every other carrier "identical");
+* §2 (4)–(7) the selector and rotation ledger: `weight_wall`, `carrierR_wall` (the `P-b`/`E-b` carriers
+  "form a path in `R_c` through the RIII family"), `weight_C` (`wt(C_ac) = −σ wt(C_b)`), `weight_AB`
+  (`wt(A) wt(B) = σ wt(AB)`), `carrierR_add` ((8) `R(A)+R(B) = R(AB)` under a nonzero selector),
+  `spectator_*` and `omega_wall`/`omega_C` (the common spectator reads and `Ω_C`);
+* §3 the grouped full-twist triple: `writhe_wall` ((9) `w_H = w_L + 2`), `fulltwist` (the G10 RII
+  deletion), `smoothing` (the two-component smoothing carries the `P-ac` records), `writhe_count`
+  ((10) `w_L = w_A + w_B + 2ℓ − 1`).
+`σ = ±1` is the canonical sign (1). -/
+structure gsc_WallData (hn : 3 ≤ n) (hG : CV.Generic P) (hG' : CV.Generic P')
+    (hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s) (Q : Finset (Crossing P)) (m : Crossing P)
+    (hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry)
+    (hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry) where
+  /-- (2) `E-b : C | AB`: the carriers of the centre row correspond across the wall. -/
+  τ : GeoComponent hG.crossingGeometry (Q ∪ {m}) ≃
+    GeoComponent hG'.crossingGeometry (transportSupport hs (Q ∪ {m}))
+  /-- (6) the local corner signs of `P-b` and `E-b` agree carrier by carrier. -/
+  weight_wall : ∀ q, CV.weight hG'.crossingGeometry (transportSupport hs (Q ∪ {m})) (τ q) =
+    CV.weight hG.crossingGeometry (Q ∪ {m}) q
+  /-- (7) `rot(C_b) = rot(C_E)`, `rot(AB) = rot(AB_E)`. -/
+  carrierR_wall : ∀ q, CV.carrierR hn hG' hSm' (τ q) = CV.carrierR hn hG hSm q
+
+/-! ### REALISED: the wall part of the ledger (GSC §1 (2), §2 (6)–(7) for the `P-b`/`E-b` carriers),
+from the accepted row-173 toolkit (`GT_Wall`, `GT_carrierEquiv`, `GT_weight_eq`, `GT_carrierR_eq`) on
+a `GT_Endpoint` configuration -/
+
+/-- The wall data of the centre row `Q ∪ {m}`: as `GT_Endpoint.wall` for the row `Q ∪ {x}`, with the
+one selected triangle crossing now the centre `m` (`corners_apart`: two corners of `Q ∪ {m}` that are
+both triangle crossings are both `m`). -/
+theorem gsc_wall_of_endpoint (hG : CV.Generic P) (hG' : CV.Generic P')
+    {hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s} {e f g : ZMod n} {Q : Finset (Crossing P)}
+    {x w m : Crossing P} {ℓ₁ ℓ₂ ℓ₃ : ZMod n}
+    (D : GT_Endpoint hG.crossingGeometry hG'.crossingGeometry hs e f g Q x w m ℓ₁ ℓ₂ ℓ₃)
+    (hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry)
+    (hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry) :
+    GT_Wall hG.crossingGeometry hG'.crossingGeometry hs (triangleCrossings P e f g) (Q ∪ {m}) := by
+  sorry
+
+
+/-- **The wall part of the ledger is realised**: `τ` is the corner-cycle correspondence
+`GT_carrierEquiv`, the selectors and rotations are carried (`GT_weight_eq`, `GT_carrierR_eq`). -/
+noncomputable def gsc_wallData_of_endpoint (hn : 3 ≤ n) (hG : CV.Generic P) (hG' : CV.Generic P')
+    {hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s} {e f g : ZMod n} {Q : Finset (Crossing P)}
+    {x w m : Crossing P} {ℓ₁ ℓ₂ ℓ₃ : ZMod n}
+    (D : GT_Endpoint hG.crossingGeometry hG'.crossingGeometry hs e f g Q x w m ℓ₁ ℓ₂ ℓ₃)
+    (hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry)
+    (hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry) :
+    gsc_WallData hn hG hG' hs Q m hSm hSm' where
+  τ := GT_carrierEquiv (gsc_wall_of_endpoint hG hG' D hSm hSm')
+  weight_wall := GT_weight_eq hn hG hG' (gsc_wall_of_endpoint hG hG' D hSm hSm')
+  carrierR_wall := GT_carrierR_eq hn hG hG' (gsc_wall_of_endpoint hG hG' D hSm hSm') hSm hSm'
+
+
+/-- **The canonical sign is realised**: `σ = sgn det(u₁,u₂)` is `±1` on a CV-generic polygon at an
+actual crossing (genericity (G5), `CV.Generic.g5` through `crosses_iff`). -/
+theorem gsc_sigma_of_generic (hG : CV.Generic P) {i j : ZMod n} (h : IsCrossing P {i, j}) :
+    ((crossingSign P i j : SignType) : ℤ) = 1 ∨ ((crossingSign P i j : SignType) : ℤ) = -1 := by
+  sorry
+
+
+/-- On a `GT_Endpoint` configuration the sign `crossingSign ℓ₁ ℓ₂` is `±1`. -/
+theorem gsc_sigma_of_endpoint (hG : CV.Generic P) {hP' : CrossingGeometry P'}
+    {hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s} {e f g : ZMod n} {Q : Finset (Crossing P)}
+    {x w m : Crossing P} {ℓ₁ ℓ₂ ℓ₃ : ZMod n}
+    (D : GT_Endpoint hG.crossingGeometry hP' hs e f g Q x w m ℓ₁ ℓ₂ ℓ₃) :
+    ((crossingSign P ℓ₁ ℓ₂ : SignType) : ℤ) = 1 ∨ ((crossingSign P ℓ₁ ℓ₂ : SignType) : ℤ) = -1 := by
+  sorry
+
+
+/-- The ledger data proper, over the REALISED wall data `W` (`gsc_wallData_of_endpoint`): these
+fields are the interface. -/
+structure gsc_Ledger (hn : 3 ≤ n) (hG : CV.Generic P) (hG' : CV.Generic P')
+    (hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s) (Q : Finset (Crossing P)) (m x w : Crossing P)
+    (hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry) (hSxw : Q ∪ {x, w} ∈ CV.Ind hG.crossingGeometry)
+    (hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry)
+    (W : gsc_WallData hn hG hG' hs Q m hSm hSm') where
+  /-- (1) the canonical sign `σ`. -/
+  σ : ℤ
+  hσ : σ = 1 ∨ σ = -1
+  /-- (2) `P-b : C | AB`. -/
+  qC : GeoComponent hG.crossingGeometry (Q ∪ {m})
+  qAB : GeoComponent hG.crossingGeometry (Q ∪ {m})
+  hCAB : qC ≠ qAB
+  /-- (2) `P-ac : C | A | B`. -/
+  qC' : GeoComponent hG.crossingGeometry (Q ∪ {x, w})
+  qA : GeoComponent hG.crossingGeometry (Q ∪ {x, w})
+  qB : GeoComponent hG.crossingGeometry (Q ∪ {x, w})
+  hC'A : qC' ≠ qA
+  hC'B : qC' ≠ qB
+  hAB : qA ≠ qB
+  /-- "The `C` carrier in (2) owns the same residual labels in all three rows … Every other carrier is
+  a common spectator with the same data": every carrier but `AB` has the same read across the wall. -/
+  omega_wall : ∀ q, q ≠ qAB → CV.Omega1 hn hG' hSm' (W.τ q) = CV.Omega1 hn hG hSm q
+  /-- (9) "`D_H` has exactly the two additional positive residual crossings `a, c`": `w_H = w_L + 2`. -/
+  writhe_wall : CV.groupedWrithe hG' (W.τ qAB) = CV.groupedWrithe hG qAB + 2
+  /-- (2) the carriers of `P-b` against those of `P-ac`: `AB ↦ A`, `C ↦ C'`, spectators to themselves;
+  `B` is the extra carrier of the pair row. -/
+  ρ : GeoComponent hG.crossingGeometry (Q ∪ {m}) ≃
+    {q' : GeoComponent hG.crossingGeometry (Q ∪ {x, w}) // q' ≠ qB}
+  ρ_AB : (ρ qAB).1 = qA
+  ρ_C : (ρ qC).1 = qC'
+  spectator_weight : ∀ q, q ≠ qAB → q ≠ qC →
+    CV.weight hG.crossingGeometry (Q ∪ {x, w}) (ρ q).1 = CV.weight hG.crossingGeometry (Q ∪ {m}) q
+  spectator_omega : ∀ q, q ≠ qAB → q ≠ qC → CV.Omega1 hn hG hSxw (ρ q).1 = CV.Omega1 hn hG hSm q
+  /-- "its retained signed cyclic record, grouped writhe, rotation, slot, and read are the same". -/
+  omega_C : CV.Omega1 hn hG hSxw qC' = CV.Omega1 hn hG hSm qC
+  /-- (5) `wt(C_ac) = −σ wt(C_b)`. -/
+  weight_C : CV.weight hG.crossingGeometry (Q ∪ {x, w}) qC' = -σ * CV.weight hG.crossingGeometry (Q ∪ {m}) qC
+  /-- (5) `wt(A) wt(B) = σ wt(AB)` ("including the mixed cases"). -/
+  weight_AB : CV.weight hG.crossingGeometry (Q ∪ {x, w}) qA * CV.weight hG.crossingGeometry (Q ∪ {x, w}) qB =
+    σ * CV.weight hG.crossingGeometry (Q ∪ {m}) qAB
+  /-- (7)–(8) `R(A) + R(B) = R(AB)` when the selector is nonzero (turnlift (ii) + uniformrot (i)). -/
+  carrierR_add : CV.weight hG.crossingGeometry (Q ∪ {m}) qAB ≠ 0 →
+    CV.carrierR hn hG hSm qAB = CV.carrierR hn hG hSxw qA + CV.carrierR hn hG hSxw qB
+  /-- §3 the oriented smoothing `D_0` of `D_H` at `a`. -/
+  D₀ : Diagram
+  /-- the positive crossing `a` of `D_H`. -/
+  qx : (CV.carrierDiagram hn hG' hSm' (W.τ qAB)).Γ.Crossing
+  /-- (T1)–(T2): the G10 RII deletion (interface `gsc_fulltwist_triple`). -/
+  fulltwist : gsc_fulltwist_triple (CV.carrierDiagram hn hG hSm qAB) (CV.carrierDiagram hn hG' hSm' (W.τ qAB)) D₀ qx
+  /-- the two ordered components of `D_0`. -/
+  i : Fin D₀.Γ.c
+  j : Fin D₀.Γ.c
+  /-- the linking number `ℓ`. -/
+  ℓ : ℤ
+  /-- the smoothing identification (interface `gsc_smoothing_split`). -/
+  smoothing : gsc_smoothing_split D₀ i j (CV.groupedPoly hn hG hSxw qA) (CV.groupedPoly hn hG hSxw qB) ℓ
+  /-- (10) `w_L = w_A + w_B + 2ℓ − 1`. -/
+  writhe_count : CV.groupedWrithe hG qAB = CV.groupedWrithe hG qA + CV.groupedWrithe hG qB + 2 * ℓ - 1
+
+/-! ### The RA ledger on an abstract configuration (GSC §4–§5), PROVED from the interface -/
+
+/-- A present row is the product over its carriers of `wt(L) Ω₁(S,L)` (def:wind + def:X1). -/
+theorem gsc_rowTerm_eq_prod (hn : 3 ≤ n) (hG : CV.Generic P) {S : Finset (Crossing P)}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) :
+    rowTerm hn hG S = ∏ q : GeoComponent hG.crossingGeometry S,
+      CV.weight hG.crossingGeometry S q * CV.Omega1 hn hG hS q := by
+  sorry
+
+
+/-- Splitting two distinguished factors off a product over a `Fintype`. -/
+theorem gsc_prod_split {α : Type*} [Fintype α] [DecidableEq α] (F : α → ℤ) (a b : α) (hab : a ≠ b) :
+    ∏ q, F q = F a * (F b * ∏ q ∈ (Finset.univ.erase a).erase b, F q) := by
+  sorry
+
+
+/-- **GSC (13) on the ledger: `Ω_H − Ω_L = −ω_A ω_B`** under a nonzero selector.  lem:fulltwist's
+coefficient display at the triple `(D_L, D_H, D_0)` with `d_H = d_L − 2` from (9) and (7); lem:homflyrows
+(ii) with knot parity on the two components; (10)+(8) give (11); the two floors from
+`CV.CarrierSlotFloor` at the uniform carriers `A`, `B` (their weights are nonzero by (5)). -/
+theorem gsc_omega_jump (hF : CV.CarrierSlotFloor) {hn : 3 ≤ n} {hG : CV.Generic P} {hG' : CV.Generic P'}
+    {hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s} {Q : Finset (Crossing P)} {m x w : Crossing P}
+    {hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry} {hSxw : Q ∪ {x, w} ∈ CV.Ind hG.crossingGeometry}
+    {hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry}
+    {W : gsc_WallData hn hG hG' hs Q m hSm hSm'} (L : gsc_Ledger hn hG hG' hs Q m x w hSm hSxw hSm' W)
+    (h0 : CV.weight hG.crossingGeometry (Q ∪ {m}) L.qAB ≠ 0) :
+    CV.Omega1 hn hG' hSm' (W.τ L.qAB) - CV.Omega1 hn hG hSm L.qAB =
+      -(CV.Omega1 hn hG hSxw L.qA * CV.Omega1 hn hG hSxw L.qB) := by
+  sorry
+
+
+/-- **The generic selected complementary couple on an abstract configuration** (GSC §5):
+`T_E(b) − T_P(b) = wind_P(Q ∪ b) V Ω_C (Ω_H − Ω_L) = −wind_P(Q ∪ b) V Ω_C ω_A ω_B = T_P(ac)`, "including
+the mixed cases rather than cancelling a possibly zero weight … no exterior factor was divided out". -/
+theorem gsc_couple_of_ledger (hF : CV.CarrierSlotFloor) {hn : 3 ≤ n} {hG : CV.Generic P}
+    {hG' : CV.Generic P'} {hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s} {Q : Finset (Crossing P)}
+    {m x w : Crossing P} {hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry}
+    {hSxw : Q ∪ {x, w} ∈ CV.Ind hG.crossingGeometry}
+    {hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry}
+    {W : gsc_WallData hn hG hG' hs Q m hSm hSm'} (L : gsc_Ledger hn hG hG' hs Q m x w hSm hSxw hSm' W) :
+    rowTerm hn hG' (transportSupport hs (Q ∪ {m})) =
+      rowTerm hn hG (Q ∪ {m}) + rowTerm hn hG (Q ∪ {x, w}) := by
+  sorry
+
+
+end GSC
+
+/-! ### The event-level interface and the row from it -/
+
+/-- **Interface (G10 + the identifications of GSC §1–§3), event level.**  On every two-edge-side
+configuration of the generic orbit at full availability (`GT_Endpoint`: `x, w` the selected pair, `m`
+the centre, `ℓ₁` shared by `x, m`, `ℓ₂` by `x, w`, `ℓ₃` by `w, m`; R-LOC (2)–(4), lem:guardconst, the
+masks) in the canonical sign branch (1) (`crossingSign ℓ₁ ℓ₂ = crossingSign ℓ₁ ℓ₃`, together with
+`GT_Endpoint.sgn`: all three strand-determinant signs equal `σ`), the ledger data of `gsc_Ledger` exist
+over the REALISED wall data `gsc_wallData_of_endpoint` (the corner-cycle correspondence `τ` with its
+selector and rotation transport).  NEVER mapped: this is the obligation the realisation of the unit
+discharges (report U_R174_REPORT.md). -/
+def gsc_moves : Prop :=
+  ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) {P P' : LabelledTuple n} (hG : CV.Generic P) (hG' : CV.Generic P')
+    (hs : ∀ s, IsCrossing P s ↔ IsCrossing P' s) (e f g : ZMod n) (Q : Finset (Crossing P))
+    (x w m : Crossing P) (ℓ₁ ℓ₂ ℓ₃ : ZMod n)
+    (D : GT_Endpoint hG.crossingGeometry hG'.crossingGeometry hs e f g Q x w m ℓ₁ ℓ₂ ℓ₃),
+    crossingSign P ℓ₁ ℓ₂ = crossingSign P ℓ₁ ℓ₃ →
+    ∀ (hSm : Q ∪ {m} ∈ CV.Ind hG.crossingGeometry) (hSxw : Q ∪ {x, w} ∈ CV.Ind hG.crossingGeometry)
+      (hSm' : transportSupport hs (Q ∪ {m}) ∈ CV.Ind hG'.crossingGeometry),
+      Nonempty (gsc_Ledger hn hG hG' hs Q m x w hSm hSxw hSm' (gsc_wallData_of_endpoint hn hG hG' D hSm hSm'))
+
+section GSCEvent
+
+variable {E : CV.Event n} {e f g : ZMod n} {δ : ℝ}
+
+/-- The centre row `Q ∪ {m}` is present on the two-edge side (full availability). -/
+theorem gsc_Ind_centre {t : E.Parameter} (ht : Punctured E δ t) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g) (hfull : FullAvail (geomAt E t ht.1) e f g Q)
+    {m : Crossing (E.curve t)} (hm : m.val ∈ triangleSupports e f g) :
+    Q ∪ {m} ∈ CV.Ind (geomAt E t ht.1) := by
+  sorry
+
+
+/-- The pair row `Q ∪ {x, w}` of a nonadjacent pair is present on the two-edge side. -/
+theorem gsc_Ind_pair {t : E.Parameter} (ht : Punctured E δ t) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g) (hfull : FullAvail (geomAt E t ht.1) e f g Q)
+    {x w : Crossing (E.curve t)} (hx : x.val ∈ triangleSupports e f g)
+    (hw : w.val ∈ triangleSupports e f g) (hxw : ¬ GeometricInterlaces (geomAt E t ht.1) x w) :
+    Q ∪ {x, w} ∈ CV.Ind (geomAt E t ht.1) := by
+  sorry
+
+
+/-- The centre row is present on the one-edge side too (the transported `Q` is an outside support at
+full availability, rows 164/173). -/
+theorem gsc_Ind_centre' (hL : LocalizationData E e f g δ) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g) (hfull : FullAvail (geomAt E t ht.1) e f g Q)
+    {m : Crossing (E.curve t)} (hm : m.val ∈ triangleSupports e f g) :
+    transportSupport hs (Q ∪ {m}) ∈ CV.Ind (geomAt E t' ht'.1) := by
+  sorry
+
+
+/-- **The couple on an event configuration**, from the interface: the two-edge side `t` carries the
+path with centre `m`, `Q` is an outside support at full availability, the sign branch is canonical. -/
+theorem gsc_couple_event (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hG : GenericTableData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g)
+    {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q)
+    (x w m : Crossing (E.curve t)) (ℓ₁ ℓ₂ ℓ₃ : ZMod n)
+    (hx : x.val ∈ triangleSupports e f g) (hw : w.val ∈ triangleSupports e f g)
+    (hm : m.val ∈ triangleSupports e f g) (hxw : x ≠ w) (hxm : x ≠ m) (hwm : w ≠ m)
+    (x1 : ℓ₁ ∈ x.val) (m1 : ℓ₁ ∈ m.val) (x2 : ℓ₂ ∈ x.val) (w2 : ℓ₂ ∈ w.val) (w3 : ℓ₃ ∈ w.val)
+    (m3 : ℓ₃ ∈ m.val) (l12 : ℓ₁ ≠ ℓ₂) (l13 : ℓ₁ ≠ ℓ₃) (l23 : ℓ₂ ≠ ℓ₃)
+    (hIxw : ¬ GeometricInterlaces (geomAt E t ht.1) x w) (hIxm : GeometricInterlaces (geomAt E t ht.1) x m)
+    (hIwm : GeometricInterlaces (geomAt E t ht.1) w m)
+    (hsgn : crossingSign (E.curve t) ℓ₂ ℓ₃ = crossingSign (E.curve t) ℓ₁ ℓ₃)
+    (hsgn' : crossingSign (E.curve t) ℓ₁ ℓ₂ = crossingSign (E.curve t) ℓ₁ ℓ₃) :
+    rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {m})) =
+      rowTerm hn (genericAt E t ht.1) (Q ∪ {m}) + rowTerm hn (genericAt E t ht.1) (Q ∪ {x, w}) := by
+  sorry
+
+
+/-- **Field `couple_canonical`** (`x = a`, `w = c`, `m = b`; `ℓ₁ = e`, `ℓ₂ = f`, `ℓ₃ = g`). -/
+theorem gsc_couple_canonical (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hG : GenericTableData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) :
+    ∀ t t' : E.Parameter, ∀ ht : Punctured E δ t, ∀ ht' : Punctured E δ t',
+    OppositeSides E t t' →
+    ∀ hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s,
+    ∀ (hef' : IsCrossing (E.curve t) {e, f}) (heg' : IsCrossing (E.curve t) {e, g})
+      (hfg' : IsCrossing (E.curve t) {f, g}),
+    ¬ ExtremeLocal (geomAt E t ht.1) hef' heg' hfg' →
+    strandSign (E.curve t) e f = strandSign (E.curve t) e g →
+    strandSign (E.curve t) e g = strandSign (E.curve t) f g →
+    EdgeAB (geomAt E t ht.1) hef' heg' → EdgeBC (geomAt E t ht.1) heg' hfg' →
+    ∀ Q ∈ outsideSupports (geomAt E t ht.1) e f g, FullAvail (geomAt E t ht.1) e f g Q →
+      rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {xPair heg'})) =
+        rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair heg'}) +
+          rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair hef', xPair hfg'}) := by
+  sorry
+
+
+/-- **Field `couple_relabelled`**: the branches `ab` (centre `c`; `x = a`, `w = b`, `m = c`; `ℓ₁ = f`,
+`ℓ₂ = e`, `ℓ₃ = g`) and `bc` (centre `a`; `x = b`, `w = c`, `m = a`; `ℓ₁ = e`, `ℓ₂ = g`, `ℓ₃ = f`). -/
+theorem gsc_couple_relabelled (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hG : GenericTableData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) :
+    ∀ t t' : E.Parameter, ∀ ht : Punctured E δ t, ∀ ht' : Punctured E δ t',
+    OppositeSides E t t' →
+    ∀ hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s,
+    ∀ (hef' : IsCrossing (E.curve t) {e, f}) (heg' : IsCrossing (E.curve t) {e, g})
+      (hfg' : IsCrossing (E.curve t) {f, g}),
+    ¬ ExtremeLocal (geomAt E t ht.1) hef' heg' hfg' →
+    ∀ Q ∈ outsideSupports (geomAt E t ht.1) e f g, FullAvail (geomAt E t ht.1) e f g Q →
+    (SelectedAB (strandSign (E.curve t) e f) (strandSign (E.curve t) e g) →
+      EdgeAC (geomAt E t ht.1) hef' hfg' → EdgeBC (geomAt E t ht.1) heg' hfg' →
+      rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {xPair hfg'})) =
+        rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair hfg'}) +
+          rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair hef', xPair heg'})) ∧
+    (SelectedBC (strandSign (E.curve t) e g) (strandSign (E.curve t) f g) →
+      EdgeAB (geomAt E t ht.1) hef' heg' → EdgeAC (geomAt E t ht.1) hef' hfg' →
+      rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {xPair hef'})) =
+        rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair hef'}) +
+          rowTerm hn (genericAt E t ht.1) (Q ∪ {xPair heg', xPair hfg'})) := by
+  sorry
+
+
+/-- **The bundle of row 174 from the interface** at a radius carrying rows 164, 172's table and the
+event sign data. -/
+theorem gsc_genericSelectedData (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hG : GenericTableData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) : GenericSelectedData hn E e f g δ := by
+  sorry
+
+
+end GSCEvent
+
+/-- **The RA ledger of row 174** (D-F11): from the interface `gsc_moves` and the carrier floor
+`CV.CarrierSlotFloor` (thm:carrierfloor (C)+(D) in def:X1's symbols), the row in its fixed shape.  The
+radius is the common one of rows 164 (`localization`), 172's table (`generic_table`) and the event sign
+data (`AV_exists_eventRadius`), as for row 173. -/
+theorem gsc_ledger (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) : RowShape @GenericSelectedData := by
+  sorry
+
+
+/-- The row in the exact signature of the leaf `generic_selected`, from the interface and the carrier
+floor: once `gsc_moves` is realised (`hmove`), the leaf is
+`gsc_generic_selected_of_moves hmove (carrier_slot_floor_of_C SM.cf_thm_carrierfloor.clauseC) hn E e f g h3 h4e h4f h4g hE`. -/
+theorem gsc_generic_selected_of_moves (hmove : gsc_moves) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n)
+    (E : CV.Event n) (e f g : ZMod n)
+    (h3 : remote e f ∧ remote f g ∧ remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+    (h4e : remote e f ∧ remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)
+    (h4f : remote f e ∧ remote f g ∧ e ≠ g ∧ CV.rep e < CV.rep g)
+    (h4g : remote g e ∧ remote g f ∧ e ≠ f ∧ CV.rep e < CV.rep f)
+    (hE : E.IsSimpleRIII e f g h3 h4e h4f h4g) :
+    ∃ δ : ℝ, 0 < δ ∧ δ ≤ E.radius ∧ GenericSelectedData hn E e f g δ := by
+  sorry
+
+
+/-! ### Unit U-176 (prefix `est_`) — R:extreme_transport: interface Props, ledger, realisation status
+
+Written 2026-09-15 by the U-176 prover. Source: reference/R/RA/R_EXTREME_SINGLETON_TRANSPORT_PROOF.md
+("Statement and canonical data", §1–§4). Pattern (PLAN_FINAL §4 174/176/177, D-F11): the RII port
+relation and the diagram identifications the printed proof establishes by geometry are stated as an
+explicit INTERFACE (`est_PortData` per affected carrier, `est_port_relation` over the event data); the RA
+ledger — lem:fulltwist (`CV.fulltwist_coefficient`), lem:homflyrows (ii) (`CV.homflyrows.two_component_row`),
+the floor `CV.CarrierSlotFloor` at the two clean outer carriers, knot parity through `mindegAZ_mul`, and the
+carrier-by-carrier transport of the unaffected carriers (`EXT_homfly_wall`) — is PROVED from it
+(`est_ledger`). The interface is never mapped. -/
+
+section EST
+
+open SM.Carrier SM.Link
+
+/-! #### A. Laurent-ring bookkeeping for (11) and (16) -/
+
+/-- `(p − q)_d = p_d − q_d` in `ℤ[a^{±1}]`. -/
+theorem est_coeff_sub (p q : LaurentPolynomial ℤ) (d : ℤ) : (p - q).coeff d = p.coeff d - q.coeff d := by
+  sorry
+
+
+/-- (16): "Extracting the two monomials of `a − a^{-1}`" from the `[z^{-1}]` row (11)
+`[z^{-1}] P(D_A) = (a − a^{-1}) a^{-2ℓ} [z^0] G`: `[a^{s-1} z^{-1}] P(D_A) = [a^{s-2+2ℓ}] G − [a^{s+2ℓ}] G`. -/
+theorem est_coeffAt_of_zRow (F G : R) (s ℓ : ℤ)
+    (h : zRow (-1) F = (aPow 1 - aPow (-1)) * aPow (-(2 * ℓ)) * zRow 0 G) :
+    coeffAt (s - 1) (-1) F = coeffAt (s - 2 + 2 * ℓ) 0 G - coeffAt (s + 2 * ℓ) 0 G := by
+  sorry
+
+
+/-- "Therefore `f_1 f_2` has no `a`-exponent below `D`" (§3): a coefficient of a product of two nonzero
+Laurent polynomials below the sum of their floors vanishes (`mindegAZ_mul`, the corner lane's FR-CC-3 route). -/
+theorem est_coeffAt_mul_eq_zero (f g : R) (hf : f ≠ 0) (hg : g ≠ 0) (a b d : ℤ)
+    (ha : a ≤ mindegAZ f) (hb : b ≤ mindegAZ g) (hd : d < a + b) : coeffAt d 0 (f * g) = 0 := by
+  sorry
+
+
+/-! #### B. The def:X1 data of a carrier read on its grouped diagram `D(W) = carrierDiagram`
+(cor:groupedknot (B), `GT_groupedPoly_eq_homfly`): `w(D) = w_{S,L}`, `R(Γ_D) = R(L)`, `d(D) = slot`,
+`Ω(D) = Ω₁(S,L)` — the "two bindings agree" sentence of lem:fulltwist (d6:2020–2022). -/
+
+/-- `w(D(W)) = w_{S,L}` (def:positive-lift: the writhe of the positive lift is its crossing count;
+`groupedWrithe_eq_card_geoCarrierCrossings`). -/
+theorem est_carrierDiagram_writhe (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    (CV.carrierDiagram hn hG hS q).writhe = CV.groupedWrithe hG q := by
+  sorry
+
+
+/-- `d(D(W)) = 1 − w_{S,L} − R(L) = slot` (`absRot` of the lift IS `carrierR`: the unique component of the
+lift is the corner polygon, `geoPositiveLift_comp`, definitionally). -/
+theorem est_carrierDiagram_d (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    CV.d (CV.carrierDiagram hn hG hS q) rfl = CV.slot hn hG hS q := by
+  sorry
+
+
+/-- `Ω(D(W)) = Ω₁(S,L)`. -/
+theorem est_carrierDiagram_Omega (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S) :
+    CV.Omega (CV.carrierDiagram hn hG hS q) rfl = CV.Omega1 hn hG hS q := by
+  sorry
+
+
+/-! #### C. The interface: the RII port relation and the auxiliary components (§1–§3 of the RA text)
+
+For one row `j` of the full-availability fibre, `q` the affected carrier of `S = Q ∪ {j}` on the `K3`
+side `H` (its grouped diagram `D_0 = carrierDiagram q`, "clean": the two other triangle crossings are
+dominated), `q'` its copy on the empty side `L` (grouped diagram `D_+ = carrierDiagram q'`, which
+retains the two other triangle crossings as "the two positive self-crossings `q, r`"), and `y` the lift
+crossing of the one to be switched ("`q`" of the text). -/
+
+/-- **The RII port data of an affected singleton carrier** (R_EXTREME_SINGLETON_TRANSPORT_PROOF.md §1–§3),
+field by field: (T2) "Switching `q` makes it negative; the adjacent local port pairs then make `q, r` an
+empty opposite-sign oriented RII pair. Deleting it leaves exactly `D_0`" (`port`); (T1) "`D_A =
+smooth_q(D_+)`" (`smooth`), "Smoothing `q` splits `D_+` into two components" (`two`, `i`, `j`); (9a)/(10)
+"the exact component data" — the two components have the polynomials of the two clean outer carriers
+`Λ₁, Λ₂` of the full support `S_full = Q ∪ {x, y, z}` on `L` (`Sf`, `poly₁`, `poly₂`: cor:groupedknot (A)(B),
+lc:single-crossing for the kink `r`); "`ell` the linking number of the two components" (`link`); (14)
+`w_0 = w_1 + w_2 + 2ℓ` (`writhe`); (13) `R_1 + R_2 + 1 = R` (`rot`, turnlift (ii) + the corner ledger (12));
+(12) each clean outer carrier is uniform or exactly one-dissent after a possible reversal (`alt₁`, `alt₂`). -/
+structure est_PortData (hn : 3 ≤ n) {P P' : LabelledTuple n} (hG : CV.Generic P) (hG' : CV.Generic P')
+    {S : Finset (Crossing P)} {S' : Finset (Crossing P')}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (hS' : S' ∈ CV.Ind hG'.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S) (q' : GeoComponent hG'.crossingGeometry S')
+    (y : (CV.carrierDiagram hn hG' hS' q').Γ.Crossing) where
+  /-- (T2) the RII port relation: the switched `D_+` is carried to `D_0` by oriented RII moves -/
+  port : Relation.ReflTransGen RII ((CV.carrierDiagram hn hG' hS' q').switch y) (CV.carrierDiagram hn hG hS q)
+  /-- `D_A = smooth_q(D_+)` -/
+  DA : Diagram
+  /-- (T1) -/
+  smooth : IsOrientedSmoothing (CV.carrierDiagram hn hG' hS' q') y DA
+  /-- "Smoothing `q` splits `D_+` into two components" -/
+  two : DA.componentCount = 2
+  i : Fin DA.Γ.c
+  j : Fin DA.Γ.c
+  ij : i ≠ j
+  /-- `S_full = Q ∪ {x, y, z}`, "an independent `L`-side support" -/
+  Sf : Finset (Crossing P')
+  hSf : Sf ∈ CV.Ind hG'.crossingGeometry
+  /-- the two clean outer carriers of (10) -/
+  Λ₁ : GeoComponent hG'.crossingGeometry Sf
+  Λ₂ : GeoComponent hG'.crossingGeometry Sf
+  /-- (9a) "polynomials `(Q_C, Q_B)`" (resp. `(Q_A, Q_B)`, `(Q_C, Q_A)`) -/
+  poly₁ : homfly (DA.knotRestrict i) = CV.groupedPoly hn hG' hSf Λ₁
+  poly₂ : homfly (DA.knotRestrict j) = CV.groupedPoly hn hG' hSf Λ₂
+  /-- "`ell` … the linking number of the two components" -/
+  ℓ : ℤ
+  link : CV.IsLinkingNumber DA i j ℓ
+  /-- (14) `w_0 = w_1 + w_2 + 2ℓ` -/
+  writhe : CV.groupedWrithe hG q = CV.groupedWrithe hG' Λ₁ + CV.groupedWrithe hG' Λ₂ + 2 * ℓ
+  /-- (13) `R_1 + R_2 + 1 = R` -/
+  rot : (CV.carrierR hn hG hS q : ℤ) = CV.carrierR hn hG' hSf Λ₁ + CV.carrierR hn hG' hSf Λ₂ + 1
+  /-- (12) "each clean outer carrier … is exactly one-dissent, never uniform with the wrong sign" -/
+  alt₁ : CV.UniformOrOneDissentCV (geoCornerPolygon hG'.crossingGeometry Sf Λ₁)
+  alt₂ : CV.UniformOrOneDissentCV (geoCornerPolygon hG'.crossingGeometry Sf Λ₂)
+
+/-! #### D. The ledger of the affected carrier: (7), (8), (11), (15), (16) -/
+
+/-- **(16) `Ω_+ = Ω_0`**: from the port data, `w_+ = w_0 + 2` and `R(D_+) = R(D_0)` (7), lem:fulltwist gives
+`Ω_+ − Ω_0 = [a^{d_0 − 1} z^{-1}] P(D_A)` (8); lem:homflyrows (ii) with knot parity gives the `[z^{-1}]`
+row (11); the two extracted monomials sit at `a^{D−4}` and `a^{D−2}` with `D = d_1 + d_2 = d_0 + 2 + 2ℓ` (15),
+below the floor `D` of `f_1 f_2` (thm:carrierfloor (C)+(D) at the two clean outer carriers, `CarrierSlotFloor`
++ `mindegAZ_mul`): both vanish. "The last equality is exactly the floor, not an assumed sharpness statement." -/
+theorem est_omega1_eq_of_port (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n) {P P' : LabelledTuple n}
+    (hG : CV.Generic P) (hG' : CV.Generic P')
+    {S : Finset (Crossing P)} {S' : Finset (Crossing P')}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (hS' : S' ∈ CV.Ind hG'.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S) (q' : GeoComponent hG'.crossingGeometry S')
+    (y : (CV.carrierDiagram hn hG' hS' q').Γ.Crossing)
+    (D : est_PortData hn hG hG' hS hS' q q' y)
+    (hw : CV.groupedWrithe hG' q' = CV.groupedWrithe hG q + 2)
+    (hR : CV.carrierR hn hG' hS' q' = CV.carrierR hn hG hS q) :
+    CV.Omega1 hn hG' hS' q' = CV.Omega1 hn hG hS q := by
+  sorry
+
+
+/-! #### E. The event-level configuration of a singleton row (R-LOC-2, R-PAR, the sign radius)
+
+Side `t` is the `K3` side `H` (`CompleteLocal`), `t'` the empty side `L`; `j` the selected triangle
+crossing, `u, v` the two others; `S = Q ∪ {j}`, `S' = transportSupport hs S`. -/
+
+section ESTEvent
+
+variable {E : CV.Event n} {e f g : ZMod n} {δ : ℝ}
+
+/-- Three distinct triangle crossings exhaust the triangle. -/
+theorem est_tri_exhaust {t : E.Parameter} (hef' : IsCrossing (E.curve t) {e, f})
+    (heg' : IsCrossing (E.curve t) {e, g}) (hfg' : IsCrossing (E.curve t) {f, g})
+    {j u v : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    (c : Crossing (E.curve t)) (hc : c.val ∈ triangleSupports e f g) : c = j ∨ c = u ∨ c = v := by
+  sorry
+
+
+/-- On the `K3` side any two distinct triangle crossings interlace. -/
+theorem est_interlaces_of_complete {t : E.Parameter} (ht : t.val ≠ 0)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht) hef' heg' hfg')
+    {u v : Crossing (E.curve t)} (hu : u.val ∈ triangleSupports e f g) (hv : v.val ∈ triangleSupports e f g)
+    (huv : u ≠ v) : GeometricInterlaces (geomAt E t ht) u v := by
+  sorry
+
+
+/-- A crossing of `S = Q ∪ {j}` in the triangle is `j`. -/
+theorem est_eq_j_of_mem_S_T {t : E.Parameter} (ht : t.val ≠ 0) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht) e f g) {j c : Crossing (E.curve t)}
+    (hcS : c ∈ Q ∪ {j}) (hcT : c.val ∈ triangleSupports e f g) : c = j := by
+  sorry
+
+
+/-- `S = Q ∪ {j}` is independent (full availability; `PRE_union_mem_Ind_of_fullAvail`). -/
+theorem est_S_ind {t : E.Parameter} (ht : t.val ≠ 0) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht) e f g) (hfull : FullAvail (geomAt E t ht) e f g Q)
+    {j : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g) :
+    Q ∪ {j} ∈ CV.Ind (geomAt E t ht) := by
+  sorry
+
+
+/-- `S' = Q' ∪ {j'}` is independent on the far side (`Q'` outside with full availability, R-LOC-2 (4)). -/
+theorem est_S'_ind (hL : LocalizationData E e f g δ) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) :
+    transportSupport hs (Q ∪ {j}) ∈ CV.Ind (geomAt E t' ht'.1) := by
+  sorry
+
+
+/-- **The wall data of a singleton row** `S = Q ∪ {j}` (as `GT_Endpoint.wall`: the only triangle crossing
+of `S` is `j`, so no two corners form a reversed pair). -/
+theorem est_wall (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f) (heg : e ≠ g)
+    (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t')
+    (hop : OppositeSides E t t') (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) :
+    GT_Wall (geomAt E t ht.1) (geomAt E t' ht'.1) hs (triangleCrossings (E.curve t) e f g) (Q ∪ {j}) := by
+  sorry
+
+
+/-- On `H` the two unselected triangle crossings are dominated by `j` ("the other two local crossings are
+dominated"). -/
+theorem est_not_mem_U_H {t : E.Parameter} (ht : t.val ≠ 0)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht) hef' heg' hfg')
+    (Q : Finset (Crossing (E.curve t))) {j u : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g)
+    (hu : u.val ∈ triangleSupports e f g) (hju : j ≠ u) : u ∉ CV.U (geomAt E t ht) (Q ∪ {j}) := by
+  sorry
+
+
+/-- On `L` the two unselected triangle crossings survive ("On `L` they survive as the two positive
+self-crossings `q, r`"): `u' ∉ S'`, `u'` interlaces neither `j'` (empty local graph, R-LOC-2 corollary) nor
+any member of `Q'` (full availability, R-LOC-2 (4)). -/
+theorem est_mem_U_L (hL : LocalizationData E e f g δ) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g) (hju : j ≠ u) :
+    crossingTransport hs u ∈ CV.U (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j})) := by
+  sorry
+
+
+end ESTEvent
+
+/-! #### F. Retained crossings across the wall: the common carrier, the spectators and the affected carrier
+
+(5)/(§1): on `H` the two unselected local crossings `u, v` are dominated, so every carrier of `S` retains
+only outside crossings; on `L` they are the two positive self-crossings of ONE carrier — the copy of the
+carrier `q₀` owning their two visits on the edge they share (adjacent visits, R-LOC-2 (2)). Every other
+carrier's retained set is carried by the edge-pair transport. -/
+
+section ESTRetained
+
+variable {E : CV.Event n} {e f g : ZMod n} {δ : ℝ}
+
+omit [NeZero n] in
+/-- The label shared by two triangle crossings is not a label of the third. -/
+theorem est_shared_not_mem_third (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {P : LabelledTuple n}
+    {j u v : Crossing P} (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val) : ℓ ∉ j.val := by
+  sorry
+
+
+/-- A visit on an edge that is not an edge of `j` is a good mark of `S = Q ∪ {j}` (its reversed partners are
+visits of the other triangle crossings, none of which is a corner). -/
+theorem est_good_of_edge {t : E.Parameter} (ht : t.val ≠ 0) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht) e f g) {j : Crossing (E.curve t)} {w : Visit (E.curve t)}
+    (hw : w.2.val ∉ j.val) : GT_Good (triangleCrossings (E.curve t) e f g) (Q ∪ {j}) (Sum.inr w) := by
+  sorry
+
+
+/-- An unselected triangle crossing is not in `S`. -/
+theorem est_not_mem_S {t : E.Parameter} (ht : t.val ≠ 0) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht) e f g) {j u : Crossing (E.curve t)}
+    (hu : u.val ∈ triangleSupports e f g) (hju : j ≠ u) : u ∉ Q ∪ {j} := by
+  sorry
+
+
+/-- On `H` the two visits of `u, v` on their shared edge lie on one carrier of `S` (adjacent visits of two
+unselected crossings, `GT_owner_eq_of_adjacent`). -/
+theorem est_owner_shared_eq (hL : LocalizationData E e f g δ) (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g)
+    {t : E.Parameter} (ht : Punctured E δ t) {Q : Finset (Crossing (E.curve t))}
+    (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g) {j u v : Crossing (E.curve t)}
+    (hu : u.val ∈ triangleSupports e f g) (hv : v.val ∈ triangleSupports e f g)
+    (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v) {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val) :
+    geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) =
+      geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn v ℓ hℓv)) := by
+  sorry
+
+
+/-- On `H` no triangle crossing is retained by any carrier of `S`. -/
+theorem est_not_retained_H {t : E.Parameter} (ht : Punctured E δ t)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j})) {c : Crossing (E.curve t)}
+    (hc : c ∈ geoCarrierCrossings (geomAt E t ht.1) (Q ∪ {j}) q) : c.val ∉ triangleSupports e f g := by
+  sorry
+
+
+/-- An outside crossing is retained by the copy of a carrier iff it is retained by the carrier (all its visits
+are good marks; `GT_owner_transport`). -/
+theorem est_retained_outside_iff (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f)
+    (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t')
+    (hop : OppositeSides E t t') (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j})) {c : Crossing (E.curve t)}
+    (hcT : c.val ∉ triangleSupports e f g) :
+    crossingTransport hs c ∈ geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) ↔
+      c ∈ geoCarrierCrossings (geomAt E t ht.1) (Q ∪ {j}) q := by
+  sorry
+
+
+/-- An unselected triangle crossing `u` is retained on `L` by the copy of `q` iff `q` owns the visit of `u`
+on the edge `ℓ` it shares with the other unselected crossing (that visit is good; `u' ∈ U(S')`). -/
+theorem est_retained_u_iff (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f)
+    (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t')
+    (hop : OppositeSides E t t') (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g) (hju : j ≠ u)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓj : ℓ ∉ j.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j})) :
+    crossingTransport hs u ∈ geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) ↔
+      geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) = q := by
+  sorry
+
+
+/-- **The retained set of an unaffected carrier is carried** (the common carrier and every spectator). -/
+theorem est_retained_eq_of_ne (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f)
+    (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t')
+    (hop : OppositeSides E t t') (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u v : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j}))
+    (hne : geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) ≠ q) :
+    geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) =
+      (geoCarrierCrossings (geomAt E t ht.1) (Q ∪ {j}) q).map (crossingTransport hs).toEmbedding := by
+  sorry
+
+
+/-- **The retained set of the affected carrier** `q₀` (the owner of the shared-edge visits of `u, v`): the
+carried outside survivors together with the two positive self-crossings `u', v'`. -/
+theorem est_retained_affected (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f)
+    (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t')
+    (hop : OppositeSides E t t') (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u v : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j}))
+    (hq : geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) = q) :
+    geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) =
+      (geoCarrierCrossings (geomAt E t ht.1) (Q ∪ {j}) q).map (crossingTransport hs).toEmbedding ∪
+        {crossingTransport hs u, crossingTransport hs v} := by
+  sorry
+
+
+end ESTRetained
+
+/-! #### G. The unaffected carriers ("the common carrier read, every triangle-disjoint spectator read, and
+all weights are identical across the wall", §4) and the affected carrier's writhe shift (7) -/
+
+section ESTCarriers
+
+variable {E : CV.Event n} {e f g : ZMod n} {δ : ℝ}
+
+/-- `P_{S,L}` of an unaffected carrier is carried: its retained crossings are outside crossings whose visit
+orders and divide signs are carried, so the two positive lifts are record-isomorphic (`EXT_homfly_wall`,
+CV:ax:gausscode). -/
+theorem est_groupedPoly_eq_of_ne (hn : 3 ≤ n) (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u v : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j}))
+    (hne : geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) ≠ q) :
+    CV.groupedPoly hn (genericAt E t' ht'.1) (est_S'_ind hL ht ht' hop hs hQ hfull hj)
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) =
+      CV.groupedPoly hn (genericAt E t ht.1) (est_S_ind ht.1 hQ hfull hj) q := by
+  sorry
+
+
+/-- `Ω₁(S,L)` of an unaffected carrier is carried (`w_{S,L}`, `R(L)`, `P_{S,L}` all carried). -/
+theorem est_omega1_eq_of_ne (hn : 3 ≤ n) (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u v : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j}))
+    (hne : geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) ≠ q) :
+    CV.Omega1 hn (genericAt E t' ht'.1) (est_S'_ind hL ht ht' hop hs hQ hfull hj)
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) =
+      CV.Omega1 hn (genericAt E t ht.1) (est_S_ind ht.1 hQ hfull hj) q := by
+  sorry
+
+
+/-- (7) `w_+ = w_0 + 2`: the affected carrier's copy retains the two extra positive self-crossings `u', v'`. -/
+theorem est_groupedWrithe_affected (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {t t' : E.Parameter} (ht : Punctured E δ t)
+    (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j u v : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) (hu : u.val ∈ triangleSupports e f g)
+    (hv : v.val ∈ triangleSupports e f g) (hju : j ≠ u) (hjv : j ≠ v) (huv : u ≠ v)
+    {ℓ : ZMod n} (hℓu : ℓ ∈ u.val) (hℓv : ℓ ∈ v.val)
+    (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j}))
+    (hq : geoOwner (geomAt E t ht.1) (Q ∪ {j}) (Sum.inr (visitOn u ℓ hℓu)) = q) :
+    CV.groupedWrithe (genericAt E t' ht'.1)
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q) =
+      CV.groupedWrithe (genericAt E t ht.1) q + 2 := by
+  sorry
+
+
+end ESTCarriers
+
+/-! #### H. The interface Prop and the ledger -/
+
+/-- The crossing of the grouped diagram `D(W)` sitting at a retained crossing `c` of the carrier
+(`geoCarrierCrossingEquiv`, def:positive-lift). -/
+noncomputable def est_liftCrossing (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    {c : Crossing P} (hc : c ∈ geoCarrierCrossings hG.crossingGeometry S q) :
+    (CV.carrierDiagram hn hG hS q).Γ.Crossing :=
+  (geoCarrierCrossingEquiv hn (CarrierGeometry.ofDiagrammatic (hG.diagrammatic hn))
+    (CV.geoIndependent_of_mem_Ind _ hS) q).symm ⟨c, hc⟩
+
+/-- **The RII port relation of row 176 — INTERFACE Prop (D-F11), never mapped.** For every simple RIII
+event, radius carrying R-LOC-2 and the sign data, `K3` side `t`, empty side `t'`, outside support `Q` at
+full availability, selected triangle crossing `j` and affected carrier `q` of `Q ∪ {j}` (its copy on `L`
+retains one of the two other triangle crossings), there is a choice `u` of the retained unselected crossing
+whose lift crossing carries the port data `est_PortData` (§1–§3 of the RA text: the RII port relation after
+the switch, the two-component smoothing and its exact owner map, the linking number, the writhe and rotation
+ledgers (13)/(14), the one-dissent sign ledger (12)). This is the G10-scale geometric content of row 176. -/
+def est_port_relation : Prop :=
+  ∀ (n : ℕ) [NeZero n] (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n) (δ : ℝ)
+    (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g)
+    (t t' : E.Parameter) (ht : Punctured E δ t) (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    (hef' : IsCrossing (E.curve t) {e, f}) (heg' : IsCrossing (E.curve t) {e, g})
+    (hfg' : IsCrossing (E.curve t) {f, g}) (_hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    (Q : Finset (Crossing (E.curve t))) (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) (j : Crossing (E.curve t))
+    (hj : j.val ∈ triangleSupports e f g) (q : GeoComponent (geomAt E t ht.1) (Q ∪ {j})),
+    (∃ u : Crossing (E.curve t), u.val ∈ triangleSupports e f g ∧ u ≠ j ∧
+      crossingTransport hs u ∈ geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q)) →
+    ∃ (u : Crossing (E.curve t)) (_ : u.val ∈ triangleSupports e f g) (_ : u ≠ j)
+      (hu' : crossingTransport hs u ∈ geoCarrierCrossings (geomAt E t' ht'.1) (transportSupport hs (Q ∪ {j}))
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q)),
+      Nonempty (est_PortData hn (genericAt E t ht.1) (genericAt E t' ht'.1) (est_S_ind ht.1 hQ hfull hj)
+        (est_S'_ind hL ht ht' hop hs hQ hfull hj) q
+        (GT_carrierEquiv (est_wall hL hR hef heg hfg ht ht' hop hs hQ hfull hj) q)
+        (est_liftCrossing hn (genericAt E t' ht'.1) (est_S'_ind hL ht ht' hop hs hQ hfull hj) _ hu'))
+
+section ESTLedger
+
+variable {E : CV.Event n} {e f g : ZMod n} {δ : ℝ}
+
+/-- Two present rows with equal selectors and a carrier bijection carrying `Ω₁` are equal
+(`rowTerm_of_mem_Ind`, `Fintype.prod_equiv`; the `Ω₁`-only form of `AV_rowTerm_eq_of_summandTransport`,
+since `P_{S,L}` and `w_{S,L}` of the affected carrier are NOT carried). -/
+theorem est_rowTerm_eq_of_omega (hn : 3 ≤ n) {P P' : LabelledTuple n} (hG : CV.Generic P) (hG' : CV.Generic P')
+    {S : Finset (Crossing P)} {S' : Finset (Crossing P')}
+    (hS : S ∈ CV.Ind hG.crossingGeometry) (hS' : S' ∈ CV.Ind hG'.crossingGeometry)
+    (hwind : CV.wind hG'.crossingGeometry S' = CV.wind hG.crossingGeometry S)
+    (τ : GeoComponent hG.crossingGeometry S ≃ GeoComponent hG'.crossingGeometry S')
+    (hΩ : ∀ q, CV.Omega1 hn hG' hS' (τ q) = CV.Omega1 hn hG hS q) :
+    rowTerm hn hG S = rowTerm hn hG' S' := by
+  sorry
+
+
+/-- The two other triangle crossings of a selected one. -/
+theorem est_others {t : E.Parameter}
+    (hef' : IsCrossing (E.curve t) {e, f}) (heg' : IsCrossing (E.curve t) {e, g})
+    (hfg' : IsCrossing (E.curve t) {f, g}) {j : Crossing (E.curve t)} (hj : j.val ∈ triangleSupports e f g) :
+    ∃ u v : Crossing (E.curve t), u.val ∈ triangleSupports e f g ∧ v.val ∈ triangleSupports e f g ∧
+      j ≠ u ∧ j ≠ v ∧ u ≠ v := by
+  sorry
+
+
+/-- **The singleton row is carried, `t` the `K3` side** (§4 of the RA text: "Multiplying these equalities
+proves all three identities (2), including selector-zero, coefficient-zero, empty-carrier, `ell = 0`, and
+`C_Q = 0` cases. No factor was cancelled or divided out."): the selector is carried (`GT_wind_eq`), the
+carriers correspond (`GT_carrierEquiv`), every unaffected carrier's `Ω₁` is carried (`est_omega1_eq_of_ne`)
+and the affected carrier's by the port ledger (`est_omega1_eq_of_port`). -/
+theorem est_row_H (hF : CV.CarrierSlotFloor) (hport : est_port_relation) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g)
+    {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hcomp : CompleteLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) :
+    rowTerm hn (genericAt E t ht.1) (Q ∪ {j}) =
+      rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {j})) := by
+  sorry
+
+
+/-- **The singleton row is carried, either side extreme** ("separately and without a symmetry assumption",
+symmetric in the sides): the `K3` side directly, the empty side by applying the `K3` case to `(t', t)`
+(`graphs_complementary`). -/
+theorem est_row (hF : CV.CarrierSlotFloor) (hport : est_port_relation) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ) (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g)
+    {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    {hef' : IsCrossing (E.curve t) {e, f}} {heg' : IsCrossing (E.curve t) {e, g}}
+    {hfg' : IsCrossing (E.curve t) {f, g}} (hext : ExtremeLocal (geomAt E t ht.1) hef' heg' hfg')
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {j : Crossing (E.curve t)}
+    (hj : j.val ∈ triangleSupports e f g) :
+    rowTerm hn (genericAt E t ht.1) (Q ∪ {j}) =
+      rowTerm hn (genericAt E t' ht'.1) (transportSupport hs (Q ∪ {j})) := by
+  sorry
+
+
+/-- **The bundle of row 176 from the interface and the floor**: the three PRE fields (accepted) and the
+three transports (2) at `x = x_ef`, `y = x_eg`, `z = x_fg`. -/
+theorem est_extremeTransportData (hF : CV.CarrierSlotFloor) (hport : est_port_relation) (hn : 3 ≤ n)
+    (hL : LocalizationData E e f g δ) (hGT : GenericTableData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) : ExtremeTransportData hn E e f g δ := by
+  sorry
+
+
+end ESTLedger
+
+/-- **The RA ledger of row 176 (U-176)**: `R:extreme_transport` in the fixed row shape from
+`CV.CarrierSlotFloor` (thm:carrierfloor (C)+(D) in def:X1's symbols, §1.3) and the RII port relation
+interface `est_port_relation`; the radius is the common radius of rows 164 (`localization`), 172
+(`generic_table`) and the sign data (`AV_exists_eventRadius`), exactly as the accepted row 173. PROVED. -/
+theorem est_ledger (hF : CV.CarrierSlotFloor) (hport : est_port_relation) :
+    RowShape @ExtremeTransportData := by
+  sorry
+
+
+/-- The row statement itself from the ledger (the shape of the leaf below). PROVED. -/
+theorem est_extreme_transport_of (hF : CV.CarrierSlotFloor) (hport : est_port_relation) (hn : 3 ≤ n)
+    (E : CV.Event n) (e f g : ZMod n)
+    (h3 : remote e f ∧ remote f g ∧ remote e g ∧ CV.rep e < CV.rep f ∧ CV.rep f < CV.rep g)
+    (h4e : remote e f ∧ remote e g ∧ f ≠ g ∧ CV.rep f < CV.rep g)
+    (h4f : remote f e ∧ remote f g ∧ e ≠ g ∧ CV.rep e < CV.rep g)
+    (h4g : remote g e ∧ remote g f ∧ e ≠ f ∧ CV.rep e < CV.rep f)
+    (hE : E.IsSimpleRIII e f g h3 h4e h4f h4g) :
+    ∃ δ : ℝ, 0 < δ ∧ δ ≤ E.radius ∧ ExtremeTransportData hn E e f g δ := by
+  sorry
+
+
+/-! #### I. Consistency of the interface (sanity, for the realiser) -/
+
+/-- Writhe consistency of the port relation (T2): switching the positive crossing `y` of `D_+` drops the
+writhe by `2`, so the switched diagram has writhe `w_+ − 2 = w_0` — as it must, RII moves preserving the
+writhe (`switch_writhe`, `geoPositiveLift_sign`). -/
+theorem est_switch_writhe (hn : 3 ≤ n) {P' : LabelledTuple n} (hG' : CV.Generic P') {S' : Finset (Crossing P')}
+    (hS' : S' ∈ CV.Ind hG'.crossingGeometry) (q' : GeoComponent hG'.crossingGeometry S')
+    (y : (CV.carrierDiagram hn hG' hS' q').Γ.Crossing) :
+    ((CV.carrierDiagram hn hG' hS' q').switch y).writhe = CV.groupedWrithe hG' q' - 2 := by
+  sorry
+
+
+end EST
+
+/-! ### Unit U-177 (prefix `esc_`) — the interface Props and the RA ledger of row 177
+(R_EXTREME_SELECTED_COUPLE_PROOF.md §1–§5; PLAN_FINAL §4 "174 / 176 / 177", D-F11 interface-first).
+
+Route.  The `couple` field is reduced, with accepted tools only, to an identity on the single
+triangle-touching carrier of the empty row (`rowTerm = exteriorFactor · touchingFactor`, row 168's
+`EXT_exteriorFactor_wall` / `EXT_exteriorFactor_eq_base`; `GT_empty_tri_subset` for the uniqueness of the
+contact carrier on each side; the `GT_Wall` transports of `wt`, `R(L)`, `w_{S,L}`).  The two
+Reidemeister moves of the printed proof — (4) the matched switch + RIII through the wall, (6) the RII
+bigon deletion after one smoothing and a matched switch — the one- or three-component identifications of the
+double smoothings ((8) and the lowest row (12)), and the carrier split of `Q ∪ T` on the empty side
+((14)–(17), the central carrier) are stated as explicit interface Props and NEVER mapped; the ledger
+`esc_ledger` proves the row from them and from `CV.CarrierSlotFloor` (the (C)+(D) corollary, §1.3):
+(5)/(7) by the two HOMFLY skein equations, (8) by knot parity, (13) → (18)–(20) → (2). -/
+
+section ESC
+
+open SM.Link AddMonoidAlgebra
+
+/-! #### A. Laurent-ring helpers (CV/FullTwist.lean is not imported here; `esc_` copies) -/
+
+/-- Coefficient shift: `[a^d z^k] (c a^p z^q · f) = c · [a^{d−p} z^{k−q}] f`. -/
+theorem esc_coeffAt_single_mul (d k p q c : ℤ) (f : R) :
+    coeffAt d k (single (p, q) c * f) = c * coeffAt (d - p) (k - q) f := by
+  sorry
+
+
+theorem esc_a_mul_a : R.a * R.a = (single (2, 0) 1 : R) := by
+  sorry
+
+
+theorem esc_aInv_mul_aInv : R.aInv * R.aInv = (single (-2, 0) 1 : R) := by
+  sorry
+
+
+/-- `a^{−2} z^{2} = single (−2, 2) 1`. -/
+theorem esc_aInv_aInv_z_z : R.aInv * R.aInv * (R.z * R.z) = (single (-2, 2) 1 : R) := by
+  sorry
+
+
+/-- `(a − a⁻¹)² K = a² K + a⁻² K − 2K` ("Expand `(a−a^(−1))^2=a^2−2+a^(−2)`", ESC §4). -/
+theorem esc_sq_expand (K : R) :
+    (R.a - R.aInv) ^ 2 * K = single (2, 0) 1 * K + single (-2, 0) 1 * K - (K + K) := by
+  sorry
+
+
+/-- The `[a^m z^0]` coefficient of `(a − a⁻¹)² K` samples `K` at `m − 2`, `m`, `m + 2`. -/
+theorem esc_coeffAt_sq_mul (m : ℤ) (K : R) :
+    coeffAt m 0 ((R.a - R.aInv) ^ 2 * K) =
+      coeffAt (m - 2) 0 K + coeffAt (m + 2) 0 K - 2 * coeffAt m 0 K := by
+  sorry
+
+
+/-- `f` lives in the quadrant `a`-degree `≥ m`, `z`-degree `≥ 0` ("no exponent below `d_i` occurs in
+`f_i`" together with knot parity). -/
+def esc_Quadrant (m : ℤ) (f : R) : Prop := ∀ e ∈ f.coeff.support, m ≤ e.1 ∧ 0 ≤ e.2
+
+theorem esc_Quadrant.coeffAt_eq_zero {m : ℤ} {f : R} (hf : esc_Quadrant m f) {p k : ℤ} (hp : p < m) :
+    coeffAt p k f = 0 := by
+  sorry
+
+
+theorem esc_quadrant_mul {m n : ℤ} {f g : R} (hf : esc_Quadrant m f) (hg : esc_Quadrant n g) :
+    esc_Quadrant (m + n) (f * g) := by
+  sorry
+
+
+/-- The corner coefficient of a product of two quadrant elements is the product of the corner
+coefficients ("`[a^D]K = omega_A omega_B omega_C`", ESC (19)). -/
+theorem esc_coeffAt_corner {m n : ℤ} {f g : R} (hf : esc_Quadrant m f) (hg : esc_Quadrant n g) :
+    coeffAt (m + n) 0 (f * g) = coeffAt m 0 f * coeffAt n 0 g := by
+  sorry
+
+
+/-- Knot parity (CV:ax:homfly, ESC (8)): a one-component diagram has no `z^{−2}` row. -/
+theorem esc_knot_coeff_neg_two (J : Diagram) (hJ : J.componentCount = 1) (p : ℤ) :
+    coeffAt p (-2) (homfly J) = 0 := by
+  sorry
+
+
+/-- The floor + knot parity of a grouped polynomial as a quadrant (`CarrierSlotFloor`,
+`cvt_groupedPoly_inSupportM`): "no exponent below `d_i` occurs in `f_i`". -/
+theorem esc_quadrant_groupedPoly (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n) {P : LabelledTuple n}
+    (hG : CV.Generic P) {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry)
+    (q : GeoComponent hG.crossingGeometry S)
+    (halt : CV.UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry S q)) :
+    esc_Quadrant (CV.slot hn hG hS q) (CV.groupedPoly hn hG hS q) := by
+  sorry
+
+
+/-! #### B. The contact carrier of the empty row -/
+
+theorem esc_not_triangleDisjoint_iff {P : LabelledTuple n} (hP : CrossingGeometry P)
+    (S : Finset (Crossing P)) (e f g : ZMod n) (q : GeoComponent hP S) :
+    ¬ TriangleDisjoint hP S e f g q ↔
+      ∃ v : Visit P, v.1.val ∈ triangleSupports e f g ∧ geoOwner hP S (Sum.inr v) = q := by
+  sorry
+
+
+/-- "all six visits lie on one `Q`-carrier" (ESC §1): two triangle-touching carriers of the empty row
+coincide (`GT_empty_tri_subset`, on either side). -/
+theorem esc_contact_unique {E : CV.Event n} {e f g : ZMod n} {δ : ℝ} (hL : LocalizationData E e f g δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {t : E.Parameter} (ht : Punctured E δ t)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {q q' : GeoComponent (geomAt E t ht.1) Q}
+    (hq : ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q)
+    (hq' : ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q') : q = q' := by
+  sorry
+
+
+/-- The carrier owning the `e`-visit of `x_ef` is triangle-touching. -/
+theorem esc_contact_exists {E : CV.Event n} {e f g : ZMod n} {δ : ℝ} {t : E.Parameter}
+    (ht : Punctured E δ t) (hef : IsCrossing (E.curve t) {e, f}) (Q : Finset (Crossing (E.curve t))) :
+    ∃ q : GeoComponent (geomAt E t ht.1) Q, ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q := by
+  sorry
+
+
+/-- A triangle-touching carrier of the empty row owns every visit of every triangle crossing. -/
+theorem esc_contact_owns {E : CV.Event n} {e f g : ZMod n} {δ : ℝ} (hL : LocalizationData E e f g δ)
+    (hef : e ≠ f) (heg : e ≠ g) (hfg : f ≠ g) {t : E.Parameter} (ht : Punctured E δ t)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q) {q : GeoComponent (geomAt E t ht.1) Q}
+    (hq : ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q) :
+    triangleCrossings (E.curve t) e f g ⊆ geoCarrierCrossings (geomAt E t ht.1) Q q := by
+  sorry
+
+
+/-- The touching factor of a row with exactly one touching carrier `q₀` is `wt(q₀) Ω₁(S, q₀)`. -/
+theorem esc_touchingFactor_eq_of_unique (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (e f g : ZMod n)
+    (q₀ : GeoComponent hG.crossingGeometry S)
+    (hq₀ : ∀ q, ¬ TriangleDisjoint hG.crossingGeometry S e f g q ↔ q = q₀) :
+    touchingFactor hn hG hS e f g = CV.weight hG.crossingGeometry S q₀ * CV.Omega1 hn hG hS q₀ := by
+  sorry
+
+
+/-- The touching factor of a row with exactly the four touching carriers `A, B, C, Z`. -/
+theorem esc_touchingFactor_eq_of_four (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (e f g : ZMod n)
+    (A B C Z : GeoComponent hG.crossingGeometry S)
+    (hdist : A ≠ B ∧ A ≠ C ∧ A ≠ Z ∧ B ≠ C ∧ B ≠ Z ∧ C ≠ Z)
+    (h : ∀ q, ¬ TriangleDisjoint hG.crossingGeometry S e f g q ↔ (q = A ∨ q = B ∨ q = C ∨ q = Z)) :
+    touchingFactor hn hG hS e f g =
+      (CV.weight hG.crossingGeometry S A * CV.Omega1 hn hG hS A) *
+      (CV.weight hG.crossingGeometry S B * CV.Omega1 hn hG hS B) *
+      (CV.weight hG.crossingGeometry S C * CV.Omega1 hn hG hS C) *
+      (CV.weight hG.crossingGeometry S Z * CV.Omega1 hn hG hS Z) := by
+  sorry
+
+
+/-! #### C. Diagram-level helpers: the crossings of the grouped knot diagram, and a crossing carried
+through an oriented smoothing at another crossing -/
+
+/-- Every retained crossing `c` of the carrier is a positive crossing of `D(W)` at the double point of
+`c` (cor:groupedknot (A) `retain_all`, `geoCarrierCrossingEquiv`). -/
+theorem esc_lift_crossing (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P)
+    {S : Finset (Crossing P)} (hS : S ∈ CV.Ind hG.crossingGeometry) (q : GeoComponent hG.crossingGeometry S)
+    (c : Crossing P) (hc : c ∈ geoCarrierCrossings hG.crossingGeometry S q) :
+    ∃ x : (CV.carrierDiagram hn hG hS q).Γ.Crossing,
+      (CV.carrierDiagram hn hG hS q).Γ.crossingPoint x = crossingPoint c ∧
+        (CV.carrierDiagram hn hG hS q).IsPositive x := by
+  sorry
+
+
+/-- A crossing `y ≠ x` of `D` is carried by any oriented smoothing `D₀` of `D` at `x` to a crossing of
+`D₀` at the same double point and with the same sign (the outside match `ψ` of the smoothing site). -/
+theorem esc_smoothing_outer {D D₀ : Diagram} {x : D.Γ.Crossing} (h : IsOrientedSmoothing D x D₀)
+    (y : D.Γ.Crossing) (hyx : y ≠ x) :
+    ∃ y₀ : D₀.Γ.Crossing, D₀.Γ.crossingPoint y₀ = D.Γ.crossingPoint y ∧
+      (D₀.IsPositive y₀ ↔ D.IsPositive y) := by
+  sorry
+
+
+/-! #### D. The interface Props (D-F11: stated, consumed by the ledger, never mapped) -/
+
+/-- **(4) The matched switch + RIII through the wall** (ESC §2): "switching `x` breaks the cyclic
+over-order and makes it transitive … Apply the ordinary oriented RIII change … an isomorphism of the
+full oriented traversal records of `D_H^{x-}` and `D_L^{x-}` … `ax:gausscode` identifies their oriented
+knots and `ax:homfly` gives `P(D_H^{x-}) = P(D_L^{x-})`", for the crossings `x_H`, `x_L` of the two
+grouped contact diagrams at the double points of `x`. -/
+def esc_switch_riii (D_H D_L : Diagram) (x_H : D_H.Γ.Crossing) (x_L : D_L.Γ.Crossing) : Prop :=
+  homfly (D_H.switch x_H) = homfly (D_L.switch x_L)
+
+/-- **(6) The RII after one smoothing and a matched switch** (ESC §2): in the oriented smoothings
+`D_H^x`, `D_L^x`, "switch `y` … on each side they bound an empty oriented RII bigon. Delete that bigon …
+this path extends through the wall as an ambient isotopy from `E_H` to `E_L`. Reidemeister-II invariance
+… and isotopy invariance in `ax:homfly` therefore give `P((D_H^x)^{y-}) = P((D_L^x)^{y-})`". -/
+def esc_rii_after_smoothing (D_H0 D_L0 : Diagram) (y_H : D_H0.Γ.Crossing) (y_L : D_L0.Γ.Crossing) :
+    Prop :=
+  homfly (D_H0.switch y_H) = homfly (D_L0.switch y_L)
+
+/-- **(9)–(11) The three components of the double smoothing `J = D_L^{xy}`** (ESC §3): "The three
+components of `J=D_L^{xy}` have successor skeletons `A, C, zBz`" … "the self-crossing knot polynomials
+of the first two components in (9) are the grouped full-state polynomials `f_A,f_C`. For the third …
+By `cor:groupedknot`, clauses (A) and (B), its grouped knot polynomial is `P_{zBz}(a,0) = P_{ {z} }(a,0)
+f_B(a) = f_B(a)`, because the one-crossing positive piece is an unknot"; "Put `Lambda=lk(J)`, the sum
+of its three pairwise linking numbers": three components, `2Λ` the total mixed sign sum (mp:lowest's
+`twoLambda`), and an indexing of the components by `A, B, C` with the knot polynomials `f_A, f_B, f_C`
+(mp:lowest's intrinsic knot diagrams `knotRestrict`). -/
+def esc_three_components (J : Diagram) (Λ : ℕ) (fA fB fC : R) : Prop :=
+  J.componentCount = 3 ∧ twoLambda J = 2 * (Λ : ℤ) ∧
+    ∃ σ : Fin 3 ≃ Fin J.Γ.c, homfly (J.knotRestrict (σ 0)) = fA ∧ homfly (J.knotRestrict (σ 1)) = fB ∧
+      homfly (J.knotRestrict (σ 2)) = fC
+
+/-- **(12) The three-component lowest `z`-row, PROVED** from mp:lowest (`SM.lowest.lowest_value` at
+`c = 3`; "the exact three-component lowest row `[z^(-2)] P(J) = a^(-2 Lambda) (a-a^(-1))^2 K(a)`",
+`K = f_A f_B f_C`): as a coefficient identity, the `a^{−2Λ}` shift written on the right-hand exponent.
+The `[z^0]` row of `(a − a⁻¹)² K` is `(a − a⁻¹)² ∏ [z^0] f_i` by knot parity of the three knot
+polynomials (`P_knotRestrict_inSupportM_one`, `CV.zRow_zero_mul_of_inSupportM_one`). -/
+theorem esc_three_component_row {J : Diagram} {Λ : ℕ} {fA fB fC : R}
+    (h : esc_three_components J Λ fA fB fC) (p : ℤ) :
+    coeffAt p (-2) (homfly J) = coeffAt (p + 2 * (Λ : ℤ)) 0 ((R.a - R.aInv) ^ 2 * (fA * fB * fC)) := by
+  sorry
+
+
+/-- The move data of one configuration: the grouped contact diagrams `D_H`, `D_L` (cor:groupedknot (B)
+on the two contact carriers), the double points `pxH, pyH` of `x, y` on the `K3` side and `pxL, pyL` on
+the empty side, the linking number `Λ`, and the three outer grouped polynomials `f_A, f_B, f_C`.
+Crossings of the diagrams are identified by their double points; smoothings are the library's
+relational `IsOrientedSmoothing` (any smoothing site). -/
+structure esc_MoveData (D_H D_L : Diagram) (pxH pyH pxL pyL : Plane) (Λ : ℕ) (fA fB fC : R) : Prop where
+  /-- (4), for the crossings at the double points of `x`. -/
+  switch_riii : ∀ (x_H : D_H.Γ.Crossing) (x_L : D_L.Γ.Crossing),
+    D_H.Γ.crossingPoint x_H = pxH → D_L.Γ.crossingPoint x_L = pxL → esc_switch_riii D_H D_L x_H x_L
+  /-- (6), for every pair of oriented smoothings at `x` and the crossings at the double points of `y`. -/
+  rii_after_smoothing : ∀ (x_H : D_H.Γ.Crossing) (x_L : D_L.Γ.Crossing),
+    D_H.Γ.crossingPoint x_H = pxH → D_L.Γ.crossingPoint x_L = pxL →
+    ∀ (D_H0 D_L0 : Diagram), IsOrientedSmoothing D_H x_H D_H0 → IsOrientedSmoothing D_L x_L D_L0 →
+    ∀ (y_H : D_H0.Γ.Crossing) (y_L : D_L0.Γ.Crossing),
+      D_H0.Γ.crossingPoint y_H = pyH → D_L0.Γ.crossingPoint y_L = pyL →
+      esc_rii_after_smoothing D_H0 D_L0 y_H y_L
+  /-- "Smoothing `x` in the `K3` word splits the contact knot into two components; there `y` is mixed,
+  so smoothing `y` joins them and `D_H^{xy}` is a knot" (ESC §2). -/
+  knot_after_two : ∀ (x_H : D_H.Γ.Crossing), D_H.Γ.crossingPoint x_H = pxH →
+    ∀ D_H0 : Diagram, IsOrientedSmoothing D_H x_H D_H0 →
+    ∀ (y_H : D_H0.Γ.Crossing), D_H0.Γ.crossingPoint y_H = pyH →
+    ∀ J_H : Diagram, IsOrientedSmoothing D_H0 y_H J_H → J_H.componentCount = 1
+  /-- (9)–(11) for the double smoothing `D_L^{xy}` ("`D_L^{xy}` has three components", ESC §2–§3): its
+  three components are the grouped knots of the outer carriers, `Λ = lk(J)`. -/
+  three_components : ∀ (x_L : D_L.Γ.Crossing), D_L.Γ.crossingPoint x_L = pxL →
+    ∀ D_L0 : Diagram, IsOrientedSmoothing D_L x_L D_L0 →
+    ∀ (y_L : D_L0.Γ.Crossing), D_L0.Γ.crossingPoint y_L = pyL →
+    ∀ J_L : Diagram, IsOrientedSmoothing D_L0 y_L J_L → esc_three_components J_L Λ fA fB fC
+
+/-- **The carrier split of the full row `Q ∪ T` on the empty side** (ESC §1, §4): the four
+triangle-touching carriers — the three outer carriers `A, B, C` ("All nonlocal corners of the empty
+contact carrier partition among the three outer carriers") and the central triangle `Z` — of the
+support `Q ∪ T`, relative to the contact carrier `q₀` of the empty row `Q`; `Λ = lk(J)` of (12)/(17). -/
+structure esc_FullSplitData (hn : 3 ≤ n) {P : LabelledTuple n} (hG : CV.Generic P) (e f g : ZMod n)
+    {Q : Finset (Crossing P)} (hQ : Q ∈ CV.Ind hG.crossingGeometry)
+    (hS : Q ∪ triangleCrossings P e f g ∈ CV.Ind hG.crossingGeometry)
+    (q₀ : GeoComponent hG.crossingGeometry Q)
+    (A B C Z : GeoComponent hG.crossingGeometry (Q ∪ triangleCrossings P e f g)) (Λ : ℕ) : Prop where
+  /-- the triangle-touching carriers of `Q ∪ T` are exactly `A, B, C, Z` -/
+  touching_iff : ∀ q, ¬ TriangleDisjoint hG.crossingGeometry (Q ∪ triangleCrossings P e f g) e f g q ↔
+    (q = A ∨ q = B ∨ q = C ∨ q = Z)
+  distinct : A ≠ B ∧ A ≠ C ∧ A ≠ Z ∧ B ≠ C ∧ B ≠ Z ∧ C ≠ Z
+  /-- "the central carrier's empty polynomial" (ESC §5): the central triangle carries no piece -/
+  central_no_piece : CV.piecesOn hG.crossingGeometry (Q ∪ triangleCrossings P e f g) Z = ∅
+  /-- "`lem:uniformrot(i)` gives it absolute rotation one" (ESC §4) -/
+  central_rot : CV.carrierR hn hG hS Z = 1
+  /-- (17) "`w = 3 + w_A + w_B + w_C + 2Λ`" -/
+  writhe : CV.groupedWrithe hG q₀ =
+    3 + CV.groupedWrithe hG A + CV.groupedWrithe hG B + CV.groupedWrithe hG C + 2 * (Λ : ℤ)
+  /-- "If the empty contact carrier is mixed, then `W = 0`. The full selector is also zero" -/
+  mixed : CV.CarrierMixed hG.crossingGeometry Q q₀ →
+    CV.weight hG.crossingGeometry _ A * CV.weight hG.crossingGeometry _ B *
+      CV.weight hG.crossingGeometry _ C * CV.weight hG.crossingGeometry _ Z = 0
+  /-- "Each outer carrier is uniform in the live branch and exactly one-dissent in the dead branch …
+  after a possible orientation reversal, `thm:carrierfloor` applies" (ESC §4) -/
+  outer_alternative : CV.CarrierUniform hG.crossingGeometry Q q₀ →
+    CV.UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry _ A) ∧
+    CV.UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry _ B) ∧
+    CV.UniformOrOneDissentCV (geoCornerPolygon hG.crossingGeometry _ C)
+  /-- the two exhaustive branches of a uniform contact carrier: live `χ = 1` — (16) "`R_A+R_B+R_C = R+1`"
+  and (14) "`W_full = -W`"; dead `χ = 0` — (16) "`R_A+R_B+R_C = R-1`" and "`W_full = 0`" -/
+  uniform : CV.CarrierUniform hG.crossingGeometry Q q₀ →
+    (CV.carrierR hn hG hS A + CV.carrierR hn hG hS B + CV.carrierR hn hG hS C = CV.carrierR hn hG hQ q₀ + 1 ∧
+      CV.weight hG.crossingGeometry _ A * CV.weight hG.crossingGeometry _ B *
+        CV.weight hG.crossingGeometry _ C * CV.weight hG.crossingGeometry _ Z =
+        -CV.weight hG.crossingGeometry Q q₀) ∨
+    (CV.carrierR hn hG hS A + CV.carrierR hn hG hS B + CV.carrierR hn hG hS C + 1 = CV.carrierR hn hG hQ q₀ ∧
+      CV.weight hG.crossingGeometry _ A * CV.weight hG.crossingGeometry _ B *
+        CV.weight hG.crossingGeometry _ C * CV.weight hG.crossingGeometry _ Z = 0)
+
+/-- **The interface of row 177** (never mapped): at every configuration of the row's `couple` field —
+`t` the `K3` side, `t'` the empty side, `Q` an outside support at full availability, `q₀`/`q₀'` the
+triangle-touching carriers of the empty row on the two sides — the carrier split of `Q ∪ T` on the empty
+side and the move data of the two grouped contact diagrams exist with a common `Λ` and with the
+outer grouped polynomials `f_A, f_B, f_C`. -/
+def esc_interface : Prop :=
+  ∀ {n : ℕ} [NeZero n] (hn : 3 ≤ n) (E : CV.Event n) (e f g : ZMod n) (δ : ℝ)
+    (_hL : LocalizationData E e f g δ)
+    (t t' : E.Parameter) (ht : Punctured E δ t) (ht' : Punctured E δ t') (_hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    (hef : IsCrossing (E.curve t) {e, f}) (heg : IsCrossing (E.curve t) {e, g})
+    (hfg : IsCrossing (E.curve t) {f, g}),
+    CompleteLocal (geomAt E t ht.1) hef heg hfg →
+    ∀ (Q : Finset (Crossing (E.curve t))), Q ∈ outsideSupports (geomAt E t ht.1) e f g →
+    FullAvail (geomAt E t ht.1) e f g Q →
+    ∀ (hQi : Q ∈ CV.Ind (geomAt E t ht.1)) (hQi' : transportSupport hs Q ∈ CV.Ind (geomAt E t' ht'.1))
+      (hS' : transportSupport hs Q ∪ triangleCrossings (E.curve t') e f g ∈ CV.Ind (geomAt E t' ht'.1))
+      (q₀ : GeoComponent (geomAt E t ht.1) Q)
+      (q₀' : GeoComponent (geomAt E t' ht'.1) (transportSupport hs Q)),
+      ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q₀ →
+      ¬ TriangleDisjoint (geomAt E t' ht'.1) (transportSupport hs Q) e f g q₀' →
+      ∃ (A B C Z : GeoComponent (geomAt E t' ht'.1)
+          (transportSupport hs Q ∪ triangleCrossings (E.curve t') e f g)) (Λ : ℕ),
+        esc_FullSplitData hn (genericAt E t' ht'.1) e f g hQi' hS' q₀' A B C Z Λ ∧
+        esc_MoveData (CV.carrierDiagram hn (genericAt E t ht.1) hQi q₀)
+          (CV.carrierDiagram hn (genericAt E t' ht'.1) hQi' q₀')
+          (crossingPoint (xPair hef)) (crossingPoint (xPair heg))
+          (crossingPoint (xPair ((hs _).mp hef))) (crossingPoint (xPair ((hs _).mp heg))) Λ
+          (CV.groupedPoly hn (genericAt E t' ht'.1) hS' A) (CV.groupedPoly hn (genericAt E t' ht'.1) hS' B)
+          (CV.groupedPoly hn (genericAt E t' ht'.1) hS' C)
+
+/-! #### E. The ledger -/
+
+/-- **(7) and (13) in one step**: from the two skein equations at `x` and at `y` on each side, the two
+move identities (4), (6), knot parity (8) and the three-component row (12),
+"`Omega_H - Omega_L = -[a^(d+2+2Λ)] (a-a^(-1))^2 K(a)`" — for any positive crossings `x_H, x_L` of two
+diagrams `D_H, D_L`, and any positive crossings `y_H, y_L` of oriented smoothings there. -/
+theorem esc_coefficient_identity {D_H D_L D_H0 D_L0 J_H J_L : Diagram}
+    {x_H : D_H.Γ.Crossing} {x_L : D_L.Γ.Crossing} {y_H : D_H0.Γ.Crossing} {y_L : D_L0.Γ.Crossing}
+    (hxH : D_H.IsPositive x_H) (hxL : D_L.IsPositive x_L)
+    (hsmH : IsOrientedSmoothing D_H x_H D_H0) (hsmL : IsOrientedSmoothing D_L x_L D_L0)
+    (hyH : D_H0.IsPositive y_H) (hyL : D_L0.IsPositive y_L)
+    (hsmJH : IsOrientedSmoothing D_H0 y_H J_H) (hsmJL : IsOrientedSmoothing D_L0 y_L J_L)
+    (m4 : esc_switch_riii D_H D_L x_H x_L) (m6 : esc_rii_after_smoothing D_H0 D_L0 y_H y_L)
+    (hJH : J_H.componentCount = 1) {Λ : ℕ} {K : R}
+    (h12 : ∀ p : ℤ, coeffAt p (-2) (homfly J_L) = coeffAt (p + 2 * (Λ : ℤ)) 0 ((R.a - R.aInv) ^ 2 * K))
+    (d : ℤ) :
+    coeffAt d 0 (homfly D_H - homfly D_L) =
+      -coeffAt (d + 2 + 2 * (Λ : ℤ)) 0 ((R.a - R.aInv) ^ 2 * K) := by
+  sorry
+
+
+/-- **The contact identity**: the difference of the two touching factors of the empty row is the
+touching factor of the full row on the empty side (ESC §1–§5 at one configuration), from the interface
+data and `CarrierSlotFloor`. -/
+theorem esc_contact_identity (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n) {E : CV.Event n} {e f g : ZMod n}
+    {δ : ℝ} (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ)
+    (hef₀ : e ≠ f) (heg₀ : e ≠ g) (hfg₀ : f ≠ g)
+    {t t' : E.Parameter} (ht : Punctured E δ t) (ht' : Punctured E δ t') (hop : OppositeSides E t t')
+    (hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s)
+    (hef : IsCrossing (E.curve t) {e, f}) (heg : IsCrossing (E.curve t) {e, g})
+    (hfg : IsCrossing (E.curve t) {f, g}) (_hK : CompleteLocal (geomAt E t ht.1) hef heg hfg)
+    {Q : Finset (Crossing (E.curve t))} (hQ : Q ∈ outsideSupports (geomAt E t ht.1) e f g)
+    (hfull : FullAvail (geomAt E t ht.1) e f g Q)
+    (hQi : Q ∈ CV.Ind (geomAt E t ht.1)) (hQi' : transportSupport hs Q ∈ CV.Ind (geomAt E t' ht'.1))
+    (hS' : transportSupport hs Q ∪ triangleCrossings (E.curve t') e f g ∈ CV.Ind (geomAt E t' ht'.1))
+    (hI : ∀ (q₀ : GeoComponent (geomAt E t ht.1) Q)
+      (q₀' : GeoComponent (geomAt E t' ht'.1) (transportSupport hs Q)),
+      ¬ TriangleDisjoint (geomAt E t ht.1) Q e f g q₀ →
+      ¬ TriangleDisjoint (geomAt E t' ht'.1) (transportSupport hs Q) e f g q₀' →
+      ∃ (A B C Z : GeoComponent (geomAt E t' ht'.1)
+          (transportSupport hs Q ∪ triangleCrossings (E.curve t') e f g)) (Λ : ℕ),
+        esc_FullSplitData hn (genericAt E t' ht'.1) e f g hQi' hS' q₀' A B C Z Λ ∧
+        esc_MoveData (CV.carrierDiagram hn (genericAt E t ht.1) hQi q₀)
+          (CV.carrierDiagram hn (genericAt E t' ht'.1) hQi' q₀')
+          (crossingPoint (xPair hef)) (crossingPoint (xPair heg))
+          (crossingPoint (xPair ((hs _).mp hef))) (crossingPoint (xPair ((hs _).mp heg))) Λ
+          (CV.groupedPoly hn (genericAt E t' ht'.1) hS' A) (CV.groupedPoly hn (genericAt E t' ht'.1) hS' B)
+          (CV.groupedPoly hn (genericAt E t' ht'.1) hS' C)) :
+    touchingFactor hn (genericAt E t ht.1) hQi e f g -
+        touchingFactor hn (genericAt E t' ht'.1) hQi' e f g =
+      touchingFactor hn (genericAt E t' ht'.1) hS' e f g := by
+  sorry
+
+
+/-- **The `couple` field of row 177** from the interface, `CarrierSlotFloor`, and the accepted data at a
+common radius: (2) "`T_H(empty) - T_L(empty) = T_L(xyz)`" — the exterior factor `C_Q` is common to the
+three rows (row 168: `EXT_exteriorFactor_wall`, `EXT_exteriorFactor_eq_base`), the rest is the contact
+identity.  "No exterior scalar, selector, or coefficient was divided out." -/
+theorem esc_couple (hI : esc_interface) (hF : CV.CarrierSlotFloor) (hn : 3 ≤ n) {E : CV.Event n}
+    {e f g : ZMod n} {h3 h4e h4f h4g} (hE : E.IsSimpleRIII e f g h3 h4e h4f h4g) {δ : ℝ}
+    (hL : LocalizationData E e f g δ) (hR : AV_EventRadius E δ)
+    (hguard : ∀ u : E.Parameter, |u.val| < δ → EXT_GuardAt E u) :
+    ∀ t t' : E.Parameter, ∀ ht : Punctured E δ t, ∀ ht' : Punctured E δ t',
+    OppositeSides E t t' →
+    ∀ hs : ∀ s, IsCrossing (E.curve t) s ↔ IsCrossing (E.curve t') s,
+    ∀ (hef : IsCrossing (E.curve t) {e, f}) (heg : IsCrossing (E.curve t) {e, g})
+      (hfg : IsCrossing (E.curve t) {f, g}),
+    CompleteLocal (geomAt E t ht.1) hef heg hfg →
+    ∀ Q ∈ outsideSupports (geomAt E t ht.1) e f g, FullAvail (geomAt E t ht.1) e f g Q →
+      rowTerm hn (genericAt E t ht.1) Q - rowTerm hn (genericAt E t' ht'.1) (transportSupport hs Q) =
+        rowTerm hn (genericAt E t' ht'.1)
+          (transportSupport hs Q ∪ triangleCrossings (E.curve t') e f g) := by
+  sorry
+
+
+/-- **The RA ledger of row 177** (D-F11): the fixed row shape from the interface and `CarrierSlotFloor`;
+the two presupposition fields are the accepted `PRE_177_*`, the radius is the minimum of the accepted
+radii of rows 164 (`localization`), the sign data (`AV_exists_eventRadius`) and the guard
+(`EXT_exists_guardRadius`). -/
+theorem esc_ledger (hI : esc_interface) (hF : CV.CarrierSlotFloor) : RowShape @ExtremeSelectedData := by
+  sorry
+
+
+end ESC
+
+/-- CV:prop:chamberinv (ii) (accepted row 147, `CV.chamberinv_ii`) in the R lane's `ChamberInvII` shape. PROVED. -/
+theorem cvt_chamberInvII : ChamberInvII := by
+  sorry
+
+
+/-- **Row 178 modulo rows 174-177**, PROVED: R_ASSEMBLY_SPEC.md (3)-(4) summed over the same outside
+support set (`A2_cvRNear_of_rows`, accepted, with the accepted rows 170, 172, 173) and R6
+`cv_R = cv_R_near + chamberinv(ii)` (`hyp_R_of_near_of_chamberinv`, accepted); the domain is
+`E.IsSimpleRIII` (CV:def:event), "its entire printed simple/transversal forced-bundle domain". -/
+theorem cv_R_of_rows (h174 : RowShape @GenericSelectedData) (h175 : RowShape @ExtremePairZeroData)
+    (h176 : RowShape @ExtremeTransportData) (h177 : RowShape @ExtremeSelectedData) : CV.hyp_R := by
+  sorry
+
+
+end RProof
+
+namespace Bridge
+
+/-- The same from the four open R rows (library form). PROVED. -/
+theorem sm_R_of_rows (h174 : RProof.RowShape @RProof.GenericSelectedData)
+    (h175 : RProof.RowShape @RProof.ExtremePairZeroData)
+    (h176 : RProof.RowShape @RProof.ExtremeTransportData)
+    (h177 : RProof.RowShape @RProof.ExtremeSelectedData) : SM.hyp_R := by
+  sorry
+
+
+end Bridge
