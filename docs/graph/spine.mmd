@@ -1,0 +1,83 @@
+flowchart TD
+  s0["183 theorem<br/><i>bridge theorem</i>"]
+  s1["ax:R<br/><i>CV form of Hypothesis R, proved</i>"]
+  s2["161 ax:etnyre<br/><i>CV input, proved here</i>"]
+  s3["162 ax:slbound<br/><i>CV input, proved here</i>"]
+  s4["165 singleton_D_i<br/><i>clause</i>"]
+  s5["155 thm:carrierfloor<br/><i>theorem</i>"]
+  s6["178 cv_theorem<br/><i>R obligation</i>"]
+  s7["175 extreme_pair_zero<br/><i>R obligation</i>"]
+  s8["177 extreme_selected<br/><i>R obligation</i>"]
+  s9["176 extreme_transport<br/><i>R obligation</i>"]
+  s10["174 generic_selected<br/><i>R obligation</i>"]
+  s11["184 corner_laws_and_soft<br/><i>final theorem</i>"]
+  s12["103 cb:singleton<br/><i>lemma</i>"]
+  s13["99 cf:thm-carrierfloor<br/><i>theorem</i>"]
+  s14["128 cor:C-inherits<br/><i>corollary</i>"]
+  s15["91 cp:finite-contact-path<br/><i>lemma</i>"]
+  s16["94 fd:contact<br/><i>theorem</i>"]
+  s17["hyp:R<br/><i>Hypothesis R, proved</i>"]
+  s18["105 lem:corner-values<br/><i>lemma</i>"]
+  s19["57 lem:gauss-two-discs<br/><i>lemma</i>"]
+  s20["lit:homfly<br/><i>literature axiom (admitted)</i>"]
+  s21["106 prop:C-chamber<br/><i>proposition</i>"]
+  s22["107 prop:C-silent<br/><i>proposition</i>"]
+  s23["122 prop:anchor-values<br/><i>proposition</i>"]
+  s24["src:contact<br/><i>literature axiom (admitted)</i>"]
+  s25["108 thm:C-S3<br/><i>theorem</i>"]
+  s26["111 thm:C-S5<br/><i>theorem</i>"]
+  s27["110 thm:C-S7<br/><i>theorem</i>"]
+  s28["112 thm:C-soft<br/><i>theorem</i>"]
+  s29["127 thm:comparison<br/><i>theorem</i>"]
+  s30["100 thm:floor<br/><i>theorem</i>"]
+  s0 --> s11
+  s1 --> s6
+  s2 --> s5
+  s3 --> s5
+  s4 --> s7
+  s5 --> s4
+  s5 --> s8
+  s5 --> s9
+  s5 --> s10
+  s6 --> s0
+  s7 --> s6
+  s8 --> s6
+  s9 --> s6
+  s10 --> s6
+  s12 --> s4
+  s12 --> s18
+  s12 --> s27
+  s13 --> s30
+  s14 --> s11
+  s15 --> s16
+  s16 --> s3
+  s16 --> s13
+  s17 --> s0
+  s17 --> s29
+  s18 --> s28
+  s18 --> s29
+  s20 --> s15
+  s20 --> s16
+  s21 --> s22
+  s21 --> s23
+  s21 --> s25
+  s21 --> s28
+  s21 --> s29
+  s22 --> s29
+  s24 --> s2
+  s24 --> s16
+  s25 --> s29
+  s26 --> s11
+  s27 --> s29
+  s28 --> s11
+  s28 --> s23
+  s28 --> s29
+  s29 --> s14
+  s30 --> s12
+  s30 --> s27
+  classDef ok fill:#E3F3EA,stroke:#2F8F5B,color:#181B22
+  classDef lit fill:#E7E0FB,stroke:#6E4FE0,color:#181B22
+  classDef target stroke-width:3px
+  class s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s21,s22,s23,s25,s26,s27,s28,s29,s30 ok
+  class s20,s24 lit
+  class s0,s11,s21,s22,s25,s26,s27,s28 target
