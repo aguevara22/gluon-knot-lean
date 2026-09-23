@@ -1,0 +1,21 @@
+% Web version of the blueprint (plasTeX). Build: cd blueprint/src && plastex -c plastex.cfg web.tex
+\documentclass{report}
+
+\usepackage{amssymb, amsthm, amsmath}
+\usepackage{hyperref}
+\usepackage[dep_graph, thms=definition+lemma+proposition+theorem+corollary+hypothesis+literature+axiom+obligation+clause+convention]{blueprint}
+
+\input{macros/common}
+\input{macros/web}
+
+\home{https://github.com/aguevara22/corner-laws-lean}
+\github{https://github.com/aguevara22/corner-laws-lean}
+\dochome{https://aguevara22.github.io/corner-laws-lean/docs}
+
+\title{Corner state sum: wall laws and soft theorem \\ Formalization blueprint}
+\author{}
+
+\begin{document}
+\maketitle
+\input{content}
+\end{document}

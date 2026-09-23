@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fixed-count transport</title>
+<link rel="next" href="sect0009.html" title="Root independence, uniqueness and the comparison C=A" />
+<link rel="prev" href="sect0007.html" title="The wall laws of C" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000009">7 Fixed-count transport</h1>
+<p> Chapter 5 of the source: the circular stars and fixed-count transport. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:star">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">7.1</span>
+    <span class="definition_thmtitle">stars and the bow-tie</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#def:star">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.star_definition" class="lean_decl">SM.star_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(r\geq 1\) put \(N=2r+1\), \(u_k=(\cos \frac{2\pi k}N,\sin \frac{2\pi k}N)\) for \(k\in \mathbb Z/N\), and </p>
+<div class="displaymath" id="a0000000199">
+  \[  K_r=(\mu _1,\ldots ,\mu _N),\qquad \mu _t=u_{r(t-1)},  \]
+</div>
+<p> the polygon visiting every \(r\)-th point of the regular \(N\)-gon in turn. Put \(K_{-r}=\overline{K_r}\). The <em>bow-tie</em> is \(K_0=\bigl((0,0),(2,2),(0,2),(2,0)\bigr)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:star-generic">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.2</span>
+    <span class="lemma_thmtitle">the stars are generic</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#lem:star-generic">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000200"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.star_generic_law" class="lean_decl">SM.star_generic_law</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(r\geq 1\) and \(N=2r+1\). Then \(\gcd (r,N)=1\), and the following hold. </p>
+<ol class="enumerate">
+  <li><p>\(\sigma K_r=R(K_r)\), where \(R\) is the rotation of the plane by \(2\pi r/N\) about the origin. Consequently every principal turn of \(K_r\) equals \(2\pi r/N\in (0,\pi )\), all turns are left, and \(\operatorname {rot}(K_r)=r\). </p>
+</li>
+  <li><p>Every edge line of \(K_r\) is tangent to the circle of radius \(\rho =\cos (\pi r/N)\) about the origin, at the midpoint of the edge, and the origin lies strictly to the left of every directed edge. </p>
+</li>
+  <li><p>\(K_r\) is generic; hence \(K_{-r}\) is generic with all turns right and \(\operatorname {rot}(K_{-r})=-r\). </p>
+</li>
+  <li><p>\(K_0\) is generic, with \((\chi _{123},\chi _{124},\chi _{134},\chi _{234})=(+1,-1,-1,+1)\), turns \((\tau _1,\tau _2,\tau _3,\tau _4)=(-1,+1,+1,-1)\), \(\operatorname {rot}(K_0)=0\) and \(X(K_0)=\{ \{ 1,3\} \} \). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000200">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> First, every common positive divisor of \(r\) and \(N\) divides \(N-2r=1\), so \(\gcd (r,N)=1\). For integer indices \(j,k\), if \(rj\equiv rk\pmod N\) then \(N\) divides \(r(j-k)\). Multiplying that divisibility by \(2\) and using \(2r=N-1\) shows that \(N\) divides \(j-k\). Thus multiplication by \(r\) permutes the residue classes modulo \(N\), so the displayed star vertices are distinct. Moreover \(R^k\) is the identity precisely when \(kr/N\) is an integer. The same divisibility argument makes this equivalent to \(N\mid k\); the least positive such \(k\) is \(N\), proving that \(R\) has order \(N\). </p>
+<p>(i) \((\sigma K_r)_t=\mu _{t+1}=u_{rt}=R(u_{r(t-1)})=R(\mu _t)\). Hence \(\widetilde\lambda _t=R(\widetilde\lambda _{t-1})\) for every \(t\), so each principal turn is the angle of \(R\) reduced to \((-\pi ,\pi )\), which is \(2\pi r/N\) itself because \(2r{\lt}N\); the \(N\) turns sum to \(2\pi r\). (ii) \(E_t\) is the chord from \(u_a\) to \(u_{a+r}\) with \(a=r(t-1)\). The counterclockwise arc from \(u_a\) to \(u_{a+r}\) has angle \(2\pi r/N{\lt}\pi \), so the midpoint of the chord is at distance \(\cos (\pi r/N)\) from the origin and the chord line is tangent there to the circle of that radius; a chord directed along a counterclockwise arc of angle less than \(\pi \) has the centre on its left. (iii) (G1): the residue permutation proved above gives \(N\) distinct vertices on the unit circle, and no three points of a circle are collinear. (G2): the \(N\) edge lines are pairwise distinct tangent lines of the circle of radius \(\rho \) (their tangency points are the \(N\) distinct images of one midpoint under the powers of \(R\), whose order was proved to be \(N\)). Through a point outside a circle pass exactly two tangent lines of the circle, so no three of the edge lines are concurrent, and a fortiori no three edge interiors are. The statements for \(K_{-r}\) are Lemma&#160;<a href="sect0002.html#lem:shift">1.19</a>(ii)–(iv). (iv) The four determinants are \(\det ((2,2),(0,2))=4\), \(\det ((2,2),(2,0))=-4\), \(\det ((0,2),(2,0))=-4\), \(\det ((-2,0),(0,-2))=4\); the turns are \(\tau _1=\chi _{412}=\chi _{124}\), \(\tau _2=\chi _{123}\), \(\tau _3=\chi _{234}\), \(\tau _4=\chi _{341}=\chi _{134}\) (Lemma&#160;<a href="sect0002.html#lem:chi-basic">1.3</a>(i)). The edges \(E_1=[(0,0),(2,2)]\) and \(E_3=[(0,2),(2,0)]\) meet at \((1,1)\), while \(E_2\) and \(E_4\) are disjoint parallel segments; there is one crossing point, so (G2) holds. The principal turns are \(-\frac{3\pi }4,\frac{3\pi }4,\frac{3\pi }4,-\frac{3\pi }4\), which sum to \(0\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:transport-lengths">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.3</span>
+    <span class="lemma_thmtitle">positive closing lengths along a direction path</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#lem:transport-lengths">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000201"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.transport_lengths_law" class="lean_decl">SM.transport_lengths_law</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> Let \(u_1(t),\ldots ,u_n(t)\) be continuous unit vectors on a compact interval, lying in no closed semicircle at any parameter. There are continuous strictly positive lengths \(l_i(t)\) with \(\sum _i l_i(t)u_i(t)=0\). At either endpoint, any prescribed positive closing lengths can be joined to the selected lengths while keeping the directions fixed. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000201">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>For finitely many planar unit vectors, lying in no closed semicircle is equivalent to the origin being in the interior of their convex hull. Indeed a supporting line through the origin for a boundary point of that convex polygon, or a separating line if the origin is outside it, puts all vectors in one closed half-plane through the origin. Conversely, a closed half-plane through the origin cannot contain a neighbourhood of the origin. This is also valid for a segment or a point as convex hull, since either is contained in a closed half-plane through the origin whenever the origin is not an interior point in the plane. </p>
+<p>Fix a parameter and put \(b=\sum _i u_i\). Interiority gives an \(\epsilon {\gt}0\) such that \(-\epsilon b\) belongs to the convex hull. Write \(-\epsilon b=\sum _i a_i u_i\) with \(a_i\geq 0\). Then </p>
+<div class="equation" id="transport:positive-close">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:positive-close} \sum _i(a_i+\epsilon )u_i=-\epsilon b+\epsilon \sum _i u_i=0, \qquad a_i+\epsilon {\gt}0. \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+<p> Thus there is a strictly positive closing vector at each parameter. </p>
+<p>Fix such a vector \(l\) at \(t_0\). Choose \(p,q\) with \(\det (u_p(t_0),u_q(t_0))\ne 0\), possible because the vectors are not all parallel. Let \(E(t)=\sum _i l_i u_i(t)\) and \(D(t)=\det (u_p(t),u_q(t))\). Correct just two coordinates by </p>
+<div class="equation" id="transport:cramer">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:cramer} \delta _p(t)=-\frac{\det (E(t),u_q(t))}{D(t)},\qquad \delta _q(t)=-\frac{\det (u_p(t),E(t))}{D(t)}. \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+<p> The determinant expansion of a vector in the basis \((u_p,u_q)\) gives \(E+\delta _pu_p+\delta _qu_q=0\). The correction is continuous and vanishes at \(t_0\), so all corrected lengths remain positive on a neighbourhood of \(t_0\). This constructs local continuous positive closing vectors. </p>
+<p>For a one-point parameter interval the pointwise choice already suffices. Otherwise choose a finite cover by proper smaller relative intervals, with nonempty complements, whose closures lie in these neighbourhoods. Continuous nonnegative weights subordinate to the smaller intervals, summing to one, can be obtained by taking distances to their complements and normalizing their sum. Multiply each weight by the local closing vector on its neighbourhood and sum. The products extend continuously by zero outside the smaller intervals because the local vectors are bounded on their closures. The result is a continuous positive closing vector: closure is linear and every positively weighted local vector has all entries positive. Finally, for fixed directions the set of strictly positive closing lengths is convex. Straight segments in that set join any prescribed endpoint lengths to the selected ones. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:transport-angle-interval">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.4</span>
+    <span class="lemma_thmtitle">lifting a semicircle to one real interval</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#lem:transport-angle-interval">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000202"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.transport_angle_interval_law" class="lean_decl">SM.transport_angle_interval_law</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> If a finite real sequence \(\theta _0,\ldots ,\theta _N\) has \(|\theta _{i+1}-\theta _i|{\lt}\pi \), and all its unit directions lie in a closed semicircle, then all its real entries lie in one interval of length \(\pi \). Conversely, containment of all entries in such an interval puts their unit directions in a closed semicircle. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000202">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>The inverse image of a fixed closed semicircle under \(\theta \mapsto (\cos \theta ,\sin \theta )\) is a union of intervals \([\alpha +2\pi k,\alpha +\pi +2\pi k]\). Distinct consecutive intervals have a gap of length \(\pi \). A step of absolute size strictly less than \(\pi \) cannot move from one interval to another, so induction fixes one interval for the whole sequence. The converse follows by projection of that interval. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mycyclic">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">7.5</span>
+    <span class="theorem_thmtitle">connectivity of the fibres</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#thm:mycyclic">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000203"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.mycyclic" class="lean_decl">SM.mycyclic</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Let \((n,r)\) be admissible and let \(P,P'\in \mathcal R_n\) be labelled tuples with \(\operatorname {rot}(P)=\operatorname {rot}(P')=r\). If \((n,r)\ne (4,0)\), a continuous path in \(\mathcal R_n\cap \operatorname {rot}^{-1}(r)\) joins \(P\) to \(P'\). If \((n,r)=(4,0)\), there is a \(k\in \mathbb Z/4\) and such a path from \(P\) to \(\sigma ^kP'\). The four shifts of \(K_0\) lie in the four distinct labelled components, distinguished by their turn words. Thus every fibre of cyclic polygon orbits is path connected. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000203">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Use tail directions \(d_i=\mu _{i+1}-\mu _i\), unit directions \(u_i=d_i/|d_i|\), and principal turns \(\vartheta _i\in (-\pi ,\pi )\) from \(u_{i-1}\) to \(u_i\). Multiplication of \(u_i=e^{\mathrm i\vartheta _i}u_{i-1}\) around the cycle shows that \(\sum _i\vartheta _i\) is an integer multiple of \(2\pi \). Principal turns vary continuously on the regular locus, so their normalized sum is constant on every path there. The symbols \(\tau _i\) remain the signs of these real principal turns, not the angles themselves. </p>
+<p><em>Reconstructing a polygon from directions.</em> A direction path with no antiparallel successive pair and with no closed semicircle containment can be closed using Lemma&#160;<a href="sect0008.html#lem:transport-lengths">7.3</a>. Starting at any continuous base point, successively add the positive vectors \(l_i(t)u_i(t)\); the final sum is zero, so this gives a continuous closed labelled \(n\)-tuple. Every edge is nonzero, and every successive pair has the prescribed principal turn in \((-\pi ,\pi )\). Consequently the tuple stays in \(\mathcal R_n\). Interpolate the base point between those of \(P,P'\) and use the endpoint length segments of that lemma to recover the exact endpoint tuples. No vertex is inserted or deleted. </p>
+<p><em>Nonzero rotation.</em> Choose real arguments \(\beta ,\beta '\) for the first unit directions and interpolate these arguments and all principal turns linearly. The interpolated turns lie strictly between \(-\pi \) and \(\pi \) and have sum \(2\pi r\). The lifted edge arguments, starting with \(\theta _0(t)=\beta (t)\), are </p>
+<div class="equation" id="transport:prefix">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:prefix} \theta _k(t)=\beta (t)+\sum _{m=1}^{k}\vartheta _{m+1}(t), \quad 0\leq k\leq n, \qquad \theta _n(t)-\theta _0(t)=2\pi r, \end{equation}
+  </div>
+  <span class="equation_label">3</span>
+</p>
+</div>
+<p> where turn indices are cyclic. The first \(n\) entries give the unit directions; the last repeats the first direction because \(r\) is an integer. If these directions lay in a closed semicircle, Lemma&#160;<a href="sect0008.html#lem:transport-angle-interval">7.4</a> would put the whole lifted sequence in one interval of length \(\pi \), implying \(|2\pi r|\leq \pi \). This contradicts \(r\ne 0\). The reconstruction above therefore joins the exact labelled endpoints, with no cyclic shift. </p>
+<p><em>The zero-rotation angle domain.</em> For \(r=0\), the lifted angles close as real numbers and form a cyclic vector \(\theta =(\theta _1,\ldots ,\theta _n)\) satisfying </p>
+<div class="equation" id="transport:zero-angle-domain">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:zero-angle-domain} |\theta _{i+1}-\theta _i|{\lt}\pi \quad \text{cyclically}. \end{equation}
+  </div>
+  <span class="equation_label">4</span>
+</p>
+</div>
+<p> The directions of any regular closed polygon lie in no closed semicircle. For if a normal \(v\ne 0\) had \(\langle v,d_i\rangle \geq 0\) for every edge, closure would force every scalar product to be zero. All directions would then be on the two rays of one line. Antiparallel adjacent directions are forbidden, so every edge would point along the same ray. Their positive length sum could not be zero. By Lemma&#160;<a href="sect0008.html#lem:transport-angle-interval">7.4</a>, the cyclic angle vector of a zero-rotation polygon consequently has \(\max _i\theta _i-\min _i\theta _i{\gt}\pi \). </p>
+<p>For an ordered pair of indices with forward cyclic distance \(d\in \{ 2,\ldots ,n-2\} \), define </p>
+<div class="equation" id="transport:chart">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:chart} \mathcal A(h,d)=\{ \theta :\eqref{transport:zero-angle-domain}\text{ holds}, \  \theta _h-\theta _{h+d}{\gt}\pi \} . \end{equation}
+  </div>
+  <span class="equation_label">5</span>
+</p>
+</div>
+<p> These open convex charts cover all zero-rotation endpoints: take a maximum and a minimum; they cannot be cyclically adjacent by <a href="sect0008.html#transport:zero-angle-domain" class="eqref">4</a>. Conversely every chart point has directions lying in no closed semicircle, by Lemma&#160;<a href="sect0008.html#lem:transport-angle-interval">7.4</a>. Every continuous angle path inside the union can thus be reconstructed as above. </p>
+<p><em>Connected chart overlaps for \(n\geq 5\).</em> For \(2\leq d\leq n-3\), both of the following chart pairs intersect: </p>
+<div class="equation" id="transport:chart-moves">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:chart-moves} \mathcal A(h,d),\mathcal A(h,d+1); \qquad \mathcal A(h,d+1),\mathcal A(h+1,d). \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> Here is an explicit witness, reading indices \(s=0,\ldots ,n-1\) from \(h\). Set the high value to \(3\pi /2\) and the low value to zero. For the first pair, put the high value at \(s=0\), descend linearly to zero at \(s=d\), keep zero through \(s=d+1\), and rise linearly back to the high value at \(s=n\). For the second pair, keep the high value at \(s=0,1\), descend linearly to zero at \(s=d+1\), and rise linearly back to the high value at \(s=n\). Every ramp has at least two steps, so each step has magnitude at most \(3\pi /4{\lt}\pi \). Each specified high-minus-low difference is \(3\pi /2{\gt}\pi \), proving both overlaps. The cyclic last step is one of these ramp steps. </p>
+<p>The first moves reduce any distance to two. At distance two, the two moves \(\mathcal A(h,2)\to \mathcal A(h,3)\to \mathcal A(h+1,2)\) advance the high index by one, and are valid even for \(n=5\). Hence their overlap graph is connected. Join endpoint angle vectors to consecutive overlap witnesses by straight segments in their convex charts. The resulting finite path of feasible angle vectors reconstructs a regular path from \(P\) to \(P'\), again with no relabelling. </p>
+<p><em>The exceptional four-vertex fibre.</em> For \(n=4\) the charts are just \(\mathcal A(h,2)\) for four indices \(h\). They are nonempty: values \(3\pi /2,3\pi /4,0,3\pi /4\), beginning at \(h\), satisfy all their inequalities. If \(\theta _h-\theta _{h+2}{\gt}\pi \), the two intermediate entries satisfy </p>
+<div class="equation" id="transport:four-orders">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:four-orders} \theta _h{\gt}\theta _{h+1}{\gt}\theta _{h+2},\qquad \theta _h{\gt}\theta _{h+3}{\gt}\theta _{h+2}. \end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> For example \(\theta _{h+1}{\gt}\theta _h-\pi {\gt}\theta _{h+2}\), and \(\theta _{h+1}{\lt}\theta _{h+2}+\pi {\lt}\theta _h\); the other case is identical. Thus the turn signs, beginning at vertex \(h\), are \((+,-,-,+)\). The four charts force the four distinct cyclic rotations of this word. They are therefore disjoint, and every rotation-zero four-tuple belongs to one of them. In particular no such tuple has a zero turn. Along a regular zero-rotation path all four nonzero turn signs remain fixed by continuity, so different words cannot be joined. Two tuples with the same word belong to the same convex angle chart; their real argument choices can differ by a common multiple of \(2\pi \), which changes neither the chart inequalities nor the reconstruction. Interpolation inside that chart and the positive-length construction join them. There are exactly four components. </p>
+<p>For \(K_0=((0,0),(2,2),(0,2),(2,0))\) the corner determinants are \((-4,4,4,-4)\). Its principal turns are the corresponding signs times \(3\pi /4\), so its rotation is zero. Cyclic shifts rotate this sign word and exhibit all four components. Shifting \(P'\) to match the word of \(P\) gives the asserted path in the exceptional case. </p>
+<p>Finally a regular triangle is noncollinear: three collinear nonzero closing edges must reverse direction at a vertex. All three turn determinants of a noncollinear triangle equal its oriented area determinant, so the three principal turns have one sign. Their sum is a nonzero multiple of \(2\pi \) of absolute value less than \(3\pi \); its rotation is \(+1\) or \(-1\). There is no zero-rotation case at \(n=3\). These cases exhaust admissible arities. Passing any constructed path to the cyclic quotient identifies its shifted target with the original target orbit, proving the orbit statement. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:transport">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.6</span>
+    <span class="lemma_thmtitle">transport</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#lem:transport">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000204"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.transport_lemma" class="lean_decl">SM.transport_lemma</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P,Z\) be generic labelled tuples in the same fibre \((n,r)\). There are \(k\in \mathbb Z/n\), with \(k=0\) unless \((n,r)=(4,0)\), and a piecewise-affine path in \(\mathcal R_n\) from \(P\) to \(\sigma ^kZ\) that is generic except at finitely many parameters, at each of which it is a simple wall germ of type (F), (V), (T), (E) or (C); at each (F) the deletion is generic, and at each (V) both halves are generic, all with fewer than \(n\) vertices. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000204">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Theorem&#160;<a href="sect0008.html#thm:mycyclic">7.5</a> supplies the path from \(P\) to \(\sigma ^kZ\) in \(\mathcal R_n\). Its rotation is constant by Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>(ii). Theorem&#160;<a href="sect0002.html#thm:relgp">1.31</a> replaces it by a path with only the five listed simple wall types. Lemma&#160;<a href="sect0002.html#lem:children">1.29</a> gives generic deletions and halves. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:soft-rotation">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.7</span>
+    <span class="lemma_thmtitle">rotation of a soft insertion</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#lem:soft-rotation">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000205"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.soft_rotation_law" class="lean_decl">SM.soft_rotation_law</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P\) be generic, \(q\) admissible at \(j\), and \(\varepsilon \) small (Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a>). Then \(\operatorname {rot}(P_\varepsilon )=\operatorname {rot}(P)\) in the same-sign and mixed sectors, and \(\operatorname {rot}(P_\varepsilon )=\operatorname {rot}(P)-\tau _j(P)\) in the loop sector. Moreover the same-sign sector is the open cone of directions strictly between \(\widetilde\lambda _{j-1}\) and \(\widetilde\lambda _j\) (the wedge of the turn), the loop sector is the open cone strictly between \(-\widetilde\lambda _{j-1}\) and \(-\widetilde\lambda _j\), and the mixed sector is the complement of the closures of these two cones. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000205">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Put \(u=\widetilde\lambda _{j-1}\), \(v=\widetilde\lambda _j\), and \(\theta =\operatorname {Arg}(v/u)\in (-\pi ,\pi )\), using the complex identification of the oriented plane. Let \(\alpha =\operatorname {Arg}(q/u)\) and \(\beta _0=\operatorname {Arg}(v/q)\) be principal turns. All three exist because admissibility makes the relevant pairs nonparallel. At the new point the actual turn is \(\beta _\varepsilon =\operatorname {Arg}((v-\varepsilon q)/q)\), which converges to \(\beta _0\). The turn at the successor vertex also changes, but converges to its old value because its incoming direction \(v-\varepsilon q\) tends to \(v\) and the old corner is regular. All other original turns except the replaced turn at \(j\) are unchanged. By Lemmas&#160;<a href="sect0003.html#lem:soft-generic">2.16</a> and&#160;<a href="sect0002.html#lem:rot">1.17</a>(ii), the rotation of \(P_\varepsilon \) is one fixed integer on a sufficiently small positive interval. Taking the limit of the full sum of turns therefore gives the exact integer identity </p>
+<div class="equation" id="eq:soft-rotation-limit">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:soft-rotation-limit} 2\pi \bigl(\operatorname {rot}(P_\varepsilon )-\operatorname {rot}(P)\bigr) =\alpha +\beta _0-\theta . \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> The left side is constant on that interval, not an assertion that the successor turn is unchanged at finite \(\varepsilon \). </p>
+<p>The three direction ratios multiply as \((q/u)(v/q)=v/u\), so \(\alpha +\beta _0-\theta \) is a multiple of \(2\pi \). Moreover \(\operatorname {sgn}\alpha =-\chi _-\) and \(\operatorname {sgn}\beta _0=-\chi _+\). In the same-sign sector both have the sign \(\tau _j=\operatorname {sgn}\theta \). Their sum and \(\theta \) lie in the same open interval of length \(2\pi \), so the multiple is zero. In the mixed sector \(\alpha ,\beta _0\) have opposite signs, making their sum lie in \((-\pi ,\pi )\); the difference from \(\theta \) is again strictly between \(-2\pi \) and \(2\pi \), so is zero. In the loop sector both signs are \(-\tau _j\). When \(\tau _j=1\), the difference lies in \((-3\pi ,0)\) and must be \(-2\pi \); when \(\tau _j=-1\) it lies in \((0,3\pi )\) and must be \(2\pi \). Equation&#160;<a href="sect0008.html#eq:soft-rotation-limit" class="eqref">8</a> gives exactly the stated rotations. </p>
+<p>For the cone description, set the angle of \(u\) equal to zero and that of \(v\) equal to \(\theta \). The determinant signs change only at the four rays \(u,v,-u,-v\). The same-sign inequalities put \(q\) strictly inside the turn wedge from \(u\) to \(v\) of angular width \(|\theta |{\lt}\pi \); the loop inequalities put it inside the opposite wedge. The remaining two open angular intervals are exactly the mixed sector. This proves the cone statements as well. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:anchors">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">7.8</span>
+    <span class="definition_thmtitle">anchors</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#def:anchors">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0003.html#def:soft">Definition 2.15</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.anchors_definition" class="lean_decl">SM.anchors_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \((n,r)\) be admissible with \(n\geq 4\). </p>
+<ol class="enumerate">
+  <li><p>If \((n-1,r)\) is admissible, a <em>zero anchor</em> is a generic \(n\)-gon of the form \(P^{(j,q)}_\varepsilon \) (Definition&#160;<a href="sect0003.html#def:soft">2.15</a>) in the mixed sector, for some generic \((n-1)\)-gon \(P\) of rotation \(r\), some vertex \(j\) of \(P\), some admissible \(q\) and some small \(\varepsilon {\gt}0\). </p>
+</li>
+  <li><p>If \((n,r)\) is minimal with \(|r|\geq 2\), a <em>loop anchor</em> is a generic \(n\)-gon of the form \(P^{(j,q)}_\varepsilon \) in the loop sector, for some generic \((n-1)\)-gon \(P\) of rotation \(r-\operatorname {sgn}(r)\) and some vertex \(j\) of \(P\) with \(\tau _j(P)=-\operatorname {sgn}(r)\). </p>
+</li>
+  <li><p>If \((n,r)=(4,0)\), a <em>loop anchor</em> is a generic \(4\)-gon of the form \(P^{(j,q)}_\varepsilon \) in the loop sector for a triangle \(P\) and any of its vertices \(j\). </p>
+</li>
+</ol>
+<p> In all three cases \(q\) is admissible and \(0{\lt}\varepsilon {\lt}\varepsilon _0\), where \(\varepsilon _0=\varepsilon _0(P,j,q){\gt}0\) is the bound of Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a>: on \((0,\varepsilon _0)\) the insertion is generic and lies in one chamber, so that Lemma&#160;<a href="sect0008.html#lem:soft-rotation">7.7</a> gives its rotation throughout. This geometric bound is part of the anchor data; it is not a bound uniform over the functions to which a soft theorem is applied. In each case \(P\) is the <em>parent</em> of the anchor, \(j\) its <em>insertion vertex</em>, and the soft edge of the anchor is its edge \(E_j\) (from \(\mu _j\) to \(\mu _*=\mu _{j+1}\) in the labelling of the anchor). </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:anchors-exist">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">7.9</span>
+    <span class="proposition_thmtitle">anchors exist</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#prop:anchors-exist">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000206"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.anchors_exist" class="lean_decl">SM.anchors_exist</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>For every admissible \((n,r)\) with \(n\geq 4\), exactly one of the cases (Z), (L), (L\(_0\)) of Definition&#160;<a href="sect0008.html#def:anchors">7.8</a> applies. An anchor of that type exists, is generic, has \(n\) vertices and rotation \(r\). For a given generic parent \(P\) and vertex \(j\), the mixed sector and the loop sector both contain admissible vectors \(q\), so in case (Z) the insertion vertex may be prescribed. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000206">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> <em>Exhaustion.</em> If \((n-1,r)\) is admissible, case (Z) applies. Otherwise \(n-1\geq 3\), so Definition&#160;<a href="sect0002.html#def:admissible">1.20</a> says that either \(2|r|\geq n-1\) or \((n-1,r)=(3,0)\). In the first case, \(2|r|{\lt}n\) and integrality give \(2|r|=n-1\). Thus \(n=2|r|+1\), and \(n\geq 4\) forces \(|r|\geq 2\), giving (L). The exceptional predecessor gives exactly \((n,r)=(4,0)\), case (L\(_0\)). These alternatives are disjoint: in case (L) the predecessor \((n-1,r)=(2|r|,r)\) has \(2|r|=n-1\) and in case (L\(_0\)) it is \((3,0)\), so in neither is it admissible (Definition&#160;<a href="sect0002.html#def:admissible">1.20</a>), which excludes (Z); and (L) has \(|r|\geq 2\) while (L\(_0\)) has \(r=0\). In particular \((4,1)\) and \((4,-1)\) have admissible triangular predecessors and belong to (Z), not (L). </p>
+<p><em>Sectors.</em> By Lemma&#160;<a href="sect0008.html#lem:soft-rotation">7.7</a> each sector is a nonempty open cone of directions; admissibility removes finitely many lines (\(\det (q,\mu _k-\mu _j)=0\), \(k\neq j\)), so each sector contains admissible vectors. For such \(q\) and \(0{\lt}\varepsilon {\lt}\varepsilon _0\), as Definition&#160;<a href="sect0008.html#def:anchors">7.8</a> requires, Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a> makes \(P_\varepsilon \) generic and Lemma&#160;<a href="sect0008.html#lem:soft-rotation">7.7</a> gives its rotation. </p>
+<p>(Z) A generic \((n-1)\)-gon of rotation \(r\) exists by Lemma&#160;<a href="sect0002.html#lem:fibres">1.21</a>; in the mixed sector the rotation is preserved. </p>
+<p>(L) Let \(r\geq 2\). The star \(K_{r-1}\) is generic with all turns left and rotation \(r-1\) (Lemma&#160;<a href="sect0008.html#lem:star-generic">7.2</a>; for \(r=2\) it is the counterclockwise triangle). Subdivide one edge at its midpoint, obtaining a \(2r\)-gon in \(\mathcal R_{2r}\) with one zero turn and rotation \(r-1\) (Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>(iii)). Write the subdivided edge as \(B-A=w\) and its moved midpoint as \(M=(A+B)/2+\delta v\), where \(\delta {\gt}0\) and \(\det (w,v){\gt}0\): the displacement is to the left of the directed edge. The new corner determinant is </p>
+<div class="equation" id="eq:anchor-midpoint-turn">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:anchor-midpoint-turn} \det (M-A,B-M)=-\delta \det (w,v){\lt}0. \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> Thus its turn is right. The two neighbouring turn determinants are strictly positive at \(\delta =0\) and remain positive for a short move. All edge lengths remain positive; the initially positive-flat new corner and all other regular corners stay in the open regular locus. Rotation therefore remains \(r-1\) by Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>(ii). The generic locus is open (Proposition&#160;<a href="sect0002.html#prop:chambers">1.10</a>) and dense (the density clause of Lemma&#160;<a href="sect0002.html#lem:fibres">1.21</a>), so a small perturbation gives a generic \(2r\)-gon \(P\) of rotation \(r-1\) with a vertex \(j\) of turn \(\tau _j=-1=-\operatorname {sgn}(r)\). A loop-sector insertion at \(j\) gives a generic \((2r+1)\)-gon of rotation \(r-1-\tau _j=r\). For \(r\leq -2\) apply the reflection \((x,y)\mapsto (x,-y)\) to the construction for \(-r\): it negates every chirotope and every rotation number, maps generic polygons to generic polygons, and maps a loop-sector insertion to a loop-sector insertion (the sectors are defined by sign patterns relative to \(\tau _j\), which all flip together). </p>
+<p>(L\(_0\)) Insert a loop at any vertex of the counterclockwise triangle: the rotation becomes \(1-1=0\), and the result is generic with four vertices. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:anchor-values">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">7.10</span>
+    <span class="proposition_thmtitle">anchor values</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0008.html#prop:anchor-values">#</a>
+    
+    <a class="icon proof" href="sect0008.html#a0000000207"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.prop_anchor_values" class="lean_decl">SM.prop_anchor_values</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>Let \(F\) be a function on generic polygons of all arities, constant on chambers and satisfying the soft theorem in the form of Theorem&#160;<a href="sect0007.html#thm:C-soft">6.7</a> at every admissible soft insertion into a generic polygon. With \(P\) the parent and \(j\) the insertion vertex, </p>
+<div class="displaymath" id="a0000000208">
+  \[  F(Z)=0\quad \text{for every zero anchor},\qquad F(Y)=\tau _j(P)F(P)\quad \text{for every loop anchor}.  \]
+</div>
+<p> In case (L), \(\tau _j(P)=-\operatorname {sgn}(r)\); in case (L\(_0\)), it is the orientation sign of the parent triangle. The function \(C\) satisfies these hypotheses. The same identities hold for \(A_g\) at every anchor root other than the soft edge, with the corresponding parent root used on the right-hand side. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000207">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Fix an anchor with parameter \(\varepsilon \) and geometric bound \(\varepsilon _0\) from Definition&#160;<a href="sect0008.html#def:anchors">7.8</a>. For its fixed parent, vertex and admissible vector, the soft hypothesis for \(F\) supplies a bound \(\delta _F{\gt}0\). Choose \(0{\lt}\varepsilon '{\lt}\min \{ \varepsilon ,\delta _F\} \). The whole parameter interval between \(\varepsilon '\) and \(\varepsilon \) is contained in \((0,\varepsilon _0)\), so both tuples lie in the same chamber by Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a>. Chamber constancy equates their \(F\) values. At \(\varepsilon '\) the soft theorem applies. Its multiplier is zero in the mixed sector, since the attachment signs are opposite. In the loop sector both attachment signs equal \(\tau _j(P)\), so the multiplier is \(\tau _j(P)\). This proves both identities at the original \(\varepsilon \), without requiring a bound uniform over functions. </p>
+<p>Proposition&#160;<a href="sect0007.html#prop:C-chamber">6.1</a> and Theorem&#160;<a href="sect0007.html#thm:C-soft">6.7</a> supply the two hypotheses for \(C\). For \(A_g\), fix the physical nonsoft edge throughout the labelled family and its corresponding edge of the parent. Theorem&#160;<a href="sect0003.html#thm:A-soft">2.17</a> gives the required identity on an initial interval for that root. Throughout the geometric interval the tuple remains generic, so every initially nonzero determinant keeps its sign along the connected parameter interval. Proposition&#160;<a href="sect0003.html#prop:A-chamber">2.6</a> therefore makes \(A_g\) constant along that family. The same smaller-parameter argument proves the rooted assertion, without using root independence. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0007.html" title="The wall laws of \(C\)"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0009.html" title="Root independence, uniqueness and the comparison \(C=A\)"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

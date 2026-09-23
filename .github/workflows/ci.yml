@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  blueprint:
+    name: Blueprint (statements, dependency graph)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install graphviz and leanblueprint
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq graphviz
+          pip install leanblueprint
+      - name: Regenerate the blueprint source from the package data
+        run: |
+          python3 docs/graph/build_dag.py docs/graph/dag_data.json
+          python3 blueprint/gen_content.py
+          python3 ci/check_blueprint_names.py
+          git diff --stat -- blueprint/src/content.tex
+      - name: Build the web blueprint
+        run: cd blueprint/src && plastex -c plastex.cfg web.tex
+      - name: Static audit of the package (no Lean needed)
+        run: python3 tools_extra/static_audit.py CORNER_LAWS_FOCUSED_20260912
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blueprint-web
+          path: blueprint/web
+
+  lean:
+    name: Lean build and axiom check
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the library (pinned toolchain, Mathlib cache)
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: CORNER_LAWS_FOCUSED_20260912/work/lean
+          use-mathlib-cache: true
+          auto-config: false
+          build: true
+          test: false
+          lint: false
+      - name: Axiom check of the final theorem
+        working-directory: CORNER_LAWS_FOCUSED_20260912/work/lean
+        run: lake env lean ../../../ci/AxiomCheck.lean

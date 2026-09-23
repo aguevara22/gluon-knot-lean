@@ -1,0 +1,33 @@
+% Theorem-like environments: the paper's, numbered within chapters.
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{literature}[theorem]{Literature input}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{obligation}[theorem]{Obligation}
+\newtheorem{clause}[theorem]{Clause}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{convention}[theorem]{Convention}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% The paper's macros (reference/SM/sm.tex and reference/R/CV/DISTILLED.tex).
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\Cat}{\operatorname{Cat}}
+\newcommand{\lt}{\widetilde\lambda}
+\newcommand{\mindeg}{\operatorname{mindeg}}
+\newcommand{\Conf}{\operatorname{Conf}}
+\newcommand{\lk}{\operatorname{lk}}
+\newcommand{\Sh}{\operatorname{Sh}}
+\newcommand{\rev}{\operatorname{rev}}
+\newcommand{\wind}{\operatorname{wind}}
+\newcommand{\mt}[1]{main text, \texttt{#1}}
+% The paper's status tags are stripped by the generator; keep a harmless definition.
+\newcommand{\status}[1]{}

@@ -21,6 +21,26 @@ laws of C, the soft theorem, and Hypothesis R itself, so the conclusion holds wi
 
 ---
 
+## The blueprint
+
+The standard reading interface for a formalization is its *blueprint*: every printed statement of the paper's proof
+route, in LaTeX, with the name of the Lean declaration that formalizes it and links to what it depends on, plus the
+dependency graph. This project's blueprint is generated from the package's own data (the 192 rows of the declaration
+map, the frozen statement extracts of frame SM15, the 443 blueprint edges) by `blueprint/gen_content.py`, and built
+with [leanblueprint](https://github.com/PatrickMassot/leanblueprint) into `blueprint/web/`:
+
+- **[`blueprint/web/index.html`](blueprint/web/index.html)**: eleven chapters, one per chapter of the paper plus three
+  for the proof of Hypothesis R; each statement carries its Lean name and a collapsed printed proof.
+- **[`blueprint/web/dep_graph_document.html`](blueprint/web/dep_graph_document.html)**: the interactive dependency
+  graph of all 192 statements. Click a node for its statement, its Lean declaration and its neighbours.
+
+GitHub does not serve HTML from a private repository, so clone the repository and open the two files in a browser, or
+download the `blueprint-web` artifact of the latest CI run. Every `\lean{}` name in the blueprint is checked against the
+declaration map by `ci/check_blueprint_names.py`, so a name in the blueprint is a name whose statement hash the
+checker's receipts bind.
+
+---
+
 ## 1. The objects
 
 **Polygons.** A polygon is a list of `n ≥ 3` points `μ₁, …, μₙ` in the plane, read cyclically. Its edges are
@@ -276,7 +296,7 @@ flowchart TD
   class s0,s11,s21,s22,s25,s26,s27,s28 target
 ```
 
-**The whole graph.** All 192 nodes, in eleven swim lanes, prerequisites on the left
+**The whole graph.** The interactive version is the blueprint's dependency graph (above). The lane view below has all 192 nodes in eleven swim lanes, prerequisites on the left
 ([SVG](docs/proof-graph-full.svg); [interactive version](docs/corner_laws_proof_graph.html) with pan, zoom, lane
 filters and a per-node panel showing the source line, the Lean name, prerequisites and consumers; download it and
 open it in a browser). All three views are generated from the package by the scripts in `docs/graph/`.
@@ -344,6 +364,8 @@ weakening the reviewers noted is in the record `work/reviews/<row>.json`, with t
 All reviewers were AI sessions (Claude, the same model family as the prover), disclosed in each record; no human
 has read them.
 
+**Continuous integration.** `.github/workflows/ci.yml` rebuilds the blueprint and runs the static audit on every push, and builds the Lean library with the pinned toolchain and Mathlib cache, then runs `ci/AxiomCheck.lean`, which fails unless the final theorem's axioms are exactly the nine registered ones.
+
 **Reproducing the check** (8 cores, 32 GB of RAM):
 
 ```sh
@@ -404,8 +426,7 @@ tools/           claims.py (the worklist), check_lean.py (the checker), progress
 SOURCES/         the literature behind the five interfaces (third-party PDFs; keep this repository private)
 ```
 
-Outside the package: `docs/` (the graphs and their generators, the statement-closure listing), `handover/`
-(execution notes), `tools_extra/static_audit.py`, `RESEARCH_LOG.md`.
+Outside the package: `blueprint/` (the generator, the LaTeX source and the built web blueprint), `docs/` (the graphs and their generators, the statement-closure listing), `ci/` (the axiom check and the blueprint name check), `handover/` (execution notes), `tools_extra/static_audit.py`, `RESEARCH_LOG.md`.
 
 The package is byte-identical to the delivered archive `RESULT_FINAL_20260919_1554Z.tgz`
 (sha256 `40c1be0b6f709aa80d2b79026d3c10764a21a9bb132009eac63bab0a06b4baae`) except for two edits needed for git:

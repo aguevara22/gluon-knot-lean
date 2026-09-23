@@ -218,3 +218,21 @@ presents the proof graph in three views generated from `docs/graph/dag_data.json
 `docs/graph/render_mermaid.py`. Source facts used: sm.tex line 2 (supplemental material for "Gluons and Knots"),
 the abstract, def:generic, def:walls, def:treesum, def:positive-lift, def:uniform, def:C, hyp:R, thm:comparison,
 cor:A-lawful, and `SM/ComparisonRows.lean`.
+
+## 2026-09-22 — Blueprint, CI and axiom check added (the standard kit)
+
+Owner's direction: use the standard tooling rather than a bespoke statement file. Added: (1) a leanblueprint blueprint at
+`blueprint/`, generated from the package data by `blueprint/gen_content.py` (192 rows, 443 `\uses` edges, 11 chapters =
+the paper's chapters + CV/R/Bridge; every node `\lean{decl}\leanok`; printed proofs collapsed; the 20 rows without a TeX
+extract carry statements written from their printed sources, cited in place; the paper's macros in
+`blueprint/src/macros/common.tex`; status tags and citations stripped/neutralised by the generator). Built with plasTeX +
+plastexdepgraph into `blueprint/web/` (index, 12 pages, `dep_graph_document.html` with all 192 nodes; 0 warnings).
+Two generator fixes were needed: the graph plugin only nodes the five standard environments unless the `thms=` option lists
+the others (hypothesis, literature, axiom, obligation, clause, convention), and two CV clause rows are fragments of longer
+environments, so the generator now closes unbalanced environments per row and gives such rows their own label with
+reference aliasing. (2) `ci/AxiomCheck.lean` (`#print axioms` + `collectAxioms` guard against the nine registered
+constants) and `ci/check_blueprint_names.py` (every `\lean` name is a declaration of the map). (3)
+`.github/workflows/ci.yml`: a blueprint job (regenerate, build, static audit, upload artifact) and a Lean job
+(`leanprover/lean-action`, pinned toolchain, Mathlib cache, then the axiom check). GitHub Pages is unavailable on this
+private repository, so the built blueprint is committed and also uploaded as a CI artifact. README gained a "The
+blueprint" section and CI note. Tooling on this Mac: leanblueprint in `~/.venvs/leanblueprint`, graphviz via brew.

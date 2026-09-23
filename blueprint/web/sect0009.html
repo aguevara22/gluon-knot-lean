@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Root independence, uniqueness and the comparison \(C=A\)</title>
+<link rel="next" href="sect0010.html" title="The companion document: the triple wall on carriers" />
+<link rel="prev" href="sect0008.html" title="Fixed-count transport" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000010">8 Root independence, uniqueness and the comparison \(C=A\)</h1>
+<p> Chapter 6 of the source: the uniqueness theorem, the comparison \(C=A\) under Hypothesis R, and the laws \(C\) inherits. </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:A-small-values">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">8.1</span>
+    <span class="lemma_thmtitle">triangle and bow-tie values</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#lem:A-small-values">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000209"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.A_small_values_lemma" class="lean_decl">SM.A_small_values_lemma</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>For every labelled triangle satisfying (G1), all turns have a common sign \(\tau \), and \(A_g=-\tau \) at every physical root. </p>
+</li>
+  <li><p>For the bow-tie of Definition&#160;<a href="sect0008.html#def:star">7.1</a>, \(A_g(\sigma ^kK_0)=-1\) for every physical root \(g\) and every integer \(k\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000209">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> For a noncollinear triangle the three turn triples are cyclic permutations of one ordered triple. Lemma&#160;<a href="sect0002.html#lem:chi-basic">1.3</a>(i) therefore gives the common sign \(\tau \). For any physical root, the boundary word has two leaves. Its unary root contribution is \(b_{[0,2]}=0\), since its only ordinary composition has two parts and vanishes by Lemma&#160;<a href="sect0003.html#lem:gates-nonzero">2.3</a>. The binary root has \(d=h=\chi (a_2,a_1,a_0)=-\tau \), so its factor \((d+h)/2\) is \(-\tau \). This proves (i) directly on (G1). </p>
+<p>For (ii), use the four coordinates of Definition&#160;<a href="sect0008.html#def:star">7.1</a>. All two-leaf open sums vanish, because their near and far signs agree. On a boundary word \((a_0,a_1,a_2,a_3)\), put \(d_1=\chi (a_2,a_1,a_0)\), \(d_2=\chi (a_3,a_2,a_1)\), \(h_1=\chi (a_3,a_1,a_0)\) and \(h_2=\chi (a_3,a_2,a_0)\). Every two-part composition has a two-leaf child and vanishes. The unary root term is therefore minus the ordinary three-part gate product, and the three-part root term is its barred counterpart. Hence </p>
+<div class="equation" id="eq:root-bowtie-recursion">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:root-bowtie-recursion} A_g=\frac{(d_1+h_1)(d_2+h_2)-(d_1-h_1)(d_2-h_2)}4. \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+<p> Expanding the two products cancels \(d_1d_2\) and \(h_1h_2\) and leaves \(2d_1h_2+2h_1d_2\). Thus \(A_g=(d_1h_2+h_1d_2)/2\). At the four physical roots of \(K_0\), direct determinants of its displayed coordinates give </p>
+<div class="equation" id="eq:root-bowtie-signs">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:root-bowtie-signs} \begin{array}{c|rrrr|r} g& d_1& d_2& h_1& h_2& A_g\\ \hline 1& -1& 1& -1& 1& -1\\ 2& 1& 1& -1& -1& -1\\ 3& 1& -1& 1& -1& -1\\ 4& -1& -1& 1& 1& -1 \end{array} \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+<p> Cyclic shifts merely permute these four root words by Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(i). Consequently every root of every \(\sigma ^kK_0\) has value \(-1\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:root-indep-proof">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">8.2</span>
+    <span class="theorem_thmtitle">root independence</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#thm:root-indep-proof">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000210"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.root_independence" class="lean_decl">SM.root_independence</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>For every generic polygon \(P\) and any two of its edges \(g,h\), \(A_g(P)=A_h(P)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000210">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Strong induction on \(n\). The case \(n=3\) follows from Lemma&#160;<a href="sect0009.html#lem:A-small-values">8.1</a>(i). </p>
+<p>Let \(n\geq 4\), let \(P\) be generic of rotation \(r\), and let \(g\neq h\) be two edge labels. For a generic labelled tuple \(Q\) with \(n\) vertices put \(\Delta _{gh}(Q)=A_g(Q)-A_h(Q)\). Choose a target \(Z\) in the fibre \((n,r)\) as follows. </p>
+<ul class="itemize">
+  <li><p>If \((n,r)\) is not minimal: \(Z\) is a zero anchor whose insertion vertex \(j\) is chosen with \(j\notin \{ g,h\} \) (Proposition&#160;<a href="sect0008.html#prop:anchors-exist">7.9</a>; there are \(n-1\geq 3\) choices of \(j\)). Its soft edge is \(E_j(Z)\). Choose its parameter below the geometric bound of Definition&#160;<a href="sect0008.html#def:anchors">7.8</a> and below the two bounds in Theorem&#160;<a href="sect0003.html#thm:A-soft">2.17</a> for the roots \(g\) and \(h\). All three bounds are positive, so such a choice exists. </p>
+</li>
+  <li><p>If \((n,r)\) is minimal with \(|r|\geq 2\): \(Z=K_r\). </p>
+</li>
+  <li><p>If \((n,r)=(4,0)\): \(Z=K_0\). </p>
+</li>
+</ul>
+<p> Lemma&#160;<a href="sect0008.html#lem:transport">7.6</a> gives \(k\) (\(k=0\) in the first two cases) and a path from \(P\) to \(\sigma ^kZ\) with finitely many simple walls. Along the path \(\Delta _{gh}\) is constant: on generic segments by Proposition&#160;<a href="sect0003.html#prop:A-chamber">2.6</a>; at (T), (E), (C) by Theorem&#160;<a href="sect0003.html#thm:A-R3E">2.14</a>, which gives zero jump for each root separately; at a flat wall at \(i\) the jump of \(\Delta _{gh}\) is \(A_{D_i(g)}(Q)-A_{D_i(h)}(Q)\) with \(Q\) the generic deletion (Theorem&#160;<a href="sect0003.html#thm:A-S3">2.11</a>), which vanishes by induction; at a vertex–edge wall the jump is \(s\bigl(A_{h_1}(\lambda _1)A_{h_2}(\lambda _2)-A_{h_1'}(\lambda _1)A_{h_2'}(\lambda _2)\bigr)\) with \((h_1,h_2)=H(g)\), \((h_1',h_2')=H(h)\) and generic halves (Theorem&#160;<a href="sect0003.html#thm:A-S7">2.13</a>), which vanishes by induction applied to each half. Hence \(\Delta _{gh}(P)=\Delta _{gh}(\sigma ^kZ)\). </p>
+<p>At the target: in the non-minimal case \(k=0\) and neither \(E_g\) nor \(E_h\) is the soft edge of \(Z\), so Theorem&#160;<a href="sect0003.html#thm:A-soft">2.17</a> in the mixed sector gives \(A_g(Z)=A_h(Z)=0\). For \(Z=K_r\) with \(r\geq 2\): by Lemma&#160;<a href="sect0008.html#lem:star-generic">7.2</a>(i) and Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(i), \(A_{g+1}(K_r)=A_g(\sigma K_r)=A_g(R(K_r))=A_g(K_r)\), the last step because every chirotope, hence every gate, is invariant under a rotation of the plane; so all roots of \(K_r\) have one value. For \(r\leq -2\), \(K_r=\overline{K_{|r|}}\) by Definition&#160;<a href="sect0008.html#def:star">7.1</a>, and Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(ii) gives \(A_h(K_r)=(-1)^NA_{1-h}(K_{|r|})=-A_{1-h}(K_{|r|})\) with \(N=2|r|+1\) odd; since \(h\mapsto 1-h\) is a bijection of \(\mathbb Z/N\), all roots of \(K_r\) have one value as well. Cyclic covariance, Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(i), covers every shift. For \(Z=K_0\), Lemma&#160;<a href="sect0009.html#lem:A-small-values">8.1</a>(ii) gives \(-1\) at every root of every shift. In every target case \(\Delta _{gh}(\sigma ^kZ)=0\). </p>
+
+  </div>
+</div>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:A-lawful">
+  <div class="corollary_thmheading">
+    <span class="corollary_thmcaption">
+    Corollary
+    </span>
+    <span class="corollary_thmlabel">8.3</span>
+    <span class="corollary_thmtitle">\(A\) is a chamber function on polygons</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#cor:A-lawful">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000211"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.A_lawful" class="lean_decl">SM.A_lawful</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="corollary_thmcontent">
+  <p>\(A(P):=A_g(P)\) (any \(g\)) is well defined on generic polygons and satisfies: chamber constancy and silence (Proposition&#160;<a href="sect0003.html#prop:A-chamber">2.6</a>, Theorem&#160;<a href="sect0003.html#thm:A-R3E">2.14</a>(ii)); the flat law \(A(P_{\rm right})-A(P_{\rm left})=A(P(0)\setminus j)\); the cusp law \(A(P_{\rm loop})-A(P_{\rm no})=-\kappa A(P(0)\setminus j)\) when the deletion satisfies (G1); the vertex–edge law \(A(P_+)-A(P_-)=sA(\lambda _1)A(\lambda _2)\); the triple law \(A(P_+)=A(P_-)\); the soft theorem \(A(P_\varepsilon )=\frac{\chi _-+\chi _+}2A(P)\) in every sector; reversal \(A(\overline P)=(-1)^nA(P)\); and \(A(K_1)=-1\), \(A(K_{-1})=+1\) on the counterclockwise and clockwise triangles. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000211">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Theorem&#160;<a href="sect0009.html#thm:root-indep-proof">8.2</a> removes the root choice, and Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(i) gives cyclic descent. Theorems&#160;<a href="sect0003.html#thm:A-S3">2.11</a>, <a href="sect0003.html#thm:A-S4">2.12</a>, <a href="sect0003.html#thm:A-S7">2.13</a>, <a href="sect0003.html#thm:A-R3E">2.14</a>, <a href="sect0003.html#thm:A-soft">2.17</a> (evaluated at any root other than the soft edge), Proposition&#160;<a href="sect0003.html#prop:A-reversal">2.18</a>(ii), and the triangle values in Lemma&#160;<a href="sect0009.html#lem:A-small-values">8.1</a>(i) give the listed laws and base values. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:uniqueness">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">8.4</span>
+    <span class="theorem_thmtitle">uniqueness; Theorem&#160;1 of the main text</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#thm:uniqueness">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000212"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.uniqueness" class="lean_decl">SM.uniqueness</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Let \(F\) be a function assigning an integer to every generic polygon of every arity \(n\geq 3\) and satisfying: </p>
+<ol class="enumerate">
+  <li><p>\(F\) is constant on chambers and unchanged across simple silent walls (types (E) and (C)); </p>
+</li>
+  <li><p>the flat law \(F(P_{\rm right})-F(P_{\rm left})=F(P(0)\setminus j)\) at every simple flat wall; </p>
+</li>
+  <li><p>the vertex–edge law \(F(P_+)-F(P_-)=s\, F(\lambda _1)F(\lambda _2)\) at every simple vertex–edge wall, both branches; </p>
+</li>
+  <li><p>\(F(P_+)=F(P_-)\) at every simple triple wall; </p>
+</li>
+  <li><p>the soft theorem \(F(P_\varepsilon )=\frac{\chi _-+\chi _+}2F(P)\) for all small \(\varepsilon \), at every soft insertion of an admissible vector into a generic polygon; </p>
+</li>
+  <li><p>\(F(K_1)=-1\) and \(F(K_{-1})=+1\). </p>
+</li>
+</ol>
+<p> Then \(F(P)=A(P)\) for every generic polygon \(P\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000212">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> \(A\) satisfies (a)–(f) by Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a>. Put \(\Delta =F-A\), a function on generic polygons, and argue by strong induction on \(n\). </p>
+<p><em>Base \(n=3\).</em> The generic triangles form two chambers, the counterclockwise and the clockwise triangles, containing \(K_1\) and \(K_{-1}\) respectively; by (a) and (f), \(\Delta =0\) on both. </p>
+<p><em>Step.</em> Let \(n\geq 4\) and assume \(\Delta =0\) on every generic polygon with fewer than \(n\) vertices. Let \(P\) be generic with \(\operatorname {rot}(P)=r\), so that \((n,r)\) is admissible, and let \(Z\) be an anchor for \((n,r)\) (Definition&#160;<a href="sect0008.html#def:anchors">7.8</a>, Proposition&#160;<a href="sect0008.html#prop:anchors-exist">7.9</a>). Lemma&#160;<a href="sect0008.html#lem:transport">7.6</a> gives a path from \(P\) to \(\sigma ^kZ\), which as a path of polygons ends at \(Z\), with finitely many simple walls of types (F), (V), (T), (E), (C). Between walls \(\Delta \) is constant by (a); at (E), (C) it is unchanged by (a); at (T) by (d). At a flat wall at \(j\) the jump of \(\Delta \) is \(\Delta (P(0)\setminus j)=0\) by induction, the deletion being generic with \(n-1\) vertices. At a vertex–edge wall the jump is \(s\bigl(F(\lambda _1)F(\lambda _2)-A(\lambda _1)A(\lambda _2)\bigr) =s\bigl(\Delta (\lambda _1)F(\lambda _2)+A(\lambda _1)\Delta (\lambda _2)\bigr)=0\) by induction, the halves being generic with fewer than \(n\) vertices. Hence \(\Delta (P)=\Delta (Z)\). At the anchor, Proposition&#160;<a href="sect0008.html#prop:anchor-values">7.10</a> applies to \(F\) and to \(A\) (hypotheses (a) and (e), Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a>): for a zero anchor both values are \(0\); for a loop anchor with parent \(P'\) (a generic polygon with \(n-1\) vertices) and insertion vertex \(j\), \(F(Z)=\tau _j(P')F(P')\) and \(A(Z)=\tau _j(P')A(P')\), and \(\Delta (P')=0\) by induction. So \(\Delta (Z)=0\) and \(\Delta (P)=0\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:comparison">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">8.5</span>
+    <span class="theorem_thmtitle">comparison</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#thm:comparison">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000213"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.thm_comparison" class="lean_decl">SM.thm_comparison</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Assume Hypothesis&#160;R. Then \(C(P)=A(P)\) for every generic polygon \(P\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000213">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> \(C\) satisfies (a)–(f) of Theorem&#160;<a href="sect0009.html#thm:uniqueness">8.4</a>: (a) Propositions&#160;<a href="sect0007.html#prop:C-chamber">6.1</a>, <a href="sect0007.html#prop:C-silent">6.2</a>; (b) Theorem&#160;<a href="sect0007.html#thm:C-S3">6.3</a>; (c) Theorem&#160;<a href="sect0007.html#thm:C-S7">6.5</a>; (d) Hypothesis&#160;<a href="sect0007.html#hyp:R">6.8</a>; (e) Theorem&#160;<a href="sect0007.html#thm:C-soft">6.7</a>; (f) Lemma&#160;<a href="sect0004.html#lem:corner-values">3.16</a>(i) gives corner coefficient \(1\) for either oriented triangle. Its only decomposition is empty, so Definition&#160;<a href="sect0004.html#def:C">3.11</a> gives \(-1\) when \(\ell =3\) and \(+1\) when \(\ell =0\), as required. </p>
+
+  </div>
+</div>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:C-inherits">
+  <div class="corollary_thmheading">
+    <span class="corollary_thmcaption">
+    Corollary
+    </span>
+    <span class="corollary_thmlabel">8.6</span>
+    <span class="corollary_thmtitle">laws inherited by \(C\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0009.html#cor:C-inherits">#</a>
+    
+    <a class="icon proof" href="sect0009.html#a0000000214"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.cor_C_inherits" class="lean_decl">SM.cor_C_inherits</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="corollary_thmcontent">
+  <p>Under Hypothesis&#160;R, \(C\) satisfies every identity of Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a> on the domains stated there, in particular the cusp law \(C(P_{\rm loop})-C(P_{\rm no})=-\kappa \, C(P(0)\setminus j)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000214">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Theorem&#160;<a href="sect0009.html#thm:comparison">8.5</a> identifies \(C\) with \(A\) on every generic polygon, and Definition&#160;<a href="sect0004.html#def:C">3.11</a> defines \(C\) on generic polygons only; so before \(C=A\) is substituted in an identity of Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a>, every argument of that identity must be shown generic. The two sides of a wall germ are generic by Definition&#160;<a href="sect0002.html#def:germ">1.22</a>. At a simple flat wall the deletion \(P(0)\setminus j\) is generic by Lemma&#160;<a href="sect0002.html#lem:children">1.29</a>(i), and at a simple vertex–edge wall both halves are generic by Lemma&#160;<a href="sect0002.html#lem:children">1.29</a>(ii). The soft family \(P_\varepsilon \) is generic for all sufficiently small \(\varepsilon {\gt}0\) in every sector by Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a>. Reversal permutes the vertex triples and preserves the edge segments, so it preserves (G1) and (G2). The two triangles \(K_{\pm 1}\) are generic by Lemma&#160;<a href="sect0008.html#lem:star-generic">7.2</a>(iii). </p>
+<p>For the cusp law let the simple cusp wall be at \(j\) and write \(A=\mu _{j-1}(0)\), \(M=\mu _j(0)\) and \(B=\mu _{j+1}(0)\). The deletion \(Q=P(0)\setminus j\) has the vertices \(\mu _i(0)\), \(i\neq j\), and its edges are the parent edges \(E_i(0)\), \(i\notin \{ j-1,j\} \), together with the fused edge \([A,B]\); it satisfies (G1) by the hypothesis of the cusp law. For (G2): by Definition&#160;<a href="sect0002.html#def:walls">1.24</a>(K) the three points are collinear with \(M\) outside the closed segment \([A,B]\), so \([A,B]\) is contained in the longer of \([A,M]=E_{j-1}(0)\) and \([M,B]=E_j(0)\), and its relative interior in the relative interior of that edge. Suppose three distinct edges of \(Q\) had a common point in their relative interiors. Two adjacent edges of \(Q\) are not collinear, by (G1) for \(Q\), and so meet only at their common vertex; hence the three edges are pairwise remote in \(Q\). Send the fused edge, if it is among them, to the longer parent edge containing it, and every other edge to itself. This map is injective, since neither \(E_{j-1}(0)\) nor \(E_j(0)\) is an edge of \(Q\), and the common point lies in the relative interiors of the three image edges. The image edges are pairwise remote in \(P(0)\): two surviving edges are adjacent in \(P(0)\) exactly when they share a vertex, which is a vertex of \(Q\), hence exactly when they are adjacent in \(Q\); and the parent neighbours of the longer cusp edge are the other cusp edge, which is not an edge of \(Q\), and one of the two edges of \(Q\) adjacent to the fused edge, both excluded because the three edges are pairwise remote in \(Q\). This is a point in the relative interiors of three pairwise remote edges of the centre, contrary to \(Z_{\rm c}=\varnothing \) in Definition&#160;<a href="sect0002.html#def:walls">1.24</a>(K). Thus \(Q\) is generic; the argument does not require the cusp to be empty. </p>
+<p>Now apply each identity of Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a> to its stated arguments and substitute \(C=A\) at every one of them, including the deletions and halves just checked. For a chamber-side identity each sufficiently small punctured side lies in one generic chamber, on which \(C=A\) holds pointwise, so the constant side values of \(C\) and of \(A\) agree; no value at the wall centre and no limit is used. This gives every identity for \(C\) on the domain stated in Corollary&#160;<a href="sect0009.html#cor:A-lawful">8.3</a>, including the displayed cusp law. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0008.html" title="Fixed-count transport"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0010.html" title="The companion document: the triple wall on carriers"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>
