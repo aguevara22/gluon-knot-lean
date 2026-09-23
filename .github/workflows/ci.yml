@@ -21,7 +21,7 @@ jobs:
           python-version: "3.12"
       - name: Install graphviz and leanblueprint
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq graphviz
+          sudo apt-get update -qq && sudo apt-get install -y -qq graphviz texlive-base
           pip install leanblueprint
       - name: Regenerate the blueprint source from the package data
         run: |
