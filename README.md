@@ -364,7 +364,7 @@ weakening the reviewers noted is in the record `work/reviews/<row>.json`, with t
 All reviewers were AI sessions (Claude, the same model family as the prover), disclosed in each record; no human
 has read them.
 
-**Continuous integration.** `.github/workflows/ci.yml` rebuilds the blueprint and runs the static audit on every push, and builds the Lean library with the pinned toolchain and Mathlib cache, then runs `ci/AxiomCheck.lean`, which fails unless the final theorem's axioms are exactly the nine registered ones.
+**Continuous integration.** `.github/workflows/ci.yml` rebuilds the blueprint and runs the static audit on every push, and builds the Lean library with the pinned toolchain and Mathlib cache, then runs `ci/AxiomCheck.lean`, which fails unless the final theorem's axioms are exactly the nine registered ones. Both jobs pass (first full build about 40 minutes on a stock runner after freeing its disk; later runs reuse the build cache).
 
 **Reproducing the check** (8 cores, 32 GB of RAM):
 
@@ -444,9 +444,11 @@ its `.gitignore` line `work/` is removed, and the `MANIFEST.sha256` line for `.g
    `SM/CornerChainUnits.lean`: `s7b_SlidingTransport.ret`; `RProof/GenericTransport.lean`: `G11_Config.trans`).
    No accepted proof uses them; the rows that needed them were closed through proved weaker forms or a
    trans-free copy, and accepted modules were left unedited by policy. `FINAL_REVIEW.md` §5 item 4 lists each case.
-4. **The full Lean rebuild has been run only on the machine that produced the package.** Elsewhere the
-   verification is static: sources match the receipts' hashes file by file, the review records match the receipt,
-   and every row's statement hash matches the shipped audit (section 6).
+4. **The full Lean rebuild has been repeated once outside the origin machine**, by CI on a stock GitHub runner
+   (2026-09-23: all 4295 modules built from the pinned toolchain and Mathlib cache, and `ci/AxiomCheck.lean` confirmed
+   that the final theorem depends on exactly the nine registered axioms). The package's own checker, which also
+   re-hashes every statement, has run only on the origin machine; on this side the receipts were verified
+   statically (section 6).
 
 ---
 

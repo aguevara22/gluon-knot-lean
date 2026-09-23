@@ -236,3 +236,16 @@ constants) and `ci/check_blueprint_names.py` (every `\lean` name is a declaratio
 (`leanprover/lean-action`, pinned toolchain, Mathlib cache, then the axiom check). GitHub Pages is unavailable on this
 private repository, so the built blueprint is committed and also uploaded as a CI artifact. README gained a "The
 blueprint" section and CI note. Tooling on this Mac: leanblueprint in `~/.venvs/leanblueprint`, graphviz via brew.
+
+## 2026-09-23 — CI green: the library builds on a stock GitHub runner; axiom guard passes
+
+Run 35821738098 (commit 515b934): blueprint job success; Lean job success — `leanprover/lean-action` with the pinned
+toolchain and the Mathlib cache built all 4295 modules ("Build completed successfully"), then `ci/AxiomCheck.lean`
+printed `'SM.corner_laws_and_soft' depends on axioms: [propext, Classical.choice, Quot.sound, SM.lit_homfly,
+SM.lit_homfly_descent, SM.lp_lm, SM.lp_lm_uniqueness, SM.ng_finite_word, SM.src_contact]` and its guard confirmed
+"exactly the registered axioms". Two earlier attempts failed on the runner's disk (no space left at 4200/4295 modules;
+fixed by deleting the runner's unused preinstalled toolchains before the build) and on a Lean syntax slip in the check
+file (`import` must come first). The first full build took ~37 min; the passing run took ~2 min thanks to
+lean-action's build cache. This is the independent rebuild outside the origin machine that the 2026-09-20 audit had
+listed as not done; the package's own checker (statement re-hashing) still has run only on the pod. README caveat 4 and
+the CI note updated.
