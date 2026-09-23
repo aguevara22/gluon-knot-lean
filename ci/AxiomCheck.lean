@@ -1,7 +1,7 @@
+import SM.CornerLawsAndSoft
 /-! CI axiom check: the final theorem must use exactly Lean's three standard axioms and the six
 registered literature constants (five literature interfaces; lit:homfly carries two constants).
 Run from CORNER_LAWS_FOCUSED_20260912/work/lean:  lake env lean ../../../ci/AxiomCheck.lean -/
-import SM.CornerLawsAndSoft
 
 #print axioms SM.corner_laws_and_soft
 
