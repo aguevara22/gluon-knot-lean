@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Polygons, chirotopes, chambers and walls</title>
+<link rel="next" href="sect0003.html" title="The tree coefficient A" />
+<link rel="prev" href="sect0001.html" title="How to read this blueprint" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000003">1 Polygons, chirotopes, chambers and walls</h1>
+<p> Chapter 1 of the source: the objects every later statement is about. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:polygon">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.1</span>
+    <span class="definition_thmtitle">labelled tuples and polygons</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:polygon">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.polygonData" class="lean_decl">SM.polygonData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(n\geq 3\). A <em>labelled tuple</em> is an element \(P=(\mu _1,\ldots ,\mu _n)\in (\mathbb R^2)^n\), indices in \(\mathbb Z/n\) with \(\mu _{n+1}=\mu _1\). The <em>cyclic shift</em> is \((\sigma P)_i=\mu _{i+1}\). A <em>polygon</em> on \(n\) vertices is an orbit \([P]=\{ \sigma ^kP:k\in \mathbb Z/n\} \) of labelled tuples; a labelled tuple in the orbit is a <em>representative</em>, and the space of polygons is the quotient \((\mathbb R^2)^n/(\mathbb Z/n)\). Every notion below is introduced on a representative and is invariant under \(\sigma \) (up to the induced relabelling of indices, which is recorded where it matters); it therefore defines a notion on polygons. A polygon has no distinguished vertex and no distinguished edge; when a construction needs one (a root, a base vertex), that choice is part of the construction’s data. </p>
+<p>For a representative, the <em>edge vectors</em> are </p>
+<div class="displaymath" id="a0000000014">
+  \[  \widetilde\lambda _i=\mu _{i+1}-\mu _i\qquad (i\in \mathbb Z/n),  \]
+</div>
+<p> so that \(\sum _i\widetilde\lambda _i=0\), and the <em>edge segments</em> are \(E_i=[\mu _i,\mu _{i+1}]=\{ \mu _i+t\widetilde\lambda _i:0\leq t\leq 1\} \). Vertex \(i\) is <em>incident</em> to \(E_{i-1}\) and \(E_i\). Two edges \(E_i,E_j\) are <em>adjacent</em> if \(j-i\in \{ -1,0,1\} \) and <em>remote</em> otherwise; an edge \(E_j\) is <em>remote to the vertex</em> \(i\) if \(j\notin \{ i-1,i\} \), and <em>remote to the vertex and its two edges</em> if \(j\notin \{ i-2,i-1,i,i+1\} \). No condition is imposed on the tuple by this definition; in particular coincident vertices and zero edges are allowed at this level. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:chirotope">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.2</span>
+    <span class="definition_thmtitle">chirotope and turns</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:chirotope">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.chirotopeData" class="lean_decl">SM.chirotopeData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(i,j,k\in \mathbb Z/n\) put </p>
+<div class="displaymath" id="a0000000015">
+  \[  \chi _{ijk}(P)=\operatorname {sgn}\det (\mu _j-\mu _i,\  \mu _k-\mu _i)\in \{ -1,0,1\} .  \]
+</div>
+<p> The <em>turn</em> at vertex \(i\) is \(\tau _i(P)=\chi _{i-1,i,i+1}(P)\). The number of <em>left turns</em> is \(\ell (P)=\# \{ i:\tau _i(P)=1\} \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:chi-basic">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.3</span>
+    <span class="lemma_thmtitle">elementary properties of \(\chi \)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:chi-basic">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000016"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.chi_basic" class="lean_decl">SM.chi_basic</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all \(i,j,k\): </p>
+<ol class="enumerate">
+  <li><p>\(\chi _{ijk}\) is alternating: it changes sign under a transposition of two of its indices and is unchanged under a cyclic permutation; it is \(0\) when two indices coincide. </p>
+</li>
+  <li><p>\(\chi _{ijk}=\operatorname {sgn}\bigl([\mu _j-\mu _i,\  \mu _j-\mu _k]\bigr)\) with the main text’s bracket \([u,v]=u_2v_1-u_1v_2\). </p>
+</li>
+  <li><p>\(\chi _{i,i+1,k}=\operatorname {sgn}\det (\widetilde\lambda _i,\  \mu _k-\mu _i)\); when \(\widetilde\lambda _i\neq 0\) we say (a naming convention) that \(\mu _k\) lies <em>strictly to the left</em> of the directed line through \(E_i\) if this sign is \(+1\) and <em>strictly to the right</em> if it is \(-1\). </p>
+</li>
+  <li><p>\(\tau _i=\operatorname {sgn}\det (\widetilde\lambda _{i-1},\widetilde\lambda _i)\); \(\tau _i=+1\) is a left turn. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000016">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>(i) \(\det \) is alternating and \(\det (\mu _j-\mu _i,\mu _k-\mu _i)\) is the standard area form of the ordered triple; a cyclic permutation of the triple is even. (ii) \([\mu _j-\mu _i,\mu _j-\mu _k]=-\det (\mu _j-\mu _i,\mu _j-\mu _k) =\det (\mu _j-\mu _i,\mu _k-\mu _j)=\det (\mu _j-\mu _i,\mu _k-\mu _i)\), the last step by \(\det (u,v-u)=\det (u,v)\). (iii) is the case \(j=i+1\) of the definition. (iv) \(\det (\mu _i-\mu _{i-1},\mu _{i+1}-\mu _{i-1})=\det (\widetilde\lambda _{i-1},\widetilde\lambda _{i-1}+\widetilde\lambda _i) =\det (\widetilde\lambda _{i-1},\widetilde\lambda _i)\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:generic">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.4</span>
+    <span class="definition_thmtitle">generic polygon</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:generic">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.Generic" class="lean_decl">SM.Generic</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A polygon \(P\) is <em>generic</em> if </p>
+<ol class="enumerate">
+  <li><p>\(\chi _{ijk}(P)\neq 0\) for all pairwise distinct \(i,j,k\in \mathbb Z/n\); </p>
+</li>
+  <li><p>there is no point of \(\mathbb R^2\) lying in the relative interiors of three distinct edge segments. </p>
+</li>
+</ol>
+<p> The set of generic polygons on \(n\) vertices is \(\mathcal U_n\subseteq (\mathbb R^2)^n\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:g1">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.5</span>
+    <span class="lemma_thmtitle">what (G1) gives</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:g1">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000017"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.g1" class="lean_decl">SM.g1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P\) satisfy (G1). Then: </p>
+<ol class="enumerate">
+  <li><p>all vertices are distinct and every edge vector is nonzero; </p>
+</li>
+  <li><p>every turn \(\tau _i\) is \(\pm 1\); consecutive edge vectors are linearly independent, so no edge vector is a positive or negative multiple (“flat” or “kink”) of its predecessor; </p>
+</li>
+  <li><p>no vertex lies on the line spanned by an edge not incident to it; in particular no vertex lies on a non-incident closed edge segment; </p>
+</li>
+  <li><p>two distinct adjacent edges meet exactly in their common vertex; </p>
+</li>
+  <li><p>two remote edges are either disjoint or meet in exactly one point, which lies in the relative interior of both and at which the two edge directions are linearly independent. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000017">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>(i) If \(\mu _i=\mu _j\) with \(i\neq j\), then \(\chi _{ijk}=0\) for any third index \(k\) (there is one since \(n\geq 3\)). (ii) \(\tau _i=\operatorname {sgn}\det (\widetilde\lambda _{i-1},\widetilde\lambda _i)\neq 0\). (iii) If \(\mu _k\) lies on the line through \(\mu _i,\mu _{i+1}\) with \(k\notin \{ i,i+1\} \) then \(\chi _{i,i+1,k}=0\). (iv) By (ii) the two edges at a vertex span the plane, so their lines meet only at the vertex. (v) Let \(E_i,E_j\) be remote and \(x\in E_i\cap E_j\). By (iii) \(x\) is not an endpoint of either. If \(\widetilde\lambda _i,\widetilde\lambda _j\) were parallel, the two segments would lie on one line, and then an endpoint of one would lie on the line of the other, contrary to (iii). Two segments on non-parallel lines meet in at most one point. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:crossings">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.6</span>
+    <span class="definition_thmtitle">crossings</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:crossings">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.crossingData" class="lean_decl">SM.crossingData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(P\) satisfy (G1). The <em>crossing set</em> \(X(P)\) is the set of unordered pairs \(\{ i,j\} \) of remote edge indices with \(E_i\cap E_j\neq \varnothing \). For \(\{ i,j\} \in X(P)\) the <em>crossing point</em> \(x_{ij}\) is the unique point of \(E_i\cap E_j\), and its <em>parameters</em> \(t_{ij}\in (0,1)\) on \(E_i\) and \(t_{ji}\in (0,1)\) on \(E_j\) are defined by \(x_{ij}=\mu _i+t_{ij}\widetilde\lambda _i =\mu _j+t_{ji}\widetilde\lambda _j\). The <em>crossing sign</em> of \(\{ i,j\} \) read from \(E_i\) is \(\operatorname {sgn}\det (\widetilde\lambda _i,\widetilde\lambda _j)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:crossing-test">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.7</span>
+    <span class="lemma_thmtitle">crossings through the chirotope</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:crossing-test">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000018"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.crossing_test" class="lean_decl">SM.crossing_test</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P\) satisfy (G1) and let \(E_i,E_j\) be remote. Then \(\{ i,j\} \in X(P)\) if and only if </p>
+<div class="displaymath" id="a0000000019">
+  \[  \chi _{i,i+1,j}\, \chi _{i,i+1,j+1}=-1\quad \text{and}\quad \chi _{j,j+1,i}\, \chi _{j,j+1,i+1}=-1.  \]
+</div>
+<p> If \(P\) is generic, distinct crossings have distinct crossing points, and \(X(P)\) is finite. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000018">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> By Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(i),(iii) the edge vectors \(\widetilde\lambda _i,\widetilde\lambda _j\) are nonzero and none of the four endpoints of \(E_i,E_j\) lies on the line of the other segment, so the four chirotope entries in the display are \(\pm 1\). Separation criterion: along \(E_j\) the signed distance from the line of \(E_i\), \(f(t)=\det (\widetilde\lambda _i,\  \mu _j+t\widetilde\lambda _j-\mu _i)\), is affine in \(t\) with \(f(0),f(1)\neq 0\), so \(E_j\) meets the line of \(E_i\) exactly when \(f(0)f(1){\lt}0\), that is, when \(\chi _{i,i+1,j}\, \chi _{i,i+1,j+1}=-1\) (Lemma&#160;<a href="sect0002.html#lem:chi-basic">1.3</a>(iii)); then \(f\) has nonzero slope \(\det (\widetilde\lambda _i,\widetilde\lambda _j)\), the two lines meet in one point, and that point lies in the relative interior of \(E_j\). Symmetrically, \(E_i\) meets the line of \(E_j\) exactly when the second condition holds. If both conditions hold, the common point of the two lines lies in the relative interior of both segments, so \(E_i\cap E_j\neq \varnothing \); conversely, a point of \(E_i\cap E_j\) is a point of \(E_j\) on the line of \(E_i\) and a point of \(E_i\) on the line of \(E_j\), so both conditions hold. If two distinct crossings had the same point, that point would lie in the relative interior of three distinct edges (the two crossings share at most one edge), contrary to (G2). Finiteness is clear. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:wall-segment-stability">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.8</span>
+    <span class="lemma_thmtitle">stability of separated segment intersections</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:wall-segment-stability">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000020"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.wall_segment_stability" class="lean_decl">SM.wall_segment_stability</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> Consider finitely many continuously varying nonzero oriented segments. For a specified pair, suppose that at the centre the segments are either disjoint or meet transversely in both relative interiors. In the first case they stay disjoint nearby. In the second case their unique intersection persists, remains transverse and interior, and its two parameters vary continuously. For finitely many such persistent crossings on a segment, every pair with distinct central parameters keeps its parameter order nearby. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000020">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>Disjoint compact segments have positive distance. Moving their endpoints by at most \(\eta \) moves every convex combination of the endpoints by at most \(\eta \), so a sufficiently small perturbation preserves their disjointness. For the second case write the segments as \(A+uD\) and \(B+vH\), where \(0\leq u,v\leq 1\). Solving \(A+uD=B+vH\) by taking determinants gives </p>
+<div class="equation" id="wallgeo:parameters">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{wallgeo:parameters} u=\frac{\det (B-A,H)}{\det (D,H)},\qquad v=\frac{\det (B-A,D)}{\det (D,H)}. \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+<p> The central denominator is nonzero. These quotients are therefore continuous near the centre, and their central values in \((0,1)\) remain in that interval. A nonzero continuous difference of two central parameters has constant sign after shrinking. There are only finitely many requirements, so one common interval satisfies all of them. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:chamber">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.9</span>
+    <span class="definition_thmtitle">chambers</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:chamber">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.chamber_definition" class="lean_decl">SM.chamber_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A <em>chamber</em> is a connected component of the space of generic polygons \(\mathcal U_n/(\mathbb Z/n)\); its preimage in \(\mathcal U_n\) is a union of at most \(n\) components of \(\mathcal U_n\) permuted by \(\sigma \), the <em>labelled chambers</em>. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:chambers">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">1.10</span>
+    <span class="proposition_thmtitle">chambers</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#prop:chambers">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000021"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.chambers" class="lean_decl">SM.chambers</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>\(\mathcal U_n\) is open in \((\mathbb R^2)^n\), and every chamber is open and path connected. Along any path in \(\mathcal U_n\) the following data are constant: the chirotope \((\chi _{ijk})\); the crossing set \(X(P)\); and, for every edge \(E_i\), the order of the parameters \(t_{ij}\), \(\{ i,j\} \in X(P)\), along \(E_i\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000021">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> The finitely many determinants \(\det (\mu _j-\mu _i,\mu _k-\mu _i)\) are continuous and nonzero on \(\mathcal U_n\), so (G1) is open. Condition (G2) is open as well: if three edge interiors had a common point at a limit of polygons, the three segments would meet in the limit; we argue directly. Fix \(P\in \mathcal U_n\). By Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(v) each pair of remote edges is either disjoint or meets transversally in one interior point; the first condition persists under small perturbation, and in the second the crossing persists and varies continuously (Lemma&#160;<a href="sect0002.html#lem:wall-segment-stability">1.8</a>). The finitely many crossing points of \(P\) are pairwise distinct (Lemma&#160;<a href="sect0002.html#lem:crossing-test">1.7</a>), hence remain distinct nearby; a common point of three edge interiors nearby would be a coincidence of two crossing points (any two of the three edges are remote, since an adjacent pair meets only at its vertex by Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(iv), and a vertex on a remote edge is excluded by (G1) nearby). So \(\mathcal U_n\) is open. An open subset of \(\mathbb R^{2n}\) is locally path connected, so its components are open and path connected. </p>
+<p>Along a path in \(\mathcal U_n\) each \(\chi _{ijk}\) is a continuous nonzero integer-valued function, hence constant. The crossing set is a function of the chirotope (Lemma&#160;<a href="sect0002.html#lem:crossing-test">1.7</a>). Two crossings on a common edge \(E_i\) change their order only if their parameters coincide at some time; at that time the two crossing points coincide, which puts a common point in three edge interiors, contrary to (G2) — the two other edges are remote to \(E_i\) and, if they were adjacent to each other, their only common point is their shared vertex, which cannot lie on \(E_i\) by (G1). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:gauss">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.11</span>
+    <span class="definition_thmtitle">traversal circle and Gauss word</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:gauss">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.gauss_definition" class="lean_decl">SM.gauss_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(P\) be generic. The <em>traversal circle</em> \(\Gamma (P)\) is the set of pairs \((i,t)\), \(i\in \mathbb Z/n\), \(t\in [0,1)\), with the cyclic order in which \((i,t){\lt}(i,t')\) for \(t{\lt}t'\) and \((i,t){\lt}(i+1,t')\) for all \(t,t'\); the point of the plane at \((i,t)\) is \(\mu _i+t\widetilde\lambda _i\). Each crossing \(\{ i,j\} \in X(P)\) has two <em>visits</em> \((i,t_{ij})\) and \((j,t_{ji})\) on \(\Gamma (P)\). The <em>Gauss word</em> of \(P\) is the cyclic sequence of the \(2|X(P)|\) visits in the order of \(\Gamma (P)\), each visit labelled by its crossing. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:interlace">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.12</span>
+    <span class="definition_thmtitle">interlacement</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:interlace">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.interlacement_definition" class="lean_decl">SM.interlacement_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Two distinct crossings \(x,y\in X(P)\) <em>interlace</em> if the four visits \(x_0,y_0,x_1,y_1\) occur in the cyclic order \(x_0{\lt}y_0{\lt}x_1{\lt}y_1\) (up to rotation), that is, exactly one visit of \(y\) lies between the two visits of \(x\). The <em>interlacement graph</em> \(G_P\) has vertex set \(X(P)\) and an edge between each interlacing pair. \(\operatorname {Ind}(G_P)\) denotes the set of independent subsets of \(X(P)\), including \(\varnothing \); for \(S\subseteq X(P)\) let \(N(S)\) be the set of crossings interlacing some element of \(S\), and let \(U(S)=X(P)\setminus (S\cup N(S))\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:visible">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.13</span>
+    <span class="definition_thmtitle">visible signature</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:visible">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.visible_signature_definition" class="lean_decl">SM.visible_signature_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>The <em>visible signature</em> of a generic \(P\) is the triple </p>
+<div class="displaymath" id="a0000000022">
+  \[  \bigl((\tau _i)_{i\in \mathbb Z/n},\  X(P),\  \text{the Gauss word of }P\bigr).  \]
+</div>
+<p> By Proposition&#160;<a href="sect0002.html#prop:chambers">1.10</a> it is constant on chambers. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:weak">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.14</span>
+    <span class="definition_thmtitle">weakly generic polygons and the silent locus</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:weak">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.weak_definition" class="lean_decl">SM.weak_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A polygon \(P\) is <em>weakly generic</em> if every edge vector is nonzero, every turn \(\tau _i\) is nonzero, no vertex lies on a non-incident closed edge segment, any two remote edges meet in at most one point and there transversally, and (G2) holds. This is the main text’s “generic”. Every generic polygon is weakly generic; the <em>silent locus</em> is \(\mathcal S_n=\mathcal W_n\setminus \mathcal U_n\), where \(\mathcal W_n\) is the set of weakly generic polygons. A <em>visible chamber</em> is a connected component of \(\mathcal W_n\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:regular">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.15</span>
+    <span class="definition_thmtitle">regular locus and principal turns</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:regular">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.regular_definition" class="lean_decl">SM.regular_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For a polygon \(P\) and an index \(i\) with \(\widetilde\lambda _{i-1},\widetilde\lambda _i\neq 0\) and \(\widetilde\lambda _i\) not a negative real multiple of \(\widetilde\lambda _{i-1}\), the <em>principal turn</em> \(\vartheta _i(P)\in (-\pi ,\pi )\) is the unique angle with \(\cos \vartheta _i=\langle \widetilde\lambda _{i-1},\widetilde\lambda _i\rangle /(|\widetilde\lambda _{i-1}||\widetilde\lambda _i|)\) and \(\operatorname {sgn}\vartheta _i=\operatorname {sgn}\det (\widetilde\lambda _{i-1},\widetilde\lambda _i)\). The <em>regular locus</em> \(\mathcal R_n\) is the set of polygons with all \(\widetilde\lambda _i\neq 0\) and no \(\widetilde\lambda _i\) a negative multiple of \(\widetilde\lambda _{i-1}\); equivalently, all principal turns exist. Every generic polygon lies in \(\mathcal R_n\) (Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(ii)), and \(\vartheta _i(P)=0\) exactly when \(\widetilde\lambda _i\) is a positive multiple of \(\widetilde\lambda _{i-1}\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:shift">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.16</span>
+    <span class="definition_thmtitle">reversal</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:shift">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.reversal_definition" class="lean_decl">SM.reversal_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For a representative \(P=(\mu _1,\ldots ,\mu _n)\) the <em>reversal</em> is \((\overline P)_i=\mu _{2-i}\) (\(i\in \mathbb Z/n\)), which fixes \(\mu _1\) and reverses the traversal. Reversal commutes with the shift up to a shift, so it is defined on polygons; it is not a relabelling but a change of orientation, and no law below is asserted to be invariant under it except where stated. Write \(\rho (P)=\overline P\) for this reversal map. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:rot">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.17</span>
+    <span class="lemma_thmtitle">rotation number</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:rot">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000023"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.rotation_number" class="lean_decl">SM.rotation_number</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For \(P\in \mathcal R_n\) put \(\operatorname {rot}(P)=\frac1{2\pi }\sum _{i\in \mathbb Z/n}\vartheta _i(P)\). Then: </p>
+<ol class="enumerate">
+  <li><p>\(\operatorname {rot}(P)\in \mathbb Z\); </p>
+</li>
+  <li><p>\(\operatorname {rot}\) is constant along every continuous path in \(\mathcal R_n\); </p>
+</li>
+  <li><p>inserting a vertex in the relative interior of an edge does not change \(\operatorname {rot}\); reversing the traversal negates it; </p>
+</li>
+  <li><p>if \(n=3\) then \(\operatorname {rot}(P)=\tau _1(P)=\tau _2(P)=\tau _3(P)\in \{ \pm 1\} \) and in particular \(\operatorname {rot}(P)\neq 0\); </p>
+</li>
+  <li><p>\(2|\operatorname {rot}(P)|{\lt}n\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000023">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>Identify \(\mathbb R^2\) with \(\mathbb C\) and put \(q_i=\widetilde\lambda _i/|\widetilde\lambda _i|\). The defining property of the principal turn is \(q_i=e^{\mathrm i\vartheta _i}q_{i-1}\). Multiplying around the cycle gives \(\exp (\mathrm i\sum _i\vartheta _i)=1\), so the sum is in \(2\pi \mathbb Z\): (i). The principal turn is a continuous function of \((\widetilde\lambda _{i-1},\widetilde\lambda _i)\) on the open set where both are nonzero and not antiparallel, so \(\operatorname {rot}\) is a continuous integer-valued function on \(\mathcal R_n\): (ii). Inserting a vertex on an edge adds one zero turn and changes no other turn; reversal reverses the cyclic order of the pairs and replaces each \((\widetilde\lambda _{i-1},\widetilde\lambda _i)\) by \((-\widetilde\lambda _i,-\widetilde\lambda _{i-1})\), negating every principal turn: (iii). For (iv), all three turn determinants of a triangle equal \(\det (\mu _2-\mu _1,\mu _3-\mu _1)\), which is nonzero for \(P\in \mathcal R_3\) (three collinear points with nonzero edges have a doubled-back consecutive pair); so the three turns have one sign, their sum lies strictly between \(0\) and \(3\pi \) in absolute value, and is a multiple of \(2\pi \). For (v), \(2\pi |\operatorname {rot}(P)|\leq \sum _i|\vartheta _i|{\lt}n\pi \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:uniformrot">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.18</span>
+    <span class="lemma_thmtitle">rotation of uniform and one-dissent polygons</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:uniformrot">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000024"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.uniform_rotation" class="lean_decl">SM.uniform_rotation</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P\in \mathcal R_n\) have all turns nonzero. </p>
+<ol class="enumerate">
+  <li><p>If all turns are left, then \(\operatorname {rot}(P)\geq 1\); if all are right, then \(\operatorname {rot}(P)\leq -1\). </p>
+</li>
+  <li><p>If exactly one turn is right and all others are left, then \(\operatorname {rot}(P)\geq 1\); symmetrically with left and right exchanged, \(\operatorname {rot}(P)\leq -1\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000024">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> (i) All \(\vartheta _i{\gt}0\) and there are at least three of them, so the sum is positive and \(\operatorname {rot}(P)\) is a positive integer. (ii) Let \(\alpha \in (0,\pi )\) be the magnitude of the right turn and \(\Pi \) the sum of the left turns, so \(\Pi -\alpha =2\pi \operatorname {rot}(P)\). If \(\operatorname {rot}(P)\leq 0\) then \(\Pi \leq \alpha {\lt}\pi \). Cut the traversal after the right-turn vertex; the edge directions from there on are obtained by successive positive turns summing to \(\Pi {\lt}\pi \), so all edge vectors lie in a closed angular sector of width \({\lt}\pi \), whose dual cone is nonempty: there is \(u\) with \(\langle u,\widetilde\lambda _i\rangle {\gt}0\) for all \(i\). Summing contradicts \(\sum _i\widetilde\lambda _i=0\). </p>
+<p>Both negative cases follow by reversing the traversal: this exchanges left and right turns and negates rotation by Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>(iii). Applying the respective positive case to the reversed polygon proves each claim. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:shift">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.19</span>
+    <span class="lemma_thmtitle">behaviour under shift and reversal</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:shift">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000025"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.shift_reversal" class="lean_decl">SM.shift_reversal</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>The chirotope identities are </p>
+<div class="displaymath" id="a0000000026">
+  \[  \chi _{ijk}(\sigma P)=\chi _{i+1,j+1,k+1}(P),\qquad \chi _{ijk}(\overline P)=\chi _{2-i,2-j,2-k}(P).  \]
+</div>
+<p> The edge \(E_i(\sigma P)\) is \(E_{i+1}(P)\), and the edge \(E_i(\overline P)\) is \(E_{1-i}(P)\) traversed backwards. </p>
+</li>
+  <li><p>\(\sigma \) and \(\rho \) map \(\mathcal U_n\) onto itself and map chambers onto chambers; they preserve \(X(P)\) up to relabelling of edges. </p>
+</li>
+  <li><p>\(\tau _i(\sigma P)=\tau _{i+1}(P)\) and \(\tau _i(\overline P)=-\tau _{2-i}(P)\); hence \(\ell (\overline P)=n-\ell (P)-z(P)\), where \(z(P)=\# \{ i:\tau _i(P)=0\} \); in particular \(\ell (\overline P)=n-\ell (P)\) for \(P\in \mathcal U_n\) (Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(ii)). </p>
+</li>
+  <li><p>for \(P\in \mathcal R_n\): \(\sigma P\) and \(\overline P\) lie in \(\mathcal R_n\), \(\operatorname {rot}(\sigma P)=\operatorname {rot}(P)\) and \(\operatorname {rot}(\overline P)=-\operatorname {rot}(P)\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000025">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> (i) is the definition; for the reversal, \(\det (\mu _{2-j}-\mu _{2-i},\mu _{2-k}-\mu _{2-i})\) is the determinant of the triple \((2-i,2-j,2-k)\) of \(P\). (ii): (G1) and (G2) are conditions on the set of vertices and edges, which are preserved; both maps are linear homeomorphisms of \((\mathbb R^2)^n\). (iii): \(\tau _i(\overline P)= \chi _{i-1,i,i+1}(\overline P)=\chi _{3-i,2-i,1-i}(P)=-\chi _{1-i,2-i,3-i}(P) =-\tau _{2-i}(P)\) by Lemma&#160;<a href="sect0002.html#lem:chi-basic">1.3</a>(i). Since \(i\mapsto 2-i\) is a bijection of \(\mathbb Z/n\), the turn multiset of \(\overline P\) is the negative of that of \(P\): the left turns of \(\overline P\) are the right turns of \(P\), of which there are \(n-\ell (P)-z(P)\); on \(\mathcal U_n\) every turn is \(\pm 1\) (Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(ii)), so \(z(P)=0\) there. (iv): \(\sigma \) permutes the edge vectors cyclically, \(\widetilde\lambda _i(\sigma P)=\widetilde\lambda _{i+1}(P)\), and \(\rho \) negates and reverses them, \(\widetilde\lambda _i(\overline P)=-\widetilde\lambda _{1-i}(P)\), so the consecutive pairs \((\widetilde\lambda _{i-1},\widetilde\lambda _i)\) of \(\sigma P\) are those of \(P\) and the consecutive pairs of \(\overline P\) are the pairs \((-\widetilde\lambda _k,-\widetilde\lambda _{k-1})\) of \(P\); the condition of Definition&#160;<a href="sect0002.html#def:regular">1.15</a> (every edge vector nonzero, no \(\widetilde\lambda _k\) a negative multiple of \(\widetilde\lambda _{k-1}\)) is symmetric in the pair and invariant under negation, so it is preserved and \(\sigma P,\overline P\in \mathcal R_n\). The identity for \(\rho \) is then Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>(iii), and for \(\sigma \) the multiset of principal turns is unchanged. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:admissible">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.20</span>
+    <span class="definition_thmtitle">admissible pairs</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:admissible">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.admissible_definition" class="lean_decl">SM.admissible_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A pair \((n,r)\in \mathbb Z^2\) is <em>admissible</em> if \(n\geq 3\), \(2|r|{\lt}n\) and \((n,r)\neq (3,0)\). It is <em>minimal</em> if moreover \(n=2|r|+1\) (for \(r\neq 0\)) or \((n,r)=(4,0)\). For an admissible pair the <em>fibre</em> is \(\mathcal U_{n,r}=\{ P\in \mathcal U_n:\operatorname {rot}(P)=r\} \); a vertex of a fibre is a generic polygon, a point of the quotient. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:fibres">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.21</span>
+    <span class="lemma_thmtitle">nonempty fibres</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:fibres">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000027"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.nonempty_fibres" class="lean_decl">SM.nonempty_fibres</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For integers \(n,r\), a generic polygon with \(n\) vertices and rotation \(r\) exists exactly when \(n\geq 3\), \(2|r|{\lt}n\), and \((n,r)\ne (3,0)\). Here genericity means that every determinant of three distinct vertices is nonzero and no three distinct edge interiors meet. Moreover, for \(n\geq 3\) the generic polygons are dense in \((\mathbb R^2)^n\): every nonempty open set of labelled \(n\)-tuples contains a generic polygon. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000027">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> We use only Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>: rotation is integer-valued and constant on paths in the regular locus; subdivision preserves it; regular triangles have rotation \(\pm 1\); and a regular \(n\)-gon satisfies \(2|\operatorname {rot}|{\lt}n\). The regular locus consists of polygons with nonzero edges and without antiparallel consecutive directions. Thus the three stated conditions are necessary. We print the existence argument, including its polynomial-avoidance step. </p>
+<p><em>Regular seeds.</em> First let \(r{\gt}0\) and put \(m=2r+1\), \(\alpha =2\pi r/m\), and \(q=\exp (\mathrm i\alpha )\). Identify the plane with \(\mathbb C\) and take the ordered vertices \(z_j=q^{j-1}\) for \(1\leq j\leq m\). The integers \(r,m\) are coprime, since a common divisor would divide \(m-2r=1\). These vertices are therefore distinct. With cyclic indices, the edge directions satisfy </p>
+<div class="equation" id="fibpr:directions">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:directions} d_j=z_{j+1}-z_j=q^{j-1}(q-1). \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+<p> Here \(q^m=1\), so this includes the closing edge, and \(q\ne 1\), so every edge is nonzero. Successive directions satisfy \(d_j=q d_{j-1}\), also across the closing corner. Since \(0{\lt}\alpha {\lt}\pi \), every principal turn is exactly \(\alpha \). The seed is regular, and its total turn is </p>
+<div class="equation" id="fibpr:rotation">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:rotation} \sum _{j=1}^{m}\vartheta _j=m\alpha =2\pi r. \end{equation}
+  </div>
+  <span class="equation_label">3</span>
+</p>
+</div>
+<p> Consequently its rotation is \(r\). For negative \(r\), reverse the seed constructed for \(|r|\); reversal negates rotation and preserves regularity. This construction uses no genericity or concurrency claim about a regular star and does not refer to a later star definition. </p>
+<p>For \(r=0\), use the four ordered vertices \((0,0),(2,2),(0,2),(2,0)\). Its four directions are \((2,2),(-2,0),(2,-2),(-2,0)\), and its principal turns, starting at the first vertex, are respectively </p>
+<div class="equation" id="fibpr:bowtie">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:bowtie} -3\pi /4,\quad 3\pi /4,\quad 3\pi /4,\quad -3\pi /4. \end{equation}
+  </div>
+  <span class="equation_label">4</span>
+</p>
+</div>
+<p> Their sum is zero and none is antiparallel. This is a regular seed of rotation zero. In each case let \(m\) be the number of seed vertices. The stated admissibility conditions imply \(n\geq m\). </p>
+<p><em>Subdivision and a regular neighbourhood.</em> Insert \(n-m\) distinct interior subdivision points in traversal order on any seed edge. All refined edge vectors are positive multiples of the former vector; each new principal turn is zero and all old turns are unchanged. The resulting \(n\)-gon \(P_0\) is regular with rotation \(r\). The regular locus is open: nonzero vectors form an open set, and for two nonzero vectors the condition that their unit directions sum to a nonzero vector is open and excludes exactly antiparallel directions. Choose an open ball \(B\) about \(P_0\) contained in this locus. Every point of \(B\) is connected to \(P_0\) by a straight path in \(B\), so it has rotation \(r\) by the preceding rotation-number lemma. </p>
+<p><em>Explicit nonzero polynomials.</em> All coordinates of all \(n\) vertices may vary in \(B\). For every three distinct indices \(i,j,k\), let </p>
+<div class="equation" id="fibpr:triple">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:triple} D_{ijk}=\det (\mu _j-\mu _i,\mu _k-\mu _i). \end{equation}
+  </div>
+  <span class="equation_label">5</span>
+</p>
+</div>
+<p> This polynomial is not identically zero: assign these three vertices the coordinates \((0,0),(1,0),(0,1)\), respectively, obtaining value \(1\). The remaining coordinates can be arbitrary for this test. </p>
+<p>For an edge from \((x_i,y_i)\) to \((x_{i+1},y_{i+1})\), define its homogeneous line-coefficient row by </p>
+<div class="equation" id="fibpr:line">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:line} \ell _i=(y_i-y_{i+1},\  x_{i+1}-x_i, x_i y_{i+1}-x_{i+1}y_i). \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> Both endpoints satisfy \(\ell _i\cdot (x,y,1)=0\) by direct substitution. For each unordered triple of pairwise remote edges \(i,j,k\), put </p>
+<div class="equation" id="fibpr:concurrence">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{fibpr:concurrence} H_{ijk}=\det \begin{pmatrix} \ell _i
+
+\\ \ell _j
+
+\\ \ell _k
+
+\end{pmatrix}. \end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> These three edges have six distinct endpoint indices. Hence we can assign their ordered endpoint pairs independently as \((0,0),(1,0)\); \((0,0),(0,1)\); and \((0,1),(1,1)\). The rows in this assignment are \((0,1,0)\), \((-1,0,0)\), and \((0,1,-1)\); their determinant is \(-1\). Thus each \(H_{ijk}\) is a nonzero polynomial. Coinciding coordinates in this witness are harmless: it proves a polynomial identity is nonzero on the full coordinate space, rather than purporting to be a generic polygon or a point of \(B\). </p>
+<p>If the three supporting lines have a common finite point \((x,y)\), their coefficient matrix annihilates the nonzero vector \((x,y,1)\). Its determinant then vanishes. Thus \(H_{ijk}\ne 0\) excludes triple interior concurrence for these three edges. It is a sufficient condition; no converse is used. </p>
+<p><em>Simultaneous avoidance in the small ball.</em> Let \(F\) be the finite product of all the polynomials \(D_{ijk}\), taking one order for each index triple, and all the polynomials \(H_{ijk}\). An empty family of edge triples contributes the factor \(1\). The polynomial ring over \(\mathbb R\) has no zero divisors (the highest nonzero monomials in lexicographic order multiply to a nonzero highest monomial), so \(F\) is nonzero. For completeness, a nonzero real polynomial cannot vanish on a nonempty open box. For one variable this follows from the finite root bound. Induct on the number of variables, writing the polynomial as a polynomial in the last variable with coefficient polynomials in the others. If it vanishes on a box, fixing the other variables makes it vanish on an interval; all its coefficients vanish at that fixed choice. They therefore vanish on the lower-dimensional box, and the inductive hypothesis makes every coefficient identically zero, a contradiction. Every open ball contains an open box. Hence some \(P\in B\) has \(F(P)\ne 0\). The same avoidance applies to any nonempty open subset of \((\mathbb R^2)^n\) in place of \(B\), since it too contains an open box; with the genericity of such a \(P\) shown next, this proves the density clause. </p>
+<p>At this \(P\), the nonvanishing of every \(D_{ijk}\) gives (G1), in particular nonzero edges and noncollinear consecutive vertices. Adjacent edges can meet only at their common endpoint: their lines are distinct and nonparallel because the consecutive-vertex determinant is nonzero. A point in three edge interiors therefore would require three pairwise remote edges. Its concurrence would force the corresponding \(H_{ijk}\) to vanish, contrary to \(F(P)\ne 0\). This proves (G2). The polygon is generic and has rotation \(r\) because it lies in \(B\). This proves sufficiency and the lemma. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:germ">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.22</span>
+    <span class="definition_thmtitle">wall germ; sides</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:germ">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.wall_germ_definition" class="lean_decl">SM.wall_germ_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A <em>wall germ</em> is a continuous map \(P\colon (-\varepsilon ,\varepsilon )\to (\mathbb R^2)^n\) such that \(P(t)\in \mathcal U_n\) for \(t\neq 0\) and \(P(0)\notin \mathcal U_n\). Its <em>sides</em> \(P_-\) and \(P_+\) are the chambers containing \(P((-\varepsilon ,0))\) and \(P((0,\varepsilon ))\); each of these two sets is connected and generic, hence lies in one chamber. For a function \(F\) that is constant on chambers, \(F(P_\pm )\) denotes its value on the respective side. At the centre \(P(0)\) put </p>
+<div class="displaymath" id="a0000000028">
+  \begin{align*}  Z_{\rm pt}& =\bigl\{ \{ i,j,k\} \text{ pairwise distinct}:\chi _{ijk}(P(0))=0\bigr\} ,\\ Z_{\rm c}& =\bigl\{ \{ e,f,g\} \text{ pairwise remote}: \operatorname {relint}E_e\cap \operatorname {relint}E_f\cap \operatorname {relint}E_g\neq \varnothing \text{ at }t=0\bigr\} . \end{align*}
+</div>
+<p> A real function \(\phi \) of the germ <em>changes sign at \(0\)</em> if there is \(\delta {\gt}0\) with \(\phi (P(t))\phi (P(-t)){\lt}0\) for \(0{\lt}t{\lt}\delta \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:triple-sides">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.23</span>
+    <span class="lemma_thmtitle">sides of a triple wall</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:triple-sides">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000029"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.triple_sides" class="lean_decl">SM.triple_sides</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let a wall germ have \(Z_{\rm pt}=\varnothing \) and \(Z_{\rm c}=\{ \{ e,f,g\} \} \). Then for small \(t\neq 0\) the three pairs \(\{ e,f\} ,\{ e,g\} ,\{ f,g\} \) are crossings, their three crossing points are distinct, and on each of \(E_e,E_f,E_g\) its two crossings occupy adjacent positions among the crossing visits on that edge. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000029">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> At the centre (G1) holds. In particular all vertices and edges are nonzero, adjacent edges meet only at their common endpoint, and no vertex lies on the line of a nonincident edge. The specified common point \(q\) lies in all three relative interiors. Two of their directions cannot be parallel: their lines would then coincide, forcing an endpoint of one remote edge onto the line of the other, contrary to (G1). Thus all three central intersections are transverse. Lemma&#160;<a href="sect0002.html#lem:wall-segment-stability">1.8</a> makes them persistent interior crossings. On either punctured side (G2) makes the three points distinct. </p>
+<p>In fact every remote edge pair at the centre is either disjoint or a transverse interior pair: endpoint incidence or overlapping collinear remote edges would contradict (G1). Thus the same stability lemma applies to all remote pairs and gives a fixed finite crossing set with continuous parameters near the centre. </p>
+<p>Suppose, contrary to the required adjacency on \(E_e\), that for a sequence \(t_\nu \to 0\) another crossing lies between \(x_{ef}\) and \(x_{eg}\) on \(E_e\). There are finitely many crossing labels, so after taking a subsequence this crossing has one fixed other edge \(h\notin \{ e,f,g\} \). The two bounding parameters converge to the parameter of \(q\); the intervening parameter must have the same limit. Continuity of its intersection parameters puts \(q\) in the relative interiors of \(E_e\) and \(E_h\). It is also interior to \(E_f\). The edges \(E_h,E_f\) cannot be adjacent: under (G1) adjacent edges meet only at their shared endpoint, whereas \(q\) is interior to both. Hence \(e,f,h\) are pairwise remote and define an element of \(Z_{\rm c}\) distinct from \(\{ e,f,g\} \), a contradiction. The same argument on \(E_f\) and \(E_g\) proves all three adjacency assertions on one common punctured interval. No sign-change hypothesis was used for this lemma. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:walls">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.24</span>
+    <span class="definition_thmtitle">the named walls</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:walls">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.named_walls_definition" class="lean_decl">SM.named_walls_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A wall germ is <em>simple of one of the following types</em>; the types are mutually exclusive. </p>
+<ol class="enumerate">
+  <li><p><em>Flat at \(j\)</em> (\(n\geq 4\)): \(Z_{\rm pt}=\{ \{ j-1,j,j+1\} \} \), \(Z_{\rm c}=\varnothing \), \(\mu _j(0)\) lies strictly between \(\mu _{j-1}(0)\) and \(\mu _{j+1}(0)\), and \(\tau _j\) changes sign at \(0\). The <em>right side</em> is the side with \(\tau _j=-1\) and the <em>left side</em> the one with \(\tau _j=+1\). </p>
+</li>
+  <li><p><em>Cusp at \(j\)</em> (\(n\geq 4\)): \(Z_{\rm pt}=\{ \{ j-1,j,j+1\} \} \), \(Z_{\rm c}=\varnothing \), the three points \(\mu _{j-1}(0),\mu _j(0),\mu _{j+1}(0)\) are collinear with \(\mu _j(0)\) outside the closed segment \([\mu _{j-1}(0),\mu _{j+1}(0)]\), and \(\tau _j\) changes sign at \(0\). The <em>newborn pair</em> is \(\{ j-1,j+1\} \) if \(\mu _{j+1}(0)\) lies between \(\mu _{j-1}(0)\) and \(\mu _j(0)\), and \(\{ j-2,j\} \) if \(\mu _{j-1}(0)\) lies between \(\mu _j(0)\) and \(\mu _{j+1}(0)\). The <em>loop side</em> \(P_{\rm loop}\) is the side on which the newborn pair is a crossing and the <em>no-loop side</em> \(P_{\rm no}\) the other. The cusp is <em>empty</em> if on the loop side the two visits of the newborn crossing are cyclically adjacent in the Gauss word. </p>
+</li>
+  <li><p><em>Vertex–edge at \((M;a)\)</em>: \(M\notin \{ a-1,a,a+1,a+2\} \), \(Z_{\rm pt}=\{ \{ a,a+1,M\} \} \), \(Z_{\rm c}=\varnothing \), \(\mu _M(0)\) lies in the relative interior of \(E_a(0)\), and \(\chi _{a,a+1,M}\) changes sign at \(0\). The germ is of <em>bigon</em> type if \(\chi _{a,a+1,M-1}(P(0))=\chi _{a,a+1,M+1}(P(0))\) and of <em>sliding</em> type otherwise. The <em>contact sign</em> is \(s=\chi _{a,a+1,M}(P_-)\). </p>
+</li>
+  <li><p><em>Triple at \(\{ e,f,g\} \)</em>: \(Z_{\rm pt}=\varnothing \), \(Z_{\rm c}=\{ \{ e,f,g\} \} \), and on each of the three edges the two crossing parameters of the other two edges (which exist on both sides by Lemma&#160;<a href="sect0002.html#lem:triple-sides">1.23</a>) have a difference that changes sign at \(0\). </p>
+</li>
+  <li><p><em>Exterior extension at \((M;a)\)</em>: \(M\notin \{ a-1,a,a+1,a+2\} \), \(Z_{\rm pt}=\{ \{ a,a+1,M\} \} \), \(Z_{\rm c}=\varnothing \), \(\mu _M(0)\) lies on the line of \(E_a(0)\) outside the closed segment \(E_a(0)\), and \(\chi _{a,a+1,M}\) changes sign at \(0\). </p>
+</li>
+  <li><p><em>Pure cut at \(\{ i,j,k\} \)</em>: no two of \(i,j,k\) are consecutive modulo \(n\), \(Z_{\rm pt}=\{ \{ i,j,k\} \} \), \(Z_{\rm c}=\varnothing \), and \(\chi _{ijk}\) changes sign at \(0\). </p>
+</li>
+</ol>
+<p> The walls (E) and (C) are called <em>silent</em>. The type is determined by the centre; the sign-change conditions exclude tangential germs. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:flat-sides">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.25</span>
+    <span class="lemma_thmtitle">flat-side geometry</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:flat-sides">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000030"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.flat_sides" class="lean_decl">SM.flat_sides</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(n\geq 4\) and let \(P(t)=(\mu _1(t),\ldots ,\mu _n(t))\) be continuous for \(|t|{\lt}\varepsilon \). Indices are cyclic modulo \(n\); put \(E_i=[\mu _i,\mu _{i+1}]\) and \(d_i=\mu _{i+1}-\mu _i\). For \(t\ne 0\) assume that no three distinct vertices are collinear and no three edge interiors concur. At \(t=0\) suppose that the only collinear triple is \(\{ j-1,j,j+1\} \), that no three pairwise remote edge interiors concur, and that \(\mu _j\) is strictly between \(\mu _{j-1}\) and \(\mu _{j+1}\). Suppose also that \(\tau _j(t)=\operatorname {sgn}\det (d_{j-1}(t),d_j(t))\) changes sign at zero. At a transverse crossing of \(E_e,E_f\), the <em>positive over/under data</em> mean that \(E_e\) is over \(E_f\) exactly when \(\det (d_e,d_f){\gt}0\). Then, after shrinking the interval: </p>
+<ol class="enumerate">
+  <li><p>The central polygon has nonzero edges and no antiparallel consecutive directions. Its only zero turn is at \(j\), where the two directions are positive multiples. Every other point-triple determinant has constant nonzero sign on the whole interval. </p>
+</li>
+  <li><p>The set of remote edge pairs that cross is constant, including at zero. Each crossing is interior and transverse, no crossing is a vertex, all crossing points are distinct, and the crossing visits have constant order on every edge. Hence their cyclic Gauss word, pairing, interlacement graph, and positive over/under data are constant. Here the central crossing data are read from the segments of \(P(0)\) exactly as for a generic polygon: a crossing is a transverse intersection of the relative interiors of two remote edge segments, its two visits are ordered along each edge by the intersection parameters, and the Gauss word, pairing, interlacement graph and positive over/under data are formed from these visits as in Definitions&#160;<a href="sect0002.html#def:crossings">1.6</a>, <a href="sect0002.html#def:gauss">1.11</a> and&#160;<a href="sect0002.html#def:interlace">1.12</a>; no function on the generic locus is evaluated at the flat centre. </p>
+</li>
+  <li><p>The deletion \(Q=P(0)\setminus j\) is generic. The directions \(u=d_{j-1}(0)\) and \(v=d_j(0)\) fuse to \(w=\mu _{j+1}(0)-\mu _{j-1}(0)\), and there is \(0{\lt}\lambda {\lt}1\) with </p>
+<div class="equation" id="flatpr:fusion">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{flatpr:fusion} u=\lambda w,\qquad v=(1-\lambda )w. \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> Replacing either incident edge in a crossing label by the fused edge gives a bijection with the crossings of \(Q\), preserving their cyclic visit order, pairing, determinant signs, and positive over/under data. The deletions \(P(t)\setminus j\) are generic on a smaller interval and lie in the chamber of \(Q\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000030">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Write \(A=\mu _{j-1}(0)\), \(M=\mu _j(0)\) and \(B=\mu _{j+1}(0)\). All central vertices are distinct: if two coincided, adjoining each of two further indices would produce two distinct collinear triples; there are two further indices because \(n\geq 4\). This contradicts the unique-triple assumption. Thus all edges are nonzero. Every turn other than the one at \(j\) uses a different triple, so its determinant is nonzero. Strict betweenness gives \(M=A+\lambda (B-A)\) for exactly one \(\lambda \in (0,1)\), proving <a href="sect0002.html#flatpr:fusion" class="eqref">8</a>. In particular the turn at \(j\) is positive-flat, not antiparallel. Continuity and the finitely many nonzero central determinants give (i). </p>
+<p><em>No vertex contact at the centre.</em> A vertex on the line of an edge not incident to it would give a collinear triple. The sole permitted triple can occur in this way only as \(B\) on the line of \([A,M]\) or \(A\) on the line of \([M,B]\). Strict betweenness puts each such point outside the corresponding closed segment. Thus no vertex lies on a nonincident closed segment. Two adjacent edges other than the flat pair have nonparallel directions, and meet only at their common endpoint. The flat pair consists of the successive subsegments \([A,M]\) and \([M,B]\), also meeting only at their common endpoint. Hence no adjacent edge interiors meet. </p>
+<p><em>Crossing pairs.</em> For a remote pair whose four endpoint-against-line triples avoid \(\{ j-1,j,j+1\} \), those determinants have nonzero limits and constant signs. Two segments with all endpoints off the other segment’s line cross if and only if each line separates the other segment’s two endpoints. This is the pair of strict opposite-sign tests. To see sufficiency, intersect the two lines: opposite endpoint signs place their unique intersection inside each segment. Necessity follows by restricting the affine signed line equation to the other segment. The tests therefore give the same crossing answer at zero and on both sides. An actual intersection cannot be parallel: parallel intersecting lines would coincide, forcing an endpoint determinant to vanish. </p>
+<p>The only remote pairs whose tests can use the critical triple are \(\{ j-2,j\} \) and \(\{ j-1,j+1\} \). The line of \(E_{j-2}(0)\) meets the flat line only at \(A\); its other endpoint is off that line by the unique-triple assumption. Since \(A\notin [M,B]\), the compact segments \(E_{j-2}(0)\) and \(E_j(0)\) are disjoint. Similarly the line of \(E_{j+1}(0)\) meets the flat line only at \(B\notin [A,M]\), so \(E_{j-1}(0)\) and \(E_{j+1}(0)\) are disjoint. Positive distances between these compact segment pairs persist under small changes of their endpoints. These pairs remain noncrossing on both sides. This covers all remote pairs, including when \(n=4\). </p>
+<p><em>Order and crossing records.</em> Each crossing at zero has two nonparallel directions. Solving its two-by-two line-intersection system therefore gives continuous crossing parameters, strictly between zero and one at zero. There are finitely many pairs, so all these strict inequalities persist on one interval. If two distinct central crossings had the same point, at least three edge interiors would contain that point. None of those edges could be adjacent, by the preceding paragraph. This would be a forbidden concurrence of three pairwise remote edges. Thus crossing points are distinct. In particular, on a fixed edge all crossing parameters are distinct. The finitely many nonzero parameter differences retain their signs by continuity; crossing visits neither collide nor reorder. The Gauss word is just these edgewise lists concatenated in traversal order. Pairing is indexed by the fixed edge pairs, and interlacement is read from that word. For each actual crossing, the nonzero direction determinant keeps its sign. The same physical strand therefore remains over in the positive over/under data of the statement. This proves (ii) without a triple-wall lemma. </p>
+<p><em>Deletion and fusion.</em> The deletion’s point triples are central parent triples avoiding \(j\), so they are all noncollinear. At zero the oriented segment \([A,B]\) is precisely the traversal of \([A,M]\) followed by \([M,B]\). No crossing of a remote edge with this segment can occur at \(M\): that would put the parent vertex \(M\) on a nonincident edge, already excluded. Thus such a crossing lies in exactly one of the two open subsegments and inherits its transverse direction and its pairing. An edge remote from \([A,B]\) is remote from both old subsegments. The reverse implication needs care only for the neighbours at \(A,B\): their possible opposite-subsegment pairs are exactly the two compact disjoint pairs treated above. They create no discarded crossing. One remote straight edge cannot meet both old subsegments, since it meets their common line at most once. Hence the crossing-label map is bijective. </p>
+<p>If a crossing parameter on \([A,M]\) is \(a\), its parameter on \([A,B]\) is \(\lambda a\); if it is \(b\) on \([M,B]\), its fused parameter is \(\lambda +(1-\lambda )b\). Thus the old first-edge visits precede the old second-edge visits, in exactly their original orders. Equation <a href="sect0002.html#flatpr:fusion" class="eqref">8</a> shows that every direction determinant involved changes only by a positive factor, preserving signs and over/under data. No triple of deletion edge interiors can concur: away from \(M\) it would give three parent edge interiors at the same point; at \(M\) it would put a remote parent edge through that parent vertex. Both are excluded. This proves genericity and all stated crossing data for \(Q\). Finally, the finitely many strict noncollinearity, transverse crossing, disjointness and crossing-order conditions used above also prove openness of genericity near \(Q\). By continuity, the connected small path \(P(t)\setminus j\) stays in that open generic neighbourhood and hence in the chamber of \(Q\). This proves (iii). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:wall-sides">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.26</span>
+    <span class="lemma_thmtitle">the sides of the named walls</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:wall-sides">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000031"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.wall_sides" class="lean_decl">SM.wall_sides</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let the germ be simple of type (F), (V), (T), (E) or (C). Then \(P(0)\in \mathcal R_n\). After shrinking the interval, every chirotope outside \(Z_{\rm pt}\) is nonzero with constant sign. Every crossing not involved in the stated local degeneration persists, and the order of any two persistent visits with distinct central parameters is constant. Moreover: </p>
+<ol class="enumerate">
+  <li><p>The crossing set and Gauss word are the same on both sides and at the centre. </p>
+</li>
+  <li><p>In the bigon branch, </p>
+<div class="displaymath" id="a0000000032">
+  \[  X(P_+)\mathbin \triangle X(P_-)=\{ \{ a,M-1\} ,\{ a,M\} \} ,  \]
+</div>
+<p> with both pairs crossing on one side and neither on the other. In the sliding branch exactly one of these two pairs crosses on each side, and the two sides exchange them. No other crossing is created or lost, and no order changes outside the contact neighbourhood. </p>
+</li>
+  <li><p>The crossing set is the same on both sides. The only visit-order changes are the exchanges of the two triangle crossings on each of \(E_e,E_f,E_g\). </p>
+</li>
+  <li><p>The crossing set and Gauss word are the same on both sides and at the centre. </p>
+</li>
+</ol>
+<p> Here, when crossing data are mentioned at a nongeneric centre, they mean the transverse intersections of the relative interiors of the actual segments and their traversal order. This does not evaluate a function defined only on generic polygons at that centre. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000031">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Case (F), including its central regularity and crossing data, is Lemma&#160;<a href="sect0002.html#lem:flat-sides">1.25</a>. We prove the remaining cases directly in the one-based tail convention \(d_i=\mu _{i+1}-\mu _i\). </p>
+<p><em>Central distinctness and regularity.</em> The remoteness requirements give \(n\geq 5\) in (V),(E) and \(n\geq 6\) in (T),(C). If two central vertices coincided, adjoining each of two further indices would give two different zero point triples. This contradicts the permitted zero set, which has at most one member. Thus all central vertices are distinct and every edge is nonzero. A zero turn would give a consecutive zero triple. There is no such triple in any of (V),(T),(E),(C): the point zero set is empty in (T), has no adjacent pair in (C), and has just the adjacent pair \(a,a+1\) in (V),(E), because \(M\notin \{ a-1,a,a+1,a+2\} \). Hence every central turn in these cases is nonzero. In particular the centre has no kink and belongs to \(\mathcal R_n\). Each other point determinant is nonzero at zero and is continuous; finitely many such determinants retain their signs nearby. </p>
+<p><em>Which segment pairs can change.</em> No remote pair can have collinear overlapping segments at the centre: its four distinct endpoint indices on a line would give more than one zero point triple. Apart from an endpoint incidence, a remote pair is therefore either disjoint or a transverse interior pair, and Lemma&#160;<a href="sect0002.html#lem:wall-segment-stability">1.8</a> applies. An endpoint incidence requires a zero point triple containing the two endpoints of its base edge. In (C) the only zero triple contains no adjacent pair, and in (T) there is no zero triple, so these cases have no endpoint incidence. In (V),(E), the only possible incidence is the specified vertex \(M\) on the line of \(E_a\). The only possibly affected remote pairs are consequently \(\{ a,M-1\} \) and \(\{ a,M\} \). All other pairs satisfy the stability lemma. </p>
+<p><em>The two vertex–edge branches, with the finite-segment test.</em> Write \(A=\mu _a\), \(B=\mu _{a+1}\), \(D=B-A\), \(M=\mu _M\), and take in turn \(U=\mu _{M-1}\) and \(U=\mu _{M+1}\). Put </p>
+<div class="equation" id="wallgeo:heights">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{wallgeo:heights} h=\det (D,M-A),\qquad h_U=\det (D,U-A). \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> At the centre \(h=0\) and \(h_U\ne 0\): another zero \(h_U\) would give a second point triple, since both neighbour indices differ from \(a,a+1,M\). Shrink so \(h_U\) and \(h_U-h\) are nonzero. The intersection of the supporting line of \(E_a\) with the line \(MU\) has the exact form </p>
+<div class="equation" id="wallgeo:contact-foot">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{wallgeo:contact-foot} q_U=M+r_U(U-M),\qquad r_U=-\frac{h}{h_U-h}. \end{equation}
+  </div>
+  <span class="equation_label">10</span>
+</p>
+</div>
+<p> Indeed its height is \(h+r_U(h_U-h)=0\). When \(h\) and \(h_U\) have opposite signs, \(r_U=|h|/(|h|+|h_U|)\) lies strictly between zero and one. When their signs agree, the height of every point in the relative interior of \(MU\) has that common sign, so there is no such intersection. In the first case \(r_U\to 0\) and \(q_U\to M(0)\). In case (V), \(M(0)\) is strictly inside \(E_a(0)\). The parameter of \(q_U\) on the line \(AB\) therefore tends to a number in \((0,1)\) and remains in \((0,1)\) nearby. This supplies the second, finite-segment condition, not merely the straddling of the supporting line. The crossing is transverse since the two line directions have determinant \(h_U-h\ne 0\). </p>
+<p>Consequently each contact pair crosses precisely when the sign of \(h\) is opposite to its neighbour sign. The two neighbour signs are equal in the bigon branch, giving both crossings or neither. They are opposite in the sliding branch, giving precisely one crossing on each side. By the defining sign change of \(h\), the asserted exchanges follow. The predecessor leg is \(E_{M-1}\) and the successor leg is \(E_M\), so these are exactly the displayed tail-indexed pairs. </p>
+<p><em>Exterior extension.</em> At the centre in (E), each contact leg meets the supporting line of \(E_a\) only at \(M(0)\), because \(h_U(0)\ne 0\). That point is outside the closed segment \(E_a(0)\). Thus each contact leg is compact-disjoint from \(E_a(0)\), and both pairs remain disjoint by Lemma&#160;<a href="sect0002.html#lem:wall-segment-stability">1.8</a>. All remote crossing pairs are therefore constant, including at the centre, in (E), as they already are in (C) and (T). </p>
+<p><em>Orders and localization.</em> Consider two persistent crossings on a common edge whose central parameters coincide. The other two edges then meet that base edge at the same point. If those other edges are remote, their common interior point gives a member of \(Z_{\rm c}\). If they are adjacent, their nonzero central turn implies that their lines meet only at their shared vertex. The coincidence would put that vertex on the base edge. In (E),(C) no such endpoint incidence exists; in (T) none exists either, and its only concurrence is the named triple. It follows that all parameters in (E),(C) are centrally distinct and their orders are constant. Their fixed edge order then gives a fixed cyclic Gauss word, including at zero. In (T) the only possible ties are the two triangle visits on a bundle edge. Lemma&#160;<a href="sect0002.html#lem:triple-sides">1.23</a> makes each such pair adjacent. Their differences change sign by the definition of (T), so they exchange order, and every other order is fixed by the stability lemma. </p>
+<p>For (V), no persistent crossing has central point \(M(0)\): any additional edge through that point would give a second endpoint-incidence triple. All persistent crossing parameters on \(E_a\) are therefore separated from its contact parameter. Those on either incident leg are separated from its endpoint at \(M\). Formula&#160;<a href="sect0002.html#wallgeo:contact-foot" class="eqref">10</a> puts any newborn contact crossings arbitrarily close to those contact parameters. Finiteness gives neighbourhoods free of other crossings. Every other pair of persistent visits has distinct central parameters, since a tie would give either a forbidden triple concurrence or an additional vertex incidence. Their orders remain fixed. This proves the claimed localization and completes all cases. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:cusp-sides">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.27</span>
+    <span class="lemma_thmtitle">sides of a cusp</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:cusp-sides">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000033"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.cusp_sides_of_continuous_curve" class="lean_decl">SM.cusp_sides_of_continuous_curve</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(n\geq 4\) and let \(P(t)=(\mu _1(t),\ldots ,\mu _n(t))\), \(|t|{\lt}\varepsilon \), be continuous. Indices are read modulo \(n\), and \(E_i=[\mu _i,\mu _{i+1}]\), \(\widetilde\lambda _i=\mu _{i+1}-\mu _i\) and \(\tau _i=\operatorname {sgn}\det (\widetilde\lambda _{i-1},\widetilde\lambda _i)\). Assume that \(P(t)\) is generic for \(t\ne 0\): no three distinct vertices are collinear and no three edge interiors concur. At \(t=0\) assume that the only collinear triple of distinct vertex indices is \(\{ j-1,j,j+1\} \), that no three pairwise remote edge interiors concur, that \(\mu _j\) lies outside the closed segment \([\mu _{j-1},\mu _{j+1}]\), and that \(\tau _j\) changes sign. These are the simple-cusp hypotheses in the present conventions. </p>
+<p>Use the following data, with the betweenness conditions imposed at \(t=0\): </p>
+<div class="equation" id="cusppr:data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:data} \begin{array}{c|c|c|c|c} \text{case}& \text{middle point on the line}& (f,g)& (c_1,c_2)& \Delta (t)\\ \hline \mathrm A& \mu _{j+1}\in (\mu _{j-1},\mu _j)& (j-1,j+1)& (j,j+1)&  \det (\widetilde\lambda _{j-1},\widetilde\lambda _{j+1})\\ \mathrm B& \mu _{j-1}\in (\mu _j,\mu _{j+1})& (j-2,j)& (j-1,j)&  \det (\widetilde\lambda _{j-2},\widetilde\lambda _j) \end{array} \end{equation}
+  </div>
+  <span class="equation_label">11</span>
+</p>
+</div>
+<p> Exactly one case applies. After shrinking the parameter interval: </p>
+<ol class="enumerate">
+  <li><p>\(\Delta \) is nonzero with constant sign. The remote pair \(\{ f,g\} \) crosses precisely on the side with \(\tau _j=-\operatorname {sgn}\Delta \), called the loop side; it does not cross on the side with \(\tau _j=\operatorname {sgn}\Delta \), called the no-loop side. No other crossing pair changes. </p>
+</li>
+  <li><p>On the no-loop side the turns at \(c_1,c_2\) have opposite signs. On the loop side both have sign \(\tau _j\). </p>
+</li>
+  <li><p>On the loop side, one oriented traversal arc between the two visits of the newborn crossing consists of a terminal portion of \(E_f\), the complete edge between \(c_1\) and \(c_2\), and an initial portion of \(E_g\). Its only polygon vertices are \(\mu _{c_1},\mu _{c_2}\). This arc is allowed to contain other crossing visits. If the two newborn visits are cyclically adjacent in the Gauss word, this particular arc contains no other crossing visit. In that case the complete edge between \(c_1,c_2\) carries no crossing on either side of the wall. </p>
+</li>
+  <li><p>With rotation defined by the sum of principal turns, </p>
+<div class="equation" id="cusppr:rotation-law">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:rotation-law} \operatorname {rot}(P_{\rm loop})-\operatorname {rot}(P_{\rm no}) =\tau _j(P_{\rm loop})\in \{ -1,1\} . \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000033">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>First, all vertex coordinates at the centre are distinct. If two coincided, their triples with either of two further vertex indices would both be collinear. Such further indices exist because \(n\geq 4\), contradicting the sole-triple hypothesis. All edges at the centre are therefore nonzero. Put \(A=\mu _{j-1}\), \(M=\mu _j\), \(B=\mu _{j+1}\), and, as functions of \(t\), put </p>
+<div class="equation" id="cusppr:local-data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:local-data} u=M-A,\qquad v=B-M,\qquad T=\det (u,v). \end{equation}
+  </div>
+  <span class="equation_label">13</span>
+</p>
+</div>
+<p> Thus \(\tau _j=\operatorname {sgn}T\) on the punctured sides. The distinct collinear points \(A,M,B\) have a unique middle point; it is not \(M\). This proves the two-case assertion. On each punctured side every point-triple determinant is nonzero, so its sign is constant by continuity. </p>
+<p><em>The newborn crossing in case A.</em> Let \(w=\widetilde\lambda _{j+1}\), so that \(E_g\) starts at \(B\) and has direction \(w\). Here \(\Delta =\det (u,w)\). If \(\Delta (0)=0\), the nonzero vector \(w(0)\) would be parallel to the cusp line through \(A,M,B\). Its other endpoint \(\mu _{j+2}(0)\) would lie on that line too. The indices \(j-1,j,j+2\) are distinct and give a second zero triple, a contradiction. Therefore \(\Delta (0)\ne 0\); it has one nonzero sign on a smaller interval. </p>
+<p>Write the intersection of the two supporting lines as \(X=B+s w\). Membership in the line through \(E_f\) means \(\det (u,X-A)=0\). Since \(B-A=u+v\), bilinearity gives, in separate steps, </p>
+<div class="equation" id="cusppr:A-det">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:A-det} \det (u,B-A)=\det (u,u)+\det (u,v)=T, \end{equation}
+  </div>
+  <span class="equation_label">14</span>
+</p>
+</div>
+<div class="equation" id="cusppr:A-intersection">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:A-intersection} 0=\det (u,X-A)=T+s\Delta , \qquad s=-\frac{T}{\Delta }. \end{equation}
+  </div>
+  <span class="equation_label">15</span>
+</p>
+</div>
+<p> At \(t=0\), \(X=B\) lies strictly inside \(E_f=[A,M]\) and \(s=0\). The line intersection varies continuously because \(\Delta \) remains nonzero. Consequently its parameter on \(E_f\) remains strictly between \(0\) and \(1\), and \(|s|{\lt}1\) on a smaller interval. It lies in the interior of \(E_g\) exactly when \(s{\gt}0\). Thus \(E_f,E_g\) cross exactly when \(T\) and \(\Delta \) have opposite signs. This also proves that the new crossing is interior and transverse on the stated side. </p>
+<p><em>The newborn crossing in case B.</em> Let \(h=\widetilde\lambda _{j-2}\), so that \(E_f\) ends at \(A\) and has direction \(h\). Here \(\Delta =\det (h,v)\). If \(\Delta (0)=0\), the other endpoint \(\mu _{j-2}(0)\) of \(E_f\) would also lie on the cusp line, again giving a second zero triple. Hence \(\Delta \) is nonzero with constant sign on a smaller interval. Write the intersection as \(X=A-s h\), so \(s{\gt}0\) means moving into \(E_f\) from its endpoint \(A\). The relevant determinant is </p>
+<div class="equation" id="cusppr:B-det">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:B-det} \det (v,A-M)=\det (v,-u)=-\det (v,u)=T. \end{equation}
+  </div>
+  <span class="equation_label">16</span>
+</p>
+</div>
+<p> Because \(\det (v,h)=-\Delta \), its line equation becomes </p>
+<div class="equation" id="cusppr:B-intersection">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:B-intersection} 0=\det (v,X-M)=T-s\det (v,h)=T+s\Delta , \qquad s=-\frac{T}{\Delta }. \end{equation}
+  </div>
+  <span class="equation_label">17</span>
+</p>
+</div>
+<p> At \(t=0\), \(X=A\) is strictly inside \(E_g=[M,B]\). Its parameter there remains interior, and \(|s|{\lt}1\) on a smaller interval. The two segments therefore cross exactly when \(s{\gt}0\), equivalently when \(T\) and \(\Delta \) have opposite signs. Since \(T\) changes sign, the loop and no-loop sides in both cases are distinct and have exactly the signs in (i). </p>
+<p><em>No other crossing pair changes.</em> For any remote pair, strict crossing is determined by the four signs of the endpoint-against-line determinants: each segment must separate the endpoints of the other. This criterion applies on both generic punctured sides. If none of those four triples is \(\{ j-1,j,j+1\} \), all four signs have the same nonzero limits and hence agree across the wall. Such a crossing pair cannot change. </p>
+<p>The only remote pairs whose tests can contain that triple are \(\{ j-1,j+1\} \) and \(\{ j-2,j\} \). Indeed the only edges joining two critical vertices are \([A,M]\) and \([M,B]\); adjoining the third critical vertex as an endpoint of a remote edge gives precisely these two pairs. In case A, the unused pair is \(E_{j-2},E_j\). At the centre the supporting line of \(E_{j-2}\) meets the cusp line only at \(A\), since its other endpoint is off that line. But \(A\) lies outside \([M,B]\), so the two compact segments are disjoint and remain disjoint nearby. In case B the unused pair is \(E_{j-1},E_{j+1}\); the supporting line of \(E_{j+1}\) meets the cusp line only at \(B\), which lies outside \([A,M]\). The same compact-disjointness argument applies. This proves the last assertion of (i). It does not assert that the order of thread crossings is unchanged. </p>
+<p><em>The two needle turns.</em> In case A there is \(a{\gt}0\) with \(v(0)=-a u(0)\), because \(B\) lies strictly between \(A\) and \(M\). The turn determinant at \(B=\mu _{j+1}\) satisfies </p>
+<div class="equation" id="cusppr:A-needle">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:A-needle} \det (v(0),w(0))=-a\det (u(0),w(0))=-a\Delta (0). \end{equation}
+  </div>
+  <span class="equation_label">18</span>
+</p>
+</div>
+<p> It is nonzero and retains sign \(-\operatorname {sgn}\Delta \) nearby. The other needle corner is \(M\), whose sign is \(\tau _j\). By (i), these signs are opposite on the no-loop side and equal on the loop side. In case B there is \(a{\gt}0\) with \(u(0)=-a v(0)\). The turn determinant at \(A=\mu _{j-1}\) is therefore </p>
+<div class="equation" id="cusppr:B-needle">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:B-needle} \det (h(0),u(0))=-a\det (h(0),v(0))=-a\Delta (0). \end{equation}
+  </div>
+  <span class="equation_label">19</span>
+</p>
+</div>
+<p> It too retains sign \(-\operatorname {sgn}\Delta \), while the other corner is \(M\). Applying (i) gives (ii) also in case B. </p>
+<p><em>Threads and the empty condition.</em> In case A, start at the newborn visit on \(E_{j-1}\) and follow the orientation. The traversal runs to \(M\), along \(E_j\) to \(B\), and then along \(E_{j+1}\) to the other newborn visit. This is the arc in (iii). In case B it runs from the newborn visit on \(E_{j-2}\) to \(A\), along \(E_{j-1}\) to \(M\), and then along \(E_j\) to the other visit. Each description contains exactly the two specified polygon vertices. </p>
+<p>No crossing other than the newborn can have both visits on this short arc. The arc is contained in three consecutive edges. The two adjacent pairs have no interior intersection because their incident directions are linearly independent on a generic side. The remaining pair is the newborn pair; its two nonparallel supporting lines meet only once, at the newborn crossing itself. Thus any other crossing visit in the open short arc has its partner in the complementary open arc. </p>
+<p>If the newborn visits are cyclically adjacent in the Gauss word, at least one of those two open arcs contains no crossing visit. A crossing visit in the short arc would force a partner in the complementary arc, so would make both nonempty. Hence the short arc is crossing-free. In particular the complete edge between \(c_1,c_2\) has no crossing on the loop side. This middle edge belongs to neither member of the newborn pair. By (i), every crossing pair involving it is unchanged, so it has no crossing on the no-loop side either. This proves (iii) without assuming that a general cusp is empty. </p>
+<p><em>The rotation sign.</em> Let \(\vartheta _i(t)\in (-\pi ,\pi )\) be the principal turn at vertex \(i\) on a punctured side. The quotient of consecutive unit edge directions is \(\exp (\mathrm i\vartheta _i)\); multiplying around the polygon gives \(\exp (\mathrm i\sum _i\vartheta _i)=1\). Therefore \(\sum _i\vartheta _i\) is an integer multiple of \(2\pi \), and \(\operatorname {rot}(P)=(2\pi )^{-1}\sum _i\vartheta _i\) is an integer. Every principal turn is continuous away from an antiparallel pair of incident edges. It follows that rotation is constant on each of the two connected punctured sides. </p>
+<p>At the centre, every turn determinant except that at \(j\) is nonzero: its three vertex indices would otherwise give a second collinear triple. The corresponding principal turns therefore have the same limits from the two sides. At \(j\) the nonzero incident vectors are antiparallel. The principal turn tends to \(+\pi \) on the side with \(T{\gt}0\) and to \(-\pi \) on the side with \(T{\lt}0\). Set \(s=\tau _j(P_{\rm loop})\). Then the loop-side limit of \(\vartheta _j\) is \(s\pi \) and the no-loop-side limit is \(-s\pi \). Cancelling the common limits of all other turns gives </p>
+<div class="equation" id="cusppr:rotation-limits">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{cusppr:rotation-limits} 2\pi \bigl(\operatorname {rot}(P_{\rm loop})- \operatorname {rot}(P_{\rm no})\bigr) =s\pi -(-s\pi )=2s\pi . \end{equation}
+  </div>
+  <span class="equation_label">20</span>
+</p>
+</div>
+<p> Dividing by \(2\pi \) proves (iv). No rotation is assigned to the singular centre, and no differentiability or unthreadedness was used. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:deletion-halves">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1.28</span>
+    <span class="definition_thmtitle">deletion and halves</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:deletion-halves">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.deletion_halves_definition" class="lean_decl">SM.deletion_halves_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(n\geq 4\) and \(j\in \mathbb Z/n\), the <em>deletion</em> \(P\setminus j\) is the \((n-1)\)-tuple obtained by omitting \(\mu _j\), with the induced cyclic order. At a simple vertex–edge wall at \((M;a)\) with \(b=a+1\), the <em>halves</em> at the centre \(P^0=P(0)\) are the polygons </p>
+<div class="displaymath" id="a0000000034">
+  \[  \lambda _1=(\mu _M,\mu _{M+1},\ldots ,\mu _a),\qquad \lambda _2=(\mu _M,\mu _b,\mu _{b+1},\ldots ,\mu _{M-1}),  \]
+</div>
+<p> all vertices taken at \(t=0\): \(\lambda _1\) follows the edges \(E_M,\ldots ,E_{a-1}\) of \(P^0\) and closes with the segment \([\mu _a,\mu _M]\subset E_a\); \(\lambda _2\) opens with \([\mu _M,\mu _b]\subset E_a\), follows \(E_b,\ldots ,E_{M-2}\) and closes with \(E_{M-1}\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:children">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.29</span>
+    <span class="lemma_thmtitle">deletions and halves are generic</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:children">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000035"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.children" class="lean_decl">SM.children</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>At a simple flat wall at \(j\) with \(n\geq 4\), \(P(0)\setminus j\) is generic, and for small \(t\ne 0\) the deletions \(P(t)\setminus j\) lie in the chamber of \(P(0)\setminus j\). </p>
+</li>
+  <li><p>At a simple vertex–edge wall at \((M;a)\), both halves of Definition&#160;<a href="sect0002.html#def:deletion-halves">1.28</a> are generic and have between \(3\) and \(n-2\) vertices. The central parent is automatically regular. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000035">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Clause (i) is the deletion assertion in Lemma&#160;<a href="sect0002.html#lem:flat-sides">1.25</a>(iii), which includes the fused-edge genericity proof. Its chamber conclusion also follows directly from openness of the generic locus and continuity of deletion: after shrinking, the image of the whole parameter interval, including zero, is connected and generic, so it lies in the connected component containing the central deletion. </p>
+<p>For (ii), put \(b=a+1\). By Lemma&#160;<a href="sect0002.html#lem:wall-sides">1.26</a> the central parent has nonzero edges and nonzero turns. Relabel cyclically for the count only, so \(M=1\) and \(a=k\). The imposed restriction \(M\notin \{ a-1,a,a+1,a+2\} \) excludes \(k=1,2,n-1,n\). Thus \(3\leq k\leq n-2\). The first half has \(k\) vertices and the second has \(n-k+1\), which satisfies the same bounds. This count uses the stated SM1 remoteness condition; it does not add a separate regular-path hypothesis. </p>
+<p>Each child vertex is a distinct inherited parent vertex. The only zero parent point triple is \(\{ a,b,M\} \). The first half contains \(a,M\) but not \(b\), and the second contains \(M,b\) but not \(a\), so neither contains this triple. Every child point determinant is therefore a nonzero parent determinant, proving (G1) for both halves. </p>
+<p>Every inherited child edge is a parent edge. The one cut edge in either half is a positive subsegment of \(E_a\). More explicitly, for \(M=A+\lambda (B-A)\) with \(0{\lt}\lambda {\lt}1\), its two possible directed vectors are \(\lambda d_a\) and \((1-\lambda )d_a\), respectively. A point in the relative interior of either cut edge is in the relative interior of \(E_a\). If three distinct child edge interiors concurred, their parent edge images would be three distinct parent edges with an interior concurrence: each half has only one cut edge, so this edge map is injective. The parent edges must be pairwise remote, because adjacent central parent edges with nonzero turn meet only at their shared endpoint. Such a concurrence contradicts \(Z_{\rm c}=\varnothing \). Hence both halves satisfy (G2), and together with their already proved (G1) this is exactly SM1 genericity. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:transport-polynomials">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.30</span>
+    <span class="lemma_thmtitle">the polynomial controls for SM genericity</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:transport-polynomials">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000036"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.transport_polynomials" class="lean_decl">SM.transport_polynomials</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> Write the scalar vertex coordinates as \(x_1,\ldots ,x_{2n}\). For each unordered triple of distinct vertex indices use one ordered representative of </p>
+<div class="equation" id="transport:delta">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:delta} \Delta _{ijk}=\det (\mu _j-\mu _i,\mu _k-\mu _i). \end{equation}
+  </div>
+  <span class="equation_label">21</span>
+</p>
+</div>
+<p> For each unordered triple of pairwise remote edges use one ordered representative of </p>
+<div class="equation" id="transport:T">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:T} T_{efg}=\det \begin{pmatrix} \ell _e
+
+\\ \ell _f
+
+\\ \ell _g
+
+\end{pmatrix}, \qquad \ell _i=(-d_{i,y},d_{i,x},\det (\mu _i,d_i)), \quad d_i=\mu _{i+1}-\mu _i. \end{equation}
+  </div>
+  <span class="equation_label">22</span>
+</p>
+</div>
+<p> Let \(\mathcal F\) be this finite family. Every member is nonzero and irreducible over \(\mathbb R\), and distinct named members are nonassociate. Each is affine in every scalar coordinate separately. If \(F\) depends on \(x_j\), write \(F=a x_j+b\); then \(a\) is a nonzero polynomial in the other coordinates. If distinct \(F=a x_j+b\) and \(G=c x_j+d\) both depend on \(x_j\), the polynomial \(ad-bc\) is nonzero. At a specialization with \(a\ne 0\), the root of \(F\) in \(x_j\) is simple; at a specialization with \(ad-bc\ne 0\), the two polynomials have no common root. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000036">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>The quadratic \(q(u,v)=u_xv_y-u_yv_x\) has symmetric matrix, in the order \((u_x,u_y,v_x,v_y)\), </p>
+<div class="equation" id="transport:qmatrix">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:qmatrix} \frac12\begin{pmatrix} 0
+
+& 0
+
+& 0
+
+& 1
+
+\\ 0
+
+& 0
+
+& -1
+
+& 0
+
+\\ 0
+
+& -1
+
+& 0
+
+& 0
+
+\\ 1
+
+& 0
+
+& 0
+
+& 0
+
+\end{pmatrix}. \end{equation}
+  </div>
+  <span class="equation_label">23</span>
+</p>
+</div>
+<p> Its rank is four. A nontrivial factorization of a homogeneous quadratic is a product of two homogeneous linear forms. If their coefficient vectors are \(a,b\), the symmetric matrix of their product is \((ab^{\mathsf T}+ba^{\mathsf T})/2\), of rank at most two. Thus \(q\) is irreducible. The vector pairs defining \(\Delta \) and the auxiliary remote direction determinant \(H_{ef}=\det (d_e,d_f)\) are independent linear coordinates: complete either surjective linear map to an invertible coordinate change. The polynomial is then \(q\) with extra unused variables. A factorization cannot depend on an unused variable because polynomial degrees in that variable add. This proves irreducibility and nonzeroness of \(\Delta \) and \(H\). </p>
+<p>For \(T\), the six endpoint occurrences are independent. Use the invertible tail/direction coordinates \((\mu _e,d_e),(\mu _f,d_f),(\mu _g,d_g)\). Writing the cross product of the first two line rows as \((A,B,C)\) gives \(C=H_{ef}\). Expansion in the third row yields </p>
+<div class="equation" id="transport:T-expand">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:T-expand} T=d_{g,y}(\mu _{g,x}C-A)+d_{g,x}(B-\mu _{g,y}C). \end{equation}
+  </div>
+  <span class="equation_label">24</span>
+</p>
+</div>
+<p> These two coefficients have no common nonconstant divisor. Indeed any irreducible common divisor is independent of \(\mu _{g,x}\) because the second coefficient is, and independent of \(\mu _{g,y}\) because the first is. Comparing coefficients would make it divide \(A,B,C\). But \(C=H_{ef}\) is irreducible and does not divide both \(A,B\): take \(d_e=d_f=(1,0)\) and tails on different horizontal lines. Then \(C=0\) while \(A\ne 0\). Therefore the two coefficients in <a href="sect0002.html#transport:T-expand" class="eqref">24</a> are coprime. In a factorization of a polynomial homogeneous of degree one in \((d_{g,x},d_{g,y})\), one factor is independent of both variables and divides both coefficients. It must be a unit. This proves irreducibility of \(T\); the same expansion proves it is nonzero. </p>
+<p>Each \(\Delta \) depends on every vertex in its three-element support. Each \(T\) depends on every endpoint in its six-element support: with one endpoint fixed, the line through it can be varied by moving its other endpoint; choose the other two lines to intersect away from the fixed endpoint to make the determinant vary. Thus different supports cannot give associates, and the three- and six-vertex families cannot give associates. For a fixed six-vertex support, the three pairwise remote cycle edges form a perfect matching. A proper subset of a cycle induces disjoint paths, each of which has at most one perfect matching (remove its first edge recursively). The only possible two matchings occur when \(n=6\) and the support is the whole cycle; they are the two alternating matchings. At the specialization </p>
+<div class="equation" id="transport:T-n6-witness">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:T-n6-witness} (\mu _1,\ldots ,\mu _6)=((1,0),(2,0),(0,1),(0,2),(1,1),(2,2)) \end{equation}
+  </div>
+  <span class="equation_label">25</span>
+</p>
+</div>
+<p> the tail-indexed values are \(T_{135}=0\) and \(T_{246}=2\). Hence they too are nonassociate. One representative per unordered point triple already removes the sign associates among the \(\Delta \)’s. </p>
+<p>Every scalar endpoint coordinate occurs affinely in its edge line row, and the three rows of \(T\) have disjoint endpoint supports. Hence \(T\) is affine in each scalar coordinate. The same assertion for \(\Delta \) follows by expanding its area determinant. Genuine dependence therefore has a nonzero slope \(a\). Irreducibility of \(a x_j+b\) implies that \(a,b\) are coprime in the polynomial ring of the other coordinates: a nonconstant common divisor would factor \(F\). Likewise \(c,d\) are coprime. If \(ad-bc=0\), coprimality of \(a,b\) in this unique factorization domain implies \(a\mid c\); put \(c=au\). The identity then gives \(d=bu\). Coprimality of \(c,d\) forces \(u\) to be a unit, so \(G=uF\), contradicting nonassociation. Thus \(ad-bc\) is a nonzero polynomial. After specialization, a nonzero slope makes a linear root simple, and \(cF-aG=cb-ad\) excludes a common root when \(ad-bc\ne 0\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:relgp">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">1.31</span>
+    <span class="theorem_thmtitle">relative general position and the wall dictionary</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:relgp">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000037"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.relative_general_position" class="lean_decl">SM.relative_general_position</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> Let \(\gamma :[0,1]\to \mathcal R_n\) be continuous with generic endpoints, and let \(\delta {\gt}0\). There is a piecewise-affine path in \(\mathcal R_n\) with the same labelled endpoints, uniformly within \(\delta \) of \(\gamma \), which is collision-free and whose nongeneric parameters are finitely many isolated simple wall germs, each of exactly one of the types (F), (V) bigon, (V) sliding, (T), (E), (C). No cusp occurs. Every occurrence label is retained. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000037">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> <em>Open neighbourhoods and endpoint collars.</em> The regular locus is open: nonzero edge lengths and avoidance of antiparallel direction pairs are open conditions. The generic locus is open as well. To see this directly under SM (G1),(G2), finitely many nonzero point determinants retain their signs near a generic tuple. Every central remote pair is either compact-disjoint or an interior transverse pair (Lemma&#160;<a href="sect0002.html#lem:g1">1.5</a>(v)); disjointness persists, and a transverse interior crossing persists with continuous parameters, by Lemma&#160;<a href="sect0002.html#lem:wall-segment-stability">1.8</a>. Distinct crossing points have positive pairwise separation, since a coincidence would place at least three edge interiors at one point. Thus no triple interior concurrence appears in a sufficiently small neighbourhood. This proves openness even when a concurrence polynomial vanishes at an inactive configuration, such as three line extensions concurrent outside the segments. No all-polynomials-nonzero endpoint assumption is needed. </p>
+<p>Cover the compact image of \(\gamma \) by axis-parallel open cubes with closures in \(\mathcal R_n\) and diameters less than \(\delta \). The endpoint cubes may be chosen inside the generic locus. A sufficiently fine subdivision \(0=t_0{\lt}\cdots {\lt}t_N=1\) has each image \(\gamma ([t_{i-1},t_i])\) inside one such cube \(C_i\), with the first and last cubes generic. Consecutive cubes overlap in a nonempty open set because they both contain \(\gamma (t_i)\). Refine if necessary so \(N\geq 3\). </p>
+<p>Choose independent internal waypoints \(z_i\in C_i\cap C_{i+1}\), while \(z_0=\gamma (0)\) and \(z_N=\gamma (1)\) remain fixed. Connect \(z_{i-1}\) to \(z_i\) by changing their \(2n\) scalar coordinates one at a time in a fixed order. Every intermediate hybrid belongs to \(C_i\), since an axis-parallel cube is closed under coordinate hybridization. Parameterize these legs over \([t_{i-1},t_i]\). The old and new points at each time belong to the same cube, proving the uniform \(\delta \) bound. All legs are regular. The first and last coordinate polylines are entirely generic; they are endpoint collars. Only legs joining two independently variable internal waypoints need further conditions. </p>
+<p><em>One joint algebraic choice for the central legs.</em> The product of the open waypoint sets is an open subset of a finite-dimensional real coordinate space. For each central leg moving scalar coordinate \(x_j\), impose the following nonvanishing requirements: </p>
+<ol class="enumerate">
+  <li><p>Every \(F\in \mathcal F\) is nonzero at both endpoint hybrids. </p>
+</li>
+  <li><p>For every \(x_j\)-dependent \(F=a x_j+b\), the fixed-coordinate slope \(a\) is nonzero; for every distinct such pair \(F,G\), its fixed-coordinate linear resultant \(ad-bc\) is nonzero. </p>
+</li>
+  <li><p>The scalar step is nonzero, and both coordinate differences of every pair of vertex occurrences are nonzero at the endpoint hybrids. </p>
+</li>
+</ol>
+<p> Every requirement is the nonvanishing of a nonzero polynomial in the joint waypoint variables. For the first two assertions, a central hybrid selects each coordinate from one of two independent internal waypoints; its projection contains an open coordinate box. A nonzero polynomial in the hybrid coordinates, or in the fixed coordinates of the leg, therefore cannot pull back to the zero polynomial. The nonzero slopes and resultants are supplied by Lemma&#160;<a href="sect0002.html#lem:transport-polynomials">1.30</a>. Coordinate-difference polynomials use distinct occurrence variables; the scalar step uses two independent values of the moving coordinate, so these polynomials also are nonzero. </p>
+<p>There are finitely many conditions. Their product is a nonzero polynomial, which cannot vanish on a nonempty real open set. For completeness, this last fact follows by induction on the number of variables: a univariate nonzero polynomial has finitely many roots; on a product of open intervals, fixing all but one variable would force every coefficient polynomial to vanish, and the induction hypothesis then forces the original polynomial to be zero. Thus one joint waypoint choice satisfies all requirements. Fixed original endpoints are excluded from this choice, which is why collars were separated. </p>
+<p><em>Finite simple roots and collision avoidance.</em> On a central leg a factor independent of \(x_j\) stays at its nonzero endpoint value. A dependent factor is a genuinely linear polynomial in the moving coordinate with nonzero slope, hence has at most one root on the leg. Different factors have no common root by their nonzero linear resultant. No root is at a leg endpoint, and each root changes the sign of exactly one named factor because the scalar step is nonzero. Consequently all central roots are finite, isolated, smooth hypersurface crossings. Tangencies and intersections of distinct control hypersurfaces have been avoided by the explicit slope and resultant conditions, not by an unproved generic-position assertion. </p>
+<p>On a leg moving the \(x\)-coordinate of one vertex, its \(y\)-difference from every other vertex is fixed and nonzero. It cannot collide with any of them. All other vertex pairs are fixed and distinct. The same argument exchanges \(x,y\) on a \(y\)-coordinate leg. The collars are generic and hence have distinct vertices. Thus the whole resulting path is collision-free, including its fixed endpoints. Every physical edge occurrence stays nonzero because all legs lie in their regular cubes. A chosen labelled edge can therefore be followed along the path without relabelling or deletion; no root-independence statement is used. </p>
+<p>If all members of \(\mathcal F\) are nonzero, (G1) holds. Any triple interior concurrence would, under (G1), use pairwise remote edges and make one \(T\) zero, so (G2) holds too. Hence every nongeneric parameter is among the finite central roots. Some roots of an inactive \(T\) may still be generic; they are not declared wall events. Collars contain no nongeneric parameters even when an inactive polynomial there has nonisolated zeros. </p>
+<p><em>A point-determinant root.</em> At a root of \(\Delta _K\), exactly the point triple \(K\) is collinear, all vertices remain distinct, and all \(T\)’s are nonzero. Thus \(Z_{\rm pt}=\{ K\} \) and \(Z_{\rm c}=\varnothing \). The determinant changes sign simply on the leg. Count the cyclically adjacent pairs in \(K\). If there are at least two and \(n\geq 4\), \(K=\{ j-1,j,j+1\} \) is a consecutive triple. Its middle vertex must lie strictly between its neighbours, because otherwise the two consecutive directions there are antiparallel, contrary to regularity. This is exactly (F). When \(n=3\), a distinct collinear triple forms a closed collinear triangle and necessarily has an antiparallel consecutive pair; such a root cannot lie in the regular cube. </p>
+<p>If there is exactly one adjacent pair, write it as \(a,b=a+1\) and call the third index \(M\). The lack of a second adjacent pair is precisely \(M\notin \{ a-1,a,a+1,a+2\} \). The contact point is not either endpoint, by collision freedom. If \(M\) is strictly inside \([\mu _a,\mu _b]\), this is (V). Both neighbours of \(M\) have nonzero heights over that line, since another zero height would be another point triple. Equal height signs give the bigon branch and opposite signs the sliding branch. If \(M\) lies outside the closed segment, this is (E). Finally, no adjacent pair gives exactly the pairwise nonadjacent point triple of (C). These alternatives are exhaustive and disjoint. </p>
+<p><em>An active concurrence root.</em> At a root of a single \(T_{efg}\) all point determinants are nonzero. If it is nongeneric, some three edge interiors concur; they must be pairwise remote, and their concurrence polynomial must be this unique zero member. Thus \(Z_{\rm pt}=\varnothing \) and \(Z_{\rm c}=\{ \{ e,f,g\} \} \). At their common interior point every pair is transverse, since coincident remote supporting lines would force a point-determinant zero. All three crossing pairs persist on nearby punctured sides by their continuous interior intersection parameters. </p>
+<p>To verify the sign-change part of (T), put \(H_{ef}=\det (d_e,d_f)\) and write \(q_{ef}=\mu _e+t_{ef}d_e\). The cross product of the first two line rows in <a href="sect0002.html#transport:T" class="eqref">22</a> equals \(H_{ef}(q_{ef,x},q_{ef,y},1)\), as follows from its third coordinate \(H_{ef}\) and the two line equations. Therefore </p>
+<div class="equation" id="transport:T-order">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{transport:T-order} T_{efg}=H_{ef}\det (d_g,q_{ef}-\mu _g) =-(t_{ef}-t_{eg})H_{ef}H_{eg}. \end{equation}
+  </div>
+  <span class="equation_label">26</span>
+</p>
+</div>
+<p> The second equality subtracts \(q_{eg}=\mu _e+t_{eg}d_e\), which lies on the \(g\) line, and uses \(\det (d_g,d_e)=-H_{eg}\). The two \(H\) factors are nonzero with constant sign near the root. The simple sign change of \(T\) therefore changes the sign of \(t_{ef}-t_{eg}\). Apply the same calculation after cyclic permutation of \((e,f,g)\) to obtain the other two required parameter-difference sign changes. This is exactly (T). </p>
+<p>Every nongeneric parameter has now been classified as one named simple wall. There are no cusp walls, because their central antiparallel pair is excluded throughout the regular cubes. Both the endpoints and every occurrence label have been kept exactly as required. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:weak-open">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">1.32</span>
+    <span class="lemma_thmtitle">openness of the weak locus</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:weak-open">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000038"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.weak_open" class="lean_decl">SM.weak_open</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Read on labelled representatives, \(\mathcal W_n\) is open in \((\mathbb R^2)^n\). Every connected component is open and polygonally connected. In particular, every labelled weakly generic tuple has an open ball contained in its visible chamber. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000038">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>Fix a tuple \(P\) satisfying Definition&#160;<a href="sect0002.html#def:weak">1.14</a>. Nonzero edge vectors and nonzero turn determinants persist under small perturbations by continuity. Thus distinct adjacent segments still meet only at their common endpoint: their supporting lines are independent and have that point in common. </p>
+<p>Suppose every vertex moves by at most \(\varepsilon \). A point of an edge at affine parameter \(t\in [0,1]\) moves by at most \((1-t)\varepsilon +t\varepsilon =\varepsilon \), by the triangle inequality. Consequently a vertex–segment distance, or a distance between two segments, decreases by at most \(2\varepsilon \). Every vertex of \(P\) has positive distance from every nonincident closed segment, since the segment is compact and does not contain the vertex. There are finitely many such pairs, so these separations all persist nearby. In particular, remote segments cannot acquire an endpoint contact. </p>
+<p>Each disjoint pair of remote closed segments has positive compact distance; preserve all these distances as well. This step allows parallel or collinear disjoint segments. For an intersecting remote pair, the endpoint exclusion puts the intersection in both relative interiors, and weak genericity makes the two directions independent. Write their initial points as \(p,q\) and directions as \(u,v\), and put \(a=q-p\) and \(D=\det (u,v)\neq 0\). The intersection equation is \(tu-sv=a\). Taking its determinant with \(v\) gives \(tD=\det (a,v)\). Taking its determinant with \(u\) gives \(sD=\det (a,u)\), since \(-\det (v,u)=D\). Thus the two parameters are </p>
+<div class="equation" id="eq:weak-open-parameters">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:weak-open-parameters} t=\frac{\det (a,v)}D,\qquad s=\frac{\det (a,u)}D. \end{equation}
+  </div>
+  <span class="equation_label">27</span>
+</p>
+</div>
+<p> The denominator stays nonzero nearby. Both parameters, and hence the intersection point \(p+tu\), vary continuously. Shrink the neighbourhood so the parameters remain strictly between zero and one. The two supporting lines then have exactly this one transverse intersection. </p>
+<p>Intersection points belonging to distinct unordered pairs of remote edges at \(P\) are distinct: if two were equal, their union would contain at least three distinct edges whose relative interiors contain that point, contrary to (G2). Preserve the finitely many positive distances between these points. Every nearby intersecting remote pair was already intersecting at \(P\), because the disjoint pairs remain disjoint. A nearby point in three edge interiors would involve pairwise remote edges, since adjacent interiors are disjoint. It would therefore identify the points of two distinct preserved crossing pairs, a contradiction. If there were initially fewer than two crossing pairs, the same argument gives a contradiction before any separation needs to be chosen. Thus (G2) persists. </p>
+<p>Intersecting the finitely many neighbourhoods just constructed preserves every condition of weak genericity. This proves openness. A sufficiently small ball about any point is contained in the open set and is convex; it therefore lies in the connected component of its centre. Hence every component is open. Within one component, fix a point and consider the points reachable from it by a finite polygonal path. A small ball about a reachable point is reachable by adding a final segment. A small ball about an unreachable point cannot contain a reachable point, since a final segment would then reach its centre. The reachable set and its complement are both relatively open. Connectedness makes the reachable set the entire component, proving polygonal connectedness. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0001.html" title="How to read this blueprint"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0003.html" title="The tree coefficient \(A\)"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

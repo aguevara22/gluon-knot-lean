@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The tree coefficient \(A\)</title>
+<link rel="next" href="sect0004.html" title="The corner state sum C" />
+<link rel="prev" href="sect0002.html" title="Polygons, chirotopes, chambers and walls" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000004">2 The tree coefficient \(A\)</h1>
+<p> Chapter 2 of the source: the tree coefficient and the laws proved for it directly. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:root">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.1</span>
+    <span class="definition_thmtitle">root and boundary word</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:root">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.rootData" class="lean_decl">SM.rootData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A <em>root</em> of a polygon is one of its edges; on a representative it is an edge index \(g\in \mathbb Z/n\), the root edge being \(E_g\) from \(\mu _g\) to \(\mu _{g+1}\), and the shift carries the root \(g\) of \(P\) to the root \(g-1\) of \(\sigma P\). Everything in this section is a function of the pair (polygon, root). The <em>boundary word</em> of \((P,g)\) is the sequence of vertices </p>
+<div class="displaymath" id="a0000000039">
+  \[  a_0=\mu _{g+1},\  a_1=\mu _{g+2},\  \ldots ,\  a_{N}=\mu _{g+n}=\mu _g,\qquad N=n-1,  \]
+</div>
+<p> so that consecutive boundary vertices \(a_{k-1},a_k\) are joined by the <em>leaf</em> edge \(E_{g+k}\), \(1\leq k\leq N\); the leaves are the \(n-1\) edges other than the root, in traversal order. An <em>interval</em> is a pair \([i,j]\) of integers \(0\leq i{\lt}j\leq N\); it has \(j-i\) leaves. A <em>composition</em> of \([i,j]\) is a sequence \(\pi =(r_0{\lt}r_1{\lt}\cdots {\lt}r_s)\) with \(r_0=i\), \(r_s=j\), \(s\geq 1\); its <em>parts</em> are the intervals \([r_{k-1},r_k]\), and \(|\pi |=s\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:gates">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.2</span>
+    <span class="definition_thmtitle">gates</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:gates">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.gatesData" class="lean_decl">SM.gatesData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(\pi =(r_0{\lt}\cdots {\lt}r_s)\) be a composition of \([i,j]\). At each interior cut \(r_k\), \(1\leq k\leq s-1\), put </p>
+<div class="displaymath" id="a0000000040">
+  \[  d_k(\pi )=\chi \bigl(a_{r_{k+1}},a_{r_k},a_{r_{k-1}}\bigr),\qquad h_k(\pi )=\chi \bigl(a_j,a_{r_k},a_i\bigr),  \]
+</div>
+<p> where \(\chi (x,y,z)=\operatorname {sgn}\det (y-x,z-x)\) for points \(x,y,z\); \(d_k\) is the <em>near sign</em> and \(h_k\) the <em>far sign</em>. The <em>ordinary weight</em> and the <em>root weight</em> of \(\pi \) are </p>
+<div class="displaymath" id="a0000000041">
+  \[  V^+(\pi )=\prod _{k=1}^{s-1}d_k\, \Theta \bigl(-h_kd_k\bigr),\qquad V^-(\pi )=\prod _{k=1}^{s-1}d_k\, \Theta \bigl(h_kd_k\bigr),  \]
+</div>
+<p> with empty products equal to \(1\) (so \(V^\pm (\pi )=1\) when \(s=1\)). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:gates-nonzero">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.3</span>
+    <span class="lemma_thmtitle">gates are defined on (G1)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#lem:gates-nonzero">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000042"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.gates_nonzero" class="lean_decl">SM.gates_nonzero</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>If \(P\) satisfies (G1) then every near and far sign is \(\pm 1\) and every \(\Theta \) in Definition&#160;<a href="sect0003.html#def:gates">2.2</a> is evaluated at \(\pm 1\). On that domain </p>
+<div class="displaymath" id="a0000000043">
+  \[  d\, \Theta (-hd)=\frac{d-h}{2},\qquad d\, \Theta (hd)=\frac{d+h}{2}\qquad (d,h\in \{ \pm 1\} ),  \]
+</div>
+<p> and \(V^+(\pi )=0\) for every composition with exactly two parts. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000042">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> The three boundary vertices entering a gate are pairwise distinct vertices of \(P\) (the cut positions are distinct and \(a_0\neq a_N\) by (G1)), so the signs are nonzero. The two identities are checked on the four sign pairs. For \(s=2\) the only cut is \(r_1\) and \(d_1=\chi (a_j,a_{r_1},a_i)=h_1\), so \(\Theta (-h_1d_1)=\Theta (-1)=0\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:treesum">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.4</span>
+    <span class="definition_thmtitle">open sums and the tree coefficient</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:treesum">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.treesumData" class="lean_decl">SM.treesumData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(P\) satisfy (G1) and fix a root \(g\). Define \(b_{[i,j]}\in \mathbb Z\) for every interval by recursion on the number of leaves: </p>
+<div class="displaymath" id="a0000000044">
+  \[  b_{[i,i+1]}=1,\qquad b_{[i,j]}=-\sum _{\substack {\pi \text{ composition of }[i,j]\\ |\pi |\geq 2}} V^+(\pi )\prod _{[r_{k-1},r_k]\in \pi }b_{[r_{k-1},r_k]}\quad (j-i\geq 2).  \]
+</div>
+<p> The <em>tree coefficient</em> of \(P\) at the root \(g\) is </p>
+<div class="displaymath" id="a0000000045">
+  \[  A_g(P)=\sum _{\pi \text{ composition of }[0,N]} V^-(\pi )\prod _{[r_{k-1},r_k]\in \pi }b_{[r_{k-1},r_k]},  \]
+</div>
+<p> the sum including the one-part composition, whose term is \(b_{[0,N]}\). The main text’s \(A(P)\) is \(A_n(P)\), rooted at the last edge \(E_n\) from \(\mu _n\) to \(\mu _1\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:treesum-trees">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.5</span>
+    <span class="lemma_thmtitle">equivalence with the plane-tree sum</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#lem:treesum-trees">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000046"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.treesum_trees" class="lean_decl">SM.treesum_trees</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(\mathfrak T_g(P)\) be the set of rooted plane trees whose leaves are the \(n-1\) leaf edges in traversal order, whose root vertex has one or more children, and whose other internal vertices (the <em>ordinary</em> vertices) have at least two children each; every internal vertex is labelled by the composition of its leaf interval into the leaf intervals of its children. Then </p>
+<div class="displaymath" id="a0000000047">
+  \[  A_g(P)=\sum _{T\in \mathfrak T_g(P)}(-1)^{N_+(T)}\,  V^-(\pi _{\rm root})\prod _{v\text{ ordinary}}V^+(\pi _v),  \]
+</div>
+<p> where \(N_+(T)\) is the number of ordinary vertices. The identity is formal: the bijection of the proof matches the terms of the recursion of Definition&#160;<a href="sect0003.html#def:treesum">2.4</a> with the trees term by term, so it holds with the gate values \(V^\pm (\pi )\) replaced by independent formal variables, as an identity in the polynomial ring over \(\mathbb Z\) in those variables, and specializes to every evaluation of them. This is main text, <span class="ttfamily">eq:amplitude</span>, whose vertex weights are Definition&#160;<a href="sect0003.html#def:gates">2.2</a> with \(m=s\), \(a_k\) the boundary vertices of the cuts, and whose sign \((-1)^{N_+}\) is the one minus per ordinary vertex. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000046">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Removing the top vertex of an ordinary tree on \([i,j]\) leaves one subtree per part of its composition; grafting is the inverse. The minus sign of the top vertex is the minus sign in the recursion for \(b\). The root vertex carries \(V^-\), no sign, and may have one child, which is the one-part composition. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:A-chamber">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">2.6</span>
+    <span class="proposition_thmtitle">chirotope chambers</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#prop:A-chamber">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000048"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.A_chamber" class="lean_decl">SM.A_chamber</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>If two polygons satisfying (G1) have the same chirotope, then for every root \(g\) every composition weight, every \(b_{[i,j]}\) and \(A_g\) agree. In particular \(A_g\) is constant on every labelled chamber (the root fixed), and constant along any path of (G1)-polygons with constant chirotope. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000048">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Every quantity in Definitions&#160;<a href="sect0003.html#def:gates">2.2</a> and&#160;<a href="sect0003.html#def:treesum">2.4</a> is a function of the signs \(\chi (a_x,a_y,a_z)\), which are chirotope entries. A labelled chamber is a component of \(\mathcal U_n\), an open set (Proposition&#160;<a href="sect0002.html#prop:chambers">1.10</a>), hence path connected, and the chirotope is constant along every path in \(\mathcal U_n\) (Proposition&#160;<a href="sect0002.html#prop:chambers">1.10</a>); so \(A_g\) is constant on each labelled chamber. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:nearfar">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.7</span>
+    <span class="definition_thmtitle">the near–far arrays</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:nearfar">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.nearfarData" class="lean_decl">SM.nearfarData</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Over a commutative ring in which \(2\) is invertible, let \(D(x,y,z)\) and \(H(x,y,z)\) be arbitrary scalars indexed by increasing triples \(0\leq x{\lt}y{\lt}z\leq N\). For an array \(X=(X_{ij})_{0\leq i{\lt}j\leq N}\) put </p>
+<div class="displaymath" id="a0000000049">
+  \[  \Phi _{D,H}(X)_{ij}=\sum _{\pi =(i=r_0{\lt}\cdots {\lt}r_s=j)} \Bigl(\prod _{k=1}^{s-1}\frac{D(r_{k-1},r_k,r_{k+1})-H(i,r_k,j)}2\Bigr) \prod _{k=1}^sX_{r_{k-1}r_k},  \]
+</div>
+<p> \(F_H=\Phi _{0,H}\), \(G_D=\Phi _{D,0}\), and \(E_{ij}=1\) if \(j=i+1\) and \(0\) otherwise. The <em>geometric arrays</em> are \(D(x,y,z)=\chi (a_z,a_y,a_x)\) and \(H(x,y,z)=\chi (a_z,a_y,a_x)\) with the boundary vertices of \((P,g)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:farout">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.8</span>
+    <span class="lemma_thmtitle">factorization and far-only output</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#lem:farout">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000050"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.farout" class="lean_decl">SM.farout</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>Over any commutative ring in which \(2\) is invertible, \(\Phi _{D,H}\) has a two-sided polynomial inverse and </p>
+<div class="equation" id="afr:factor">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:factor} \Phi _{D,H}=F_H\circ G_D. \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+</li>
+  <li><p>With the geometric arrays, \(\Phi _{D,H}(b)=E\) and \(A_g(P)=\Phi _{D,-H}(b)_{0N}\). Consequently, with \(c=F_H^{-1}(E)\), </p>
+<div class="equation" id="afr:far-output">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:far-output} A_g(P)=F_{-H}(c)_{0N}. \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+<p> The complete output is independent of \(D\) when \(H\) is held fixed. </p>
+</li>
+  <li><p>For an interval \(J=[i,j]\) put \(\mathcal E_J=F_H(c)_J\) and \(\mathcal B_J=F_{-H}(c)_J\). Then \(\mathcal E_J=0\) if \(j-i\geq 2\), and \(\mathcal E_J=\mathcal B_J=1\) if \(j-i=1\). For \(j-i\geq 2\), if \((a_i,\ldots ,a_j)\) satisfies (G1), \(\mathcal B_J\) is its tree coefficient rooted at its closing edge from \(a_j\) to \(a_i\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000050">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> For (i), the one-part composition in coordinate \([i,j]\) contributes \(X_{ij}\) with coefficient one. Every other composition has at least two parts, all of shorter interval length. Given any target \(Y\), first put \(X_{i,i+1}=Y_{i,i+1}\) and then, in increasing interval length, subtract the already determined nonunary sum from \(Y_{ij}\). This uniquely solves \(\Phi _{D,H}(X)=Y\), by polynomial operations in the finite arrays. Writing the solution map as \(\Psi \), construction gives \(\Phi _{D,H}\circ \Psi =\mathrm{id}\). Applying uniqueness to the target \(\Phi _{D,H}(X)\) gives \(\Psi \circ \Phi _{D,H}(X)=X\), the other inverse. </p>
+<p>Expand \(F_H(G_D(X))_{ij}\). Its terms are indexed by an outer composition of \([i,j]\) and an inner composition of each outer part. Their ordered union is a refined composition \(\rho =(r_0{\lt}\cdots {\lt}r_s)\), with the subset of its interior cuts marked as outer cuts. Conversely, cut \(\rho \) at the marked cuts to recover the outer parts and restrict \(\rho \) to each part to recover its inner composition. This is a bijection, including empty and full marked subsets and unary inner or outer compositions. </p>
+<p>At a marked cut \(r_k\) the coefficient is \(-H(i,r_k,j)/2\). At an unmarked cut its immediate neighbors in \(\rho \) are precisely its neighbors inside the same inner part, since that part’s endpoints are also in \(\rho \). Its coefficient is \(D(r_{k-1},r_k,r_{k+1})/2\). Each interior cut supplies one factor, and the product of child coordinates is exactly the refined product. Summing over every subset of marked cuts independently chooses the near or negative far summand at each cut. Distributivity yields the product of their sums, precisely the coefficient of \(\rho \) in Definition&#160;<a href="sect0003.html#def:nearfar">2.7</a>. This proves <a href="sect0003.html#afr:factor" class="eqref">1</a>, with all neighboring near gates accounted for. </p>
+<p>For (ii), the identities \(d\Theta (-hd)=(d-h)/2\) and \(d\Theta (hd)=(d+h)/2\), for \(d,h\in \{ \pm 1\} \), turn the open-sum recursion into \(\Phi _{D,H}(b)=E\) and the full root sum into \(\Phi _{D,-H}(b)_{0N}\). In particular its unary root term is retained. By <a href="sect0003.html#afr:factor" class="eqref">1</a>, \(F_H(G_D(b))=E\); uniqueness of the inverse gives \(G_D(b)=c\). Applying the factorization with \(-H\) gives </p>
+<div class="equation" id="afr:near-freedom">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:near-freedom} \Phi _{D,-H}(b)=F_{-H}(G_D(b))=F_{-H}(c). \end{equation}
+  </div>
+  <span class="equation_label">3</span>
+</p>
+</div>
+<p> This proves the assertion about the complete output. It asserts no near-array independence for individual trees or open sums. </p>
+<p>For (iii), restriction to \(J\) commutes with all coordinate equations: each equation on a subinterval of \(J\) reads only its own subintervals and triples. Triangular uniqueness therefore identifies the restriction of \(c\) with the inverse constructed directly on that restricted word. The equation \(F_H(c)=E\) gives the claimed \(\mathcal E\) values. On a one-leaf interval the only composition is unary, its inverse coordinate is one, and both transforms equal one. This is a formal open-word convention, not a two-gon amplitude. On an interval with at least two leaves, the closed endpoint polygon has at least three vertices. Cutting its closing edge from \(a_j\) to \(a_i\) gives exactly the word \(a_i,\ldots ,a_j\). If it satisfies (G1), part (ii) on that word identifies \(\mathcal B_J\) with its amplitude at that specified physical root. The auxiliary coordinates \(c\) may be rational and their binary coordinates need not vanish. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:single-triple">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.9</span>
+    <span class="theorem_thmtitle">single-triple wall response</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:single-triple">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000051"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.WallGerm.single_triple_wall_response" class="lean_decl">SM.WallGerm.single_triple_wall_response</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Let \(t\mapsto P(t)\) be a wall germ with \(Z_{\rm c}=\varnothing \), \(Z_{\rm pt}=\{ K\} \) a single triple of pairwise distinct vertices, and \(\chi _K\) changing sign at zero. This includes types (F), (K), (V), (E), and (C). Cut at a fixed physical root \(g\) and let \(x{\lt}y{\lt}z\) be the critical boundary positions. Put \(I_*=[x,z]\), \(L=[x,y]\), \(R=[y,z]\), \(F=[0,N]\), and </p>
+<div class="equation" id="afr:wall-data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-data} \delta =\frac{H^+(x,y,z)-H^-(x,y,z)}2\in \{ -1,1\} . \end{equation}
+  </div>
+  <span class="equation_label">4</span>
+</p>
+</div>
+<p> Write the three wall points as \(a_v=p_*+\xi _v\omega \) with \(\omega \ne 0\) and distinct \(\xi _v\). Set </p>
+<div class="equation" id="afr:wall-epsilons">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-epsilons} \epsilon _L=\operatorname {sgn}\frac{\xi _y-\xi _x}{\xi _z-\xi _x},\qquad \epsilon _R=\operatorname {sgn}\frac{\xi _z-\xi _y}{\xi _z-\xi _x}. \end{equation}
+  </div>
+  <span class="equation_label">5</span>
+</p>
+</div>
+<p> For \(J=L,R\) use the unchanged interval values of Lemma&#160;<a href="sect0003.html#lem:farout">2.8</a>, and put </p>
+<div class="equation" id="afr:wall-uv">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-uv} \mathcal U_J=\begin{cases} \mathcal E_J,& \epsilon _J=1,\\ \mathcal B_J,& \epsilon _J=-1,\end{cases}\qquad \mathcal V_J=\begin{cases} \mathcal B_J,& \epsilon _J=1,\\ \mathcal E_J,& \epsilon _J=-1.\end{cases} \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> If \(I_*\ne F\), let \(Q\) be the polygon obtained at \(t=0\) by replacing the boundary arc \(a_x,\ldots ,a_z\) with the single edge from \(a_x\) to \(a_z\). Then \(Q\) satisfies (G1), has at least three vertices, retains the physical root \(g\), and </p>
+<div class="equation" id="afr:wall-proper">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-proper} A_g(P_+)-A_g(P_-)=\delta \mathcal U_L\mathcal U_R A_g(Q). \end{equation}
+  </div>
+  <span class="equation_label">11</span>
+</p>
+</div>
+<p> If \(I_*=F\), instead </p>
+<div class="equation" id="afr:wall-full">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-full} A_g(P_+)-A_g(P_-) =\delta (\mathcal U_L\mathcal U_R+\mathcal V_L\mathcal V_R). \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+<p> Here \(P_\pm \) are on sufficiently close punctured sides of the germ; all gap and contracted coefficients are evaluated at their nondegenerate wall data, equivalently at the same signs on either sufficiently close side. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000051">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> The wall hypothesis makes every distinct-triple determinant except the critical one nonzero at zero; after a common shrink its sign is the same on both punctured sides. Neither gap contains the entire critical triple, so both gap arrays and every nontrivial closed gap polygon are nondegenerate and unchanged. Singleton gap values have only their formal open-word meaning. At least one epsilon is positive: otherwise both summands in \(\xi _z-\xi _x=(\xi _y-\xi _x)+(\xi _z-\xi _y)\) would have sign opposite to their nonzero sum. </p>
+<p>Use the far-only representation of Lemma&#160;<a href="sect0003.html#lem:farout">2.8</a> on each side. The changing triple appears as far data in exactly one coordinate formula of \(F_H\), namely \([x,z]\). Induction in interval length therefore shows that \(c\) is unchanged on every interval not containing \(I_*\). </p>
+<p>In the \([x,z]\) equation every proper child is unchanged. A composition has a changing coefficient exactly when it cuts at \(y\). Splitting its cut list at \(y\) is a bijection with a pair of arbitrary compositions of \(L\) and \(R\); concatenating the two lists is its inverse. Its one changing far gate \(-H(x,y,z)/2\) has difference \(-\delta \). For every other cut in these compositions, the wall geometry gives </p>
+<div class="displaymath" id="afr:wall-left-sign">
+  \begin{align}  H(x,r,z)& =\epsilon _L H(x,r,y) & & (x{\lt}r{\lt}y),\label{afr:wall-left-sign}\\ H(x,r,z)& =\epsilon _R H(y,r,z) & & (y{\lt}r{\lt}z).\label{afr:wall-right-sign} \end{align}
+</div>
+<p> For the first identity, the vectors from \(a_x\) to \(a_z\) and to \(a_y\) differ by the scalar \((\xi _z-\xi _x)/(\xi _y-\xi _x)\). Taking their determinants with \(a_r-a_x\) gives the indicated sign ratio. For the second use the vectors from \(a_z\) to \(a_x\) and to \(a_y\); their scalar ratio has sign \(\epsilon _R\). All these determinants are nonzero at the wall. Their signs on both sufficiently close sides are therefore the wall signs, proving both displayed identities on those sides without evaluating a zero gate. </p>
+<p>Consequently the composition sum on a gap is \(F_H(c)_J=\mathcal E_J\) if \(\epsilon _J=1\), and \(F_{-H}(c)_J=\mathcal B_J\) if \(\epsilon _J=-1\). The changed nonunary sum in \(F_H(c)_{xz}=E_{xz}=0\) is thus \(-\delta \mathcal U_L\mathcal U_R\). Since the unary coefficient is \(1\), moving this sum to the other side gives </p>
+<div class="equation" id="afr:wall-source">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-source} c^+_{xz}-c^-_{xz}=s_*, \qquad s_*=\delta \mathcal U_L\mathcal U_R. \end{equation}
+  </div>
+  <span class="equation_label">15</span>
+</p>
+</div>
+<p> The nonunary part of \(F_{-H}(c)_{xz}\) must be calculated separately. Its changing gate is \(+H(x,y,z)/2\), with difference \(+\delta \); all proper children are still unchanged. Reversing the remaining far signs exchanges \(\mathcal E_J\) with \(\mathcal B_J\) in each of the two gap sums. Its direct coefficient change is therefore \(+\delta \mathcal V_L\mathcal V_R\). </p>
+<p>It remains to propagate <a href="sect0003.html#afr:wall-source" class="eqref">15</a> through larger intervals. Contract \(I_*\) in the boundary word to the formal leaf \(e_*\), and let \(c^Q\) be the inverse \(F_{H^Q}^{-1}(E)\) on that contracted word. This inverse is defined even when the contracted word has only one leaf; that is an open-word convention, not a two-gon amplitude. For an interval containing \(I_*\) write \(I/e_*\) for its contraction. We prove by interval length that </p>
+<div class="equation" id="afr:wall-propagation">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:wall-propagation} c^+_I-c^-_I=s_*c^Q_{I/e_*}\quad (I\supseteq I_*), \qquad c^+_I-c^-_I=0\quad (I\not\supseteq I_*). \end{equation}
+  </div>
+  <span class="equation_label">16</span>
+</p>
+</div>
+<p> The smallest containing interval is \(I_*\) itself. Its contracted coordinate is the leaf value \(1\), so this is <a href="sect0003.html#afr:wall-source" class="eqref">15</a>. For a strictly larger \(I\), its far coefficient formula is unchanged. In a top composition at most one child can contain the positive-length interval \(I_*\), because distinct children have disjoint interiors. If no child contains it, every child coordinate is unchanged. Otherwise the product difference is exactly the difference of that unique child times all other, unchanged child coordinates. There is no product of two changing factors or choice of side for the others. </p>
+<p>The compositions having such a child are in bijection with compositions of \(I/e_*\). Forward, erase the interior vertices of \(I_*\) inside that one child; no top cut lies there. Backward, the distinguished leaf \(e_*\) belongs to one unique contracted child, and expanding it recovers the original child and top cut list. The operations are inverse. All top endpoints and cut vertices survive, so every far gate has the same indices and signs. Every other child is disjoint from the interior of \(I_*\), and its \(c\) coordinate agrees with \(c^Q\) by restriction and uniqueness of the unchanged triangular equations. Insert the induction hypothesis on the changing child. The difference of the equation \(F_H(c)_I=0\) becomes \(s_*\) times the equation \(F_{H^Q}(c^Q)_{I/e_*}=0\). The contracted interval has at least two leaves when \(I\) strictly contains \(I_*\), so this latter right-hand side is indeed zero. Equivalently, its unary term is the negative of its full nonunary sum, giving precisely \(c^+_I-c^-_I=s_*c^Q_{I/e_*}\). This proves the induction with its sign. </p>
+<p>When \(I_*\ne F\), the same composition bijection, now including the unary term, applies to the barred transform \(F_{-H}\) on \(F\). Its coefficients are unchanged because its endpoints are not both \(x,z\). Substitution of <a href="sect0003.html#afr:wall-propagation" class="eqref">16</a> gives \(s_*F_{-H^Q}(c^Q)_{F/e_*}\). At least one further leaf survives outside \(I_*\), so \(Q\) has at least three vertices. Its vertices have no zero triple, since the only critical triple lost its middle occurrence. Its endpoints and hence physical root survive. Lemma&#160;<a href="sect0003.html#lem:farout">2.8</a> identifies the last output with \(s_*A_g(Q)\), proving <a href="sect0003.html#afr:wall-proper" class="eqref">11</a>. </p>
+<p>When \(I_*=F\), all proper children are unchanged and the unary contribution is <a href="sect0003.html#afr:wall-source" class="eqref">15</a>. Add the separately computed direct barred coefficient change \(+\delta \mathcal V_L\mathcal V_R\) to obtain <a href="sect0003.html#afr:wall-full" class="eqref">12</a>. In this case there is no closed contracted amplitude of arity at least three. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:induced-roots">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.10</span>
+    <span class="definition_thmtitle">induced roots</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:induced-roots">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.induced_roots_definition" class="lean_decl">SM.induced_roots_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>At a simple flat or cusp wall at \(j\), the <em>deletion map</em> on roots is </p>
+<div class="displaymath" id="a0000000052">
+  \[  D_j(g)=\begin{cases} \text{the fused edge }[\mu _{j-1},\mu _{j+1}]\text{ of }P\setminus j,&  g\in \{ j-1,j\} ,\\ \text{the edge of }P\setminus j\text{ with the same endpoints as }E_g,& \text{otherwise.}\end{cases}  \]
+</div>
+<p> At a simple vertex–edge wall at \((M;a)\), with \(d_1=[\mu _a,\mu _M]\) the closing edge of \(\lambda _1\) and \(d_2=[\mu _M,\mu _{a+1}]\) the opening edge of \(\lambda _2\), the <em>half map</em> on roots is </p>
+<div class="displaymath" id="a0000000053">
+  \[  H(g)=\begin{cases} (d_1,d_2),& g=a,\\ (E_g\text{ in }\lambda _1,\  d_2),& g\in \{ M,M+1,\ldots ,a-1\} ,\\ (d_1,\  E_g\text{ in }\lambda _2),& g\in \{ a+1,\ldots ,M-1\} .\end{cases}  \]
+</div>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A-S3">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.11</span>
+    <span class="theorem_thmtitle">flat law for \(A_g\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:A-S3">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000054"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.WallGerm.flat_law_treeCoefficient" class="lean_decl">SM.WallGerm.flat_law_treeCoefficient</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>At a simple flat wall at \(j\) with \(n\geq 4\), for every root \(g\), </p>
+<div class="equation" id="afr:S3">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:S3} A_g(P_{\rm right})-A_g(P_{\rm left}) =A_{D_j(g)}(P(0)\setminus j), \end{equation}
+  </div>
+  <span class="equation_label">22</span>
+</p>
+</div>
+<p> where \(P_{\rm right}\) is the side with \(\tau _j=-1\), and \(D_j\) is the physical deletion map of Definition&#160;<a href="sect0003.html#def:induced-roots">2.10</a>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000054">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Put \(Q=P(0)\setminus j\). Its vertices are a subset of the wall vertices missing the middle occurrence of the sole zero triple. Hence all its distinct-triple determinants are nonzero, so it satisfies (G1), and \(n-1\geq 3\). The flat hypothesis puts the deleted vertex strictly between its neighbors. Let \(P^\pm \) denote the sides on which \(\chi (\mu _{j-1},\mu _j,\mu _{j+1})=\pm 1\), and write \(u=(\mu _{j-1},\mu _j)\), \(v=(\mu _j,\mu _{j+1})\), \(w=(\mu _{j-1},\mu _{j+1})\). The determinant defining this chirotope is \(\det (\widetilde\lambda _{j-1},\widetilde\lambda _j)\), since \(\mu _{j+1}-\mu _{j-1}=\widetilde\lambda _{j-1}+\widetilde\lambda _j\). Thus it is \(\tau _j\), and \(P^-=P_{\rm right}\), \(P^+=P_{\rm left}\). </p>
+<p>Write \(A=\mu _{j-1}\), \(M=\mu _j\), \(B=\mu _{j+1}\). In any root cut the three critical occurrences have a cyclic permutation of the order \(A,M,B\). A cyclic permutation is even, so their reverse-ordered far sign is always \(-\chi (A,M,B)\). Thus the \(\delta \) of <a href="sect0003.html#afr:wall-data" class="eqref">4</a>, for \(P^+\) minus \(P^-\), is \(-1\). </p>
+<p>If \(g\) is neither \(u\) nor \(v\), the cut order is \(A,M,B\), with no root seam between these consecutive edges. Both gaps are singleton leaves, and strict betweenness gives \((\epsilon _L,\epsilon _R)=(1,1)\). Hence \(\mathcal U_L\mathcal U_R=1\). Their span is proper: if both extreme vertices were the root endpoints, the remaining root edge would close a three-vertex polygon, contrary to \(n\geq 4\). Contracting the two-edge span deletes exactly \(M\) and retains \(g\). Formula&#160;<a href="sect0003.html#afr:wall-proper" class="eqref">11</a> gives \(A_g(P^+)-A_g(P^-)=-A_g(Q)\). </p>
+<p>If \(g=u\), the cut order is \(M,B,\ldots ,A\), so the critical span is full. The gap \(L=(M,B)\) is singleton and \((\epsilon _L,\epsilon _R)=(-1,1)\): with \(A=0\), \(B=1\), \(M=t\in (0,1)\), the first ratio has numerator \(1-t{\gt}0\) and denominator \(-t{\lt}0\), and the second has numerator \(-1{\lt}0\). The other gap \(R\) has \(n-2\geq 2\) leaves; its closing root is \(w=(A,B)\) and its closed polygon is \(Q\). Therefore \(\mathcal U_L\mathcal U_R=0\) and \(\mathcal V_L\mathcal V_R=A_w(Q)\). Formula&#160;<a href="sect0003.html#afr:wall-full" class="eqref">12</a> gives the desired negative of \(A_w(Q)\). </p>
+<p>If \(g=v\), the cut order is \(B,\ldots ,A,M\). Now \(L\) is the nontrivial deletion word with closing root \(w\), \(R=(A,M)\) is singleton, and \((\epsilon _L,\epsilon _R)=(1,-1)\). Indeed their numerators are \(-1\) and \(t\) with common denominator \(t-1{\lt}0\). Again \(\mathcal U_L\mathcal U_R=0\) and \(\mathcal V_L\mathcal V_R=A_w(Q)\). These three cases exhaust the physical roots and prove <a href="sect0003.html#afr:S3" class="eqref">22</a> with precisely Definition&#160;<a href="sect0003.html#def:induced-roots">2.10</a>. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A-S4">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.12</span>
+    <span class="theorem_thmtitle">cusp law for \(A_g\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:A-S4">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000055"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.WallGerm.cusp_law_treeCoefficient" class="lean_decl">SM.WallGerm.cusp_law_treeCoefficient</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>At a simple cusp wall at \(j\) with \(n\geq 4\) whose deletion \(Q=P(0)\setminus j\) satisfies (G1), for every root \(g\), </p>
+<div class="equation" id="afr:S4">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:S4} A_g(P_{\rm loop})-A_g(P_{\rm no}) =-\kappa A_{D_j(g)}(Q),\qquad \kappa =\operatorname {rot}(P_{\rm loop})-\operatorname {rot}(P_{\rm no})\in \{ -1,1\} . \end{equation}
+  </div>
+  <span class="equation_label">23</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000055">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Let \(u=(\mu _{j-1},\mu _j)\), \(v=(\mu _j,\mu _{j+1})\) and \(w=(\mu _{j-1},\mu _{j+1})\). These are physical edges; they are not renumbered root slots. The cusp hypothesis places the deleted vertex outside its neighbors’ closed segment. As in the preceding theorem, \(\chi (\mu _{j-1},\mu _j,\mu _{j+1})=\tau _j\) by bilinearity. </p>
+<p>First prove the signed consecutive identity directly, without assuming the betweenness calculation from S3. Write \(A=\mu _{j-1}\), \(M=\mu _j\), \(B=\mu _{j+1}\), and take line coordinates \(A=0\), \(B=1\), \(M=t\), where \(t{\lt}0\) or \(t{\gt}1\). Name sides by \(\chi (A,M,B)=-1,+1\) as in S3. The reverse-ordered far sign again gives \(\delta =-1\) for \(P^+\) minus \(P^-\). For a nonincident root the two gaps are singletons, regardless of their epsilon signs; hence \(\mathcal U_L\mathcal U_R=1\). The proper-span formula gives the signed deletion identity. </p>
+<p>For the incident roots the following full-span table computes all four cases from <a href="sect0003.html#afr:wall-epsilons" class="eqref">5</a>: </p>
+<div class="equation" id="afr:s4-table">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{afr:s4-table} \begin{array}{c|c|c|cc|c} \text{root}& \text{critical cut order}& t&  \epsilon _L& \epsilon _R&  \text{possibly nonzero summand}\\ \hline u& M,B,A& t{\gt}1& 1& 1& \mathcal V_L\mathcal V_R=\mathcal B_R\\ u& M,B,A& t{\lt}0& 1& -1& \mathcal U_L\mathcal U_R=\mathcal B_R\\ v& B,A,M& t{\gt}1& -1& 1& \mathcal U_L\mathcal U_R=\mathcal B_L\\ v& B,A,M& t{\lt}0& 1& 1& \mathcal V_L\mathcal V_R=\mathcal B_L \end{array} \end{equation}
+  </div>
+  <span class="equation_label">24</span>
+</p>
+</div>
+<p> For \(u\), \(L\) is singleton and \(R\) is the deletion word closed by \(w=(A,B)\); the epsilon ratios are \((1-t)/(-t)\) and \((-1)/(-t)\). For \(v\), \(R\) is singleton and \(L\) is that deletion word; the ratios are \((-1)/(t-1)\) and \(t/(t-1)\). These four ratio tests give the table. The other summand contains the nontrivial deletion word’s \(E=0\). Formula&#160;<a href="sect0003.html#afr:wall-full" class="eqref">12</a> therefore gives \(A_g(P^+)-A_g(P^-)=-A_{D_j(g)}(Q)\) in each incident case also. </p>
+<p>For the rotation sign, the principal local turn at \(M\) tends to \(+\pi \) on the positive-chirotope side and to \(-\pi \) on the negative side, since its determinant is \(\det (M-A,B-M)\) and has sign \(\chi (A,M,B)\). Every other local turn is continuous at this sole consecutive degeneration: its consecutive triple is distinct from the critical triple because \(n\geq 4\), and is nonzero at the wall. The edges are nonzero and the two incident directions at \(M\) tend to opposites. Thus the sum of all principal turns on the positive side minus that on the negative side tends to \(2\pi \). By Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>, each punctured-side rotation is an integer constant on its sufficiently small connected regular side. Their difference is therefore its limit, namely \(1\). If the loop side is \(P^+\), then \(\kappa =1\) and the just-proved signed formula is <a href="sect0003.html#afr:S4" class="eqref">23</a>. If it is \(P^-\), then \(\kappa =-1\) and reversing the same formula gives <a href="sect0003.html#afr:S4" class="eqref">23</a>. No root-independence or transport theorem is used. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A-S7">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.13</span>
+    <span class="theorem_thmtitle">vertex–edge law for \(A_g\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:A-S7">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000056"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.WallGerm.vertex_edge_law_treeCoefficient" class="lean_decl">SM.WallGerm.vertex_edge_law_treeCoefficient</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>At a simple vertex–edge wall at \((M;a)\), of bigon or sliding type, let \(s=\chi _{a,a+1,M}(P_-)\) and let \(\lambda _1,\lambda _2\) be the halves in Definition&#160;<a href="sect0002.html#def:deletion-halves">1.28</a>. For every physical root \(g\) with \(H(g)=(h_1,h_2)\) as in Definition&#160;<a href="sect0003.html#def:induced-roots">2.10</a>, </p>
+<div class="equation" id="as7:law">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{as7:law} A_g(P_+)-A_g(P_-)=s A_{h_1}(\lambda _1)A_{h_2}(\lambda _2). \end{equation}
+  </div>
+  <span class="equation_label">25</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000056">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Write \(A=\mu _a(0)\), \(B=\mu _{a+1}(0)\), \(X=\mu _M(0)\), \(d=(A,B)\), \(d_1=(A,X)\) and \(d_2=(X,B)\). The original cyclic order of the three critical vertices is \(A,B,X\). Both original arc words, from \(X\) to \(A\) and from \(B\) to \(X\), have at least two leaves: their closing halves are generic and have at least three vertices by Lemma&#160;<a href="sect0002.html#lem:children">1.29</a>(ii). Each nontrivial closed word below has only nonzero point-triple determinants. Its amplitude at the indicated closing edge is therefore the interval value of Lemma&#160;<a href="sect0003.html#lem:farout">2.8</a>(iii). </p>
+<p>In any root cut, the critical order is a cyclic permutation of \(A,B,X\). Such a permutation is even, whereas the reverse ordering in the far sign is odd. The critical far sign is consequently \(-\chi (A,B,X)\). It equals \(-s\) on \(P_-\) and \(s\) on \(P_+\). The quantity \(\delta \) in <a href="sect0003.html#afr:wall-data" class="eqref">4</a> is therefore \(s\). Choose affine line coordinates \(A=0\), \(B=1\), \(X=t\) with \(0{\lt}t{\lt}1\). </p>
+<p>For \(g=d\), the boundary word begins at \(B\), passes through \(X\), and ends at \(A\). The critical span is full. The two ratios in <a href="sect0003.html#afr:wall-epsilons" class="eqref">5</a> are \((t-1)/(-1){\gt}0\) and \((-t)/(-1){\gt}0\). Both gaps are nontrivial, so both \(\mathcal U\) factors are zero \(\mathcal E\) factors. The \(\mathcal V\) factors are respectively \(A_{d_2}(\lambda _2)\) and \(A_{d_1}(\lambda _1)\). The full-span formula <a href="sect0003.html#afr:wall-full" class="eqref">12</a> gives the desired product. Writing it in the prescribed half order uses commutativity of scalar multiplication; it does not interchange the named halves. </p>
+<p>If \(g\) lies on the original arc from \(X\) to \(A\), the critical cut order is \(A,B,X\). The first gap is the singleton edge \(d\), and the second is the nontrivial arc from \(B\) to \(X\). Its epsilon ratios are \(1/t{\gt}0\) and \((t-1)/t{\lt}0\), so \(\mathcal U_L\mathcal U_R=A_{d_2}(\lambda _2)\). The critical span is proper. Otherwise the physical root would be an edge from \(X\) to \(A\), making that original arc a singleton and its closing half a two-gon, contrary to the arity just established. Contracting the span replaces the arc \(A,B,\ldots ,X\) by \(d_1\). The surviving polygon is exactly \(\lambda _1\) with the same physical root \(g\). Formula&#160;<a href="sect0003.html#afr:wall-proper" class="eqref">11</a> gives \(sA_g(\lambda _1)A_{d_2}(\lambda _2)\). </p>
+<p>If \(g\) lies on the original arc from \(B\) to \(X\), the critical cut order is \(X,A,B\). The first gap is the nontrivial arc from \(X\) to \(A\), and the second is the singleton \(d\). The ratios are \(-t/(1-t){\lt}0\) and \(1/(1-t){\gt}0\). Thus \(\mathcal U_L\mathcal U_R=A_{d_1}(\lambda _1)\). The span is proper, since a full span would make the original \(B\)-to-\(X\) arc a singleton. Contraction replaces \(X,\ldots ,A,B\) by \(d_2\), leaving exactly \(\lambda _2\) at the same physical root. The proper-span formula gives \(sA_{d_1}(\lambda _1)A_g(\lambda _2)\). </p>
+<p>Every original root belongs to exactly one of these three cases. The inherited-arc cases include the edges incident to the named endpoints, so no additional root-seam case remains. No step restricts the side of the contact line occupied by either neighbour of \(X\). Both bigon and sliding branches are therefore covered. The three products are precisely the three rows of the stated half-root map. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A-R3E">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.14</span>
+    <span class="theorem_thmtitle">triple law and silence for \(A_g\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:A-R3E">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000057"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.WallGerm.triple_and_silent_laws_treeCoefficient" class="lean_decl">SM.WallGerm.triple_and_silent_laws_treeCoefficient</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>At a simple triple wall every composition weight, every \(b_{[i,j]}\) and \(A_g\) are identical on the two sides, for every root \(g\). </p>
+</li>
+  <li><p>At a simple exterior-extension wall or a simple pure cut, \(A_g(P_+)=A_g(P_-)\) for every root \(g\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000057">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> For (i), every point-triple determinant has a nonzero central value, so finitely many continuity conditions give a common interval on which all signs read by Definition&#160;<a href="sect0003.html#def:gates">2.2</a> agree across the wall. Every gate and composition weight agrees. Starting with the one-leaf value and inducting on interval length in the open recursion then gives equality of all \(b\)’s. Substituting them in the finite root sum gives equality of \(A_g\). Crossing-visit order is not an input to any of these formulas. </p>
+<p>For an exterior-extension wall, use \(A,B,X,d\) as in the preceding proof, but now \(t{\lt}0\) or \(t{\gt}1\). By the remoteness condition in Definition&#160;<a href="sect0002.html#def:walls">1.24</a>(E), both full original arcs from \(X\) to \(A\) and from \(B\) to \(X\) have at least two leaves. A singleton in either would give a second adjacent pair in the critical triple and would be a consecutive-triple wall instead. Closed nontrivial gap and contracted words have (G1), since they omit at least one member of the sole zero triple. </p>
+<p>If \(g=d\), the critical order is \(B,X,A\), the span is full and both gaps are nontrivial. Their epsilon ratios are \(1-t\) and \(t\). Exactly one is negative. Hence \(\mathcal U_L\mathcal U_R\) and \(\mathcal V_L\mathcal V_R\) each contain a nontrivial \(\mathcal E\) factor, which is zero by Lemma&#160;<a href="sect0003.html#lem:farout">2.8</a>(iii). The full-span formula gives zero jump. If \(g\) lies on the original \(X\)-to-\(A\) arc, the cut order is \(A,B,X\); \(L\) is singleton, \(R\) is nontrivial, and \(\epsilon _R=\operatorname {sgn}((t-1)/t)=1\) for both allowed ranges of \(t\). Thus \(\mathcal U_R=\mathcal E_R=0\). The span is proper, since a full span would make the original \(X\)-to-\(A\) arc a singleton. Formula&#160;<a href="sect0003.html#afr:wall-proper" class="eqref">11</a> gives zero jump. For a root on the other arc, the cut order is \(X,A,B\); \(L\) is nontrivial and \(\epsilon _L=\operatorname {sgn}(-t/(1-t))=1\). The span is proper for the analogous endpoint reason, and \(\mathcal U_L=\mathcal E_L=0\). This exhausts all exterior roots. No assertion here applies to a consecutive cusp or flat wall. </p>
+<p>Finally consider a pure cut. In the fixed root word write its critical positions as \(x{\lt}y{\lt}z\), with \(N=n-1\). Pairwise nonadjacency gives </p>
+<div class="equation" id="as7:pure-gaps">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{as7:pure-gaps} y-x\geq 2,\qquad z-y\geq 2,\qquad N+1+x-z\geq 2. \end{equation}
+  </div>
+  <span class="equation_label">26</span>
+</p>
+</div>
+<p> The first two inequalities make both gaps nontrivial. The third shows that the span cannot be full: full-span extremes would be the two adjacent endpoints of the physical root. At least one epsilon is positive, since the two nonzero line displacements from \(x\) to \(y\) and from \(y\) to \(z\) cannot both have sign opposite to their sum from \(x\) to \(z\). Therefore the source product \(\mathcal U_L\mathcal U_R\) contains a zero \(\mathcal E_L\) or \(\mathcal E_R\). Formula&#160;<a href="sect0003.html#afr:wall-proper" class="eqref">11</a> again gives zero. The argument allows \(x=0\) or \(z=N\) separately, so it includes roots incident to a critical vertex and all six possible line orders. The conclusion concerns the complete root output; no constancy of the original open sums at a silent point-triple wall is asserted. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:soft">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2.15</span>
+    <span class="definition_thmtitle">soft insertion</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:soft">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.softInsertion_definition" class="lean_decl">SM.softInsertion_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(P\) satisfy (G1), fix a vertex index \(j\) and a vector \(q\neq 0\). The <em>soft insertion</em> of \(q\) at \(j\) is the family of \((n+1)\)-gons </p>
+<div class="displaymath" id="a0000000058">
+  \[  P^{(j,q)}_\varepsilon =(\mu _1,\ldots ,\mu _j,\  \mu _j+\varepsilon q,\  \mu _{j+1},\ldots ,\mu _n), \qquad \varepsilon {\gt}0,  \]
+</div>
+<p> with the new vertex \(\mu _*=\mu _j+\varepsilon q\) inserted immediately after \(\mu _j\); its edges are \(\widetilde\lambda _{j-1}\), the <em>soft edge</em> \(\varepsilon q\), and the <em>return edge</em> \(\widetilde\lambda _j-\varepsilon q\), the others unchanged. The <em>attachment signs</em> are </p>
+<div class="displaymath" id="a0000000059">
+  \[  \chi _-=\chi _{*,j,j-1}\bigl(P_\varepsilon \bigr)=-\operatorname {sgn}\det (\widetilde\lambda _{j-1},q),\qquad \chi _+=\chi _{*,j,j+1}\bigl(P_\varepsilon \bigr)=-\operatorname {sgn}\det (q,\widetilde\lambda _j),  \]
+</div>
+<p> the two equalities holding for every \(\varepsilon {\gt}0\) (they are the turns at the two ends of the soft edge, with the sign reversed). The vector \(q\) is <em>admissible</em> if \(\det (\widetilde\lambda _{j-1},q)\neq 0\), \(\det (q,\widetilde\lambda _j)\neq 0\), and \(\det (q,\mu _k-\mu _j)\neq 0\) for all \(k\neq j\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:soft-generic">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.16</span>
+    <span class="lemma_thmtitle">the soft family is generic</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#lem:soft-generic">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000060"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.soft_family_generic" class="lean_decl">SM.soft_family_generic</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P\) be generic, \(j\) a vertex, and \(q\) admissible in Definition&#160;<a href="sect0003.html#def:soft">2.15</a>. Put \(M=\mu _j\), \(A=\mu _{j-1}\), \(B=\mu _{j+1}\), \(u=M-A\), \(v=B-M\), and \(\tau =\tau _j(P)\). Write \(M_\varepsilon =M+\varepsilon q\) and \(D_\varepsilon =v-\varepsilon q\). There is \(\varepsilon _0{\gt}0\) such that, for every \(0{\lt}\varepsilon {\lt}\varepsilon _0\): </p>
+<ol class="enumerate">
+  <li><p>\(P_\varepsilon =P^{(j,q)}_\varepsilon \) is generic, and all these polygons lie in one chamber. The soft edge meets other edges only at its incident endpoints. </p>
+</li>
+  <li><p>Every original vertex other than \(M\) retains its original turn sign. The turns at \(M\) and \(M_\varepsilon \) are \(-\chi _-\) and \(-\chi _+\), respectively. The unchanged edge directions are fixed, \(D_\varepsilon \to v\), and \(\operatorname {sgn}\det (u,D_\varepsilon )=\tau \), while \(\operatorname {sgn}\det (D_\varepsilon ,u)=-\tau \). </p>
+</li>
+  <li><p>Identify each unchanged edge with its parent edge and the return edge with the parent edge \(E_j\). Every parent crossing persists. Its point and its parameters on the corresponding edges converge to the parent values. Inherited visits retain their order along each directed edge, and the determinant sign of the ordered edge directions at each inherited crossing is unchanged. </p>
+</li>
+  <li><p>If \(\chi _-=\chi _+=-\tau \) (same-sign sector), or \(\chi _-\ne \chi _+\) (mixed sector), these are all the crossings and the Gauss word is the parent’s Gauss word. If \(\chi _-=\chi _+=\tau \) (loop sector), there is exactly one additional crossing \(y\), between the return edge and \(E_{j-1}\). It tends to \(M\). Its incoming-edge visit \(a\) and return-edge visit \(b\) bound the oriented traversal arc from \(a\) through \(M,M_\varepsilon \) to \(b\), containing no other crossing visit. Thus the two newborn visits are cyclically adjacent; deleting them gives the parent’s Gauss word. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000060">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Retain the original names of vertices and edges, replacing only \(E_j\) by the soft and return edges. The positive parameter interval may be shortened finitely many times in the argument. </p>
+<p>First establish (G1). Original vertex triples are unchanged. For distinct original indices \(k,l\ne j\), the area determinant for \((M_\varepsilon ,\mu _k,\mu _l)\) tends to the nonzero determinant for \((M,\mu _k,\mu _l)\). For \(k\ne j\), the determinant for \((M_\varepsilon ,M,\mu _k)\) is \(-\varepsilon \det (q,\mu _k-M)\), nonzero by admissibility. These exhaust the new triples. Finiteness gives one interval on which (G1) holds and all signs are constant. </p>
+<p>The soft edge lies within \(\varepsilon |q|\) of \(M\). Every parent segment not incident to \(M\) has positive distance from \(M\), by compactness and (G1) of \(P\). Hence the soft edge misses all such segments for small \(\varepsilon \). It meets the incoming edge only at \(M\), since \(\det (u,q)\ne 0\), and the return edge only at \(M_\varepsilon \), since \(\det (q,D_\varepsilon )=\det (q,v)\ne 0\). The return edge and the unchanged edge following \(B\) meet only at \(B\): their directions tend to the independent directions at the parent corner \(B\). All pairs of unchanged edges retain their parent intersections. </p>
+<p>For each parent edge remote to \(E_j\), compare it with the return edge. A disjoint parent pair has positive compact distance; the return segment converges uniformly at each affine parameter to \(E_j\), so that distance remains positive. No independence of the directions is required for a disjoint pair. For a crossing parent pair, the directions have nonzero determinant and both intersection parameters lie in \((0,1)\). The intersection equations form an invertible two-by-two linear system. Its coefficients converge to the parent coefficients and its determinant remains nonzero, so its inverse varies continuously. The two parameters converge to the parent values and stay in \((0,1)\); the point converges as well, and the ordered direction determinant keeps its sign. </p>
+<p>These are all return-edge pairs except the incoming edge \(E_{j-1}\). Put \(T=\det (u,v)\), of sign \(\tau \). The return edge meets \(E_{j-1}\) precisely when each supporting line strictly separates the endpoints of the other segment; the directions are independent since \(\det (u,D_\varepsilon )\to T\ne 0\). For the incoming line the signed heights are </p>
+<div class="equation" id="eq:soft-first-straddle">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:soft-first-straddle} \det (u,M_\varepsilon -A)=\varepsilon \det (u,q),\qquad \det (u,B-A)=T. \end{equation}
+  </div>
+  <span class="equation_label">27</span>
+</p>
+</div>
+<p> They are opposite exactly when \(\chi _-=\tau \). For the return line based at \(M_\varepsilon \), the height of \(M\) is </p>
+<div class="equation" id="eq:soft-second-straddle">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:soft-second-straddle} \det (D_\varepsilon ,M-M_\varepsilon ) =\varepsilon \det (q,v). \end{equation}
+  </div>
+  <span class="equation_label">28</span>
+</p>
+</div>
+<p> The height of \(A\) tends to \(\det (v,-u)=T\ne 0\), so has sign \(\tau \) throughout a sufficiently small interval. This pair of heights is opposite exactly when \(\chi _+=\tau \). Both tests are required: their conjunction is exactly the loop sector. There is no intersection of this pair in the other two sectors. In the loop sector its supporting-line equations remain invertible as \(\varepsilon \to 0\). At zero the unique intersection is \(M\), with incoming parameter one and return parameter zero. Thus \(y\to M\), and these two parameters tend to one and zero. </p>
+<p>All parent crossing points are away from \(M\), since (G1) excludes a vertex on a nonincident edge, and they are pairwise distinct by (G2). The finitely many inherited points therefore remain pairwise distinct and away from \(M\). The newborn, when present, stays distinct from them after another shrink. Every possible crossing has been enumerated. A concurrence of three distinct edge interiors would involve pairwise remote edges, since (G1) makes distinct adjacent interiors disjoint. It would identify the points of two distinct unordered crossing pairs, which was excluded. Hence (G2) holds. The connected parameter interval now maps continuously into the labelled generic locus, so its image lies in one labelled chamber and hence one polygon chamber. This proves (i). </p>
+<p>The turn determinants at \(M\) and \(M_\varepsilon \) are \(\varepsilon \det (u,q)\) and \(\varepsilon \det (q,D_\varepsilon )=\varepsilon \det (q,v)\); Definition&#160;<a href="sect0003.html#def:soft">2.15</a> gives their signs \(-\chi _-\) and \(-\chi _+\). At \(B\), the incoming direction tends to \(v\) and the outgoing one is unchanged, so the old nonzero turn sign persists. Every other old vertex except \(M\) has unchanged incident directions. Finally \(\det (u,D_\varepsilon )\to T\) gives sign \(\tau \), and antisymmetry gives \(-\tau \) for the opposite ordered pair. This proves (ii). </p>
+<p>Distinct parent crossing parameters on each edge have positive pairwise separations and positive distances from zero and one. Their convergence preserves their order on the corresponding edges, including every edge whose crossing points move. This proves (iii). Without a newborn, concatenating these edgewise visit lists recovers the parent’s cyclic Gauss word. With a newborn, its incoming visit is after all inherited visits on the incoming edge, and its return visit is before all inherited visits on the return edge. The intervening soft edge has no crossing. Thus the arc from \(a\) through \(M,M_\varepsilon \) to \(b\) has no other crossing visit. Deleting \(a,b\) leaves exactly the inherited lists, proving (iv). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A-soft">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">2.17</span>
+    <span class="theorem_thmtitle">soft theorem for \(A_g\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#thm:A-soft">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000061"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.SoftDuplication.soft_theorem_treeCoefficient" class="lean_decl">SM.SoftDuplication.soft_theorem_treeCoefficient</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Let \(P\) be generic, \(q\) admissible, and \(\varepsilon _0\) as in Lemma&#160;<a href="sect0003.html#lem:soft-generic">2.16</a>. For every root \(g\) of \(P_\varepsilon \) other than the soft edge, with \(g'\) the corresponding root of \(P\) (the return edge corresponds to \(E_j\)), there is \(\varepsilon _1\in (0,\varepsilon _0]\) with </p>
+<div class="equation" id="aspr:soft-law">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:soft-law} A_g(P_\varepsilon )=\frac{\chi _-+\chi _+}{2}A_{g'}(P) \qquad (0{\lt}\varepsilon {\lt}\varepsilon _1). \end{equation}
+  </div>
+  <span class="equation_label">29</span>
+</p>
+</div>
+<p> Equivalently, in the same-sign, mixed and loop sectors the multipliers are \(-\tau _j(P)\), \(0\) and \(\tau _j(P)\), respectively. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000061">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>We prove the finite duplication identity used below, including its two boundary cases. This proof uses the definitions of the boundary word, gates, open sums and soft insertion. It does not use a wall law or root independence. All formal arrays in the next two paragraphs are over \(\mathbb Q\); their near entries need not be geometric signs. </p>
+<p><em>Finite transforms and freedom to choose a near array.</em> For a linearly ordered list with boundary positions \(0,\ldots ,L\), define </p>
+<div class="equation" id="aspr:Phi">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:Phi} \Phi _{D,H}(X)_{ij}= \sum _{\pi =(i=r_0{\lt}\cdots {\lt}r_s=j)} \prod _{k=1}^{s-1} \frac{D(r_{k-1},r_k,r_{k+1})-H(i,r_k,j)}2 \prod _{k=1}^sX_{r_{k-1},r_k}. \end{equation}
+  </div>
+  <span class="equation_label">30</span>
+</p>
+</div>
+<p> Put \(F_H=\Phi _{0,H}\), \(G_D=\Phi _{D,0}\), and let \(E_{ij}\) be \(1\) when \(j=i+1\) and \(0\) otherwise. The one-part composition contributes \(X_{ij}\); every other term uses only shorter intervals. Thus one solves \(\Phi _{D,H}(X)=Y\) uniquely in increasing interval length, by subtracting the already determined nonunary terms from \(Y_{ij}\). This gives a polynomial inverse on the finite array space. The constructed solution map is a right inverse; uniqueness applied to the target \(\Phi _{D,H}(X)\) makes it a left inverse too. </p>
+<p>The following factorization holds for arbitrary near and far arrays: </p>
+<div class="equation" id="aspr:factorization">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:factorization} \Phi _{D,H}=F_H\circ G_D. \end{equation}
+  </div>
+  <span class="equation_label">31</span>
+</p>
+</div>
+<p> Indeed, expand the right side using an outer composition of \([i,j]\) and an inner composition of each outer part. Their ordered union is a refined composition \(\rho \), together with a subset of its interior cuts marked as outer cuts. Conversely, that subset recovers the outer composition, and restricting \(\rho \) to each part recovers the inner compositions. These operations are inverse, including empty or full outer-cut subsets and one-part inner or outer compositions. At an outer cut \(r_k\) the factor is \(-H(i,r_k,j)/2\). At a nonouter cut its immediate neighbors in \(\rho \) are exactly its neighbors inside its inner part, so the factor is \(D(r_{k-1},r_k,r_{k+1})/2\). Each interior cut supplies one factor, and the child-interval product is the refined product. Summing independently over the outer-cut subset gives the product of their sums, which is <a href="sect0003.html#aspr:Phi" class="eqref">30</a>. </p>
+<p>Write \(b=\Phi _{D,H}^{-1}(E)\) and \(c=F_H^{-1}(E)\). Applying <a href="sect0003.html#aspr:factorization" class="eqref">31</a> to the equation for \(b\) gives \(F_H(G_D(b))=E\); uniqueness gives \(G_D(b)=c\). Applying the same factorization with \(-H\) then gives </p>
+<div class="equation" id="aspr:near-free">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:near-free} \Phi _{D,-H}(b)=F_{-H}(c). \end{equation}
+  </div>
+  <span class="equation_label">32</span>
+</p>
+</div>
+<p> Thus the complete root transform is independent of \(D\) with \(H\) fixed. For geometric arrays \(D(x,y,z)=H(x,y,z)=\chi (a_z,a_y,a_x)\), the elementary gate identities \(d\Theta (-hd)=(d-h)/2\) and \(d\Theta (hd)=(d+h)/2\) show that \(\Phi _{D,H}(b)=E\) is exactly the open-sum recursion, and its full \(\Phi _{D,-H}(b)\) coordinate is \(A_g\), including the one-part root term. The freedom in <a href="sect0003.html#aspr:near-free" class="eqref">32</a> concerns the complete transform; it asserts no equality of individual auxiliary and geometric open sums. </p>
+<p><em>The formal duplication problem.</em> Take a core ordered list \(z_0,\ldots ,z_M\), \(M\geq 2\), and distinguish \(A=z_s\), where \(0\leq s\leq M\). Insert a new occurrence \(B\) immediately after \(A\). The collapse \(r\) sends \(B\) to \(A\) and fixes the other occurrences. Let \(H^0\) be any core far array of signs, and let \(t(X)\in \{ -1,1\} \) be arbitrary for each core occurrence \(X\ne A\). Assume the parent far array \(H^1\) has the following entries, where order relations refer to positions in the linear lists: </p>
+<div class="equation" id="aspr:far-data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:far-data} \begin{array}{ll} H^1\text{ on a triple not containing both }A,B & \text{is the pullback of }H^0,\\ H^1(X,A,B)=t(X)& (X{\lt}A),\\ H^1(A,B,Y)=t(Y)& (B{\lt}Y). \end{array} \end{equation}
+  </div>
+  <span class="equation_label">33</span>
+</p>
+</div>
+<p> Only the neighbors in the next display are read cyclically in the core: </p>
+<div class="equation" id="aspr:neighbor-data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:neighbor-data} \eta _-=t(z_{s-1\bmod (M+1)}),\qquad \eta _+=t(z_{s+1\bmod (M+1)}),\qquad k=\frac{\eta _-+\eta _+}{2}. \end{equation}
+  </div>
+  <span class="equation_label">34</span>
+</p>
+</div>
+<p> We will prove that the full parent root output is \(k\) times the core one. </p>
+<p>Choose auxiliary near arrays as follows. On core triples with middle occurrence \(A\), set \(D^0(X,A,Y)=t(X)\); on other core triples set \(D^0=0\). On parent triples not containing both \(A,B\), pull back \(D^0\), and set </p>
+<div class="equation" id="aspr:near-data">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:near-data} D^1(X,A,B)=t(X)\  (X{\lt}A),\qquad D^1(A,B,Y)=t(Y)\  (B{\lt}Y). \end{equation}
+  </div>
+  <span class="equation_label">35</span>
+</p>
+</div>
+<p> These are formal arrays, not a claimed chirotope. Keep the far arrays fixed. Let \(b^0=\Phi _{D^0,H^0}^{-1}(E^0)\), and propose the following parent ordinary array: </p>
+<div class="equation" id="aspr:ordinary-table">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:ordinary-table} \begin{array}{c|c} \text{parent interval }I& b^1_I\\ \hline I\text{ not containing both }A,B& b^0_{r(I)}\\ {[A,B]}& 1\\ {[A,Y]},\  B{\lt}Y& \dfrac {\eta _+-t(Y)}2\, b^0_{[A,Y]}\\ {[X,B]},\  X{\lt}A& \dfrac {\eta _--t(X)}2\, b^0_{[X,A]}\\ {[X,Y]},\  X{\lt}A{\lt}B{\lt}Y& k\, b^0_{[X,Y]} \end{array} \end{equation}
+  </div>
+  <span class="equation_label">36</span>
+</p>
+</div>
+<p> Consecutiveness of \(A,B\) makes these cases exhaustive. Apart from the explicit singleton \([A,B]\), the collapsed endpoints are distinct. We verify \(\Phi _{D^1,H^1}(b^1)=E^1\) on every interval before identifying \(b^1\) with the actual auxiliary ordinary solution. </p>
+<p><em>Intervals without the duplicate and the singleton.</em> On an interval not containing both occurrences, collapse is an order-preserving bijection on vertices, compositions, gates and child intervals. Thus its transform is the corresponding core \(E^0\) entry, which equals its parent \(E^1\) entry. On \([A,B]\) the sole composition has one part and value \(1\), as required. </p>
+<p><em>Intervals starting at \(A\).</em> Fix \([A,Y]\) with \(B{\lt}Y\). For a core composition of \([A,Y]\), write \(X\) for its first boundary after \(A\). There are exactly two parent presentations. Without a cut at \(B\), its first child contains \(A,B\) and has multiplier \((\eta _+-t(X))/2\). With a cut at \(B\), the first child is the singleton \([A,B]\), and the rest is the core composition with its first endpoint renamed \(B\). Its new gate at \(B\) has near entry \(t(X)\) and far entry \(t(Y)\). Removing the cut at \(B\), when present, recovers the core composition; its presence distinguishes the two inverse expansions. All other children agree, the neighboring near gate pulls \(B\) back to \(A\), and all other far entries are the stipulated pullbacks. The sum of the two local multipliers is, for an ordinary top vertex, </p>
+<div class="equation" id="aspr:first-ordinary">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:first-ordinary} \frac{\eta _+-t(X)}2+\frac{t(X)-t(Y)}2 =\frac{\eta _+-t(Y)}2, \end{equation}
+  </div>
+  <span class="equation_label">37</span>
+</p>
+</div>
+<p> and for a root top vertex it is </p>
+<div class="equation" id="aspr:first-root">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:first-root} \frac{\eta _+-t(X)}2+\frac{t(X)+t(Y)}2 =\frac{\eta _++t(Y)}2. \end{equation}
+  </div>
+  <span class="equation_label">38</span>
+</p>
+</div>
+<p> In each case \(t(X)\) cancels, leaving a composition-independent multiplier of the corresponding core transform. The ordinary transform vanishes when the core has at least two leaves, since its \(E^0\) entry is zero. When the core has one leaf, \(Y\) is the actual successor of \(A\), so \(t(Y)=\eta _+\) and the ordinary multiplier itself vanishes. Thus every such parent ordinary coordinate has its required zero value, including the two-leaf parent interval. </p>
+<p><em>Intervals ending at \(B\).</em> Fix \([X,B]\) with \(X{\lt}A\). In a core composition of \([X,A]\), let \(Y\) be the last boundary before \(A\). Without a cut at \(A\) the last child contains the soft edge and has multiplier \((\eta _--t(Y))/2\). With that cut it ends in the singleton \([A,B]\); the new gate has near entry \(t(Y)\) and far entry \(t(X)\). Remove the cut \(A\) when present and rename the endpoint \(B\) as \(A\) to recover the core list. The cut’s presence distinguishes the two expansions. The neighboring near gate pulls \(B\) back to \(A\) and all other factors agree. Consequently the ordinary and root multipliers are, respectively, </p>
+<div class="equation" id="aspr:last-ordinary">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:last-ordinary} \frac{\eta _--t(Y)}2+\frac{t(Y)-t(X)}2 =\frac{\eta _--t(X)}2, \end{equation}
+  </div>
+  <span class="equation_label">39</span>
+</p>
+</div>
+<div class="equation" id="aspr:last-root">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:last-root} \frac{\eta _--t(Y)}2+\frac{t(Y)+t(X)}2 =\frac{\eta _-+t(X)}2. \end{equation}
+  </div>
+  <span class="equation_label">40</span>
+</p>
+</div>
+<p> For a core interval with at least two leaves its ordinary transform is zero. For one leaf, \(X\) is the actual predecessor of \(A\), so \(t(X)=\eta _-\) and the multiplier is zero. This checks the other two-leaf parent boundary as well. </p>
+<p><em>Intervals strictly spanning \(A,B\).</em> Fix \([X,Y]\) with \(X{\lt}A{\lt}B{\lt}Y\). Collapse every parent cut list, retaining only one copy when both \(A,B\) are cuts. If the resulting core composition does not cut at \(A\), it has exactly one child spanning \(A\). It has exactly one parent presentation, with neither \(A\) nor \(B\) a cut; that child strictly spans the duplicate and has multiplier \(k\). All top gates pull back unchanged. This includes the one-part composition: the proposed leading \(b^1\) coordinate is being checked, not assumed to satisfy a recurrence. </p>
+<p>If the core composition cuts at \(A\), let \(L,R\) be its neighboring cuts and put \(a=t(L)\), \(b=t(R)\) and \(h=H^0(X,A,Y)\). Its core near entry at \(A\) is \(a\). There are precisely three parent presentations: </p>
+<div class="equation" id="aspr:three-presentations">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:three-presentations} \begin{array}{c|c} \text{cuts among }A,B& \text{exceptional child multiplier}\\ \hline B\text{ only}& (\eta _--a)/2\\ A\text{ only}& (\eta _+-b)/2\\ A\text{ and }B& 1\quad ([A,B]\text{ is a singleton}) \end{array} \end{equation}
+  </div>
+  <span class="equation_label">41</span>
+</p>
+</div>
+<p> Collapse recovers the core composition, while its subset of cuts among \(A,B\) recovers the row; expanding according to each row is the inverse. The fourth subset, neither cut, gives the preceding no-core-cut case and cannot occur here. The neighboring gate at \(L\) has right neighbor \(A\) or \(B\), both pulling back to \(A\); the neighboring gate at \(R\) has the analogous left neighbor. Their near entries are unchanged. The far entries at \(A\) and \(B\) both pull back to \(h\), and all exterior gates and remaining child factors agree with the core. </p>
+<p>For an ordinary top, either one-cut row has the core gate \((a-h)/2\); the two-cut row replaces it by \((a-h)(b-h)/4\). The two one-cut child multipliers sum to \(k-(a+b)/2\). After subtracting \(k\) times the core gate, the residual is therefore </p>
+<div class="equation" id="aspr:ordinary-residual">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:ordinary-residual} R_{\rm o}=-\frac{a+b}{2}\frac{a-h}{2} +\frac{(a-h)(b-h)}4. \end{equation}
+  </div>
+  <span class="equation_label">42</span>
+</p>
+</div>
+<p> Factoring \((a-h)/4\) leaves \(-(a+b)+(b-h)=-a-h\), so </p>
+<div class="equation" id="aspr:ordinary-factor">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:ordinary-factor} R_{\rm o}=\frac{(a-h)(-a-h)}4=\frac{h^2-a^2}{4}=0. \end{equation}
+  </div>
+  <span class="equation_label">43</span>
+</p>
+</div>
+<p> The last equality uses exactly \(a,h\in \{ -1,1\} \). For a root top the corresponding residual is </p>
+<div class="equation" id="aspr:root-residual">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:root-residual} R_{\rm r}=-\frac{a+b}{2}\frac{a+h}{2} +\frac{(a+h)(b+h)}4. \end{equation}
+  </div>
+  <span class="equation_label">44</span>
+</p>
+</div>
+<p> Factoring \((a+h)/4\) leaves \(-(a+b)+(b+h)=-a+h\), so </p>
+<div class="equation" id="aspr:root-factor">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:root-factor} R_{\rm r}=\frac{(a+h)(-a+h)}4=\frac{h^2-a^2}{4}=0. \end{equation}
+  </div>
+  <span class="equation_label">45</span>
+</p>
+</div>
+<p> Thus both transforms equal \(k\) times their respective core transforms on every strictly spanning interval. Such a core interval has at least two leaves, so its ordinary \(E^0\) entry is zero. No relation among different remote values of \(t\) was used. </p>
+<p>All interval cases have now verified \(\Phi _{D^1,H^1}(b^1)=E^1\). Finite triangular uniqueness proved above identifies <a href="sect0003.html#aspr:ordinary-table" class="eqref">36</a> with the actual auxiliary ordinary solution. The root transforms already checked therefore compute the actual auxiliary root outputs. We did not assume that any auxiliary binary open sum vanishes. </p>
+<p>For the full interval, if \(0{\lt}s{\lt}M\) the strictly spanning multiplier is \(k\). If \(s=0\), the final endpoint \(Y=z_M\) is the cyclic predecessor of \(A\), so \(t(Y)=\eta _-\) and <a href="sect0003.html#aspr:first-root" class="eqref">38</a> gives \(k\). If \(s=M\), the initial endpoint \(X=z_0\) is the cyclic successor of \(A\), so \(t(X)=\eta _+\) and <a href="sect0003.html#aspr:last-root" class="eqref">40</a> gives \(k\). These are all positions. Finally <a href="sect0003.html#aspr:near-free" class="eqref">32</a>, applied separately to the parent and core, restores their geometric near arrays without changing their complete root outputs. This proves the formal duplication identity. </p>
+<p><em>Specialization to the soft polygon.</em> Write \(A=\mu _j\) and \(B=A+\varepsilon q\), and let the parent have \(n+1\) vertices, so the fixed core \(P\) has \(n\geq 3\) vertices. Every parent determinant not containing both \(A,B\) either is a core determinant or replaces \(A\) by \(A+\varepsilon q\) in one. For example, bilinearity gives </p>
+<div class="equation" id="aspr:det-clearance">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:det-clearance} \det (X-A-\varepsilon q,Y-A-\varepsilon q) =\det (X-A,Y-A)-\varepsilon \det (q,Y-X). \end{equation}
+  </div>
+  <span class="equation_label">46</span>
+</p>
+</div>
+<p> The potential quadratic term vanishes because \(\det (q,q)=0\); alternation gives the same bound when \(A\) is in another position. The core has finitely many nonzero distinct-triple determinants, so their absolute values have a positive minimum \(\delta \). The finitely many coefficients \(\det (q,Y-X)\) have a finite maximum absolute value \(K\). Choose a common positive tail with \(\varepsilon K{\lt}\delta \) when \(K{\gt}0\); if \(K=0\), no restriction is needed. On this tail every such parent sign equals its pulled-back core sign. All core edges have a positive minimum length; shrinking further if necessary also keeps the return edge \(\widetilde\lambda _j-\varepsilon q\) nonzero. Take this tail inside \((0,\varepsilon _0)\). </p>
+<p>For every other core vertex \(X\), set </p>
+<div class="equation" id="aspr:geometric-t">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:geometric-t} t(X)=\chi (B,A,X)=-\operatorname {sgn}\det (q,X-A). \end{equation}
+  </div>
+  <span class="equation_label">47</span>
+</p>
+</div>
+<p> Indeed \(A-B=-\varepsilon q\) and \(X-B=X-A-\varepsilon q\), so their determinant is \(-\varepsilon \det (q,X-A)\). Admissibility makes it nonzero. For a boundary triple \((X,A,B)\) the far entry is \(t(X)\); for \((A,B,Y)\) it is \(\chi (Y,B,A)=\chi (B,A,Y)=t(Y)\) by a cyclic permutation. Together with the common-tail calculation, these are exactly <a href="sect0003.html#aspr:far-data" class="eqref">33</a>. </p>
+<p>The two cyclic neighboring values are the stated attachments. Writing \(u=\mu _j-\mu _{j-1}\) and \(v=\mu _{j+1}-\mu _j\), the predecessor gives </p>
+<div class="equation" id="aspr:attachment-minus">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:attachment-minus} t(\mu _{j-1})=-\operatorname {sgn}\det (q,-u) =-\operatorname {sgn}\det (u,q)=\chi _-; \end{equation}
+  </div>
+  <span class="equation_label">48</span>
+</p>
+</div>
+<p> the equality follows from bilinearity and antisymmetry. The successor gives directly </p>
+<div class="equation" id="aspr:attachment-plus">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{aspr:attachment-plus} t(\mu _{j+1})=-\operatorname {sgn}\det (q,v)=\chi _+. \end{equation}
+  </div>
+  <span class="equation_label">49</span>
+</p>
+</div>
+<p>Cut the boundary word immediately after the specified nonsoft root. The occurrences \(A,B\) are consecutive in this linear word. If the root is the incoming edge ending at \(A\), the word is soft-first (\(s=0\)). If it is the return edge starting at \(B\), the word is soft-last (\(s=M\)). Every other nonsoft root gives the strictly spanning case. Here the core word has \(M=n-1\geq 2\), so the formal result applies even to a triangle core; no two-gon amplitude is invoked. Collapse of \(B\) to \(A\) retains each other root’s physical endpoints, except that the return edge becomes the core edge \(E_j=[\mu _j,\mu _{j+1}]\). Thus the collapsed word is exactly the boundary word of \((P,g')\), including cyclic wraparound. The soft root itself would put \(A,B\) at opposite ends of the cut word and has been excluded throughout. </p>
+<p>The duplication identity now gives <a href="sect0003.html#aspr:soft-law" class="eqref">29</a> with \(k=(\chi _-+\chi _+)/2\). Evaluating this expression on the three attachment-sign patterns gives the sector multipliers in the statement. Neither the crossing classification of the soft family nor a rotation formula for it was needed in this calculation. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:A-reversal">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">2.18</span>
+    <span class="proposition_thmtitle">reversal and cyclic shift</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#prop:A-reversal">#</a>
+    
+    <a class="icon proof" href="sect0003.html#a0000000062"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.treeCoefficient_reversal_shift_law" class="lean_decl">SM.treeCoefficient_reversal_shift_law</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>For every polygon satisfying (G1) and every root \(g\): </p>
+<ol class="enumerate">
+  <li><p>\(A_g(\sigma P)=A_{g+1}(P)\). </p>
+</li>
+  <li><p>With \(\overline P_i=\mu _{2-i}\) and \(g^\vee =1-g\), </p>
+<div class="equation" id="arpr:reversal">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{arpr:reversal} A_{g^\vee }(\overline P)=(-1)^nA_g(P). \end{equation}
+  </div>
+  <span class="equation_label">50</span>
+</p>
+</div>
+</li>
+</ol>
+<p> All vertex and edge indices in this statement are read modulo \(n\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000062">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> The relabellings preserve (G1), because they permute distinct vertex triples. Put \(N=n-1\). For the shift, the boundary vertex at position \(k\) of \((\sigma P,g)\) is \(\mu _{g+2+k}\), which is precisely position \(k\) of \((P,g+1)\). Every interval composition, near sign and far sign is therefore identical. Induction on interval length in the open-sum recursion gives equality of all open sums, and the complete root sums agree, proving (i). </p>
+<p>For reversal, edge \(g^\vee \) runs from \(\mu _{2-g^\vee }=\mu _{g+1}\) to \(\mu _{1-g^\vee }=\mu _g\), the reverse of the original physical root. If \(a_k=\mu _{g+1+k}\) is the original boundary word and \(a'_k\) the word at this reversed root, then </p>
+<div class="equation" id="arpr:boundary">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{arpr:boundary} a'_k=\overline\mu _{g^\vee +1+k} =\mu _{1-g^\vee -k}=\mu _{g-k}=a_{N-k} \qquad (0\leq k\leq N). \end{equation}
+  </div>
+  <span class="equation_label">51</span>
+</p>
+</div>
+<p> In the last equality the indices differ by \(n\). </p>
+<p>Use the tree expression of Lemma&#160;<a href="sect0003.html#lem:treesum-trees">2.5</a>. Reflect the order of the children at every internal vertex of a rooted plane tree, and relabel boundary positions by \(k\mapsto N-k\). This is an involution on the tree set: the root is still allowed one or more children, ordinary vertices still have at least two, and leaf order is exactly the reversed boundary order. A composition \((r_0{\lt}\cdots {\lt}r_s)\) becomes \((N-r_s{\lt}\cdots {\lt}N-r_0)\) on the reflected interval. At corresponding cuts its ordered near triple reverses its first and last entries; the same is true of its ordered far triple. Thus \(d'=-d\) and \(h'=-h\). The product \(h'd'=hd\), so either gate retains its step-function argument and acquires precisely one minus sign: </p>
+<div class="equation" id="arpr:gate">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{arpr:gate} d'\Theta (\mp h'd')=-d\Theta (\mp hd). \end{equation}
+  </div>
+  <span class="equation_label">52</span>
+</p>
+</div>
+<p> This holds for both ordinary and root gates, including zero factors. The separate factor \((-1)\) for each ordinary internal vertex is unchanged by the involution. </p>
+<p>If the tree has \(I\) internal vertices and \(N\) leaves, its number of child edges is \(I+N-1\). The sum of the arities over internal vertices counts each child edge once. A vertex of arity \(s\) contributes \(s-1\) gates, so the total number of gates is </p>
+<div class="equation" id="arpr:gate-count">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{arpr:gate-count} \sum _{v\text{ internal}}(s_v-1) =(I+N-1)-I=N-1=n-2. \end{equation}
+  </div>
+  <span class="equation_label">53</span>
+</p>
+</div>
+<p> A unary root contributes zero to this count, so its allowed presence creates no exception. Every corresponding tree term therefore differs by \((-1)^{n-2}=(-1)^n\). Summing over the involution gives <a href="sect0003.html#arpr:reversal" class="eqref">50</a>. For \(n=3\) the same count is one; no exceptional base convention is required. Neither part proves or assumes root independence on a fixed polygon. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0002.html" title="Polygons, chirotopes, chambers and walls"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0004.html" title="The corner state sum \(C\)"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

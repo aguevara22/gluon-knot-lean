@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The corner state sum \(C\)</title>
+<link rel="next" href="sect0005.html" title="Link diagrams and the HOMFLY-PT interface" />
+<link rel="prev" href="sect0003.html" title="The tree coefficient A" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000005">3 The corner state sum \(C\)</h1>
+<p> Chapter 3 of the source: decompositions, carriers, positive lifts and the definition of \(C\). </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:decomposition">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.1</span>
+    <span class="definition_thmtitle">decomposition</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:decomposition">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#def:interlace">Definition 1.12</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.decomposition_definition" class="lean_decl">SM.decomposition_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> A <em>decomposition</em> of \(P\) is an independent set \(S\in \operatorname {Ind}(G_P)\) of crossings (Definition&#160;<a href="sect0002.html#def:interlace">1.12</a>): no two crossings of \(S\) interlace. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:smoothing">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.2</span>
+    <span class="definition_thmtitle">oriented smoothing and subpolygons</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:smoothing">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.smoothing_definition" class="lean_decl">SM.smoothing_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(S\in \operatorname {Ind}(G_P)\). Cutting the traversal circle \(\Gamma (P)\) at the two visits of each \(x\in S\) and reconnecting the arc arriving at one visit of \(x\) to the arc leaving the other visit of \(x\) (for both visits) partitions \(\Gamma (P)\) into closed cycles; the <em>subpolygons</em> (or <em>carriers</em>) of \(S\) are the closed polygonal curves in \(\mathbb R^2\) traced by these cycles. Each subpolygon \(Q\) is a closed polygon whose corners are the vertices of \(P\) it passes through and the crossing points of \(S\) it turns at (its <em>smoothing corners</em>); at a smoothing corner between \(E_i\) and \(E_j\) it arrives along one of \(\widetilde\lambda _i,\widetilde\lambda _j\) and leaves along the other. The <em>crossings of \(Q\)</em> are the crossings \(x\in X(P)\setminus S\) both of whose visits lie on \(Q\); their number is \(m_Q\). A crossing in \(N(S)\) has its two visits on different subpolygons and is a crossing of no subpolygon. </p>
+
+  </div>
+</div>
+<div class="convention_thmwrapper theorem-style-definition" id="conv:selected-visits">
+  <div class="convention_thmheading">
+    <span class="convention_thmcaption">
+    Convention
+    </span>
+    <span class="convention_thmlabel">3.3</span>
+    <span class="convention_thmtitle">ownership of a selected visit</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#conv:selected-visits">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.selected_visits_convention" class="lean_decl">SM.selected_visits_convention</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="convention_thmcontent">
+  <p>At a selected crossing with traversal visits \(a,b\), reconnect the incoming arc at \(a\) to the outgoing arc at \(b\), and the incoming arc at \(b\) to the outgoing arc at \(a\). Assign the original visit \(a\) to the resulting cycle containing the incoming one-sided arc at \(a\); assign \(b\) by the analogous rule. Unselected visits retain their ordinary traversal ownership. Thus a selected visit is assigned to one abstract carrier, even though the two carriers through that smoothing site have the same point of the plane in their polygonal images. This is the <em>incoming-visit convention</em>. It specifies endpoint ownership only; the geometric reconnection is unchanged. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:carriers">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.4</span>
+    <span class="lemma_thmtitle">subpolygons and their visit assignment</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:carriers">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000063"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.carriers_lemma" class="lean_decl">SM.carriers_lemma</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>Let \(P=(\mu _1,\ldots ,\mu _n)\), \(n\geq 3\), be a generic polygon: for every three distinct indices the vertex determinant is nonzero, and no three edge interiors concur. Use one-based cyclic indices, directed edges \(E_i=[\mu _i,\mu _{i+1}]\), directions \(d_i=\mu _{i+1}-\mu _i\), and turns \(\tau _i=\operatorname {sgn}\det (d_{i-1},d_i)\). Let \(X(P)\) be its set of transverse crossings of remote edges. The traversal circle has two visits for each crossing, in the order of the oriented traversal. Crossings interlace when their two pairs of visits alternate on that circle. Let \(S\subseteq X(P)\) be independent: no two elements of \(S\) interlace. Perform the above oriented reconnections, tracing the resulting cycles by inherited straight subsegments, with corners at original vertices and selected smoothing sites. Call these polygonal cycles the carriers, and use the incoming-visit convention. Then: </p>
+<ol class="enumerate">
+  <li><p>There are exactly \(|S|+1\) carriers, independent of the order of reconnections. Each carrier traverses the visits assigned to it in their cyclic order inherited from the original traversal circle. The two visits of a selected crossing belong to different carriers. </p>
+</li>
+  <li><p>Every carrier has nonzero edges, at least three corners, and no antiparallel consecutive directions. All its corner turns are nonzero. At an original vertex \(i\) the turn sign is \(\tau _i\). At a selected crossing of \(E_i,E_j\), the two smoothing corners have signs \(\operatorname {sgn}\det (d_i,d_j)\) and \(\operatorname {sgn}\det (d_j,d_i)\), one left and one right. </p>
+</li>
+  <li><p>A carrier’s self-intersections are exactly the unselected crossings both of whose visits are assigned to it. They are transverse, none is a corner, and no carrier has a triple point. An unselected crossing interlacing some element of \(S\) has its visits on different carriers; an unselected crossing interlacing no element of \(S\) has both visits on one carrier. </p>
+</li>
+  <li><p>The assignment of <em>all</em> crossing visits is noncrossing. There are no four distinct visits \(u_1\), \(u_2\), \(u_3\), \(u_4\) in that cyclic order with \(u_1,u_3\) on one carrier and \(u_2,u_4\) on a different carrier. This includes selected visits under the stated convention. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000063">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p><em>Finite successor model.</em> Mark the traversal circle at every original vertex and every crossing visit. This is a nonempty finite cyclic list, even if there are no crossings. Each consecutive pair bounds an oriented straight subsegment. Write \(\rho \) for the successor permutation of the list. At the two distinct marked visits \(a,b\) of a selected crossing, replace the two arrows by </p>
+<div class="equation" id="carrierpr:successors">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{carrierpr:successors} \rho _S(a)=\rho (b),\qquad \rho _S(b)=\rho (a). \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+<p> At an unselected marked point keep its outgoing arrow. Selected crossings have disjoint pairs of marked visits. Thus these swaps operate on disjoint outgoing slots, commute, and give a permutation \(\rho _S\) independent of their order. Its cycles are precisely the oriented reconnections: the node \(a\) retains its incoming arc and leaves along the old outgoing arc at \(b\). This also implements the incoming-visit convention explicitly. </p>
+<p><em>Splitting and induced order.</em> We prove by induction as selected pairs are processed that the cycles traverse their marked nodes in the cyclic order inherited from the original list, and that the two endpoints of each unprocessed selected pair lie on one current cycle. Initially there is the one original cycle. Suppose a current selected pair has endpoints \(a,b\) on a cycle \(L\). In its inherited cyclic order write that cycle as </p>
+<div class="equation" id="carrierpr:split-list">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{carrierpr:split-list} (a,A_1,\ldots ,A_p,b,B_1,\ldots ,B_q). \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+<p> Either of the lists between the endpoints may be empty. Swapping the outgoing arrows gives exactly the two cycles </p>
+<div class="equation" id="carrierpr:split-cycles">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{carrierpr:split-cycles} (a,B_1,\ldots ,B_q),\qquad (b,A_1,\ldots ,A_p). \end{equation}
+  </div>
+  <span class="equation_label">3</span>
+</p>
+</div>
+<p> Each retains the induced cyclic order. Every remaining selected pair has both endpoints in one of the two open arcs between \(a,b\) on the original circle, since it does not interlace this selected pair. If it was on \(L\), its two endpoints therefore enter the same new cycle; if it was on another cycle, it is unaffected. This proves the inductive claims and shows that every selected reconnection splits one cycle into two, never merging cycles. Hence the final count is \(|S|+1\). The endpoints \(a,b\) enter different cycles in <a href="sect0004.html#carrierpr:split-cycles" class="eqref">3</a>, and all later operations only split. They remain on different final carriers. This proves (i). </p>
+<p><em>Noncrossing away from selected endpoints.</em> The preceding induction also gives noncrossing ownership of the unmarked open traversal arcs. Here are the details, including arbitrary points on those arcs. For no selected pairs there is one carrier, so there is nothing to check. In a splitting step the one old carrier \(L\) is divided between the two open arcs cut out by \(a,b\), with the endpoints omitted for this paragraph. All other carrier sets are unchanged. If two new carrier blocks alternated with four points, and at most one of them came from splitting \(L\), the same four points would violate the previous partition’s noncrossing property, using \(L\) for that new block. If both came from splitting \(L\), their points would alternate between the two open arcs of \(a,b\). The four disjoint cyclic transitions between these four points would then each contain one of \(a,b\). Two endpoints cannot lie in four disjoint transitions. This is impossible. Induction proves noncrossing for all traversal points away from preimages of \(S\). </p>
+<p><em>Including every selected visit.</em> Assume four distinct crossing visits violated (iv). Move any of these that are selected a sufficiently small distance backwards along the original traversal circle; leave the unselected ones fixed. There are finitely many selected visits and four distinct chosen points, so the distances can be chosen positive and small enough that no selected endpoint is passed and the cyclic order of the four points is unchanged. By the incoming-visit convention, each moved point has exactly the carrier assignment of its original selected visit. Now all four points avoid preimages of \(S\) and give the forbidden alternation of the previous paragraph. This contradiction proves the all-visits assertion. </p>
+<p><em>Ownership of unselected crossings.</em> Let \(x\notin S\). If it interlaces no selected pair, its two endpoints start on the same original cycle and remain together after every split: at a split whose carrier contains them, noninterlacement puts them in one open arc of that selected pair. Thus they end on one carrier. If \(x\) interlaces a selected pair \(s\), process \(s\) first, which is permitted by order independence. Its split puts the two visits of \(x\) on different cycles. Later reconnections only split, so they can never be reunited. This proves both ownership assertions in (iii). </p>
+<p><em>Nonzero segments and corner signs.</em> Genericity makes all original vertices distinct: coincident vertices would give a zero triple with any third index. It also makes every edge nonzero and every original turn nonzero. No vertex lies on a nonincident closed edge: such an incidence would give a zero triple. Two remote edges meeting at a point have neither endpoint there, and their directions cannot be parallel, since coincident lines would give collinear original vertices. Thus their intersection is an interior transverse crossing. Distinct crossings have distinct points, as a coincident pair of crossing points would lie on at least three edge interiors, contrary to genericity. </p>
+<p>Consequently consecutive marked points on an original edge are distinct in the plane, with strictly increasing parameters; their connecting subsegment has positive length. At a selected node \(a\), the point of the plane agrees with its twin \(b\), but its new successor is the old successor of \(b\), which is at positive distance along \(b\)’s outgoing subsegment. Equation&#160;<a href="sect0004.html#carrierpr:successors" class="eqref">1</a> does not insert a zero segment from \(a\) to \(b\). Omitting unselected crossing marks joins successive positive subsegments of the same original edge in the same direction. Hence every edge between consecutive carrier corners is nonzero and inherits an original oriented direction up to a positive scalar. </p>
+<p>At an original vertex \(i\) no reconnection occurs. The incoming and outgoing carrier directions are positive multiples of \(d_{i-1}\) and \(d_i\), so their determinant has sign \(\tau _i\). At a selected crossing of \(E_i,E_j\), the node assigned by incoming \(E_i\) leaves along \(E_j\); its determinant is a positive multiple of \(\det (d_i,d_j)\). The twin node has a positive multiple of the opposite determinant \(\det (d_j,d_i)=-\det (d_i,d_j)\). Transversality makes these nonzero, with opposite signs. These are all corner types. In particular none is antiparallel or flat. </p>
+<p>Each cycle contains a corner: a cycle having only unselected visits would follow the unchanged original successor around the full parent traversal, which contains original vertices. Thus its nonzero segments form a closed polygonal cycle with the indicated corners. One nonzero segment cannot close. A closed polygon of exactly two nonzero segments has opposite segment vectors and hence antiparallel corners, already excluded. Every carrier therefore has at least three corners. This proves (ii), including membership in the regular locus. </p>
+<p><em>Exactly the retained self-intersections.</em> Every traced carrier segment is an original straight subsegment with its inherited parameter direction. Distinct traversal subsegments of one original edge have disjoint interiors, so no overlap is introduced. Original adjacent edges meet only at their common original vertex, which has one traversal occurrence and lies on one carrier. All other possible intersections are original crossings. At a selected crossing the two incoming visits belong to different carriers by (i); a single carrier therefore passes through that smoothing point only once. An unselected crossing is visited twice by a carrier precisely when both of its original visits are assigned to that carrier. Otherwise it is a meeting of two distinct carriers, not a self-intersection of either. Every retained self-crossing is still transverse with its unchanged straight germs. It is not a corner because original vertices and selected crossing sites are all distinct from it. No carrier can have a triple point, since no point of the parent has three traversal preimages and each selected site is used only once by a given carrier. These statements prove the remaining assertions of (iii). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:uniform">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.5</span>
+    <span class="definition_thmtitle">uniform subpolygons; retained data</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:uniform">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.uniform_definition" class="lean_decl">SM.uniform_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A subpolygon \(Q\) is <em>uniform</em> if all its turns have one sign and <em>mixed</em> otherwise. A decomposition \(S\) is <em>uniform</em> if all its subpolygons are. For a subpolygon \(Q\) write \(r_Q=\operatorname {rot}(Q)\) (Lemma&#160;<a href="sect0002.html#lem:rot">1.17</a>, applicable by Lemma&#160;<a href="sect0004.html#lem:carriers">3.4</a>), \(m_Q\) for its number of crossings, and \(\ell _Q\) for its number of left turns. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:positive-lift">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.6</span>
+    <span class="definition_thmtitle">positive crossing; positive lift</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:positive-lift">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.positive_lift_definition" class="lean_decl">SM.positive_lift_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>An oriented link diagram in the plane is a finite collection of closed oriented curves with finitely many transverse double points, no triple points, and at each double point a choice of the <em>over</em> strand. A double point with over-strand direction \(u_{\rm o}\) and under-strand direction \(u_{\rm u}\) is <em>positive</em> if \(\det (u_{\rm o},u_{\rm u}){\gt}0\) and <em>negative</em> otherwise. The <em>positive lift</em> of a subpolygon \(Q\) is the oriented knot diagram whose curve is \(Q\), whose double points are the crossings of \(Q\), and in which at every double point the over strand is chosen so that the crossing is positive. Its writhe (the sum of crossing signs) is \(m_Q\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:gauss-record">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.7</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:gauss-record">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.gauss_record_definition" class="lean_decl">SM.gauss_record_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(\gamma :C\to S^2\) be an actual generic immersion of an oriented circle in an oriented sphere, with over/under choices at its transverse double points. Its finite crossing-occurrence set \(M\) has forward successor \(s\), pairing involution \(\tau \) without fixed points, an over/under bit at each occurrence, and crossing signs </p>
+<div class="equation" id="eq:gauss-cross-sign">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:gauss-cross-sign} \sigma (c)=\operatorname {sgn}\det (u_{c,O},u_{c,U}). \end{equation}
+  </div>
+  <span class="equation_label">4</span>
+</p>
+</div>
+<p> A named record isomorphism is a bijection \(\Phi :M\to M'\) preserving successor, pairing, over/under bits and these signs. The parametrizing circles are oriented; the finite bijection must preserve their cyclic orders. It does not prescribe a map at every unmarked parameter and does not permit traversal reversal. After a finite subdivision we choose an orientation-preserving piecewise-linear circle map \(\overline\Phi :C\to C'\) extending \(\Phi \): on each interval between successive marked points use the positive affine map in oriented interval coordinates. If \(M\) is empty, choose any positive circle parametrization. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:gauss-two-discs">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.8</span>
+    <span class="lemma_thmtitle">Constructive polygonal two-disc theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:gauss-two-discs">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000064"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.lem_gauss_two_discs" class="lean_decl">SM.lem_gauss_two_discs</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> A simple polygonal circle in the oriented sphere has exactly two complementary regions, and both closures are PL discs. Finite prescribed positive PL boundary maps between such discs extend to positive PL disc maps. A continuous positive boundary map also extends to a topological disc map. The statement includes the exterior region. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000064">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p>Here is a finite triangulation and disc construction, so no Jordan or Schoenflies conclusion is being assumed. Remove one point off the curve and put the polygon inside a large rectangle. Extend its finitely many edge lines, and also lines through its vertices in a generic auxiliary direction, across that rectangle. The arrangement has convex cells; subdivide boundary segments at all intersections and triangulate each convex cell by a fan from an interior point. Collinear redundant vertices are simply retained as subdivisions, never used to claim a strict ear. The circle is now a simple edge cycle \(C\) in a finite triangulation of the rectangle. Cap the rectangular boundary by a second triangulated disc. This cap represents the actual one-point-compactified exterior: from the rectangle’s center, write its boundary as \(r=R(u)\) and map an exterior point \(ru\) to \((R(u)/r)u\), with infinity sent to zero. This has a continuous radial inverse and identifies the exterior with a disc. The two-disc model is a triangulated sphere by radial identification with the upper and lower hemispheres. The original exterior is part of this same triangulation, not just a collar of \(C\). </p>
+<p>Work with chains over \(\mathbb F_2\). If the sphere triangulation has \(V,E,F\) cells, then \(V-E+F=2\). This follows first for the two-disc rectangle model and is unchanged by subdividing an edge, adding a vertex inside a face, or drawing a diagonal; these are precisely the finite arrangement and fan subdivisions just used. The vertex-edge graph and the face-adjacency graph are connected. The incidence map on edges has rank \(V-1\), since a spanning tree gives \(V-1\) independent boundary columns and every edge boundary has even coordinate sum. Hence its cycle space has dimension \(E-V+1=F-1\). The face-boundary map has kernel exactly the two constant face assignments: across every edge a boundary-zero face assignment has equal coefficients on its two adjacent faces, and the face-adjacency graph is connected. Its rank is therefore \(F-1\). Face boundaries are cycles, so every cycle, in particular \(C\), is the boundary of a face assignment, unique up to complement. </p>
+<p>Color faces by that assignment. Across an edge of \(C\) the colors differ; across any other edge they agree. At a vertex of \(C\) its two cycle edges divide the cyclic triangle fan into exactly two consecutive fans, one of each color. At every other vertex all incident faces have one color. Thus each color closure is a compact triangulated surface whose boundary is \(C\), with no pinch point. Following \(C\) through those local fans shows that all boundary-adjacent faces of a given color lie in one connected face component. Any further face component would have no boundary edge and hence no adjacency to its complement, contradicting connectedness of the full dual graph. Thus there are exactly two connected color regions, \(R_0,R_1\), each with its single boundary \(C\). </p>
+<p>We next prove, rather than assume, that each is a disc. For any connected triangulated surface \(R\) with nonempty boundary, take a spanning tree of its triangle-adjacency graph, rooted at a triangle having a boundary edge. Remove that triangle across that boundary edge, and then remove each triangle after its parent, across their common edge. At its turn the chosen edge is free: the parent triangle is gone and no third triangle is incident to that edge. A triangle and its free edge collapse onto its other two edges. This preserves connectedness and Euler characteristic and leaves, after finitely many steps, a connected graph \(K\). Consequently \(\chi (R)=\chi (K)=1-\beta _1(K)\leq 1\). Since the two regions meet in \(C\) and \(\chi (C)=0\), cell counting gives \(\chi (R_0)+\chi (R_1)=2\). Both inequalities are therefore equalities, so both residual graphs are trees. </p>
+<p>For completeness these collapses also construct disc parametrizations, not only a homotopy equivalence. Maintain a small closed regular neighbourhood of the current collapsed complex, with vertex polygons and edge rectangles. A free-triangle collapse changes its neighbourhood by removing a boundary notch, which gives a boundary-compatible PL homeomorphism. In the standard triangle \(x,y\geq 0\), \(x+y\leq 1\), whose free edge is \(x+y=1\), use the neighbourhood of the other two edges </p>
+<div class="equation" id="eq:gauss-triangle-notch">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:gauss-triangle-notch} \{ x,y\geq 0, x+y\leq 1,\  \min (x,y)\leq \varepsilon \} , \qquad 0{\lt}\varepsilon {\lt}1/2. \end{equation}
+  </div>
+  <span class="equation_label">5</span>
+</p>
+</div>
+<p> Its new boundary path runs from \((1,0)\) through \((1-\varepsilon ,\varepsilon ),(\varepsilon ,\varepsilon ), (\varepsilon ,1-\varepsilon )\) to \((0,1)\). Subdivide the old free edge at the intersections of the rays from \((0,0)\) through those three corners. Map the resulting triangle fan affinely to the corresponding fan of the notched region, fixing the two retained edges pointwise. Every triangle map has positive determinant, the fans meet on their common radial edges, and the images cover the notched region. Thus the map is a PL homeomorphism, fixed where that triangle joins the rest. In thin edge rectangles use the same product map, with identity on the outer attaching boundary. This proves by induction the stated regular-neighbourhood invariant for every free collapse. Choose widths successively smaller than the positive distances between disjoint cells; finiteness makes all choices compatible. </p>
+<p>A regular neighbourhood of a tree is a disc by an explicit leaf induction. One vertex gives a polygonal disc. Adding a leaf attaches one edge rectangle and one leaf disc along a single boundary interval. Triangulate that rectangle and disc into a fan along the interval; the same positive fan maps identify their union with a longer boundary collar. Thus each step is a disc and records its boundary parametrization. Reverse the finite free-collapse maps to parametrize \(R_0\) and \(R_1\). This completes both the interior and exterior constructions. </p>
+<p>Finally identify two resulting discs with convex polygonal unit discs. Subdivide their boundaries until a specified positive PL boundary map is affine on each segment, choose one interior vertex in each, and map the corresponding boundary fans affinely, interior vertex to interior vertex. Their cyclic order makes all determinants positive. For a continuous positive boundary map instead use radial coordinates and \((r,u)\mapsto (r,b(u))\); the inverse uses \(b^{-1}\) and continuity at the center follows from the radial bound. This proves both extension claims with the prescribed boundary, not just an unlabelled disc type. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:flat-carriers">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.9</span>
+    <span class="definition_thmtitle">carriers of the flat configurations</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:flat-carriers">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0004.html#conv:selected-visits">Convention 3.3</a></li>
+          
+          <li><a href="sect0004.html#def:smoothing">Definition 3.2</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.flat_carriers_definition" class="lean_decl">SM.flat_carriers_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Under the hypotheses of Lemma&#160;<a href="sect0002.html#lem:flat-sides">1.25</a>, identify the crossing visits of the two sides, of the centre \(P(0)\) and of the deletion \(P(0)\setminus j\) through the common cyclic Gauss word of that lemma’s clauses (ii) and (iii), and fix an independent set \(S\) in their common interlacement graph. In each of these four configurations mark the traversal circle at every original vertex and every crossing visit, exchange the two outgoing successors at the two visits of every selected crossing — the reconnection of Definition&#160;<a href="sect0004.html#def:smoothing">3.2</a> with Convention&#160;<a href="sect0004.html#conv:selected-visits">3.3</a> — and trace the resulting oriented closed cycles by the inherited straight subsegments. These oriented closed polygonal cycles are the <em>carriers</em> of \(S\) in that configuration. On the two generic sides they are the carriers of Definition&#160;<a href="sect0004.html#def:smoothing">3.2</a>; at the centre and on the deletion the same words define them, no genericity being assumed. </p>
+
+  </div>
+</div>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:flat-carriers">
+  <div class="corollary_thmheading">
+    <span class="corollary_thmcaption">
+    Corollary
+    </span>
+    <span class="corollary_thmlabel">3.10</span>
+    <span class="corollary_thmtitle">flat carrier data</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#cor:flat-carriers">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000065"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.flat_carriers" class="lean_decl">SM.flat_carriers</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="corollary_thmcontent">
+  <p>Under the hypotheses of Lemma&#160;<a href="sect0002.html#lem:flat-sides">1.25</a>, fix an independent set \(S\) in the common interlacement graph and form the carriers of \(S\) on both sides, at the centre and on the deletion (Definition&#160;<a href="sect0004.html#def:flat-carriers">3.9</a>). Then: </p>
+<ol class="enumerate">
+  <li><p>The carriers correspond under their named traversal arcs. Exactly one contains \(\mu _j\). The central copy of that carrier differs from its deletion copy only by the positive-flat subdivision at \(\mu _j\); every other central carrier is unchanged by deletion. Every carrier has nonzero segments and no antiparallel corner; except for that one central zero turn, all corner turns are nonzero. </p>
+</li>
+  <li><p>Corresponding carriers have the same retained self-crossing visits, pairing, signs and positive over/under bits. They have the same signed rotation and hence the same absolute rotation. Every corresponding corner away from \(\mu _j\) has the same turn sign on both sides and in the deletion. The extra corner at \(\mu _j\) is right on the right side and left on the left side. </p>
+</li>
+  <li><p>Define a carrier’s selector to be \(1\) if all its turns are right, \((-1)^c\) if all its \(c\) turns are left, and \(0\) if its turns are mixed. For the carrier through \(\mu _j\), let \(W_{\rm right}\), \(W_{\rm left}\), and \(W_{\rm del}\) be these selectors on the two sides and on the deletion. Then </p>
+<div class="equation" id="flatpr:selector-identity">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{flatpr:selector-identity} W_{\rm right}-W_{\rm left}=W_{\rm del}. \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> All other corresponding carrier selectors agree. </p>
+</li>
+</ol>
+<p> These assertions concern geometric and combinatorial carrier data. They make no assignment of a state-sum value at the flat centre. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000065">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> The common cyclic word identifies the visits and the successor permutation before smoothing. Exchanging the same selected successors in that permutation gives the same cycles afterwards. This is an explicit correspondence and needs no ambient knot-equivalence theorem. Noninterlacement ensures that each selected pair separates two carriers: cut at one selected pair; each other selected pair lies entirely on one of the two resulting arcs, since it does not interlace that pair. Apply the same argument recursively on those arcs. It gives \(|S|+1\) cycles, with the two reconnections at any selected crossing on distinct cycles. Thus no carrier visits a selected smoothing point twice. </p>
+<p>An original vertex appears once on the parent traversal; selected crossing points are distinct and avoid all vertices. The subsegments between successive vertices or crossing visits therefore have positive length. The occurrence \(\mu _j\) lies on exactly one cycle. Its incoming and outgoing directions at the centre are positive multiples by <a href="sect0002.html#flatpr:fusion" class="eqref">8</a>; removing it merely fuses those segments. At another original corner the determinant is a positive multiple of the nonzero original turn determinant. At a selected smoothing corner it is a positive multiple of either \(\det (d_e,d_f)\) or \(\det (d_f,d_e)\) at that transverse crossing. These exhaust the corners. They prove the stated nonzero turns and absence of antiparallel corners, including in the deletion. A deletion carrier has at least three corners: one nonzero segment cannot close, and a closed two-segment polygon has antiparallel directions. No such deletion carrier occurs. </p>
+<p>An unselected crossing is a self-crossing of a carrier exactly when both its visits belong to that cycle. The common successor permutation preserves this condition and the two visits’ inherited positive over/under bits. Tracing inherited straight subsegments introduces no other self-intersection: every intersection was already a parent crossing, and a selected crossing lies on two different carriers, as proved above. The nonzero determinants just listed have constant signs on a smaller interval. Replacing either old incident direction by the fused direction multiplies the relevant determinant by a positive scalar. Hence all surviving corner signs and all retained crossing data agree among the configurations in (ii). </p>
+<p>For completeness, the rotation comparison uses limits of every affected turn, not equality of finite-parameter angles. For a closed polygonal carrier with nonzero segments and no antiparallel consecutive directions, let \(\vartheta _k\in (-\pi ,\pi )\) be its principal turns. The successive unit directions satisfy \(q_{k+1}=e^{\mathrm i\vartheta _k}q_k\). Multiplying around the closed cycle gives </p>
+<div class="equation" id="flatpr:rotation-integer">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{flatpr:rotation-integer} e^{\mathrm i\sum _k\vartheta _k}=1,\qquad \frac1{2\pi }\sum _k\vartheta _k\in \mathbb Z. \end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> Principal turns are continuous when the two incident directions are nonzero and not antiparallel. On the carrier through \(\mu _j\) its distinguished turn tends to zero, and each other principal turn tends to the corresponding deletion turn. On every other carrier all turns have their common deletion limits. Thus each side’s signed rotation tends to the deletion’s integer rotation. An integer with distance less than \(1/2\) from that integer must equal it. There are finitely many supports and carriers, so a common sufficiently small interval works for all of them. This proves the signed and absolute rotation equalities in (ii). </p>
+<p>It remains to evaluate the selector. Let \(c\) be the number of surviving corners in the distinguished carrier. Their signs agree in all three configurations. Its extra turn is right or left according to the named side. The exhaustive table is </p>
+<div class="equation" id="flatpr:selector-table">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{flatpr:selector-table} \begin{array}{c|ccc} \text{surviving turns}& W_{\rm right}& W_{\rm left}& W_{\rm del}\\ \hline \text{mixed}& 0& 0& 0\\ \text{all right}& 1& 0& 1\\ \text{all left}& 0& (-1)^{c+1}& (-1)^c \end{array} \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> In the last row \(0-(-1)^{c+1}=(-1)^c\); the other two rows have the same first-minus-second identity immediately. All other carriers retain all their corner signs and counts. This proves (iii). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:C">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.11</span>
+    <span class="definition_thmtitle">corner coefficient and the state sum</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:C">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0004.html#def:decomposition">Definition 3.1</a></li>
+          
+          <li><a href="sect0002.html#def:generic">Definition 1.4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.corner_state_sum_definition" class="lean_decl">SM.corner_state_sum_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> For a subpolygon \(Q\) of a decomposition of the generic polygon \(P\), let \(H^+_Q\) be the HOMFLY–PT polynomial of its positive lift and put </p>
+<div class="displaymath" id="a0000000066">
+  \[  d_Q=1-m_Q-|r_Q|,\qquad c(Q)=\bigl[a^{d_Q}z^0\bigr]H^+_Q(a,z)\in \mathbb Z,  \]
+</div>
+<p> the coefficient of \(a^{d_Q}z^0\) (zero if that monomial is absent). The <em>corner state sum</em> of \(P\) is </p>
+<div class="displaymath" id="a0000000067">
+  \[  C(P)=(-1)^{\ell (P)}\sum _{\substack {S\in \operatorname {Ind}(G_P)\\ S\text{ uniform}}} (-1)^{|S|}\prod _{Q\text{ subpolygon of }S}c(Q).  \]
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:C-X1">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.12</span>
+    <span class="lemma_thmtitle">selector form of the carrier state sum</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:C-X1">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000068"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.C_X1" class="lean_decl">SM.C_X1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For a carrier \(L\) of an independent support \(S\), let \(k(L)\) be its number of corners. Put \(\mathrm{wt}(L)=1\) if all its turns are right, \((-1)^{k(L)}\) if all are left, and \(0\) if its turns are mixed. Set \(\operatorname {wind}(S)=\prod _L\mathrm{wt}(L)\). Then </p>
+<div class="equation" id="eq:C-selector-form">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eq:C-selector-form} C(P)=\sum _{S\in \operatorname {Ind}(G_P)}\operatorname {wind}(S)\prod _L c(L), \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> where \(c(L)\) remains the coefficient of the actual positive carrier lift in Definition&#160;<a href="sect0004.html#def:C">3.11</a>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000068">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Every original vertex belongs to exactly one carrier and retains its turn. Every selected crossing contributes one left and one right smoothing corner by Lemma&#160;<a href="sect0004.html#lem:carriers">3.4</a>. Thus the total number of left carrier corners is \(\ell (P)+|S|\). If \(S\) is uniform, precisely its all-left carriers contribute to this count. Their selector product is therefore \((-1)^{\ell (P)+|S|}\), the sign of this support in Definition&#160;<a href="sect0004.html#def:C">3.11</a>. If \(S\) is not uniform, a mixed carrier makes its selector product zero; this support is absent from that definition. The coefficient factors are unchanged in both cases. Summing these term identities proves <a href="sect0004.html#eq:C-selector-form" class="eqref">9</a>. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:adeg">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.13</span>
+    <span class="definition_thmtitle">degrees in \(a\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:adeg">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.adeg_definition" class="lean_decl">SM.adeg_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For a nonzero Laurent polynomial \(f\) in \(a\) with coefficients in the integral domain \(\mathbb Z[z^{\pm 1}]\), \(\deg _af=\max \deg _af\) denotes the largest \(a\)-exponent with nonzero coefficient and \(\operatorname {mindeg}_af\) the smallest; both are integers. The same symbols with the subscript \(z\) denote the largest and smallest \(z\)-exponents of a nonzero element of \(\mathbb Z[a^{\pm 1},z^{\pm 1}]\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:transverse-front">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.14</span>
+    <span class="definition_thmtitle">generic positive transverse front</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:transverse-front">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.transverse_front_definition" class="lean_decl">SM.transverse_front_definition</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>In \((\mathbb R^3,\ker (dz-y\, dx))\), a <em>generic positive transverse front</em> is the oriented knot diagram in the \((x,z)\) plane obtained from a smooth oriented embedded knot \(T\) with \(z'-yx'{\gt}0\) whose \(xz\) projection is an immersion of the parameter circle with finitely many transverse double points and no triple point, the over strand at each double point being the branch of smaller \(y\). It has no cusp. At a vertical tangent, \(x'=0\), the inequality gives \(z'{\gt}0\): every vertical tangent of a generic positive transverse front points upward, a consequence and not a hypothesis. The diagram determines its writhe and its over/under counts; the knot \(T\) is named separately where it is used. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:floor">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">3.15</span>
+    <span class="theorem_thmtitle">corner theorem; Theorem&#160;2 of the main text</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#thm:floor">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000069"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.thm_floor" class="lean_decl">SM.thm_floor</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>Let \(Q\) be a subpolygon of a decomposition of a generic polygon, and suppose that after possibly reversing its orientation either all turns are left, or exactly one turn is right. Then </p>
+<div class="displaymath" id="a0000000070">
+  \[  \operatorname {mindeg}_a H^+_Q\geq 1-m_Q-|r_Q|=d_Q,\qquad H^+_Q\in \mathbb Z[a^{\pm 1},z^2],\  \text{so }\operatorname {mindeg}_zH^+_Q\geq 0.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000069">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> For a carrier, Lemma&#160;<a href="sect0004.html#lem:carriers">3.4</a> supplies every geometric hypothesis of clause&#160;(C) of Theorem&#160;<a href="sect0006.html#cf:thm-carrierfloor">5.25</a> except that no corner lies on a non-incident edge, which holds directly: a carrier’s corners are original vertices and selected crossing points; an original vertex lies on no non-incident edge segment of \(P\) by (G1), and the only subsegments containing it are its two incident ones; a selected crossing point lies in exactly two edge interiors by (G2) and is an endpoint, not an interior point, of the subsegments into which the crossing sites divide those two edges. Its actual positive lift has exactly \(m_Q\) crossings, each positive, so its writhe is \(m_Q\). The rotation in that clause is \(R=|r_Q|\). Thus its lower degree bound is \(1-m_Q-|r_Q|=d_Q\) for the polynomial of that actual diagram. Theorem&#160;<a href="sect0005.html#lp:core">4.2</a> identifies this polynomial with \(H_Q^+\) and proves its nonvanishing and its support in \(\mathbb Z[a^{\pm 1},z^2]\). Every supported \(z\) exponent is therefore nonnegative, which gives the second bound. A zero coefficient at the corner is permitted. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:corner-values">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.16</span>
+    <span class="lemma_thmtitle">elementary corner values</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:corner-values">#</a>
+    
+    <a class="icon proof" href="sect0004.html#a0000000071"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.corner_values" class="lean_decl">SM.corner_values</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<ol class="enumerate">
+  <li><p>If \(Q\) is uniform and embedded (\(m_Q=0\)) then \(|r_Q|=1\), \(d_Q=0\) and \(c(Q)=1\). </p>
+</li>
+  <li><p>If \(Q\) is uniform and \(\{ y\} \) is a crossing of \(Q\) interlacing no other crossing of \(Q\), then \(c(Q)=0\). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000071">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> (i) Lemma&#160;<a href="sect0006.html#cb:embedded-rotation">5.29</a> gives \(|r_Q|=1\). Thus \(d_Q=1-0-1=0\). The actual positive diagram is crossing-free and has polynomial \(1\) by Theorem&#160;<a href="sect0005.html#lp:core">4.2</a>; its \(a^0z^0\) coefficient is \(1\). (ii) The carrier \(Q\) and its isolated self-crossing satisfy Lemma&#160;<a href="sect0006.html#cb:singleton">5.28</a>, which gives the conclusion directly. The condition is interlacement isolation; no visible planar monogon is assumed or needed. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0003.html" title="The tree coefficient \(A\)"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0005.html" title="Link diagrams and the HOMFLY-PT interface"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

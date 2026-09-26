@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The bridge to SM and the final theorem</title>
+<link rel="prev" href="sect0011.html" title="Hypothesis R: the R obligations" />
+<link rel="up" href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Corner state sum: wall laws and soft theorem <br />Formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref"></span> <span class="toc_entry">How to read this blueprint</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1</span> <span class="toc_entry">Polygons, chirotopes, chambers and walls</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">2</span> <span class="toc_entry">The tree coefficient \(A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">3</span> <span class="toc_entry">The corner state sum \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">4</span> <span class="toc_entry">Link diagrams and the HOMFLY-PT interface</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">5</span> <span class="toc_entry">Fronts, contact inputs and the carrier floor</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">6</span> <span class="toc_entry">The wall laws of \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">7</span> <span class="toc_entry">Fixed-count transport</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">8</span> <span class="toc_entry">Root independence, uniqueness and the comparison \(C=A\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">9</span> <span class="toc_entry">The companion document: the triple wall on carriers</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">10</span> <span class="toc_entry">Hypothesis R: the R obligations</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0012.html"><span class="toc_ref">11</span> <span class="toc_entry">The bridge to SM and the final theorem</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000013">11 The bridge to SM and the final theorem</h1>
+<p> The four bridge lemmas, the bridge theorem giving Hypothesis R for SM, and the final theorem. </p>
+<div class="obligation_thmwrapper theorem-style-plain" id="Bridge:B1">
+  <div class="obligation_thmheading">
+    <span class="obligation_thmcaption">
+    Obligation
+    </span>
+    <span class="obligation_thmlabel">11.1</span>
+    <span class="obligation_thmtitle">B1, transfer of a triple germ</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#Bridge:B1">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000331"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/Bridge.B1" class="lean_decl">Bridge.B1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="obligation_thmcontent">
+  <p>Under the labelled coordinate identification, an SM simple triple wall germ is a CV event of polygons, generic at every nonzero time and non-generic at time zero. </p>
+<p>Source: <span class="ttfamily">reference/BRIDGE/BRIDGE.md, Lemma B1</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000331">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">Bridge.B1</span> in <span class="ttfamily">Bridge.B1</span>. </p>
+
+  </div>
+</div>
+<div class="obligation_thmwrapper theorem-style-plain" id="Bridge:B2">
+  <div class="obligation_thmheading">
+    <span class="obligation_thmcaption">
+    Obligation
+    </span>
+    <span class="obligation_thmlabel">11.2</span>
+    <span class="obligation_thmtitle">B2, exactly the forced bundle</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#Bridge:B2">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000332"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/Bridge.B2" class="lean_decl">Bridge.B2</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="obligation_thmcontent">
+  <p>For the germ of B1, the CV zero set is exactly \(\{ \mathrm{G3}_{e,f,g},\mathrm{G4}_{e;f,g},\mathrm{G4}_{f;e,g}, \mathrm{G4}_{g;e,f}\} \), with increasing edge representatives, pairwise remoteness, and a central point interior to all three edges. </p>
+<p>Source: <span class="ttfamily">reference/BRIDGE/BRIDGE.md, Lemma B2</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000332">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">Bridge.B2</span> in <span class="ttfamily">Bridge.B1</span>. </p>
+
+  </div>
+</div>
+<div class="obligation_thmwrapper theorem-style-plain" id="Bridge:B3">
+  <div class="obligation_thmheading">
+    <span class="obligation_thmcaption">
+    Obligation
+    </span>
+    <span class="obligation_thmlabel">11.3</span>
+    <span class="obligation_thmtitle">B3, all four sign changes</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#Bridge:B3">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000333"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/Bridge.B3" class="lean_decl">Bridge.B3</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="obligation_thmcontent">
+  <p>The three parameter-difference sign changes of SM type T, together with its central conditions, imply CV transversality for that zero set: all four members change sign. </p>
+<p>Source: <span class="ttfamily">reference/BRIDGE/BRIDGE.md, Lemma B3</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000333">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">Bridge.B3</span> in <span class="ttfamily">Bridge.B3</span>. </p>
+
+  </div>
+</div>
+<div class="obligation_thmwrapper theorem-style-plain" id="Bridge:B4">
+  <div class="obligation_thmheading">
+    <span class="obligation_thmcaption">
+    Obligation
+    </span>
+    <span class="obligation_thmlabel">11.4</span>
+    <span class="obligation_thmtitle">B4, pointwise dictionary and side values</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#Bridge:B4">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000334"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/Bridge.B4" class="lean_decl">Bridge.B4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="obligation_thmcontent">
+  <p>On every SM-generic labelled representative the two state sums have equal values, \(C^{\mathrm{SM}}(P)=X_1^{\mathrm{CV}}(P)\). On either punctured side of a triple germ this identifies the SM side value with the value of \(X_1\) on the containing CV chamber. </p>
+<p>Source: <span class="ttfamily">reference/BRIDGE/BRIDGE.md, Lemma B4, displays (17)-(18)</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000334">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">Bridge.B4</span> in <span class="ttfamily">Bridge.B4</span>. </p>
+
+  </div>
+</div>
+<div class="obligation_thmwrapper theorem-style-plain" id="Bridge:theorem">
+  <div class="obligation_thmheading">
+    <span class="obligation_thmcaption">
+    Obligation
+    </span>
+    <span class="obligation_thmlabel">11.5</span>
+    <span class="obligation_thmtitle">the bridge theorem: Hypothesis R for SM</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#Bridge:theorem">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000335"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/Bridge.sm_R" class="lean_decl">Bridge.sm_R</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="obligation_thmcontent">
+  <p>The R theorem in CV form implies \(C(P_+)=C(P_-)\) for every SM simple triple wall germ, that is, Hypothesis R: by B1-B3 the germ is a simple transversal RIII event with the forced bundle, the CV theorem gives \(X_1(P_+)=X_1(P_-)\), and B4 converts both sides to \(C\). </p>
+<p>Source: <span class="ttfamily">reference/BRIDGE/BRIDGE.md, displays (19)-(21)</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000335">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">Bridge.sm_R</span> in <span class="ttfamily">Bridge.SmRRow</span>. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="SM:corner_laws_and_soft">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">11.6</span>
+    <span class="theorem_thmtitle">the corner laws and the soft theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0012.html#SM:corner_laws_and_soft">#</a>
+    
+    <a class="icon proof" href="sect0012.html#a0000000336"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://aguevara22.github.io/corner-laws-lean/docs/find/#doc/SM.corner_laws_and_soft" class="lean_decl">SM.corner_laws_and_soft</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>For every generic polygon, on the printed domains: \(C\) is constant on every chamber and invariant across the silent walls (exterior extension, pure cut); the flat law \(C(P_{\rm right})-C(P_{\rm left})=C(P(0)\setminus j)\); the vertex-edge law \(C(P_+)-C(P_-)=s\, C(\lambda _1)\, C(\lambda _2)\) in both bigon branches and the sliding branch; triple-wall invariance \(C(P_+)=C(P_-)\) (Hypothesis R, proved); the full cusp law \(C(P_{\rm loop})-C(P_{\rm no})=-\kappa \, C(P(0)\setminus j)\) when the deletion satisfies (G1), threaded cusps included; the empty-cusp zero \(C(P_{\rm no})=0\); the soft theorem \(C(P_\varepsilon )=\frac{\chi _-+\chi _+}2C(P)\) in every sector; and the reversal, cyclic and triangle normalizations of <span class="ttfamily">cor:A-lawful</span>. In Lean this is the structure <span class="ttfamily">SM.CornerLawsAndSoftData</span>, one field per clause, and the theorem <span class="ttfamily">SM.corner_laws_and_soft</span> instantiates the conditional assembly with the proved bridge theorem. </p>
+<p>Source: <span class="ttfamily">TARGETS.md</span>, Exact final target. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000336">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▼</span>
+  </div>
+  <div class="proof_content">
+  <p> Formalized as <span class="ttfamily">SM.corner_laws_and_soft</span> in <span class="ttfamily">SM.CornerLawsAndSoft</span>. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0011.html" title="Hypothesis R: the R obligations"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Corner state sum: wall laws and soft theorem Formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>
