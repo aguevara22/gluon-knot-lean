@@ -1,7 +1,11 @@
+
+# About
+
+A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of [*Gluons and Knots*](TODO) by [Alfredo Guevara](https://aguevara22.github.io/). Lean prompted and curated by Alfredo Guevara and [Mark Goldstein](https://marikgoldstein.github.io/), and written by Claude. 
+
 # Corner state sum: wall laws and soft theorem. Lean 4 formalization
 
-A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of *Gluons and Knots*
-(source frame SM15). The final statement is the Lean theorem `SM.corner_laws_and_soft`. Every statement on the
+The final statement is the Lean theorem `SM.corner_laws_and_soft`. Every statement on the
 paper's proof route, 192 of them, is formalized and checked by Lean's kernel. Five results quoted from the
 literature are admitted as axioms; nothing else is assumed. The build contains no `sorry`.
 
