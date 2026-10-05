@@ -1,4 +1,4 @@
-# corner-laws-lean
+# Corner state sum: wall laws and soft theorem. Lean 4 formalization
 
 A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of *Gluons and Knots*
 (source frame SM15). The final statement is the Lean theorem `SM.corner_laws_and_soft`. Every statement on the
