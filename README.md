@@ -30,7 +30,7 @@ laws of C, the soft theorem, and Hypothesis R itself, so the conclusion holds wi
 The standard reading interface for a formalization is its *blueprint*: every printed statement of the paper's proof
 route, in LaTeX, with the name of the Lean declaration that formalizes it and links to what it depends on, plus the
 dependency graph. This project's blueprint is generated from the package's own data (the 192 rows of the declaration
-map, the frozen statement extracts of frame SM15, the 443 blueprint edges) by `blueprint/gen_content.py`, and built
+map, the frozen statement extracts, the 443 blueprint edges) by `blueprint/gen_content.py`, and built
 with [leanblueprint](https://github.com/PatrickMassot/leanblueprint) into `blueprint/web/`:
 
 - **[`blueprint/web/index.html`](blueprint/web/index.html)**: eleven chapters, one per chapter of the paper plus three
