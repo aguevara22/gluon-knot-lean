@@ -1,0 +1,504 @@
+{
+  "schema": 1,
+  "status": "PROPOSED_PROOF_BINDING_AMENDMENT_NOT_NEW_COVERAGE",
+  "scope": "Append-only correction of implementation/export bindings. Existing source graph topology, selected route, source obligations, frozen theorem and meaning-carrying definitions stay fixed. Supplemental exports are retained and kernel audited.",
+  "inputs": [
+    {
+      "path": "work/armstrong/graph-v1/SNAPSHOT.json",
+      "sha256": "3b0aa88668ac7b0546d1b6f053d353938f63fda98a53154fc31416033149b137"
+    },
+    {
+      "path": "work/armstrong/coverage-v45/COVERAGE.json",
+      "sha256": "8a37f52dca2eedbc60009ff6e03bdaf939765962022c01a8eba7968e229b0237"
+    },
+    {
+      "path": "validation/source-open-recursive-consumption-audit-sol-20261020/EDGES.json",
+      "sha256": "bc5f9edb1fdc721b2383c9b858b9a36195a1a39e4f393ec9cacea1197efc9659"
+    },
+    {
+      "path": "validation/source-reconstruction-consumption-audit-root-20261020/EDGES.json",
+      "sha256": "175645c5f5e9e08c5d891847233d2274cd36878641970035a8495e20c6146742"
+    },
+    {
+      "path": "validation/source-final-release-audit-sol-20261020/MISSING_EXPORT_SEMANTIC_RECONCILIATION.md",
+      "sha256": "7a66a7f26277a42b91ff2461c36e30ab7358fdbfb2d5cd54e8a316433e35378d"
+    },
+    {
+      "path": "validation/source-final-release-audit-sol-20261020/CANDIDATE_REVIEW.md",
+      "sha256": "ba2379706c5c2a5eb0e19bee70cf7c083ef3d053ac2cf14e34c0002b77316790"
+    }
+  ],
+  "unchanged": {
+    "selected_nodes": 129,
+    "selected_AND_edges": 314,
+    "selected_OR_edges": 1,
+    "source_proof_denominator": 100,
+    "frozen_sha256": "dc0f4aa9f655dc14352c1f30d3e0b59d4d874a44149803aeea173cc567da389d"
+  },
+  "name_corrections": {
+    "DirectGLSSW.CapMarkedPairing.markedAmplitude_eq_capCutExpansion_middleNear": "DirectGLSSW.markedAmplitude_eq_capCutExpansion_middleNear",
+    "DirectGLSSW.HorizontalCapNear.horizontal_cap_pairing_withNear_first_last": "DirectGLSSW.HorizontalShortEdge.horizontal_cap_pairing_withNear_first_last",
+    "DirectGLSSW.HOMFLY.PhysicalMarkedComparison.physical_value_eq_marked_of_strongIH": "DirectGLSSW.HOMFLY.PhysicalCursorComparison.physical_value_eq_marked_of_strongIH",
+    "DirectGLSSW.HOMFLY.DescendingSpatial.descending_actual_split_triangles_and_normalization": "DirectGLSSW.DescendingSpatial.descending_actual_split_triangles_and_normalization",
+    "DirectGLSSW.positivePolygonEventDiagram": "DirectGLSSW.HOMFLY.PolygonDrawingBridge.positivePolygonEventDiagram"
+  },
+  "bindings": [
+    {
+      "id": "tiny-parent",
+      "nodes": [
+        "un:transport-lemma#tiny-parent",
+        "un:transport-lemma"
+      ],
+      "kind": "PROOF_BODY_REPAIR",
+      "producer": [
+        "DirectGLSSW.ActiveArc.LiteralTinyParent.exists_actual_tinyParent_GammaM_limit"
+      ],
+      "intermediates": [
+        "DirectGLSSW.ActiveArc.LiteralTinyParent.selectedCut_eq_actual_tinyParent",
+        "DirectGLSSW.ActiveArc.LiteralTinyParent.exists_selectedCut_constant_from_actual_tinyParent"
+      ],
+      "consumer": [
+        "DirectGLSSW.ActiveArc.CarrierDomainSelectedCut.exists_physical_selectedCut_constant"
+      ],
+      "meaning": "Same actual q, first crossing, cut, closed auxiliary data and RI. Finite selected-cut factor equals minus the actual child amplitude times the actual tiny-parent GammaM. Substitute the literal limit, then the unchanged physical-window parameter conversion. The historical removed-cut corollary is supplemental and is not claimed as a kernel dependency.",
+      "files": [
+        "ActiveArcLiteralTinySourceCut.lean",
+        "ActiveArcSelectedCutPhysicalWindow.lean"
+      ],
+      "candidate_evidence": {
+        "path": "validation/source-literal-tiny-consumer-astra-20261020/MANIFEST.json",
+        "sha256": "b10d2644d85a38e5909de5568880099554e2efbae6c22b90384955a35769ee55"
+      },
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/ActiveArcSelectedCutPhysicalWindow.lean",
+          "sha256": "869ef1d67a8fe85b2a99dca87a72de72fb088447a2c0f1fb10c1e121cbc7795f"
+        }
+      ]
+    },
+    {
+      "id": "descending-spatial",
+      "nodes": [
+        "un:framed#descending-unlink",
+        "un:B-terminal"
+      ],
+      "kind": "PROOF_BODY_REPAIR",
+      "producer": [
+        "DirectGLSSW.DescendingSpatial.descending_actual_split_triangles_and_normalization"
+      ],
+      "intermediates": [
+        "DirectGLSSW.HOMFLY.actual_connected_componentCount",
+        "DirectGLSSW.HOMFLY.positivePolygon_history_terminal_frame_all_sizes_via_general_whitney"
+      ],
+      "consumer": [
+        "DirectGLSSW.HOMFLY.positivePolygon_history_canonical_terminal_framed_value_via_general_whitney"
+      ],
+      "meaning": "Apply the knot-value conjunct of the actual descending split-triangle theorem to the same terminal diagram and traversal. Terminality proves badCrossings empty; existing connectedness proves component count one. Combine its value with the same general Whitney framing. All public inputs and conclusion are unchanged.",
+      "files": [
+        "SourceDescendingUnlink.lean",
+        "TerminalWhitneyRoute.lean"
+      ],
+      "candidate_evidence": {
+        "path": "validation/source-terminal-spatial-consumer-root-20261020/RESULT.json",
+        "sha256": "bb99eff0cd05003c5db9d8593eeac669c55b81bbf0bb6ce7b3dc219178c5cf95"
+      },
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/SourceDescendingUnlink.lean",
+          "sha256": "232713ba370de5ff6960dcd5b38d044db319090a5d1b16cea5170f9dd5d2750e"
+        },
+        {
+          "path": "delivery/final-source-20261020/TerminalWhitneyRoute.lean",
+          "sha256": "110fc9f162489bb92e6e2d8a52ea229a8bb906911890479bd0880dfdaeeeda8e"
+        }
+      ]
+    },
+    {
+      "id": "finite-skein",
+      "nodes": [
+        "un:prefix#finite-skein-traversal",
+        "un:F-polynomial"
+      ],
+      "kind": "EQUIVALENT_SELECTED_IMPLEMENTATION_BINDING",
+      "producer": [
+        "DirectGLSSW.HOMFLY.MarkedParentStep.decreases",
+        "DirectGLSSW.HOMFLY.markedParentStep_wellFounded",
+        "DirectGLSSW.HOMFLY.LowestRowContract.ComponentRestriction.nCrossing_lt_before_smoothing",
+        "DirectGLSSW.HOMFLY.ProcessedExposedChild.canonical_actual_recursive_child"
+      ],
+      "consumer": [
+        "DirectGLSSW.HOMFLY.MarkedPolynomial.exists_polynomial_of_detached_witnesses",
+        "DirectGLSSW.HOMFLY.PolygonDrawingBridge.uniform_polygon_framed_polynomial"
+      ],
+      "meaning": "The actual connected continuing parent is covered by marked-parent well-founded induction on (crossing count, bad crossings). Every actual detached recursive child is constructed by the closed-recursive-class theorem and has strictly smaller crossing count, discharged by the outer strong induction. The arbitrary-diagram/all-component generalization is preserved as a supplemental theorem, not claimed to be a kernel dependency. Review must verify that these cases exhaust the fixed source traversal domain.",
+      "files": [
+        "ProcessedParentDescent.lean",
+        "MarkedParentPolynomial.lean",
+        "UniformPolygonPolynomial.lean"
+      ],
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/ProcessedParentDescent.lean",
+          "sha256": "c93aa65ba8c8032a207a9868cbcbe460049c1dba2930c2ca9cd46d63ba8fa101"
+        },
+        {
+          "path": "delivery/final-source-20261020/MarkedParentPolynomial.lean",
+          "sha256": "c45a6e86e7354ed0b499a0d0796bc5021843c160935688b6fa06f5a2927afa4f"
+        },
+        {
+          "path": "delivery/final-source-20261020/UniformPolygonPolynomial.lean",
+          "sha256": "00d53ae1f3e8bcc28aeec1508ba4c549e195fda78893db8fedc836f71db379d0"
+        }
+      ]
+    },
+    {
+      "id": "one-segment",
+      "nodes": [
+        "un:open#one-segment",
+        "un:open#auxiliary-admissibility"
+      ],
+      "kind": "EQUIVALENT_SELECTED_IMPLEMENTATION_BINDING",
+      "producer": [
+        "DirectGLSSW.DaughterClosedContainment.daughterSide_endpoint_parameters",
+        "DirectGLSSW.DaughterFirstReturn.daughterCarrier_injective",
+        "DirectGLSSW.ActiveArc.OpenCarrier.retainedCarrier_injective",
+        "DirectGLSSW.ActiveArc.PhysicalSegments.retained_side_physical"
+      ],
+      "consumer_files": [
+        "CanonicalDaughterGenericity.lean",
+        "DaughterOpenEdgeContainment.lean",
+        "ActiveArcRetainedVisitEdge.lean",
+        "ActiveArcOpenSideGeometry.lean",
+        "ActiveArcOutgoingCarrier.lean",
+        "ActualCursorClosedSides.lean",
+        "ActiveArcEventCarrierDomain.lean",
+        "DaughterInteriorCarrier.lean",
+        "ProcessedRetainedParameters.lean",
+        "ActualCarrierTransport.lean",
+        "ActiveArcRetainedGeometry.lean"
+      ],
+      "meaning": "The bundled one-segment propositions are proved from positive subsegment endpoint parameters and injectivity of the original-edge carrier. The selected daughter and retained-arc genericity proofs consume those same lower facts on actual separating supports. No direct use of the OneSegmentContract wrapper by ActualOpenStateClosure is claimed. The full arbitrary-support wrapper remains compiled and audited; review must validate the exact lower-fact uses and their source domains.",
+      "files": [
+        "DaughterClosedContainment.lean",
+        "DirectGLSSW/DaughterFirstReturn.lean",
+        "CanonicalDaughterGenericity.lean",
+        "DaughterOpenEdgeContainment.lean",
+        "ActiveArcRetainedVisitEdge.lean",
+        "ActiveArcOpenSideGeometry.lean",
+        "ActiveArcOutgoingCarrier.lean",
+        "ActualCursorClosedSides.lean",
+        "ActiveArcEventCarrierDomain.lean",
+        "DaughterInteriorCarrier.lean",
+        "ProcessedRetainedParameters.lean",
+        "ActualCarrierTransport.lean",
+        "ActiveArcRetainedGeometry.lean"
+      ],
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/DaughterClosedContainment.lean",
+          "sha256": "2a0644dd864694f05bc82d8ab4ee4df7929bf4e39e3c34528c407832b46bd88f"
+        },
+        {
+          "path": "delivery/final-source-20261020/DirectGLSSW/DaughterFirstReturn.lean",
+          "sha256": "5060c098b962f3375db1697ecd1a82a8efe240e9eb66127ee8948c683ff38139"
+        },
+        {
+          "path": "delivery/final-source-20261020/CanonicalDaughterGenericity.lean",
+          "sha256": "1c24b60ae7d339abe3b98a7c90bca4027bc55f39a3c3a437912a5abe106bba27"
+        },
+        {
+          "path": "delivery/final-source-20261020/DaughterOpenEdgeContainment.lean",
+          "sha256": "c7045fa558beadd3ba0c81e6b5132b9d422b9cb47d67adb28c6774d95d6115e3"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActiveArcRetainedVisitEdge.lean",
+          "sha256": "db637ad91b0798a11a78418f6fbf34685a10bf39593bfc602bc639b304aafc91"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActiveArcOpenSideGeometry.lean",
+          "sha256": "1a676b0862d40bef3c99013fccf6b75c0ad77e50d42cc8e423926e0b23fe9c99"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActiveArcOutgoingCarrier.lean",
+          "sha256": "f94dbb1035a93f80618a19404beafa599c6ca18633e4803bcf3fe6f9388066e5"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActualCursorClosedSides.lean",
+          "sha256": "371af53a814cd725aeaea9d0ebffffa589c3f7ab95b489f251eeaee8c33a60a9"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActiveArcEventCarrierDomain.lean",
+          "sha256": "1f2b649a7570d8dd21ed12b435146f63b38f3eb4c199880db1892b374b7a45d8"
+        },
+        {
+          "path": "delivery/final-source-20261020/DaughterInteriorCarrier.lean",
+          "sha256": "52377767d8d63cf1bdf1f5d9154bfbbfa1dd6a0219d4c1936c43a0391e437327"
+        },
+        {
+          "path": "delivery/final-source-20261020/ProcessedRetainedParameters.lean",
+          "sha256": "82cdf01622fa903337069f8b0612dfe0b2d18fa7d0c33f2a811d457d44961ac7"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActualCarrierTransport.lean",
+          "sha256": "46bd59b795594e2a347d2d3f0380ca7f8fa79f91d8f5256ce4901aceb2ea7ccc"
+        },
+        {
+          "path": "delivery/final-source-20261020/ActiveArcRetainedGeometry.lean",
+          "sha256": "ac9f4db63c43f72fa991cac21bfee371fedf8730bcfd1de497201f15b9be8a29"
+        }
+      ],
+      "direct_kernel_edges_to_verify": [
+        [
+          "DirectGLSSW.DaughterClosedContainment.daughter_interior_on_parent",
+          "DirectGLSSW.DaughterClosedContainment.daughterSide_endpoint_parameters"
+        ],
+        [
+          "DirectGLSSW.CyclicCarrierClearing.auxiliaryGenericity_of_canonical_universal",
+          "DirectGLSSW.DaughterFirstReturn.daughterCarrier_injective"
+        ],
+        [
+          "DirectGLSSW.ActiveArc.OpenCarrier.openSideCarrier_injective",
+          "DirectGLSSW.ActiveArc.OpenCarrier.retainedCarrier_injective"
+        ],
+        [
+          "DirectGLSSW.ActiveArc.Primitive.before_first_cursor_closed_side_avoidance",
+          "DirectGLSSW.ActiveArc.OpenCarrier.openSideCarrier_injective"
+        ],
+        [
+          "DirectGLSSW.ActiveArc.PhysicalSegments.retained_visit_interval_subsegment",
+          "DirectGLSSW.ActiveArc.PhysicalSegments.retained_side_physical"
+        ],
+        [
+          "DirectGLSSW.ActiveArc.OpenCarrier.openSideCarrier_physical",
+          "DirectGLSSW.ActiveArc.PhysicalSegments.retained_side_physical"
+        ]
+      ]
+    },
+    {
+      "id": "left-induction-corollary",
+      "nodes": [
+        "un:identification#left-induction"
+      ],
+      "kind": "CONSUMER_COROLLARY_CLASSIFICATION",
+      "consumer": [
+        "DirectGLSSW.HOMFLY.PhysicalCursorComparison.uniform_left_primitive_corner_identity"
+      ],
+      "supplemental": [
+        "DirectGLSSW.HOMFLY.PhysicalCursorComparison.uniform_left_zero_crossing_values"
+      ],
+      "meaning": "The historical edge lists included a post-main corollary among consumers. Remove only that corollary from dependency-consumer claims, retain its proof and export. The source un:initial edge remains the actual exposed initialization, not this corollary. The terminal branch remains the consumed MarkedG.terminal_value and physical terminal proofs. No source prerequisite or graph edge is removed.",
+      "files": [
+        "UniformLeftIdentity.lean",
+        "UniformExposedIdentity.lean",
+        "PhysicalMarkedComparison.lean",
+        "MarkedGRecursion.lean"
+      ],
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/UniformLeftIdentity.lean",
+          "sha256": "9edd75ca490bd34773e2a7e158f70e4aa214991ebdfe491fb77ef98b8c309ef1"
+        },
+        {
+          "path": "delivery/final-source-20261020/UniformExposedIdentity.lean",
+          "sha256": "2366dd91426c25723fb6b1ab165b3508027ae38dabe3c45fdc4b7f42c9a35146"
+        },
+        {
+          "path": "delivery/final-source-20261020/PhysicalMarkedComparison.lean",
+          "sha256": "a68bc9989371a21017ae646f0b5b5c49a30ae5954eff3a689ad7aef4ddf177b2"
+        },
+        {
+          "path": "delivery/final-source-20261020/MarkedGRecursion.lean",
+          "sha256": "a9b661c69da85d2c9c538858a396d5f21b6f363632fc3a22b6154333f2ce2952"
+        }
+      ]
+    },
+    {
+      "id": "supporting-truncation",
+      "nodes": [
+        "un:open#exposed-truncation",
+        "un:open#truncation-knot-bridge",
+        "un:transport#finite-current-traversal"
+      ],
+      "kind": "EXACT_WRAPPER_BINDING",
+      "producer": [
+        "DirectGLSSW.HOMFLY.PolygonDrawingBridge.exists_supporting_truncation_preserves_nu_and_corner"
+      ],
+      "supplemental": [
+        "DirectGLSSW.HOMFLY.PolygonDrawingBridge.actual_supporting_truncation_application"
+      ],
+      "consumer_files": [
+        "UniformPrimitiveChart.lean",
+        "UniformSupportingChart.lean",
+        "LegalRestartChart.lean"
+      ],
+      "meaning": "The historical application wrapper has exactly the producer theorem proposition and its proof is a direct application with unchanged arguments. Actual consumers already apply the underlying theorem. Preserve the wrapper export but bind the graph dependency to the actual producer.",
+      "files": [
+        "SupportingTruncationAuxiliary.lean",
+        "UniformPrimitiveChart.lean",
+        "UniformSupportingChart.lean",
+        "LegalRestartChart.lean"
+      ],
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/SupportingTruncationAuxiliary.lean",
+          "sha256": "206cbaeb916815b3a2d5d6aa28b93540b953aeab496e77f99cea2fcd60984b52"
+        },
+        {
+          "path": "delivery/final-source-20261020/UniformPrimitiveChart.lean",
+          "sha256": "0eaf073549d7e371758190d5b1b539cbbcb0abea7e03ce4e7bef35d7c5e72399"
+        },
+        {
+          "path": "delivery/final-source-20261020/UniformSupportingChart.lean",
+          "sha256": "b9b34f08a697969c3ed3e5c3171143603bf2ead2a90aa943951802482df67a7d"
+        },
+        {
+          "path": "delivery/final-source-20261020/LegalRestartChart.lean",
+          "sha256": "83412068c7629aada1ffbc94f0474e543f43e15ee1db50faea6addbc2d37a0d4"
+        }
+      ]
+    },
+    {
+      "id": "amplitude-constancy",
+      "nodes": [
+        "sec:completion#amplitude-chamber-constancy"
+      ],
+      "kind": "SELECTED_LOCAL_CONCLUSION_BINDING",
+      "producer": [
+        "DirectGLSSW.PolygonGermStability.eventually_polygonAmplitude_stability"
+      ],
+      "consumer": [
+        "DirectGLSSW.SourceWorkingReconstruction.candidate_identity_from_working_chamber",
+        "DirectGLSSW.GenericCornerIdentityContinuation.polygonAmplitude_eq_cornerStateSum_of_auxiliaryIdentity"
+      ],
+      "supplemental": [
+        "DirectGLSSW.polygonAmplitude_eq_of_continuous_cyclicGeneric_path"
+      ],
+      "meaning": "Both local stability and global path constancy remain proved source obligations. The selected final continuation consumes local stability at the same original CyclicGeneric polygon together with density. It does not consume the stronger archived global path theorem. No constancy obligation is deleted and no domain or topology is altered.",
+      "files": [
+        "PolygonGermAmplitude.lean",
+        "WorkingReconstruction.lean",
+        "GenericCornerIdentityContinuation.lean"
+      ],
+      "expanded_binders": {
+        "SOURCE": [
+          "Actual polygon, separating support, traversal or terminal state of the fixed source step, as specified in meaning."
+        ],
+        "STANDING": [
+          "Already discharged working-domain and RI data of the existing proof; no new final hypothesis."
+        ],
+        "TYPING": [
+          "Finite sizes, indices, proof arguments and canonical component selectors."
+        ],
+        "RULED": [],
+        "EXCESS": []
+      },
+      "status": "PENDING_FRESH_GLOBAL_ROOT_REVIEW",
+      "base_source_pins": [
+        {
+          "path": "delivery/final-source-20261020/PolygonGermAmplitude.lean",
+          "sha256": "21afb157e8907a007d8acddafa22adb437c0143d7d80a201520bc244313babd4"
+        },
+        {
+          "path": "delivery/final-source-20261020/WorkingReconstruction.lean",
+          "sha256": "c309b70a80427f55f6d8e85edfe4dc4564fa5a6bd5f31742b80284d4c3707236"
+        },
+        {
+          "path": "delivery/final-source-20261020/GenericCornerIdentityContinuation.lean",
+          "sha256": "683e77e9ac507d8e4e5e5fc9699d0749fc6bf75eea8c102a477d84fdeb03dd6e"
+        }
+      ]
+    }
+  ],
+  "whole_source_credit_delta": 0,
+  "release_complete": false,
+  "supersedes": {
+    "path": "validation/source-proof-binding-amendment-root-20261020/AMENDMENT.json",
+    "sha256": "060803126c6525025bb05a52378279ccd367fb07b649fa18e40cc3d06099c36d"
+  },
+  "binder_notes_are_scope_only": true,
+  "required_binder_audit": "Fresh independent root reviewer must supply one row per expanded final/source binder; these scope notes do not constitute passing binder evidence."
+}

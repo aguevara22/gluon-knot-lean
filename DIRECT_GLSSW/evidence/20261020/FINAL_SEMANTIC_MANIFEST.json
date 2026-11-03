@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "reviewer": "fresh_final_root_review_sol",
+  "date_utc": "2026-10-20",
+  "status": "PASS_EXACT_FROZEN_RI_CONDITIONAL_SOURCE_ROOT",
+  "source": {
+    "path": "reference/direct_glssw_corner_proof.tex",
+    "sha256": "32689ac5920b295347579bbf2f59883a0163bab8368e18c530b4fd8484cabefd"
+  },
+  "frozen": {
+    "path": "ArmstrongFrozen/Frozen/JointNormalizedHomflyCornerIdentity.lean",
+    "sha256": "dc0f4aa9f655dc14352c1f30d3e0b59d4d874a44149803aeea173cc567da389d",
+    "abi_sha256": "034a452d75ce8c3dae37ebf06efef4e5b9c103ae31fd5c961cc741cfbeed282b"
+  },
+  "graph": {
+    "path": "work/armstrong/graph-v1/SNAPSHOT.json",
+    "sha256": "3b0aa88668ac7b0546d1b6f053d353938f63fda98a53154fc31416033149b137",
+    "selected_nodes": 129,
+    "selected_and_edges": 314,
+    "selected_or_edges": 1,
+    "own_proof_contracts": 100,
+    "semantic_definitions": 26,
+    "topology_or_denominator_changed": false
+  },
+  "amendment": {
+    "path": "validation/source-proof-binding-amendment-root-20261020/AMENDMENT_V2.json",
+    "sha256": "0df804b8b7f2807c2f19b647db3aad9f0644bcfae226561df46d36aaf1abef3e",
+    "verdict": "ACCEPT_APPEND_ONLY_IMPLEMENTATION_AND_EXPORT_BINDINGS",
+    "source_credit_delta": 0
+  },
+  "successor": {
+    "selection_path": "validation/source-final-successor-luna-20261020/remote-evidence/STAGING_SELECTION_SUCCESSOR.json",
+    "selection_sha256": "b6d07ff2bf26e4b1bf98fdfd23c65179d7bf927077d6b579bfcc97055d2cbd8c",
+    "module_count": 1589,
+    "retained_base_modules": 1563,
+    "additions": 24,
+    "replacements": 2,
+    "tiny_consumer_sha256": "660b5bcdc4d468f39619a574555153fa38b8834a4171f3aa60377d3a8f02c3ef",
+    "terminal_consumer_sha256": "08689130c38d9cb20e956763dbca79368a9802c703c569401092717304eef8d2"
+  },
+  "build": {
+    "result_path": "validation/source-clean-build-root-20261020/release1589-evidence/build/RESULT.json",
+    "result_sha256": "26a2d2bbc63e3b4e82602de741da6b6ea003eabbfa4b1161525bba41f96bc8cb",
+    "status": "PASS_FRESH_PROJECT_BUILD",
+    "build_log_sha256": "72befd0c7cec9fc9cb1b20e3ff249f2c474bbd369fe67f8b681237dcd5f6444d"
+  },
+  "portable_audit": {
+    "result_path": "validation/source-clean-build-root-20261020/release1589-evidence/audit/portable/RESULT.json",
+    "result_sha256": "a250a278383f246e0c27c4a3b3994d2c3fb4acb81f2dd5fb7c3e58aa41c6b0bb",
+    "status": "PASS_SOURCE_AND_EXPORT_AXIOMS",
+    "checked_exports": 3382,
+    "axioms": ["propext", "Quot.sound", "Classical.choice"],
+    "source_audit_sha256": "64c354cceea29c86942c177a6f38467af562a2ca5fdc7f1f475d2b20c040a511",
+    "export_bindings_sha256": "6da49c49e3b924e06ecde8cb2a4e67f7edf544c52091e271710d44c4ff503253",
+    "prior_requests": 3336,
+    "unmapped_prior_requests": 0
+  },
+  "proof_consumption": {
+    "result_path": "validation/source-clean-build-root-20261020/release1589-evidence/audit/PROOF_CONSUMPTION.json",
+    "result_sha256": "e62a699961985834f40e45c68a8d47f0854b61590828e196fe8bca2a8c847907",
+    "probe_sha256": "04eb8fbe4e3e65ef1097d187ab734e3efef6a8eac9bf3391079756ee0386fb53",
+    "direct_edges_verified": 16,
+    "frozen_closure_targets_verified": 5,
+    "visited_declarations": 36209,
+    "overall_result_sha256": "5124e7adfa28add3aa152f88edec0b377d8876318f5fda27cef324bcb3b4cd76"
+  },
+  "expanded_binders": {
+    "SOURCE": 33,
+    "STANDING": 0,
+    "TYPING": 28,
+    "RULED": 0,
+    "EXCESS": 0,
+    "repeated_carrier_fields_classified_separately": 28
+  },
+  "source_meaning": {
+    "literal_definitions_reviewed": true,
+    "final_fullPrimitive_proxy_approved": false,
+    "only_extra_identity_hypothesis": "GLSSWRootIndependence",
+    "root_independence_proved_here": false,
+    "remaining_mathematical_limitation": "The corner identity is conditional on GLSSWRootIndependence as in the frozen statement."
+  },
+  "review_path": "validation/source-final-root-review-sol-20261020/REVIEW.md"
+}

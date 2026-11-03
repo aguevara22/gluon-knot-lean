@@ -1,0 +1,3284 @@
+import DirectGLSSW.MixedEdgeSupportOrder
+import DirectGLSSW.MixedEdgeComponentRoots
+import DirectGLSSW.MixedEdgeRetainedWord
+import DirectGLSSW.CyclicWords
+import Mathlib.Data.List.NodupEquivFin
+import Mathlib.Data.List.Chain
+import OrbitWordListChain
+import Mathlib.Logic.Equiv.Fin.Basic
+
+set_option autoImplicit false
+
+/- Root-authored cyclic anchor interval infrastructure, copied from the immutable
+`.lake/cyclic-anchor-interval-root/compile-002/source.lean` snapshot. -/
+namespace DirectGLSSW.CyclicAnchorInterval
+open DirectGLSSW.MixedEdgeSupportOrder
+
+theorem complementaryRank_cyclicVertexIndex {n : ℕ} (e : Fin n) (j : ℕ) (hj : j < n) :
+    DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e
+      (DirectGLSSW.cyclicVertexIndex e j) = j := by
+  have he := e.isLt
+  have hn : 0 < n := by omega
+  have hs : (DirectGLSSW.cyclicSuccessor e).val =
+      if e.val + 1 < n then e.val + 1 else 0 := by
+    unfold DirectGLSSW.cyclicSuccessor
+    rw [DirectGLSSW.cyclicVertexIndex_val e (k := 0) hn]
+    simp only [Nat.add_zero]
+    split_ifs <;> omega
+  simp only [DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank,
+    DirectGLSSW.cyclicVertexIndex_val e hj, hs]
+  split_ifs <;> omega
+
+theorem complementaryRank_lt_size {n : ℕ} (e a : Fin n) :
+    DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e a < n := by
+  have ha := a.isLt
+  have hs := (DirectGLSSW.cyclicSuccessor e).isLt
+  simp only [DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank]
+  split_ifs <;> omega
+
+theorem filter_fin_interval (n lo hi : ℕ) (hhi : hi ≤ n) :
+    (List.ofFn (fun j : Fin n => j)).filter
+      (fun j => decide (lo ≤ j.val ∧ j.val < hi)) =
+      List.ofFn (fun j : Fin (hi-lo) =>
+        (⟨lo+j.val, by have := j.isLt; omega⟩ : Fin n)) := by
+  have hs : (List.ofFn (fun j : Fin n => j)).Pairwise (· < ·) :=
+    List.pairwise_ofFn.mpr (fun _ _ h => h)
+  apply List.Sorted.eq_of_mem_iff (r := (· < ·)) (hs.filter _) ?_ ?_
+  · apply List.pairwise_ofFn.mpr
+    intro i j hij
+    change lo+i.val < lo+j.val
+    exact Nat.add_lt_add_left (Fin.lt_iff_val_lt_val.mp hij) lo
+  · intro a
+    simp only [List.mem_filter, List.mem_ofFn, decide_eq_true_eq]
+    constructor
+    · rintro ⟨_, hlo, hlt⟩
+      refine ⟨⟨a.val-lo, by omega⟩, ?_⟩
+      apply Fin.ext
+      simp only [Fin.val_mk]
+      omega
+    · rintro ⟨j, rfl⟩
+      refine ⟨⟨⟨lo+j.val, by have := j.isLt; omega⟩, rfl⟩, ?_, ?_⟩ <;>
+        have := j.isLt <;> simp only [Fin.val_mk] <;> omega
+
+theorem filter_ofFn_interval {α : Type*} {n : ℕ} (f : Fin n → α)
+    (p : α → Prop) [DecidablePred p] (lo hi : ℕ) (hhi : hi ≤ n)
+    (hp : ∀ j, p (f j) ↔ lo ≤ j.val ∧ j.val < hi) :
+    (List.ofFn f).filter (fun a => decide (p a)) =
+      List.ofFn (fun j : Fin (hi-lo) => f ⟨lo+j.val, by have := j.isLt; omega⟩) := by
+  have hm : List.ofFn f = (List.ofFn (fun j : Fin n => j)).map f := by simp [Function.comp_def]
+  rw [hm, List.filter_map]
+  have hpred : (fun j : Fin n => decide (p (f j))) =
+      (fun j : Fin n => decide (lo ≤ j.val ∧ j.val < hi)) := by
+    funext j
+    simp only [hp]
+  change List.map f ((List.ofFn (fun j : Fin n => j)).filter
+    (fun j => decide (p (f j)))) = _
+  rw [hpred, filter_fin_interval n lo hi hhi, List.map_ofFn]
+  rfl
+
+theorem cyclic_anchor_interval {n : ℕ} (e : Fin n) (lo hi : ℕ) (hhi : hi ≤ n) :
+    (List.ofFn (fun j : Fin n => DirectGLSSW.cyclicVertexIndex e j.val)).filter
+      (fun a => decide (lo ≤ DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e a ∧
+        DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e a < hi)) =
+      List.ofFn (fun j : Fin (hi-lo) => DirectGLSSW.cyclicVertexIndex e (lo+j.val)) := by
+  apply filter_ofFn_interval (fun j : Fin n => DirectGLSSW.cyclicVertexIndex e j.val)
+    (fun a => lo ≤ DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e a ∧
+      DirectGLSSW.MixedEdgeSupportOrder.complementaryEventRank e a < hi) lo hi hhi
+  intro j
+  simp only [complementaryRank_cyclicVertexIndex e j.val j.isLt]
+end DirectGLSSW.CyclicAnchorInterval
+
+namespace DirectGLSSW.MixedConsecutiveCapWord
+
+open MixedEdgeSupportOrder MixedEdgeComponentRoots MixedEdgeRetainedWord DaughterFirstReturn FiniteCycleOrder
+
+noncomputable section
+attribute [local instance] Classical.propDecidable
+
+variable {K : Type*} [Field K] [LinearOrder K]
+variable {n : ℕ}
+
+abbrev EdgeChord (q : Fin n → PlanarPoint K) (e : Fin n) := DirectGLSSW.EdgeChord q e
+
+/-- A support list in the geometric order from the successor endpoint toward
+`e`.  The pair relation records both actual abscissa order and return-arc
+order; it does not package either as an unproved routing assumption. -/
+def OrderedEdgeSupport (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q)
+    (e : Fin n) (L : List (EdgeChord q e)) : Prop :=
+  L.Nodup ∧ List.Pairwise (fun c d =>
+    (crossingPoint q c.val).1 < (crossingPoint q d.val).1 ∧
+      returnVisitBefore q hq.g2 e c d) L
+
+/-- The finite crossing support generated by the chosen ordered list. -/
+noncomputable def supportOfList (q : Fin n → PlanarPoint K) (e : Fin n)
+    (L : List (EdgeChord q e)) : Finset (PolygonCrossing q) := by
+  classical
+  exact L.toFinset.image Subtype.val
+
+/-- The root event of cell `i`: its selected edge crossing, or `e` for the
+terminal cell. -/
+def cellRootEvent (q : Fin n → PlanarPoint K) (e : Fin n)
+    (L : List (EdgeChord q e)) (i : Fin (L.length + 1)) : PolygonEvent q := by
+  classical
+  exact if hi : i.val < L.length then
+    Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨i.val, hi⟩))
+  else Sum.inl e
+
+/-- The left boundary of a cell is `succ e` in the first cell and the prior
+selected crossing's return visit thereafter. -/
+def cellLeftEvent (q : Fin n → PlanarPoint K) (e : Fin n)
+    (L : List (EdgeChord q e)) (i : Fin (L.length + 1)) : PolygonEvent q := by
+  classical
+  exact if hi : i.val = 0 then Sum.inl (cyclicSuccessor e) else
+    Sum.inr (DirectGLSSW.returnVisit q e (L.get ⟨i.val - 1, by
+      have := i.isLt
+      have hlen : i.val ≤ L.length := by omega
+      omega⟩))
+
+/-- The right return-arc boundary is the next selected crossing's return
+visit, or the terminal anchor `e`. -/
+def cellRightEvent (q : Fin n → PlanarPoint K) (e : Fin n)
+    (L : List (EdgeChord q e)) (i : Fin (L.length + 1)) : PolygonEvent q := by
+  classical
+  exact if hi : i.val < L.length then
+    Sum.inr (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hi⟩))
+  else Sum.inl e
+
+/-- Original vertices strictly on the cyclic event arc between the cell's
+left and right boundaries, in the orientation beginning after `e`. -/
+noncomputable def cellInteriorAnchors (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) : List (Fin n) := by
+  classical
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  exact (List.ofFn fun j : Fin n => cyclicVertexIndex e j.val).filter fun a =>
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+      (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+      (eventOrdinal q hq.g2 (cellRightEvent q e L i))
+
+/-- Membership in the actual cell filter is equivalent to its event arc predicate. -/
+theorem cellInteriorAnchors_mem_iff (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) (a : Fin n) :
+    a ∈ cellInteriorAnchors q hq e L i ↔
+      strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)) := by
+  classical
+  have hbase : a ∈ List.ofFn (fun j : Fin n => cyclicVertexIndex e j.val) :=
+    List.mem_ofFn.mpr ((cyclicVertexIndex_bijective e).surjective a)
+  simp only [cellInteriorAnchors, List.mem_filter, decide_eq_true_eq]
+  exact and_iff_right hbase
+
+/-- The interior-anchor filter preserves the one-traversal vertex list's
+injectivity. -/
+theorem cellInteriorAnchors_nodup (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) : (cellInteriorAnchors q hq e L i).Nodup := by
+  unfold cellInteriorAnchors
+  apply List.Nodup.filter
+  apply List.nodup_ofFn_ofInjective
+  intro a b hab
+  apply Fin.ext
+  exact cyclicVertexIndex_injective e a.isLt b.isLt hab
+
+/-- Mapping the distinct interior anchors to event labels remains injective. -/
+theorem cellInteriorAnchorEvents_nodup (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    ((cellInteriorAnchors q hq e L i).map (Sum.inl : Fin n → PolygonEvent q)).Nodup := by
+  exact (cellInteriorAnchors_nodup q hq e L i).map (by
+    intro a b hab
+    exact Sum.inl.inj hab)
+
+/-- The explicit oriented smoothing word: selected root, left boundary, then
+all original vertices interior to the complementary return arc. -/
+noncomputable def cellEventWord (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) : List (PolygonEvent q) :=
+  cellRootEvent q e L i :: cellLeftEvent q e L i ::
+    (cellInteriorAnchors q hq e L i).map Sum.inl
+
+theorem cellRootEvent_retained (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    retainedCorner q (supportOfList q e L) (cellRootEvent q e L i) := by
+  classical
+  unfold cellRootEvent
+  split_ifs with hi
+  · change (L.get ⟨i.val, hi⟩).val ∈ supportOfList q e L
+    unfold supportOfList
+    exact Finset.mem_image.mpr ⟨L.get ⟨i.val, hi⟩, by simp, rfl⟩
+  · trivial
+
+theorem cellLeftEvent_retained (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    retainedCorner q (supportOfList q e L) (cellLeftEvent q e L i) := by
+  classical
+  unfold cellLeftEvent
+  split_ifs with hi
+  · trivial
+  · change (L.get ⟨i.val - 1, _⟩).val ∈ supportOfList q e L
+    unfold supportOfList
+    exact Finset.mem_image.mpr ⟨L.get ⟨i.val - 1, by
+      have := i.isLt
+      have hlen : i.val ≤ L.length := by omega
+      omega⟩, by simp, rfl⟩
+
+theorem cellRightEvent_retained (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    retainedCorner q (supportOfList q e L) (cellRightEvent q e L i) := by
+  classical
+  unfold cellRightEvent
+  split_ifs with hi
+  · change (L.get ⟨i.val, hi⟩).val ∈ supportOfList q e L
+    unfold supportOfList
+    exact Finset.mem_image.mpr ⟨L.get ⟨i.val, hi⟩, by simp, rfl⟩
+  · trivial
+
+theorem cellEventWord_all_retained (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    ∀ x ∈ cellEventWord q hq e L i, retainedCorner q (supportOfList q e L) x := by
+  intro x hx
+  simp only [cellEventWord, List.mem_cons] at hx
+  rcases hx with rfl | hx
+  · exact cellRootEvent_retained q e L i
+  · rcases hx with rfl | hx
+    · exact cellLeftEvent_retained q e L i
+    · simp only [List.mem_map] at hx
+      rcases hx with ⟨a, ha, rfl⟩
+      trivial
+
+/-- Cell indices are the listed edge roots in order, followed by the terminal
+anchor root. -/
+def cellRootEquiv (q : Fin n → PlanarPoint K) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : L.Nodup) :
+    Fin (L.length + 1) ≃ EdgeRoot q e L.toFinset := by
+  let E : Fin L.length ≃ {c : EdgeChord q e // c ∈ L.toFinset} :=
+    (hL.getEquiv L).trans <|
+      Equiv.subtypeEquivRight (fun c => by simp)
+  exact finSuccEquivLast.trans (Equiv.optionCongr E)
+
+theorem cellRootEvent_eq_rootEvent (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e)) (hL : L.Nodup)
+    (i : Fin (L.length + 1)) :
+    cellRootEvent q e L i =
+      rootEvent q e L.toFinset (cellRootEquiv q e L hL i) := by
+  by_cases hi : i.val < L.length
+  · let j : Fin L.length := ⟨i.val, hi⟩
+    have hij : i = Fin.castSucc j := by apply Fin.ext; rfl
+    rw [hij]
+    simp [cellRootEvent, cellRootEquiv, hi, finSuccEquivLast_castSucc,
+      rootEvent, Equiv.subtypeEquivRight_apply, List.Nodup.getEquiv]
+  · have hlast : i = Fin.last L.length := by
+      apply Fin.ext
+      simp only [Fin.val_last]
+      omega
+    rw [hlast]
+    simp [cellRootEvent, cellRootEquiv, hlast, finSuccEquivLast_last,
+      rootEvent]
+
+theorem edgeVisit_ne_returnVisit (q : Fin n → PlanarPoint K)
+    (e : Fin n) (c d : EdgeChord q e) :
+    DirectGLSSW.edgeVisit q e c ≠ DirectGLSSW.returnVisit q e d := by
+  intro h
+  have hcross : c.val.val = d.val.val :=
+    congrArg (fun v : CrossingVisit q => v.1.val) h
+  have hcd : c = d := by
+    apply Subtype.ext
+    apply Subtype.ext
+    exact hcross
+  subst d
+  have hflip : DirectGLSSW.edgeVisit q e c =
+      crossingVisitFlip q (DirectGLSSW.edgeVisit q e c) := by
+    simpa [DirectGLSSW.returnVisit] using h
+  exact (crossingVisitFlip_ne_self q (DirectGLSSW.edgeVisit q e c)) hflip.symm
+
+/-- The root and left boundary of a cell have distinct event labels, also in
+the empty-list cell. -/
+theorem cellRootEvent_ne_cellLeftEvent (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) :
+    cellRootEvent q e L i ≠ cellLeftEvent q e L i := by
+  by_cases hzero : i.val = 0
+  · have hi : i = 0 := Fin.ext hzero
+    subst i
+    by_cases hempty : L.length = 0
+    · have hL : L = [] := List.length_eq_zero.mp hempty
+      subst L
+      intro hEq
+      have hsucc : e = cyclicSuccessor e := Sum.inl.inj hEq
+      have hn : 3 ≤ n := hq.size_ge_three
+      exact (cyclicSuccessor_ne_self (by omega : 2 ≤ n) e) hsucc.symm
+    · have hlen : 0 < L.length := Nat.pos_of_ne_zero hempty
+      simp [cellRootEvent, cellLeftEvent, hlen]
+  · have hzero' : i.val ≠ 0 := hzero
+    by_cases hroot : i.val < L.length
+    · simp only [cellRootEvent, dif_pos hroot, cellLeftEvent, dif_neg hzero']
+      intro hEq
+      exact edgeVisit_ne_returnVisit q e _ _ (Sum.inr.inj hEq)
+    · simp [cellRootEvent, hroot, cellLeftEvent, hzero']
+
+/-- Increasing abscissae in the support list give the reverse traversal order
+of the selected visits along the leftward chosen edge. -/
+theorem cellSelectedVisits_descend (q : Fin n → PlanarPoint K)
+    [IsStrictOrderedRing K] (hq : CyclicGeneric q) (hn : 3 ≤ n)
+    (e : Fin n) (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (i : Fin L.length) (hi : 0 < i.val) :
+    (polygonEventOrder q hq.g2).lt
+      (Sum.inr (DirectGLSSW.edgeVisit q e (L.get i)) : PolygonEvent q)
+      (Sum.inr (DirectGLSSW.edgeVisit q e
+        (L.get ⟨i.val - 1, by have := i.isLt; omega⟩))) := by
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hprev : i.val - 1 < L.length := by have := i.isLt; omega
+  have hlt : (⟨i.val - 1, hprev⟩ : Fin L.length) < i := by
+    change i.val - 1 < i.val
+    omega
+  have hpair := (List.pairwise_iff_get.mp hL.2) _ _ hlt
+  simpa only [polygonEvent_lt_iff] using
+    (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa q hq.g2 e
+    hflat hleft (L.get i)
+    (L.get ⟨i.val - 1, by have := i.isLt; omega⟩)).2 hpair.1
+
+/-- A retained crossing visit on the chosen edge is exactly the selected
+edge visit of one member of the support list. -/
+theorem retainedVisit_onChosenEdge (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e)) (z : CrossingVisit q)
+    (hz : retainedCorner q (supportOfList q e L) (Sum.inr z))
+    (hedge : crossingVisitEdge q z = e) :
+    ∃ c, c ∈ L ∧ z = DirectGLSSW.edgeVisit q e c := by
+  have hzCross : z.1 ∈ supportOfList q e L := by
+    simpa [retainedCorner] using hz
+  change z.1 ∈ L.toFinset.image Subtype.val at hzCross
+  rcases Finset.mem_image.mp hzCross with ⟨c, hc, hzval⟩
+  have hcmem : c ∈ L := List.mem_toFinset.mp hc
+  have hdecomp : z = DirectGLSSW.edgeVisit q e c ∨
+      z = DirectGLSSW.returnVisit q e c := by
+    rcases c.property with hfirst | hsecond
+    · have hsecond : c.val.val.2 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q c.val) (hfirst.trans heq.symm)
+      rcases z with ⟨zc, b⟩
+      have : zc = c.val := hzval.symm
+      subst zc
+      cases b <;> simp [DirectGLSSW.edgeVisit, DirectGLSSW.edgeVisitSide,
+        DirectGLSSW.returnVisit, DirectGLSSW.crossingVisitFlip, hfirst, hsecond]
+    · have hfirst : c.val.val.1 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q c.val) (heq.trans hsecond.symm)
+      rcases z with ⟨zc, b⟩
+      have : zc = c.val := hzval.symm
+      subst zc
+      cases b <;> simp [DirectGLSSW.edgeVisit, DirectGLSSW.edgeVisitSide,
+        DirectGLSSW.returnVisit, DirectGLSSW.crossingVisitFlip, hfirst, hsecond]
+  rcases hdecomp with heq | heq
+  · exact ⟨c, hcmem, heq⟩
+  · have hnot := congrArg (crossingVisitEdge q) heq
+    have hreturnedge : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) = e :=
+      hnot.symm.trans hedge
+    exact False.elim ((DirectGLSSW.edgeVisitSide_spec q e c).2 hreturnedge)
+
+/-- Distinct selected chords incident to e have distinct opposite edge labels. -/
+theorem returnVisitEdge_injective (q : Fin n → PlanarPoint K)
+    (e : Fin n) :
+    Function.Injective (fun c : EdgeChord q e =>
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e c)) := by
+  intro c d h
+  rcases c.property with hc₁ | hc₂
+  · rcases d.property with hd₁ | hd₂
+    · have hsecond : c.val.val.2 = d.val.val.2 := by
+        simpa [DirectGLSSW.returnVisit, DirectGLSSW.edgeVisit,
+          DirectGLSSW.edgeVisitSide, crossingVisitFlip, crossingVisitEdge, hc₁, hd₁] using h
+      have hfirst : c.val.val.1 = d.val.val.1 := hc₁.trans hd₁.symm
+      apply Subtype.ext
+      apply Subtype.ext
+      exact Prod.ext hfirst hsecond
+    · have hdFirstNe : d.val.val.1 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q d.val) (heq.trans hd₂.symm)
+      have hother : c.val.val.2 = d.val.val.1 := by
+        simpa [DirectGLSSW.returnVisit, DirectGLSSW.edgeVisit,
+          DirectGLSSW.edgeVisitSide, crossingVisitFlip, crossingVisitEdge,
+          hc₁, hd₂, hdFirstNe] using h
+      have hltC : e < c.val.val.2 := by simpa [hc₁] using c.val.property.1
+      have hltD : d.val.val.1 < e := by simpa [hd₂] using d.val.property.1
+      rw [hother] at hltC
+      exact False.elim ((not_lt_of_ge (le_of_lt hltD)) hltC)
+  · rcases d.property with hd₁ | hd₂
+    · have hcFirstNe : c.val.val.1 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q c.val) (heq.trans hc₂.symm)
+      have hother : d.val.val.2 = c.val.val.1 := by
+        simpa [DirectGLSSW.returnVisit, DirectGLSSW.edgeVisit,
+          DirectGLSSW.edgeVisitSide, crossingVisitFlip, crossingVisitEdge,
+          hc₂, hd₁, hcFirstNe] using h.symm
+      have hltD : e < d.val.val.2 := by simpa [hd₁] using d.val.property.1
+      have hltC : c.val.val.1 < e := by simpa [hc₂] using c.val.property.1
+      rw [hother] at hltD
+      exact False.elim ((not_lt_of_ge (le_of_lt hltC)) hltD)
+    · have hfirst : c.val.val.1 = d.val.val.1 := by
+        have hcFirstNe : c.val.val.1 ≠ e := by
+          intro heq
+          exact (DirectGLSSW.crossing_edges_ne q c.val) (heq.trans hc₂.symm)
+        have hdFirstNe : d.val.val.1 ≠ e := by
+          intro heq
+          exact (DirectGLSSW.crossing_edges_ne q d.val) (heq.trans hd₂.symm)
+        simpa [DirectGLSSW.returnVisit, DirectGLSSW.edgeVisit,
+          DirectGLSSW.edgeVisitSide, crossingVisitFlip, crossingVisitEdge,
+          hc₂, hd₂, hcFirstNe, hdFirstNe] using h
+      apply Subtype.ext
+      apply Subtype.ext
+      exact Prod.ext hfirst (hc₂.trans hd₂.symm)
+
+/-- Every retained crossing visit off e is the return visit of its selected
+chord; the edge visit is characterized by having edge e. -/
+theorem retainedVisit_offChosenEdge_isReturn (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e)) (z : CrossingVisit q)
+    (hz : retainedCorner q (supportOfList q e L) (Sum.inr z))
+    (hedge : crossingVisitEdge q z ≠ e) :
+    ∃ c, c ∈ L ∧ z = DirectGLSSW.returnVisit q e c := by
+  have hzCross : z.1 ∈ supportOfList q e L := by
+    simpa [retainedCorner] using hz
+  change z.1 ∈ L.toFinset.image Subtype.val at hzCross
+  rcases Finset.mem_image.mp hzCross with ⟨c, hc, hzval⟩
+  have hcmem : c ∈ L := List.mem_toFinset.mp hc
+  have hdecomp : z = DirectGLSSW.edgeVisit q e c ∨
+      z = DirectGLSSW.returnVisit q e c := by
+    rcases c.property with hfirst | hsecond
+    · have hsecond : c.val.val.2 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q c.val) (hfirst.trans heq.symm)
+      rcases z with ⟨zc, b⟩
+      have : zc = c.val := hzval.symm
+      subst zc
+      cases b <;> simp [DirectGLSSW.edgeVisit, DirectGLSSW.edgeVisitSide,
+        DirectGLSSW.returnVisit, DirectGLSSW.crossingVisitFlip, hfirst, hsecond]
+    · have hfirst : c.val.val.1 ≠ e := by
+        intro heq
+        exact (DirectGLSSW.crossing_edges_ne q c.val) (heq.trans hsecond.symm)
+      rcases z with ⟨zc, b⟩
+      have : zc = c.val := hzval.symm
+      subst zc
+      cases b <;> simp [DirectGLSSW.edgeVisit, DirectGLSSW.edgeVisitSide,
+        DirectGLSSW.returnVisit, DirectGLSSW.crossingVisitFlip, hfirst, hsecond]
+  rcases hdecomp with heq | heq
+  · have hedgeEq : crossingVisitEdge q (DirectGLSSW.edgeVisit q e c) = e :=
+      (DirectGLSSW.edgeVisitSide_spec q e c).1
+    exact False.elim (hedge (by simpa [heq] using hedgeEq))
+  · exact ⟨c, hcmem, heq⟩
+
+/-- At a fixed edge other than e, the retained support has at most one visit. -/
+theorem retained_offChosenEdge_visit_unique (q : Fin n → PlanarPoint K)
+    (e : Fin n) (L : List (EdgeChord q e)) (f : Fin n)
+    (z w : CrossingVisit q)
+    (hz : retainedCorner q (supportOfList q e L) (Sum.inr z))
+    (hw : retainedCorner q (supportOfList q e L) (Sum.inr w))
+    (hf : f ≠ e) (hzf : crossingVisitEdge q z = f)
+    (hwf : crossingVisitEdge q w = f) : z = w := by
+  obtain ⟨c, hc, hzc⟩ := retainedVisit_offChosenEdge_isReturn q e L z hz
+    (hzf ▸ hf)
+  obtain ⟨d, hd, hwd⟩ := retainedVisit_offChosenEdge_isReturn q e L w hw
+    (hwf ▸ hf)
+  have hEdge : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) =
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e d) := by
+    calc
+      _ = crossingVisitEdge q z := by rw [hzc]
+      _ = f := hzf
+      _ = crossingVisitEdge q w := hwf.symm
+      _ = _ := by rw [hwd]
+  have hcd : c = d := returnVisitEdge_injective q e hEdge
+  subst d
+  rw [hzc, hwd]
+
+/-- A selected return visit is followed, in retained cyclic order, by its
+next anchor unless its edge is the final labelled edge (where wrap applies). -/
+theorem noRetainedEventBetweenReturnVisitAndNextAnchor
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (c : EdgeChord q e) (hc : c ∈ L)
+    (hnext : (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)).val + 1 < n) :
+    ¬ ∃ z : PolygonEvent q,
+      retainedCorner q (supportOfList q e L) z ∧
+      (polygonEventOrder q hq.g2).lt
+        (Sum.inr (DirectGLSSW.returnVisit q e c)) z ∧
+      (polygonEventOrder q hq.g2).lt z
+        (Sum.inl (cyclicSuccessor (crossingVisitEdge q
+          (DirectGLSSW.returnVisit q e c)))) := by
+  rintro ⟨z, hz, hxz, hzy⟩
+  let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e c)
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.returnVisit q e c)
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor f)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hfne : f ≠ e := by
+    exact (DirectGLSSW.edgeVisitSide_spec q e c).2
+  have hxRet : retainedCorner q (supportOfList q e L) x := by
+    change c.val ∈ supportOfList q e L
+    unfold supportOfList
+    exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+  have hxf : polygonEventEdge q x = f := by rfl
+  have hyedge : polygonEventEdge q y = cyclicSuccessor f := by rfl
+  have hnextval : (cyclicSuccessor f).val = f.val + 1 := by
+    have hpos : 0 < n := by omega
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val f (k := 0) hpos]
+    simp only [Nat.add_zero]
+    split_ifs with h <;> omega
+  cases z with
+  | inl a =>
+      have hxa := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hxz
+      have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp hzy
+      rcases hxa with hfa | ⟨hfa, hparam⟩
+      · have hfa' : f < a := by simpa [hxf, polygonEventEdge] using hfa
+        rcases hay with has | ⟨has, hparam'⟩
+        · have has' : a < cyclicSuccessor f := by
+            simpa [hyedge, polygonEventEdge] using has
+          have hv := Fin.lt_def.mp hfa'
+          have hw := Fin.lt_def.mp has'
+          omega
+        · simp [y, polygonEventParameter] at hparam'
+      · have hpos := (DirectGLSSW.crossingVisitParameter_spec q
+          (DirectGLSSW.returnVisit q e c)).1
+        exact False.elim ((not_lt_of_ge (le_of_lt hpos)) (by simpa [x, polygonEventParameter] using hparam))
+  | inr v =>
+      have hxv := (polygonEvent_lt_iff q hq.g2 x (Sum.inr v)).mp hxz
+      have hvy := (polygonEvent_lt_iff q hq.g2 (Sum.inr v) y).mp hzy
+      have hvRet : retainedCorner q (supportOfList q e L) (Sum.inr v) := by
+        simpa [retainedCorner] using hz
+      have hge : f.val ≤ (crossingVisitEdge q v).val := by
+        rcases hxv with hlt | ⟨heq, _⟩
+        · exact Fin.le_iff_val_le_val.mpr (Nat.le_of_lt (Fin.lt_iff_val_lt_val.mp
+            (by simpa [hxf, polygonEventEdge] using hlt)))
+        · have heq' : f = crossingVisitEdge q v := by
+            simpa [hxf, polygonEventEdge] using heq
+          exact Fin.le_of_eq heq'
+      have hltNext : (crossingVisitEdge q v).val < f.val + 1 := by
+        rcases hvy with hlt | ⟨heq, hparam⟩
+        · have hlt' : crossingVisitEdge q v < cyclicSuccessor f := by
+            simpa [hyedge, polygonEventEdge] using hlt
+          simpa [hnextval] using Fin.lt_iff_val_lt_val.mp hlt'
+        · have hEq : crossingVisitEdge q v = cyclicSuccessor f := by
+            simpa [hyedge, polygonEventEdge] using heq
+          have hpos := (DirectGLSSW.crossingVisitParameter_spec q v).1
+          have hzero : polygonEventParameter q y = 0 := rfl
+          have hparam' : polygonEventParameter q (Sum.inr v) < 0 := by
+            simpa [y, polygonEventParameter, hEq] using hparam
+          exact False.elim ((not_lt_of_ge (le_of_lt hpos)) hparam')
+      have hvalEq : (crossingVisitEdge q v).val = f.val := by omega
+      have hedgeEq : crossingVisitEdge q v = f := Fin.ext hvalEq
+      have hsame := retained_offChosenEdge_visit_unique q e L f
+        (DirectGLSSW.returnVisit q e c) v hxRet hvRet hfne rfl hedgeEq
+      have : x = Sum.inr v := by
+        change Sum.inr (DirectGLSSW.returnVisit q e c) = Sum.inr v
+        exact congrArg Sum.inr hsame
+      exact (lt_irrefl x (by simpa [this, x] using hxz))
+
+/-- The retained original successor of a selected return visit is the next
+anchor on its actual outgoing edge, when that label does not wrap. -/
+theorem retainedDart_returnVisit_to_nextAnchor
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (c : EdgeChord q e) (hc : c ∈ L)
+    (hnext : (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)).val + 1 < n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inr (DirectGLSSW.returnVisit q e c),
+        by
+          change c.val ∈ supportOfList q e L
+          unfold supportOfList
+          exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩⟩).val =
+      Sum.inl (cyclicSuccessor (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e c))) := by
+  let S := supportOfList q e L
+  let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e c)
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.returnVisit q e c)
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor f)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by
+    change c.val ∈ S
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+  have hy : retainedCorner q S y := by trivial
+  have hnextval : (cyclicSuccessor f).val = f.val + 1 := by
+    have hpos : 0 < n := by omega
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val f (k := 0) hpos]
+    simp only [Nat.add_zero]
+    split_ifs with h <;> omega
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    apply (polygonEvent_lt_iff q hq.g2 x y).2
+    left
+    change f < cyclicSuccessor f
+    apply Fin.lt_def.mpr
+    simpa [hnextval]
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨hxy, ?_⟩
+    intro z hz
+    by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+    · exact hyz
+    · have hzySub : z < (⟨y, hy⟩ : RetainedEvent q S) := lt_of_not_ge hyz
+      have hzy : (polygonEventOrder q hq.g2).lt z.val y := hzySub
+      have hxz : (polygonEventOrder q hq.g2).lt x z.val := hz
+      exact False.elim <| noRetainedEventBetweenReturnVisitAndNextAnchor q hq e L c hc hnext
+        ⟨z.val, z.property, hxz, hzy⟩
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+
+/-- An original anchor followed by a selected return visit on its outgoing
+edge routes through that visit and pairs to the selected edge root. -/
+theorem retainedDart_anchor_to_selectedRoot
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e f : Fin n) (L : List (EdgeChord q e))
+    (c : EdgeChord q e) (hc : c ∈ L) (hfne : f ≠ e)
+    (hreturn : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) = f) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl f, by trivial⟩).val =
+      Sum.inr (DirectGLSSW.edgeVisit q e c) := by
+  let S := supportOfList q e L
+  let x : PolygonEvent q := Sum.inl f
+  let v : CrossingVisit q := DirectGLSSW.returnVisit q e c
+  let y : PolygonEvent q := Sum.inr v
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by trivial
+  have hy : retainedCorner q S y := by
+    change c.val ∈ S
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    apply (polygonEvent_lt_iff q hq.g2 x y).2
+    right
+    refine ⟨?_, ?_⟩
+    · simpa [x, y, polygonEventEdge] using hreturn.symm
+    · have hpos := (DirectGLSSW.crossingVisitParameter_spec q v).1
+      simpa [x, y, polygonEventParameter] using hpos
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨hxy, ?_⟩
+    intro z hz
+    by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+    · exact hyz
+    · cases z with
+      | mk zval hzret =>
+        have hxz : x < zval := hz
+        have hzy : zval < y := lt_of_not_ge hyz
+        cases zval with
+        | inl a =>
+            have hxa := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hxz
+            have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp hzy
+            rcases hxa with hfa | ⟨hfa, hparam⟩
+            · have hfa' : f < a := by simpa [x, polygonEventEdge] using hfa
+              rcases hay with haf | ⟨haf, hparam'⟩
+              · have haf' : a < f := by simpa [y, v, hreturn, polygonEventEdge] using haf
+                exact False.elim (not_lt_of_ge (le_of_lt haf') hfa')
+              · have heq : a = f := by simpa [y, v, hreturn, polygonEventEdge] using haf
+                subst a
+                exact False.elim (lt_irrefl f hfa')
+            · have hpos := (DirectGLSSW.crossingVisitParameter_spec q v).1
+              have hparam' : crossingVisitParameter q v < 0 := by
+                simpa [x, polygonEventParameter] using hparam
+              exact False.elim ((not_lt_of_ge (le_of_lt hpos)) hparam')
+        | inr w =>
+            have hxw := (polygonEvent_lt_iff q hq.g2 x (Sum.inr w)).mp hxz
+            have hwy := (polygonEvent_lt_iff q hq.g2 (Sum.inr w) y).mp hzy
+            have hwRet : retainedCorner q S (Sum.inr w) := hzret
+            have hwe : crossingVisitEdge q w = f := by
+              rcases hxw with hlt | ⟨heq, _⟩
+              · have hlt' : f < crossingVisitEdge q w := by
+                  simpa [x, polygonEventEdge] using hlt
+                rcases hwy with hlt | ⟨heq', _⟩
+                · have hlt'' : crossingVisitEdge q w < f := by
+                    simpa [y, v, hreturn, polygonEventEdge] using hlt
+                  exact False.elim (not_lt_of_ge (le_of_lt hlt'') hlt')
+                · simpa [y, v, hreturn, polygonEventEdge] using heq'
+              · have heq' : f = crossingVisitEdge q w := by
+                  simpa [x, polygonEventEdge] using heq
+                exact heq'.symm
+            have hsame := retained_offChosenEdge_visit_unique q e L f v w
+              (by simpa [y] using hy) hwRet hfne hreturn hwe
+            have hEq : y = Sum.inr w := by
+              change Sum.inr v = Sum.inr w
+              exact congrArg Sum.inr hsame
+            have hzy' : (polygonEventOrder q hq.g2).lt (Sum.inr w) y := by
+              simpa using hzy
+            have hltFalse : ¬ (polygonEventOrder q hq.g2).lt
+                (Sum.inr w) (Sum.inr w) := lt_irrefl _
+            exact False.elim (hltFalse (by simpa [hEq] using hzy'))
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_visit]
+  have hmem : (DirectGLSSW.returnVisit q e c).1 ∈ S := by
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+  rw [if_pos hmem]
+  simp [v, DirectGLSSW.returnVisit, DirectGLSSW.edgeVisit,
+    DirectGLSSW.crossingVisitFlip]
+
+/-- If no selected return visit lies on f, the retained event interval from
+anchor f to its next anchor is empty. -/
+theorem noRetainedEventBetweenAnchors
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e f : Fin n) (L : List (EdgeChord q e))
+    (hfne : f ≠ e)
+    (hno : ∀ c, c ∈ L → crossingVisitEdge q (DirectGLSSW.returnVisit q e c) ≠ f)
+    (hnext : f.val + 1 < n) :
+    ¬ ∃ z : PolygonEvent q,
+      retainedCorner q (supportOfList q e L) z ∧
+      (polygonEventOrder q hq.g2).lt (Sum.inl f) z ∧
+      (polygonEventOrder q hq.g2).lt z (Sum.inl (cyclicSuccessor f)) := by
+  rintro ⟨z, hz, hxz, hzy⟩
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor f)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hnextval : (cyclicSuccessor f).val = f.val + 1 := by
+    have hpos : 0 < n := by omega
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val f (k := 0) hpos]
+    simp only [Nat.add_zero]
+    split_ifs with h <;> omega
+  cases z with
+  | inl a =>
+      have hxa := (polygonEvent_lt_iff q hq.g2 (Sum.inl f) (Sum.inl a)).mp hxz
+      have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp hzy
+      rcases hxa with hfa | ⟨hfa, hparam⟩
+      · have hfa' : f < a := by simpa [polygonEventEdge] using hfa
+        rcases hay with has | ⟨has, hparam'⟩
+        · have has' : a < cyclicSuccessor f := by
+            simpa [y, polygonEventEdge] using has
+          have hv := Fin.lt_def.mp hfa'
+          have hw := Fin.lt_def.mp has'
+          omega
+        · simp [y, polygonEventParameter] at hparam'
+      · simp [polygonEventParameter] at hparam
+  | inr v =>
+      have hxa := (polygonEvent_lt_iff q hq.g2 (Sum.inl f) (Sum.inr v)).mp hxz
+      have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inr v) y).mp hzy
+      have hle : f.val ≤ (crossingVisitEdge q v).val := by
+        rcases hxa with hlt | ⟨heq, _⟩
+        · exact Nat.le_of_lt (Fin.lt_iff_val_lt_val.mp
+            (by simpa [polygonEventEdge] using hlt))
+        · have heq' : f = crossingVisitEdge q v := by
+            simpa [polygonEventEdge] using heq
+          exact Fin.le_iff_val_le_val.mp (Fin.le_of_eq heq')
+      have hlt : (crossingVisitEdge q v).val < f.val + 1 := by
+        rcases hay with hlt | ⟨heq, hparam⟩
+        · have hlt' : crossingVisitEdge q v < cyclicSuccessor f := by
+            simpa [y, polygonEventEdge] using hlt
+          simpa [hnextval] using Fin.lt_iff_val_lt_val.mp hlt'
+        · have heq' : crossingVisitEdge q v = cyclicSuccessor f := by
+            simpa [y, polygonEventEdge] using heq
+          have hpos := (DirectGLSSW.crossingVisitParameter_spec q v).1
+          have hparam' : crossingVisitParameter q v < 0 := by
+            simpa [y, polygonEventParameter] using hparam
+          exact False.elim ((not_lt_of_ge (le_of_lt hpos)) hparam')
+      have hval : (crossingVisitEdge q v).val = f.val := by omega
+      have hedge : crossingVisitEdge q v = f := Fin.ext hval
+      have hvRet : retainedCorner q (supportOfList q e L) (Sum.inr v) := by
+        simpa [retainedCorner] using hz
+      obtain ⟨c, hc, hvc⟩ := retainedVisit_offChosenEdge_isReturn q e L v hvRet
+        (by simpa [hedge] using hfne)
+      have hReturnEdge : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) = f := by
+        simpa [hvc] using hedge
+      exact hno c hc hReturnEdge
+
+/-- With no selected return on f, an anchor routes to its next anchor when
+that next label does not wrap. -/
+theorem retainedDart_anchor_to_nextAnchor
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e f : Fin n) (L : List (EdgeChord q e))
+    (hfne : f ≠ e)
+    (hno : ∀ c, c ∈ L →
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e c) ≠ f)
+    (hnext : f.val + 1 < n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl f, by trivial⟩).val = Sum.inl (cyclicSuccessor f) := by
+  let S := supportOfList q e L
+  let x : PolygonEvent q := Sum.inl f
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor f)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by trivial
+  have hy : retainedCorner q S y := by trivial
+  have hnextval : (cyclicSuccessor f).val = f.val + 1 := by
+    have hpos : 0 < n := by omega
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val f (k := 0) hpos]
+    simp only [Nat.add_zero]
+    split_ifs with h <;> omega
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    apply (polygonEvent_lt_iff q hq.g2 x y).2
+    left
+    change f < cyclicSuccessor f
+    apply Fin.lt_def.mpr
+    simpa [hnextval]
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨hxy, ?_⟩
+    intro z hz
+    by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+    · exact hyz
+    · cases z with
+      | mk zval hzret =>
+        have hxz : x < zval := hz
+        have hzy : zval < y := lt_of_not_ge hyz
+        exact False.elim <| noRetainedEventBetweenAnchors q hq e f L hfne hno hnext
+          ⟨zval, hzret, hxz, hzy⟩
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+
+/-- There is no retained event strictly between consecutive selected visits
+on the chosen edge. -/
+theorem noRetainedEventBetweenSelectedVisits (q : Fin n → PlanarPoint K)
+    [IsStrictOrderedRing K] (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (i : Fin L.length) (hi : 0 < i.val) :
+    ¬ ∃ z : PolygonEvent q,
+      retainedCorner q (supportOfList q e L) z ∧
+      (polygonEventOrder q hq.g2).lt
+        (Sum.inr (DirectGLSSW.edgeVisit q e (L.get i))) z ∧
+      (polygonEventOrder q hq.g2).lt z
+        (Sum.inr (DirectGLSSW.edgeVisit q e
+          (L.get ⟨i.val - 1, by have := i.isLt; omega⟩))) := by
+  rintro ⟨z, hz, hrootz, hzprev⟩
+  have hprev : i.val - 1 < L.length := by have := i.isLt; omega
+  let p : Fin L.length := ⟨i.val - 1, hprev⟩
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i))
+  let y : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get p))
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hPair : List.Pairwise (fun c d =>
+      (crossingPoint q c.val).1 < (crossingPoint q d.val).1 ∧
+        returnVisitBefore q hq.g2 e c d) L := hL.2
+  have hAb : ∀ a b : Fin L.length, a < b →
+      (crossingPoint q (L.get a).val).1 < (crossingPoint q (L.get b).val).1 :=
+    fun a b hab => ((List.pairwise_iff_get.mp hPair) a b hab).1
+  cases z with
+  | inl a =>
+      have hxza := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hrootz
+      have hazy := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp hzprev
+      have hxe : polygonEventEdge q x = e :=
+        (DirectGLSSW.edgeVisitSide_spec q e (L.get i)).1
+      have hye : polygonEventEdge q y = e :=
+        (DirectGLSSW.edgeVisitSide_spec q e (L.get p)).1
+      rcases hxza with hlabel | ⟨hlabel, hparam⟩
+      · have hal : a ≤ e := by
+          rcases hazy with hlabel' | ⟨hlabel', _⟩
+          · rw [hye] at hlabel'
+            exact le_of_lt (by simpa [polygonEventEdge] using hlabel')
+          · rw [hye] at hlabel'
+            exact le_of_eq (by simpa [polygonEventEdge] using hlabel')
+        rw [hxe] at hlabel
+        exact (not_lt_of_ge hal) (by simpa [polygonEventEdge] using hlabel)
+      · have hpos : 0 < polygonEventParameter q x :=
+          (DirectGLSSW.crossingVisitParameter_spec q
+            (DirectGLSSW.edgeVisit q e (L.get i))).1
+        simp [polygonEventParameter] at hparam
+        exact (not_lt_of_ge (le_of_lt hpos)) hparam
+  | inr zvisit =>
+      have hxe := (polygonEvent_lt_iff q hq.g2 x (Sum.inr zvisit)).mp hrootz
+      have hey := (polygonEvent_lt_iff q hq.g2 (Sum.inr zvisit) y).mp hzprev
+      have heX : polygonEventEdge q x = e := by
+        simpa [x, polygonEventEdge] using
+          (DirectGLSSW.edgeVisitSide_spec q e (L.get i)).1
+      have heY : polygonEventEdge q y = e := by
+        simpa [y, polygonEventEdge] using
+          (DirectGLSSW.edgeVisitSide_spec q e (L.get p)).1
+      have hzEdgeNe : crossingVisitEdge q zvisit ≠ e := by
+        intro hze
+        have hret : retainedCorner q (supportOfList q e L) (Sum.inr zvisit) := by
+          simpa [retainedCorner] using hz
+        obtain ⟨c, hc, hzc⟩ := retainedVisit_onChosenEdge q e L zvisit hret hze
+        have hjmem : c ∈ L := hc
+        obtain ⟨j, hj⟩ := List.mem_iff_get.mp hjmem
+        have hzv : zvisit = DirectGLSSW.edgeVisit q e (L.get j) := by
+          rw [hzc, hj]
+        have hxz : (crossingPoint q (L.get j).val).1 <
+            (crossingPoint q (L.get i).val).1 := by
+          have hstep := hrootz
+          rw [hzv] at hstep
+          exact (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa
+            q hq.g2 e hflat hleft (L.get i) (L.get j)).mp hstep
+        have hyz : (crossingPoint q (L.get p).val).1 <
+            (crossingPoint q (L.get j).val).1 := by
+          have hstep := hzprev
+          rw [hzv] at hstep
+          exact (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa
+            q hq.g2 e hflat hleft (L.get j) (L.get p)).mp hstep
+        have hji : j < i := by
+          by_cases hle : i ≤ j
+          · rcases eq_or_lt_of_le hle with heq | hij
+            · subst j
+              exact False.elim (lt_irrefl _ hxz)
+            · exact False.elim (lt_asymm (hAb i j hij) hxz)
+          · exact lt_of_not_ge hle
+        have hpj : p < j := by
+          by_cases hle : j ≤ p
+          · rcases eq_or_lt_of_le hle with heq | hjp
+            · subst j
+              exact False.elim (lt_irrefl _ hyz)
+            · exact False.elim (lt_asymm (hAb j p hjp) hyz)
+          · exact lt_of_not_ge hle
+        have hpjVal : i.val - 1 < j.val := by simpa [p] using hpj
+        have hjiVal : j.val < i.val := by simpa using hji
+        omega
+      have hxe' : e < crossingVisitEdge q zvisit := by
+        rcases hxe with h | ⟨h, _⟩
+        · rw [heX] at h
+          exact h
+        · have hzE : crossingVisitEdge q zvisit = e := h.symm.trans heX
+          exact False.elim (hzEdgeNe hzE)
+      have hey' : crossingVisitEdge q zvisit < e := by
+        rcases hey with h | ⟨h, _⟩
+        · rw [heY] at h
+          exact h
+        · have hzE : crossingVisitEdge q zvisit = e := h.trans heY
+          exact False.elim (hzEdgeNe hzE)
+      exact (not_lt_of_ge (le_of_lt hey')) hxe'
+
+/-- For a noninitial selected root, the actual retained dart successor is the
+previous crossing's return visit, with no routing premise. -/
+theorem retainedDart_cellRoot_to_left (q : Fin n → PlanarPoint K)
+    [IsStrictOrderedRing K] (hq : CyclicGeneric q) (hn : 3 ≤ n)
+    (e : Fin n) (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (i : Fin L.length) (hi : 0 < i.val) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inr (DirectGLSSW.edgeVisit q e (L.get i)),
+        by simpa [cellRootEvent] using cellRootEvent_retained q e L (Fin.castSucc i)⟩).val =
+      cellLeftEvent q e L (Fin.castSucc i) := by
+  let S := supportOfList q e L
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i))
+  have hprev : i.val - 1 < L.length := by have := i.isLt; omega
+  let p : Fin L.length := ⟨i.val - 1, hprev⟩
+  let y : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get p))
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by
+    simpa [x, S, cellRootEvent] using
+      cellRootEvent_retained q e L (Fin.castSucc i)
+  have hy : retainedCorner q S y := by
+    simpa [y, S, cellRootEvent] using
+      cellRootEvent_retained q e L (Fin.castSucc p)
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    simpa [x, y] using cellSelectedVisits_descend q hq hn e hflat hleft L hL i hi
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨?_, ?_⟩
+    · exact hxy
+    · intro z hz
+      by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+      · exact hyz
+      · have hzySub : z < (⟨y, hy⟩ : RetainedEvent q S) := lt_of_not_ge hyz
+        have hzy : (polygonEventOrder q hq.g2).lt z.val y := hzySub
+        have hxz : (polygonEventOrder q hq.g2).lt x z.val := hz
+        have hgap := noRetainedEventBetweenSelectedVisits q hq e hflat hleft L hL i hi
+        exact False.elim (hgap ⟨z.val, z.property, hxz, hzy⟩)
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc]
+  have hmemS : (L.get p).val ∈ supportOfList q e L := by
+    unfold supportOfList
+    exact Finset.mem_image.mpr ⟨L.get p, by simp, rfl⟩
+  have hmemVisit : (DirectGLSSW.edgeVisit q e (L.get p)).1 ∈ S := by
+    simpa [S, DirectGLSSW.edgeVisit] using hmemS
+  have hpair : smoothingPairing q S y =
+      Sum.inr (DirectGLSSW.returnVisit q e (L.get p)) := by
+    change smoothingPairing q S
+      (Sum.inr (DirectGLSSW.edgeVisit q e (L.get p))) = _
+    rw [smoothingPairing_apply, smoothingPairingMap_visit, if_pos hmemVisit]
+    rfl
+  rw [hpair]
+  have hiz : i.val ≠ 0 := by omega
+  simp [cellLeftEvent, p, hiz]
+
+/-- In the initial cell, no retained event lies between the last selected
+edge visit and the successor anchor when that anchor is later in label order. -/
+theorem noRetainedEventBetweenFirstVisitAndNextAnchor
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (hnext : e.val + 1 < n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    ¬ ∃ z : PolygonEvent q,
+      retainedCorner q (supportOfList q e L) z ∧
+      (polygonEventOrder q hq.g2).lt
+        (Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨0, by omega⟩))) z ∧
+      (polygonEventOrder q hq.g2).lt z (Sum.inl (cyclicSuccessor e)) := by
+  rintro ⟨z, hz, hxz, hza⟩
+  let i0 : Fin L.length := ⟨0, hlen⟩
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i0))
+  let a : PolygonEvent q := Sum.inl (cyclicSuccessor e)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hxedge : polygonEventEdge q x = e :=
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get i0)).1
+  have hnextval : (cyclicSuccessor e).val = e.val + 1 := by
+    have hpos : 0 < n := by omega
+    rw [cyclicSuccessor, cyclicVertexIndex_val e (k := 0) hpos]
+    simp only [Nat.add_zero]
+    simp [hnext]
+  have hPair : List.Pairwise (fun c d =>
+      (crossingPoint q c.val).1 < (crossingPoint q d.val).1 ∧
+        returnVisitBefore q hq.g2 e c d) L := hL.2
+  have hAb : ∀ u v : Fin L.length, u < v →
+      (crossingPoint q (L.get u).val).1 < (crossingPoint q (L.get v).val).1 :=
+    fun u v huv => ((List.pairwise_iff_get.mp hPair) u v huv).1
+  cases z with
+  | inl v =>
+      have hxv := (polygonEvent_lt_iff q hq.g2 x (Sum.inl v)).mp hxz
+      have hva := (polygonEvent_lt_iff q hq.g2 (Sum.inl v) a).mp hza
+      rcases hxv with h | ⟨h, hparam⟩
+      · have hev : e < v := by rw [hxedge] at h; simpa [polygonEventEdge] using h
+        have hvs : v < cyclicSuccessor e := by
+          rcases hva with h | ⟨h, hp⟩
+          · simpa [polygonEventEdge] using h
+          · have : ¬ polygonEventParameter q (Sum.inl v) < 0 := by simp [polygonEventParameter]
+            exact False.elim (this hp)
+        have hvval : v.val < e.val + 1 := by
+          simpa [hnextval] using Fin.lt_def.mp hvs
+        have heval : e.val < v.val := Fin.lt_def.mp hev
+        omega
+      · 
+        have hp : 0 < polygonEventParameter q (Sum.inr
+          (DirectGLSSW.edgeVisit q e (L.get i0))) :=
+          (DirectGLSSW.crossingVisitParameter_spec q
+            (DirectGLSSW.edgeVisit q e (L.get i0))).1
+        have hvzero : polygonEventParameter q (Sum.inl v) = 0 := rfl
+        exact False.elim ((not_lt_of_ge (le_of_lt hp)) (by simpa [hvzero] using hparam))
+  | inr zv =>
+      have hxzKey := (polygonEvent_lt_iff q hq.g2 x (Sum.inr zv)).mp hxz
+      have hzaKey := (polygonEvent_lt_iff q hq.g2 (Sum.inr zv) a).mp hza
+      have hzEdgeNe : crossingVisitEdge q zv ≠ e := by
+        intro hze
+        have hret : retainedCorner q (supportOfList q e L) (Sum.inr zv) := by
+          simpa [retainedCorner] using hz
+        obtain ⟨c, hc, hzc⟩ := retainedVisit_onChosenEdge q e L zv hret hze
+        obtain ⟨j, hj⟩ := List.mem_iff_get.mp hc
+        have hzv : zv = DirectGLSSW.edgeVisit q e (L.get j) := by rw [hzc, hj]
+        have hrootz : (crossingPoint q (L.get j).val).1 <
+            (crossingPoint q (L.get i0).val).1 := by
+          have hs := hxz
+          rw [hzv] at hs
+          exact (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa
+            q hq.g2 e hflat hleft (L.get i0) (L.get j)).mp hs
+        by_cases hj0 : j.val = 0
+        · have heq : j = i0 := Fin.ext hj0
+          subst j
+          exact lt_irrefl _ hrootz
+        · have hzeroj : i0 < j := by
+            change 0 < j.val
+            omega
+          exact (lt_asymm (hAb i0 j hzeroj) hrootz)
+      have hef : e < crossingVisitEdge q zv := by
+        rcases hxzKey with h | ⟨h, _⟩
+        · rw [hxedge] at h
+          exact h
+        · exact False.elim (hzEdgeNe (h.symm.trans hxedge))
+      have hfs : crossingVisitEdge q zv < cyclicSuccessor e := by
+        rcases hzaKey with h | ⟨h, hp⟩
+        · exact h
+        · have hpv : 0 < crossingVisitParameter q zv :=
+            (DirectGLSSW.crossingVisitParameter_spec q zv).1
+          exact False.elim ((not_lt_of_ge (le_of_lt hpv)) hp)
+      have hefval : e.val < (crossingVisitEdge q zv).val := Fin.lt_def.mp hef
+      have hfsval : (crossingVisitEdge q zv).val < e.val + 1 := by
+        simpa [hnextval] using Fin.lt_def.mp hfs
+      omega
+
+/-- If the chosen edge is the last labelled edge, its last selected visit is
+the maximum retained event, so the retained successor wraps to anchor 0. -/
+theorem noRetainedEventAfterFirstVisit_lastEdge
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (hlast : e.val + 1 = n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    ∀ z : PolygonEvent q, retainedCorner q (supportOfList q e L) z →
+      ¬ (polygonEventOrder q hq.g2).lt
+        (Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨0, by omega⟩))) z := by
+  intro z hz hxz
+  let i0 : Fin L.length := ⟨0, hlen⟩
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i0))
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hxedge : polygonEventEdge q x = e :=
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get i0)).1
+  have hPair : List.Pairwise (fun c d =>
+      (crossingPoint q c.val).1 < (crossingPoint q d.val).1 ∧
+        returnVisitBefore q hq.g2 e c d) L := hL.2
+  have hAb : ∀ u v : Fin L.length, u < v →
+      (crossingPoint q (L.get u).val).1 < (crossingPoint q (L.get v).val).1 :=
+    fun u v huv => ((List.pairwise_iff_get.mp hPair) u v huv).1
+  cases z with
+  | inl a =>
+      have hxA := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hxz
+      rcases hxA with h | ⟨h, hp⟩
+      · rw [hxedge] at h
+        have hval : e.val < a.val := Fin.lt_def.mp (by simpa [polygonEventEdge] using h)
+        omega
+      · have hpos : 0 < polygonEventParameter q x :=
+          (DirectGLSSW.crossingVisitParameter_spec q
+            (DirectGLSSW.edgeVisit q e (L.get i0))).1
+        have hzero : polygonEventParameter q (Sum.inl a) = 0 := rfl
+        exact (not_lt_of_ge (le_of_lt hpos)) (by simpa [hzero] using hp)
+  | inr zv =>
+      have hxzKey := (polygonEvent_lt_iff q hq.g2 x (Sum.inr zv)).mp hxz
+      have hzEdgeNe : crossingVisitEdge q zv ≠ e := by
+        intro hze
+        have hret : retainedCorner q (supportOfList q e L) (Sum.inr zv) := by
+          simpa [retainedCorner] using hz
+        obtain ⟨c, hc, hzc⟩ := retainedVisit_onChosenEdge q e L zv hret hze
+        obtain ⟨j, hj⟩ := List.mem_iff_get.mp hc
+        have hzv : zv = DirectGLSSW.edgeVisit q e (L.get j) := by rw [hzc, hj]
+        have hAbz : (crossingPoint q (L.get j).val).1 <
+            (crossingPoint q (L.get i0).val).1 := by
+          have hs := hxz
+          rw [hzv] at hs
+          exact (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa
+            q hq.g2 e hflat hleft (L.get i0) (L.get j)).mp hs
+        by_cases hj0 : j.val = 0
+        · have heq : j = i0 := Fin.ext hj0
+          subst j
+          exact lt_irrefl _ hAbz
+        · have hzeroj : i0 < j := by change 0 < j.val; omega
+          exact lt_asymm (hAb i0 j hzeroj) hAbz
+      rcases hxzKey with h | ⟨h, _⟩
+      · rw [hxedge] at h
+        have hval : e.val < (crossingVisitEdge q zv).val := Fin.lt_def.mp h
+        omega
+      · exact hzEdgeNe (h.symm.trans hxedge)
+
+/-- The first selected root routes to the successor anchor in the initial
+cell whenever that anchor is later in the event's linear label order. -/
+theorem retainedDart_cellRoot_first_to_left
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (hnext : e.val + 1 < n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨0, by omega⟩)),
+        by
+          change (L.get ⟨0, by omega⟩).val ∈ supportOfList q e L
+          unfold supportOfList
+          exact Finset.mem_image.mpr ⟨L.get ⟨0, by omega⟩, by simp, rfl⟩⟩).val =
+      cellLeftEvent q e L ⟨0, by omega⟩ := by
+  let S := supportOfList q e L
+  let i0 : Fin L.length := ⟨0, hlen⟩
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i0))
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor e)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by
+    change (L.get i0).val ∈ S
+    change (L.get i0).val ∈ L.toFinset.image Subtype.val
+    exact Finset.mem_image.mpr ⟨L.get i0, by simp, rfl⟩
+  have hy : retainedCorner q S y := by
+    trivial
+  have hnextval : (cyclicSuccessor e).val = e.val + 1 := by
+    have hpos : 0 < n := by omega
+    rw [cyclicSuccessor, cyclicVertexIndex_val e (k := 0) hpos]
+    simp only [Nat.add_zero]
+    simp [hnext]
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    apply (polygonEvent_lt_iff q hq.g2 x y).2
+    left
+    have hxedge : crossingVisitEdge q (DirectGLSSW.edgeVisit q e (L.get i0)) = e :=
+      (DirectGLSSW.edgeVisitSide_spec q e (L.get i0)).1
+    change crossingVisitEdge q (DirectGLSSW.edgeVisit q e (L.get i0)) < cyclicSuccessor e
+    rw [hxedge]
+    exact (show e < cyclicSuccessor e from by
+      apply Fin.lt_def.mpr
+      simpa [hnextval] using (Nat.lt_succ_self e.val))
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨hxy, ?_⟩
+    intro z hz
+    by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+    · exact hyz
+    · have hzySub : z < (⟨y, hy⟩ : RetainedEvent q S) := lt_of_not_ge hyz
+      have hzy : (polygonEventOrder q hq.g2).lt z.val y := hzySub
+      have hxz : (polygonEventOrder q hq.g2).lt x z.val := hz
+      have hgap := noRetainedEventBetweenFirstVisitAndNextAnchor q hq e
+        hflat hleft hnext L hL hlen
+      exact False.elim (hgap ⟨z.val, z.property, hxz, hzy⟩)
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+  simp [cellLeftEvent, y]
+
+/-- The terminal anchor has no retained event before the final selected
+visit on the chosen edge. -/
+theorem noRetainedEventBetweenTerminalAnchorAndLastVisit
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    ¬ ∃ z : PolygonEvent q,
+      retainedCorner q (supportOfList q e L) z ∧
+      (polygonEventOrder q hq.g2).lt (Sum.inl e) z ∧
+      (polygonEventOrder q hq.g2).lt z
+        (Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨L.length - 1, by omega⟩))) := by
+  rintro ⟨z, hz, haz, hzy⟩
+  let jlast : Fin L.length := ⟨L.length - 1, by omega⟩
+  let y : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get jlast))
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hyedge : polygonEventEdge q y = e :=
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get jlast)).1
+  have hPair : List.Pairwise (fun c d =>
+      (crossingPoint q c.val).1 < (crossingPoint q d.val).1 ∧
+        returnVisitBefore q hq.g2 e c d) L := hL.2
+  have hAb : ∀ u v : Fin L.length, u < v →
+      (crossingPoint q (L.get u).val).1 < (crossingPoint q (L.get v).val).1 :=
+    fun u v huv => ((List.pairwise_iff_get.mp hPair) u v huv).1
+  cases z with
+  | inl a =>
+      have hae := (polygonEvent_lt_iff q hq.g2 (Sum.inl e) (Sum.inl a)).mp haz
+      have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp hzy
+      rw [hyedge] at hay
+      rcases hae with hlabel | ⟨_, hparam⟩
+      · rcases hay with hlabel' | ⟨hlabel', _⟩
+        · have hlabels : e < a ∧ a < e := by
+            simpa [polygonEventEdge] using And.intro hlabel hlabel'
+          exact (not_lt_of_ge (le_of_lt hlabels.2)) hlabels.1
+        · have hEq : a = e := by simpa [polygonEventEdge] using hlabel'
+          subst a
+          exact (lt_irrefl _ hlabel)
+      · simp [polygonEventParameter] at hparam
+  | inr zv =>
+      have hazKey := (polygonEvent_lt_iff q hq.g2 (Sum.inl e) (Sum.inr zv)).mp haz
+      have hzyKey := (polygonEvent_lt_iff q hq.g2 (Sum.inr zv) y).mp hzy
+      rw [hyedge] at hzyKey
+      have hzRet : retainedCorner q (supportOfList q e L) (Sum.inr zv) := by
+        simpa [retainedCorner] using hz
+      have hzEdge : crossingVisitEdge q zv = e := by
+        rcases hazKey with h | ⟨h, _⟩
+        · rcases hzyKey with h' | ⟨h', _⟩
+          · have : e < crossingVisitEdge q zv ∧ crossingVisitEdge q zv < e := by
+              simpa [polygonEventEdge] using And.intro h h'
+            exact False.elim (not_lt_of_ge (le_of_lt this.2) this.1)
+          · simpa [polygonEventEdge] using h'
+        · simpa [polygonEventEdge] using h.symm
+      obtain ⟨c, hc, hzvisit⟩ := retainedVisit_onChosenEdge q e L zv hzRet hzEdge
+      obtain ⟨j, hj⟩ := List.mem_iff_get.mp hc
+      have hzv : zv = DirectGLSSW.edgeVisit q e (L.get j) := by rw [hzvisit, hj]
+      have hxy : (crossingPoint q (L.get jlast).val).1 <
+          (crossingPoint q (L.get j).val).1 := by
+        have hs := hzy
+        rw [hzv] at hs
+        exact (DirectGLSSW.edgeVisit_order_iff_reverse_abscissa
+          q hq.g2 e hflat hleft (L.get j) (L.get jlast)).mp hs
+      have hle : j ≤ jlast := by
+        apply Fin.le_def.mpr
+        simp [jlast]
+        omega
+      rcases eq_or_lt_of_le hle with heq | hjl
+      · subst j
+        exact False.elim (lt_irrefl _ hxy)
+      · have hAbjl : (crossingPoint q (L.get j).val).1 <
+            (crossingPoint q (L.get jlast).val).1 := hAb j jlast hjl
+        exact (not_lt_of_ge (le_of_lt hAbjl)) hxy
+
+/-- The terminal root follows the last selected crossing visit in the
+retained traversal, then smoothing sends it to that crossing's return visit. -/
+theorem retainedDart_cellRoot_terminal_to_left
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl e, by trivial⟩).val =
+      cellLeftEvent q e L (Fin.last L.length) := by
+  let S := supportOfList q e L
+  let jlast : Fin L.length := ⟨L.length - 1, by omega⟩
+  let x : PolygonEvent q := Sum.inl e
+  let y : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get jlast))
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by trivial
+  have hy : retainedCorner q S y := by
+    change (L.get jlast).val ∈ S
+    change (L.get jlast).val ∈ L.toFinset.image Subtype.val
+    exact Finset.mem_image.mpr ⟨L.get jlast, by simp, rfl⟩
+  have hyedge : polygonEventEdge q y = e :=
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get jlast)).1
+  have hxy : (polygonEventOrder q hq.g2).lt x y := by
+    apply (polygonEvent_lt_iff q hq.g2 x y).2
+    right
+    refine ⟨?_, ?_⟩
+    · simpa [x, y, polygonEventEdge] using hyedge.symm
+    · have hpos := DirectGLSSW.crossingVisitParameter_spec q
+        (DirectGLSSW.edgeVisit q e (L.get jlast))
+      simpa [x, y, polygonEventParameter] using hpos.1
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    left
+    refine ⟨hxy, ?_⟩
+    intro z hz
+    by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+    · exact hyz
+    · have hzySub : z < (⟨y, hy⟩ : RetainedEvent q S) := lt_of_not_ge hyz
+      have hzy : (polygonEventOrder q hq.g2).lt z.val y := hzySub
+      have hxz : (polygonEventOrder q hq.g2).lt x z.val := hz
+      have hgap := noRetainedEventBetweenTerminalAnchorAndLastVisit q hq e
+        hflat hleft L hL hlen
+      exact False.elim (hgap ⟨z.val, z.property, hxz, hzy⟩)
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_visit]
+  have hmem : (L.get jlast).val ∈ S := by
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨L.get jlast, by simp, rfl⟩
+  have hcross : (DirectGLSSW.edgeVisit q e (L.get jlast)).1 ∈ S := by
+    simpa [DirectGLSSW.edgeVisit] using hmem
+  rw [if_pos hcross]
+  have hne : L ≠ [] := List.length_pos.mp hlen
+  simp [cellLeftEvent, jlast, hlen, hne, DirectGLSSW.returnVisit,
+    DirectGLSSW.edgeVisit, DirectGLSSW.crossingVisitFlip]
+
+/-- Anchor zero is the least event in polygon event order. -/
+theorem anchorZero_le_event (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (z : PolygonEvent q) :
+    (polygonEventOrder q hq.g2).le
+      (Sum.inl (⟨0, by have hn := hq.size_ge_three; omega⟩ : Fin n)) z := by
+  have hn : 3 ≤ n := hq.size_ge_three
+  let zero : Fin n := ⟨0, by omega⟩
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  by_cases hEq : z = Sum.inl zero
+  · simpa [hEq, zero]
+  · have hlt : (polygonEventOrder q hq.g2).lt (Sum.inl zero) z := by
+      apply (polygonEvent_lt_iff q hq.g2 (Sum.inl zero) z).2
+      cases z with
+      | inl a =>
+          left
+          apply Fin.lt_def.mpr
+          have ha : 0 < a.val := by
+            by_contra hnot
+            have haLt := a.isLt
+            have : a.val = 0 := by omega
+            have heq : a = zero := Fin.ext this
+            exact hEq (by simp [heq, zero])
+          exact ha
+      | inr v =>
+          by_cases hvzero : crossingVisitEdge q v = zero
+          · right
+            refine ⟨?_, ?_⟩
+            · simpa [zero, polygonEventEdge] using hvzero.symm
+            have hparam := (DirectGLSSW.crossingVisitParameter_spec q v).1
+            simpa [zero, polygonEventParameter] using hparam
+          · left
+            apply Fin.lt_def.mpr
+            have hvpos : 0 < (crossingVisitEdge q v).val := by
+              have hne : (crossingVisitEdge q v).val ≠ 0 := by
+                intro hv
+                apply hvzero
+                apply Fin.ext
+                exact hv
+              omega
+            simpa [polygonEventEdge, zero] using hvpos
+    exact le_of_lt hlt
+
+/-- When the chosen edge wraps at the final label, the first root routes to
+anchor zero, the least retained event, after the cyclic successor wrap. -/
+theorem retainedDart_cellRoot_first_to_left_lastEdge
+    (q : Fin n → PlanarPoint K) [IsStrictOrderedRing K]
+    (hq : CyclicGeneric q) (hn : 3 ≤ n) (e : Fin n)
+    (hflat : (q e).2 = (q (cyclicSuccessor e)).2)
+    (hleft : (q (cyclicSuccessor e)).1 < (q e).1)
+    (hlast : e.val + 1 = n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨0, by omega⟩)),
+        by
+          change (L.get ⟨0, by omega⟩).val ∈ supportOfList q e L
+          unfold supportOfList
+          exact Finset.mem_image.mpr ⟨L.get ⟨0, by omega⟩, by simp, rfl⟩⟩).val =
+      cellLeftEvent q e L ⟨0, by omega⟩ := by
+  let S := supportOfList q e L
+  let i0 : Fin L.length := ⟨0, hlen⟩
+  let x : PolygonEvent q := Sum.inr (DirectGLSSW.edgeVisit q e (L.get i0))
+  let zero : Fin n := ⟨0, by omega⟩
+  let y : PolygonEvent q := Sum.inl zero
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by
+    change (L.get i0).val ∈ S
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨L.get i0, by simp, rfl⟩
+  have hy : retainedCorner q S y := by trivial
+  have hySucc : y = Sum.inl (cyclicSuccessor e) := by
+    apply congrArg Sum.inl
+    apply Fin.ext
+    have hnpos : 0 < n := by omega
+    rw [cyclicSuccessor, cyclicVertexIndex_val e (k := 0) hnpos]
+    simp [zero, hlast]
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hmax : ∀ z : RetainedEvent q S, ¬
+      (polygonEventOrder q hq.g2).lt x z.val := by
+    intro z
+    exact noRetainedEventAfterFirstVisit_lastEdge q hq e hflat hleft hlast L hL hlen
+      z.val z.property
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    right
+    refine ⟨?_, ?_⟩
+    · intro z
+      exact le_of_not_gt (hmax z)
+    · intro z
+      exact anchorZero_le_event q hq z.val
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+  have hcell : cellLeftEvent q e L ⟨0, by omega⟩ =
+      Sum.inl (cyclicSuccessor e) := by simp [cellLeftEvent]
+  rw [hcell]
+  simpa [y, zero] using hySucc
+
+
+theorem strictCyclicBetween_ne_left {α : Type*} [LinearOrder α] {x y z : α}
+    (h : strictCyclicBetween x y z) : y ≠ x := by
+  intro heq
+  subst y
+  simp only [strictCyclicBetween] at h
+  rcases h with ⟨hxx, _⟩ | ⟨hxz, hzx⟩ | ⟨_, hxx⟩
+  · exact (lt_irrefl _ hxx)
+  · exact (lt_irrefl _ (lt_trans hxz hzx))
+  · exact (lt_irrefl _ hxx)
+
+theorem strictCyclicBetween_ne_right {α : Type*} [LinearOrder α] {x y z : α}
+    (h : strictCyclicBetween x y z) : y ≠ z := by
+  intro heq
+  subst z
+  simp only [strictCyclicBetween] at h
+  rcases h with ⟨_, hyy⟩ | ⟨hyy, _⟩ | ⟨hyx, hxy⟩
+  · exact (lt_irrefl _ hyy)
+  · exact (lt_irrefl _ hyy)
+  · exact (lt_irrefl _ (lt_trans hyx hxy))
+
+private theorem cellInteriorAnchor_spec (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) (a : Fin n)
+    (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+      (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+      (eventOrdinal q hq.g2 (cellRightEvent q e L i)) := by
+  unfold cellInteriorAnchors at ha
+  simp only [List.mem_filter] at ha
+  exact of_decide_eq_true ha.2
+
+private theorem cellInteriorAnchor_ne_left (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) (a : Fin n)
+    (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    Sum.inl a ≠ cellLeftEvent q e L i := by
+  intro heq
+  have hbetween := cellInteriorAnchor_spec q hq e L i a ha
+  have hord : eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q) =
+      eventOrdinal q hq.g2 (cellLeftEvent q e L i) := congrArg (eventOrdinal q hq.g2) heq
+  exact (strictCyclicBetween_ne_left hbetween) hord
+
+private theorem cellInteriorAnchor_ne_right (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) (a : Fin n)
+    (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    Sum.inl a ≠ cellRightEvent q e L i := by
+  intro heq
+  have hbetween := cellInteriorAnchor_spec q hq e L i a ha
+  have hord : eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q) =
+      eventOrdinal q hq.g2 (cellRightEvent q e L i) := congrArg (eventOrdinal q hq.g2) heq
+  exact (strictCyclicBetween_ne_right hbetween) hord
+
+theorem cellEventWord_nodup (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (i : Fin (L.length + 1)) : (cellEventWord q hq e L i).Nodup := by
+  apply List.nodup_cons.mpr
+  refine ⟨?_, ?_⟩
+  · intro hx
+    simp only [List.mem_cons, List.mem_map] at hx
+    rcases hx with heq | ⟨a, ha, heq⟩
+    · exact cellRootEvent_ne_cellLeftEvent q hq e L i heq
+    · by_cases hroot : i.val < L.length
+      · simp [cellRootEvent, hroot] at heq
+      · have hr : cellRootEvent q e L i = Sum.inl e := by simp [cellRootEvent, hroot]
+        rw [hr] at heq
+        have hright : cellRightEvent q e L i = Sum.inl e := by simp [cellRightEvent, hroot]
+        have hae : a = e := Sum.inl.inj heq
+        exact cellInteriorAnchor_ne_right q hq e L i a ha (by
+          simpa [hae, hright])
+  · apply List.nodup_cons.mpr
+    refine ⟨?_, cellInteriorAnchorEvents_nodup q hq e L i⟩
+    intro hx
+    simp only [List.mem_map] at hx
+    rcases hx with ⟨a, ha, heq⟩
+    exact cellInteriorAnchor_ne_left q hq e L i a ha heq
+
+
+/-- Pairwise return-arc order is ordinary strict order of the canonical
+complementary visit keys, even when the chosen edge wraps the event origin. -/
+theorem cellReturnKey_strict (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (j k : Fin L.length) (hjk : j < k) :
+    complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get j)) <
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get k)) := by
+  have hp := (List.pairwise_iff_get.mp hL.2) j k hjk
+  apply (crossingVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e
+    (DirectGLSSW.returnVisit q e (L.get j))
+    (DirectGLSSW.returnVisit q e (L.get k))
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get j)).2
+    (DirectGLSSW.edgeVisitSide_spec q e (L.get k)).2).mp
+  simpa [returnVisitBefore] using hp.2
+
+
+/-- A strictly pairwise-ordered list has no member strictly between two
+consecutive indexed entries. -/
+theorem pairwise_adjacent_no_between {α : Type*} [LinearOrder α]
+    {xs : List α} (hp : List.Pairwise (fun x y : α => x < y) xs)
+    (i j : Fin xs.length) (hji : j.val = i.val + 1)
+    (x : α) (hx : x ∈ xs) (hix : xs.get i < x) (hxj : x < xs.get j) :
+    False := by
+  obtain ⟨k, hk⟩ := List.mem_iff_get.mp hx
+  by_cases hki : k ≤ i
+  · rcases eq_or_lt_of_le hki with heq | hlt
+    · have hkEq : xs.get i = x := by simpa [heq] using hk
+      rw [← hkEq] at hix
+      exact (lt_irrefl (xs.get i) hix)
+    · have hget := (List.pairwise_iff_get.mp hp) k i hlt
+      have hxki : x < xs.get i := by
+        calc
+          x = xs.get k := hk.symm
+          _ < xs.get i := hget
+      exact (not_lt_of_ge (le_of_lt hix)) hxki
+  · have hik : i < k := lt_of_not_ge hki
+    have hjk : j ≤ k := by
+      apply Fin.le_iff_val_le_val.mpr
+      have hikv := Fin.lt_iff_val_lt_val.mp hik
+      omega
+    rcases eq_or_lt_of_le hjk with heq | hlt
+    · have hkEq : x = xs.get j := by
+        have := hk
+        simpa [heq] using this.symm
+      rw [hkEq] at hxj
+      exact (lt_irrefl (xs.get j) hxj)
+    · have hget := (List.pairwise_iff_get.mp hp) j k hlt
+      have hxkj : xs.get j < x := by
+        calc
+          xs.get j < xs.get k := hget
+          _ = x := hk
+      exact (not_lt_of_ge (le_of_lt hxj)) hxkj
+
+
+private theorem eventOrdinal_cyclicBetween_iff
+    (q : Fin n → PlanarPoint K) (hq : cyclicNoTripleIntersections q)
+    (x y z : PolygonEvent q) :
+    strictCyclicBetween (eventOrdinal q hq x) (eventOrdinal q hq y)
+      (eventOrdinal q hq z) ↔
+      (letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq
+       strictCyclicBetween x y z) := by
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq
+  change strictCyclicBetween ((polygonEventEnumeration q hq).symm x)
+      ((polygonEventEnumeration q hq).symm y)
+      ((polygonEventEnumeration q hq).symm z) ↔ strictCyclicBetween x y z
+  simpa [eventOrdinal] using
+    (strictCyclicBetween_orderIso (polygonEventEnumeration q hq)
+      ((polygonEventEnumeration q hq).symm x)
+      ((polygonEventEnumeration q hq).symm y)
+      ((polygonEventEnumeration q hq).symm z)).symm
+
+private theorem returnVisit_in_outerArc (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (c : EdgeChord q e) :
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inr (DirectGLSSW.returnVisit q e c)))
+      (eventOrdinal q hq.g2 (Sum.inl e : PolygonEvent q)) := by
+  apply (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).2
+  exact crossingVisit_between_successor_anchor_and_edge_anchor q hq.g2 e
+    (DirectGLSSW.returnVisit q e c) (DirectGLSSW.edgeVisitSide_spec q e c).2
+
+/-- Consecutive selected return boundaries are ordered in the actual outer
+complementary event arc; this is the boundary premise needed to restrict the
+cell's cyclic interval. -/
+private theorem consecutive_cell_return_boundaries (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length) :
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+      (eventOrdinal q hq.g2 (cellRightEvent q e L i)) := by
+  have hiprev : i.val - 1 < L.length := by omega
+  let j : Fin L.length := ⟨i.val - 1, hiprev⟩
+  let k : Fin L.length := ⟨i.val, hiL⟩
+  have hjk : j < k := by
+    apply Fin.lt_iff_val_lt_val.mpr
+    dsimp [j, k]
+    omega
+  have hpair := (List.pairwise_iff_get.mp hL.2) j k hjk
+  have harc : returnVisitBefore q hq.g2 e (L.get j) (L.get k) := hpair.2
+  have harc' : strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inr (DirectGLSSW.returnVisit q e (L.get j))))
+      (eventOrdinal q hq.g2 (Sum.inr (DirectGLSSW.returnVisit q e (L.get k)))) := by
+    apply (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).2
+    exact harc
+  have hi0ne : i.val ≠ 0 := by omega
+  have hleft : cellLeftEvent q e L i =
+      Sum.inr (DirectGLSSW.returnVisit q e (L.get j)) := by
+    simp [cellLeftEvent, hi0ne, j]
+  have hright : cellRightEvent q e L i =
+      Sum.inr (DirectGLSSW.returnVisit q e (L.get k)) := by
+    simp [cellRightEvent, hiL, k]
+  rw [hleft, hright]
+  exact harc' 
+
+
+
+
+theorem strictCyclicBetween_chain {α : Type*} [LinearOrder α]
+    {a l x r : α}
+    (halx : strictCyclicBetween a l x)
+    (haxr : strictCyclicBetween a x r) :
+    strictCyclicBetween l x r := by
+  unfold strictCyclicBetween at *
+  rcases halx with ⟨hal, hlx⟩ | ⟨hlx, hxa⟩ | ⟨hxa, hal⟩
+  · rcases haxr with ⟨hax, hxr⟩ | ⟨hxr, hra⟩ | ⟨hra, hax⟩
+    · exact Or.inl ⟨hlx, hxr⟩
+    · exact False.elim (lt_irrefl a (lt_trans hal (lt_trans hlx (lt_trans hxr hra))))
+    · exact Or.inr (Or.inr ⟨lt_trans hra hal, hlx⟩)
+  · rcases haxr with ⟨hax, hxr⟩ | ⟨hxr, hra⟩ | ⟨hra, hax⟩
+    · exact False.elim (lt_irrefl x (lt_trans hxa hax))
+    · exact Or.inl ⟨hlx, hxr⟩
+    · exact False.elim (lt_irrefl x (lt_trans hxa hax))
+  · rcases haxr with ⟨hax, hxr⟩ | ⟨hxr, hra⟩ | ⟨hra, hax⟩
+    · exact False.elim (lt_irrefl x (lt_trans hxa hax))
+    · exact Or.inr (Or.inl ⟨hxr, lt_trans hra hal⟩)
+    · exact False.elim (lt_irrefl x (lt_trans hxa hax))
+
+
+
+theorem strictCyclicBetween_nested_interval {m : ℕ}
+    (a x y z : Fin m)
+    (haxz : strictCyclicBetween a x z)
+    (hxyz : strictCyclicBetween x y z) :
+    strictCyclicBetween a x y ∧ strictCyclicBetween a y z := by
+  simp only [strictCyclicBetween, Fin.lt_def] at haxz hxyz ⊢
+  rcases haxz with ⟨hax, hxz⟩ | ⟨hxy, hya⟩ | ⟨hza, hax⟩ <;>
+    rcases hxyz with ⟨hxy', hyz⟩ | ⟨hyy, hzx⟩ | ⟨hzy, hxy''⟩ <;>
+    constructor <;> omega
+
+private theorem interiorAnchor_before_right_in_outerCut
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (i : Fin (L.length + 1)) (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+      (eventOrdinal q hq.g2 (cellRightEvent q e L i)) := by
+  exact (strictCyclicBetween_nested_interval
+    (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+    (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+    (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+    (eventOrdinal q hq.g2 (cellRightEvent q e L i))
+    (consecutive_cell_return_boundaries q hq e L hL i hi0 hiL)
+    (cellInteriorAnchor_spec q hq e L i a ha)).2
+
+
+/-- Imported from the immutable root compile-001 snapshot of MixedAnchorKey;
+root supplied and compiled this wrap-aware anchor-to-visit rank equivalence. -/
+theorem anchorVisit_arcOrder_iff_complementaryKey_lt
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : cyclicNoTripleIntersections q) (e a : Fin n)
+    (v : CrossingVisit q) :
+    (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq
+     FiniteCycleOrder.strictCyclicBetween
+       (Sum.inl (cyclicSuccessor e) : PolygonEvent q) (Sum.inl a) (Sum.inr v)) ↔
+      a ≠ cyclicSuccessor e ∧
+      toLex (complementaryEventRank e a, (0 : K)) < complementaryVisitKey q e v := by
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq
+  rw [FiniteCycleOrder.strictCyclicBetween,
+    polygonEvent_anchor_lt_iff q hq,
+    anchor_lt_visit_iff q hq, visit_lt_anchor_iff q hq]
+  change (((cyclicSuccessor e).val < a.val ∧ a.val ≤ (crossingVisitEdge q v).val) ∨
+    (a.val ≤ (crossingVisitEdge q v).val ∧
+      (crossingVisitEdge q v).val < (cyclicSuccessor e).val) ∨
+    ((crossingVisitEdge q v).val < (cyclicSuccessor e).val ∧
+      (cyclicSuccessor e).val < a.val)) ↔ _
+  have hp := (crossingVisitParameter_spec q v).1
+  simp only [complementaryVisitKey, Prod.Lex.toLex_lt_toLex, hp, and_true,
+    complementaryEventRank, ne_eq, Fin.ext_iff]
+  have ha := a.isLt
+  have hf := (crossingVisitEdge q v).isLt
+  have hc := (cyclicSuccessor e).isLt
+  by_cases hca : (cyclicSuccessor e).val ≤ a.val <;>
+    by_cases hcf : (cyclicSuccessor e).val ≤ (crossingVisitEdge q v).val <;>
+    simp only [hca, hcf, if_true, if_false] <;> omega
+
+/-- Imported from root's immutable compile-006 snapshot. -/
+theorem visitAnchor_arcOrder_iff_complementaryRank_lt
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : cyclicNoTripleIntersections q) (e a : Fin n)
+    (v : CrossingVisit q) :
+    (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq
+     FiniteCycleOrder.strictCyclicBetween
+       (Sum.inl (cyclicSuccessor e) : PolygonEvent q) (Sum.inr v) (Sum.inl a)) ↔
+      complementaryEventRank e (crossingVisitEdge q v) < complementaryEventRank e a := by
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq
+  rw [FiniteCycleOrder.strictCyclicBetween,
+    anchor_lt_visit_iff q hq, visit_lt_anchor_iff q hq,
+    polygonEvent_anchor_lt_iff q hq]
+  change (((cyclicSuccessor e).val ≤ (crossingVisitEdge q v).val ∧
+      (crossingVisitEdge q v).val < a.val) ∨
+    ((crossingVisitEdge q v).val < a.val ∧ a.val < (cyclicSuccessor e).val) ∨
+    (a.val < (cyclicSuccessor e).val ∧
+      (cyclicSuccessor e).val ≤ (crossingVisitEdge q v).val)) ↔ _
+  simp only [complementaryEventRank]
+  have ha := a.isLt
+  have hf := (crossingVisitEdge q v).isLt
+  have hc := (cyclicSuccessor e).isLt
+  have hN : n - (cyclicSuccessor e).val + (cyclicSuccessor e).val = n :=
+    Nat.sub_add_cancel hc.le
+  split_ifs <;> omega
+
+private theorem interiorAnchor_after_left_in_outerCut
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (i : Fin (L.length + 1)) (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+      (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q)) := by
+  exact (strictCyclicBetween_nested_interval
+    (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+    (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+    (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+    (eventOrdinal q hq.g2 (cellRightEvent q e L i))
+    (consecutive_cell_return_boundaries q hq e L hL i hi0 hiL)
+    (cellInteriorAnchor_spec q hq e L i a ha)).1
+
+
+private theorem interiorAnchor_rank_lt_rightReturnKey
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    toLex (complementaryEventRank e a, (0 : K)) <
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) := by
+  have hcut := interiorAnchor_before_right_in_outerCut q hq e L hL i hi0 hiL a ha
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+  have hcut' :
+      strictCyclicBetween (Sum.inl (cyclicSuccessor e) : Fin n ⊕ CrossingVisit q)
+        (Sum.inl a) (Sum.inr (DirectGLSSW.returnVisit q e
+          (L.get ⟨i.val, hiL⟩))) := by
+    simpa [cellRightEvent, hiL] using
+      (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp hcut
+  exact (anchorVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e a
+    (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))).mp hcut' |>.2
+
+
+private theorem interiorAnchor_key_between_consecutiveReturns
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get ⟨i.val - 1, by omega⟩)) <
+      toLex (complementaryEventRank e a, (0 : K)) ∧
+    toLex (complementaryEventRank e a, (0 : K)) <
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) := by
+  let j : Fin L.length := ⟨i.val - 1, by omega⟩
+  have hi0ne : i.val ≠ 0 := by omega
+  have hleft := interiorAnchor_after_left_in_outerCut q hq e L hL i hi0 hiL a ha
+  have hleft' :
+      (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+       FiniteCycleOrder.strictCyclicBetween
+         (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+         (Sum.inr (DirectGLSSW.returnVisit q e (L.get j))) (Sum.inl a)) := by
+    simpa [cellLeftEvent, hi0ne, j] using
+      (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp hleft
+  have hrank := (visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e a
+    (DirectGLSSW.returnVisit q e (L.get j))).mp hleft'
+  have hleftKey :
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get j)) <
+        toLex (complementaryEventRank e a, (0 : K)) := by
+    change toLex (complementaryEventRank e
+      (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get j))),
+      crossingVisitParameter q (DirectGLSSW.returnVisit q e (L.get j))) < _
+    rw [Prod.Lex.toLex_lt_toLex]
+    exact Or.inl hrank
+  have hrightKey := interiorAnchor_rank_lt_rightReturnKey q hq e L hL i hi0 hiL a ha
+  simpa [j] using And.intro hleftKey hrightKey
+
+
+/-- Root-authored and copied from immutable `.lake/mixed-anchor-key-root/compile-007/source.lean`. -/
+theorem complementaryEventRank_cyclicSuccessor (e a : Fin n) (hae : a ≠ e) :
+    complementaryEventRank e (cyclicSuccessor a) = complementaryEventRank e a + 1 := by
+  have ha := a.isLt
+  have he := e.isLt
+  have hn : 0 < n := by omega
+  have hne : a.val ≠ e.val := fun h => hae (Fin.ext h)
+  have hs (b : Fin n) : (cyclicSuccessor b).val =
+      if b.val + 1 < n then b.val + 1 else 0 := by
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val b (k := 0) hn]
+    simp only [Nat.add_zero]
+    split_ifs <;> omega
+  simp only [complementaryEventRank, hs]
+  split_ifs <;> omega
+
+
+theorem complementaryEventRank_self (e : Fin n) :
+    complementaryEventRank e e = n - 1 := by
+  have he := e.isLt
+  have hn : 0 < n := by omega
+  have hs : (cyclicSuccessor e).val =
+      if e.val + 1 < n then e.val + 1 else 0 := by
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val e (k := 0) hn]
+    simp only [Nat.add_zero]
+    split_ifs <;> omega
+  simp only [complementaryEventRank, hs]
+  split_ifs <;> omega
+
+/-- Every other edge occurs strictly before the cut edge. -/
+theorem complementaryEventRank_lt_self (e f : Fin n) (hfe : f ≠ e) :
+    complementaryEventRank e f < complementaryEventRank e e := by
+  have he := e.isLt
+  have hf := f.isLt
+  have hn : 0 < n := by omega
+  have hne : f.val ≠ e.val := fun h => hfe (Fin.ext h)
+  have hs : (cyclicSuccessor e).val =
+      if e.val + 1 < n then e.val + 1 else 0 := by
+    unfold cyclicSuccessor
+    rw [cyclicVertexIndex_val e (k := 0) hn]
+    simp only [Nat.add_zero]
+    split_ifs <;> omega
+  rw [complementaryEventRank_self]
+  simp only [complementaryEventRank, hs]
+  split_ifs <;> omega
+
+
+theorem complementaryEventRank_injective (e : Fin n) :
+    Function.Injective (complementaryEventRank e) := by
+  intro a b hab
+  unfold complementaryEventRank at hab
+  by_cases ha : (cyclicSuccessor e).val ≤ a.val <;>
+    by_cases hb : (cyclicSuccessor e).val ≤ b.val <;>
+    simp only [ha, hb, if_true, if_false] at hab <;>
+    apply Fin.ext <;> omega
+
+/-- Any selected return visit on an interior anchor's outgoing edge is exactly
+that cell's right-boundary return. -/
+private theorem nextAnchor_mem_interior_when_not_right_edge
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i)
+    (hnotRight : crossingVisitEdge q
+      (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) ≠ a) :
+    cyclicSuccessor a ∈ cellInteriorAnchors q hq e L i := by
+  let j : Fin L.length := ⟨i.val - 1, by omega⟩
+  let k : Fin L.length := ⟨i.val, hiL⟩
+  let b := cyclicSuccessor a
+  let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get k))
+  have hbetween := interiorAnchor_key_between_consecutiveReturns
+    q hq e L hL i hi0 hiL a ha
+  have hfne : f ≠ e := (DirectGLSSW.edgeVisitSide_spec q e (L.get k)).2
+  have haRankLe : complementaryEventRank e a ≤ complementaryEventRank e f := by
+    have hlex := (Prod.Lex.toLex_lt_toLex).mp hbetween.2
+    rcases hlex with hlt | ⟨heq, _⟩
+    · exact Nat.le_of_lt hlt
+    · exact heq.le
+  have haRankLt : complementaryEventRank e a < complementaryEventRank e f := by
+    by_contra h
+    have heq : complementaryEventRank e a = complementaryEventRank e f := by omega
+    have hfin := complementaryEventRank_injective e heq
+    exact hnotRight hfin.symm
+  have hae : a ≠ e := by
+    intro hae
+    rw [hae, complementaryEventRank_self] at haRankLe
+    have hlt := complementaryEventRank_lt_self e f hfne
+    exact (not_lt_of_ge haRankLe) (by simpa [complementaryEventRank_self] using hlt)
+  have hsuccRank : complementaryEventRank e b = complementaryEventRank e a + 1 :=
+    complementaryEventRank_cyclicSuccessor e a hae
+  have hsuccLe : complementaryEventRank e b ≤ complementaryEventRank e f := by omega
+  have hleftArc := interiorAnchor_after_left_in_outerCut q hq e L hL i hi0 hiL a ha
+  have hleftOrd := (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp hleftArc
+  have hi0ne : i.val ≠ 0 := by omega
+  have hleftEvent : cellLeftEvent q e L i =
+      Sum.inr (DirectGLSSW.returnVisit q e (L.get j)) := by
+    simp [cellLeftEvent, hi0ne, j]
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+  have hleftCut :
+      strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+        (Sum.inr (DirectGLSSW.returnVisit q e (L.get j))) (Sum.inl a) := by
+    simpa [hleftEvent] using hleftOrd
+  have hleftRank := (visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e a
+    (DirectGLSSW.returnVisit q e (L.get j))).mp hleftCut
+  have hleftSuccRank : complementaryEventRank e
+      (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get j))) <
+        complementaryEventRank e b := by omega
+  have hleftSucc :
+      strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+        (Sum.inr (DirectGLSSW.returnVisit q e (L.get j))) (Sum.inl b) :=
+    (visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e b
+      (DirectGLSSW.returnVisit q e (L.get j))).mpr hleftSuccRank
+  have hbne : b ≠ cyclicSuccessor e := by
+    intro h
+    have hinj := (cyclicSuccessor_bijective (n := n)).injective h
+    exact hae hinj
+  have hkey : toLex (complementaryEventRank e b, (0 : K)) <
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get k)) := by
+    change toLex (complementaryEventRank e b, (0 : K)) <
+      toLex (complementaryEventRank e f,
+        crossingVisitParameter q (DirectGLSSW.returnVisit q e (L.get k)))
+    rw [Prod.Lex.toLex_lt_toLex]
+    rcases eq_or_lt_of_le hsuccLe with heq | hlt
+    · exact Or.inr ⟨heq, (DirectGLSSW.crossingVisitParameter_spec q
+        (DirectGLSSW.returnVisit q e (L.get k))).1⟩
+    · exact Or.inl hlt
+  have hsuccRight :
+      strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+        (Sum.inl b) (Sum.inr (DirectGLSSW.returnVisit q e (L.get k))) :=
+    (anchorVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e b
+      (DirectGLSSW.returnVisit q e (L.get k))).mpr ⟨hbne, hkey⟩
+  have hcellArc :
+      strictCyclicBetween
+        (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl b : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)) := by
+    apply (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mpr
+    have h := strictCyclicBetween_chain hleftSucc hsuccRight
+    simpa [hleftEvent, cellRightEvent, hiL, k] using h
+  have hbBase : b ∈ List.ofFn (fun j : Fin n => cyclicVertexIndex e j.val) := by
+    apply List.mem_ofFn.mpr
+    obtain ⟨m, hm⟩ := cyclicVertexIndex_bijective e |>.2 b
+    exact ⟨m, hm⟩
+  unfold cellInteriorAnchors
+  rw [List.mem_filter]
+  exact ⟨hbBase, by simp [hcellArc, b]⟩
+
+
+private theorem selected_return_at_interior_anchor_is_rightBoundary
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i)
+    (c : EdgeChord q e) (hc : c ∈ L)
+    (hca : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) = a) :
+    c = L.get ⟨i.val, hiL⟩ := by
+  let j : Fin L.length := ⟨i.val - 1, by omega⟩
+  let k : Fin L.length := ⟨i.val, hiL⟩
+  have hbetween := interiorAnchor_key_between_consecutiveReturns
+    q hq e L hL i hi0 hiL a ha
+  have hparam : 0 < crossingVisitParameter q (DirectGLSSW.returnVisit q e c) :=
+    (DirectGLSSW.crossingVisitParameter_spec q
+      (DirectGLSSW.returnVisit q e c)).1
+  have hanchorVisit :
+      toLex (complementaryEventRank e a, (0 : K)) <
+        complementaryVisitKey q e (DirectGLSSW.returnVisit q e c) := by
+    change toLex (complementaryEventRank e a, (0 : K)) <
+      toLex (complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e c)),
+        crossingVisitParameter q (DirectGLSSW.returnVisit q e c))
+    rw [hca, Prod.Lex.toLex_lt_toLex]
+    exact Or.inr ⟨rfl, hparam⟩
+  have hrankLe : complementaryEventRank e a ≤
+      complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get k))) := by
+    have hlex := (Prod.Lex.toLex_lt_toLex).mp hbetween.2
+    rcases hlex with hlt | ⟨heq, _⟩
+    · exact Nat.le_of_lt hlt
+    · exact heq.le
+  by_cases hrankLt : complementaryEventRank e a <
+      complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get k)))
+  · let key := fun d : EdgeChord q e =>
+      complementaryVisitKey q e (DirectGLSSW.returnVisit q e d)
+    have hchordPair : List.Pairwise (fun x y => key x < key y) L := by
+      rw [List.pairwise_iff_get]
+      intro u v huv
+      exact cellReturnKey_strict q hq e L hL u v huv
+    have hkeys : List.Pairwise (fun x y => x < y) (L.map key) :=
+      List.Pairwise.map key (fun _ _ h => h) hchordPair
+    let jm : Fin (L.map key).length := ⟨j.val, by simp⟩
+    let km : Fin (L.map key).length := ⟨k.val, by simp⟩
+    have hcKeyMember : key c ∈ L.map key := List.mem_map.mpr ⟨c, hc, rfl⟩
+    have hkeyLeft : key (L.get j) < key c := by
+      have := lt_trans hbetween.1 hanchorVisit
+      simpa [key, complementaryVisitKey] using this
+    have hkeyRight : key c < key (L.get k) := by
+      change complementaryVisitKey q e (DirectGLSSW.returnVisit q e c) <
+        complementaryVisitKey q e (DirectGLSSW.returnVisit q e (L.get k))
+      unfold complementaryVisitKey
+      rw [hca, Prod.Lex.toLex_lt_toLex]
+      exact Or.inl hrankLt
+    have hleftMap : (L.map key).get jm = key (L.get j) := by simp [jm, key]
+    have hrightMap : (L.map key).get km = key (L.get k) := by simp [km, key]
+    have hfalse := pairwise_adjacent_no_between hkeys jm km (by
+      change k.val = j.val + 1
+      dsimp [j, k]
+      omega)
+      (key c) hcKeyMember (by simpa [hleftMap] using hkeyLeft)
+      (by simpa [hrightMap] using hkeyRight)
+    exact False.elim hfalse
+  · have hrankEq : complementaryEventRank e a =
+        complementaryEventRank e (crossingVisitEdge q
+          (DirectGLSSW.returnVisit q e (L.get k))) := by omega
+    have hedgeEq : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) =
+        crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get k)) := by
+      apply Fin.ext
+      have h := complementaryEventRank_injective e hrankEq
+      simpa [hca] using congrArg Fin.val h
+    exact returnVisitEdge_injective q e hedgeEq
+
+
+
+private theorem noRetainedEventAfterFinalAnchor
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e f : Fin n) (L : List (EdgeChord q e))
+    (hfne : f ≠ e) (hno : ∀ c, c ∈ L →
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e c) ≠ f)
+    (hfinal : f.val + 1 = n) :
+    ∀ z : PolygonEvent q, retainedCorner q (supportOfList q e L) z →
+      ¬ (polygonEventOrder q hq.g2).lt (Sum.inl f) z := by
+  intro z hz hlt
+  cases z with
+  | inl a =>
+      have horder := (polygonEvent_lt_iff q hq.g2 (Sum.inl f) (Sum.inl a)).mp hlt
+      simp only [polygonEventEdge, polygonEventParameter] at horder
+      rcases horder with hlt | ⟨heq, hp⟩
+      · have := Fin.lt_iff_val_lt_val.mp hlt
+        have ha := a.isLt
+        omega
+      · have : (0 : K) < 0 := by simpa [polygonEventParameter] using hp
+        exact (lt_irrefl 0) this
+  | inr v =>
+      have horder := (polygonEvent_lt_iff q hq.g2 (Sum.inl f) (Sum.inr v)).mp hlt
+      simp only [polygonEventEdge, polygonEventParameter] at horder
+      have hedge : crossingVisitEdge q v = f := by
+        rcases horder with hlt | ⟨heq, _⟩
+        · have := Fin.lt_iff_val_lt_val.mp hlt
+          have hf := f.isLt
+          have hv := (crossingVisitEdge q v).isLt
+          omega
+        · exact heq.symm
+      obtain ⟨c, hc, hvc⟩ := retainedVisit_offChosenEdge_isReturn q e L v hz
+        (by simpa [hedge] using hfne)
+      exact hno c hc (by simpa [hvc] using hedge)
+
+/-- At a final labelled anchor with no selected return, retained traversal
+wraps directly to anchor zero. -/
+theorem retainedDart_anchor_to_nextAnchor_wrap
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e f : Fin n) (L : List (EdgeChord q e))
+    (hfne : f ≠ e) (hno : ∀ c, c ∈ L →
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e c) ≠ f)
+    (hfinal : f.val + 1 = n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl f, by trivial⟩).val = Sum.inl (⟨0, by omega⟩ : Fin n) := by
+  let S := supportOfList q e L
+  let x : PolygonEvent q := Sum.inl f
+  let zero : Fin n := ⟨0, by omega⟩
+  let y : PolygonEvent q := Sum.inl zero
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by trivial
+  have hy : retainedCorner q S y := by trivial
+  have hmin := anchorZero_le_event q hq
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    right
+    refine ⟨?_, ?_⟩
+    · intro z
+      exact le_of_not_gt (noRetainedEventAfterFinalAnchor q hq e f L hfne hno hfinal
+        z.val z.property)
+    · intro z
+      exact hmin z.val
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+
+private theorem noRetainedEventAfterFinalReturn
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (c : EdgeChord q e) (hc : c ∈ L)
+    (hfinal : (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)).val + 1 = n) :
+    ∀ z : PolygonEvent q, retainedCorner q (supportOfList q e L) z →
+      ¬ (polygonEventOrder q hq.g2).lt
+        (Sum.inr (DirectGLSSW.returnVisit q e c)) z := by
+  intro z hz hlt
+  let v := DirectGLSSW.returnVisit q e c
+  let f := crossingVisitEdge q v
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+  have hfinal' : f.val + 1 = n := by simpa [f, v] using hfinal
+  cases z with
+  | inl a =>
+      have horder := (polygonEvent_lt_iff q hq.g2 (Sum.inr v) (Sum.inl a)).mp hlt
+      simp only [polygonEventEdge, polygonEventParameter] at horder
+      rcases horder with hlt | ⟨heq, hp⟩
+      · have := Fin.lt_iff_val_lt_val.mp hlt
+        have hf := f.isLt
+        have ha := a.isLt
+        have hfinal' : f.val + 1 = n := by simpa [f, v] using hfinal
+        omega
+      · have hparam := (DirectGLSSW.crossingVisitParameter_spec q v).1
+        have : crossingVisitParameter q v < 0 := by
+          simpa [polygonEventParameter] using hp
+        exact (not_lt_of_ge (le_of_lt hparam)) this
+  | inr w =>
+      have horder := (polygonEvent_lt_iff q hq.g2 (Sum.inr v) (Sum.inr w)).mp hlt
+      simp only [polygonEventEdge, polygonEventParameter] at horder
+      have hwe : crossingVisitEdge q w = f := by
+        rcases horder with hlt | ⟨heq, _⟩
+        · have := Fin.lt_iff_val_lt_val.mp hlt
+          have hf := f.isLt
+          have hwedge := (crossingVisitEdge q w).isLt
+          omega
+        · have heq' : crossingVisitEdge q w = f := by
+            change crossingVisitEdge q v = crossingVisitEdge q w at heq
+            calc
+              crossingVisitEdge q w = crossingVisitEdge q v := heq.symm
+              _ = f := rfl
+          exact heq'
+      have hvRet : retainedCorner q (supportOfList q e L) (Sum.inr v) := by
+        change c.val ∈ supportOfList q e L
+        unfold supportOfList
+        exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+      have hsame := retained_offChosenEdge_visit_unique q e L f v w hvRet hz
+        (by exact (DirectGLSSW.edgeVisitSide_spec q e c).2) rfl hwe
+      have hlt' : (polygonEventOrder q hq.g2).lt (Sum.inr v) (Sum.inr w) := by
+        simpa [v] using hlt
+      have hfalse : (polygonEventOrder q hq.g2).lt (Sum.inr v) (Sum.inr v) := by
+        simpa [hsame] using hlt'
+      exact (lt_irrefl (Sum.inr v)) hfalse
+
+/-- A final return visit is followed by anchor zero in retained order. -/
+theorem retainedDart_returnVisit_to_zeroAnchor
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (c : EdgeChord q e) (hc : c ∈ L)
+    (hfinal : (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)).val + 1 = n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inr (DirectGLSSW.returnVisit q e c), by
+        change c.val ∈ supportOfList q e L
+        unfold supportOfList
+        exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩⟩).val =
+      Sum.inl (⟨0, by omega⟩ : Fin n) := by
+  let S := supportOfList q e L
+  let v := DirectGLSSW.returnVisit q e c
+  let x : PolygonEvent q := Sum.inr v
+  let zero : Fin n := ⟨0, by omega⟩
+  let y : PolygonEvent q := Sum.inl zero
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by
+    change c.val ∈ S
+    unfold S supportOfList
+    exact Finset.mem_image.mpr ⟨c, List.mem_toFinset.mpr hc, rfl⟩
+  have hy : retainedCorner q S y := by trivial
+  have hmin := anchorZero_le_event q hq
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+    apply orderedCyclicSuccessor_eq_of_order_spec
+    right
+    refine ⟨?_, ?_⟩
+    · intro z
+      exact le_of_not_gt (noRetainedEventAfterFinalReturn q hq e L c hc hfinal
+        z.val z.property)
+    · intro z
+      exact hmin z.val
+  rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+    hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+
+/-- At an interior cell anchor, retained traversal either closes at the
+right-boundary root or advances to the next interior anchor. -/
+theorem retainedDart_interiorAnchor_successor
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length + 1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length)
+    (a : Fin n) (ha : a ∈ cellInteriorAnchors q hq e L i) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl a, by trivial⟩).val =
+      if crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) = a then
+        Sum.inr (DirectGLSSW.edgeVisit q e (L.get ⟨i.val, hiL⟩))
+      else Sum.inl (cyclicSuccessor a) := by
+  let k : Fin L.length := ⟨i.val, hiL⟩
+  let c := L.get k
+  have hc : c ∈ L := by exact List.get_mem L k
+  have hbetween := interiorAnchor_key_between_consecutiveReturns
+    q hq e L hL i hi0 hiL a ha
+  have fne : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) ≠ e :=
+    (DirectGLSSW.edgeVisitSide_spec q e c).2
+  have hae : a ≠ e := by
+    intro h
+    rw [h, complementaryEventRank_self] at hbetween
+    have hlt := complementaryEventRank_lt_self e
+      (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)) fne
+    have hx := (Prod.Lex.toLex_lt_toLex).mp hbetween.2
+    rcases hx with hx | ⟨hx, _⟩
+    · have hx' : n - 1 < complementaryEventRank e
+          (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))) := by
+        simpa [complementaryEventRank_self] using hx
+      have hlt' : complementaryEventRank e
+          (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))) < n - 1 := by
+        simpa [complementaryEventRank_self] using hlt
+      omega
+    · have hx' : n - 1 = complementaryEventRank e
+          (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))) := by
+        simpa [complementaryEventRank_self] using hx
+      have hlt' : complementaryEventRank e
+          (crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))) < n - 1 := by
+        simpa [complementaryEventRank_self] using hlt
+      omega
+  by_cases hright : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) = a
+  · have hroute := retainedDart_anchor_to_selectedRoot q hq e a L c hc hae hright
+    have hright' : crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) = a := by
+      simpa [c, k] using hright
+    rw [if_pos hright']
+    simpa [c, k] using hroute
+  · have hno : ∀ d, d ∈ L →
+        crossingVisitEdge q (DirectGLSSW.returnVisit q e d) ≠ a := by
+      intro d hd hda
+      have hdright := selected_return_at_interior_anchor_is_rightBoundary
+        q hq e L hL i hi0 hiL a ha d hd hda
+      have hdc : d = c := by simpa [c, k] using hdright
+      have hfc : crossingVisitEdge q (DirectGLSSW.returnVisit q e c) =
+          crossingVisitEdge q (DirectGLSSW.returnVisit q e d) :=
+        congrArg (fun x : EdgeChord q e =>
+          crossingVisitEdge q (DirectGLSSW.returnVisit q e x)) hdc.symm
+      exact hright (by simpa [c, k] using hfc.trans hda)
+    have hstep := nextAnchor_mem_interior_when_not_right_edge
+      q hq e L hL i hi0 hiL a ha (by simpa [c, k] using hright)
+    by_cases hnext : a.val + 1 < n
+    · have hroute := retainedDart_anchor_to_nextAnchor q hq e a L hae hno hnext
+      have hright' : crossingVisitEdge q
+          (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) ≠ a := by
+        simpa [c, k] using hright
+      rw [if_neg hright']
+      exact hroute
+    · have hfinal : a.val + 1 = n := by have := a.isLt; omega
+      have hroute := retainedDart_anchor_to_nextAnchor_wrap q hq e a L hae hno hfinal
+      have hsucc : cyclicSuccessor a = (⟨0, by omega⟩ : Fin n) := by
+        apply Fin.ext
+        have hpos : 0 < n := by omega
+        rw [cyclicSuccessor, cyclicVertexIndex_val a (k := 0) hpos]
+        simp only [Nat.add_zero]
+        simp [hfinal]
+      have hright' : crossingVisitEdge q
+          (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)) ≠ a := by
+        simpa [c, k] using hright
+      rw [if_neg hright']
+      simpa [hsucc] using hroute
+
+
+/-- With empty support, the retained dart at anchor `e` advances directly to
+its cyclic successor anchor. -/
+theorem retainedDart_emptySupport_anchor_next
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e [])
+      ⟨Sum.inl e, by trivial⟩).val = Sum.inl (cyclicSuccessor e) := by
+  let S := supportOfList q e []
+  have hS : S = ∅ := by simp [S, supportOfList]
+  let x : PolygonEvent q := Sum.inl e
+  let y : PolygonEvent q := Sum.inl (cyclicSuccessor e)
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  have hx : retainedCorner q S x := by trivial
+  have hy : retainedCorner q S y := by trivial
+  letI : LinearOrder (RetainedEvent q S) := inferInstance
+  by_cases hnext : e.val + 1 < n
+  · have hnextval : (cyclicSuccessor e).val = e.val + 1 := by
+      have hn : 0 < n := by omega
+      rw [cyclicSuccessor, cyclicVertexIndex_val e (k := 0) hn]
+      simp only [Nat.add_zero]
+      simp [hnext]
+    have hxy : (polygonEventOrder q hq.g2).lt x y := by
+      apply (polygonEvent_lt_iff q hq.g2 x y).2
+      left
+      change e < cyclicSuccessor e
+      apply Fin.lt_def.mpr
+      simpa [hnextval]
+    have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ = ⟨y, hy⟩ := by
+      apply orderedCyclicSuccessor_eq_of_order_spec
+      left
+      refine ⟨hxy, ?_⟩
+      intro z hz
+      by_cases hyz : (⟨y, hy⟩ : RetainedEvent q S) ≤ z
+      · exact hyz
+      · cases z with
+        | mk zval hzret =>
+          cases zval with
+          | inl a =>
+              have hxa := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hz
+              have hay := (polygonEvent_lt_iff q hq.g2 (Sum.inl a) y).mp
+                (lt_of_not_ge hyz)
+              rcases hxa with hxa | ⟨_, hparam⟩
+              · have hxe : e < a := by simpa [x, polygonEventEdge] using hxa
+                rcases hay with hay | ⟨_, hparam'⟩
+                · have hay' : a < cyclicSuccessor e := by
+                    simpa [y, polygonEventEdge] using hay
+                  have hxe' := Fin.lt_iff_val_lt_val.mp hxe
+                  have hay'' := Fin.lt_iff_val_lt_val.mp hay'
+                  omega
+                · have : (0 : K) < 0 := by
+                    simpa [y, polygonEventParameter] using hparam'
+                  exact False.elim (lt_irrefl _ this)
+              · have : (0 : K) < 0 := by
+                  simpa [x, polygonEventParameter] using hparam
+                exact False.elim (lt_irrefl _ this)
+          | inr v =>
+              have hret : retainedCorner q S (Sum.inr v) := hzret
+              simp [retainedCorner, hS] at hret
+    rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+      hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+  · have hfinal : e.val + 1 = n := by have := e.isLt; omega
+    let zero : Fin n := ⟨0, by omega⟩
+    have hmin := anchorZero_le_event q hq
+    have hmax : ∀ z : RetainedEvent q S, ¬
+        (polygonEventOrder q hq.g2).lt x z.val := by
+      intro z hlt
+      cases z with
+      | mk zval hzret =>
+        cases zval with
+        | inl a =>
+            have horder := (polygonEvent_lt_iff q hq.g2 x (Sum.inl a)).mp hlt
+            rcases horder with horder | ⟨_, hparam⟩
+            · have hlabel : e < a := by simpa [x, polygonEventEdge] using horder
+              have hval := Fin.lt_iff_val_lt_val.mp hlabel
+              have ha := a.isLt
+              have he := e.isLt
+              omega
+            · have : (0 : K) < 0 := by
+                simpa [x, polygonEventParameter] using hparam
+              exact False.elim (lt_irrefl _ this)
+        | inr v => simp [retainedCorner, hS] at hzret
+    have hsucc : retainedOriginalSuccessor q hq.g2 S ⟨x, hx⟩ =
+        ⟨Sum.inl zero, by trivial⟩ := by
+      apply orderedCyclicSuccessor_eq_of_order_spec
+      right
+      refine ⟨?_, ?_⟩
+      · intro z
+        exact le_of_not_gt (hmax z)
+      · intro z
+        exact hmin z.val
+    have hzero : zero = cyclicSuccessor e := by
+      apply Fin.ext
+      have hn : 0 < n := by omega
+      rw [cyclicSuccessor, cyclicVertexIndex_val e (k := 0) hn]
+      simp only [Nat.add_zero]
+      simp [zero, hfinal]
+    rw [retainedDartPermutation_apply, originalCornerNext_eq_retainedOriginalSuccessor,
+      hsucc, smoothingPairing_apply, smoothingPairingMap_anchor]
+    simpa [hzero]
+
+
+/-- The zero-length list's unique cell root advances to its left boundary. -/
+theorem retainedDart_emptySupport_cellRoot_to_left
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e [])
+      ⟨cellRootEvent q e [] ⟨0, by omega⟩,
+        cellRootEvent_retained q e [] ⟨0, by omega⟩⟩).val =
+      cellLeftEvent q e [] ⟨0, by omega⟩ := by
+  simpa [cellRootEvent, cellLeftEvent] using
+    retainedDart_emptySupport_anchor_next q hq e
+
+
+/-- The first nonempty cell contains exactly the anchors after its left endpoint
+through the anchor of its right-boundary return edge. -/
+theorem cellInteriorAnchors_first_eq_interval
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e (L.get ⟨0, hlen⟩))
+    cellInteriorAnchors q hq e L ⟨0, by omega⟩ =
+      List.ofFn (fun j : Fin (complementaryEventRank e f) =>
+        cyclicVertexIndex e (1+j.val)) := by
+  classical
+  dsimp only
+  let i : Fin (L.length+1) := ⟨0, by omega⟩
+  let c : EdgeChord q e := L.get ⟨0, hlen⟩
+  let v := DirectGLSSW.returnVisit q e c
+  let f := crossingVisitEdge q v
+  let r := complementaryEventRank e f
+  have hleft : cellLeftEvent q e L i = Sum.inl (cyclicSuccessor e) := by
+    simp [cellLeftEvent, i]
+  have hright : cellRightEvent q e L i = Sum.inr v := by
+    simp [cellRightEvent, i, v, c, hlen]
+  have hsuccRank : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+    rw [cyclicSuccessor]
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+      have he := e.isLt
+      omega)
+  have haNe : ∀ a : Fin n,
+      a ≠ cyclicSuccessor e ↔ 0 < complementaryEventRank e a := by
+    intro a
+    constructor
+    · intro h
+      rcases Nat.eq_zero_or_pos (complementaryEventRank e a) with hz | hp
+      · apply False.elim
+        apply h
+        apply complementaryEventRank_injective e
+        simpa [hsuccRank] using hz
+      · exact hp
+    · intro h hEq
+      have hz : complementaryEventRank e a = 0 := by simpa [hEq, hsuccRank]
+      omega
+  have hkey (a : Fin n) : toLex (complementaryEventRank e a, (0 : K)) <
+      complementaryVisitKey q e v ↔ complementaryEventRank e a ≤ r := by
+    change toLex (complementaryEventRank e a, (0 : K)) <
+      toLex (complementaryEventRank e f, crossingVisitParameter q v) ↔ _
+    have hp : 0 < crossingVisitParameter q v :=
+      (DirectGLSSW.crossingVisitParameter_spec q v).1
+    constructor
+    · intro h
+      rcases (Prod.Lex.toLex_lt_toLex).mp h with hlt | ⟨heq, _⟩
+      · exact Nat.le_of_lt hlt
+      · exact heq.le
+    · intro h
+      rcases eq_or_lt_of_le h with heq | hlt
+      · exact (Prod.Lex.toLex_lt_toLex).mpr (Or.inr ⟨heq, hp⟩)
+      · exact (Prod.Lex.toLex_lt_toLex).mpr (Or.inl hlt)
+  have hraw (a : Fin n) :
+      (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+       strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+        (Sum.inl a) (Sum.inr v)) ↔
+        1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < r+1 := by
+    letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+    have hArc := anchorVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e a v
+    constructor
+    · intro h
+      have hh := hArc.mp h
+      have hpos : 0 < complementaryEventRank e a := (haNe a).mp hh.1
+      have hr : complementaryEventRank e a ≤ r := (hkey a).mp hh.2
+      omega
+    · rintro ⟨hpos, hbound⟩
+      have ha : a ≠ cyclicSuccessor e := (haNe a).mpr hpos
+      have hr : complementaryEventRank e a ≤ r := by omega
+      exact hArc.mpr ⟨ha, (hkey a).mpr hr⟩
+  have hpred : (fun a : Fin n => decide
+      (strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)))) =
+      (fun a : Fin n => decide
+        (1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < r+1)) := by
+    funext a
+    have hiff : strictCyclicBetween
+        (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)) ↔
+        1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < r+1 := by
+      rw [hleft, hright]
+      exact (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).trans (hraw a)
+    simp only [hiff]
+  have hhi : r+1 ≤ n := by
+    have hf := CyclicAnchorInterval.complementaryRank_lt_size e f
+    omega
+  unfold cellInteriorAnchors
+  rw [hpred, CyclicAnchorInterval.cyclic_anchor_interval e 1 (r+1) hhi]
+  rfl
+
+
+private theorem anchor_cut_arc_iff_not_endpoints
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e a : Fin n) :
+    (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+     strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+       (Sum.inl a) (Sum.inl e)) ↔
+      a ≠ cyclicSuccessor e ∧ a ≠ e := by
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+  constructor
+  · intro h
+    have hleft : (Sum.inl a : PolygonEvent q) ≠ Sum.inl (cyclicSuccessor e) :=
+      strictCyclicBetween_ne_left h
+    have hright : (Sum.inl a : PolygonEvent q) ≠ Sum.inl e :=
+      strictCyclicBetween_ne_right h
+    exact ⟨fun heq => hleft (congrArg Sum.inl heq),
+      fun heq => hright (congrArg Sum.inl heq)⟩
+  · rintro ⟨hneSucc, hneE⟩
+    simp only [FiniteCycleOrder.strictCyclicBetween, polygonEvent_anchor_lt_iff]
+    have hs : (cyclicSuccessor e).val =
+        if e.val + 1 < n then e.val + 1 else 0 := by
+      have hn : 0 < n := by have he := e.isLt; omega
+      unfold cyclicSuccessor
+      rw [cyclicVertexIndex_val e (k := 0) hn]
+      simp only [Nat.add_zero]
+      split_ifs <;> omega
+    have ha := a.isLt
+    have he := e.isLt
+    have hneS : a.val ≠ (cyclicSuccessor e).val := by
+      intro h
+      exact hneSucc (Fin.ext h)
+    have hneE' : a.val ≠ e.val := by
+      intro h
+      exact hneE (Fin.ext h)
+    by_cases hwrap : e.val + 1 < n
+    · have hs' : (cyclicSuccessor e).val = e.val + 1 := by simpa [hwrap] using hs
+      simp only [Fin.lt_iff_val_lt_val, hs']
+      omega
+    · have hs' : (cyclicSuccessor e).val = 0 := by simpa [hwrap] using hs
+      simp only [Fin.lt_iff_val_lt_val, hs']
+      omega
+
+
+/-- With empty support the filter is exactly the open anchor interval from
+`succ e` to `e`, expressed in complementary rank. -/
+theorem cellInteriorAnchors_empty_eq_interval
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) :
+    cellInteriorAnchors q hq e [] ⟨0, by omega⟩ =
+      List.ofFn (fun j : Fin (n-2) => cyclicVertexIndex e (1+j.val)) := by
+  classical
+  let i : Fin (0+1) := ⟨0, by omega⟩
+  have hleft : cellLeftEvent q e [] i = Sum.inl (cyclicSuccessor e) := by
+    simp [cellLeftEvent, i]
+  have hright : cellRightEvent q e [] i = Sum.inl e := by
+    simp [cellRightEvent, i]
+  have hsuccRank : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+    rw [cyclicSuccessor]
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+      have he := e.isLt
+      omega)
+  have hself : complementaryEventRank e e = n-1 :=
+    complementaryEventRank_self e
+  have haNeSucc : ∀ a : Fin n,
+      a ≠ cyclicSuccessor e ↔ 0 < complementaryEventRank e a := by
+    intro a
+    constructor
+    · intro h
+      by_contra hn
+      have hz : complementaryEventRank e a = 0 := Nat.eq_zero_of_not_pos hn
+      have heq : complementaryEventRank e a =
+          complementaryEventRank e (cyclicSuccessor e) := by simpa [hsuccRank] using hz
+      exact h (complementaryEventRank_injective e heq)
+    · intro h hEq
+      have hz : complementaryEventRank e a = 0 := by simpa [hEq, hsuccRank]
+      omega
+  have haNeE : ∀ a : Fin n,
+      a ≠ e ↔ complementaryEventRank e a < n-1 := by
+    intro a
+    constructor
+    · intro h
+      simpa [hself] using complementaryEventRank_lt_self e a h
+    · intro h heq
+      subst a
+      rw [hself] at h
+      omega
+  have hraw (a : Fin n) :
+      (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+       strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+         (Sum.inl a) (Sum.inl e)) ↔
+        0 < complementaryEventRank e a ∧ complementaryEventRank e a < n-1 := by
+    constructor
+    · intro harc
+      have hends := (anchor_cut_arc_iff_not_endpoints q hq e a).mp harc
+      exact ⟨(haNeSucc a).mp hends.1, (haNeE a).mp hends.2⟩
+    · rintro ⟨hpos, hlt⟩
+      have hleft := (haNeSucc a).mpr hpos
+      have hright := (haNeE a).mpr hlt
+      exact (anchor_cut_arc_iff_not_endpoints q hq e a).mpr ⟨hleft, hright⟩
+  have hpred : (fun a : Fin n => decide
+      (strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e [] i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e [] i)))) =
+      (fun a : Fin n => decide
+        (1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < n-1)) := by
+    funext a
+    have hiff : strictCyclicBetween
+        (eventOrdinal q hq.g2 (cellLeftEvent q e [] i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e [] i)) ↔
+        1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < n-1 := by
+      rw [hleft, hright]
+      exact (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).trans (hraw a)
+    simp only [hiff]
+  unfold cellInteriorAnchors
+  rw [hpred, CyclicAnchorInterval.cyclic_anchor_interval e 1 (n-1) (by omega)]
+  rfl
+
+
+/-- The terminal cell contains precisely the anchors strictly after the last
+selected return edge and strictly before the root anchor. -/
+theorem cellInteriorAnchors_terminal_eq_interval
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e
+      (L.get ⟨L.length-1, by omega⟩))
+    cellInteriorAnchors q hq e L (Fin.last L.length) =
+      List.ofFn (fun j : Fin (n-1-(complementaryEventRank e f+1)) =>
+        cyclicVertexIndex e (complementaryEventRank e f+1+j.val)) := by
+  classical
+  dsimp only
+  let i : Fin (L.length+1) := Fin.last L.length
+  let j : Fin L.length := ⟨L.length-1, by omega⟩
+  let c : EdgeChord q e := L.get j
+  let v := DirectGLSSW.returnVisit q e c
+  let f := crossingVisitEdge q v
+  let r := complementaryEventRank e f
+  have hne : L ≠ [] := List.length_pos.mp hlen
+  have hleft : cellLeftEvent q e L i = Sum.inr v := by
+    simp [cellLeftEvent, i, v, j, c, hne, hlen]
+  have hright : cellRightEvent q e L i = Sum.inl e := by
+    simp [cellRightEvent, i]
+  have houterOrd := returnVisit_in_outerArc q hq e c
+  have houter : (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+      strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+        (Sum.inr v) (Sum.inl e)) := by
+    simpa [v,c] using (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp houterOrd
+  have haNeE : ∀ a : Fin n,
+      a ≠ e ↔ complementaryEventRank e a < n-1 := by
+    intro a
+    constructor
+    · intro h
+      simpa [complementaryEventRank_self e] using complementaryEventRank_lt_self e a h
+    · intro h heq
+      subst a
+      rw [complementaryEventRank_self e] at h
+      omega
+  have hsuccRank : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+    rw [cyclicSuccessor]
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+      have he := e.isLt
+      omega)
+  have hraw (a : Fin n) :
+      (letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+       strictCyclicBetween (Sum.inr v : PolygonEvent q) (Sum.inl a) (Sum.inl e)) ↔
+        r < complementaryEventRank e a ∧ complementaryEventRank e a < n-1 := by
+    letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+    have hleftCut := visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e a v
+    have hrightCut := anchor_cut_arc_iff_not_endpoints q hq e a
+    constructor
+    · intro h
+      have hord := eventOrdinal_cyclicBetween_iff q hq.g2
+        (Sum.inr v : PolygonEvent q) (Sum.inl a) (Sum.inl e)
+      have hordLeft := eventOrdinal_cyclicBetween_iff q hq.g2
+        (Sum.inl (cyclicSuccessor e) : PolygonEvent q) (Sum.inr v) (Sum.inl a)
+      have hordRight := eventOrdinal_cyclicBetween_iff q hq.g2
+        (Sum.inl (cyclicSuccessor e) : PolygonEvent q) (Sum.inl a) (Sum.inl e)
+      have hcuts := strictCyclicBetween_nested_interval
+        (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+        (eventOrdinal q hq.g2 (Sum.inr v : PolygonEvent q))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (Sum.inl e : PolygonEvent q))
+        houterOrd (hord.mpr h)
+      exact ⟨hleftCut.mp (hordLeft.mp hcuts.1),
+        (haNeE a).mp (hrightCut.mp (hordRight.mp hcuts.2)).2⟩
+    · rintro ⟨hfa, hae⟩
+      have hcut1 := hleftCut.mpr hfa
+      have hneSucc : a ≠ cyclicSuccessor e := by
+        intro heq
+        subst a
+        rw [hsuccRank] at hfa
+        omega
+      have hcut2 := hrightCut.mpr ⟨hneSucc, (haNeE a).mpr hae⟩
+      exact strictCyclicBetween_chain hcut1 hcut2
+  have hpred : (fun a : Fin n => decide
+      (strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)))) =
+      (fun a : Fin n => decide
+        (r+1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < n-1)) := by
+    funext a
+    have hiff : strictCyclicBetween
+        (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)) ↔
+        r+1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < n-1 := by
+      rw [hleft, hright]
+      have hord := eventOrdinal_cyclicBetween_iff q hq.g2
+        (Sum.inr v : PolygonEvent q) (Sum.inl a) (Sum.inl e)
+      have hraw' := hraw a
+      constructor
+      · intro h
+        have hh := (hord.mp h)
+        have hh' := hraw'.mp hh
+        exact ⟨by omega, hh'.2⟩
+      · rintro ⟨hlo,hhi⟩
+        have hh : r < complementaryEventRank e a ∧
+            complementaryEventRank e a < n-1 := by omega
+        exact hord.mpr (hraw'.mpr hh)
+    simp only [hiff]
+  have hhi : n-1 ≤ n := by omega
+  unfold cellInteriorAnchors
+  rw [hpred, CyclicAnchorInterval.cyclic_anchor_interval e (r+1) (n-1) hhi]
+
+/- Frozen internal-cell rank proof from `.lake/cell-anchor-ranks-proof/compile-20261007T001146Z-c56234b6/source.lean`, adapted to the local ordinal helper. -/
+theorem cellInteriorAnchors_internal_iff_rank
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length+1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length) (a : Fin n) :
+    a ∈ cellInteriorAnchors q hq e L i ↔
+      complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get ⟨i.val-1, by omega⟩))) <
+          complementaryEventRank e a ∧
+      complementaryEventRank e a ≤ complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩))) := by
+  classical
+  letI : LinearOrder (PolygonEvent q) := polygonEventOrder q hq.g2
+  let j : Fin L.length := ⟨i.val-1, by omega⟩
+  let k : Fin L.length := ⟨i.val, hiL⟩
+  let v := DirectGLSSW.returnVisit q e (L.get j)
+  let w := DirectGLSSW.returnVisit q e (L.get k)
+  have hleft : cellLeftEvent q e L i = Sum.inr v := by
+    simp [cellLeftEvent, ne_of_gt hi0, v, j]
+  have hright : cellRightEvent q e L i = Sum.inr w := by
+    simp [cellRightEvent, hiL, w, k]
+  have hjk : j < k := by change i.val-1 < i.val; omega
+  have hpair := (List.pairwise_iff_get.mp hL.2) j k hjk
+  have hcut : strictCyclicBetween
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inr v)) (eventOrdinal q hq.g2 (Sum.inr w)) := by
+    apply (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mpr
+    exact hpair.2
+  rw [cellInteriorAnchors_mem_iff, hleft, hright]
+  change _ ↔ complementaryEventRank e (crossingVisitEdge q v) <
+    complementaryEventRank e a ∧ complementaryEventRank e a ≤
+      complementaryEventRank e (crossingVisitEdge q w)
+  constructor
+  · intro hbetween
+    have hcuts := strictCyclicBetween_nested_interval
+      (eventOrdinal q hq.g2 (Sum.inl (cyclicSuccessor e) : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inr v : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+      (eventOrdinal q hq.g2 (Sum.inr w : PolygonEvent q))
+      hcut hbetween
+    have hleftCut := (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp hcuts.1
+    have hrightCut := (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mp hcuts.2
+    have hl := (visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e a v).mp hleftCut
+    have hr := ((anchorVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e a w).mp hrightCut).2
+    refine ⟨hl, ?_⟩
+    change toLex (complementaryEventRank e a, (0 : K)) <
+      toLex (complementaryEventRank e (crossingVisitEdge q w), crossingVisitParameter q w) at hr
+    rw [Prod.Lex.toLex_lt_toLex] at hr
+    rcases hr with hlt | ⟨heq, _⟩
+    · exact Nat.le_of_lt hlt
+    · exact Nat.le_of_eq heq
+  · rintro ⟨hl, hr⟩
+    have hleftCut := (visitAnchor_arcOrder_iff_complementaryRank_lt q hq.g2 e a v).mpr hl
+    have hne : a ≠ cyclicSuccessor e := by
+      intro heq
+      have hzero : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+        rw [cyclicSuccessor]
+        exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+          have he := e.isLt
+          omega)
+      rw [heq, hzero] at hl
+      omega
+    have hkey : toLex (complementaryEventRank e a, (0 : K)) < complementaryVisitKey q e w := by
+      change toLex (complementaryEventRank e a, (0 : K)) <
+        toLex (complementaryEventRank e (crossingVisitEdge q w), crossingVisitParameter q w)
+      rw [Prod.Lex.toLex_lt_toLex]
+      rcases lt_or_eq_of_le hr with hlt | heq
+      · exact Or.inl hlt
+      · exact Or.inr ⟨heq, (DirectGLSSW.crossingVisitParameter_spec q w).1⟩
+    have hrightCut := (anchorVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e a w).mpr
+      ⟨hne, hkey⟩
+    exact (eventOrdinal_cyclicBetween_iff q hq.g2 _ _ _).mpr
+      (strictCyclicBetween_chain hleftCut hrightCut)
+
+/- Frozen exact list identity from `.lake/cyclic-anchor-interval-root/compile-20261007T001500Z-5c6f53dc/source.lean`; root-authored composition retained. -/
+theorem cellInteriorAnchors_internal_eq_interval
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (i : Fin (L.length+1))
+    (hi0 : 0 < i.val) (hiL : i.val < L.length) :
+    let r := complementaryEventRank e (crossingVisitEdge q
+      (DirectGLSSW.returnVisit q e (L.get ⟨i.val-1, by omega⟩)))
+    let s := complementaryEventRank e (crossingVisitEdge q
+      (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)))
+    cellInteriorAnchors q hq e L i =
+      List.ofFn (fun j : Fin (s-r) => cyclicVertexIndex e (r+1+j.val)) := by
+  classical
+  dsimp only
+  let r := complementaryEventRank e (crossingVisitEdge q
+    (DirectGLSSW.returnVisit q e (L.get ⟨i.val-1, by omega⟩)))
+  let s := complementaryEventRank e (crossingVisitEdge q
+    (DirectGLSSW.returnVisit q e (L.get ⟨i.val, hiL⟩)))
+  change cellInteriorAnchors q hq e L i =
+    List.ofFn (fun j : Fin (s-r) => cyclicVertexIndex e (r+1+j.val))
+  have hs : s+1 ≤ n := Nat.succ_le_iff.mpr
+    (CyclicAnchorInterval.complementaryRank_lt_size e _)
+  have hpred : (fun a : Fin n => decide
+      (strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)))) =
+      (fun a : Fin n => decide
+        (r+1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < s+1)) := by
+    funext a
+    have hp : strictCyclicBetween (eventOrdinal q hq.g2 (cellLeftEvent q e L i))
+        (eventOrdinal q hq.g2 (Sum.inl a : PolygonEvent q))
+        (eventOrdinal q hq.g2 (cellRightEvent q e L i)) ↔
+        r+1 ≤ complementaryEventRank e a ∧ complementaryEventRank e a < s+1 := by
+      rw [← cellInteriorAnchors_mem_iff q hq e L i a,
+        cellInteriorAnchors_internal_iff_rank q hq e L hL i hi0 hiL a]
+      dsimp [r, s]
+      omega
+    simp only [hp]
+  unfold cellInteriorAnchors
+  rw [hpred, CyclicAnchorInterval.cyclic_anchor_interval e (r+1) (s+1) hs]
+  simp only [Nat.add_sub_add_right]
+  rfl
+
+/- Worker-authored rank bounds copied from
+`.lake/cell-anchor-ranks-proof/interior-edge-events-proof/compile-20261007T002238Z-2fa02e3e/source.lean`; the argument is field-generic. -/
+theorem return_edge_nonincident [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q)
+    (e : Fin n) (z : EdgeChord q e) :
+    crossingVisitEdge q (DirectGLSSW.returnVisit q e z) ≠ cyclicSuccessor e ∧
+    cyclicSuccessor (crossingVisitEdge q (DirectGLSSW.returnVisit q e z)) ≠ e := by
+  have he := DirectGLSSW.crossingVisitPoint_mem q (DirectGLSSW.edgeVisit q e z)
+  rw [(DirectGLSSW.edgeVisitSide_spec q e z).1] at he
+  have hf := DirectGLSSW.crossingVisitPoint_mem q (DirectGLSSW.returnVisit q e z)
+  constructor
+  · intro h
+    rw [h] at hf
+    exact cyclic_adjacent_interiors_disjoint hq.size_ge_three q hq.g1 e _ he hf
+  · intro h
+    exact cyclic_adjacent_interiors_disjoint hq.size_ge_three q hq.g1 _ _ hf
+      (by simpa only [h] using he)
+
+theorem return_rank_interior [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q)
+    (e : Fin n) (z : EdgeChord q e) :
+    0 < complementaryEventRank e (crossingVisitEdge q (DirectGLSSW.returnVisit q e z)) ∧
+    complementaryEventRank e (crossingVisitEdge q (DirectGLSSW.returnVisit q e z))+2<n := by
+  let f := crossingVisitEdge q (DirectGLSSW.returnVisit q e z)
+  have hfe := (DirectGLSSW.edgeVisitSide_spec q e z).2
+  have hnon := return_edge_nonincident q hq e z
+  have hzero : complementaryEventRank e (cyclicSuccessor e)=0 := by
+    rw [cyclicSuccessor]
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+      have he := e.isLt
+      omega)
+  change 0 < complementaryEventRank e f ∧ complementaryEventRank e f+2<n
+  constructor
+  · by_contra h
+    have hr : complementaryEventRank e f=0 := by omega
+    have hf := complementaryEventRank_injective e (hr.trans hzero.symm)
+    exact hnon.1 hf
+  · have hlt := complementaryEventRank_lt_self e (cyclicSuccessor f) hnon.2
+    rw [complementaryEventRank_cyclicSuccessor e f hfe,
+      complementaryEventRank_self] at hlt
+    omega
+
+/- Root-authored rank-order equivalence copied from
+`.lake/mixed-event-order-root/compile-20261007T002828Z-6c8c7ef8/source.lean`. -/
+theorem returnVisitBefore_iff_rank_lt [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (c d : EdgeChord q e) :
+    returnVisitBefore q hq.g2 e c d ↔
+      complementaryEventRank e (crossingVisitEdge q (DirectGLSSW.returnVisit q e c)) <
+      complementaryEventRank e (crossingVisitEdge q (DirectGLSSW.returnVisit q e d)) := by
+  letI : LinearOrder (Fin n ⊕ CrossingVisit q) := polygonEventOrder q hq.g2
+  change FiniteCycleOrder.strictCyclicBetween (Sum.inl (cyclicSuccessor e) : PolygonEvent q)
+      (Sum.inr (DirectGLSSW.returnVisit q e c)) (Sum.inr (DirectGLSSW.returnVisit q e d)) ↔ _
+  rw [crossingVisit_arcOrder_iff_complementaryKey_lt q hq.g2 e _ _
+    (DirectGLSSW.edgeVisitSide_spec q e c).2 (DirectGLSSW.edgeVisitSide_spec q e d).2]
+  change toLex (_, _) < toLex (_, _) ↔ _
+  rw [Prod.Lex.toLex_lt_toLex]
+  constructor
+  · rintro (hlt | ⟨heq, hpar⟩)
+    · exact hlt
+    · have hedge := complementaryEventRank_injective e heq
+      have hcd := returnVisitEdge_injective q e hedge
+      subst d
+      exact (lt_irrefl _ hpar).elim
+  · exact Or.inl
+
+/- The first selected return lies strictly after the left anchor; list order
+then excludes every selected return from that anchor's outgoing edge. -/
+theorem no_selected_return_on_first_anchor [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    ∀ d, d ∈ L → crossingVisitEdge q (DirectGLSSW.returnVisit q e d) ≠
+      cyclicSuccessor e := by
+  intro d hd hde
+  let j0 : Fin L.length := ⟨0, hlen⟩
+  let c := L.get j0
+  let f0 := crossingVisitEdge q (DirectGLSSW.returnVisit q e c)
+  have hr0 := return_rank_interior q hq e c
+  have hr0pos : 0 < complementaryEventRank e f0 := by simpa [f0] using hr0.1
+  have hsuccRank : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+    rw [cyclicSuccessor]
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+      have he := e.isLt
+      omega)
+  have hnot : d ≠ c := by
+    intro hdc
+    subst d
+    have heq := congrArg (complementaryEventRank e) hde
+    rw [heq, hsuccRank] at hr0pos
+    exact (Nat.not_lt_zero _ hr0pos)
+  obtain ⟨j, hj⟩ := List.mem_iff_get.mp hd
+  have hjne : j ≠ j0 := by
+    intro heq
+    apply hnot
+    rw [heq] at hj
+    simpa [c, j0] using hj.symm
+  have hjpos : 0 < j.val := by
+    have hj0 : j.val ≠ 0 := by
+      intro hz
+      apply hjne
+      apply Fin.ext
+      simpa [j0] using hz
+    omega
+  have hjlt : j0 < j := by change 0 < j.val; exact hjpos
+  have hkeys := cellReturnKey_strict q hq e L hL j0 j hjlt
+  have hkey : toLex (complementaryEventRank e f0,
+      crossingVisitParameter q (DirectGLSSW.returnVisit q e c)) <
+      toLex (complementaryEventRank e
+        (crossingVisitEdge q (DirectGLSSW.returnVisit q e d)),
+        crossingVisitParameter q (DirectGLSSW.returnVisit q e d)) := by
+    rw [← hj]
+    simpa [complementaryVisitKey, f0, c] using hkeys
+  rw [Prod.Lex.toLex_lt_toLex] at hkey
+  have hdRank : complementaryEventRank e
+      (crossingVisitEdge q (DirectGLSSW.returnVisit q e d)) = 0 := by
+    rw [hde, hsuccRank]
+  rcases hkey with hlt | ⟨heq, _⟩
+  · rw [hdRank] at hlt
+    omega
+  · rw [hdRank] at heq
+    omega
+
+/- The first cell's left anchor advances to the first interior anchor. -/
+theorem retainedDart_first_left_to_nextAnchor [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (hn : 3 ≤ n) (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl (cyclicSuccessor e), by trivial⟩).val =
+      Sum.inl (cyclicSuccessor (cyclicSuccessor e)) := by
+  let a := cyclicSuccessor e
+  have hneE : a ≠ e := by
+    intro hae
+    have hr := congrArg (complementaryEventRank e) hae
+    have hs : complementaryEventRank e (cyclicSuccessor e) = 0 := by
+      rw [cyclicSuccessor]
+      exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+        have he := e.isLt
+        omega)
+    rw [hs, complementaryEventRank_self] at hr
+    omega
+  have hno := no_selected_return_on_first_anchor q hq e L hL hlen
+  by_cases hnext : a.val + 1 < n
+  · exact retainedDart_anchor_to_nextAnchor q hq e a L hneE hno hnext
+  · have hfinal : a.val + 1 = n := by have ha := a.isLt; omega
+    have hroute := retainedDart_anchor_to_nextAnchor_wrap q hq e a L hneE hno hfinal
+    have hsucc : cyclicSuccessor a = (⟨0, by omega⟩ : Fin n) := by
+      apply Fin.ext
+      have hnpos : 0 < n := by omega
+      rw [cyclicSuccessor, cyclicVertexIndex_val a (k := 0) hnpos]
+      simp only [Nat.add_zero]
+      simp [hfinal]
+    simpa [a, hsucc] using hroute
+
+/- The modular successor identity is copied from
+`DirectGLSSW.ShortEdgeCyclicRelabel.cyclicVertexIndex_succ`. -/
+private theorem cyclicVertexIndex_succ_local (e : Fin n) (k : ℕ) :
+    cyclicVertexIndex e (k+1) = cyclicSuccessor (cyclicVertexIndex e k) := by
+  by_cases hn : n = 1
+  · subst n
+    exact Subsingleton.elim _ _
+  have hnpos : 0 < n := by have := e.isLt; omega
+  have hn2 : 1 < n := by omega
+  apply Fin.ext
+  change (e.val + 1 + (k+1)) % n = ((e.val + 1 + k) % n + 1) % n
+  calc
+    (e.val + 1 + (k+1)) % n = (e.val + 1 + k + 1) % n := by congr 1 <;> omega
+    _ = ((e.val + 1 + k) % n + (1 % n)) % n := Nat.add_mod _ _ _
+    _ = ((e.val + 1 + k) % n + 1) % n := by rw [Nat.mod_eq_of_lt hn2]
+
+theorem cellInteriorAnchors_first_head
+    [IsStrictOrderedRing K] (q : Fin n → PlanarPoint K)
+    (hq : CyclicGeneric q) (e : Fin n) (L : List (EdgeChord q e))
+    (hL : OrderedEdgeSupport q hq e L) (hlen : 0 < L.length) :
+    (cellInteriorAnchors q hq e L ⟨0, by omega⟩).head? =
+      some (cyclicVertexIndex e 1) := by
+  classical
+  have hpos := (return_rank_interior q hq e (L.get ⟨0, hlen⟩)).1
+  have hlist := cellInteriorAnchors_first_eq_interval q hq e L hL hlen
+  dsimp only at hlist
+  rw [hlist]
+  have hne : List.ofFn (fun j : Fin
+      (complementaryEventRank e (crossingVisitEdge q
+        (DirectGLSSW.returnVisit q e (L.get ⟨0, hlen⟩)))) =>
+        cyclicVertexIndex e (1+j.val)) ≠ [] := by
+    intro hnil
+    have hz := List.ofFn_eq_nil_iff.mp hnil
+    exact (Nat.ne_of_gt hpos) hz
+  rw [List.head?_eq_head hne, List.head_ofFn hne]
+  rfl
+
+theorem retainedDart_first_left_to_firstInteriorAnchor [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (hn : 3 ≤ n) (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl (cyclicSuccessor e), by trivial⟩).val =
+      Sum.inl (cyclicVertexIndex e 1) := by
+  rw [retainedDart_first_left_to_nextAnchor q hq e hn L hL hlen]
+  rw [cyclicVertexIndex_succ_local e 0]
+  simp [cyclicSuccessor]
+
+theorem retainedDart_emptySupport_anchor_successor [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e a : Fin n)
+    (ha : a ≠ e) :
+    (retainedDartPermutation q hq.g2 (supportOfList q e [])
+      ⟨Sum.inl a, by trivial⟩).val = Sum.inl (cyclicSuccessor a) := by
+  classical
+  have hno : ∀ d, d ∈ ([] : List (EdgeChord q e)) →
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e d) ≠ a := by
+    intro d hd
+    cases hd
+  by_cases hnext : a.val+1<n
+  · exact retainedDart_anchor_to_nextAnchor q hq e a [] ha hno hnext
+  · have hfinal : a.val+1=n := by have := a.isLt; omega
+    have hroute := retainedDart_anchor_to_nextAnchor_wrap q hq e a [] ha hno hfinal
+    have hsucc : cyclicSuccessor a = (⟨0, by omega⟩ : Fin n) := by
+      apply Fin.ext
+      have hn : 0<n := by have := hq.size_ge_three; omega
+      rw [cyclicSuccessor, cyclicVertexIndex_val a (k:=0) hn]
+      simp [hfinal]
+    simpa [hsucc] using hroute
+
+theorem retainedDart_terminal_last_interior_to_root [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n)
+    (L : List (EdgeChord q e)) (hL : OrderedEdgeSupport q hq e L)
+    (hlen : 0 < L.length) :
+    let a := cyclicVertexIndex e (n-2)
+    (retainedDartPermutation q hq.g2 (supportOfList q e L)
+      ⟨Sum.inl a, by trivial⟩).val = Sum.inl e := by
+  classical
+  let rk := fun c : EdgeChord q e =>
+    complementaryEventRank e (crossingVisitEdge q
+      (DirectGLSSW.returnVisit q e c))
+  have hneL : L ≠ [] := List.length_pos.mp hlen
+  let cLast : EdgeChord q e := L.getLast hneL
+  have hlastmem : cLast ∈ L := List.getLast_mem hneL
+  have hlastbound := (return_rank_interior q hq e cLast).2
+  have hpair : L.Pairwise (fun c d => rk c ≤ rk d) := by
+    apply hL.2.imp
+    intro c d hcd
+    exact le_of_lt ((returnVisitBefore_iff_rank_lt q hq e c d).mp hcd.2)
+  have hle' : ∀ d ∈ L, rk d < n-2 := by
+    intro d hd
+    have hleD := hpair.rel_getLast_of_rel_getLast_getLast hd (Nat.le_refl _)
+    have hLastEq : L.getLast (List.ne_nil_of_mem hd) = cLast := by rfl
+    rw [hLastEq] at hleD
+    dsimp [rk] at hleD hlastbound ⊢
+    omega
+  let a : Fin n := cyclicVertexIndex e (n-2)
+  have harka : complementaryEventRank e a = n-2 := by
+    exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e (n-2) (by
+      have he := e.isLt
+      omega)
+  have hne : a ≠ e := by
+    intro h
+    have hh := congrArg (complementaryEventRank e) h
+    rw [harka, complementaryEventRank_self] at hh
+    have hn := hq.size_ge_three
+    omega
+  have hno : ∀ d, d ∈ L →
+      crossingVisitEdge q (DirectGLSSW.returnVisit q e d) ≠ a := by
+    intro d hd heq
+    have hh := congrArg (complementaryEventRank e) heq
+    have hlt := hle' d hd
+    rw [harka] at hh
+    dsimp [rk] at hlt
+    omega
+  have hsucc : cyclicSuccessor a = e := by
+    apply complementaryEventRank_injective e
+    rw [complementaryEventRank_cyclicSuccessor e a hne, harka,
+      complementaryEventRank_self]
+    have hn := hq.size_ge_three
+    omega
+  by_cases hwrap : a.val+1 < n
+  · have hroute := retainedDart_anchor_to_nextAnchor q hq e a L hne hno hwrap
+    simpa [a, hsucc] using hroute
+  · have hfinal : a.val+1=n := by have := a.isLt; omega
+    have hroute := retainedDart_anchor_to_nextAnchor_wrap q hq e a L hne hno hfinal
+    have hsucc0 : cyclicSuccessor a = (⟨0, by omega⟩ : Fin n) := by
+      apply Fin.ext
+      have hn : 0 < n := by have := hq.size_ge_three; omega
+      rw [cyclicSuccessor, cyclicVertexIndex_val a (k := 0) hn]
+      simp [a, cyclicVertexIndex_val, hfinal]
+    have hzero : (⟨0, by omega⟩ : Fin n) = e := hsucc0.symm.trans hsucc
+    simpa [hzero] using hroute
+
+private theorem closed_interval_chain_local {α : Type*} (p : Equiv.Perm α)
+    (root left : α) {m : ℕ} (hm : 0<m) (f : Fin m → α)
+    (hr : p root = left) (hl : p left = f ⟨0,hm⟩)
+    (hs : ∀ j : ℕ, ∀ hj : j+1<m,
+      p (f ⟨j,by omega⟩) = f ⟨j+1,hj⟩)
+    (he : p (f ⟨m-1,by omega⟩) = root) :
+    List.Chain' (fun a b => p a = b) ((root::left::List.ofFn f) ++ [root]) := by
+  simp only [List.cons_append,List.chain'_cons]
+  refine ⟨hr, ?_⟩
+  apply List.chain'_iff_get.mpr
+  intro j hj
+  simp only [List.length_cons,List.length_append,List.length_ofFn,
+    List.length_singleton,List.length_nil] at hj
+  cases j with
+  | zero => simpa [List.get_eq_getElem,List.getElem_append,hm] using hl
+  | succ j =>
+    simp only [List.get_eq_getElem,List.getElem_cons_succ]
+    have hjm : j<m := by omega
+    by_cases hn : j+1<m
+    · simpa [List.get_eq_getElem,List.getElem_append,hjm,hn] using hs j hn
+    · have hlast : j=m-1 := by omega
+      have hend : j+1=m := by omega
+      have hrj : p (f ⟨j,hjm⟩)=root := by simpa only [hlast] using he
+      simpa [List.get_eq_getElem,List.getElem_append,hjm,hn,hend] using hrj
+
+set_option maxHeartbeats 1000000 in
+theorem daughterPointList_empty_eq_cellEventWord [IsStrictOrderedRing K]
+    (q : Fin n → PlanarPoint K) (hq : CyclicGeneric q) (e : Fin n) :
+    daughterPointList q hq.g2 (supportOfList q e []) (cellRootEvent q e [] ⟨0, by omega⟩) =
+      (cellEventWord q hq e [] ⟨0, by omega⟩).map (polygonEventPoint q) := by
+  classical
+  let S := supportOfList q e []
+  let p := retainedDartPermutation q hq.g2 S
+  let R : RetainedEvent q S := ⟨cellRootEvent q e [] ⟨0,by omega⟩,
+    cellRootEvent_retained q e [] ⟨0,by omega⟩⟩
+  let U : RetainedEvent q S := ⟨cellLeftEvent q e [] ⟨0,by omega⟩,
+    cellLeftEvent_retained q e [] ⟨0,by omega⟩⟩
+  let m := n-2
+  let a : Fin m → Fin n := fun j => cyclicVertexIndex e (1+j.val)
+  let A : Fin m → RetainedEvent q S := fun j => ⟨Sum.inl (a j),by trivial⟩
+  have hm : 0<m := by have hn := hq.size_ge_three; dsimp [m]; omega
+  have ha : cellInteriorAnchors q hq e [] ⟨0,by omega⟩ = List.ofFn a := by
+    simpa [a,m] using cellInteriorAnchors_empty_eq_interval q hq e
+  have hr : p R=U := by
+    apply Subtype.ext
+    simpa [p,R,U,cellRootEvent,cellLeftEvent] using
+      retainedDart_emptySupport_cellRoot_to_left q hq e
+  have hl : p U=A ⟨0,hm⟩ := by
+    apply Subtype.ext
+    have hroute := retainedDart_emptySupport_anchor_successor q hq e
+      (cyclicSuccessor e) (by
+        intro h
+        have hr := congrArg (complementaryEventRank e) h
+        have hzero : complementaryEventRank e (cyclicSuccessor e)=0 := by
+          rw [cyclicSuccessor]
+          exact CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e 0 (by
+            have he := e.isLt; omega)
+        rw [hzero, complementaryEventRank_self] at hr
+        have hn := hq.size_ge_three
+        omega)
+    have hnext : cyclicSuccessor (cyclicSuccessor e)=a ⟨0,hm⟩ := by
+      change cyclicSuccessor (cyclicVertexIndex e 0)=cyclicVertexIndex e (1+0)
+      simpa [a] using (cyclicVertexIndex_succ_local e 0).symm
+    simpa [p,U,A,a,hnext,cellLeftEvent] using hroute
+  have hs : ∀ j : ℕ, ∀ hj : j+1<m,
+      p (A ⟨j,by omega⟩)=A ⟨j+1,hj⟩ := by
+    intro j hj
+    apply Subtype.ext
+    let x := cyclicVertexIndex e (1+j)
+    have hne : x ≠ e := by
+      intro heq
+      have hr := congrArg (complementaryEventRank e) heq
+      rw [CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e (1+j) (by
+        have hn := hq.size_ge_three
+        dsimp [m] at hj
+        omega), complementaryEventRank_self] at hr
+      dsimp [m] at hj
+      omega
+    have hroute := retainedDart_emptySupport_anchor_successor q hq e x hne
+    have hnext : cyclicSuccessor x = a ⟨j+1,hj⟩ := by
+      dsimp [x,a]
+      rw [← cyclicVertexIndex_succ_local e (1+j)]
+      congr 1
+    simpa [p,A,x,hnext] using hroute
+  have he : p (A ⟨m-1,by omega⟩)=R := by
+    apply Subtype.ext
+    let x := cyclicVertexIndex e (1+(m-1))
+    have hx : x=cyclicVertexIndex e (n-2) := by dsimp [x,m]; congr 1 <;> omega
+    have hne : x ≠ e := by
+      intro heq
+      have hr := congrArg (complementaryEventRank e) heq
+      rw [hx,CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e (n-2) (by omega),
+        complementaryEventRank_self] at hr
+      have hn := hq.size_ge_three
+      omega
+    have hroute := retainedDart_emptySupport_anchor_successor q hq e x hne
+    have hlast : cyclicSuccessor x=e := by
+      apply complementaryEventRank_injective e
+      rw [complementaryEventRank_cyclicSuccessor e x hne, hx,
+        CyclicAnchorInterval.complementaryRank_cyclicVertexIndex e (n-2) (by omega),
+        complementaryEventRank_self]
+      have hn := hq.size_ge_three
+      omega
+    have hA : a ⟨m-1,by omega⟩ = x := by
+      dsimp [a,x,m]
+    rw [hlast] at hroute
+    change (p ⟨Sum.inl (a ⟨m-1,by omega⟩),by trivial⟩).val = Sum.inl e
+    rw [hA]
+    simpa [p,S] using hroute
+  have hchain := closed_interval_chain_local p R U hm A hr hl hs he
+  have hmap : (R::U::List.ofFn A).map Subtype.val = cellEventWord q hq e [] ⟨0,by omega⟩ := by
+    rw [cellEventWord,ha]
+    simp only [List.map_cons,List.map_ofFn,R,U,A]
+    rfl
+  have hnodup : (R::U::List.ofFn A).Nodup := by
+    apply List.Nodup.of_map Subtype.val
+    rw [hmap]
+    exact cellEventWord_nodup q hq e [] ⟨0,by omega⟩
+  have hword := orbitWord_eq_list_of_closed_chain p R (U::List.ofFn A) hnodup hchain
+  rw [daughterPointList_eq_retainedOrbitWord q hq.g2 S _
+    (cellRootEvent_retained q e [] ⟨0,by omega⟩)]
+  change (PermutationOrbits.orbitWord p R).map
+    (fun x => polygonEventPoint q x.val) = _
+  rw [hword]
+  simpa only [List.map_map,Function.comp_def] using
+    congrArg (List.map (polygonEventPoint q)) hmap
+
+private theorem chain'_ofFn_append_root {α : Type*} {m : ℕ} (R : α → α → Prop)
+    (f : Fin m → α) (root : α) (hm : 0 < m)
+    (hstep : ∀ i : Fin m, (hbound : i.val+1 < m) → R (f i) (f ⟨i.val+1, hbound⟩))
+    (hend : R (f ⟨m-1, by omega⟩) root) :
+    List.Chain' R (List.ofFn f ++ [root]) := by
+  have hne : List.ofFn f ≠ [] := by
+    intro hz
+    have := List.ofFn_eq_nil_iff.mp hz
+    omega
+  have hchain : List.Chain' R (List.ofFn f) := by
+    rw [List.chain'_iff_get]
+    intro i hi
+    rw [List.length_ofFn] at hi
+    have hi' : i < m := by omega
+    have hnext : i+1 < m := by omega
+    simpa [List.get_eq_getElem, List.getElem_ofFn] using hstep ⟨i, hi'⟩ hnext
+  apply List.Chain'.append hchain (by simp)
+  intro x hx y hy
+  have hx' : x = f ⟨m-1, by omega⟩ := by
+    simpa [List.getLast?_eq_getLast_of_ne_nil hne, List.getLast_ofFn] using hx.symm
+  have hy' : y = root := by simpa using hy.symm
+  subst x; subst y
+  exact hend
+
+
+
+end
+
+end DirectGLSSW.MixedConsecutiveCapWord

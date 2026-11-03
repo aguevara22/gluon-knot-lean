@@ -1,0 +1,68 @@
+import CrossingEndpointState
+set_option autoImplicit false
+noncomputable section
+namespace DirectGLSSW.ActiveArc.Primitive
+open Cursor RetainedWords EndpointEventGeometry OpenCarrier AuxiliaryCarrierChart UniversalCarrierDomain
+open CompatibleWords SingletonWords
+
+/-- Full actual first-under recursion from the original arc. The same chosen
+post-event endpoint carries the recursive domain, and the literal cut parent
+has its geometry, Core, and restricted supplied family produced internally. -/
+theorem exists_complete_first_under_step {a b : ℕ}
+    (q : Fin (a+b+2) → PlanarPoint ℝ) (hR : Regular q) (hG : cyclicNoncollinear q)
+    (hAux : ClosedAuxiliary q hR) (hleft : TraversalClosure.RemainingLeft q)
+    (hRI : GLSSWRootIndependence) (c : Crossing q) (hc : FirstCrossing q c)
+    (hcut : c.val.2.val=a)
+    (hcore : ∀ U : Support q hR, ShortEdgeSignStability.CoreHGeneric
+      (rootedPolygonWord (OpenVertex q hR U) (openLast q hR U.val)) (openCount q hR U.val-1))
+    (L : Fin (a+b+1) ⊕ Unit → CarrierLine) (hL : UniversalLocus L) (hT : PairTransverse L)
+    (hinc : ∀ e : Fin (a+b+1), lineValue (L (Sum.inl e)) (q e.castSucc)=0 ∧
+      lineValue (L (Sum.inl e)) (q e.succ)=0)
+    (hterminal : lineValue (L (Sum.inr ())) (q ⟨a+b+1,by omega⟩)=0)
+    (hu : crossingUnder q (polygonCrossingOfArc q c)=(polygonCrossingOfArc q c).val.1) :
+    ∃ ε : ℝ, 0<ε ∧
+    ∃ (hm0 : 0≤leftParameter q c-ε) (hmc : leftParameter q c-ε<leftParameter q c)
+      (hcp : leftParameter q c<leftParameter q c+ε) (hpb : leftParameter q c+ε<afterBound q c),
+    let ht0 : 0≤leftParameter q c+ε := (lt_trans (leftParameter_spec q c).1 hcp).le
+    let hA := (regular_first_window_iff q hR c hc _ ht0 hpb).mpr (ne_of_gt hcp)
+    let Q := Split.child q hR c hc.1 hcut
+    let ell := (Finset.univ.filter (fun i : Fin (a+1) =>
+      0<planarDet (cyclicTangent Q ((cyclicSuccessorPerm (a+1))⁻¹ i)) (cyclicTangent Q i))).card
+    let P := Split.parent q c hcut
+    let hP := Split.regular_parent q hR c hcut
+    let M := L ∘ suffixCarrierMap (a:=a) (b:=b)
+    ((-1:ℚ)^(List.ofFn q).length * GammaM q hR hAux =
+      (-1:ℚ)^(List.ofFn (moveStart q (leftParameter q c+ε))).length *
+        GammaM (moveStart q (leftParameter q c+ε)) hA
+          (Surviving.after_first_closedAuxiliary q hR c hc _ hcp hpb hAux) -
+      ((-1:ℚ)^ell * GeometricSmoothingWeights.separatingSmoothingSum Q
+        (child_cyclicGeneric_of_closedAuxiliary q hR c hc.1 hcut hAux)
+        (child_auxiliaryGenericity q hR c hc hcut hAux)) *
+      ((-1:ℚ)^(List.ofFn P).length * GammaM P hP (parent_closedAuxiliary q hR c hc hcut hAux))) ∧
+    (cyclicNoncollinear (moveStart q (leftParameter q c+ε)) ∧
+    ClosedAuxiliary (moveStart q (leftParameter q c+ε)) hA ∧
+    TraversalClosure.RemainingLeft (moveStart q (leftParameter q c+ε)) ∧
+    (∀ V : Support (moveStart q (leftParameter q c+ε)) hA, ShortEdgeSignStability.CoreHGeneric
+      (rootedPolygonWord (OpenVertex _ _ V) (openLast _ _ V.val))
+      (openCount (moveStart q (leftParameter q c+ε)) hA V.val-1)) ∧
+    (∀ e : Fin (a+b+1), lineValue (L (Sum.inl e)) (moveStart q (leftParameter q c+ε) e.castSucc)=0 ∧
+      lineValue (L (Sum.inl e)) (moveStart q (leftParameter q c+ε) e.succ)=0) ∧
+    lineValue (L (Sum.inr ())) (moveStart q (leftParameter q c+ε) ⟨a+b+1,by omega⟩)=0) ∧
+    Regular P ∧ cyclicNoncollinear P ∧ ClosedAuxiliary P hP ∧ TraversalClosure.RemainingLeft P ∧
+    (∀ T : Support P hP, ShortEdgeSignStability.CoreHGeneric
+      (rootedPolygonWord (OpenVertex P hP T) (openLast P hP T.val)) (openCount P hP T.val-1)) ∧
+    UniversalLocus M ∧ PairTransverse M ∧
+    (∀ e : Fin (b+1), lineValue (M (Sum.inl e)) (P e.castSucc)=0 ∧
+      lineValue (M (Sum.inl e)) (P e.succ)=0) ∧ lineValue (M (Sum.inr ())) (P ⟨b+1,by omega⟩)=0 := by
+  obtain ⟨ρ,hρ,H⟩ := exists_normalized_first_under_supplied q hR c hc hRI hAux hcut hG
+    L hL hT hinc hterminal hu hleft
+  obtain ⟨ε,hε,hερ,hm0,hmc,hcp,hpb,hbefore,hpost⟩ :=
+    exists_crossing_endpoint_state q hR hG hAux hleft c hc L hL hT hinc hterminal ρ hρ
+  obtain ⟨hm0',hmc',hcp',hpb',hj⟩ := H ε hε hερ
+  have he := before_first_normalized_GammaM_constancy q hR c hc hRI hAux _ hm0 hmc hcore hbefore
+  obtain ⟨hPG,hPA,hPL⟩ := parent_full_state_of_supplied q hR hG hAux hleft c hc hcut
+    L hL hT hinc hterminal
+  refine ⟨ε,hε,hm0,hmc,hcp,hpb,he.symm.trans hj,hpost,Split.regular_parent q hR c hcut,
+    hPG,hPA,hPL,parent_all_support_core_of_supplied q hR c hcut L hL hT hinc hterminal,
+    universal_supplied_parent q c hcut L hL hT hinc hterminal⟩
+end DirectGLSSW.ActiveArc.Primitive

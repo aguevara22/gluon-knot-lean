@@ -1,0 +1,35 @@
+{
+  "schema": "gemini-complete-proof-audit-verdict-v1",
+  "audited_utc": "2026-10-24T08:16:00Z",
+  "manuscript_sha256": "32689ac5920b295347579bbf2f59883a0163bab8368e18c530b4fd8484cabefd",
+  "frozen_theorem_file": "project/ArmstrongFrozen/Frozen/JointNormalizedHomflyCornerIdentity.lean",
+  "frozen_theorem_sha256": "dc0f4aa9f655dc14352c1f30d3e0b59d4d874a44149803aeea173cc567da389d",
+  "frozen_declaration": "DirectGLSSW.joint_normalized_homfly_corner_identity",
+  "kernel_verdict": "INCONCLUSIVE",
+  "semantic_verdict": "PASS",
+  "overall_verdict": "INCONCLUSIVE",
+  "fresh_cloud_build_executed_in_this_session": false,
+  "allowed_axioms_only": true,
+  "observed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "forbidden_tokens_in_code": 0,
+  "evaluator_constructed_unconditionally": true,
+  "lhs_matches_glssw_recursion": true,
+  "only_extra_identity_hypothesis_is_glssw_root_independence": true,
+  "glssw_root_independence_proved_in_repo": false,
+  "rhs_matches_manuscript_on_full_g1_g2_domain": true,
+  "daughter_diagram_requires_daughter_g1_in_frozen_statement": false,
+  "full_primitive_proxy_used_in_final_proof": false,
+  "binder_counts": {
+    "SOURCE": 33,
+    "STANDING": 0,
+    "TYPING": 37,
+    "RULED": 0,
+    "EXCESS": 0
+  },
+  "blocking_findings": [],
+  "notes": "Semantic, binder, definition, static hygiene, and dependency closure audits all PASS with 0 defects across all 1,589 Lean modules (1,475 in the transitive import closure of the frozen theorem). All 1,589 source files and metadata pins in project/ were cryptographically verified to match the bundled 2026-10-20 fresh cloud build (PASS_FRESH_PROJECT_BUILD), portable kernel axiom audit (3,382 exports, axioms=[propext, Quot.sound, Classical.choice]), and frozen proof-consumption audit (36,209 visited declarations) with 0 SHA-256 mismatches. Per REMOTE_CHECKS.md, kernel_verdict and overall_verdict are recorded as INCONCLUSIVE solely because launching a fresh GCP VM in this session was blocked by the local workspace sandbox isolating /Users/aguevaragonzalez/.local/bin/gcp-orphan-check (exit code 127, operation not permitted)."
+}

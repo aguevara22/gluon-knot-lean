@@ -1,0 +1,68 @@
+name: Direct GLSSW verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'DIRECT_GLSSW/**'
+      - 'ci/direct_glssw/**'
+      - '.github/workflows/direct-glssw.yml'
+  pull_request:
+    paths:
+      - 'DIRECT_GLSSW/**'
+      - 'ci/direct_glssw/**'
+      - '.github/workflows/direct-glssw.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: direct-glssw-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Pinned source, Lean build, and export axioms
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check the source snapshot against its build receipts
+        run: python3 ci/direct_glssw/check_snapshot.py
+      - name: Make room for the Mathlib cache
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost /opt/hostedtoolcache/CodeQL /usr/local/share/powershell /usr/share/swift
+          df -h /
+      - name: Build all selected modules with the pinned toolchain
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: DIRECT_GLSSW
+          use-mathlib-cache: true
+          use-github-cache: false
+          auto-config: false
+          build: true
+          build-args: JointReversalApplication
+          test: false
+          lint: false
+      - name: Check all exported declarations and allowed axioms
+        working-directory: DIRECT_GLSSW
+        run: python3 check_release.py
+      - name: Check the frozen theorem's selected proof dependencies
+        working-directory: DIRECT_GLSSW
+        run: |
+          set -o pipefail
+          lake env lean -j 2 ../ci/direct_glssw/FrozenProofConsumption.lean | tee .lake/proof-consumption.log
+      - name: Preserve the verification receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: direct-glssw-verification
+          include-hidden-files: true
+          if-no-files-found: warn
+          path: |
+            DIRECT_GLSSW/.lake/release-audit/
+            DIRECT_GLSSW/.lake/proof-consumption.log

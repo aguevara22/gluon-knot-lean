@@ -1,7 +1,20 @@
 
 # About
 
-A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of [*Gluons and Knots*](https://arxiv.org/abs/2610.10673) by [Alfredo Guevara](https://aguevara22.github.io/). Lean prompted and curated by Alfredo Guevara and [Mark Goldstein](https://marikgoldstein.github.io/), and written by Claude. 
+A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of [*Gluons and Knots*](https://arxiv.org/abs/2610.10673) by [Alfredo Guevara](https://aguevara22.github.io/). The wall-law formalization was prompted and curated by Alfredo Guevara and [Mark Goldstein](https://marikgoldstein.github.io/), and written by Claude. The direct sewing formalization was developed with Codex and Gemini.
+
+## Proof packages
+
+This repository contains two separate Lean projects:
+
+| Package | Proof and scope | Entry point |
+|---|---|---|
+| [`CORNER_LAWS_FOCUSED_20260912`](CORNER_LAWS_FOCUSED_20260912) | Wall laws, soft theorem, and the proof of Hypothesis R described below | `SM.corner_laws_and_soft` |
+| [`DIRECT_GLSSW`](DIRECT_GLSSW) | Direct sewing proof of the corner identity under GLSSW root independence; unconditional normalized HOMFLY existence, uniqueness, traversal independence, and specified diagram invariances | `DirectGLSSW.joint_normalized_homfly_corner_identity` |
+
+Each package has its own pinned toolchain, dependencies, and verification instructions. The direct proof is self-contained and does not import the wall-law development. Its [README](DIRECT_GLSSW/README.md) links the exact theorem and build/axiom-audit evidence.
+
+The remainder of this page describes the wall-law package.
 
 # Corner state sum: wall laws and soft theorem. Lean 4 formalization
 

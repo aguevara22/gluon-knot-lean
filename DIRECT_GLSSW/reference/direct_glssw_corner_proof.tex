@@ -1,0 +1,1654 @@
+% ---- prefix ----
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,array}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\lk}{lk}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\slk}{sl}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Dcal}{\mathcal D}
+\newcommand{\vseven}[1]{\texttt{[eq::#1]}}
+\newcommand{\coeff}[1]{\bigl[#1\bigr]}
+\setlength{\emergencystretch}{2em}
+\setlist{topsep=4pt,itemsep=3pt}
+\title{Marked polygon currents and the HOMFLY corner\\
+\large A direct sewing argument for the GLSSW state sum}
+\author{}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We reorganize the finite single-minus recursion of GLSSW into effective
+polygon vertices. Separating-smoothing inversion defines a primitive
+\(\Gamma_A\). An interval-current calculation makes this primitive vanish
+on every nonuniform polygon. On a uniform polygon, an open current with a
+marked, auxiliary closing edge has precisely the descending skein recursion
+of a framed HOMFLY coefficient. This identifies its primitive with the
+corner \([a^{1-m-|r|}z^0]H^+\) and reconstructs the uniform-decomposition
+state sum. The argument uses GLSSW root independence, finite cut-list
+identities, and elementary knot skein theory; it does not use a
+wall-crossing uniqueness theorem, a transverse degree bound, or the
+state-sum equality as an input. We then give the Wilson-loop normalization
+and distinguish this algebraic sewing from a conjectural realization in
+topological string field theory.
+\end{abstract}
+{\footnotesize\tableofcontents}
+\clearpage
+
+\section{Statement, conventions, and inputs}
+\label{sec:statement}
+
+Let \(P=(q_0,\ldots,q_{n-1})\) be an oriented polygon immersed in an
+oriented affine plane. Its external momentum edges are
+\(\widetilde\lambda_i=q_{i+1}-q_i\), with cyclic indices. A left turn means
+\(\det(\widetilde\lambda_{i-1},\widetilde\lambda_i)>0\).
+Write \(\ell(P)\) for the number of left turns, and \(r(P)\) for the signed
+rotation number of a rounding using turns of magnitude less than \(\pi\).
+A polygon is \emph{uniform} when every turn is left or every turn is right.
+
+The \emph{generic locus} is the set of polygons satisfying two
+conditions: no three vertices are collinear (G1), and no point lies in
+the relative interiors of three distinct edges (G2). On it, vertices are distinct, turns are nonzero,
+nonincident crossings are transverse double points, and no vertex lies on
+a nonincident edge. We first prove the theorem on the \emph{auxiliary
+generic domain}: the subset of the generic locus on which, in addition,
+every determinant appearing in the finite calculations below is nonzero,
+including those of the finitely many smoothing components, whose vertices
+include crossing points, and those of the auxiliary polygons of
+Section~\ref{ep:section}, away from the explicitly analyzed endpoint
+events. No value of \(\Theta(0)\) is used. This auxiliary domain is open
+and dense in every chamber of the generic locus; the extension of the
+theorem to the whole generic locus is carried out after the proof, in
+Section~\ref{sec:completion}, by chamber constancy of both sides.
+
+The amplitude \(A(P)\) is the finite marked-tree recursion of
+GLSSW~\cite{GLSSW}: the marked root carries \(V^-\), ordinary internal
+vertices carry \(-V^+\), the marked unary term is retained, and ordinary
+unary insertions are excluded. We use GLSSW's root independence, or
+cyclic invariance, as an input~\cite{GLSSW}: the tree coefficient does
+not depend on the choice of root edge. Every polygon to which we apply
+it below, namely smoothing components, caps closed by a straight segment,
+and truncated or augmented polygons, is a generic polygon for generic
+auxiliary data, which the auxiliary generic domain provides. We restate
+the finite recursion and prove the auxiliary-current identities below.
+We do not assume the equality to any knot expression.
+
+\subsection{The positive diagram and its corner}
+
+At every crossing choose the overpassing strand so that
+\begin{equation}
+ \det(t_{\mathrm{over}},t_{\mathrm{under}})>0.
+ \label{eq:positive-diagram}
+\end{equation}
+This defines the positive diagram \(K_Q\) of an oriented subpolygon \(Q\).
+It requires no contact lift. We retain this convention throughout; no
+additional mirror operation is made in the proof or in the Wilson-loop
+dictionary. The contact convention of the current letter can therefore be
+kept as chosen there.
+
+Our HOMFLY normalization is
+\begin{equation}
+ H_{\bigcirc}=1,
+ \qquad aH_{L_+}-a^{-1}H_{L_-}=zH_{L_0},
+ \qquad H_{L\sqcup\bigcirc}=\frac{a-a^{-1}}{z}H_L.
+ \label{eq:homfly-conventions}
+\end{equation}
+For a uniform \(Q\), let \(m_Q\) count its retained self-crossings and put
+\begin{equation}
+ R_Q=|r(Q)|,
+ \qquad d_Q=1-m_Q-R_Q,
+ \qquad c(Q)=\coeff{a^{d_Q}z^0}H_{K_Q}(a,z).
+ \label{eq:corner-definition}
+\end{equation}
+This is a \emph{prescribed} coefficient. Its definition does not replace
+\(d_Q\) by the lowest occupied degree. No saturation or nonvanishing is
+assumed. The proof below establishes the needed floor for the \(z^0\)
+row of uniform polygons directly from descending skein expansion; it does
+not require a bound on the entire HOMFLY polynomial.
+
+\subsection{Separating decompositions}
+
+Represent each crossing by a chord joining its two visits on the oriented
+parameter circle of \(P\). Let \(\Dcal(P)\) consist of sets \(S\) of
+crossings whose chords do not alternate pairwise. Equivalently, smoothing
+every crossing in \(S\) separates the curve into exactly \(|S|+1\)
+components; no smoothing rejoins two components. Denote the resulting
+oriented polygons by \(P_S\). When evaluating an individual component we
+retain its self-crossings and ignore its crossings with other components.
+The latter convention will also follow from the lowest link row in the
+framed skein calculation.
+
+Let \(\Dcal_{\mathrm u}(P)\) be the subsets for which every member of
+\(P_S\) is uniform. The state sum to be proved is
+\begin{equation}
+ C(P)=(-1)^{\ell(P)}
+ \sum_{S\in\Dcal_{\mathrm u}(P)}(-1)^{|S|}
+ \prod_{Q\in P_S}c(Q).
+ \label{eq:state-sum}
+\end{equation}
+The empty set is included whenever the original polygon is uniform.
+Each oriented smoothing replaces a crossing by one left and one right
+corner. Original corners survive, so
+\begin{equation}
+ \sum_{Q\in P_S}\ell(Q)=\ell(P)+|S|.
+ \label{eq:left-count}
+\end{equation}
+
+\begin{theorem}[Direct sewing identity]
+\label{thm:main}
+For every generic oriented polygon in the domain above, the GLSSW
+amplitude satisfies \(A(P)=C(P)\), with conventions
+\eqref{eq:positive-diagram}--\eqref{eq:state-sum}.
+\end{theorem}
+
+\paragraph{Relation to the letter.}
+\begingroup\raggedright
+The translation to the current v7 source is
+\vseven{threebrackets}, \vseven{amplitudevertex}, and \vseven{amplitude}
+for the tree recursion; \vseven{skein} and \vseven{skein2} for
+\eqref{eq:homfly-conventions}; \vseven{factor} for
+\eqref{eq:corner-definition}; and \vseven{C} for
+\eqref{eq:state-sum}. These are identification labels, not external
+equation references needed to compile or read this note. Neither
+\vseven{softuniqueness} nor the letter's knot-degree theorem is imported.
+\par\endgroup
+
+\paragraph{Meaning of ``direct''.}
+The original polygon is kept fixed while auxiliary endpoints are moved
+inside finite interval-current identities. Determinant signs therefore
+appear in the calculation, but no comparison of the chamber jumps of
+\(A\) and \(C\), no connectivity argument for polygon chambers, and no
+wall-law uniqueness principle enters. The string interpretation in the
+last section is logically subsequent to the theorem.
+
+% ---- endpoint ----
+\section{Finite currents and transport of a marked endpoint}
+\label{ep:section}
+
+This section derives the geometric cutting identities directly from the
+finite GLSSW recursion.  The only structural property of the GLSSW amplitude
+used in addition to that recursion is its cyclic, or root, independence.
+In particular, no wall law for a polygon invariant and no comparison with a
+knot invariant is an input.
+
+We first work with point-generic vertices: no three vertices occurring in a
+sign evaluation are collinear.  Auxiliary moving points are evaluated on
+the two sides of their isolated exceptional positions.  A value at the
+exceptional position always means an expression which is unchanged between
+these sides; it does not mean substituting zero in a sign function.
+
+\subsection{A finite change of the near data}
+\label{ep:near-data}
+
+Cut an oriented polygon at a root edge and list the complementary boundary
+word, including both root endpoints, as $q_0,\ldots,q_N$. Use the Cartesian convention
+\begin{equation}
+ H(i,k,j)=\sgn\det(q_k-q_j,q_i-q_j),\qquad i<k<j.
+ \label{ep:H}
+\end{equation}
+The geometric near sign is $D(a,b,c)=H(a,b,c)$, the negative of the
+Cartesian turn sign at that face corner. For signs $D,H\in\{1,-1\}$,
+the GLSSW ordinary and marked gates obey
+\begin{equation}
+ D\Theta(-HD)=\frac{D-H}{2},\qquad
+ D\Theta(HD)=\frac{D+H}{2}.
+ \label{ep:linear-gates}
+\end{equation}
+We will be free to replace the near signs by an auxiliary array
+$D(a,b,c)$. This is an algebraic change of interval variables, without a
+claim that it has already been realized as a physical gauge symmetry.
+For a strictly upper triangular array $X$ set
+\begin{equation}
+ \Phi_{D,H}(X)_{ij}=
+ \sum_{i=r_0<\cdots<r_m=j}
+ \left(\prod_{\nu=1}^{m-1}
+ \frac{D(r_{\nu-1},r_\nu,r_{\nu+1})-H(i,r_\nu,j)}{2}\right)
+ \prod_{\nu=1}^{m}X_{r_{\nu-1},r_\nu}.
+ \label{ep:Phi}
+\end{equation}
+Empty products equal one.  Let $E_{i,i+1}=1$ and $E_{ij}=0$ for
+$j>i+1$.  The ordinary current $b$ and the marked amplitude are precisely
+\begin{equation}
+ \Phi_{D,H}(b)=E,\qquad
+ A(q_0,\ldots,q_N)=\Phi_{D,-H}(b)_{0N}.
+ \label{ep:tree-recursion}
+\end{equation}
+The minus sign on each ordinary GLSSW vertex is incorporated by moving the
+nonunary terms of the first equation to its right-hand side.  The marked
+root includes its one-branch term.  Since that term has coefficient one,
+the first equation has a unique solution, obtained by increasing interval
+length.
+
+\begin{lemma}[Near-data independence]
+\label{ep:gauge}
+The marked output in \eqref{ep:tree-recursion} is independent of $D$ for
+fixed $H$.
+\end{lemma}
+\begin{proof}
+Write $\mathcal F_H=\Phi_{0,H}$ and $\mathcal G_D=\Phi_{D,0}$.
+A term in $\mathcal F_H\circ\mathcal G_D$ is specified by a final cut
+list and a subset of its internal cuts: the subset records the outer
+cuts.  An outer cut contributes $-H/2$, and an inner cut contributes
+$D/2$.  The immediate neighbours used by an inner near entry are its
+neighbours in the final list.  Conversely the list and subset uniquely
+recover the outer and inner compositions.  Summing over subsets therefore
+gives
+\begin{equation}
+ \Phi_{D,H}=\mathcal F_H\circ\mathcal G_D.
+ \label{ep:factorization}
+\end{equation}
+All these maps have finite triangular inverses.  Solving the ordinary
+equation first gives $\mathcal G_D(b)=\mathcal F_H^{-1}(E)$.
+Substitution in the marked equation gives
+\begin{equation}
+ A=\bigl[\mathcal F_{-H}\mathcal F_H^{-1}(E)\bigr]_{0N},
+ \label{ep:near-free}
+\end{equation}
+which contains no $D$.
+\end{proof}
+
+\subsection{An exact short-edge identity}
+\label{ep:short-edge-section}
+
+\begin{lemma}[Short-edge insertion]
+\label{ep:short-edge}
+Insert $B$ immediately after a vertex $A$ of a point-generic core polygon,
+in a sufficiently short fixed direction.  Write $P,C$ for the predecessor
+and successor of $A$ in the core. Define the short-edge sign explicitly by
+$t(X)=\sgn\det(A-B,X-B)$, and put
+\begin{equation}
+ \alpha=t(P),\quad \beta=t(C),\quad
+ \kappa=\frac{\alpha+\beta}{2}.
+ \label{ep:kappa}
+\end{equation}
+These are the two attachment-turn signs in the GLSSW convention.  Then
+\begin{equation}
+ A(\text{polygon with }B)=\kappa A(\text{core}).
+ \label{ep:duplication}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Sufficient shortness means that every far triple not containing both
+$A,B$ has its collapsed core sign.  This follows by continuity of finitely
+many nonzero determinants.  Use Lemma~\ref{ep:gauge} to choose core near
+entries $D^0(X,A,Y)=t(X)$.  Pull them back elsewhere, and set the new
+entries $D^1(X,A,B)=t(X)$ and $D^1(A,B,Y)=t(Y)$.
+
+The proposed ordinary parent current has the following exhaustive
+description in terms of the core current $b^0$.  Intervals not containing
+both labels have their collapsed value; $b^1_{AB}=1$; and
+\begin{align}
+ b^1_{AY}&=\frac{\beta-t(Y)}2 b^0_{AY}, &&Y>B,\notag\\
+ b^1_{XB}&=\frac{\alpha-t(X)}2 b^0_{XA}, &&X<A,\notag\\
+ b^1_{XY}&=\kappa b^0_{XY}, &&X<A<B<Y.
+ \label{ep:duplicate-current-table}
+\end{align}
+To verify the first endpoint formula, group parent cut lists according to
+their collapsed list and let $X$ be its first cut after $A$.  The two
+presentations, with the short edge inside the first branch or as a separate
+leaf, have multipliers
+\begin{equation}
+ \frac{\beta-t(X)}2+\frac{t(X)+\eta t(Y)}2
+ =\frac{\beta+\eta t(Y)}2,
+ \label{ep:endpoint-two-lifts}
+\end{equation}
+where $\eta=-1$ is ordinary and $\eta=+1$ is marked.  For the ordinary
+equation this multiplies the core source $E$: a longer interval has source
+zero, and the one-edge case has $Y=C$, so $t(Y)=\beta$.  The other endpoint
+formula follows by reversing this bookkeeping, with $\alpha$ in place of
+$\beta$.
+
+For a strictly spanning interval, a collapsed list without a cut at $A$
+has one presentation and acquires $\kappa$.  If it cuts at $A$, let $L,R$
+be the neighbouring cuts and put $a=t(L)$, $b=t(R)$, and
+$h=H(\text{interval start},A,\text{interval end})$.  The three
+presentations cut only at $B$, only at $A$, or at both.  Their extra child
+multipliers are respectively $(\alpha-a)/2$, $(\beta-b)/2$, and $1$;
+their replacing gates are $(a+\eta h)/2$, $(a+\eta h)/2$, and
+$(a+\eta h)(b+\eta h)/4$.  Subtracting $\kappa$ times the core gate
+leaves
+\begin{align}
+ -\frac{(a+b)(a+\eta h)}4
+ +\frac{(a+\eta h)(b+\eta h)}4
+ &=\frac{h^2-a^2}{4}\notag\\
+ &=0.
+ \label{ep:three-lifts}
+\end{align}
+The last step uses $a,h\in\{1,-1\}$.  This verifies every coordinate of
+the ordinary recursion and hence its unique solution.  The same grouping
+with $\eta=+1$ proves the marked formula.  Root independence allows a root
+different from the short edge throughout the calculation.
+\end{proof}
+
+\begin{lemma}[Exposed truncation]
+\label{ep:truncation}
+Replace an exposed Cartesian left corner by two nearby points on its
+incident edges, joined by a short supporting edge.  The GLSSW amplitude
+changes sign.  The same is true of any separating-smoothing alternating
+sum whose component weights are $A$.  In particular, multiplication by
+$(-1)^{\#\text{vertices}}$ removes the change.
+\end{lemma}
+\begin{proof}
+Insert a short edge inside the exposed wedge, with both attachment-turn
+signs equal to $-1$.  Lemma~\ref{ep:short-edge} gives the multiplier
+$-1$.  The insertion can be placed on the two incident lines without
+changing any nonzero far signs.  Choose its neighbourhood disjoint from
+all crossings and other edges.  Every separating support then survives
+unchanged and exactly one of its components contains the replaced corner.
+Apply the same short-edge identity to that component.  One vertex has
+been added, which supplies the second minus sign in the normalized sum.
+\end{proof}
+
+\subsection{The endpoint cut-list calculation}
+\label{ep:endpoint-calculation}
+
+Let $q_1,\ldots,q_m$ be a fixed open arc.  In this subsection take
+middle-only near data $D(a,b,c)=d_b$, with arbitrary fixed signs $d_b$.
+For a moving point $p$, define the unit upper triangular matrix
+\begin{equation}
+ F(p)_{ai}=b(p,q_a,\ldots,q_i),\qquad F(p)_{aa}=1.
+ \label{ep:F}
+\end{equation}
+The value on the diagonal is the one-edge ordinary current.  All matrices
+below are finite.
+
+Suppose $p$ crosses the line through $q_k,q_j$ at an isolated event, and
+write $q_k=p+\tau(q_j-p)$ there.  Write
+$\Delta H(p,q_k,q_j)=2\delta$.  The ordinary recurrence is linear in
+the first-endpoint currents.  At its directly changed gate, split the cut
+list into the prefix ending at $k$ and the suffix beginning at $k$.
+The identities of determinants at the collinear position give
+\begin{equation}
+ H(p,q_i,q_k)=\sgn(\tau)H(p,q_i,q_j),\qquad
+ H(q_k,q_i,q_j)=\sgn(1-\tau)H(p,q_i,q_j).
+ \label{ep:collinear-far-identities}
+\end{equation}
+Thus the prefix sum is the ordinary source $E$ if $\tau>0$ and the
+marked amplitude if $\tau<0$.  The suffix sum is the ordinary source
+$E$ if $\tau<1$ and the marked amplitude if $\tau>1$.  An ordinary
+source can be nonzero only on a one-edge interval.  It follows that the
+direct source, and its propagated endpoint change, are
+\begin{equation}
+ \Delta F=
+ \begin{cases}
+ \delta\,a^{(k)}e_{k+1}^{T}F,&\tau<0,\ j=k+1,\\
+ \delta\,e_k e_{k+1}^{T}F,&0<\tau<1,\ j=k+1,\\
+ \delta\,e_k A(q_k,\ldots,q_j)e_j^{T}F,&\tau>1,
+ \end{cases}
+ \label{ep:three-endpoint-events}
+\end{equation}
+All other cases vanish.  Here $a^{(k)}_a=A(p,q_a,\ldots,q_k)$ for
+$a\leq k$, with $a^{(k)}_k=1$, and its remaining entries vanish.
+For completeness, the propagation factor $e_j^TF$ comes from grouping a
+larger endpoint cut list by the branch carrying the changed source.  The
+part before that branch has already been included in the source.  The
+remaining cuts are exactly the ordinary recurrence on
+$p,q_j,\ldots,q_i$, with unit first branch.  Middle-only near data
+make this immediate: the near factor at the first cut does not depend on
+the identity of the first branch, whose predecessor is always $p$.  This
+gives $F_{ji}$ by triangular uniqueness.  The minus sign of the ordinary top recurrence cancels the
+minus sign in the gate change $\Delta[(d-H)/2]=-\delta$.
+
+\subsection{A cap identity along a fixed line}
+\label{ep:line-caps}
+
+Take the reference line to be $y=0$ and assume no original vertex lies on
+it.  Set
+\begin{equation}
+ h_i=\sgn y_i,\quad S=\operatorname{diag}(h_i),\quad
+ B_{ij}=b(q_i,\ldots,q_j)\ (i<j),\quad B_{ii}=0,\quad R=(I-BS)^{-1},
+ \label{ep:line-data}
+\end{equation}
+using the near choice $D(a,b,c)=h_b$.  For $p(t)=(t,0)$ let
+$F(t)$ be \eqref{ep:F}, and define
+\begin{equation}
+ G(t)_{ib}=b(q_i,\ldots,q_b,p(t)),\quad G(t)_{ii}=1,
+ \qquad W(t)=F(t)SRG(t).
+ \label{ep:G-W}
+\end{equation}
+
+\begin{lemma}[Short-edge pairing]
+\label{ep:wronskian}
+For $a<b$,
+\begin{equation}
+ W(t)_{ab}=\frac{h_a+h_b}{2}\,A(p(t),q_a,\ldots,q_b).
+ \label{ep:W-entry}
+\end{equation}
+The diagonal has $W_{aa}=h_a$.  In particular $SW=WS$.
+\end{lemma}
+\begin{proof}
+Insert $p'=p-\epsilon(1,0)$ immediately after $p$ and root on the short
+edge $p\to p'$.  On the complementary word
+$p',q_a,\ldots,q_b,p$, its far signs are $h_i$.  Its ordinary top
+gates therefore vanish, while its marked top gates are $h_i$.  The term
+of the marked expansion with no internal cut is the ordinary top current
+of the word, which vanishes with those gates.  Every other term begins
+with a first branch $F(p')_{ai}$, equal to $F(p)_{ai}$ for small
+$\epsilon$, and ends with a last branch $G(t)_{jb}$.  Expanding
+over the first and last internal cuts therefore gives $F S R G$:
+each additional internal branch contributes $BS$.  Lemma~\ref{ep:short-edge}
+and root independence evaluate the same polygon as the right-hand side
+of \eqref{ep:W-entry}.  For $a=b$ this is the elementary short triangle;
+equivalently one may assign the formal two-edge core value one.
+If $h_a\ne h_b$ the right-hand side vanishes.  This proves commutation
+with the diagonal matrix $S$ entry by entry.
+\end{proof}
+
+Put
+\begin{equation}
+ J(t)=F(t)^{-1}SF(t),\qquad U(t)=SRG(t).
+ \label{ep:J-U}
+\end{equation}
+The second identity below is the definition of $J$ rewritten. Since
+$W=FU$ and $F$ is invertible, the commutation $SW=WS$ gives
+$FJU=SFU=SW=WS=FUS$, hence the first:
+\begin{equation}
+ J U=U S,\qquad F J=S F.
+ \label{ep:intertwining}
+\end{equation}
+The two virtual types in \eqref{ep:three-endpoint-events} have $h_k=h_j$:
+$q_k,q_j$ lie on the same side of the line.  Their elementary left
+multiplier of $F$ therefore commutes with $S$ and leaves $J$ unchanged.
+
+Let $c$ instead be an actual crossing of the line by the oriented edge
+$q_k\to q_{k+1}$.  Its direction is
+$s_c=h_{k+1}=-h_k$.  Moving $p$ from left to right changes the critical
+far sign by $2s_c$.  Thus \eqref{ep:three-endpoint-events} gives
+$\Delta F=s_c a^{(k)}e_{k+1}^{T}F$.  Define
+\begin{equation}
+ u_c=U(c)e_k,\qquad v_c=e_{k+1}^{T}F(c).
+ \label{ep:uv}
+\end{equation}
+These expressions omit one or the other endpoint of the critical edge,
+so their values are the same on the two sides of the event.
+Column $k$ of \eqref{ep:W-entry} says
+$F u_c=(S-s_c I)a^{(k)}/2$.  The square of
+$a^{(k)}e_{k+1}^T$ is zero, by its triangular support.  Write $N=a^{(k)}e_{k+1}^{T}$, so that
+$F_{\rm after}=(I+s_cN)F_{\rm before}$ and $(I+s_cN)^{-1}=I-s_cN$.
+Conjugating $S$ by this elementary multiplier gives
+\begin{equation}
+ \Delta J
+ =F_{\rm before}^{-1}\bigl[s_c(SN-NS)-s_c^2NSN\bigr]F_{\rm before}
+ =s_cF_{\rm before}^{-1}(S-s_cI)a^{(k)}e_{k+1}^{T}F_{\rm before}
+ =2s_c u_cv_c.
+ \label{ep:J-jump}
+\end{equation}
+Here $NS=s_cN$ because $e_{k+1}^{T}S=h_{k+1}e_{k+1}^{T}$ and
+$h_{k+1}=s_c$; there is no quadratic term because
+$NSN=a^{(k)}(e_{k+1}^{T}Sa^{(k)})e_{k+1}^{T}=0$, as $a^{(k)}$ is
+supported on indices at most $k$; and the last step is
+$F u_c=(S-s_cI)a^{(k)}/2$ together with $v_c=e_{k+1}^{T}F$.  The intertwining identities give, on either side,
+\begin{equation}
+ v_cu_c=0,\qquad J(c)u_c=-s_cu_c,\qquad v_cJ(c)=s_cv_c.
+ \label{ep:rank-one-identities}
+\end{equation}
+
+Order the actual crossings by their horizontal coordinate.  For $x_c<x_d$
+sum \eqref{ep:J-jump} between them and sandwich the result between
+$v_c$ and $u_d$.  Virtual events contribute zero.  The jumps at $c$ and at $d$ themselves
+drop out, since they are sandwiched into $v_cu_c=0$ and $v_du_d=0$ by
+\eqref{ep:rank-one-identities}.  The resulting identity is
+\begin{equation}
+ (s_c+s_d)v_cu_d+
+ 2\sum_{x_c<x_e<x_d}s_e(v_cu_e)(v_eu_d)=0.
+ \label{ep:pairwise-cap}
+\end{equation}
+Indeed the left and right endpoint values of $J$ act respectively by
+$s_c$ on the row and $-s_d$ on the column, which accounts for the sign.
+
+When $c$ occurs before $d$ on the original arc, the cap consists of that
+subarc followed by the straight segment $d\to c$.  Since $x_c<x_d$, this
+closing segment runs leftward, and
+$\operatorname{sgn}\det(q_i-d,\,c-d)=\operatorname{sgn}y_i=h_i$: all the
+far signs of the cap at its horizontal closing edge are $h_i$.  Its ordinary top current vanishes
+and its marked top expansion is exactly $v_cSRG(d)e_{k_d}=v_cu_d$.
+Thus $v_cu_d=A(\text{cap }c\to d)$.  If the arc order is reversed,
+the pairing vanishes by triangular support.  Let $X$ be the strictly
+upper triangular matrix of these pairings, indexed by horizontal order,
+and let $S_C=\operatorname{diag}(s_c)$.  Equation~\eqref{ep:pairwise-cap}
+is precisely
+\begin{equation}
+ S_CX+XS_C+2XS_CX=0.
+ \label{ep:cap-matrix}
+\end{equation}
+Define $K=(I+X)^{-1}$.  Multiplying \eqref{ep:cap-matrix} on both sides
+by $K$ gives
+\begin{equation}
+ KS_C+S_CK=2S_C.
+ \label{ep:K}
+\end{equation}
+One can check the multiplication without commuting any matrices:
+$(I+X)S_C+S_C(I+X)-2(I+X)S_C(I+X)$ is the negative of the left-hand
+side of \eqref{ep:cap-matrix}.  Therefore $K_{cd}=0$ for $c\ne d$
+with $s_c=s_d$.
+
+\begin{theorem}[Mixed-edge recursion]
+\label{ep:mixed-edge}
+Let $e$ be an edge of $P$ whose two endpoint turns are opposite.  Then
+\begin{equation}
+ A(P)=\sum_{\substack{\varnothing\ne T\subset\{\text{crossings on }e\}\\
+                         T\ \mathrm{separating}}}
+ (-1)^{|T|+1}\prod_{Q\in P_T}A(Q).
+ \label{ep:mixed-edge-formula}
+\end{equation}
+In particular the amplitude vanishes if such an edge is uncrossed.
+\end{theorem}
+\begin{proof}
+Choose coordinates so that $e$ closes the remaining arc from its right
+endpoint $v$ to its left endpoint $u$.  Extend the remaining arc slightly
+backwards past $u$ along its outgoing edge and forwards past $v$ along its
+incoming edge.  Omit $u,v$ as vertices of the extended arc: they are now
+two actual crossings of the reference line.  The edges at $u$ and at $v$
+other than $e$ are not horizontal, since the turns there are nonzero, and
+by (G1) no other vertex lies on the line through $e$; so the extended arc
+has no vertex on the reference line, $u$ and $v$ are transverse crossings,
+and no flat external leg is introduced.  The cap from $u$ to $v$ is
+exactly $P$.
+
+If the first and last vertices of the return arc have height signs
+$h_{\rm first},h_{\rm last}$, the crossing directions at the two ends
+are $s_u=h_{\rm first}$ and $s_v=-h_{\rm last}$.  The Cartesian turn
+signs of $P$ at these ends are respectively $-h_{\rm first}$ and
+$-h_{\rm last}$.  Opposite turns therefore give $s_u=s_v$, so
+$K_{uv}=0$ by \eqref{ep:K}.
+
+Expand the finite inverse as $K=I-X+X^2-\cdots$.  Its $uv$ entry starts
+with $-A(P)$.  A later term is a chain of intermediate crossings
+increasing both in horizontal order and in arc order; its factors are the
+successive cap amplitudes.  Such chains are exactly the separating
+smoothing supports on $e$: the visits along the closing edge have the
+reverse horizontal order, so increasing arc order is equivalent to
+noninterlacement of their Gauss chords.  The components of $P_T$ are
+these caps: the oriented smoothing at a selected crossing $c_i$ sends the
+arc arriving at $c_i$ onto $e$, toward $u$, and the strand arriving along
+$e$ onto the outgoing arc, so each component is the subarc between two
+consecutive selected crossings closed along $e$, traversed in the
+orientation of $P$.  A chain of $r$ intermediate cuts
+contributes $(-1)^{r+1}$ times its $r+1$ cap factors.  Moving the first
+term to the other side gives \eqref{ep:mixed-edge-formula}.
+\end{proof}
+
+Coincident secant events, or two crossings of the reference line at the
+same horizontal coordinate, are excluded on the auxiliary generic domain
+of Section~\ref{sec:statement}: a coincidence on the segment $e$ itself
+would be a triple point, excluded by (G2), and the remaining ones are
+vanishing auxiliary determinants.  Both sides of
+\eqref{ep:mixed-edge-formula} depend only on the chirotopes of the
+finitely many caps, and the identity extends to the whole generic locus
+by the continuation argument of Section~\ref{sec:completion}.
+
+\begin{remark}[Harmless far-sign degeneracies]
+For a closed polygon satisfying (G1), an accidental collinear triple of
+the auxiliary calculation either contains no boundary edge or has its
+remote vertex outside the boundary segment. Root the polygon on an edge
+outside the triple and choose middle-only near data, which
+Lemma~\ref{ep:gauge} permits; the triple then enters only as a far sign.
+In the cut-list calculation leading to \eqref{ep:three-endpoint-events},
+the prefix or suffix factor that is an ordinary source is then evaluated
+on a nontrivial interval and vanishes. The full marked amplitude
+consequently has the same value on both generic sides. This is the
+chamber constancy of $A$ seen from the recursion; individual auxiliary
+currents need not share it. Section~\ref{sec:completion} does not rely on
+this remark: the extension of the theorem to the whole generic locus is
+by chamber constancy of both sides. No prescription for $\Theta(0)$ is
+being imposed.
+\end{remark}
+
+\subsection{Transport on the actual boundary}
+\label{ep:boundary-section}
+
+For the uniform-vertex argument a different auxiliary choice is useful:
+take $D=-1$ everywhere, as Lemma~\ref{ep:gauge} permits.  For an open
+word define
+\begin{equation}
+ M(p,q_1,\ldots,q_n)
+ =\bigl[B(I+B)^{-1}\bigr]_{0n},
+ \label{ep:M}
+\end{equation}
+where index $0$ denotes $p$, and $B_{ij}$ is the ordinary current on that
+subword.  Equivalently $M$ is the sum over all interval cut lists with
+weight $(-1)^{\#\text{cuts}}$.  If all the other vertices lie strictly
+to the left of the directed closing edge $q_n\to p$, then its far signs
+$H(0,k,n)=\sgn\det(q_k-q_n,\,p-q_n)$ are all $-1$.
+The marked root gates $(D+H)/2$ are then all $-1$, and consequently $M=A$.
+
+\begin{lemma}[Boundary crossing transport]
+\label{ep:boundary-jump}
+Move $p$ forward along the actual first edge toward $q_1$.  Suppose that
+edge meets $q_k\to q_{k+1}$ at $c$, and put
+$\delta_c=\sgn\det(q_1-p,q_{k+1}-q_k)$.  The two one-sided currents
+satisfy
+\begin{equation}
+ \Delta M=
+ \delta_c A(c,q_1,\ldots,q_k)
+ M(c,q_{k+1},\ldots,q_n).
+ \label{ep:boundary-jump-formula}
+\end{equation}
+Here $\Delta$ is the value after passage minus the value before passage.
+For the canonical positive lift, $\delta_c=-1$ at a first-under encounter
+and $+1$ at a first-over encounter.
+\end{lemma}
+\begin{proof}
+Apply \eqref{ep:three-endpoint-events}, whose hypothesis of middle-only
+near data the constant choice $D=-1$ satisfies, to the first row, $a=1$;
+the events along the first edge are isolated by genericity.
+A virtual event must have $k=a$, hence $p,q_1,q_j$ collinear.
+On the interior of the first physical edge this is impossible by point
+genericity: its only meeting with that secant line is $p=q_1$.
+The surviving event is the crossing of an actual edge and has
+\begin{equation}
+ \Delta b(p,q_1,\ldots,q_j)
+ =\delta_c A(c,q_1,\ldots,q_k)
+ b(c,q_{k+1},\ldots,q_j).
+ \label{ep:boundary-b}
+\end{equation}
+Write the first row of $B$ as $f$ and the fixed suffix block as $B_*$.
+Block multiplication in \eqref{ep:M} gives its first row as
+$f(I+B_*)^{-1}$.  Right-multiplying \eqref{ep:boundary-b} by that fixed
+inverse converts its parent $b$ to the parent $M$, proving
+\eqref{ep:boundary-jump-formula}.  Finally the positive-lift convention is
+$\det(t_{\rm over},t_{\rm under})>0$; inserting the tangent of the
+moving first strand gives exactly the two signs asserted.
+\end{proof}
+
+\begin{lemma}[Turn projector]
+\label{ep:turn}
+When the first edge shrinks to its terminal vertex $q_1$, the current on
+the remaining open word is multiplied by $-1$ at a Cartesian left turn
+and by $0$ at a Cartesian right turn.  The one-edge current by itself has
+value one.
+\end{lemma}
+\begin{proof}
+Let $p$ approach $q_1$ along the incoming edge and put
+$\sigma=H(p,q_1,q_2)$.  Take the final segment sufficiently short so that
+all far signs involving $p$ but not both $p,q_1$ agree with their collapsed
+signs; the far signs involving both $p$ and $q_1$ are constant along the
+approach, since $p$ moves on the line through $q_1$ and no other vertex
+lies on it.  Group the ordinary cut lists according to whether they cut at
+$q_1$.  The same two-presentation calculation as
+\eqref{ep:endpoint-two-lifts}, now with constant near data $-1$, gives
+\begin{equation}
+ b(p,q_1,\ldots,q_j)=\eta\,b(q_1,\ldots,q_j),\qquad
+ \eta=\frac{1+\sigma}{2},\qquad j>1,
+ \label{ep:short-first-current}
+\end{equation}
+while $b(p,q_1)=1$.  For $j=2$ this is the direct computation
+$b(p,q_1,q_2)=-(-1-\sigma)/2=\eta$.  For $j>2$ it follows by induction on
+$j$: group the cut lists of $(p,q_1,\ldots,q_j)$ by whether they cut at
+$q_1$.  Those that do not have the gates of the cut lists of
+$(q_1,\ldots,q_j)$, with the first branch replaced by
+$b(p,q_1,\ldots,q_{r_1})=\eta\,b(q_1,\ldots,q_{r_1})$, and their sum is
+$\eta$ times the sum defining $-b(q_1,\ldots,q_j)$.  Those that do carry
+the gate $(-1-H(p,q_1,q_j))/2$ times the full ordinary recursion of
+$(q_1,\ldots,q_j)$ including its one-part term, which is the source
+$E=0$ by \eqref{ep:tree-recursion}.
+
+Now use the cut-list expansion of $M$.  Lists without a cut at $q_1$
+supply $\eta M(q_1,\ldots,q_j)$.  Lists with that cut supply
+$-M(q_1,\ldots,q_j)$, since the initial one-edge current is one and the
+new cut has weight $-1$.  Their sum is
+\begin{equation}
+ M(p,q_1,\ldots,q_j)
+ =(\eta-1)M(q_1,\ldots,q_j).
+ \label{ep:turn-formula}
+\end{equation}
+The sign convention \eqref{ep:H} makes $\sigma=-1$ at a Cartesian left
+turn and $+1$ at a right turn.  Hence $\eta-1$ is respectively $-1$ and
+$0$.
+\end{proof}
+
+% ---- primitive ----
+\section{Separating-smoothing inversion and nonuniform support}
+\label{sec:primitive}
+
+For any scalar function \(X\) of closed polygons define its separating
+primitive by
+\begin{equation}
+ \Gamma_X(P)=\sum_{T\in\Dcal(P)}(-1)^{|T|}
+                    \prod_{Q\in P_T}X(Q).
+ \label{eq:primitive}
+\end{equation}
+The term ``primitive'' here refers to subtraction of separating sewings.
+It is not a claim about a connected Wilson cumulant or a one-particle
+irreducible Green function.
+
+\begin{lemma}[Finite inversion]
+\label{lem:inversion}
+For every \(P\),
+\begin{equation}
+ X(P)=\sum_{S\in\Dcal(P)}\prod_{Q\in P_S}\Gamma_X(Q).
+ \label{eq:inversion}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Expand the right side using \eqref{eq:primitive}. A term first cuts a
+support \(S\), then chooses independent separating cuts inside each
+component. Their union is a final separating support \(U\). Conversely,
+for a fixed \(U\), every subset \(S\subseteq U\) gives exactly one such
+two-stage refinement: nonalternation is inherited by subsets and by the
+components after smoothing. The coefficient of
+\(\prod_{Q\in P_U}X(Q)\) is therefore
+\begin{equation}
+ \sum_{S\subseteq U}(-1)^{|U|-|S|}.
+ \label{eq:boolean-cancellation}
+\end{equation}
+It is zero for nonempty \(U\) and one for \(U=\varnothing\). The surviving
+term is \(X(P)\).
+\end{proof}
+
+\begin{proposition}[Support of the GLSSW primitive]
+\label{prop:nonuniform}
+If \(P\) is not uniform, then \(\Gamma_A(P)=0\).
+\end{proposition}
+\begin{proof}
+Some edge \(e\) has opposite turn signs at its two endpoints. Group
+\eqref{eq:primitive} by the subset \(U\) of selected crossings that are
+not on \(e\). In \(P_U\), the whole edge \(e\) belongs to one component
+\(R\); its two original endpoint turns still have opposite signs.
+Every other component is a spectator.
+
+The remaining admissible cuts are exactly separating subsets of the
+retained self-crossings of \(R\) on \(e\). Crossings between \(R\) and a
+spectator cannot be chosen, since they would rejoin components. Thus the
+sum multiplying the spectator factors is
+\begin{equation}
+ A(R)+
+ \sum_{\substack{\varnothing\ne T\in\Dcal(R)\\T\subset e}}
+       (-1)^{|T|}\prod_{Q\in R_T}A(Q).
+ \label{eq:mixed-edge-cancellation}
+\end{equation}
+Lemma~\ref{ep:mixed-edge}, proved from the interval recursion above, makes
+\eqref{eq:mixed-edge-cancellation} zero. This holds for each fixed \(U\),
+so the entire primitive vanishes.
+\end{proof}
+
+By inversion, this already proves a state sum over uniform pieces with
+weights \((-1)^{\ell(Q)}\Gamma_A(Q)\). The remaining question is to
+identify those weights. The next section does so without using the
+state-sum equality.
+
+
+% ---- uniform ----
+\section{The uniform primitive is the HOMFLY corner}
+\label{un:section}
+
+This section identifies the uniform weights left undetermined by the
+crossing recursion.  The argument compares two finite recursions: a
+boundary traversal of a marked GLSSW current, and the descending skein
+calculation of a framed HOMFLY coefficient.  No polygon wall law, equality
+$A=C$, or transverse-knot degree bound is used.
+
+Write
+\begin{equation}
+ \nu_A(Q):=(-1)^{\ell(Q)}\Gamma_A(Q).
+ \label{un:nu}
+\end{equation}
+We shall prove $\nu_A(Q)=c(Q)$ for uniformly turning $Q$.  We first orient
+$Q$ so that all its corners turn left; then $\ell(Q)$ is its number of
+vertices.  Orientation reversal is treated at the end.
+
+\subsection{An open component and its genuine smoothing supports}
+\label{un:open}
+
+For a polygonal arc $\gamma=(p,q_1,\ldots,q_N)$, let $B$ denote the
+strictly upper triangular matrix of ordinary interval currents in the
+auxiliary choice $D=-1$.  Define
+\begin{equation}
+ M:=B(I+B)^{-1}=B-B^2+B^3-\cdots,
+ \qquad M(\gamma):=M_{0N}.
+ \label{un:M}
+\end{equation}
+The sum is finite.  Only the actual edges of $\gamma$ are allowed to
+participate in a smoothing.  In particular, the auxiliary straight
+segment from $q_N$ to $p$, implicit in an interval current, supplies
+\emph{no} smoothing sites.
+
+Let $\mathcal D(\gamma)$ be the sets of pairwise nonalternating
+self-crossing chords of the real arc.  Smoothing $T\in\mathcal D(\gamma)$
+leaves one open component $\gamma_T$ and $|T|$ closed components.  Set
+\begin{equation}
+ \Gamma_M(\gamma):=
+ \sum_{T\in\mathcal D(\gamma)}(-1)^{|T|}
+ M(\gamma_T)\prod_{Q\text{ closed in }\gamma_T}A(Q).
+ \label{un:GammaM}
+\end{equation}
+The notation for the product means the closed components of the entire
+smoothed arc, not components of its open member.
+
+There is a useful genericity observation.  A component of a separating
+smoothing contains at most one connected segment of any given original
+edge.  To see this, root the Gauss circle immediately before that edge.
+All selected visits on it occur consecutively, say $a_1<\cdots<a_t$.
+Their other visits must occur in the opposite order: otherwise two
+selected chords alternate.  The resulting nested cuts place successive
+segments of the edge in different components.  Thus a component cannot
+acquire three collinear vertices merely from several cuts on one edge.
+All remaining accidental point-triple incidences can be excluded by
+genericity.  The short-edge limits below are taken one-sided; they are
+not evaluations of a GLSSW sign at zero.
+
+Suppose that the closing edge $q_Np$ is an exposed supporting edge with
+the rest of the polygon on its left.  Its far signs are all $-1$.
+Consequently the marked-root expansion is precisely
+$B-B^2+\cdots$, and $M(\gamma)=A(Q)$.  The same supporting edge survives in
+the open component of every $T$.  Hence, term by term,
+\begin{equation}
+ \Gamma_M(\gamma)=\Gamma_A(Q).
+ \label{un:initial}
+\end{equation}
+If $Q$ has no such edge, truncate a vertex of its convex hull, which is a
+left corner with the polygon on its left, by a sufficiently small
+supporting segment.  Lemma~\ref{ep:truncation} changes the amplitude
+of the affected component by $-1$.  The smoothing supports are unchanged,
+so it changes $\Gamma_A$ by $-1$ as well.  It adds one vertex, and
+therefore preserves $\nu_A$.  On the knot side it changes neither the
+lift, the retained crossing number, nor the rotation number.  We may
+therefore start at an exposed edge without changing the desired identity.
+
+\subsection{Moving the mark: the smoothing subtraction matters}
+\label{un:transport}
+
+Move $p$ forward along the first physical edge.  At a crossing $c$ with
+the later edge $q_kq_{k+1}$, put
+\begin{equation}
+ \delta=\operatorname{sgn}\det(q_1-p,q_{k+1}-q_k),\qquad
+ Q_c=(c,q_1,\ldots,q_k),\qquad
+ \gamma_c=(c,q_{k+1},\ldots,q_N).
+ \label{un:crossing-data}
+\end{equation}
+In the positive lift, $\delta=-1$ is a first-under encounter and
+$\delta=+1$ is a first-over encounter.  A jump always means the value
+after the mark has passed the crossing minus its value before.
+
+\begin{lemma}[Boundary transport after smoothing subtraction]
+\label{un:transport-lemma}
+For the real-arc current \eqref{un:GammaM},
+\begin{equation}
+ \Delta\Gamma_M
+   =\frac{\delta-1}{2}\,
+       \Gamma_A(Q_c)\Gamma_M(\gamma_c).
+ \label{un:primitive-jump}
+\end{equation}
+In particular, the current changes by minus the child--parent product
+at a first-under crossing and does not change at a first-over crossing.
+\end{lemma}
+
+\begin{proof}
+Separate the smoothing supports according to whether they contain $c$.
+For supports not containing $c$, a selected chord that alternates with
+the chord of $c$ puts its two visits in different components.  The open
+component then has no self-crossing event at $c$; the passage of $p$
+across the line of the crossed edge is at most a virtual secant event of
+the open word, which by the proof of Lemma~\ref{ep:boundary-jump} never
+reaches the moving first row, so its current has no jump.  For the
+remaining supports, note that $c$ is the first crossing ahead of $p$ on
+the first edge, and cut first at $c$.  The selected
+chords lie independently in the resulting full closed child and open
+parent.  Conversely, independent separating supports on those two
+pieces uniquely reconstruct the original support.  This refinement
+bijection preserves the sum of the support sizes.
+
+Lemma~\ref{ep:boundary-jump}, applied to the open component in each
+summand, therefore gives the contribution
+\begin{equation}
+ \delta\,\Gamma_A(Q_c)\Gamma_M(\gamma_c)
+ \label{un:no-cut-contribution}
+\end{equation}
+from supports not containing $c$.
+
+Supports containing $c$ exist immediately before the mark crosses $c$
+and disappear immediately after.  Before the event their open parent
+starts with the tiny edge $pc$, followed by $cq_{k+1}$; their extra
+smoothing has weight $-1$.  At $c$ this tiny-edge parent turns left if
+$\delta=+1$ and right if $\delta=-1$.  The short-edge projector of
+Lemma~\ref{ep:turn} gives, term by term in its other smoothing supports,
+\begin{equation}
+ \lim_{p\to c^-}\Gamma_M(p,c,q_{k+1},\ldots,q_N)
+   =-\frac{1+\delta}{2}\,\Gamma_M(\gamma_c).
+ \label{un:tiny-parent}
+\end{equation}
+Its tiny initial edge has no crossings, so the projected corner always
+belongs to the open component.  Removing these pre-event terms
+contributes
+\begin{equation}
+ -\frac{1+\delta}{2}\,
+       \Gamma_A(Q_c)\Gamma_M(\gamma_c)
+ \label{un:cut-contribution}
+\end{equation}
+to the jump.  Adding \eqref{un:no-cut-contribution} and
+\eqref{un:cut-contribution} gives \eqref{un:primitive-jump}.
+
+This argument invokes the endpoint lemma only at actual boundary
+events.  Its virtual-secant terms do not reach the moving first row.
+Moreover, no term of \eqref{un:GammaM} selects a crossing of an auxiliary
+closing segment.  Thus the calculation introduces neither fictitious
+smoothing sites nor a hidden change of the closed knot.
+\end{proof}
+
+When the mark passes an original left corner, the crossing-free short
+first edge projects $\Gamma_M$ to minus the current with that corner
+removed.  Indeed, no chord visits the crossing-free first edge, so the
+corner $q_1$ remains in the open component of every support, and
+Lemma~\ref{ep:turn} applies termwise.  Normalize the current
+by the number $v(\gamma)$ of vertices of its active word, including its
+two endpoints:
+\begin{equation}
+ f(\gamma):=(-1)^{v(\gamma)}\Gamma_M(\gamma).
+ \label{un:f}
+\end{equation}
+Left-corner passage then leaves $f$ unchanged.  At a first-under crossing
+the child closing corner is left, so $Q_c$ is uniformly left-turning
+whenever the unprocessed original corners are left.  Furthermore,
+\begin{equation}
+ v(Q_c)+v(\gamma_c)=v(\gamma)+1.
+ \label{un:vertex-count}
+\end{equation}
+Multiplying \eqref{un:primitive-jump} by the vertex parity and using
+\eqref{un:vertex-count} yields
+\begin{equation}
+ f_{\rm before}
+   =f_{\rm after}-\nu_A(Q_c)f(\gamma_c)
+       \quad\hbox{at a first-under crossing}.
+ \label{un:f-recursion}
+\end{equation}
+The terminal arc has one edge, so $M=1$, there are no smoothing supports,
+and $v=2$.  Its terminal value is therefore
+\begin{equation}
+ f_{\rm terminal}=1.
+ \label{un:f-terminal}
+\end{equation}
+
+For a detached child we restart this construction at one of its own
+exposed points.  This is permitted by the root independence of $A$ and
+the cyclic definition of $\Gamma_A$.  Each detached child has strictly
+fewer retained self-crossings than the piece from which it was detached,
+and the recursion is finite: the pair (retained self-crossings, vertices
+of the active word) decreases lexicographically at every event.
+
+\subsection{The framed lowest HOMFLY row}
+\label{un:framed}
+
+We record the precise link normalization used in the comparison.  For
+an oriented knot diagram $D$, including diagrams in which some crossings
+have already been switched, let $w(D)$ be its signed writhe and $r(D)$
+its signed plane rotation.  Define
+\begin{equation}
+ h_D(a):=[z^0]H_D(a,z),\qquad
+ \mathcal B_D(a):=
+ a^{w(D)+r(D)}(a-a^{-1})h_D(a),\qquad y:=a^2-1.
+ \label{un:framed-definition}
+\end{equation}
+The writhe is diagram-dependent.  Its inclusion is essential even when
+the underlying knot is an unknot.
+
+\begin{lemma}[Lowest link row]
+\label{un:lowest-link-row}
+If $L=D_1\cup\cdots\cup D_k$ and
+$\Lambda(L)=\sum_{i<j}\operatorname{lk}(D_i,D_j)$, then
+\begin{equation}
+ [z^{1-k}]H_L
+ =a^{-2\Lambda(L)}(a-a^{-1})^{k-1}
+     \prod_{i=1}^k h_{D_i}(a).
+ \label{un:link-factor}
+\end{equation}
+Every $k$-component HOMFLY polynomial has no powers of $z$ below $1-k$.
+\end{lemma}
+
+\begin{proof}
+The $z$ bound follows directly by descending skein induction.  A terminal
+descending diagram is a split unlink and has lowest power $z^{1-k}$.
+At a self-crossing the smoothing has $k+1$ components, so multiplication
+by the skein factor $z$ restores the lower bound $1-k$.  At a crossing
+between components the smoothing has $k-1$ components, so that same
+factor gives the stronger lower bound $3-k$.  The induction is ordered
+first by crossing number and then by the number of crossings encountered
+first underneath; switching decreases the second number and smoothing
+decreases the first.
+
+At a mixed crossing, the smoothing term therefore cannot contribute to
+$z^{1-k}$.  The skein relation gives
+$[z^{1-k}]H_{L_+}=a^{-2}[z^{1-k}]H_{L_-}$.  Switching from negative to
+positive raises $\Lambda$ by one.  Hence
+$a^{2\Lambda}[z^{1-k}]H_L$ is invariant under mixed-crossing changes.
+Make only such changes until the components are split.  The split-union
+normalization gives $(a-a^{-1})^{k-1}\prod_i h_{D_i}$ there, proving
+\eqref{un:link-factor}.  This is the lowest-row factorization in the
+Lickorish--Millett normalization.
+\end{proof}
+
+Apply the skein relation at an untouched positive self-crossing of $D$.
+Let $D^{\rm sw}$ be its switched diagram and let $D_L\cup D_R$ be its
+oriented smoothing.  First extract the knot row:
+\begin{equation}
+ a h_D-a^{-1}h_{D^{\rm sw}}
+   =a^{-2\Lambda}(a-a^{-1})h_{D_L}h_{D_R}.
+ \label{un:h-skein}
+\end{equation}
+Here $\Lambda$ is the signed linking number of the smoothed components;
+it need not be positive after earlier switches.  The local diagram
+relations are
+\begin{equation}
+\begin{aligned}
+ w(D^{\rm sw})&=w(D)-2,
+       &r(D^{\rm sw})&=r(D),\\
+ w(D)-1&=w(D_L)+w(D_R)+2\Lambda,
+       &r(D)&=r(D_L)+r(D_R).
+\end{aligned}
+ \label{un:frame-relations}
+\end{equation}
+The second writhe equation counts every crossing except the smoothed
+one; the last equation is additivity of tangent rotation under oriented
+smoothing.  Solve \eqref{un:h-skein} for $h_D$ and multiply by
+$a^{w(D)+r(D)}(a-a^{-1})$.  The switched term becomes
+$\mathcal B_{D^{\rm sw}}$ by the first line of
+\eqref{un:frame-relations}.  In the product term the remaining power of
+$a$ is $w(D)+r(D)-1-2\Lambda$, which the second line identifies with
+$w(D_L)+r(D_L)+w(D_R)+r(D_R)$.  Thus
+\begin{equation}
+ \mathcal B_D
+   =\mathcal B_{D^{\rm sw}}+
+       \mathcal B_{D_L}\mathcal B_{D_R}.
+ \label{un:B-skein}
+\end{equation}
+This is an exact Laurent-polynomial identity with all linking and framing
+factors included.
+
+\subsection{The fixed exposed basepoint and the processed prefix}
+\label{un:prefix}
+
+Start the descending knot traversal at a point on the exposed supporting
+edge, with the occupied side to its left.  At each first-under crossing
+use \eqref{un:B-skein}: the switched branch proceeds along the same
+component, and the smoothing branch detaches the interval from its first
+visit to its second.  Rebase the detached child at an exposed point of
+its own.  Keep the parent's \emph{original} exposed basepoint.
+
+Three properties make this a closed recursive class.  First, a
+first-under smoothing joins the child's end to its beginning with a
+left corner.  All its other corners lie on the unprocessed original
+arc and turn left.  Second, an earlier switched crossing has its first
+visit in the processed prefix.  It cannot have both visits in a later
+detached child, so every retained child self-crossing is still positive.
+Third, the right corner created on the parent at an earlier smoothing
+lies in that parent's processed prefix.  It likewise cannot enter a
+future detached child.  Thus every detached child is again a uniform
+positive polygon, with fewer retained self-crossings.
+
+The actual parent diagram still contains its processed prefix, its
+switched crossings, and its artificial parent corners.  The open
+GLSSW current forgets that prefix only as a device for traversing the
+remaining arc.  In particular, we do \emph{not} assert that the knot
+obtained by closing the active arc with a straight segment is the actual
+parent knot.  The objects being compared are the two recursive
+calculations, with their original parent framings retained on the knot
+side.
+
+At termination every self-crossing of the actual parent is first-over,
+so it is a descending unknot.  Its framed value is nevertheless to be
+computed.  Let $I_b$ be the sum of the winding numbers of the two regions
+adjacent to its fixed basepoint.  Whitney's formula in our determinant
+convention is
+\begin{equation}
+ \sum_c\operatorname{sgn}\det(t_{\rm first}(c),t_{\rm second}(c))
+       =I_b-r(D).
+ \label{un:Whitney}
+\end{equation}
+For a descending diagram the first strand is the over-strand, so the
+left side is its writhe.  The original exposed basepoint has adjacent
+indices $0$ and $1$.  Removing a detached child does not change either
+index there: that child avoids the supporting edge and has winding zero
+in a neighborhood of the basepoint.  Thus $I_b=1$ for every terminal
+parent.  The needed exposed-basepoint form of Whitney's identity also
+has a direct local verification.  Deform the return arc within the
+supporting half-plane to a simple arc, fixing its basepoint germ.
+In a generic deformation, a small curl changes the rotation by
+$\varepsilon\in\{1,-1\}$ and its first-visit determinant sum by
+$-\varepsilon$.  A self-tangency creates two crossings with opposite
+first-visit signs and changes no net rotation.  A triple-point passage
+changes neither quantity.  Thus their sum stays constant; on the
+positively oriented embedded circle it is one.  This proves precisely
+the instance of \eqref{un:Whitney} used here and gives
+\begin{equation}
+ w(D_{\rm terminal})+r(D_{\rm terminal})=1.
+ \label{un:terminal-frame}
+\end{equation}
+Since its HOMFLY polynomial is $1$, it follows that
+\begin{equation}
+ \mathcal B_{D_{\rm terminal}}=a(a-a^{-1})=y.
+ \label{un:B-terminal}
+\end{equation}
+
+The recursion is finite.  Along any continuing parent branch there are
+only finitely many unprocessed first-under decisions.  A smoothing also
+lowers the retained crossing number of each detached child.  Starting
+with the terminal value \eqref{un:B-terminal}, repeated use of
+\eqref{un:B-skein} proves that every resulting $\mathcal B_D$ is a
+polynomial in $y$, divisible by $y$.  In particular, for an initial
+uniformly left-turning $Q$, there is a polynomial $F_Q(y)$ such that
+\begin{equation}
+ \mathcal B_Q=yF_Q(y),\qquad F_Q(y)\in\mathbb Z[y].
+ \label{un:F-polynomial}
+\end{equation}
+
+For this initial diagram $w(Q)=m_Q$ and $r(Q)=R_Q$.  Substituting into
+\eqref{un:framed-definition} and canceling $y=a(a-a^{-1})$ yields
+\begin{equation}
+ a^{m_Q+R_Q-1}h_Q(a)=F_Q(a^2-1).
+ \label{un:row-polynomial}
+\end{equation}
+Consequently the $z^0$ row has no $a$ power below
+$d_Q=1-m_Q-R_Q$, and its coefficient there is
+\begin{equation}
+ c(Q)=F_Q(-1)=-\mathcal B_Q\big|_{a=0}.
+ \label{un:corner-evaluation}
+\end{equation}
+The specialization is legitimate because \eqref{un:F-polynomial} was
+proved first.  No assertion about the lowest $a$ degree of higher
+$z$ rows is needed.
+
+\subsection{Identification by induction}
+\label{un:identification}
+
+\begin{proposition}
+\label{un:uniform-proposition}
+For every uniformly turning polygon $Q$ in the generic domain,
+\begin{equation}
+ \Gamma_A(Q)=(-1)^{\ell(Q)}c(Q).
+ \label{un:uniform-result}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For a uniformly left-turning polygon, initialize the current on an
+exposed supporting edge as in \eqref{un:initial}.  Its initial normalized
+value is $\nu_A(Q)$.
+
+Compare the current traversal with the framed knot traversal just
+described.  First-over encounters leave both calculations unchanged.
+Second visits of switched crossings, and crossings with a removed child,
+are events on neither side: the knot traversal acts only at first visits,
+and such crossings are not self-crossings of the active arc.
+Original left-corner passages leave $f$ unchanged and have no knot
+skein operation.  At a first-under crossing, put
+$g_D=-\mathcal B_D|_{a=0}$.  By the already established polynomiality
+this is well-defined on every recursive branch.  Equation
+\eqref{un:B-skein} gives
+\begin{equation}
+ g_D=g_{D^{\rm sw}}-g_{D_L}g_{D_R},\qquad
+ g_{\rm terminal}=1.
+ \label{un:g-recursion}
+\end{equation}
+For an initial uniform child, \eqref{un:corner-evaluation} identifies
+$g_{D_L}=c(Q_c)$.  The child has fewer retained self-crossings, so
+induction identifies this number with $\nu_A(Q_c)$.  Equations
+\eqref{un:g-recursion} and \eqref{un:f-recursion} then have the same
+coefficient, the same continuing parent branch, and the same terminal
+value.  Induction backwards along the finite cursor recursion gives
+$f=g$ at its initial state.
+
+For the zero-crossing base case, there are no splitting decisions:
+both traversals end at their terminal value $1$, and the polygon is an
+unknot of rotation one.  This starts the induction on retained
+self-crossings without using an amplitude anchor or a wall law.
+For general $Q$, the initial equality is
+$\nu_A(Q)=g_Q=c(Q)$, proving \eqref{un:uniform-result} in the
+left-turning orientation.
+
+Finally, reverse a uniformly right-turning polygon. Reverse the order at
+every tree vertex. Every near and far sign changes sign, so each linear
+gate changes sign. For a tree with $n-1$ leaves the sum of
+$(\text{arity}-1)$ over all internal vertices is $n-2$; this is exactly
+its number of gates. The number of ordinary-vertex minus signs is
+unchanged. Thus the finite tree sum itself gives
+$A(\overline P)=(-1)^{n-2}A(P)=(-1)^nA(P)$.
+A support with $s$ cuts has
+$\sum_Qv(Q)=v(P)+2s$, so its product acquires exactly $(-1)^{v(P)}$.
+Therefore $\Gamma_A(\overline P)=(-1)^{v(P)}\Gamma_A(P)$.
+Since $\ell(\overline P)=v(P)-\ell(P)$, the normalized $\nu_A$ is unchanged.
+Reversing all strands preserves the positive lift's HOMFLY polynomial,
+its retained crossing number, and $|r|$, and hence preserves $c$.
+The left-turning result proves the right-turning case.
+\end{proof}
+
+% ---- completion ----
+\section{Reconstruction of the amplitude}
+\label{sec:completion}
+
+The uniform calculation establishes
+\begin{equation}
+ \Gamma_A(Q)=(-1)^{\ell(Q)}c(Q)
+ \qquad(Q\ \text{uniform}).
+ \label{eq:uniform-identification-final}
+\end{equation}
+Together with Proposition~\ref{prop:nonuniform}, this identifies every
+primitive needed in Lemma~\ref{lem:inversion}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Apply \eqref{eq:inversion} with \(X=A\). Any decomposition containing a
+nonuniform component has a zero primitive factor, so only
+\(\Dcal_{\mathrm u}(P)\) remains. Substituting
+\eqref{eq:uniform-identification-final} gives
+\begin{equation}
+ A(P)=\sum_{S\in\Dcal_{\mathrm u}(P)}
+       (-1)^{\sum_{Q\in P_S}\ell(Q)}\prod_{Q\in P_S}c(Q).
+ \label{eq:reconstruction-before-sign}
+\end{equation}
+Equation~\eqref{eq:left-count} then gives
+\begin{equation}
+ A(P)=(-1)^{\ell(P)}
+       \sum_{S\in\Dcal_{\mathrm u}(P)}(-1)^{|S|}
+                         \prod_{Q\in P_S}c(Q).
+ \label{eq:reconstruction-after-sign}
+\end{equation}
+The right side is the definition \eqref{eq:state-sum} of \(C(P)\).
+\end{proof}
+
+\paragraph{Continuation to the whole generic locus.}
+Theorem~\ref{thm:main} has been proved on the auxiliary generic domain of
+Section~\ref{sec:statement}. A \emph{chamber} is a connected component of
+the generic locus. Within a chamber the auxiliary domain is the complement
+of finitely many proper algebraic hypersurfaces, hence open and dense: an
+auxiliary determinant vanishing identically on the open chamber would
+vanish identically as a rational function of the vertices, and the only
+identically vanishing determinants among vertices and crossing points are
+those of three points of one edge line, which never occur, since a
+component of a separating smoothing contains at most one segment of each
+original edge (Section~\ref{un:open}). Both sides of the identity are
+constant on chambers. The tree coefficient \(A(P)\) is a function of the
+signs \(H(i,k,j)\) alone, by \eqref{ep:tree-recursion}, and these are
+constant along any path in a chamber, since (G1) holds throughout. The
+state sum \(C(P)\) is constant on a chamber because along such a path no
+vertex meets a nonincident edge and no turn passes through \(0\) or
+\(\pi\): no crossing is created or destroyed, the Gauss chords and hence
+the separating supports are fixed, each positive diagram moves by a
+planar isotopy, and the integers \(m_Q\), \(r_Q\), \(\ell(P)\) are
+unchanged. An identity between two locally constant functions that holds
+on a dense subset of a chamber holds on the chamber. Hence \(A(P)=C(P)\)
+on the whole generic locus. Flat turns, vertex--edge collisions, and
+triple crossings lie outside the generic locus and are not treated here.
+The zero-source remark after Theorem~\ref{ep:mixed-edge} is not needed
+for this extension.
+
+\paragraph{What the vertices are.}
+The uniform knot weight is an effective marked vertex obtained after
+resumming the finite GLSSW trees and subtracting their separating sewings.
+It is not identified with an individual bare \(V^+\) or \(V^-\).
+The mark makes intermediate open currents well defined. At the end,
+GLSSW cyclic invariance removes the dependence on which external edge was
+chosen as the marked, single-minus root. Separating smoothings reconstruct
+the original closed amplitude by the finite inverse
+\eqref{eq:inversion}; this is the precise algebraic content of the
+disconnected-to-connected description.
+
+\paragraph{Scope of the coefficient statement.}
+The argument identifies the prescribed scalar corner. The polynomial
+descending expansion used in its proof is a calculation of the framed
+\(z^0\) row of each uniform knot. It does not establish a canonical
+two-variable deformation of the full GLSSW amplitude, nor identify a
+single Legendrian ruling polynomial with every corner. No such additional
+claim is required for \eqref{eq:reconstruction-after-sign}.
+
+% ---- physics ----
+\section{Wilson loops and a possible string field theory}
+\label{sec:physics}
+
+The algebraic sewing argument has a precise Wilson-loop reformulation.
+Its interpretation as the localization of a physical string field theory
+is a further, \textbf{CONJECTURAL}, statement. We separate these claims.
+The positive lift, plane orientation and contact-form convention are those
+already fixed in the polygon construction; no additional mirror operation
+is introduced here. For translation to the letter, the corner and state
+sum are \texttt{[eq::factor]} and \texttt{[eq::C]}, and the HOMFLY
+normalizations are \texttt{[eq::skein]} and \texttt{[eq::skein2]}.
+
+\subsection{A normalized, framed Wilson observable}
+
+Let $S$ be a uniform separating decomposition, with $e=|S|$ and $k=e+1$
+components. Write $L_S$ for the actual smoothed link, including its mixed
+crossings, and set
+\begin{equation}
+ p_i=m_{Q_i}+|r_{Q_i}|=1-d_{Q_i},\qquad
+ p_S=\sum_{i=1}^k p_i,\qquad
+ \Lambda_S=\sum_{i<j}\operatorname{lk}(Q_i,Q_j).
+ \label{phys:framing-data}
+\end{equation}
+The $m_{Q_i}$ count self-crossings only. The mixed crossings contribute
+to $\Lambda_S$, not to $p_i$.
+
+For a Hermitian $U(N)$ connection $\mathscr A$, define
+\begin{equation}
+ U(Q)=\mathcal P\exp\!\left(i\oint_Q\mathscr A\right),\qquad
+ W(Q)=\operatorname{Tr}_{\square}U(Q),\qquad
+ W(L_S)=\prod_{i=1}^k W(Q_i).
+ \label{phys:Wilson-operator}
+\end{equation}
+The expectation is divided by the vacuum partition function. The
+fundamental trace is not divided by $N$ or by the unknot expectation.
+Use the analytic Chern--Simons variables
+\begin{equation}
+ g_s=\frac{2\pi i}{\kappa+N},\qquad q=e^{g_s},\qquad
+ a=q^{N/2},\qquad z=q^{1/2}-q^{-1/2}=2\sinh(g_s/2).
+ \label{phys:variables}
+\end{equation}
+Here $\kappa$ is the level, while $k$ counts link components. The
+large-$N$ expansion keeps $a$ fixed as $g_s\to0$.
+
+Zero framing means that each component is framed by its Seifert
+longitude. In the convention of Labastida--Mari\~no--Vafa,
+Eq.~(4.54), the normalized fundamental expectation is
+\begin{equation}
+ \langle W(L_S)\rangle_0
+ =a^{2\Lambda_S}\frac{a-a^{-1}}{z}H_{L_S}(a,z).
+ \label{phys:Wilson-zero}
+\end{equation}
+The factor $a^{2\Lambda_S}$ is part of this link normalization
+\cite{LMV}. There is only one displayed unknot factor: for a split
+$k$-component link the remaining $k-1$ such factors already occur in
+$H_{L_S}$.
+
+Choose the polygon ribbon to have framing $p_i$ on $Q_i$. Concretely,
+one can start with the blackboard ribbon of the positive diagram, whose
+framing is $m_{Q_i}$, and add $|r_{Q_i}|$ positive full twists. We fix
+the fundamental $U(N)$ framing convention to have phase
+$\exp(p_i N g_s/2)=a^{p_i}$: the quadratic Casimir of the fundamental
+is $N$ in this convention. Hence
+\begin{equation}
+ \langle W(L_S)\rangle_{\mathrm{rib}}
+ =a^{p_S}\langle W(L_S)\rangle_0
+ =a^{p_S+2\Lambda_S}\frac{a-a^{-1}}{z}H_{L_S}(a,z).
+ \label{phys:Wilson-ribbon}
+\end{equation}
+This specifies the ribbon completely as a framed-knot class. It does
+not identify its framing integer with the signed transverse
+self-linking number: the degree-bound convention gives
+$\operatorname{sl}(T_Q)=-m_Q-|r_Q|=-p_Q$. These are different signed
+quantities. Nor is a ribbon the conormal brane introduced below.
+Changing the ribbon changes the regularization of the quantum Wilson
+expectation, although its central contour and classical holonomy remain
+the same. The mutual-linking correction in
+\eqref{phys:Wilson-zero} must not be added to $p_S$ a second time.
+
+The lowest HOMFLY coefficient of a $k$-component link factorizes as
+\begin{equation}
+ [z^{1-k}]H_{L_S}
+ =a^{-2\Lambda_S}(a-a^{-1})^{k-1}
+   \prod_i [z^0]H_{Q_i}.
+ \label{phys:lowest-H}
+\end{equation}
+This is the Lickorish--Millett relation, in the form of
+\cite[Eq.~(4.64)]{LMV}. Inserting it into
+\eqref{phys:Wilson-zero} cancels $a^{2\Lambda_S}$ and supplies one
+additional factor of $(a-a^{-1})/z$. Thus
+\begin{equation}
+ [z^{-k}]\langle W(L_S)\rangle_0
+ =\prod_i D_{Q_i}(a),\qquad
+ D_Q(a)=(a-a^{-1})[z^0]H_Q(a,z).
+ \label{phys:disk-factorization}
+\end{equation}
+This coefficient identity removes the mixed-linking dependence at the
+selected order; it does not unlink the original link.
+
+The corner floor $\min\deg_a[z^0]H_Q\ge d_Q=1-p_Q$ implies
+$\min\deg_a D_Q\ge-p_Q$. At degree $-p_Q$, the $+a$ term in
+$a-a^{-1}$ would require degree $d_Q-2$ in $[z^0]H_Q$, below the floor.
+The $-a^{-1}$ term gives $-c(Q)$. Consequently
+\begin{equation}
+ [a^{-p_Q}]D_Q=-c(Q),\qquad
+ [a^0z^{-k}]\langle W(L_S)\rangle_{\mathrm{rib}}
+ =(-1)^k\prod_i c(Q_i).
+ \label{phys:Wilson-corner}
+\end{equation}
+In the product, the sum of the floors can only be attained when every
+factor is at its own floor; if any corner vanishes, so does this
+coefficient.
+
+An exact full-link extension of the corner sum is therefore
+\begin{equation}
+ \boxed{\displaystyle
+ \mathcal C_P^{W}(a,z)=(-1)^{\ell(P)+1}
+   \sum_{S\ \mathrm{uniform}}z^{k_S}
+       \langle W(L_S)\rangle_{\mathrm{rib}},\qquad
+ [a^0]\bigl([z^0]\mathcal C_P^{W}\bigr)=C(P).}
+ \label{phys:observable}
+\end{equation}
+Indeed $k_S=|S|+1$, so the sign supplied by
+\eqref{phys:Wilson-corner} is
+$(-1)^{\ell(P)+1+k_S}=(-1)^{\ell(P)+|S|}$, precisely the state-sum
+sign. There is no additional $(-1)^{|S|}$ in
+\eqref{phys:observable}; including it would count that sign twice.
+This is a finite linear combination of genuine framed Wilson
+correlators. Its nonzero-$a,z$ dependence is a chosen extension of the
+corner observable. The equality proved here concerns its indicated
+coefficient, not a universal finite-parameter deformation of GLSSW.
+For a general full link, component corner bounds alone also do not
+justify replacing the coefficient extraction by a simultaneous
+numerical limit at $(a,z)=(0,0)$.
+
+\subsection{What the disk sector means}
+
+The A-model is the topological string obtained from a supersymmetric
+sigma model by a twist that localizes its amplitudes on
+pseudoholomorphic maps into a symplectic target. Open worldsheets have
+boundary on Lagrangian branes. With $N$ branes on the zero section of
+$T^*S^3$, its open-string field theory gives Chern--Simons theory on
+$S^3$. The large-$N$ conifold transition replaces
+the compact branes by the resolved geometry
+$X=\mathcal O(-1)\oplus\mathcal O(-1)\to\mathbb P^1$; the dictionary
+used here is reviewed in \cite[Sec.~2]{LMV}.
+
+A knot $Q\subset S^3$ supplies the conormal Lagrangian
+\begin{equation}
+ L_Q=N^*Q
+ =\{(x,\xi)\in T^*S^3:x\in Q,\ \xi(\dot Q)=0\}.
+ \label{phys:conormal}
+\end{equation}
+It is three-dimensional: one coordinate along $Q$ and a
+two-dimensional cotangent fiber. The appropriate displaced or continued
+brane survives on the resolved side. The worldsheet boundary lies on
+this brane and has a specified winding around its distinguished circle.
+It is not fixed pointwise to the original knot in the zero section.
+An open disk map in the six-dimensional target therefore says nothing
+about whether $Q$ bounds an embedded disk in three dimensions.
+
+In the knot/string dictionary, strings between the compact branes and
+the knot branes generate Wilson insertions. With auxiliary brane
+holonomies $V_i$ one may use the source operator
+\begin{equation}
+ Z(U,V)=\exp\!\left(
+  \sum_i\sum_{n\ge1}\frac{1}{n}
+  \operatorname{Tr}\bigl(U(Q_i)^n\bigr)
+  \operatorname{Tr}\bigl(V_i^n\bigr)\right).
+ \label{phys:OV-source}
+\end{equation}
+Choosing the coefficient linear in each $\operatorname{Tr}V_i$
+selects the product of fundamental Wilson insertions. Reversing the
+probe-brane orientation replaces $V_i$ by its inverse; the orientation
+in \eqref{phys:OV-source} is our convention. This is the
+Ooguri--Vafa source operator, as reviewed in \cite[Eq.~(2.6)]{LMV}.
+The logarithm of the expectation generates connected worldsheets;
+the expectation itself also contains disconnected worldsheets.
+
+A connected genus-$g$ surface with $h$ boundaries carries
+$g_s^{2g-2+h}$. In the selected source sector there are $k$ boundaries,
+each with winding one. For $b$ connected open components of total genus
+$G$, the coupling power is therefore
+\begin{equation}
+ g_s^{2G-2b+k},\qquad b\le k,\qquad G\ge0.
+ \label{phys:worldsheet-power}
+\end{equation}
+The smallest exponent is $-k$, attained only for $b=k$, $G=0$: a
+disconnected collection of $k$ genus-zero one-boundary worldsheets,
+one per source. This is the meaning of ``one disk per knot.'' The disk
+block is a sum of maps and their weights; the knot itself is never
+declared to be a disk. Since $z=g_s+O(g_s^3)$, the leading $z^{-k}$
+coefficient has the same interpretation. Equation
+\eqref{phys:disk-factorization} is its exact knot-polynomial
+realization. Connecting two of the fixed Wilson boundaries into an
+annulus raises the coupling exponent by two. Such interactions may
+retain linking information, and occur beyond the selected order.
+
+\subsection{Framing, boundary holonomy and the selected charge}
+
+In zero framing the coefficient used by the state sum is
+$[a^{-p_S}z^{-k}]\langle W(L_S)\rangle_0$. If a term is written
+$(a^2)^{\beta}$, it selects total exponent
+\begin{equation}
+ \beta=-\frac{p_S}{2}.
+ \label{phys:selected-charge}
+\end{equation}
+The ribbon shifts this to $\beta+p_S/2=0$. In an open-string expansion
+the exponent labels a relative charge with a chosen boundary
+trivialization. It need not be a nonnegative integer, and is not by
+itself the area of an embedded surface.
+
+The framing shift can equivalently be placed in the boundary source.
+For the fundamental, single-winding term,
+\begin{equation}
+ \bigl(a^{p_i}\langle W(Q_i)\rangle_0\bigr)
+        \operatorname{Tr}V_i
+ =\langle W(Q_i)\rangle_0
+        \operatorname{Tr}(a^{p_i}V_i).
+ \label{phys:source-shift}
+\end{equation}
+Thus an extra power of $a$ assigned to the holonomy may simply be the
+same framing factor expressed in a different boundary coordinate. It
+must not be included twice. If a flat boundary coordinate is further
+redefined by a framing-dependent sign, that sign belongs to the source
+convention; it is separate from our stipulated $a^{p_i}$ Wilson framing
+phase.
+
+With $t=Ng_s$, our variables give $a=e^{t/2}$. The conventional
+large-volume closed coordinate is $e^{-t}=a^{-2}$. Accordingly the
+formal lowest-$a$ coefficient does not, merely by notation, establish a
+large-volume limit at $a\to0$. Such a physical limit would require an
+analytic chamber and boundary-coordinate prescription. The coefficient
+identity \eqref{phys:observable} needs neither that extra assertion nor
+a change of the fixed contact convention.
+
+\subsection{The disconnected prescription and its limitations}
+
+The factor in \eqref{phys:observable} is $z^{k}=z\,z^{e}$. One factor
+of $z$ removes a common disk pole; the remaining $z^e$ has a natural
+tree-sewing power count. Start with $k$ abstract disks, of total Euler
+characteristic $k$. Attaching a boundary strip lowers Euler
+characteristic by one. After $e$ strips,
+\begin{equation}
+ \chi=k-e,\qquad g_s^{-\chi}=g_s^{e-k}.
+ \label{phys:strips}
+\end{equation}
+For a connected tree $e=k-1$, so the resulting surface has disk order
+$g_s^{-1}$. Reverse the separating smoothings of a decomposition: each
+step joins two previously distinct components, hence the graph of
+joins is a tree. Conversely, a join within a previously connected
+collection creates a graph cycle. Depending on the ribbon attachment,
+such a cycle can create another boundary or a handle; it should not
+automatically be called positive genus.
+
+This prospective sewing changes the boundary decomposition. It is
+different from the annulus interaction with the original $k$ Wilson
+sources held fixed. Multiplying a correlator by $z^e$ alone performs no
+geometric sewing and supplies no integration over attachment data.
+Euler characteristic explains the leading $g_s^e$ cost of strips, but
+does not determine the exact function $z^e$, its sign or its framing
+weight. An exact string construction would need to reproduce the skein
+factor, rather than infer it solely from the leading genus power.
+
+There is a useful precedent in the disconnected twistor prescription.
+The CSW rules join MHV vertices by propagators into trees.
+Gukov--Motl--Neitzke compare descriptions by disconnected
+holomorphic curves with a connected description: propagator poles can,
+under their contour assumptions, localize attachment points to nodes
+\cite[Secs.~2.2 and 4]{GMN}. Their curves belong to the twistor B-model,
+whereas the knot disk blocks above belong to an open A-model dictionary.
+The nodal combinatorics supplies a precedent, not an identification of
+the targets, degrees or propagators. Their equivalence of prescriptions
+also does not by itself fix our sum over all component counts.
+
+The present algebra gives more specific data for such a comparison.
+The uniform block is the smoothing-irreducible quantity
+$\Gamma_A(Q)=(-1)^{\ell(Q)}c(Q)$. It is obtained by regrouping GLSSW
+trees. It is not a single bare $V^+$ or $V^-$ interaction. A marked
+attachment survives in the open current; closing that current too early
+would discard the data needed for the sewing identity. Thus a proposed
+``single-minus disk vertex'' should mean this effective marked block,
+with the external single-minus label selecting the overall root.
+Assigning an independent physical negative-helicity particle to every
+component is not established by the regrouping.
+
+\subsection{What would make this a physical construction?}
+
+A physical realization would have to provide the following data.
+\begin{enumerate}
+\item A state space on marked boundary intervals, including the
+crossing and framing data retained by the algebraic current. Its
+relation to the half-collinear GLSSW external states must be explicit.
+\item A kinetic operator and a gauge-fixed inverse that propagates
+those states along a strip. In an open-string description the
+propagating objects are open-string states between the relevant branes;
+in a Chern--Simons reduction a gauge connection represents the
+appropriate string-field sector. Neither description identifies the
+strip with an ordinary four-dimensional gluon propagator without a
+further reduction.
+\item A pairing and gluing measure, with integration contours or a
+localization rule, that turn the propagator into the precise marked
+crossing kernel. This must derive the separating restriction, signs,
+multiplicities and exact $z$ dependence.
+\item A BRST or equivalent gauge structure that explains cyclic/root
+independence and makes the sewn observable independent of auxiliary
+choices. A finite matrix identity alone is not a kinetic operator or
+a BRST construction.
+\item Boundary holonomies and a charge projection reproducing
+\eqref{phys:Wilson-corner}, including the ribbon integers $p_i$, as well
+as a reason the physical localization has the uniform effective blocks
+of the algebraic argument.
+\end{enumerate}
+These requirements specify a \textbf{CONJECTURAL} open-string or
+crossing-defect theory. The direct combinatorial sewing supplies its
+candidate effective vertices and exact target observable; the standard
+Chern--Simons/A-model dictionary supplies the Wilson and disk
+interpretations. Neither, on its own, constructs the required strip
+propagator.
+
+% ---- references ----
+\begin{thebibliography}{3}
+\bibitem{GLSSW}
+A.~Guevara, A.~Lupsasca, D.~Skinner, A.~Strominger and K.~Weil,
+\emph{Single-minus gluon tree amplitudes are nonzero},
+\href{https://arxiv.org/abs/2602.12176}{arXiv:2602.12176} (2026).
+
+\bibitem{LMV}
+J.~M.~F.~Labastida, M.~Mari\~no and C.~Vafa,
+\emph{Knots, links and branes at large $N$},
+JHEP \textbf{11} (2000) 007,
+\href{https://arxiv.org/abs/hep-th/0010102}{arXiv:hep-th/0010102}.
+The fundamental Wilson normalization and lowest-link relation are
+Eqs.~(4.54) and (4.64); the Wilson-source construction is Eq.~(2.6).
+
+\bibitem{GMN}
+S.~Gukov, L.~Motl and A.~Neitzke,
+\emph{Equivalence of twistor prescriptions for super Yang--Mills},
+\href{https://arxiv.org/abs/hep-th/0404085}{arXiv:hep-th/0404085}.
+See Sections~2.2 and~4 for disconnected curves, propagators and
+localization to nodes, including the contour and normalization qualifications.
+\end{thebibliography}
+\end{document}
