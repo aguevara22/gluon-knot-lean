@@ -52,3 +52,11 @@ These records concern the cited snapshot. GitHub workflow runs report the status
 The source manuscript is [*Marked polygon currents and the HOMFLY corner: A direct sewing argument for the GLSSW state sum*](reference/direct_glssw_corner_proof.tex), dated 13 September 2026. Its supplied author field is blank; this directory does not assign authorship or grant a new license to it.
 
 The formalization was developed with Codex and Gemini. Lean, Mathlib, and other pinned dependencies retain their upstream licenses. Historical receipt paths identify the original verification environment; they are not dependencies on that machine.
+
+## Acknowledgments
+
+We thank [Scott Armstrong](https://www.scottnarmstrong.com/) for publishing [LeanAutoformalizationSkills](https://github.com/scottnarmstrong/LeanAutoformalizationSkills) and explaining the approach in [*Autoformalization is now very easy*](https://www.scottnarmstrong.com/2026/10/autoformalization-is-now-very-easy/).
+
+Our formalization workflow was adapted from that collection, at project-pinned revision [05a07311f16bc581729e52f3e73647b95fa9bef1](https://github.com/scottnarmstrong/LeanAutoformalizationSkills/commit/05a07311f16bc581729e52f3e73647b95fa9bef1). It guided the source dependency graph, frozen Lean statements, delegated proof tasks and escalation, and independent source and proof audits. The local names `ArmstrongFrozen` and `ArmstrongProviders` reflect this frozen-statement and proof-provider organization.
+
+The upstream collection records its licensing and prior-source credits in its [provenance notes](https://github.com/scottnarmstrong/LeanAutoformalizationSkills/blob/05a07311f16bc581729e52f3e73647b95fa9bef1/PROVENANCE.md).

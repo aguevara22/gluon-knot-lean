@@ -476,6 +476,6 @@ and `handover/`.
 
 # Direct sewing proof
 
-The [DIRECT_GLSSW package](DIRECT_GLSSW) gives an independent proof of the corner identity, assuming GLSSW root independence. It constructs the normalized HOMFLY evaluator unconditionally. The formalization was developed with Codex and Gemini.
+The [DIRECT_GLSSW package](DIRECT_GLSSW) gives an independent proof of the corner identity, assuming GLSSW root independence. It constructs the normalized HOMFLY evaluator unconditionally. The formalization was developed with Codex and Gemini, using a workflow adapted from [Scott Armstrong’s LeanAutoformalizationSkills](https://github.com/scottnarmstrong/LeanAutoformalizationSkills); see the [acknowledgment](DIRECT_GLSSW/README.md#acknowledgments).
 
 See the [package README](DIRECT_GLSSW/README.md) for the theorem, pinned dependencies, build instructions, and verification records.
