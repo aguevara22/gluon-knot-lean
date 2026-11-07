@@ -1,22 +1,18 @@
-
 # About
 
-A machine-checked proof, in Lean 4, of the main theorem of the supplemental material of [*Gluons and Knots*](https://arxiv.org/abs/2610.10673) by [Alfredo Guevara](https://aguevara22.github.io/). The wall-law formalization was prompted and curated by Alfredo Guevara and [Mark Goldstein](https://marikgoldstein.github.io/), and written by Claude. The direct sewing formalization was developed with Codex and Gemini.
+Lean 4 formalizations of the supplemental material of [*Gluons and Knots*](https://arxiv.org/abs/2610.10673) by [Alfredo Guevara](https://aguevara22.github.io/). The repository contains two independent proof packages.
 
-## Proof packages
+## Contents
 
-This repository contains two separate Lean projects:
+- [Wall-law proof](#wall-law-proof)
+- [Blueprint](#the-blueprint) and [proof graph](#3-the-proof-as-a-graph)
+- [Assumptions](#4-what-is-assumed)
+- [Build and verification](#6-how-it-was-checked)
+- [Direct sewing proof](#direct-sewing-proof)
 
-| Package | Proof and scope | Entry point |
-|---|---|---|
-| [`CORNER_LAWS_FOCUSED_20260912`](CORNER_LAWS_FOCUSED_20260912) | Wall laws, soft theorem, and the proof of Hypothesis R described below | `SM.corner_laws_and_soft` |
-| [`DIRECT_GLSSW`](DIRECT_GLSSW) | Direct sewing proof of the corner identity under GLSSW root independence; unconditional normalized HOMFLY existence, uniqueness, traversal independence, and specified diagram invariances | `DirectGLSSW.joint_normalized_homfly_corner_identity` |
+# Wall-law proof
 
-Each package has its own pinned toolchain, dependencies, and verification instructions. The direct proof is self-contained and does not import the wall-law development. Its [README](DIRECT_GLSSW/README.md) links the exact theorem and build/axiom-audit evidence.
-
-The remainder of this page describes the wall-law package.
-
-# Corner state sum: wall laws and soft theorem. Lean 4 formalization
+The [wall-law package](CORNER_LAWS_FOCUSED_20260912) was prompted and curated by Alfredo Guevara and [Mark Goldstein](https://marikgoldstein.github.io/), and written by Claude.
 
 The final statement is the Lean theorem `SM.corner_laws_and_soft`. Every statement on the
 paper's proof route, 192 of them, is formalized and checked by Lean's kernel. Five results quoted from the
@@ -475,3 +471,11 @@ Produced between 2026-09-13 and 2026-09-19 by an autonomous Claude Code agent wo
 a time under the review protocol of section 6; completed 2026-09-19 15:55 UTC. The complete record is in the
 package (`FINAL_REVIEW.md`, `work/AUTHOR_NOTES.md`, `work/STATUS.md`) and in [`RESEARCH_LOG.md`](RESEARCH_LOG.md)
 and `handover/`.
+
+---
+
+# Direct sewing proof
+
+The [DIRECT_GLSSW package](DIRECT_GLSSW) gives an independent proof of the corner identity, assuming GLSSW root independence. It constructs the normalized HOMFLY evaluator unconditionally. The formalization was developed with Codex and Gemini.
+
+See the [package README](DIRECT_GLSSW/README.md) for the theorem, pinned dependencies, build instructions, and verification records.
