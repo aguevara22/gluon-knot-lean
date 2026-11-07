@@ -9,6 +9,7 @@ Lean 4 formalizations of the supplemental material of [*Gluons and Knots*](https
 - [Assumptions](#4-what-is-assumed)
 - [Build and verification](#6-how-it-was-checked)
 - [Direct sewing proof](#direct-sewing-proof)
+- [Acknowledgments](#acknowledgments)
 
 # Wall-law proof
 
@@ -476,6 +477,16 @@ and `handover/`.
 
 # Direct sewing proof
 
-The [DIRECT_GLSSW package](DIRECT_GLSSW) gives an independent proof of the corner identity, assuming GLSSW root independence. It constructs the normalized HOMFLY evaluator unconditionally. The formalization was developed with Codex and Gemini, using a workflow adapted from [Scott Armstrong’s LeanAutoformalizationSkills](https://github.com/scottnarmstrong/LeanAutoformalizationSkills); see the [acknowledgment](DIRECT_GLSSW/README.md#acknowledgments).
+The [DIRECT_GLSSW package](DIRECT_GLSSW) gives an independent proof of the corner identity, assuming GLSSW root independence. It constructs the normalized HOMFLY evaluator unconditionally. The formalization was developed with Codex and Gemini.
 
 See the [package README](DIRECT_GLSSW/README.md) for the theorem, pinned dependencies, build instructions, and verification records.
+
+---
+
+# Acknowledgments
+
+We thank [Scott Armstrong](https://www.scottnarmstrong.com/) for publishing [LeanAutoformalizationSkills](https://github.com/scottnarmstrong/LeanAutoformalizationSkills) and explaining the approach in [*Autoformalization is now very easy*](https://www.scottnarmstrong.com/2026/10/autoformalization-is-now-very-easy/).
+
+The direct sewing formalization workflow was adapted from that collection, at project-pinned revision [05a07311f16bc581729e52f3e73647b95fa9bef1](https://github.com/scottnarmstrong/LeanAutoformalizationSkills/commit/05a07311f16bc581729e52f3e73647b95fa9bef1). It guided the source dependency graph, frozen Lean statements, delegated proof tasks and escalation, and independent source and proof audits. The local names `ArmstrongFrozen` and `ArmstrongProviders` reflect this frozen-statement and proof-provider organization.
+
+The upstream collection records its licensing and prior-source credits in its [provenance notes](https://github.com/scottnarmstrong/LeanAutoformalizationSkills/blob/05a07311f16bc581729e52f3e73647b95fa9bef1/PROVENANCE.md).
